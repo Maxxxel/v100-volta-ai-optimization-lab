@@ -23,6 +23,7 @@ Original file: `AUDIT.json`; 3643 bytes. The original is retained privately and 
 ```json
 {
   "actual_generation_requests": 28,
+  "decode_e2e_reduction_percent_vs_A0": -0.6872010737992262,
   "model_starts": 1,
   "native_metrics": {
     "decode": {

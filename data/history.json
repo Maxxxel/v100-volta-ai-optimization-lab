@@ -12406,5 +12406,13 @@
     "kind": "R372_POWER_CACHE_TASK_ENERGY_SCOPE_REVIEW",
     "sequence": 1551,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T19:46:36.370024+00:00",
+    "experiment_id": "R373",
+    "factor_id": null,
+    "kind": "R373_H10_RESIDENT_MANAGED_ALLOCATOR_NEGATIVE",
+    "sequence": 1552,
+    "signature": null
   }
 ]

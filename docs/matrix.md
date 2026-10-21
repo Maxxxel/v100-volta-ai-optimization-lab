@@ -60,7 +60,7 @@
 | [H07](factors/H07.md) | Swap Hugepages | DEFERRED | NO | P3 |
 | [H08](factors/H08.md) | Model Page Cache | PARTIAL | YES | P1 |
 | [H09](factors/H09.md) | CUDA MPS | DEFERRED | NO | P3 |
-| [H10](factors/H10.md) | Unified GPU Memory | OPEN | NO | P3 |
+| [H10](factors/H10.md) | Unified GPU Memory | TESTED_NEGATIVE | YES | P3 |
 | [Q01](factors/Q01.md) | GGUF Weight Family | PARTIAL | YES | P1 |
 | [Q02](factors/Q02.md) | Importance Matrix | PARTIAL | YES | P2 |
 | [Q03](factors/Q03.md) | Mixed Tensor Quant | PARTIAL | YES | P0 |

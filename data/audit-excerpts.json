@@ -130347,6 +130347,205 @@
   },
   {
     "aggregate_metrics": {
+      "CT_memory_observed": {
+        "maximum_new_swap_bytes": 0,
+        "minimum_available_bytes": 16037945344
+      },
+      "actual_generation_requests": 28,
+      "actual_managed_allocator": {
+        "calls": 5,
+        "cumulative_bytes_not_peak": 7005214976,
+        "managed_bytes_are_not_residency": true,
+        "successful_calls": 5
+      },
+      "decode_e2e_reduction_percent_vs_A0": 0.7328111396422421,
+      "model_starts": 1,
+      "native_metrics": {
+        "decode": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 0.7328111396422421,
+              "tokens_per_second_gain_percent": -0.32462895073809284
+            },
+            "C": {
+              "e2e_reduction_percent": 0.9572161120771638,
+              "tokens_per_second_gain_percent": -0.1113220615150845
+            }
+          },
+          "median_e2e_s": 1.664452188,
+          "range_percent": 0.0785466839735899,
+          "tokens_per_second": 79.55977758343754
+        },
+        "prefill": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 7.39091253583365,
+              "tokens_per_second_gain_percent": -1.7133790572359975
+            },
+            "C": {
+              "e2e_reduction_percent": -0.019232217499776105,
+              "tokens_per_second_gain_percent": -9.51586567919085
+            }
+          },
+          "median_e2e_s": 0.198385009,
+          "range_percent": 0.6981797702264936,
+          "tokens_per_second": 2559.9302482371963
+        },
+        "prefill2048": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 1.4754366720500234,
+              "tokens_per_second_gain_percent": -1.2351969883023672
+            },
+            "C": {
+              "e2e_reduction_percent": -7.556298961701113,
+              "tokens_per_second_gain_percent": -9.688967182919683
+            }
+          },
+          "median_e2e_s": 0.719863442,
+          "range_percent": 0.29188938865435465,
+          "tokens_per_second": 2851.311352618668
+        },
+        "prefill4096": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 0.26594286924276345,
+              "tokens_per_second_gain_percent": -1.0242597104065276
+            },
+            "C": {
+              "e2e_reduction_percent": -8.246563939104323,
+              "tokens_per_second_gain_percent": -9.428560992906798
+            }
+          },
+          "median_e2e_s": 1.420817335,
+          "range_percent": 0.1667670390578367,
+          "tokens_per_second": 2888.1782829582676
+        }
+      },
+      "original12_nonregression": true,
+      "peak_device_vram_mib": 7452.5,
+      "peak_process_vram_mib": 478.0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b02ace8b7df4b0eef848",
+    "original_bytes": 4964,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb",
+    "statements": {
+      "decision": "MANAGED_MEMORY_NATIVE_SCREEN_NO_QUALIFIED_PRACTICAL_GAIN",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Resident fixed8KQ6workload only; no oversubscription/large-context/unseen-agent claim.",
+        "Only existing managed-memory allocation/free-memory treatment; runtime/model math unchanged. Actual allocation calls verified, but GPU page-migration traffic not measured.",
+        "Observer adds CPU allocation-time logging only, no added CUDA calls/pointer/result modification; fresh instrumentation-matched controls required for any positive qualification.",
+        "NVML process/device VRAM may account managed pages differently; cumulative allocated bytes are not peak residency or host memory saving.",
+        "Original12/nativeoutputIDs required; no coding/BFCL/agent/coldstart or champion qualification."
+      ],
+      "measurement_type": "GPU_H10_MANAGED_ALLOCATION_RESIDENT_NATIVE_SCREEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "native_metrics": {
+        "decode": {
+          "A0_E2E_reduction_percent": 0.7328111396422421,
+          "median_E2E_s": 1.664452188,
+          "median_GPU_j": 450.5469009783743,
+          "range_percent": 0.0785466839735899
+        },
+        "prefill": {
+          "A0_E2E_reduction_percent": 7.39091253583365,
+          "median_E2E_s": 0.198385009,
+          "median_GPU_j": 55.708618184189675,
+          "range_percent": 0.6981797702264936
+        },
+        "prefill2048": {
+          "A0_E2E_reduction_percent": 1.4754366720500234,
+          "median_E2E_s": 0.719863442,
+          "median_GPU_j": 182.8426280544353,
+          "range_percent": 0.29188938865435465
+        },
+        "prefill4096": {
+          "A0_E2E_reduction_percent": 0.26594286924276345,
+          "median_E2E_s": 1.420817335,
+          "median_GPU_j": 370.4789116824757,
+          "range_percent": 0.1667670390578367
+        }
+      },
+      "original12": [
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        },
+        {
+          "prior_grade_loss": false
+        }
+      ],
+      "peak_device_vram_mib": 7452.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-75ee04f78bcfedc623cf",
+    "original_bytes": 5842,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "75ee04f78bcfedc623cf848d0d31f7cf3d9dc040fbdc9b669720e441c41d42de",
+    "statements": {
+      "limits": [
+        "Only resident originalQ6/8K/1slot profile; no out-of-core, host-RAM savings, migration counter, agent or coldstart claim.",
+        "CUDA allocation observation preserves original ABI/pointers/results and adds no CUDA operations; positive qualification needs fresh matching instrumentation control.",
+        "Measured B GPU energy only; unavailable stored A0 energy is not invented."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 0,
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b015029bb415f7025676",
+    "original_bytes": 3839,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b015029bb415f702567622768d04262c4428cc7cd4cf46c0fc86ad16ef6daed1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "actual_generation_requests": 34
     },
     "excerpt_is_not_original": true,
@@ -153117,6 +153316,7 @@
         "draft_tokens": 345,
         "extra_model_weights": false
       },
+      "decode_e2e_reduction_percent_vs_A0": 73.82032598143769,
       "model_starts": 1,
       "native_metrics": {
         "decode": {
@@ -155937,6 +156137,7 @@
         "draft_tokens": 288,
         "extra_model_weights": false
       },
+      "decode_e2e_reduction_percent_vs_A0": 61.80540420278828,
       "memory_saved_vs_R244_device_mib": 1834.0,
       "model_starts": 1,
       "native_metrics": {
@@ -166183,6 +166384,7 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 28,
+      "decode_e2e_reduction_percent_vs_A0": -0.6872010737992262,
       "model_starts": 1,
       "native_metrics": {
         "decode": {

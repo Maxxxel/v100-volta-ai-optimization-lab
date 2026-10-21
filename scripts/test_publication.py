@@ -14,6 +14,9 @@ class PublicationSafety(unittest.TestCase):
  def test_speculation_aggregates_do_not_export_token_or_case_details(self):
   raw={'memory_saved_vs_R244_device_mib':1834,'actual_ngram_draft':{'draft_tokens':288,'accepted_tokens':288,'acceptance_percent':100,'output_token_ids':[1,2,3],'prompt':'private text'},'successful_task_wall_s':125.5,'task_metrics':[{'id':'private-case','response':'private'}]}
   self.assertEqual(e.metrics(raw),{'memory_saved_vs_R244_device_mib':1834,'actual_ngram_draft':{'draft_tokens':288,'accepted_tokens':288,'acceptance_percent':100},'successful_task_wall_s':125.5})
+ def test_managed_memory_counter_is_separate_from_physical_vram(self):
+  raw={'actual_managed_allocator':{'calls':5,'successful_calls':5,'cumulative_bytes_not_peak':7005214976,'logical_allocation_is_not_NVML_residency':True,'pointer_address':'private'},'peak_process_vram_mib':478,'peak_device_vram_mib':7452.5,'CT_memory_observed':{'maximum_new_swap_bytes':0}}
+  out=e.metrics(raw);self.assertEqual(out['peak_device_vram_mib'],7452.5);self.assertEqual(out['peak_process_vram_mib'],478);self.assertTrue(out['actual_managed_allocator']['managed_bytes_are_not_residency']);self.assertNotIn('pointer_address',out['actual_managed_allocator'])
  def test_unknown_files_and_weights_rejected(self):
   for f in ['.env','weights.gguf','data/unreviewed.json','docs/private.log','scripts/extra.py']:
    self.assertFalse(v.allowed(pathlib.Path(f)))

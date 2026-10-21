@@ -15013,21 +15013,25 @@
     ]
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Kein isolierter Managed-Memory-Pfad lokal zugelassen. Omni-Q6 passt bereits in HBM; Oversubscription würde CPU-/PCIe-Migration statt mehr HBM-Bandbreite einführen.",
+    "coverage_scope": "Actual stock CUDA managed-memory allocator on Omni originalQ6/8K/one-slot/300W resident profile; five successful observed calls, no oversubscription.",
+    "decision": "H10 resident8K/Q6: fünf erfolgreiche Managed-Allokationen, Original12 und native Ausgabe-IDs identisch. Decode-E2E0,73% niedriger statt geforderter3%; Decode-Token/s0,32% niedriger. Geräte-VRAM7452,5MiB, etwa96MiB mehr als A0; Prozesszuordnung478MiB ist keine VRAM-Ersparnis. Kein neuer Swap; kein praktischer Gewinn qualifiziert.",
     "domain": "hardware",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-75ee04f78bcfedc623cf",
+      "audit-b015029bb415f7025676",
+      "audit-b02ace8b7df4b0eef848"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R373"
     ],
-    "experimentally_covered": false,
+    "experimentally_covered": true,
     "id": "H10",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reopen after a useful task demonstrably exceeds resident capacity.",
-    "omnicoder2_experimentally_covered": false,
+    "next_action": "Residente on/off-Ausprägung im angegebenen Profil TESTED_NEGATIVE; nicht universal alle UVM-Policies. Out-of-Core bleibt zurückgestellt: erst ein nachgewiesen nützlicher, resident nicht passender Workload, separates migrations-/prefetchbezogenes Einzelfaktordesign und harte RAM-/Swap-/PCIe-Grenzen rechtfertigen Wiederaufnahme. Kein bloßer Flag-Sweep und keine produktive Überbuchung.",
+    "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
         "levels": [
@@ -15088,38 +15092,292 @@
       }
     ],
     "prerequisites": [
-      "An isolated managed-memory allocator and a bounded out-of-core workload; RAM/swap/PCIe telemetry."
+      "New useful nonresident workload and bounded migration/prefetch/RAM/swap contract; no new allocator patch required for existing flag."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Erst mit konkretem Out-of-Core-Workload, eigenem Allocator-Patch und RAM-/Swap-Grenzen wieder zulassen; kein globaler Runtimewechsel.",
-    "reopening_conditions": "Reopen after a useful task demonstrably exceeds resident capacity.",
+    "remaining_scope": "Residente on/off-Ausprägung im angegebenen Profil TESTED_NEGATIVE; nicht universal alle UVM-Policies. Out-of-Core bleibt zurückgestellt: erst ein nachgewiesen nützlicher, resident nicht passender Workload, separates migrations-/prefetchbezogenes Einzelfaktordesign und harte RAM-/Swap-/PCIe-Grenzen rechtfertigen Wiederaufnahme. Kein bloßer Flag-Sweep und keine produktive Überbuchung.",
+    "reopening_conditions": "Residente on/off-Ausprägung im angegebenen Profil TESTED_NEGATIVE; nicht universal alle UVM-Policies. Out-of-Core bleibt zurückgestellt: erst ein nachgewiesen nützlicher, resident nicht passender Workload, separates migrations-/prefetchbezogenes Einzelfaktordesign und harte RAM-/Swap-/PCIe-Grenzen rechtfertigen Wiederaufnahme. Kein bloßer Flag-Sweep und keine produktive Überbuchung.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "TESTED_NEGATIVE",
     "title": "Unified GPU Memory",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "CT_memory_observed": {
+              "maximum_new_swap_bytes": 0,
+              "minimum_available_bytes": 16037945344
+            },
+            "NVML_process_not_total_memory": true,
+            "actual_managed_allocator": {
+              "calls": 5,
+              "cumulative_bytes_not_peak": 7005214976,
+              "successful_calls": 5
+            },
+            "native_metrics": {
+              "decode": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 0.7328111396422421,
+                    "tokens_per_second_gain_percent": -0.32462895073809284
+                  },
+                  "C": {
+                    "e2e_reduction_percent": 0.9572161120771638,
+                    "tokens_per_second_gain_percent": -0.1113220615150845
+                  }
+                },
+                "median_e2e_s": 1.664452188,
+                "range_percent": 0.0785466839735899,
+                "tokens_per_second": 79.55977758343754
+              },
+              "prefill": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 7.39091253583365,
+                    "tokens_per_second_gain_percent": -1.7133790572359975
+                  },
+                  "C": {
+                    "e2e_reduction_percent": -0.019232217499776105,
+                    "tokens_per_second_gain_percent": -9.51586567919085
+                  }
+                },
+                "median_e2e_s": 0.198385009,
+                "range_percent": 0.6981797702264936,
+                "tokens_per_second": 2559.9302482371963
+              },
+              "prefill2048": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 1.4754366720500234,
+                    "tokens_per_second_gain_percent": -1.2351969883023672
+                  },
+                  "C": {
+                    "e2e_reduction_percent": -7.556298961701113,
+                    "tokens_per_second_gain_percent": -9.688967182919683
+                  }
+                },
+                "median_e2e_s": 0.719863442,
+                "range_percent": 0.29188938865435465,
+                "tokens_per_second": 2851.311352618668
+              },
+              "prefill4096": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 0.26594286924276345,
+                    "tokens_per_second_gain_percent": -1.0242597104065276
+                  },
+                  "C": {
+                    "e2e_reduction_percent": -8.246563939104323,
+                    "tokens_per_second_gain_percent": -9.428560992906798
+                  }
+                },
+                "median_e2e_s": 1.420817335,
+                "range_percent": 0.1667670390578367,
+                "tokens_per_second": 2888.1782829582676
+              }
+            },
+            "native_request_energy": [
+              {
+                "GPU_j": 55.70861818418968,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 168.32375830448055,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 385.36370523607815,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 450.6671013618929,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 57.3376920889921,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 198.4632093435642,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 359.27277470394523,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 450.5469009783743,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 55.53232683891965,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 182.8426280544353,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 370.4789116824757,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 448.8978140706798,
+                "energy_time_coverage": 1.0
+              }
+            ],
+            "peak_device_vram_mib": 7452.5,
+            "peak_process_vram_mib": 478
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Residente on/off-Ausprägung im angegebenen Profil TESTED_NEGATIVE; nicht universal alle UVM-Policies. Out-of-Core bleibt zurückgestellt: erst ein nachgewiesen nützlicher, resident nicht passender Workload, separates migrations-/prefetchbezogenes Einzelfaktordesign und harte RAM-/Swap-/PCIe-Grenzen rechtfertigen Wiederaufnahme. Kein bloßer Flag-Sweep und keine produktive Überbuchung.",
+        "scope": "H10 resident8K/Q6: fünf erfolgreiche Managed-Allokationen, Original12 und native Ausgabe-IDs identisch. Decode-E2E0,73% niedriger statt geforderter3%; Decode-Token/s0,32% niedriger. Geräte-VRAM7452,5MiB, etwa96MiB mehr als A0; Prozesszuordnung478MiB ist keine VRAM-Ersparnis. Kein neuer Swap; kein praktischer Gewinn qualifiziert.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "CT_memory_observed": {
+              "maximum_new_swap_bytes": 0,
+              "minimum_available_bytes": 16037945344
+            },
+            "NVML_process_not_total_memory": true,
+            "actual_managed_allocator": {
+              "calls": 5,
+              "cumulative_bytes_not_peak": 7005214976,
+              "successful_calls": 5
+            },
+            "native_metrics": {
+              "decode": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 0.7328111396422421,
+                    "tokens_per_second_gain_percent": -0.32462895073809284
+                  },
+                  "C": {
+                    "e2e_reduction_percent": 0.9572161120771638,
+                    "tokens_per_second_gain_percent": -0.1113220615150845
+                  }
+                },
+                "median_e2e_s": 1.664452188,
+                "range_percent": 0.0785466839735899,
+                "tokens_per_second": 79.55977758343754
+              },
+              "prefill": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 7.39091253583365,
+                    "tokens_per_second_gain_percent": -1.7133790572359975
+                  },
+                  "C": {
+                    "e2e_reduction_percent": -0.019232217499776105,
+                    "tokens_per_second_gain_percent": -9.51586567919085
+                  }
+                },
+                "median_e2e_s": 0.198385009,
+                "range_percent": 0.6981797702264936,
+                "tokens_per_second": 2559.9302482371963
+              },
+              "prefill2048": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 1.4754366720500234,
+                    "tokens_per_second_gain_percent": -1.2351969883023672
+                  },
+                  "C": {
+                    "e2e_reduction_percent": -7.556298961701113,
+                    "tokens_per_second_gain_percent": -9.688967182919683
+                  }
+                },
+                "median_e2e_s": 0.719863442,
+                "range_percent": 0.29188938865435465,
+                "tokens_per_second": 2851.311352618668
+              },
+              "prefill4096": {
+                "comparison": {
+                  "A0": {
+                    "e2e_reduction_percent": 0.26594286924276345,
+                    "tokens_per_second_gain_percent": -1.0242597104065276
+                  },
+                  "C": {
+                    "e2e_reduction_percent": -8.246563939104323,
+                    "tokens_per_second_gain_percent": -9.428560992906798
+                  }
+                },
+                "median_e2e_s": 1.420817335,
+                "range_percent": 0.1667670390578367,
+                "tokens_per_second": 2888.1782829582676
+              }
+            },
+            "native_request_energy": [
+              {
+                "GPU_j": 55.70861818418968,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 168.32375830448055,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 385.36370523607815,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 450.6671013618929,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 57.3376920889921,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 198.4632093435642,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 359.27277470394523,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 450.5469009783743,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 55.53232683891965,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 182.8426280544353,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 370.4789116824757,
+                "energy_time_coverage": 1.0
+              },
+              {
+                "GPU_j": 448.8978140706798,
+                "energy_time_coverage": 1.0
+              }
+            ],
+            "peak_device_vram_mib": 7452.5,
+            "peak_process_vram_mib": 478
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Residente on/off-Ausprägung im angegebenen Profil TESTED_NEGATIVE; nicht universal alle UVM-Policies. Out-of-Core bleibt zurückgestellt: erst ein nachgewiesen nützlicher, resident nicht passender Workload, separates migrations-/prefetchbezogenes Einzelfaktordesign und harte RAM-/Swap-/PCIe-Grenzen rechtfertigen Wiederaufnahme. Kein bloßer Flag-Sweep und keine produktive Überbuchung.",
+        "scope": "H10 resident8K/Q6: fünf erfolgreiche Managed-Allokationen, Original12 und native Ausgabe-IDs identisch. Decode-E2E0,73% niedriger statt geforderter3%; Decode-Token/s0,32% niedriger. Geräte-VRAM7452,5MiB, etwa96MiB mehr als A0; Prozesszuordnung478MiB ist keine VRAM-Ersparnis. Kein neuer Swap; kein praktischer Gewinn qualifiziert.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "on"
       }
     ]

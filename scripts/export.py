@@ -13,7 +13,7 @@ SAFEKEY = re.compile(r'^[A-Za-z0-9_+().% -]{1,100}$')
 # Only aggregate scientific branches; never raw responses, cases, per-task outputs or prompts.
 METRIC_ROOTS = {'native_metrics','context_tokens','slots','actual_KV_unified','models','comparisons','metrics','comparison','delta','long_metrics','quality','original12','quality_original12','original12_nonregression','peak_process_vram_mib','peak_device_vram_mib','memory_saved_mib','numerical','numerical_reference','numerical_failures','numerical_tests','model_starts','requests','actual_generation_requests','actual_GPU_execution','new_GPU_runs','old_native_model_starts_verified','primary_archives_checked','observations','unique_quality_tasks','quality_losses','format_passes','semantic_passes','tasks','solved','total_wall_s','wall_s','gpu_j_per_success','gpu_energy_j','stability','A','B','arms','reference','candidate','full_standard164','custom_long_context16','scopes','score_rule','model_comparison_progress'}
 # Explicit numeric aggregate fields for speculation memory/task-cost screens.
-METRIC_ROOTS |= {'actual_ngram_draft','memory_saved_vs_R244_device_mib','memory_saved_vs_R245_device_mib','successful_task_wall_s','successful_task_cost_change_percent_vs_R245','gpu_energy_j_approx','observed_tasks','full18_score_claimed','model_requests','actual_ngram_proposals_observed','timing_confirmation_needed','fixed_parameters'}
+METRIC_ROOTS |= {'actual_managed_allocator','CT_memory_observed','decode_e2e_reduction_percent_vs_A0','actual_ngram_draft','memory_saved_vs_R244_device_mib','memory_saved_vs_R245_device_mib','successful_task_wall_s','successful_task_cost_change_percent_vs_R245','gpu_energy_j_approx','observed_tasks','full18_score_claimed','model_requests','actual_ngram_proposals_observed','timing_confirmation_needed','fixed_parameters'}
 BLOCK_KEYS = re.compile(r'(?i)(?:prompt|response|answer|output|content|messages|transcript|token_ids|per_task|per_case|samples|observations|input|argv|environment|paths?|commands?|logs?|error|trace|qkv|tensor|activation|workload|case_id|tools|entities|sequence|proposals|findings|password|credential|secret|authorization|entity|address|port_number|pin$)')
 TEXT_KEYS = {'decision','qualification','interpretation','limits','limitations','hypothesis','research_question','scope','timing_note','score_rule','reference','note','unit','aggregation','metric_aggregation','primary','outlier_rule','kind','role','cache','quantization','engine_build','cuda_toolkit','context','batch','ubatch','threads','n_gpu_layers','temperature','seed','type_k','type_v','mtp','model','model_id','status','measurement_type','evidence_class','screen_passed','winner_qualified'}
 def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -64,7 +64,14 @@ def projection(obj, depth=0):
                 if clean is not None: result[k]=clean
         return result or None
     return None
-def metrics(obj): return {k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+def metrics(obj):
+    result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    # The conservative log-key filter excludes 'logical'; expose only this
+    # explicitly verified boolean under a public accounting label.
+    managed=obj.get('actual_managed_allocator')
+    if isinstance(managed,dict) and managed.get('logical_allocation_is_not_NVML_residency') is True:
+        result.setdefault('actual_managed_allocator',{})['managed_bytes_are_not_residency']=True
+    return result
 def snippets(obj):
     return {k:text(obj[k]) for k in ['decision','qualification','interpretation','hypothesis','research_question','scope','measurement_type','evidence_class','score_rule'] if isinstance(obj.get(k),str)} | {k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)}
 def write(name,obj):
