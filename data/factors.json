@@ -5086,17 +5086,20 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Partial-CPU-Offload29Layer gemessen: massiv langsamere Prefill/Decode-Zeiten. Der residente Q6-Basisfall passt in HBM.",
+    "decision": "Vier erste wiederholte Schichten liegen tatsächlich auf CPU: 29 statt 33 GPU-Schichten. 4K-Prefill-Latenz +66,17 %, Decode-Durchsatz −72,74 %; ursprüngliche QA unverändert. Keine neue GPU-Ausführung.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-29f0caa0d57e03885651",
       "audit-3a0b0ee463a9a6eaaab3"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R363"
+    ],
     "experimentally_covered": true,
     "id": "R13",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Kapazitätsbedingten Out-of-core-Fall erst konkret nachweisen; CPU-Offload ohne Kapazitätsnutzen ist kein GPU-Speedup.",
+    "next_action": "Andere Schichtzahlen nur bei belegtem HBM-Kapazitätsbedarf eines konkreten Zielprofils prüfen. Aktuelles Q6-Basisprofil passt vollständig in HBM; kein Kapazitätsbedarf für weitere Offload-Sweeps.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -5161,59 +5164,180 @@
       }
     ],
     "prerequisites": [
-      "Kapazitätsbedingten Out-of-core-Fall erst konkret nachweisen; CPU-Offload ohne Kapazitätsnutzen ist kein GPU-Speedup."
+      "Andere Schichtzahlen nur bei belegtem HBM-Kapazitätsbedarf eines konkreten Zielprofils prüfen. Aktuelles Q6-Basisprofil passt vollständig in HBM; kein Kapazitätsbedarf für weitere Offload-Sweeps."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Partial-CPU-Offload29Layer gemessen: massiv langsamere Prefill/Decode-Zeiten. Der residente Q6-Basisfall passt in HBM.",
-    "reopening_conditions": "Kapazitätsbedingten Out-of-core-Fall erst konkret nachweisen; CPU-Offload ohne Kapazitätsnutzen ist kein GPU-Speedup.",
+    "remaining_scope": "Andere Schichtzahlen nur bei belegtem HBM-Kapazitätsbedarf eines konkreten Zielprofils prüfen. Aktuelles Q6-Basisprofil passt vollständig in HBM; kein Kapazitätsbedarf für weitere Offload-Sweeps.",
+    "reopening_conditions": "Andere Schichtzahlen nur bei belegtem HBM-Kapazitätsbedarf eines konkreten Zielprofils prüfen. Aktuelles Q6-Basisprofil passt vollständig in HBM; kein Kapazitätsbedarf für weitere Offload-Sweeps.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "GPU Residency",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2595.3070256740925,
+                "QA_request_wall_sum_s": 10.127546391,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 3967.1880444053236,
+                "QA_request_wall_sum_s": 32.269538957,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 6670.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 269.17040872357813,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 54.59244358322663,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -72.73818794296632,
+                "ttft_change_pct": 324.903580220389
+              },
+              "prefill": {
+                "e2e_change_pct": 66.66007299696737,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 22.27398348848928,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -40.191647235121486,
+                "ttft_change_pct": 66.79322889992775
+              },
+              "prefill2048": {
+                "e2e_change_pct": 63.16234732362673,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 20.700008144303062,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -38.733953767248366,
+                "ttft_change_pct": 63.17190865158977
+              },
+              "prefill4096": {
+                "e2e_change_pct": 66.1749703157808,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 19.05596329669219,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -39.85739084630819,
+                "ttft_change_pct": 66.19838424017874
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Andere Schichtzahlen nur bei belegtem HBM-Kapazitätsbedarf eines konkreten Zielprofils prüfen. Aktuelles Q6-Basisprofil passt vollständig in HBM; kein Kapazitätsbedarf für weitere Offload-Sweeps.",
+        "scope": "Vier erste wiederholte Schichten liegen tatsächlich auf CPU: 29 statt 33 GPU-Schichten. 4K-Prefill-Latenz +66,17 %, Decode-Durchsatz −72,74 %; ursprüngliche QA unverändert. Keine neue GPU-Ausführung.",
+        "scope_status": "PARTIAL",
         "value": "all"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2595.3070256740925,
+                "QA_request_wall_sum_s": 10.127546391,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 3967.1880444053236,
+                "QA_request_wall_sum_s": 32.269538957,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 6670.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 269.17040872357813,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 54.59244358322663,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -72.73818794296632,
+                "ttft_change_pct": 324.903580220389
+              },
+              "prefill": {
+                "e2e_change_pct": 66.66007299696737,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 22.27398348848928,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -40.191647235121486,
+                "ttft_change_pct": 66.79322889992775
+              },
+              "prefill2048": {
+                "e2e_change_pct": 63.16234732362673,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 20.700008144303062,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -38.733953767248366,
+                "ttft_change_pct": 63.17190865158977
+              },
+              "prefill4096": {
+                "e2e_change_pct": 66.1749703157808,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 19.05596329669219,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -39.85739084630819,
+                "ttft_change_pct": 66.19838424017874
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-3a0b0ee463a9a6eaaab3",
           "audit-a87dcdb49004198d71ea"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Andere Schichtzahlen nur bei belegtem HBM-Kapazitätsbedarf eines konkreten Zielprofils prüfen. Aktuelles Q6-Basisprofil passt vollständig in HBM; kein Kapazitätsbedarf für weitere Offload-Sweeps.",
+        "scope": "Vier erste wiederholte Schichten liegen tatsächlich auf CPU: 29 statt 33 GPU-Schichten. 4K-Prefill-Latenz +66,17 %, Decode-Durchsatz −72,74 %; ursprüngliche QA unverändert. Keine neue GPU-Ausführung.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "partial_cpu"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "mmap versus load-mode none geprüft; native Warmleistung praktisch gleich. Ladezeit/OS-Cache ist anderer Umfang.",
+    "decision": "mmap gegen load-mode none in zwei alten Fenstern nachgewiesen. O2: 4K-Prefill-Latenz −0,153 %, Decode-Durchsatz −0,256 %; kein praktisch relevanter Warmgewinn. O1 hat sieben Qualitätsfälle, keine erfundenen Zwölferaggregate.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-29f0caa0d57e03885651",
       "audit-37ac810c9a3a313b73c8",
       "audit-710955cbc539abcf461c"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R363"
+    ],
     "experimentally_covered": true,
     "id": "R14",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Eigenen byteidentischen privaten Kaltladefall mit vollständigen Kosten verlangen; kein globales drop_caches und kein weiterer Warmlauf.",
+    "next_action": "Direkter kalter mmap/no-mmap-Vergleich erfordert einen relevanten Modellwechsel-Engpass, byteidentische private Datei und Prefault-/Lade-/erste-Antwort-Gesamtkosten. R230 ist ein anderer Prewarm-Faktor; keine globale Cacheleerung oder erneute Warmmessung.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -5284,61 +5408,205 @@
       }
     ],
     "prerequisites": [
-      "Eigenen byteidentischen privaten Kaltladefall mit vollständigen Kosten verlangen; kein globales drop_caches und kein weiterer Warmlauf."
+      "Direkter kalter mmap/no-mmap-Vergleich erfordert einen relevanten Modellwechsel-Engpass, byteidentische private Datei und Prefault-/Lade-/erste-Antwort-Gesamtkosten. R230 ist ein anderer Prewarm-Faktor; keine globale Cacheleerung oder erneute Warmmessung."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "mmap versus load-mode none geprüft; native Warmleistung praktisch gleich. Ladezeit/OS-Cache ist anderer Umfang.",
-    "reopening_conditions": "Eigenen byteidentischen privaten Kaltladefall mit vollständigen Kosten verlangen; kein globales drop_caches und kein weiterer Warmlauf.",
+    "remaining_scope": "Direkter kalter mmap/no-mmap-Vergleich erfordert einen relevanten Modellwechsel-Engpass, byteidentische private Datei und Prefault-/Lade-/erste-Antwort-Gesamtkosten. R230 ist ein anderer Prewarm-Faktor; keine globale Cacheleerung oder erneute Warmmessung.",
+    "reopening_conditions": "Direkter kalter mmap/no-mmap-Vergleich erfordert einen relevanten Modellwechsel-Engpass, byteidentische private Datei und Prefault-/Lade-/erste-Antwort-Gesamtkosten. R230 ist ein anderer Prewarm-Faktor; keine globale Cacheleerung oder erneute Warmmessung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "mmap",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 1675.2922375843393,
+                "QA_request_wall_sum_s": 6.56212792,
+                "QA_unique_tasks": 7,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 1680.9617099020209,
+                "QA_request_wall_sum_s": 6.556577794,
+                "QA_unique_tasks": 7,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2589.451897314671,
+                "QA_request_wall_sum_s": 10.124326298,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2568.1749884011074,
+                "QA_request_wall_sum_s": 10.146681794000001,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.20103781381271002,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9023874673827148,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.256116035266607,
+                "ttft_change_pct": -1.0564842083563675
+              },
+              "prefill": {
+                "e2e_change_pct": 0.22106958333467652,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.6366180607956906,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.18283309988099683,
+                "ttft_change_pct": 0.19280464153352828
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.07849282403705748,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.594886016832219,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.07868588658146436,
+                "ttft_change_pct": -0.08721616148252842
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.15301586300677794,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.43504135409542233,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.1488085187735022,
+                "ttft_change_pct": -0.15425783991239728
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Direkter kalter mmap/no-mmap-Vergleich erfordert einen relevanten Modellwechsel-Engpass, byteidentische private Datei und Prefault-/Lade-/erste-Antwort-Gesamtkosten. R230 ist ein anderer Prewarm-Faktor; keine globale Cacheleerung oder erneute Warmmessung.",
+        "scope": "mmap gegen load-mode none in zwei alten Fenstern nachgewiesen. O2: 4K-Prefill-Latenz −0,153 %, Decode-Durchsatz −0,256 %; kein praktisch relevanter Warmgewinn. O1 hat sieben Qualitätsfälle, keine erfundenen Zwölferaggregate.",
+        "scope_status": "PARTIAL",
         "value": "on"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 1675.2922375843393,
+                "QA_request_wall_sum_s": 6.56212792,
+                "QA_unique_tasks": 7,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 1680.9617099020209,
+                "QA_request_wall_sum_s": 6.556577794,
+                "QA_unique_tasks": 7,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2589.451897314671,
+                "QA_request_wall_sum_s": 10.124326298,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2568.1749884011074,
+                "QA_request_wall_sum_s": 10.146681794000001,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.20103781381271002,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9023874673827148,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.256116035266607,
+                "ttft_change_pct": -1.0564842083563675
+              },
+              "prefill": {
+                "e2e_change_pct": 0.22106958333467652,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.6366180607956906,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.18283309988099683,
+                "ttft_change_pct": 0.19280464153352828
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.07849282403705748,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.594886016832219,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.07868588658146436,
+                "ttft_change_pct": -0.08721616148252842
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.15301586300677794,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.43504135409542233,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.1488085187735022,
+                "ttft_change_pct": -0.15425783991239728
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-37ac810c9a3a313b73c8",
           "audit-710955cbc539abcf461c"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Direkter kalter mmap/no-mmap-Vergleich erfordert einen relevanten Modellwechsel-Engpass, byteidentische private Datei und Prefault-/Lade-/erste-Antwort-Gesamtkosten. R230 ist ein anderer Prewarm-Faktor; keine globale Cacheleerung oder erneute Warmmessung.",
+        "scope": "mmap gegen load-mode none in zwei alten Fenstern nachgewiesen. O2: 4K-Prefill-Latenz −0,153 %, Decode-Durchsatz −0,256 %; kein praktisch relevanter Warmgewinn. O1 hat sieben Qualitätsfälle, keine erfundenen Zwölferaggregate.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "off"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R169 tatsächliches mlock834359296Byte, Original12 und native Messungen; warm kein relevanter Gewinn, Locks mit Prozessende freigegeben.",
+    "decision": "R169: mmap+mlock sperrt tatsächlich 834359296 Host-Bytes, Original12 und native Tokens unverändert; 4K-Latenzvorteil 0,0204 %, kein Warmgewinn. Locks mit Prozessende freigegeben.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-29f0caa0d57e03885651",
       "audit-5808fcc39609b88c7456"
     ],
     "experiment_ids": [
       "R168",
-      "R169"
+      "R169",
+      "R363"
     ],
     "experimentally_covered": true,
     "id": "R15",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Nur isolierten RAM-Druck-/Residency-/Ladeszenariovertrag mit RAM-/Swap-Grenzen zulassen; derzeit keine behauptete Kaltstart- oder Migrationsverbesserung.",
+    "next_action": "Speicherdruck-/Swap-Nutzen erfordert einen repräsentativen isolierten und vorab budgetierten RAM-Engpass. Aktuelle Schutzreserve und Produktivdienste nicht für künstlichen Druck beeinträchtigen; keine Behauptung GPU-HBM-Pinning.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -5400,12 +5668,12 @@
       }
     ],
     "prerequisites": [
-      "Nur isolierten RAM-Druck-/Residency-/Ladeszenariovertrag mit RAM-/Swap-Grenzen zulassen; derzeit keine behauptete Kaltstart- oder Migrationsverbesserung."
+      "Speicherdruck-/Swap-Nutzen erfordert einen repräsentativen isolierten und vorab budgetierten RAM-Engpass. Aktuelle Schutzreserve und Produktivdienste nicht für künstlichen Druck beeinträchtigen; keine Behauptung GPU-HBM-Pinning."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "R169 tatsächliches mlock834359296Byte, Original12 und native Messungen; warm kein relevanter Gewinn, Locks mit Prozessende freigegeben.",
-    "reopening_conditions": "Nur isolierten RAM-Druck-/Residency-/Ladeszenariovertrag mit RAM-/Swap-Grenzen zulassen; derzeit keine behauptete Kaltstart- oder Migrationsverbesserung.",
+    "remaining_scope": "Speicherdruck-/Swap-Nutzen erfordert einen repräsentativen isolierten und vorab budgetierten RAM-Engpass. Aktuelle Schutzreserve und Produktivdienste nicht für künstlichen Druck beeinträchtigen; keine Behauptung GPU-HBM-Pinning.",
+    "reopening_conditions": "Speicherdruck-/Swap-Nutzen erfordert einen repräsentativen isolierten und vorab budgetierten RAM-Engpass. Aktuelle Schutzreserve und Produktivdienste nicht für künstlichen Druck beeinträchtigen; keine Behauptung GPU-HBM-Pinning.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "mlock",
@@ -5413,13 +5681,13 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Speicherdruck-/Swap-Nutzen erfordert einen repräsentativen isolierten und vorab budgetierten RAM-Engpass. Aktuelle Schutzreserve und Produktivdienste nicht für künstlichen Druck beeinträchtigen; keine Behauptung GPU-HBM-Pinning.",
+        "scope": "R169: mmap+mlock sperrt tatsächlich 834359296 Host-Bytes, Original12 und native Tokens unverändert; 4K-Latenzvorteil 0,0204 %, kein Warmgewinn. Locks mit Prozessende freigegeben.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
@@ -5583,18 +5851,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Fehlgeschlagenen ursprünglichen Pinning-Nachweis und späteren R31-Kontrollnachweis getrennt erhalten.",
+    "decision": "Erster All-GPU-Versuch: kein nachgewiesenes wirksames Worker-Pinning. Späterer gepinnter Sechs-CPU-Vergleich mit fest vier CPU-Schichten: reale Singleton-Masken, 2K-Prefill-Durchsatz +6,818 %, Decode +0,343 %. Nur dieses Teilprofil, kein All-GPU-Champion.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-29f0caa0d57e03885651",
       "audit-345e544bf2d319c65ef4",
       "audit-676798415c6e36cc174a"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R363"
+    ],
     "experimentally_covered": true,
     "id": "R17",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keine identische CPU-Maskenrunde. Neue Affinität nur bei nachgewiesener anderer Topologie oder CPU-Last, ohne Hostisolation.",
+    "next_action": "Neuer Masken-/Topologieversuch erst bei nachgewiesenem relevantem CPU-Worker-Anteil im Zielprofil. Geprüfte CPU-Offload-Konfiguration ist stark langsamer als GPU-Residenz; ihr Pinning-Vorteil rechtfertigt keinen neuen Offload-Kombinationslauf.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -5659,12 +5930,12 @@
       }
     ],
     "prerequisites": [
-      "Keine identische CPU-Maskenrunde. Neue Affinität nur bei nachgewiesener anderer Topologie oder CPU-Last, ohne Hostisolation."
+      "Neuer Masken-/Topologieversuch erst bei nachgewiesenem relevantem CPU-Worker-Anteil im Zielprofil. Geprüfte CPU-Offload-Konfiguration ist stark langsamer als GPU-Residenz; ihr Pinning-Vorteil rechtfertigt keinen neuen Offload-Kombinationslauf."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Fehlgeschlagenen ursprünglichen Pinning-Nachweis und späteren R31-Kontrollnachweis getrennt erhalten.",
-    "reopening_conditions": "Keine identische CPU-Maskenrunde. Neue Affinität nur bei nachgewiesener anderer Topologie oder CPU-Last, ohne Hostisolation.",
+    "remaining_scope": "Neuer Masken-/Topologieversuch erst bei nachgewiesenem relevantem CPU-Worker-Anteil im Zielprofil. Geprüfte CPU-Offload-Konfiguration ist stark langsamer als GPU-Residenz; ihr Pinning-Vorteil rechtfertigt keinen neuen Offload-Kombinationslauf.",
+    "reopening_conditions": "Neuer Masken-/Topologieversuch erst bei nachgewiesenem relevantem CPU-Worker-Anteil im Zielprofil. Geprüfte CPU-Offload-Konfiguration ist stark langsamer als GPU-Residenz; ihr Pinning-Vorteil rechtfertigt keinen neuen Offload-Kombinationslauf.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "CPU Affinity",
@@ -5717,35 +5988,131 @@
         "value": "default"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2572.076465418381,
+                "QA_request_wall_sum_s": 10.135236467,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2607.5251737877556,
+                "QA_request_wall_sum_s": 10.128421921,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.018352244426134146,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.40300938243276185,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.023914329893215402,
+                "ttft_change_pct": -0.03557361327156672
+              },
+              "prefill": {
+                "e2e_change_pct": 0.2733194390288185,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.408476662332414,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.28433949711357265,
+                "ttft_change_pct": 0.3033209082591526
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.3198378336053964,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.3145608736574887,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.3159705840859228,
+                "ttft_change_pct": -0.3198602855635557
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.035670771088192055,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.8057556288517231,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.034402680270106956,
+                "ttft_change_pct": -0.03568157557529705
+              }
+            }
+          },
+          {
+            "affinity_control": {
+              "arms": {
+                "A": {
+                  "decode": 22.269364580978547,
+                  "prefill2048": 1701.294935425169,
+                  "quality_attempts": 24,
+                  "quality_passes": 18
+                },
+                "B": {
+                  "decode": 22.345848770415692,
+                  "prefill2048": 1817.2807626813296,
+                  "quality_attempts": 24,
+                  "quality_passes": 18
+                }
+              },
+              "change_exercised": true,
+              "fixed_cpu_layers": 4
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 3979.9514055518357,
+                "QA_request_wall_sum_s": 32.14351618,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 6670.5
+              },
+              "B": {
+                "QA_request_GPU_j": 3868.854453603354,
+                "QA_request_wall_sum_s": 31.683447202,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 6670.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-345e544bf2d319c65ef4",
           "audit-676798415c6e36cc174a"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neuer Masken-/Topologieversuch erst bei nachgewiesenem relevantem CPU-Worker-Anteil im Zielprofil. Geprüfte CPU-Offload-Konfiguration ist stark langsamer als GPU-Residenz; ihr Pinning-Vorteil rechtfertigt keinen neuen Offload-Kombinationslauf.",
+        "scope": "Erster All-GPU-Versuch: kein nachgewiesenes wirksames Worker-Pinning. Späterer gepinnter Sechs-CPU-Vergleich mit fest vier CPU-Schichten: reale Singleton-Masken, 2K-Prefill-Durchsatz +6,818 %, Decode +0,343 %. Nur dieses Teilprofil, kein All-GPU-Champion.",
+        "scope_status": "PARTIAL",
         "value": "pinned6"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Native buffered/SSE-Teile einschließlich R193 jeweils16/16Toolprotokoll gültig; ursprüngliche SSE-Bytes dort nicht vollständig archiviert.",
+    "decision": "Tatsächliche archivierte Requests stream=true/false belegt; 4K-Latenz buffered +0,115 %, Decode-Durchsatz +0,351 %, ursprüngliche QA unverändert. Native SSE-Protokollprüfung R193 und Frontend R170 getrennt wiederverwendet.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-29f0caa0d57e03885651",
       "audit-cfd5146d112f57f69bd0"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R363"
+    ],
     "experimentally_covered": true,
     "id": "R18",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Vollständiger Byte-/TTFT-Beleg erst bei neuem sinnvollem Transportproblem; kein erfundener Decodergewinn aus Puffer-/SSE-Umschaltung.",
+    "next_action": "Chunk-Ankunftszeitstempel fehlen im ursprünglichen Streamarchiv; Buffered-Completion ist kein TTFT. Neue Transportmessung nur bei konkret relevantem Interaktivitäts-/Tool-Protokollengpass mit gleicher Engine, gleichen Tokens und vollständigen Wire-/Zeitbelegen.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -5813,40 +6180,150 @@
       }
     ],
     "prerequisites": [
-      "Vollständiger Byte-/TTFT-Beleg erst bei neuem sinnvollem Transportproblem; kein erfundener Decodergewinn aus Puffer-/SSE-Umschaltung."
+      "Chunk-Ankunftszeitstempel fehlen im ursprünglichen Streamarchiv; Buffered-Completion ist kein TTFT. Neue Transportmessung nur bei konkret relevantem Interaktivitäts-/Tool-Protokollengpass mit gleicher Engine, gleichen Tokens und vollständigen Wire-/Zeitbelegen."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Native buffered/SSE-Teile einschließlich R193 jeweils16/16Toolprotokoll gültig; ursprüngliche SSE-Bytes dort nicht vollständig archiviert.",
-    "reopening_conditions": "Vollständiger Byte-/TTFT-Beleg erst bei neuem sinnvollem Transportproblem; kein erfundener Decodergewinn aus Puffer-/SSE-Umschaltung.",
+    "remaining_scope": "Chunk-Ankunftszeitstempel fehlen im ursprünglichen Streamarchiv; Buffered-Completion ist kein TTFT. Neue Transportmessung nur bei konkret relevantem Interaktivitäts-/Tool-Protokollengpass mit gleicher Engine, gleichen Tokens und vollständigen Wire-/Zeitbelegen.",
+    "reopening_conditions": "Chunk-Ankunftszeitstempel fehlen im ursprünglichen Streamarchiv; Buffered-Completion ist kein TTFT. Neue Transportmessung nur bei konkret relevantem Interaktivitäts-/Tool-Protokollengpass mit gleicher Engine, gleichen Tokens und vollständigen Wire-/Zeitbelegen.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Streaming",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2602.404901519863,
+                "QA_request_wall_sum_s": 10.103028806,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2601.777163018458,
+                "QA_request_wall_sum_s": 10.097703811,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.32564590986638997,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.187584670844699,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.3511293633635004
+              },
+              "prefill": {
+                "e2e_change_pct": 0.07552406793962518,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.17034740212671373,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.02270065120546505
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.017465202927136048,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.15956034919519801,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.0005163684794196044
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.11516972120826363,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.5946632310956268,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.09834791356068129
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-cfd5146d112f57f69bd0"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Chunk-Ankunftszeitstempel fehlen im ursprünglichen Streamarchiv; Buffered-Completion ist kein TTFT. Neue Transportmessung nur bei konkret relevantem Interaktivitäts-/Tool-Protokollengpass mit gleicher Engine, gleichen Tokens und vollständigen Wire-/Zeitbelegen.",
+        "scope": "Tatsächliche archivierte Requests stream=true/false belegt; 4K-Latenz buffered +0,115 %, Decode-Durchsatz +0,351 %, ursprüngliche QA unverändert. Native SSE-Protokollprüfung R193 und Frontend R170 getrennt wiederverwendet.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "off"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2602.404901519863,
+                "QA_request_wall_sum_s": 10.103028806,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2601.777163018458,
+                "QA_request_wall_sum_s": 10.097703811,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.32564590986638997,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.187584670844699,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.3511293633635004
+              },
+              "prefill": {
+                "e2e_change_pct": 0.07552406793962518,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.17034740212671373,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.02270065120546505
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.017465202927136048,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.15956034919519801,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.0005163684794196044
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.11516972120826363,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.5946632310956268,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.09834791356068129
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Chunk-Ankunftszeitstempel fehlen im ursprünglichen Streamarchiv; Buffered-Completion ist kein TTFT. Neue Transportmessung nur bei konkret relevantem Interaktivitäts-/Tool-Protokollengpass mit gleicher Engine, gleichen Tokens und vollständigen Wire-/Zeitbelegen.",
+        "scope": "Tatsächliche archivierte Requests stream=true/false belegt; 4K-Latenz buffered +0,115 %, Decode-Durchsatz +0,351 %, ursprüngliche QA unverändert. Native SSE-Protokollprüfung R193 und Frontend R170 getrennt wiederverwendet.",
+        "scope_status": "PARTIAL",
         "value": "on"
       }
     ]
@@ -8071,17 +8548,20 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "KV-CPU-Offload gemessen, Prefill/Decode massiv schlechter als residente GPU-Basis.",
+    "decision": "no-kv-offload verschiebt in dieser Engine Attention-KV 256 MiB UND recurrent R/S 50,25 MiB auf CPU. 4K-Latenz +60,49 %, Decode-Durchsatz −67,26 %, ursprüngliche QA unverändert.",
     "domain": "kv_state",
     "evidence_ids": [
+      "audit-29f0caa0d57e03885651",
       "audit-b5b72880a82c7c178bfd"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R363"
+    ],
     "experimentally_covered": true,
     "id": "K06",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Anderen echten Kapazitätsengpass und begrenztes Host/PCIe-Staging vor einem neuen Lauf verlangen; passt-in-VRAM-Fälle nicht wiederholen.",
+    "next_action": "Ein Attention-only- oder State-only-Offload benötigt einen eigenen Implementierungspfad und konkreten Kapazitätsbedarf; vorhandener Gesamtschalter isoliert diese Komponenten nicht. Bei vollständig passendem Basisprofil keine erneute Offload-Runde.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -8149,40 +8629,150 @@
       }
     ],
     "prerequisites": [
-      "Anderen echten Kapazitätsengpass und begrenztes Host/PCIe-Staging vor einem neuen Lauf verlangen; passt-in-VRAM-Fälle nicht wiederholen."
+      "Ein Attention-only- oder State-only-Offload benötigt einen eigenen Implementierungspfad und konkreten Kapazitätsbedarf; vorhandener Gesamtschalter isoliert diese Komponenten nicht. Bei vollständig passendem Basisprofil keine erneute Offload-Runde."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "KV-CPU-Offload gemessen, Prefill/Decode massiv schlechter als residente GPU-Basis.",
-    "reopening_conditions": "Anderen echten Kapazitätsengpass und begrenztes Host/PCIe-Staging vor einem neuen Lauf verlangen; passt-in-VRAM-Fälle nicht wiederholen.",
+    "remaining_scope": "Ein Attention-only- oder State-only-Offload benötigt einen eigenen Implementierungspfad und konkreten Kapazitätsbedarf; vorhandener Gesamtschalter isoliert diese Komponenten nicht. Bei vollständig passendem Basisprofil keine erneute Offload-Runde.",
+    "reopening_conditions": "Ein Attention-only- oder State-only-Offload benötigt einen eigenen Implementierungspfad und konkreten Kapazitätsbedarf; vorhandener Gesamtschalter isoliert diese Komponenten nicht. Bei vollständig passendem Basisprofil keine erneute Offload-Runde.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "KV Offload",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2591.1921987178803,
+                "QA_request_wall_sum_s": 10.101557431,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 4047.742048849017,
+                "QA_request_wall_sum_s": 27.205148439,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7068.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 202.06573658964385,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 62.708176513812994,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -67.25571254281095,
+                "ttft_change_pct": 125.81431936681628
+              },
+              "prefill": {
+                "e2e_change_pct": 69.87995300890088,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 26.769155789201825,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -41.026799517888875,
+                "ttft_change_pct": 69.93877927005383
+              },
+              "prefill2048": {
+                "e2e_change_pct": 63.101247107769545,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 25.28028260326827,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -38.71887663553538,
+                "ttft_change_pct": 63.12187552664603
+              },
+              "prefill4096": {
+                "e2e_change_pct": 60.48594417411943,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 23.80257001313155,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -37.69850776663397,
+                "ttft_change_pct": 60.511609739398644
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Ein Attention-only- oder State-only-Offload benötigt einen eigenen Implementierungspfad und konkreten Kapazitätsbedarf; vorhandener Gesamtschalter isoliert diese Komponenten nicht. Bei vollständig passendem Basisprofil keine erneute Offload-Runde.",
+        "scope": "no-kv-offload verschiebt in dieser Engine Attention-KV 256 MiB UND recurrent R/S 50,25 MiB auf CPU. 4K-Latenz +60,49 %, Decode-Durchsatz −67,26 %, ursprüngliche QA unverändert.",
+        "scope_status": "PARTIAL",
         "value": "gpu"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2591.1921987178803,
+                "QA_request_wall_sum_s": 10.101557431,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 4047.742048849017,
+                "QA_request_wall_sum_s": 27.205148439,
+                "QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7068.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 202.06573658964385,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 62.708176513812994,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -67.25571254281095,
+                "ttft_change_pct": 125.81431936681628
+              },
+              "prefill": {
+                "e2e_change_pct": 69.87995300890088,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 26.769155789201825,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -41.026799517888875,
+                "ttft_change_pct": 69.93877927005383
+              },
+              "prefill2048": {
+                "e2e_change_pct": 63.101247107769545,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 25.28028260326827,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -38.71887663553538,
+                "ttft_change_pct": 63.12187552664603
+              },
+              "prefill4096": {
+                "e2e_change_pct": 60.48594417411943,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 23.80257001313155,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -37.69850776663397,
+                "ttft_change_pct": 60.511609739398644
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-b5b72880a82c7c178bfd"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Ein Attention-only- oder State-only-Offload benötigt einen eigenen Implementierungspfad und konkreten Kapazitätsbedarf; vorhandener Gesamtschalter isoliert diese Komponenten nicht. Bei vollständig passendem Basisprofil keine erneute Offload-Runde.",
+        "scope": "no-kv-offload verschiebt in dieser Engine Attention-KV 256 MiB UND recurrent R/S 50,25 MiB auf CPU. 4K-Latenz +60,49 %, Decode-Durchsatz −67,26 %, ursprüngliche QA unverändert.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "cpu"
       }
     ]
