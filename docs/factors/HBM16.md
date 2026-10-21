@@ -30,11 +30,12 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-8fb7e72fcd73c8402e82.md)
 - [Original audit hash and public excerpt](../audits/audit-9907670c98fb135ab20f.md)
 - [Original audit hash and public excerpt](../audits/audit-c16b8748920037f57079.md)
+- [Original audit hash and public excerpt](../audits/audit-fe73faa6d74ccb07bdc1.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
-| reference | BLOCKED | See linked original evidence | Not separately reconciled |
-| state_fusion_port | BLOCKED | See linked original evidence | Not separately reconciled |
+| reference | BLOCKED | PARTIAL | False |
+| state_fusion_port | BLOCKED | PARTIAL | True |
 
 
 ### Recorded model-specific variant coverage
@@ -108,18 +109,152 @@ Historical states and window signatures are evidence links, not qualification of
 Values, baseline/candidate comparisons, model/engine identity and limits are in the linked audit excerpts and profile records. Missing measurements are **NOT MEASURED**. Existing native screens are not HumanEval, BFCL or full-agent qualifications.
 
 
+### Variant reference
+
+```json
+[
+  {
+    "audit": {
+      "sha256": "0801e9ed17de8e125f9a018ebe0e894a9fab3dcfa89d249ec600c9a6f0ac71c7"
+    },
+    "metrics": {
+      "A": {
+        "QA_GPU_j": 2626.5220666031782,
+        "QA_unique_tasks": 12,
+        "QA_wall_sum_s": 10.175231618,
+        "peak_device_VRAM_mib": 7356.5
+      },
+      "B": {
+        "QA_GPU_j": 2601.3741431780027,
+        "QA_unique_tasks": 12,
+        "QA_wall_sum_s": 10.122992687,
+        "peak_device_VRAM_mib": 7356.5
+      }
+    },
+    "native_comparison": {
+      "decode": {
+        "e2e_change_pct": -0.8536601500697905,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.04044342387181654,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": 0.8601254552051296,
+        "ttft_change_pct": -0.9101793257357271
+      },
+      "prefill": {
+        "e2e_change_pct": 0.1612081659606135,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.1796164278881962,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": -0.1955943808204852,
+        "ttft_change_pct": 0.16172399653082703
+      },
+      "prefill2048": {
+        "e2e_change_pct": -0.2216490168718055,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.8720563866267073,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": 0.22508979965760734,
+        "ttft_change_pct": -0.22888967146869055
+      },
+      "prefill4096": {
+        "e2e_change_pct": -0.3153837641277635,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.5859926481316835,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": 0.3207979571929309,
+        "ttft_change_pct": -0.3175139071142752
+      }
+    },
+    "source_semantics": {
+      "sha256": "040cd763c468b4238d8570b162d2b73f17689d013918ec5245f913081a6e31af"
+    }
+  }
+]
+```
+
+### Variant state_fusion_port
+
+```json
+[
+  {
+    "audit": {
+      "sha256": "0801e9ed17de8e125f9a018ebe0e894a9fab3dcfa89d249ec600c9a6f0ac71c7"
+    },
+    "metrics": {
+      "A": {
+        "QA_GPU_j": 2626.5220666031782,
+        "QA_unique_tasks": 12,
+        "QA_wall_sum_s": 10.175231618,
+        "peak_device_VRAM_mib": 7356.5
+      },
+      "B": {
+        "QA_GPU_j": 2601.3741431780027,
+        "QA_unique_tasks": 12,
+        "QA_wall_sum_s": 10.122992687,
+        "peak_device_VRAM_mib": 7356.5
+      }
+    },
+    "native_comparison": {
+      "decode": {
+        "e2e_change_pct": -0.8536601500697905,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.04044342387181654,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": 0.8601254552051296,
+        "ttft_change_pct": -0.9101793257357271
+      },
+      "prefill": {
+        "e2e_change_pct": 0.1612081659606135,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.1796164278881962,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": -0.1955943808204852,
+        "ttft_change_pct": 0.16172399653082703
+      },
+      "prefill2048": {
+        "e2e_change_pct": -0.2216490168718055,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.8720563866267073,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": 0.22508979965760734,
+        "ttft_change_pct": -0.22888967146869055
+      },
+      "prefill4096": {
+        "e2e_change_pct": -0.3153837641277635,
+        "format_pass_change": 0,
+        "gpu_energy_change_pct": 0.5859926481316835,
+        "same_token_counts": true,
+        "semantic_pass_change": 0,
+        "tokens_per_s_change_pct": 0.3207979571929309,
+        "ttft_change_pct": -0.3175139071142752
+      }
+    },
+    "source_semantics": {
+      "sha256": "040cd763c468b4238d8570b162d2b73f17689d013918ec5245f913081a6e31af"
+    }
+  }
+]
+```
+
 ## Decision and remaining research
 
-C13 recurrent fusion and existing seeded state checks do not qualify reduced-precision state, speculative rollback or all long sessions.
+F32-Cache-Fusion ist im geprüften stockMatcher bereits Standard; alter A-Arm schaltet sie ab. Kleine numerische Komponentenbelege bleiben gültig, aber kein neuer Kernel und kein vollständiger GDN-/MTP-/Slot-/Langzeitnachweis. F16-State-Trajektorienbefunde bleiben separat negativ.
 
-**Remaining scope:** A recurrent-storage precision candidate needs concrete dispatch/storage support, CPU state oracle and long-sequence drift bounds before GPU quality qualification. Attention-KV flags do not implement GDN state compression.
+**Remaining scope:** Neuer State-/Cache-Speicherpfad braucht korrekte Speicher-/Dispatchunterstützung, Oracle und Langzeitdrift-/Rollback-/Slotvertrag. Bereits negative F16-Trajektorie nicht durch Toleranzänderung umgehen.
 
-**Reopening condition:** A recurrent-storage precision candidate needs concrete dispatch/storage support, CPU state oracle and long-sequence drift bounds before GPU quality qualification. Attention-KV flags do not implement GDN state compression.
+**Reopening condition:** Neuer State-/Cache-Speicherpfad braucht korrekte Speicher-/Dispatchunterstützung, Oracle und Langzeitdrift-/Rollback-/Slotvertrag. Bereits negative F16-Trajektorie nicht durch Toleranzänderung umgehen.
 
-**Next action:** Reuse C13 and K05/R291-R292 scopes. Do not infer a state bug merely from altered prompts or speculative outputs.
+**Next action:** Neuer State-/Cache-Speicherpfad braucht korrekte Speicher-/Dispatchunterstützung, Oracle und Langzeitdrift-/Rollback-/Slotvertrag. Bereits negative F16-Trajektorie nicht durch Toleranzänderung umgehen.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R237](../experiments/R237.md), [R238](../experiments/R238.md), [R291](../experiments/R291.md), [R292](../experiments/R292.md)
+[R237](../experiments/R237.md), [R238](../experiments/R238.md), [R291](../experiments/R291.md), [R292](../experiments/R292.md), [R374](../experiments/R374.md)

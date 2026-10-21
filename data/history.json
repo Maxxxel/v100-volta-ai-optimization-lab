@@ -12414,5 +12414,13 @@
     "kind": "R373_H10_RESIDENT_MANAGED_ALLOCATOR_NEGATIVE",
     "sequence": 1552,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T19:54:33.767147+00:00",
+    "experiment_id": "R374",
+    "factor_id": null,
+    "kind": "R374_PRESERVED_HBM_TRACE_AND_ATTENTION_SCOPE_REVIEW",
+    "sequence": 1553,
+    "signature": null
   }
 ]
