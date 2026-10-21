@@ -13275,5 +13275,137 @@
       "measurement_type": "REVIEW_EXISTING_TOOL_SERIALIZATION_READBACK_AND_SECURITY_SCOPE"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0,
+      "old_native_model_starts_verified": 44,
+      "primary_archives_checked": 11
+    },
+    "audit_id": "audit-f15d4e3c65d3f340c4d2",
+    "date": "2026-10-21T19:22:50.642630+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "HBM17",
+      "S01",
+      "S02",
+      "S03",
+      "S04"
+    ],
+    "id": "R369",
+    "model": "omnicoder2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "REPLAY_EXISTING_SPECULATION_PROOFS_RETAIN_CHAMPIONS_ADMIT_DISTINCT_AGENT_MAX32_MEMORY_SCREEN",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "Eleven oldarchives/44earlierOmnistarts,528nativefixed256-token observations verified by original pinned extractor/log/ID evidence. Four repetitive families are not realagent/codingcoverage or universal lossless sampling/GDNstate proof.",
+        "S02original8/16/32variants compare to64onngram-mod with fixed min1/match24; adaptiveMTP1-3 and MTPmax5 are different algorithms/parameters and do not close those original variants.",
+        "High acceptance can coincide with slower execution; checkpoints/rollback and verification cost must be measured, not inferred from acceptance alone.",
+        "R244syntheticrepeatgain and R245/R246realagentmixgainremain distinct. Saved real agent ngram-mod profile is not the current throughput champion; gain mostly on one failedtask, successful-taskcostregression retained.",
+        "Native max32 savings1834MiB is observed in paired synthetic windows,not yet a realagentmemoryqualification. Actual R245argv leaves ngrammax at engine default; source default must be pinned before new screen.",
+        "Existing qualified externalMTP/graft/coding/tool/agent/energyprofiles retained with their own reference identities and quality scope. Original target has no native trainedMTPhead; external compatible head and derived graft are distinct artifacts. No newtraining/model/combo admitted here.",
+        "VRAM/NVMLenergy/checkpoint counts are not measured HBMbytes/token,transaction counts or HBM-internal electrical energy. Those remain unmeasured for these interventions.",
+        "No new GPU run, benchmark reference calibration, champion promotion, production action or historical audit/weight/question/signed355statechange."
+      ],
+      "measurement_type": "REVIEW_EXISTING_SPECULATIVE_TOKEN_CHECKPOINT_AND_MEMORY_SCOPE"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 28,
+      "model_starts": 1,
+      "native_metrics": {
+        "decode": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 61.80540420278828,
+              "tokens_per_second_gain_percent": 177.24425377984625
+            },
+            "C": {
+              "e2e_reduction_percent": 61.89174750831992,
+              "tokens_per_second_gain_percent": 177.83756091987692
+            }
+          },
+          "median_e2e_s": 0.640423883,
+          "range_percent": 4.9364597166342765,
+          "tokens_per_second": 221.2932937677187
+        },
+        "prefill": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 9.078868702731723,
+              "tokens_per_second_gain_percent": 0.1596222789308932
+            },
+            "C": {
+              "e2e_reduction_percent": 1.8037862837381624,
+              "tokens_per_second_gain_percent": -7.791552615427344
+            }
+          },
+          "median_e2e_s": 0.194769109,
+          "range_percent": 0.2639828269687341,
+          "tokens_per_second": 2608.7136200679815
+        },
+        "prefill2048": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 3.246472035875936,
+              "tokens_per_second_gain_percent": 0.595010195718082
+            },
+            "C": {
+              "e2e_reduction_percent": -5.62291298535984,
+              "tokens_per_second_gain_percent": -8.015416525014253
+            }
+          },
+          "median_e2e_s": 0.706923485,
+          "range_percent": 0.465525204612492,
+          "tokens_per_second": 2904.148905697407
+        },
+        "prefill4096": {
+          "comparison": {
+            "A0": {
+              "e2e_reduction_percent": 1.4783317913268479,
+              "tokens_per_second_gain_percent": 0.1987315161487313
+            },
+            "C": {
+              "e2e_reduction_percent": -6.9306951301038255,
+              "tokens_per_second_gain_percent": -8.309417302159316
+            }
+          },
+          "median_e2e_s": 1.40354557,
+          "range_percent": 0.3852594540268557,
+          "tokens_per_second": 2923.865984716804
+        }
+      },
+      "original12_nonregression": true,
+      "peak_device_vram_mib": 7356.5,
+      "peak_process_vram_mib": 7114.0
+    },
+    "audit_id": "audit-32922590be12d0046a69",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S02"
+    ],
+    "id": "R370",
+    "model": "omnicoder2",
+    "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "statements": {
+      "decision": "MAX32_NATIVE_MEMORY_SCREEN_PASSED_NEEDS_REAL_AGENT_QUALITY",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "B-onlyscreen versus retained matching8KA0, no freshcontrol unless meaningfulsurvivor; no drift-independent winnerclaim",
+        "Cuses6GiBweightcache, descriptive comparison, not isolatedprefetchcontrol",
+        "OriginalCUDA/math unchanged; no newCPU/GPUoperatororacle needed for selectingexistingngrambackend",
+        "SharedCPUngramlookup persists acrosswarmups/requests. Native repeatgain is not new-task coding/agentgain; require actualproposals/acceptance thenfunctional qualification",
+        "Original12/nativeoutputIDs unchanged required; no newcoding/BFCL/agentquality or production qualification",
+        "Only max64 to32 changed; min48/match24 unchanged. Prior paired min1 memory result is not treated as matching reference.",
+        "Memory compared to old max64 speculation, not to no-spec A0. B-only timing still needs fresh controls for qualification."
+      ],
+      "measurement_type": "GPU_NGRAM_MOD_MAX32_FIXED_MIN48_NATIVE_MEMORY_SCREEN"
+    },
+    "winner_qualified": false
   }
 ]

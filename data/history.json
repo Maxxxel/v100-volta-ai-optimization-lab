@@ -12374,5 +12374,21 @@
     "kind": "R368_DASHBOARD_CANONICAL_COVERAGE_COUNTER_PRESENTATION",
     "sequence": 1547,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T19:23:48.730797+00:00",
+    "experiment_id": "R369",
+    "factor_id": null,
+    "kind": "R369_EXISTING_SPECULATION_SCOPE_REPLAY",
+    "sequence": 1548,
+    "signature": null
+  },
+  {
+    "date": "2026-10-21T19:26:42.193200+00:00",
+    "experiment_id": "R370",
+    "factor_id": null,
+    "kind": "R370_S02_MAX32_NATIVE_MEMORY_SCREEN",
+    "sequence": 1549,
+    "signature": null
   }
 ]
