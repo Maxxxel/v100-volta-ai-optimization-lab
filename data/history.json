@@ -12278,5 +12278,13 @@
     "kind": "FOUR_KERNEL_AXES8CELLS_EXACT_FUSION_Q6_PORT_SCOPE_REUSED",
     "sequence": 1535,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T17:18:29.286249+00:00",
+    "experiment_id": "R358",
+    "factor_id": null,
+    "kind": "THREE_KV_AXES10CELLS_ACTUAL_FORMAT_AND_32K_NEGATIVES_REUSED",
+    "sequence": 1536,
+    "signature": null
   }
 ]

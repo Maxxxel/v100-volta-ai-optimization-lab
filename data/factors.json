@@ -3918,6 +3918,7 @@
       "audit-052735eb2d4adf83b1bd",
       "audit-15357beaac0b3905a2ce",
       "audit-1962b7915d289ed667aa",
+      "audit-8d0de00b1f8ea1c46cfb",
       "audit-a2270317169dec422f24",
       "audit-fae4b1903a527efdd0b8"
     ],
@@ -3927,13 +3928,14 @@
       "R267",
       "R268",
       "R269",
-      "R270"
+      "R270",
+      "R358"
     ],
     "experimentally_covered": true,
     "id": "K01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "KIVI/KVQuant sind separate Originalachsen. Weitere Kalibration nur mit eigenständiger Numerik-/Aufgabenhypothese, nicht gegen bekannte Fehlantworten.",
+    "next_action": "New key representation requires distinct implemented SM70 attention support, independent calibration/holdout and a real capacity/quality benefit. Existing Q8/Q4 controls and 32K Q8 need no repeat. KIVI/KVQuant are separate factors.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -4029,43 +4031,278 @@
     "title": "KV Type K",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2549.996415243391,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.097218503,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2558.3455303989113,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.227923796,
+                "peak_device_VRAM_mib": 7296.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 1.624412755165383,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.37868250445542984,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -1.6165880799267174,
+                "ttft_change_pct": 0.6861360349627255
+              },
+              "prefill": {
+                "e2e_change_pct": 0.043761466248137815,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 2.757551105300493,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.08966561302041764,
+                "ttft_change_pct": 0.050402652779801826
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.06196400262188373,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.653349172552331,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.06541949613351195,
+                "ttft_change_pct": 0.06281932970964021
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.269502893450313,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.038281771173999,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.2734054745424763,
+                "ttft_change_pct": 0.27056411874526454
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2583.5045130242434,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.124999288,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2533.3211490970257,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.125985945,
+                "peak_device_VRAM_mib": 7264.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 1.5223436133369184,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.4046072171331137,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -1.5377404585682375,
+                "ttft_change_pct": 0.6608320151040736
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3834743120026296,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.2657456131745959,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.3651091430248665,
+                "ttft_change_pct": 0.3738592470595048
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.20297944820250047,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9070766045639722,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.2062758785224883,
+                "ttft_change_pct": -0.19698734500397386
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.30335786699569045,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.03654956412365573,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.3089357874597298,
+                "ttft_change_pct": 0.30552824015204205
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New key representation requires distinct implemented SM70 attention support, independent calibration/holdout and a real capacity/quality benefit. Existing Q8/Q4 controls and 32K Q8 need no repeat. KIVI/KVQuant are separate factors.",
+        "scope": "Shared F16 reference; no own factor intervention",
+        "scope_status": "PARTIAL",
         "value": "f16"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2549.996415243391,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.097218503,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2558.3455303989113,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.227923796,
+                "peak_device_VRAM_mib": 7296.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 1.624412755165383,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.37868250445542984,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -1.6165880799267174,
+                "ttft_change_pct": 0.6861360349627255
+              },
+              "prefill": {
+                "e2e_change_pct": 0.043761466248137815,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 2.757551105300493,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.08966561302041764,
+                "ttft_change_pct": 0.050402652779801826
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.06196400262188373,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.653349172552331,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.06541949613351195,
+                "ttft_change_pct": 0.06281932970964021
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.269502893450313,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.038281771173999,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.2734054745424763,
+                "ttft_change_pct": 0.27056411874526454
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-15357beaac0b3905a2ce"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New key representation requires distinct implemented SM70 attention support, independent calibration/holdout and a real capacity/quality benefit. Existing Q8/Q4 controls and 32K Q8 need no repeat. KIVI/KVQuant are separate factors.",
+        "scope": "Q8/Q4-Key bei 8K tatsächlich allokiert: KV196/164 statt256MiB, ursprünglicheQA unverändert, Decode1,62/1,54% langsamer. R233bei32K:222MiB wenigerPeakVRAM,8,23% wenigerLangdecode;kein qualifizierter Gewinner.",
+        "scope_status": "PARTIAL",
         "value": "q8_0"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2583.5045130242434,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.124999288,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2533.3211490970257,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.125985945,
+                "peak_device_VRAM_mib": 7264.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 1.5223436133369184,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.4046072171331137,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -1.5377404585682375,
+                "ttft_change_pct": 0.6608320151040736
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3834743120026296,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.2657456131745959,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.3651091430248665,
+                "ttft_change_pct": 0.3738592470595048
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.20297944820250047,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9070766045639722,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.2062758785224883,
+                "ttft_change_pct": -0.19698734500397386
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.30335786699569045,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.03654956412365573,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.3089357874597298,
+                "ttft_change_pct": 0.30552824015204205
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-1962b7915d289ed667aa"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New key representation requires distinct implemented SM70 attention support, independent calibration/holdout and a real capacity/quality benefit. Existing Q8/Q4 controls and 32K Q8 need no repeat. KIVI/KVQuant are separate factors.",
+        "scope": "Q8/Q4-Key bei 8K tatsächlich allokiert: KV196/164 statt256MiB, ursprünglicheQA unverändert, Decode1,62/1,54% langsamer. R233bei32K:222MiB wenigerPeakVRAM,8,23% wenigerLangdecode;kein qualifizierter Gewinner.",
+        "scope_status": "PARTIAL",
         "value": "q4_0"
       }
     ]
@@ -4077,17 +4314,19 @@
     "evidence_ids": [
       "audit-0b65111832a0e7ae153b",
       "audit-652eef515a970abc8d51",
+      "audit-8d0de00b1f8ea1c46cfb",
       "audit-b4f0a807daebe43f2edf"
     ],
     "experiment_ids": [
       "R234",
-      "R265"
+      "R265",
+      "R358"
     ],
     "experimentally_covered": true,
     "id": "K02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Neuen Value-Cachepfad nur bei konkret anderem kompatiblem Layout/Qualitätsvertrag; kein weiterer32K-Q8-Kontrolllauf.",
+    "next_action": "New value layout/precision needs an implemented compatible kernel and independent functional/semantic oracle. No further unchanged32KQ8 run or blind parameter sweep.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -4183,43 +4422,278 @@
     "title": "KV Type V",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2598.211293861949,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.107946093,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2605.0078732332413,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.208875576,
+                "peak_device_VRAM_mib": 7296.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 1.0896149441080416,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.7798381366103566,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -1.078761390801497,
+                "ttft_change_pct": 1.2805325210581309
+              },
+              "prefill": {
+                "e2e_change_pct": 0.43913311825050094,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.13774890391478056,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.43904721277995273,
+                "ttft_change_pct": 0.4306131931194779
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.30110599557962026,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.6978126921934455,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.3031766829791449,
+                "ttft_change_pct": 0.3031625491787482
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.05693606682479757,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.131686339978244,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.05928973808146942,
+                "ttft_change_pct": -0.06158418304614832
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2598.4073534288254,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.116485804,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2646.453420599593,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.333740975,
+                "peak_device_VRAM_mib": 7264.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.9052593891909932,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.27273022217717546,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.9159497613554501,
+                "ttft_change_pct": 1.2571097311562918
+              },
+              "prefill": {
+                "e2e_change_pct": -0.11604254156037941,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -3.8309566155238284,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.10806887665402165,
+                "ttft_change_pct": -0.11484527109327791
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.24384359605857941,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.038193598292890485,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.24241966417635208,
+                "ttft_change_pct": 0.24972513581522637
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.2767505877844689,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.9996572442171345,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.27761906556572624,
+                "ttft_change_pct": 0.2788163938383992
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New value layout/precision needs an implemented compatible kernel and independent functional/semantic oracle. No further unchanged32KQ8 run or blind parameter sweep.",
+        "scope": "Shared F16 reference; no own factor intervention",
+        "scope_status": "PARTIAL",
         "value": "f16"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2598.211293861949,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.107946093,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2605.0078732332413,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.208875576,
+                "peak_device_VRAM_mib": 7296.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 1.0896149441080416,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.7798381366103566,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -1.078761390801497,
+                "ttft_change_pct": 1.2805325210581309
+              },
+              "prefill": {
+                "e2e_change_pct": 0.43913311825050094,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.13774890391478056,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.43904721277995273,
+                "ttft_change_pct": 0.4306131931194779
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.30110599557962026,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.6978126921934455,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.3031766829791449,
+                "ttft_change_pct": 0.3031625491787482
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.05693606682479757,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.131686339978244,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.05928973808146942,
+                "ttft_change_pct": -0.06158418304614832
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-652eef515a970abc8d51"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New value layout/precision needs an implemented compatible kernel and independent functional/semantic oracle. No further unchanged32KQ8 run or blind parameter sweep.",
+        "scope": "Q8/Q4-Value bei8K tatsächlich allokiert: KV196/164 statt256MiB, ursprünglicheQA unverändert, Decode1,08/0,92% langsamer. R234bei32K:230MiB wenigerPeakVRAM,7,95% wenigerLangdecode;kein qualifizierter Gewinner.",
+        "scope_status": "PARTIAL",
         "value": "q8_0"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2598.4073534288254,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.116485804,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2646.453420599593,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.333740975,
+                "peak_device_VRAM_mib": 7264.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.9052593891909932,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.27273022217717546,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.9159497613554501,
+                "ttft_change_pct": 1.2571097311562918
+              },
+              "prefill": {
+                "e2e_change_pct": -0.11604254156037941,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -3.8309566155238284,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.10806887665402165,
+                "ttft_change_pct": -0.11484527109327791
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.24384359605857941,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.038193598292890485,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.24241966417635208,
+                "ttft_change_pct": 0.24972513581522637
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.2767505877844689,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.9996572442171345,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.27761906556572624,
+                "ttft_change_pct": 0.2788163938383992
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-b4f0a807daebe43f2edf"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New value layout/precision needs an implemented compatible kernel and independent functional/semantic oracle. No further unchanged32KQ8 run or blind parameter sweep.",
+        "scope": "Q8/Q4-Value bei8K tatsächlich allokiert: KV196/164 statt256MiB, ursprünglicheQA unverändert, Decode1,08/0,92% langsamer. R234bei32K:230MiB wenigerPeakVRAM,7,95% wenigerLangdecode;kein qualifizierter Gewinner.",
+        "scope_status": "PARTIAL",
         "value": "q4_0"
       }
     ]
@@ -18817,6 +19291,7 @@
       "audit-62cb102a05278610565d",
       "audit-652eef515a970abc8d51",
       "audit-76bd28c3368e61d7c96d",
+      "audit-8d0de00b1f8ea1c46cfb",
       "audit-a2270317169dec422f24",
       "audit-b4f0a807daebe43f2edf",
       "audit-f818d211483856d94cf3",
@@ -18826,6 +19301,7 @@
       "R233",
       "R234",
       "R270",
+      "R358",
       "R82",
       "R83"
     ],
@@ -18833,7 +19309,7 @@
     "id": "HBM08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reuse K01/K02/K03 and existing memory screens; isolate new cache policies only when implemented.",
+    "next_action": "All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -18948,51 +19424,395 @@
     "title": "KV-Cache F16 Q8 Q4",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2594.443645763525,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.527936783,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2636.5099957165603,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.298508223,
+                "peak_device_VRAM_mib": 7236.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 2.2696582541158916,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.561886463570783,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -2.236229004342205,
+                "ttft_change_pct": 1.9281707637068601
+              },
+              "prefill": {
+                "e2e_change_pct": 0.9080993850692831,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 2.6728422580919675,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.892371327204633,
+                "ttft_change_pct": 0.8917386420676854
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.4850796747903674,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6893905760388508,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.48780522627988043,
+                "ttft_change_pct": 0.4846824275347661
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.6079092720157941,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.06021958505744163,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.6058586524545162,
+                "ttft_change_pct": 0.6090167311306294
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2649.030992900021,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.66920848,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2653.4173859192642,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.467789167000001,
+                "peak_device_VRAM_mib": 7204.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 2.5494949634889963,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6417283476910063,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -2.588320013493828,
+                "ttft_change_pct": 0.38102260564694124
+              },
+              "prefill": {
+                "e2e_change_pct": 0.7915046955718763,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.0679885088901386,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.774315035299189,
+                "ttft_change_pct": 0.7565757098443315
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.5960680888369652,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.541830699207213,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.6092807043037274,
+                "ttft_change_pct": 0.5942051029937279
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.621654662565585,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6803077893213771,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.6147332351422952,
+                "ttft_change_pct": 0.6171983613609378
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2599.013028498364,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.108073662,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2618.5108389778597,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.308949404,
+                "peak_device_VRAM_mib": 7172.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 2.2891309825985973,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.345185255607162,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -2.2433133784325543,
+                "ttft_change_pct": 1.1522841816442586
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3587627216725231,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.05777899097902939,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.36781070513044467,
+                "ttft_change_pct": 0.36467714824366393
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.6920839287919645,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.4614949876799788,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.6818458242014769,
+                "ttft_change_pct": 0.6944330832729717
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.99135476498593,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.124780461844832,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.9832269534550853,
+                "ttft_change_pct": 0.988037332534919
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "READY_LINKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.",
+        "scope": "Shared F16 reference; no own factor intervention",
+        "scope_status": "PARTIAL",
         "value": "f16_f16"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2594.443645763525,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.527936783,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2636.5099957165603,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.298508223,
+                "peak_device_VRAM_mib": 7236.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 2.2696582541158916,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.561886463570783,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -2.236229004342205,
+                "ttft_change_pct": 1.9281707637068601
+              },
+              "prefill": {
+                "e2e_change_pct": 0.9080993850692831,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 2.6728422580919675,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.892371327204633,
+                "ttft_change_pct": 0.8917386420676854
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.4850796747903674,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6893905760388508,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.48780522627988043,
+                "ttft_change_pct": 0.4846824275347661
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.6079092720157941,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.06021958505744163,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.6058586524545162,
+                "ttft_change_pct": 0.6090167311306294
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY_LINKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.",
+        "scope": "Alle drei ursprünglichen Paare vorhanden: Q8/Q8=136MiB,Q8/Q4=104MiB,Q4/Q4=72MiB attentionKV statt256MiB; recurrentR/SbleibenF32. 8K-Decodescreens jeweils langsamer; R82/R83engeNumerik-/Prefixbelege erhalten,kein allgemeinerSpeed-/Agentenchampion.",
+        "scope_status": "PARTIAL",
         "value": "q8_0_q8_0"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2649.030992900021,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.66920848,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2653.4173859192642,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.467789167000001,
+                "peak_device_VRAM_mib": 7204.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 2.5494949634889963,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6417283476910063,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -2.588320013493828,
+                "ttft_change_pct": 0.38102260564694124
+              },
+              "prefill": {
+                "e2e_change_pct": 0.7915046955718763,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.0679885088901386,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.774315035299189,
+                "ttft_change_pct": 0.7565757098443315
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.5960680888369652,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.541830699207213,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.6092807043037274,
+                "ttft_change_pct": 0.5942051029937279
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.621654662565585,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6803077893213771,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.6147332351422952,
+                "ttft_change_pct": 0.6171983613609378
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.",
+        "scope": "Alle drei ursprünglichen Paare vorhanden: Q8/Q8=136MiB,Q8/Q4=104MiB,Q4/Q4=72MiB attentionKV statt256MiB; recurrentR/SbleibenF32. 8K-Decodescreens jeweils langsamer; R82/R83engeNumerik-/Prefixbelege erhalten,kein allgemeinerSpeed-/Agentenchampion.",
+        "scope_status": "PARTIAL",
         "value": "q8_0_q4_0"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2599.013028498364,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.108073662,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2618.5108389778597,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.308949404,
+                "peak_device_VRAM_mib": 7172.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 2.2891309825985973,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.345185255607162,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -2.2433133784325543,
+                "ttft_change_pct": 1.1522841816442586
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3587627216725231,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.05777899097902939,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.36781070513044467,
+                "ttft_change_pct": 0.36467714824366393
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.6920839287919645,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.4614949876799788,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.6818458242014769,
+                "ttft_change_pct": 0.6944330832729717
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.99135476498593,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.124780461844832,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": -0.9832269534550853,
+                "ttft_change_pct": 0.988037332534919
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.",
+        "scope": "Alle drei ursprünglichen Paare vorhanden: Q8/Q8=136MiB,Q8/Q4=104MiB,Q4/Q4=72MiB attentionKV statt256MiB; recurrentR/SbleibenF32. 8K-Decodescreens jeweils langsamer; R82/R83engeNumerik-/Prefixbelege erhalten,kein allgemeinerSpeed-/Agentenchampion.",
+        "scope_status": "PARTIAL",
         "value": "q4_0_q4_0"
       }
     ]

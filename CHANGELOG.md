@@ -7,3 +7,7 @@ Canonical matrix revision 219 with original/additional factor separation, immuta
 ## Matrix revision 219
 
 Audited public snapshot with distinct factor, experiment and profile inventories. See the commit diff and original audit hashes for additions and corrections. Historical original artifacts remain unchanged.
+
+## Matrix revision 220
+
+Audited public snapshot with distinct factor, experiment and profile inventories. See the commit diff and original audit hashes for additions and corrections. Historical original artifacts remain unchanged.
