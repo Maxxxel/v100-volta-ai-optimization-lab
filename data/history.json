@@ -12310,5 +12310,13 @@
     "kind": "ATTENTION_CACHE13CELLS_R10_UNEXERCISED_TREATMENT_CORRECTION",
     "sequence": 1539,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T17:53:04.028057+00:00",
+    "experiment_id": "R362",
+    "factor_id": null,
+    "kind": "R10_EXPLICIT_TRUE_REAL_GPU_SCREEN_VALID_NEGATIVE",
+    "sequence": 1540,
+    "signature": null
   }
 ]

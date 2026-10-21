@@ -24,6 +24,68 @@ Original file: `AUDIT.json`; 3643 bytes. The original is retained privately and 
 {
   "actual_generation_requests": 28,
   "model_starts": 1,
+  "native_metrics": {
+    "decode": {
+      "comparison": {
+        "A0": {
+          "e2e_reduction_percent": -0.6872010737992262,
+          "tokens_per_second_gain_percent": -1.9667620237051486
+        },
+        "C": {
+          "e2e_reduction_percent": -0.45958599936308797,
+          "tokens_per_second_gain_percent": -1.7569693255385377
+        }
+      },
+      "median_e2e_s": 1.688262094,
+      "range_percent": 0.4631314076047773,
+      "tokens_per_second": 78.24904514600225
+    },
+    "prefill": {
+      "comparison": {
+        "A0": {
+          "e2e_reduction_percent": 9.044929388824219,
+          "tokens_per_second_gain_percent": 0.042825889540143436
+        },
+        "C": {
+          "e2e_reduction_percent": 1.7671313051397464,
+          "tokens_per_second_gain_percent": -7.899077119621789
+        }
+      },
+      "median_e2e_s": 0.194841813,
+      "range_percent": 0.44582011767669283,
+      "tokens_per_second": 2605.671592503921
+    },
+    "prefill2048": {
+      "comparison": {
+        "A0": {
+          "e2e_reduction_percent": 2.83327565770074,
+          "tokens_per_second_gain_percent": 0.15431292628416138
+        },
+        "C": {
+          "e2e_reduction_percent": -6.073987029027261,
+          "tokens_per_second_gain_percent": -8.418392325588986
+        }
+      },
+      "median_e2e_s": 0.709942478,
+      "range_percent": 0.4058290761973415,
+      "tokens_per_second": 2891.4261027444545
+    },
+    "prefill4096": {
+      "comparison": {
+        "A0": {
+          "e2e_reduction_percent": 1.6994633926050495,
+          "tokens_per_second_gain_percent": 0.4066570146725734
+        },
+        "C": {
+          "e2e_reduction_percent": -6.69068949205649,
+          "tokens_per_second_gain_percent": -8.119147327391051
+        }
+      },
+      "median_e2e_s": 1.400395316,
+      "range_percent": 0.2889372703385888,
+      "tokens_per_second": 2929.9333897955917
+    }
+  },
   "numerical": {
     "CPU_reference": true,
     "max_nmse": 0.0005,

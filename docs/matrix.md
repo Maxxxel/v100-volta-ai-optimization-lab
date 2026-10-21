@@ -13,7 +13,7 @@
 | [R07](factors/R07.md) | Cache RAM MiB | PARTIAL | YES | P2 |
 | [R08](factors/R08.md) | Cache Reuse | PARTIAL | NO | P2 |
 | [R09](factors/R09.md) | Context Shift | PARTIAL | NO | P2 |
-| [R10](factors/R10.md) | KV unified | OPEN | NO | P2 |
+| [R10](factors/R10.md) | KV unified | PARTIAL | YES | P2 |
 | [R11](factors/R11.md) | KV unified per slot | PARTIAL | YES | P1 |
 | [R12](factors/R12.md) | Prompt caching | PARTIAL | YES | P2 |
 | [R13](factors/R13.md) | GPU Residency | PARTIAL | YES | P2 |
