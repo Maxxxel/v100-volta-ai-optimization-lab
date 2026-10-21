@@ -12294,5 +12294,13 @@
     "kind": "MICROBATCH_CONTEXT_CAP13CELLS_SCOPED_PROFILE_CLARIFICATION",
     "sequence": 1537,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T17:31:10.799439+00:00",
+    "experiment_id": "R360",
+    "factor_id": null,
+    "kind": "THREAD_AND_LOGICAL_BATCH10CELLS_ACTUAL_SETTINGS_VERIFIED",
+    "sequence": 1538,
+    "signature": null
   }
 ]

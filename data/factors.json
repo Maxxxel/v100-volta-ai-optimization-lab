@@ -5,18 +5,21 @@
     "domain": "runtime",
     "evidence_ids": [
       "audit-062276a2f82e45159752",
+      "audit-1b094dcce37317f054f2",
       "audit-6fdbf806cd5a1d7728e8",
       "audit-78c63194ae3b465fa368",
       "audit-7e9bfbb559a6609066ff",
       "audit-b8f24ee279ecd44dd1d1",
       "audit-d65fb659494262061634"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R360"
+    ],
     "experimentally_covered": true,
     "id": "R01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Neuen CPU-bottleneckgebundenen Einsatz mit identischer Modell-/Offloadbasis vorlegen; sonst keine Wiederholung der vier Werte.",
+    "next_action": "Require a different demonstrated host/CPU bottleneck under the same offload/model/task contract before another2/4/6/8threadround.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -158,60 +161,388 @@
     "title": "CPU Threads",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2544.908944602621,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.117987563,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2579.0154198675577,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.110582194,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.011593973034407234,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.573800066861696,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.002032914534977337,
+                "ttft_change_pct": 0.014524720171626981
+              },
+              "prefill": {
+                "e2e_change_pct": 0.5018011698876057,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -4.527754591023314,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.4795137806068661,
+                "ttft_change_pct": 0.4939765838855026
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.08457539149357984,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.358308794345331,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.08557206517850746,
+                "ttft_change_pct": 0.08401359274090581
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.007033379722232169,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.3407729097790524,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.0029768284277809087,
+                "ttft_change_pct": 0.003779224420474847
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-78c63194ae3b465fa368",
           "audit-b8f24ee279ecd44dd1d1"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require a different demonstrated host/CPU bottleneck under the same offload/model/task contract before another2/4/6/8threadround.",
+        "scope": "CPU-Threads2/4/8gegen6belegt,Batch-Threads6/logischeBatch2048/physische512konstant. Decodeänderungunter0,05%,2K/4K-Latenzänderungunter0,3%,OriginalQAunverändert;keinpraktischerGewinn. KeineGPU-Offload-/Occupancybehauptung.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "2"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2571.3063469003732,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.129993448,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2581.9413158945677,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.147154984,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.012646665690618786,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.3742167076057688,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.011338457411635972,
+                "ttft_change_pct": 0.0952183099842907
+              },
+              "prefill": {
+                "e2e_change_pct": -0.006324348158393001,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.2769747929356257,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.030438581961633737,
+                "ttft_change_pct": -0.0072005482857573355
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.0007872184285329098,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.025386856915754485,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.015093879184868708,
+                "ttft_change_pct": 0.00597164420352847
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.07594027618101906,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.689208068095204,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.08119949255005476,
+                "ttft_change_pct": -0.0804889295728417
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-062276a2f82e45159752",
           "audit-7e9bfbb559a6609066ff"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require a different demonstrated host/CPU bottleneck under the same offload/model/task contract before another2/4/6/8threadround.",
+        "scope": "CPU-Threads2/4/8gegen6belegt,Batch-Threads6/logischeBatch2048/physische512konstant. Decodeänderungunter0,05%,2K/4K-Latenzänderungunter0,3%,OriginalQAunverändert;keinpraktischerGewinn. KeineGPU-Offload-/Occupancybehauptung.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "4"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2544.908944602621,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.117987563,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2579.0154198675577,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.110582194,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.011593973034407234,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.573800066861696,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.002032914534977337,
+                "ttft_change_pct": 0.014524720171626981
+              },
+              "prefill": {
+                "e2e_change_pct": 0.5018011698876057,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -4.527754591023314,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.4795137806068661,
+                "ttft_change_pct": 0.4939765838855026
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.08457539149357984,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.358308794345331,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.08557206517850746,
+                "ttft_change_pct": 0.08401359274090581
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.007033379722232169,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.3407729097790524,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.0029768284277809087,
+                "ttft_change_pct": 0.003779224420474847
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2571.3063469003732,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.129993448,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2581.9413158945677,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.147154984,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.012646665690618786,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.3742167076057688,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.011338457411635972,
+                "ttft_change_pct": 0.0952183099842907
+              },
+              "prefill": {
+                "e2e_change_pct": -0.006324348158393001,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.2769747929356257,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.030438581961633737,
+                "ttft_change_pct": -0.0072005482857573355
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.0007872184285329098,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.025386856915754485,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.015093879184868708,
+                "ttft_change_pct": 0.00597164420352847
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.07594027618101906,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.689208068095204,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.08119949255005476,
+                "ttft_change_pct": -0.0804889295728417
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2586.988874738913,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.120180244,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2567.513826576933,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.129294483,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.05364830869512005,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.33602852988898757,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.04692824646528315,
+                "ttft_change_pct": -0.3102150243696866
+              },
+              "prefill": {
+                "e2e_change_pct": 0.08743542337992238,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 5.052636295573865,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.04589316063364768,
+                "ttft_change_pct": 0.07903352853593226
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.2829043497211692,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.1570974818875701,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.27311541257413197,
+                "ttft_change_pct": -0.27465334587534196
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.1373569880213532,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9640282314843818,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.13846247874458317,
+                "ttft_change_pct": -0.13787261477380408
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": true,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": "Sharedreferenceobservationnotnewoptimization;nonewrepeat.",
-        "scope": "Sharedsix-threadA-controlinoriginalR01threadcomparisons;notGPUoffloadlayercount",
+        "remaining_requirement": "Require a different demonstrated host/CPU bottleneck under the same offload/model/task contract before another2/4/6/8threadround.",
+        "scope": "Shared6hostthreadreference;notowncandidateintervention",
         "scope_status": "PARTIAL",
         "value": "6"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2586.988874738913,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.120180244,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2567.513826576933,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.129294483,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.05364830869512005,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.33602852988898757,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.04692824646528315,
+                "ttft_change_pct": -0.3102150243696866
+              },
+              "prefill": {
+                "e2e_change_pct": 0.08743542337992238,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 5.052636295573865,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.04589316063364768,
+                "ttft_change_pct": 0.07903352853593226
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.2829043497211692,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.1570974818875701,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.27311541257413197,
+                "ttft_change_pct": -0.27465334587534196
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.1373569880213532,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9640282314843818,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.13846247874458317,
+                "ttft_change_pct": -0.13787261477380408
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-6fdbf806cd5a1d7728e8",
           "audit-d65fb659494262061634"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require a different demonstrated host/CPU bottleneck under the same offload/model/task contract before another2/4/6/8threadround.",
+        "scope": "CPU-Threads2/4/8gegen6belegt,Batch-Threads6/logischeBatch2048/physische512konstant. Decodeänderungunter0,05%,2K/4K-Latenzänderungunter0,3%,OriginalQAunverändert;keinpraktischerGewinn. KeineGPU-Offload-/Occupancybehauptung.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "8"
       }
     ]
@@ -221,6 +552,7 @@
     "decision": "Batch-Threads2/4/8 gegen6er-Kontrolle vorhanden; native Prefill/Decode-Unterschiede unter1%, kein praktischer Gewinner.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-1b094dcce37317f054f2",
       "audit-21ad1c8820b869222686",
       "audit-2c2821ca804984cdab2a",
       "audit-5c9232a8b4f457595399",
@@ -228,12 +560,14 @@
       "audit-6ba44546d87020d6288b",
       "audit-ed6d9e5117b231cf463c"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R360"
+    ],
     "experimentally_covered": true,
     "id": "R02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Erst einen nachgewiesenen CPU-/Tokenisierungs-/Offloadengpass für eine neue Batch-Threadhypothese belegen.",
+    "next_action": "Require measured prompt-host work or changed CPU load/topology before anotherbatch-threadround. GPUlaunches/SMoccupancyarenotCPUthreads.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -375,60 +709,388 @@
     "title": "Threads Batch",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2582.436620190546,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.123397146,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2587.524545048884,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.123222995,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.02877206093868656,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.1407320116048938,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.04175975217688421,
+                "ttft_change_pct": 0.2544910307316961
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3929136026166624,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.5051827018099475,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.37175067113047744,
+                "ttft_change_pct": 0.38918375024474816
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.2561853672588099,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.7034702055285669,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.2543347393109796,
+                "ttft_change_pct": -0.258715608877369
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.31216944386089907,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.8196925750196371,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.3175454911658049,
+                "ttft_change_pct": -0.3167204633062748
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-2c2821ca804984cdab2a",
           "audit-ed6d9e5117b231cf463c"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require measured prompt-host work or changed CPU load/topology before anotherbatch-threadround. GPUlaunches/SMoccupancyarenotCPUthreads.",
+        "scope": "Batch-Threads2/4/8gegen6belegt,Generationsthreads6undGPU-Konfigurationkonstant. Prefill-Latenzdifferenzenunter0,32%,OriginalQAunverändert;keinqualifizierterVorteil.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "2"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2587.275121680543,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.117043362,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2562.108524612692,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.120965616,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.0513996053152832,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.9120896743351592,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.056703576907923825,
+                "ttft_change_pct": 0.11854574782339533
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3274365853869643,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.4174143609498424,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.3718139120398867,
+                "ttft_change_pct": 0.35004186646037105
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.10766874365317758,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.771218731818224,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.10168554096716687,
+                "ttft_change_pct": -0.10539377323554033
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.12556478945457972,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.022703849039262813,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.12476113405657241,
+                "ttft_change_pct": -0.12437543444334676
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-21ad1c8820b869222686",
           "audit-5ef138dc13f6d607d90f"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require measured prompt-host work or changed CPU load/topology before anotherbatch-threadround. GPUlaunches/SMoccupancyarenotCPUthreads.",
+        "scope": "Batch-Threads2/4/8gegen6belegt,Generationsthreads6undGPU-Konfigurationkonstant. Prefill-Latenzdifferenzenunter0,32%,OriginalQAunverändert;keinqualifizierterVorteil.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "4"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2582.436620190546,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.123397146,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2587.524545048884,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.123222995,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.02877206093868656,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.1407320116048938,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.04175975217688421,
+                "ttft_change_pct": 0.2544910307316961
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3929136026166624,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.5051827018099475,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.37175067113047744,
+                "ttft_change_pct": 0.38918375024474816
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.2561853672588099,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.7034702055285669,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.2543347393109796,
+                "ttft_change_pct": -0.258715608877369
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.31216944386089907,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.8196925750196371,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.3175454911658049,
+                "ttft_change_pct": -0.3167204633062748
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2587.275121680543,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.117043362,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2562.108524612692,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.120965616,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.0513996053152832,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.9120896743351592,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.056703576907923825,
+                "ttft_change_pct": 0.11854574782339533
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3274365853869643,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.4174143609498424,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.3718139120398867,
+                "ttft_change_pct": 0.35004186646037105
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.10766874365317758,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.771218731818224,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.10168554096716687,
+                "ttft_change_pct": -0.10539377323554033
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.12556478945457972,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.022703849039262813,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.12476113405657241,
+                "ttft_change_pct": -0.12437543444334676
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2576.6186763118767,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.110701679,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2573.0422196493173,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.120155845,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.053075407543712316,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9664868050065722,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.04331843910689859,
+                "ttft_change_pct": 0.5398566369913427
+              },
+              "prefill": {
+                "e2e_change_pct": 0.21101389115472102,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6229759925794998,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.1947701773956645,
+                "ttft_change_pct": 0.221959747591427
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.11551696517477783,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.3048413394681315,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.1124875769916267,
+                "ttft_change_pct": -0.11413596597352749
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.052866282387364905,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.7020334160107611,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.04959313448413827,
+                "ttft_change_pct": 0.05427751652882229
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require measured prompt-host work or changed CPU load/topology before anotherbatch-threadround. GPUlaunches/SMoccupancyarenotCPUthreads.",
+        "scope": "Shared6hostthreadreference;notowncandidateintervention",
+        "scope_status": "PARTIAL",
         "value": "6"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2576.6186763118767,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.110701679,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2573.0422196493173,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.120155845,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.053075407543712316,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.9664868050065722,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.04331843910689859,
+                "ttft_change_pct": 0.5398566369913427
+              },
+              "prefill": {
+                "e2e_change_pct": 0.21101389115472102,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6229759925794998,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.1947701773956645,
+                "ttft_change_pct": 0.221959747591427
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.11551696517477783,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.3048413394681315,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.1124875769916267,
+                "ttft_change_pct": -0.11413596597352749
+              },
+              "prefill4096": {
+                "e2e_change_pct": 0.052866282387364905,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.7020334160107611,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.04959313448413827,
+                "ttft_change_pct": 0.05427751652882229
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-5c9232a8b4f457595399",
           "audit-6ba44546d87020d6288b"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Require measured prompt-host work or changed CPU load/topology before anotherbatch-threadround. GPUlaunches/SMoccupancyarenotCPUthreads.",
+        "scope": "Batch-Threads2/4/8gegen6belegt,Generationsthreads6undGPU-Konfigurationkonstant. Prefill-Latenzdifferenzenunter0,32%,OriginalQAunverändert;keinqualifizierterVorteil.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "8"
       }
     ]
@@ -439,6 +1101,7 @@
     "domain": "runtime",
     "evidence_ids": [
       "audit-0cb596914b9fccbb3caa",
+      "audit-1b094dcce37317f054f2",
       "audit-76e9759f615c71dfd110",
       "audit-a00a52f187753d4581f1",
       "audit-c2158d27677661415f45",
@@ -447,13 +1110,14 @@
       "audit-fdb20ffce84662f77947"
     ],
     "experiment_ids": [
-      "R346"
+      "R346",
+      "R360"
     ],
     "experimentally_covered": true,
     "id": "R03",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keine128/256-Wiederholungoderneueub128/256Kalibrierung. OriginalwertehabenbereitsMess-/Referenzbelege;neueWorkload-/SchedulerhypothesevorweiterenTestsverlangen.",
+    "next_action": "Original128/256alreadycontrolledwithinpair;512/1024nowboundtoactualruntimeand512physicalmicrobatch. Newlogicalbatchonlywithdistinctworkload/schedulerhypothesis;notanotherubatchcalibration.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -722,33 +1386,143 @@
         "value": "256"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2579.0228443832193,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.112900336000001,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2548.811619659112,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.105356876,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.04030392308207453,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.09380871475930253,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.05947121542779765,
+                "ttft_change_pct": -0.3173801426725964
+              },
+              "prefill": {
+                "e2e_change_pct": 0.49435176557777183,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.5775777073160802,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.540909763210462,
+                "ttft_change_pct": 0.48954436606312157
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.3055482212079186,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.331557682796669,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.31133832388310356,
+                "ttft_change_pct": -0.3084801029737738
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.4378399995217719,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.713415600688494,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.4445283500689401,
+                "ttft_change_pct": -0.4397279344216187
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-0cb596914b9fccbb3caa",
           "audit-a00a52f187753d4581f1"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Original128/256alreadycontrolledwithinpair;512/1024nowboundtoactualruntimeand512physicalmicrobatch. Newlogicalbatchonlywithdistinctworkload/schedulerhypothesis;notanotherubatchcalibration.",
+        "scope": "LogischeBatch512/1024gegen2048beiunveränderterphysischerMicrobatch512belegt;Prefill-Latenzunterschiedunter0,44%,Decodeunter0,061%,QAunverändert. 128/256KontrollenbereitsjeweilsmitgleicherphysischerMicrobatchinnerhalbdesPaars(R346);keineneueKalibrierung.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "512"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2576.123452918615,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.126454062,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2591.792455932269,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.105482098,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.08442944192255109,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.5884120994975595,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.06093156124200583,
+                "ttft_change_pct": -0.6571407105639748
+              },
+              "prefill": {
+                "e2e_change_pct": 0.3357252505242103,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.9870245470117398,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.3490433266077231,
+                "ttft_change_pct": 0.3342072244807426
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.0005687245886232262,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.0052457407414783,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.002533673019999849,
+                "ttft_change_pct": -0.0029116872652057424
+              },
+              "prefill4096": {
+                "e2e_change_pct": -0.1999276486095214,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6220188210498412,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.2015075357131968,
+                "ttft_change_pct": -0.197732940707529
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-c2158d27677661415f45",
           "audit-fdb20ffce84662f77947"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Original128/256alreadycontrolledwithinpair;512/1024nowboundtoactualruntimeand512physicalmicrobatch. Newlogicalbatchonlywithdistinctworkload/schedulerhypothesis;notanotherubatchcalibration.",
+        "scope": "LogischeBatch512/1024gegen2048beiunveränderterphysischerMicrobatch512belegt;Prefill-Latenzunterschiedunter0,44%,Decodeunter0,061%,QAunverändert. 128/256KontrollenbereitsjeweilsmitgleicherphysischerMicrobatchinnerhalbdesPaars(R346);keineneueKalibrierung.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "1024"
       },
       {

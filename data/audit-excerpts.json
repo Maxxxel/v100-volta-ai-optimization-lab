@@ -15732,6 +15732,34 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0,
+      "old_native_model_starts_verified": 32,
+      "primary_archives_checked": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1b094dcce37317f054f2",
+    "original_bytes": 121775,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1b094dcce37317f054f2edd403d5355a8ac3ad1240c846d983026f06531d0cdb",
+    "statements": {
+      "decision": "REUSE_ACTUAL_THREAD_AND_BATCH_INTERVENTIONS_NO_NEW_PROFILE_WINNER",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "Read-onlyarchiveandlinkedcorrectionreview;notnewGPUexecution,independentqualityregradingornewqualification.",
+        "Threadvaluesareactualserver-reportedhostthreadsettings;nohardware-counterCPUutilization/schedulingcauseornewGPUoffloadclaim.",
+        "Alltheseprofilesare8192context,physicalubatch512,fullGPUoffload;noimpactassumedforotherengines,models,loadorCPUoffload.",
+        "R03logical512/1024isnotphysicalmicrobatchtuning;R346smalllogical128/256pairsareseparatecontrolledprofiles.",
+        "24QAobservationsperarmare12uniquefrozentasksrepeatedtwice;not24uniqueorfullcoding/tool/agentqualification.",
+        "No A0/C promotion, historicalaudit/source/question/queuechanges, extraGPUjobsorproductionchanges."
+      ],
+      "measurement_type": "REVIEW_EXISTING_THREAD_AND_LOGICAL_BATCH_SCOPE"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "metrics": {
