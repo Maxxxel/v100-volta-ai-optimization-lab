@@ -134896,6 +134896,37 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0,
+      "old_native_model_starts_verified": 40,
+      "primary_archives_checked": 11
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-da72ef933842810d7676",
+    "original_bytes": 852843,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "da72ef933842810d7676972c129c3089e3f3d41fa29af623051b57c25888a623",
+    "statements": {
+      "decision": "REPRODUCE_THINKING_TOKEN_PARTITIONS_RETAIN_NARROW_QA_GAINS_AND_CODING_AGENT_TEMPLATE_VETOES",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "Eleven existing archives: ten complete with40 earlier Omni model starts; one technical failure has131 raw request rows across3partialrunlabels and noRESULTS, excluded from complete comparisons. No new GPU execution or repaired/repeated attempt.",
+        "288originalthinkingassessmentsreplayedwiththeirfrozenpartition/assessfunctions,realnativeoutputIDs,request/response/frozenrender/logsliceandbudgetproof. Thisverifieshistoricalevidence,notnewindependentqualityregrading.",
+        "Thinking quality belongs to final-channelOriginal12 tests with shared expanded totalcap and diagnostic verbosity. Longer reasoning/final work is not fixed-workload kernel acceleration. Budget can re-arm for a new thinking block; no global total reasoningtokencap claim.",
+        "R257 coding totalcap1280vsold1024 is a different contract; R301 agents keep1400totalcap,loseprior success. Neither is a full164coding/18agentmodelranking.",
+        "M07 original/candidate source SHA and actual rendered token geometry are checked. Typed-output instructions are not an enforced JSON grammar; native structured-tool parsing is a separate contract. Diagnostic/timed equality is not full tool-safety/agent qualification.",
+        "M11 compact/summary are actual different system-policy texts, not a proof of semantic/authority equivalence or placement optimization. Preprocessing/render and wholepipeline timings are separated; buffered response completion is not measured TTFT.",
+        "R195 compact instruction and R302 exact policy-position quality losses remain binding. Original12 no-tools branch inR195 was render-identical/reused, not newly generated.",
+        "Request GPU board energy excludes CPU/judge/system/source-load/model-load/network energy. Correlated repeatedQAobservations are not independent tasks or champion qualification.",
+        "Original model/template/questions/355signedstates/queue and immutableA0/C preserved. No new combination, targetmodel or automatic deployment."
+      ],
+      "measurement_type": "REVIEW_EXISTING_THINKING_TEMPLATE_AND_POLICY_PRIMARY_SCOPE"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

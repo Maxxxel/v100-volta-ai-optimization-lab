@@ -16258,7 +16258,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R301 M01 Thinking256:0/3Agentenerfolge statt1/3; vorherigenErfolg verloren und zusätzlicherPolicy-Verstoß. 70.28s statt49.49s,27/27Anfragen mit echtemReasoning, Gesamtcap1400unverändert. Qualitäts-Frühstopp nach3/18;Original12imModusnichtneu geprüft.",
+    "decision": "288 ursprüngliche Thinking-Tokenauswertungen anhand nativer IDs, gefrorener Renderings und Budget-Logs exakt reproduziert. 256/512/1024 verbessern enge Original-QA18→22/24 Beobachtungen, kosten median3,58/6,78/13,18s statt0,36s. Kein einheitlicher Coding-/Agentengewinn: R2579/13Coding beobachtet mit Referenzverlust/Längengrenze; R301256Agenten0/3 statt1/3 mit zusätzlichem Policyverstoß. Technischer 131-Zeilen-Teillauf separat ausgeschlossen.",
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-0d3610a4e59d412de154",
@@ -16268,17 +16268,19 @@
       "audit-533a182c21a814f353df",
       "audit-d0331312fd441f9ff440",
       "audit-d13ee9846b467f35c111",
+      "audit-da72ef933842810d7676",
       "audit-dd4c93920d9140826672"
     ],
     "experiment_ids": [
       "R257",
-      "R301"
+      "R301",
+      "R367"
     ],
     "experimentally_covered": true,
     "id": "M01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Weitere noch39 Original-PARTIAL-Restprüfungen nach konkretem Nutzen/Machbarkeit bearbeiten. Keine neue Thinking256-Agenten- oder R257Codingwiederholung. Höhere/andere Budgets benötigen eigenständige Qualitäts-/Kostenhypothese;keine adaptiveRouterbehauptung. NeueModelle/Kombinationen bleiben gesperrt.",
+    "next_action": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -16392,71 +16394,351 @@
       }
     ],
     "prerequisites": [
-      "Actual reasoning channel and outcomes/costs on frozen agents;current-modeoriginal12/fresh controls before any winner."
+      "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Other budgets/workloads/adaptive confidence policies not globally rejected or certified. R257codingnegative retained;newQAneededonlyifnewpromisingprofile.",
-    "reopening_conditions": "R257engeBehandlungverworfen;alte12Budgetmessungenweitergültig. NeuePolicybrauchtunabhängigeKalibration.",
+    "remaining_scope": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
+    "reopening_conditions": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Native Thinking Budget",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.355546676,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2646.565822955153,
+                "request_wall_sum_s": 10.1295746,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 24,
+                "median_request_E2E_s": 3.5830231875000003,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 6144,
+                "request_GPU_j_sum": 25063.447391330057,
+                "request_wall_sum_s": 87.66924386,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.357537062,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2660.99700782306,
+                "request_wall_sum_s": 10.158731385,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 24,
+                "median_request_E2E_s": 3.5820175389999998,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 6144,
+                "request_GPU_j_sum": 25008.666041710483,
+                "request_wall_sum_s": 87.662608694,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.35637008000000003,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2651.6321370540704,
+                "request_wall_sum_s": 10.131538218,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 22,
+                "median_request_E2E_s": 6.781188303,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 12060,
+                "request_GPU_j_sum": 46723.629967952686,
+                "request_wall_sum_s": 162.180185425,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.35801819700000004,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2664.842997731959,
+                "request_wall_sum_s": 10.146780951,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 22,
+                "median_request_E2E_s": 6.7829097775000005,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 12060,
+                "request_GPU_j_sum": 46600.64984721148,
+                "request_wall_sum_s": 162.240463477,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.356743647,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2658.396340573479,
+                "request_wall_sum_s": 10.146236374,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 14,
+                "median_request_E2E_s": 13.184170607,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 21570,
+                "request_GPU_j_sum": 81623.74181554631,
+                "request_wall_sum_s": 282.268098428,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.3574930725,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2645.1297419331863,
+                "request_wall_sum_s": 10.141167763,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 14,
+                "median_request_E2E_s": 13.1800129985,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 21570,
+                "request_GPU_j_sum": 81573.55424654689,
+                "request_wall_sum_s": 282.257112127,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
+        "scope": "288 ursprüngliche Thinking-Tokenauswertungen anhand nativer IDs, gefrorener Renderings und Budget-Logs exakt reproduziert. 256/512/1024 verbessern enge Original-QA18→22/24 Beobachtungen, kosten median3,58/6,78/13,18s statt0,36s. Kein einheitlicher Coding-/Agentengewinn: R2579/13Coding beobachtet mit Referenzverlust/Längengrenze; R301256Agenten0/3 statt1/3 mit zusätzlichem Policyverstoß. Technischer 131-Zeilen-Teillauf separat ausgeschlossen.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.355546676,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2646.565822955153,
+                "request_wall_sum_s": 10.1295746,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 24,
+                "median_request_E2E_s": 3.5830231875000003,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 6144,
+                "request_GPU_j_sum": 25063.447391330057,
+                "request_wall_sum_s": 87.66924386,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.357537062,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2660.99700782306,
+                "request_wall_sum_s": 10.158731385,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 24,
+                "median_request_E2E_s": 3.5820175389999998,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 6144,
+                "request_GPU_j_sum": 25008.666041710483,
+                "request_wall_sum_s": 87.662608694,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-51782b2e185e24ae1f8d",
           "audit-d13ee9846b467f35c111"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
+        "scope": "288 ursprüngliche Thinking-Tokenauswertungen anhand nativer IDs, gefrorener Renderings und Budget-Logs exakt reproduziert. 256/512/1024 verbessern enge Original-QA18→22/24 Beobachtungen, kosten median3,58/6,78/13,18s statt0,36s. Kein einheitlicher Coding-/Agentengewinn: R2579/13Coding beobachtet mit Referenzverlust/Längengrenze; R301256Agenten0/3 statt1/3 mit zusätzlichem Policyverstoß. Technischer 131-Zeilen-Teillauf separat ausgeschlossen.",
+        "scope_status": "PARTIAL",
         "value": "on256"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.35637008000000003,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2651.6321370540704,
+                "request_wall_sum_s": 10.131538218,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 22,
+                "median_request_E2E_s": 6.781188303,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 12060,
+                "request_GPU_j_sum": 46723.629967952686,
+                "request_wall_sum_s": 162.180185425,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.35801819700000004,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2664.842997731959,
+                "request_wall_sum_s": 10.146780951,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 22,
+                "median_request_E2E_s": 6.7829097775000005,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 12060,
+                "request_GPU_j_sum": 46600.64984721148,
+                "request_wall_sum_s": 162.240463477,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-151f6a81fc64695e7bea",
           "audit-533a182c21a814f353df"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
+        "scope": "288 ursprüngliche Thinking-Tokenauswertungen anhand nativer IDs, gefrorener Renderings und Budget-Logs exakt reproduziert. 256/512/1024 verbessern enge Original-QA18→22/24 Beobachtungen, kosten median3,58/6,78/13,18s statt0,36s. Kein einheitlicher Coding-/Agentengewinn: R2579/13Coding beobachtet mit Referenzverlust/Längengrenze; R301256Agenten0/3 statt1/3 mit zusätzlichem Policyverstoß. Technischer 131-Zeilen-Teillauf separat ausgeschlossen.",
+        "scope_status": "PARTIAL",
         "value": "on512"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.356743647,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2658.396340573479,
+                "request_wall_sum_s": 10.146236374,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 14,
+                "median_request_E2E_s": 13.184170607,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 21570,
+                "request_GPU_j_sum": 81623.74181554631,
+                "request_wall_sum_s": 282.268098428,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": true,
+            "metrics": {
+              "A": {
+                "forced_cap_requests": 0,
+                "median_request_E2E_s": 0.3574930725,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 0,
+                "request_GPU_j_sum": 2645.1297419331863,
+                "request_wall_sum_s": 10.141167763,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "forced_cap_requests": 14,
+                "median_request_E2E_s": 13.1800129985,
+                "peak_device_VRAM_mib": 7356.5,
+                "reasoning_tokens_sum": 21570,
+                "request_GPU_j_sum": 81573.55424654689,
+                "request_wall_sum_s": 282.257112127,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-d0331312fd441f9ff440",
           "audit-dd4c93920d9140826672"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Feste Budgets sind auf Original-QA geprüft; keine weitere Budgetrastersuche nach Agenten-/Codingveto. Ein bedarfsabhängiges Reasoningprofil braucht vorab definierten Auswahlvertrag, gleiche Gesamtbudgets, unabhängige Aufgaben und vollständige Kosten. Kein globaler Thinking-Ausschluss und kein neuer wiederholter Original12-Test.",
+        "scope": "288 ursprüngliche Thinking-Tokenauswertungen anhand nativer IDs, gefrorener Renderings und Budget-Logs exakt reproduziert. 256/512/1024 verbessern enge Original-QA18→22/24 Beobachtungen, kosten median3,58/6,78/13,18s statt0,36s. Kein einheitlicher Coding-/Agentengewinn: R2579/13Coding beobachtet mit Referenzverlust/Längengrenze; R301256Agenten0/3 statt1/3 mit zusätzlichem Policyverstoß. Technischer 131-Zeilen-Teillauf separat ausgeschlossen.",
+        "scope_status": "PARTIAL",
         "value": "on1024"
       }
     ]
@@ -18445,7 +18727,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Original native template and successful tool scopes retained; description/schema shortening and exact policy-position R302 have separate quality vetoes.",
+    "decision": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe.",
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-10405fcc48b064c0ab8d",
@@ -18454,6 +18736,7 @@
       "audit-9d2f6a0dc3868506e98b",
       "audit-acd0d0a644cf194577a3",
       "audit-cad113d219a201e0f5e0",
+      "audit-da72ef933842810d7676",
       "audit-e7e6febdba552a313117"
     ],
     "experiment_ids": [
@@ -18469,13 +18752,14 @@
       "R282",
       "R283",
       "R288",
-      "R302"
+      "R302",
+      "R367"
     ],
     "experimentally_covered": true,
     "id": "M07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep original template. No same-description/policy permutation retries tuned on known answers.",
+    "next_action": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -18562,54 +18846,133 @@
       }
     ],
     "prerequisites": [
-      "A genuinely new template requires a documented semantic/role/tool contract and fixed candidate bytes before unseen-quality evaluation. A later system role is forbidden by this original template, not a valid blind variant."
+      "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "A genuinely new template requires a documented semantic/role/tool contract and fixed candidate bytes before unseen-quality evaluation. A later system role is forbidden by this original template, not a valid blind variant.",
-    "reopening_conditions": "A genuinely new template requires a documented semantic/role/tool contract and fixed candidate bytes before unseen-quality evaluation. A later system role is forbidden by this original template, not a valid blind variant.",
+    "remaining_scope": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+    "reopening_conditions": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Template variants",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.359108867,
+                "peak_device_VRAM_mib": 7364.5,
+                "request_GPU_j_sum": 2659.0774219084956,
+                "request_wall_sum_s": 10.236003637,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.385229671,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2764.1990088898797,
+                "request_wall_sum_s": 10.820569672,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.8187827335,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 5962.84401961931,
+                "request_wall_sum_s": 22.377965333,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.8238314185,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 6249.099401519115,
+                "request_wall_sum_s": 23.401367530999998,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "CONTROL_INCLUDED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+        "scope": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.359108867,
+                "peak_device_VRAM_mib": 7364.5,
+                "request_GPU_j_sum": 2659.0774219084956,
+                "request_wall_sum_s": 10.236003637,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.385229671,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2764.1990088898797,
+                "request_wall_sum_s": 10.820569672,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-898de70e8475928c24a9"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+        "scope": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe.",
+        "scope_status": "PARTIAL",
         "value": "typed_output"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.8187827335,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 5962.84401961931,
+                "request_wall_sum_s": 22.377965333,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.8238314185,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 6249.099401519115,
+                "request_wall_sum_s": 23.401367530999998,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-91c6c7a4d3eed88eeb33"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+        "scope": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "compact_tools"
       }
     ]
@@ -19066,21 +19429,23 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R302 M11 identische Systemregeln vor Toolkatalog: 13/15 Erfolge statt 11/15; drei neue Erfolge, aber ein vorheriger Erfolg verloren und zusätzlicher Policy-Verstoß. 173.16s statt 198.46s. Qualitäts-Frühstopp nach15/18;kein vollständiger18erScore, Original12nicht ausgeführt.",
+    "decision": "96 alte Systempolicy-Fälle mit tatsächlichem Prompt, Seed1001/T0 und getrennten Vorverarbeitungs-/Pipelinezeiten geprüft. Compact/Summary ändern Policytext; je20/24 semantisch, keine allgemeine Authority-/Semantikgleichheit. R302 exakte Positionsvariante:13/15 statt11/15, drei neue Erfolge, aber ein Referenzerfolg verloren und zusätzlicher Policyverstoß; Frühstopp, kein18er-Score.",
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-10405fcc48b064c0ab8d",
       "audit-b44b27fced0e03764515",
+      "audit-da72ef933842810d7676",
       "audit-f213ec0748e3a6615552"
     ],
     "experiment_ids": [
-      "R302"
+      "R302",
+      "R367"
     ],
     "experimentally_covered": true,
     "id": "M11",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Weitere38 Original-Restprüfungen nach Nutzen/Machbarkeit bearbeiten;verfügbare IQ3_S/IQ2_XS als isolierte Q01-Varianten screenen. Keine M11-Wiederholung ohne neue Hypothese. Neue Modelle/Kombinationen bleiben gesperrt.",
+    "next_action": "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19167,54 +19532,149 @@
       }
     ],
     "prerequisites": [
-      "Actual native template permutation and GPU task/quality/cost result."
+      "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Other prompt placements/workloads not globally rejected. Later system roles unsupported by native template. No full18 or QA12 pass.",
-    "reopening_conditions": "None identified beyond already reviewed evidence; do not automatically repeat.",
+    "remaining_scope": "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern.",
+    "reopening_conditions": "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "System Prompt Placement",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.387837763,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2852.8576508733154,
+                "request_wall_sum_s": 10.75550625,
+                "sum_pipeline_s": 12.422334924,
+                "sum_preprocessing_s": 0.081794125,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.38361785800000003,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2752.436321086772,
+                "request_wall_sum_s": 10.46609102,
+                "sum_pipeline_s": 12.029882615,
+                "sum_preprocessing_s": 0.079332235,
+                "unique_quality_tasks": 12
+              }
+            }
+          },
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.3880916995,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2859.5808309516783,
+                "request_wall_sum_s": 10.756576661,
+                "sum_pipeline_s": 12.314454772,
+                "sum_preprocessing_s": 0.080942647,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.298580312,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2408.483188562331,
+                "request_wall_sum_s": 9.210934177,
+                "sum_pipeline_s": 10.782071607,
+                "sum_preprocessing_s": 0.071581365,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PARTIALLY_IMPLEMENTED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern.",
+        "scope": "96 alte Systempolicy-Fälle mit tatsächlichem Prompt, Seed1001/T0 und getrennten Vorverarbeitungs-/Pipelinezeiten geprüft. Compact/Summary ändern Policytext; je20/24 semantisch, keine allgemeine Authority-/Semantikgleichheit. R302 exakte Positionsvariante:13/15 statt11/15, drei neue Erfolge, aber ein Referenzerfolg verloren und zusätzlicher Policyverstoß; Frühstopp, kein18er-Score.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.387837763,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2852.8576508733154,
+                "request_wall_sum_s": 10.75550625,
+                "sum_pipeline_s": 12.422334924,
+                "sum_preprocessing_s": 0.081794125,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.38361785800000003,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2752.436321086772,
+                "request_wall_sum_s": 10.46609102,
+                "sum_pipeline_s": 12.029882615,
+                "sum_preprocessing_s": 0.079332235,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-b44b27fced0e03764515"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "PARTIALLY_IMPLEMENTED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern.",
+        "scope": "96 alte Systempolicy-Fälle mit tatsächlichem Prompt, Seed1001/T0 und getrennten Vorverarbeitungs-/Pipelinezeiten geprüft. Compact/Summary ändern Policytext; je20/24 semantisch, keine allgemeine Authority-/Semantikgleichheit. R302 exakte Positionsvariante:13/15 statt11/15, drei neue Erfolge, aber ein Referenzerfolg verloren und zusätzlicher Policyverstoß; Frühstopp, kein18er-Score.",
+        "scope_status": "PARTIAL",
         "value": "compact"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "historical_top_level_change_exercised": false,
+            "metrics": {
+              "A": {
+                "median_request_E2E_s": 0.3880916995,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2859.5808309516783,
+                "request_wall_sum_s": 10.756576661,
+                "sum_pipeline_s": 12.314454772,
+                "sum_preprocessing_s": 0.080942647,
+                "unique_quality_tasks": 12
+              },
+              "B": {
+                "median_request_E2E_s": 0.298580312,
+                "peak_device_VRAM_mib": 7356.5,
+                "request_GPU_j_sum": 2408.483188562331,
+                "request_wall_sum_s": 9.210934177,
+                "sum_pipeline_s": 10.782071607,
+                "sum_preprocessing_s": 0.071581365,
+                "unique_quality_tasks": 12
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-f213ec0748e3a6615552"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "PARTIALLY_IMPLEMENTED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine neue allgemein definierte Policyanordnung/-Reduktion mit erhaltener Rolle, Provenienz und Autorität unabhängig bewerten. Kürzerer Text ist andere Eingabearbeit, kein CUDA-Gewinn. Keine bekannte verlorene Aufgabe als Prompttuningziel verwenden; Originalsystemtext nicht produktiv ändern.",
+        "scope": "96 alte Systempolicy-Fälle mit tatsächlichem Prompt, Seed1001/T0 und getrennten Vorverarbeitungs-/Pipelinezeiten geprüft. Compact/Summary ändern Policytext; je20/24 semantisch, keine allgemeine Authority-/Semantikgleichheit. R302 exakte Positionsvariante:13/15 statt11/15, drei neue Erfolge, aber ein Referenzerfolg verloren und zusätzlicher Policyverstoß; Frühstopp, kein18er-Score.",
+        "scope_status": "PARTIAL",
         "value": "summary"
       }
     ]
