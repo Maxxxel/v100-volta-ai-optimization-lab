@@ -11,6 +11,9 @@ class PublicationSafety(unittest.TestCase):
  def test_projection_cannot_export_conversations(self):
   raw={'metrics':{'solved':13,'tasks':18,'messages':[{'content':'private conversation'}],'prompt_text':'private text','per_task':{'private_entity':{}}},'response':'private output','authorization':'secret'}
   out=e.metrics(raw);self.assertEqual(out,{'metrics':{'solved':13,'tasks':18}})
+ def test_speculation_aggregates_do_not_export_token_or_case_details(self):
+  raw={'memory_saved_vs_R244_device_mib':1834,'actual_ngram_draft':{'draft_tokens':288,'accepted_tokens':288,'acceptance_percent':100,'output_token_ids':[1,2,3],'prompt':'private text'},'successful_task_wall_s':125.5,'task_metrics':[{'id':'private-case','response':'private'}]}
+  self.assertEqual(e.metrics(raw),{'memory_saved_vs_R244_device_mib':1834,'actual_ngram_draft':{'draft_tokens':288,'accepted_tokens':288,'acceptance_percent':100},'successful_task_wall_s':125.5})
  def test_unknown_files_and_weights_rejected(self):
   for f in ['.env','weights.gguf','data/unreviewed.json','docs/private.log','scripts/extra.py']:
    self.assertFalse(v.allowed(pathlib.Path(f)))

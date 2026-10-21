@@ -16,6 +16,7 @@ Original file: `AUDIT.json`; 920 bytes. The original is retained privately and i
 ```json
 {
   "actual_generation_requests": 4,
-  "model_starts": 1
+  "model_starts": 1,
+  "observed_tasks": 0
 }
 ```

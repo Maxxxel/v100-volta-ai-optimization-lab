@@ -22,7 +22,11 @@ Original file: `AUDIT.json`; 7723 bytes. The original is retained privately and 
 
 ```json
 {
+  "full18_score_claimed": true,
+  "gpu_energy_j_approx": 44182.21261186184,
+  "model_requests": 90,
   "model_starts": 1,
+  "observed_tasks": 18,
   "original12_nonregression": true,
   "peak_device_vram_mib": 9000.5,
   "solved": 13

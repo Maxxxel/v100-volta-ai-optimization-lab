@@ -96636,6 +96636,7 @@
       "actual_GPU_execution": true,
       "actual_generation_requests": 28,
       "context_tokens": 32768,
+      "gpu_energy_j_approx": 20274.567872957683,
       "gpu_j_per_success": 2252.7297636619646,
       "model_starts": 1,
       "original12": {
@@ -96681,6 +96682,7 @@
       "actual_GPU_execution": true,
       "actual_generation_requests": 25,
       "context_tokens": 16384,
+      "gpu_energy_j_approx": 15214.717678743455,
       "gpu_j_per_success": 2173.5310969633506,
       "model_starts": 1,
       "original12": {
@@ -131321,6 +131323,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 31,
+      "gpu_energy_j_approx": 14227.650986767709,
       "model_starts": 1,
       "original12": {
         "complete": false,
@@ -131351,7 +131354,9 @@
     }
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "full18_score_claimed": false
+    },
     "excerpt_is_not_original": true,
     "id": "audit-a3c15b138927be6aeafe",
     "original_bytes": 1068,
@@ -131428,6 +131433,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 106,
+      "gpu_energy_j_approx": 60803.33352175842,
       "gpu_j_per_success": 4677.179501673724,
       "model_starts": 1,
       "original12": {
@@ -131581,6 +131587,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 16.878811563558017,
       "model_starts": 0,
       "peak_device_vram_mib": 239.875
     },
@@ -131630,6 +131637,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 17.86341633084,
       "model_starts": 0,
       "peak_device_vram_mib": 239.875
     },
@@ -134869,6 +134877,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 31,
+      "gpu_energy_j_approx": 18814.862694033007,
       "model_starts": 1,
       "peak_device_vram_mib": 7356.5,
       "solved": 0,
@@ -135996,6 +136005,7 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 20,
+      "gpu_energy_j_approx": 7052.593639719805,
       "gpu_j_per_success": 391.8107577622114,
       "model_starts": 1,
       "peak_device_vram_mib": 7356.5,
@@ -140447,6 +140457,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 71,
+      "gpu_energy_j_approx": 41730.28669866299,
       "gpu_j_per_success": 5961.469528380427,
       "model_starts": 1,
       "original12": {
@@ -141680,6 +141691,7 @@
   },
   {
     "aggregate_metrics": {
+      "gpu_energy_j_approx": 44373.95941006124,
       "model_starts": 1,
       "peak_device_vram_mib": 7356.5,
       "wall_s": 161.77206435
@@ -141743,6 +141755,7 @@
   },
   {
     "aggregate_metrics": {
+      "gpu_energy_j_approx": 27257.837770621012,
       "model_starts": 1,
       "peak_device_vram_mib": 14106.5,
       "wall_s": 103.352255875
@@ -141769,6 +141782,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 88,
+      "gpu_energy_j_approx": 46847.32492562699,
       "gpu_j_per_success": 3603.640378894384,
       "model_starts": 1,
       "original12": {
@@ -144524,6 +144538,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 12,
+      "gpu_energy_j_approx": 1276.0200289797049,
       "model_starts": 1,
       "peak_device_vram_mib": 7356.5,
       "quality": {
@@ -145975,6 +145990,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 45118.114020933746,
       "gpu_j_per_success": 524.6292328015552,
       "original12": {
         "format": 8,
@@ -147761,6 +147777,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 31,
+      "gpu_energy_j_approx": 13030.103869895234,
       "model_starts": 1,
       "original12": {
         "complete": false,
@@ -153066,6 +153083,13 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 28,
+      "actual_ngram_draft": {
+        "CUDA_unchanged": true,
+        "acceptance_percent": 100.0,
+        "accepted_tokens": 345,
+        "draft_tokens": 345,
+        "extra_model_weights": false
+      },
       "model_starts": 1,
       "native_metrics": {
         "decode": {
@@ -153153,7 +153177,17 @@
   },
   {
     "aggregate_metrics": {
+      "actual_ngram_draft": {
+        "acceptance_percent": 28.146485197137647,
+        "accepted_tokens": 2006,
+        "draft_tokens": 7127
+      },
+      "actual_ngram_proposals_observed": true,
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 57675.54298136511,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12_nonregression": true,
       "peak_device_vram_mib": 9190.5,
       "solved": 13
@@ -153180,8 +153214,10 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 106,
+      "gpu_energy_j_approx": 61688.62257165025,
       "gpu_j_per_success": 4745.278659357712,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7356.5,
       "solved": 13
     },
@@ -155206,7 +155242,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 44182.21261186184,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12_nonregression": true,
       "peak_device_vram_mib": 9000.5,
       "solved": 13
@@ -155348,7 +155388,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 43833.548386303,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7966.5,
       "solved": 13
     },
@@ -155372,6 +155416,7 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0,
       "model_starts": 0
     },
     "excerpt_is_not_original": true,
@@ -155388,8 +155433,12 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 44339.97479462408,
       "gpu_j_per_success": 3410.7672918941603,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 9000.5,
       "solved": 13
     },
@@ -155412,7 +155461,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 44621.60182224327,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12": {
         "original12_generated": 12
       },
@@ -155482,6 +155535,7 @@
   },
   {
     "aggregate_metrics": {
+      "gpu_energy_j_approx": 27670.209095165686,
       "model_starts": 1,
       "peak_device_vram_mib": 7966.5,
       "wall_s": 105.587588742
@@ -155506,7 +155560,10 @@
   },
   {
     "aggregate_metrics": {
+      "gpu_energy_j_approx": 43260.75996540725,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7966.5,
       "solved": 13
     },
@@ -155645,7 +155702,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": false,
+      "gpu_energy_j_approx": 11330.304903495711,
+      "model_requests": 27,
       "model_starts": 1,
+      "observed_tasks": 3,
       "peak_device_vram_mib": 9100.5,
       "solved": 0
     },
@@ -155785,7 +155846,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 43617.32977298712,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 8704.5,
       "solved": 13
     },
@@ -155809,7 +155874,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 44168.006792410466,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 8726.5,
       "solved": 13
     },
@@ -155834,6 +155903,14 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 28,
+      "actual_ngram_draft": {
+        "CUDA_unchanged": true,
+        "acceptance_percent": 100.0,
+        "accepted_tokens": 288,
+        "draft_tokens": 288,
+        "extra_model_weights": false
+      },
+      "memory_saved_vs_R244_device_mib": 1834.0,
       "model_starts": 1,
       "native_metrics": {
         "decode": {
@@ -155899,7 +155976,8 @@
       },
       "original12_nonregression": true,
       "peak_device_vram_mib": 7356.5,
-      "peak_process_vram_mib": 7114.0
+      "peak_process_vram_mib": 7114.0,
+      "timing_confirmation_needed": true
     },
     "excerpt_is_not_original": true,
     "id": "audit-32922590be12d0046a69",
@@ -155926,6 +156004,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "memory_saved_vs_R244_device_mib": 1834.0,
       "native_metrics": {
         "decode": {
           "A0_E2E_change_percent": -61.80540420278828,
@@ -156058,6 +156137,78 @@
       "limits": [
         "B-only native check; archived max64 comparator, not a fresh drift control.",
         "No universal lossless/speculative-state claim, no production changes, no champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_ngram_draft": {
+        "acceptance_percent": 39.0625,
+        "accepted_tokens": 575,
+        "draft_tokens": 1472
+      },
+      "actual_ngram_proposals_observed": true,
+      "fixed_parameters": {
+        "n_match": 24,
+        "n_max": 32,
+        "n_min": 48
+      },
+      "full18_score_claimed": false,
+      "gpu_energy_j_approx": 12192.076796344596,
+      "memory_saved_vs_R245_device_mib": 1834.0,
+      "model_requests": 27,
+      "model_starts": 1,
+      "observed_tasks": 3,
+      "original12_nonregression": false,
+      "peak_device_vram_mib": 7356.5,
+      "peak_process_vram_mib": 7114.0,
+      "solved": 0,
+      "successful_task_wall_s": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f69641b871929f084f09",
+    "original_bytes": 4075,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f69641b871929f084f09fd9b84352b046c6710f7fb8f43ebcd0cf8ad1a2fc0df",
+    "statements": {
+      "decision": "MAX32_AGENT_SCREEN_NEGATIVE_OR_EARLY_STOP",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Only max64 to32 changed, min48/match24 fixed; original Q6/runtime/300W. This is not the old min1 synthetic profile.",
+        "18frozendevelopmentagentcases,no newholdout; no targetgreedylosslessclaim",
+        "Allruntime andCUDAbytes unchanged;actualproposals/acceptance captured,no proof ofuniversallosslesssampler/GDNstate",
+        "Original12freshonlyifagentfunnelcomplete, negativeearlystopsdonotclaim12coverage",
+        "B-onlyvsstoredmatchingnoMTPA0; Cgraftcachecomparisonoverallonly. NativeR244rangefailurenotoverridden;no actualtaskwinner withoutcurrentcontrol andindependent qualification",
+        "Memory saving compared to stored max64, not to no-spec A0. Only full18 successful-task matched cost supports that comparison. Fresh controls and independent qualification remain necessary."
+      ],
+      "measurement_type": "GPU_NGRAM_MOD_MAX32_FIXED_MIN48_REAL_AGENT_SCREEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "full18_score_claimed": false,
+      "memory_saved_vs_R245_device_mib": 1834.0,
+      "observed_tasks": 3,
+      "peak_device_vram_mib": 7356.5,
+      "peak_process_vram_mib": 7114.0,
+      "solved": 0,
+      "successful_task_wall_s": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f57204a6350ce289d39f",
+    "original_bytes": 2838,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f57204a6350ce289d39f2bf7d6ed8096f4ab50728a345bdca0bd502974721108",
+    "statements": {
+      "limits": [
+        "Archived comparator, not a fresh drift control; no token/s-only or overall champion claim.",
+        "Partial early stop never claims full18 score or unexecuted original12.",
+        "All tasks simulated; no production tools or deployment."
       ]
     }
   },
@@ -157339,7 +157490,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 41666.518826992105,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 14106.5,
       "solved": 13
     },
@@ -157363,7 +157518,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 44199.32747975802,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7966.5,
       "solved": 13
     },
@@ -157431,6 +157590,7 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 270,
       "model_starts": 1,
       "peak_device_vram_mib": 14106.5
     },
@@ -157455,7 +157615,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 43947.655073198854,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7966.5,
       "solved": 13
     },
@@ -158928,7 +159092,9 @@
     "statements": {}
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
     "excerpt_is_not_original": true,
     "id": "audit-cc8a62122156b0dd0981",
     "original_bytes": 829,
@@ -159001,6 +159167,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 44529.72262339678,
       "gpu_j_per_success": 523.879089687021,
       "original12": {
         "format": 8,
@@ -159151,7 +159318,9 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 31,
+      "gpu_energy_j_approx": 13880.690239834055,
       "model_starts": 1,
+      "observed_tasks": 3,
       "original12_nonregression": false,
       "peak_device_vram_mib": 7678.5,
       "solved": 0
@@ -160204,7 +160373,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": false,
+      "gpu_energy_j_approx": 23976.98388705848,
+      "model_requests": 45,
       "model_starts": 1,
+      "observed_tasks": 5,
       "original12_nonregression": false,
       "peak_device_vram_mib": 7356.5,
       "solved": 3
@@ -160277,6 +160450,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 35,
+      "gpu_energy_j_approx": 17838.34180144297,
       "model_starts": 1,
       "original12": {
         "complete": false,
@@ -160310,6 +160484,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 29,
+      "gpu_energy_j_approx": 20774.551871305182,
       "model_starts": 1,
       "original12": {
         "complete": false,
@@ -160342,6 +160517,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 20774.551871305182,
       "wall_s": 77.504046832
     },
     "excerpt_is_not_original": true,
@@ -160372,6 +160548,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 107,
+      "gpu_energy_j_approx": 62589.0546411766,
       "gpu_j_per_success": 4814.542664705892,
       "model_starts": 1,
       "original12": {
@@ -164606,7 +164783,9 @@
     }
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "full18_score_claimed": false
+    },
     "excerpt_is_not_original": true,
     "id": "audit-b8f8679e9ce0cb9301a6",
     "original_bytes": 911,
@@ -165640,8 +165819,12 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 34277.32937972697,
       "gpu_j_per_success": 2636.7176445943824,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12": {
         "code": {
           "format_pass": true,
@@ -165723,8 +165906,12 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 36454.653202649606,
       "gpu_j_per_success": 2804.204092511508,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12": {
         "code": {
           "format_pass": true,
@@ -165806,6 +165993,7 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 270,
       "model_starts": 1,
       "peak_device_vram_mib": 7966.5
     },
@@ -165830,7 +166018,11 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 44247.64540955461,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7966.5,
       "solved": 13
     },
@@ -165855,6 +166047,7 @@
   },
   {
     "aggregate_metrics": {
+      "gpu_energy_j_approx": 32539.26549423958,
       "gpu_j_per_success": 374.01454591079977,
       "model_starts": 1,
       "peak_device_vram_mib": 5956.5,
@@ -165882,8 +166075,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 102,
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 56164.790740286684,
       "gpu_j_per_success": 7020.5988425358355,
+      "model_requests": 98,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 5956.5,
       "solved": 8
     },
@@ -165941,7 +166138,8 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 4,
-      "model_starts": 1
+      "model_starts": 1,
+      "observed_tasks": 0
     },
     "excerpt_is_not_original": true,
     "id": "audit-58f75d7da6e003e291af",
@@ -166074,8 +166272,12 @@
   },
   {
     "aggregate_metrics": {
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 34715.09316966557,
       "gpu_j_per_success": 2670.3917822819667,
+      "model_requests": 90,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12": {
         "code": {
           "format_pass": true,
@@ -166158,8 +166360,10 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 106,
+      "gpu_energy_j_approx": 36500.486218512146,
       "gpu_j_per_success": 2807.729709116319,
       "model_starts": 1,
+      "observed_tasks": 18,
       "original12": {
         "code": {
           "format_pass": true,
@@ -166240,8 +166444,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 117,
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 54846.30806567538,
       "gpu_j_per_success": 3917.593433262527,
+      "model_requests": 101,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 7356.5,
       "solved": 14
     },
@@ -166445,8 +166653,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 97,
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 130284.60460233485,
       "gpu_j_per_success": 9306.04318588106,
+      "model_requests": 93,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 12454.5,
       "solved": 14
     },
@@ -166472,8 +166684,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 97,
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 105913.79799421734,
       "gpu_j_per_success": 7565.271285301239,
+      "model_requests": 93,
       "model_starts": 1,
+      "observed_tasks": 18,
       "peak_device_vram_mib": 13600.5,
       "solved": 14
     },
@@ -167012,6 +167228,7 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 24,
+      "gpu_energy_j_approx": 25231.958564739223,
       "gpu_j_per_success": 1327.9978191968012,
       "model_starts": 1,
       "peak_device_vram_mib": 8156.5,
@@ -167040,6 +167257,7 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 84,
+      "gpu_energy_j_approx": 134420.19661745202,
       "gpu_j_per_success": 1893.242205879606,
       "model_starts": 1,
       "peak_device_vram_mib": 8158.5,
@@ -167093,6 +167311,7 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 24,
+      "gpu_energy_j_approx": 12283.225892041572,
       "gpu_j_per_success": 722.5426995318571,
       "model_starts": 1,
       "peak_device_vram_mib": 8158.5,
@@ -167122,7 +167341,9 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 4,
-      "model_starts": 1
+      "full18_score_claimed": false,
+      "model_starts": 1,
+      "observed_tasks": 0
     },
     "excerpt_is_not_original": true,
     "id": "audit-e83673e6a835eafbf11b",
@@ -167138,8 +167359,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 90,
+      "full18_score_claimed": false,
+      "gpu_energy_j_approx": 149761.70790759815,
       "gpu_j_per_success": 9984.113860506543,
+      "model_requests": 86,
       "model_starts": 1,
+      "observed_tasks": 16,
       "peak_device_vram_mib": 8158.5,
       "solved": 15
     },
@@ -167165,8 +167390,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 10,
+      "full18_score_claimed": false,
+      "gpu_energy_j_approx": 11647.966075068067,
       "gpu_j_per_success": 5823.983037534033,
+      "model_requests": 6,
       "model_starts": 1,
+      "observed_tasks": 2,
       "peak_device_vram_mib": 8156.5,
       "solved": 2
     },
@@ -167235,8 +167464,12 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 38,
+      "full18_score_claimed": false,
+      "gpu_energy_j_approx": 13304.631223238124,
       "gpu_j_per_success": 6652.315611619062,
+      "model_requests": 34,
       "model_starts": 1,
+      "observed_tasks": 4,
       "peak_device_vram_mib": 9186.5,
       "solved": 2
     },

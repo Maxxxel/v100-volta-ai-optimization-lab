@@ -73,7 +73,9 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-f15d4e3c65d3f340c4d2.md)
 - [Original audit hash and public excerpt](../audits/audit-f28dcaeb906ada4b945b.md)
 - [Original audit hash and public excerpt](../audits/audit-f342d89e541599ff11aa.md)
+- [Original audit hash and public excerpt](../audits/audit-f57204a6350ce289d39f.md)
 - [Original audit hash and public excerpt](../audits/audit-f681d1b3ad53e12ab335.md)
+- [Original audit hash and public excerpt](../audits/audit-f69641b871929f084f09.md)
 - [Original audit hash and public excerpt](../audits/audit-f6ede40a69a9cd5a74b3.md)
 - [Original audit hash and public excerpt](../audits/audit-f966ff96cd7e62ab7c38.md)
 - [Original audit hash and public excerpt](../audits/audit-faa39053df3ce18fb628.md)
@@ -382,13 +384,28 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
     ],
     "peak_device_vram_mib": 7356.5,
     "peak_process_vram_mib": 7114.0
+  },
+  {
+    "GPU_j": 12192.076796344596,
+    "actual_ngram_draft": {
+      "acceptance_percent": 39.0625,
+      "accepted_tokens": 575,
+      "draft_tokens": 1472
+    },
+    "additional_policy_losses": 1,
+    "full18_score_claimed": false,
+    "memory_saved_vs_R245_device_mib": 1834,
+    "observed_tasks": 3,
+    "peak_device_vram_mib": 7356.5,
+    "prior_success_losses": 1,
+    "solved": 0
   }
 ]
 ```
 
 ## Decision and remaining research
 
-VRAM, NVML-GPU-Energie, Akzeptanz und Checkpoints gemessen. Keine gemessenen HBM-Bytes/Token, Transaktionszähler oder HBM-interne elektrische Energie; kein separater additiver HBM-Speedup. R370 max32 spart1834MiB GPU-Speicher, ohne gemessene physische HBM-Transaktionen.
+VRAM, NVML-GPU-Energie, Akzeptanz und Checkpoints gemessen. Keine gemessenen HBM-Bytes/Token, Transaktionszähler oder HBM-interne elektrische Energie; kein separater additiver HBM-Speedup. R370 max32 spart1834MiB GPU-Speicher, ohne gemessene physische HBM-Transaktionen. R371 bestätigt1834MiB Speicherersparnis, aber Agenten-Qualitätsverlust.
 
 **Remaining scope:** A new traffic optimization needs actual reused/avoided tensor reads plus equivalent verification and rollback; hardware-counter metrics must be eligible on SM70.
 
@@ -400,4 +417,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R159](../experiments/R159.md), [R171](../experiments/R171.md), [R172](../experiments/R172.md), [R173](../experiments/R173.md), [R174](../experiments/R174.md), [R175](../experiments/R175.md), [R176](../experiments/R176.md), [R177](../experiments/R177.md), [R178](../experiments/R178.md), [R179](../experiments/R179.md), [R180](../experiments/R180.md), [R181](../experiments/R181.md), [R182](../experiments/R182.md), [R183](../experiments/R183.md), [R184](../experiments/R184.md), [R185](../experiments/R185.md), [R186](../experiments/R186.md), [R200](../experiments/R200.md), [R201](../experiments/R201.md), [R202](../experiments/R202.md), [R203](../experiments/R203.md), [R204](../experiments/R204.md), [R205](../experiments/R205.md), [R206](../experiments/R206.md), [R207](../experiments/R207.md), [R208](../experiments/R208.md), [R209](../experiments/R209.md), [R210](../experiments/R210.md), [R211](../experiments/R211.md), [R212](../experiments/R212.md), [R213](../experiments/R213.md), [R214](../experiments/R214.md), [R215](../experiments/R215.md), [R216](../experiments/R216.md), [R217](../experiments/R217.md), [R218](../experiments/R218.md), [R219](../experiments/R219.md), [R220](../experiments/R220.md), [R235](../experiments/R235.md), [R236](../experiments/R236.md), [R244](../experiments/R244.md), [R245](../experiments/R245.md), [R246](../experiments/R246.md), [R369](../experiments/R369.md), [R370](../experiments/R370.md)
+[R159](../experiments/R159.md), [R171](../experiments/R171.md), [R172](../experiments/R172.md), [R173](../experiments/R173.md), [R174](../experiments/R174.md), [R175](../experiments/R175.md), [R176](../experiments/R176.md), [R177](../experiments/R177.md), [R178](../experiments/R178.md), [R179](../experiments/R179.md), [R180](../experiments/R180.md), [R181](../experiments/R181.md), [R182](../experiments/R182.md), [R183](../experiments/R183.md), [R184](../experiments/R184.md), [R185](../experiments/R185.md), [R186](../experiments/R186.md), [R200](../experiments/R200.md), [R201](../experiments/R201.md), [R202](../experiments/R202.md), [R203](../experiments/R203.md), [R204](../experiments/R204.md), [R205](../experiments/R205.md), [R206](../experiments/R206.md), [R207](../experiments/R207.md), [R208](../experiments/R208.md), [R209](../experiments/R209.md), [R210](../experiments/R210.md), [R211](../experiments/R211.md), [R212](../experiments/R212.md), [R213](../experiments/R213.md), [R214](../experiments/R214.md), [R215](../experiments/R215.md), [R216](../experiments/R216.md), [R217](../experiments/R217.md), [R218](../experiments/R218.md), [R219](../experiments/R219.md), [R220](../experiments/R220.md), [R235](../experiments/R235.md), [R236](../experiments/R236.md), [R244](../experiments/R244.md), [R245](../experiments/R245.md), [R246](../experiments/R246.md), [R369](../experiments/R369.md), [R370](../experiments/R370.md), [R371](../experiments/R371.md)

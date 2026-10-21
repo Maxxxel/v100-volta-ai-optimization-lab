@@ -16,6 +16,8 @@ Original file: `AUDIT.json`; 1254 bytes. The original is retained privately and 
 {
   "actual_GPU_execution": true,
   "actual_generation_requests": 4,
-  "model_starts": 1
+  "full18_score_claimed": false,
+  "model_starts": 1,
+  "observed_tasks": 0
 }
 ```

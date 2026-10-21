@@ -10,4 +10,8 @@ Original file: `research-metadata.json`; 1068 bytes. The original is retained pr
 
 ## Selected aggregate measurements
 
-NOT MEASURED / not included in the approved public schema.
+```json
+{
+  "full18_score_claimed": false
+}
+```

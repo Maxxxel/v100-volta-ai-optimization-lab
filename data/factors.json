@@ -21135,7 +21135,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Nativer B-Screen: 1834MiB weniger VRAM gegen max64, 12/12 Antworten und native Token-IDs unverändert, 288/288 Draft-Tokens akzeptiert. Keine Agenten-/Codingqualifikation; Decode-Streuung4,94% erfordert Bestätigung.",
+    "decision": "Max32 bei Minimum48/Match24: 1834MiB weniger VRAM, aber nach3Agentenfällen gestoppt: ein vorheriger Erfolg und Policy-Gate verloren.0/3 beobachtet, kein18er-Gesamtscore; Original12 im Agentenlauf deshalb nicht erneut ausgeführt. Nativer R370-Befund erhalten, Agentenvariante verworfen.",
     "domain": "speculative",
     "evidence_ids": [
       "audit-005e431f9699e2f9139e",
@@ -21156,6 +21156,8 @@
       "audit-dffb404b82747d32d666",
       "audit-f15d4e3c65d3f340c4d2",
       "audit-f342d89e541599ff11aa",
+      "audit-f57204a6350ce289d39f",
+      "audit-f69641b871929f084f09",
       "audit-f6ede40a69a9cd5a74b3",
       "audit-faa39053df3ce18fb628",
       "audit-fb076ec1a01a891d9edb"
@@ -21178,13 +21180,14 @@
       "R235",
       "R236",
       "R369",
-      "R370"
+      "R370",
+      "R371"
     ],
     "experimentally_covered": true,
     "id": "S02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R371: max32 im eingefrorenen18-Agenten-Screen; nur Maximum64→32, Minimum48/Match24, Engine/Original-Q6/300W unverändert. Bei Verlust bisher erfolgreicher Aufgabe/Policy sofort stoppen; Original12 erst nach bestandenem Agententeil. Keine Championfreigabe ohne unabhängige Bestätigung.",
+    "next_action": "Keine Wiederholung von max32/min48 nach belegtem Erfolg-/Policyverlust. Neuer Controller nur bei anderem unabhängig begründetem Kosten-/Akzeptanzmodell und unveränderter Zielverifikation.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -21294,11 +21297,11 @@
       }
     ],
     "prerequisites": [
-      "R370 native quality/draft/VRAM screen; only survivor gets task-level qualification."
+      "Keine Wiederholung von max32/min48 nach belegtem Erfolg-/Policyverlust. Neuer Controller nur bei anderem unabhängig begründetem Kosten-/Akzeptanzmodell und unveränderter Zielverifikation."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "R371: max32 im eingefrorenen18-Agenten-Screen; nur Maximum64→32, Minimum48/Match24, Engine/Original-Q6/300W unverändert. Bei Verlust bisher erfolgreicher Aufgabe/Policy sofort stoppen; Original12 erst nach bestandenem Agententeil. Keine Championfreigabe ohne unabhängige Bestätigung.",
+    "remaining_scope": "Keine Wiederholung von max32/min48 nach belegtem Erfolg-/Policyverlust. Neuer Controller nur bei anderem unabhängig begründetem Kosten-/Akzeptanzmodell und unveränderter Zielverifikation.",
     "reopening_conditions": "A new controller needs an independently motivated cost/acceptance predictor, unchanged verification and state rules; no fitting the controller to known18case answers or outcomes.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -21561,6 +21564,21 @@
             ],
             "peak_device_vram_mib": 7356.5,
             "peak_process_vram_mib": 7114.0
+          },
+          {
+            "GPU_j": 12192.076796344596,
+            "actual_ngram_draft": {
+              "acceptance_percent": 39.0625,
+              "accepted_tokens": 575,
+              "draft_tokens": 1472
+            },
+            "additional_policy_losses": 1,
+            "full18_score_claimed": false,
+            "memory_saved_vs_R245_device_mib": 1834,
+            "observed_tasks": 3,
+            "peak_device_vram_mib": 7356.5,
+            "prior_success_losses": 1,
+            "solved": 0
           }
         ],
         "evidence_ids": [
@@ -21570,8 +21588,8 @@
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": "R371: max32 im eingefrorenen18-Agenten-Screen; nur Maximum64→32, Minimum48/Match24, Engine/Original-Q6/300W unverändert. Bei Verlust bisher erfolgreicher Aufgabe/Policy sofort stoppen; Original12 erst nach bestandenem Agententeil. Keine Championfreigabe ohne unabhängige Bestätigung.",
-        "scope": "Alte isolierte Maxima8/16/32 gegen64 bei Minimum1/Match24 vorhanden; Maximum32 spart1834MiB Prozess-/Geräte-VRAM. Reale spätere Läufe nutzen Minimum48. Neue Einzelfrage: nur Maximum32 im Standardminimum48-Profil; keine Übernahme synthetischer Qualität oder Lossless-Behauptung. Nativer B-Screen: 1834MiB weniger VRAM gegen max64, 12/12 Antworten und native Token-IDs unverändert, 288/288 Draft-Tokens akzeptiert. Keine Agenten-/Codingqualifikation; Decode-Streuung4,94% erfordert Bestätigung.",
+        "remaining_requirement": "No repeat; changed independent verification/controller hypothesis required.",
+        "scope": "Alte isolierte Maxima8/16/32 gegen64 bei Minimum1/Match24 vorhanden; Maximum32 spart1834MiB Prozess-/Geräte-VRAM. Reale spätere Läufe nutzen Minimum48. Neue Einzelfrage: nur Maximum32 im Standardminimum48-Profil; keine Übernahme synthetischer Qualität oder Lossless-Behauptung. Nativer B-Screen: 1834MiB weniger VRAM gegen max64, 12/12 Antworten und native Token-IDs unverändert, 288/288 Draft-Tokens akzeptiert. Keine Agenten-/Codingqualifikation; Decode-Streuung4,94% erfordert Bestätigung. Max32 bei Minimum48/Match24: 1834MiB weniger VRAM, aber nach3Agentenfällen gestoppt: ein vorheriger Erfolg und Policy-Gate verloren.0/3 beobachtet, kein18er-Gesamtscore; Original12 im Agentenlauf deshalb nicht erneut ausgeführt. Nativer R370-Befund erhalten, Agentenvariante verworfen.",
         "scope_status": "PARTIAL",
         "value": "32"
       },
@@ -28385,7 +28403,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "VRAM, NVML-GPU-Energie, Akzeptanz und Checkpoints gemessen. Keine gemessenen HBM-Bytes/Token, Transaktionszähler oder HBM-interne elektrische Energie; kein separater additiver HBM-Speedup. R370 max32 spart1834MiB GPU-Speicher, ohne gemessene physische HBM-Transaktionen.",
+    "decision": "VRAM, NVML-GPU-Energie, Akzeptanz und Checkpoints gemessen. Keine gemessenen HBM-Bytes/Token, Transaktionszähler oder HBM-interne elektrische Energie; kein separater additiver HBM-Speedup. R370 max32 spart1834MiB GPU-Speicher, ohne gemessene physische HBM-Transaktionen. R371 bestätigt1834MiB Speicherersparnis, aber Agenten-Qualitätsverlust.",
     "domain": "hbm_memory",
     "evidence_ids": [
       "audit-005e431f9699e2f9139e",
@@ -28439,7 +28457,9 @@
       "audit-f15d4e3c65d3f340c4d2",
       "audit-f28dcaeb906ada4b945b",
       "audit-f342d89e541599ff11aa",
+      "audit-f57204a6350ce289d39f",
       "audit-f681d1b3ad53e12ab335",
+      "audit-f69641b871929f084f09",
       "audit-f6ede40a69a9cd5a74b3",
       "audit-f966ff96cd7e62ab7c38",
       "audit-faa39053df3ce18fb628",
@@ -28490,7 +28510,8 @@
       "R245",
       "R246",
       "R369",
-      "R370"
+      "R370",
+      "R371"
     ],
     "experimentally_covered": true,
     "id": "HBM17",
@@ -28809,6 +28830,21 @@
             ],
             "peak_device_vram_mib": 7356.5,
             "peak_process_vram_mib": 7114.0
+          },
+          {
+            "GPU_j": 12192.076796344596,
+            "actual_ngram_draft": {
+              "acceptance_percent": 39.0625,
+              "accepted_tokens": 575,
+              "draft_tokens": 1472
+            },
+            "additional_policy_losses": 1,
+            "full18_score_claimed": false,
+            "memory_saved_vs_R245_device_mib": 1834,
+            "observed_tasks": 3,
+            "peak_device_vram_mib": 7356.5,
+            "prior_success_losses": 1,
+            "solved": 0
           }
         ],
         "evidence_ids": [],
@@ -28816,8 +28852,8 @@
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": "R371: max32 im eingefrorenen18-Agenten-Screen; nur Maximum64→32, Minimum48/Match24, Engine/Original-Q6/300W unverändert. Bei Verlust bisher erfolgreicher Aufgabe/Policy sofort stoppen; Original12 erst nach bestandenem Agententeil. Keine Championfreigabe ohne unabhängige Bestätigung.",
-        "scope": "VRAM, NVML-GPU-Energie, Akzeptanz und Checkpoints gemessen. Keine gemessenen HBM-Bytes/Token, Transaktionszähler oder HBM-interne elektrische Energie; kein separater additiver HBM-Speedup. Nativer B-Screen: 1834MiB weniger VRAM gegen max64, 12/12 Antworten und native Token-IDs unverändert, 288/288 Draft-Tokens akzeptiert. Keine Agenten-/Codingqualifikation; Decode-Streuung4,94% erfordert Bestätigung.",
+        "remaining_requirement": "No repeat; changed independent verification/controller hypothesis required.",
+        "scope": "VRAM, NVML-GPU-Energie, Akzeptanz und Checkpoints gemessen. Keine gemessenen HBM-Bytes/Token, Transaktionszähler oder HBM-interne elektrische Energie; kein separater additiver HBM-Speedup. Nativer B-Screen: 1834MiB weniger VRAM gegen max64, 12/12 Antworten und native Token-IDs unverändert, 288/288 Draft-Tokens akzeptiert. Keine Agenten-/Codingqualifikation; Decode-Streuung4,94% erfordert Bestätigung. Max32 bei Minimum48/Match24: 1834MiB weniger VRAM, aber nach3Agentenfällen gestoppt: ein vorheriger Erfolg und Policy-Gate verloren.0/3 beobachtet, kein18er-Gesamtscore; Original12 im Agentenlauf deshalb nicht erneut ausgeführt. Nativer R370-Befund erhalten, Agentenvariante verworfen.",
         "scope_status": "PARTIAL",
         "value": "ngram_mod"
       }

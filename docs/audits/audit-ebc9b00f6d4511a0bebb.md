@@ -15,6 +15,7 @@ Original file: `research-metadata.json`; 1048 bytes. The original is retained pr
 ```json
 {
   "actual_GPU_execution": true,
+  "gpu_energy_j_approx": 20774.551871305182,
   "wall_s": 77.504046832
 }
 ```

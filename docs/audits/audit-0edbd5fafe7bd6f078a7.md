@@ -22,6 +22,7 @@ Original file: `AUDIT.json`; 11417 bytes. The original is retained privately and
 
 ```json
 {
+  "model_requests": 270,
   "model_starts": 1,
   "peak_device_vram_mib": 7966.5
 }

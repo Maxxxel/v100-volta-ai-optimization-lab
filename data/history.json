@@ -12390,5 +12390,13 @@
     "kind": "R370_S02_MAX32_NATIVE_MEMORY_SCREEN",
     "sequence": 1549,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T19:31:29.950667+00:00",
+    "experiment_id": "R371",
+    "factor_id": null,
+    "kind": "R371_S02_MAX32_AGENT_QUALITY_REJECTION",
+    "sequence": 1550,
+    "signature": null
   }
 ]

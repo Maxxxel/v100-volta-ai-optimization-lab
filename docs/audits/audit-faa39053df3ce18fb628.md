@@ -18,6 +18,7 @@ Original file: `INDEPENDENT_REVIEW.json`; 6614 bytes. The original is retained p
 ```json
 {
   "actual_GPU_execution": true,
+  "memory_saved_vs_R244_device_mib": 1834.0,
   "native_metrics": {
     "decode": {
       "A0_E2E_change_percent": -61.80540420278828,

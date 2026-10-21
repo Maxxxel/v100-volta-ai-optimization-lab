@@ -22,7 +22,17 @@ Original file: `AUDIT.json`; 7120 bytes. The original is retained privately and 
 
 ```json
 {
+  "actual_ngram_draft": {
+    "acceptance_percent": 28.146485197137647,
+    "accepted_tokens": 2006,
+    "draft_tokens": 7127
+  },
+  "actual_ngram_proposals_observed": true,
+  "full18_score_claimed": true,
+  "gpu_energy_j_approx": 57675.54298136511,
+  "model_requests": 90,
   "model_starts": 1,
+  "observed_tasks": 18,
   "original12_nonregression": true,
   "peak_device_vram_mib": 9190.5,
   "solved": 13
