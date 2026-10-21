@@ -22753,21 +22753,23 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Current pinned engine revisions/builds retained. R278 static Q6 subtraction equivalence has48 to57instructions; it is a static cost concern, not measured slowdown or full engine comparison.",
+    "decision": "Two existing whole-engine comparisons and static R278 codegen48→57instructions retained. Static instruction counts are not GPU latency, and version changes are not individual kernel attribution.",
     "domain": "engine",
     "evidence_ids": [
       "audit-2c1127c816da939fa468",
+      "audit-3260f1fb5192e1400bd8",
       "audit-6408bcaa03dbc0887441",
       "audit-ce7bf84d4aeaa5c50a9e"
     ],
     "experiment_ids": [
-      "R278"
+      "R278",
+      "R377"
     ],
     "experimentally_covered": true,
     "id": "E01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Retain R278 lower-priority static deferral; do not claim GPU coverage for that patch.",
+    "next_action": "Concrete upstream change/actualSM70dispatch with build/hash/numerics/quality contract; no blind revision sweep.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -22834,48 +22836,366 @@
       }
     ],
     "prerequisites": [
-      "A new revision needs a concrete relevant upstream change, source/build identity, actual SM70 dispatch and independent numerical/quality requirements. Version-name sweep is insufficient."
+      "Concrete upstream change/actualSM70dispatch with build/hash/numerics/quality contract; no blind revision sweep."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "A new revision needs a concrete relevant upstream change, source/build identity, actual SM70 dispatch and independent numerical/quality requirements. Version-name sweep is insufficient.",
-    "reopening_conditions": "A new revision needs a concrete relevant upstream change, source/build identity, actual SM70 dispatch and independent numerical/quality requirements. Version-name sweep is insufficient.",
+    "remaining_scope": "Concrete upstream change/actualSM70dispatch with build/hash/numerics/quality contract; no blind revision sweep.",
+    "reopening_conditions": "Concrete upstream change/actualSM70dispatch with build/hash/numerics/quality contract; no blind revision sweep.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "llama.cpp Revision",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "archive": {
+              "sha256": "b242ef8588a60269d652d67f830a899a96730a9f5a750056fc79e8d175cec000"
+            },
+            "arm_configuration": {
+              "A": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              },
+              "B": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              }
+            },
+            "native_comparisons": {
+              "decode": {
+                "e2e_change_pct": -1.2392722180604943,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.19699333267928498,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.283682271839015,
+                "ttft_change_pct": -0.5952798611474353
+              },
+              "prefill": {
+                "e2e_change_pct": -1.465480559900667,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 3.2034619873716252,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.5081559461965321,
+                "ttft_change_pct": -1.469980736968124
+              },
+              "prefill2048": {
+                "e2e_change_pct": -1.5683744622554396,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.7317087660622668,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.592421188822657,
+                "ttft_change_pct": -1.5680911218363458
+              },
+              "prefill4096": {
+                "e2e_change_pct": -1.3259876934559878,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.9147912446810125,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.3500799249340556,
+                "ttft_change_pct": -1.3296723982294423
+              }
+            },
+            "plan": {
+              "sha256": "9e97a6daace310d8b2992854a6be23c5b8fcd57333f946e77d3d3ad152dd34e9"
+            },
+            "results": {
+              "sha256": "ce7bf84d4aeaa5c50a9ec57021c617483960ff870b6c8950d8bb9bd72f557d40"
+            }
+          },
+          {
+            "archive": {
+              "sha256": "d05ee1b76077fe392bbe393f5015cbf963a7b560a05d7f0485b0c4313b7d4130"
+            },
+            "arm_configuration": {
+              "A": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              },
+              "B": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              }
+            },
+            "native_comparisons": {
+              "decode": {
+                "e2e_change_pct": -1.3549109592863928,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.5033450632555669,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.3810630081011022,
+                "ttft_change_pct": -1.015071120729183
+              },
+              "prefill": {
+                "e2e_change_pct": -0.40893325475769293,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.5812512603133757,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.4130947450085465,
+                "ttft_change_pct": -0.42440542219340793
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.9557430901998232,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.3326989995967153,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.9633971695763632,
+                "ttft_change_pct": -0.9583013309804489
+              },
+              "prefill4096": {
+                "e2e_change_pct": -1.109697691322875,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.04278903973340409,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.1319472028562538,
+                "ttft_change_pct": -1.1141924725779684
+              }
+            },
+            "plan": {
+              "sha256": "fa8c0d8ae80867c1d9926bb4d6fd9c9fb975fea09201770e9672369fb49ed25e"
+            },
+            "results": {
+              "sha256": "2c1127c816da939fa4681f9cc6cacef8e192f8db6713af1ca35eecf16def7bd4"
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete upstream change/actualSM70dispatch with build/hash/numerics/quality contract; no blind revision sweep.",
+        "scope": "Two existing whole-engine comparisons and static R278 codegen48→57instructions retained. Static instruction counts are not GPU latency, and version changes are not individual kernel attribution.",
+        "scope_status": "PARTIAL",
         "value": "pinned"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "archive": {
+              "sha256": "b242ef8588a60269d652d67f830a899a96730a9f5a750056fc79e8d175cec000"
+            },
+            "arm_configuration": {
+              "A": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              },
+              "B": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              }
+            },
+            "native_comparisons": {
+              "decode": {
+                "e2e_change_pct": -1.2392722180604943,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.19699333267928498,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.283682271839015,
+                "ttft_change_pct": -0.5952798611474353
+              },
+              "prefill": {
+                "e2e_change_pct": -1.465480559900667,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 3.2034619873716252,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.5081559461965321,
+                "ttft_change_pct": -1.469980736968124
+              },
+              "prefill2048": {
+                "e2e_change_pct": -1.5683744622554396,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.7317087660622668,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.592421188822657,
+                "ttft_change_pct": -1.5680911218363458
+              },
+              "prefill4096": {
+                "e2e_change_pct": -1.3259876934559878,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.9147912446810125,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.3500799249340556,
+                "ttft_change_pct": -1.3296723982294423
+              }
+            },
+            "plan": {
+              "sha256": "9e97a6daace310d8b2992854a6be23c5b8fcd57333f946e77d3d3ad152dd34e9"
+            },
+            "results": {
+              "sha256": "ce7bf84d4aeaa5c50a9ec57021c617483960ff870b6c8950d8bb9bd72f557d40"
+            }
+          },
+          {
+            "archive": {
+              "sha256": "d05ee1b76077fe392bbe393f5015cbf963a7b560a05d7f0485b0c4313b7d4130"
+            },
+            "arm_configuration": {
+              "A": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              },
+              "B": {
+                "request": {
+                  "frequency_penalty": 0.0,
+                  "min_p": 0.05,
+                  "presence_penalty": 0.0,
+                  "repeat_penalty": 1.0,
+                  "seed": 1001,
+                  "temperature": 0,
+                  "top_k": 40,
+                  "top_p": 0.95
+                }
+              }
+            },
+            "native_comparisons": {
+              "decode": {
+                "e2e_change_pct": -1.3549109592863928,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.5033450632555669,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.3810630081011022,
+                "ttft_change_pct": -1.015071120729183
+              },
+              "prefill": {
+                "e2e_change_pct": -0.40893325475769293,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.5812512603133757,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.4130947450085465,
+                "ttft_change_pct": -0.42440542219340793
+              },
+              "prefill2048": {
+                "e2e_change_pct": -0.9557430901998232,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -1.3326989995967153,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 0.9633971695763632,
+                "ttft_change_pct": -0.9583013309804489
+              },
+              "prefill4096": {
+                "e2e_change_pct": -1.109697691322875,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.04278903973340409,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "throughput_comparison_eligible": true,
+                "tokens_per_s_change_pct": 1.1319472028562538,
+                "ttft_change_pct": -1.1141924725779684
+              }
+            },
+            "plan": {
+              "sha256": "fa8c0d8ae80867c1d9926bb4d6fd9c9fb975fea09201770e9672369fb49ed25e"
+            },
+            "results": {
+              "sha256": "2c1127c816da939fa4681f9cc6cacef8e192f8db6713af1ca35eecf16def7bd4"
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-2c1127c816da939fa468",
           "audit-ce7bf84d4aeaa5c50a9e"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete upstream change/actualSM70dispatch with build/hash/numerics/quality contract; no blind revision sweep.",
+        "scope": "Two existing whole-engine comparisons and static R278 codegen48→57instructions retained. Static instruction counts are not GPU latency, and version changes are not individual kernel attribution.",
+        "scope_status": "PARTIAL",
         "value": "upstream_compatible"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R333 M09: Alle 100 Tool-Schemata bleiben auf dem tatsächlichen GPU-Pfad erhalten (R331: 49 mit Feldverlust). Tool-Qualität 86/100, zuvor 85/100, Referenz A0/C 88/100. Ein Erfolg zurückgewonnen, zwei Referenzerfolge weiterhin verloren. QA12 semantisch 9/12 und formal 8/12 erhalten. Technische Komponente belegt; Gesamtkonfiguration nicht qualifiziert.",
+    "decision": "Native llama-server and private Ollama frontend are measured separately. R333 preserves100/100schemas, but86/100toolscore remains below88reference with2priorwinslost.",
     "domain": "engine",
     "evidence_ids": [
       "audit-131969b2849192f9dffc",
@@ -22884,6 +23204,7 @@
       "audit-232b559e22192d4b00a3",
       "audit-24fbacf95e87efa2341f",
       "audit-2efc940d03d7d7d151c8",
+      "audit-3260f1fb5192e1400bd8",
       "audit-42d5d51be97f1a10cc29",
       "audit-498372969fe59af08725",
       "audit-639176c0bc0c5abfcd87",
@@ -22916,13 +23237,14 @@
       "R330",
       "R331",
       "R333",
+      "R377",
       "R332"
     ],
     "experimentally_covered": true,
     "id": "E02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Andere verbliebene Original-/Benchmark-Einzelfaktoren anhand ihrer konkreten Varianten weiterprüfen; gültige R331/R333 nicht wiederholen. Weitere Serializer-/Reihenfolgetests nur mit neuer unabhängiger Hypothese und vorab eingefrorenem Qualitätsvertrag; keine Nachstimmung bekannter Fehler.",
+    "next_action": "Concrete frontend/model/template/sampler equivalence change and preserved publicschema; no generic renderer-mode switch or unqualified production use.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -22984,26 +23306,41 @@
       }
     ],
     "prerequisites": [
-      "Vor größerem Engine-Screen passenden vorhandenen nativen Tool-A0/C-Profilumfang/Modell/Quantisierung/Runtime/Sampler/Budgets prüfen; kein automatischer Vergleich required-vsauto oder fremder Quantisierung."
+      "Concrete frontend/model/template/sampler equivalence change and preserved publicschema; no generic renderer-mode switch or unqualified production use."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Schema-Metadaten nun tatsächlich erhalten; dennoch86/100gegen88/100, keine vollständige Frontend-/Agentenqualifikation. Bekannte Feldreihenfolge unverändert; weitere Änderungen benötigen einen anderen konkreten Vertrag.",
-    "reopening_conditions": "CPU-verified native request accounting/path and count adapter, then new bounded nativequalityadmission;no repeat of failed debug-only requirement.",
+    "remaining_scope": "Concrete frontend/model/template/sampler equivalence change and preserved publicschema; no generic renderer-mode switch or unqualified production use.",
+    "reopening_conditions": "Concrete frontend/model/template/sampler equivalence change and preserved publicschema; no generic renderer-mode switch or unqualified production use.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Ollama Lab Runtime",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "BFCL_native_score": 86,
+            "prior_successes_lost": 2,
+            "quality_review": {
+              "sha256": "c256c33e3a884d8a546a81c1e7d516c40db88fa4867dfce940639ba371eb9fdb"
+            },
+            "reference_score": 88,
+            "schema_field_loss_cases": 0,
+            "schema_review": {
+              "sha256": "204846d88d291bb19e3a35cf79484cbdccea8b072940cc5ee67d8f4d2827d15e"
+            },
+            "tool_schema_roundtrips": 100,
+            "winner_qualified": false
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete frontend/model/template/sampler equivalence change and preserved publicschema; no generic renderer-mode switch or unqualified production use.",
+        "scope": "Native llama-server and private Ollama frontend are measured separately. R333 preserves100/100schemas, but86/100toolscore remains below88reference with2priorwinslost.",
+        "scope_status": "PARTIAL",
         "value": "llama_server"
       },
       {
@@ -23022,9 +23359,10 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R343: isolierterNamensaliasbesteht8CPU-Kontrollen, aberOriginalGGUF-Pfad erfordertweitereInverse-Konversion. Im427-Texttensorschema nur379Namensmatches,24dt_biasungemappt,24A_log-NamenmitLeer-Suffixfehler. GGUFssm_a/norm/GDN-Headlayout unterscheiden sichvonHF-Semantik.",
+    "decision": "vLLM namespace alias8CPUchecks passed but only379/427tensornames match;24dt_bias and24emptyA_log suffixes unresolved, plus inverse GDN/norm/head layout. No actual alternate-engine inference.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-3260f1fb5192e1400bd8",
       "audit-562eaeb901f0c1b39e99",
       "audit-8e4059a8a7c91772298b",
       "audit-e133d7c4a67007423e1e"
@@ -23032,13 +23370,14 @@
     "experiment_ids": [
       "R249",
       "R342",
-      "R343"
+      "R343",
+      "R377"
     ],
     "experimentally_covered": false,
     "id": "E03",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "E03Ausführungzurückgestellt: vollständigeinverseGDN-/Norm-/Headlayout-Konversion undQuantloader vorEngineinstallation zulassen. KeinGPU-Lauf mitbloßemAliaspatch.",
+    "next_action": "Executable reversible weight/graph admission, actualSM70operators, correctquantization/context/VRAMbudget and source/modellicenses before install/run. Do not claim allGGUF/vLLMarchitectures impossible.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -23100,13 +23439,7 @@
       }
     ],
     "prerequisites": [
-      "ArchitecturealiaswithoutmutatingHFconfig",
-      "dt_biasnameandnosuffixA_logtensornamehandling",
-      "ReadGGUFssm_a=-exp(A_log); recoverHFexpectedparameterusinglog(-ssm_a), checkfinite/sign/range andactualGPUroundoff",
-      "Subtract1fromconvertednon-GDNnormweightswhenloadingGemmaRMSNorm; preserveGDNnormsemantics",
-      "InvertggmlV-headdependentpermutationsonGDNqkv/gate/output/conv/A/dt/alpha/betaasactuallyapplicable",
-      "Restoreconv1dshapeandcheckeveryquantizedlinearpackedloadshard/order; schema/namecompatibilitynotnumerics",
-      "HFvision333parameterprojectionmustmatchactualtext-onlyengineconfig;noassumptionrelatedpublicheaderisoriginalQ6checkpointidentity"
+      "Executable reversible weight/graph admission, actualSM70operators, correctquantization/context/VRAMbudget and source/modellicenses before install/run. Do not claim allGGUF/vLLMarchitectures impossible."
     ],
     "primary_sources": [
       "https://raw.githubusercontent.com/KumphanartDansiri/v100-vllm-2026/295b5bd547edb07c9de0b58b7c98aaacfac8ec30/docs/02_fp16_moe_fix.md",
@@ -23119,22 +23452,32 @@
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/vllm_serve.py"
     ],
     "priority": "P3",
-    "remaining_scope": "Ausführung konkretzurückgestellt, wissenschaftlicherE03StatusOPEN. AllgemeineGGUF-Nutzbarkeit nichtausgeschlossen;unterstützterQuanttypalleinbeweistkeinenHybridgraph.",
-    "reopening_conditions": "Complete a source/format/VRAM admission before installing or running another engine.",
+    "remaining_scope": "Executable reversible weight/graph admission, actualSM70operators, correctquantization/context/VRAMbudget and source/modellicenses before install/run. Do not claim allGGUF/vLLMarchitectures impossible.",
+    "reopening_conditions": "Executable reversible weight/graph admission, actualSM70operators, correctquantization/context/VRAMbudget and source/modellicenses before install/run. Do not claim allGGUF/vLLMarchitectures impossible.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "vLLM Compatibility",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "audit": {
+              "sha256": "e133d7c4a67007423e1eb651c79c84d1dfb70b91bebd87cc0c58f5a78493b26a"
+            },
+            "dt_bias_unmapped": 24,
+            "empty_suffix_invalid_names": 24,
+            "generic_loader_exact_name_matches": 379,
+            "namespace_CPU_cases": 8
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Executable reversible weight/graph admission, actualSM70operators, correctquantization/context/VRAMbudget and source/modellicenses before install/run. Do not claim allGGUF/vLLMarchitectures impossible.",
+        "scope": "vLLM namespace alias8CPUchecks passed but only379/427tensornames match;24dt_bias and24emptyA_log suffixes unresolved, plus inverse GDN/norm/head layout. No actual alternate-engine inference.",
+        "scope_status": "DEFERRED",
         "value": "audit"
       },
       {
@@ -23153,19 +23496,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Kein lokal zugelassener TensorRT-LLM-Pfad für diese Gewichte/Hybridarchitektur/SM70. Bestehende llama.cpp-Messungen sind kein Nachweis einer anderen Engine.",
+    "decision": "No locally admitted TensorRT-LLM build/Omni hybrid-operator/weight-format contract. Existing llama.cpp results cannot prove compatibility or infer TensorRT performance.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-3260f1fb5192e1400bd8",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R377"
     ],
     "experimentally_covered": false,
     "id": "E04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reopen with an actual compatible execution path; do not infer impossibility from missing installation.",
+    "next_action": "Pinned compatiblebuild/operators and demonstrably runnable16GBtarget/quantizedweightartifact before GPU. No general architectural-impossibility claim.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -23227,12 +23572,12 @@
       }
     ],
     "prerequisites": [
-      "Pinned compatible TRT-LLM build, model conversion and per-operator SM70 support."
+      "Pinned compatiblebuild/operators and demonstrably runnable16GBtarget/quantizedweightartifact before GPU. No general architectural-impossibility claim."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Vor einem GPU-Lauf konkreten kompatiblen Build, Operatoren, Quantisierung und Lizenz-/Artefaktidentität belegen.",
-    "reopening_conditions": "Reopen with an actual compatible execution path; do not infer impossibility from missing installation.",
+    "remaining_scope": "Pinned compatiblebuild/operators and demonstrably runnable16GBtarget/quantizedweightartifact before GPU. No general architectural-impossibility claim.",
+    "reopening_conditions": "Pinned compatiblebuild/operators and demonstrably runnable16GBtarget/quantizedweightartifact before GPU. No general architectural-impossibility claim.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "TensorRT-LLM Compatibility",
@@ -23240,44 +23585,46 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Pinned compatiblebuild/operators and demonstrably runnable16GBtarget/quantizedweightartifact before GPU. No general architectural-impossibility claim.",
+        "scope": "No locally admitted TensorRT-LLM build/Omni hybrid-operator/weight-format contract. Existing llama.cpp results cannot prove compatibility or infer TensorRT performance.",
+        "scope_status": "DEFERRED",
         "value": "audit"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Pinned compatiblebuild/operators and demonstrably runnable16GBtarget/quantizedweightartifact before GPU. No general architectural-impossibility claim.",
+        "scope": "No locally admitted TensorRT-LLM build/Omni hybrid-operator/weight-format contract. Existing llama.cpp results cannot prove compatibility or infer TensorRT performance.",
+        "scope_status": "DEFERRED",
         "value": "run_if_supported"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Kein zugelassener ExLlama-Pfad mit passender Omni-Hybridarchitektur und Gewichtskonvertierung. Ein GGUF-Umbenennen schafft keinen kompatiblen Kernel.",
+    "decision": "No locally admitted ExLlama Omni hybrid-model/operator/quantization conversion path. RenamingGGUF is not implementation support.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-3260f1fb5192e1400bd8",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R377"
     ],
     "experimentally_covered": false,
     "id": "E05",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Source/format admission first; GGUF renaming is insufficient.",
+    "next_action": "Pinned executableengine plus actualmodelgraph/weightconversion/SM70operator and16GBmemorycontract; otherwise technical deferral, not blanket hardware exclusion.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -23339,12 +23686,12 @@
       }
     ],
     "prerequisites": [
-      "Pinned compatible hybrid implementation and correctly converted weights with tokenizer checks."
+      "Pinned executableengine plus actualmodelgraph/weightconversion/SM70operator and16GBmemorycontract; otherwise technical deferral, not blanket hardware exclusion."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Nur mit tatsächlich ausführbarer gepinnter Engine/Quantisierung zulassen; sonst zurückstellen.",
-    "reopening_conditions": "Source/format admission first; GGUF renaming is insufficient.",
+    "remaining_scope": "Pinned executableengine plus actualmodelgraph/weightconversion/SM70operator and16GBmemorycontract; otherwise technical deferral, not blanket hardware exclusion.",
+    "reopening_conditions": "Pinned executableengine plus actualmodelgraph/weightconversion/SM70operator and16GBmemorycontract; otherwise technical deferral, not blanket hardware exclusion.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "ExLlama Compatibility",
@@ -23352,25 +23699,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Pinned executableengine plus actualmodelgraph/weightconversion/SM70operator and16GBmemorycontract; otherwise technical deferral, not blanket hardware exclusion.",
+        "scope": "No locally admitted ExLlama Omni hybrid-model/operator/quantization conversion path. RenamingGGUF is not implementation support.",
+        "scope_status": "DEFERRED",
         "value": "audit"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Pinned executableengine plus actualmodelgraph/weightconversion/SM70operator and16GBmemorycontract; otherwise technical deferral, not blanket hardware exclusion.",
+        "scope": "No locally admitted ExLlama Omni hybrid-model/operator/quantization conversion path. RenamingGGUF is not implementation support.",
+        "scope_status": "DEFERRED",
         "value": "run_if_supported"
       }
     ]
@@ -23527,19 +23874,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Zugelassen ist ToolkitCUDA12.8; die vom Treiber gemeldete Maximalversion ist keine alternative Build-Toolchain. Kein zweiter kompatibler Build mit begründetem Gewinn vorgelegt.",
+    "decision": "One real locally installed CUDA toolkit behind aliases. Old FindCUDAToolkit metadata, actualnvcc, loadedcudart/cublas and driver maximum version are different identities, not distinct ready toolchains.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-3260f1fb5192e1400bd8",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R377"
     ],
     "experimentally_covered": false,
     "id": "E07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Prove actual binary/path change first; preserve production toolkit/driver.",
+    "next_action": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -23601,60 +23950,78 @@
       }
     ],
     "prerequisites": [
-      "An isolated second compatible compiler/runtime with a concrete code-generation/library hypothesis."
+      "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement."
     ],
     "primary_sources": [
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docker/Dockerfile.vllm019_cu126",
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docker/Dockerfile.vllm021_cu126"
     ],
     "priority": "P2",
-    "remaining_scope": "Nur isolierte gepinnte Toolchain mit Quell-/Kernelvergleich zulassen; weder Hosttoolkit noch produktive Runtime austauschen.",
-    "reopening_conditions": "Prove actual binary/path change first; preserve production toolkit/driver.",
+    "remaining_scope": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
+    "reopening_conditions": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "CUDA Library Version",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "files": {
+              "CMakeCache.txt": {
+                "sha256": "6667c394506a9f5f4bfddbffbdcc1e17b2f1cf39e07a60e5f26aefa2d727dc2d"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
+        "scope": "One real locally installed CUDA toolkit behind aliases. Old FindCUDAToolkit metadata, actualnvcc, loadedcudart/cublas and driver maximum version are different identities, not distinct ready toolchains.",
+        "scope_status": "PARTIAL",
         "value": "pinned"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "files": {
+              "CMakeCache.txt": {
+                "sha256": "6667c394506a9f5f4bfddbffbdcc1e17b2f1cf39e07a60e5f26aefa2d727dc2d"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
+        "scope": "One real locally installed CUDA toolkit behind aliases. Old FindCUDAToolkit metadata, actualnvcc, loadedcudart/cublas and driver maximum version are different identities, not distinct ready toolchains.",
+        "scope_status": "DEFERRED",
         "value": "eligible_alternative"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R193 original Q6 native buffered/SSE16/16stricttoolcalls each,0protocolerrors; original SSE byte stream was not archived, only reconstructed response/digest.",
+    "decision": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-3260f1fb5192e1400bd8",
       "audit-4e5c4e18df8e19bfef6a"
     ],
     "experiment_ids": [
-      "R193"
+      "R193",
+      "R377"
     ],
     "experimentally_covered": true,
     "id": "E08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reuse16pairedcases, preserve archive limitation. New parser only with changed code and meaningful failure/performance hypothesis.",
+    "next_action": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -23737,61 +24104,185 @@
       }
     ],
     "prerequisites": [
-      "A different parser/grammar treatment needs an actual implementation delta and raw wire capture with partial UTF8/JSON, refusal and multi-call contracts. Existing transport success alone is not parser acceleration."
+      "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "A different parser/grammar treatment needs an actual implementation delta and raw wire capture with partial UTF8/JSON, refusal and multi-call contracts. Existing transport success alone is not parser acceleration.",
-    "reopening_conditions": "A different parser/grammar treatment needs an actual implementation delta and raw wire capture with partial UTF8/JSON, refusal and multi-call contracts. Existing transport success alone is not parser acceleration.",
+    "remaining_scope": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
+    "reopening_conditions": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Grammar Parser",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "audit": {
+              "sha256": "4e5c4e18df8e19bfef6af51dd2eb65c24960292285d402b9fe9896a35f1d6ad1"
+            },
+            "fixture": {
+              "sha256": "97dd0e76b7066715faced011d6bde822738a55769e5c0c14c1f249a7ad4c163a"
+            },
+            "limits": "No original raw SSE bytes, so fragmentation/UTF8/event replay cannot be retroactively certified; no streaming-TTFT or speed qualification from this audit.",
+            "raw_SSE_wire_available": false,
+            "successes_each_arm": 16,
+            "sum_request_wall_s": {
+              "A": 21.823067809,
+              "B": 21.805345646
+            },
+            "unique_cases": 16
+          },
+          {
+            "actual_nonlazy_stock_grammar_requests": 12,
+            "audit": {
+              "sha256": "4ae77b7220366330bef5f0a21af2e94e586356e431f37e8b8294b4cc21256a16"
+            },
+            "observed_QA": 12,
+            "quality": {
+              "candidate_format": 9,
+              "candidate_semantic": 9,
+              "reference_format_on_observed": 8,
+              "reference_semantic_on_observed": 9
+            },
+            "reference_wall_s": 5.130906411,
+            "screen_passed": false,
+            "this_is_not_llguidance": true,
+            "wall_s": 5.120053158
+          },
+          {
+            "files": {
+              "CMakeCache.txt": {
+                "sha256": "6667c394506a9f5f4bfddbffbdcc1e17b2f1cf39e07a60e5f26aefa2d727dc2d"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
+        "scope": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "audit": {
+              "sha256": "4e5c4e18df8e19bfef6af51dd2eb65c24960292285d402b9fe9896a35f1d6ad1"
+            },
+            "fixture": {
+              "sha256": "97dd0e76b7066715faced011d6bde822738a55769e5c0c14c1f249a7ad4c163a"
+            },
+            "limits": "No original raw SSE bytes, so fragmentation/UTF8/event replay cannot be retroactively certified; no streaming-TTFT or speed qualification from this audit.",
+            "raw_SSE_wire_available": false,
+            "successes_each_arm": 16,
+            "sum_request_wall_s": {
+              "A": 21.823067809,
+              "B": 21.805345646
+            },
+            "unique_cases": 16
+          },
+          {
+            "actual_nonlazy_stock_grammar_requests": 12,
+            "audit": {
+              "sha256": "4ae77b7220366330bef5f0a21af2e94e586356e431f37e8b8294b4cc21256a16"
+            },
+            "observed_QA": 12,
+            "quality": {
+              "candidate_format": 9,
+              "candidate_semantic": 9,
+              "reference_format_on_observed": 8,
+              "reference_semantic_on_observed": 9
+            },
+            "reference_wall_s": 5.130906411,
+            "screen_passed": false,
+            "this_is_not_llguidance": true,
+            "wall_s": 5.120053158
+          },
+          {
+            "files": {
+              "CMakeCache.txt": {
+                "sha256": "6667c394506a9f5f4bfddbffbdcc1e17b2f1cf39e07a60e5f26aefa2d727dc2d"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
+        "scope": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar.",
+        "scope_status": "PARTIAL",
         "value": "strict"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "audit": {
+              "sha256": "4e5c4e18df8e19bfef6af51dd2eb65c24960292285d402b9fe9896a35f1d6ad1"
+            },
+            "fixture": {
+              "sha256": "97dd0e76b7066715faced011d6bde822738a55769e5c0c14c1f249a7ad4c163a"
+            },
+            "limits": "No original raw SSE bytes, so fragmentation/UTF8/event replay cannot be retroactively certified; no streaming-TTFT or speed qualification from this audit.",
+            "raw_SSE_wire_available": false,
+            "successes_each_arm": 16,
+            "sum_request_wall_s": {
+              "A": 21.823067809,
+              "B": 21.805345646
+            },
+            "unique_cases": 16
+          },
+          {
+            "actual_nonlazy_stock_grammar_requests": 12,
+            "audit": {
+              "sha256": "4ae77b7220366330bef5f0a21af2e94e586356e431f37e8b8294b4cc21256a16"
+            },
+            "observed_QA": 12,
+            "quality": {
+              "candidate_format": 9,
+              "candidate_semantic": 9,
+              "reference_format_on_observed": 8,
+              "reference_semantic_on_observed": 9
+            },
+            "reference_wall_s": 5.130906411,
+            "screen_passed": false,
+            "this_is_not_llguidance": true,
+            "wall_s": 5.120053158
+          },
+          {
+            "files": {
+              "CMakeCache.txt": {
+                "sha256": "6667c394506a9f5f4bfddbffbdcc1e17b2f1cf39e07a60e5f26aefa2d727dc2d"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
+        "scope": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar.",
+        "scope_status": "DEFERRED",
         "value": "optimized"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R376: nur FlashAttention on→off im identischen26-Request-/Zwei-Slot-Verlauf. Kritische Antwort wieder gültig, aber nur20/21 Präfixantworten identisch; ordinal12 auch semantisch verändert. Vorab festgelegtes Gate verfehlt. Kein nachgewiesener Qualitätsverlust allein aus Antwortabweichung, kein Slot-Isolationsfix/Champion.8146,5MiB Peak, kein Slot gelöscht.",
+    "decision": "Existing two-slot sequential history is not concurrent-throughput qualification. R376FAoff restorescriticalvalid but changesoneof21prefixes, so primaryisolationgatefails. Other-slot erasure destroys the other conversation and is not a fix.",
     "domain": "engine",
     "evidence_ids": [
       "audit-2ab6c87f9f57ddd547cf",
       "audit-30bd60412eeac32d4b9f",
+      "audit-3260f1fb5192e1400bd8",
       "audit-6a3317baf08620ddb7ed",
       "audit-6d0187032ea3b11a373f",
       "audit-77a576cb73abe6027c4f",
@@ -23813,13 +24304,14 @@
       "R311",
       "R312",
       "R313",
-      "R376"
+      "R376",
+      "R377"
     ],
     "experimentally_covered": true,
     "id": "E09",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Neue konkrete Isolationskorrektur muss beide Konversationen erhalten und qualitäts-/zustandsbezogen unabhängig geprüft werden. FAoff stellt nur den kritischen Einzelaufruf wieder her und verändert einen früheren Prompt-Output; kein allgemeiner Qualitätsverlust oder spezifische GDN/FA-Ursache daraus ableiten. Kein paralleles Agentenprofil vor Korrektheitsgate.",
+    "next_action": "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -23902,12 +24394,12 @@
       }
     ],
     "prerequisites": [
-      "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig."
+      "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "Neue konkrete Isolationskorrektur muss beide Konversationen erhalten und qualitäts-/zustandsbezogen unabhängig geprüft werden. FAoff stellt nur den kritischen Einzelaufruf wieder her und verändert einen früheren Prompt-Output; kein allgemeiner Qualitätsverlust oder spezifische GDN/FA-Ursache daraus ableiten. Kein paralleles Agentenprofil vor Korrektheitsgate.",
-    "reopening_conditions": "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig.",
+    "remaining_scope": "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile.",
+    "reopening_conditions": "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Scheduler Strategy",
@@ -23915,37 +24407,37 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile.",
+        "scope": "Existing two-slot sequential history is not concurrent-throughput qualification. R376FAoff restorescriticalvalid but changesoneof21prefixes, so primaryisolationgatefails. Other-slot erasure destroys the other conversation and is not a fix.",
+        "scope_status": "PARTIAL",
         "value": "default"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile.",
+        "scope": "Existing two-slot sequential history is not concurrent-throughput qualification. R376FAoff restorescriticalvalid but changesoneof21prefixes, so primaryisolationgatefails. Other-slot erasure destroys the other conversation and is not a fix.",
+        "scope_status": "PARTIAL",
         "value": "single_slot"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete both-conversations-preserving isolation change and independent frozenquality/state controls; fullagent/QA/stability before any parallelthroughput profile.",
+        "scope": "Existing two-slot sequential history is not concurrent-throughput qualification. R376FAoff restorescriticalvalid but changesoneof21prefixes, so primaryisolationgatefails. Other-slot erasure destroys the other conversation and is not a fix.",
+        "scope_status": "DEFERRED",
         "value": "parallel"
       }
     ]

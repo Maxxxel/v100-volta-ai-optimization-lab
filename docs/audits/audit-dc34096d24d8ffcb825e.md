@@ -23,7 +23,13 @@ Original file: `AUDIT.json`; 5683 bytes. The original is retained privately and 
 {
   "actual_GPU_execution": true,
   "actual_generation_requests": 26,
+  "actual_history_requests": 21,
+  "critical_matches_previous_bad": true,
+  "critical_matches_previous_valid": false,
+  "critical_output_tokens": 235,
+  "critical_prompt_tokens": 2126,
   "model_starts": 1,
-  "peak_device_vram_mib": 7670.5
+  "peak_device_vram_mib": 7670.5,
+  "prefix_envelopes_same": 21
 }
 ```

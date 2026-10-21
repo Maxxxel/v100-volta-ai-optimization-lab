@@ -17,6 +17,9 @@ class PublicationSafety(unittest.TestCase):
  def test_managed_memory_counter_is_separate_from_physical_vram(self):
   raw={'actual_managed_allocator':{'calls':5,'successful_calls':5,'cumulative_bytes_not_peak':7005214976,'logical_allocation_is_not_NVML_residency':True,'pointer_address':'private'},'peak_process_vram_mib':478,'peak_device_vram_mib':7452.5,'CT_memory_observed':{'maximum_new_swap_bytes':0}}
   out=e.metrics(raw);self.assertEqual(out['peak_device_vram_mib'],7452.5);self.assertEqual(out['peak_process_vram_mib'],478);self.assertTrue(out['actual_managed_allocator']['managed_bytes_are_not_residency']);self.assertNotIn('pointer_address',out['actual_managed_allocator'])
+ def test_slot_diagnostic_keeps_valid_critical_and_changed_prefix_distinct(self):
+  raw={'prefix_envelopes_same':20,'actual_history_requests':21,'critical_matches_previous_valid':True,'critical_matches_previous_bad':False,'other_slot_erased':False,'response':{'content':'private'}}
+  self.assertEqual(e.metrics(raw),{k:v for k,v in raw.items() if k!='response'})
  def test_unknown_files_and_weights_rejected(self):
   for f in ['.env','weights.gguf','data/unreviewed.json','docs/private.log','scripts/extra.py']:
    self.assertFalse(v.allowed(pathlib.Path(f)))

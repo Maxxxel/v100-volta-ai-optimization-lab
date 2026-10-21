@@ -12438,5 +12438,13 @@
     "kind": "R376_E09_FLASH_OFF_CORRECTNESS_SINGLE_FACTOR",
     "sequence": 1555,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T20:15:07.713029+00:00",
+    "experiment_id": "R377",
+    "factor_id": null,
+    "kind": "R377_NATIVE_PARSER_FRONTEND_ENGINE_SCOPE_REVIEW",
+    "sequence": 1556,
+    "signature": null
   }
 ]

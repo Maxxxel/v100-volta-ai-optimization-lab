@@ -78629,8 +78629,16 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 26,
+      "actual_history_requests": 21,
+      "concurrent_generation_requests": 1,
+      "critical_matches_previous_bad": false,
+      "critical_matches_previous_valid": true,
+      "critical_output_tokens": 81,
+      "critical_prompt_tokens": 2126,
       "model_starts": 1,
-      "peak_device_vram_mib": 8146.5
+      "other_slot_erased": false,
+      "peak_device_vram_mib": 8146.5,
+      "prefix_envelopes_same": 20
     },
     "excerpt_is_not_original": true,
     "id": "audit-b0807613e019b3b30009",
@@ -112129,6 +112137,7 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 27,
+      "actual_history_requests": 21,
       "model_starts": 1,
       "peak_device_vram_mib": 7670.5
     },
@@ -112155,8 +112164,14 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 26,
+      "actual_history_requests": 21,
+      "critical_matches_previous_bad": true,
+      "critical_matches_previous_valid": false,
+      "critical_output_tokens": 235,
+      "critical_prompt_tokens": 2126,
       "model_starts": 1,
-      "peak_device_vram_mib": 7670.5
+      "peak_device_vram_mib": 7670.5,
+      "prefix_envelopes_same": 21
     },
     "excerpt_is_not_original": true,
     "id": "audit-dc34096d24d8ffcb825e",
@@ -112180,8 +112195,14 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 26,
+      "actual_history_requests": 21,
+      "critical_matches_previous_bad": true,
+      "critical_matches_previous_valid": false,
+      "critical_output_tokens": 235,
+      "critical_prompt_tokens": 2126,
       "model_starts": 1,
-      "peak_device_vram_mib": 7670.5
+      "peak_device_vram_mib": 7670.5,
+      "prefix_envelopes_same": 21
     },
     "excerpt_is_not_original": true,
     "id": "audit-77a576cb73abe6027c4f",
@@ -112206,8 +112227,14 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 26,
+      "actual_history_requests": 21,
+      "critical_matches_previous_bad": true,
+      "critical_matches_previous_valid": false,
+      "critical_output_tokens": 235,
+      "critical_prompt_tokens": 2126,
       "model_starts": 1,
-      "peak_device_vram_mib": 7662.5
+      "peak_device_vram_mib": 7662.5,
+      "prefix_envelopes_same": 21
     },
     "excerpt_is_not_original": true,
     "id": "audit-d2ca3001edd31500863e",
@@ -112232,8 +112259,14 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 26,
+      "actual_history_requests": 21,
+      "critical_matches_previous_bad": false,
+      "critical_matches_previous_valid": true,
+      "critical_output_tokens": 81,
+      "critical_prompt_tokens": 2126,
       "model_starts": 1,
-      "peak_device_vram_mib": 7670.5
+      "peak_device_vram_mib": 7670.5,
+      "prefix_envelopes_same": 21
     },
     "excerpt_is_not_original": true,
     "id": "audit-2ab6c87f9f57ddd547cf",
@@ -112258,8 +112291,14 @@
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 26,
+      "actual_history_requests": 21,
+      "critical_matches_previous_bad": false,
+      "critical_matches_previous_valid": true,
+      "critical_output_tokens": 81,
+      "critical_prompt_tokens": 2126,
       "model_starts": 1,
-      "peak_device_vram_mib": 7670.5
+      "peak_device_vram_mib": 7670.5,
+      "prefix_envelopes_same": 21
     },
     "excerpt_is_not_original": true,
     "id": "audit-d63e8079399509ae7185",
@@ -159127,6 +159166,30 @@
         "Full-engine R268 changes are confounded; no causal explanation claimed."
       ],
       "measurement_type": "OFFLINE_SM70_COMPILED_INSTRUCTIONS"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3260f1fb5192e1400bd8",
+    "original_bytes": 31688,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3260f1fb5192e1400bd8d027da0b778dbd3e3da98d2a1d7a2595b13554cd5ddd",
+    "statements": {
+      "decision": "KEEP_TRANSPORT_GRAMMAR_FRONTEND_AND_ENGINE_SCOPE_DISTINCT_NO_INERT_PARSER_BUILD_OR_FALSE_PARALLEL_QUALIFICATION",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "32archived answers regraded, not32newmodelrequests. SSEwire was not archived and cannot be reconstructed as an originalstream from decoded replies/digest. Prompt-token totals26684are not generatedtoken counts or tokens/s.",
+        "LLGuidance is a potential alternate parser, not a readydrop-in test in this build. Source prefix requirement and OFFconfig verified; missingcargo/rustc onPATH is not proof nootherinstallation exists. No dependencies installed.",
+        "TensorRT/ExLlama/vLLM are not declared globally incompatible withV100; no complete locally runnable Omniartifact/operator/memoryadmission exists here. No unverified speedup imported from externalbenchmarks.",
+        "Whole-engine paired evidence and actual kernel/source-specific interventions remain different. No newbaseline, champion, GPUrun, modeldownload, hostchange or productiondeployment."
+      ],
+      "measurement_type": "REVIEW_EXISTING_NATIVE_PARSER_FRONTEND_AND_ENGINE_ADMISSION"
     }
   },
   {
