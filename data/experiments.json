@@ -13782,5 +13782,37 @@
       "measurement_type": "REVIEW_EXISTING_HBM_TRACES_ALLOCATOR_RESIDENCY_AND_ATTENTION_SCOPE"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0
+    },
+    "audit_id": "audit-00f780e69d8e14e1c6a9",
+    "date": "2026-10-21T19:56:52.259778+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "H02",
+      "H05",
+      "H06",
+      "H07",
+      "H09",
+      "R16"
+    ],
+    "id": "R375",
+    "model": "omnicoder2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "EXPLICIT_PHYSICAL_AND_PROTECTED_SCOPE_PREREQUISITES_NO_HOST_RECONFIGURATION_OR_NEW_GPU_TEST",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "Read-only hardware/process/cgroup observations are not GPU optimization experiments, measured transfer bandwidth, exclusive CPU guarantees or cooling effectiveness.",
+        "An absent MPS process does not establish architectural incompatibility. No MPS launch, compute-mode/power/clock/hugepage/swap/CPU-reservation/network/cooling change occurred.",
+        "Existing host swap use is not attributed to the benchmark; direct previous model process status and within-run swap delta were checked.",
+        "Parent scientific statuses and all historical original cell states retained. Cases remain transparent deferred/not-applicable/partial, not globally qualified or exhausted."
+      ],
+      "measurement_type": "READ_ONLY_HOST_TOPOLOGY_AND_PROTECTED_RESOURCE_ADMISSION"
+    },
+    "winner_qualified": false
   }
 ]

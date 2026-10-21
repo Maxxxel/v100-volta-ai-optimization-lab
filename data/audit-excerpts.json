@@ -90066,6 +90066,30 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-00f780e69d8e14e1c6a9",
+    "original_bytes": 6124,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "00f780e69d8e14e1c6a994f9324c56e1ccf31fa6736ca2633a723d9e4448a613",
+    "statements": {
+      "decision": "EXPLICIT_PHYSICAL_AND_PROTECTED_SCOPE_PREREQUISITES_NO_HOST_RECONFIGURATION_OR_NEW_GPU_TEST",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "Read-only hardware/process/cgroup observations are not GPU optimization experiments, measured transfer bandwidth, exclusive CPU guarantees or cooling effectiveness.",
+        "An absent MPS process does not establish architectural incompatibility. No MPS launch, compute-mode/power/clock/hugepage/swap/CPU-reservation/network/cooling change occurred.",
+        "Existing host swap use is not attributed to the benchmark; direct previous model process status and within-run swap delta were checked.",
+        "Parent scientific statuses and all historical original cell states retained. Cases remain transparent deferred/not-applicable/partial, not globally qualified or exhausted."
+      ],
+      "measurement_type": "READ_ONLY_HOST_TOPOLOGY_AND_PROTECTED_RESOURCE_ADMISSION"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "affinity": {

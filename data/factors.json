@@ -6128,19 +6128,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Current host has one NUMA node0, with GPU and all allowed CPUs on node0. No distinct NUMA-placement treatment exists here. Source: R167ADMISSION; no GPU NUMA benchmark or speed gain claimed.",
+    "decision": "Host and CT expose only NUMA node0; six usable CPUs all belong to node0. Distributed/remote-node placement has no second physical node.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R375"
     ],
     "experimentally_covered": false,
     "id": "R16",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Aktuelle NUMA-/LXC-Topologie bietet für diese ursprünglichen Policywerte keinen verifizierten unabhängigen Eingriff; neue Topologie zuerst belegen.",
+    "next_action": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -6223,50 +6225,95 @@
       }
     ],
     "prerequisites": [
-      "Actual NUMA values are distribute/isolate/numactl; matrix disabled/distributed are not direct parser values. Single-node topology needs effect check."
+      "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
-    "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "remaining_scope": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
+    "reopening_conditions": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
     "source_model_hypotheses": [],
     "status": "NOT_APPLICABLE",
     "title": "NUMA policy",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
+        "scope": "Host and CT expose only NUMA node0; six usable CPUs all belong to node0. Distributed/remote-node placement has no second physical node.",
+        "scope_status": "PARTIAL",
         "value": "default"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
+        "scope": "Host and CT expose only NUMA node0; six usable CPUs all belong to node0. Distributed/remote-node placement has no second physical node.",
+        "scope_status": "NOT_APPLICABLE",
         "value": "disabled"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
+        "scope": "Host and CT expose only NUMA node0; six usable CPUs all belong to node0. Distributed/remote-node placement has no second physical node.",
+        "scope_status": "NOT_APPLICABLE",
         "value": "distributed"
       }
     ]
@@ -13674,19 +13721,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Defer host CPU isolation: production/PVE changes outside research scope.",
+    "decision": "All six host CPUs are available to the CT; per-process affinity is already measured in R18/R363. Exclusive host CPU isolation is a different treatment and would require reserving cores away from productive services/Proxmox.",
     "domain": "hardware",
     "evidence_ids": [
+      "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R375"
     ],
     "experimentally_covered": false,
     "id": "H02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Hostweite CPU-Isolation würde die geschützte Proxmox-/Produktivkonfiguration verändern; erst separate isolierte Hardware/Umgebung.",
+    "next_action": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -13748,38 +13797,68 @@
       }
     ],
     "prerequisites": [
-      "Resource/compatibility review required; no automatic checkpoint download, training, alternate engine or host/physical change."
+      "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
-    "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "remaining_scope": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
+    "reopening_conditions": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "Host CPU Isolation",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
+        "scope": "All six host CPUs are available to the CT; per-process affinity is already measured in R18/R363. Exclusive host CPU isolation is a different treatment and would require reserving cores away from productive services/Proxmox.",
+        "scope_status": "PARTIAL",
         "value": "reference"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
+        "scope": "All six host CPUs are available to the CT; per-process affinity is already measured in R18/R363. Exclusive host CPU isolation is a different treatment and would require reserving cores away from productive services/Proxmox.",
+        "scope_status": "DEFERRED",
         "value": "isolated"
       }
     ]
@@ -14367,19 +14446,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Cooling page/configuration protected. Ambient warming is not an experiment exclusion or a cooling improvement.",
+    "decision": "Cooling configuration is explicitly protected. No independent controlled cooling intervention was performed; room-temperature drift is telemetry, not a new cooling treatment or arbitrary start-temperature gate.",
     "domain": "hardware",
     "evidence_ids": [
+      "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R375"
     ],
     "experimentally_covered": false,
     "id": "H05",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Kühlungsseite/-konfiguration bleibt laut Auftrag unverändert. Temperatur nur Telemetrie, keine42C-Startgrenze; bestehende Sicherheitslimits erhalten.",
+    "next_action": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14441,57 +14522,89 @@
       }
     ],
     "prerequisites": [
-      "Resource/compatibility review required; no automatic checkpoint download, training, alternate engine or host/physical change."
+      "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
-    "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "remaining_scope": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
+    "reopening_conditions": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "Airflow Fan Cooling",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
+        "scope": "Cooling configuration is explicitly protected. No independent controlled cooling intervention was performed; room-temperature drift is telemetry, not a new cooling treatment or arbitrary start-temperature gate.",
+        "scope_status": "PARTIAL",
         "value": "reference"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
+        "scope": "Cooling configuration is explicitly protected. No independent controlled cooling intervention was performed; room-temperature drift is telemetry, not a new cooling treatment or arbitrary start-temperature gate.",
+        "scope_status": "DEFERRED",
         "value": "improved"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Topology is a measured environment condition; no physical/topology intervention performed.",
+    "decision": "Read-only PCIe telemetry observes current and maximum generation3, width16. There is no narrower observed link to repair and no alternate physical GPU/CPU path under this research setup. Telemetry is not measured sustained link bandwidth.",
     "domain": "hardware",
     "evidence_ids": [
+      "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R375"
     ],
     "experimentally_covered": false,
     "id": "H06",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Aktuelle Topologie ist Umgebungsnachweis, kein getesteter physischer Lane-/Link-Umbau; produktive Hardwareänderung ausgeschlossen.",
+    "next_action": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14553,57 +14666,89 @@
       }
     ],
     "prerequisites": [
-      "Resource/compatibility review required; no automatic checkpoint download, training, alternate engine or host/physical change."
+      "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
-    "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "remaining_scope": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
+    "reopening_conditions": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "PCIe and Topology",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
+        "scope": "Read-only PCIe telemetry observes current and maximum generation3, width16. There is no narrower observed link to repair and no alternate physical GPU/CPU path under this research setup. Telemetry is not measured sustained link bandwidth.",
+        "scope_status": "PARTIAL",
         "value": "current"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
+        "scope": "Read-only PCIe telemetry observes current and maximum generation3, width16. There is no narrower observed link to repair and no alternate physical GPU/CPU path under this research setup. Telemetry is not measured sustained link bandwidth.",
+        "scope_status": "PARTIAL",
         "value": "validated_link"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "No host-wide swap/hugepage modification for research; defer.",
+    "decision": "Host swap is already occupied; its prior causal origin was not established. This is not evidence of new model swapping. R373 model VmSwap is0kB and adds0swap. Explicit hugepage pool currently0, THP=madvise. Hostwide swap/hugetlb changes would affect protected Proxmox/services; THP advice and explicit hugetlb are different mechanisms.",
     "domain": "hardware",
     "evidence_ids": [
+      "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R375"
     ],
     "experimentally_covered": false,
     "id": "H07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Hostweiter Swap-/Hugepage-Umbau wäre Produktiv-/Proxmoxänderung; Prozess-mlock R169 ist getrennt und bereits gemessen.",
+    "next_action": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14686,50 +14831,95 @@
       }
     ],
     "prerequisites": [
-      "Resource/compatibility review required; no automatic checkpoint download, training, alternate engine or host/physical change."
+      "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
-    "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "remaining_scope": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
+    "reopening_conditions": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "Swap Hugepages",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
+        "scope": "Host swap is already occupied; its prior causal origin was not established. This is not evidence of new model swapping. R373 model VmSwap is0kB and adds0swap. Explicit hugepage pool currently0, THP=madvise. Hostwide swap/hugetlb changes would affect protected Proxmox/services; THP advice and explicit hugetlb are different mechanisms.",
+        "scope_status": "PARTIAL",
         "value": "reference"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
+        "scope": "Host swap is already occupied; its prior causal origin was not established. This is not evidence of new model swapping. R373 model VmSwap is0kB and adds0swap. Explicit hugepage pool currently0, THP=madvise. Hostwide swap/hugetlb changes would affect protected Proxmox/services; THP advice and explicit hugetlb are different mechanisms.",
+        "scope_status": "DEFERRED",
         "value": "isolated_no_swap"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
+        "scope": "Host swap is already occupied; its prior causal origin was not established. This is not evidence of new model swapping. R373 model VmSwap is0kB and adds0swap. Explicit hugepage pool currently0, THP=madvise. Hostwide swap/hugetlb changes would affect protected Proxmox/services; THP advice and explicit hugetlb are different mechanisms.",
+        "scope_status": "DEFERRED",
         "value": "hugepages"
       }
     ]
@@ -14902,19 +15092,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "MPS requires multiple clients and a separate compatibility/stability case; no daemon modification for speculative benefit.",
+    "decision": "No MPS server/control process is running. Current valid profile has one model, one slot and no parallel GPU-heavy job. Starting a new sharing daemon without a compatible concurrency question does not test a useful MPS gain; it also changes process-ownership/telemetry boundaries. E09 slot-isolation issue remains unresolved.",
     "domain": "hardware",
     "evidence_ids": [
+      "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R375"
     ],
     "experimentally_covered": false,
     "id": "H09",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "MPS braucht mehrere Clients/eigene Daemon-/Kompatibilitätsqualifikation; aktueller Einprozess-/Ressourcenvertrag erlaubt keinen pauschalen MPS-Umbau.",
+    "next_action": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14976,38 +15168,68 @@
       }
     ],
     "prerequisites": [
-      "Resource/compatibility review required; no automatic checkpoint download, training, alternate engine or host/physical change."
+      "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
-    "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "remaining_scope": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
+    "reopening_conditions": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "CUDA MPS",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
+        "scope": "No MPS server/control process is running. Current valid profile has one model, one slot and no parallel GPU-heavy job. Starting a new sharing daemon without a compatible concurrency question does not test a useful MPS gain; it also changes process-ownership/telemetry boundaries. E09 slot-isolation issue remains unresolved.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_model_memory": {
+              "audit": {
+                "sha256": "b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5eb"
+              },
+              "new_CT_swap_bytes": 0,
+              "not_claiming_host_swap_empty": true
+            },
+            "hardware_observation": {
+              "MPS_process_count": 0,
+              "PCIe_bandwidth_measured": false,
+              "explicit_hugepage_pool_pages": 0
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
+        "scope": "No MPS server/control process is running. Current valid profile has one model, one slot and no parallel GPU-heavy job. Starting a new sharing daemon without a compatible concurrency question does not test a useful MPS gain; it also changes process-ownership/telemetry boundaries. E09 slot-isolation issue remains unresolved.",
+        "scope_status": "DEFERRED",
         "value": "on"
       }
     ]
