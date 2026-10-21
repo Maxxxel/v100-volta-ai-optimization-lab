@@ -12358,5 +12358,13 @@
     "kind": "EXISTING_THINKING_TEMPLATE_POLICY_PRIMARY_DATA_REPLAY",
     "sequence": 1545,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T18:57:39.477450+00:00",
+    "experiment_id": "R368",
+    "factor_id": null,
+    "kind": "TOOL_SERIALIZATION_READBACK_REPLAY_AND_A07_CPU_GPU_COVERAGE_CORRECTION",
+    "sequence": 1546,
+    "signature": null
   }
 ]

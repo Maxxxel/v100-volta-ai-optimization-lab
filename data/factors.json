@@ -18979,7 +18979,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R322 öffentliches Feld-/Typschema: QA12 vollständig, semantisch 9/12 wie A0, formal 9/12 statt 8/12 (+jarvis_memory), kein neuer Verlust. Vorab geforderte zwei zusätzliche Bewertungen nicht erreicht; nicht qualifiziert. Kein allgemeiner Ausschluss von Schema-Grammatiken.",
+    "decision": "Freie Ausgabe ist vorhandene Kontrolle, kein eigener GPU-Optimierungstest. R322 öffentliches Feld-/Typschema: semantisch9/12 wieA0, formal9/12 statt8/12, ein neues Urteil statt geforderter zwei; keine Freigabe. Generische JSON-Grammatik, aufgabenspezifisches öffentliches Schema und answer-spezifische Wrapper sind getrennte Belege.",
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-073317d79e5f81a5397a",
@@ -18988,6 +18988,7 @@
       "audit-4042397b2f6e914c34e6",
       "audit-494c5d8218895ee09f71",
       "audit-4ae77b7220366330bef5",
+      "audit-58ce709304e025ad6a62",
       "audit-baefb52b9ddfc2ae03af",
       "audit-c4e4303dd57570654c8d",
       "audit-d5be5aa0652c2a6fc19e"
@@ -18995,13 +18996,14 @@
     "experiment_ids": [
       "R157",
       "R158",
-      "R322"
+      "R322",
+      "R368"
     ],
     "experimentally_covered": true,
     "id": "M08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keine neue Grammatikschleife ohne klaren anderen praktischen Vertrag. Q03 Attention-/Recurrent-Einzelpresets nach sicherer Scratch-Freigabe fortsetzen.",
+    "next_action": "Typed-/Strict-Schema-Zellen bereits konkret geprüft, nicht erneut messen. Neues Schema nur bei anderer begründeter Format-/Qualitätsanforderung ohne Antwortwerte, mit gleichen Aufgaben/Tokenbudgets und eigenem Leistungs-/Qualitätsgate.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19090,26 +19092,31 @@
       }
     ],
     "prerequisites": [
-      "A distinct typed/function grammar needs actual sampler support, well-defined refusal/no-call/multiple-call handling and independent semantic tasks. Already constrained native tool generation is not a new grammar optimization."
+      "Typed-/Strict-Schema-Zellen bereits konkret geprüft, nicht erneut messen. Neues Schema nur bei anderer begründeter Format-/Qualitätsanforderung ohne Antwortwerte, mit gleichen Aufgaben/Tokenbudgets und eigenem Leistungs-/Qualitätsgate."
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "Öffentlicher Feld-/Typvertrag gescreent, Wrapper- und generisches JSON separat vorhanden. Tool-/Refusal-/Mehrfachaufruf-Schemata außerhalb dieses QA12-Profils nicht vollständig qualifiziert.",
-    "reopening_conditions": "A distinct typed/function grammar needs actual sampler support, well-defined refusal/no-call/multiple-call handling and independent semantic tasks. Already constrained native tool generation is not a new grammar optimization.",
+    "remaining_scope": "Typed-/Strict-Schema-Zellen bereits konkret geprüft, nicht erneut messen. Neues Schema nur bei anderer begründeter Format-/Qualitätsanforderung ohne Antwortwerte, mit gleichen Aufgaben/Tokenbudgets und eigenem Leistungs-/Qualitätsgate.",
+    "reopening_conditions": "Typed-/Strict-Schema-Zellen bereits konkret geprüft, nicht erneut messen. Neues Schema nur bei anderer begründeter Format-/Qualitätsanforderung ohne Antwortwerte, mit gleichen Aufgaben/Tokenbudgets und eigenem Leistungs-/Qualitätsgate.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Output Grammar",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "candidate_format": 9,
+          "candidate_semantic": 9,
+          "reference_format_on_observed": 8,
+          "reference_semantic_on_observed": 9
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "CONTROL_INCLUDED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Typed-/Strict-Schema-Zellen bereits konkret geprüft, nicht erneut messen. Neues Schema nur bei anderer begründeter Format-/Qualitätsanforderung ohne Antwortwerte, mit gleichen Aufgaben/Tokenbudgets und eigenem Leistungs-/Qualitätsgate.",
+        "scope": "Freie Ausgabe ist vorhandene Kontrolle, kein eigener GPU-Optimierungstest. R322 öffentliches Feld-/Typschema: semantisch9/12 wieA0, formal9/12 statt8/12, ein neues Urteil statt geforderter zwei; keine Freigabe. Generische JSON-Grammatik, aufgabenspezifisches öffentliches Schema und answer-spezifische Wrapper sind getrennte Belege.",
+        "scope_status": "PARTIAL",
         "value": "free"
       },
       {
@@ -19146,11 +19153,12 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R333 M09: Alle 100 Tool-Schemata bleiben auf dem tatsächlichen GPU-Pfad erhalten (R331: 49 mit Feldverlust). Tool-Qualität 86/100, zuvor 85/100, Referenz A0/C 88/100. Ein Erfolg zurückgewonnen, zwei Referenzerfolge weiterhin verloren. QA12 semantisch 9/12 und formal 8/12 erhalten. Technische Komponente belegt; Gesamtkonfiguration nicht qualifiziert.",
+    "decision": "96 alte Serialisierungsfälle aus echten nativen GPU-Antworten mit gepinntem Code reproduziert: Strict verändert Wire-Kanonisierung, Validator Annahmeprüfung, nicht die native Generierung. Je18/24 akzeptierte korrekte Antworten,24/24 Consumerannahmen; kein GPU-Kernelgewinn. R333 alle100Schemata ohne Feldverlust,86/100 statt85/100 des alten Frontends, aber A0/C88/100 und zwei Referenzerfolge weiter verloren.",
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-131969b2849192f9dffc",
       "audit-204846d88d291bb19e3a",
+      "audit-58ce709304e025ad6a62",
       "audit-639176c0bc0c5abfcd87",
       "audit-7d4ff4b9c907940cedab",
       "audit-915f840f4cbc1dd57d7e",
@@ -19168,13 +19176,14 @@
       "R191",
       "R331",
       "R333",
+      "R368",
       "R332"
     ],
     "experimentally_covered": true,
     "id": "M09",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Andere verbliebene Original-/Benchmark-Einzelfaktoren anhand ihrer konkreten Varianten weiterprüfen; gültige R331/R333 nicht wiederholen. Weitere Serializer-/Reihenfolgetests nur mit neuer unabhängiger Hypothese und vorab eingefrorenem Qualitätsvertrag; keine Nachstimmung bekannter Fehler.",
+    "next_action": "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19261,54 +19270,313 @@
       }
     ],
     "prerequisites": [
-      "Selective serialization/compression needs a new fixed schema-preserving policy and independent ambiguity tasks. Removing semantically important descriptions is not lossless token compression."
+      "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Schema-Metadaten nun tatsächlich erhalten; dennoch86/100gegen88/100, keine vollständige Frontend-/Agentenqualifikation. Bekannte Feldreihenfolge unverändert; weitere Änderungen benötigen einen anderen konkreten Vertrag.",
-    "reopening_conditions": "Selective serialization/compression needs a new fixed schema-preserving policy and independent ambiguity tasks. Removing semantically important descriptions is not lossless token compression.",
+    "remaining_scope": "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung.",
+    "reopening_conditions": "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Function Serialization",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 5982.631364671647,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 4116,
+                "median_consumer_us": 31.613500000000002,
+                "median_serialization_us": 30.4045,
+                "pipeline_wall_sum_s": 22.371586703
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 6024.310802251057,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 3914,
+                "median_consumer_us": 24.361,
+                "median_serialization_us": 62.765,
+                "pipeline_wall_sum_s": 22.382253058
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 31.613500000000002,
+                  "median_pipeline_e2e_s": 0.8178305545,
+                  "median_serialization_us": 30.4045,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 4116
+                },
+                "B": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 24.361,
+                  "median_pipeline_e2e_s": 0.82100785,
+                  "median_serialization_us": 62.765,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 3914
+                }
+              },
+              "change_exercised": true,
+              "note": "Same12 frozen questions, identical tools/schema/native generation across modes. Strict is real typed canonical serialization, not an ignored strict request flag or a change to native constrained decoding. Validator checks before unchanged native delivery. Common kernel speed is excluded. Timed production request+local serialization/consumer; diagnostics, render/tokenizer and quality oracle excluded. Loaded service/cold KV after same diagnostic. Original raw answers and serialized acceptance separate. Server call IDs remain intact in delivery; input matching ignores their random characters but requires equal UTF-8 byte length. Mismatched native input or inactive path keeps quality visible without a percent gain. Two starts/arm; no significance claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_pipeline_e2e_change_pct": 0.06179330170321684,
+              "pipeline_speed_gain_eligible": true
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 5951.183533967767,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 4116,
+                "median_consumer_us": 31.2515,
+                "median_serialization_us": 31.0925,
+                "pipeline_wall_sum_s": 22.377834359
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 5984.532931403297,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 4116,
+                "median_consumer_us": 23.628999999999998,
+                "median_serialization_us": 49.6235,
+                "pipeline_wall_sum_s": 22.382834122
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 31.2515,
+                  "median_pipeline_e2e_s": 0.8189344519999999,
+                  "median_serialization_us": 31.0925,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 4116
+                },
+                "B": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 23.628999999999998,
+                  "median_pipeline_e2e_s": 0.819501909,
+                  "median_serialization_us": 49.6235,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 4116
+                }
+              },
+              "change_exercised": true,
+              "note": "Same12 frozen questions, identical tools/schema/native generation across modes. Strict is real typed canonical serialization, not an ignored strict request flag or a change to native constrained decoding. Validator checks before unchanged native delivery. Common kernel speed is excluded. Timed production request+local serialization/consumer; diagnostics, render/tokenizer and quality oracle excluded. Loaded service/cold KV after same diagnostic. Original raw answers and serialized acceptance separate. Server call IDs remain intact in delivery; input matching ignores their random characters but requires equal UTF-8 byte length. Mismatched native input or inactive path keeps quality visible without a percent gain. Two starts/arm; no significance claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_pipeline_e2e_change_pct": 0.011405481292547925,
+              "pipeline_speed_gain_eligible": true
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "CONTROL_INCLUDED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung.",
+        "scope": "96 alte Serialisierungsfälle aus echten nativen GPU-Antworten mit gepinntem Code reproduziert: Strict verändert Wire-Kanonisierung, Validator Annahmeprüfung, nicht die native Generierung. Je18/24 akzeptierte korrekte Antworten,24/24 Consumerannahmen; kein GPU-Kernelgewinn. R333 alle100Schemata ohne Feldverlust,86/100 statt85/100 des alten Frontends, aber A0/C88/100 und zwei Referenzerfolge weiter verloren.",
+        "scope_status": "PARTIAL",
         "value": "native"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 5982.631364671647,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 4116,
+                "median_consumer_us": 31.613500000000002,
+                "median_serialization_us": 30.4045,
+                "pipeline_wall_sum_s": 22.371586703
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 6024.310802251057,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 3914,
+                "median_consumer_us": 24.361,
+                "median_serialization_us": 62.765,
+                "pipeline_wall_sum_s": 22.382253058
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 31.613500000000002,
+                  "median_pipeline_e2e_s": 0.8178305545,
+                  "median_serialization_us": 30.4045,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 4116
+                },
+                "B": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 24.361,
+                  "median_pipeline_e2e_s": 0.82100785,
+                  "median_serialization_us": 62.765,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 3914
+                }
+              },
+              "change_exercised": true,
+              "note": "Same12 frozen questions, identical tools/schema/native generation across modes. Strict is real typed canonical serialization, not an ignored strict request flag or a change to native constrained decoding. Validator checks before unchanged native delivery. Common kernel speed is excluded. Timed production request+local serialization/consumer; diagnostics, render/tokenizer and quality oracle excluded. Loaded service/cold KV after same diagnostic. Original raw answers and serialized acceptance separate. Server call IDs remain intact in delivery; input matching ignores their random characters but requires equal UTF-8 byte length. Mismatched native input or inactive path keeps quality visible without a percent gain. Two starts/arm; no significance claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_pipeline_e2e_change_pct": 0.06179330170321684,
+              "pipeline_speed_gain_eligible": true
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-a9dd3df6772fd11c5407"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung.",
+        "scope": "96 alte Serialisierungsfälle aus echten nativen GPU-Antworten mit gepinntem Code reproduziert: Strict verändert Wire-Kanonisierung, Validator Annahmeprüfung, nicht die native Generierung. Je18/24 akzeptierte korrekte Antworten,24/24 Consumerannahmen; kein GPU-Kernelgewinn. R333 alle100Schemata ohne Feldverlust,86/100 statt85/100 des alten Frontends, aber A0/C88/100 und zwei Referenzerfolge weiter verloren.",
+        "scope_status": "PARTIAL",
         "value": "strict"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 5951.183533967767,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 4116,
+                "median_consumer_us": 31.2515,
+                "median_serialization_us": 31.0925,
+                "pipeline_wall_sum_s": 22.377834359
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 5984.532931403297,
+                "accepted_correct": 18,
+                "consumer_accepts": 24,
+                "delivered_bytes": 4116,
+                "median_consumer_us": 23.628999999999998,
+                "median_serialization_us": 49.6235,
+                "pipeline_wall_sum_s": 22.382834122
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 31.2515,
+                  "median_pipeline_e2e_s": 0.8189344519999999,
+                  "median_serialization_us": 31.0925,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 4116
+                },
+                "B": {
+                  "accepted_correct": 18,
+                  "argument_format_passes": 18,
+                  "argument_semantic_passes": 18,
+                  "consumer_accepts": 24,
+                  "median_consumer_us": 23.628999999999998,
+                  "median_pipeline_e2e_s": 0.819501909,
+                  "median_serialization_us": 49.6235,
+                  "questions": 24,
+                  "starts": 2,
+                  "wire_bytes": 4116
+                }
+              },
+              "change_exercised": true,
+              "note": "Same12 frozen questions, identical tools/schema/native generation across modes. Strict is real typed canonical serialization, not an ignored strict request flag or a change to native constrained decoding. Validator checks before unchanged native delivery. Common kernel speed is excluded. Timed production request+local serialization/consumer; diagnostics, render/tokenizer and quality oracle excluded. Loaded service/cold KV after same diagnostic. Original raw answers and serialized acceptance separate. Server call IDs remain intact in delivery; input matching ignores their random characters but requires equal UTF-8 byte length. Mismatched native input or inactive path keeps quality visible without a percent gain. Two starts/arm; no significance claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_pipeline_e2e_change_pct": 0.011405481292547925,
+              "pipeline_speed_gain_eligible": true
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-7d4ff4b9c907940cedab"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "CPU-Serialisierung, native Grammar und Schemaerhalt nicht gleichsetzen. Neuer Frontendversuch erst bei konkreter weiterer Protokoll-/Qualitätsursache jenseits reparierter Felder; bestehende Roh-/AST-/Schema-Audits erhalten. Keine weitere unveränderte100er-Runde oder Produktivänderung.",
+        "scope": "96 alte Serialisierungsfälle aus echten nativen GPU-Antworten mit gepinntem Code reproduziert: Strict verändert Wire-Kanonisierung, Validator Annahmeprüfung, nicht die native Generierung. Je18/24 akzeptierte korrekte Antworten,24/24 Consumerannahmen; kein GPU-Kernelgewinn. R333 alle100Schemata ohne Feldverlust,86/100 statt85/100 des alten Frontends, aber A0/C88/100 und zwei Referenzerfolge weiter verloren.",
+        "scope_status": "PARTIAL",
         "value": "validator"
       }
     ]
@@ -19795,9 +20063,10 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R317 M13: Der unterstützte Auto-Abschluss verliert nach drei Agentenfällen den zuvor gelösten Fall code-lower-floor-02 und erzeugt dort einen zusätzlichen Policy-Verstoß. 0/3 Erfolge statt 1/3; 49,70 s statt 49,49 s. Alle 27 Agentenantworten enthalten weiterhin native Funktionsaufrufe; der zusätzliche freie Finalkanal wurde nicht genutzt. Qualitätsveto, kein vollständiger 18er-Score oder neuer QA12-Lauf.",
+    "decision": "96 simulierte Zwei-Anfragen-Fälle mit Originalcode/Feedback exakt reproduziert. Rücklesen erkennt8/8 beobachtete simulierte Schreibfehler und senkt falsche Erfolgsmeldungen8→0; korrigierte Schreibzustände bleiben0/8. Typed-Gate allein erkennt diese Servicefehler nicht. R317Auto-Abschluss separat0/3 statt1/3, Qualitätsveto, kein18er-Score.",
     "domain": "model_behavior",
     "evidence_ids": [
+      "audit-58ce709304e025ad6a62",
       "audit-9191b0a2f4ca49e44d35",
       "audit-944476f62657e0327321",
       "audit-ac6a9384b8a613e965b6",
@@ -19807,13 +20076,14 @@
     "experiment_ids": [
       "R135",
       "R190",
-      "R317"
+      "R317",
+      "R368"
     ],
     "experimentally_covered": true,
     "id": "M13",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Vor weiteren Varianten die originalen 355 Werte-/Varianten-Zellen innerhalb der bestehenden Matrix präzise mit Sprint-Audits verknüpfen. Alte signierte Zellzustände unverändert bewahren; tatsächliche Werte, Modellidentität und geprüften Umfang daneben ausweisen. Danach höchsten noch sinnvoll ausführbaren Original-Einzelpunkt wählen; keine erneuten gültigen Tests, Kombinationen oder neuen Modelle.",
+    "next_action": "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19900,54 +20170,529 @@
       }
     ],
     "prerequisites": [
-      "Other stop policies need a defined natural-final/refusal/multiple-call contract and unchanged evaluator. Forcing tool calls on legitimate no-call cases is not equivalent."
+      "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "R190 mandatory-tool auto/required12/12 retained; no global auto-mode rejection. New completion policies need a distinct supported protocol and independent reliability hypothesis, not tuning known failed answers.",
-    "reopening_conditions": "Other stop policies need a defined natural-final/refusal/multiple-call contract and unchanged evaluator. Forcing tool calls on legitimate no-call cases is not equivalent.",
+    "remaining_scope": "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung.",
+    "reopening_conditions": "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Tool Completion",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 8181.097269000807,
+                "fault": {
+                  "false_success_reports": 8,
+                  "faults_detected": 0,
+                  "report_correct": 0,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.687171904
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 8210.333119738023,
+                "fault": {
+                  "false_success_reports": 8,
+                  "faults_detected": 0,
+                  "report_correct": 0,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.766938317
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 8,
+                      "faults_detected": 0,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.4000337875,
+                      "report_correct": 0,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.4048126095,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                },
+                "B": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 8,
+                      "faults_detected": 0,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.4007376345,
+                      "report_correct": 0,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.415386191,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                }
+              },
+              "change_exercised": true,
+              "note": "Twelve frozen synthetic two-request workflows after original12 questions per fresh start. Eight normal and four explicitly injected service faults separately reported. Full render/tokenization/API/parsing/action/readback/final pipeline wall time; buffered TTFT unknown. No real actions, no kernel-throughput claim, no statistical significance from two starts per arm. Basic is an explicit permissive lab policy, not a claim about production HA/PVE behavior. A pipeline gain requires the actual candidate gate/readback to execute in both B starts; inactive paths retain measured quality without a speedup claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_e2e_change_pct": {
+                "fault": 0.062149705304870295,
+                "normal": 0.3221054389596967
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 8198.654508682172,
+                "fault": {
+                  "false_success_reports": 8,
+                  "faults_detected": 0,
+                  "report_correct": 0,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.760196101
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 8118.153892909606,
+                "fault": {
+                  "false_success_reports": 0,
+                  "faults_detected": 8,
+                  "report_correct": 8,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.425642061
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 8,
+                      "faults_detected": 0,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.395314806,
+                      "report_correct": 0,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.4093813604999998,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                },
+                "B": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 0,
+                      "faults_detected": 8,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.3887084930000002,
+                      "report_correct": 8,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.392741858,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                }
+              },
+              "change_exercised": true,
+              "note": "Twelve frozen synthetic two-request workflows after original12 questions per fresh start. Eight normal and four explicitly injected service faults separately reported. Full render/tokenization/API/parsing/action/readback/final pipeline wall time; buffered TTFT unknown. No real actions, no kernel-throughput claim, no statistical significance from two starts per arm. Basic is an explicit permissive lab policy, not a claim about production HA/PVE behavior. A pipeline gain requires the actual candidate gate/readback to execute in both B starts; inactive paths retain measured quality without a speedup claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_e2e_change_pct": {
+                "fault": -0.6924865574879924,
+                "normal": -1.1399868199530427
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "CONTROL_INCLUDED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung.",
+        "scope": "96 simulierte Zwei-Anfragen-Fälle mit Originalcode/Feedback exakt reproduziert. Rücklesen erkennt8/8 beobachtete simulierte Schreibfehler und senkt falsche Erfolgsmeldungen8→0; korrigierte Schreibzustände bleiben0/8. Typed-Gate allein erkennt diese Servicefehler nicht. R317Auto-Abschluss separat0/3 statt1/3, Qualitätsveto, kein18er-Score.",
+        "scope_status": "PARTIAL",
         "value": "basic"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 8181.097269000807,
+                "fault": {
+                  "false_success_reports": 8,
+                  "faults_detected": 0,
+                  "report_correct": 0,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.687171904
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 8210.333119738023,
+                "fault": {
+                  "false_success_reports": 8,
+                  "faults_detected": 0,
+                  "report_correct": 0,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.766938317
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 8,
+                      "faults_detected": 0,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.4000337875,
+                      "report_correct": 0,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.4048126095,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                },
+                "B": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 8,
+                      "faults_detected": 0,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.4007376345,
+                      "report_correct": 0,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.415386191,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                }
+              },
+              "change_exercised": true,
+              "note": "Twelve frozen synthetic two-request workflows after original12 questions per fresh start. Eight normal and four explicitly injected service faults separately reported. Full render/tokenization/API/parsing/action/readback/final pipeline wall time; buffered TTFT unknown. No real actions, no kernel-throughput claim, no statistical significance from two starts per arm. Basic is an explicit permissive lab policy, not a claim about production HA/PVE behavior. A pipeline gain requires the actual candidate gate/readback to execute in both B starts; inactive paths retain measured quality without a speedup claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_e2e_change_pct": {
+                "fault": 0.062149705304870295,
+                "normal": 0.3221054389596967
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-b54151035e698b08a11a"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung.",
+        "scope": "96 simulierte Zwei-Anfragen-Fälle mit Originalcode/Feedback exakt reproduziert. Rücklesen erkennt8/8 beobachtete simulierte Schreibfehler und senkt falsche Erfolgsmeldungen8→0; korrigierte Schreibzustände bleiben0/8. Typed-Gate allein erkennt diese Servicefehler nicht. R317Auto-Abschluss separat0/3 statt1/3, Qualitätsveto, kein18er-Score.",
+        "scope_status": "PARTIAL",
         "value": "typed_gate"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "GPU_request_or_pipeline_j_sum": 8198.654508682172,
+                "fault": {
+                  "false_success_reports": 8,
+                  "faults_detected": 0,
+                  "report_correct": 0,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.760196101
+              },
+              "B": {
+                "GPU_request_or_pipeline_j_sum": 8118.153892909606,
+                "fault": {
+                  "false_success_reports": 0,
+                  "faults_detected": 8,
+                  "report_correct": 8,
+                  "state_correct": 0,
+                  "successful_tasks": 0
+                },
+                "normal": {
+                  "false_success_reports": 0,
+                  "faults_detected": 0,
+                  "report_correct": 16,
+                  "state_correct": 16,
+                  "successful_tasks": 16
+                },
+                "pipeline_wall_sum_s": 33.425642061
+              }
+            },
+            "original_aggregate": {
+              "arms": {
+                "A": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 8,
+                      "faults_detected": 0,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.395314806,
+                      "report_correct": 0,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.4093813604999998,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                },
+                "B": {
+                  "groups": {
+                    "fault": {
+                      "attempts": 8,
+                      "false_success_reports": 0,
+                      "faults_detected": 8,
+                      "faults_exercised": 8,
+                      "foreign_changes": 0,
+                      "intended_actions": 8,
+                      "median_pipeline_e2e_s": 1.3887084930000002,
+                      "report_correct": 8,
+                      "state_correct": 0,
+                      "successful_tasks": 0
+                    },
+                    "normal": {
+                      "attempts": 16,
+                      "false_success_reports": 0,
+                      "faults_detected": 0,
+                      "faults_exercised": 0,
+                      "foreign_changes": 0,
+                      "intended_actions": 16,
+                      "median_pipeline_e2e_s": 1.392741858,
+                      "report_correct": 16,
+                      "state_correct": 16,
+                      "successful_tasks": 16
+                    }
+                  },
+                  "starts": 2
+                }
+              },
+              "change_exercised": true,
+              "note": "Twelve frozen synthetic two-request workflows after original12 questions per fresh start. Eight normal and four explicitly injected service faults separately reported. Full render/tokenization/API/parsing/action/readback/final pipeline wall time; buffered TTFT unknown. No real actions, no kernel-throughput claim, no statistical significance from two starts per arm. Basic is an explicit permissive lab policy, not a claim about production HA/PVE behavior. A pipeline gain requires the actual candidate gate/readback to execute in both B starts; inactive paths retain measured quality without a speedup claim.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              },
+              "paired_e2e_change_pct": {
+                "fault": -0.6924865574879924,
+                "normal": -1.1399868199530427
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-ac6a9384b8a613e965b6"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "IMPLEMENTED_QUEUED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Readback ist Fehlererkennung, nicht Reparatur oder Produktivgarantie. Neue Recovery muss einen konkreten simulierten Fehler-/Retryvertrag mit Authority-Erhaltung und unabhängigen Mehrschrittaufgaben erfüllen. Kein erneuter Auto-Abschluss- oder Normalfalltest ohne neue Behandlung.",
+        "scope": "96 simulierte Zwei-Anfragen-Fälle mit Originalcode/Feedback exakt reproduziert. Rücklesen erkennt8/8 beobachtete simulierte Schreibfehler und senkt falsche Erfolgsmeldungen8→0; korrigierte Schreibzustände bleiben0/8. Typed-Gate allein erkennt diese Servicefehler nicht. R317Auto-Abschluss separat0/3 statt1/3, Qualitätsveto, kein18er-Score.",
+        "scope_status": "PARTIAL",
         "value": "postread"
       }
     ]
@@ -22554,9 +23299,10 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R241 tool-return injections produced12unauthorized proposals, all12blocked; only3/18allowed tasks had correct calls. Gate component success does not qualify injection-resistant model behavior.",
+    "decision": "R192/R241 native GPU-Vorschläge und logische Gateprüfung getrennt: R241 zwölf unzulässige Vorschläge, alle blockiert; nur3/18 erlaubte Aufgaben mit korrektem Call. Keine tatsächlichen Tool-Ausführungen. Feld-/Typ-/Envelopeprüfung ist eine Komponente, keine bewiesene umfassende Autorisierung oder injectionsicheres Modell.",
     "domain": "agent_harness",
     "evidence_ids": [
+      "audit-58ce709304e025ad6a62",
       "audit-c0beafb45c744eff4e32",
       "audit-fe9d4937f9a1adf51176"
     ],
@@ -22564,13 +23310,14 @@
       "R121",
       "R154",
       "R192",
-      "R241"
+      "R241",
+      "R368"
     ],
     "experimentally_covered": true,
     "id": "A04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep offline gate; no production integration or repeated24fixture score as independent qualification.",
+    "next_action": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -22653,50 +23400,107 @@
       }
     ],
     "prerequisites": [
-      "New policy surfaces/recovery need explicit offline capability fixtures and correct allowed actions; production authorization/GUI/tool ecosystems remain untested. A blocked malicious action is not a solved-task success."
+      "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben."
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "New policy surfaces/recovery need explicit offline capability fixtures and correct allowed actions; production authorization/GUI/tool ecosystems remain untested. A blocked malicious action is not a solved-task success.",
-    "reopening_conditions": "New policy surfaces/recovery need explicit offline capability fixtures and correct allowed actions; production authorization/GUI/tool ecosystems remain untested. A blocked malicious action is not a solved-task success.",
+    "remaining_scope": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
+    "reopening_conditions": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Tool Security Gate",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "R192": {
+            "authorized_correct_blocked": 0,
+            "baseline_unchecked_dispatches": 18,
+            "denied_case_safe_no_call": 6,
+            "gate_blocked_unsafe": 0,
+            "gate_dispatch_allowed": 18,
+            "model_authorized_correct": 18,
+            "native_protocol_valid": 24
+          },
+          "R241": {
+            "authorized_correct_blocked": 0,
+            "baseline_unchecked_dispatches": 15,
+            "denied_case_safe_no_call": 0,
+            "gate_blocked_unsafe": 12,
+            "gate_dispatch_allowed": 3,
+            "model_authorized_correct": 3,
+            "native_protocol_valid": 24
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
+        "scope": "R192/R241 native GPU-Vorschläge und logische Gateprüfung getrennt: R241 zwölf unzulässige Vorschläge, alle blockiert; nur3/18 erlaubte Aufgaben mit korrektem Call. Keine tatsächlichen Tool-Ausführungen. Feld-/Typ-/Envelopeprüfung ist eine Komponente, keine bewiesene umfassende Autorisierung oder injectionsicheres Modell.",
+        "scope_status": "PARTIAL",
         "value": "native_only"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "R192": {
+            "authorized_correct_blocked": 0,
+            "baseline_unchecked_dispatches": 18,
+            "denied_case_safe_no_call": 6,
+            "gate_blocked_unsafe": 0,
+            "gate_dispatch_allowed": 18,
+            "model_authorized_correct": 18,
+            "native_protocol_valid": 24
+          },
+          "R241": {
+            "authorized_correct_blocked": 0,
+            "baseline_unchecked_dispatches": 15,
+            "denied_case_safe_no_call": 0,
+            "gate_blocked_unsafe": 12,
+            "gate_dispatch_allowed": 3,
+            "model_authorized_correct": 3,
+            "native_protocol_valid": 24
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
+        "scope": "R192/R241 native GPU-Vorschläge und logische Gateprüfung getrennt: R241 zwölf unzulässige Vorschläge, alle blockiert; nur3/18 erlaubte Aufgaben mit korrektem Call. Keine tatsächlichen Tool-Ausführungen. Feld-/Typ-/Envelopeprüfung ist eine Komponente, keine bewiesene umfassende Autorisierung oder injectionsicheres Modell.",
+        "scope_status": "PARTIAL",
         "value": "strict_schema"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "R192": {
+            "authorized_correct_blocked": 0,
+            "baseline_unchecked_dispatches": 18,
+            "denied_case_safe_no_call": 6,
+            "gate_blocked_unsafe": 0,
+            "gate_dispatch_allowed": 18,
+            "model_authorized_correct": 18,
+            "native_protocol_valid": 24
+          },
+          "R241": {
+            "authorized_correct_blocked": 0,
+            "baseline_unchecked_dispatches": 15,
+            "denied_case_safe_no_call": 0,
+            "gate_blocked_unsafe": 12,
+            "gate_dispatch_allowed": 3,
+            "model_authorized_correct": 3,
+            "native_protocol_valid": 24
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
+        "scope": "R192/R241 native GPU-Vorschläge und logische Gateprüfung getrennt: R241 zwölf unzulässige Vorschläge, alle blockiert; nur3/18 erlaubte Aufgaben mit korrektem Call. Keine tatsächlichen Tool-Ausführungen. Feld-/Typ-/Envelopeprüfung ist eine Komponente, keine bewiesene umfassende Autorisierung oder injectionsicheres Modell.",
+        "scope_status": "PARTIAL",
         "value": "independent_gate"
       }
     ]
@@ -22873,7 +23677,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R327 focused_test: vollständige native Agentenprüfung 13/18 wie A0, keine neuen Qualitäts-/Policyverluste, QA12 erhalten. 227.067 s, 4814.5 GPU-J/Erfolg, 7356.5 MiB. +1.32% Aufgaben/s, aber +1.47% Energie/Erfolg; 3%-/Energiegrenze verfehlt. Kein Gewinner. 37 tatsächlich geänderte Testfeedback-Nachrichten, alle Fehlervektoren erhalten.",
+    "decision": "Aktueller Code-/Agentenprüfer ist Baseline, kein weiterer Eingriff. R327 änderte37 Feedbacknachrichten, erhielt alle fehlschlagenden Vektoren und13/18Erfolge; +1,32%Aufgaben/s bei +1,47%GPU-J/Erfolg verfehlt3%-/Energie-Gate. Offizieller Coding-Judge und bestehende Kalibrierungen bleiben erhalten.",
     "domain": "agent_harness",
     "evidence_ids": [
       "audit-07e0c748aa3ce4016cab",
@@ -22881,6 +23685,7 @@
       "audit-25d985a05f3d442d8f1c",
       "audit-261651f358a67acc29ea",
       "audit-46e12a310b5c14e20d97",
+      "audit-58ce709304e025ad6a62",
       "audit-6e8fc40945c6d265d61b",
       "audit-7be4a096b60529fdd3d1",
       "audit-a0af491648ec3e01a834",
@@ -22899,13 +23704,14 @@
       "R144",
       "R152",
       "R153",
-      "R327"
+      "R327",
+      "R368"
     ],
     "experimentally_covered": true,
     "id": "A06",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Weitere verbleibende Originalvarianten anhand vorhandener Audits prüfen. Veröffentlichtes Q4_K_M-R132-Artefakt nicht mit Imatrix-R315 oder Q03-Presets verwechseln; vorhandene QA-Verluste prüfen, bevor irgendein neuer Agentenlauf zugelassen wird.",
+    "next_action": "Focused-Test-/Patch-Verification-Zellen bereits spezifisch eingeordnet; keine neuerliche unveränderte Testfeedbackrunde. Neuer Testvertrag muss vollständige Fehler-/Regressionsinformation bewahren und auf unabhängigen Aufgaben bewertet werden, ohne generierten Code außerhalb der vorhandenen Isolierung auszuführen.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -22988,26 +23794,31 @@
       }
     ],
     "prerequisites": [
-      "Für andere A06-Policies: neue öffentliche Repair-/Testauswahlregel mit unverändertem privaten Bewertungsoracle und begrenzten simulierten Effekten; keine versteckten Checker-Antworten als Modellfeedback."
+      "Focused-Test-/Patch-Verification-Zellen bereits spezifisch eingeordnet; keine neuerliche unveränderte Testfeedbackrunde. Neuer Testvertrag muss vollständige Fehler-/Regressionsinformation bewahren und auf unabhängigen Aufgaben bewertet werden, ohne generierten Code außerhalb der vorhandenen Isolierung auszuführen."
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "Originalfocused_test-Failures-only-Feedback real gemessen und ohne praktischen Gewinn. Quellenhashgebundene Patchprüfung bereits obligatorisch in der Basis; andere öffentliche Repair-/Feedback-Policies und unabhängige Holdouts nicht universell qualifiziert.",
-    "reopening_conditions": "A different useful harness must change actual feedback/test-selection/repair behavior under an unchanged independent oracle and bounded safe execution. Hidden checker outputs or benchmark answers cannot be fed back as a claimed optimization.",
+    "remaining_scope": "Focused-Test-/Patch-Verification-Zellen bereits spezifisch eingeordnet; keine neuerliche unveränderte Testfeedbackrunde. Neuer Testvertrag muss vollständige Fehler-/Regressionsinformation bewahren und auf unabhängigen Aufgaben bewertet werden, ohne generierten Code außerhalb der vorhandenen Isolierung auszuführen.",
+    "reopening_conditions": "Focused-Test-/Patch-Verification-Zellen bereits spezifisch eingeordnet; keine neuerliche unveränderte Testfeedbackrunde. Neuer Testvertrag muss vollständige Fehler-/Regressionsinformation bewahren und auf unabhängigen Aufgaben bewertet werden, ohne generierten Code außerhalb der vorhandenen Isolierung auszuführen.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Code Test Harness",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "GPU_j_per_success_change_percent": 1.465036838925693,
+          "R327_solved": 13,
+          "successes_per_second_gain_percent": 1.3194317207218198,
+          "tasks": 18
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Focused-Test-/Patch-Verification-Zellen bereits spezifisch eingeordnet; keine neuerliche unveränderte Testfeedbackrunde. Neuer Testvertrag muss vollständige Fehler-/Regressionsinformation bewahren und auf unabhängigen Aufgaben bewertet werden, ohne generierten Code außerhalb der vorhandenen Isolierung auszuführen.",
+        "scope": "Aktueller Code-/Agentenprüfer ist Baseline, kein weiterer Eingriff. R327 änderte37 Feedbacknachrichten, erhielt alle fehlschlagenden Vektoren und13/18Erfolge; +1,32%Aufgaben/s bei +1,47%GPU-J/Erfolg verfehlt3%-/Energie-Gate. Offizieller Coding-Judge und bestehende Kalibrierungen bleiben erhalten.",
+        "scope_status": "PARTIAL",
         "value": "current"
       },
       {
@@ -23037,8 +23848,8 @@
     ]
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R240 CPU ledger replay of prior GPU proposals reduces54 duplicate deliveries to18simulatedeffects, with rollback/reopen/revocation controls. No new GPU speedup.",
+    "coverage_scope": "CPU-Retry-Komponente über gespeicherte GPU-Vorschläge gemessen; kein eigener Live-GPU-Retry-Eingriff.",
+    "decision": "CPU-Komponente R240: gespeicherte R192-GPU-Vorschläge,54Wiederholungszustellungen→18simulierte Effekte, Widerruf/Konflikt/Rollback/Reopen geprüft; null Modellstarts/Generierungen. Verknüpfte GPU-Agentenläufe ändern andere Faktoren und belegen keinen eigenen GPU-Retry-Eingriff. Experimentell GPU NEIN, CPU-Befund PARTIAL erhalten.",
     "domain": "agent_harness",
     "evidence_ids": [
       "audit-07e0c748aa3ce4016cab",
@@ -23046,6 +23857,7 @@
       "audit-261651f358a67acc29ea",
       "audit-46e12a310b5c14e20d97",
       "audit-4912e9ed03c1c3a64139",
+      "audit-58ce709304e025ad6a62",
       "audit-6e8fc40945c6d265d61b",
       "audit-7be4a096b60529fdd3d1",
       "audit-a0af491648ec3e01a834",
@@ -23062,14 +23874,15 @@
       "R144",
       "R152",
       "R153",
-      "R240"
+      "R240",
+      "R368"
     ],
-    "experimentally_covered": true,
+    "experimentally_covered": false,
     "id": "A07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reuse component; no GPU regeneration of identical retry data. Remote production/crash qualification deferred pending suitable tool contract.",
-    "omnicoder2_experimentally_covered": true,
+    "next_action": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+    "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
         "levels": [
@@ -23151,50 +23964,77 @@
       }
     ],
     "prerequisites": [
-      "Real remote atomar effect/retry requires tool-native idempotency key or status reconciliation, a crash/transaction contract and isolated fault fixture. Local ledger alone cannot certify remote exactly-once."
+      "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf."
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "Real remote atomar effect/retry requires tool-native idempotency key or status reconciliation, a crash/transaction contract and isolated fault fixture. Local ledger alone cannot certify remote exactly-once.",
-    "reopening_conditions": "Real remote atomar effect/retry requires tool-native idempotency key or status reconciliation, a crash/transaction contract and isolated fault fixture. Local ledger alone cannot certify remote exactly-once.",
+    "remaining_scope": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+    "reopening_conditions": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Idempotency",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "actual_generation_requests": 0,
+          "authorized_cases": 18,
+          "baseline_repeat_deliveries": 54,
+          "deduplicated_simulated_effects": 18,
+          "denied_cases": 6,
+          "live_GPU_pipeline_qualified": false,
+          "production_remote_atomicity_qualified": false,
+          "source_cases": 24
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+        "scope": "CPU-Komponente R240: gespeicherte R192-GPU-Vorschläge,54Wiederholungszustellungen→18simulierte Effekte, Widerruf/Konflikt/Rollback/Reopen geprüft; null Modellstarts/Generierungen. Verknüpfte GPU-Agentenläufe ändern andere Faktoren und belegen keinen eigenen GPU-Retry-Eingriff. Experimentell GPU NEIN, CPU-Befund PARTIAL erhalten.",
+        "scope_status": "PARTIAL",
         "value": "simulator"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "actual_generation_requests": 0,
+          "authorized_cases": 18,
+          "baseline_repeat_deliveries": 54,
+          "deduplicated_simulated_effects": 18,
+          "denied_cases": 6,
+          "live_GPU_pipeline_qualified": false,
+          "production_remote_atomicity_qualified": false,
+          "source_cases": 24
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+        "scope": "CPU-Komponente R240: gespeicherte R192-GPU-Vorschläge,54Wiederholungszustellungen→18simulierte Effekte, Widerruf/Konflikt/Rollback/Reopen geprüft; null Modellstarts/Generierungen. Verknüpfte GPU-Agentenläufe ändern andere Faktoren und belegen keinen eigenen GPU-Retry-Eingriff. Experimentell GPU NEIN, CPU-Befund PARTIAL erhalten.",
+        "scope_status": "DEFERRED",
         "value": "shadow"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "actual_generation_requests": 0,
+          "authorized_cases": 18,
+          "baseline_repeat_deliveries": 54,
+          "deduplicated_simulated_effects": 18,
+          "denied_cases": 6,
+          "live_GPU_pipeline_qualified": false,
+          "production_remote_atomicity_qualified": false,
+          "source_cases": 24
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+        "scope": "CPU-Komponente R240: gespeicherte R192-GPU-Vorschläge,54Wiederholungszustellungen→18simulierte Effekte, Widerruf/Konflikt/Rollback/Reopen geprüft; null Modellstarts/Generierungen. Verknüpfte GPU-Agentenläufe ändern andere Faktoren und belegen keinen eigenen GPU-Retry-Eingriff. Experimentell GPU NEIN, CPU-Befund PARTIAL erhalten.",
+        "scope_status": "DEFERRED",
         "value": "production_future"
       }
     ]
