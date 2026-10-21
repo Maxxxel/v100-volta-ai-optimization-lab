@@ -13,6 +13,8 @@ SAFEKEY = re.compile(r'^[A-Za-z0-9_+().% -]{1,100}$')
 # Only aggregate scientific branches; never raw responses, cases, per-task outputs or prompts.
 METRIC_ROOTS = {'native_metrics','context_tokens','slots','actual_KV_unified','models','comparisons','metrics','comparison','delta','long_metrics','quality','original12','quality_original12','original12_nonregression','peak_process_vram_mib','peak_device_vram_mib','memory_saved_mib','numerical','numerical_reference','numerical_failures','numerical_tests','model_starts','requests','actual_generation_requests','actual_GPU_execution','new_GPU_runs','old_native_model_starts_verified','primary_archives_checked','observations','unique_quality_tasks','quality_losses','format_passes','semantic_passes','tasks','solved','total_wall_s','wall_s','gpu_j_per_success','gpu_energy_j','stability','A','B','arms','reference','candidate','full_standard164','custom_long_context16','scopes','score_rule','model_comparison_progress'}
 METRIC_ROOTS |= {'factors_reviewed','original_variant_cells','existing_unique_evidence_files_SHA_verified','new_model_starts','scientific_status_changes','experimental_factor_coverage_changes'}
+METRIC_ROOTS |= {'prefill_geomean_E2E_change_percent','actual_private_cublas126'}
+DOMAINS.add('pypi.org')
 # Explicit numeric aggregate fields for speculation memory/task-cost screens.
 METRIC_ROOTS |= {'prefix_envelopes_same','actual_history_requests','critical_matches_previous_valid','critical_matches_previous_bad','critical_prompt_tokens','critical_output_tokens','concurrent_generation_requests','other_slot_erased','actual_managed_allocator','CT_memory_observed','decode_e2e_reduction_percent_vs_A0','actual_ngram_draft','memory_saved_vs_R244_device_mib','memory_saved_vs_R245_device_mib','successful_task_wall_s','successful_task_cost_change_percent_vs_R245','gpu_energy_j_approx','observed_tasks','full18_score_claimed','model_requests','actual_ngram_proposals_observed','timing_confirmation_needed','fixed_parameters'}
 BLOCK_KEYS = re.compile(r'(?i)(?:prompt|response|answer|output|content|messages|transcript|token_ids|per_task|per_case|samples|observations|input|argv|environment|paths?|commands?|logs?|error|trace|qkv|tensor|activation|workload|case_id|tools|entities|sequence|proposals|findings|password|credential|secret|authorization|entity|address|port_number|pin$)')
@@ -157,6 +159,9 @@ def main():
         if v.get('factor_mapping_correction'):
             experiments[ident]['factor_mapping_correction']=factor_assignment(v)
             experiments[ident]['factor_ids']=experiments[ident]['factor_mapping_correction']['current_factor_ids']
+        package=v.get('source_package')
+        if isinstance(package,dict) and re.fullmatch('[a-f0-9]{64}',str(package.get('wheel_sha256',''))):
+            experiments[ident]['source_package']={'name':text(package.get('name')),'version':text(package.get('version')),'url':url(package.get('url')),'license':text(package.get('license')),'wheel_sha256':package['wheel_sha256']}
     for f in factors:
         for aid in f['evidence_ids']:
             p=locations[aid];match=re.search(r'(?:^|/)r(\d+)(?:[-/]|$)',str(p),re.I)

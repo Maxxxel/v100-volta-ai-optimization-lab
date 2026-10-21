@@ -225,6 +225,8 @@ The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint bas
   text='# '+e['id']+'\n\n'+table(['Date','Factors','Model','Evidence state'],[[e.get('date'),', '.join(e['factor_ids']),e.get('model'),e['evidence_status']]])+'\n## Research question, decision and limits\n\n'+pretty(e['statements'])+'\n## Available aggregate results\n\n'+(pretty(e['aggregate_metrics']) if e['aggregate_metrics'] else 'NOT MEASURED / not recorded in this public projection.\n')
   if e.get('factor_mapping_correction'):
    text+='\n## Scientific mapping correction\n\nThe original audit and its hash remain unchanged. The current tested-factor assignment corrects earlier metadata; related cache settings are not separate isolated interventions.\n\n'+pretty(e['factor_mapping_correction'])
+  if e.get('source_package'):
+   text+='\n## Library source identity\n\nOnly metadata and checksums are public. Proprietary library binaries and license files remain outside this repository.\n\n'+pretty(e['source_package'])
   if e.get('audit_id'):text+='\n[Original audit SHA and selected excerpt](../audits/'+e['audit_id']+'.md)\n'
   if e.get('reference_A0'):text+='\nA0 reference ID: `'+e['reference_A0']+'`.\n'
   text+='\nDo not infer a new hardware intervention, successful quality gate or champion from an experiment number. Exact inputs and private task outputs are withheld; missing configuration fields remain unverified publicly.\n'

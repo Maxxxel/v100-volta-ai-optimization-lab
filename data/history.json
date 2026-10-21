@@ -12534,5 +12534,13 @@
     "kind": "R383_ORIGINAL_E07_PRIVATE_LIBRARY_SINGLE_FACTOR_PREPARED",
     "sequence": 1567,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T21:58:55.517849+00:00",
+    "experiment_id": "R383",
+    "factor_id": null,
+    "kind": "R383_ORIGINAL_E07_ACTUAL_GPU_SCREEN_INDEPENDENTLY_REPLAYED_NEGATIVE",
+    "sequence": 1568,
+    "signature": null
   }
 ]

@@ -92,7 +92,7 @@
 | [E04](factors/E04.md) | TensorRT-LLM Compatibility | OPEN | NO | P3 |
 | [E05](factors/E05.md) | ExLlama Compatibility | OPEN | NO | P3 |
 | [E06](factors/E06.md) | SM70 Build Target | OPEN | NO | P2 |
-| [E07](factors/E07.md) | CUDA Library Version | OPEN | NO | P2 |
+| [E07](factors/E07.md) | CUDA Library Version | TESTED_NEGATIVE | YES | P2 |
 | [E08](factors/E08.md) | Grammar Parser | PARTIAL | YES | P2 |
 | [E09](factors/E09.md) | Scheduler Strategy | PARTIAL | YES | P1 |
 | [A01](factors/A01.md) | Prefix and Schema Cache | PARTIAL | YES | P0 |

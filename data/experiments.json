@@ -14645,5 +14645,124 @@
       "measurement_type": "BREADTH_RECONCILIATION_162_FACTORS_355_ORIGINAL_CELLS"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 28,
+      "actual_private_cublas126": true,
+      "context_tokens": 8192,
+      "model_starts": 1,
+      "native_metrics": {
+        "decode": {
+          "A0_median_GPU_j": 445.75983656401974,
+          "A0_median_e2e_s": 1.676739522,
+          "A0_median_tokens_per_s": 79.81889281768234,
+          "C_median_e2e_s": 1.6805385739999998,
+          "C_median_tokens_per_s": 79.64844387312178,
+          "GPU_j_change_percent": -0.3279543433552745,
+          "e2e_change_percent": -1.3715188732815076,
+          "e2e_change_vs_C_percent": -1.5944799729422865,
+          "e2e_range_percent": 0.746225566308971,
+          "median_GPU_j": 444.29794781907464,
+          "median_e2e_s": 1.653742723,
+          "median_tokens_per_s": 80.01113855850168,
+          "tokens_per_s_change_percent": 0.24085242733002943,
+          "tokens_per_s_change_vs_C_percent": 0.45536945575190835
+        },
+        "prefill": {
+          "A0_median_GPU_j": 54.20944846802892,
+          "A0_median_e2e_s": 0.214217648,
+          "A0_median_tokens_per_s": 2604.5561681563354,
+          "C_median_e2e_s": 0.1983468625,
+          "C_median_tokens_per_s": 2829.1481898484326,
+          "GPU_j_change_percent": 0.18877740649607677,
+          "e2e_change_percent": -9.089787037527364,
+          "e2e_change_vs_C_percent": -1.8155782524666764,
+          "e2e_range_percent": 0.443728365378203,
+          "median_GPU_j": 54.311783658922685,
+          "median_e2e_s": 0.19474572,
+          "median_tokens_per_s": 2607.272483207616,
+          "tokens_per_s_change_percent": 0.10429089932828539,
+          "tokens_per_s_change_vs_C_percent": -7.8424915116483636
+        },
+        "prefill2048": {
+          "A0_median_GPU_j": 192.80114631267662,
+          "A0_median_e2e_s": 0.730643626,
+          "A0_median_tokens_per_s": 2886.9711331079766,
+          "C_median_e2e_s": 0.6692898965,
+          "C_median_tokens_per_s": 3157.212650190627,
+          "GPU_j_change_percent": 2.7474619193760264,
+          "e2e_change_percent": -2.664168728408234,
+          "e2e_change_vs_C_percent": 6.258595971499159,
+          "e2e_range_percent": 0.6317672513870539,
+          "median_GPU_j": 198.09828438773786,
+          "median_e2e_s": 0.711178047,
+          "median_tokens_per_s": 2886.442178136328,
+          "tokens_per_s_change_percent": -0.0183221427323077,
+          "tokens_per_s_change_vs_C_percent": -8.576250701325117
+        },
+        "prefill4096": {
+          "A0_median_GPU_j": 383.81999243094737,
+          "A0_median_e2e_s": 1.424605973,
+          "A0_median_tokens_per_s": 2918.0668661913883,
+          "C_median_e2e_s": 1.3125749985,
+          "C_median_tokens_per_s": 3188.8400080869606,
+          "GPU_j_change_percent": -0.2162603395744256,
+          "e2e_change_percent": -1.746471548733286,
+          "e2e_change_vs_C_percent": 6.639669093163825,
+          "e2e_range_percent": 0.5376090007810712,
+          "median_GPU_j": 382.98994201196166,
+          "median_e2e_s": 1.399725635,
+          "median_tokens_per_s": 2931.5040061263853,
+          "tokens_per_s_change_percent": 0.46048087830607987,
+          "tokens_per_s_change_vs_C_percent": -8.069893795485694
+        }
+      },
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 2,
+        "numerical_gate_passed": true,
+        "passed_cases": 2
+      },
+      "peak_device_vram_mib": 7356.5,
+      "peak_process_vram_mib": 7114.0,
+      "prefill_geomean_E2E_change_percent": -2.2063965937902608,
+      "quality": {
+        "format": 8,
+        "observed": 12,
+        "semantic": 9
+      },
+      "slots": 1
+    },
+    "audit_id": "audit-41798d952b2c4c70afd2",
+    "date": "2026-10-21T21:58:55.517849+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "E07"
+    ],
+    "id": "R383",
+    "model": "omnicoder2",
+    "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "source_package": {
+      "license": "NVIDIA Proprietary Software; privateonly,no binaryredistribution",
+      "name": "nvidia-cublas-cu12",
+      "url": "https://pypi.org/pypi/nvidia-cublas-cu12/12.6.4.1/json",
+      "version": "12.6.4.1",
+      "wheel_sha256": "08ed2686e9875d01b58e3cb379c6896df8e76c75e0d4a7f7dace3d7b6d9ef8eb"
+    },
+    "statements": {
+      "decision": "CUBLAS126_NO_PRACTICALLY_QUALIFIED_SCREEN_ADVANTAGE",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "One factor is the privatecuBLAS12.6.4.1+matchingLt distribution replacing runtimecuBLAS12.8.5.5 resolution. EngineCUDAkernels/CUDArt12.8/driver/model/quant/template/ctx/KV/graph/sampler/300W unchanged.",
+        "Initialscreenagainst stored immutableA0/C; a promisingresult needs timely independentconfirmation and broaderreal-taskquality beforepromotion.",
+        "PrivateNVIDIAproprietarylibraries/weights neverexportedpublicly. No systempackage installation or productiveOllamachange.",
+        "Original12doesnotestablishbroadcoding/tool/agentquality. Syntheticprefill/decode gains are not success/s.",
+        "NonstreamingAPIhas no measured visibleTTFT; NVMLboardenergy is not systemenergy or successenergy."
+      ],
+      "measurement_type": "GPU_PRIVATE_CUBLAS126_SINGLE_FACTOR_SCREEN"
+    },
+    "winner_qualified": false
   }
 ]

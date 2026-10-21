@@ -23933,24 +23933,26 @@
     ]
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "One real locally installed CUDA toolkit behind aliases. Old FindCUDAToolkit metadata, actualnvcc, loadedcudart/cublas and driver maximum version are different identities, not distinct ready toolchains.",
+    "coverage_scope": "R383 actual privateABI12library pair mapped in numerical CUDA and original OmniQ6model processes; native2F16matmuls and original12/native8Kscreen. No broadindependentcoding/tool/agentqualification.",
+    "decision": "R383 E07: privatecuBLAS12.6.4.1+Lt bei identischerQ6/A0/8K/300W-Konfiguration statt12.8.5.5 tatsächlichaufV100geladen.2/2nativeF16-CPU-Numerikkontrollen bestanden;12Originalbewertungen9semantisch/8Format erhalten.2K/4K-E2Egeometrisch-2,206%,unter3%-Vorabgrenze;nativePrefillraten-0,018%/+0,460%,Decode+0,241%;gegenPrefill-ChampionE2E+6,26%/+6,64%.7356,5MiBPeak. ExakteVersionimProfilnegativ,nichtalleCUDA-Versionen widerlegt;keinweitererKontrolllauf/Champion.",
     "domain": "engine",
     "evidence_ids": [
       "audit-3260f1fb5192e1400bd8",
+      "audit-41798d952b2c4c70afd2",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
       "R249",
       "R377",
-      "R382"
+      "R382",
+      "R383"
     ],
-    "experimentally_covered": false,
+    "experimentally_covered": true,
     "id": "E07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
-    "omnicoder2_experimentally_covered": false,
+    "next_action": "Reuse R383negative exact12.6screen and original12.8profiles. Continue otheruncovered factors; no extraA/ABBA/librarygrid.",
+    "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
         "levels": [
@@ -24011,17 +24013,17 @@
       }
     ],
     "prerequisites": [
-      "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement."
+      "For any later version: genuinely different licensed private ABI-compatible artifacts, actual SM70code/symbols, independently useful hypothesis and bounded modelquality/performance gate."
     ],
     "primary_sources": [
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docker/Dockerfile.vllm019_cu126",
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docker/Dockerfile.vllm021_cu126"
     ],
     "priority": "P2",
-    "remaining_scope": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
-    "reopening_conditions": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
+    "remaining_scope": "Otherlibrary/toolkitversionsandworkloads remain untested. No blind12.6repeat or versionsweep; require a concrete different SM70/GEMM/runtime hypothesis.",
+    "reopening_conditions": "Different compatibleversion or distinct workload/kernel hypothesis. No system driver/toolkit replacement; noABI13-as12symlink.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "TESTED_NEGATIVE",
     "title": "CUDA Library Version",
     "variants": [
       {
@@ -24039,29 +24041,90 @@
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
+        "remaining_requirement": "Pinned12.8A0/Cremainimmutable. R383testsoneactual12.6alternative; no duplicatebaselinecalibrationneeded.",
         "scope": "One real locally installed CUDA toolkit behind aliases. Old FindCUDAToolkit metadata, actualnvcc, loadedcudart/cublas and driver maximum version are different identities, not distinct ready toolchains.",
         "scope_status": "PARTIAL",
         "value": "pinned"
       },
       {
-        "aggregate_metrics": [
-          {
-            "files": {
-              "CMakeCache.txt": {
-                "sha256": "6667c394506a9f5f4bfddbffbdcc1e17b2f1cf39e07a60e5f26aefa2d727dc2d"
-              }
+        "aggregate_metrics": {
+          "native": {
+            "decode": {
+              "A0_median_GPU_j": 445.75983656401974,
+              "A0_median_e2e_s": 1.676739522,
+              "A0_median_tokens_per_s": 79.81889281768234,
+              "C_median_e2e_s": 1.6805385739999998,
+              "C_median_tokens_per_s": 79.64844387312178,
+              "GPU_j_change_percent": -0.3279543433552745,
+              "e2e_change_percent": -1.3715188732815076,
+              "e2e_change_vs_C_percent": -1.5944799729422865,
+              "e2e_range_percent": 0.746225566308971,
+              "median_GPU_j": 444.29794781907464,
+              "median_e2e_s": 1.653742723,
+              "median_tokens_per_s": 80.01113855850168,
+              "tokens_per_s_change_percent": 0.24085242733002943,
+              "tokens_per_s_change_vs_C_percent": 0.45536945575190835
+            },
+            "prefill": {
+              "A0_median_GPU_j": 54.20944846802892,
+              "A0_median_e2e_s": 0.214217648,
+              "A0_median_tokens_per_s": 2604.5561681563354,
+              "C_median_e2e_s": 0.1983468625,
+              "C_median_tokens_per_s": 2829.1481898484326,
+              "GPU_j_change_percent": 0.18877740649607677,
+              "e2e_change_percent": -9.089787037527364,
+              "e2e_change_vs_C_percent": -1.8155782524666764,
+              "e2e_range_percent": 0.443728365378203,
+              "median_GPU_j": 54.311783658922685,
+              "median_e2e_s": 0.19474572,
+              "median_tokens_per_s": 2607.272483207616,
+              "tokens_per_s_change_percent": 0.10429089932828539,
+              "tokens_per_s_change_vs_C_percent": -7.8424915116483636
+            },
+            "prefill2048": {
+              "A0_median_GPU_j": 192.80114631267662,
+              "A0_median_e2e_s": 0.730643626,
+              "A0_median_tokens_per_s": 2886.9711331079766,
+              "C_median_e2e_s": 0.6692898965,
+              "C_median_tokens_per_s": 3157.212650190627,
+              "GPU_j_change_percent": 2.7474619193760264,
+              "e2e_change_percent": -2.664168728408234,
+              "e2e_change_vs_C_percent": 6.258595971499159,
+              "e2e_range_percent": 0.6317672513870539,
+              "median_GPU_j": 198.09828438773786,
+              "median_e2e_s": 0.711178047,
+              "median_tokens_per_s": 2886.442178136328,
+              "tokens_per_s_change_percent": -0.0183221427323077,
+              "tokens_per_s_change_vs_C_percent": -8.576250701325117
+            },
+            "prefill4096": {
+              "A0_median_GPU_j": 383.81999243094737,
+              "A0_median_e2e_s": 1.424605973,
+              "A0_median_tokens_per_s": 2918.0668661913883,
+              "C_median_e2e_s": 1.3125749985,
+              "C_median_tokens_per_s": 3188.8400080869606,
+              "GPU_j_change_percent": -0.2162603395744256,
+              "e2e_change_percent": -1.746471548733286,
+              "e2e_change_vs_C_percent": 6.639669093163825,
+              "e2e_range_percent": 0.5376090007810712,
+              "median_GPU_j": 382.98994201196166,
+              "median_e2e_s": 1.399725635,
+              "median_tokens_per_s": 2931.5040061263853,
+              "tokens_per_s_change_percent": 0.46048087830607987,
+              "tokens_per_s_change_vs_C_percent": -8.069893795485694
             }
-          }
-        ],
+          },
+          "peak_device_vram_mib": 7356.5,
+          "prefill_geomean_E2E_change_percent": -2.2063965937902608
+        },
         "evidence_ids": [],
-        "experimental_coverage": false,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": "Private second compatible toolchain/library with concrete codegen or kernel hypothesis, immutable runtime identities and qualitygate. No productive driver/toolkit replacement.",
-        "scope": "One real locally installed CUDA toolkit behind aliases. Old FindCUDAToolkit metadata, actualnvcc, loadedcudart/cublas and driver maximum version are different identities, not distinct ready toolchains.",
-        "scope_status": "DEFERRED",
+        "remaining_requirement": "Different compatibleversion or distinct workload/kernel hypothesis. No system driver/toolkit replacement; noABI13-as12symlink.",
+        "scope": "R383 E07: privatecuBLAS12.6.4.1+Lt bei identischerQ6/A0/8K/300W-Konfiguration statt12.8.5.5 tatsächlichaufV100geladen.2/2nativeF16-CPU-Numerikkontrollen bestanden;12Originalbewertungen9semantisch/8Format erhalten.2K/4K-E2Egeometrisch-2,206%,unter3%-Vorabgrenze;nativePrefillraten-0,018%/+0,460%,Decode+0,241%;gegenPrefill-ChampionE2E+6,26%/+6,64%.7356,5MiBPeak. ExakteVersionimProfilnegativ,nichtalleCUDA-Versionen widerlegt;keinweitererKontrolllauf/Champion.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "eligible_alternative"
       }
     ]
