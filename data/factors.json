@@ -9684,9 +9684,10 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Ereignis-/Retrieval-/Kompressionsscreens und neue Bestätigungsfälle vorhanden; keine allgemeine Qualitätserhaltung zertifiziert.",
+    "decision": "Query-unabhängige Ereignisreduktion und exakte Quellenwahl vorhanden. R161/R162: 10/12 gegen 12/12 im Pilot; R163 neue Ereignisse nur 9/11 beobachtet, höchstens 10/12 möglich, Qualitätsgate verfehlt. Reduzierte Prompts sparen keine hier nachgewiesene physische KV-/GDN-Allokation. Keine generierte oder historische Zusammenfassung qualifiziert.",
     "domain": "kv_state",
     "evidence_ids": [
+      "audit-30cb583e005ee5568d0a",
       "audit-61a96d130f54f7937707",
       "audit-a9e8aec3cba1732eb0d6",
       "audit-d9908c3e584b27f2b7c9"
@@ -9694,13 +9695,14 @@
     "experiment_ids": [
       "R161",
       "R162",
-      "R163"
+      "R163",
+      "R365"
     ],
     "experimentally_covered": true,
     "id": "K07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Neue semantisch definierte Kompressionspolicy benötigt unabhängige Fakten-/Provenienz-/Aufgabensplits; keine Wiederverwendung bekannter Fehler als Training.",
+    "next_action": "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -9783,50 +9785,149 @@
       }
     ],
     "prerequisites": [
-      "Summary/retrieval are harness algorithms, not KV allocator switches."
+      "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "Keine bekannten Antworten nachoptimieren; neue Kompressionspolitik nur mit unabhängiger Aufgabenbasis.",
-    "reopening_conditions": "Neue semantisch definierte Kompressionspolicy benötigt unabhängige Fakten-/Provenienz-/Aufgabensplits; keine Wiederverwendung bekannter Fehler als Training.",
+    "remaining_scope": "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren.",
+    "reopening_conditions": "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Cache Compaction",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren.",
+        "scope": "Query-unabhängige Ereignisreduktion und exakte Quellenwahl vorhanden. R161/R162: 10/12 gegen 12/12 im Pilot; R163 neue Ereignisse nur 9/11 beobachtet, höchstens 10/12 möglich, Qualitätsgate verfehlt. Reduzierte Prompts sparen keine hier nachgewiesene physische KV-/GDN-Allokation. Keine generierte oder historische Zusammenfassung qualifiziert.",
+        "scope_status": "PARTIAL",
         "value": "none"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren.",
+        "scope": "Query-unabhängige Ereignisreduktion und exakte Quellenwahl vorhanden. R161/R162: 10/12 gegen 12/12 im Pilot; R163 neue Ereignisse nur 9/11 beobachtet, höchstens 10/12 möglich, Qualitätsgate verfehlt. Reduzierte Prompts sparen keine hier nachgewiesene physische KV-/GDN-Allokation. Keine generierte oder historische Zusammenfassung qualifiziert.",
+        "scope_status": "DEFERRED",
         "value": "summary"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Für generierte Summary konkreten historischen/Chat-Vertrag, Provenienz-/Berechtigungserhaltung und vollständige Summarizerkosten verlangen. Vorhandener Current-state-Vertrag wird bereits exakt deterministisch reduziert. Semantische Vektorsuche braucht eigenen kompatiblen Index und Paraphrasen-/Downstream-Test; keine neue GPU-Messung identischer Selektoren.",
+        "scope": "Query-unabhängige Ereignisreduktion und exakte Quellenwahl vorhanden. R161/R162: 10/12 gegen 12/12 im Pilot; R163 neue Ereignisse nur 9/11 beobachtet, höchstens 10/12 möglich, Qualitätsgate verfehlt. Reduzierte Prompts sparen keine hier nachgewiesene physische KV-/GDN-Allokation. Keine generierte oder historische Zusammenfassung qualifiziert.",
+        "scope_status": "PARTIAL",
         "value": "retrieval"
       }
     ]
@@ -20234,12 +20335,13 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R344: exakterModel/Tokenizer/Template/Tools/Policy-Identitätsschlüssel erzeugtaufallen28gespeichertenR138Requests dieselbenCacheflags(24an/4aus). KeineandereIntervention undkeinFixfürbeobachtetenFehler. HistorischePrefix-/Statebelegebleibengültig.",
+    "decision": "Statisches Prefix-Reuse und Agentengrenzen belegt; R344 CPU-Identitätsschlüssel ändert auf 28 R138-Requests keine Cacheentscheidung. Das ist kein neuer GPU-Eingriff und kein State-Fix. R291/R364-Eingabe-/Antwortgrenzen bleiben erhalten; keine generelle Cache-/Agentenqualifikation.",
     "domain": "agent_harness",
     "evidence_ids": [
       "audit-07e0c748aa3ce4016cab",
       "audit-25d985a05f3d442d8f1c",
       "audit-261651f358a67acc29ea",
+      "audit-30cb583e005ee5568d0a",
       "audit-3d840b4f87513c2af730",
       "audit-46e12a310b5c14e20d97",
       "audit-6bf359aad595a175989d",
@@ -20263,13 +20365,14 @@
       "R152",
       "R153",
       "R291",
-      "R344"
+      "R344",
+      "R365"
     ],
     "experimentally_covered": true,
     "id": "A01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Identitätsguard aufdiesemWorkload nichterneutGPUtesten. Erst echteSchema-/PolicywechseloderanderekorrekteInvalidierungs-/Forkimplementierung mitneuerZustands-/Qualitätshypothese zulassen.",
+    "next_action": "Neue dynamische Cachepolicy erst bei anderem tatsächlichem Verhalten, vollständiger Modell-/Tokenizer-/Template-/Schema-/Authority-Identität und nachgewiesenem Zustands-, Fork- und Invalidation-Vertrag zulassen. Kein erneuter Cachelauf für dieselben Flags.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -20333,49 +20436,58 @@
       }
     ],
     "prerequisites": [
-      "Dynamic schema caches need cache keys including exact tokenizer/template/tools/policy identity and a state-safe invalidation/fork contract. Existing static prefix is not a different new cache implementation."
+      "Neue dynamische Cachepolicy erst bei anderem tatsächlichem Verhalten, vollständiger Modell-/Tokenizer-/Template-/Schema-/Authority-Identität und nachgewiesenem Zustands-, Fork- und Invalidation-Vertrag zulassen. Kein erneuter Cachelauf für dieselben Flags."
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "Dynamic schema caches need cache keys including exact tokenizer/template/tools/policy identity and a state-safe invalidation/fork contract. Existing static prefix is not a different new cache implementation.",
-    "reopening_conditions": "A frozen workload with genuine tools/template/authority-identity transitions not already reset by existing case policy; An implemented cache ownership/invalidation/fork treatment that demonstrably changes execution decisions and preserves replay semantics; Independent state/quality oracle and useful task-level latency/energy hypothesis; no retuning known R138 answers",
+    "remaining_scope": "Neue dynamische Cachepolicy erst bei anderem tatsächlichem Verhalten, vollständiger Modell-/Tokenizer-/Template-/Schema-/Authority-Identität und nachgewiesenem Zustands-, Fork- und Invalidation-Vertrag zulassen. Kein erneuter Cachelauf für dieselben Flags.",
+    "reopening_conditions": "Neue dynamische Cachepolicy erst bei anderem tatsächlichem Verhalten, vollständiger Modell-/Tokenizer-/Template-/Schema-/Authority-Identität und nachgewiesenem Zustands-, Fork- und Invalidation-Vertrag zulassen. Kein erneuter Cachelauf für dieselben Flags.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Prefix and Schema Cache",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "CPU_only": true,
+          "changed_cache_decisions": 0,
+          "state_safety_qualified": false
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PARTIALLY_IMPLEMENTED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue dynamische Cachepolicy erst bei anderem tatsächlichem Verhalten, vollständiger Modell-/Tokenizer-/Template-/Schema-/Authority-Identität und nachgewiesenem Zustands-, Fork- und Invalidation-Vertrag zulassen. Kein erneuter Cachelauf für dieselben Flags.",
+        "scope": "Statisches Prefix-Reuse und Agentengrenzen belegt; R344 CPU-Identitätsschlüssel ändert auf 28 R138-Requests keine Cacheentscheidung. Das ist kein neuer GPU-Eingriff und kein State-Fix. R291/R364-Eingabe-/Antwortgrenzen bleiben erhalten; keine generelle Cache-/Agentenqualifikation.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "CPU_only": true,
+          "changed_cache_decisions": 0,
+          "state_safety_qualified": false
+        },
         "evidence_ids": [
           "audit-c048fdfcd53805636593"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "PARTIALLY_IMPLEMENTED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue dynamische Cachepolicy erst bei anderem tatsächlichem Verhalten, vollständiger Modell-/Tokenizer-/Template-/Schema-/Authority-Identität und nachgewiesenem Zustands-, Fork- und Invalidation-Vertrag zulassen. Kein erneuter Cachelauf für dieselben Flags.",
+        "scope": "Statisches Prefix-Reuse und Agentengrenzen belegt; R344 CPU-Identitätsschlüssel ändert auf 28 R138-Requests keine Cacheentscheidung. Das ist kein neuer GPU-Eingriff und kein State-Fix. R291/R364-Eingabe-/Antwortgrenzen bleiben erhalten; keine generelle Cache-/Agentenqualifikation.",
+        "scope_status": "PARTIAL",
         "value": "on"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R151 source selection positive in narrow scope; R188 independent HA/PVE5/12 versus3/12 but absolute quality gate failed.",
+    "decision": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung.",
     "domain": "agent_harness",
     "evidence_ids": [
+      "audit-30cb583e005ee5568d0a",
       "audit-68977e5f1d14a10a6a70",
       "audit-8fbf1dc664eb548e63a0",
       "audit-d8153ea70260b2285397"
@@ -20383,13 +20495,14 @@
     "experiment_ids": [
       "R150",
       "R151",
-      "R188"
+      "R188",
+      "R365"
     ],
     "experimentally_covered": true,
     "id": "A02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep both observations. No tuning known12 failures; new selector requires independent data and authored correctness contract.",
+    "next_action": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -20472,71 +20585,172 @@
       }
     ],
     "prerequisites": [
-      "A new retriever needs independently frozen source provenance and downstream computation/capability contract; scoring retrieval hits alone does not establish solved-task quality."
+      "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "A new retriever needs independently frozen source provenance and downstream computation/capability contract; scoring retrieval hits alone does not establish solved-task quality.",
-    "reopening_conditions": "A new retriever needs independently frozen source provenance and downstream computation/capability contract; scoring retrieval hits alone does not establish solved-task quality.",
+    "remaining_scope": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
+    "reopening_conditions": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "History Retrieval",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
+        "scope": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung.",
+        "scope_status": "PARTIAL",
         "value": "raw"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
+        "scope": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung.",
+        "scope_status": "DEFERRED",
         "value": "summary"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
+        "scope": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung.",
+        "scope_status": "DEFERRED",
         "value": "semantic"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R243 JSON-history whitespace compacted184entries/3550characters with equal values but lost success/additionalpolicy by5/18; not model-response equivalent.",
+    "decision": "Schema-Kompaktion R155 nach 78/100 beobachteten BFCL-Fällen wegen Qualitätsverlust gestoppt; kein 100er-Score. R191 neue Schemafälle 18/18 gegen 11/18. JSON-History-Whitespace R243: 184 semantisch gleiche Einträge, 3550 Zeichen gespart, aber nach 5/18 Agentenfällen ein Referenzerfolg verloren und zusätzlicher Policyverstoß. Keine Qualitätserhaltungsqualifikation.",
     "domain": "agent_harness",
     "evidence_ids": [
+      "audit-30cb583e005ee5568d0a",
       "audit-9d2f6a0dc3868506e98b",
       "audit-fb4096705054d7be1534"
     ],
     "experiment_ids": [
       "R155",
-      "R243"
+      "R243",
+      "R365"
     ],
     "experimentally_covered": true,
     "id": "A03",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep scoped quality veto. No same5cases retune or full baseline repetition.",
+    "next_action": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -20619,50 +20833,83 @@
       }
     ],
     "prerequisites": [
-      "A distinct history compression needs exact provenance/authority retention and an unseen task contract, plus own treatment implementation; equal parsed JSON alone is insufficient."
+      "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "A distinct history compression needs exact provenance/authority retention and an unseen task contract, plus own treatment implementation; equal parsed JSON alone is insufficient.",
-    "reopening_conditions": "A distinct history compression needs exact provenance/authority retention and an unseen task contract, plus own treatment implementation; equal parsed JSON alone is insufficient.",
+    "remaining_scope": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
+    "reopening_conditions": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Harness Token Compression",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "JSON_values_equal": true,
+          "actual_generation_requests": 45,
+          "additional_policy_violations": 1,
+          "characters_saved": 3550,
+          "compacted_entries": 184,
+          "full18_score_claimed": false,
+          "observed_agent_tasks": 5,
+          "planned_agent_tasks": 18,
+          "reference_success_losses": 1,
+          "solved_observed": 3
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
+        "scope": "Schema-Kompaktion R155 nach 78/100 beobachteten BFCL-Fällen wegen Qualitätsverlust gestoppt; kein 100er-Score. R191 neue Schemafälle 18/18 gegen 11/18. JSON-History-Whitespace R243: 184 semantisch gleiche Einträge, 3550 Zeichen gespart, aber nach 5/18 Agentenfällen ein Referenzerfolg verloren und zusätzlicher Policyverstoß. Keine Qualitätserhaltungsqualifikation.",
+        "scope_status": "PARTIAL",
         "value": "reference"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "JSON_values_equal": true,
+          "actual_generation_requests": 45,
+          "additional_policy_violations": 1,
+          "characters_saved": 3550,
+          "compacted_entries": 184,
+          "full18_score_claimed": false,
+          "observed_agent_tasks": 5,
+          "planned_agent_tasks": 18,
+          "reference_success_losses": 1,
+          "solved_observed": 3
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
+        "scope": "Schema-Kompaktion R155 nach 78/100 beobachteten BFCL-Fällen wegen Qualitätsverlust gestoppt; kein 100er-Score. R191 neue Schemafälle 18/18 gegen 11/18. JSON-History-Whitespace R243: 184 semantisch gleiche Einträge, 3550 Zeichen gespart, aber nach 5/18 Agentenfällen ein Referenzerfolg verloren und zusätzlicher Policyverstoß. Keine Qualitätserhaltungsqualifikation.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "compact_tools"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "JSON_values_equal": true,
+          "actual_generation_requests": 45,
+          "additional_policy_violations": 1,
+          "characters_saved": 3550,
+          "compacted_entries": 184,
+          "full18_score_claimed": false,
+          "observed_agent_tasks": 5,
+          "planned_agent_tasks": 18,
+          "reference_success_losses": 1,
+          "solved_observed": 3
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
+        "scope": "Schema-Kompaktion R155 nach 78/100 beobachteten BFCL-Fällen wegen Qualitätsverlust gestoppt; kein 100er-Score. R191 neue Schemafälle 18/18 gegen 11/18. JSON-History-Whitespace R243: 184 semantisch gleiche Einträge, 3550 Zeichen gespart, aber nach 5/18 Agentenfällen ein Referenzerfolg verloren und zusätzlicher Policyverstoß. Keine Qualitätserhaltungsqualifikation.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "compact_history"
       }
     ]
@@ -21316,9 +21563,10 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Earlier event-compression pilot positive but independent new-event confirmation negative; no general context-compression champion.",
+    "decision": "Deterministischer Current-state-Eventselektor geprüft: gespeicherte Reduktion und Endzustand aller Entitäten unabhängig reproduziert. R162 12/12-Pilot; R163 Bestätigung 9/11 beobachtet, maximal 10/12, keine Freigabe. Semantischer Ereigniszustand ist keine generierte freie Chat-Zusammenfassung oder historische Frage.",
     "domain": "agent_harness",
     "evidence_ids": [
+      "audit-30cb583e005ee5568d0a",
       "audit-61a96d130f54f7937707",
       "audit-a9e8aec3cba1732eb0d6",
       "audit-d9908c3e584b27f2b7c9"
@@ -21326,13 +21574,14 @@
     "experiment_ids": [
       "R161",
       "R162",
-      "R163"
+      "R163",
+      "R365"
     ],
     "experimentally_covered": true,
     "id": "A08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep original independent negative. New compression only with a distinct policy and frozen independent data.",
+    "next_action": "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -21415,50 +21664,149 @@
       }
     ],
     "prerequisites": [
-      "A different compression needs an implemented authority/provenance-preserving policy and independent changed-event tasks. Multimodal/source architecture features cannot be applied by shortening prompts alone."
+      "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren."
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "A different compression needs an implemented authority/provenance-preserving policy and independent changed-event tasks. Multimodal/source architecture features cannot be applied by shortening prompts alone.",
-    "reopening_conditions": "A different compression needs an implemented authority/provenance-preserving policy and independent changed-event tasks. Multimodal/source architecture features cannot be applied by shortening prompts alone.",
+    "remaining_scope": "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren.",
+    "reopening_conditions": "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Context Compression",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren.",
+        "scope": "Deterministischer Current-state-Eventselektor geprüft: gespeicherte Reduktion und Endzustand aller Entitäten unabhängig reproduziert. R162 12/12-Pilot; R163 Bestätigung 9/11 beobachtet, maximal 10/12, keine Freigabe. Semantischer Ereigniszustand ist keine generierte freie Chat-Zusammenfassung oder historische Frage.",
+        "scope_status": "PARTIAL",
         "value": "none"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren.",
+        "scope": "Deterministischer Current-state-Eventselektor geprüft: gespeicherte Reduktion und Endzustand aller Entitäten unabhängig reproduziert. R162 12/12-Pilot; R163 Bestätigung 9/11 beobachtet, maximal 10/12, keine Freigabe. Semantischer Ereigniszustand ist keine generierte freie Chat-Zusammenfassung oder historische Frage.",
+        "scope_status": "PARTIAL",
         "value": "fixed"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": {
+          "r151": {
+            "A": {
+              "GPU_j_sum": 32983.62403946073,
+              "frontend_wall_sum_s": 0.253299026,
+              "full_case_wall_sum_s": 123.080595868,
+              "observed_tasks": 12,
+              "solved": 8
+            },
+            "B": {
+              "GPU_j_sum": 4135.820034599542,
+              "frontend_wall_sum_s": 0.056481932,
+              "full_case_wall_sum_s": 15.95482825,
+              "observed_tasks": 12,
+              "solved": 12
+            }
+          },
+          "r163": {
+            "A": {
+              "GPU_j_sum": 23733.06664890011,
+              "frontend_wall_sum_s": 0.208296589,
+              "full_case_wall_sum_s": 88.517450283,
+              "observed_tasks": 11,
+              "solved": 7
+            },
+            "B": {
+              "GPU_j_sum": 4546.720301535131,
+              "frontend_wall_sum_s": 0.067816369,
+              "full_case_wall_sum_s": 17.559388441,
+              "observed_tasks": 11,
+              "solved": 9
+            }
+          }
+        },
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Summary nur für klar anderen benötigten History-Vertrag und mit eingeplanter Generierungs-/Prüfzeit. Ohne solchen Zusatznutzen sind zusätzliche Modellaufrufe gegenüber vorhandener exakter Reduktion nicht begründet; das ist keine gemessene Unterlegenheit. Historische Fragen, Rollen, Widerrufe und Quellenlinks separat einfrieren.",
+        "scope": "Deterministischer Current-state-Eventselektor geprüft: gespeicherte Reduktion und Endzustand aller Entitäten unabhängig reproduziert. R162 12/12-Pilot; R163 Bestätigung 9/11 beobachtet, maximal 10/12, keine Freigabe. Semantischer Ereigniszustand ist keine generierte freie Chat-Zusammenfassung oder historische Frage.",
+        "scope_status": "DEFERRED",
         "value": "semantic"
       }
     ]
