@@ -78627,6 +78627,53 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 26,
+      "model_starts": 1,
+      "peak_device_vram_mib": 8146.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b0807613e019b3b30009",
+    "original_bytes": 6897,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b0807613e019b3b300091bb4b249f60736267492f64171513da44b8bb08ca437",
+    "statements": {
+      "decision": "FLASH_OFF_DOES_NOT_QUALIFY_HISTORY_ISOLATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "One frozen teacher-forced history, not full18liveagent or simultaneous throughput.",
+        "Only FAon->off changes computational path; preserve all original request bodies. This is a new single-factor state/correctness hypothesis, not repeat of prior single-slot FAperformance tests.",
+        "No actual outputID metadata requested; compare native envelopes ignoring randomcallIDs only.",
+        "A valid critical answer alone does not prove isolation or identify a GDN/attention/numerical rootcause. Allprefix equivalence and independent confirmation required.",
+        "No slot deletion, other-slot data modification, production frontend/weight/clock/power change or champion promotion."
+      ],
+      "measurement_type": "GPU_E09_EXACT_HISTORY_FLASH_ATTENTION_OFF_SCREEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "peak_device_vram_mib": 8146.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-30bd60412eeac32d4b9f",
+    "original_bytes": 7780,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "30bd60412eeac32d4b9f05bf79b886b8e86e153ce5f242545ede8e46acb2218e",
+    "statements": {
+      "limits": [
+        "Raw native envelope equality ignores only random call IDs. Semantic JSON comparison is additionally reported without rewriting the preregistered primary gate.",
+        "Failure/success does not identify a unique GDN/FA/numerical/masking cause. It tests only the one alternative attention-path intervention.",
+        "Existing source fixture/oracles/weights/protectedservices unchanged; raw data and energy retained."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "metrics": {

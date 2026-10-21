@@ -4658,16 +4658,19 @@
   },
   {
     "coverage_scope": "HistorischeGPU-Prozesse vorhanden, aberkeineausgeführteShiftintervention. QuellenprüfungkeinexperimentellerAbdeckungsnachweis.",
-    "decision": "NullShift-EreignisseinbeidenArmen;IMRoPEKshift-GrenzeausR341bleibtmaßgeblich. Anforderungon/offistkeinexperimentellgeprüfterShiftpfad;keineneueMessung/Abdeckung.",
+    "decision": "NullShift-EreignisseinbeidenArmen;IMRoPEKshift-GrenzeausR341bleibtmaßgeblich. Anforderungon/offistkeinexperimentellgeprüfterShiftpfad;keineneueMessung/Abdeckung. R376FAoff im Zwei-Slot-Fehlerverlauf: kritischerAufrufgültig/20von21Präfixeidentisch; kein vorab bestandenes Isolationsgate.",
     "domain": "runtime",
     "evidence_ids": [
+      "audit-30bd60412eeac32d4b9f",
       "audit-4b5c075337facd558521",
       "audit-a6289cc857c5951da453",
+      "audit-b0807613e019b3b30009",
       "audit-e53af2194be20b8e11da"
     ],
     "experiment_ids": [
       "R341",
-      "R361"
+      "R361",
+      "R376"
     ],
     "experimentally_covered": false,
     "id": "R09",
@@ -23784,14 +23787,16 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R313 E09/K05: nuranderenSlot1 löschen (3248Tokens) stellt gültige Antwort auf unangetastetemSlot0 wieder her. Alle21 Präfixantworten/26Generierungsanfragen identisch zur Fehlerkontrolle. R309/310/311:Fehler;R312/313:gültiges Referenz-Envelope. Belegung eines anderen Slots beeinflusst damit diesen beobachteten Antwortpfad. Numerik/Kernel/Layout als Ursache offen;kein Datenleck- oder spezifischerGDN-Beweis. Keine vollständige Agenten-/Isolationsqualifikation.",
+    "decision": "R376: nur FlashAttention on→off im identischen26-Request-/Zwei-Slot-Verlauf. Kritische Antwort wieder gültig, aber nur20/21 Präfixantworten identisch; ordinal12 auch semantisch verändert. Vorab festgelegtes Gate verfehlt. Kein nachgewiesener Qualitätsverlust allein aus Antwortabweichung, kein Slot-Isolationsfix/Champion.8146,5MiB Peak, kein Slot gelöscht.",
     "domain": "engine",
     "evidence_ids": [
       "audit-2ab6c87f9f57ddd547cf",
+      "audit-30bd60412eeac32d4b9f",
       "audit-6a3317baf08620ddb7ed",
       "audit-6d0187032ea3b11a373f",
       "audit-77a576cb73abe6027c4f",
       "audit-7e86b6026996c3c6843c",
+      "audit-b0807613e019b3b30009",
       "audit-b963f5b5967e3e1f2fe4",
       "audit-c049511098d3ccf388d8",
       "audit-d2ca3001edd31500863e",
@@ -23807,13 +23812,14 @@
       "R310",
       "R311",
       "R312",
-      "R313"
+      "R313",
+      "R376"
     ],
     "experimentally_covered": true,
     "id": "E09",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Andere ursprüngliche Einzelpunkte fortsetzen. Q02: vorhandene R187-Stdlib-Kalibrierung/Imatrix und Q8-Quellgewichte wiederverwenden;kein erneuter Kalibrier-GPU-Lauf. Zuerst pinned quantizer/präzise Requantisierungs-/Imatrix-Kompatibilität und Kosten prüfen;falls sinnvoll isoliertes Imatrix-Kandidatenartefakt mit vorab fixiertem Qualitätsveto. Kein neuer Modellkandidat oder Kombination.",
+    "next_action": "Neue konkrete Isolationskorrektur muss beide Konversationen erhalten und qualitäts-/zustandsbezogen unabhängig geprüft werden. FAoff stellt nur den kritischen Einzelaufruf wieder her und verändert einen früheren Prompt-Output; kein allgemeiner Qualitätsverlust oder spezifische GDN/FA-Ursache daraus ableiten. Kein paralleles Agentenprofil vor Korrektheitsgate.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -23900,7 +23906,7 @@
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig.",
+    "remaining_scope": "Neue konkrete Isolationskorrektur muss beide Konversationen erhalten und qualitäts-/zustandsbezogen unabhängig geprüft werden. FAoff stellt nur den kritischen Einzelaufruf wieder her und verändert einen früheren Prompt-Output; kein allgemeiner Qualitätsverlust oder spezifische GDN/FA-Ursache daraus ableiten. Kein paralleles Agentenprofil vor Korrektheitsgate.",
     "reopening_conditions": "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -32136,17 +32142,20 @@
     "domain": "hbm_memory",
     "evidence_ids": [
       "audit-2d48a4fdae7ce747ef64",
+      "audit-30bd60412eeac32d4b9f",
       "audit-4a63c493e0301a646d00",
       "audit-6924d1fa43aaa9766b96",
       "audit-9de95af06dcc3290e44f",
       "audit-a200c5c240a36583e62e",
+      "audit-b0807613e019b3b30009",
       "audit-b8a83b89fd187aadf424",
       "audit-e950bd432e12a6880a36",
       "audit-f2e1299acd91cad7c2df",
       "audit-fe73faa6d74ccb07bdc1"
     ],
     "experiment_ids": [
-      "R374"
+      "R374",
+      "R376"
     ],
     "experimentally_covered": true,
     "id": "HBM18",
