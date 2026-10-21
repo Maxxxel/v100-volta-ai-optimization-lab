@@ -26,8 +26,8 @@
 | [R20](factors/R20.md) | Prompt Length | PARTIAL | YES | P2 |
 | [R21](factors/R21.md) | Decode Length | PARTIAL | YES | P2 |
 | [R22](factors/R22.md) | Warm State | PARTIAL | YES | P0 |
-| [K01](factors/K01.md) | KV Type K | PARTIAL | YES | P2 |
-| [K02](factors/K02.md) | KV Type V | PARTIAL | YES | P2 |
+| [K01](factors/K01.md) | KV Type K | PARTIAL | YES | P1 |
+| [K02](factors/K02.md) | KV Type V | PARTIAL | YES | P1 |
 | [K03](factors/K03.md) | KV Type Paired | PARTIAL | YES | P2 |
 | [K04](factors/K04.md) | FA Quant Kernel Coverage | PARTIAL | YES | P2 |
 | [K05](factors/K05.md) | Recurrent State Sequence | PARTIAL | YES | P1 |
@@ -42,7 +42,7 @@
 | [C07](factors/C07.md) | FA_QUANTS coverage | PARTIAL | YES | P2 |
 | [C08](factors/C08.md) | cuBLAS compute type | PARTIAL | YES | P2 |
 | [C09](factors/C09.md) | SM70 MMVQ warp dispatch | PARTIAL | YES | P2 |
-| [C10](factors/C10.md) | SM70 MMQ tile width | PARTIAL | YES | P2 |
+| [C10](factors/C10.md) | SM70 MMQ tile width | PARTIAL | YES | P1 |
 | [C11](factors/C11.md) | Dequant GEMM fusion | PARTIAL | YES | P2 |
 | [C12](factors/C12.md) | RMSNorm RoPE Fusion | PARTIAL | YES | P2 |
 | [C13](factors/C13.md) | Delta State Fusion | PARTIAL | YES | P2 |
@@ -117,7 +117,7 @@
 | [HBM05](factors/HBM05.md) | Volta FP16 Tensor Core kernel | TESTED_NEGATIVE | YES | P3 |
 | [HBM06](factors/HBM06.md) | Dequantization and GEMV/GEMM fusion | PARTIAL | YES | P2 |
 | [HBM07](factors/HBM07.md) | L1/L2/shared-memory reuse | QUALIFIED | YES | P0 |
-| [HBM08](factors/HBM08.md) | F16/Q8/Q4 attention KV cache | PARTIAL | YES | P2 |
+| [HBM08](factors/HBM08.md) | F16/Q8/Q4 attention KV cache | PARTIAL | YES | P1 |
 | [HBM09](factors/HBM09.md) | KIVI asymmetric KV quantization | OPEN | NO | P3 |
 | [HBM10](factors/HBM10.md) | KVQuant calibrated KV quantization | OPEN | NO | P3 |
 | [HBM11](factors/HBM11.md) | Paged attention and KV blocks | OPEN | NO | P3 |

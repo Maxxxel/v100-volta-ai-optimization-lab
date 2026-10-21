@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| PARTIAL | True | True | P2 |
+| PARTIAL | True | True | P1 |
 
 
 ## Theory and Volta implications
@@ -35,6 +35,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-8d0de00b1f8ea1c46cfb.md)
 - [Original audit hash and public excerpt](../audits/audit-a2270317169dec422f24.md)
 - [Original audit hash and public excerpt](../audits/audit-b4f0a807daebe43f2edf.md)
+- [Original audit hash and public excerpt](../audits/audit-b939abaa6c68ac7fbb46.md)
 - [Original audit hash and public excerpt](../audits/audit-f818d211483856d94cf3.md)
 - [Original audit hash and public excerpt](../audits/audit-fae4b1903a527efdd0b8.md)
 
@@ -531,14 +532,14 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 Attention K/V storage tests remain distinct from recurrent GDN F32 state; F16/Q8/Q4 evidence is retained by exact side,context and quality scope.
 
-**Remaining scope:** A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations.
+**Remaining scope:** New Q8/Q8 host-dispatch primitive passes native numerics. Whole-model original quality, E2E, long decode, actual model dispatch and matched profile comparison remain open. Existing scientific status retained.
 
 **Reopening condition:** A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations.
 
-**Next action:** All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.
+**Next action:** R379 component gate passed: inspect existing exact Q8/Q8 model-control profile before bounded router-on original12/long-decode B screen. Calibrate a missing profile once only if necessary. Preserve mixed-KV negatives and immutable A0/C. Then remaining20special-HBMport cells; no new combinations/models.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R233](../experiments/R233.md), [R234](../experiments/R234.md), [R270](../experiments/R270.md), [R358](../experiments/R358.md), [R82](../experiments/R82.md), [R83](../experiments/R83.md)
+[R233](../experiments/R233.md), [R234](../experiments/R234.md), [R270](../experiments/R270.md), [R358](../experiments/R358.md), [R379](../experiments/R379.md), [R82](../experiments/R82.md), [R83](../experiments/R83.md)

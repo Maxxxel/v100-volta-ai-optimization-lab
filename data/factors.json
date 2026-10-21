@@ -8046,6 +8046,7 @@
       "audit-1962b7915d289ed667aa",
       "audit-8d0de00b1f8ea1c46cfb",
       "audit-a2270317169dec422f24",
+      "audit-b939abaa6c68ac7fbb46",
       "audit-fae4b1903a527efdd0b8"
     ],
     "experiment_ids": [
@@ -8055,13 +8056,14 @@
       "R268",
       "R269",
       "R270",
-      "R358"
+      "R358",
+      "R379"
     ],
     "experimentally_covered": true,
     "id": "K01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "New key representation requires distinct implemented SM70 attention support, independent calibration/holdout and a real capacity/quality benefit. Existing Q8/Q4 controls and 32K Q8 need no repeat. KIVI/KVQuant are separate factors.",
+    "next_action": "R379 component gate passed: inspect existing exact Q8/Q8 model-control profile before bounded router-on original12/long-decode B screen. Calibrate a missing profile once only if necessary. Preserve mixed-KV negatives and immutable A0/C. Then remaining20special-HBMport cells; no new combinations/models.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -8149,8 +8151,8 @@
     ],
     "prerequisites": [],
     "primary_sources": [],
-    "priority": "P2",
-    "remaining_scope": "GültigeKV-/Rotations-/Mean-Centering-Negativebewahren;keineQASpezialkalibration.",
+    "priority": "P1",
+    "remaining_scope": "New Q8/Q8 host-dispatch primitive passes native numerics. Whole-model original quality, E2E, long decode, actual model dispatch and matched profile comparison remain open. Existing scientific status retained.",
     "reopening_conditions": "KIVI/KVQuant sind separate Originalachsen. Weitere Kalibration nur mit eigenständiger Numerik-/Aufgabenhypothese, nicht gegen bekannte Fehlantworten.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -8441,18 +8443,20 @@
       "audit-0b65111832a0e7ae153b",
       "audit-652eef515a970abc8d51",
       "audit-8d0de00b1f8ea1c46cfb",
-      "audit-b4f0a807daebe43f2edf"
+      "audit-b4f0a807daebe43f2edf",
+      "audit-b939abaa6c68ac7fbb46"
     ],
     "experiment_ids": [
       "R234",
       "R265",
-      "R358"
+      "R358",
+      "R379"
     ],
     "experimentally_covered": true,
     "id": "K02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "New value layout/precision needs an implemented compatible kernel and independent functional/semantic oracle. No further unchanged32KQ8 run or blind parameter sweep.",
+    "next_action": "R379 component gate passed: inspect existing exact Q8/Q8 model-control profile before bounded router-on original12/long-decode B screen. Calibrate a missing profile once only if necessary. Preserve mixed-KV negatives and immutable A0/C. Then remaining20special-HBMport cells; no new combinations/models.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -8540,8 +8544,8 @@
     ],
     "prerequisites": [],
     "primary_sources": [],
-    "priority": "P2",
-    "remaining_scope": "Kein weiterer Q8-Value32K-Kontrolllauf. Key/Value-Kombination nicht priorisieren; adaptive Draft-Machbarkeit als eigener Faktor prüfen.",
+    "priority": "P1",
+    "remaining_scope": "New Q8/Q8 host-dispatch primitive passes native numerics. Whole-model original quality, E2E, long decode, actual model dispatch and matched profile comparison remain open. Existing scientific status retained.",
     "reopening_conditions": "Neuen Value-Cachepfad nur bei konkret anderem kompatiblem Layout/Qualitätsvertrag; kein weiterer32K-Q8-Kontrolllauf.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -11461,16 +11465,18 @@
     "evidence_ids": [
       "audit-76529acdcbe759e8bcab",
       "audit-88c4b8b71bab92ce5e63",
+      "audit-b939abaa6c68ac7fbb46",
       "audit-f96908ff12c1e106761e"
     ],
     "experiment_ids": [
-      "R353"
+      "R353",
+      "R379"
     ],
     "experimentally_covered": true,
     "id": "C10",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "GetesteteCapsnichtwiederholen. Stock-Routing-only-Cap ist anderer nochunimplementierterGeltungsbereich; neueZulassungnurbei tatsächlichbetroffenerStock-MMQ-Shape/TilewahlundplausiblemNutzen. GemeinsamesForced-RoutingnichtalsStockKontrolleausgeben; keinMMQ-Zwangsretry.",
+    "next_action": "R379 component gate passed: inspect existing exact Q8/Q8 model-control profile before bounded router-on original12/long-decode B screen. Calibrate a missing profile once only if necessary. Preserve mixed-KV negatives and immutable A0/C. Then remaining20special-HBMport cells; no new combinations/models.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -11565,8 +11571,8 @@
       "https://raw.githubusercontent.com/KumphanartDansiri/v100-vllm-2026/295b5bd547edb07c9de0b58b7c98aaacfac8ec30/docs/02_fp16_moe_fix.md",
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/vllm_serve.py"
     ],
-    "priority": "P2",
-    "remaining_scope": "GetesteteCapsnichtwiederholen. Stock-Routing-only-Cap ist anderer nochunimplementierterGeltungsbereich; neueZulassungnurbei tatsächlichbetroffenerStock-MMQ-Shape/TilewahlundplausiblemNutzen. GemeinsamesForced-RoutingnichtalsStockKontrolleausgeben; keinMMQ-Zwangsretry.",
+    "priority": "P1",
+    "remaining_scope": "New Q8/Q8 host-dispatch primitive passes native numerics. Whole-model original quality, E2E, long decode, actual model dispatch and matched profile comparison remain open. Existing scientific status retained.",
     "reopening_conditions": "Anderes Tiling nur mit eigenem Instruktions-/Register-/Occupancyentwurf und Numerical-Orakel zulassen; HBM04 ist keine zweite Runde derselben Caps.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -29345,6 +29351,7 @@
       "audit-8d0de00b1f8ea1c46cfb",
       "audit-a2270317169dec422f24",
       "audit-b4f0a807daebe43f2edf",
+      "audit-b939abaa6c68ac7fbb46",
       "audit-f818d211483856d94cf3",
       "audit-fae4b1903a527efdd0b8"
     ],
@@ -29353,6 +29360,7 @@
       "R234",
       "R270",
       "R358",
+      "R379",
       "R82",
       "R83"
     ],
@@ -29360,7 +29368,7 @@
     "id": "HBM08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "All three original paired B formats are already GPU-exercised; their tiny short-context memory saving is not full agent qualification. A different mixed policy needs its own implementation/numerics and a concrete useful capacity target; do not rescue known negatives through unqualified combinations.",
+    "next_action": "R379 component gate passed: inspect existing exact Q8/Q8 model-control profile before bounded router-on original12/long-decode B screen. Calibrate a missing profile once only if necessary. Preserve mixed-KV negatives and immutable A0/C. Then remaining20special-HBMport cells; no new combinations/models.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -29467,8 +29475,8 @@
       "A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations."
     ],
     "primary_sources": [],
-    "priority": "P2",
-    "remaining_scope": "A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations.",
+    "priority": "P1",
+    "remaining_scope": "New Q8/Q8 host-dispatch primitive passes native numerics. Whole-model original quality, E2E, long decode, actual model dispatch and matched profile comparison remain open. Existing scientific status retained.",
     "reopening_conditions": "A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
