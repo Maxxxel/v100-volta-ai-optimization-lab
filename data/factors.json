@@ -2640,19 +2640,22 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Echte2/4Slot-Tests erhalten; Mehrslotkosten und Durchsatz sind auf deren Lastfälle begrenzt. R247/R248 neuer8KjeSlot/16KPool scheitert seriell; Kontext-/Historieneffekt nicht als Parallelitätsfehler isoliert.",
+    "decision": "Aktive 1/2/4 Slots bei vier angebotenen Anfragen nachgewiesen. Zwei Slots synthetisch etwa +60,5 %, vier +124,3 % Gesamttoken/s. Erstes Zwei-Slot-Fenster verliert einen semantischen und formalen Erfolg; längere Bestätigung behält alte Qualitätszählung, aber nur 10/48 Antworten exakt seriell. Vier Slots nur 4/24 exakt seriell. Keine allgemeine Agenten-/Isolationsqualifikation.",
     "domain": "runtime",
     "evidence_ids": [
       "audit-6a3317baf08620ddb7ed",
+      "audit-791c749579eb66d36d79",
       "audit-b963f5b5967e3e1f2fe4",
       "audit-e8381f970f1ac60c7afa"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R364"
+    ],
     "experimentally_covered": true,
     "id": "R05",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Vor weiterer gleichzeitiger Agentenlast eine qualitätsstabile serielle Referenz für genau denselben Slot-/Kontextvertrag etablieren; bisherigen gescheiterten Lastfall nicht wiederholen.",
+    "next_action": "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -2748,54 +2751,473 @@
         "model": "qwen38"
       }
     ],
-    "prerequisites": [],
+    "prerequisites": [
+      "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation."
+    ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Kein erneuter synthetischer R05-Sweep. Neuer Agenten-Mehrslotumfang nicht zugelassen; Ursachen nicht pauschal als GDN-/Parallelitätsfehler bezeichnen.",
-    "reopening_conditions": "Vor weiterer gleichzeitiger Agentenlast eine qualitätsstabile serielle Referenz für genau denselben Slot-/Kontextvertrag etablieren; bisherigen gescheiterten Lastfall nicht wiederholen.",
+    "remaining_scope": "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation.",
+    "reopening_conditions": "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Parallel Slots",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "concurrency_aggregate": {
+              "aggregate_throughput_change_pct": 60.540375811286104,
+              "arms": {
+                "A": {
+                  "active_slots_max": 1,
+                  "aggregate_tokens_per_s": 76.26481069861362,
+                  "exact_serial_matches": 24,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 16,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 18,
+                  "request_e2e_s": 4.2216542455,
+                  "wave_elapsed_s": 6.713453185500001,
+                  "waves": 6
+                },
+                "B": {
+                  "active_slots_max": 2,
+                  "aggregate_tokens_per_s": 122.43581370732024,
+                  "exact_serial_matches": 8,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 15,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 17,
+                  "request_e2e_s": 3.1619058745,
+                  "wave_elapsed_s": 4.181783812,
+                  "waves": 6
+                }
+              },
+              "change_exercised": true,
+              "note": "Aggregate four-request wall-clock throughput; per-request native throughput and correctness are reported separately. Two starts per arm give preliminary results."
+            },
+            "concurrency_wave_metrics": {
+              "A": {
+                "exact_serial_matches": 24,
+                "median_GPU_j_per_wave": 1886.5353790429722,
+                "median_wave_wall_s": 6.713453185500001,
+                "requests": 24,
+                "sum_wave_GPU_j": 11297.789865296316,
+                "waves": 6
+              },
+              "B": {
+                "exact_serial_matches": 8,
+                "median_GPU_j_per_wave": 1147.3938379331557,
+                "median_wave_wall_s": 4.181783812,
+                "requests": 24,
+                "sum_wave_GPU_j": 6874.404867217795,
+                "waves": 6
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2592.4845126868345,
+                "QA_request_wall_sum_s": 10.113224725,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2638.377041449961,
+                "QA_request_wall_sum_s": 10.135361388,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7406.5
+              }
+            }
+          },
+          {
+            "concurrency_aggregate": {
+              "aggregate_throughput_change_pct": 60.46885451633584,
+              "arms": {
+                "A": {
+                  "active_slots_max": 1,
+                  "aggregate_tokens_per_s": 76.30105831648278,
+                  "exact_serial_matches": 48,
+                  "exercised": true,
+                  "marker_passes": 48,
+                  "offered_load": 4,
+                  "parallel_format_passes": 32,
+                  "parallel_quality_attempts": 48,
+                  "parallel_quality_passes": 36,
+                  "request_e2e_s": 4.215682054,
+                  "wave_elapsed_s": 6.7102608235000005,
+                  "waves": 12
+                },
+                "B": {
+                  "active_slots_max": 2,
+                  "aggregate_tokens_per_s": 122.43943426430131,
+                  "exact_serial_matches": 10,
+                  "exercised": true,
+                  "marker_passes": 48,
+                  "offered_load": 4,
+                  "parallel_format_passes": 32,
+                  "parallel_quality_attempts": 48,
+                  "parallel_quality_passes": 36,
+                  "request_e2e_s": 3.1599214900000003,
+                  "wave_elapsed_s": 4.1816593095000005,
+                  "waves": 12
+                }
+              },
+              "change_exercised": true,
+              "note": "Aggregate four-request wall-clock throughput; per-request native throughput and correctness are reported separately. Two starts per arm give preliminary results."
+            },
+            "concurrency_wave_metrics": {
+              "A": {
+                "exact_serial_matches": 48,
+                "median_GPU_j_per_wave": 1891.1684980891007,
+                "median_wave_wall_s": 6.7102608235000005,
+                "requests": 48,
+                "sum_wave_GPU_j": 22662.717573793434,
+                "waves": 12
+              },
+              "B": {
+                "exact_serial_matches": 10,
+                "median_GPU_j_per_wave": 1145.0346154840427,
+                "median_wave_wall_s": 4.1816593095000005,
+                "requests": 48,
+                "sum_wave_GPU_j": 13758.886804471933,
+                "waves": 12
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 5230.469990942094,
+                "QA_request_wall_sum_s": 20.249276533,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 5267.225309591883,
+                "QA_request_wall_sum_s": 20.300920438,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7406.5
+              }
+            }
+          },
+          {
+            "concurrency_aggregate": {
+              "aggregate_throughput_change_pct": 124.3245943273596,
+              "arms": {
+                "A": {
+                  "active_slots_max": 1,
+                  "aggregate_tokens_per_s": 76.25644108189354,
+                  "exact_serial_matches": 24,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 16,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 18,
+                  "request_e2e_s": 4.2226487715,
+                  "wave_elapsed_s": 6.7141869295,
+                  "waves": 6
+                },
+                "B": {
+                  "active_slots_max": 4,
+                  "aggregate_tokens_per_s": 171.06195210543967,
+                  "exact_serial_matches": 4,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 16,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 18,
+                  "request_e2e_s": 2.9905281355,
+                  "wave_elapsed_s": 2.993068085,
+                  "waves": 6
+                }
+              },
+              "change_exercised": true,
+              "note": "Aggregate four-request wall-clock throughput; per-request native throughput and correctness are reported separately. Two starts per arm give preliminary results."
+            },
+            "concurrency_wave_metrics": {
+              "A": {
+                "exact_serial_matches": 24,
+                "median_GPU_j_per_wave": 1892.1440553985003,
+                "median_wave_wall_s": 6.7141869295,
+                "requests": 24,
+                "sum_wave_GPU_j": 11348.055888885985,
+                "waves": 6
+              },
+              "B": {
+                "exact_serial_matches": 4,
+                "median_GPU_j_per_wave": 804.5844679723218,
+                "median_wave_wall_s": 2.993068085,
+                "requests": 24,
+                "sum_wave_GPU_j": 4838.234807919337,
+                "waves": 6
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2616.701237631219,
+                "QA_request_wall_sum_s": 10.110194818,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2626.832330470503,
+                "QA_request_wall_sum_s": 10.177382393,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7506.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation.",
+        "scope": "Aktive 1/2/4 Slots bei vier angebotenen Anfragen nachgewiesen. Zwei Slots synthetisch etwa +60,5 %, vier +124,3 % Gesamttoken/s. Erstes Zwei-Slot-Fenster verliert einen semantischen und formalen Erfolg; längere Bestätigung behält alte Qualitätszählung, aber nur 10/48 Antworten exakt seriell. Vier Slots nur 4/24 exakt seriell. Keine allgemeine Agenten-/Isolationsqualifikation.",
+        "scope_status": "PARTIAL",
         "value": "1"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "concurrency_aggregate": {
+              "aggregate_throughput_change_pct": 60.540375811286104,
+              "arms": {
+                "A": {
+                  "active_slots_max": 1,
+                  "aggregate_tokens_per_s": 76.26481069861362,
+                  "exact_serial_matches": 24,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 16,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 18,
+                  "request_e2e_s": 4.2216542455,
+                  "wave_elapsed_s": 6.713453185500001,
+                  "waves": 6
+                },
+                "B": {
+                  "active_slots_max": 2,
+                  "aggregate_tokens_per_s": 122.43581370732024,
+                  "exact_serial_matches": 8,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 15,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 17,
+                  "request_e2e_s": 3.1619058745,
+                  "wave_elapsed_s": 4.181783812,
+                  "waves": 6
+                }
+              },
+              "change_exercised": true,
+              "note": "Aggregate four-request wall-clock throughput; per-request native throughput and correctness are reported separately. Two starts per arm give preliminary results."
+            },
+            "concurrency_wave_metrics": {
+              "A": {
+                "exact_serial_matches": 24,
+                "median_GPU_j_per_wave": 1886.5353790429722,
+                "median_wave_wall_s": 6.713453185500001,
+                "requests": 24,
+                "sum_wave_GPU_j": 11297.789865296316,
+                "waves": 6
+              },
+              "B": {
+                "exact_serial_matches": 8,
+                "median_GPU_j_per_wave": 1147.3938379331557,
+                "median_wave_wall_s": 4.181783812,
+                "requests": 24,
+                "sum_wave_GPU_j": 6874.404867217795,
+                "waves": 6
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2592.4845126868345,
+                "QA_request_wall_sum_s": 10.113224725,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2638.377041449961,
+                "QA_request_wall_sum_s": 10.135361388,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7406.5
+              }
+            }
+          },
+          {
+            "concurrency_aggregate": {
+              "aggregate_throughput_change_pct": 60.46885451633584,
+              "arms": {
+                "A": {
+                  "active_slots_max": 1,
+                  "aggregate_tokens_per_s": 76.30105831648278,
+                  "exact_serial_matches": 48,
+                  "exercised": true,
+                  "marker_passes": 48,
+                  "offered_load": 4,
+                  "parallel_format_passes": 32,
+                  "parallel_quality_attempts": 48,
+                  "parallel_quality_passes": 36,
+                  "request_e2e_s": 4.215682054,
+                  "wave_elapsed_s": 6.7102608235000005,
+                  "waves": 12
+                },
+                "B": {
+                  "active_slots_max": 2,
+                  "aggregate_tokens_per_s": 122.43943426430131,
+                  "exact_serial_matches": 10,
+                  "exercised": true,
+                  "marker_passes": 48,
+                  "offered_load": 4,
+                  "parallel_format_passes": 32,
+                  "parallel_quality_attempts": 48,
+                  "parallel_quality_passes": 36,
+                  "request_e2e_s": 3.1599214900000003,
+                  "wave_elapsed_s": 4.1816593095000005,
+                  "waves": 12
+                }
+              },
+              "change_exercised": true,
+              "note": "Aggregate four-request wall-clock throughput; per-request native throughput and correctness are reported separately. Two starts per arm give preliminary results."
+            },
+            "concurrency_wave_metrics": {
+              "A": {
+                "exact_serial_matches": 48,
+                "median_GPU_j_per_wave": 1891.1684980891007,
+                "median_wave_wall_s": 6.7102608235000005,
+                "requests": 48,
+                "sum_wave_GPU_j": 22662.717573793434,
+                "waves": 12
+              },
+              "B": {
+                "exact_serial_matches": 10,
+                "median_GPU_j_per_wave": 1145.0346154840427,
+                "median_wave_wall_s": 4.1816593095000005,
+                "requests": 48,
+                "sum_wave_GPU_j": 13758.886804471933,
+                "waves": 12
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 5230.469990942094,
+                "QA_request_wall_sum_s": 20.249276533,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 5267.225309591883,
+                "QA_request_wall_sum_s": 20.300920438,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7406.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-b963f5b5967e3e1f2fe4",
           "audit-e8381f970f1ac60c7afa"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation.",
+        "scope": "Aktive 1/2/4 Slots bei vier angebotenen Anfragen nachgewiesen. Zwei Slots synthetisch etwa +60,5 %, vier +124,3 % Gesamttoken/s. Erstes Zwei-Slot-Fenster verliert einen semantischen und formalen Erfolg; längere Bestätigung behält alte Qualitätszählung, aber nur 10/48 Antworten exakt seriell. Vier Slots nur 4/24 exakt seriell. Keine allgemeine Agenten-/Isolationsqualifikation.",
+        "scope_status": "PARTIAL",
         "value": "2"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "concurrency_aggregate": {
+              "aggregate_throughput_change_pct": 124.3245943273596,
+              "arms": {
+                "A": {
+                  "active_slots_max": 1,
+                  "aggregate_tokens_per_s": 76.25644108189354,
+                  "exact_serial_matches": 24,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 16,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 18,
+                  "request_e2e_s": 4.2226487715,
+                  "wave_elapsed_s": 6.7141869295,
+                  "waves": 6
+                },
+                "B": {
+                  "active_slots_max": 4,
+                  "aggregate_tokens_per_s": 171.06195210543967,
+                  "exact_serial_matches": 4,
+                  "exercised": true,
+                  "marker_passes": 24,
+                  "offered_load": 4,
+                  "parallel_format_passes": 16,
+                  "parallel_quality_attempts": 24,
+                  "parallel_quality_passes": 18,
+                  "request_e2e_s": 2.9905281355,
+                  "wave_elapsed_s": 2.993068085,
+                  "waves": 6
+                }
+              },
+              "change_exercised": true,
+              "note": "Aggregate four-request wall-clock throughput; per-request native throughput and correctness are reported separately. Two starts per arm give preliminary results."
+            },
+            "concurrency_wave_metrics": {
+              "A": {
+                "exact_serial_matches": 24,
+                "median_GPU_j_per_wave": 1892.1440553985003,
+                "median_wave_wall_s": 6.7141869295,
+                "requests": 24,
+                "sum_wave_GPU_j": 11348.055888885985,
+                "waves": 6
+              },
+              "B": {
+                "exact_serial_matches": 4,
+                "median_GPU_j_per_wave": 804.5844679723218,
+                "median_wave_wall_s": 2.993068085,
+                "requests": 24,
+                "sum_wave_GPU_j": 4838.234807919337,
+                "waves": 6
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2616.701237631219,
+                "QA_request_wall_sum_s": 10.110194818,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2626.832330470503,
+                "QA_request_wall_sum_s": 10.177382393,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7506.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-6a3317baf08620ddb7ed"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keine weitere Parallel-Last vor einem konkreten Fix, der dieselbe serielle Agenten-/Slot-Geometrie ohne Verlust anderer Konversationen qualifiziert. R247/R248 und R309–R313 sind bindende Gegenbelege; Marker-Abwesenheit allein beweist keine Isolation.",
+        "scope": "Aktive 1/2/4 Slots bei vier angebotenen Anfragen nachgewiesen. Zwei Slots synthetisch etwa +60,5 %, vier +124,3 % Gesamttoken/s. Erstes Zwei-Slot-Fenster verliert einen semantischen und formalen Erfolg; längere Bestätigung behält alte Qualitätszählung, aber nur 10/48 Antworten exakt seriell. Vier Slots nur 4/24 exakt seriell. Keine allgemeine Agenten-/Isolationsqualifikation.",
+        "scope_status": "PARTIAL",
         "value": "4"
       }
     ]
@@ -6628,19 +7050,22 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Verschiedene Promptlängen sind Workloadbedingungen, keine neue CUDA-Optimierung.128/2K/8K und native512-Kontrolle sind vorhanden;32K separat.",
+    "decision": "Tatsächliche Eingabelängen 128/512/2048/8192 bei einem Ausgabetoken und 16K-Kontext belegt. Kandidaten-E2E-Mediane 0,12250/0,72095/2,89878 s für 128/2048/8192. Das sind unterschiedliche Workloads, keine Beschleunigung identischer Aufgaben. Original12 separat unverändert; R338/R339-Langkontextqualität nicht ersetzt.",
     "domain": "runtime",
     "evidence_ids": [
       "audit-137aac4d2ad743dcec70",
       "audit-4561794975c45911355a",
+      "audit-791c749579eb66d36d79",
       "audit-dfdff312bec0a06c732f"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R364"
+    ],
     "experimentally_covered": true,
     "id": "R20",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Neue anwendungsrelevante Kontextverteilung statt willkürlicher Zwischenlängensweep; vergleichbare tatsächliche Eingabetokens verlangen.",
+    "next_action": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -6762,87 +7187,262 @@
       }
     ],
     "prerequisites": [
-      "Neue anwendungsrelevante Kontextverteilung statt willkürlicher Zwischenlängensweep; vergleichbare tatsächliche Eingabetokens verlangen."
+      "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Verschiedene Promptlängen sind Workloadbedingungen, keine neue CUDA-Optimierung.128/2K/8K und native512-Kontrolle sind vorhanden;32K separat.",
-    "reopening_conditions": "Neue anwendungsrelevante Kontextverteilung statt willkürlicher Zwischenlängensweep; vergleichbare tatsächliche Eingabetokens verlangen.",
+    "remaining_scope": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
+    "reopening_conditions": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Prompt Length",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 0.200550968,
+                "median_request_GPU_j": 48.890117475926274,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "median_E2E_s": 0.12249731550000001,
+                "median_request_GPU_j": 27.71787158783342,
+                "peak_device_VRAM_mib": 7628.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2578.159794141909,
+                "QA_request_wall_sum_s": 10.139654583,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2576.0036189133516,
+                "QA_request_wall_sum_s": 10.127993848000001,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-137aac4d2ad743dcec70"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
+        "scope": "Tatsächliche Eingabelängen 128/512/2048/8192 bei einem Ausgabetoken und 16K-Kontext belegt. Kandidaten-E2E-Mediane 0,12250/0,72095/2,89878 s für 128/2048/8192. Das sind unterschiedliche Workloads, keine Beschleunigung identischer Aufgaben. Original12 separat unverändert; R338/R339-Langkontextqualität nicht ersetzt.",
+        "scope_status": "PARTIAL",
         "value": "128"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 0.200550968,
+                "median_request_GPU_j": 48.890117475926274,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "median_E2E_s": 0.12249731550000001,
+                "median_request_GPU_j": 27.71787158783342,
+                "peak_device_VRAM_mib": 7628.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2578.159794141909,
+                "QA_request_wall_sum_s": 10.139654583,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2576.0036189133516,
+                "QA_request_wall_sum_s": 10.127993848000001,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              }
+            }
+          },
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 0.20040744900000002,
+                "median_request_GPU_j": 48.76059120269474,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "median_E2E_s": 0.7209473665,
+                "median_request_GPU_j": 189.95700918682326,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2632.0055212127495,
+                "QA_request_wall_sum_s": 10.546042823,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2597.9172552317723,
+                "QA_request_wall_sum_s": 10.109763532,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            }
+          },
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 0.201130549,
+                "median_request_GPU_j": 48.53262852655363,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "median_E2E_s": 2.8987786965,
+                "median_request_GPU_j": 792.5283430360241,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2590.6132685182533,
+                "QA_request_wall_sum_s": 10.146369892,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2603.3294264825754,
+                "QA_request_wall_sum_s": 10.11146253,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
+        "scope": "Tatsächliche Eingabelängen 128/512/2048/8192 bei einem Ausgabetoken und 16K-Kontext belegt. Kandidaten-E2E-Mediane 0,12250/0,72095/2,89878 s für 128/2048/8192. Das sind unterschiedliche Workloads, keine Beschleunigung identischer Aufgaben. Original12 separat unverändert; R338/R339-Langkontextqualität nicht ersetzt.",
+        "scope_status": "PARTIAL",
         "value": "512"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 0.20040744900000002,
+                "median_request_GPU_j": 48.76059120269474,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "median_E2E_s": 0.7209473665,
+                "median_request_GPU_j": 189.95700918682326,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2632.0055212127495,
+                "QA_request_wall_sum_s": 10.546042823,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2597.9172552317723,
+                "QA_request_wall_sum_s": 10.109763532,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-dfdff312bec0a06c732f"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
+        "scope": "Tatsächliche Eingabelängen 128/512/2048/8192 bei einem Ausgabetoken und 16K-Kontext belegt. Kandidaten-E2E-Mediane 0,12250/0,72095/2,89878 s für 128/2048/8192. Das sind unterschiedliche Workloads, keine Beschleunigung identischer Aufgaben. Original12 separat unverändert; R338/R339-Langkontextqualität nicht ersetzt.",
+        "scope_status": "PARTIAL",
         "value": "2048"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 0.201130549,
+                "median_request_GPU_j": 48.53262852655363,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "median_E2E_s": 2.8987786965,
+                "median_request_GPU_j": 792.5283430360241,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2590.6132685182533,
+                "QA_request_wall_sum_s": 10.146369892,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7628.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2603.3294264825754,
+                "QA_request_wall_sum_s": 10.11146253,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7620.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-4561794975c45911355a"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Neue Promptlängen nur aus einer vorab begründeten realen Kontextverteilung oder spezifischer Kernel-/State-Grenze ableiten. Keine beliebigen Zwischenlängensweeps oder synthetische Langkontextwerte als semantische Qualifikation.",
+        "scope": "Tatsächliche Eingabelängen 128/512/2048/8192 bei einem Ausgabetoken und 16K-Kontext belegt. Kandidaten-E2E-Mediane 0,12250/0,72095/2,89878 s für 128/2048/8192. Das sind unterschiedliche Workloads, keine Beschleunigung identischer Aufgaben. Original12 separat unverändert; R338/R339-Langkontextqualität nicht ersetzt.",
+        "scope_status": "PARTIAL",
         "value": "8192"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "32/128/512/1024Ausgabelängen geprüft beziehungsweise als Kontrolle vorhanden; mehr Tokens allein verbessert keine gelösten Aufgaben.",
+    "decision": "31 Eingabetokens, tatsächlich 32/128/512/1024 Ausgabetokens belegt. Kandidaten-E2E-Mediane 0,45810/6,48991/12,93641 s für 32/512/1024. Unterschiedliche Generierungsarbeit und GPU-Energie getrennt; kein identischer-Aufgaben-Speedup. Original12 ist kein Nachweis vollständiger Coding-/Tool-Ausgaben unter neuem Budget.",
     "domain": "runtime",
     "evidence_ids": [
       "audit-117c3a49647e468b1c2a",
+      "audit-791c749579eb66d36d79",
       "audit-f1b8e697aab66a5683f3",
       "audit-fe1c34f9627f3ab13ccc"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R364"
+    ],
     "experimentally_covered": true,
     "id": "R21",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Nur eine begründete vorab definierte Budget-/Completionpolicy prüfen; ausreichende funktionale Vollständigkeit und gleiche Aufgaben bewerten.",
+    "next_action": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -6964,68 +7564,240 @@
       }
     ],
     "prerequisites": [
-      "Nur eine begründete vorab definierte Budget-/Completionpolicy prüfen; ausreichende funktionale Vollständigkeit und gleiche Aufgaben bewerten."
+      "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "32/128/512/1024Ausgabelängen geprüft beziehungsweise als Kontrolle vorhanden; mehr Tokens allein verbessert keine gelösten Aufgaben.",
-    "reopening_conditions": "Nur eine begründete vorab definierte Budget-/Completionpolicy prüfen; ausreichende funktionale Vollständigkeit und gleiche Aufgaben bewerten.",
+    "remaining_scope": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
+    "reopening_conditions": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Decode Length",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 1.663731978,
+                "median_request_GPU_j": 463.9290040476028,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "median_E2E_s": 0.458098673,
+                "median_request_GPU_j": 120.67863560563606,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2581.8860744806343,
+                "QA_request_wall_sum_s": 10.131392916,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2585.47324404933,
+                "QA_request_wall_sum_s": 10.131066873,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-fe1c34f9627f3ab13ccc"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
+        "scope": "31 Eingabetokens, tatsächlich 32/128/512/1024 Ausgabetokens belegt. Kandidaten-E2E-Mediane 0,45810/6,48991/12,93641 s für 32/512/1024. Unterschiedliche Generierungsarbeit und GPU-Energie getrennt; kein identischer-Aufgaben-Speedup. Original12 ist kein Nachweis vollständiger Coding-/Tool-Ausgaben unter neuem Budget.",
+        "scope_status": "PARTIAL",
         "value": "32"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 1.663731978,
+                "median_request_GPU_j": 463.9290040476028,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "median_E2E_s": 0.458098673,
+                "median_request_GPU_j": 120.67863560563606,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2581.8860744806343,
+                "QA_request_wall_sum_s": 10.131392916,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2585.47324404933,
+                "QA_request_wall_sum_s": 10.131066873,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            }
+          },
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 1.6612179820000001,
+                "median_request_GPU_j": 462.999057729759,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "median_E2E_s": 6.489906642499999,
+                "median_request_GPU_j": 1844.856867465413,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2596.7352469029834,
+                "QA_request_wall_sum_s": 10.121077925,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2600.8427080955876,
+                "QA_request_wall_sum_s": 10.111350617,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            }
+          },
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 1.663263351,
+                "median_request_GPU_j": 465.04232086671766,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "median_E2E_s": 12.936411647,
+                "median_request_GPU_j": 3699.559275056547,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2603.8049965390965,
+                "QA_request_wall_sum_s": 10.125328459,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2626.612272203285,
+                "QA_request_wall_sum_s": 10.132531105,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
+        "scope": "31 Eingabetokens, tatsächlich 32/128/512/1024 Ausgabetokens belegt. Kandidaten-E2E-Mediane 0,45810/6,48991/12,93641 s für 32/512/1024. Unterschiedliche Generierungsarbeit und GPU-Energie getrennt; kein identischer-Aufgaben-Speedup. Original12 ist kein Nachweis vollständiger Coding-/Tool-Ausgaben unter neuem Budget.",
+        "scope_status": "PARTIAL",
         "value": "128"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 1.6612179820000001,
+                "median_request_GPU_j": 462.999057729759,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "median_E2E_s": 6.489906642499999,
+                "median_request_GPU_j": 1844.856867465413,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2596.7352469029834,
+                "QA_request_wall_sum_s": 10.121077925,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2600.8427080955876,
+                "QA_request_wall_sum_s": 10.111350617,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-117c3a49647e468b1c2a"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
+        "scope": "31 Eingabetokens, tatsächlich 32/128/512/1024 Ausgabetokens belegt. Kandidaten-E2E-Mediane 0,45810/6,48991/12,93641 s für 32/512/1024. Unterschiedliche Generierungsarbeit und GPU-Energie getrennt; kein identischer-Aufgaben-Speedup. Original12 ist kein Nachweis vollständiger Coding-/Tool-Ausgaben unter neuem Budget.",
+        "scope_status": "PARTIAL",
         "value": "512"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "length_metrics": {
+              "A": {
+                "median_E2E_s": 1.663263351,
+                "median_request_GPU_j": 465.04232086671766,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "median_E2E_s": 12.936411647,
+                "median_request_GPU_j": 3699.559275056547,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            },
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2603.8049965390965,
+                "QA_request_wall_sum_s": 10.125328459,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2626.612272203285,
+                "QA_request_wall_sum_s": 10.132531105,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7364.5
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-f1b8e697aab66a5683f3"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Nur eine vorab definierte aufgabenbezogene Abschluss-/Budgetpolicy mit Qualitätsveto und gleicher Aufgabenbasis ist eine neue Optimierung. Keine beliebige Länge als Gewinner; längere Ausgaben allein erhöhen keine gelösten Aufgaben.",
+        "scope": "31 Eingabetokens, tatsächlich 32/128/512/1024 Ausgabetokens belegt. Kandidaten-E2E-Mediane 0,45810/6,48991/12,93641 s für 32/512/1024. Unterschiedliche Generierungsarbeit und GPU-Energie getrennt; kein identischer-Aufgaben-Speedup. Original12 ist kein Nachweis vollständiger Coding-/Tool-Ausgaben unter neuem Budget.",
+        "scope_status": "PARTIAL",
         "value": "1024"
       }
     ]
@@ -8333,7 +9105,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R313 E09/K05: nuranderenSlot1 löschen (3248Tokens) stellt gültige Antwort auf unangetastetemSlot0 wieder her. Alle21 Präfixantworten/26Generierungsanfragen identisch zur Fehlerkontrolle. R309/310/311:Fehler;R312/313:gültiges Referenz-Envelope. Belegung eines anderen Slots beeinflusst damit diesen beobachteten Antwortpfad. Numerik/Kernel/Layout als Ursache offen;kein Datenleck- oder spezifischerGDN-Beweis. Keine vollständige Agenten-/Isolationsqualifikation.",
+    "decision": "Neuer Primärdatenabgleich bestehender Fenster: tatsächliche Chat-Wire-Eingaben bis auf cache_prompt sowie vollständige Prompt-Tokenfolgen und erste Antworten in allen zwölf Fällen gleich. B nutzt 735/736 Cachetokens, A null. Folgeantworten nur 11/12 exakt; Zeit-Fall 24 gegen 18 Ausgabetokens. Expliziter Ein-Slot-Reset separat: 24/24 Antworten je Arm exakt, 24 Löschvorgänge im Kandidaten. Kein neuer GPU-Lauf oder verlustfreier Gesamtgewinn.",
     "domain": "kv_state",
     "evidence_ids": [
       "audit-2ab6c87f9f57ddd547cf",
@@ -8342,6 +9114,7 @@
       "audit-3d840b4f87513c2af730",
       "audit-6d0187032ea3b11a373f",
       "audit-77a576cb73abe6027c4f",
+      "audit-791c749579eb66d36d79",
       "audit-7e7065168ccf20c177ee",
       "audit-894272c69b792fd8736e",
       "audit-9907670c98fb135ab20f",
@@ -8363,13 +9136,14 @@
       "R311",
       "R312",
       "R313",
-      "R341"
+      "R341",
+      "R364"
     ],
     "experimentally_covered": true,
     "id": "K05",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Andere ursprüngliche Einzelpunkte fortsetzen. Q02: vorhandene R187-Stdlib-Kalibrierung/Imatrix und Q8-Quellgewichte wiederverwenden;kein erneuter Kalibrier-GPU-Lauf. Zuerst pinned quantizer/präzise Requantisierungs-/Imatrix-Kompatibilität und Kosten prüfen;falls sinnvoll isoliertes Imatrix-Kandidatenartefakt mit vorab fixiertem Qualitätsveto. Kein neuer Modellkandidat oder Kombination.",
+    "next_action": "Retained-Konversation ist tatsächlich ausgeübt, aber nicht generell ausgabeidentisch. Keine erneute Prefix-/Restore-/Rollback-Fehlerrunde ohne neue isolierte Implementierungsursache. Für Mehrslot zunächst Zustand/Attention-KV/Layout/Numerik am konservierten Reproducer trennen; Löschen fremder Konversationen ist kein Fix. R237/R238 und R309–R313 unverändert erhalten.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -8478,15 +9252,15 @@
       }
     ],
     "prerequisites": [
-      "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig."
+      "Retained-Konversation ist tatsächlich ausgeübt, aber nicht generell ausgabeidentisch. Keine erneute Prefix-/Restore-/Rollback-Fehlerrunde ohne neue isolierte Implementierungsursache. Für Mehrslot zunächst Zustand/Attention-KV/Layout/Numerik am konservierten Reproducer trennen; Löschen fremder Konversationen ist kein Fix. R237/R238 und R309–R313 unverändert erhalten."
     ],
     "primary_sources": [
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docs/FA_V100_AUDIT.md",
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/fa_v100_prefill.py"
     ],
     "priority": "P1",
-    "remaining_scope": "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig.",
-    "reopening_conditions": "DEFERRED: E09-Parallelprofil bis zu belegter Slot-Isolation. Kontext eines anderen Auftrags zu löschen ist kein korrekter Nebenläufigkeits-Fix. Erforderlich: gepinnte tensor-/statebezogene Diagnose am konservierten Reproducer (GDN-State/Attention-KV/Maskierung/Layout/Top-Logit-Rundung trennen), konkreter Fix bei erhaltener anderer Konversation, danach vollständige serielle18+Original12 und unabhängige Stabilitätsprüfung vor Parallel-Durchsatz. Ein-Slot-Champions unverändert gültig.",
+    "remaining_scope": "Retained-Konversation ist tatsächlich ausgeübt, aber nicht generell ausgabeidentisch. Keine erneute Prefix-/Restore-/Rollback-Fehlerrunde ohne neue isolierte Implementierungsursache. Für Mehrslot zunächst Zustand/Attention-KV/Layout/Numerik am konservierten Reproducer trennen; Löschen fremder Konversationen ist kein Fix. R237/R238 und R309–R313 unverändert erhalten.",
+    "reopening_conditions": "Retained-Konversation ist tatsächlich ausgeübt, aber nicht generell ausgabeidentisch. Keine erneute Prefix-/Restore-/Rollback-Fehlerrunde ohne neue isolierte Implementierungsursache. Für Mehrslot zunächst Zustand/Attention-KV/Layout/Numerik am konservierten Reproducer trennen; Löschen fremder Konversationen ist kein Fix. R237/R238 und R309–R313 unverändert erhalten.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Recurrent State Sequence",
@@ -8504,18 +9278,103 @@
         "value": "single"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2579.321550407546,
+                "QA_request_wall_sum_s": 10.122881144,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2584.136165761304,
+                "QA_request_wall_sum_s": 10.1319393,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "multiturn_aggregate": {
+              "arms": {
+                "A": {
+                  "questions": 24,
+                  "retain": false,
+                  "starts": 2
+                },
+                "B": {
+                  "questions": 24,
+                  "retain": true,
+                  "starts": 2
+                }
+              },
+              "change_exercised": false,
+              "note": "Await independent primary-data replay. Full conversation is identical only if the generated first turns match. Original quality and conversation quality differ in context. Buffered verbose-response E2E includes token/settings serialization; TTFT unknown. Cached versus evaluated tokens and token-identical outputs must be proven before a paired latency percentage. No unchanged-kernel or general throughput gain.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2576.439457002536,
+                "QA_request_wall_sum_s": 10.110076023,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2602.2624526327727,
+                "QA_request_wall_sum_s": 10.140409286,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "multiturn_aggregate": {
+              "arms": {
+                "A": {
+                  "questions": 24,
+                  "retain": false,
+                  "starts": 2
+                },
+                "B": {
+                  "questions": 24,
+                  "retain": true,
+                  "starts": 2
+                }
+              },
+              "change_exercised": false,
+              "note": "Await independent primary-data replay. Full conversation is identical only if the generated first turns match. Original quality and conversation quality differ in context. Buffered verbose-response E2E includes token/settings serialization; TTFT unknown. Cached versus evaluated tokens and token-identical outputs must be proven before a paired latency percentage. No unchanged-kernel or general throughput gain.",
+              "original_quality": {
+                "A": {
+                  "attempts": 24,
+                  "passes": 18
+                },
+                "B": {
+                  "attempts": 24,
+                  "passes": 18
+                }
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-894272c69b792fd8736e",
           "audit-9907670c98fb135ab20f"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Retained-Konversation ist tatsächlich ausgeübt, aber nicht generell ausgabeidentisch. Keine erneute Prefix-/Restore-/Rollback-Fehlerrunde ohne neue isolierte Implementierungsursache. Für Mehrslot zunächst Zustand/Attention-KV/Layout/Numerik am konservierten Reproducer trennen; Löschen fremder Konversationen ist kein Fix. R237/R238 und R309–R313 unverändert erhalten.",
+        "scope": "Neuer Primärdatenabgleich bestehender Fenster: tatsächliche Chat-Wire-Eingaben bis auf cache_prompt sowie vollständige Prompt-Tokenfolgen und erste Antworten in allen zwölf Fällen gleich. B nutzt 735/736 Cachetokens, A null. Folgeantworten nur 11/12 exakt; Zeit-Fall 24 gegen 18 Ausgabetokens. Expliziter Ein-Slot-Reset separat: 24/24 Antworten je Arm exakt, 24 Löschvorgänge im Kandidaten. Kein neuer GPU-Lauf oder verlustfreier Gesamtgewinn.",
+        "scope_status": "PARTIAL",
         "value": "multiturn"
       },
       {
@@ -8531,17 +9390,63 @@
         "value": "shift"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_request_GPU_j": 2611.9445085975663,
+                "QA_request_wall_sum_s": 10.120485974,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_request_GPU_j": 2621.885910779078,
+                "QA_request_wall_sum_s": 10.117433238,
+                "original_QA_unique_tasks": 12,
+                "peak_device_VRAM_mib": 7356.5
+              }
+            },
+            "state_aggregate": {
+              "arms": {
+                "A": {
+                  "cold_semantic_passes": 18,
+                  "erase_s": 0.0,
+                  "explicit_erases": 0,
+                  "foreign_markers": 0,
+                  "questions": 24,
+                  "semantic_passes": 18,
+                  "shift_events": 0,
+                  "starts": 2,
+                  "verified_starts": 2
+                },
+                "B": {
+                  "cold_semantic_passes": 18,
+                  "erase_s": 0.005542179,
+                  "explicit_erases": 24,
+                  "foreign_markers": 0,
+                  "questions": 24,
+                  "semantic_passes": 18,
+                  "shift_events": 0,
+                  "starts": 2,
+                  "verified_starts": 2
+                }
+              },
+              "change_exercised": true,
+              "kind": "reset",
+              "note": "State operation, post-state quality, exact answer drift and possible leaks are separate. No throughput percentage across unequal shifted/truncated output lengths; explicit erase latency is reported separately from question latency."
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-7e7065168ccf20c177ee"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Retained-Konversation ist tatsächlich ausgeübt, aber nicht generell ausgabeidentisch. Keine erneute Prefix-/Restore-/Rollback-Fehlerrunde ohne neue isolierte Implementierungsursache. Für Mehrslot zunächst Zustand/Attention-KV/Layout/Numerik am konservierten Reproducer trennen; Löschen fremder Konversationen ist kein Fix. R237/R238 und R309–R313 unverändert erhalten.",
+        "scope": "Neuer Primärdatenabgleich bestehender Fenster: tatsächliche Chat-Wire-Eingaben bis auf cache_prompt sowie vollständige Prompt-Tokenfolgen und erste Antworten in allen zwölf Fällen gleich. B nutzt 735/736 Cachetokens, A null. Folgeantworten nur 11/12 exakt; Zeit-Fall 24 gegen 18 Ausgabetokens. Expliziter Ein-Slot-Reset separat: 24/24 Antworten je Arm exakt, 24 Löschvorgänge im Kandidaten. Kein neuer GPU-Lauf oder verlustfreier Gesamtgewinn.",
+        "scope_status": "PARTIAL",
         "value": "reset"
       }
     ]
