@@ -12366,5 +12366,13 @@
     "kind": "TOOL_SERIALIZATION_READBACK_REPLAY_AND_A07_CPU_GPU_COVERAGE_CORRECTION",
     "sequence": 1546,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T19:00:42.848163+00:00",
+    "experiment_id": "R368",
+    "factor_id": null,
+    "kind": "R368_DASHBOARD_CANONICAL_COVERAGE_COUNTER_PRESENTATION",
+    "sequence": 1547,
+    "signature": null
   }
 ]
