@@ -791,6 +791,7 @@
       "audit-cf094fc512d83c5c3636",
       "audit-d3d48f461ddbab44a526",
       "audit-dc120944347a4f5cf410",
+      "audit-dc82ea07c3477de8711f",
       "audit-e2238f64473e0e4d2c93",
       "audit-e43b65060a83f4fa4a98",
       "audit-eafc50d2ff1739a11233",
@@ -809,6 +810,7 @@
       "R166",
       "R184",
       "R185",
+      "R359",
       "R94",
       "R95",
       "R96",
@@ -820,7 +822,7 @@
     "id": "R04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Qualifizierte Microbatch-/Low-VRAM-Profile im tatsächlich geprüften Umfang wiederverwenden; R95-Strict-SSE-Negativ und kein allgemeiner Coding-Durchsatzgewinn bleiben erhalten.",
+    "next_action": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -1015,87 +1017,849 @@
     "title": "Microbatch",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2606.723267867877,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.119597166,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 3711.9271344851936,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 14.245352997,
+                "peak_device_VRAM_mib": 7258.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.11434641147520797,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.82600496777403,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.0006000720257581804,
+                "ttft_change_pct": 2.6434829462402165
+              },
+              "prefill": {
+                "e2e_change_pct": 227.37856822210304,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 241.16848742418063,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -69.56405205612072,
+                "ttft_change_pct": 227.5252908649347
+              },
+              "prefill2048": {
+                "e2e_change_pct": 257.7922613656439,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 274.53746206178585,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -72.08519274596156,
+                "ttft_change_pct": 257.88304794559394
+              },
+              "prefill4096": {
+                "e2e_change_pct": 262.8291998820417,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 274.3572397098625,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -72.46405176918132,
+                "ttft_change_pct": 262.91125750159665
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-9613f1cdfb51df6e2809",
           "audit-eafc50d2ff1739a11233"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
+        "scope": "Original300W/8K-Einzelfaktor:512->64/128/256 verschlechtertPrefill;1024/2048 verbessert2K/4K,Decodeweitgehendgleich. R100LowVRAMistcacheoffbeiMicrobatch2048gegen6GiBcache-C(13254->7486MiB),nichtMicrobatch64. R101130/164beide+16/16,keinCodingdurchsatzgewinn;R95-VertragsfehlerundR166negativesFrischgateerhalten.",
+        "scope_status": "PARTIAL",
         "value": "64"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2557.83561241216,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.125881666,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2994.52203453901,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 11.690993117,
+                "peak_device_VRAM_mib": 7272.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.07148310410454162,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 2.3850459635160304,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.005640515230775911,
+                "ttft_change_pct": 2.049685650652977
+              },
+              "prefill": {
+                "e2e_change_pct": 98.74551095482269,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 114.41156563017697,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -49.82367911868681,
+                "ttft_change_pct": 98.83401592638499
+              },
+              "prefill2048": {
+                "e2e_change_pct": 106.98094124865038,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 115.89529434347776,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -51.7318017583555,
+                "ttft_change_pct": 107.0261376400401
+              },
+              "prefill4096": {
+                "e2e_change_pct": 108.60090021759925,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 115.53973970381554,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -52.09047321627176,
+                "ttft_change_pct": 108.62216662077655
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-90b982b8768f72bf9b03",
           "audit-f6f96c443bac8279bcab"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
+        "scope": "Original300W/8K-Einzelfaktor:512->64/128/256 verschlechtertPrefill;1024/2048 verbessert2K/4K,Decodeweitgehendgleich. R100LowVRAMistcacheoffbeiMicrobatch2048gegen6GiBcache-C(13254->7486MiB),nichtMicrobatch64. R101130/164beide+16/16,keinCodingdurchsatzgewinn;R95-VertragsfehlerundR166negativesFrischgateerhalten.",
+        "scope_status": "PARTIAL",
         "value": "128"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2576.971593040047,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.105731848,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2663.7940453201127,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.498137821,
+                "peak_device_VRAM_mib": 7294.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.026909460036272925,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6138794789104507,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.09609579762519527,
+                "ttft_change_pct": 2.76334631398929
+              },
+              "prefill": {
+                "e2e_change_pct": 30.00627129088107,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 23.240569258123102,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -23.172560262538113,
+                "ttft_change_pct": 30.03490130926576
+              },
+              "prefill2048": {
+                "e2e_change_pct": 26.954058214073505,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 30.065240438776364,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -21.261282861092212,
+                "ttft_change_pct": 26.964970020580694
+              },
+              "prefill4096": {
+                "e2e_change_pct": 27.66845643419589,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 31.820032564933264,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -21.694410786104,
+                "ttft_change_pct": 27.67444322002848
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-6e68540a67173fe2b928",
           "audit-a39a8e1ac4dc174f6af2"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
+        "scope": "Original300W/8K-Einzelfaktor:512->64/128/256 verschlechtertPrefill;1024/2048 verbessert2K/4K,Decodeweitgehendgleich. R100LowVRAMistcacheoffbeiMicrobatch2048gegen6GiBcache-C(13254->7486MiB),nichtMicrobatch64. R101130/164beide+16/16,keinCodingdurchsatzgewinn;R95-VertragsfehlerundR166negativesFrischgateerhalten.",
+        "scope_status": "PARTIAL",
         "value": "256"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2606.723267867877,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.119597166,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 3711.9271344851936,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 14.245352997,
+                "peak_device_VRAM_mib": 7258.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.11434641147520797,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.82600496777403,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.0006000720257581804,
+                "ttft_change_pct": 2.6434829462402165
+              },
+              "prefill": {
+                "e2e_change_pct": 227.37856822210304,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 241.16848742418063,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -69.56405205612072,
+                "ttft_change_pct": 227.5252908649347
+              },
+              "prefill2048": {
+                "e2e_change_pct": 257.7922613656439,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 274.53746206178585,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -72.08519274596156,
+                "ttft_change_pct": 257.88304794559394
+              },
+              "prefill4096": {
+                "e2e_change_pct": 262.8291998820417,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 274.3572397098625,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -72.46405176918132,
+                "ttft_change_pct": 262.91125750159665
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2557.83561241216,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.125881666,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2994.52203453901,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 11.690993117,
+                "peak_device_VRAM_mib": 7272.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.07148310410454162,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 2.3850459635160304,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.005640515230775911,
+                "ttft_change_pct": 2.049685650652977
+              },
+              "prefill": {
+                "e2e_change_pct": 98.74551095482269,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 114.41156563017697,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -49.82367911868681,
+                "ttft_change_pct": 98.83401592638499
+              },
+              "prefill2048": {
+                "e2e_change_pct": 106.98094124865038,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 115.89529434347776,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -51.7318017583555,
+                "ttft_change_pct": 107.0261376400401
+              },
+              "prefill4096": {
+                "e2e_change_pct": 108.60090021759925,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 115.53973970381554,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -52.09047321627176,
+                "ttft_change_pct": 108.62216662077655
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2576.971593040047,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.105731848,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2663.7940453201127,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.498137821,
+                "peak_device_VRAM_mib": 7294.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.026909460036272925,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.6138794789104507,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.09609579762519527,
+                "ttft_change_pct": 2.76334631398929
+              },
+              "prefill": {
+                "e2e_change_pct": 30.00627129088107,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 23.240569258123102,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -23.172560262538113,
+                "ttft_change_pct": 30.03490130926576
+              },
+              "prefill2048": {
+                "e2e_change_pct": 26.954058214073505,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 30.065240438776364,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -21.261282861092212,
+                "ttft_change_pct": 26.964970020580694
+              },
+              "prefill4096": {
+                "e2e_change_pct": 27.66845643419589,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 31.820032564933264,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -21.694410786104,
+                "ttft_change_pct": 27.67444322002848
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2566.8999975948414,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.112235888,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2518.403268050125,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.942481626,
+                "peak_device_VRAM_mib": 7480.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.030326542513536836,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.3822667556590664,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.021767371571745908,
+                "ttft_change_pct": -0.41771332882631906
+              },
+              "prefill": {
+                "e2e_change_pct": 0.1401884174508261,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -2.8913112068901903,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.16324057319719865,
+                "ttft_change_pct": 0.1397834594624392
+              },
+              "prefill2048": {
+                "e2e_change_pct": -13.394102511726224,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -15.624879825252957,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 15.494026740282818,
+                "ttft_change_pct": -13.3939904195151
+              },
+              "prefill4096": {
+                "e2e_change_pct": -13.802840298218522,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -15.257489064267837,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 16.03366939052979,
+                "ttft_change_pct": -13.808600647626367
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2562.851821129455,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.114689725,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2477.1104298004234,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.852676805,
+                "peak_device_VRAM_mib": 7728.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.03850004097658566,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.779634443320055,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.042574675481121815,
+                "ttft_change_pct": 0.3621038648577102
+              },
+              "prefill": {
+                "e2e_change_pct": 1.1590491557296856,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 3.241259990440626,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -1.1975059328413806,
+                "ttft_change_pct": 1.1782991715581614
+              },
+              "prefill2048": {
+                "e2e_change_pct": -20.54883946505023,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -21.310982028012283,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 25.915941483808822,
+                "ttft_change_pct": -20.558007041977877
+              },
+              "prefill4096": {
+                "e2e_change_pct": -19.3114285164399,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -21.426201889633944,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 23.965536034867196,
+                "ttft_change_pct": -19.31643937789381
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2549.41547868614,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.114244468999999,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2454.3472514204523,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.851829898,
+                "peak_device_VRAM_mib": 7728.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.05627922101387739,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.11965545524657006,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.060512728098005564,
+                "ttft_change_pct": -0.4238963236218751
+              },
+              "prefill": {
+                "e2e_change_pct": 1.1362034558162426,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -5.272774226768028,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -1.1632136963159678,
+                "ttft_change_pct": 1.1571153073038687
+              },
+              "prefill2048": {
+                "e2e_change_pct": -20.564187520560374,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -22.699534760479434,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 25.943982336450212,
+                "ttft_change_pct": -20.565280758956362
+              },
+              "prefill4096": {
+                "e2e_change_pct": -19.102688081651863,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -21.30786760229475,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 23.65126747844353,
+                "ttft_change_pct": -19.109886587820014
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2562.793550735852,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.24790818,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2479.4577842786816,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.988901535,
+                "peak_device_VRAM_mib": 7728.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.04617761716964042,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.7306554832820833,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.06310381526664077,
+                "ttft_change_pct": 0.4269277803330862
+              },
+              "prefill": {
+                "e2e_change_pct": 0.21851288396608215,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -2.2747207966692384,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.2009981774051095,
+                "ttft_change_pct": 0.2262799838442131
+              },
+              "prefill2048": {
+                "e2e_change_pct": -20.2766784606652,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -23.016376980707886,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 25.496198609019416,
+                "ttft_change_pct": -20.281076779434283
+              },
+              "prefill4096": {
+                "e2e_change_pct": -19.098519500074197,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -23.10328033326946,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 23.64729810833608,
+                "ttft_change_pct": -19.10075660356112
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
+        "scope": "Shared original reference; not an own candidate intervention",
+        "scope_status": "PARTIAL",
         "value": "512"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2566.8999975948414,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.112235888,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2518.403268050125,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.942481626,
+                "peak_device_VRAM_mib": 7480.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.030326542513536836,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.3822667556590664,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.021767371571745908,
+                "ttft_change_pct": -0.41771332882631906
+              },
+              "prefill": {
+                "e2e_change_pct": 0.1401884174508261,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -2.8913112068901903,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.16324057319719865,
+                "ttft_change_pct": 0.1397834594624392
+              },
+              "prefill2048": {
+                "e2e_change_pct": -13.394102511726224,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -15.624879825252957,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 15.494026740282818,
+                "ttft_change_pct": -13.3939904195151
+              },
+              "prefill4096": {
+                "e2e_change_pct": -13.802840298218522,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -15.257489064267837,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 16.03366939052979,
+                "ttft_change_pct": -13.808600647626367
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-615a4cf0bd6fdeb52e2f",
           "audit-706dabd92ee818792bba"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
+        "scope": "Original300W/8K-Einzelfaktor:512->64/128/256 verschlechtertPrefill;1024/2048 verbessert2K/4K,Decodeweitgehendgleich. R100LowVRAMistcacheoffbeiMicrobatch2048gegen6GiBcache-C(13254->7486MiB),nichtMicrobatch64. R101130/164beide+16/16,keinCodingdurchsatzgewinn;R95-VertragsfehlerundR166negativesFrischgateerhalten.",
+        "scope_status": "PARTIAL",
         "value": "1024"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2562.851821129455,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.114689725,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2477.1104298004234,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.852676805,
+                "peak_device_VRAM_mib": 7728.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.03850004097658566,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.779634443320055,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.042574675481121815,
+                "ttft_change_pct": 0.3621038648577102
+              },
+              "prefill": {
+                "e2e_change_pct": 1.1590491557296856,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 3.241259990440626,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -1.1975059328413806,
+                "ttft_change_pct": 1.1782991715581614
+              },
+              "prefill2048": {
+                "e2e_change_pct": -20.54883946505023,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -21.310982028012283,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 25.915941483808822,
+                "ttft_change_pct": -20.558007041977877
+              },
+              "prefill4096": {
+                "e2e_change_pct": -19.3114285164399,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -21.426201889633944,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 23.965536034867196,
+                "ttft_change_pct": -19.31643937789381
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2549.41547868614,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.114244468999999,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2454.3472514204523,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.851829898,
+                "peak_device_VRAM_mib": 7728.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": 0.05627922101387739,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.11965545524657006,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.060512728098005564,
+                "ttft_change_pct": -0.4238963236218751
+              },
+              "prefill": {
+                "e2e_change_pct": 1.1362034558162426,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -5.272774226768028,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -1.1632136963159678,
+                "ttft_change_pct": 1.1571153073038687
+              },
+              "prefill2048": {
+                "e2e_change_pct": -20.564187520560374,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -22.699534760479434,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 25.943982336450212,
+                "ttft_change_pct": -20.565280758956362
+              },
+              "prefill4096": {
+                "e2e_change_pct": -19.102688081651863,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -21.30786760229475,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 23.65126747844353,
+                "ttft_change_pct": -19.109886587820014
+              }
+            }
+          },
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2562.793550735852,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.24790818,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2479.4577842786816,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 9.988901535,
+                "peak_device_VRAM_mib": 7728.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.04617761716964042,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 0.7306554832820833,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.06310381526664077,
+                "ttft_change_pct": 0.4269277803330862
+              },
+              "prefill": {
+                "e2e_change_pct": 0.21851288396608215,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -2.2747207966692384,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.2009981774051095,
+                "ttft_change_pct": 0.2262799838442131
+              },
+              "prefill2048": {
+                "e2e_change_pct": -20.2766784606652,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -23.016376980707886,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 25.496198609019416,
+                "ttft_change_pct": -20.281076779434283
+              },
+              "prefill4096": {
+                "e2e_change_pct": -19.098519500074197,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -23.10328033326946,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 23.64729810833608,
+                "ttft_change_pct": -19.10075660356112
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-e43b65060a83f4fa4a98"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Keep isolated512->1024/2048screens and qualifiedconfigurationrecords distinct. Newmicrobatch only with changedbottleneck/context/qualityhypothesis; do not repeat sixoriginalvalues.",
+        "scope": "Original300W/8K-Einzelfaktor:512->64/128/256 verschlechtertPrefill;1024/2048 verbessert2K/4K,Decodeweitgehendgleich. R100LowVRAMistcacheoffbeiMicrobatch2048gegen6GiBcache-C(13254->7486MiB),nichtMicrobatch64. R101130/164beide+16/16,keinCodingdurchsatzgewinn;R95-VertragsfehlerundR166negativesFrischgateerhalten.",
+        "scope_status": "PARTIAL",
         "value": "2048"
       }
     ]
@@ -2045,19 +2809,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R229 prüft4096Cap/Reject-Recovery: Token-/Original12-Vertrag erhalten,8MiB weniger VRAM und praktisch gleiche Paarzeit.8192 ist Basisäquivalent.",
+    "decision": "OriginalEin-Slot8K:8192Capiststatischbasisgleich,keinGPU-Eingriff. R229anderesProfil:16KunifiedPool/zweiSlots,Defaulttatsächlich16384proSlot;4096Capwirksam,8MiBSpeicherdifferenz,keinepraktischePaarzeitverbesserung. 8192Capwürdehierbegrenzenundwurdenichtgemessen;keineprofilübergreifendeNo-op-Behauptung.",
     "domain": "runtime",
     "evidence_ids": [
-      "audit-1687a898032183472357"
+      "audit-1687a898032183472357",
+      "audit-dc82ea07c3477de8711f"
     ],
     "experiment_ids": [
-      "R229"
+      "R229",
+      "R359"
     ],
     "experimentally_covered": true,
     "id": "R11",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Weitere Capwerte ohne anderen KV-Pool sparen keinen entsprechend reservierten Speicher. Echte Pool-/Mehrslotstrategie separat zulassen.",
+    "next_action": "Originalsingle8192cap is staticnoop,notownGPUintervention; inR229two-slot16Kprofile8192is untestedrealadmissionlimit. Requireconcrete8Kadmissionneedbeforeanotherboundarytest;nomemorybenefitassumed.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -2153,13 +2919,13 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Originalsingle8192cap is staticnoop,notownGPUintervention; inR229two-slot16Kprofile8192is untestedrealadmissionlimit. Requireconcrete8Kadmissionneedbeforeanotherboundarytest;nomemorybenefitassumed.",
+        "scope": "Shared original reference; not an own candidate intervention",
+        "scope_status": "PARTIAL",
         "value": "default"
       },
       {
@@ -2169,21 +2935,21 @@
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": "Otheractualpoolstrategyrequiresdistinctmemory/isolationcontract; noidenticalcaprepeat.",
-        "scope": "R229originalQ6/300W,twoSlots:16KperSlot→4Kcap",
+        "remaining_requirement": "Originalsingle8192cap is staticnoop,notownGPUintervention; inR229two-slot16Kprofile8192is untestedrealadmissionlimit. Requireconcrete8Kadmissionneedbeforeanotherboundarytest;nomemorybenefitassumed.",
+        "scope": "OriginalEin-Slot8K:8192Capiststatischbasisgleich,keinGPU-Eingriff. R229anderesProfil:16KunifiedPool/zweiSlots,Defaulttatsächlich16384proSlot;4096Capwirksam,8MiBSpeicherdifferenz,keinepraktischePaarzeitverbesserung. 8192Capwürdehierbegrenzenundwurdenichtgemessen;keineprofilübergreifendeNo-op-Behauptung.",
         "scope_status": "PARTIAL",
         "value": "4096"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Originalsingle8192cap is staticnoop,notownGPUintervention; inR229two-slot16Kprofile8192is untestedrealadmissionlimit. Requireconcrete8Kadmissionneedbeforeanotherboundarytest;nomemorybenefitassumed.",
+        "scope": "Originalsingle-slot8Kcap8192isstaticmin(8192,8192)noop;R229two-slot16Kscopeisdifferent",
+        "scope_status": "NOT_APPLICABLE",
         "value": "8192"
       }
     ]
@@ -3086,6 +3852,7 @@
       "audit-97b2bd9c2d3316dd4eab",
       "audit-a1ee955eb446d233e48b",
       "audit-aa0ca98f1c7f01cc2e07",
+      "audit-dc82ea07c3477de8711f",
       "audit-f6d5675b7872b3ec1c0c"
     ],
     "experiment_ids": [
@@ -3095,13 +3862,14 @@
       "R222",
       "R338",
       "R339",
+      "R359",
       "R93"
     ],
     "experimentally_covered": true,
     "id": "R19",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R338/R339 abgeschlossen; gültige32K-Prefillprofile erhalten, Langkontextqualität weiter unqualifiziert. Keine Wiederholung ohne neue konkrete Hypothese.",
+    "next_action": "Reuse4Kscreen and R338/R33914Ksemanticcomparison; retain32KHBM07syntheticprofileCwithoutlong-documentqualityclaim. Newcontextlengthneedsrealworkloadcapacity/qualityhypothesis.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -3225,87 +3993,134 @@
     "title": "Context Size",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2572.208688583293,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.115976463,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2600.8580406690526,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.101330066,
+                "peak_device_VRAM_mib": 7224.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.05341936180818241,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.6117650476257563,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.06940527012506692,
+                "ttft_change_pct": 0.0036021546440778707
+              },
+              "prefill": {
+                "e2e_change_pct": 0.16932301438312702,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -3.333305735858705,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.1459675157551743,
+                "ttft_change_pct": 0.1645304081791421
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.31894662106688454,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.414337864548476,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.31887805408250536,
+                "ttft_change_pct": 0.3239723059137445
+              }
+            }
+          }
+        ],
         "evidence_ids": [
           "audit-13f089ed07a2d15ccfe0",
           "audit-f6d5675b7872b3ec1c0c"
         ],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Reuse4Kscreen and R338/R33914Ksemanticcomparison; retain32KHBM07syntheticprofileCwithoutlong-documentqualityclaim. Newcontextlengthneedsrealworkloadcapacity/qualityhypothesis.",
+        "scope": "4K-Screenund8K-Kontrollenwiederverwendet. R33832K/R33916K:528MiBgespart,7/9beobachtete14K-FällewieReferenz;11/12-Mindestqualitätverfehlt,kein12erGesamtscore/Champion. R221/R222qualifiziertsynthetischen32KCachepfad,keineLangdokumentsemantik.",
+        "scope_status": "PARTIAL",
         "value": "4096"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "A": {
+                "QA_GPU_j": 2572.208688583293,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.115976463,
+                "peak_device_VRAM_mib": 7356.5
+              },
+              "B": {
+                "QA_GPU_j": 2600.8580406690526,
+                "QA_unique_tasks": 12,
+                "QA_wall_sum_s": 10.101330066,
+                "peak_device_VRAM_mib": 7224.5
+              }
+            },
+            "native_comparison": {
+              "decode": {
+                "e2e_change_pct": -0.05341936180818241,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -0.6117650476257563,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": 0.06940527012506692,
+                "ttft_change_pct": 0.0036021546440778707
+              },
+              "prefill": {
+                "e2e_change_pct": 0.16932301438312702,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": -3.333305735858705,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.1459675157551743,
+                "ttft_change_pct": 0.1645304081791421
+              },
+              "prefill2048": {
+                "e2e_change_pct": 0.31894662106688454,
+                "format_pass_change": 0,
+                "gpu_energy_change_pct": 1.414337864548476,
+                "same_token_counts": true,
+                "semantic_pass_change": 0,
+                "tokens_per_s_change_pct": -0.31887805408250536,
+                "ttft_change_pct": 0.3239723059137445
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Reuse4Kscreen and R338/R33914Ksemanticcomparison; retain32KHBM07syntheticprofileCwithoutlong-documentqualityclaim. Newcontextlengthneedsrealworkloadcapacity/qualityhypothesis.",
+        "scope": "Shared original reference; not an own candidate intervention",
+        "scope_status": "PARTIAL",
         "value": "8192"
       },
       {
-        "aggregate_metrics": {
-          "actual16K_context_verified": true,
-          "actual_GPU_execution": true,
-          "decision": "528MiB_MEMORY_SAVING_LOCALLY_MEASURED_BUT_MINIMUM11_OF12_QUALITY_ALREADY_IMPOSSIBLE_NOT_QUALIFIED",
-          "device_vram_mib": {
-            "candidate16K": 7620.5,
-            "reference32K": 8148.5,
-            "saving": 528.0
-          },
-          "early_stop": {
-            "completed_cases": 9,
-            "decision": "STOP_MINIMUM_SEMANTIC_SUCCESS_IMPOSSIBLE",
-            "maximum_possible_successes": 10,
-            "minimum_required": 11
-          },
-          "fresh_confirmation_required_for_any_winner": true,
-          "full_12_semantic_score_claimed": false,
-          "matched_gpu_energy_j": {
-            "candidate16K": 15214.717678743455,
-            "candidate_increase_percent": 0.46513847508256045,
-            "reference32K": 15144.27582510825
-          },
-          "matched_gpu_j_per_success": {
-            "candidate16K": 2173.5310969633506,
-            "reference32K": 2163.467975015464
-          },
-          "matched_reference_solved": 7,
-          "matched_task_wall_s": {
-            "candidate16K": 56.339854087,
-            "candidate_increase_percent": 0.19280729809889596,
-            "reference32K": 56.231435775
-          },
-          "measurement_valid": true,
-          "new_champion": false,
-          "observed_cases": 9,
-          "original12": {
-            "format": 8,
-            "losses": 0,
-            "semantic": 9
-          },
-          "original12_grades_independently_reproduced": 12,
-          "production_changed": false,
-          "raw_hashes_verified": 16,
-          "semantic_scores_independently_reproduced": 9,
-          "solved": 7
-        },
+        "aggregate_metrics": null,
         "evidence_ids": [],
         "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": "Kein Wiederholungstest dieser Variante. Neue unabhängig eingefrorene Qualitäts-Hypothese erforderlich; Speicherersparnis allein qualifiziert kein Assistentenprofil.",
-        "scope": "Ein Slot: Kontext16384 statt32768, identische gefrorene14K-Eingaben/Q6/300W/F16-KV.",
-        "scope_status": "TESTED_NEGATIVE",
+        "remaining_requirement": "Reuse4Kscreen and R338/R33914Ksemanticcomparison; retain32KHBM07syntheticprofileCwithoutlong-documentqualityclaim. Newcontextlengthneedsrealworkloadcapacity/qualityhypothesis.",
+        "scope": "4K-Screenund8K-Kontrollenwiederverwendet. R33832K/R33916K:528MiBgespart,7/9beobachtete14K-FällewieReferenz;11/12-Mindestqualitätverfehlt,kein12erGesamtscore/Champion. R221/R222qualifiziertsynthetischen32KCachepfad,keineLangdokumentsemantik.",
+        "scope_status": "PARTIAL",
         "value": "16384"
       },
       {
@@ -3315,8 +4130,8 @@
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": "NewindependentsemanticpolicyhypothesisbeforefurtherGPU;donotrepeatR338/R339.",
-        "scope": "R338original32Kcontextwithfrozen14Ksemanticworkload;separatenative32Kprofileevidenceretained",
+        "remaining_requirement": "Reuse4Kscreen and R338/R33914Ksemanticcomparison; retain32KHBM07syntheticprofileCwithoutlong-documentqualityclaim. Newcontextlengthneedsrealworkloadcapacity/qualityhypothesis.",
+        "scope": "4K-Screenund8K-Kontrollenwiederverwendet. R33832K/R33916K:528MiBgespart,7/9beobachtete14K-FällewieReferenz;11/12-Mindestqualitätverfehlt,kein12erGesamtscore/Champion. R221/R222qualifiziertsynthetischen32KCachepfad,keineLangdokumentsemantik.",
         "scope_status": "PARTIAL",
         "value": "32768"
       }

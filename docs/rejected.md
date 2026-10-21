@@ -13,7 +13,7 @@ Negative results are retained. PARTIAL factors can contain rejected variants alo
 | [R08](factors/R08.md) | PARTIAL | R77/R79 echte GPU-Anfragen, aber kein zusätzlicher Chunk-Reuse. Zusätzlicher Shift/Chunkpfad für Hybrid-GDN/IMRoPE nicht bewiesen. |
 | [R09](factors/R09.md) | PARTIAL | Kein Shift experimentell ausgeführt:historisch0Events/change_exercised=false. GepinnterOmniIMRoPE-AttentionKV-Pfad unterstütztKshift nicht; Varianteaktuellnichtanwendbar. |
 | [R10](factors/R10.md) | PARTIAL | KV-unified an als gemeinsame Kontrolle, aus tatsächlich geprüft; Unterprozentunterschiede, kein begründeter weiterer boolescher Wert. |
-| [R11](factors/R11.md) | PARTIAL | R229 prüft4096Cap/Reject-Recovery: Token-/Original12-Vertrag erhalten,8MiB weniger VRAM und praktisch gleiche Paarzeit.8192 ist Basisäquivalent. |
+| [R11](factors/R11.md) | PARTIAL | OriginalEin-Slot8K:8192Capiststatischbasisgleich,keinGPU-Eingriff. R229anderesProfil:16KunifiedPool/zweiSlots,Defaulttatsächlich16384proSlot;4096Capwirksam,8MiBSpeicherdifferenz,keinepraktischePaarzeitverbesserung. 8192Capwürdehierbegrenzenundwurdenichtgemessen;keineprofilübergreifendeNo-op-Behauptung. |
 | [R12](factors/R12.md) | PARTIAL | cache_prompt on/off mit echter Wiederverwendung vorhanden;4K-Prefillvorteil ist Prefix-Reuse, kein allgemeiner Decodegewinn. R80 und R291/R292 ergänzen passende Umfänge. |
 | [R13](factors/R13.md) | PARTIAL | Partial-CPU-Offload29Layer gemessen: massiv langsamere Prefill/Decode-Zeiten. Der residente Q6-Basisfall passt in HBM. |
 | [R14](factors/R14.md) | PARTIAL | mmap versus load-mode none geprüft; native Warmleistung praktisch gleich. Ladezeit/OS-Cache ist anderer Umfang. |
