@@ -12398,5 +12398,13 @@
     "kind": "R371_S02_MAX32_AGENT_QUALITY_REJECTION",
     "sequence": 1550,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T19:37:46.439121+00:00",
+    "experiment_id": "R372",
+    "factor_id": null,
+    "kind": "R372_POWER_CACHE_TASK_ENERGY_SCOPE_REVIEW",
+    "sequence": 1551,
+    "signature": null
   }
 ]

@@ -33,6 +33,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-273b2160c856596f102f.md)
 - [Original audit hash and public excerpt](../audits/audit-34aef30f35e398a2b566.md)
 - [Original audit hash and public excerpt](../audits/audit-3c1799daa595eea43052.md)
+- [Original audit hash and public excerpt](../audits/audit-68adf78e010910f8aecd.md)
 - [Original audit hash and public excerpt](../audits/audit-72561777b6d13a0a47fe.md)
 - [Original audit hash and public excerpt](../audits/audit-74211c6727a78a62efe6.md)
 - [Original audit hash and public excerpt](../audits/audit-7a9b64a68a7800dd100d.md)
@@ -55,8 +56,8 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
-| reference | BLOCKED | See linked original evidence | Not separately reconciled |
-| shared_reuse_patch | BLOCKED | See linked original evidence | Not separately reconciled |
+| reference | BLOCKED | PARTIAL | False |
+| shared_reuse_patch | BLOCKED | QUALIFIED | True |
 
 
 ### Recorded model-specific variant coverage
@@ -130,9 +131,303 @@ Historical states and window signatures are evidence links, not qualification of
 Values, baseline/candidate comparisons, model/engine identity and limits are in the linked audit excerpts and profile records. Missing measurements are **NOT MEASURED**. Existing native screens are not HumanEval, BFCL or full-agent qualifications.
 
 
+### Variant reference
+
+```json
+[
+  {
+    "metrics": {
+      "gpu_energy_j": 41893.38831143596,
+      "gpu_j_per_success": 3222.5683316489203,
+      "mean_task_gpu_power_w": 257.6306285206843,
+      "solved": 13,
+      "successes_per_second": 0.08001717934864089,
+      "tasks": 18,
+      "total_wall_s": 162.46511194
+    }
+  },
+  {
+    "metrics": {
+      "gpu_energy_j": 37114.11910535685,
+      "gpu_j_per_success": 2854.9322388736036,
+      "mean_task_gpu_power_w": 203.41011406579594,
+      "solved": 13,
+      "successes_per_second": 0.07151602353227142,
+      "tasks": 18,
+      "total_wall_s": 181.777444521
+    }
+  },
+  {
+    "metrics": {
+      "custom_long_context16": {
+        "all_request_wall_s": 76.244765779,
+        "gpu_j_per_success": 687.2227446680172,
+        "gross_gpu_energy_j": 10995.563914688275,
+        "pass_fraction": 1.0,
+        "solved": 16,
+        "successes_per_request_wall_s": 0.20985047086874073,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "full_standard164": {
+        "all_request_wall_s": 576.769096475,
+        "gpu_j_per_success": 639.3673005695108,
+        "gross_gpu_energy_j": 83117.7490740364,
+        "pass_fraction": 0.7926829268292683,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.2253934907305403,
+        "tasks": 164,
+        "truncated": 4
+      },
+      "validated_standard163": {
+        "all_request_wall_s": 561.253597062,
+        "gpu_j_per_success": 622.1833211466443,
+        "gross_gpu_energy_j": 80883.83174906376,
+        "pass_fraction": 0.7975460122699386,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.23162435070440943,
+        "tasks": 163,
+        "truncated": 3
+      }
+    }
+  },
+  {
+    "metrics": {
+      "context4096": {
+        "all_request_wall_s": 80.653046237,
+        "gpu_j_per_success": 781.8759265291908,
+        "gross_gpu_energy_j": 11728.138897937863,
+        "median_ttft_s": 1.574552953,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.18598181593689977,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "context6144": {
+        "all_request_wall_s": 97.87749229399999,
+        "gpu_j_per_success": 945.8989160376854,
+        "gross_gpu_energy_j": 14188.48374056528,
+        "median_ttft_s": 2.3503545055,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.15325280254364995,
+        "tasks": 16,
+        "truncated": 0
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.02904679275687272,
+        "median": 79.64844387312178,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill": {
+        "mad": 12.666329924800038,
+        "median": 2829.1481898484326,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill2048": {
+        "mad": 16.5246516733348,
+        "median": 3157.212650190627,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill4096": {
+        "mad": 15.572489472006282,
+        "median": 3188.8400080869606,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.0007371735000000004,
+        "median": 0.08524525,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill2048": {
+        "mad": 0.003421156500000022,
+        "median": 0.6719578005,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill4096": {
+        "mad": 0.007726428999999979,
+        "median": 1.306233777,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      }
+    }
+  }
+]
+```
+
+### Variant shared_reuse_patch
+
+```json
+[
+  {
+    "metrics": {
+      "gpu_energy_j": 41893.38831143596,
+      "gpu_j_per_success": 3222.5683316489203,
+      "mean_task_gpu_power_w": 257.6306285206843,
+      "solved": 13,
+      "successes_per_second": 0.08001717934864089,
+      "tasks": 18,
+      "total_wall_s": 162.46511194
+    }
+  },
+  {
+    "metrics": {
+      "gpu_energy_j": 37114.11910535685,
+      "gpu_j_per_success": 2854.9322388736036,
+      "mean_task_gpu_power_w": 203.41011406579594,
+      "solved": 13,
+      "successes_per_second": 0.07151602353227142,
+      "tasks": 18,
+      "total_wall_s": 181.777444521
+    }
+  },
+  {
+    "metrics": {
+      "custom_long_context16": {
+        "all_request_wall_s": 76.244765779,
+        "gpu_j_per_success": 687.2227446680172,
+        "gross_gpu_energy_j": 10995.563914688275,
+        "pass_fraction": 1.0,
+        "solved": 16,
+        "successes_per_request_wall_s": 0.20985047086874073,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "full_standard164": {
+        "all_request_wall_s": 576.769096475,
+        "gpu_j_per_success": 639.3673005695108,
+        "gross_gpu_energy_j": 83117.7490740364,
+        "pass_fraction": 0.7926829268292683,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.2253934907305403,
+        "tasks": 164,
+        "truncated": 4
+      },
+      "validated_standard163": {
+        "all_request_wall_s": 561.253597062,
+        "gpu_j_per_success": 622.1833211466443,
+        "gross_gpu_energy_j": 80883.83174906376,
+        "pass_fraction": 0.7975460122699386,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.23162435070440943,
+        "tasks": 163,
+        "truncated": 3
+      }
+    }
+  },
+  {
+    "metrics": {
+      "context4096": {
+        "all_request_wall_s": 80.653046237,
+        "gpu_j_per_success": 781.8759265291908,
+        "gross_gpu_energy_j": 11728.138897937863,
+        "median_ttft_s": 1.574552953,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.18598181593689977,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "context6144": {
+        "all_request_wall_s": 97.87749229399999,
+        "gpu_j_per_success": 945.8989160376854,
+        "gross_gpu_energy_j": 14188.48374056528,
+        "median_ttft_s": 2.3503545055,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.15325280254364995,
+        "tasks": 16,
+        "truncated": 0
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.02904679275687272,
+        "median": 79.64844387312178,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill": {
+        "mad": 12.666329924800038,
+        "median": 2829.1481898484326,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill2048": {
+        "mad": 16.5246516733348,
+        "median": 3157.212650190627,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill4096": {
+        "mad": 15.572489472006282,
+        "median": 3188.8400080869606,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.0007371735000000004,
+        "median": 0.08524525,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill2048": {
+        "mad": 0.003421156500000022,
+        "median": 0.6719578005,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill4096": {
+        "mad": 0.007726428999999979,
+        "median": 1.306233777,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      }
+    }
+  }
+]
+```
+
 ## Decision and remaining research
 
-ReuseR219/R220qualifiedagentthroughputgraftxHBM07profile andR207graftmemoryalternative; separateR90prefill/CodingR181/ToolsR183/Energyprofiles retained. Extra6GiBvsqualifiedgraft memoryalternative. No additive speedup or universal quality/state proof. R93native32K independentlyqualifiedbyR221/R222;semanticlongdocumentqualityremainsunverified.
+R90 nativer Prefill-Champion und R219/R220-Agenten-Cacheprofil qualifiziert. R219 tatsächlicher Kandidat14106,5MiB/13Erfolge/162,465s; R220 Kontrollprofil7966,5MiB. Mehrspeicher6140MiB gegenüber Graft-Alternative, keine Addition einzelner Gewinne.
 
 **Remaining scope:** None identified beyond already reviewed evidence; do not automatically repeat.
 
@@ -144,4 +439,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R100](../experiments/R100.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R122](../experiments/R122.md), [R123](../experiments/R123.md), [R124](../experiments/R124.md), [R125](../experiments/R125.md), [R126](../experiments/R126.md), [R127](../experiments/R127.md), [R132](../experiments/R132.md), [R133](../experiments/R133.md), [R134](../experiments/R134.md), [R136](../experiments/R136.md), [R141](../experiments/R141.md), [R149](../experiments/R149.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R186](../experiments/R186.md), [R213](../experiments/R213.md), [R214](../experiments/R214.md), [R215](../experiments/R215.md), [R216](../experiments/R216.md), [R217](../experiments/R217.md), [R218](../experiments/R218.md), [R219](../experiments/R219.md), [R220](../experiments/R220.md), [R221](../experiments/R221.md), [R222](../experiments/R222.md), [R251](../experiments/R251.md), [R88](../experiments/R88.md), [R89](../experiments/R89.md), [R90](../experiments/R90.md), [R91](../experiments/R91.md), [R92](../experiments/R92.md), [R93](../experiments/R93.md), [R94](../experiments/R94.md), [R95](../experiments/R95.md)
+[R100](../experiments/R100.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R122](../experiments/R122.md), [R123](../experiments/R123.md), [R124](../experiments/R124.md), [R125](../experiments/R125.md), [R126](../experiments/R126.md), [R127](../experiments/R127.md), [R132](../experiments/R132.md), [R133](../experiments/R133.md), [R134](../experiments/R134.md), [R136](../experiments/R136.md), [R141](../experiments/R141.md), [R149](../experiments/R149.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R186](../experiments/R186.md), [R213](../experiments/R213.md), [R214](../experiments/R214.md), [R215](../experiments/R215.md), [R216](../experiments/R216.md), [R217](../experiments/R217.md), [R218](../experiments/R218.md), [R219](../experiments/R219.md), [R220](../experiments/R220.md), [R221](../experiments/R221.md), [R222](../experiments/R222.md), [R251](../experiments/R251.md), [R372](../experiments/R372.md), [R88](../experiments/R88.md), [R89](../experiments/R89.md), [R90](../experiments/R90.md), [R91](../experiments/R91.md), [R92](../experiments/R92.md), [R93](../experiments/R93.md), [R94](../experiments/R94.md), [R95](../experiments/R95.md)

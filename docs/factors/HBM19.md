@@ -31,6 +31,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-3727ed46efb9075e5bee.md)
 - [Original audit hash and public excerpt](../audits/audit-3a5da87dc341e4331390.md)
 - [Original audit hash and public excerpt](../audits/audit-46e12a310b5c14e20d97.md)
+- [Original audit hash and public excerpt](../audits/audit-68adf78e010910f8aecd.md)
 - [Original audit hash and public excerpt](../audits/audit-6e8fc40945c6d265d61b.md)
 - [Original audit hash and public excerpt](../audits/audit-72561777b6d13a0a47fe.md)
 - [Original audit hash and public excerpt](../audits/audit-7a099423089cce84e68f.md)
@@ -44,8 +45,8 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
-| baseline | READY_LINKED | See linked original evidence | Not separately reconciled |
-| quality_adjusted_energy | READY_LINKED | See linked original evidence | Not separately reconciled |
+| baseline | READY_LINKED | PARTIAL | False |
+| quality_adjusted_energy | READY_LINKED | PARTIAL | True |
 
 
 ### Recorded model-specific variant coverage
@@ -119,9 +120,303 @@ Historical states and window signatures are evidence links, not qualification of
 Values, baseline/candidate comparisons, model/engine identity and limits are in the linked audit excerpts and profile records. Missing measurements are **NOT MEASURED**. Existing native screens are not HumanEval, BFCL or full-agent qualifications.
 
 
+### Variant baseline
+
+```json
+[
+  {
+    "metrics": {
+      "gpu_energy_j": 41893.38831143596,
+      "gpu_j_per_success": 3222.5683316489203,
+      "mean_task_gpu_power_w": 257.6306285206843,
+      "solved": 13,
+      "successes_per_second": 0.08001717934864089,
+      "tasks": 18,
+      "total_wall_s": 162.46511194
+    }
+  },
+  {
+    "metrics": {
+      "gpu_energy_j": 37114.11910535685,
+      "gpu_j_per_success": 2854.9322388736036,
+      "mean_task_gpu_power_w": 203.41011406579594,
+      "solved": 13,
+      "successes_per_second": 0.07151602353227142,
+      "tasks": 18,
+      "total_wall_s": 181.777444521
+    }
+  },
+  {
+    "metrics": {
+      "custom_long_context16": {
+        "all_request_wall_s": 76.244765779,
+        "gpu_j_per_success": 687.2227446680172,
+        "gross_gpu_energy_j": 10995.563914688275,
+        "pass_fraction": 1.0,
+        "solved": 16,
+        "successes_per_request_wall_s": 0.20985047086874073,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "full_standard164": {
+        "all_request_wall_s": 576.769096475,
+        "gpu_j_per_success": 639.3673005695108,
+        "gross_gpu_energy_j": 83117.7490740364,
+        "pass_fraction": 0.7926829268292683,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.2253934907305403,
+        "tasks": 164,
+        "truncated": 4
+      },
+      "validated_standard163": {
+        "all_request_wall_s": 561.253597062,
+        "gpu_j_per_success": 622.1833211466443,
+        "gross_gpu_energy_j": 80883.83174906376,
+        "pass_fraction": 0.7975460122699386,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.23162435070440943,
+        "tasks": 163,
+        "truncated": 3
+      }
+    }
+  },
+  {
+    "metrics": {
+      "context4096": {
+        "all_request_wall_s": 80.653046237,
+        "gpu_j_per_success": 781.8759265291908,
+        "gross_gpu_energy_j": 11728.138897937863,
+        "median_ttft_s": 1.574552953,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.18598181593689977,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "context6144": {
+        "all_request_wall_s": 97.87749229399999,
+        "gpu_j_per_success": 945.8989160376854,
+        "gross_gpu_energy_j": 14188.48374056528,
+        "median_ttft_s": 2.3503545055,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.15325280254364995,
+        "tasks": 16,
+        "truncated": 0
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.02904679275687272,
+        "median": 79.64844387312178,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill": {
+        "mad": 12.666329924800038,
+        "median": 2829.1481898484326,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill2048": {
+        "mad": 16.5246516733348,
+        "median": 3157.212650190627,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill4096": {
+        "mad": 15.572489472006282,
+        "median": 3188.8400080869606,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.0007371735000000004,
+        "median": 0.08524525,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill2048": {
+        "mad": 0.003421156500000022,
+        "median": 0.6719578005,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill4096": {
+        "mad": 0.007726428999999979,
+        "median": 1.306233777,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      }
+    }
+  }
+]
+```
+
+### Variant quality_adjusted_energy
+
+```json
+[
+  {
+    "metrics": {
+      "gpu_energy_j": 41893.38831143596,
+      "gpu_j_per_success": 3222.5683316489203,
+      "mean_task_gpu_power_w": 257.6306285206843,
+      "solved": 13,
+      "successes_per_second": 0.08001717934864089,
+      "tasks": 18,
+      "total_wall_s": 162.46511194
+    }
+  },
+  {
+    "metrics": {
+      "gpu_energy_j": 37114.11910535685,
+      "gpu_j_per_success": 2854.9322388736036,
+      "mean_task_gpu_power_w": 203.41011406579594,
+      "solved": 13,
+      "successes_per_second": 0.07151602353227142,
+      "tasks": 18,
+      "total_wall_s": 181.777444521
+    }
+  },
+  {
+    "metrics": {
+      "custom_long_context16": {
+        "all_request_wall_s": 76.244765779,
+        "gpu_j_per_success": 687.2227446680172,
+        "gross_gpu_energy_j": 10995.563914688275,
+        "pass_fraction": 1.0,
+        "solved": 16,
+        "successes_per_request_wall_s": 0.20985047086874073,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "full_standard164": {
+        "all_request_wall_s": 576.769096475,
+        "gpu_j_per_success": 639.3673005695108,
+        "gross_gpu_energy_j": 83117.7490740364,
+        "pass_fraction": 0.7926829268292683,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.2253934907305403,
+        "tasks": 164,
+        "truncated": 4
+      },
+      "validated_standard163": {
+        "all_request_wall_s": 561.253597062,
+        "gpu_j_per_success": 622.1833211466443,
+        "gross_gpu_energy_j": 80883.83174906376,
+        "pass_fraction": 0.7975460122699386,
+        "solved": 130,
+        "successes_per_request_wall_s": 0.23162435070440943,
+        "tasks": 163,
+        "truncated": 3
+      }
+    }
+  },
+  {
+    "metrics": {
+      "context4096": {
+        "all_request_wall_s": 80.653046237,
+        "gpu_j_per_success": 781.8759265291908,
+        "gross_gpu_energy_j": 11728.138897937863,
+        "median_ttft_s": 1.574552953,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.18598181593689977,
+        "tasks": 16,
+        "truncated": 0
+      },
+      "context6144": {
+        "all_request_wall_s": 97.87749229399999,
+        "gpu_j_per_success": 945.8989160376854,
+        "gross_gpu_energy_j": 14188.48374056528,
+        "median_ttft_s": 2.3503545055,
+        "solved": 15,
+        "successes_per_request_wall_s": 0.15325280254364995,
+        "tasks": 16,
+        "truncated": 0
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.02904679275687272,
+        "median": 79.64844387312178,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill": {
+        "mad": 12.666329924800038,
+        "median": 2829.1481898484326,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill2048": {
+        "mad": 16.5246516733348,
+        "median": 3157.212650190627,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      },
+      "prefill4096": {
+        "mad": 15.572489472006282,
+        "median": 3188.8400080869606,
+        "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+        "sessions": 2,
+        "unit": "tokens/s"
+      }
+    }
+  },
+  {
+    "metrics": {
+      "decode": {
+        "mad": 0.0007371735000000004,
+        "median": 0.08524525,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill2048": {
+        "mad": 0.003421156500000022,
+        "median": 0.6719578005,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      },
+      "prefill4096": {
+        "mad": 0.007726428999999979,
+        "median": 1.306233777,
+        "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+        "primary": "token_event_ttft_s",
+        "sessions": 2,
+        "unit": "seconds"
+      }
+    }
+  }
+]
+```
+
 ## Decision and remaining research
 
-Energy per successful task includes failed attempts and whole task time; correct tokens alone are not a useful assistant objective. Existing power profiles remain scoped.
+198 bestehende Aufgabenenergien aus NVML nachintegriert, inklusive Fehlversuche. R219 Durchsatzprofil3222,568GPU-J/Erfolg, R225225W-Energieprofil2854,932GPU-J/Erfolg. GPU-Energie ist weder Host-/Steckdosenenergie noch HBM-interne Energie oder Energie je korrektes Token.
 
 **Remaining scope:** New profile must retain quality, hardware comparability and actual GPU integration. Wall plug/whole-system Joules are unavailable from GPU-only NVML and must remain unmeasured.
 
@@ -133,4 +428,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R102](../experiments/R102.md), [R103](../experiments/R103.md), [R104](../experiments/R104.md), [R105](../experiments/R105.md), [R106](../experiments/R106.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R110](../experiments/R110.md), [R111](../experiments/R111.md), [R112](../experiments/R112.md), [R113](../experiments/R113.md), [R142](../experiments/R142.md), [R143](../experiments/R143.md), [R144](../experiments/R144.md), [R152](../experiments/R152.md), [R153](../experiments/R153.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md)
+[R102](../experiments/R102.md), [R103](../experiments/R103.md), [R104](../experiments/R104.md), [R105](../experiments/R105.md), [R106](../experiments/R106.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R110](../experiments/R110.md), [R111](../experiments/R111.md), [R112](../experiments/R112.md), [R113](../experiments/R113.md), [R142](../experiments/R142.md), [R143](../experiments/R143.md), [R144](../experiments/R144.md), [R152](../experiments/R152.md), [R153](../experiments/R153.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R372](../experiments/R372.md)

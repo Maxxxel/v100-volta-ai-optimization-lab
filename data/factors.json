@@ -13786,7 +13786,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Profilbezogene Energiegewinner erhalten. R225/R226 qualifiziert225W-Graft für18Agentenfälle:13Erfolge,median181,78s,2854,93GPU-J/Erfolg;kein universeller Coding-Energiegewinner.",
+    "decision": "Vorhandene175W- und225W-Energieprofile bleiben workloadbezogen qualifiziert. R225 13/18,median181,777s/2854,932GPU-J pro Erfolg,7966,5MiB. R226 ist300W-Bestätigungskontrolle, kein225W-Kandidat. Keine universelle Energiegewinner-Behauptung.",
     "domain": "hardware",
     "evidence_ids": [
       "audit-01890c2a82328f8c3796",
@@ -13798,6 +13798,7 @@
       "audit-3727ed46efb9075e5bee",
       "audit-3a5da87dc341e4331390",
       "audit-46e12a310b5c14e20d97",
+      "audit-68adf78e010910f8aecd",
       "audit-6e8fc40945c6d265d61b",
       "audit-72561777b6d13a0a47fe",
       "audit-7a099423089cce84e68f",
@@ -13834,7 +13835,8 @@
       "R225",
       "R226",
       "R251",
-      "R252"
+      "R252",
+      "R372"
     ],
     "experimentally_covered": true,
     "id": "H03",
@@ -13955,15 +13957,156 @@
     "title": "V100 Power Limit",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "gpu_energy_j": 41893.38831143596,
+              "gpu_j_per_success": 3222.5683316489203,
+              "mean_task_gpu_power_w": 257.6306285206843,
+              "solved": 13,
+              "successes_per_second": 0.08001717934864089,
+              "tasks": 18,
+              "total_wall_s": 162.46511194
+            }
+          },
+          {
+            "metrics": {
+              "gpu_energy_j": 37114.11910535685,
+              "gpu_j_per_success": 2854.9322388736036,
+              "mean_task_gpu_power_w": 203.41011406579594,
+              "solved": 13,
+              "successes_per_second": 0.07151602353227142,
+              "tasks": 18,
+              "total_wall_s": 181.777444521
+            }
+          },
+          {
+            "metrics": {
+              "custom_long_context16": {
+                "all_request_wall_s": 76.244765779,
+                "gpu_j_per_success": 687.2227446680172,
+                "gross_gpu_energy_j": 10995.563914688275,
+                "pass_fraction": 1.0,
+                "solved": 16,
+                "successes_per_request_wall_s": 0.20985047086874073,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "full_standard164": {
+                "all_request_wall_s": 576.769096475,
+                "gpu_j_per_success": 639.3673005695108,
+                "gross_gpu_energy_j": 83117.7490740364,
+                "pass_fraction": 0.7926829268292683,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.2253934907305403,
+                "tasks": 164,
+                "truncated": 4
+              },
+              "validated_standard163": {
+                "all_request_wall_s": 561.253597062,
+                "gpu_j_per_success": 622.1833211466443,
+                "gross_gpu_energy_j": 80883.83174906376,
+                "pass_fraction": 0.7975460122699386,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.23162435070440943,
+                "tasks": 163,
+                "truncated": 3
+              }
+            }
+          },
+          {
+            "metrics": {
+              "context4096": {
+                "all_request_wall_s": 80.653046237,
+                "gpu_j_per_success": 781.8759265291908,
+                "gross_gpu_energy_j": 11728.138897937863,
+                "median_ttft_s": 1.574552953,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.18598181593689977,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "context6144": {
+                "all_request_wall_s": 97.87749229399999,
+                "gpu_j_per_success": 945.8989160376854,
+                "gross_gpu_energy_j": 14188.48374056528,
+                "median_ttft_s": 2.3503545055,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.15325280254364995,
+                "tasks": 16,
+                "truncated": 0
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.02904679275687272,
+                "median": 79.64844387312178,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill": {
+                "mad": 12.666329924800038,
+                "median": 2829.1481898484326,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill2048": {
+                "mad": 16.5246516733348,
+                "median": 3157.212650190627,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill4096": {
+                "mad": 15.572489472006282,
+                "median": 3188.8400080869606,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.0007371735000000004,
+                "median": 0.08524525,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill2048": {
+                "mad": 0.003421156500000022,
+                "median": 0.6719578005,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill4096": {
+                "mad": 0.007726428999999979,
+                "median": 1.306233777,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "None identified beyond already reviewed evidence; do not automatically repeat.",
+        "scope": "Vorhandene175W- und225W-Energieprofile bleiben workloadbezogen qualifiziert. R225 13/18,median181,777s/2854,932GPU-J pro Erfolg,7966,5MiB. R226 ist300W-Bestätigungskontrolle, kein225W-Kandidat. Keine universelle Energiegewinner-Behauptung.",
+        "scope_status": "PARTIAL",
         "value": "current"
       },
       {
@@ -14006,13 +14149,15 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R167 echte Appclocks1312→1530beiHBM877/300W: native Verbesserungen unter1%, tatsächlichSM1500–1530, anschließend Original1312/877 wiederhergestellt.",
+    "decision": "R167 Appclocks1312→1530beiHBM877 tatsächlich geprüft; SM1500–1530, Original1312/877 wiederhergestellt. Praktische native Verbesserung unter1%; bisherige Variante negativ, kein weiterer Sweep ohne neue Hypothese.",
     "domain": "hardware",
     "evidence_ids": [
+      "audit-68adf78e010910f8aecd",
       "audit-ad5701a8a56b4b744c64"
     ],
     "experiment_ids": [
-      "R167"
+      "R167",
+      "R372"
     ],
     "experimentally_covered": true,
     "id": "H04",
@@ -14091,27 +14236,131 @@
     "title": "V100 Application Clocks",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "audit": {
+              "sha256": "ad5701a8a56b4b744c648cd47fc1566bd0ebb70888183f91bc9698cba16fdab6"
+            },
+            "decision": "APPLICATION_CLOCK_SCREEN_REQUIREMENTS_NOT_PASSED",
+            "measured_clock_trial": {
+              "candidate": {
+                "graphics_mhz": 1530,
+                "memory_mhz": 877
+              },
+              "original": {
+                "graphics_mhz": 1312,
+                "memory_mhz": 877
+              },
+              "restored_original": true
+            },
+            "native_comparisons": {
+              "A0": {
+                "decode": {
+                  "latency_reduction_percent": 0.08095729731358858
+                },
+                "prefill": {
+                  "latency_reduction_percent": 0.4343615050801053
+                },
+                "prefill2048": {
+                  "latency_reduction_percent": 0.7233593522103843
+                },
+                "prefill4096": {
+                  "latency_reduction_percent": 0.5204143560052277
+                }
+              },
+              "C": {
+                "decode": {
+                  "GPU_energy_change_percent": -1.247406671340301,
+                  "latency_reduction_percent": 0.3068358608232624
+                },
+                "prefill": {
+                  "GPU_energy_change_percent": 22.269470876092345,
+                  "latency_reduction_percent": -7.532413828829787
+                },
+                "prefill2048": {
+                  "GPU_energy_change_percent": 9.944371014631592,
+                  "latency_reduction_percent": -8.377319124822602
+                },
+                "prefill4096": {
+                  "GPU_energy_change_percent": 12.154816812654534,
+                  "latency_reduction_percent": -7.970372787806856
+                }
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "R167 echte Appclocks1312→1530beiHBM877/300W: native Verbesserungen unter1%, tatsächlichSM1500–1530, anschließend Original1312/877 wiederhergestellt.",
+        "scope": "R167 Appclocks1312→1530beiHBM877 tatsächlich geprüft; SM1500–1530, Original1312/877 wiederhergestellt. Praktische native Verbesserung unter1%; bisherige Variante negativ, kein weiterer Sweep ohne neue Hypothese.",
+        "scope_status": "PARTIAL",
         "value": "default"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "audit": {
+              "sha256": "ad5701a8a56b4b744c648cd47fc1566bd0ebb70888183f91bc9698cba16fdab6"
+            },
+            "decision": "APPLICATION_CLOCK_SCREEN_REQUIREMENTS_NOT_PASSED",
+            "measured_clock_trial": {
+              "candidate": {
+                "graphics_mhz": 1530,
+                "memory_mhz": 877
+              },
+              "original": {
+                "graphics_mhz": 1312,
+                "memory_mhz": 877
+              },
+              "restored_original": true
+            },
+            "native_comparisons": {
+              "A0": {
+                "decode": {
+                  "latency_reduction_percent": 0.08095729731358858
+                },
+                "prefill": {
+                  "latency_reduction_percent": 0.4343615050801053
+                },
+                "prefill2048": {
+                  "latency_reduction_percent": 0.7233593522103843
+                },
+                "prefill4096": {
+                  "latency_reduction_percent": 0.5204143560052277
+                }
+              },
+              "C": {
+                "decode": {
+                  "GPU_energy_change_percent": -1.247406671340301,
+                  "latency_reduction_percent": 0.3068358608232624
+                },
+                "prefill": {
+                  "GPU_energy_change_percent": 22.269470876092345,
+                  "latency_reduction_percent": -7.532413828829787
+                },
+                "prefill2048": {
+                  "GPU_energy_change_percent": 9.944371014631592,
+                  "latency_reduction_percent": -8.377319124822602
+                },
+                "prefill4096": {
+                  "GPU_energy_change_percent": 12.154816812654534,
+                  "latency_reduction_percent": -7.970372787806856
+                }
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "R167 echte Appclocks1312→1530beiHBM877/300W: native Verbesserungen unter1%, tatsächlichSM1500–1530, anschließend Original1312/877 wiederhergestellt.",
+        "scope": "R167 Appclocks1312→1530beiHBM877 tatsächlich geprüft; SM1500–1530, Original1312/877 wiederhergestellt. Praktische native Verbesserung unter1%; bisherige Variante negativ, kein weiterer Sweep ohne neue Hypothese.",
+        "scope_status": "TESTED_NEGATIVE",
         "value": "approved_clocks"
       }
     ]
@@ -26747,7 +26996,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "ReuseR219/R220qualifiedagentthroughputgraftxHBM07profile andR207graftmemoryalternative; separateR90prefill/CodingR181/ToolsR183/Energyprofiles retained. Extra6GiBvsqualifiedgraft memoryalternative. No additive speedup or universal quality/state proof. R93native32K independentlyqualifiedbyR221/R222;semanticlongdocumentqualityremainsunverified.",
+    "decision": "R90 nativer Prefill-Champion und R219/R220-Agenten-Cacheprofil qualifiziert. R219 tatsächlicher Kandidat14106,5MiB/13Erfolge/162,465s; R220 Kontrollprofil7966,5MiB. Mehrspeicher6140MiB gegenüber Graft-Alternative, keine Addition einzelner Gewinne.",
     "domain": "hbm_memory",
     "evidence_ids": [
       "audit-01288096354b4d254f2a",
@@ -26761,6 +27010,7 @@
       "audit-273b2160c856596f102f",
       "audit-34aef30f35e398a2b566",
       "audit-3c1799daa595eea43052",
+      "audit-68adf78e010910f8aecd",
       "audit-72561777b6d13a0a47fe",
       "audit-74211c6727a78a62efe6",
       "audit-7a9b64a68a7800dd100d",
@@ -26812,6 +27062,7 @@
       "R221",
       "R222",
       "R251",
+      "R372",
       "R88",
       "R89",
       "R90",
@@ -26898,27 +27149,309 @@
     "title": "L1 L2 Shared Memory und Cache-Reuse",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "gpu_energy_j": 41893.38831143596,
+              "gpu_j_per_success": 3222.5683316489203,
+              "mean_task_gpu_power_w": 257.6306285206843,
+              "solved": 13,
+              "successes_per_second": 0.08001717934864089,
+              "tasks": 18,
+              "total_wall_s": 162.46511194
+            }
+          },
+          {
+            "metrics": {
+              "gpu_energy_j": 37114.11910535685,
+              "gpu_j_per_success": 2854.9322388736036,
+              "mean_task_gpu_power_w": 203.41011406579594,
+              "solved": 13,
+              "successes_per_second": 0.07151602353227142,
+              "tasks": 18,
+              "total_wall_s": 181.777444521
+            }
+          },
+          {
+            "metrics": {
+              "custom_long_context16": {
+                "all_request_wall_s": 76.244765779,
+                "gpu_j_per_success": 687.2227446680172,
+                "gross_gpu_energy_j": 10995.563914688275,
+                "pass_fraction": 1.0,
+                "solved": 16,
+                "successes_per_request_wall_s": 0.20985047086874073,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "full_standard164": {
+                "all_request_wall_s": 576.769096475,
+                "gpu_j_per_success": 639.3673005695108,
+                "gross_gpu_energy_j": 83117.7490740364,
+                "pass_fraction": 0.7926829268292683,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.2253934907305403,
+                "tasks": 164,
+                "truncated": 4
+              },
+              "validated_standard163": {
+                "all_request_wall_s": 561.253597062,
+                "gpu_j_per_success": 622.1833211466443,
+                "gross_gpu_energy_j": 80883.83174906376,
+                "pass_fraction": 0.7975460122699386,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.23162435070440943,
+                "tasks": 163,
+                "truncated": 3
+              }
+            }
+          },
+          {
+            "metrics": {
+              "context4096": {
+                "all_request_wall_s": 80.653046237,
+                "gpu_j_per_success": 781.8759265291908,
+                "gross_gpu_energy_j": 11728.138897937863,
+                "median_ttft_s": 1.574552953,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.18598181593689977,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "context6144": {
+                "all_request_wall_s": 97.87749229399999,
+                "gpu_j_per_success": 945.8989160376854,
+                "gross_gpu_energy_j": 14188.48374056528,
+                "median_ttft_s": 2.3503545055,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.15325280254364995,
+                "tasks": 16,
+                "truncated": 0
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.02904679275687272,
+                "median": 79.64844387312178,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill": {
+                "mad": 12.666329924800038,
+                "median": 2829.1481898484326,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill2048": {
+                "mad": 16.5246516733348,
+                "median": 3157.212650190627,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill4096": {
+                "mad": 15.572489472006282,
+                "median": 3188.8400080869606,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.0007371735000000004,
+                "median": 0.08524525,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill2048": {
+                "mad": 0.003421156500000022,
+                "median": 0.6719578005,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill4096": {
+                "mad": 0.007726428999999979,
+                "median": 1.306233777,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "None identified beyond already reviewed evidence; do not automatically repeat.",
+        "scope": "R90 nativer Prefill-Champion und R219/R220-Agenten-Cacheprofil qualifiziert. R219 tatsächlicher Kandidat14106,5MiB/13Erfolge/162,465s; R220 Kontrollprofil7966,5MiB. Mehrspeicher6140MiB gegenüber Graft-Alternative, keine Addition einzelner Gewinne.",
+        "scope_status": "PARTIAL",
         "value": "reference"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "gpu_energy_j": 41893.38831143596,
+              "gpu_j_per_success": 3222.5683316489203,
+              "mean_task_gpu_power_w": 257.6306285206843,
+              "solved": 13,
+              "successes_per_second": 0.08001717934864089,
+              "tasks": 18,
+              "total_wall_s": 162.46511194
+            }
+          },
+          {
+            "metrics": {
+              "gpu_energy_j": 37114.11910535685,
+              "gpu_j_per_success": 2854.9322388736036,
+              "mean_task_gpu_power_w": 203.41011406579594,
+              "solved": 13,
+              "successes_per_second": 0.07151602353227142,
+              "tasks": 18,
+              "total_wall_s": 181.777444521
+            }
+          },
+          {
+            "metrics": {
+              "custom_long_context16": {
+                "all_request_wall_s": 76.244765779,
+                "gpu_j_per_success": 687.2227446680172,
+                "gross_gpu_energy_j": 10995.563914688275,
+                "pass_fraction": 1.0,
+                "solved": 16,
+                "successes_per_request_wall_s": 0.20985047086874073,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "full_standard164": {
+                "all_request_wall_s": 576.769096475,
+                "gpu_j_per_success": 639.3673005695108,
+                "gross_gpu_energy_j": 83117.7490740364,
+                "pass_fraction": 0.7926829268292683,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.2253934907305403,
+                "tasks": 164,
+                "truncated": 4
+              },
+              "validated_standard163": {
+                "all_request_wall_s": 561.253597062,
+                "gpu_j_per_success": 622.1833211466443,
+                "gross_gpu_energy_j": 80883.83174906376,
+                "pass_fraction": 0.7975460122699386,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.23162435070440943,
+                "tasks": 163,
+                "truncated": 3
+              }
+            }
+          },
+          {
+            "metrics": {
+              "context4096": {
+                "all_request_wall_s": 80.653046237,
+                "gpu_j_per_success": 781.8759265291908,
+                "gross_gpu_energy_j": 11728.138897937863,
+                "median_ttft_s": 1.574552953,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.18598181593689977,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "context6144": {
+                "all_request_wall_s": 97.87749229399999,
+                "gpu_j_per_success": 945.8989160376854,
+                "gross_gpu_energy_j": 14188.48374056528,
+                "median_ttft_s": 2.3503545055,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.15325280254364995,
+                "tasks": 16,
+                "truncated": 0
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.02904679275687272,
+                "median": 79.64844387312178,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill": {
+                "mad": 12.666329924800038,
+                "median": 2829.1481898484326,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill2048": {
+                "mad": 16.5246516733348,
+                "median": 3157.212650190627,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill4096": {
+                "mad": 15.572489472006282,
+                "median": 3188.8400080869606,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.0007371735000000004,
+                "median": 0.08524525,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill2048": {
+                "mad": 0.003421156500000022,
+                "median": 0.6719578005,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill4096": {
+                "mad": 0.007726428999999979,
+                "median": 1.306233777,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "None identified beyond already reviewed evidence; do not automatically repeat.",
+        "scope": "R90 nativer Prefill-Champion und R219/R220-Agenten-Cacheprofil qualifiziert. R219 tatsächlicher Kandidat14106,5MiB/13Erfolge/162,465s; R220 Kontrollprofil7966,5MiB. Mehrspeicher6140MiB gegenüber Graft-Alternative, keine Addition einzelner Gewinne.",
+        "scope_status": "QUALIFIED",
         "value": "shared_reuse_patch"
       }
     ]
@@ -29021,7 +29554,7 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Energy per successful task includes failed attempts and whole task time; correct tokens alone are not a useful assistant objective. Existing power profiles remain scoped.",
+    "decision": "198 bestehende Aufgabenenergien aus NVML nachintegriert, inklusive Fehlversuche. R219 Durchsatzprofil3222,568GPU-J/Erfolg, R225225W-Energieprofil2854,932GPU-J/Erfolg. GPU-Energie ist weder Host-/Steckdosenenergie noch HBM-interne Energie oder Energie je korrektes Token.",
     "domain": "hbm_memory",
     "evidence_ids": [
       "audit-01890c2a82328f8c3796",
@@ -29033,6 +29566,7 @@
       "audit-3727ed46efb9075e5bee",
       "audit-3a5da87dc341e4331390",
       "audit-46e12a310b5c14e20d97",
+      "audit-68adf78e010910f8aecd",
       "audit-6e8fc40945c6d265d61b",
       "audit-72561777b6d13a0a47fe",
       "audit-7a099423089cce84e68f",
@@ -29063,7 +29597,8 @@
       "R152",
       "R153",
       "R165",
-      "R166"
+      "R166",
+      "R372"
     ],
     "experimentally_covered": true,
     "id": "HBM19",
@@ -29142,27 +29677,309 @@
     "title": "Energie je korrekt erzeugtem Token",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "gpu_energy_j": 41893.38831143596,
+              "gpu_j_per_success": 3222.5683316489203,
+              "mean_task_gpu_power_w": 257.6306285206843,
+              "solved": 13,
+              "successes_per_second": 0.08001717934864089,
+              "tasks": 18,
+              "total_wall_s": 162.46511194
+            }
+          },
+          {
+            "metrics": {
+              "gpu_energy_j": 37114.11910535685,
+              "gpu_j_per_success": 2854.9322388736036,
+              "mean_task_gpu_power_w": 203.41011406579594,
+              "solved": 13,
+              "successes_per_second": 0.07151602353227142,
+              "tasks": 18,
+              "total_wall_s": 181.777444521
+            }
+          },
+          {
+            "metrics": {
+              "custom_long_context16": {
+                "all_request_wall_s": 76.244765779,
+                "gpu_j_per_success": 687.2227446680172,
+                "gross_gpu_energy_j": 10995.563914688275,
+                "pass_fraction": 1.0,
+                "solved": 16,
+                "successes_per_request_wall_s": 0.20985047086874073,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "full_standard164": {
+                "all_request_wall_s": 576.769096475,
+                "gpu_j_per_success": 639.3673005695108,
+                "gross_gpu_energy_j": 83117.7490740364,
+                "pass_fraction": 0.7926829268292683,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.2253934907305403,
+                "tasks": 164,
+                "truncated": 4
+              },
+              "validated_standard163": {
+                "all_request_wall_s": 561.253597062,
+                "gpu_j_per_success": 622.1833211466443,
+                "gross_gpu_energy_j": 80883.83174906376,
+                "pass_fraction": 0.7975460122699386,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.23162435070440943,
+                "tasks": 163,
+                "truncated": 3
+              }
+            }
+          },
+          {
+            "metrics": {
+              "context4096": {
+                "all_request_wall_s": 80.653046237,
+                "gpu_j_per_success": 781.8759265291908,
+                "gross_gpu_energy_j": 11728.138897937863,
+                "median_ttft_s": 1.574552953,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.18598181593689977,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "context6144": {
+                "all_request_wall_s": 97.87749229399999,
+                "gpu_j_per_success": 945.8989160376854,
+                "gross_gpu_energy_j": 14188.48374056528,
+                "median_ttft_s": 2.3503545055,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.15325280254364995,
+                "tasks": 16,
+                "truncated": 0
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.02904679275687272,
+                "median": 79.64844387312178,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill": {
+                "mad": 12.666329924800038,
+                "median": 2829.1481898484326,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill2048": {
+                "mad": 16.5246516733348,
+                "median": 3157.212650190627,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill4096": {
+                "mad": 15.572489472006282,
+                "median": 3188.8400080869606,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.0007371735000000004,
+                "median": 0.08524525,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill2048": {
+                "mad": 0.003421156500000022,
+                "median": 0.6719578005,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill4096": {
+                "mad": 0.007726428999999979,
+                "median": 1.306233777,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "READY_LINKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New profile must retain quality, hardware comparability and actual GPU integration. Wall plug/whole-system Joules are unavailable from GPU-only NVML and must remain unmeasured.",
+        "scope": "198 bestehende Aufgabenenergien aus NVML nachintegriert, inklusive Fehlversuche. R219 Durchsatzprofil3222,568GPU-J/Erfolg, R225225W-Energieprofil2854,932GPU-J/Erfolg. GPU-Energie ist weder Host-/Steckdosenenergie noch HBM-interne Energie oder Energie je korrektes Token.",
+        "scope_status": "PARTIAL",
         "value": "baseline"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "metrics": {
+              "gpu_energy_j": 41893.38831143596,
+              "gpu_j_per_success": 3222.5683316489203,
+              "mean_task_gpu_power_w": 257.6306285206843,
+              "solved": 13,
+              "successes_per_second": 0.08001717934864089,
+              "tasks": 18,
+              "total_wall_s": 162.46511194
+            }
+          },
+          {
+            "metrics": {
+              "gpu_energy_j": 37114.11910535685,
+              "gpu_j_per_success": 2854.9322388736036,
+              "mean_task_gpu_power_w": 203.41011406579594,
+              "solved": 13,
+              "successes_per_second": 0.07151602353227142,
+              "tasks": 18,
+              "total_wall_s": 181.777444521
+            }
+          },
+          {
+            "metrics": {
+              "custom_long_context16": {
+                "all_request_wall_s": 76.244765779,
+                "gpu_j_per_success": 687.2227446680172,
+                "gross_gpu_energy_j": 10995.563914688275,
+                "pass_fraction": 1.0,
+                "solved": 16,
+                "successes_per_request_wall_s": 0.20985047086874073,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "full_standard164": {
+                "all_request_wall_s": 576.769096475,
+                "gpu_j_per_success": 639.3673005695108,
+                "gross_gpu_energy_j": 83117.7490740364,
+                "pass_fraction": 0.7926829268292683,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.2253934907305403,
+                "tasks": 164,
+                "truncated": 4
+              },
+              "validated_standard163": {
+                "all_request_wall_s": 561.253597062,
+                "gpu_j_per_success": 622.1833211466443,
+                "gross_gpu_energy_j": 80883.83174906376,
+                "pass_fraction": 0.7975460122699386,
+                "solved": 130,
+                "successes_per_request_wall_s": 0.23162435070440943,
+                "tasks": 163,
+                "truncated": 3
+              }
+            }
+          },
+          {
+            "metrics": {
+              "context4096": {
+                "all_request_wall_s": 80.653046237,
+                "gpu_j_per_success": 781.8759265291908,
+                "gross_gpu_energy_j": 11728.138897937863,
+                "median_ttft_s": 1.574552953,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.18598181593689977,
+                "tasks": 16,
+                "truncated": 0
+              },
+              "context6144": {
+                "all_request_wall_s": 97.87749229399999,
+                "gpu_j_per_success": 945.8989160376854,
+                "gross_gpu_energy_j": 14188.48374056528,
+                "median_ttft_s": 2.3503545055,
+                "solved": 15,
+                "successes_per_request_wall_s": 0.15325280254364995,
+                "tasks": 16,
+                "truncated": 0
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.02904679275687272,
+                "median": 79.64844387312178,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill": {
+                "mad": 12.666329924800038,
+                "median": 2829.1481898484326,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill2048": {
+                "mad": 16.5246516733348,
+                "median": 3157.212650190627,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              },
+              "prefill4096": {
+                "mad": 15.572489472006282,
+                "median": 3188.8400080869606,
+                "outlier_rule": "retain_all_complete_requests; exclude_rep_negative_warmup",
+                "sessions": 2,
+                "unit": "tokens/s"
+              }
+            }
+          },
+          {
+            "metrics": {
+              "decode": {
+                "mad": 0.0007371735000000004,
+                "median": 0.08524525,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill2048": {
+                "mad": 0.003421156500000022,
+                "median": 0.6719578005,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              },
+              "prefill4096": {
+                "mad": 0.007726428999999979,
+                "median": 1.306233777,
+                "outlier_rule": "Retain all complete observations; use within-session medians then paired block comparisons; no independence or confidence-interval claim from within-session repetitions.",
+                "primary": "token_event_ttft_s",
+                "sessions": 2,
+                "unit": "seconds"
+              }
+            }
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": true,
         "historical_signed_states": [
           "READY_LINKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "New profile must retain quality, hardware comparability and actual GPU integration. Wall plug/whole-system Joules are unavailable from GPU-only NVML and must remain unmeasured.",
+        "scope": "198 bestehende Aufgabenenergien aus NVML nachintegriert, inklusive Fehlversuche. R219 Durchsatzprofil3222,568GPU-J/Erfolg, R225225W-Energieprofil2854,932GPU-J/Erfolg. GPU-Energie ist weder Host-/Steckdosenenergie noch HBM-interne Energie oder Energie je korrektes Token.",
+        "scope_status": "PARTIAL",
         "value": "quality_adjusted_energy"
       }
     ]

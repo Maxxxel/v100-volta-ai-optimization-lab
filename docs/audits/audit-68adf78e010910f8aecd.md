@@ -1,0 +1,31 @@
+# Public audit excerpt
+
+Original SHA256: `68adf78e010910f8aecdd99a6c3e2d3b707c876021794d815d014132fb1a3349`
+
+Original file: `AUDIT.json`; 215504 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "RETAIN_QUALIFIED_POWER_CACHE_PROFILES_BIND_TASK_ENERGY_AND_CANDIDATE_IDENTITIES_NO_NEW_SWEEP",
+  "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+  "limits": [
+    "198 prior case executions re-integrated, not198new tasks/tests or new GPU starts. Existing grades and CPU simulator replay receipts retained; no fresh answer generation.",
+    "R219 max-throughput cache profile and R225 low-memory225W energy profile are different configurations. Never add their separate gains or use R220 control memory as R219 candidate memory.",
+    "175W balanced low-VRAM profile is independently qualified only for its original workload.175/225W labels do not imply equivalent quality/cost across coding, tools and agents.",
+    "GPU-J/success includes energy for failed cases; GPU-J/correct-token is not interchangeable. NVML GPU power is not host energy, joules at the wall, per-HBM electrical energy or transaction counters.",
+    "R167 application clocks candidate failed practical native gain; actualSM1500–1530/HBM877 and original1312/877 restore proven. No repeat sweep, new undervolting or driver/clock change admitted.",
+    "Original6GiB cache-prefill profile remains qualified; low-VRAM/R04 synthetic improvement alone did not qualify broad coding throughput. Old cache/quantization/GDN-specific numerical limits retained.",
+    "All original A0/C/profile/promotion records, original355signedstates, historical audits/weights/questions and production systems preserved. No new combination/model/deployment."
+  ],
+  "measurement_type": "REVIEW_EXISTING_QUALIFIED_POWER_CACHE_AND_TASK_ENERGY_SCOPE"
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_GPU_execution": false,
+  "new_GPU_runs": 0
+}
+```
