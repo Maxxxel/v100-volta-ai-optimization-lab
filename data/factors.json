@@ -16406,19 +16406,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "AWQ benötigt passende kalibrierte Gewichte und einen tatsächlich unterstützten Kernel-/Enginepfad; keine AWQ-Omni-Konfiguration lokal qualifiziert. Das ist kein GGUF-Laufzeitflag.",
+    "decision": "R187second-moment imatrix4chunks/248vectors exists and remains reusable. Activation-weighted Q4/Q6retention is not AWQ rescaling/search. No admitted OmniAWQscales+graphcompensation artifact.",
     "domain": "quantization",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "Q04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Verify actual changed tensors, tokenizer and operator coverage before quality screen.",
+    "next_action": "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -16480,38 +16482,56 @@
       }
     ],
     "prerequisites": [
-      "Pinned Omni-specific AWQ checkpoint or an admitted calibration/conversion path plus SM70 engine support."
+      "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Passendes vorhandenes Artefakt/Architektur/SM70-Dispatch und Gewichtsidentität vor einem GPU-Screen belegen.",
-    "reopening_conditions": "Verify actual changed tensors, tokenizer and operator coverage before quality screen.",
+    "remaining_scope": "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187.",
+    "reopening_conditions": "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "AWQ Calibration",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187.",
+        "scope": "R187second-moment imatrix4chunks/248vectors exists and remains reusable. Activation-weighted Q4/Q6retention is not AWQ rescaling/search. No admitted OmniAWQscales+graphcompensation artifact.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187.",
+        "scope": "R187second-moment imatrix4chunks/248vectors exists and remains reusable. Activation-weighted Q4/Q6retention is not AWQ rescaling/search. No admitted OmniAWQscales+graphcompensation artifact.",
+        "scope_status": "DEFERRED",
         "value": "calibrated"
       }
     ]
@@ -16756,19 +16776,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Kein auf Omni abgestimmter QAT-Checkpoint lokal zugelassen. QAT ändert trainierte Gewichte und ist von einer bloßen Q4/Q6-Auswahl zu trennen.",
+    "decision": "Existing official foreign-model QAT examples are external evidence, not an Omni-specific trained checkpoint. No matching OmniQATartifact is locally admitted; not proofnoneexists.",
     "domain": "quantization",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "Q07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Admit matching weights and disjoint quality tasks; do not count unrelated Gemma QAT.",
+    "next_action": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -16830,38 +16852,56 @@
       }
     ],
     "prerequisites": [
-      "Verified Omni QAT checkpoint with training provenance, or a real bounded training-step admission."
+      "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Erst passende veröffentlichte Gewichte samt Trainingsprovenienz oder einen realistischen Trainingsschritt zulassen; kein erfundener QAT-Speedup.",
-    "reopening_conditions": "Admit matching weights and disjoint quality tasks; do not count unrelated Gemma QAT.",
+    "remaining_scope": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
+    "reopening_conditions": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "QAT Checkpoint",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
+        "scope": "Existing official foreign-model QAT examples are external evidence, not an Omni-specific trained checkpoint. No matching OmniQATartifact is locally admitted; not proofnoneexists.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
+        "scope": "Existing official foreign-model QAT examples are external evidence, not an Omni-specific trained checkpoint. No matching OmniQATartifact is locally admitted; not proofnoneexists.",
+        "scope_status": "DEFERRED",
         "value": "official_if_available"
       }
     ]
@@ -26017,19 +26057,21 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "LoRA/QLoRA benötigt einen tatsächlich kompatiblen Autograd-/Trainingspfad und getrennte Daten. Der native GGUF-Inferenzpfad ist kein solcher Nachweis; kein Trainingsschritt qualifiziert.",
+    "decision": "A native experimentaltrainer exists, but its supplied optimizer marksF32modeltensors, not a demonstrated trainableLoRAadapter path; systemPython has no torch/transformers/peft/bitsandbytes. Otherprivateenvironments are not excluded.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Bounded feasibility step in the scheduled training phase; absent system-Python imports do not prove no other environment exists.",
+    "next_action": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26091,57 +26133,77 @@
       }
     ],
     "prerequisites": [
-      "Compatible autograd software, trainable checkpoint/adapter interface, separated data and real16GiB memory step."
+      "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Nach ursprünglicher Optimierungsrunde zuerst einen realen Speicher-/Trainingsschritt prüfen; keine Trainingsleistung aus CPU-Schätzungen ableiten.",
-    "reopening_conditions": "Bounded feasibility step in the scheduled training phase; absent system-Python imports do not prove no other environment exists.",
+    "remaining_scope": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
+    "reopening_conditions": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "LoRA QLoRA",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
+        "scope": "A native experimentaltrainer exists, but its supplied optimizer marksF32modeltensors, not a demonstrated trainableLoRAadapter path; systemPython has no torch/transformers/peft/bitsandbytes. Otherprivateenvironments are not excluded.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
+        "scope": "A native experimentaltrainer exists, but its supplied optimizer marksF32modeltensors, not a demonstrated trainableLoRAadapter path; systemPython has no torch/transformers/peft/bitsandbytes. Otherprivateenvironments are not excluded.",
+        "scope_status": "DEFERRED",
         "value": "lora_if_feasible"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Domänen-Fine-Tuning ändert Gewichte und benötigt kuratierte getrennte Trainings-/Holdout-Daten. Keine neue lokal qualifizierte Omni-Trainingsvariante.",
+    "decision": "Domainfinetuning needs actualtraining data, correctgradientpaths and an independentholdout. OriginalQA12/HumanEvalPlus/BFCL/agentcases must not become trainingdata. NativeallparamF32selection would enter a GDNpath lacking a backwardcase.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reopen only after actual memory/train-step feasibility; no training on evaluation tasks.",
+    "next_action": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26245,81 +26307,119 @@
       }
     ],
     "prerequisites": [
-      "Admitted trainer and checkpoint, curated task data, a finite training budget and quality oracle."
+      "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Nur nach dokumentierter Daten-/Ressourcenzulassung; aktuelle Inferenzreferenzen unverändert bewahren.",
-    "reopening_conditions": "Reopen only after actual memory/train-step feasibility; no training on evaluation tasks.",
+    "remaining_scope": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
+    "reopening_conditions": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "Domain Fine Tuning",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
+        "scope": "Domainfinetuning needs actualtraining data, correctgradientpaths and an independentholdout. OriginalQA12/HumanEvalPlus/BFCL/agentcases must not become trainingdata. NativeallparamF32selection would enter a GDNpath lacking a backwardcase.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
+        "scope": "Domainfinetuning needs actualtraining data, correctgradientpaths and an independentholdout. OriginalQA12/HumanEvalPlus/BFCL/agentcases must not become trainingdata. NativeallparamF32selection would enter a GDNpath lacking a backwardcase.",
+        "scope_status": "DEFERRED",
         "value": "german"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
+        "scope": "Domainfinetuning needs actualtraining data, correctgradientpaths and an independentholdout. OriginalQA12/HumanEvalPlus/BFCL/agentcases must not become trainingdata. NativeallparamF32selection would enter a GDNpath lacking a backwardcase.",
+        "scope_status": "DEFERRED",
         "value": "code"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Separate German/code/homelab datasets and success/policy criteria. A narrowly frozen-backbone output_norm4096F32parameter trial might avoid GDNgradients, but requires graphpruning/quantizedmatrixbackward and a real boundedstep. This is an unverifiedfuturevariant, not an implementedoptimization.",
+        "scope": "Domainfinetuning needs actualtraining data, correctgradientpaths and an independentholdout. OriginalQA12/HumanEvalPlus/BFCL/agentcases must not become trainingdata. NativeallparamF32selection would enter a GDNpath lacking a backwardcase.",
+        "scope_status": "DEFERRED",
         "value": "homelab"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "SVD/Low-Rank verändert Tensorformen bzw. Gewichte und braucht Modell-/Engineanpassung plus unabhängige Qualitätsprüfung; kein zugelassenes Omni-Artefakt.",
+    "decision": "No admitted lower-rank factorizedOmniartifact/operator exists. Reconstructing a dense approximation at runtime would retain densebytes/compute and is not compressed inference.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T03",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Admit a compact model with actual sparse/low-rank CUDA execution, not a renamed dense kernel.",
+    "next_action": "Specific targetmatrix/rank, compatiblefactorizedgraph/GDNlayout, exactnumerics/shapechecks and independenttaskquality; include reconstruction/residual/extra-launchcosts and actualparameter/VRAMsaving.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26381,57 +26481,77 @@
       }
     ],
     "prerequisites": [
-      "Concrete ranks/layers, converted artifact, engine support and disjoint quality evaluation."
+      "Specific targetmatrix/rank, compatiblefactorizedgraph/GDNlayout, exactnumerics/shapechecks and independenttaskquality; include reconstruction/residual/extra-launchcosts and actualparameter/VRAMsaving."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Keinen CPU-SVD-Lauf als GPU-Optimierung zählen. Zuerst nachweisbar kompatiblen komprimierten Pfad und Nutzenhypothese vorlegen.",
-    "reopening_conditions": "Admit a compact model with actual sparse/low-rank CUDA execution, not a renamed dense kernel.",
+    "remaining_scope": "Specific targetmatrix/rank, compatiblefactorizedgraph/GDNlayout, exactnumerics/shapechecks and independenttaskquality; include reconstruction/residual/extra-launchcosts and actualparameter/VRAMsaving.",
+    "reopening_conditions": "Specific targetmatrix/rank, compatiblefactorizedgraph/GDNlayout, exactnumerics/shapechecks and independenttaskquality; include reconstruction/residual/extra-launchcosts and actualparameter/VRAMsaving.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "SVD Low Rank",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Specific targetmatrix/rank, compatiblefactorizedgraph/GDNlayout, exactnumerics/shapechecks and independenttaskquality; include reconstruction/residual/extra-launchcosts and actualparameter/VRAMsaving.",
+        "scope": "No admitted lower-rank factorizedOmniartifact/operator exists. Reconstructing a dense approximation at runtime would retain densebytes/compute and is not compressed inference.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Specific targetmatrix/rank, compatiblefactorizedgraph/GDNlayout, exactnumerics/shapechecks and independenttaskquality; include reconstruction/residual/extra-launchcosts and actualparameter/VRAMsaving.",
+        "scope": "No admitted lower-rank factorizedOmniartifact/operator exists. Reconstructing a dense approximation at runtime would retain densebytes/compute and is not compressed inference.",
+        "scope_status": "DEFERRED",
         "value": "controlled_rank"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Pruning ändert Modellgewichte/Struktur; keine zugelassene Variante mit passendem nativen Kernel und Qualität. Sparsität allein belegt keinen V100-Gewinn.",
+    "decision": "No admitted structured or unstructuredOmnipruner+executionartifact. Setting weights tozero alone does not prove fewer operations on the existingdensequantized kernels.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Verify compact/sparse operators and untouched quality cases before measurement.",
+    "next_action": "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26514,69 +26634,98 @@
       }
     ],
     "prerequisites": [
-      "Structured or sparse weight intervention with an actually supported SM70 execution path."
+      "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Nur mit real ausgeführtem Sparse-/kompaktem Kernel und getrenntem Qualitätssatz prüfen; keine Prozentaddition.",
-    "reopening_conditions": "Verify compact/sparse operators and untouched quality cases before measurement.",
+    "remaining_scope": "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone.",
+    "reopening_conditions": "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "Pruning",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone.",
+        "scope": "No admitted structured or unstructuredOmnipruner+executionartifact. Setting weights tozero alone does not prove fewer operations on the existingdensequantized kernels.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone.",
+        "scope": "No admitted structured or unstructuredOmnipruner+executionartifact. Setting weights tozero alone does not prove fewer operations on the existingdensequantized kernels.",
+        "scope_status": "DEFERRED",
         "value": "structured"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Structured variant must consistently update all dependent modeldimensions/head/stategraph; unstructured needs an actual supported sparseexecutionpath. Independentquality and physicalspeed/memorymeasurement required, not sparsityratio alone.",
+        "scope": "No admitted structured or unstructuredOmnipruner+executionartifact. Setting weights tozero alone does not prove fewer operations on the existingdensequantized kernels.",
+        "scope_status": "DEFERRED",
         "value": "unstructured"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Distillation erzeugt angepasste Gewichte bzw. ein anderes Modell. Kein realer Trainingsschritt oder unabhängiger Schülervergleich qualifiziert.",
+    "decision": "Distillation produces newstudentweights, not a target-inferenceflag. Teacher-only generations and foreignready models are not a local student-training success.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T05",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Real memory/train-step admission before distillation; preserve MiMo/OxCoder source and model results separately.",
+    "next_action": "Admit studentgraph/checkpoint/license/tokenizer, teacherdata separatefromevaluation, one actualstep and quality/per-taskenergy comparison. Keep existing modelchallengers separate.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26638,57 +26787,77 @@
       }
     ],
     "prerequisites": [
-      "Qualified teacher data with clean splits, admitted student/trainer and bounded resource plan."
+      "Admit studentgraph/checkpoint/license/tokenizer, teacherdata separatefromevaluation, one actualstep and quality/per-taskenergy comparison. Keep existing modelchallengers separate."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Daten-/Trainingsmachbarkeit als spätere Phase behandeln; kein Inferenzflag oder fertiger Omni-Gewinner.",
-    "reopening_conditions": "Real memory/train-step admission before distillation; preserve MiMo/OxCoder source and model results separately.",
+    "remaining_scope": "Admit studentgraph/checkpoint/license/tokenizer, teacherdata separatefromevaluation, one actualstep and quality/per-taskenergy comparison. Keep existing modelchallengers separate.",
+    "reopening_conditions": "Admit studentgraph/checkpoint/license/tokenizer, teacherdata separatefromevaluation, one actualstep and quality/per-taskenergy comparison. Keep existing modelchallengers separate.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "Distillation",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Admit studentgraph/checkpoint/license/tokenizer, teacherdata separatefromevaluation, one actualstep and quality/per-taskenergy comparison. Keep existing modelchallengers separate.",
+        "scope": "Distillation produces newstudentweights, not a target-inferenceflag. Teacher-only generations and foreignready models are not a local student-training success.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Admit studentgraph/checkpoint/license/tokenizer, teacherdata separatefromevaluation, one actualstep and quality/per-taskenergy comparison. Keep existing modelchallengers separate.",
+        "scope": "Distillation produces newstudentweights, not a target-inferenceflag. Teacher-only generations and foreignready models are not a local student-training success.",
+        "scope_status": "DEFERRED",
         "value": "distilled_if_feasible"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "QAT-Retraining benötigt Trainingssoftware, Speicherbeleg und neue Gewichte. Die vorhandenen Q4/Q5/Q6-GGUFs sind kein Beleg eigenen QAT-Trainings.",
+    "decision": "QATrequires fake-quantization/training and deployment-format-consistent weightupdates. ExistingGGUFquantizations/imatrix and foreignQATsources do not establish a localOmniQATstep.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T06",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Real bounded training step first; no claim16GiB makes all QAT impossible.",
+    "next_action": "Actual trainablegraph/quant-simulation and SM70operator support, separateteacher/training/holdout, measuredone-stepmemory/time, then boundedtraining only in authorizedpostmatrixphase. Traininglossalone cannot qualify a winner.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26750,57 +26919,77 @@
       }
     ],
     "prerequisites": [
-      "Differentiable quantized trainer, trainable source weights and clean calibration/holdout data."
+      "Actual trainablegraph/quant-simulation and SM70operator support, separateteacher/training/holdout, measuredone-stepmemory/time, then boundedtraining only in authorizedpostmatrixphase. Traininglossalone cannot qualify a winner."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Späteren Trainingszweig nur nach echtem kleinem Trainingsschritt starten; Benchmark-Holdout nicht verwenden.",
-    "reopening_conditions": "Real bounded training step first; no claim16GiB makes all QAT impossible.",
+    "remaining_scope": "Actual trainablegraph/quant-simulation and SM70operator support, separateteacher/training/holdout, measuredone-stepmemory/time, then boundedtraining only in authorizedpostmatrixphase. Traininglossalone cannot qualify a winner.",
+    "reopening_conditions": "Actual trainablegraph/quant-simulation and SM70operator support, separateteacher/training/holdout, measuredone-stepmemory/time, then boundedtraining only in authorizedpostmatrixphase. Traininglossalone cannot qualify a winner.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "QAT Retraining",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual trainablegraph/quant-simulation and SM70operator support, separateteacher/training/holdout, measuredone-stepmemory/time, then boundedtraining only in authorizedpostmatrixphase. Traininglossalone cannot qualify a winner.",
+        "scope": "QATrequires fake-quantization/training and deployment-format-consistent weightupdates. ExistingGGUFquantizations/imatrix and foreignQATsources do not establish a localOmniQATstep.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual trainablegraph/quant-simulation and SM70operator support, separateteacher/training/holdout, measuredone-stepmemory/time, then boundedtraining only in authorizedpostmatrixphase. Traininglossalone cannot qualify a winner.",
+        "scope": "QATrequires fake-quantization/training and deployment-format-consistent weightupdates. ExistingGGUFquantizations/imatrix and foreignQATsources do not establish a localOmniQATstep.",
+        "scope_status": "DEFERRED",
         "value": "real_qat_if_feasible"
       }
     ]
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Tensor-Smoothing benötigt eine konkrete Kalibrierung und korrekt gefaltete Modellgewichte/Skalen; kein lokal zugelassener Pfad.",
+    "decision": "Native second moments do not determine per-channel maxima/absoluteactivationdistribution. No actualsmoothing scale+all-consumer-compensation artifact is admitted. This is not a blankethardwareincompatibility.",
     "domain": "training_research",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R378"
     ],
     "experimentally_covered": false,
     "id": "T07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Admit an actual compatible transformed artifact and engine path before GPU screening.",
+    "next_action": "Choose a definedsmoothingalgorithm/deploymentprecision, collect missing nonbenchmarkactivations, fold scales into allgraphconsumers correctly and prove numericalequivalence before quality/performanceGPUtests. Keep modelweightchanges separate from runtimeflags.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26862,38 +27051,56 @@
       }
     ],
     "prerequisites": [
-      "Concrete calibration data, changed tensor/scales and a numerical-equivalence contract."
+      "Choose a definedsmoothingalgorithm/deploymentprecision, collect missing nonbenchmarkactivations, fold scales into allgraphconsumers correctly and prove numericalequivalence before quality/performanceGPUtests. Keep modelweightchanges separate from runtimeflags."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Vor GPU-Zulassung Kalibrierungsdaten, Tensoränderungen und Numerikgrenzen festlegen; kein generischer Glättungs-Sweep.",
-    "reopening_conditions": "Admit an actual compatible transformed artifact and engine path before GPU screening.",
+    "remaining_scope": "Choose a definedsmoothingalgorithm/deploymentprecision, collect missing nonbenchmarkactivations, fold scales into allgraphconsumers correctly and prove numericalequivalence before quality/performanceGPUtests. Keep modelweightchanges separate from runtimeflags.",
+    "reopening_conditions": "Choose a definedsmoothingalgorithm/deploymentprecision, collect missing nonbenchmarkactivations, fold scales into allgraphconsumers correctly and prove numericalequivalence before quality/performanceGPUtests. Keep modelweightchanges separate from runtimeflags.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "Tensor Smoothing",
     "variants": [
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Choose a definedsmoothingalgorithm/deploymentprecision, collect missing nonbenchmarkactivations, fold scales into allgraphconsumers correctly and prove numericalequivalence before quality/performanceGPUtests. Keep modelweightchanges separate from runtimeflags.",
+        "scope": "Native second moments do not determine per-channel maxima/absoluteactivationdistribution. No actualsmoothing scale+all-consumer-compensation artifact is admitted. This is not a blankethardwareincompatibility.",
+        "scope_status": "PARTIAL",
         "value": "original"
       },
       {
-        "aggregate_metrics": null,
+        "aggregate_metrics": [
+          {
+            "existing_calibration_chunks": 4,
+            "existing_calibration_vectors": 248,
+            "native_GDN_backward_present": false,
+            "native_experimental_trainer_exists": true,
+            "new_GPU_runs": 0,
+            "training_steps": 0
+          }
+        ],
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Choose a definedsmoothingalgorithm/deploymentprecision, collect missing nonbenchmarkactivations, fold scales into allgraphconsumers correctly and prove numericalequivalence before quality/performanceGPUtests. Keep modelweightchanges separate from runtimeflags.",
+        "scope": "Native second moments do not determine per-channel maxima/absoluteactivationdistribution. No actualsmoothing scale+all-consumer-compensation artifact is admitted. This is not a blankethardwareincompatibility.",
+        "scope_status": "DEFERRED",
         "value": "calibrated"
       }
     ]

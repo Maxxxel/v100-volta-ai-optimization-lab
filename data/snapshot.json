@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 108,
     "factors": 162,
-    "ledger_events": 1556,
+    "ledger_events": 1557,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 105,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 7
     },
     "signed_windows": 302,
-    "sprint_records": 297
+    "sprint_records": 298
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -28,14 +28,14 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 239,
+  "matrix_revision": 240,
   "schema": 1,
   "source_date": "2026-10-21T19:46:36.370024+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "005b698b9cb393d119720fecd9ac5474a80f3f7e4a2f571de5ab45fd65fe0177",
+    "BENCHMARK_REFERENCES.json": "fe18fc55d2eefd089e6624e8583e30155cdd83e1f4ceec93ebc3789ea3695a2d",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "beae1bbf51624bcc14b69b574d80e6b4d0dfd635d4fb404bbc5002342faf2925",
-    "O2_EXPERIMENTS.jsonl": "43e87a0e52e7b7710708ecca8e01c5286c9099d63e94b76b4a7bfa82d528ec51",
+    "MATRIX_EXTENDED.json": "055d3c6834ae34a2b027c7ad528d50094d480e0fbfc8e8b5759885f958cea4da",
+    "O2_EXPERIMENTS.jsonl": "228433847a5184adaa9a1cbcdb69c106f9b0c84e3260a0c626bb2acbe0b020ec",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

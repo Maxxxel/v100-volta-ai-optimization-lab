@@ -12446,5 +12446,13 @@
     "kind": "R377_NATIVE_PARSER_FRONTEND_ENGINE_SCOPE_REVIEW",
     "sequence": 1556,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T20:27:59.388150+00:00",
+    "experiment_id": "R378",
+    "factor_id": null,
+    "kind": "R378_CALIBRATION_TRAINING_QUANTIZATION_ADMISSION",
+    "sequence": 1557,
+    "signature": null
   }
 ]
