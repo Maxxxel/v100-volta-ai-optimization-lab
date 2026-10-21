@@ -1,6 +1,6 @@
 # Changelog & roadmap
 
-Snapshot revision **222**; latest canonical assessment **2026-10-21T17:31:10.799439+00:00**.
+Snapshot revision **223**; latest canonical assessment **2026-10-21T17:40:12.477357+00:00**.
 
 1. Finish technically meaningful remaining isolated variants; preserve valid negative evidence.
 2. Test compatible interactions only after the single-factor gate.

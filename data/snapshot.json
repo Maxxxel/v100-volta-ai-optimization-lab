@@ -2,24 +2,24 @@
   "counts": {
     "additional_factors": 32,
     "assessed_factors": 162,
-    "experimentally_covered": 108,
+    "experimentally_covered": 107,
     "factors": 162,
-    "ledger_events": 1538,
+    "ledger_events": 1539,
     "model_challengers": 11,
-    "omnicoder2_experimentally_covered": 105,
+    "omnicoder2_experimentally_covered": 104,
     "original_factors": 130,
     "qualified_profile_pointers": 10,
     "reference_records": 35,
     "scientific_status": {
       "DEFERRED": 23,
       "NOT_APPLICABLE": 5,
-      "OPEN": 25,
-      "PARTIAL": 97,
+      "OPEN": 26,
+      "PARTIAL": 96,
       "QUALIFIED": 6,
       "TESTED_NEGATIVE": 6
     },
     "signed_windows": 302,
-    "sprint_records": 280
+    "sprint_records": 281
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -28,14 +28,14 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 222,
+  "matrix_revision": 223,
   "schema": 1,
-  "source_date": "2026-10-21T17:31:10.799439+00:00",
+  "source_date": "2026-10-21T17:40:12.477357+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "a287eb1e5e8ee48923c09542f1343c0d28d5177ad775211c0151e2c4c6ac44bf",
+    "BENCHMARK_REFERENCES.json": "c3ac4d6a17872b18efe6fd2462379812b4171192fac3f1aa744e787394f37cf8",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "df0d71302afe0b73648023a5d42a0dd58a991dccad32f478b7917c78d6c53a94",
-    "O2_EXPERIMENTS.jsonl": "f609249061a2379a31771e2f20e4f058228a41a3bc2a6ac36883b06ea306605f",
+    "MATRIX_EXTENDED.json": "267929c3c9765079171cb007908156dcb164a3b072e36dcaa357936871136354",
+    "O2_EXPERIMENTS.jsonl": "ab65573008ec92e349da37b320fdd6a08b3092999116430f9724c042d900392a",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }
