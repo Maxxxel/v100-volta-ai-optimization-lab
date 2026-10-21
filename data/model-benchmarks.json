@@ -1,0 +1,132 @@
+{
+  "model_comparison_progress": {
+    "BonsaiPQ2_source_medium_coding_pilot": {
+      "full164notrun": true,
+      "full18": true,
+      "screen_passed": true,
+      "solved": 16,
+      "tasks": 18
+    },
+    "R228_prepared_not_submitted": false,
+    "existing_qwen38_coding_scores_independently_checked": {
+      "new_GPU_generations": 0,
+      "records": {
+        "R117": {
+          "MTP_enabled": false,
+          "audit_sha256": "0a001d95dc6b53c43508ef53594a7cde7256e64c5089d38aa2def3b9d19f7087",
+          "qualification": "Retainedlocalcodingevidence,notgeneralmodel/agentwinner",
+          "scopes": {
+            "custom_long16": {
+              "solved": 15,
+              "tasks": 16
+            },
+            "standard_full164": {
+              "solved": 148,
+              "tasks": 164
+            }
+          },
+          "score_rule": "base_pass AND plus_pass"
+        },
+        "R118": {
+          "MTP_enabled": true,
+          "audit_sha256": "ab44bd9905753dd56faf682336ba75ef247818df7d6ba3774c7ac50fdfc4feef",
+          "qualification": "Retainedlocalcodingevidence,notgeneralmodel/agentwinner",
+          "scopes": {
+            "custom_long16": {
+              "solved": 15,
+              "tasks": 16
+            },
+            "standard_full164": {
+              "solved": 150,
+              "tasks": 164
+            }
+          },
+          "score_rule": "base_pass AND plus_pass"
+        }
+      }
+    },
+    "ornith_agents": {
+      "gpu_j_per_success": 3917.593433262527,
+      "original12_format": 5,
+      "original12_semantic": 9,
+      "screen_passed": false,
+      "solved": 14,
+      "tasks": 18,
+      "wall_s": 201.46956243099999
+    },
+    "ornith_coding": {
+      "custom_long_solved": 14,
+      "custom_long_tasks": 16,
+      "reasoning_profile_pending": true,
+      "screen_passed": false,
+      "standard_solved": 117,
+      "standard_tasks": 164
+    },
+    "ornith_reasoning_coding_pilot": {
+      "full18": false,
+      "scopes": {
+        "custom_long_pilot": {
+          "solved": 0,
+          "tasks": 0
+        },
+        "standard_pilot": {
+          "solved": 6,
+          "tasks": 8
+        }
+      },
+      "screen_passed": false
+    },
+    "ornith_reasoning_original12": {
+      "first4_reused": true,
+      "format": 3,
+      "full12": true,
+      "semantic": 10
+    },
+    "ornith_reasoning_recipe": {
+      "QA_cases": 4,
+      "format": 2,
+      "full_quality_pending": true,
+      "operational": true,
+      "semantic": 3
+    },
+    "qwen35_agents": {
+      "gpu_j_per_success": 7020.5988425358355,
+      "peak_device_vram_mib": 5956.5,
+      "screen_passed": false,
+      "solved": 8,
+      "tasks": 18,
+      "wall_s": 214.550275628
+    },
+    "qwen35_coding": {
+      "custom_long_solved": 15,
+      "custom_long_tasks": 16,
+      "manufacturer_profile_pending": true,
+      "screen_passed": false,
+      "standard_solved": 132,
+      "standard_tasks": 164
+    },
+    "qwen38_MTP_agents": {
+      "coding": {
+        "energy_reduction_percent_vs_R260": 14.848842521484961,
+        "gpu_energy_j_approx": 63782.84098651977,
+        "solved": 7,
+        "tasks": 7,
+        "wall_reduction_percent_vs_R260": 10.716894545598576,
+        "wall_s": 246.49321105500002
+      },
+      "not_general_assistant_qualified": true,
+      "screen_passed": false,
+      "solved": 14,
+      "tasks": 18,
+      "wall_s": 408.702045542
+    },
+    "qwen38_agents": {
+      "full18": true,
+      "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+      "quality_tradeoff_candidate_not_qualified": true,
+      "screen_passed": false,
+      "solved": 14,
+      "tasks": 18
+    }
+  }
+}

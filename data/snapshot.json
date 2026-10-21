@@ -1,0 +1,41 @@
+{
+  "counts": {
+    "additional_factors": 32,
+    "assessed_factors": 162,
+    "experimentally_covered": 108,
+    "factors": 162,
+    "ledger_events": 1535,
+    "model_challengers": 11,
+    "omnicoder2_experimentally_covered": 105,
+    "original_factors": 130,
+    "qualified_profile_pointers": 10,
+    "reference_records": 35,
+    "scientific_status": {
+      "DEFERRED": 23,
+      "NOT_APPLICABLE": 5,
+      "OPEN": 25,
+      "PARTIAL": 97,
+      "QUALIFIED": 6,
+      "TESTED_NEGATIVE": 6
+    },
+    "signed_windows": 302,
+    "sprint_records": 277
+  },
+  "limitations": [
+    "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
+    "GPU intervention count: NOT MEASURED AS ONE COMPARABLE TOTAL. Component processes, model sessions and requests remain separate in each original audit.",
+    "A redacted excerpt cannot reproduce the original SHA256. That SHA binds the retained original; exported bytes have their own manifest.",
+    "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
+    "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
+  ],
+  "matrix_revision": 219,
+  "schema": 1,
+  "source_date": "2026-10-21T16:47:07.308398+00:00",
+  "source_sha256": {
+    "BENCHMARK_REFERENCES.json": "2bf087b35671c852540e080b87ae11fd696628f741f82fa0415a20f5b5e9fbde",
+    "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
+    "MATRIX_EXTENDED.json": "467792bd3312ae05c694ac597ba3680ea220a2cf3f71ebf2eec16c7d6d4bfdb8",
+    "O2_EXPERIMENTS.jsonl": "0cfe32b2c56bb966d344cf826f777525a52ece14323437cdb5db5b0ad391c6e3",
+    "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
+  }
+}

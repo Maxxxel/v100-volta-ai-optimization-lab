@@ -1,0 +1,145 @@
+# Public audit excerpt
+
+Original SHA256: `7be4a096b60529fdd3d1efa335a18f7c54169dbbe853754540d81721be314bbf`
+
+Original file: `AUDIT.json`; 92383 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "OMNICODER2_AGENT_WEIGHT_CACHE_SCREEN_NOT_PASSED",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "18existing development cases,12multi-step HA/PVE/code workflows and6read/reasoning cases; no holdout or full assistant superiority claim",
+    "Original v080 simulator/policy/static code evaluator reused unchanged; generated tools affect only temporary/in-memory fixtures, no arbitrary code execution or production endpoints",
+    "Full case wall includes template/token proof and simulation; full case GPUenergy includes failed cases and GPUidle between requests, excludes CPU/system/load/idle outside cases",
+    "One greedyseed/process; fresh drift confirmation and stability required for any champion; original12 separate controls"
+  ]
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_generation_requests": 106,
+  "metrics": {
+    "gpu_energy_j": 59933.36905829287,
+    "gpu_j_per_success": 4610.259158330221,
+    "solved": 13,
+    "successes_per_second": 0.058218353449520616,
+    "tasks": 18,
+    "total_wall_s": 223.297280492
+  },
+  "original12": [
+    {
+      "e2e_s": 0.188752764,
+      "gpu_energy_j": 43.57834366668933,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.239794437,
+      "gpu_energy_j": 57.541879051644315,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": false
+      }
+    },
+    {
+      "e2e_s": 0.649024208,
+      "gpu_energy_j": 170.6702817843082,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.357582858,
+      "gpu_energy_j": 89.56446490655567,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": false
+      }
+    },
+    {
+      "e2e_s": 0.296262761,
+      "gpu_energy_j": 71.73838005697377,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.470329328,
+      "gpu_energy_j": 112.75265442772188,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 1.001425945,
+      "gpu_energy_j": 253.7558964645485,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.355258451,
+      "gpu_energy_j": 82.21226629132723,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.224012467,
+      "gpu_energy_j": 50.93358693936643,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": false
+      }
+    },
+    {
+      "e2e_s": 0.23868957,
+      "gpu_energy_j": 57.67206450532695,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.549845966,
+      "gpu_energy_j": 144.40678005976437,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.369710596,
+      "gpu_energy_j": 92.13528596738836,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    }
+  ],
+  "peak_process_vram_mib": 13254
+}
+```

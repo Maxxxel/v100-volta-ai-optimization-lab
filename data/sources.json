@@ -1,0 +1,164 @@
+[
+  {
+    "axes": [
+      "C09",
+      "C10",
+      "C11",
+      "C14",
+      "HBM01",
+      "HBM02",
+      "HBM03",
+      "HBM04",
+      "HBM05",
+      "HBM06",
+      "HBM07"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "VOLTA_GUIDE",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [],
+    "revision": "v13.4;updated2026-10-12;archivedSHA",
+    "scope": "Scheduling, occupancy, memory reuse and explicit warp synchronization checked. Hardware basis already cited locally; not a new measured gain.",
+    "url": "https://docs.nvidia.com/cuda/volta-tuning-guide/index.html"
+  },
+  {
+    "axes": [
+      "C09",
+      "C10",
+      "C14",
+      "HBM01",
+      "HBM02",
+      "HBM03",
+      "HBM04",
+      "HBM05",
+      "HBM07"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "VOLTA_MICROARCH",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [],
+    "revision": "1804.06826v1;2018-04-18",
+    "scope": "66-page originalPDF archived; sections2–4 inspected via webPDF text. Register banks and shared-memory banks are different mechanisms. Published compiler/hardware results are not our counter measurements.",
+    "url": "https://arxiv.org/abs/1804.06826"
+  },
+  {
+    "axes": [
+      "H03",
+      "H04",
+      "H05"
+    ],
+    "classification": "ALREADY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "ARCHWIKI",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [],
+    "revision": "MediaWiki887502;lastedit2026-10-11 14:24",
+    "scope": "Clock/power sections inspected. Direct local originalHTML obtained despite webreader anti-bot rejection. Existing H03/H04 audits govern; desktop/Xorg recommendations do not establish Tesla applicability.",
+    "url": "https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks"
+  },
+  {
+    "axes": [
+      "HBM01",
+      "HBM06",
+      "HBM07",
+      "HBM19",
+      "H03"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "BANDWIDTH_BLOG",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [],
+    "revision": "No exposed immutable revision;contentSHA pinned",
+    "scope": "Secondary roofline intuition. Decode can be bandwidth-limited; division of modelbytes by time is not measured DRAM traffic. Hybrid state, KV, cache, dequantization, launch overhead, batch and prefill change the bound.",
+    "url": "https://precipice.tech/blog/llm-inferenz-speicherbandbreite"
+  },
+  {
+    "axes": [
+      "HBM01",
+      "HBM02",
+      "HBM03",
+      "HBM04",
+      "HBM05",
+      "HBM06",
+      "HBM07",
+      "HBM19"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "HBM_POWER",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [
+      "No separate HBM2 rail measurement or programmable DRAM command/bank mapping on this V100."
+    ],
+    "revision": "2610.14244v1;2026-10-09",
+    "scope": "Full originalHTML inspected. Dedicated FPGA HBM2 characterization establishes data-pattern/internal-bus power mechanisms. Board-level NVML cannot identify HBM-rail current or internal bus toggles.",
+    "url": "https://arxiv.org/abs/2610.14244"
+  },
+  {
+    "axes": [
+      "E03",
+      "H06",
+      "HBM01"
+    ],
+    "classification": "DEFERRED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "REDDIT_LEAD",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [
+      "Partial access; no immutable edit history."
+    ],
+    "revision": "PostID1x4mtzx;editrevision unavailable",
+    "scope": "Webreader rendered multi-GPU discussion; discovery lead only. No verified kernel cause or comparable single16GB result. LocalHTMLHTTP200 is a challenge, JSON403; no full local comment archive claimed.",
+    "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x4mtzx/"
+  },
+  {
+    "axes": [
+      "E03",
+      "E06",
+      "E07",
+      "C03",
+      "C10",
+      "C11",
+      "HBM04",
+      "HBM06",
+      "HBM18"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "VLLM_REPORT",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [],
+    "revision": "295b5bd547edb07c9de0b58b7c98aaacfac8ec30",
+    "scope": "Pinned methodology, benchmarkCSV, graphs/MoE/FP8 and negative-results chapters reviewed. External8×32GB/TP/othermodels; no local speedup transferred.",
+    "url": "https://github.com/KumphanartDansiri/v100-vllm-2026"
+  },
+  {
+    "axes": [
+      "E03",
+      "E06",
+      "E07",
+      "C03",
+      "C05",
+      "C10",
+      "C11",
+      "HBM02",
+      "HBM04",
+      "HBM06",
+      "HBM18",
+      "K05"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "VLLM_IMPLEMENTATION",
+    "local_test_status": "NO_NEW_GPU_TEST",
+    "obstacles": [
+      "REQUIREMENTS retains older0.18/FP8-not-yet-validated prose conflicting with newer README; pinned implementation/logs govern specific scope."
+    ],
+    "revision": "9e1aa6bc3398c5ea823a80027963709d20ee1974",
+    "scope": "Pinned Python/CUDA dispatch, build recipes, TurboMind alignment and FA adapter inspected. Upstream vLLM tags independently checked. No downloaded code executed.",
+    "url": "https://github.com/KumphanartDansiri/vllm-fp8-w8a16-sm70"
+  }
+]

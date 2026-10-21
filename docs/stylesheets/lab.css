@@ -1,0 +1,10 @@
+:root { --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --md-code-font: ui-monospace, monospace; }
+.md-grid { max-width: 88rem; }
+.md-typeset h1 { font-weight: 750; letter-spacing: -.035em; }
+.md-typeset table:not([class]) { font-size: .73rem; }
+.md-typeset table:not([class]) th { white-space: nowrap; }
+.hero { padding: 1.7rem; margin: 1rem 0 1.6rem; border: 1px solid #26a69a66; border-radius: .9rem; background: linear-gradient(130deg, #00897b22, #80cbc410); }
+.hero strong { font-size: 1.55rem; line-height: 1.25; display: block; }
+.hero p { margin-bottom: 0; }
+.md-typeset code { overflow-wrap: anywhere; }
+@media (max-width: 760px) { .hero { padding: 1rem; } .hero strong { font-size: 1.25rem; } }

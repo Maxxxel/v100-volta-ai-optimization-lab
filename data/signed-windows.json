@@ -1,0 +1,2418 @@
+[
+  {
+    "audit_id": "audit-78c63194ae3b465fa368",
+    "factor_id": "R01",
+    "id": "W-e0a702f6200e45c3",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e0a702f6200e45c322eb25938ae3a77676c2e9f08a431c2785be90224df91e68",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-062276a2f82e45159752",
+    "factor_id": "R01",
+    "id": "W-40838e033136ece0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "40838e033136ece0191eb9b9a0d0896503006e8fc350b014e35772a302ec683f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6fdbf806cd5a1d7728e8",
+    "factor_id": "R01",
+    "id": "W-fb8cab54d6b862c1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "fb8cab54d6b862c1f894828445acbdd370cc15a11578680dcf48c3ba2ae41495",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2c2821ca804984cdab2a",
+    "factor_id": "R02",
+    "id": "W-fcd07f616f844555",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "fcd07f616f8445550825f82e55d399febdb0bd2f13d3d57b651775fa4fccdbfe",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-21ad1c8820b869222686",
+    "factor_id": "R02",
+    "id": "W-8a628287bca6982c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "8a628287bca6982c5cfe3f54ccd7b38f275dba85b94408d535954b9cf9ce0817",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6ba44546d87020d6288b",
+    "factor_id": "R02",
+    "id": "W-008037a69024ad1a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "008037a69024ad1a04006939c298d1ab5b97361394fec9be100bd49491b7e32f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0cb596914b9fccbb3caa",
+    "factor_id": "R03",
+    "id": "W-543623e41f3a58c2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "543623e41f3a58c2019e4c7061761fbb935c18d7add2400fcf60cc8fb64c6cd4",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c2158d27677661415f45",
+    "factor_id": "R03",
+    "id": "W-257130d021468c3c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "257130d021468c3c428f76aa3ef7c57bb267e477ade9d72d4d0aee5ae179cf64",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9613f1cdfb51df6e2809",
+    "factor_id": "R04",
+    "id": "W-7a318adbd5bba5e7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7a318adbd5bba5e762d167fafbb72a190e53cef50d72228a2e0e5ceff46190b7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f6f96c443bac8279bcab",
+    "factor_id": "R04",
+    "id": "W-105e50569356258b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "105e50569356258b8fa6fab1b85e555cef3371de0c55737f9db638333fe0d7b4",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6e68540a67173fe2b928",
+    "factor_id": "R04",
+    "id": "W-7dc46059e09f015e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7dc46059e09f015ef5bd5e2108fc3f4d7d15ede2b05d3df7691744e22b1bc634",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-615a4cf0bd6fdeb52e2f",
+    "factor_id": "R04",
+    "id": "W-1e05b2095e9b4ce8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1e05b2095e9b4ce87842f40f8ef781b797f8972253c2e994deb3cfd0684748db",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f2e1299acd91cad7c2df",
+    "factor_id": "R06",
+    "id": "W-f9f0f3adb13a0f35",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f9f0f3adb13a0f356171608e73c51484262f0c4975d7e9e4b55e32ca99f98a33",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b8a83b89fd187aadf424",
+    "factor_id": "R06",
+    "id": "W-7676d53d4071a832",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7676d53d4071a83280f5eadab9c40454cec59272c3a45d6ecb4c2f55e5c3eb3e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-be4f09882f65994f4227",
+    "factor_id": "R10",
+    "id": "W-fcb8a732d2e88428",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "fcb8a732d2e88428724abddf10a592a998af2bb915722bdbb736bf2d7f4f5b10",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-710955cbc539abcf461c",
+    "factor_id": "R14",
+    "id": "W-42bdcc6bb602ee6c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "42bdcc6bb602ee6cd54cb55b398225055f430d12e031c5e65591b83525ea52ea",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f6d5675b7872b3ec1c0c",
+    "factor_id": "R19",
+    "id": "W-4536ce641d6d6213",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4536ce641d6d6213cb7ecc58e1586a41c9e3e1cc5b4f412ea431575416c5f814",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-22d1d0a5e108bf464b15",
+    "factor_id": "K03",
+    "id": "W-b965b96228fa1f7d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b965b96228fa1f7d38a612219b34064782ba28472b4dfb34ec806c9d2d043984",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "K04",
+    "id": "W-b937b184b68949ec",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b937b184b68949ec21ff2024cfb302c9e92e602461c5f1cebf869651a72b4fd6",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "BASELINE",
+    "id": "W-1ecb700d050fc328",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1ecb700d050fc32833731543d66e135a92580a89337460d587beb0116cae9c92",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-ac3d03c59806c1fe383a",
+    "factor_id": "BASELINE",
+    "id": "W-2da203d8478fcab1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2da203d8478fcab13e5976adf4c4a4ac6cb48d5a4c5090f980a668c05d6978c4",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "R04",
+    "id": "W-0148e33a1a753f4d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0148e33a1a753f4da121838811502028f0665a536ee9f0b876698e7c43b09401",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-b8f24ee279ecd44dd1d1",
+    "factor_id": "R01",
+    "id": "W-a2566a037327aa61",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a2566a037327aa6186f844fd7e95642ef7811678ce807fe65d62ed6f2420df04",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7e9bfbb559a6609066ff",
+    "factor_id": "R01",
+    "id": "W-79ba93b7a3c5764d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "79ba93b7a3c5764d3832027d74990710a1c51f36ecbac4481576db87b3b0a04c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d65fb659494262061634",
+    "factor_id": "R01",
+    "id": "W-d55014d158f1ac4a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d55014d158f1ac4a36a04a075bdc2d13a0bde7065d7e8bd75d0928a9e015679d",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ed6d9e5117b231cf463c",
+    "factor_id": "R02",
+    "id": "W-09662673ecb2066b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "09662673ecb2066ba153a32e63472fa3045046ed4b58a9954f9a151d71257e01",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5ef138dc13f6d607d90f",
+    "factor_id": "R02",
+    "id": "W-da54a6195ac9bd0e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "da54a6195ac9bd0effc15e3568f84386b9b14732506dcbd660238a663972fd8a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5c9232a8b4f457595399",
+    "factor_id": "R02",
+    "id": "W-3b8e3c05e0e43425",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3b8e3c05e0e4342530edd5bb5eb6a0d722e1d49d78560ead414310f029f1ad68",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e418ee6a18e6c213eed1",
+    "factor_id": "R03",
+    "id": "W-8db80f88313cf20e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "8db80f88313cf20eb5f9e9c81c16c2d3a9f7bfced2704b7733deae247b776e36",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e85dccde79ca45a94d6b",
+    "factor_id": "R03",
+    "id": "W-bba03f68e0fc002c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bba03f68e0fc002c7ddb889a49541ccf379818f98668b98ae2031e41c3d425a0",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a00a52f187753d4581f1",
+    "factor_id": "R03",
+    "id": "W-68229fb5e23b0c51",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "68229fb5e23b0c517a977c9b41e23bd61054c90c62117898161e115eb9bff362",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fdb20ffce84662f77947",
+    "factor_id": "R03",
+    "id": "W-b2e2dd9a205e7c7b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b2e2dd9a205e7c7bc63e5f53bcc39504ebd66b2d087ef9cec6c28a731dc745c1",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-eafc50d2ff1739a11233",
+    "factor_id": "R04",
+    "id": "W-7b7f6ae90b1e6d3b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7b7f6ae90b1e6d3b1821c1a2d9b1874214e36a905a38600107b1c805ef85a9d3",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-90b982b8768f72bf9b03",
+    "factor_id": "R04",
+    "id": "W-00d80b639eb46bc0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "00d80b639eb46bc0d35eb3523b07f4ecedb32218c50e989aa0baa8830e28f008",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a39a8e1ac4dc174f6af2",
+    "factor_id": "R04",
+    "id": "W-268dfbb1d63d443d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "268dfbb1d63d443d14195ccbb13964afaecae0d957199d3235df2d4a797e7a1f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-706dabd92ee818792bba",
+    "factor_id": "R04",
+    "id": "W-830b03211957e1cc",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "830b03211957e1ccc8edeb83a912dbe038cc9a771b1ceaa19e91f8c21d0eb647",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e43b65060a83f4fa4a98",
+    "factor_id": "R04",
+    "id": "W-d19d4daf5bae9b0e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d19d4daf5bae9b0e084cb1d8db8551d7d93fc7dcf91160df18688d3bd8df1c43",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4a63c493e0301a646d00",
+    "factor_id": "R06",
+    "id": "W-5b03751471dff60d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5b03751471dff60d6ec9a7f3cbaca312ea3f7facdc0ca955b6dc4a530a4a03a3",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2d48a4fdae7ce747ef64",
+    "factor_id": "R06",
+    "id": "W-72b03de54c2061a3",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "72b03de54c2061a3a995ec8e94ea8cccfeacb402455168067858f6cc7a3677f8",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a08fe2af416ea19731ac",
+    "factor_id": "R10",
+    "id": "W-ad2d0f650c5e2b1e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ad2d0f650c5e2b1ec8671e2d3a4f93e1b54d09b45ce8aa71cc048c5df1ec9b70",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-37ac810c9a3a313b73c8",
+    "factor_id": "R14",
+    "id": "W-a577b1ffb50d46cd",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a577b1ffb50d46cd41acc926e52b1030152a8a234b1d608e440662540648b1da",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-13f089ed07a2d15ccfe0",
+    "factor_id": "R19",
+    "id": "W-9f5519734d5b2239",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9f5519734d5b2239f4bfbe063a1e4836732c38f3c8f84562188f795b5cf94a47",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0addd2dae251fd75a176",
+    "factor_id": "R01",
+    "id": "W-43c18278e64a8e06",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "43c18278e64a8e06a913858d26a844fa4a7c97b202e4723c19b313b8782cc1c9",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d722f8c487231acd8859",
+    "factor_id": "R01",
+    "id": "W-600dc55ba0ba430e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "600dc55ba0ba430edf7781a1596e0e0dbbfa862a12ec4e1ccbf25fabc370f41c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-252e5b97d35c5c76bce3",
+    "factor_id": "R02",
+    "id": "W-31fc64342c0eed5f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "31fc64342c0eed5f8891e1e933ac2bf634275968f64b0476e19199234588335f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ef54053757e8921f153f",
+    "factor_id": "R02",
+    "id": "W-5799b2e5cea8b5ca",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5799b2e5cea8b5cac86c900558349f5f4bf7c7a00169c6a6ad24f6fbdc0dc8a0",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d08dac52ba9aa42e97dd",
+    "factor_id": "R02",
+    "id": "W-4e103324d32f1199",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4e103324d32f1199e97f047962fefcc3f699269e678d59a8ad110944e58d856e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0ad7eb002e781e2c2972",
+    "factor_id": "R03",
+    "id": "W-7d53e1f12eeb86bd",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7d53e1f12eeb86bdad25988b84f130955ee1f7ccf16d5f4130657df2d929a966",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f979a1f3796d6ec1ce3e",
+    "factor_id": "R03",
+    "id": "W-eea21d12a0b33e14",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "eea21d12a0b33e14bd3bcd1f97c3d95c841fa64e7328db555c117441c91ee330",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c1e687f321b4bfb3a8b1",
+    "factor_id": "R03",
+    "id": "W-cc50dde22f701e4b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "cc50dde22f701e4b6b75f497a468338a2aec09390fdda196d68bc80d57c7040c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-435205b28b08602d4fdf",
+    "factor_id": "R03",
+    "id": "W-ba0cde55e24b598c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ba0cde55e24b598cac54b60f966b382c1375868e8ee03d910028421d4750c4a9",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-71935a1cb5b1e551a904",
+    "factor_id": "R04",
+    "id": "W-6dfe63b93e44b2bb",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6dfe63b93e44b2bb83e5d7cb3dc6d5079bcc9a108f368ca10755de1b6f0c1d72",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9ca9da2e73b090e48ce3",
+    "factor_id": "R04",
+    "id": "W-e697bdc3911ec135",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e697bdc3911ec135e26177191bd327673c247dc977ca97be89f7fc9b16013a4a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6d99e772bdb584277928",
+    "factor_id": "R04",
+    "id": "W-822e3a596d9456b1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "822e3a596d9456b1e06ccaec3faaa09506fa024df34964ea937def69fac9444f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a8cddc0f5be2ee2e67d6",
+    "factor_id": "R04",
+    "id": "W-a2d7378a11ad2ce4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a2d7378a11ad2ce46fd02bd660cdd6a5abdfaa8d735301e7ecaebd5e09df2ac0",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f509326d59bc91cdc631",
+    "factor_id": "R04",
+    "id": "W-6db8874d6c82fd98",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6db8874d6c82fd98cb254fbc2a3bb5ab72c5d84551056d08ba744dcd9c933b1e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4906469d10fe6d43d010",
+    "factor_id": "R06",
+    "id": "W-6e74caa597da7f00",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6e74caa597da7f001a0cdcc3547abf5cafdebf64fd1d470dfe99faeab114b757",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-74f335bc95a32f7d9e8b",
+    "factor_id": "R06",
+    "id": "W-37787ff3583373c1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "37787ff3583373c1d59186212c47af529b6b7bb91765fc378aacc6a54aa8a950",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-8d5210869ecc45a8ff65",
+    "factor_id": "R10",
+    "id": "W-43350baa12d67694",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "43350baa12d67694be2b88ddeae9bf54757d75bb4aa3f7b1974bf905ad334f46",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5f5b28a4e65ce82feead",
+    "factor_id": "R14",
+    "id": "W-0ff3b81a4c21c81c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0ff3b81a4c21c81c5257ba7931270a0b588f6afc5b1aaa6a3159abcf915f9905",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9ba8700154e69b174b38",
+    "factor_id": "R19",
+    "id": "W-0662523ae3ff8eea",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0662523ae3ff8eea8e7b283774a28f1d1733326cab696894eb4ca64879881b25",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f5fff08de85fdf226e4b",
+    "factor_id": "R01",
+    "id": "W-818009b07627f0b5",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "818009b07627f0b5208fed096b16c261b3c4e9f4fb2b706edc964efa54d571a6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e2e03663c257f7fd75d3",
+    "factor_id": "R01",
+    "id": "W-417263c7c855c080",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "417263c7c855c080c82d3ff9de7b074a28c3e705a53514ac26d630040983938b",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-11386ddb4ace54fbdc1d",
+    "factor_id": "R02",
+    "id": "W-2dd36699be44c041",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2dd36699be44c0413b7ab0e4df0d074fb9059d3cb6fd5807d7502c2ec6caf22e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-80eef66d7e1c048abf39",
+    "factor_id": "R02",
+    "id": "W-d1855d297499a0f8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d1855d297499a0f87c996a3a111d16b4969a369ae12b013729d3bc3c9098e1d6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-79c0d71656cf886ed32b",
+    "factor_id": "R02",
+    "id": "W-c3430e7a3b85500b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c3430e7a3b85500b46d6245646a18530249c75bed2ae1d74ebc3547fc37912b4",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4f482042fc056ec44fc3",
+    "factor_id": "R03",
+    "id": "W-be4b94747531a870",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "be4b94747531a870a73d521409f0dabdfd2a46f5fef4700d86cbd0a5a3a70f47",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e051233efe645f05bc68",
+    "factor_id": "R03",
+    "id": "W-d49012f383eabd9f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d49012f383eabd9f917a6b1c68c8df12a230ecf6e223bd4e2143225c1d4f83d1",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-1d0a8e17068086682617",
+    "factor_id": "R03",
+    "id": "W-f77b8affacc57f25",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f77b8affacc57f2520b1f3a7e87d3f81f62ac3d6101b95c3adc9ec995f76f711",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-75e2e0bc0d6027a6b2be",
+    "factor_id": "R03",
+    "id": "W-149a7fbcef03ad36",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "149a7fbcef03ad36329e41d25d2c518d7c33d7f577abccc33a53eaefd9fb9259",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-02f07eaf8005dddcdfa6",
+    "factor_id": "R04",
+    "id": "W-e745f33c948c4b12",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e745f33c948c4b124e7bb48626cd4b17a57194eea6f77f9a4ffc1a7f29bd228c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-132e5d41de94d8aaff7d",
+    "factor_id": "R04",
+    "id": "W-616b009b4c302ac1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "616b009b4c302ac1e89d5f1ee7555e12f1ac500942b0e9c66d42c5fd3330e174",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-68457fa026fa4b58786f",
+    "factor_id": "R04",
+    "id": "W-66ed9f123deba3d4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "66ed9f123deba3d4764e868813d8d485c3b1022929508cf4dbf093b8e899ef30",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-0b08b2ca9f98567e9579",
+    "factor_id": "R04",
+    "id": "W-dd69002a7694c503",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "dd69002a7694c5036259abd3ed972595f315ebd1538a046bd6b492577480c171",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5fe0e18c395218447e53",
+    "factor_id": "R04",
+    "id": "W-ff1917c7c76375c1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ff1917c7c76375c1efd42af4c7d136250297f59a8fd440c1b7679ff00928cff1",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0639f03b284a3d498faf",
+    "factor_id": "R06",
+    "id": "W-7a9f8acb9458979d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7a9f8acb9458979d37b19fdf2d3ee483a83469876b61b1cc77ccdf2411adce64",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1ae9abea476223e0d514",
+    "factor_id": "R06",
+    "id": "W-4edcc4ee22c4a97c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4edcc4ee22c4a97c406cb8d6993c2125a9ff8370cb1965ef7abaf939f1216c82",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-bac4aad87a7184ecbef4",
+    "factor_id": "R10",
+    "id": "W-fce8f868014db43f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "fce8f868014db43f3b56afd8cdea98c78bd61f77b7fdce0050e77b31e00dd0bd",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fc070f7c25e829650a2c",
+    "factor_id": "R14",
+    "id": "W-996fa11daa926cd1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "996fa11daa926cd18d3a5a96fa3b55d002303f5df9e1591c7ad6b248bbe1ec8e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e1afa7ff59e2b7a06626",
+    "factor_id": "R19",
+    "id": "W-79ca6ec761b09921",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "79ca6ec761b09921c2eb3c8f21fb40b4009856387fcc5948f4a9fb35a1c0a0de",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-62cb102a05278610565d",
+    "factor_id": "K03",
+    "id": "W-6412447ca64ef6d7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6412447ca64ef6d731f3a4cda89b2f0669c360abb25f4c7ae71a8bce6cde52b9",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a200c5c240a36583e62e",
+    "factor_id": "K04",
+    "id": "W-c20b836c9f3bc234",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c20b836c9f3bc2341dc7fe9f7d4246ec4a9406703e1b800f3eff92148292f707",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b5b72880a82c7c178bfd",
+    "factor_id": "K06",
+    "id": "W-e6885f2fdb0ef6d0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e6885f2fdb0ef6d0ed0aeaae2458f10e00b654827a63496ac3c6b6168377f759",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2804b85547a20f7499fc",
+    "factor_id": "K03",
+    "id": "W-69c58b88a0c835b3",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "69c58b88a0c835b308a9706941a34493afcbb949d4edf1be18132dffcc93b030",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "K04",
+    "id": "W-23c1353b4cb24ef8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "23c1353b4cb24ef82245bc9e54e5496d9582898e65c409ce79bbfc014dc1b6c3",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-52a5e518746974aff27d",
+    "factor_id": "K06",
+    "id": "W-f1d588a777000df8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f1d588a777000df8fa318a29f2f6a85874839a309feea2ea9227aaa669157548",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-245d13c97f4b94e35890",
+    "factor_id": "K03",
+    "id": "W-1c99ce6b1307477c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1c99ce6b1307477c9e7e0cf2e859a218378e6f36b60e30527304ae208c297076",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "K04",
+    "id": "W-e153231b6f93e5e2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e153231b6f93e5e2804094569ce1dd160552c0376d071d7e0d1dce0369f01984",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-43f548263c70f9b2f135",
+    "factor_id": "K06",
+    "id": "W-c8ac5e9c44f79855",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c8ac5e9c44f798555d9abcb27b5f1c42383b9f8312fdeff50551838e9ac89391",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-54c9c1f289d2493eee4b",
+    "factor_id": "C01",
+    "id": "W-35eeb4add0a80a93",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "35eeb4add0a80a93694c5c525cba6cc4350197430a6410318ca09de75adb9041",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ab4d1808671fe55e314d",
+    "factor_id": "C02",
+    "id": "W-03ae023f0bff1fec",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "03ae023f0bff1feca386affa3960431b23b749a79cf74f35f20b4098c15d2d02",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2378a3f8a79d525edbce",
+    "factor_id": "C03",
+    "id": "W-0dc3dde2ca4e0a25",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0dc3dde2ca4e0a2569062793d441a9e3a7644e1c97d771e0e1e399b473716587",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6924d1fa43aaa9766b96",
+    "factor_id": "C05",
+    "id": "W-6d0b8633a839b177",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6d0b8633a839b177e6ccea0f9444906ae2bf8e88acf168f97655906b745a8609",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ccaadd14ebc9e9edc4d9",
+    "factor_id": "C06",
+    "id": "W-85749b049d43b024",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "85749b049d43b0240383fe81b8d1ef341a5913451dd1b3a1bf3780e336a570a5",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e86e6fff4640125cc4dc",
+    "factor_id": "C15",
+    "id": "W-7c33ca0f3fd02e45",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7c33ca0f3fd02e459f4ec414221a5c104fa5a45ff3d1c08e251b54e8baead7e7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6df5b60d87a67f761a8b",
+    "factor_id": "C15",
+    "id": "W-13f1ea81877ec0ab",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "13f1ea81877ec0ab2cbe467f7ff2fb286a935f54a8a879a954ad8ebe3ce0603a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-facf6f4c7f2f381132be",
+    "factor_id": "C04",
+    "id": "W-e7493ccbbd1605c6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e7493ccbbd1605c67d46254795201c6a4a0b6e5af056d7d49bc7faac3c200f39",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7d979d8fc4bb544dbc49",
+    "factor_id": "C08",
+    "id": "W-76b146a61754c6f6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "76b146a61754c6f6b49d76d0261c79ba7e3d7a68e3404907075a5248b4d917c1",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7819e8b807496e263405",
+    "factor_id": "C08",
+    "id": "W-c4b65441a58f9075",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c4b65441a58f9075ef1f9a8c1f8bbe477c5fe6159c2351b8b2d97ebb5b6990ee",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "C09",
+    "id": "W-c8e057d5a9b9fdd0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c8e057d5a9b9fdd0242984d283ec37418590d7f7d3782318f41936124aa6c6cc",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-d9756453b1f9bd997a38",
+    "factor_id": "C09",
+    "id": "W-df9c681c7d4cf4c3",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "df9c681c7d4cf4c3c32ea9968c26dd91c6ad535da12258cb8cad77fa3f6e90be",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-76529acdcbe759e8bcab",
+    "factor_id": "C10",
+    "id": "W-6310f2815ed00706",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6310f2815ed007068c54bf1fdc4f923edbea0a794fee5574c6492de80378db76",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f96908ff12c1e106761e",
+    "factor_id": "C10",
+    "id": "W-766ec6a01850861d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "766ec6a01850861d74ee9eb908e0881ad29c9c4b8484eaaa736f805b04826ddb",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-dd2d040919ab3ed21d7e",
+    "factor_id": "C11",
+    "id": "W-276cae1502f99b96",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "276cae1502f99b961acf0d4fdaa99d7b57b617d57b715ecd4b07a9e1e1c4ebdd",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1ba196656dca95fc603f",
+    "factor_id": "C12",
+    "id": "W-9062f2b05b7a28e2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9062f2b05b7a28e218b1f99579870ea506f059da5d2c8b5fb31312380d08389c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-8fb7e72fcd73c8402e82",
+    "factor_id": "C13",
+    "id": "W-77d00142d3ab0a4c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "77d00142d3ab0a4c5dc05bdc068337f2d02926e3c66b29a640e83c8805afb432",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d2a8ccfa47fa9e5574a6",
+    "factor_id": "C14",
+    "id": "W-2ecad16fed0274fa",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2ecad16fed0274fadb63787aa0ed1a450d269c52391d9d3255e6d0841ea11cfc",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d7242ae53e0eff78fbf8",
+    "factor_id": "C14",
+    "id": "W-f3b605df5db0b003",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f3b605df5db0b003750cf3ad738640cb2b7c1d78904ef515e69c838a6c8265bc",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2c3e8d6d811f10e78510",
+    "factor_id": "C15",
+    "id": "W-e1ccbf1208d05d32",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e1ccbf1208d05d326be5a218e3548717a6909692d4cf2beff0605c514f4da448",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fe647dd92c93e5e1bed7",
+    "factor_id": "C01",
+    "id": "W-3cccfc687081c9b2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3cccfc687081c9b223e4e6a4b97c9a7e732223ad8a8c032294d79cf4adfa9baf",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-75bddb0260502a4b1ebe",
+    "factor_id": "C02",
+    "id": "W-d6dd05ad4e7a3ccf",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d6dd05ad4e7a3ccf315111de04343172b998813d11bf7a49b221b5960b77ceb6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-96bf900e3b90939cae10",
+    "factor_id": "C03",
+    "id": "W-10aeb32946f5c06e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "10aeb32946f5c06e3159ae640f8c9ee8bf9e551a02e68d2d6355cceb09eea2ed",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-842f26005e0c8126031d",
+    "factor_id": "C04",
+    "id": "W-ad099aaedf6a580f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ad099aaedf6a580fc6030b908ac4706fb5fa160f57179cc00df2f3fd7e36c67a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-78988cda93d28e705a26",
+    "factor_id": "C05",
+    "id": "W-ae2a23759248b28a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ae2a23759248b28a4dcb6dafaa0c995ab6dd4a9995a1de9bb05459b2692d6b16",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9062147cd1c2603a3d13",
+    "factor_id": "C06",
+    "id": "W-e4b4e817e7a22647",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e4b4e817e7a22647736171f31fc6ed520603d6d92fe952db3c416b4c28fe02f5",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-cc094d4020579f635330",
+    "factor_id": "C08",
+    "id": "W-39999cbf0cea4b67",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "39999cbf0cea4b67512d7488c60f33f576bd8922fa9d8a29a24b7cfc39593743",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2594d69feb50b8e17615",
+    "factor_id": "C08",
+    "id": "W-b86174b3bc8e5cfd",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b86174b3bc8e5cfd95aaad9f33a83c764723bed3eee643c0aa6dab89bfef090f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "C09",
+    "id": "W-2c9aa0c8005ca0a7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2c9aa0c8005ca0a7f981ef10e3df5abe0314a0451bd9f6d600c5a67391635216",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-69ce77641436129ca863",
+    "factor_id": "C09",
+    "id": "W-05cfab82b54cc57e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "05cfab82b54cc57ee1f7e7c5dcc8e01dfa29e7347a74ba45cb0595605e8dafb0",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-47df19b6a85eedd8cb73",
+    "factor_id": "C10",
+    "id": "W-78f38b51d23d0b74",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "78f38b51d23d0b7469837e80a81a4adae0cf8a0f8b2c004cc0e892a7320bc270",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b0ad2bff34232ed04f60",
+    "factor_id": "C10",
+    "id": "W-e0c533c8e0a934d6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e0c533c8e0a934d6b78884be2854f61a36b8170755fa7272c3345de63913dd83",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ef14a82753fde87fd712",
+    "factor_id": "C11",
+    "id": "W-dc6db203d46de947",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "dc6db203d46de947d79160e2728b99c4fa76348106248cd6148229b354c15c25",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ffc0858a468ea691e242",
+    "factor_id": "C12",
+    "id": "W-1eb5447d9ecc973c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1eb5447d9ecc973c60c1171cc4717879cf7f2ad4bb9bc305972df156671953f1",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-044fe84b413ec2995407",
+    "factor_id": "C13",
+    "id": "W-2825f97e2e1f4017",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2825f97e2e1f4017e276f24c891f0024ef7a6b5becee852dda7518d24a5bcbbd",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c62925e209583c63bd4c",
+    "factor_id": "C14",
+    "id": "W-772b76cef30f8fc9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "772b76cef30f8fc9a20a400bec278a3a4aad7579fe381f5c13260a9ab2532b20",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fbae23f7521dec8fa494",
+    "factor_id": "C14",
+    "id": "W-2b9a6453f79cc6f9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2b9a6453f79cc6f9c350936bb188e6fa05501c6b63f183517c20f4da0f709f15",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2db2b06b5971df056660",
+    "factor_id": "C15",
+    "id": "W-9d65cf2bd9759196",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9d65cf2bd9759196f26648e81f290ddbd881270a5fea65b6bad81e5217c3362f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-516a5e04969ac0bc2fa7",
+    "factor_id": "C15",
+    "id": "W-5afdcec0b92e9b9a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5afdcec0b92e9b9a9e6ff58b530b48e3a3cbe5933cfb669a0d6363f9daf9633e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2c9fad9d997cda90aff6",
+    "factor_id": "C15",
+    "id": "W-8fbbd42f64bae410",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "8fbbd42f64bae410033a69b1aa195826f6a40895783f28db2ce14c6cb5c19390",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-60cec6a2e1f3c6fbd24d",
+    "factor_id": "C01",
+    "id": "W-ccb8ee312cdef351",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ccb8ee312cdef3516312181ebd0d9e820557061909a7f42c378a17c10f6c4365",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-62fd082e3dc77e860483",
+    "factor_id": "C02",
+    "id": "W-973c85f7b7cacd7c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "973c85f7b7cacd7c295f6363e4546a06a837864b5da53d8b39389e2beef91f47",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-32c40ea045fa0127248d",
+    "factor_id": "C03",
+    "id": "W-26a5d4b2ef3a09fa",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "26a5d4b2ef3a09fa7a018cf81c4ee3144ae4c849e19c61f0f8795f55b83b7642",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-50e23e7e6fa6289598ad",
+    "factor_id": "C04",
+    "id": "W-41516115c16f7945",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "41516115c16f7945bec323448ec922fc0137011159c6d9a43575fcf61a991bc6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-123d31e3fb3bb20445ad",
+    "factor_id": "C05",
+    "id": "W-b450ab10f38ac50f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b450ab10f38ac50f8cd22a73c85688fd227750b63b6431b9ab016d546f5a3f38",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9c903a859d903759ee82",
+    "factor_id": "C06",
+    "id": "W-752243341e7987df",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "752243341e7987df31f6be3de790540d60cef3ec15aff18f33157d126176b17d",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9a376eecf4678c9215ef",
+    "factor_id": "C08",
+    "id": "W-702861f6654b2ad1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "702861f6654b2ad194bce369d8d2c4029f7bcbcb177df126591b68b457f76dae",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-99bc94d6f459d82d8cb2",
+    "factor_id": "C08",
+    "id": "W-a34294eee1d77a4c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a34294eee1d77a4ce3422977f7d7a2be7c7489d656345e84d5efb3c3df0643c7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a06e630fc09969dd78f8",
+    "factor_id": "C09",
+    "id": "W-6c977ec323ee1b76",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6c977ec323ee1b7679ebf11c4bc4ee7c5e27373999d1a4d6d939ee8145e77a76",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-75eaa00ae12a5049e21d",
+    "factor_id": "C09",
+    "id": "W-1630409e288db09e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1630409e288db09e2dedf51d2568edf2ecbcc1a4671013a3a3f1ddef3bef2f39",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e539fad37bfab33c5e90",
+    "factor_id": "C10",
+    "id": "W-509bf373037dd6e4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "509bf373037dd6e4b38d6f189101e371ee75a0cac25219ba3977bf839a35965b",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-8e396ca57b7f61f3a9f2",
+    "factor_id": "C10",
+    "id": "W-5aa151b4bf9acda8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5aa151b4bf9acda8e9857465513b66a9d90ccb8ab1f5d77f74433653c76a7e0f",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-4b41866c087c585748db",
+    "factor_id": "C11",
+    "id": "W-88ea1499ab499b03",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "88ea1499ab499b03415a9e24511782f3166c993978514c45e6ae8b40fa952c47",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-49ee187ea1faa26d1d19",
+    "factor_id": "C12",
+    "id": "W-e70af62428e98b08",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e70af62428e98b0865358221263d042bb83e474bcbe5c97fd9d97507c2dd5eae",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-76ddbb0d026abc95e911",
+    "factor_id": "C13",
+    "id": "W-96468bdf5b944714",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "96468bdf5b944714f242ab56432be20b7eb582256279c1974d2f7e5c458b5a3f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b200190cd89a2b2a41c4",
+    "factor_id": "C14",
+    "id": "W-bc9b4d9c7120dbf4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bc9b4d9c7120dbf486baaa6aa2d8b6f564f717508fd69ba9a6d2befbd9acb860",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4e1b212bb3d9737a1d34",
+    "factor_id": "C14",
+    "id": "W-1b5ff7a26961f912",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1b5ff7a26961f9123c7ef76ef2b621af6b8bf1a57d0caba8c8e3ec6f2a49933d",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5e78f9160bdf3b03a177",
+    "factor_id": "C15",
+    "id": "W-dceb7d8725626b47",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "dceb7d8725626b47dd44bd752be2ee7238e5e2bef938f307b3ff8d0ee43f19c7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-097074f029ba5c8c79c3",
+    "factor_id": "C15",
+    "id": "W-2d4606b610c39fc2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2d4606b610c39fc225284ccf0b29c15d1ba586ded853f31237423aa0fdf4a896",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c9f97abbfd1a06aece29",
+    "factor_id": "C15",
+    "id": "W-336195fdea5edd15",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "336195fdea5edd150c6fddf1c89a125860d81474005c89f5ec53c715be197c63",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-aeda02dbb668c945905c",
+    "factor_id": "C16",
+    "id": "W-ada7d2616faad272",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ada7d2616faad272e8d5da73f8264750490512338036bced0d28805e9ceb946a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-602e28aa1ef11e6327c9",
+    "factor_id": "C16",
+    "id": "W-52f3e2c014af3048",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "52f3e2c014af3048c87631c5358b067fe1195d21089a2d95700837be7150c280",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-3dc281ae51c34f38e0b4",
+    "factor_id": "C17",
+    "id": "W-32014a44b7c42fbc",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "32014a44b7c42fbc69fa4670409ada7233ec4cc83b97c343b5e5b945d0f959d4",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0dde041105eb7affdd81",
+    "factor_id": "C17",
+    "id": "W-887f90746d57389a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "887f90746d57389aa56021a2b6705b575b3ff90032cbcf7bf101f5777a5bb8e6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-3d07597bb4a97fecaec8",
+    "factor_id": "C18",
+    "id": "W-d98d66fe6ebdffc1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d98d66fe6ebdffc1551ba4a09d1e364258f3c0ed13fb0c4c6295ffcc88f07969",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-2e1860757e2916d6fcff",
+    "factor_id": "C09",
+    "id": "W-3435c842ec48e7cb",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3435c842ec48e7cb231b709dae6d5631f4a8432e265650dd186349cafbfd8d16",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a8b0b3b540e2b38a864a",
+    "factor_id": "C15",
+    "id": "W-593addea3a45c4fa",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "593addea3a45c4fa1700cb357179821ce53a88af641fa86978c02c262848444e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-184d7e983fb62df75178",
+    "factor_id": "C16",
+    "id": "W-db1c61d7a368802c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "db1c61d7a368802c7ec87acc63ec37c88ea577e0de42cdf0601269f76693d6db",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-83935f9040ea44f97cfa",
+    "factor_id": "C16",
+    "id": "W-79316550fc0c9660",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "79316550fc0c966041e22b273e71c6234791bb66982ce4f791ba3355860c45e0",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6e826c592402390633c3",
+    "factor_id": "C17",
+    "id": "W-a1b1ed297e7153dd",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a1b1ed297e7153dddbd6323a01f6e0542ca6a2908f92e989c121c039689037cc",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5d8fbe2a68a7b4aa02d0",
+    "factor_id": "C17",
+    "id": "W-56297c2da920e0ee",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "56297c2da920e0eedc50d7408d5bb16e6e0d335b7f919ca5643ca732136c164b",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c8798d90457d71bb7682",
+    "factor_id": "C18",
+    "id": "W-65239837213f0020",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "65239837213f0020f0f846a3706eaac2a855ca9f0295c2d2340fb43f35e07a73",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-45fe8bfb578d9aeee029",
+    "factor_id": "C09",
+    "id": "W-dfe3c3f757870968",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "dfe3c3f757870968526053e7049080fad57de6c1e515f26f0a3ad274ab377a69",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4eeaefb011f1c97192d4",
+    "factor_id": "C16",
+    "id": "W-74ede3c60833de7f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "74ede3c60833de7f7b2cc5d15e5b40b5cede49addf348a03118f3baf8ef333d9",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6e8ddb3eb116e0cc960d",
+    "factor_id": "C16",
+    "id": "W-a42167a26743c16c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a42167a26743c16c5ebe0578a6f860b8dfaeddcf90c41e1e4a0aa4cd12151935",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fb080c78ceab56b04fad",
+    "factor_id": "C17",
+    "id": "W-58189eccfbf0bf38",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "58189eccfbf0bf38704fb3ba46b1b3f9e58e14993652891051028efaa2aefcbe",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4f69f1de31cd05dfa1a4",
+    "factor_id": "C17",
+    "id": "W-9e1c27e7bcccbe10",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9e1c27e7bcccbe109bf826a713027902717e19551536c4110aef5a7d58db4a4f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6fa8724a937d17175f2e",
+    "factor_id": "C18",
+    "id": "W-c2bc69b1ba85994c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c2bc69b1ba85994c982fdfe5db52e35e5c668afca5788695d966516f848e2f90",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c3c8b136541b3aad7393",
+    "factor_id": "M02",
+    "id": "W-63c3f4e8deb25102",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "63c3f4e8deb25102ef9a98f0634f18eed512f5ccf593701ae04f589a66ee9617",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fa7147696be91e20dcbe",
+    "factor_id": "M02",
+    "id": "W-5df235109b7f6321",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5df235109b7f6321de89c5c4b5eea87f21d0dc59b43f0009f533889859ad131c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9e20ac4f7107e210abf4",
+    "factor_id": "M06",
+    "id": "W-4709e10db767a1c4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4709e10db767a1c442007911076870c7cbb2d2a2ecfc1634cd8067cdea982b0b",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0e280f0a2352fea57588",
+    "factor_id": "M02",
+    "id": "W-ec2483b8d76ea05e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ec2483b8d76ea05ebd62e5f676763a909e90a2da397ebd6d193e897369444055",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2b78f88f45ab03c60810",
+    "factor_id": "M02",
+    "id": "W-6a3c99d5e951b695",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6a3c99d5e951b695cc8fb67b84483fdd6cb6663f382fe72c652e1f59ba77a748",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b4a6d5837c6999efba0d",
+    "factor_id": "M06",
+    "id": "W-00111c82a0e577a7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "00111c82a0e577a73146d47d4b964904a363cf47626799c50576203d6333381f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2f0e23df8696c5e91c48",
+    "factor_id": "M02",
+    "id": "W-ad695add32d62939",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ad695add32d6293960336bac11bc6ed8a664d77961c79a1efe2902b0f63d96b5",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-dc1ae21055fd77c4f30d",
+    "factor_id": "M02",
+    "id": "W-d69b0e0e80ce2152",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d69b0e0e80ce21528eb40522088a3b9ff5949033b7ddc4801136d8716f932d32",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-28347eee1f63b398230a",
+    "factor_id": "M06",
+    "id": "W-2eaa2da38174c063",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2eaa2da38174c0637d921d5a08c96a1e60dcd62fb49bdf4fcdfcf90396828757",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1bec61e14a96eed70075",
+    "factor_id": "R03",
+    "id": "W-b0b3d7c03d2e3bcf",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b0b3d7c03d2e3bcf58a114e24f185969285c037a819b887a46758b0280f68068",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-f0088fd006b8fd977f99",
+    "factor_id": "R04",
+    "id": "W-d0a14ce553fff2a2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d0a14ce553fff2a23165418f8c0831ecdacb3a9be99bea7bc62fde2cd57b017e",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-97028b7aef1a9bf6fd1b",
+    "factor_id": "K03",
+    "id": "W-2cf52455ae29aa3b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2cf52455ae29aa3b55ffb50cc1eb3e4fbea7a5fc7e7e52fa41855c8706c8238a",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-83a557bfdd78d028d5f0",
+    "factor_id": "K04",
+    "id": "W-28663de4e0ff95fa",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "28663de4e0ff95fa7b4aab82b06a7873843f00e72acc8c46dd441a928b7314d8",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5b23d71f934814203979",
+    "factor_id": "K04",
+    "id": "W-c2732a5b94b2d54a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c2732a5b94b2d54a6371a5c99742e53393ea2eb4b5ba11b524e7bbcd5d1c3119",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e9f6b95030b78f42bf99",
+    "factor_id": "R12",
+    "id": "W-b10a8dc66cc4c9d0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b10a8dc66cc4c9d00b81e6bdbdde1e1c692afd11d63bbe146396bd50031ee926",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-aa6b8e85f3e0621c54b0",
+    "factor_id": "R12",
+    "id": "W-29d54f418af1f331",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "29d54f418af1f3315292a9a31782600174d7db9e7cbff013808f593dc2335474",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-60c04ce6141e80002ad4",
+    "factor_id": "R12",
+    "id": "W-9c8f93c45e489a0d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9c8f93c45e489a0dee7c5fabc9b8e2577aa48b75122702e29630fdf3539cfd65",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e2238f64473e0e4d2c93",
+    "factor_id": "I01",
+    "id": "W-f2e29bf1477c52f8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f2e29bf1477c52f8fbe1f319e9a817b4301ebd80262394377c4ad8f3d2c27724",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b0f72f931a0f006c7f1e",
+    "factor_id": "I01",
+    "id": "W-0085bdc69f0ca1c6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0085bdc69f0ca1c6dc2027eab7bcc03507f8b4719afdea5aa0940d4e9efb5b56",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-47a26864d7c309680c64",
+    "factor_id": "I01",
+    "id": "W-6a194e0f30c6689d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6a194e0f30c6689d8ec885f8652f0ab0b280c11d3ae8a8ebd907576c38ad251a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-dec5b0e81bd0554aab16",
+    "factor_id": "I01",
+    "id": "W-85beed421531c36e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "85beed421531c36ef5493e964d70b9202f175f30b3ae52764debe42be87eed45",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-bfef91a3b935578af250",
+    "factor_id": "I01",
+    "id": "W-c0e20e2ea7ecdadc",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c0e20e2ea7ecdadc8b261fbbfe86e5632cd92a07318495e18202a0bd40fea318",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4f837588949de11f4165",
+    "factor_id": "I01",
+    "id": "W-6abd668a81cf505f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6abd668a81cf505fda2ac7f49b88eee5a1256afdda96040932904f6a3064b43e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-cfd5146d112f57f69bd0",
+    "factor_id": "R18",
+    "id": "W-f7556e4f129c33d9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f7556e4f129c33d96d9946a54e07743e65a5eb40d869ebd3d414aa25b6ebfa94",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-858cb9c0a1239dd7b041",
+    "factor_id": "R18",
+    "id": "W-b373b9a365e293e9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b373b9a365e293e96b1ee23d8bfb0905e209a9cceff97d556024cc468946fbff",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-221bbaebac83f3523c2c",
+    "factor_id": "R18",
+    "id": "W-b9de97ca008cdbde",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b9de97ca008cdbdef54bad6fdc2d0ad43b686418321a7aaebe44cac7efc49691",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-137aac4d2ad743dcec70",
+    "factor_id": "R20",
+    "id": "W-f9536073e06040f0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f9536073e06040f0ff26f34e0fa1e5e8eaf672f9e9e72cf80c213725f686d436",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b963f5b5967e3e1f2fe4",
+    "factor_id": "R05",
+    "id": "W-bf4c2da1492d1cb9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bf4c2da1492d1cb9b5f4529b063b488ee4e5b90c75cb5caf5c823a3fee473d77",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6a3317baf08620ddb7ed",
+    "factor_id": "R05",
+    "id": "W-bba57f9cdfeec5c5",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bba57f9cdfeec5c5c87e18f9de6562169e14b4a5828731e453c5f6543518c152",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-bb95b6783cf6a1381afc",
+    "factor_id": "R05",
+    "id": "W-7f263db53ce9a31e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7f263db53ce9a31e67e3ee15f6af0a52996caa43564c523e4502b992a7d0d5a3",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e8381f970f1ac60c7afa",
+    "factor_id": "R05",
+    "id": "W-e21cc188a17867de",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e21cc188a17867de54e3ed1e0a6d127b437d7cbab27174c43c2d969b01a509e7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c9844439d0ba5f112e09",
+    "factor_id": "R05",
+    "id": "W-55873a4587f4decf",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "55873a4587f4decf3f3745c388d67c8f716f8303a9849175acd0a8cf524b0b11",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7ea9a299c25f28c2fd7b",
+    "factor_id": "R05",
+    "id": "W-72251dc9161dd7bb",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "72251dc9161dd7bbbcaa57ad0f9553476f7fd9ddada0a0cbd4a33b27d1ba7f1b",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d535c9785ffcd347963e",
+    "factor_id": "R05",
+    "id": "W-4ec169597ee49395",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4ec169597ee493954f856b48dbbb1cce6a534c65f45810e84174f313a8c1fa5e",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": "audit-dfdff312bec0a06c732f",
+    "factor_id": "R20",
+    "id": "W-5d69a6fd1aa82154",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5d69a6fd1aa82154077fcd2d85bbf3fba6c7b75b1386cd442391bd3f357a0a2c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4561794975c45911355a",
+    "factor_id": "R20",
+    "id": "W-7410eeb5b67d5ba2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7410eeb5b67d5ba2dada5180a208f04ea1b3efc68aea3b424876024c3e2769ea",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fe1c34f9627f3ab13ccc",
+    "factor_id": "R21",
+    "id": "W-85dcb72c807db861",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "85dcb72c807db86144c0eaf9688b7d67bf307a6fba1d47fa6716ebe10da45f74",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ee3fb10d56bb28c98b91",
+    "factor_id": "R05",
+    "id": "W-37f814cf5ff9f107",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "37f814cf5ff9f107152fd81e9d4d2f2e49e594fb24754eed3a89394d2d97f204",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-117c3a49647e468b1c2a",
+    "factor_id": "R21",
+    "id": "W-cff913f0c1c9b45b",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "cff913f0c1c9b45b29f1c1fc14d01b6658355520b7d72a1de63721742bf2d337",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f1b8e697aab66a5683f3",
+    "factor_id": "R21",
+    "id": "W-483086aa2b990e71",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "483086aa2b990e7188883add921f8b22740dd0aa9b3c3a09d476befb158f844b",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4e1602c3f35cd9033bc0",
+    "factor_id": "R20",
+    "id": "W-491d4aebece2db71",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "491d4aebece2db7117e9e02d9b0065beb54ebfbaf8c222ec3c9d4fbe21bc23b5",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-548380c1444fc548ec46",
+    "factor_id": "R20",
+    "id": "W-e2525034bed6d6d4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e2525034bed6d6d4d6fb1d02a4d967af5e45e23265f159461b9f2acc38bcc9e2",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-80350e052649ab1cb37e",
+    "factor_id": "R20",
+    "id": "W-29797bed90ff2439",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "29797bed90ff24392428c18f1e43f50a70dc710a68013e4696533691767e0503",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0422ae79ab0d1281a29b",
+    "factor_id": "R21",
+    "id": "W-d6310166c9f76b2d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d6310166c9f76b2dcaf9ad4294166ced2e1b5e22cea45ea7fb244319d7083ce2",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-fe1ff7d870c7260f4823",
+    "factor_id": "R21",
+    "id": "W-6ac857f36538125d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "6ac857f36538125d7655c840bfa1ab9b39d05e49e8878e2222975941bf9de093",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c0cede606640535e1b36",
+    "factor_id": "R21",
+    "id": "W-a9382155ea8e7d6e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a9382155ea8e7d6e1766cc2bb5a70e4402378e3cb81da1fa84ee22578a03dbdb",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d671c81c6652fe6442ee",
+    "factor_id": "R20",
+    "id": "W-58d18a579a184d03",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "58d18a579a184d0340a8b27d127e6b4df443eb77dc741c361685d28dd5815196",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-801fe2090d4665e904be",
+    "factor_id": "R20",
+    "id": "W-9607fff0333db4cf",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9607fff0333db4cf07089f7d4a845ff1521e31f9bfde941b8d0bb6a295b11c94",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-60e6ca5883fd80b09c9d",
+    "factor_id": "R20",
+    "id": "W-148d4517222862e8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "148d4517222862e84afc21fe16bc60c44685792470a6bc109d41085eb962a743",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-707364339aaa8c00e596",
+    "factor_id": "R21",
+    "id": "W-587a5fa0f6f8207a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "587a5fa0f6f8207a27872c7d2aa802ea6099d880f1884bb0e7f79270bcd83b4a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1cc1f56bc740fe9220f3",
+    "factor_id": "R21",
+    "id": "W-0eaabfe081b38752",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0eaabfe081b38752f9b347e2f24155c818b8994b196f684f6612bfe98aa1448f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-aebe02366d861263f27a",
+    "factor_id": "R21",
+    "id": "W-1c249face678b1de",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1c249face678b1de7a14dccc658d2f7fad48fa36717d65de345f00183e153e09",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4380d20626bf9431fb13",
+    "factor_id": "M03",
+    "id": "W-28cbfed06e2120b9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "28cbfed06e2120b9d857b6d13f96d25138a7240c55121ef5a731c6e235ef2f37",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-13dd3428ed47ffaa776f",
+    "factor_id": "M03",
+    "id": "W-b25156f3427be3b7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b25156f3427be3b73b7438f69889c817ebac05d85f19337d8d62ab87f9f7e83e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1f7768df45758e8ba214",
+    "factor_id": "M04",
+    "id": "W-bac9d173dbd5fe5a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bac9d173dbd5fe5a2fa451a3367d13e4528bd93b9a770d27d66cd62934f40ddb",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9e5d595e932b26b3c75f",
+    "factor_id": "M04",
+    "id": "W-ed83b240e25a1e68",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ed83b240e25a1e6870e5625d338c6b146a0953200403a4bf9e3d83d4a901f3c3",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-bd2d9b01a9eb54399710",
+    "factor_id": "M05",
+    "id": "W-32a636bc41453ca1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "32a636bc41453ca1679ecaa2aae1a6fec09ae44d3d6f7a397a9cf9daece556ed",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7d1fbb24bcd6caac9b5f",
+    "factor_id": "M05",
+    "id": "W-5dc5bd44e50a8065",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5dc5bd44e50a80652ba0976b7a73a53d6e2b40e279ff59b9ff1783b8ffdd0e3f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a5a921e0333f3c3df73b",
+    "factor_id": "M06",
+    "id": "W-830262f217f96fe2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "830262f217f96fe260d210205a2b1dcc11663b28b3d80c1e2cf2cfa30dc35d93",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b5d82566c260874998f1",
+    "factor_id": "M03",
+    "id": "W-f64fa6eb808222ac",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f64fa6eb808222ace03d89c099578587fc93d19c15705193a953eef5662dd916",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1f009508614e4bb1d60d",
+    "factor_id": "M03",
+    "id": "W-da43e3ad3009eabe",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "da43e3ad3009eabe5081ee358cf925805c4cd3c31a0fa25184dc0826c7819e66",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1d6ef4181896ba523ea9",
+    "factor_id": "M04",
+    "id": "W-c2f2615f4adbb428",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c2f2615f4adbb428fbf402e1cf49b8af6e91144e9a9f6bc744e763738731af7e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2e27c7c1d6542444f865",
+    "factor_id": "M04",
+    "id": "W-c6fb58665168ca8e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c6fb58665168ca8eecbd66dc8772740c068ff329c0561d1590074152fa478b0c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-545fdee01f7bd79084d2",
+    "factor_id": "M05",
+    "id": "W-7964829e0384a7f8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7964829e0384a7f883d6daf67f56db32728737dec22fc84a84647ad00c10c840",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-bfdc34cc745d2af5803d",
+    "factor_id": "M05",
+    "id": "W-d9c4ce6ee81f79ff",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d9c4ce6ee81f79ff97c7ab1a54f7f491fdc7e03f03fbf726a27522bda4fcfecc",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-dbd17bc5894a63cf7896",
+    "factor_id": "M06",
+    "id": "W-e8a8e2db45c39154",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e8a8e2db45c39154dd378d4d26bd5d7e753a2a5eca3d8dfaff410c6f7a560f2a",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a0a3c7d5546331992cd5",
+    "factor_id": "M03",
+    "id": "W-1174ba57953e5e6a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1174ba57953e5e6af50439de8d458f3f6aad941fde207f5e98f25060138bee81",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-78b26445673c362395c5",
+    "factor_id": "M03",
+    "id": "W-379ae1b88354a193",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "379ae1b88354a193e3f293235cd03d861c22d5d6409d985e259e28e8c22dda84",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-010114fbb8b143792792",
+    "factor_id": "M04",
+    "id": "W-a90ffa9e1a639236",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a90ffa9e1a639236a0a8fcfddd5250d9f6ce3e7c16605d69c2637e7b08ec0911",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-18dc1be39488dec98ef8",
+    "factor_id": "M04",
+    "id": "W-b8b55e45feb4cf90",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b8b55e45feb4cf90e5c21b1fbda85536e866a224f3d75772a0188f871275d504",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-29ab749e6699957dd045",
+    "factor_id": "M05",
+    "id": "W-65458af577d6ff1e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "65458af577d6ff1eb7393afa82eb5d6127c82b940926ff4dfd5665db5f380336",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-3975fe134463bbf15085",
+    "factor_id": "M05",
+    "id": "W-cb3c9ee87b43a4af",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "cb3c9ee87b43a4af64be22f97739829046b5d55023042ffdb8ed717cf80066ef",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c02efa044688767d0f35",
+    "factor_id": "M06",
+    "id": "W-f842fa54102540d1",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f842fa54102540d18c2d091badd01d358996ce11435f803b92cd1877bab107c6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-76bd28c3368e61d7c96d",
+    "factor_id": "K03",
+    "id": "W-e4772fed05ea3af8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e4772fed05ea3af8b7593fe8f7a486d6d60571f43ad6ac7d26b56601e8a20e20",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-27819b91177b325e92d4",
+    "factor_id": "K03",
+    "id": "W-efa53693ca933b6a",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "efa53693ca933b6a29d23288c876c73754fc5a190d73fb8ed9fee790633cb7c7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-15357beaac0b3905a2ce",
+    "factor_id": "K01",
+    "id": "W-56077aaa68ea70bf",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "56077aaa68ea70bfb8e4f80aea76752fd8310e4263b98e55a909a882bdd07c17",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-1962b7915d289ed667aa",
+    "factor_id": "K01",
+    "id": "W-ba08f03eeffa4e95",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "ba08f03eeffa4e95f164f230f226a11179d2beb5acbee9fa978868467fe19127",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-652eef515a970abc8d51",
+    "factor_id": "K02",
+    "id": "W-a20f8d827ffb3403",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a20f8d827ffb340320f9d5786613b017c4f1e3d96e2efe733f2638a3c9e0be7f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b4f0a807daebe43f2edf",
+    "factor_id": "K02",
+    "id": "W-876f495b0f2b94a6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "876f495b0f2b94a6f7d0042d76a15b069d90e73edd0171fb30d4187fbdad9107",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-6812b5bedd6abb3e5370",
+    "factor_id": "C18",
+    "id": "W-076a3e7b923473dc",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "076a3e7b923473dcf818e3ec20917c56e1863dec20834316ee128c69db45c8d1",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-4ed8062b94ba0bc465fc",
+    "factor_id": "R07",
+    "id": "W-618254db2676dc23",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "618254db2676dc233d746e5dc196dc1a9c99969ad591ac7b75b9ae2fbbc23103",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7eba82c4d50b936a44be",
+    "factor_id": "R07",
+    "id": "W-7484a38b3887b0f7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "7484a38b3887b0f72e26cb8c9e558860697b9e6c572174ed9ba29892bf0f08f0",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-3a1684d472c223e0ee25",
+    "factor_id": "R07",
+    "id": "W-4df632d9ae696d6f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4df632d9ae696d6f76dc25aa69dbd8a4baaf8e1cf791f43a53f816c3da595550",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-676798415c6e36cc174a",
+    "factor_id": "R17",
+    "id": "W-c8640379f54ef55f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c8640379f54ef55f9190030f2c0211e1e5d48ce7d2596695c99307fb9ddfb116",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7e7065168ccf20c177ee",
+    "factor_id": "K05",
+    "id": "W-49b896a303d0a289",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "49b896a303d0a289d73fa3906a6b757d00f1f45d1fba7a56e290b5cc5b285191",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e53af2194be20b8e11da",
+    "factor_id": "R09",
+    "id": "W-941c396f3c3b2aa6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "941c396f3c3b2aa66e84debe9aacb2ddd3295a9c84841341cb92b9ef8964d7dd",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a87dcdb49004198d71ea",
+    "factor_id": "R13",
+    "id": "W-f00ebf70f3f24b79",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f00ebf70f3f24b7942baede86b3a669336c190c527ac77097266a13ee98dc0e2",
+    "status": "PARTIAL"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "C18",
+    "id": "W-715ee20140f9250f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "715ee20140f9250fb4b0d43112467976edf66fc36aaa340974cd9210ebc2f7a9",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-b43d241215ca8c84c3c2",
+    "factor_id": "S01",
+    "id": "W-e6c30b0c3d132b7c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e6c30b0c3d132b7c0985d734119610d17487dd77c6630b6edd13d4e7155b38da",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9dda8d7330e18ec39f99",
+    "factor_id": "S01",
+    "id": "W-feeaf759a9374ef0",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "feeaf759a9374ef08d4a7ba4e2242f559d51e7099cc02bea60356692096c377c",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9570ac8fc6dfdcbfd5ed",
+    "factor_id": "S01",
+    "id": "W-fb70e6377c5a43c8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "fb70e6377c5a43c816d75ff12e06860bcb80a8f11f9c6811111699c4bf610463",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c70de178e95e5c46203d",
+    "factor_id": "S01",
+    "id": "W-8d21684a71a2b7dc",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "8d21684a71a2b7dced93de358c50a5804484ea34d294c9f74cd834d82bd3a069",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-126955c25fb6d48bafda",
+    "factor_id": "S01",
+    "id": "W-b22710da8df8b0d2",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "b22710da8df8b0d29679b103949e81c149ef7065839f57da8ec5e0a9a1ef2697",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d13ee9846b467f35c111",
+    "factor_id": "M01",
+    "id": "W-09e8b9dce0c65b4f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "09e8b9dce0c65b4f703db67962037d41effaa2d482c153f14fbf8461e50bf143",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-533a182c21a814f353df",
+    "factor_id": "M01",
+    "id": "W-99bc0ba30ff0d499",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "99bc0ba30ff0d4994b72b5d0b5baa480b34524ba05a3caa44ab4715ef9c3f758",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-dd4c93920d9140826672",
+    "factor_id": "M01",
+    "id": "W-3ef3e17071ec7053",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3ef3e17071ec705354ab54e07ac03744f46625a49539087e37490d37089e50f7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "HBM01",
+    "id": "W-e8ec29bea4da9d17",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e8ec29bea4da9d17c0f893b098468a9e31eb3ec8ada66f0f83bdc8a91a9fbc47",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-073317d79e5f81a5397a",
+    "factor_id": "M08",
+    "id": "W-d8c21f2f189f943c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d8c21f2f189f943c5c13fbf1662eea44e3ca66dfae946cd14db73850e4fb4253",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c4e4303dd57570654c8d",
+    "factor_id": "M08",
+    "id": "W-8dad83ff5405d1a5",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "8dad83ff5405d1a550f64a6f42f4df633c94bbe86ea32b69df3832aca856aedf",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2e4467cc7d157b5b6514",
+    "factor_id": "HBM03",
+    "id": "W-2b20fc55f5616293",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2b20fc55f5616293f2a4c1359774f71c69c63b8660f884d0e86f96cd232cd27e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b54151035e698b08a11a",
+    "factor_id": "M13",
+    "id": "W-c5526c41929979eb",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "c5526c41929979eb0a4ae2304decbe3ea3f21e67dbb7065916849b8d356b0ac7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ac6a9384b8a613e965b6",
+    "factor_id": "M13",
+    "id": "W-9fe829f56fcccdda",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9fe829f56fcccddab94986dfaf250ba979d764e047285e3c598f4b98445386ac",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-a9dd3df6772fd11c5407",
+    "factor_id": "M09",
+    "id": "W-9e1045b653429a97",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9e1045b653429a971a9ad8ccc93c0f2dd9fa73f27c2104b9a66a996c09650241",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-7d4ff4b9c907940cedab",
+    "factor_id": "M09",
+    "id": "W-0b75ae7e4b8ee393",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0b75ae7e4b8ee39385bbb92c3de5c530783cc822bfc9aa52baabc05983376938",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-3a0b0ee463a9a6eaaab3",
+    "factor_id": "R13",
+    "id": "W-a5fa92dae5513c66",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "a5fa92dae5513c66b28d36922cd1651a58130c6ed2a5d3984a2bce13e8c33a59",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-345e544bf2d319c65ef4",
+    "factor_id": "R17",
+    "id": "W-bb5dd9977357f041",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bb5dd9977357f0410169455c7a13d67daac5cafbe9283a9f45b8e546d6850065",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-8788e59c2be22318680e",
+    "factor_id": "S01",
+    "id": "W-61928a1e59c63350",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "61928a1e59c6335019af37ba34d410a14f74e1b8e7c0aecda686bbe4dd49786e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-c7cd773e3f897f934e45",
+    "factor_id": "S01",
+    "id": "W-d2cd754fb8974673",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d2cd754fb89746731dabb761b31941dc8f2743704593a05904bee7ca1142b5eb",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f681d1b3ad53e12ab335",
+    "factor_id": "S01",
+    "id": "W-3ad0e39ad6636ced",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3ad0e39ad6636cedb670e93df33e6853334da6f88e601ec52f30253e9e3ed065",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-0c85f6a8fd53d28ec35e",
+    "factor_id": "HBM02",
+    "id": "W-346d46a94496cc91",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "346d46a94496cc919da27bbc16243ebd0fa4da47a057ad63834b21525bca0521",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-894272c69b792fd8736e",
+    "factor_id": "K05",
+    "id": "W-d681ca4623989f8e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d681ca4623989f8ed542a8b4bffb8811c375b2393ba96428eeb3bb932ca247fa",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "M01",
+    "id": "W-4cd52ff44238e320",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "4cd52ff44238e32079c9978afaa21efd948337393182447d422801665ba8bd84",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-151f6a81fc64695e7bea",
+    "factor_id": "M01",
+    "id": "W-2961321f47df2774",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2961321f47df277404da7caa8f63e55d9212c52fe787ea58d20c24c829587127",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d0331312fd441f9ff440",
+    "factor_id": "M01",
+    "id": "W-9fdd49fca7815f80",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9fdd49fca7815f806ace48ca3ee36cf8f791f32084aa174e321159eae7c3417f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-898de70e8475928c24a9",
+    "factor_id": "M07",
+    "id": "W-9fd8b834e4e47b94",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "9fd8b834e4e47b94caf680664c98a154131515ff3a6403d654fc8e995acfa7f6",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-91c6c7a4d3eed88eeb33",
+    "factor_id": "M07",
+    "id": "W-68de10fbf2f6b32c",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "68de10fbf2f6b32cda7dc97033e97a38eee46df46eb40570ea106e9eb6e408c7",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-e2e30ac7c1edebb0842f",
+    "factor_id": "HBM01",
+    "id": "W-5c14b6f40ac205d8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5c14b6f40ac205d8fe03da9bd94e152534ad97a57252f8d3aa459a5eba94c594",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d5be5aa0652c2a6fc19e",
+    "factor_id": "M08",
+    "id": "W-bf9ba97d273921a8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "bf9ba97d273921a85587d47751303fdd3691d6c39db2e47289c20d62ae7008c2",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-239a515081adff1727b1",
+    "factor_id": "M08",
+    "id": "W-08d974e4c055548f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "08d974e4c055548f9a2ccf35170d1f3fa33ccaa7610d4f3ef3bc96a7fadd776f",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-39ab6c81075e07c1190b",
+    "factor_id": "HBM03",
+    "id": "W-5fceca83fc2c6ec8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5fceca83fc2c6ec81a29513972dc4ef19b63aa8e6ce72a68b8b34b9a87e03c29",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "E01",
+    "id": "W-0375b027c7eeb3f8",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "0375b027c7eeb3f8383c1eb3e5a9533f1a1a27e199e89660cf8c1669c6b0e106",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "HBM18",
+    "id": "W-074f9b8f5ed37d6d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "074f9b8f5ed37d6d90aea4a2fb0740183eae381ce69424317ff1916b692aaf4a",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-c048fdfcd53805636593",
+    "factor_id": "A01",
+    "id": "W-03746d6ac495621d",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "03746d6ac495621d3368a071b247e0090588012b6c93b4effb578d9efd2cf064",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9907670c98fb135ab20f",
+    "factor_id": "K05",
+    "id": "W-1526ae597c66f945",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "1526ae597c66f945e7eef018b698b2c4d83c8f4ee87f136cf49a3f35f094c692",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-51782b2e185e24ae1f8d",
+    "factor_id": "M01",
+    "id": "W-51b2ee4d4757b81e",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "51b2ee4d4757b81e577ab56a45181704e5d098fcd709a06fbf790f53bc9ca8c8",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-b44b27fced0e03764515",
+    "factor_id": "M11",
+    "id": "W-25bdee9f1535f2c5",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "25bdee9f1535f2c5c7bb0d2dea66e03f0b1cd20ae26c26a8ad90cc514730885b",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-f213ec0748e3a6615552",
+    "factor_id": "M11",
+    "id": "W-3769f98417df21b7",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3769f98417df21b7a41932707ebb524cd86d3eb81f7c2c98090aa75f6dae9515",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-5cd1753822f1c6a3c06d",
+    "factor_id": "S02",
+    "id": "W-d09c64dc4215998f",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "d09c64dc4215998f7e33fd58f00c102d559dad0a98edc2d11ab93911481e1b00",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d409fb639593d5c459a5",
+    "factor_id": "S02",
+    "id": "W-3a92d1b47720b9a9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "3a92d1b47720b9a927c409ab3ebfb6eedc28a8efbc9a354aedbb9b0f242178fc",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-d87732dab7205ef6b52e",
+    "factor_id": "S02",
+    "id": "W-2cc735cdd50067d9",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2cc735cdd50067d9a406607759712c735265cf55e66d14c04fea0912dc22e8c2",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": null,
+    "factor_id": "E01",
+    "id": "W-79089ea9c4f0a8c6",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "79089ea9c4f0a8c645267207d986fd7b256912b6289a4de707c77d787bf737a9",
+    "status": "NO_RESULT_TECHNICAL_FAILURE"
+  },
+  {
+    "audit_id": "audit-e950bd432e12a6880a36",
+    "factor_id": "HBM18",
+    "id": "W-2f1977a5bc7e15ef",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "2f1977a5bc7e15ef49e9df3f1021dda4613baadc4d0cbf2263b38cd1e2b1269e",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-ce7bf84d4aeaa5c50a9e",
+    "factor_id": "E01",
+    "id": "W-5e3c8a2ee1f5d2d4",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "5e3c8a2ee1f5d2d4dedf911220e56f196c5157eefe342f6be7a1b769010b27e3",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-2c1127c816da939fa468",
+    "factor_id": "E01",
+    "id": "W-f19275f450546164",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "f19275f450546164d5342cd6aaf7812700e6f8f89d47f168a51e0c637a86cada",
+    "status": "COMPLETE"
+  },
+  {
+    "audit_id": "audit-9de95af06dcc3290e44f",
+    "factor_id": "HBM18",
+    "id": "W-e6b4a6c04ff44953",
+    "scope": "Historical signed window; not an additional factor or independent qualification.",
+    "signature": "e6b4a6c04ff44953d91ed4ce71fdb2f1b0aa477663d01b5e3bdca230eb653007",
+    "status": "COMPLETE"
+  }
+]

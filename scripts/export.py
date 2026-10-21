@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""Publish-schema projection. Reads canonical metadata, never copies files or logs.
+No source code execution, downloads, GPU requests, or source mutations.
+"""
+import argparse, collections, fcntl, hashlib, json, math, pathlib, re, sys
+from urllib.parse import urlsplit, urlunsplit
+HERE = pathlib.Path(__file__).resolve().parents[1]
+STATUS = {'QUALIFIED','TESTED_NEGATIVE','PARTIAL','OPEN','DEFERRED','NOT_APPLICABLE'}
+DOMAINS = {'github.com','raw.githubusercontent.com','huggingface.co','arxiv.org','doi.org','docs.nvidia.com','developer.nvidia.com','nvidia.com','wiki.archlinux.org','precipice.tech','reddit.com','www.reddit.com','ollama.com','docs.ollama.com','evalplus.github.io','gorilla.cs.berkeley.edu','squidfunk.github.io','docs.github.com'}
+DENY = re.compile(r'(?i)(?:\b(?:(?:pve|proxmox)-[a-z0-9-]+|localhost)\b|(?:/opt/|/root/|/home/|/run/|/var/)[^\s,;\]\)"\']*|\b(?:10|127)\.\d+\.\d+\.\d+\b|\b192\.168\.\d+\.\d+\b|\b172\.(?:1[6-9]|2\d|3[01])\.\d+\.\d+\b|\bGPU-[a-f0-9-]{16,}|\b(?:sensor|switch|light|climate|automation|person|device_tracker|input_boolean)\.[a-z0-9_]+|\b[a-z0-9-]+\.(?:local|lan|internal)\b)')
+SECRET = re.compile(r'(?i)(?:gh[pousr]_[a-z0-9]{12,}|github_pat_[a-z0-9_]{12,}|sk-[a-z0-9]{16,}|-----BEGIN .*PRIVATE KEY-----|(?:password|passwd|api[_-]?key|access[_-]?token|authorization)\s*[:=]\s*[^\s,;]{8,})')
+SAFEKEY = re.compile(r'^[A-Za-z0-9_+().% -]{1,100}$')
+# Only aggregate scientific branches; never raw responses, cases, per-task outputs or prompts.
+METRIC_ROOTS = {'models','comparisons','metrics','comparison','delta','long_metrics','quality','original12','quality_original12','original12_nonregression','peak_process_vram_mib','peak_device_vram_mib','memory_saved_mib','numerical','numerical_reference','numerical_failures','numerical_tests','model_starts','requests','actual_generation_requests','actual_GPU_execution','new_GPU_runs','old_native_model_starts_verified','primary_archives_checked','observations','unique_quality_tasks','quality_losses','format_passes','semantic_passes','tasks','solved','total_wall_s','wall_s','gpu_j_per_success','gpu_energy_j','stability','A','B','arms','reference','candidate','full_standard164','custom_long_context16','scopes','score_rule','model_comparison_progress'}
+BLOCK_KEYS = re.compile(r'(?i)(?:prompt|response|answer|output|content|messages|transcript|token_ids|per_task|per_case|samples|observations|input|argv|environment|paths?|commands?|logs?|error|trace|qkv|tensor|activation|workload|case_id|tools|entities|sequence|proposals|findings|password|credential|secret|authorization|entity|address|port_number|pin$)')
+TEXT_KEYS = {'decision','qualification','interpretation','limits','limitations','hypothesis','research_question','scope','timing_note','score_rule','reference','note','unit','aggregation','metric_aggregation','primary','outlier_rule','kind','role','cache','quantization','engine_build','cuda_toolkit','context','batch','ubatch','threads','n_gpu_layers','temperature','seed','type_k','type_v','mtp','model','model_id','status','measurement_type','evidence_class','screen_passed','winner_qualified'}
+def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+def load(path): return json.loads(path.read_text())
+def text(value, limit=3500):
+    if not isinstance(value,str): return None
+    if SECRET.search(value): raise ValueError('Secret-like value rejected in selected research field')
+    value=DENY.sub('[REDACTED]',value)
+    return value[:limit] + (' [abridged]' if len(value)>limit else '')
+def url(value):
+    if not isinstance(value,str): return None
+    try: u=urlsplit(value)
+    except ValueError: return None
+    if u.scheme!='https' or u.hostname not in DOMAINS or u.username or u.password: return None
+    return urlunsplit(('https',u.netloc,u.path,'',''))
+def urls(obj):
+    found=set()
+    if isinstance(obj,str):
+        for x in re.findall(r'https://[^\s<>"\]\)]+',obj):
+            u=url(x)
+            if u: found.add(u)
+    elif isinstance(obj,dict):
+        for k,v in obj.items():
+            if k not in {'evidence','per_task','identity','accountability','original_variant_inventory'}: found.update(urls(v))
+    elif isinstance(obj,list):
+        for x in obj: found.update(urls(x))
+    return sorted(found)
+def projection(obj, depth=0):
+    """Whitelist numeric/boolean aggregate leaves; only named public metadata strings."""
+    if depth>9: return None
+    if obj is None or isinstance(obj,bool): return obj
+    if isinstance(obj,(int,float)):
+        return obj if not isinstance(obj,float) or math.isfinite(obj) else None
+    if isinstance(obj,list):
+        # No numeric dumps or sampled time-series. Short lists of aggregate dicts only.
+        if len(obj)>24: return None
+        values=[projection(x,depth+1) for x in obj if isinstance(x,dict)]
+        return [x for x in values if x] or None
+    if isinstance(obj,dict):
+        result={}
+        for k,v in obj.items():
+            if not SAFEKEY.fullmatch(k) or BLOCK_KEYS.search(k): continue
+            if isinstance(v,str):
+                if k in TEXT_KEYS: result[k]=text(v)
+                elif k.endswith('sha256') and re.fullmatch('[a-f0-9]{64}',v): result[k]=v
+            else:
+                clean=projection(v,depth+1)
+                if clean is not None: result[k]=clean
+        return result or None
+    return None
+def metrics(obj): return {k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+def snippets(obj):
+    return {k:text(obj[k]) for k in ['decision','qualification','interpretation','hypothesis','research_question','scope','measurement_type','evidence_class','score_rule'] if isinstance(obj.get(k),str)} | {k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)}
+def write(name,obj):
+    p=HERE/'data'/name;p.parent.mkdir(exist_ok=True);p.write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2,allow_nan=False)+'\n')
+def main():
+    arg=argparse.ArgumentParser();arg.add_argument('--source',required=True,type=pathlib.Path);args=arg.parse_args();root=args.source.resolve()
+    for name in ['MATRIX.json','MATRIX_EXTENDED.json','QUEUE.json','BENCHMARK_REFERENCES.json','O2_EXPERIMENTS.jsonl']:
+        if not (root/name).is_file(): raise ValueError('Missing canonical input: '+name)
+    # Same existing project lock, short read-only snapshot; never interrupt an experiment.
+    with (root/'source-handoff.lock').open('r') as lock:
+        fcntl.flock(lock,fcntl.LOCK_SH|fcntl.LOCK_NB)
+        originals=load(root/'MATRIX.json');matrix=load(root/'MATRIX_EXTENDED.json');db=load(root/'BENCHMARK_REFERENCES.json');ledger=(root/'O2_EXPERIMENTS.jsonl').read_text().splitlines()
+        source_hashes={n:digest(root/n) for n in ['MATRIX.json','MATRIX_EXTENDED.json','QUEUE.json','BENCHMARK_REFERENCES.json','O2_EXPERIMENTS.jsonl']}
+    catalog={};locations={};verified={};factor_links=collections.defaultdict(set)
+    def receipt(path, expected=None):
+        p=pathlib.Path(path)
+        if not p.is_absolute():p=root/p
+        p=p.resolve()
+        if not p.is_relative_to(root.parent) or not p.is_file(): return None
+        # Only known evidence metadata. Never read a log, script, model, or archive into the export.
+        if p.suffix!='.json':return None
+        h=digest(p)
+        if expected and h!=expected:raise ValueError('Selected audit hash mismatch')
+        eid='audit-'+h[:20]
+        if eid not in catalog:
+            try:a=load(p)
+            except (ValueError,UnicodeError):return None
+            if not isinstance(a,dict):return None
+            catalog[eid]={'id':eid,'original_sha256':h,'original_bytes':p.stat().st_size,'original_filename':p.name if p.name in {'AUDIT.json','RESULTS.json','QUALIFICATION.json','INDEPENDENT_REVIEW.json','REFERENCE_ADMISSION.json'} else 'research-metadata.json','original_publicly_available':False,'excerpt_is_not_original':True,'statements':snippets(a),'aggregate_metrics':metrics(a)}
+            locations[eid]=p
+        catalog[eid]['original_pin_verified']=catalog[eid].get('original_pin_verified',False) or bool(expected)
+        verified[str(p)]=h
+        return eid
+    factors=[]; mapping={x['factor_id']:x for x in db['summary']['matrix_130_reconciliation']['axes']}
+    for a in matrix['original_axes_reprioritized']+matrix['benchmark_technique_subcases']:
+        c=a['accountability'];links=[]
+        for e in c.get('evidence',[]):
+            if isinstance(e,dict) and e.get('path'):
+                ident=receipt(e['path'],e.get('sha256'))
+                if ident:links.append(ident)
+        variants=[]
+        for v in c.get('original_variant_inventory',[]):
+            refs=[]
+            for w in v.get('archived_axis_bound_windows',[]):
+                if w.get('path'):
+                    ident=receipt(w['path'],w.get('sha256'))
+                    if ident:refs.append(ident)
+            review=v.get('sprint_scope_review',{})
+            variants.append({'value':text(v['variant']),'historical_signed_states':[text(x) for x in v['original_cell_states']],'evidence_ids':sorted(set(refs)),'scope_status':review.get('status_in_concrete_scope'),'experimental_coverage':review.get('experimentally_covered'),'scope':text(review.get('scope')),'remaining_requirement':text(review.get('remaining_requirement')),'aggregate_metrics':projection(review.get('metrics'))})
+        methods=a.get('research_source_updates_20261021') or c.get('research_source_updates_20261021') or {}
+        f={'id':a['id'],'kind':'original' if a['id'] in mapping else 'additional','title':text(a['title']),'domain':a.get('domain',mapping.get(a['id'],{}).get('domain','transfer')),'status':c['status'],'experimentally_covered':c['experimentally_covered'],'omnicoder2_experimentally_covered':c.get('omnicoder2_experimentally_covered',False),'priority':a.get('current_priority_band',a.get('priority_band','P3')),'decision':text(c.get('decision_reason')),'coverage_scope':text(c.get('coverage_scope')),'remaining_scope':text(c.get('remaining_scope')),'reopening_conditions':text(c.get('reopening_conditions')),'prerequisites':[text(x) for x in c.get('missing_prerequisites',[]) if isinstance(x,str)],'next_action':text(c.get('next_action')),'linked_original_axes':a.get('linked_original_axes',[]),'evidence_ids':sorted(set(links)),'variants':variants,'primary_sources':urls(a)+urls(methods),'source_model_hypotheses':[text(x) for x in a.get('source_models',[])],'experiment_ids':[], 'per_model_original_coverage':[{ 'model':text(mc['model']), 'levels':[{ 'value':text(l['level']), 'signed_window_signatures':l.get('signed_window_signatures',[]), 'historical_states':l.get('original_cell_states',[]) } for l in mc.get('levels',[])]} for mc in mapping.get(a['id'],{}).get('model_level_coverage',[])]}
+        assert f['status'] in STATUS
+        factors.append(f)
+    # Canonical sprint summaries and explicit existing audit paths; no recursive source-tree crawl.
+    experiments={}
+    for key,v in db['summary'].items():
+        if not re.fullmatch(r'r\d+',key) or not isinstance(v,dict):continue
+        ident=key.upper();p=v.get('audit_path') or v.get('audit') or v.get('artifact_build') or v.get('result_path') or v.get('build_final_receipt');expected=v.get('audit_sha256') or v.get('artifact_build_sha256') or v.get('result_sha256') or v.get('build_final_receipt_sha256');audit=receipt(p,expected) if isinstance(p,str) else None
+        if not audit:
+            candidate=root/'staging'/key/'AUDIT.json'
+            if candidate.is_file():audit=receipt(candidate)
+        if not audit:
+            # Source/technical-only entries remain visible and explicitly unaudited.
+            state='SUMMARY_ONLY_NOT_INDEPENDENTLY_AUDITED'
+        else:state='ORIGINAL_AUDIT_HASH_VERIFIED'
+        axes=v.get('axis_factors',[]);factor=v.get('factor')
+        if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
+        axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
+        experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+    for f in factors:
+        for aid in f['evidence_ids']:
+            p=locations[aid];match=re.search(r'(?:^|/)r(\d+)(?:[-/]|$)',str(p),re.I)
+            if match:
+                ident='R'+str(int(match[1]));factor_links[ident].add(f['id'])
+                if ident in experiments and not experiments[ident].get('audit_id'):
+                    experiments[ident]['audit_id']=aid;experiments[ident]['evidence_status']='ORIGINAL_AUDIT_HASH_VERIFIED'
+                if ident not in experiments:experiments[ident]={'id':ident,'factor_ids':[],'audit_id':aid,'evidence_status':'ORIGINAL_AUDIT_HASH_VERIFIED','statements':catalog[aid]['statements'],'aggregate_metrics':catalog[aid]['aggregate_metrics'],'winner_qualified':False,'model':None,'date':None,'reference_A0':None}
+        for exp in experiments.values():
+            if f['id'] in exp['factor_ids'] or f['id'] in factor_links[exp['id']]:f['experiment_ids'].append(exp['id'])
+    events=[]
+    for line in ledger:
+        e=json.loads(line);details=e.get('details') or {};details=details if isinstance(details,dict) else {};exp=details.get('experiment_id',e.get('experiment_id'));kind=e.get('kind','UNKNOWN')
+        if not isinstance(kind,str) or not re.fullmatch('[A-Za-z0-9_:. -]{1,180}',kind):kind='REDACTED_EVENT_KIND'
+        events.append({'sequence':len(events)+1,'date':text(e.get('at_utc')),'kind':kind,'experiment_id':exp if isinstance(exp,str) and re.fullmatch('R[0-9]+',exp) else None,'signature':e.get('signature') if isinstance(e.get('signature'),str) and re.fullmatch('[a-f0-9]{64}',e['signature']) else None,'factor_id':e.get('factor_id') if isinstance(e.get('factor_id'),str) and re.fullmatch('[A-Z]+[0-9]+|BASELINE',e['factor_id']) else None})
+    windows=[]
+    for w in db['summary']['matrix_130_reconciliation']['windows']:
+        signature=w['signature'];path=w.get('result_path') or w.get('path');ident=receipt(path) if isinstance(path,str) else None
+        # Reconciler paths can be window directories; use the exact canonical signature.
+        if not ident:
+            for base in [root,root.parent/'phase_o1_experiments']:
+                pp=base/'windows'/signature[:16]/'RESULTS.json'
+                if pp.is_file():ident=receipt(pp);break
+        windows.append({'id':'W-'+signature[:16],'signature':signature,'factor_id':w.get('factor_id',w.get('factor')),'status':text(w.get('result_status')),'audit_id':ident,'scope':'Historical signed window; not an additional factor or independent qualification.'})
+    references=[]
+    for ident,v in db['records'].items():
+        identity=v.get('identity',{}); hashes={}
+        def hashes_only(x,prefix=''):
+            if isinstance(x,dict):
+                for k,z in x.items():
+                    if isinstance(z,str) and re.fullmatch('[a-f0-9]{64}',z):hashes.setdefault(z,True)
+                    elif isinstance(z,(dict,list)):hashes_only(z)
+            elif isinstance(x,list):
+                for z in x:hashes_only(z)
+        hashes_only(identity)
+        public_identity={k:projection(z) if not isinstance(z,str) else text(z) for k,z in identity.items() if k in {'cuda_toolkit','engine_build','cache','context','ctx_size','batch','ubatch','threads','sampler','clock_conditions','power_limit_w','n_gpu_layers','temperature','seed','quantization','KV','kv','mtp','max_draft','model_sha256','cases_sha256','benchmark_profile'}}
+        references.append({'id':ident,'model':text(v.get('model')),'experiment_id':text(v.get('experiment_id')),'profile':text(v.get('profile')),'kind':text(v.get('kind')),'winner_qualified':v.get('winner_qualified') is True,'qualification':text(v.get('qualification')),'aggregate_metrics':metrics(v),'identity':public_identity,'identity_hashes':sorted(hashes),'identity_completeness':'PUBLIC_SUBSET; original hash binds full private record','limits':[text(x) for x in v.get('limits',[]) if isinstance(x,str)]})
+    profiles=[{'id':k,'A0':v['A0'],'C':v.get('C'),'scope':'Champion only in this exact profile; no automatic production deployment.'} for k,v in db['profiles'].items()]
+    challengers=[]
+    for x in matrix['model_challengers']:
+        challengers.append({'id':x['id'],'name':text(x['title']),'repository':url(x.get('repo')),'status':text(x.get('current_work_status',x.get('status'))),'priority':x.get('current_priority_band',x.get('priority_band')),'assessment':text(x.get('current_assessment_de',x.get('interpretation'))),'next_step':text(x.get('current_next_step_de',x.get('admission_test'))),'evidence_class':text(x.get('evidence_class')),'source_admission':projection(x.get('source_admission')),'local_scope':projection(x.get('local_evidence')),'current_experiment':text(x.get('current_experiment'))})
+    sources=[]
+    for x in matrix.get('research_source_integration_20261021',{}).get('sources',[]):
+        sources.append({'id':x['id'],'url':url(x['url']),'revision':text(x['revision']),'classification':x['classification'],'axes':x['linked_original_axes'],'scope':text(x['review_scope']),'obstacles':[text(y) for y in x.get('obstacles',[])],'evidence_class':'EXTERN_BELEGT','local_test_status':x['local_test_status']})
+    subcases=[]
+    for x in matrix.get('research_source_integration_20261021',{}).get('subcases',[]):
+        subcases.append({k:text(x.get(k)) for k in ['id','title','classification','priority_band','mechanism','prerequisites','test_design','risks','decision','next_action','expected_knowledge_gain','local_test_status']} | {'axes':x['linked_original_axes'],'sources':x['source_ids'],'counts_as_factor':False})
+    snapshot={'schema':1,'matrix_revision':matrix['revision'],'source_sha256':source_hashes,'source_date':matrix['factor_accountability_summary']['at_utc'],'counts':{'original_factors':130,'additional_factors':32,'factors':len(factors),'model_challengers':len(challengers),'assessed_factors':len(factors),'experimentally_covered':sum(x['experimentally_covered'] for x in factors),'omnicoder2_experimentally_covered':sum(x['omnicoder2_experimentally_covered'] for x in factors),'scientific_status':dict(collections.Counter(x['status'] for x in factors)),'sprint_records':len(experiments),'signed_windows':len(windows),'ledger_events':len(events),'reference_records':len(references),'qualified_profile_pointers':sum(bool(x['C']) for x in profiles)},'limitations':['An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.','GPU intervention count: NOT MEASURED AS ONE COMPARABLE TOTAL. Component processes, model sessions and requests remain separate in each original audit.','A redacted excerpt cannot reproduce the original SHA256. That SHA binds the retained original; exported bytes have their own manifest.','Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.','No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites.']}
+    assert snapshot['counts']['factors']==162 and len(challengers)==11
+    for name,obj in [('snapshot.json',snapshot),('factors.json',factors),('experiments.json',sorted(experiments.values(),key=lambda x:int(x['id'][1:]))),('audit-excerpts.json',list(catalog.values())),('signed-windows.json',windows),('history.json',events),('references.json',references),('profiles.json',profiles),('models.json',challengers),('model-benchmarks.json',metrics({'model_comparison_progress':db['summary'].get('model_comparison_progress',{})})),('sources.json',sources),('research-subcases.json',subcases)]:write(name,obj)
+    # Local-only export receipt records the original locations; never place it in the public tree.
+    receiptfile=HERE.parent/'PUBLIC_EXPORT_PRIVATE_RECEIPT.json';receiptfile.write_text(json.dumps({'source_revision':matrix['revision'],'source_sha256':source_hashes,'selected_original_paths_and_hashes':verified},indent=2)+'\n');receiptfile.chmod(0o600)
+    print(json.dumps(snapshot['counts'],sort_keys=True))
+if __name__=='__main__':main()

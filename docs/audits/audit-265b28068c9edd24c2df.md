@@ -1,0 +1,89 @@
+# Public audit excerpt
+
+Original SHA256: `265b28068c9edd24c2df904c8a94baf84f4fa5ab866dee63beb2c8177acae269`
+
+Original file: `AUDIT.json`; 254242 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "MATCHED_OMNICODER2_Q4_NATIVE_BFCL_A0_CALIBRATED",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "Same frozen100development tool questions, not full BFCL leaderboard or broad coding/agent qualification",
+    "Only published quantized weights changed; same template/tokenizer/engine/SM70 runtime; Q05 not exercised",
+    "Publisher imatrix claim and local weight changes verified; identical upstream BF16 checkpoint and calibration causality unverified",
+    "One greedy process/artifact; paired task gains/losses retained; independent winner/untouched qualification still required",
+    "No tool execution or automatic champion/deployment; GPU generation energy excludes CPU/system/load/idle"
+  ]
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_generation_requests": 116,
+  "scopes": {
+    "irrelevance": {
+      "complete": 20,
+      "gpu_energy_j": 4919.429312786473,
+      "gpu_j_per_success": 351.38780805617665,
+      "protocol_valid": 20,
+      "solved": 14,
+      "successes_per_second": 0.7182693325305317,
+      "tasks": 20,
+      "wall_s": 19.491295766
+    },
+    "multiple": {
+      "complete": 20,
+      "gpu_energy_j": 4534.4415407353,
+      "gpu_j_per_success": 251.9134189297389,
+      "protocol_valid": 20,
+      "solved": 18,
+      "successes_per_second": 0.9951909437233122,
+      "tasks": 20,
+      "wall_s": 18.086981311
+    },
+    "overall": {
+      "complete": 100,
+      "gpu_energy_j": 31775.59128331769,
+      "gpu_j_per_success": 369.4836195734615,
+      "protocol_valid": 100,
+      "solved": 86,
+      "successes_per_second": 0.6900588756874283,
+      "tasks": 100,
+      "wall_s": 124.627047097
+    },
+    "parallel": {
+      "complete": 20,
+      "gpu_energy_j": 9647.62659383131,
+      "gpu_j_per_success": 535.9792552128506,
+      "protocol_valid": 20,
+      "solved": 18,
+      "successes_per_second": 0.4820880802764323,
+      "tasks": 20,
+      "wall_s": 37.337575303
+    },
+    "parallel_multiple": {
+      "complete": 20,
+      "gpu_energy_j": 8602.413383986017,
+      "gpu_j_per_success": 452.7585991571588,
+      "protocol_valid": 20,
+      "solved": 19,
+      "successes_per_second": 0.5677457809500048,
+      "tasks": 20,
+      "wall_s": 33.465682419
+    },
+    "simple_python": {
+      "complete": 20,
+      "gpu_energy_j": 4071.680451978591,
+      "gpu_j_per_success": 239.51061482227007,
+      "protocol_valid": 20,
+      "solved": 17,
+      "successes_per_second": 1.0464428383765334,
+      "tasks": 20,
+      "wall_s": 16.245512298
+    }
+  }
+}
+```

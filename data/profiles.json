@@ -1,0 +1,158 @@
+[
+  {
+    "A0": "e0a5d6c242421e9fd9fedd7f4796c7c0cb5154434fe3908a9053e3b9250da661",
+    "C": null,
+    "id": "o2-original12-synthetic-v1/omnicoder2",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "8d659da13e52a886c39537beefbeee5aee65931bd6ddc9a53faa05fe434c891f",
+    "C": null,
+    "id": "o2-original12-synthetic-v1/qwen35",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "649420efeb0212271674362d3bb3b20bf268a46f5fc40ece74359d7f6ca572fb",
+    "C": null,
+    "id": "o2-original12-synthetic-v1/qwen38",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "71373b106b5b4d5fe9284437c90553378d601878d5ae8534ef355d98bf14959a",
+    "C": null,
+    "id": "omni-q6-prism9a9394-sm70-native32k-f16-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "1ad389f10b18dca5030d5c16a77a36aa90b1f26ea1e18d7a8b623db4368ec2ec",
+    "C": null,
+    "id": "omnicoder2-9b-q4km-sm70-cuda128-original-native-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "ba9b3e7bd16daa6234e82d614ef82cf293e9dc97eebc230d362c97c440f8d492",
+    "C": null,
+    "id": "omnicoder2-q4km-sm70-cuda128-bfcl-balanced100-native-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "ba22de96ef2cdda41e184c07bead0ee638f67ae3a75ea94398f3a82bfbd6e752",
+    "C": "fa9451c63b8d00e62025d12642a4f8bfa21bbc5942de04dc48f6298e9c1c802c",
+    "id": "omnicoder2-q6k-sm70-cuda128-bfcl-balanced100-native-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "d47a1765f5ff1501fa1abd0f0755d6e36ba4cd6a5f6b52338298be39d70f1681",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-cuda128-h08-privatecold-v-prefault-firstreply-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "261b79515e6f4a6187ff38d8d546ab9127da36f2ddd6801fd35068de14b36039",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-cuda128-long14k-ctx32k-reference-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "134b5f7830378dc192d6189d81b74ba3c88c05af09383096e5a9c3f0f841c080",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-cuda128-r11-unified2-total16k-cap-pairs-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "C": "56a1eccb4ec2cd3f16b07e513f3bbb4588eae5dc476edc269b363d130f4baf6e",
+    "id": "omnicoder2-q6k-sm70-cuda128-v080-dev18-native-agents-prefix-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "C": "4bc04eb5025027aabb04604a68aa86a7c4b6393c0665f690fe7dc4cf413492f7",
+    "id": "omnicoder2-q6k-sm70-cuda128-v080-dev18-native-agents-taskenergy-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "8f697421fa3c603b92d8e7c1d32ef8f01873955041ad4c8e808da2f1da77d51c",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-current-event-history16k-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "7c77cb2e3eda1bce7277fc09054122050e22730fe3ca8ad33a068c94ae9baf2f",
+    "C": "1765b77e9b11c928c9be2f640573954888da921c1a73f42ccffcec93803f4482",
+    "id": "omnicoder2-sm70-cuda128-humanevalplus0110-officialfix-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "d230ccb14a48cd8316fbb863ceafb66ab740932c8d0028ff29a6bff2e88898bd",
+    "C": null,
+    "id": "omnicoder2-sm70-cuda128-humanevalplus0110-officialfix-natural-sse-4k6k-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "7c77cb2e3eda1bce7277fc09054122050e22730fe3ca8ad33a068c94ae9baf2f",
+    "C": "3e9e5eb3f2217c0d3051d09ff7d2dc7cafcd4a15f91b8ec6064c69896a92667d",
+    "id": "omnicoder2-sm70-cuda128-humanevalplus0110-officialfix-taskenergy-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "66957d3248296b9d22c6d49663d6700b9d4218326ab0b3d40b9964fe55d9a220",
+    "C": "ec386d8f4052db9e3879737c045d85bb1f58f0693ec7fe5d1080a0e07e4b9917",
+    "id": "omnicoder2-sm70-cuda128-nativejson-ctx32768-pp32512g128-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "a99c40d0f22aad22538d49c623775714824c1bfce5eaf875d10e0a77647c2f52",
+    "C": null,
+    "id": "omnicoder2-sm70-cuda128-nativejson-prefix2k4k-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "d230ccb14a48cd8316fbb863ceafb66ab740932c8d0028ff29a6bff2e88898bd",
+    "C": "c38e543fb6e016fc9f2a15ff0994e5c253fc18ea7e72f973defd26567c11dfa9",
+    "id": "omnicoder2-sm70-cuda128-natural-sse-4k6k-memory8g-balanced175w-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "d230ccb14a48cd8316fbb863ceafb66ab740932c8d0028ff29a6bff2e88898bd",
+    "C": "7971777881bb6de06fa8ae07c4b161a265d1d4977ab5b152b998152cceb148bf",
+    "id": "omnicoder2-sm70-cuda128-natural-sse-4k6k-memory8g-taskenergy-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "C": "0df192a50d76ca9dea33ee1adcff577491fbcc9106f0092570ed022294fe63bd",
+    "id": "omnicoder2-sm70-cuda128-pinned-nativejson-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "066a38d404944bb593e5364fc30e41c05eecbcacbc4930b6147e1908518e7291",
+    "C": "70f9438a1b180ed16e1bf4bdd217d84959c11bcb0424f32d5addfbb277153420",
+    "id": "omnicoder2-sm70-cuda128-sse-pp2k4k16-decode128-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "51d8cb2ed5f7a183429bacb8c17eb345a0cab3573e20b4d691b9982d9474242b",
+    "C": null,
+    "id": "qwen35-9b-q4km-sm70-cuda128-original-native-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "a4f894abc71f73767a614aa6d1ec75168138fedf37730678b60cacd772cdb4b4",
+    "C": null,
+    "id": "qwen38-iq3s-mtp-sm70-cuda128-bfcl-balanced100-native-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "8e8e4f36354267bdcc5f23366f7df688e4577beb79381b2bf4abe540fe9627d5",
+    "C": null,
+    "id": "qwen38-iq3s-mtp-sm70-cuda128-humanevalplus0110-officialfix-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "3f193be4758e1196f65be627f66bfcdcc33cafaaa0cde39b36f9b94a76eea9aa",
+    "C": null,
+    "id": "qwen38-iq3s-mtp-sm70-cuda128-native-ctx8192-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  }
+]

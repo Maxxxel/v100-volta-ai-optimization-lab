@@ -1,0 +1,131 @@
+# Public audit excerpt
+
+Original SHA256: `fe2e5fbb2e31d1cf8f9f9169b1fd8cfbc65678e37f1349bda551f6b0d6f6d604`
+
+Original file: `AUDIT.json`; 8956 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "PROMISING_COMBINATION_NEEDS_INDEPENDENT_CONFIRMATION",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "One timed session per variant maximum; no statistical significance claim",
+    "Two frozen128-input-token suffixes paired within each repetition; one output token",
+    "Warm-prefix E2E only; no general decode or newly measured cold-prefix ratio",
+    "Kernel/primitive10-minute stability reused from R90; dedicated interaction endurance still open"
+  ]
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "arms": {
+    "A": {
+      "continuation": {
+        "2048_warm": {
+          "maximum_e2e_s": 0.188489099,
+          "median_e2e_s": 0.1753144285,
+          "minimum_e2e_s": 0.167080648,
+          "n": 6
+        },
+        "4096_warm": {
+          "maximum_e2e_s": 0.185783368,
+          "median_e2e_s": 0.1777168045,
+          "minimum_e2e_s": 0.169561112,
+          "n": 6
+        }
+      },
+      "decision": "SCREEN_MEASURED",
+      "format_passes": 8,
+      "frozen_suffix_strata": {
+        "2048_step1": {
+          "median_e2e_s": 0.167613703
+        },
+        "2048_step2": {
+          "median_e2e_s": 0.184137605
+        },
+        "4096_step1": {
+          "median_e2e_s": 0.169840122
+        },
+        "4096_step2": {
+          "median_e2e_s": 0.185066404
+        }
+      },
+      "kv_mib": 256.0,
+      "max_power_w": 294.972,
+      "max_temperature_c": 58,
+      "peak_process_vram_mib": 7122,
+      "primary": {
+        "2048": {
+          "median_e2e_s": 0.17643520175828328
+        },
+        "4096": {
+          "median_e2e_s": 0.1771613681419894
+        }
+      },
+      "quality_n": 12,
+      "semantic_passes": 9,
+      "worker_cuda_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+    },
+    "B": {
+      "continuation": {
+        "2048_warm": {
+          "maximum_e2e_s": 0.189424854,
+          "median_e2e_s": 0.166584505,
+          "minimum_e2e_s": 0.150026973,
+          "n": 6
+        },
+        "4096_warm": {
+          "maximum_e2e_s": 0.186327078,
+          "median_e2e_s": 0.1690824655,
+          "minimum_e2e_s": 0.151445749,
+          "n": 6
+        }
+      },
+      "decision": "SCREEN_MEASURED",
+      "format_passes": 8,
+      "frozen_suffix_strata": {
+        "2048_step1": {
+          "median_e2e_s": 0.150702794
+        },
+        "2048_step2": {
+          "median_e2e_s": 0.182020087
+        },
+        "4096_step1": {
+          "median_e2e_s": 0.152156076
+        },
+        "4096_step2": {
+          "median_e2e_s": 0.184966489
+        }
+      },
+      "kv_mib": 256.0,
+      "max_power_w": 313.432,
+      "max_temperature_c": 56,
+      "peak_process_vram_mib": 13262,
+      "primary": {
+        "2048": {
+          "median_e2e_s": 0.16562287183545357
+        },
+        "4096": {
+          "median_e2e_s": 0.16776106567895058
+        }
+      },
+      "quality_n": 12,
+      "semantic_passes": 9,
+      "worker_cuda_sha256": "b1596b98ba033d8a400d5ecaba5630168c5c5626b493ed2230ecb239c84a62ad"
+    }
+  },
+  "comparison": {
+    "2048": {
+      "vs_fresh_A_improvement_percent": 6.128215806754156,
+      "vs_saved_A0_improvement_percent": 5.872590595427463
+    },
+    "4096": {
+      "vs_fresh_A_improvement_percent": 5.30606788693615,
+      "vs_saved_A0_improvement_percent": 6.858569767842704
+    }
+  }
+}
+```

@@ -1,0 +1,66 @@
+site_name: V100 Volta AI Optimization Lab
+site_description: Reproducible local LLM research on one 16 GB Volta GPU
+use_directory_urls: true
+strict: true
+theme:
+  name: material
+  font: false
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: lime
+      toggle:
+        icon: material/brightness-7
+        name: Light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Dark mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+extra_css:
+  - stylesheets/lab.css
+extra:
+  generator: false
+nav:
+  - Overview: index.md
+  - Hardware: hardware.md
+  - Research Methodology: methodology.md
+  - Optimization Matrix: matrix.md
+  - Experiment Results: results.md
+  - Qualified Configurations: configurations.md
+  - Rejected Optimizations: rejected.md
+  - Model Benchmarks: models.md
+  - Compatibility Matrix: compatibility.md
+  - Scientific Background: background.md
+  - Papers & Sources: sources.md
+  - Open Questions: questions.md
+  - Changelog & Roadmap: roadmap.md
+  - Reproducing Results: reproduce.md
+  - Public Export Policy: publication.md
+  - Deutsch: de.md
+validation:
+  nav:
+    omitted_files: ignore

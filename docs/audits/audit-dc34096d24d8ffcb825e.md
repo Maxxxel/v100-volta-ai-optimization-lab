@@ -1,0 +1,29 @@
+# Public audit excerpt
+
+Original SHA256: `dc34096d24d8ffcb825ee5589721d270c91b2479745f92657fabe62af662c2d8`
+
+Original file: `AUDIT.json`; 5683 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "EXACT_HISTORY_REPRODUCES_PRIOR_BAD_ENVELOPE",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limitations": [
+    "A frozen teacher-forced sequence, not newly live-generated agent context",
+    "No newverbose/return_tokens flags;compare native envelopes,not unobserved output IDs",
+    "Prefix generated outputs can differ from archive and are reported;archived next input messages remain frozen",
+    "No speed/qualitychampion or proofspecificGDNbug/resolution from this onecontrol"
+  ]
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_GPU_execution": true,
+  "actual_generation_requests": 26,
+  "model_starts": 1,
+  "peak_device_vram_mib": 7670.5
+}
+```

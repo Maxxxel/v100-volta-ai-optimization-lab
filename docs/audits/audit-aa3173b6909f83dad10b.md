@@ -1,0 +1,146 @@
+# Public audit excerpt
+
+Original SHA256: `aa3173b6909f83dad10b03f610b12edb4809310f2cd7da4a099dde8497360da4`
+
+Original file: `AUDIT.json`; 236283 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "INDEPENDENT_200W_AGENT_STABILITY_PASSED_NEEDS_POSTCONTROL",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "18unchanged development cases repeated up to3cycles in one independent200Wprocess; repeats are stability measurements, not54independent quality tasks",
+    "Full case timing/energy, unchanged original simulator and source tasks; only power changed, all tools simulated. No production action.",
+    "Each complete cycle compared with persistentA0 and prior fresh300Wcontrol. New post300Wcontrol must confirm current drift before any energy-only champion; throughput champion untouched.",
+    "Temperature telemetry only;90Cprotection/throttling/ECC/ownership guards retained. No CPU/host/load energy or broad assistant/model superiority claim."
+  ]
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_generation_requests": 286,
+  "metrics": {
+    "gpu_energy_j": 141607.80224958155,
+    "gpu_j_per_success": 3630.969288450809,
+    "solved": 39,
+    "successes_per_second": 0.051678477348015436,
+    "tasks": 54,
+    "total_wall_s": 754.666197639
+  },
+  "original12": [
+    {
+      "e2e_s": 0.189648171,
+      "gpu_energy_j": 34.777592390509184,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.24864918,
+      "gpu_energy_j": 44.01302374351237,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": false
+      }
+    },
+    {
+      "e2e_s": 0.706307425,
+      "gpu_energy_j": 132.29776761957024,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.379327171,
+      "gpu_energy_j": 65.46404984741878,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": false
+      }
+    },
+    {
+      "e2e_s": 0.315011285,
+      "gpu_energy_j": 51.39374558145,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.498274711,
+      "gpu_energy_j": 91.0798578009473,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 1.192309824,
+      "gpu_energy_j": 229.29332657458505,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.370545345,
+      "gpu_energy_j": 68.9437755136304,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.26315535,
+      "gpu_energy_j": 43.461973684572584,
+      "grades": {
+        "format_pass": false,
+        "raw_preserved": true,
+        "semantic_pass": false
+      }
+    },
+    {
+      "e2e_s": 0.252660143,
+      "gpu_energy_j": 43.08687193598349,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.60893055,
+      "gpu_energy_j": 113.85790969647265,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    },
+    {
+      "e2e_s": 0.394062518,
+      "gpu_energy_j": 71.30398239907358,
+      "grades": {
+        "format_pass": true,
+        "raw_preserved": true,
+        "semantic_pass": true
+      }
+    }
+  ],
+  "peak_process_vram_mib": 7114,
+  "unique_quality_tasks": 18
+}
+```
