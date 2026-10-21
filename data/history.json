@@ -12454,5 +12454,13 @@
     "kind": "R378_CALIBRATION_TRAINING_QUANTIZATION_ADMISSION",
     "sequence": 1557,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T20:54:17.895931+00:00",
+    "experiment_id": "R379",
+    "factor_id": null,
+    "kind": "R379_PREPARED_NUMERICAL_ADMISSION",
+    "sequence": 1558,
+    "signature": null
   }
 ]
