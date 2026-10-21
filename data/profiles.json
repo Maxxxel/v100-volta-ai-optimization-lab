@@ -108,6 +108,12 @@
     "scope": "Champion only in this exact profile; no automatic production deployment."
   },
   {
+    "A0": "f5e665f8a7e9effc75dd2ed0e9643f8fbae5bb1b35439a0623a54b0a1f86dcbb",
+    "C": null,
+    "id": "omnicoder2-sm70-cuda128-nativejson-q8q8-routeroff-ctx32768-pp32512g128-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
     "A0": "d230ccb14a48cd8316fbb863ceafb66ab740932c8d0028ff29a6bff2e88898bd",
     "C": "c38e543fb6e016fc9f2a15ff0994e5c253fc18ea7e72f973defd26567c11dfa9",
     "id": "omnicoder2-sm70-cuda128-natural-sse-4k6k-memory8g-balanced175w-ctx8192-v1",

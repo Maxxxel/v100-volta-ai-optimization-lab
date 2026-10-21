@@ -8183,6 +8183,148 @@
   {
     "aggregate_metrics": {
       "metrics": {
+        "decode": {
+          "decode_tokens_per_s": {
+            "mad": 0.04931251436863704,
+            "median": 77.77468856442623
+          },
+          "e2e_s": {
+            "mad": 0.0011824379999998413,
+            "median": 1.699422586
+          },
+          "gpu_energy_j_approx": {
+            "mad": 6.4356975218568095,
+            "median": 448.51041302010304
+          }
+        },
+        "long32512": {
+          "decode_tokens_per_s": {
+            "mad": 0.01948060635299953,
+            "median": 61.542875031134884
+          },
+          "e2e_s": {
+            "mad": 0.0013076269999992007,
+            "median": 16.05856716
+          },
+          "gpu_energy_j_approx": {
+            "mad": 5.428139532988098,
+            "median": 4258.255078275995
+          }
+        },
+        "prefill": {
+          "decode_tokens_per_s": {
+            "mad": 0.0,
+            "median": 0.0
+          },
+          "e2e_s": {
+            "mad": 6.739800000002405e-05,
+            "median": 0.196158341
+          },
+          "gpu_energy_j_approx": {
+            "mad": 0.2191817505305167,
+            "median": 55.933508322333275
+          }
+        },
+        "prefill2048": {
+          "decode_tokens_per_s": {
+            "mad": 0.0,
+            "median": 0.0
+          },
+          "e2e_s": {
+            "mad": 0.0005750300000000319,
+            "median": 0.714010429
+          },
+          "gpu_energy_j_approx": {
+            "mad": 4.778563227593935,
+            "median": 200.293099926866
+          }
+        },
+        "prefill4096": {
+          "decode_tokens_per_s": {
+            "mad": 0.0,
+            "median": 0.0
+          },
+          "e2e_s": {
+            "mad": 0.0017527319999999236,
+            "median": 1.410511394
+          },
+          "gpu_energy_j_approx": {
+            "mad": 1.5503285258292294,
+            "median": 382.2623213864853
+          }
+        }
+      },
+      "quality": {
+        "format": 8,
+        "independent_review_sha256": "169408ac11e3e2f359c77ae64802c5c1224d7024132900dad77a845f9d1fac8f",
+        "original12_nonregression": true,
+        "semantic": 9
+      }
+    },
+    "experiment_id": null,
+    "id": "f5e665f8a7e9effc75dd2ed0e9643f8fbae5bb1b35439a0623a54b0a1f86dcbb",
+    "identity": {
+      "KV": "q8_0/q8_0",
+      "cache": "Cold prompt/warm engine; 4 short warmups and1long warmup excluded",
+      "cases_sha256": "48c23e939c2a28378bcf4fea474e6eb2eaa33da01a41f8854ff29cb9ce17e18e",
+      "context": 32768,
+      "cuda_toolkit": "12.8",
+      "engine_build": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4+R379-default-route-off",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "q8_0",
+        "--cache-type-v": "q8_0",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "32768",
+        "--flash-attn": "on",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0",
+        "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+      },
+      "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+      "power_limit_w": 300,
+      "quantization": "Q6_K",
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "31717907ea4ad889ef9c7ac160681eb3de7434acf739e66ce3cfa0d691ac4801",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "48c23e939c2a28378bcf4fea474e6eb2eaa33da01a41f8854ff29cb9ce17e18e",
+      "6a901906898710ff9d319771c5ce33f4322b2cee27a098ecafdbf4d4da9c346b",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "c99fa7758f18f442fd95387c33d2c2e019ad60b690ea5aabdc2be0ee0a540984",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0"
+    ],
+    "kind": null,
+    "limits": [],
+    "model": null,
+    "profile": "omnicoder2-sm70-cuda128-nativejson-q8q8-routeroff-ctx32768-pp32512g128-v1",
+    "qualification": "MATCHED_Q8Q8_ROUTER_OFF_PROFILE_CALIBRATED_ONCE_NOT_WINNER",
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
         "irrelevance": {
           "complete": 20,
           "gpu_energy_j": 7538.871392829451,

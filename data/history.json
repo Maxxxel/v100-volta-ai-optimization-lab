@@ -12470,5 +12470,37 @@
     "kind": "R379_GPU_COMPONENT_COMPLETE_INDEPENDENTLY_AUDITED",
     "sequence": 1559,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T20:59:54.142008+00:00",
+    "experiment_id": "R380",
+    "factor_id": null,
+    "kind": "R380_MATCHED_CONTROL_PREPARED",
+    "sequence": 1560,
+    "signature": null
+  },
+  {
+    "date": "2026-10-21T21:02:57.622999+00:00",
+    "experiment_id": "R380",
+    "factor_id": null,
+    "kind": "R380_MATCHED_Q8Q8_CONTROL_CALIBRATED_ONCE",
+    "sequence": 1561,
+    "signature": null
+  },
+  {
+    "date": "2026-10-21T21:04:22.276562+00:00",
+    "experiment_id": "R381",
+    "factor_id": null,
+    "kind": "R381_Q8KV_SINGLE_FACTOR_B_SCREEN_PREPARED",
+    "sequence": 1562,
+    "signature": null
+  },
+  {
+    "date": "2026-10-21T21:08:34.971066+00:00",
+    "experiment_id": "R381",
+    "factor_id": null,
+    "kind": "R381_ISOLATED_Q8KV_SCREEN_INDEPENDENTLY_REPLAYED",
+    "sequence": 1563,
+    "signature": null
   }
 ]

@@ -32,10 +32,12 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-62cb102a05278610565d.md)
 - [Original audit hash and public excerpt](../audits/audit-652eef515a970abc8d51.md)
 - [Original audit hash and public excerpt](../audits/audit-76bd28c3368e61d7c96d.md)
+- [Original audit hash and public excerpt](../audits/audit-8caaa3cdf4c079c396fe.md)
 - [Original audit hash and public excerpt](../audits/audit-8d0de00b1f8ea1c46cfb.md)
 - [Original audit hash and public excerpt](../audits/audit-a2270317169dec422f24.md)
 - [Original audit hash and public excerpt](../audits/audit-b4f0a807daebe43f2edf.md)
 - [Original audit hash and public excerpt](../audits/audit-b939abaa6c68ac7fbb46.md)
+- [Original audit hash and public excerpt](../audits/audit-d870ddde2a67de12a375.md)
 - [Original audit hash and public excerpt](../audits/audit-f818d211483856d94cf3.md)
 - [Original audit hash and public excerpt](../audits/audit-fae4b1903a527efdd0b8.md)
 
@@ -532,14 +534,14 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 Attention K/V storage tests remain distinct from recurrent GDN F32 state; F16/Q8/Q4 evidence is retained by exact side,context and quality scope.
 
-**Remaining scope:** New Q8/Q8 host-dispatch primitive passes native numerics. Whole-model original quality, E2E, long decode, actual model dispatch and matched profile comparison remain open. Existing scientific status retained.
+**Remaining scope:** R381 isolatedroute screen: longdecodephase improves9.439%, fullE2E0.961%, noenergywin. Independent relevanttaskquality/latency/stability and freshcontrols still needed before scopedqualification. Existing formatnegatives preserved.
 
 **Reopening condition:** A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations.
 
-**Next action:** R379 component gate passed: inspect existing exact Q8/Q8 model-control profile before bounded router-on original12/long-decode B screen. Calibrate a missing profile once only if necessary. Preserve mixed-KV negatives and immutable A0/C. Then remaining20special-HBMport cells; no new combinations/models.
+**Next action:** R382: close the20remainingoriginalspecial-HBM variant scope reviews individually using retained implementation/hardware/model evidence (HBM09-13/HBM20-24); identify genuinely feasible missing singles. Preserve R381 as preliminary only. Any later route qualification needs fresh control, realtaskquality/energy and independent stability; do not open kernel tuning branches or combinations/models from this screen.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R233](../experiments/R233.md), [R234](../experiments/R234.md), [R270](../experiments/R270.md), [R358](../experiments/R358.md), [R379](../experiments/R379.md), [R82](../experiments/R82.md), [R83](../experiments/R83.md)
+[R233](../experiments/R233.md), [R234](../experiments/R234.md), [R270](../experiments/R270.md), [R358](../experiments/R358.md), [R379](../experiments/R379.md), [R380](../experiments/R380.md), [R381](../experiments/R381.md), [R82](../experiments/R82.md), [R83](../experiments/R83.md)
