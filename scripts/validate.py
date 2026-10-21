@@ -25,6 +25,10 @@ def content_errors(s):
    addr=ipaddress.ip_address(match)
    if not addr.is_global:issues.append('nonpublic network address')
   except ValueError:pass
+ for candidate in re.findall(r'(?<![A-Za-z0-9])(?:[A-Fa-f0-9]{0,4}:){2,}[A-Fa-f0-9:]{0,39}',s):
+  try:
+   if not ipaddress.ip_address(candidate).is_global:issues.append('nonpublic IPv6 address')
+  except ValueError:pass
  # URLs must never contain credentials or link to an internal endpoint.
  for u in re.findall(r'https?://[^\s<>"\x27)]+',s):
   if re.match(r'https?://[^/\s]+@',u):issues.append('credential-bearing URL')
