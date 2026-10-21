@@ -1101,6 +1101,6 @@
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
   "scripts/export.py": "4b1a0fbf3403318a0ba0630f36e422c09b6a581b1f2818dddad9ea8266cfb54f",
   "scripts/render.py": "9bc4a05539faa9af680f1b4230b334d47a7484ac15312bf26d1287167e35d63b",
-  "scripts/test_publication.py": "218e896a21cb348bdb8c693d2a3cef8b91e5cf384f8bbda7a87eec2e689b7aea",
+  "scripts/test_publication.py": "ecb4618ad736d2db1a0e98a6aeb85ca042dffa067a0116f710d6435e3efb4ebe",
   "scripts/validate.py": "053c7fdd72a3d1ca7f61429f9df7a839134dac9314d3fd79321ac8f1b220a8b2"
 }

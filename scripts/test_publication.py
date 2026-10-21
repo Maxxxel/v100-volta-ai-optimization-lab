@@ -5,7 +5,7 @@ def module(name):
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
  def test_credentials_and_network_are_rejected(self):
-  examples=['gh'+'p_'+'A'*30,'-----BEGIN '+'RSA PRIVATE KEY-----','192'+'.168.42.18','sensor'+'.bedroom_temperature','fd'+ '00::12','::'+'1','https://user'+':secret'+'@example.com']
+  examples=['gh'+'p_'+'A'*30,'-----BEGIN '+'RSA PRIVATE KEY-----','192'+'.168.42.18','sensor'+'.bedroom_temperature','fd00'+':'*2+'12',':'*2+'1','https://user'+':secret'+'@example.com']
   for x in examples:
    with self.subTest(category=examples.index(x)):self.assertTrue(v.content_errors(x))
  def test_projection_cannot_export_conversations(self):
