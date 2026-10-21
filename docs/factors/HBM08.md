@@ -538,7 +538,7 @@ Attention K/V storage tests remain distinct from recurrent GDN F32 state; F16/Q8
 
 **Reopening condition:** A different KV format or mixed policy needs actual SM70 attention support and independent state/quality tests. Existing negative quantizations must not be silently rescued by combinations.
 
-**Next action:** R382: close the20remainingoriginalspecial-HBM variant scope reviews individually using retained implementation/hardware/model evidence (HBM09-13/HBM20-24); identify genuinely feasible missing singles. Preserve R381 as preliminary only. Any later route qualification needs fresh control, realtaskquality/energy and independent stability; do not open kernel tuning branches or combinations/models from this screen.
+**Next action:** R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 

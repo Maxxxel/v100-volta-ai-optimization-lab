@@ -8067,7 +8067,7 @@
     "id": "K01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R382: close the20remainingoriginalspecial-HBM variant scope reviews individually using retained implementation/hardware/model evidence (HBM09-13/HBM20-24); identify genuinely feasible missing singles. Preserve R381 as preliminary only. Any later route qualification needs fresh control, realtaskquality/energy and independent stability; do not open kernel tuning branches or combinations/models from this screen.",
+    "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -8464,7 +8464,7 @@
     "id": "K02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R382: close the20remainingoriginalspecial-HBM variant scope reviews individually using retained implementation/hardware/model evidence (HBM09-13/HBM20-24); identify genuinely feasible missing singles. Preserve R381 as preliminary only. Any later route qualification needs fresh control, realtaskquality/energy and independent stability; do not open kernel tuning branches or combinations/models from this screen.",
+    "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -11488,7 +11488,7 @@
     "id": "C10",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R382: close the20remainingoriginalspecial-HBM variant scope reviews individually using retained implementation/hardware/model evidence (HBM09-13/HBM20-24); identify genuinely feasible missing singles. Preserve R381 as preliminary only. Any later route qualification needs fresh control, realtaskquality/energy and independent stability; do not open kernel tuning branches or combinations/models from this screen.",
+    "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -29384,7 +29384,7 @@
     "id": "HBM08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R382: close the20remainingoriginalspecial-HBM variant scope reviews individually using retained implementation/hardware/model evidence (HBM09-13/HBM20-24); identify genuinely feasible missing singles. Preserve R381 as preliminary only. Any later route qualification needs fresh control, realtaskquality/energy and independent stability; do not open kernel tuning branches or combinations/models from this screen.",
+    "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
