@@ -2,7 +2,7 @@
 """Publish-schema projection. Reads canonical metadata, never copies files or logs.
 No source code execution, downloads, GPU requests, or source mutations.
 """
-import argparse, collections, fcntl, hashlib, json, math, pathlib, re, sys
+import argparse, collections, fcntl, hashlib, html, json, math, pathlib, re, sys
 from urllib.parse import urlsplit, urlunsplit
 HERE = pathlib.Path(__file__).resolve().parents[1]
 STATUS = {'QUALIFIED','TESTED_NEGATIVE','PARTIAL','OPEN','DEFERRED','NOT_APPLICABLE'}
@@ -168,6 +168,17 @@ def main():
                 for z in x:hashes_only(z)
         hashes_only(identity)
         public_identity={k:projection(z) if not isinstance(z,str) else text(z) for k,z in identity.items() if k in {'cuda_toolkit','engine_build','cache','context','ctx_size','batch','ubatch','threads','sampler','clock_conditions','power_limit_w','n_gpu_layers','temperature','seed','quantization','KV','kv','mtp','max_draft','model_sha256','cases_sha256','benchmark_profile'}}
+        launch=identity.get('launch',{})
+        argv=launch.get('argv',[]) if isinstance(launch,dict) else []
+        allowed_flags={'--ctx-size','--parallel','--n-gpu-layers','--threads','--threads-batch','--batch-size','--ubatch-size','--seed','--ctx-checkpoints','--cache-ram','--cache-reuse','--reasoning','--load-mode','--flash-attn','--cache-type-k','--cache-type-v','--draft-max','--draft-min','--draft-p-min','--spec-type','--n-draft'}
+        safe_argv={}
+        for pos,arg in enumerate(argv):
+            if arg in allowed_flags and pos+1<len(argv) and re.fullmatch('[A-Za-z0-9_.+-]{1,48}',str(argv[pos+1])):safe_argv[arg]=argv[pos+1]
+        public_identity['inference_flags']=safe_argv
+        public_identity['request_numeric_settings']=projection(identity.get('request_settings'))
+        env=launch.get('environment',{}) if isinstance(launch,dict) else {}
+        public_identity['kernel_switches']={k:v for k,v in env.items() if k in {'GGML_CUDA_GRAPH_OPT','GGML_CUDA_O2_WEIGHT_CACHE_MIB','GGML_CUDA_DISABLE_GRAPHS','GGML_CUDA_FORCE_MMQ','GGML_CUDA_FORCE_CUBLAS'} and re.fullmatch('[0-9]+',str(v))}
+        public_identity['workload_description']=text(identity.get('workloads'))
         references.append({'id':ident,'model':text(v.get('model')),'experiment_id':text(v.get('experiment_id')),'profile':text(v.get('profile')),'kind':text(v.get('kind')),'winner_qualified':v.get('winner_qualified') is True,'qualification':text(v.get('qualification')),'aggregate_metrics':metrics(v),'identity':public_identity,'identity_hashes':sorted(hashes),'identity_completeness':'PUBLIC_SUBSET; original hash binds full private record','limits':[text(x) for x in v.get('limits',[]) if isinstance(x,str)]})
     profiles=[{'id':k,'A0':v['A0'],'C':v.get('C'),'scope':'Champion only in this exact profile; no automatic production deployment.'} for k,v in db['profiles'].items()]
     challengers=[]
@@ -176,6 +187,13 @@ def main():
     sources=[]
     for x in matrix.get('research_source_integration_20261021',{}).get('sources',[]):
         sources.append({'id':x['id'],'url':url(x['url']),'revision':text(x['revision']),'classification':x['classification'],'axes':x['linked_original_axes'],'scope':text(x['review_scope']),'obstacles':[text(y) for y in x.get('obstacles',[])],'evidence_class':'EXTERN_BELEGT','local_test_status':x['local_test_status']})
+    for source_id,name in [('VOLTA_MICROARCH','volta-paper-abs.html'),('HBM_POWER','hbm-paper-abs.html')]:
+        original=root/'staging/r340/sources'/name
+        if original.is_file():
+            raw=original.read_text();metadata={}
+            for key,value in re.findall(r'<meta name="(citation_[^"]+)" content="([^"]*)"',raw):metadata.setdefault(key,[]).append(html.unescape(value))
+            for source in sources:
+                if source['id']==source_id:source['bibliography']={k.replace('citation_',''):v for k,v in metadata.items() if k in {'citation_title','citation_author','citation_date','citation_arxiv_id','citation_pdf_url'}};source['bibliographic_source_sha256']=digest(original)
     subcases=[]
     for x in matrix.get('research_source_integration_20261021',{}).get('subcases',[]):
         subcases.append({k:text(x.get(k)) for k in ['id','title','classification','priority_band','mechanism','prerequisites','test_design','risks','decision','next_action','expected_knowledge_gain','local_test_status']} | {'axes':x['linked_original_axes'],'sources':x['source_ids'],'counts_as_factor':False})

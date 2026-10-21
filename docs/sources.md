@@ -46,6 +46,27 @@ Original sources are cited rather than republished. Source revisions refer to th
     "HBM05",
     "HBM07"
   ],
+  "bibliographic_source_sha256": "9672a7afe464cd6740245e7cf6e10aacea30bbcd3064468dfaedf9abeb41b898",
+  "bibliography": {
+    "arxiv_id": [
+      "1804.06826"
+    ],
+    "author": [
+      "Jia, Zhe",
+      "Maggioni, Marco",
+      "Staiger, Benjamin",
+      "Scarpazza, Daniele P."
+    ],
+    "date": [
+      "2018/04/18"
+    ],
+    "pdf_url": [
+      "https://arxiv.org/pdf/1804.06826"
+    ],
+    "title": [
+      "Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking"
+    ]
+  },
   "classification": "PARTIALLY_COVERED",
   "evidence_class": "EXTERN_BELEGT",
   "id": "VOLTA_MICROARCH",
@@ -113,6 +134,30 @@ Original sources are cited rather than republished. Source revisions refer to th
     "HBM07",
     "HBM19"
   ],
+  "bibliographic_source_sha256": "ea774f886a8e5b8e01992e652bb8c6786a1618c9a0d7936f246a061d7af89edc",
+  "bibliography": {
+    "arxiv_id": [
+      "2610.14244"
+    ],
+    "author": [
+      "Olgun, Ataberk",
+      "Galanopoulos, Spiros",
+      "Kakolyris, Andreas Kosmas",
+      "Yüksel, İsmail Emir",
+      "Luo, Haocong",
+      "Bostancı, F. Nisa",
+      "Mutlu, Onur"
+    ],
+    "date": [
+      "2026/10/09"
+    ],
+    "pdf_url": [
+      "https://arxiv.org/pdf/2610.14244"
+    ],
+    "title": [
+      "Understanding the Power Consumption of Modern High Bandwidth Memory: Experimental Analysis and Modeling Using Real HBM2 DRAM Chips"
+    ]
+  },
   "classification": "PARTIALLY_COVERED",
   "evidence_class": "EXTERN_BELEGT",
   "id": "HBM_POWER",

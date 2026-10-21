@@ -1,0 +1,26 @@
+[
+  {
+    "subcase": "R340-S01",
+    "title": "Research: targeted SM70 resource/traffic profiling for a distinct kernel patch",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1",
+    "status": "OPEN_HYPOTHESIS_NOT_GPU_ADMISSION"
+  },
+  {
+    "subcase": "R340-S03",
+    "title": "Research: admit one SM70 vLLM source lane only after model and memory gates",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2",
+    "status": "OPEN_HYPOTHESIS_NOT_GPU_ADMISSION"
+  },
+  {
+    "subcase": "R340-S06",
+    "title": "Research: evaluate block-FP8 W8A16 fused dequantization on SM70",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3",
+    "status": "OPEN_HYPOTHESIS_NOT_GPU_ADMISSION"
+  },
+  {
+    "subcase": "R340-S07",
+    "title": "Research: flash-attention V100 page/stride and causal-mask correctness",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4",
+    "status": "OPEN_HYPOTHESIS_NOT_GPU_ADMISSION"
+  }
+]

@@ -271,7 +271,7 @@ The data-pattern HBM2 power paper studies separately instrumented memory. Board-
 
 See the [pinned source registry](sources.md) and [factor details](matrix.md). Published benchmarks, proven implementations and causal hypotheses are reported separately.
 ''')
- proposals=read('research-subcases.json');put('questions.md','# Open questions & research proposals\n\nThese are hypotheses or admission plans, never claimed local improvements. They extend existing axes and do not increase the factor count. GPU execution remains behind the single-factor and safety gates.\n\n'+''.join('\n## '+x['id']+'\n\n'+pretty(x) for x in proposals))
+ proposals=read('research-subcases.json');issue_registry=read('research-issues.json');put('questions.md','# Open questions & research proposals\n\nThese are hypotheses or admission plans, never claimed local improvements. They extend existing axes and do not increase the factor count. GPU execution remains behind the single-factor and safety gates.\n\n'+table(['Subcase','Public research issue','Status'],[[x['subcase'],'['+x['title']+']('+x['url']+')',x['status']] for x in issue_registry])+''.join('\n## '+x['id']+'\n\n'+pretty(x) for x in proposals))
  put('roadmap.md',f'''# Changelog & roadmap
 
 Snapshot revision **{s['matrix_revision']}**; latest canonical assessment **{s['source_date']}**.
