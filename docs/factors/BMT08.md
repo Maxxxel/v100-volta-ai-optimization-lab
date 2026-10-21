@@ -26,6 +26,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-7b8fd7f0f58f6b5a9c23.md)
 - [Original audit hash and public excerpt](../audits/audit-b0139d46e7212cc90689.md)
 - [Original audit hash and public excerpt](../audits/audit-d4a5784816404879edc5.md)
+- [Original audit hash and public excerpt](../audits/audit-d870ddde2a67de12a375.md)
 
 ### Recorded model-specific variant coverage
 
@@ -51,3 +52,7 @@ K01/K02/K03 actualGPU Q8/Q4 attentioncache formats already protocol-audited; rec
 **Next action:** Neue relevante Langkontextqualitätshypothese; native Key/Value-Q8-Negative und unqualifizierte State-Präzision getrennt halten.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Related sprint records
+
+[R381](../experiments/R381.md)

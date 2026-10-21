@@ -302,9 +302,10 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R376](experiments/R376.md) | E09, HBM18, R09 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 | [R377](experiments/R377.md) | E01, E02, E03, E04, E05, E07, E08, E09 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 | [R378](experiments/R378.md) | Q04, Q07, T01, T02, T03, T04, T05, T06, T07 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
-| [R379](experiments/R379.md) | C10, HBM08, K01, K02 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2-architecture-component |
-| [R380](experiments/R380.md) | C10, HBM08, K01, K02 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
-| [R381](experiments/R381.md) | C10, HBM08, K01, K02 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R379](experiments/R379.md) | HBM18 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2-architecture-component |
+| [R380](experiments/R380.md) | HBM08, K03 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R381](experiments/R381.md) | HBM18 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R382](experiments/R382.md) | E07, HBM09, HBM10, HBM11, HBM12, HBM13, HBM20, HBM21, HBM22, HBM23, HBM24, R10 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 
 
 ## Historical signed windows

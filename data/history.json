@@ -12510,5 +12510,21 @@
     "kind": "USER_PRIORITY_CORRECTION_BREADTH_BEFORE_FINE_DIAGNOSIS",
     "sequence": 1564,
     "signature": null
+  },
+  {
+    "date": "2026-10-21T21:29:26.511666+00:00",
+    "experiment_id": "R382",
+    "factor_id": null,
+    "kind": "R382_BREADTH_RECONCILIATION_AND_TRANSPARENT_FACTOR_MAPPING_CORRECTION",
+    "sequence": 1565,
+    "signature": null
+  },
+  {
+    "date": "2026-10-21T21:31:48.314728+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "R382_CURRENT_BREADTH_METADATA_CLARIFICATION",
+    "sequence": 1566,
+    "signature": null
   }
 ]

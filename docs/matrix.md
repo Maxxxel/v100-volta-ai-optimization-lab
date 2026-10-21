@@ -42,7 +42,7 @@
 | [C07](factors/C07.md) | FA_QUANTS coverage | PARTIAL | YES | P2 |
 | [C08](factors/C08.md) | cuBLAS compute type | PARTIAL | YES | P2 |
 | [C09](factors/C09.md) | SM70 MMVQ warp dispatch | PARTIAL | YES | P2 |
-| [C10](factors/C10.md) | SM70 MMQ tile width | PARTIAL | YES | P1 |
+| [C10](factors/C10.md) | SM70 MMQ tile width | PARTIAL | YES | P2 |
 | [C11](factors/C11.md) | Dequant GEMM fusion | PARTIAL | YES | P2 |
 | [C12](factors/C12.md) | RMSNorm RoPE Fusion | PARTIAL | YES | P2 |
 | [C13](factors/C13.md) | Delta State Fusion | PARTIAL | YES | P2 |

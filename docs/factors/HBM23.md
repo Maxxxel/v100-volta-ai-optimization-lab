@@ -26,8 +26,8 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
-| local_reference | BLOCKED | See linked original evidence | Not separately reconciled |
-| flashinfer_port | BLOCKED | See linked original evidence | Not separately reconciled |
+| local_reference | BLOCKED | PARTIAL | False |
+| flashinfer_port | BLOCKED | DEFERRED | False |
 
 
 ### Recorded model-specific variant coverage
@@ -115,4 +115,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R249](../experiments/R249.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md)

@@ -4879,7 +4879,8 @@
     ],
     "experiment_ids": [
       "R361",
-      "R362"
+      "R362",
+      "R382"
     ],
     "experimentally_covered": true,
     "id": "R10",
@@ -5047,9 +5048,9 @@
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": "Explicit--kv-unifiedtrue candidate on original8Ksingle-slotprofile is a distinct not-yet-tested setting. Review actual source/graph difference and source-pinned reference before a bounded isolatedBscreen. No multi-slot speed run before state-qualitygate.",
+        "remaining_requirement": "Default/off is the stored reference condition. Explicittrue on8Ksingle-slot was already actually measured and rejected inR362;do not repeat. Different multisequence/capacity behavior requires the independent E09/K05state-isolation gate.",
         "scope": "Default/offreferencealreadyfalse;nonewcandidateintervention. R362explicittrueprovidesrealcomparisonagainststoredsameprofileA0.",
-        "scope_status": "OPEN",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
@@ -8848,7 +8849,8 @@
       "audit-76bd28c3368e61d7c96d"
     ],
     "experiment_ids": [
-      "R345"
+      "R345",
+      "R380"
     ],
     "experimentally_covered": true,
     "id": "K03",
@@ -11583,8 +11585,8 @@
       "https://raw.githubusercontent.com/KumphanartDansiri/v100-vllm-2026/295b5bd547edb07c9de0b58b7c98aaacfac8ec30/docs/02_fp16_moe_fix.md",
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/vllm_serve.py"
     ],
-    "priority": "P1",
-    "remaining_scope": "R381 isolatedroute screen: longdecodephase improves9.439%, fullE2E0.961%, noenergywin. Independent relevanttaskquality/latency/stability and freshcontrols still needed before scopedqualification. Existing formatnegatives preserved.",
+    "priority": "P2",
+    "remaining_scope": "Existing MMQ Jcap64/32 and forced-routing caveats retained. A truly different MMQ tile/warp/registerlayout needs its own implemented and numerically valid path; Q8 FlashAttention routing does not exercise it.",
     "reopening_conditions": "Anderes Tiling nur mit eigenem Instruktions-/Register-/Occupancyentwurf und Numerical-Orakel zulassen; HBM04 ist keine zweite Runde derselben Caps.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -23940,7 +23942,8 @@
     ],
     "experiment_ids": [
       "R249",
-      "R377"
+      "R377",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "E07",
@@ -25424,7 +25427,7 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
@@ -29900,7 +29903,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM09",
@@ -29981,25 +29985,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A real asymmetric packedKV implementation, scales/group/residual memory accounting, D256CPUoracle and state reset/rollback checks, then quality/capacity Bscreen.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. KIVI: per-channel keys and per-token values, low-bit grouping plus residual buffers.",
+        "scope_status": "PARTIAL",
         "value": "f16_reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A real asymmetric packedKV implementation, scales/group/residual memory accounting, D256CPUoracle and state reset/rollback checks, then quality/capacity Bscreen.",
+        "scope": "KIVI: per-channel keys and per-token values, low-bit grouping plus residual buffers.",
+        "scope_status": "DEFERRED",
         "value": "kivi_2bit"
       }
     ]
@@ -30012,7 +30016,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM10",
@@ -30093,25 +30098,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Independent nonbenchmark activation/calibration split, correctly compensated pre-IMRoPE key path, packed outlier/layout implementation and numerics before capacity/quality tests.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. KVQuant: calibrated per-channel pre-RoPE keys, nonuniform quantization and dense/sparse outliers.",
+        "scope_status": "PARTIAL",
         "value": "f16_reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Independent nonbenchmark activation/calibration split, correctly compensated pre-IMRoPE key path, packed outlier/layout implementation and numerics before capacity/quality tests.",
+        "scope": "KVQuant: calibrated per-channel pre-RoPE keys, nonuniform quantization and dense/sparse outliers.",
+        "scope_status": "DEFERRED",
         "value": "kvquant_port"
       }
     ]
@@ -30124,7 +30129,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM11",
@@ -30205,25 +30211,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Useful independently defined fragmentation/multisequence workload, both-conversations-preserving isolation fix and blocktable/cache lifecycle/operator contract. vLLM graph/weights adapter must be executable before that engine route.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. PagedAttention: block-table based KV allocation/attention and sequence scheduling.",
+        "scope_status": "PARTIAL",
         "value": "reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Useful independently defined fragmentation/multisequence workload, both-conversations-preserving isolation fix and blocktable/cache lifecycle/operator contract. vLLM graph/weights adapter must be executable before that engine route.",
+        "scope": "PagedAttention: block-table based KV allocation/attention and sequence scheduling.",
+        "scope_status": "DEFERRED",
         "value": "paged_port"
       }
     ]
@@ -30237,7 +30243,8 @@
     ],
     "experiment_ids": [
       "R242",
-      "R250"
+      "R250",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM12",
@@ -30318,25 +30325,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "One bounded SM70 KV-load prefetch patch with a chosen distance/access pattern and numerical oracle; demonstrate useful workload benefit, not renamed weightprefetch. Do not require or assume Ampere cp.async/TMA.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. KV-specific prefetch from HBM toward L2, overlapped with attention consumption.",
+        "scope_status": "PARTIAL",
         "value": "off"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "One bounded SM70 KV-load prefetch patch with a chosen distance/access pattern and numerical oracle; demonstrate useful workload benefit, not renamed weightprefetch. Do not require or assume Ampere cp.async/TMA.",
+        "scope": "KV-specific prefetch from HBM toward L2, overlapped with attention consumption.",
+        "scope_status": "DEFERRED",
         "value": "sm70_prefetch_port"
       }
     ]
@@ -30349,7 +30356,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM13",
@@ -30430,25 +30438,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete predictor/selection rule with independent semantic workload, hostRAM/transfer limits and correct cachefork/rollback lifecycle, then include transfer/selection costs in E2E and quality.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. OasisKV: selective/lookahead KV staging rather than ordinary prefix reuse.",
+        "scope_status": "PARTIAL",
         "value": "dense_reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Concrete predictor/selection rule with independent semantic workload, hostRAM/transfer limits and correct cachefork/rollback lifecycle, then include transfer/selection costs in E2E and quality.",
+        "scope": "OasisKV: selective/lookahead KV staging rather than ordinary prefix reuse.",
+        "scope_status": "DEFERRED",
         "value": "oasiskv_port"
       }
     ]
@@ -32878,7 +32886,9 @@
     ],
     "experiment_ids": [
       "R374",
-      "R376"
+      "R376",
+      "R379",
+      "R381"
     ],
     "experimentally_covered": true,
     "id": "HBM18",
@@ -35736,7 +35746,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM20",
@@ -35817,25 +35828,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual compatible modified memory hardware, or a separately labeled simulator study outside local V100 hardware gains.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. StreamDQ proposes changes to HBM-side data/dequantization hardware.",
+        "scope_status": "PARTIAL",
         "value": "stock_hbm2"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Actual compatible modified memory hardware, or a separately labeled simulator study outside local V100 hardware gains.",
+        "scope": "StreamDQ proposes changes to HBM-side data/dequantization hardware.",
+        "scope_status": "NOT_APPLICABLE",
         "value": "custom_hbm_streamdq"
       }
     ]
@@ -35848,7 +35859,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM21",
@@ -35929,25 +35941,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "An actual HBF platform, or an explicitly separate system simulation without a localV100 speedup claim.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. FlashAccel uses an HBF hardware/system architecture.",
+        "scope_status": "PARTIAL",
         "value": "stock_hbm2"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "An actual HBF platform, or an explicitly separate system simulation without a localV100 speedup claim.",
+        "scope": "FlashAccel uses an HBF hardware/system architecture.",
+        "scope_status": "NOT_APPLICABLE",
         "value": "hbf_flashaccel"
       }
     ]
@@ -35960,7 +35972,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM22",
@@ -36041,25 +36054,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Model-compatible quantized artifact, operators with actual SM70dispatch and16GBworking-memory budget. Retain quality gates; measure any fallback rather than importing published throughput.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. QServe: W4A8KV4 quantization plus matching compute, cache and serving kernels.",
+        "scope_status": "PARTIAL",
         "value": "gguf_reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Model-compatible quantized artifact, operators with actual SM70dispatch and16GBworking-memory budget. Retain quality gates; measure any fallback rather than importing published throughput.",
+        "scope": "QServe: W4A8KV4 quantization plus matching compute, cache and serving kernels.",
+        "scope_status": "DEFERRED",
         "value": "qserve_port"
       }
     ]
@@ -36072,7 +36085,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM23",
@@ -36153,25 +36167,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Select exact supported source/kernel revision and verify generated SM70code, model/cache adapter and numerical semantics before build/install/GPU. A JIT configuration or engine name alone is insufficient.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. FlashInfer attention library integration, including cache/attention layouts and compiled kernel dispatch.",
+        "scope_status": "PARTIAL",
         "value": "local_reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "BLOCKED"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "Select exact supported source/kernel revision and verify generated SM70code, model/cache adapter and numerical semantics before build/install/GPU. A JIT configuration or engine name alone is insufficient.",
+        "scope": "FlashInfer attention library integration, including cache/attention layouts and compiled kernel dispatch.",
+        "scope_status": "DEFERRED",
         "value": "flashinfer_port"
       }
     ]
@@ -36184,7 +36198,8 @@
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R382"
     ],
     "experimentally_covered": false,
     "id": "HBM24",
@@ -36265,25 +36280,25 @@
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A genuinely compatible qwen4expmodel/weight/graph and measured single16GBresource admission in later model phase, or an isolated reusable kernel independent of that architecture.",
+        "scope": "Existing generic baseline evidence is not a paired control in the unimplemented port; no duplicateGPUcalibration admitted. Pinned fork qwen4exp QSA/MoE/HC/PLE specialization for a different model and two32GBV100 setup.",
+        "scope_status": "PARTIAL",
         "value": "qwen35_reference"
       },
       {
         "aggregate_metrics": null,
         "evidence_ids": [],
-        "experimental_coverage": null,
+        "experimental_coverage": false,
         "historical_signed_states": [
           "NOT_APPLICABLE"
         ],
-        "remaining_requirement": null,
-        "scope": null,
-        "scope_status": null,
+        "remaining_requirement": "A genuinely compatible qwen4expmodel/weight/graph and measured single16GBresource admission in later model phase, or an isolated reusable kernel independent of that architecture.",
+        "scope": "Pinned fork qwen4exp QSA/MoE/HC/PLE specialization for a different model and two32GBV100 setup.",
+        "scope_status": "NOT_APPLICABLE",
         "value": "qwen4exp_qsa"
       }
     ]
@@ -36604,9 +36619,12 @@
       "audit-658cb0df8d89b3225ae5",
       "audit-7b8fd7f0f58f6b5a9c23",
       "audit-b0139d46e7212cc90689",
-      "audit-d4a5784816404879edc5"
+      "audit-d4a5784816404879edc5",
+      "audit-d870ddde2a67de12a375"
     ],
-    "experiment_ids": [],
+    "experiment_ids": [
+      "R381"
+    ],
     "experimentally_covered": true,
     "id": "BMT08",
     "kind": "additional",

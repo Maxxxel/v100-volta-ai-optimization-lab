@@ -2440,4 +2440,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R374](../experiments/R374.md), [R376](../experiments/R376.md)
+[R374](../experiments/R374.md), [R376](../experiments/R376.md), [R379](../experiments/R379.md), [R381](../experiments/R381.md)

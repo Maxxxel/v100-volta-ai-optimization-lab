@@ -12,6 +12,7 @@ SECRET = re.compile(r'(?i)(?:gh[pousr]_[a-z0-9]{12,}|github_pat_[a-z0-9_]{12,}|s
 SAFEKEY = re.compile(r'^[A-Za-z0-9_+().% -]{1,100}$')
 # Only aggregate scientific branches; never raw responses, cases, per-task outputs or prompts.
 METRIC_ROOTS = {'native_metrics','context_tokens','slots','actual_KV_unified','models','comparisons','metrics','comparison','delta','long_metrics','quality','original12','quality_original12','original12_nonregression','peak_process_vram_mib','peak_device_vram_mib','memory_saved_mib','numerical','numerical_reference','numerical_failures','numerical_tests','model_starts','requests','actual_generation_requests','actual_GPU_execution','new_GPU_runs','old_native_model_starts_verified','primary_archives_checked','observations','unique_quality_tasks','quality_losses','format_passes','semantic_passes','tasks','solved','total_wall_s','wall_s','gpu_j_per_success','gpu_energy_j','stability','A','B','arms','reference','candidate','full_standard164','custom_long_context16','scopes','score_rule','model_comparison_progress'}
+METRIC_ROOTS |= {'factors_reviewed','original_variant_cells','existing_unique_evidence_files_SHA_verified','new_model_starts','scientific_status_changes','experimental_factor_coverage_changes'}
 # Explicit numeric aggregate fields for speculation memory/task-cost screens.
 METRIC_ROOTS |= {'prefix_envelopes_same','actual_history_requests','critical_matches_previous_valid','critical_matches_previous_bad','critical_prompt_tokens','critical_output_tokens','concurrent_generation_requests','other_slot_erased','actual_managed_allocator','CT_memory_observed','decode_e2e_reduction_percent_vs_A0','actual_ngram_draft','memory_saved_vs_R244_device_mib','memory_saved_vs_R245_device_mib','successful_task_wall_s','successful_task_cost_change_percent_vs_R245','gpu_energy_j_approx','observed_tasks','full18_score_claimed','model_requests','actual_ngram_proposals_observed','timing_confirmation_needed','fixed_parameters'}
 BLOCK_KEYS = re.compile(r'(?i)(?:prompt|response|answer|output|content|messages|transcript|token_ids|per_task|per_case|samples|observations|input|argv|environment|paths?|commands?|logs?|error|trace|qkv|tensor|activation|workload|case_id|tools|entities|sequence|proposals|findings|password|credential|secret|authorization|entity|address|port_number|pin$)')
@@ -66,12 +67,24 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    numerical=obj.get('numerical_result')
+    if isinstance(numerical,dict):
+        aggregate={k:projection(numerical[k]) for k in ('cases_count','passed_cases','NMSE_limit','numerical_gate_passed','private_library_mapping_verified','model_starts','wall_s') if isinstance(numerical.get(k),(int,float,bool))}
+        if aggregate:result['numerical_component']=aggregate
     # The conservative log-key filter excludes 'logical'; expose only this
     # explicitly verified boolean under a public accounting label.
     managed=obj.get('actual_managed_allocator')
     if isinstance(managed,dict) and managed.get('logical_allocation_is_not_NVML_residency') is True:
         result.setdefault('actual_managed_allocator',{})['managed_bytes_are_not_residency']=True
     return result
+def factor_assignment(summary):
+    """A current correction controls the tested scope; original audit stays linked."""
+    valid=lambda x:isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)
+    current=sorted({x for x in summary.get('axis_factors',[]) if valid(x)})
+    old=summary.get('original_audit_factor_mapping',{})
+    original=sorted({x for x in old.get('axis_factors',[]) if valid(x)})
+    related=sorted({x for x in summary.get('related_factors_not_isolated_treatments',[]) if valid(x)}-set(current))
+    return {'current_factor_ids':current,'original_audit_factor_ids':original,'related_context_factor_ids':related,'reason':text(summary.get('factor_mapping_correction',{}).get('reason'))}
 def snippets(obj):
     return {k:text(obj[k]) for k in ['decision','qualification','interpretation','hypothesis','research_question','scope','measurement_type','evidence_class','score_rule'] if isinstance(obj.get(k),str)} | {k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)}
 def write(name,obj):
@@ -141,6 +154,9 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if v.get('factor_mapping_correction'):
+            experiments[ident]['factor_mapping_correction']=factor_assignment(v)
+            experiments[ident]['factor_ids']=experiments[ident]['factor_mapping_correction']['current_factor_ids']
     for f in factors:
         for aid in f['evidence_ids']:
             p=locations[aid];match=re.search(r'(?:^|/)r(\d+)(?:[-/]|$)',str(p),re.I)

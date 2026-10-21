@@ -4,6 +4,13 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_corrected_attention_scope_keeps_original_mapping_visible(self):
+  raw={'axis_factors':['HBM18'],'original_audit_factor_mapping':{'axis_factors':['C10','K01','HBM08']},'related_factors_not_isolated_treatments':['K01','HBM08'],'factor_mapping_correction':{'reason':'Attention dispatch is not an MMQ tile intervention'}}
+  out=e.factor_assignment(raw)
+  self.assertEqual(out['current_factor_ids'],['HBM18']);self.assertIn('C10',out['original_audit_factor_ids']);self.assertNotIn('C10',out['current_factor_ids']);self.assertEqual(out['related_context_factor_ids'],['HBM08','K01'])
+ def test_native_numerical_counts_exclude_fixture_and_execution_logs(self):
+  raw={'numerical_result':{'cases_count':6,'passed_cases':6,'NMSE_limit':0.0005,'cases':['private fixture'],'execution_markers':['private log'],'model_starts':0}}
+  self.assertEqual(e.metrics(raw),{'numerical_component':{'cases_count':6,'passed_cases':6,'NMSE_limit':0.0005,'model_starts':0}})
  def test_credentials_and_network_are_rejected(self):
   examples=['gh'+'p_'+'A'*30,'-----BEGIN '+'RSA PRIVATE KEY-----','192'+'.168.42.18','sensor'+'.bedroom_temperature','fd00'+':'*2+'12',':'*2+'1','https://user'+':secret'+'@example.com']
   for x in examples:

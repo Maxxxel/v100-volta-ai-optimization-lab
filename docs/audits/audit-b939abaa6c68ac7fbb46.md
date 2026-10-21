@@ -25,6 +25,15 @@ Original file: `AUDIT.json`; 2820 bytes. The original is retained privately and 
   "actual_GPU_execution": true,
   "gpu_energy_j_approx": 74.54588275865231,
   "model_starts": 0,
+  "numerical_component": {
+    "NMSE_limit": 0.0005,
+    "cases_count": 6,
+    "model_starts": 0,
+    "numerical_gate_passed": true,
+    "passed_cases": 6,
+    "private_library_mapping_verified": true,
+    "wall_s": 1.706744561
+  },
   "peak_device_vram_mib": 630.5
 }
 ```

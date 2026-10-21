@@ -13960,17 +13960,44 @@
       "actual_GPU_execution": true,
       "gpu_energy_j_approx": 74.54588275865231,
       "model_starts": 0,
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 6,
+        "model_starts": 0,
+        "numerical_gate_passed": true,
+        "passed_cases": 6,
+        "private_library_mapping_verified": true,
+        "wall_s": 1.706744561
+      },
       "peak_device_vram_mib": 630.5
     },
     "audit_id": "audit-b939abaa6c68ac7fbb46",
     "date": "2026-10-21T20:56:42.825558+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [
-      "C10",
-      "HBM08",
-      "K01",
-      "K02"
+      "HBM18"
     ],
+    "factor_mapping_correction": {
+      "current_factor_ids": [
+        "HBM18"
+      ],
+      "original_audit_factor_ids": [
+        "C10",
+        "HBM08",
+        "K01",
+        "K02"
+      ],
+      "reason": "Q8attention FA kernel dispatch is not MMQ GEMM tilewidth. R380is exact Q8paircontrolcalibration, not a claimed optimization. Historical audit/brokerfactorK01 remains original.",
+      "related_context_factor_ids": [
+        "C07",
+        "HBM08",
+        "K01",
+        "K02",
+        "K03",
+        "K04",
+        "R06"
+      ]
+    },
     "id": "R379",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
@@ -14229,11 +14256,29 @@
     "date": "2026-10-21T21:02:57.622999+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [
-      "C10",
       "HBM08",
-      "K01",
-      "K02"
+      "K03"
     ],
+    "factor_mapping_correction": {
+      "current_factor_ids": [
+        "HBM08",
+        "K03"
+      ],
+      "original_audit_factor_ids": [
+        "C10",
+        "HBM08",
+        "K01",
+        "K02"
+      ],
+      "reason": "Q8attention FA kernel dispatch is not MMQ GEMM tilewidth. R380is exact Q8paircontrolcalibration, not a claimed optimization. Historical audit/brokerfactorK01 remains original.",
+      "related_context_factor_ids": [
+        "C07",
+        "K01",
+        "K02",
+        "K04",
+        "R06"
+      ]
+    },
     "id": "R380",
     "model": "omnicoder2",
     "reference_A0": null,
@@ -14516,11 +14561,29 @@
     "date": "2026-10-21T21:08:34.971066+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [
-      "C10",
-      "HBM08",
-      "K01",
-      "K02"
+      "HBM18"
     ],
+    "factor_mapping_correction": {
+      "current_factor_ids": [
+        "HBM18"
+      ],
+      "original_audit_factor_ids": [
+        "C10",
+        "HBM08",
+        "K01",
+        "K02"
+      ],
+      "reason": "Q8attention FA kernel dispatch is not MMQ GEMM tilewidth. R380is exact Q8paircontrolcalibration, not a claimed optimization. Historical audit/brokerfactorK01 remains original.",
+      "related_context_factor_ids": [
+        "C07",
+        "HBM08",
+        "K01",
+        "K02",
+        "K03",
+        "K04",
+        "R06"
+      ]
+    },
     "id": "R381",
     "model": "omnicoder2",
     "reference_A0": "f5e665f8a7e9effc75dd2ed0e9643f8fbae5bb1b35439a0623a54b0a1f86dcbb",
@@ -14535,6 +14598,51 @@
         "NVML board joules are not whole-system energy or energy per successful agent task."
       ],
       "measurement_type": "GPU_Q8KV_ROUTING_ON_SINGLE_FACTOR_SCREEN"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "existing_unique_evidence_files_SHA_verified": 443,
+      "experimental_factor_coverage_changes": 0,
+      "factors_reviewed": 162,
+      "new_GPU_runs": 0,
+      "new_model_starts": 0,
+      "original_variant_cells": 355,
+      "scientific_status_changes": 0
+    },
+    "audit_id": "audit-55f5a46a2d9be7022df5",
+    "date": "2026-10-21T21:29:26.511666+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "E07",
+      "HBM09",
+      "HBM10",
+      "HBM11",
+      "HBM12",
+      "HBM13",
+      "HBM20",
+      "HBM21",
+      "HBM22",
+      "HBM23",
+      "HBM24",
+      "R10"
+    ],
+    "id": "R382",
+    "model": "omnicoder2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "BREADTH_EVIDENCE_AND_ALL355_NAMED_CELL_SCOPE_RECORDS_RECONCILED_NO_ALL_TESTED_OR_PHASE_EXIT_CLAIM",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "This verifies existing evidence integrity and concrete recorded scopes; not a fresh independent rerun of all historical measurements.",
+        "355scopedcells means documentedscope, not355GPUtests/qualifiedvariants.54factors remain experimentallyuncovered.",
+        "Missing implementations can be engineering candidates; no automatic deferral of all viable research from a zero ready-marker count.",
+        "Currentmetadata corrections are explicit and do not alter historical originalaudits, signed355cellstates or baseline/championrecords.",
+        "Open-ended futureparameterchoices are not automatically required; only a distinct useful implementable missingtreatment merits a new experiment."
+      ],
+      "measurement_type": "BREADTH_RECONCILIATION_162_FACTORS_355_ORIGINAL_CELLS"
     },
     "winner_qualified": false
   }

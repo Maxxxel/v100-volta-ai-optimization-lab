@@ -102184,6 +102184,15 @@
       "actual_GPU_execution": true,
       "gpu_energy_j_approx": 74.54588275865231,
       "model_starts": 0,
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 6,
+        "model_starts": 0,
+        "numerical_gate_passed": true,
+        "passed_cases": 6,
+        "private_library_mapping_verified": true,
+        "wall_s": 1.706744561
+      },
       "peak_device_vram_mib": 630.5
     },
     "excerpt_is_not_original": true,
@@ -132514,6 +132523,9 @@
       "actual_GPU_execution": true,
       "gpu_energy_j_approx": 16.878811563558017,
       "model_starts": 0,
+      "numerical_component": {
+        "wall_s": 0.386870717
+      },
       "peak_device_vram_mib": 239.875
     },
     "excerpt_is_not_original": true,
@@ -132564,6 +132576,9 @@
       "actual_GPU_execution": true,
       "gpu_energy_j_approx": 17.86341633084,
       "model_starts": 0,
+      "numerical_component": {
+        "wall_s": 0.40567326
+      },
       "peak_device_vram_mib": 239.875
     },
     "excerpt_is_not_original": true,
@@ -168598,6 +168613,37 @@
     "original_publicly_available": false,
     "original_sha256": "d336405bc165919355c011536577193bed016f129fd475c56215de6951a97d28",
     "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "existing_unique_evidence_files_SHA_verified": 443,
+      "experimental_factor_coverage_changes": 0,
+      "factors_reviewed": 162,
+      "new_GPU_runs": 0,
+      "new_model_starts": 0,
+      "original_variant_cells": 355,
+      "scientific_status_changes": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-55f5a46a2d9be7022df5",
+    "original_bytes": 88866,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "55f5a46a2d9be7022df5d2236c1674f08cdb5a9c6f6f232d0eaaff187bacff07",
+    "statements": {
+      "decision": "BREADTH_EVIDENCE_AND_ALL355_NAMED_CELL_SCOPE_RECORDS_RECONCILED_NO_ALL_TESTED_OR_PHASE_EXIT_CLAIM",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "This verifies existing evidence integrity and concrete recorded scopes; not a fresh independent rerun of all historical measurements.",
+        "355scopedcells means documentedscope, not355GPUtests/qualifiedvariants.54factors remain experimentallyuncovered.",
+        "Missing implementations can be engineering candidates; no automatic deferral of all viable research from a zero ready-marker count.",
+        "Currentmetadata corrections are explicit and do not alter historical originalaudits, signed355cellstates or baseline/championrecords.",
+        "Additional129differentcodepoints/continuousparameterchoices are not automatically required; only a distinct useful implementable missingtreatment merits a new experiment."
+      ],
+      "measurement_type": "BREADTH_RECONCILIATION_162_FACTORS_355_ORIGINAL_CELLS"
+    }
   },
   {
     "aggregate_metrics": {
