@@ -12942,5 +12942,29 @@
     "kind": "UNKNOWN",
     "sequence": 1618,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T16:40:00+00:00",
+    "experiment_id": "R408",
+    "factor_id": null,
+    "kind": "R408_PREREGISTERED_PREFLIGHT_PASSED_NO_GPU_START",
+    "sequence": 1619,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T16:50:00+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "R408_RECOVERY_001_PREREGISTERED_PREFLIGHT_PASSED_NO_GPU_START",
+    "sequence": 1620,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T16:52:39+00:00",
+    "experiment_id": "R408",
+    "factor_id": null,
+    "kind": "R408_GPU_COMPLETE_INDEPENDENTLY_REVIEWED",
+    "sequence": 1621,
+    "signature": null
   }
 ]

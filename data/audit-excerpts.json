@@ -112985,6 +112985,90 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-74e8e58e72e5b8769e71",
+    "original_bytes": 1599,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "74e8e58e72e5b8769e71feea8b94a76cb1eb3a22a40f846eb28f2a9f0f337bc4",
+    "statements": {
+      "decision": "TESTED_NEGATIVE_MTP_OUTPUT_OR_STATE_REGRESSION",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "critical_envelope_equal": false,
+        "critical_tool_calls_equal": true,
+        "history_cases": 21,
+        "history_differences": [
+          {
+            "ordinal_zero_based": 3,
+            "text_equal": false,
+            "tool_calls_equal": false
+          },
+          {
+            "ordinal_zero_based": 12,
+            "text_equal": false,
+            "tool_calls_equal": false
+          }
+        ],
+        "history_envelopes_equal": false
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0f4239ca198c9619efaa",
+    "original_bytes": 4476,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0f4239ca198c9619efaaf678fb0ff52e30866f33eb2d336128a4322ebcda3c4b",
+    "statements": {
+      "decision": "PREREGISTERED_EXACT_ENVELOPE_PARITY_NOT_MET; STATE_SERIALIZATION_OBSERVER_PASSED; TASK_QUALITY_AND_CAUSAL_ROLLBACK_UNRESOLVED",
+      "evidence_class": "LOKAL GEMESSEN",
+      "interpretation": "The preregistered exact-response parity gate failed. Observed differences do not establish incorrect tool behavior: the two history tool calls use different replacement-span widths but target the same return-line change, and the critical tool call is identical. This experiment did not execute or score the edits. It therefore does not prove a quality regression, lossless speculative decoding, or a GDN rollback defect.",
+      "scope": "Replayed immutable A0/MTP envelopes and raw hash manifest; no prompt or model-output payload copied into this review."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-566846e23e8afe2a7839",
+    "original_bytes": 393,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "566846e23e8afe2a78390097566e431bb2448f9dd0b0acd6163aa89d0d9c3a06",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 2
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3488ebecde31822cf2a0",
+    "original_bytes": 3379,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3488ebecde31822cf2a0e904a1c3c6b0c0b6ac87ba5b80779c0d54d08ad43c52",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-cc957bdf72c7df1251f2",
+    "original_bytes": 1404,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cc957bdf72c7df1251f2ff29123310246cedaf5f444041ffbf3aa7a64f9bf7a7",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {
       "models": {
         "omnicoder2": {
