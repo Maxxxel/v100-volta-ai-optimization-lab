@@ -160780,6 +160780,19 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-9d3b81ed845e2ae0b2f9",
+    "original_bytes": 3386,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9d3b81ed845e2ae0b2f9e12525ca91d4ca4bed9106fd9dd9707487d1792afdda",
+    "statements": {
+      "decision": "NO_DISTRIBUTION_PRESERVING_GPU_ADMISSION_FOR_THIS_GRAMMAR"
+    }
+  },
+  {
     "aggregate_metrics": {
       "actual_generation_requests": 31,
       "gpu_energy_j_approx": 13880.690239834055,

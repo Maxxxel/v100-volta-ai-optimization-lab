@@ -12710,5 +12710,13 @@
     "kind": "R393_M12_REAL_GPU_FIXED_SCHEMA_STOP_SCREEN_PROMISING_NOT_QUALIFIED",
     "sequence": 1589,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T10:09:07.643409+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "E08_PRIVATE_CPU_PARSER_TOKEN_MASK_ADMISSION",
+    "sequence": 1590,
+    "signature": null
   }
 ]

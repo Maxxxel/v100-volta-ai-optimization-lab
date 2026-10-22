@@ -24246,21 +24246,23 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar.",
+    "decision": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar. E08 actualLLGuidance pinnedv1.0.1 CPUadmission: privateRustdependency built offline; onlysampling.cpp/llguidance.cpp recompiled and privatecommon relinked; stockengine/CUDA unchanged. Two vocabulary-only CPUprobes, each3fixeddecisionJSONstrings/18prefixmasks over248320tokens. Canonical3strings accepted byboth;27maskdifferences perprobe (15normal-token,12EOG;allAallows/Bmasks). This changes token support: no distribution-preservingGPUadmission for this grammar. No GPUperformance/energy or agent/toolquality result, no independentqualification. Not a universal byte-language incompatibility or performance rejection.",
     "domain": "engine",
     "evidence_ids": [
       "audit-3260f1fb5192e1400bd8",
-      "audit-4e5c4e18df8e19bfef6a"
+      "audit-4e5c4e18df8e19bfef6a",
+      "audit-9d3b81ed845e2ae0b2f9"
     ],
     "experiment_ids": [
       "R193",
-      "R377"
+      "R377",
+      "R393"
     ],
     "experimentally_covered": true,
     "id": "E08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
+    "next_action": "Keep E08 PARTIAL and preserve privateartifacts. For a useful quality-scoped structured-tool parser screen, first resolve/document the observed ordinary-token and EOG support differences against the pinned matcher/source contract and admit an independent equal-byte-language workload. Do not assert target-distribution preservation, disable quality gates or benchmark an inert buildflag. Limit CPUdiagnosis to that concrete admission; otherwise resume remaining distinct singles from canonicalper-factor prerequisites. No combinations/newmodels yet.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -24343,11 +24345,12 @@
       }
     ],
     "prerequisites": [
-      "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag."
+      "A justified structured-tool workload with equivalent accepted byte language and explicit token/EOG semantics.",
+      "Independent output/quality and parser-cost gate before GPU performance qualification; original12/task quality not yet run for this parser."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
+    "remaining_scope": "R193 transport scope retained; actual alternative-parser token support differs on fixed JSON probe. Independent structured-tool quality/latency scope and compatible stopping/token semantics remain unqualified. No broad exclusion of LLGuidance.",
     "reopening_conditions": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
