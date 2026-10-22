@@ -12766,5 +12766,13 @@
     "kind": "R396_NATIVE_PRE_ROPE_KV_FORWARD_CALIBRATION_FIDELITY_PASS",
     "sequence": 1596,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T11:30:23.391400+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "HBM10_CPU_UNWEIGHTED_NUQ4_DEVELOPMENT_PROXY_PASS",
+    "sequence": 1597,
+    "signature": null
   }
 ]

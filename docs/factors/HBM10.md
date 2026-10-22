@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P2 |
+| PARTIAL | False | False | P2 |
 
 
 ## Theory and Volta implications
@@ -20,8 +20,9 @@ These are source links or general implementation background, not local speedup e
 
 ## Implementation and evidence
 
-Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
+GPUforwardcapture prerequisite and actualCPU4bitNUQ reconstruction prototype; quantizedcache/operator itself not GPU-executed.
 
+- [Original audit hash and public excerpt](../audits/audit-05afcc3469e3e66c1c3f.md)
 - [Original audit hash and public excerpt](../audits/audit-2e96ee859dddd9c15699.md)
 - [Original audit hash and public excerpt](../audits/audit-33600e4ed4f8397b8406.md)
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
@@ -106,13 +107,13 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-EXTERN_BELEGT/source+CPUequation review: KVQuant commit 57a238357f0ffe50084670fcd5781c9848f80ea2. Published Fisher route uses squared K/V activation gradients and backward, unlike R187inputsecondmoments; currentnativeGDNbackward missing. Crucially, code also contains fisher=None unweightedNUQ KMeans, so no blanketgradient/training exclusion. Directfull-headRoPE sparsekernel conflicts with actualOmniD256/n_rot64: nonrotatedchannel128,position1,unitbasis targetdot1 versuscos(1)=0.540302. This is a source-equation counterexample, not a GPU/modelquality result. Source has nativeKcur_normed(preRoPE)/Vcur callbacks and cb_eval/tensorget pattern; forward-only calibration is a distinct stillOPEN route. R396 nativeforwardcalibration admission: one originalOmniQ6K/300W model,two sequentialF16contexts,4x512tokens from reusedindependentR187Pythonstdlibcorpus,zero generations. Eightcontrol/observer forwardpasses. 64GPUbuffer tensors capture preRoPEKcur_normed andVcur across8attentionlayers;128MiBrawF32,33,554,432finiteactivationvalues independentlychecked withshape/stride/hash contracts. All4fullvocabulary control-logit arrays byteidentical (993,280logitvalues). Peak7418.5MiB. No quantizerfit,gradient,optimizerstep,quantizedcache,modelQA/performance or Champion. This removes a forward-observer prerequisite for unweightedNUQ, not an optimization-coverage gap; HBM10 remainsOPEN/NEIN, overall113/162unchanged.
+EXTERN_BELEGT/source+CPUequation review: KVQuant commit 57a238357f0ffe50084670fcd5781c9848f80ea2. Published Fisher route uses squared K/V activation gradients and backward, unlike R187inputsecondmoments; currentnativeGDNbackward missing. Crucially, code also contains fisher=None unweightedNUQ KMeans, so no blanketgradient/training exclusion. Directfull-headRoPE sparsekernel conflicts with actualOmniD256/n_rot64: nonrotatedchannel128,position1,unitbasis targetdot1 versuscos(1)=0.540302. This is a source-equation counterexample, not a GPU/modelquality result. Source has nativeKcur_normed(preRoPE)/Vcur callbacks and cb_eval/tensorget pattern; forward-only calibration is a distinct stillOPEN route. R396 nativeforwardcalibration admission: one originalOmniQ6K/300W model,two sequentialF16contexts,4x512tokens from reusedindependentR187Pythonstdlibcorpus,zero generations. Eightcontrol/observer forwardpasses. 64GPUbuffer tensors capture preRoPEKcur_normed andVcur across8attentionlayers;128MiBrawF32,33,554,432finiteactivationvalues independentlychecked withshape/stride/hash contracts. All4fullvocabulary control-logit arrays byteidentical (993,280logitvalues). Peak7418.5MiB. No quantizerfit,gradient,optimizerstep,quantizedcache,modelQA/performance or Champion. This removes a forward-observer prerequisite for unweightedNUQ, not an optimization-coverage gap; HBM10 remainsOPEN/NEIN, overall113/162unchanged. CPU-only HBM10 unweighted4bitNUQ proxy on retainedR396GPUactivations: frozenfit chunks0/1,development2/3;16role/layerbooks,16levels,sameFP16normalizers/outliers/decoder inbotharms. IndependentexistingNumPy2.2.6environment recomputed all16,777,216developmentvalues and1024scalarprobes, no refitting. GeomeanNUQ/uniform rawerror ratio 0.668502 (33.15%lower); allbooks improved,ratio range0.556721–0.768514; sparsefraction1.167–1.950%below3%gate. Logicalpayload 9993650→9994162bytes (+512LUTbytes); separatealignment estimate+4096bytes, residual/sink/enginebuffers excluded. Allreported50fititerations, no optimumclaim. Positive numericaldevelopmentproxy only: zero newGPUruns/models/optimizersteps and no taskquality/speed/VRAM/energy/Championqualification. HBM10PARTIAL with experimentalGPUoptimizationcoverageNEIN; overall113/162unchanged.
 
-**Remaining scope:** Validated nativeforward K/V observer and raw independentcalibration data now exist. UnweightedNUQ fitting/development, partialIMRoPE-compatible quantizedcache/operator/lifetime integration and actualmodelquality/resource tests remain open. WeightedFisher unavailable in currentnativegraph.
+**Remaining scope:** SingleofflineNUQcandidate passes deterministicdevelopmentproxy. A partial-IMRoPE-compatible NUQ/sparse-cache operator, allocator/lifetime/reset/rollback/M>1 adaptation and originalmodelquality/resource tests remain missing.
 
 **Reopening condition:** A concrete numerically validated port and relevant capacity workload before GPU admission.
 
-**Next action:** HBM10 next offline gate: freeze a small unweightedNUQ codebook/normalization/outlier protocol, separate existing4calibrationchunks into fit/development roles before reading errors. Compare matchedprecision uniform andnonuniform reconstruction on actualcapturedK/V, withallmetadata/residual costs explicit. Numericalproxy only, no taskquality/performance/Champion and no newGPUrun until a distinct compatible kernel/cache treatment is ready. Keep publishedweightedFisher andfull-headRoPE directport restrictions; preserve upcomingremaining-original breadth, no speculativeparametergrid/combination/newmodel.
+**Next action:** Resume originalsingle-factor breadth with HBM11 PagedAttention/KV-block allocator admission: verify exact existing model/cache/state interfaces and retained vLLM/model/SM70 evidence before any install or GPUjob. Retain the singlepositive HBM10offlinecandidate and privatecodebooks for a future correct partial-IMRoPE/NUQ/sparse cache operator plus lifecycle/MTP/quality qualification; no codebook/bitwidthgrid or premature model benchmark. No combinations/newmodels until singlesgate.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
