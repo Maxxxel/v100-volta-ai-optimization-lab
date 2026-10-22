@@ -64,7 +64,7 @@
 | [Q01](factors/Q01.md) | GGUF Weight Family | PARTIAL | YES | P1 |
 | [Q02](factors/Q02.md) | Importance Matrix | PARTIAL | YES | P2 |
 | [Q03](factors/Q03.md) | Mixed Tensor Quant | PARTIAL | YES | P0 |
-| [Q04](factors/Q04.md) | AWQ Calibration | OPEN | NO | P3 |
+| [Q04](factors/Q04.md) | AWQ Calibration | PARTIAL | NO | P3 |
 | [Q05](factors/Q05.md) | Outlier Tensor Retention | PARTIAL | YES | P1 |
 | [Q06](factors/Q06.md) | Quant Format Kernel Compatibility | PARTIAL | YES | P0 |
 | [Q07](factors/Q07.md) | QAT Checkpoint | OPEN | NO | P3 |

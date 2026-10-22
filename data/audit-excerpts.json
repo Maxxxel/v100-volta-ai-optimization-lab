@@ -132891,6 +132891,59 @@
   },
   {
     "aggregate_metrics": {
+      "CPU_first_MLP_AWQ_proxy": {
+        "GPU_runs": 0,
+        "chosen_ratio": 0.4,
+        "development_A_SSE": 0.20583746523710228,
+        "development_B_SSE": 0.19570136367246202,
+        "development_error_ratio": 0.9507567703820848,
+        "development_error_reduction_percent": 4.924322961791516,
+        "development_evaluated": true,
+        "development_rows": 64,
+        "development_source_tokens": 1024,
+        "fit_error_ratio": 0.8867641946248916,
+        "fit_gate_passed": true,
+        "fit_rows": 64,
+        "fit_source_tokens": 1024,
+        "model_performance_measured": false,
+        "model_quality_measured": false,
+        "model_starts": 0,
+        "new_experimental_factor_coverage": 0,
+        "optimizer_steps": 0,
+        "proxy_gate_passed": false,
+        "ratios_fitted": 20,
+        "source_quantization": "Q6_K",
+        "target_quantization": "Q4_K",
+        "unquantized_boundary_NMSE": 5.164249423354272e-14,
+        "unquantized_equivalence_limit": 1e-10,
+        "winner_qualified": false
+      },
+      "actual_GPU_execution": false,
+      "model_starts": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e391f6459c49c61c225e",
+    "original_bytes": 6061,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e391f6459c49c61c225eeeb4b50c7c908ae32d736f3fdd93bbd8a124ff95d00e",
+    "statements": {
+      "decision": "DEVELOPMENT_ERROR_GATE_FAILED_NO_MODEL",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Synthetic firstMLP reconstruction loss is not fullmodel taskquality or numerical equivalence after quantization.",
+        "Only two fit and two development chunks; selectedtoken rows are correlated samples, not independentcoding tasks.",
+        "Modelweights, calibrationdata, scalevectors and nativequantizedbuffers stayprivate; publish aggregateerrors only.",
+        "No bitwidth/quantizer/ratio-grid expansion after observing results.",
+        "A positive proxy only admits further operator/weight and independentmodelquality/resource study; no automaticchampion.",
+        "Unquantized boundary check includes stored-gamma roundoff on reconstructed normalized inputs X/gamma; original pre-multiply RMSNorm intermediates were not captured. It is not a full native graph fidelity certificate."
+      ],
+      "measurement_type": "CPU_FIRST_MLP_NATIVE_Q4K_AWQ_INPUT_SCALING_PROXY"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "actual_GPU_execution": false,
       "new_GPU_runs": 0
     },

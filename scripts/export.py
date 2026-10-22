@@ -72,6 +72,15 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('measurement_type')=='CPU_FIRST_MLP_NATIVE_Q4K_AWQ_INPUT_SCALING_PROXY':
+        fields=('unquantized_boundary_NMSE','unquantized_equivalence_limit','ratios_fitted','fit_rows','fit_source_tokens','chosen_ratio','fit_error_ratio','fit_gate_passed','development_evaluated','development_rows','development_source_tokens','development_A_SSE','development_B_SSE','development_error_ratio','development_error_reduction_percent','proxy_gate_passed','GPU_runs','model_starts','optimizer_steps','new_experimental_factor_coverage','winner_qualified','model_quality_measured','model_performance_measured')
+        aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
+        for k in ('source_quantization','target_quantization'):
+            if obj.get(k) in ('Q6_K','Q4_K'):aggregate[k]=obj[k]
+        if not obj.get('development_evaluated'):
+            aggregate['development_evaluated']=False;aggregate['proxy_gate_passed']=False
+            for k in ('development_A_SSE','development_B_SSE','development_error_ratio','development_error_reduction_percent'):aggregate.pop(k,None)
+        result['CPU_first_MLP_AWQ_proxy']=aggregate
     if obj.get('measurement_type')=='CPU_UNWEIGHTED_NUQ4_DEVELOPMENT_RECONSTRUCTION_PROXY':
         fields=('GPU_runs','model_starts','optimizer_steps','codebook_fits','completed_books','planned_books','development_values','development_sequences','precision_bits','numerical_proxy_gate_passed','winner_qualified','model_quality_measured','model_performance_measured','new_experimental_factor_coverage','geomean_error_ratio','proxy_error_reduction_percent','uniform_logical_payload_bytes','NUQ_logical_payload_bytes','additional_logical_LUT_bytes','uniform_aligned256_estimate_bytes','NUQ_aligned256_estimate_bytes','independent_full_development_reconstruction')
         aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}

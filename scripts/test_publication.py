@@ -4,6 +4,12 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_awq_proxy_never_exports_scales_weights_or_development_prompts(self):
+  raw={'measurement_type':'CPU_FIRST_MLP_NATIVE_Q4K_AWQ_INPUT_SCALING_PROXY','GPU_runs':0,'proxy_gate_passed':False,'development_evaluated':True,'development_error_reduction_percent':4.9243,'source_quantization':'Q6_K','target_quantization':'Q4_K','scales':['private vector'],'weights':['private tensor'],'fit_data':'private corpus','cases':[{'prompt':'private conversation'}]}
+  out=e.metrics(raw)['CPU_first_MLP_AWQ_proxy'];self.assertFalse(out['proxy_gate_passed']);self.assertEqual(out['GPU_runs'],0);self.assertEqual(out['development_error_reduction_percent'],4.9243);self.assertNotIn('private',str(out));self.assertNotIn('scales',str(out));self.assertNotIn('weights',str(out))
+ def test_awq_unexecuted_development_does_not_export_a_success_or_error_gain(self):
+  raw={'measurement_type':'CPU_FIRST_MLP_NATIVE_Q4K_AWQ_INPUT_SCALING_PROXY','development_evaluated':False,'proxy_gate_passed':True,'development_error_ratio':0,'development_error_reduction_percent':100}
+  out=e.metrics(raw)['CPU_first_MLP_AWQ_proxy'];self.assertFalse(out['proxy_gate_passed']);self.assertNotIn('development_error_ratio',out);self.assertNotIn('development_error_reduction_percent',out)
  def test_mlp_calibration_exports_counts_without_calibration_channel_vectors(self):
   raw={'measurement_type':'GPU_NATIVE_FIRST_MLP_INPUT_FORWARD_OBSERVER_ADMISSION','model_starts':1,'actual_generation_requests':0,'completed_chunks':4,'calibration_fidelity_passed':True,'meanabs_channels':4096,'quantizer_fits':0,'winner_qualified':False,'channel_meanabs':['private vector'],'raw_capture_sha256':{'private file':'private hash'},'observations':[{'chunk':0,'tokens':512,'control_logits_byte_identical':True,'input_token_ids':[1],'raw_activations':['private tensor']}]}
   out=e.metrics(raw)['forward_MLP_calibration_admission'];self.assertEqual(out['meanabs_channels'],4096);self.assertEqual(out['quantizer_fits'],0);self.assertEqual(out['actual_generation_requests'],0);self.assertFalse(out['winner_qualified']);self.assertNotIn('private',str(out));self.assertNotIn('input_token_ids',str(out));self.assertNotIn('channel_meanabs',str(out))

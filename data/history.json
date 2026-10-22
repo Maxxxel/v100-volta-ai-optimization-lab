@@ -12798,5 +12798,13 @@
     "kind": "R397_Q04_NATIVE_FIRST_MLP_FORWARD_CALIBRATION_PASS_NOT_AWQ_QUALIFICATION",
     "sequence": 1600,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T12:07:36.295904+00:00",
+    "experiment_id": null,
+    "factor_id": "Q04",
+    "kind": "Q04_CPU_NATIVE_Q4K_FIRST_MLP_AWQ_PROXY_DEVELOPMENT_GATE_FAILED",
+    "sequence": 1601,
+    "signature": null
   }
 ]

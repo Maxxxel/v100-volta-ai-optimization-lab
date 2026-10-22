@@ -16527,14 +16527,15 @@
     ]
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R397 Q04 native first-MLP input calibration admitted: one unchanged OmniQ6K model at300W,4fresh512token stdlib chunks,8forwardcalls and0generatedresponses. FourGPU-buffer F32 tensors total32MiB/8,388,608values; all993,280control-logit values byte-identical. IndependentNumPy2.2.6 review verified all shapes/strides/finiteness/hashes, originalcalibrationtokenIDs and4096fit-channel meanabs values with16independent scalar-sum checks. Peak7412.5MiB; wholeinstrumentedprocess≈1264.791GPU-J includingload/copies/controls, not inference-task efficiency. Zeroquantizerfits/optimizersteps/weightchanges. Existing imatrix secondmoments cannot recover meanabs. Q04scientificOPEN and GPUoptimizationcoverageNEIN retained: inverseweight/normscaling, actualnativequantization error and independentmodelquality/resource tests still missing.",
+    "coverage_scope": "ActualR397GPUinput calibration plus actualCPU nativeQ4K firstMLP preprocessing/reconstruction; no transformed model or GPUquantization intervention.",
+    "decision": "R397 Q04 native first-MLP input calibration admitted: one unchanged OmniQ6K model at300W,4fresh512token stdlib chunks,8forwardcalls and0generatedresponses. FourGPU-buffer F32 tensors total32MiB/8,388,608values; all993,280control-logit values byte-identical. IndependentNumPy2.2.6 review verified all shapes/strides/finiteness/hashes, originalcalibrationtokenIDs and4096fit-channel meanabs values with16independent scalar-sum checks. Peak7412.5MiB; wholeinstrumentedprocess≈1264.791GPU-J includingload/copies/controls, not inference-task efficiency. Zeroquantizerfits/optimizersteps/weightchanges. Existing imatrix secondmoments cannot recover meanabs. Q04scientificOPEN and GPUoptimizationcoverageNEIN retained: inverseweight/normscaling, actualnativequantization error and independentmodelquality/resource tests still missing. Q04 firstMLP nativeQ4K CPUproxy onR397data: exactsame dequantizedQ6 source weights, gamma/input-column compensation forbothgate/up, fixed20ratio fit on64stratifiedrows fromchunks0/1 and4096channelmeanabs fromall1024fittokens. Chosenratio0.4 frozenbeforedevelopment2/3. Fiterror reduced11.324%; developmenterror reduced4.924323%, belowpredeclared5%gate. IndependentFP64 output recomputation gives4.924345%, same negativegate;0refits. UnquantizedboundaryNMSE5.16e-14below1e-10. Q6-derived firstMLP surrogate, notoriginalBF16AWQ or taskquality. No newGPUrun/model/weightfile/Champion; no gridexpansion or derivedmodel screen. Q04PARTIAL, optimizationGPUcoverageNEIN, total113/162unchanged.",
     "domain": "quantization",
     "evidence_ids": [
       "audit-562eaeb901f0c1b39e99",
       "audit-577b1f3693e2c89cecab",
       "audit-81393171d6bd5f88651a",
       "audit-9fae38fc11d0b1751fe9",
+      "audit-e391f6459c49c61c225e",
       "audit-fc72b2615fc96990427f"
     ],
     "experiment_ids": [
@@ -16547,7 +16548,7 @@
     "id": "Q04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Q04 next: admit exact first-MLP GGUF weight layout and inverse scaling of the stored post-attention normalization multiplier plus both gate/up input-column matrices. Reuse R397 fit chunks0/1 and untouched development2/3; do not recapture or use benchmark questions. Prove unquantized graph equivalence, then define one bounded native-format quantization proxy before any derived-model B-screen. No full-model AWQ, combinations, training or new-model comparison claim.",
+    "next_action": "Resume original-axis breadth with Q07 QAT checkpoint admission: verify retained exact-model architecture, checkpoint identity/license and actual quantization/training provenance. Distinguish standard GGUF/PTQ from real QAT; no new model benchmark or download without an architecture/SM70/16GB contract. Preserve Q04 frozen negative firstMLP proxy; reopen only for a distinct justified source/format/data/layer hypothesis, not extra ratios to cross the gate.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -16609,16 +16610,15 @@
       }
     ],
     "prerequisites": [
-      "Actual first-MLP weight/layout and stored-norm semantics admission, compensating both linears; unquantized graph equivalence.",
-      "Predeclared native GGUF quantizer/calibration loss and frozen development evaluation; upstream affineAWQ packing is not nativeQ4K.",
-      "Derived-model artifact with originalweights preserved, then taskquality/resource B-screen against a valid matchingreference."
+      "A distinct useful AWQ/source/format/layer hypothesis and matching calibration/graph compensation, rather than a posthoc ratio search.",
+      "Actual derivedweights/nativeexecution and independent taskquality/resource tests for any separately admitted candidate."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "First-MLP calibration data are available. Compensated weight/norm transform, supported-native-format quantization and independent modelquality/resource qualification are pending; all other layers remain uncalibrated for this statistic.",
+    "remaining_scope": "Frozen firstMLP Q6-derived/nativeQ4K inputscale candidate failed5% development error gate. Other layers, originalBF16source, output/downscale, clipping and independent fullmodel quality/resource qualification are distinct untested scopes; no automatic extension.",
     "reopening_conditions": "Implement exact per-channel calibration/search and inverse scaling across all affected RMSNorm/GDN/attention consumers, prove tensor/numerical equivalence then quantize to a supported nativeformat. FreshGPUcalibration only for missing independent statistics; do not repeatR187.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "PARTIAL",
     "title": "AWQ Calibration",
     "variants": [
       {
