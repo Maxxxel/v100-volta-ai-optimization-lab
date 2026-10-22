@@ -19681,7 +19681,7 @@
     "id": "M07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep M07 PARTIAL. Reopen only if an exact pinned runtime offers a distinct joint schema+tool parser treatment with frozen no-call and quality contracts; otherwise proceed to the next ranked feasible single factor.",
+    "next_action": "The inspected llama.cpp source does not admit response_format schema and native tool parsing as one distinct treatment. Keep M07 PARTIAL; do not repeat R406 or R195. Reopen only with a pinned exact runtime implementing joint schema/tool parsing and frozen strict no-call/quality contracts. This source review is not GPU coverage.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19772,8 +19772,8 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Next distinct M07 single: typed-output/native-schema treatment only if its rendering change and strict no-call/quality contract are frozen. R406 instruction variant is negative and must not be repeated; preserve R195 compact-tool regression.",
-    "reopening_conditions": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+    "remaining_scope": "The inspected llama.cpp source does not admit response_format schema and native tool parsing as one distinct treatment. Keep M07 PARTIAL; do not repeat R406 or R195. Reopen only with a pinned exact runtime implementing joint schema/tool parsing and frozen strict no-call/quality contracts. This source review is not GPU coverage.",
+    "reopening_conditions": "The inspected llama.cpp source does not admit response_format schema and native tool parsing as one distinct treatment. Keep M07 PARTIAL; do not repeat R406 or R195. Reopen only with a pinned exact runtime implementing joint schema/tool parsing and frozen strict no-call/quality contracts. This source review is not GPU coverage.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Template variants",
