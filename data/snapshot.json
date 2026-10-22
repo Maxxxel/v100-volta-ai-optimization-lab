@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 325
+    "sprint_records": 327
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -28,13 +28,13 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 313,
+  "matrix_revision": 314,
   "schema": 1,
-  "source_date": "2026-10-22T17:00:00+00:00",
+  "source_date": "2026-10-22T17:02:14+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "52656b61c9da0070ae9b3d81c7d0ad506a82f758c6b4f93666a62033142765ee",
+    "BENCHMARK_REFERENCES.json": "c155a8bc30dee780db547bd2f1b2c650c6a681db91e5c5f6632876a80c439b66",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "2656cfd6711b3291ed14fef1e66c1740eeab623ac0343bc2109b107897ef46fa",
+    "MATRIX_EXTENDED.json": "a521310997ed67462d7b6dbb2401dbc48728d3476db8b450e523ddbf13c70b3b",
     "O2_EXPERIMENTS.jsonl": "233bc0f6c3eb7aacd863e8d3036300699a9b686c660cfe3f2953daed6154565e",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }

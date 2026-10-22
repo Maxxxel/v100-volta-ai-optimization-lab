@@ -26338,25 +26338,29 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Native reduced output-LoRA graph has passed CPU-only MSE and cross-entropy optimizer checks at actual Omni dimensions. The mixed graph uses F32 master A/B parameters (required by the pinned AdamW kernels) and explicit F16 forward casts; the analytic gradient matched exactly in both latest CE and MSE checks. Pinned CUDA source supports the required operation families, but actual V100 dispatch, adapter GGUF loading, model-derived features and measured training memory remain unverified.",
+    "decision": "Native reduced output-LoRA graph has passed CPU-only MSE and cross-entropy optimizer checks at actual Omni dimensions. The mixed graph uses F32 master A/B parameters (required by the pinned AdamW kernels) and explicit F16 forward casts; the analytic gradient matched exactly in both latest CE and MSE checks. Pinned CUDA source supports the required operation families, but actual V100 dispatch, adapter GGUF loading, model-derived features and measured training memory remain unverified. R398 and R399 are now reconciled: R398 captured finite train/dev result_norm after exact control-logit checks but aborted on pinned scheduler contract before optimizer; R399 fixed the CPU-last scheduler order and invoked optimizer evaluation, but the optimizer output backend was not proven CUDA. No optimizer/gradient pass, adapter GGUF load, training-quality or deployment result. Preserve both GPU sessions as partial evidence; never rerun unchanged.",
     "domain": "training_research",
     "evidence_ids": [
       "audit-2651d48b3aee06a5fdc0",
+      "audit-35c83ebe7884099f819b",
       "audit-562eaeb901f0c1b39e99",
       "audit-577b1f3693e2c89cecab",
       "audit-64091bc93ffae982bb0d",
-      "audit-74b92bb7f70024080925"
+      "audit-74b92bb7f70024080925",
+      "audit-a6a69090b0256216ad92"
     ],
     "experiment_ids": [
       "R249",
       "R378",
-      "R397"
+      "R397",
+      "R398",
+      "R399"
     ],
     "experimentally_covered": false,
     "id": "T01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Freeze exact adapter metadata and disjoint training/dev token IDs, reusing R397 teacher logits only for the matching captured positions. Then run one broker-guarded V100 result_norm capture plus F32-master/F16-forward AdamW step; audit actual adapter tensor registration/load, backend assignment and memory.",
+    "next_action": "No repeat of R398/R399. First perform a pinned source-level audit of optimizer graph/backend assignment and the output-backend observer; define a specific correction and pass CPU build/preflight. Only then consider a separately registered one-shot; no broad training or adapter quality claim.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {

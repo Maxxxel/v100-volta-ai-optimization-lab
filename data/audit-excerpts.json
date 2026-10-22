@@ -163056,6 +163056,36 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-35c83ebe7884099f819b",
+    "original_bytes": 3216,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "35c83ebe7884099f819b0ecf3498e61b2cba0cd872d8adcc01f307b4b2e5ceff",
+    "statements": {
+      "decision": "T01 remains OPEN / not experimentally covered for the intended optimizer-and-loader feasibility gate. Preserve this valid partial GPU capture as prerequisite evidence. A corrected new one-shot requires source fix, CPU build/preflight, then a distinct broker trial; never retry R398.",
+      "scope": "One-shot native-CUDA frozen-backbone output-LoRA feasibility; not quality, speed, or training qualification."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a6a69090b0256216ad92",
+    "original_bytes": 2821,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a6a69090b0256216ad926cbb8091b5eac254aeb05cbc99ebd3fba3b1d2d0a529",
+    "statements": {
+      "decision": "T01 remains OPEN and not experimentally covered for an actual CUDA optimizer/adapter step. One valid GPU model-feature capture is retained as prerequisite evidence. Do not repeat this exact trial; a distinct retry requires a source-level backend-placement correction and preflight."
+    }
+  },
+  {
     "aggregate_metrics": {
       "models": {
         "omnicoder2": {

@@ -16699,6 +16699,48 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": true
+    },
+    "audit_id": "audit-35c83ebe7884099f819b",
+    "date": "2026-10-22T13:05:20Z",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "T01"
+    ],
+    "id": "R398",
+    "model": null,
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-35c83ebe7884099f819b"
+    ],
+    "statements": {
+      "decision": "FAILED_PARTIAL_GPU_FEASIBILITY"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true
+    },
+    "audit_id": "audit-a6a69090b0256216ad92",
+    "date": "2026-10-22T13:10:30Z",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "T01"
+    ],
+    "id": "R399",
+    "model": null,
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a6a69090b0256216ad92"
+    ],
+    "statements": {
+      "decision": "FAILED_PARTIAL_GPU_BACKEND_ASSIGNMENT"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
       "actual_GPU_execution": false
     },
     "audit_id": "audit-e3e1fdfbe5f62a01e27d",
