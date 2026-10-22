@@ -73,7 +73,7 @@ def projection(obj, depth=0):
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
     if obj.get('measurement_type')=='GPU_FIXED_SCHEMA_NATIVE_STOP_FRAMING_SCREEN':
-        fields=('model_starts','requests','template_requests','timed_pairs','functional_gate_passed','actual_stop_intervention_executed','paired_geomean_E2E_change_percent','correct_mock_labels_per_arm','minimum_E2E_reduction_percent','peak_device_vram_mib','hardware_guards_passed','receiver_framing_required','raw_candidate_is_not_complete_JSON','original12_quality_cases','screen_passed','winner_qualified')
+        fields=('model_starts','requests','template_requests','timed_pairs','functional_gate_passed','actual_stop_intervention_executed','paired_geomean_E2E_change_percent','correct_mock_labels_per_arm','minimum_E2E_reduction_percent','peak_device_vram_mib','hardware_guards_passed','receiver_framing_required','raw_candidate_is_not_complete_JSON','original12_quality_cases','screen_passed','winner_qualified','request_GPU_j_A_approx','request_GPU_j_B_approx','request_GPU_j_change_percent')
         aggregate={k:obj[k] for k in fields if k in obj and (obj[k] is None or isinstance(obj[k],(int,float,bool)))}
         if aggregate:result['schema_completion_protocol']=aggregate
     if obj.get('measurement_type')=='GPU_MOCK_ACTION_SELECTIVE_RISK_CALIBRATION_SCREEN':
