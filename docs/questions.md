@@ -7,7 +7,13 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 | R340-S01 | [Research: targeted SM70 resource/traffic profiling for a distinct kernel patch](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1) | CLOSED_SCOPED_TECHNICAL_DEFERRAL |
 | R340-S03 | [Research: admit one SM70 vLLM source lane only after model and memory gates](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2) | OPEN_MODEL_AND_MEMORY_ADMISSION_GATE |
 | R340-S06 | [Research: evaluate block-FP8 W8A16 fused dequantization on SM70](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3) | OPEN_MODEL_ARTIFACT_AND_KERNEL_GATE |
-| R340-S07 | [Research: flash-attention V100 page/stride and causal-mask correctness](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4) | OPEN_DISTINCT_ADAPTER_CORRECTNESS_PATH |
+| R340-S07 | [Research: flash-attention V100 page/stride and causal-mask correctness](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4) | OPEN_MODEL_ENGINE_DEPENDENT_AFTER_SOURCE_REVIEW |
+| R340-S05 | [Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5) | CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE |
+| BMT27 | [Research: head-free confidence calibration for frozen Omni after probability-acquisition gate](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6) | CLOSED_NEGATIVE_HEAD_FREE_POLICY_SCREEN |
+| GIST-V02 | [Research: one SM70 kernel L1/shared carveout admission, separate from conversion cache](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/7) | CLOSED_SCOPED_TECHNICAL_DEFERRAL |
+| HBM10 | [HBM10: validate unweighted NUQ calibration and a partial-RoPE cache adapter](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/8) | OPEN_PARTIAL_ROPE_GDN_ADAPTER_PENDING |
+| Q04 | [Q04: validate native MLP AWQ scaling after forward calibration](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/9) | CLOSED_NEGATIVE_Q04_DEVELOPMENT_GATE |
+| FINAL-GATE | [Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10) | OPEN_FINAL_RESEARCH_GATE |
 
 
 ## R340-S01

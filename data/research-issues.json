@@ -18,9 +18,45 @@
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3"
   },
   {
-    "status": "OPEN_DISTINCT_ADAPTER_CORRECTNESS_PATH",
+    "status": "OPEN_MODEL_ENGINE_DEPENDENT_AFTER_SOURCE_REVIEW",
     "subcase": "R340-S07",
     "title": "Research: flash-attention V100 page/stride and causal-mask correctness",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4"
+  },
+  {
+    "status": "CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE",
+    "subcase": "R340-S05",
+    "title": "Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5"
+  },
+  {
+    "status": "CLOSED_NEGATIVE_HEAD_FREE_POLICY_SCREEN",
+    "subcase": "BMT27",
+    "title": "Research: head-free confidence calibration for frozen Omni after probability-acquisition gate",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6"
+  },
+  {
+    "status": "CLOSED_SCOPED_TECHNICAL_DEFERRAL",
+    "subcase": "GIST-V02",
+    "title": "Research: one SM70 kernel L1/shared carveout admission, separate from conversion cache",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/7"
+  },
+  {
+    "status": "OPEN_PARTIAL_ROPE_GDN_ADAPTER_PENDING",
+    "subcase": "HBM10",
+    "title": "HBM10: validate unweighted NUQ calibration and a partial-RoPE cache adapter",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/8"
+  },
+  {
+    "status": "CLOSED_NEGATIVE_Q04_DEVELOPMENT_GATE",
+    "subcase": "Q04",
+    "title": "Q04: validate native MLP AWQ scaling after forward calibration",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/9"
+  },
+  {
+    "status": "OPEN_FINAL_RESEARCH_GATE",
+    "subcase": "FINAL-GATE",
+    "title": "Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10"
   }
 ]
