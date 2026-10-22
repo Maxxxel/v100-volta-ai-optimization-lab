@@ -12694,5 +12694,13 @@
     "kind": "R392_BMT27_CUTOFF_CALIBRATION_NEGATIVE_HOLDOUT_NOT_RUN",
     "sequence": 1587,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T09:21:45.754297+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "M12_FIXED_SCHEMA_STOP_SOURCE_AND_FRAMING_ADMISSION_NO_GPU",
+    "sequence": 1588,
+    "signature": null
   }
 ]

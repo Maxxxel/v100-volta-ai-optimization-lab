@@ -20847,17 +20847,19 @@
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-562eaeb901f0c1b39e99",
+      "audit-7cf42c940fb08a117cf6",
       "audit-c386579435ba2b0b3f02"
     ],
     "experiment_ids": [
       "R249",
-      "R349"
+      "R349",
+      "R392"
     ],
     "experimentally_covered": false,
     "id": "M12",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Source-admit schema-specific closingdelimiter/framing: verify native stopping-word semantics and no brace inside allowed JSONvalues. Need actual same-input control and complete reconstructed JSON/decision/prefix-state equality before performance claim.",
+    "next_action": "Implement oneguardednativecomparison from frozenM12plan:20existingcalibrationcases,2balancedrounds,<=82generations includingwarmups; identicaltemplate/render/schema/seed, onlystopdelimiterprotocol changes. Require actualstopmetadata,completeJSON,matchingnativeprefixanddecision before3%E2Egate. Rawgenericclient compatibilitynotassumed.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -20919,11 +20921,13 @@
       }
     ],
     "prerequisites": [
-      "A distinct semantically equivalent completion rule with frozen output/ToolCall contract."
+      "Pinned host/CTcontroller andexactnative request/runtime identities under existing broker; actualstop/prefix/JSON proof.",
+      "Matchedfreshcontrols: historicaln_probs5chat timings are not a valid n_probs0 nativecompletion baseline.",
+      "Ifscreenpositive, independentprofilequalification and broadercompatibletask scope beforeChampion/deployment."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Nur eine semantisch korrekte, tatsächlich andere Abschlussregel auf eingefrorenen Fällen testen. Native EOG-Behandlung und M13-Ergebnisse wiederverwenden.",
+    "remaining_scope": "NewconcreteM12case: fixedenumJSON closingdelimiter plusdeclarednative receiverframing. OriginalnaturalEOS evidence iscontrolonly, not a stopintervention. Source/CPUcontractadmitted; no nativeA/BGPUexecution, speed or qualitywinner.",
     "reopening_conditions": "Only admit an actual rule with demonstrated overhead or incomplete-response problem.",
     "source_model_hypotheses": [],
     "status": "OPEN",

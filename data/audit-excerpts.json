@@ -148034,6 +148034,22 @@
   },
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7cf42c940fb08a117cf6",
+    "original_bytes": 15290,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7cf42c940fb08a117cf6e4bc8c02c1552e679c3592e3026ac27aa0ad91a6549c",
+    "statements": {
+      "hypothesis": "A schema-specific stop at the closing object delimiter may avoid separateEOS generation. Receiver restores exactly the observed declared delimiter and validates the full object; no other repair or invented value. Measure both HTTP template/render and completion/framing cost.",
+      "scope": "Fixed one-object enum decision schema, declared native stop delimiter and receiver framing only. Not arbitraryJSON/toolarguments or all M12 variants."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
