@@ -98,6 +98,26 @@ def metrics(obj):
         if isinstance(peak,(int,float)):audit['peak_device_vram_mib']=peak/1048576 if peak>100000 else peak
         audit['winner_qualified']=False;audit['champion_changed']=False;audit['scope']='SYNTHETIC_SCREEN_ONLY; four candidate successes are safe abstentions; all positive calculations failed in both arms'
         result['A02_BMT07_provenance_retrieval_screen']=audit
+    if obj.get('experiment_id')=='R405' and obj.get('factor')=='A02':
+        arms=obj.get('arm_totals',{})
+        energy=obj.get('arm_GPU_energy',{})
+        comparisons=obj.get('comparisons',{})
+        result['A02_BMT07_independent_confirmation']={
+            'baseline':{k:arms.get('A0',{}).get(k) for k in ('tasks','successes','wall_s_sum','wall_s_median','successful_tasks_per_s')},
+            'candidate':{k:arms.get('B',{}).get(k) for k in ('tasks','successes','wall_s_sum','wall_s_median','successful_tasks_per_s')},
+            'positive_case_successes':{'A0':comparisons.get('positive_successes_A0',0),'B':comparisons.get('positive_successes_B',0)},
+            'negative_false_tool_calls':{
+                'A0':len([x for x in obj.get('false_positive_negative_calls',[]) if x.get('arm')=='A0']) if isinstance(obj.get('false_positive_negative_calls'),list) else comparisons.get('negative_false_calls_A0',0),
+                'B':len(obj['candidate_false_positive_negative_calls']) if isinstance(obj.get('candidate_false_positive_negative_calls'),list) else comparisons.get('negative_false_calls_B',0)},
+            'gained_tasks':len(obj['task_success_gained']) if isinstance(obj.get('task_success_gained'),list) else comparisons.get('gained_tasks',0),
+            'lost_tasks':len(obj['task_success_lost']) if isinstance(obj.get('task_success_lost'),list) else comparisons.get('lost_tasks',0),
+            'aggregate_request_latency_gain_percent':100*obj.get('aggregate_latency_gain_fraction',0),
+            'GPU_energy_j_by_arm':{arm:value.get('gpu_energy_j') for arm,value in energy.items() if arm in ('A0','B') and isinstance(value,dict)},
+            'peak_device_vram_mib':obj.get('peak_GPU_VRAM_bytes',0)/1048576,
+            'max_temperature_c':obj.get('max_GPU_temperature_c'),
+            'winner_qualified':False,'champion_changed':False,
+            'scope':'INDEPENDENT SYNTHETIC ABSTENTION SCREEN; all positive calculations failed in both arms'
+        }
     if obj.get('measurement_type')=='CPU_FIRST_MLP_NATIVE_Q4K_AWQ_INPUT_SCALING_PROXY':
         fields=('unquantized_boundary_NMSE','unquantized_equivalence_limit','ratios_fitted','fit_rows','fit_source_tokens','chosen_ratio','fit_error_ratio','fit_gate_passed','development_evaluated','development_rows','development_source_tokens','development_A_SSE','development_B_SSE','development_error_ratio','development_error_reduction_percent','proxy_gate_passed','GPU_runs','model_starts','optimizer_steps','new_experimental_factor_coverage','winner_qualified','model_quality_measured','model_performance_measured')
         aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
