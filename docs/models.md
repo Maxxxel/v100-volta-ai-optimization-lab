@@ -10,7 +10,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R262 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
-| BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R417 |
+| BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R418 |
 | BMC07 | Gemma 4 12B IT QAT | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -286,13 +286,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "LFM25:25/25GPUlayers,Q6nativeecho7PASS;controllerBOS101vs102assertion. QA0/12,nichtmodellnegativ. OriginalerwartungsfixtureundRohdatenunverändert.",
-  "current_experiment": "R417",
+  "assessment": "BOS accounting verified102IDs;3QAgenerated;literal detokenized text differs by one space in code case;controllerstop,no model-quality rejection.",
+  "current_experiment": "R418",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC06",
   "local_scope": null,
   "name": "LFM2.5 8B A1B",
-  "next_step": "R418 continue only unstarted original12 QA with native BOS prepended to rendered token fixtures. Reuse R417 valid echo only after exact non-generating retokenization of all102IDs. No new model/sampler/output-budget change or control regeneration.",
+  "next_step": "R419 first validate retained3 inputs by exact native token IDs (not literal detokenized text); reuse these3 and R417 echo, then only9 unstarted QA. Same model/template/sampling/2048. No original response regeneration.",
   "priority": "P1",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
   "source_admission": {

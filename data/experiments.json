@@ -17456,5 +17456,26 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 4,
+      "model_starts": 1,
+      "observed_original_QA_cases": 3,
+      "original12_full_score_claimed": false,
+      "peak_device_vram_mib": 7432.5
+    },
+    "audit_id": "audit-40189731a53dcdc5b414",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R418",
+    "model": "lfm25_8b_a1b_q6",
+    "reference_A0": null,
+    "statements": {
+      "decision": "PARTIAL_CONTROLLER_LITERAL_PROMPT_ASSERTION_NOT_MODEL_FAILURE",
+      "evidence_class": "LOKAL_GEMESSEN"
+    },
+    "winner_qualified": false
   }
 ]

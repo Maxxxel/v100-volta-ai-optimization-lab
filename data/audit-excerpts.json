@@ -171569,6 +171569,26 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 4,
+      "model_starts": 1,
+      "observed_original_QA_cases": 3,
+      "original12_full_score_claimed": false,
+      "peak_device_vram_mib": 7432.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-40189731a53dcdc5b414",
+    "original_bytes": 3010,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "40189731a53dcdc5b414a5a52605595b30cae98015dee9d1733ad7e3bfa7d582",
+    "statements": {
+      "decision": "PARTIAL_CONTROLLER_LITERAL_PROMPT_ASSERTION_NOT_MODEL_FAILURE",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
