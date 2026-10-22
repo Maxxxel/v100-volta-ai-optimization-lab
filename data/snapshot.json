@@ -4,12 +4,12 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1613,
+    "ledger_events": 1615,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
     "qualified_profile_pointers": 10,
-    "reference_records": 38,
+    "reference_records": 40,
     "scientific_status": {
       "DEFERRED": 28,
       "NOT_APPLICABLE": 5,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 320
+    "sprint_records": 321
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -28,14 +28,14 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 293,
+  "matrix_revision": 294,
   "schema": 1,
-  "source_date": "2026-10-22T14:08:40+00:00",
+  "source_date": "2026-10-22T14:31:42.758911+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "616e6bac566f36215646b7f71a2edf486acf8dc66a8a3a1fe35156378750d486",
+    "BENCHMARK_REFERENCES.json": "7235ddfd081c8606a8a70ee90f38c87ea6d88af73a879fc872aa1dfe822e0da5",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "cdddf5dc9328fa746c4036064154c8b83099a0b8bbddb753bbc35cc4326986df",
-    "O2_EXPERIMENTS.jsonl": "94a2d4cd76ec15cdf96bb3879747223d0ee6626ee70816a1aae54184ef39d23a",
+    "MATRIX_EXTENDED.json": "1faa4bc2bc453a81cfd49ae06cf720d94f4093703af91ec94a98afca74328979",
+    "O2_EXPERIMENTS.jsonl": "cdc8208440778ca4d63f45d0c46943e218b613726d297fbc90305961af2c7472",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

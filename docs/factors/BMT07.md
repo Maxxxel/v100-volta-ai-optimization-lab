@@ -22,6 +22,8 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-3065546a54fc26cd63ec.md)
+- [Original audit hash and public excerpt](../audits/audit-c6037cf66712e2203c95.md)
 - [Original audit hash and public excerpt](../audits/audit-d8153ea70260b2285397.md)
 
 ### Recorded model-specific variant coverage
@@ -39,16 +41,16 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-R151source-selection12/12vs8/12 scoped; R188newdata5/12vs3/12 fails absolutequality gate. Source selection alone does not fix arithmetic/policy errors. New independent policy/fixtures required; no tuning known evaluation answers or repeating negative retrieval treatments.
+R404 BMT07 GPU screen: candidate B correctly abstained on all 4 negative/ambiguous cases while A0 made 4 unsupported calls; all 8 positive calculations failed in both arms. Aggregate request latency was 69.98% lower, but this is a single synthetic screen and not a qualified agent/retrieval winner.
 
-**Remaining scope:** R151/R188 gemessen; neue Retrieval-Politik bis zu unabhängig eingefrorenem Selektions-/Rechen-/Policy-Vertrag zurückgestellt. Keine bekannten Fehlantworten nachoptimieren.
+**Remaining scope:** Fresh balanced independent confirmation; report positive calculation quality separately from safe negative abstention. Vector retrieval and generated summaries remain separate untested scopes.
 
-**Reopening condition:** Unabhängige Selektions-/Provenienz-/Rechenregel vor einer neuen Retrieval-Policy; keine Reparatur bekannter R151/R188-Antworten.
+**Reopening condition:** Fresh independent balanced confirmation with new task IDs; no rerun or tuning of R404 tasks.
 
-**Next action:** Unabhängige Selektions-/Provenienz-/Rechenregel vor einer neuen Retrieval-Policy; keine Reparatur bekannter R151/R188-Antworten.
+**Next action:** Run fresh balanced A/B on new task IDs. Keep model, engine, policy contract, tool schema and sampler fixed; vary only full-history versus provenance-selected source context. Qualification requires positive-case task quality and no candidate false calls on negatives; do not promote from R404 screen.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R188](../experiments/R188.md)
+[R188](../experiments/R188.md), [R404](../experiments/R404.md)

@@ -72,6 +72,32 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('experiment_id')=='R404' and obj.get('factor')=='A02':
+        audit={}
+        for arm,name in (('A0','baseline'),('B','candidate')):
+            source=obj.get('arm_totals',{}).get(arm,obj.get('baseline' if arm=='A0' else 'candidate',{}))
+            if isinstance(source,dict):
+                aliases={}
+                if 'tasks' not in source and 'requests' in source:aliases['tasks']='requests'
+                if 'wall_s_sum' not in source and 'wall_s' in source:aliases['wall_s_sum']='wall_s'
+                audit[name]={k:source.get(aliases.get(k,k)) for k in ('tasks','successes','wall_s_sum','wall_s_median','prompt_tokens','successful_tasks_per_s') if isinstance(source.get(aliases.get(k,k)),(int,float,bool)) and (not isinstance(source.get(aliases.get(k,k)),float) or math.isfinite(source[aliases.get(k,k)]))}
+        comparisons=obj.get('comparisons',{})
+        audit['positive_calculation_successes']={'A0':comparisons.get('positive_successes_A0',0),'B':comparisons.get('positive_successes_B',0)}
+        calls=obj.get('false_positive_negative_calls')
+        audit['negative_false_tool_calls']={'A0':len([x for x in calls if x.get('arm')=='A0']) if isinstance(calls,list) else comparisons.get('negative_false_calls_A0',0),'B':len(obj['candidate_false_positive_negative_calls']) if isinstance(obj.get('candidate_false_positive_negative_calls'),list) else comparisons.get('negative_false_calls_B',0)}
+        audit['gained_tasks']=len(obj['task_success_gained']) if isinstance(obj.get('task_success_gained'),list) else obj.get('gained_tasks',comparisons.get('gained_tasks',0))
+        audit['lost_tasks']=len(obj['task_success_lost']) if isinstance(obj.get('task_success_lost'),list) else obj.get('lost_tasks',comparisons.get('lost_tasks',0))
+        latency=obj.get('aggregate_latency_gain_fraction')
+        if not isinstance(latency,(int,float)):latency=comparisons.get('aggregate_e2e_latency_gain_percent');latency=latency/100 if isinstance(latency,(int,float)) else None
+        audit['aggregate_request_latency_gain_percent']=100*latency if isinstance(latency,(int,float)) else None
+        energy=obj.get('arm_GPU_energy_j',{})
+        if not energy and isinstance(obj.get('GPU_energy_j'),dict):energy={arm:{'gpu_energy_j':value} for arm,value in obj['GPU_energy_j'].items()}
+        audit['GPU_energy_j_by_arm']={arm:value['gpu_energy_j'] for arm,value in energy.items() if arm in ('A0','B') and isinstance(value,dict) and isinstance(value.get('gpu_energy_j'),(int,float))}
+        peak=obj.get('peak_GPU_VRAM_bytes')
+        if not isinstance(peak,(int,float)):peak=comparisons.get('peak_GPU_VRAM_mib')
+        if isinstance(peak,(int,float)):audit['peak_device_vram_mib']=peak/1048576 if peak>100000 else peak
+        audit['winner_qualified']=False;audit['champion_changed']=False;audit['scope']='SYNTHETIC_SCREEN_ONLY; four candidate successes are safe abstentions; all positive calculations failed in both arms'
+        result['A02_BMT07_provenance_retrieval_screen']=audit
     if obj.get('measurement_type')=='CPU_FIRST_MLP_NATIVE_Q4K_AWQ_INPUT_SCALING_PROXY':
         fields=('unquantized_boundary_NMSE','unquantized_equivalence_limit','ratios_fitted','fit_rows','fit_source_tokens','chosen_ratio','fit_error_ratio','fit_gate_passed','development_evaluated','development_rows','development_source_tokens','development_A_SSE','development_B_SSE','development_error_ratio','development_error_reduction_percent','proxy_gate_passed','GPU_runs','model_starts','optimizer_steps','new_experimental_factor_coverage','winner_qualified','model_quality_measured','model_performance_measured')
         aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}

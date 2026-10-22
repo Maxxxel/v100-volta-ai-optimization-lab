@@ -24879,25 +24879,28 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung.",
+    "decision": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung. R404 BMT07 screen recorded separately: 4/12 correct abstentions in B vs 0/12 in A0; A0 made four false tool calls on negative/ambiguous cases, B made none. All eight positive calculations failed in both arms, so independent balanced confirmation is required and no broad retrieval-quality claim is made.",
     "domain": "agent_harness",
     "evidence_ids": [
+      "audit-3065546a54fc26cd63ec",
       "audit-30cb583e005ee5568d0a",
       "audit-68977e5f1d14a10a6a70",
       "audit-8fbf1dc664eb548e63a0",
+      "audit-c6037cf66712e2203c95",
       "audit-d8153ea70260b2285397"
     ],
     "experiment_ids": [
       "R150",
       "R151",
       "R188",
-      "R365"
+      "R365",
+      "R404"
     ],
     "experimentally_covered": true,
     "id": "A02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
+    "next_action": "Run a fresh, balanced confirmation on independent synthetic fixtures. Keep the same isolated source-context treatment and strict scoring; inspect positive arithmetic and negative abstention separately. If positive correctness remains 0/8 in both arms, report only the safety/latency scope and do not claim general agent success. Vector RAG and LLM summarization stay deferred pending separately pinned components and contracts.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -24984,7 +24987,7 @@
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
+    "remaining_scope": "R404 independent balanced confirmation; positive arithmetic remained 0/8 both arms. Vector RAG still needs a pinned licensed embedding/index, update/RAM budget and independent paraphrase/provenance tasks. LLM summarization needs a separate fact/authority contract.",
     "reopening_conditions": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -36942,13 +36945,16 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R151source-selection12/12vs8/12 scoped; R188newdata5/12vs3/12 fails absolutequality gate. Source selection alone does not fix arithmetic/policy errors. New independent policy/fixtures required; no tuning known evaluation answers or repeating negative retrieval treatments.",
+    "decision": "R404 BMT07 GPU screen: candidate B correctly abstained on all 4 negative/ambiguous cases while A0 made 4 unsupported calls; all 8 positive calculations failed in both arms. Aggregate request latency was 69.98% lower, but this is a single synthetic screen and not a qualified agent/retrieval winner.",
     "domain": "transfer",
     "evidence_ids": [
+      "audit-3065546a54fc26cd63ec",
+      "audit-c6037cf66712e2203c95",
       "audit-d8153ea70260b2285397"
     ],
     "experiment_ids": [
-      "R188"
+      "R188",
+      "R404"
     ],
     "experimentally_covered": true,
     "id": "BMT07",
@@ -36959,19 +36965,20 @@
       "K07",
       "R19"
     ],
-    "next_action": "Unabhängige Selektions-/Provenienz-/Rechenregel vor einer neuen Retrieval-Policy; keine Reparatur bekannter R151/R188-Antworten.",
+    "next_action": "Run fresh balanced A/B on new task IDs. Keep model, engine, policy contract, tool schema and sampler fixed; vary only full-history versus provenance-selected source context. Qualification requires positive-case task quality and no candidate false calls on negatives; do not promote from R404 screen.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [],
     "prerequisites": [
-      "Unabhängige Selektions-/Provenienz-/Rechenregel vor einer neuen Retrieval-Policy; keine Reparatur bekannter R151/R188-Antworten."
+      "Independent balanced task fixtures with positive calculations and negative/ambiguous abstention cases.",
+      "A positive-case quality gate; R404 had 0/8 correct calculations in both arms."
     ],
     "primary_sources": [
       "https://arxiv.org/abs/2309.06180",
       "https://huggingface.co/datasets/hkust-nlp/Toolathlon"
     ],
     "priority": "P0",
-    "remaining_scope": "R151/R188 gemessen; neue Retrieval-Politik bis zu unabhängig eingefrorenem Selektions-/Rechen-/Policy-Vertrag zurückgestellt. Keine bekannten Fehlantworten nachoptimieren.",
-    "reopening_conditions": "Unabhängige Selektions-/Provenienz-/Rechenregel vor einer neuen Retrieval-Policy; keine Reparatur bekannter R151/R188-Antworten.",
+    "remaining_scope": "Fresh balanced independent confirmation; report positive calculation quality separately from safe negative abstention. Vector retrieval and generated summaries remain separate untested scopes.",
+    "reopening_conditions": "Fresh independent balanced confirmation with new task IDs; no rerun or tuning of R404 tasks.",
     "source_model_hypotheses": [
       "R151/R188 OmniCoder2",
       "agent leaderboards"

@@ -324,6 +324,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R400](experiments/R400.md) | A04 | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R401](experiments/R401.md) | M12 | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R402](experiments/R402.md) | M12 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R404](experiments/R404.md) | A02 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder2-9B-Q6_K |
 
 
 ## Historical signed windows

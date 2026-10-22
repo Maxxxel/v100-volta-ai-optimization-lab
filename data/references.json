@@ -2246,6 +2246,33 @@
   {
     "aggregate_metrics": {
       "metrics": {
+        "successes": 0,
+        "successful_tasks_per_s": 0.0,
+        "tasks": 12,
+        "wall_s_median": 3.802452084,
+        "wall_s_sum": 46.857280815
+      }
+    },
+    "experiment_id": null,
+    "id": "4eac21dd4b9ebae81cb4923872e73852dad8b486a6dcd43ee5b66b0caee4e8a7",
+    "identity": {
+      "inference_flags": {},
+      "kernel_switches": {},
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [],
+    "kind": null,
+    "limits": [],
+    "model": "OmniCoder2-9B-Q6_K",
+    "profile": null,
+    "qualification": null,
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
         "decode": {
           "median_e2e_s": 1.366596936,
           "median_gpu_energy_j": 342.99540947075513,
@@ -6303,6 +6330,37 @@
     "model": null,
     "profile": null,
     "qualification": "FRESH_PREFIX_CONTROL_CALIBRATED_ONE_SESSION",
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "candidate_false_positive_count": 0,
+        "latency_gain_fraction": 0.6998066524061486
+      },
+      "metrics": {
+        "successes": 4,
+        "successful_tasks_per_s": 0.28436873437548743,
+        "tasks": 12,
+        "wall_s_median": 1.477882373,
+        "wall_s_sum": 14.066243987
+      }
+    },
+    "experiment_id": null,
+    "id": "ab6a362279db7720eb97142ef1cbd905f24840caaf85bfb1f7bbb3196714be0b",
+    "identity": {
+      "inference_flags": {},
+      "kernel_switches": {},
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [],
+    "kind": null,
+    "limits": [],
+    "model": "OmniCoder2-9B-Q6_K",
+    "profile": null,
+    "qualification": null,
     "winner_qualified": false
   },
   {

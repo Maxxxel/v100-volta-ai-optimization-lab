@@ -12902,5 +12902,21 @@
     "kind": "R402_M12_STOP_FRAMING_INDEPENDENT_CONFIRMATION",
     "sequence": 1613,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T14:31:42.758911+00:00",
+    "experiment_id": "R404",
+    "factor_id": null,
+    "kind": "R404_A02_BMT07_SOURCE_CONTEXT_SCREEN_ADVANCES_TO_CONFIRMATION",
+    "sequence": 1614,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T14:36:22.932047+00:00",
+    "experiment_id": "R404",
+    "factor_id": "A02",
+    "kind": "R404_FACTOR_ID_METADATA_CORRECTION",
+    "sequence": 1615,
+    "signature": null
   }
 ]
