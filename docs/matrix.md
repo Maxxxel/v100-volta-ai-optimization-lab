@@ -119,7 +119,7 @@
 | [HBM07](factors/HBM07.md) | L1/L2/shared-memory reuse | QUALIFIED | YES | P0 |
 | [HBM08](factors/HBM08.md) | F16/Q8/Q4 attention KV cache | PARTIAL | YES | P1 |
 | [HBM09](factors/HBM09.md) | KIVI asymmetric KV quantization | PARTIAL | YES | P2 |
-| [HBM10](factors/HBM10.md) | KVQuant calibrated KV quantization | OPEN | NO | P3 |
+| [HBM10](factors/HBM10.md) | KVQuant calibrated KV quantization | OPEN | NO | P2 |
 | [HBM11](factors/HBM11.md) | Paged attention and KV blocks | OPEN | NO | P3 |
 | [HBM12](factors/HBM12.md) | Asynchronous KV prefetch to L2 | PARTIAL | YES | P2 |
 | [HBM13](factors/HBM13.md) | OasisKV sparse lookahead prefetch | OPEN | NO | P3 |

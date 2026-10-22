@@ -12750,5 +12750,13 @@
     "kind": "R395_HBM09_ACTUAL_UPSTREAM_KIVI_SM70_COMPONENT_NUMERICS",
     "sequence": 1594,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T10:52:33.952747+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "HBM10_KVQUANT_SOURCE_ADMISSION_UNWEIGHTED_FORWARD_ROUTE_OPEN",
+    "sequence": 1595,
+    "signature": null
   }
 ]

@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P3 |
+| OPEN | False | False | P2 |
 
 
 ## Theory and Volta implications
@@ -22,6 +22,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-2e96ee859dddd9c15699.md)
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
@@ -103,16 +104,16 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-KVQuant benötigt Kalibrierungs-/Outlierbehandlung und eigene Cache-/Dequantisierungspfade. Kein lokal zugelassener Omni-Implementierungspfad.
+EXTERN_BELEGT/source+CPUequation review: KVQuant commit 57a238357f0ffe50084670fcd5781c9848f80ea2. Published Fisher route uses squared K/V activation gradients and backward, unlike R187inputsecondmoments; currentnativeGDNbackward missing. Crucially, code also contains fisher=None unweightedNUQ KMeans, so no blanketgradient/training exclusion. Directfull-headRoPE sparsekernel conflicts with actualOmniD256/n_rot64: nonrotatedchannel128,position1,unitbasis targetdot1 versuscos(1)=0.540302. This is a source-equation counterexample, not a GPU/modelquality result. Source has nativeKcur_normed(preRoPE)/Vcur callbacks and cb_eval/tensorget pattern; forward-only calibration is a distinct stillOPEN route.
 
-**Remaining scope:** Nicht native KV-Quantisierung umbenennen; erst Kalibrierung, Layout und SM70-Ausführung belegen.
+**Remaining scope:** Directweighted/full-head deployment is not a compatible readyOmniport. UpstreamunweightedNUQ and nativeforwardobserver remain concretely implementable candidates; no modelKVquantization has run.
 
 **Reopening condition:** A concrete numerically validated port and relevant capacity workload before GPU admission.
 
-**Next action:** A concrete numerically validated port and relevant capacity workload before GPU admission.
+**Next action:** HBM10 next: bounded privateCPU helper for nativeforward Kcur_normed/Vcur capture, reusing pinnedR187Pythonstdlib calibrationcorpus, never originalQA/HumanEval/BFCL/agentdata. Freeze atmostone model,4x512tokens,256MiBrawcap and exactcontrol-logit/shape/stride checks before GPUadmission. No CUDArebuild, backward, quantizerfit, targetweightchange, fullcacheport, combinations or newmodels at this step. Keep directfull-headRoPE/Fisher routes separatelydeferred and unweightedNUQ OPEN.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R249](../experiments/R249.md), [R382](../experiments/R382.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md), [R395](../experiments/R395.md)
