@@ -126816,6 +126816,30 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "new_GPU_runs": 0,
+      "new_model_starts": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-48cb6d3fd512684ed444",
+    "original_bytes": 4111,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "48cb6d3fd512684ed4445951a7009fc0ef3bb48c6fe053d4b547b0db5360ad98",
+    "statements": {
+      "decision": "PARTIAL_CPU_ARTIFACT_SCOPE_ACKNOWLEDGED_GPU_QUALIFICATION_STILL_MISSING",
+      "evidence_class": "RETAINED_LOCAL_CPU_BUILD_EVIDENCE",
+      "limits": [
+        "OriginalhistoricalOPEN labels remain untouched; this is a transparent later taxonomy clarification.",
+        "No GPUtest, winner or signed originalcell status is changed.",
+        "Smaller files and identical cubins do not prove runtime/VRAM/speed/energy benefit."
+      ],
+      "measurement_type": "RETAINED_CPU_BUILD_SCOPE_RECONCILIATION"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

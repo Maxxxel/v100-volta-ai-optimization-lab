@@ -12822,5 +12822,13 @@
     "kind": "M10_CONTEXT_SCALING_RESOURCE_ADMISSION_DEFERRED_NO_GPU",
     "sequence": 1603,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T12:20:49.584918+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "RETAINED_C15_E06_BUILD_SCOPE_CLARIFICATION_NOT_NEW_EXPERIMENT",
+    "sequence": 1604,
+    "signature": null
   }
 ]

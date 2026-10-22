@@ -12450,10 +12450,11 @@
   },
   {
     "coverage_scope": "Cache/buildrequests and historicalGPUruns exist, but effectivecompressionparameter didnotreachgeneratedcompilerinvocation; no confirmedcompressionfactor intervention.",
-    "decision": "R388 C15 CPUadmission: explicitNVCC--compress-mode=size actuallycompiled oneoriginalD256TU, unlike oldineffectiveCMakecachelabels. Object6026896->1652688bytes(-72.578%), nativeSM70cubinSHAbyteidentical; decodedPTXSHAdiffers. Stockheaders/objects/toolkit/CMakecachepreserved. No fullbackend, GPUload, quality, startup, decode, VRAM or energy result. ScientificOPEN/experimentalGPU_NEIN retained. Future fullbackend/loadquestion needs a stablepreregisteredreference; R386wasstoppedat28.756%startvariance.",
+    "decision": "Scope reconciliation of retainedR388, no new experiment: actualNVCC size-compression flag compiled one originalD256 object,6026896→1652688bytes(-72.578%), nativeSM70cubin bytes identical, decodedPTX differs. This is actual partialCPUartifact evidence; fullbackend/runtime loader, startup, taskquality/latency/VRAM/energy remain untested. Existing unstableR386 startup control is not automatically reusable. ParentPARTIAL is a scope-classification clarification, not GPUcoverage or a performance qualification. No rebuild or new modelstart.",
     "domain": "cuda_kernel",
     "evidence_ids": [
       "audit-2c3e8d6d811f10e78510",
+      "audit-48cb6d3fd512684ed444",
       "audit-662a06f359d8d261c824",
       "audit-6df5b60d87a67f761a8b",
       "audit-a8b0b3b540e2b38a864a",
@@ -12463,7 +12464,8 @@
     ],
     "experiment_ids": [
       "R356",
-      "R388"
+      "R388",
+      "R397"
     ],
     "experimentally_covered": false,
     "id": "C15",
@@ -12601,7 +12603,7 @@
     "remaining_scope": "Effective single-objectcompression proved; no fullbackend pack/loading or GPU result. Completebackend treatment and stableloaderprotocol stillrequired before any speedclaim. Oneobjectsize isnotVRAM or fullengine size.",
     "reopening_conditions": "Do notchangeA0/toolkit; admit explicitcompression-onlybuild onlyafter artifact/resource/loader-benefit gates.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "PARTIAL",
     "title": "Binary Compression Mode",
     "variants": [
       {
@@ -23908,10 +23910,11 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R386: private nativeSM70-only backend built with all142nativecubinimages byteidentical, noPTX,192340832->134546272bytes(-30.05%). New matching process-cold/startup reference calibrated on3serial originalmodelstarts:3.138790761/2.471156142/2.428174262s tofirstvalidreply; median2.471156142s,range28.756% exceeds preregistered10%gate. CandidateBwasNOTstarted. Calibration kept with automatic_reuseFalse; no speed, quality12, Decode or GPU-memorysaving claim for the candidate. Three firstcasegrades preserved; not12qualitycases. E06remainsOPEN/experimentallyNEIN; CPUartifactdifferenceisnotGPUintervention.",
+    "decision": "Scope reconciliation of retainedR386, no new experiment: complete privateSM70-only backend192340832→134546272bytes(-30.048%),142nativecubin images byte-identical. Historical3original-reference startups exceeded the fixed10%variability gate; candidateBwasneverstarted. NativeCPUbuild evidence is partial; GPUcandidate/runtime/startup/quality/performance qualification is still missing. ParentPARTIAL clarifies inspected scope without changing the negative calibration decision, automatic-reuse restrictions, originalaudits or references. No startup rerun or new GPUcoverage.",
     "domain": "engine",
     "evidence_ids": [
       "audit-1a4b88a9b1a42ad2ad0a",
+      "audit-48cb6d3fd512684ed444",
       "audit-562eaeb901f0c1b39e99",
       "audit-7716d550277dc834c504",
       "audit-82108ec013b822ad4c84",
@@ -23921,7 +23924,8 @@
       "R249",
       "R347",
       "R386",
-      "R391"
+      "R391",
+      "R397"
     ],
     "experimentally_covered": false,
     "id": "E06",
@@ -24021,7 +24025,7 @@
     "remaining_scope": "SM70-onlyartifactexistsandnativecubinbytesarepreserved, butstartupcalibrationexceeds10%range. No candidate execution. Stablepreregisteredrepeated-reload/loaderprotocol and a practicalstartupquestion needed before B; no expected Decodekernelchange from removedPTX.",
     "reopening_conditions": "Concrete loader/startup usecase and stable conditions for allrelevant loader/driver/filecaches, fixed before measurement; explicitly newprofile if conditions change. Existing142SM70-onlyartifactready, no kernelrebuildrequired.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "PARTIAL",
     "title": "SM70 Build Target",
     "variants": [
       {
