@@ -12878,5 +12878,29 @@
     "kind": "R399_T01_PARTIAL_FAILURE_AUDIT_CLOSED",
     "sequence": 1610,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T14:35:00+00:00",
+    "experiment_id": "R400",
+    "factor_id": null,
+    "kind": "R400_A04_CPU_POLICY_GATE_UNIT_CHECK",
+    "sequence": 1611,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T15:41:19+00:00",
+    "experiment_id": "R401",
+    "factor_id": null,
+    "kind": "R401_M12_CONFIRMATION_LAUNCH_FAILURE",
+    "sequence": 1612,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T13:42:58.167170+00:00",
+    "experiment_id": "R402",
+    "factor_id": null,
+    "kind": "R402_M12_STOP_FRAMING_INDEPENDENT_CONFIRMATION",
+    "sequence": 1613,
+    "signature": null
   }
 ]

@@ -20863,6 +20863,8 @@
     "decision": "R393 M12 fixed soledecision-enum JSON protocol: one stockOmniQ6K/8K/F16/300W process,82generations including2warmups,40timedpairs over20existinginputs/tworounds. All40templateprompt/nativegenerated-prefix/framedJSON/decision comparisons preserved;12→11generatedtokens each. RequestE2E pairedgeomean -4.519% versus freshmatchedcontrols, includingapply-templateHTTP,completionHTTP,receiverframing/parse. RequestGPUenergy sums 2988.239J→2812.200J (-5.89%, NVMLapproximation). Screenpromising, not independentlyqualified. Rawcandidate reply isdeliberatelydelimiter-truncated; declaredreceiverframingrequired. No general tool/agent/JSONspeedup, original12quality or Champion.",
     "domain": "model_behavior",
     "evidence_ids": [
+      "audit-028ff20c5389c10a3e32",
+      "audit-08c6db52d3f7ecfffd3a",
       "audit-516c80996de9152c55dc",
       "audit-562eaeb901f0c1b39e99",
       "audit-7cf42c940fb08a117cf6",
@@ -20873,13 +20875,15 @@
       "R249",
       "R349",
       "R392",
-      "R393"
+      "R393",
+      "R401",
+      "R402"
     ],
     "experimentally_covered": true,
     "id": "M12",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Retain R393promisingscreen and rawprotocol tradeoff. Defer furtherM12latencyfinequalification until currentdistinctsingles reviewed; nextE08actualparser source/build admission.",
+    "next_action": "Do not repeat this exact fixed-schema pair. Continue the breadth review of other distinct single-factor variants; reopen M12 only for a separate real completion contract or schema whose ending token and receiver behavior materially differ.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -20947,7 +20951,7 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Independentfreshsessionconfirmation and matchingreferenceprofile qualification pending; no automaticgenericJSON/toolcompatibility. NaturalEOScontrols retained; otherstoprules need a distinctcompletioncontract.",
+    "remaining_scope": "The exact fixed-enum JSON stop/framing treatment is independently confirmed and qualified in a narrow protocol. Other EOS/stop strategies and general JSON/tool/agent quality remain unqualified; raw B is not standalone JSON.",
     "reopening_conditions": "Only admit an actual rule with demonstrated overhead or incomplete-response problem.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -25293,7 +25297,9 @@
     "domain": "agent_harness",
     "evidence_ids": [
       "audit-58ce709304e025ad6a62",
+      "audit-79e682f96ad57f8e723b",
       "audit-c0beafb45c744eff4e32",
+      "audit-e3e1fdfbe5f62a01e27d",
       "audit-fe9d4937f9a1adf51176"
     ],
     "experiment_ids": [
@@ -25301,13 +25307,14 @@
       "R154",
       "R192",
       "R241",
-      "R368"
+      "R368",
+      "R400"
     ],
     "experimentally_covered": true,
     "id": "A04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
+    "next_action": "Continue other prioritized single-factor items. Reopen policy provenance/revocation only when an independently specified isolated authority/receiver contract is available; do not implement a self-validating simulator or run production HA/Proxmox actions.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -25394,7 +25401,7 @@
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
+    "remaining_scope": "Defer this subcase; retain R241 GPU proposal evidence and R400 CPU fixture checks as narrow component evidence. No broad model-security or production enforcement claim.",
     "reopening_conditions": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",

@@ -148392,6 +148392,67 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7356.5,
+      "requests": 82,
+      "schema_completion_protocol": {
+        "actual_stop_intervention_executed": true,
+        "correct_mock_labels_per_arm": 36,
+        "functional_gate_passed": true,
+        "hardware_guards_passed": true,
+        "minimum_E2E_reduction_percent": 3,
+        "model_starts": 1,
+        "original12_quality_cases": 0,
+        "paired_geomean_E2E_change_percent": -4.499569011119641,
+        "peak_device_vram_mib": 7356.5,
+        "raw_candidate_is_not_complete_JSON": true,
+        "receiver_framing_required": true,
+        "requests": 82,
+        "screen_passed": true,
+        "template_requests": 82,
+        "timed_pairs": 40,
+        "winner_qualified": false
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-028ff20c5389c10a3e32",
+    "original_bytes": 15599,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "028ff20c5389c10a3e320d36546a747696a6e7df59ef2c28e187cc8ddd1e4dae",
+    "statements": {
+      "decision": "FIXED_SCHEMA_STOP_SCREEN_PROMISING_INDEPENDENT_QUALIFICATION_PENDING",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Onlyfixedsoledecisionenumobject;noembeddedbraces/nestedJSON allowed. Requiresreceiverframing;rawBreply isnotcompleteJSON.",
+        "Per-requesttiming includesapply-templateHTTP,completionHTTP,receiverframing/parse. Warmupsunscored;all40timedpairsretained.",
+        "No modelconfidencefit,answerrepair,calibrationholdoutuse or original12/agent/toolqualityqualification.",
+        "StockOmniQ6K/8K/F16/300W originalweights/library/templateretained;noMTP/cache/kernel/powercombination.",
+        "ReferenceA0pointer isruntimeidentityonly;newmatchedAcontrols are not historicaltimings. No automaticChampion/newreference.",
+        "Shortoneprocessscreenneedsindependentconfirmationandworkloadqualificationbeforeanywinnerclaim."
+      ],
+      "measurement_type": "GPU_FIXED_SCHEMA_NATIVE_STOP_FRAMING_SCREEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-08c6db52d3f7ecfffd3a",
+    "original_bytes": 1264,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "08c6db52d3f7ecfffd3a667b7a71d4488627afe67ca062e96c0a77ddad529dfc",
+    "statements": {
+      "interpretation": "Fresh-session matched A/B confirmation for the same fixed-enum protocol; receiver-framed B response is a prefix with the closing brace supplied by the declared receiver. Labels matched exactly between arms, but correctness is 36/40 in both. This is a narrow protocol result, not general JSON/tool/agent quality and not an A0 or Champion comparison."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -162282,6 +162343,34 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e3e1fdfbe5f62a01e27d",
+    "original_bytes": 5637,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e3e1fdfbe5f62a01e27dc86bad7987515454263743282dd5e850647b471af3db",
+    "statements": {
+      "decision": "A04_GATE_COMPONENT_CHECKS_PASS_SCOPED; REVOCATION_PROPAGATION_AND_PROVENANCE_UNTESTED",
+      "evidence_class": "LOCAL_CPU_ONLY_POLICY_UNIT_CHECK"
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-79e682f96ad57f8e723b",
+    "original_bytes": 2237,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "79e682f96ad57f8e723b2b3b6d97aaf517c6781ac24cdb91347ab2a5da95d97c",
+    "statements": {
+      "decision": "Defer this subcase; retain R241 GPU proposal evidence and R400 CPU fixture checks as narrow component evidence. No broad model-security or production enforcement claim.",
+      "scope": "Policy provenance binding and revocation propagation subcase only"
+    }
+  },
+  {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 35,
@@ -170700,6 +170789,23 @@
         "No fresh reference recalibration, no model starts, no optimization combinations."
       ],
       "measurement_type": "GPU_F16_KV_PREFETCH_NUMERICAL_ADMISSION"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 0,
+      "peak_device_vram_mib": 239.875,
+      "requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b1b67c6be63b4923022f",
+    "original_bytes": 1333,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b1b67c6be63b4923022f493d4e4e01f4a05dc294fda281736e7303bd4be9a57a",
+    "statements": {
+      "decision": "No benchmark result; preserve failed launch. No M12 coverage increment."
     }
   },
   {
