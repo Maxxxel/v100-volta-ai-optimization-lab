@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `44d0f0ea0f0e498cbbef8e4e934966d1fa1be3d0e9e73add8c7fed83e24b83a2`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `48869f40b1d3c4f482ca9cf9aa20c2a5a348c4fc1e7b7d28c6706fbb22f08299`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -693,9 +693,9 @@ Thinking medium; 2048 output. No additional policy claim is inferred from this d
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-21 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
+| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
+| Measurement batches | R285:16 + R286:2 disjoint agent cases; R284 failed before agent generation and is excluded |
 | Actual template controls | See pinned native request evidence |
 | Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
@@ -704,7 +704,7 @@ Thinking medium; 2048 output. No additional policy claim is inferred from this d
 | Template SHA-256 | See exact plan audit; not duplicated in public subset |
 | Scorer adapter SHA-256 | See audit scoring contract |
 | EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | 55333c56e9fa5fd6d9841fc35126c94fd2c05d87c084f7be3c82c3637857a412 |
+| Plan SHA-256 | fb5cfb88f5b1a44a1f6cb6ee15aa02d0fbae7b6e83e61f507feca5a69f67fefb |
 
 Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
 
@@ -946,6 +946,10 @@ These imported A0 records use historical model/build identities and synthetic na
 
 
 [Original audit excerpt](audits/audit-944476f62657e0327321.md). Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.
+
+## Scientific metadata correction
+
+The Bonsai agent campaign uses **2048 output tokens per turn**, from executed [R285](experiments/R285.md) and [R286](experiments/R286.md). Earlier chart metadata selected the failed pre-generation [R284](experiments/R284.md) plan and displayed 4096. The success counts, measured costs and immutable original audits are unchanged; coding/native-tool budgets remain separate.
 
 ## Missing and partial evidence
 

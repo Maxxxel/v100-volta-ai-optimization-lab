@@ -14,6 +14,7 @@ Ten profile pointers do not mean ten universally superior models. Native tools, 
 | [omnicoder2-sm70-cuda128-natural-sse-4k6k-memory8g-taskenergy-ctx8192-v1](#profile-7971777881bb) | R109 | LOW_VRAM_NATURAL_SSE_ENERGY_PROFILE_QUALIFIED |
 | [omnicoder2-sm70-cuda128-pinned-nativejson-ctx8192-v1](#profile-0df192a50d76) | R90 | R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED |
 | [omnicoder2-sm70-cuda128-sse-pp2k4k16-decode128-ctx8192-v1](#profile-70f9438a1b18) | R90 | R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED |
+| [gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1](#profile-74d8082d9d63) | R437 | Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss. |
 
 
 ## Profile fa9451c63b8d
@@ -3068,6 +3069,129 @@ C: `70f9438a1b180ed16e1bf4bdd217d84959c11bcb0424f32d5addfbb277153420`
   "model": "omnicoder2",
   "profile": null,
   "qualification": "R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED",
+  "winner_qualified": true
+}
+```
+
+
+## Profile 74d8082d9d63
+
+`gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1`
+
+A0: `b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15`
+
+C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
+
+```json
+{
+  "aggregate_metrics": {
+    "metrics": {
+      "case_executions": 36,
+      "cycle_metrics": [
+        {
+          "cycle": 0,
+          "energy_saving_percent": 14.457022484901072,
+          "gpu_energy_j_approx": 28627.93581138441,
+          "gpu_j_per_success": 2385.6613176153674,
+          "observed": 12,
+          "passed": true,
+          "solved": 12,
+          "wall_change_percent": 8.057573073665235,
+          "wall_s": 134.328988545
+        },
+        {
+          "cycle": 1,
+          "energy_saving_percent": 13.107908911881738,
+          "gpu_energy_j_approx": 29079.43209889495,
+          "gpu_j_per_success": 2423.286008241246,
+          "observed": 12,
+          "passed": true,
+          "solved": 12,
+          "wall_change_percent": 8.64874808464049,
+          "wall_s": 135.063892532
+        },
+        {
+          "cycle": 2,
+          "energy_saving_percent": 13.524657546161956,
+          "gpu_energy_j_approx": 28939.962401928296,
+          "gpu_j_per_success": 2411.6635334940247,
+          "observed": 12,
+          "passed": true,
+          "solved": 12,
+          "wall_change_percent": 8.781000198738687,
+          "wall_s": 135.228298341
+        }
+      ],
+      "cycles": 3,
+      "gpu_j_per_success": 2411.6635334940247,
+      "original12": {
+        "format": 1,
+        "observed": 12,
+        "semantic": 10
+      },
+      "peak_device_vram_mib": 8254.5,
+      "solved": 12,
+      "unique_tasks": 12,
+      "wall_s": 135.063892532
+    }
+  },
+  "experiment_id": "R437",
+  "id": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
+  "identity": {
+    "cache": "warmmodel,coldKV",
+    "inference_flags": {
+      "--batch-size": "2048",
+      "--cache-ram": "0",
+      "--cache-reuse": "0",
+      "--cache-type-k": "f16",
+      "--cache-type-v": "f16",
+      "--ctx-checkpoints": "2",
+      "--ctx-size": "16384",
+      "--flash-attn": "auto",
+      "--load-mode": "mmap",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--reasoning": "off",
+      "--seed": "1001",
+      "--spec-type": "none",
+      "--threads": "6",
+      "--threads-batch": "6",
+      "--ubatch-size": "512"
+    },
+    "kernel_switches": {
+      "GGML_CUDA_GRAPH_OPT": "0",
+      "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+    },
+    "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+    "power_limit_w": 225,
+    "request_numeric_settings": null,
+    "seed": 1001,
+    "workload_description": null
+  },
+  "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+  "identity_hashes": [
+    "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+    "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+    "246e65b935ae5a703ecae822922fe3f3fed7703d3c2104c91e64fe150449fc1b",
+    "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+    "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+    "4f4dce8176772511bc931e4ad42ed0dba849e4e457ceacfad131068a29fd619d",
+    "5f92b5321867cca18dfde0638a1c12f599cb7d00b05833a41398148b20fe4898",
+    "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+    "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+    "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+    "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "bd86639fa8d9e0eda64329e28ab2687a3eeeec1cb80056dd6382a0e8196543e2",
+    "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+    "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+    "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+    "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+  ],
+  "kind": "C",
+  "limits": [],
+  "model": "gemma4_12b_it_qat_q4_0",
+  "profile": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
+  "qualification": "Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss.",
   "winner_qualified": true
 }
 ```

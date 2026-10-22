@@ -13510,5 +13510,37 @@
     "kind": "R436_GEMMA225W_SINGLE_AUDITED",
     "sequence": 1689,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:07:04.628262+00:00",
+    "experiment_id": "R437",
+    "factor_id": null,
+    "kind": "R437_225W_STABILITY_PREREGISTERED",
+    "sequence": 1690,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:15:34.026239+00:00",
+    "experiment_id": "R437",
+    "factor_id": null,
+    "kind": "R437_GEMMA225W_INDEPENDENT_STABILITY_AUDITED",
+    "sequence": 1691,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:16:04.807988+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "BONSAI_AGENT_OUTPUT_CAP_METADATA_CORRECTION",
+    "sequence": 1692,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:16:04.807988+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "BONSAI_LONG_CONTEXT_SOURCE_ADMISSION",
+    "sequence": 1693,
+    "signature": null
   }
 ]

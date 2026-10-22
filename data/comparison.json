@@ -313,7 +313,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "44d0f0ea0f0e498cbbef8e4e934966d1fa1be3d0e9e73add8c7fed83e24b83a2",
+  "measurement_fingerprint": "48869f40b1d3c4f482ca9cf9aa20c2a5a348c4fc1e7b7d28c6706fbb22f08299",
   "models": [
     {
       "id": "omni",
@@ -1351,7 +1351,7 @@
       "evidence_class": "LOCALLY MEASURED",
       "experiment": "R286",
       "gpu_j": 161409.6739826662,
-      "id": "bonsai-agents-284",
+      "id": "bonsai-agents-286",
       "metadata": {
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
@@ -1368,10 +1368,11 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "measurement_batches": "R285:16 + R286:2 disjoint agent cases; R284 failed before agent generation and is excluded",
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": null,
-        "output_cap": 4096,
-        "plan_sha256": "55333c56e9fa5fd6d9841fc35126c94fd2c05d87c084f7be3c82c3637857a412",
+        "output_cap": 2048,
+        "plan_sha256": "fb5cfb88f5b1a44a1f6cb6ee15aa02d0fbae7b6e83e61f507feca5a69f67fefb",
         "power_limit_w": 300,
         "process_peak_vram_mib": null,
         "sampling": {

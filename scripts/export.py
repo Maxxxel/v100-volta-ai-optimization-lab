@@ -73,6 +73,14 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('factor')=='H03' and obj.get('model')=='gemma4':
+        fields=('observed_cases','planned_cases','full_36_executions_claimed','unique_tasks','completed_cycles','planned_cycles','control_comparable','control_wall_drift_percent','control_energy_drift_percent','energy_saving_percent_vs_stored','wall_change_percent_vs_stored','candidate_energy_saving_percent_vs_fresh','candidate_wall_change_percent_vs_fresh','qualification_candidate_passed')
+        numeric=lambda v:type(v) in (int,float,bool) and (type(v) is not float or math.isfinite(v))
+        result.update({k:obj[k] for k in fields if numeric(obj.get(k))})
+        allowed=('cycle','observed','solved','wall_s','gpu_energy_j_approx','gpu_j_per_success','energy_saving_percent','wall_change_percent','passed')
+        cycles=obj.get('cycle_metrics')
+        if isinstance(cycles,list) and len(cycles)<=3:
+            result['energy_stability_cycles']=[{k:row[k] for k in allowed if numeric(row.get(k))} for row in cycles if isinstance(row,dict)]
     if obj.get('factor')=='R19':
         for name in ('observed_cases','planned_cases','full_12_semantic_score_claimed','common_control_passed','common_wall_change_percent_vs16K','common_GPU_J_per_success_change_percent_vs16K','VRAM_increase_MiB_vs16K'):
             value=obj.get(name)

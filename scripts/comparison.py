@@ -87,7 +87,7 @@ def build(root, db, matrix, receipt):
     spread={'cycles':3,'distinct_tasks':18,'wall_s':[min(x['total_wall_s'] for x in cycles),max(x['total_wall_s'] for x in cycles)],'gpu_j_per_success':[min(x['gpu_j_per_success'] for x in cycles),max(x['gpu_j_per_success'] for x in cycles)],'definition':'Observed min–max of three repeated 18-case cycle aggregates; not 54 independent tasks.'}
     add('omni','agents',18,q['metrics']['solved'],q['metrics']['total_wall_s'],q['metrics']['gpu_energy_j'],q['peak_device_vram_mib'],ap,219,a,aid,'MTP + weight cache; 300 W',p['agent_workload']['tasks_sha256'],spread=spread,extra_ids=[qid],extra_hashes=[qual['audit_sha256']])
     bonsai=next(x for x in matrix['model_challengers'] if x['id']=='BMC04')
-    for dis,key,plan_n in [('coding','full_coding_evidence',271),('tools','full_tool_evidence',280),('agents','full_agent_evidence',284)]:
+    for dis,key,plan_n in [('coding','full_coding_evidence',271),('tools','full_tool_evidence',280),('agents','full_agent_evidence',286)]:
         ref=bonsai[key];a,ap,aid=audit(ref['path'],ref['sha256']);ids=[];hashes=[];parts=[]
         for ref in a['source_audits']:
             child,cp,ci=audit(ref['audit_path'],ref['audit_sha256']);ids.append(ci);hashes.append(ref['audit_sha256']);parts.append(child)
@@ -99,6 +99,11 @@ def build(root, db, matrix, receipt):
         elif dis=='tools':n=m['observed_cases'];solved=m['solved'];wall=m['case_inference_wall_s'];j=m['case_GPU_energy_J_approx'];peak=m['peak_device_vram_mib'];th=a['source_tasks_sha256'];assert n==100
         else:n=a['observed_unique_cases'];solved=a['solved'];wall=a['total_case_wall_s'];j=a['GPU_energy_J_approx'];peak=a['peak_device_vram_mib'];th=a['source_tasks_sha256'];assert n==18
         add('bonsai',dis,n,solved,wall,j,peak,ap,plan_n,a,aid,'Thinking medium; '+('2048 output' if dis=='agents' else '4096 output'),th,extra_ids=ids,extra_hashes=hashes)
+        if dis=='agents':
+            executed=[load(root/f"staging/r{int(ref['experiment_id'][1:])}/PLAN.json") for ref in a['source_audits']]
+            if any(plan['agent_workload']['max_output_tokens']!=2048 for plan in executed):raise ValueError('Bonsai agent campaign output budgets differ')
+            rows[-1]['metadata']['measurement_batches']='R285:16 + R286:2 disjoint agent cases; R284 failed before agent generation and is excluded'
+            rows[-1]['metadata']['output_cap']=2048
     mbpp_hash=None
     for model,n,parent_n in registry.get('mbpp223',[]):
         ref=summary['r'+str(n)];a,ap,aid=source(n);campaign,cp,cid=audit(ref['campaign_path'],ref['campaign_sha256']);review,rp,rid=audit(ref['independent_review_path'],ref['independent_review_sha256'])
@@ -215,5 +220,6 @@ def render(data,docs):
         name='historical-'+key+'.svg';write(dest/name,svg(title,'tokens/s',values));page+=f'![Historical native {title}: median, MAD and sample size](assets/benchmarks/{name}){{ .benchmark-svg }}\n\n'
     for r in data['historical_native']:
         page+='### Historical '+r['name']+' · '+r['quantization']+'\n\n'+table(['Field','Original reference identity'],[['Hardware',r['hardware']],['Date',r['date']],['Power limit',r['power_limit_w'] if r['power_limit_w'] is not None else 'NOT RECORDED; do not assume current 300 W'],['Model SHA-256',r['model_sha256']],['Engine binary identity',json.dumps(r['engine_binary_sha256'],sort_keys=True)],['Runtime',json.dumps(r['conditions'],sort_keys=True)],['Reference',r['record_id']],['Audit SHA-256',r['audit_sha256'][0]]])+table(['Workload','Prompt token count(s)','Generated token count(s)','n / sessions'],[[m['workload'],m['actual_prompt_tokens'],m['generated_tokens'],str(m['n'])+' / '+str(m['sessions'])] for m in r['metrics']])+'\n'+f"[Original audit excerpt](audits/{r['audit_ids'][0]}.md). {r['note']}\n\n"
+    page+='## Scientific metadata correction\n\nThe Bonsai agent campaign uses **2048 output tokens per turn**, from executed [R285](experiments/R285.md) and [R286](experiments/R286.md). Earlier chart metadata selected the failed pre-generation [R284](experiments/R284.md) plan and displayed 4096. The success counts, measured costs and immutable original audits are unchanged; coding/native-tool budgets remain separate.\n\n'
     page+='## Missing and partial evidence\n\nA missing bar means no complete audited result under that cohort. In particular, a native echo-control is not a BFCL score, a truncated QA screen is not HumanEval+, and a 2/4 agent early stop is not an 18-task score. See [all model admission stages and negative screens](models.md) and [experiment history](results.md). No existing negative result or qualification limit is removed.\n'
     write(docs/'benchmarks.md',page)

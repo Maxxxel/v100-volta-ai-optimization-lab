@@ -262,5 +262,11 @@
     "C": null,
     "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context32K-common-and-extended-T0-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
+    "C": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
+    "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]
