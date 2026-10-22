@@ -143335,6 +143335,27 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0bc47358c8d74638c3cc",
+    "original_bytes": 2461,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0bc47358c8d74638c3ccd4a3f2379ee478554c61fbb8791611cdae6eb4872d66",
+    "statements": {
+      "decision": "The inspected llama.cpp chat path selects the response-format schema parser before the native tool-call parser; custom grammar is explicitly rejected when tools are enabled. No distinct native-tool treatment is therefore available through this request field.",
+      "evidence_class": "LOCAL_SOURCE_INSPECTION",
+      "limits": [
+        "This is source/API admission, not a GPU measurement or quality result.",
+        "The inspected source commit is not proven identical to the R406 temporary engine binary; an exact-build confirmation is required before attributing behavior to that binary.",
+        "A custom parser that jointly composes typed-output schema and native tool-call selection would be a new implementation, not an existing isolated setting."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

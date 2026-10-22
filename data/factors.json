@@ -19646,9 +19646,10 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe. R406 tested a distinct fresh BFCL-v4 native-tool instruction treatment. The candidate emitted a valid native call on irrelevance_68; the strict no-call quality gate failed, so the screen stopped after 51 paired tasks. No full-suite score, performance result, or Champion claim; M07 remains PARTIAL.",
+    "decision": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe. R406 tested a distinct fresh BFCL-v4 native-tool instruction treatment. The candidate emitted a valid native call on irrelevance_68; the strict no-call quality gate failed, so the screen stopped after 51 paired tasks. No full-suite score, performance result, or Champion claim; M07 remains PARTIAL. Static implementation review (no GPU): at llama.cpp commit 097cf33, schema-constrained response_format selects the response parser before native tool parsing, while custom grammar with tools is rejected. The exact R406 engine build is not available among installed candidate binaries; no GPU variant admitted.",
     "domain": "model_behavior",
     "evidence_ids": [
+      "audit-0bc47358c8d74638c3cc",
       "audit-10405fcc48b064c0ab8d",
       "audit-35de360ef29e2eef51e0",
       "audit-898de70e8475928c24a9",
@@ -19680,7 +19681,7 @@
     "id": "M07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Next distinct M07 single: typed-output/native-schema treatment only if its rendering change and strict no-call/quality contract are frozen. R406 instruction variant is negative and must not be repeated; preserve R195 compact-tool regression.",
+    "next_action": "Keep M07 PARTIAL. Reopen only if an exact pinned runtime offers a distinct joint schema+tool parser treatment with frozen no-call and quality contracts; otherwise proceed to the next ranked feasible single factor.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19767,7 +19768,7 @@
       }
     ],
     "prerequisites": [
-      "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten."
+      "An exact pinned runtime/build must expose a distinct joint schema-plus-native-tool parser treatment, preserve native call selection and strict no-call behavior, and have a frozen quality contract. A source/API review alone is not GPU coverage."
     ],
     "primary_sources": [],
     "priority": "P2",
