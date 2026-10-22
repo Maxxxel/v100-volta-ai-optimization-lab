@@ -339,7 +339,7 @@
     "id": "GIST-V02",
     "local_test_status": "EXISTING_SAME_BUILD_TRACE_RESOURCE_REVIEW_NO_NEW_GPU_TEST",
     "mechanism": "Combined128KiB L1/shared resource with selectable shared capacities; preferred carveout is an advisory CUDAfunctionattribute, distinct from conversioncache or MaxDynamicSharedMemorySize.",
-    "next_action": "SelectedQ6single-columnMMVQ alreadyuses8KiBdriver-shared with128/256Bstaticshared; a smaller compatible partition is unavailable. No more-L1GPUtrial onthispath. Multi-column/attention/librarykernels are separate unresolvedcases requiring concrete resourcebenefit; no genericpartitiongrid.",
+    "next_action": "Deferred for the current practical single-factor queue: synthetic 505-token prompt is not ranking eligible and the 2K/4K/decode trace bounds are below the 3% practical screen gate. Reopen only with a frozen representative workload where this exact kernel contributes >=3% of E2E and the preference demonstrably changes its runtime configuration.",
     "prerequisites": "Reopen only for a different actual kernel/launch with demonstrably nonminimal driver-shared configuration and a useful compatible preference change. Same-build trace and CUDA12.8CUPTI field semantics are pinned.",
     "priority_band": "P2",
     "risks": "Preference may map to same physical partition or be overridden by dynamic shared needs; no assumed occupancy, cachehit, bandwidth or speedup.",
