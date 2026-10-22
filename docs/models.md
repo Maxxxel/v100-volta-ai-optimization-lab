@@ -11,7 +11,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
-| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R428 |
+| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R429 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -307,13 +307,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R428 Gemma coding223:168/223 vsQwen172/223;877.635s vs477.232s;1286.10 vs742.14GPU-J/success;peak8118.5MiB. Screenprofiles:{'fast': False, 'quality_specialist': False, 'lower_VRAM_at_matched_quality': False}. NoChampion.",
-  "current_experiment": "R428",
+  "assessment": "R429 Gemma16K:long12/12 observed(planned12),originalQA10/12semantic;prior-success losses0;32Kcontroladmitted=True;peak8254.5MiB. NoChampion.",
+  "current_experiment": "R429",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC07",
   "local_scope": null,
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Consolidate separate quality/speed/VRAM/energy tradeoffs across the now-audited model suites; reassess distinct model-enabled single factors with concrete hardware/source evidence before any combinations. Preserve all tool/agent negatives; independently qualify promising coding profiles on separate tasks/controls, not reused score optimization.",
+  "next_step": "Run one32Kallocation candidate on exact same model/profile/native inputfixtures and compare to storedR42916K reference. No prompt or sampler changes; original12and long12 preservation, time/energy/VRAM and trueallocation checked; independentqualification needed before winner.",
   "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {

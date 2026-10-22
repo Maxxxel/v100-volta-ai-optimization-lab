@@ -238,5 +238,11 @@
     "C": null,
     "id": "gemma4-12b-qat-q40-sm70-native-MBPP020-originaltest223-T1-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]

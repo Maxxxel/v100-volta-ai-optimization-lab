@@ -13374,5 +13374,21 @@
     "kind": "R428_GEMMA_MBPP223_PAIRED_COMPARISON_AUDITED",
     "sequence": 1672,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T21:38:13.963760+00:00",
+    "experiment_id": "R429",
+    "factor_id": null,
+    "kind": "R429_GEMMA16K_LONG_INPUT_PREREGISTRATION",
+    "sequence": 1673,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T21:42:04.107720+00:00",
+    "experiment_id": "R429",
+    "factor_id": null,
+    "kind": "R429_GEMMA16K_FIXED_LONG_INPUTS_AUDITED",
+    "sequence": 1674,
+    "signature": null
   }
 ]
