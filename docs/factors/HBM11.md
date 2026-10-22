@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P3 |
+| DEFERRED | False | False | P3 |
 
 
 ## Theory and Volta implications
@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-89b244b35fdb3b8b755e.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
@@ -103,16 +104,16 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-PagedAttention erfordert echte Blockverwaltung/Operatoren; kein neuer zugelassener Pfad. Aktuelle qualifizierte Profile sind Einzelslot-Profile, R11 war ein Kontextdeckel.
+HBM11 current-engine admission: exact pinned get_k/get_v expose strided 4D views into preallocated KV buffers; hybrid preparation couples attention allocation with recurrent batches and trailing rollback snapshots. Sequence copy/remove and state serialization update both memory classes. A block-table allocator alone therefore is not a PagedAttention implementation. Existing R376 two-slot history-isolation gate remains failed (20/21 matching prefix responses), and R343 vLLM namespace mapping remains incomplete (379/427 names; GDN/norm/layout inversion required). These are retained independent findings, not fresh HBM11 quality/performance tests. No admitted exact-model paged operator plus hybrid lifecycle adapter currently exists. Defer the current-engine port pending a concrete adapter and a useful fragmentation/sharing workload; this does not exclude SM70 PagedAttention or future single-sequence/component tests. No GPU/model launch or speed/VRAM/energy claim.
 
-**Remaining scope:** Nur mit begründetem Mehrsequenz-/Fragmentierungsworkload und kompatiblem Operator priorisieren; kein zusätzlicher Allocator ohne belegte Lücke.
+**Remaining scope:** Current exact-model engine port deferred, not universal architectural exclusion; compatible component and future serving tests remain possible.
 
-**Reopening condition:** Qualify serial semantics and real multi-session pressure before a new allocator.
+**Reopening condition:** A concrete exact-model operator/cache patch and bounded correctness oracle admit a component test without waiting for all serving work. Whole multi-session qualification additionally requires demonstrated preserved histories. Separate vLLM route requires its existing weight/graph/SM70/16GB admission, not a new installation now.
 
-**Next action:** Qualify serial semantics and real multi-session pressure before a new allocator.
+**Next action:** A concrete exact-model operator/cache patch and bounded correctness oracle admit a component test without waiting for all serving work. Whole multi-session qualification additionally requires demonstrated preserved histories. Separate vLLM route requires its existing weight/graph/SM70/16GB admission, not a new installation now.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R249](../experiments/R249.md), [R382](../experiments/R382.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md), [R396](../experiments/R396.md)

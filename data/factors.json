@@ -30337,20 +30337,22 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "PagedAttention erfordert echte Blockverwaltung/Operatoren; kein neuer zugelassener Pfad. Aktuelle qualifizierte Profile sind Einzelslot-Profile, R11 war ein Kontextdeckel.",
+    "decision": "HBM11 current-engine admission: exact pinned get_k/get_v expose strided 4D views into preallocated KV buffers; hybrid preparation couples attention allocation with recurrent batches and trailing rollback snapshots. Sequence copy/remove and state serialization update both memory classes. A block-table allocator alone therefore is not a PagedAttention implementation. Existing R376 two-slot history-isolation gate remains failed (20/21 matching prefix responses), and R343 vLLM namespace mapping remains incomplete (379/427 names; GDN/norm/layout inversion required). These are retained independent findings, not fresh HBM11 quality/performance tests. No admitted exact-model paged operator plus hybrid lifecycle adapter currently exists. Defer the current-engine port pending a concrete adapter and a useful fragmentation/sharing workload; this does not exclude SM70 PagedAttention or future single-sequence/component tests. No GPU/model launch or speed/VRAM/energy claim.",
     "domain": "hbm_memory",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-89b244b35fdb3b8b755e"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R396"
     ],
     "experimentally_covered": false,
     "id": "HBM11",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Qualify serial semantics and real multi-session pressure before a new allocator.",
+    "next_action": "A concrete exact-model operator/cache patch and bounded correctness oracle admit a component test without waiting for all serving work. Whole multi-session qualification additionally requires demonstrated preserved histories. Separate vLLM route requires its existing weight/graph/SM70/16GB admission, not a new installation now.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -30412,14 +30414,17 @@
       }
     ],
     "prerequisites": [
-      "A measured fragmentation/concurrency problem plus compatible block-table and recurrent-state scheduling."
+      "Concrete block-table-aware attention operator with compatible D256/GQA4 and partial-IMRoPE semantics, preserving current mathematical target.",
+      "Allocation/copy-on-write/reset/free and hybrid recurrent snapshots/rollback contract; include fail-and-retry transaction semantics.",
+      "Predeclared useful workload measuring actual sharing/fragmentation, real VRAM and per-success cost against a valid saved reference.",
+      "Independent state isolation, original task quality and single-sequence equivalence before any concurrent winner claim."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Nur mit begründetem Mehrsequenz-/Fragmentierungsworkload und kompatiblem Operator priorisieren; kein zusätzlicher Allocator ohne belegte Lücke.",
-    "reopening_conditions": "Qualify serial semantics and real multi-session pressure before a new allocator.",
+    "remaining_scope": "Current exact-model engine port deferred, not universal architectural exclusion; compatible component and future serving tests remain possible.",
+    "reopening_conditions": "A concrete exact-model operator/cache patch and bounded correctness oracle admit a component test without waiting for all serving work. Whole multi-session qualification additionally requires demonstrated preserved histories. Separate vLLM route requires its existing weight/graph/SM70/16GB admission, not a new installation now.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "DEFERRED",
     "title": "PagedAttention und KV-Blockverwaltung",
     "variants": [
       {

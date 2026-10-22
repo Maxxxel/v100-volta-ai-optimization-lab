@@ -12774,5 +12774,13 @@
     "kind": "HBM10_CPU_UNWEIGHTED_NUQ4_DEVELOPMENT_PROXY_PASS",
     "sequence": 1597,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T11:38:30.542510+00:00",
+    "experiment_id": null,
+    "factor_id": "HBM11",
+    "kind": "HBM11_SOURCE_INTERFACE_AND_HYBRID_STATE_ADMISSION_DEFERRED_NO_GPU",
+    "sequence": 1598,
+    "signature": null
   }
 ]
