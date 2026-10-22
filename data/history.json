@@ -12854,5 +12854,13 @@
     "kind": "T01_NATIVE_MIXED_PRECISION_CE_CPU_PREFLIGHT",
     "sequence": 1607,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T13:02:31.452317+00:00",
+    "experiment_id": "R398",
+    "factor_id": null,
+    "kind": "R398_T01_CUDA_LORA_FEASIBILITY_FAILED",
+    "sequence": 1608,
+    "signature": null
   }
 ]
