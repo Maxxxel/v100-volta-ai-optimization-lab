@@ -71,6 +71,13 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('measurement_type')=='GPU_C16_FRACTIONAL_QUEUE_MEMORY_SCREEN':
+        variants=[]
+        for value in obj.get('variants',[]):
+            if not isinstance(value,dict) or value.get('value') not in {'0.25x','0.5x'}: continue
+            aggregate={k:value[k] for k in ('requests','model_starts','warmup_requests','quality_cases','peak_device_vram_mib','memory_saved_vs_A0_mib','minimum_memory_saving_mib','primary_memory_gate_passed','screen_passed','measurement_valid') if isinstance(value.get(k),(int,float,bool))}
+            aggregate['capacity_setting']=value['value'];aggregate['scope']='EARLY_MEMORY_SCREEN_ONLY';variants.append(aggregate)
+        if variants:result['queue_memory_variants']=variants
     numerical=obj.get('numerical_result')
     if isinstance(numerical,dict):
         aggregate={k:projection(numerical[k]) for k in ('cases_count','passed_cases','NMSE_limit','numerical_gate_passed','private_library_mapping_verified','model_starts','wall_s') if isinstance(numerical.get(k),(int,float,bool))}

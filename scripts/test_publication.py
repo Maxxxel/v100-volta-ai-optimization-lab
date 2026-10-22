@@ -16,6 +16,9 @@ class PublicationSafety(unittest.TestCase):
   out=e.metrics(raw)
   self.assertEqual(out['baseline'],{'model_starts':3,'median_startup_to_first_reply_s':2.47,'startup_range_percent':28.76})
   self.assertEqual(out['candidate_model_starts'],0);self.assertFalse(out['actual_candidate_GPU_execution']);self.assertTrue(out['reference_only_calibration']);self.assertEqual(out['candidate_primary_dispatch_events'],18);self.assertNotIn('private',str(out))
+ def test_queue_resource_screen_preserves_unmeasured_quality_and_hides_payloads(self):
+  raw={'measurement_type':'GPU_C16_FRACTIONAL_QUEUE_MEMORY_SCREEN','variants':[{'value':'0.25x','requests':4,'quality_cases':0,'peak_device_vram_mib':7354.5,'memory_saved_vs_A0_mib':2,'minimum_memory_saving_mib':64,'primary_memory_gate_passed':False,'response':'private text','quality':[{'content':'private reply'}]},{'value':'private-value','requests':4}]}
+  out=e.metrics(raw)['queue_memory_variants'];self.assertEqual(len(out),1);self.assertEqual(out[0]['capacity_setting'],'0.25x');self.assertEqual(out[0]['quality_cases'],0);self.assertFalse(out[0]['primary_memory_gate_passed']);self.assertNotIn('private',str(out))
  def test_credentials_and_network_are_rejected(self):
   examples=['gh'+'p_'+'A'*30,'-----BEGIN '+'RSA PRIVATE KEY-----','192'+'.168.42.18','sensor'+'.bedroom_temperature','fd00'+':'*2+'12',':'*2+'1','https://user'+':secret'+'@example.com']
   for x in examples:

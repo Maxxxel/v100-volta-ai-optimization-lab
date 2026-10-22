@@ -28,6 +28,36 @@ Original file: `AUDIT.json`; 3063 bytes. The original is retained privately and 
   "actual_GPU_execution": true,
   "model_starts": 2,
   "peak_device_vram_mib": 7354.5,
+  "queue_memory_variants": [
+    {
+      "capacity_setting": "0.25x",
+      "measurement_valid": true,
+      "memory_saved_vs_A0_mib": 2.0,
+      "minimum_memory_saving_mib": 64,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "primary_memory_gate_passed": false,
+      "quality_cases": 0,
+      "requests": 4,
+      "scope": "EARLY_MEMORY_SCREEN_ONLY",
+      "screen_passed": false,
+      "warmup_requests": 4
+    },
+    {
+      "capacity_setting": "0.5x",
+      "measurement_valid": true,
+      "memory_saved_vs_A0_mib": 2.0,
+      "minimum_memory_saving_mib": 64,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "primary_memory_gate_passed": false,
+      "quality_cases": 0,
+      "requests": 4,
+      "scope": "EARLY_MEMORY_SCREEN_ONLY",
+      "screen_passed": false,
+      "warmup_requests": 4
+    }
+  ],
   "requests": 8
 }
 ```
