@@ -15645,5 +15645,133 @@
       "measurement_type": "GPU_UPSTREAM_KIVI_2BIT_SM70_COMPONENT_NUMERICAL_ADMISSION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 0,
+      "forward_KV_calibration_admission": {
+        "actual_generation_requests": 0,
+        "calibration_fidelity_passed": true,
+        "captured_named_tensors": 64,
+        "completed_chunks": 4,
+        "fidelity_checks": [
+          {
+            "captured_named_tensors": 16,
+            "chunk": 0,
+            "control_logits_byte_identical": true,
+            "finite_logits": true,
+            "maximum_abs_logit_difference": 0,
+            "optimizer_steps": 0,
+            "quantizer_fits": 0,
+            "tokens": 512,
+            "vocabulary_logits": 248320
+          },
+          {
+            "captured_named_tensors": 16,
+            "chunk": 1,
+            "control_logits_byte_identical": true,
+            "finite_logits": true,
+            "maximum_abs_logit_difference": 0,
+            "optimizer_steps": 0,
+            "quantizer_fits": 0,
+            "tokens": 512,
+            "vocabulary_logits": 248320
+          },
+          {
+            "captured_named_tensors": 16,
+            "chunk": 2,
+            "control_logits_byte_identical": true,
+            "finite_logits": true,
+            "maximum_abs_logit_difference": 0,
+            "optimizer_steps": 0,
+            "quantizer_fits": 0,
+            "tokens": 512,
+            "vocabulary_logits": 248320
+          },
+          {
+            "captured_named_tensors": 16,
+            "chunk": 3,
+            "control_logits_byte_identical": true,
+            "finite_logits": true,
+            "maximum_abs_logit_difference": 0,
+            "optimizer_steps": 0,
+            "quantizer_fits": 0,
+            "tokens": 512,
+            "vocabulary_logits": 248320
+          }
+        ],
+        "forward_calls_completed": 8,
+        "model_starts": 1,
+        "new_experimental_factor_coverage": 0,
+        "optimizer_steps": 0,
+        "original12_quality_cases": 0,
+        "peak_device_vram_mib": 7418.5,
+        "planned_chunks": 4,
+        "quantizer_fits": 0,
+        "raw_activation_bytes": 134217728,
+        "tokens_per_chunk": 512,
+        "winner_qualified": false
+      },
+      "model_starts": 1,
+      "observations": [
+        {
+          "chunk": 0,
+          "cumulative_raw_bytes": 33554432,
+          "model_starts": 1,
+          "optimizer_steps": 0,
+          "quantizer_fits": 0,
+          "tokens": 512
+        },
+        {
+          "chunk": 1,
+          "cumulative_raw_bytes": 67108864,
+          "model_starts": 1,
+          "optimizer_steps": 0,
+          "quantizer_fits": 0,
+          "tokens": 512
+        },
+        {
+          "chunk": 2,
+          "cumulative_raw_bytes": 100663296,
+          "model_starts": 1,
+          "optimizer_steps": 0,
+          "quantizer_fits": 0,
+          "tokens": 512
+        },
+        {
+          "chunk": 3,
+          "cumulative_raw_bytes": 134217728,
+          "model_starts": 1,
+          "optimizer_steps": 0,
+          "quantizer_fits": 0,
+          "tokens": 512
+        }
+      ],
+      "peak_device_vram_mib": 7418.5
+    },
+    "audit_id": "audit-d677e9a36e23f8d4d025",
+    "date": "2026-10-22T11:03:31.072476+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "HBM10"
+    ],
+    "id": "R396",
+    "model": "omnicoder2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FORWARD_PRE_ROPE_KV_CAPTURE_FIDELITY_PASS_NOT_OPTIMIZATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "OriginalR187Pythonstdlib calibration corpus reused; not original12/HumanEval/BFCL/agentdata.",
+        "New observables: real preRoPEK/V tensor values, not repeated imatrix inputsecondmoments.",
+        "Single model/two sequential contexts, fourfreshreset512token chunks, zero generated responses.",
+        "No Fisher gradients, optimizer, quantizer fitting, cachequantization, engineCUDA rebuild or modelweight change.",
+        "Calibration alone does not count as a qualified optimization or new experimental-factor coverage.",
+        "Fullprocess energy and wall include observer/copies/control; no inference/task/efficiency or speed claim."
+      ],
+      "measurement_type": "GPU_NATIVE_PRE_ROPE_KV_FORWARD_OBSERVER_ADMISSION"
+    },
+    "winner_qualified": false
   }
 ]

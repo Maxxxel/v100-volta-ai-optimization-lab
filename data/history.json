@@ -12758,5 +12758,13 @@
     "kind": "HBM10_KVQUANT_SOURCE_ADMISSION_UNWEIGHTED_FORWARD_ROUTE_OPEN",
     "sequence": 1595,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T11:06:06.886550+00:00",
+    "experiment_id": "R396",
+    "factor_id": null,
+    "kind": "R396_NATIVE_PRE_ROPE_KV_FORWARD_CALIBRATION_FIDELITY_PASS",
+    "sequence": 1596,
+    "signature": null
   }
 ]
