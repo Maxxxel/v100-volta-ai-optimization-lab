@@ -17477,5 +17477,63 @@
       "evidence_class": "LOKAL_GEMESSEN"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 1,
+      "model_starts": 1,
+      "observed_original_QA_cases": 0
+    },
+    "audit_id": "audit-029df91d14afab72e964",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R419",
+    "model": "lfm25_8b_a1b_q6",
+    "reference_A0": null,
+    "statements": {
+      "decision": "CONTROLLER_CANNOT_INVERT_LOSSY_VERBOSE_DISPLAY_NO_NEW_QA_GENERATED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "One startup warmup only. Existing3 QA retained; source-backed forward display check passes all3 without GPU or regeneration. No model failure or new optimization result."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
+      "actual_generation_requests": 9,
+      "actual_sampler_control_passed": true,
+      "diagnostic_format_passes": 6,
+      "diagnostic_semantic_passes": 6,
+      "gpu_j_per_semantic_success": 531.6713278938513,
+      "model_starts": 1,
+      "observed_original_QA_cases": 11,
+      "original12_full_score_claimed": false,
+      "peak_device_vram_mib": 7448.5,
+      "quality_gpu_energy_j": 3190.0279673631076,
+      "quality_wall_s": 17.714614865,
+      "semantic_successes_per_s": 0.3387033839417315
+    },
+    "audit_id": "audit-e8a7661949679d14b3f3",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R420",
+    "model": "lfm25_8b_a1b_q6",
+    "reference_A0": null,
+    "statements": {
+      "decision": "LFM25_NATIVE_ADMISSION_GATE_NOT_PASSED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "NativeLFM2.5operational/QA12admissiononly;notfullBFCL/coding/agent/modelwinner",
+        "PublisherT.2/K80/repeat1.05/nativeLFMtemplate/2048;no borrowedQwenthinking switch;notexternal benchmark reproduction",
+        "ExistingstockSM70engine/CUDA12.8runtime;no kernelbuild or borrowedBonsaiPQ2paths",
+        "BoardGPUenergyonlynotwhole-system;referenceA0/Cunchanged",
+        "No actualtools/model-codeexecution/visionprojector"
+      ]
+    },
+    "winner_qualified": false
   }
 ]

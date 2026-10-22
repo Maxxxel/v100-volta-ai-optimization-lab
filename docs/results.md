@@ -341,6 +341,8 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R416](experiments/R416.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | qwen38 |
 | [R417](experiments/R417.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_8b_a1b_q6 |
 | [R418](experiments/R418.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_8b_a1b_q6 |
+| [R419](experiments/R419.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_8b_a1b_q6 |
+| [R420](experiments/R420.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_8b_a1b_q6 |
 
 
 ## Historical signed windows

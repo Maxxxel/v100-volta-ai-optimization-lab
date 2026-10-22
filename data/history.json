@@ -13190,5 +13190,29 @@
     "kind": "R419_RETAIN3_COMPLETE9_NATIVE_TOKEN_ID_GUARD_PREREGISTRATION",
     "sequence": 1649,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T19:24:48.655047+00:00",
+    "experiment_id": "R419",
+    "factor_id": null,
+    "kind": "R419_LOSSY_VERBOSE_DISPLAY_ASSUMPTION_AUDITED",
+    "sequence": 1650,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:26:18.916415+00:00",
+    "experiment_id": "R420",
+    "factor_id": null,
+    "kind": "R420_FORWARD_NATIVE_INPUT_CONTRACT_PREREGISTRATION",
+    "sequence": 1651,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:28:28.976024+00:00",
+    "experiment_id": "R420",
+    "factor_id": null,
+    "kind": "LFM25_QA12_CAMPAIGN_FORWARD_NATIVE_INPUT_CONTRACT_VERIFIED",
+    "sequence": 1652,
+    "signature": null
   }
 ]
