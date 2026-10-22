@@ -37809,7 +37809,8 @@
     "evidence_ids": [
       "audit-18678122920b3bae4bfa",
       "audit-b4763d4fa78c55d3de3e",
-      "audit-bc43e8b613cc983bfb4a"
+      "audit-bc43e8b613cc983bfb4a",
+      "audit-ca7d5f9ffc11eb4fcafa"
     ],
     "experiment_ids": [
       "R390",
@@ -37823,11 +37824,13 @@
       "M08",
       "M13"
     ],
-    "next_action": "Do not repeat acquisition. Design a separate action-level calibration/holdout protocol that accounts for measured extraction cost; raw token likelihood is not action correctness probability.",
+    "next_action": "BMT27 action-level abstention study: frozen200self-authoredpolicycases,80calibration/120family-disjointholdout; pin selected-labelbyte/logprob parser and CPUoracle/no-leakage checks, then controlled stockruntime admission. Onefrozen threshold only,>=95%correctallowretention, zero calibration unsafeallow; if no baselineunsafeallow or no feasiblethreshold, stopbeforeholdout. No originalbenchmark tuning, no calibratedprobability/deployment claim; single-factor gate remains active.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [],
     "prerequisites": [
-      "Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren."
+      "Pinned selected-label-byte probability parser and exactnativechat/request contract.",
+      "RealGPUcalibration cases and a feasible preregistered abstentionthreshold; no unsafeallow in calibration means futilitystop.",
+      "Frozen-threshold independentholdout with all extraction/verifier/abstention costs; deferred actions do not count as solved."
     ],
     "primary_sources": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6",
@@ -37836,7 +37839,7 @@
       "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b/blob/14c9d90137962d300f3de95633f7b6535e80c5ce/README.md"
     ],
     "priority": "P1",
-    "remaining_scope": "Action-level score definition, independent licensed calibration/test data, selective-risk/coverage limits and total verifier/abstention costs remain unmeasured.",
+    "remaining_scope": "Independentaction-calibration andholdout data nowfrozen(self-authored80/120family-disjoint); byte-alignedscoreobservable/API, modelacquisition, thresholdfit andheldoutselective-risk/fullcostevidence remainunmeasured. R391neutralacquisition isnotactionconfidencequalification.",
     "reopening_conditions": "Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.",
     "scope_reassessment": {
       "current_status": "OPEN",

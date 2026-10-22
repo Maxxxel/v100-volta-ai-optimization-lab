@@ -27,6 +27,7 @@ Actual Omni inference with pre-sampling probability extraction on three neutral 
 - [Original audit hash and public excerpt](../audits/audit-18678122920b3bae4bfa.md)
 - [Original audit hash and public excerpt](../audits/audit-b4763d4fa78c55d3de3e.md)
 - [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
+- [Original audit hash and public excerpt](../audits/audit-ca7d5f9ffc11eb4fcafa.md)
 
 ### Recorded model-specific variant coverage
 
@@ -45,11 +46,11 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 R391 BMT27 acquisition gate: one actual stock Omni Q6K/8K/F16/300W model start,14requests,6matchedpairs on3newneutralinputs. All6nativeoutputIDarrays identical;360selected-token logprob entries and top5lists independently verified against returnedtokenIDs and nativepre-sampling settings. Paired E2E overhead 11.14–12.82%, median 11.83%; summed paired boardenergy change +4.12%, descriptive only. Metadata acquisition works in this exact greedy profile, but incurs cost. Zero calibration fits, original12/task-success or tool-safety qualification. BMT27 PARTIAL; no Champion or confidence correctness claim.
 
-**Remaining scope:** Action-level score definition, independent licensed calibration/test data, selective-risk/coverage limits and total verifier/abstention costs remain unmeasured.
+**Remaining scope:** Independentaction-calibration andholdout data nowfrozen(self-authored80/120family-disjoint); byte-alignedscoreobservable/API, modelacquisition, thresholdfit andheldoutselective-risk/fullcostevidence remainunmeasured. R391neutralacquisition isnotactionconfidencequalification.
 
 **Reopening condition:** Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.
 
-**Next action:** Do not repeat acquisition. Design a separate action-level calibration/holdout protocol that accounts for measured extraction cost; raw token likelihood is not action correctness probability.
+**Next action:** BMT27 action-level abstention study: frozen200self-authoredpolicycases,80calibration/120family-disjointholdout; pin selected-labelbyte/logprob parser and CPUoracle/no-leakage checks, then controlled stockruntime admission. Onefrozen threshold only,>=95%correctallowretention, zero calibration unsafeallow; if no baselineunsafeallow or no feasiblethreshold, stopbeforeholdout. No originalbenchmark tuning, no calibratedprobability/deployment claim; single-factor gate remains active.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
