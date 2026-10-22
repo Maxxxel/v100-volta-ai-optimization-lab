@@ -13,6 +13,7 @@ On SM70, require an actually dispatched compatible kernel and include conversion
 
 ## Scientific background
 
+- https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6
 - https://huggingface.co/datasets/LocalLLaMA/typed-decisions
 - https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b
 - https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b/blob/14c9d90137962d300f3de95633f7b6535e80c5ce/README.md

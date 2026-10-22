@@ -12622,5 +12622,13 @@
     "kind": "DEFERRAL_SCOPE_REASSESSMENT_NO_NEW_EXPERIMENT",
     "sequence": 1578,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T08:26:54.016864+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "BMT27_ACQUISITION_PROTOCOL_AND_ISSUE6_NO_GPU_ADMISSION",
+    "sequence": 1579,
+    "signature": null
   }
 ]

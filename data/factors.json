@@ -37784,6 +37784,7 @@
       "Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren."
     ],
     "primary_sources": [
+      "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6",
       "https://huggingface.co/datasets/LocalLLaMA/typed-decisions",
       "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b",
       "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b/blob/14c9d90137962d300f3de95633f7b6535e80c5ce/README.md"
