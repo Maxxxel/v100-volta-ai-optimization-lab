@@ -73,6 +73,13 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('extended_technique')=='MODEL_BONSAI_PREFIX_REUSE_FIRST3_SCREEN':
+        for k in ('planned_tasks','full3_score_claimed','total_task_wall_s','wall_reduction_percent_vs_A0','GPU_J_per_success_reduction_percent_vs_A0'):
+            value=obj.get(k)
+            if type(value) in (int,float,bool) and (type(value) is not float or math.isfinite(value)):result[k]=value
+        cache=obj.get('prefix_cache')
+        if isinstance(cache,dict):
+            result['prefix_cache']={k:cache[k] for k in ('cases_with_hits','requests_with_hits','cached_tokens','first_turn_cached_tokens') if type(cache.get(k)) is int and 0<=cache[k]<2**63}
     if obj.get('extended_technique')=='MODEL_BONSAI_AGENT18_INDEPENDENT_REPRODUCTION':
         for k in ('reproduction_passed','allround_practical_gate_reopened','energy_drift_percent_vs_source','total_task_wall_s','full_task_wall_change_percent_vs_control'):
             value=obj.get(k)

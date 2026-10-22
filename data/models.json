@@ -38,13 +38,13 @@
     "status": "teilweise"
   },
   {
-    "assessment": "R440 Bonsai agentrepeat:17/18observed(18planned),prior-success losses0,extra policyfaults0;reproduction=True,wall599.644s. No newholdout/allroundChampion.",
-    "current_experiment": "R440",
+    "assessment": "R441 Bonsai prefixfirst3: 3/3observed,cachehits21,prefixcachedtokens46481,wallgain15.355393938479944,energygain15.87991266036436;screen=True. No18case/state/losslessChampion.",
+    "current_experiment": "R441",
     "evidence_class": null,
     "id": "BMC04",
     "local_scope": null,
     "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-    "next_step": "Bonsai agentrepeatability recorded; next P0source-admitted R22prefixreuse first3codingagent Bscreen at otherwise identical8K/medium2048/300W. Require actualcachehits, zero success/policy loss and>=10percentE2E/GPUJsuccess benefit vsfreshR440same3. C01PQ2routing staysconditionalP1; no globalFORCE_MMQ or independentGPUjobs.",
+    "next_step": "PromisingprefixBscreen: independentlyconfirm actualGDN-state correctness andfull18quality/cost at unchangedprofile with timelycontrols. NoChampion from3codingcases; do not combinewithpower/cache/MMQchanges.",
     "priority": "P1",
     "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
     "source_admission": null,

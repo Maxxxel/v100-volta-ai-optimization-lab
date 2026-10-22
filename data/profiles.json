@@ -274,5 +274,11 @@
     "C": null,
     "id": "bonsai2-pq2-sm70-native-medium-context32K-longinventory-full12-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "5a20bd90f2961949683c44a7189487e761872837a685f25299c9989aac106aaa",
+    "C": null,
+    "id": "bonsai-pq2-sm70-native-medium-agent-first3-prefix-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]

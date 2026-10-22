@@ -72,6 +72,9 @@ class PublicationSafety(unittest.TestCase):
   raw={'factor':'H03','model':'gemma4','unique_tasks':12,'planned_cycles':3,'cycle_metrics':[{'cycle':0,'observed':12,'solved':12,'wall_s':134.0,'gpu_j_per_success':2400,'passed':True,'response':'private reply','case_id':'private id','gpu_energy_j_approx':float('nan')}],'per_task':[{'content':'private'}]}
   out=e.metrics(raw);self.assertEqual(out['unique_tasks'],12);self.assertEqual(out['energy_stability_cycles'],[{'cycle':0,'observed':12,'solved':12,'wall_s':134.0,'gpu_j_per_success':2400,'passed':True}]);self.assertNotIn('private',str(out));self.assertNotIn('nan',str(out))
   raw['cycle_metrics']=[{}]*4;self.assertNotIn('energy_stability_cycles',e.metrics(raw))
+ def test_prefix_cache_export_is_aggregate_only(self):
+  raw={'extended_technique':'MODEL_BONSAI_PREFIX_REUSE_FIRST3_SCREEN','planned_tasks':3,'full3_score_claimed':True,'wall_reduction_percent_vs_A0':-3.5,'prefix_cache':{'cases_with_hits':3,'requests_with_hits':19,'cached_tokens':41087,'first_turn_cached_tokens':0,'messages':['private'],'private_id':'secret'},'per_case_cache':[{'id':'private','cached_tokens':123}]}
+  out=e.metrics(raw);self.assertEqual(out['prefix_cache'],{'cases_with_hits':3,'requests_with_hits':19,'cached_tokens':41087,'first_turn_cached_tokens':0});self.assertEqual(out['wall_reduction_percent_vs_A0'],-3.5);self.assertNotIn('private',str(out));self.assertNotIn('secret',str(out))
  def test_credentials_and_network_are_rejected(self):
   examples=['gh'+'p_'+'A'*30,'-----BEGIN '+'RSA PRIVATE KEY-----','192'+'.168.42.18','sensor'+'.bedroom_temperature','fd00'+':'*2+'12',':'*2+'1','https://user'+':secret'+'@example.com']
   for x in examples:

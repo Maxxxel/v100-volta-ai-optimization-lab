@@ -13598,5 +13598,21 @@
     "kind": "R440_BONSAI_AGENT_REPRODUCTION_AUDITED",
     "sequence": 1700,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:49:12.335586+00:00",
+    "experiment_id": "R441",
+    "factor_id": null,
+    "kind": "R441_BONSAI_PREFIX_FIRST3_PREREGISTERED",
+    "sequence": 1701,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:54:21.533590+00:00",
+    "experiment_id": "R441",
+    "factor_id": null,
+    "kind": "R441_BONSAI_PREFIX_FIRST3_AUDITED",
+    "sequence": 1702,
+    "signature": null
   }
 ]
