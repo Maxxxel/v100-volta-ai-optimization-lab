@@ -25,6 +25,7 @@ These are source links or general implementation background, not local speedup e
 Actual Omni inference with pre-sampling probability extraction on three neutral acquisition inputs; no action confidence calibration or broad model quality.
 
 - [Original audit hash and public excerpt](../audits/audit-18678122920b3bae4bfa.md)
+- [Original audit hash and public excerpt](../audits/audit-77e97e00457c2d4494e8.md)
 - [Original audit hash and public excerpt](../audits/audit-b4763d4fa78c55d3de3e.md)
 - [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 - [Original audit hash and public excerpt](../audits/audit-ca7d5f9ffc11eb4fcafa.md)

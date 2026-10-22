@@ -12678,5 +12678,13 @@
     "kind": "BMT27_ACTION_PARSER_AND_ORACLE_CPU_CONTRACTS_PASSED_NO_GPU",
     "sequence": 1585,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T09:00:18.338772+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "PRE_GPU_STRICT_JSON_PARSER_CORRECTION",
+    "sequence": 1586,
+    "signature": null
   }
 ]

@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 111,
     "factors": 162,
-    "ledger_events": 1585,
+    "ledger_events": 1586,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 108,
     "original_factors": 130,
@@ -28,14 +28,14 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 261,
+  "matrix_revision": 262,
   "schema": 1,
   "source_date": "2026-10-22T08:41:17.484504+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "a1f8d395131969d07706ed92545504737024cf8f5f9247ef6b9c6616fe809dd7",
+    "BENCHMARK_REFERENCES.json": "8b8222a8f233a46318762c4ed9cfc0ac68f446163ed30b9b6be2238de7be06b9",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "4a3392045e69237f1a00b3c3dd29a12e6edc89e75b0885757dbebe85f66fecc7",
-    "O2_EXPERIMENTS.jsonl": "555e4a9dd48ee3985c74f9c7a2a5cbef41304c781ae4ac6a08a51fd6c63e6043",
+    "MATRIX_EXTENDED.json": "aa8ff56082f19132d54ede37ef6d9d9e9187dffc8f1ddb216d995bd98e0d65f5",
+    "O2_EXPERIMENTS.jsonl": "082f141da01c677414ef70ea2ca799d5a54b62b02fd7454faf10783e50fe10a5",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }
