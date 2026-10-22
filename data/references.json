@@ -9391,5 +9391,95 @@
     "profile": "gemma4-12b-qat-q40-sm70-native-bfcl-balanced100-T1-v1",
     "qualification": "Valid model-specific baseline; negative comparison screen; not a Champion.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "peak_device_vram_mib": 8118.5,
+        "scopes": {
+          "custom_long16": {
+            "gpu_energy_j_approx": 24089.84561229056,
+            "solved": 16,
+            "tasks": 16,
+            "wall_s": 95.65515782
+          },
+          "standard_full164": {
+            "gpu_energy_j_approx": 183962.58556396523,
+            "solved": 149,
+            "tasks": 164,
+            "wall_s": 741.044285822
+          },
+          "standard_validated163": {
+            "gpu_energy_j_approx": 182195.5005183773,
+            "solved": 149,
+            "tasks": 163,
+            "wall_s": 733.838468562
+          }
+        }
+      }
+    },
+    "experiment_id": "R425",
+    "id": "a3af25236a61159abbf9ebc6bb5263050347039592d8e348f46356812354a01f",
+    "identity": {
+      "cache": "Warm model; cold KV each task; OS file cache uncontrolled; startup excluded",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "8192",
+        "--flash-attn": "auto",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0",
+        "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+      },
+      "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "seed": 1001,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "03534a8016ba51df63599d269e8bb15d87977f4f0d259da1798f0b40f8cf1c6e",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "69d926703dc5c422caea61eff64779446d90b37dce25304d29019c4b0216b5fe",
+      "850f85ff685b06394a70f164380d7a365929c76cdb3e8453e0b87dae7bac6fc0",
+      "8d3ae0ee4baa41c101ef10724388725fb708e5a21ae1f5757956cc50f7e9d1c8",
+      "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "b1ba91831e4ac1bf2374807d3e985772ebf6412677119d4d578b5a70bd5b2d62",
+      "c37d2d733972ea1d1f8025af54378b7cd4ef371b16f4bbf36945ab2345231d8b",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+      "fec568034557cc62d6f3532ac01990831de278cb9787af6cd545aa4266229942"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "gemma4_12b_it_qat_q4_0",
+    "profile": "gemma4-12b-qat-q40-sm70-native-HEPlus164-custom16-T1-v1",
+    "qualification": "Valid model-specific coding baseline; independent model quality qualification still required.",
+    "winner_qualified": false
   }
 ]

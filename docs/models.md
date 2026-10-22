@@ -11,7 +11,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
-| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R424 |
+| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R425 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -307,13 +307,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R424 Gemma4 native tools:84/100,144.726s,34637.24GPU-J,412.35J/success,8118.5MiB. Stored Omni reference88/100,106.939s,310.75J/success. No practical tool-profile win; coding/agents not measured.",
-  "current_experiment": "R424",
+  "assessment": "R425 Gemma4 coding:149/164 HumanEvalPlus, 16/16 separate long-context; 741.044s,183962.59GPU-J for164,peak8118.5MiB. Screen only,nooverallChampion. NativeTool84/100negative retained.",
+  "current_experiment": "R425",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC07",
   "local_scope": null,
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Compare Gemma4 source-correct fast coding on existing frozen HumanEvalPlus164 and16 long-context tasks; then isolated agents18. Preserve native-tool negative and independently confirmed JSON-format benefit; no further formatting microtests or combinations.",
+  "next_step": "Measure the same isolated18agent workflows with source-correct Gemma fast native protocol; preserve coding and native-tool results separately. No combinations or new model downloads.",
   "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {

@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `cad419d3af60838011c6b734ed357ad395fab1bb324d8cefdbac93c56e640a87`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `e6df3dc75565bb8089fe1603a0d6931749190b763f6fd7e4526a3069153d6c8c`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -30,6 +30,7 @@ Task identity: `cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5
 | OmniCoder2 9B Q6_K — MTP + weight cache; fast / 2026-10-20 | 132/164 | 0.49216 | 268.206 s / 74366.52 J | 14106.5 | [R217](experiments/R217.md) |
 | Ornith 1.5 9B Q6_K — Fast non-reasoning / 2026-10-20 | 117/164 | 0.25605 | 456.936 s / 130686.39 J | 7356.5 | [R254](experiments/R254.md) |
 | Qwen3.5 9B Q4_K_M — Fast non-reasoning / 2026-10-20 | 132/164 | 0.29190 | 452.206 s / 122784.66 J | 5956.5 | [R255](experiments/R255.md) |
+| Gemma4 12B IT QAT Q4_0 — Fast non-reasoning / 2026-10-22 | 149/164 | 0.20107 | 741.044 s / 183962.59 J | 8118.5 | [R425](experiments/R425.md) |
 | Qwen3.8 27B GSQ/RCO IQ3_S — Fast; no MTP / NOT RECORDED | 148/164 | 0.13504 | 1095.974 s / 311884.76 J | NOT MEASURED | [R117](experiments/R117.md) |
 | Qwen3.8 27B GSQ/RCO IQ3_S — Fast; MTP3 / NOT RECORDED | 150/164 | 0.26059 | 575.610 s / 158094.20 J | NOT MEASURED | [R118](experiments/R118.md) |
 | Ternary Bonsai 2 27B PQ2_0 — Thinking medium; 4096 output / 2026-10-21 | 151/164 | 0.05993 | 2519.755 s / 694855.82 J | 8158.5 | [R279](experiments/R279.md) |
@@ -115,6 +116,33 @@ Original audit SHA-256 (originals retained privately; public excerpts are not th
 
 - [audit-69ed2894e20c7705ff38](audits/audit-69ed2894e20c7705ff38.md): `69ed2894e20c7705ff385fc72bb70a5f0e9e353f42744449fadd8407f0c73fdb`
 
+### Gemma4 12B IT QAT · Q4_0 · R425
+
+Fast non-reasoning. No additional policy claim is inferred from this discipline.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
+| Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
+| Scorer adapter SHA-256 | dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad |
+| EvalPlus provenance SHA-256 | 332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d |
+| Plan SHA-256 | 5e3286490116ec60196fc87fa052ce1b05a6d8f16b9fffbcd09b429e4c126d3d |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-23d38cbb14bfd9a5f424](audits/audit-23d38cbb14bfd9a5f424.md): `23d38cbb14bfd9a5f424fa93c3220c2481e59e4d49706aa8ee6f35b34000dafe`
+
 ### Qwen3.8 27B · GSQ/RCO IQ3_S · R117
 
 Fast; no MTP. No additional policy claim is inferred from this discipline.
@@ -180,7 +208,7 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-21 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
+| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
@@ -370,7 +398,7 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
@@ -397,7 +425,7 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-21 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
+| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |

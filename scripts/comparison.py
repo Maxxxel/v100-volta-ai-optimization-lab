@@ -49,6 +49,7 @@ def build(root, db, matrix, receipt):
         fixed=p.get('fixed',{});runtime={k:v for k,v in fixed.items() if k in ('ctx','slots','threads','temperature','seed','cache_prompt','thinking','batch_size','ubatch_size') and isinstance(v,(int,float,bool))}
         sampler=p.get('source_sampling') or p.get('coding_sampling') or {'temperature':fixed.get('temperature',0),'seed':fixed.get('seed',1001)}
         sampler={k:v for k,v in sampler.items() if k in ('temperature','top_p','top_k','min_p','presence_penalty','repeat_penalty','seed') and finite(v)}
+        if finite(p.get('seed')):sampler.setdefault('seed',p['seed'])
         model_hash=p.get('model_sha256') or (p.get('profiles',[{}])[0].get('model_sha256') if p.get('profiles') else None)
         if not model_hash:
             hashes=[v for k,v in ident.items() if k.endswith('.gguf') and 'MTP-ONLY' not in k];model_hash=hashes[0] if len(hashes)==1 else None
