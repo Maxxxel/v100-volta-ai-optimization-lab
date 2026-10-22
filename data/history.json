@@ -13494,5 +13494,21 @@
     "kind": "R435_GEMMA225W_SINGLE_AUDITED",
     "sequence": 1687,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:01:37.262437+00:00",
+    "experiment_id": "R436",
+    "factor_id": null,
+    "kind": "R436_FRESH300W_CONTROL_PREREGISTERED",
+    "sequence": 1688,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:04:53.498526+00:00",
+    "experiment_id": "R436",
+    "factor_id": null,
+    "kind": "R436_GEMMA225W_SINGLE_AUDITED",
+    "sequence": 1689,
+    "signature": null
   }
 ]

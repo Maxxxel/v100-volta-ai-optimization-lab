@@ -172441,6 +172441,41 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 28,
+      "context_tokens": 16384,
+      "gpu_energy_j_approx": 33466.14373614874,
+      "gpu_j_per_success": 2788.8453113457285,
+      "model_starts": 1,
+      "original12": {
+        "format": 1,
+        "observed": 12,
+        "semantic": 10
+      },
+      "peak_device_vram_mib": 8254.5,
+      "solved": 12,
+      "wall_s": 124.312424131
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5ea843f0bf410e0641c3",
+    "original_bytes": 5441,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5ea843f0bf410e0641c30b0e1a3abe31f4982ca507f27cdbd8670a27ba8ccd50",
+    "statements": {
+      "decision": "225W_SCREEN_CONFIRMED_NEEDS_INDEPENDENT_B_QUALIFICATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Fresh300Wcontrol for R435225W screen; originalA0unchanged, independentBqualification stillneeded.",
+        "Same12synthetic read-only inventories, ownnativeT1, no fullagent or coding energy claim.",
+        "GPUboard inferencewindows only; excludes startup/CPU/system/warmup.",
+        "Allhistoricalnativeformat and agentpolicynegatives remain."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
