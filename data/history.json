@@ -12862,5 +12862,21 @@
     "kind": "R398_T01_CUDA_LORA_FEASIBILITY_FAILED",
     "sequence": 1608,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T13:10:18.514110+00:00",
+    "experiment_id": "R399",
+    "factor_id": null,
+    "kind": "R399_T01_CUDA_LORA_FEASIBILITY_FAILED",
+    "sequence": 1609,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T13:13:03.452326+00:00",
+    "experiment_id": "R399",
+    "factor_id": null,
+    "kind": "R399_T01_PARTIAL_FAILURE_AUDIT_CLOSED",
+    "sequence": 1610,
+    "signature": null
   }
 ]
