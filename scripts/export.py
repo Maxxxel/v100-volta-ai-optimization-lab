@@ -71,6 +71,16 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('measurement_type')=='GPU_WEIGHTEDV_FP32_EXACT_INPUT_NUMERICAL_SCREEN':
+        allowed=('native_cases_per_arm','baseline_passed_cases','candidate_passed_cases','NMSE_limit','model_starts','operator_processes','tensor_upload_records','identical_tensor_upload_bytes_SHA_verified','actual_precision_dispatch_verified','candidate_numerical_gate_passed','peak_device_vram_mib')
+        component={k:obj[k] for k in allowed if isinstance(obj.get(k),(int,float,bool))}
+        comparisons=[]
+        for value in obj.get('numerical_comparisons',[]):
+            if not isinstance(value,dict):continue
+            aggregate={k:value[k] for k in ('A_NMSE','B_NMSE','change_percent') if isinstance(value.get(k),(int,float))}
+            if aggregate:comparisons.append(aggregate)
+        if comparisons:component['NMSE_comparisons']=comparisons
+        if component:result['weighted_V_precision_component']=component
     if obj.get('measurement_type')=='GPU_C16_FRACTIONAL_QUEUE_MEMORY_SCREEN':
         variants=[]
         for value in obj.get('variants',[]):

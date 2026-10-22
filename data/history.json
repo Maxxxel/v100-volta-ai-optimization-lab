@@ -12606,5 +12606,13 @@
     "kind": "C16_ARCHIVED_OFFICIAL_SOURCE_LINKED_AND_C14_NEXT_NATIVE_ORACLE_CPU_PREPARATION",
     "sequence": 1576,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T08:15:38.241512+00:00",
+    "experiment_id": "R390",
+    "factor_id": null,
+    "kind": "R390_C14_EXACT_INPUT_GPU_PRECISION_NUMERICAL_GATE_NEGATIVE",
+    "sequence": 1577,
+    "signature": null
   }
 ]

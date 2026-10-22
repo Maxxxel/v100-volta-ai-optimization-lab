@@ -4,6 +4,9 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_weighted_V_comparison_publishes_aggregate_errors_without_inputs(self):
+  raw={'measurement_type':'GPU_WEIGHTEDV_FP32_EXACT_INPUT_NUMERICAL_SCREEN','native_cases_per_arm':6,'candidate_passed_cases':4,'model_starts':0,'identical_tensor_upload_bytes_SHA_verified':True,'tensor_upload_SHA_records':['private fixture bytes'],'numerical_comparisons':[{'case':'private fixture','A_NMSE':0.00068,'B_NMSE':0.00067,'change_percent':-1.2,'response':'private response'}]}
+  out=e.metrics(raw)['weighted_V_precision_component'];self.assertEqual(out['candidate_passed_cases'],4);self.assertEqual(out['model_starts'],0);self.assertTrue(out['identical_tensor_upload_bytes_SHA_verified']);self.assertEqual(out['NMSE_comparisons'][0]['B_NMSE'],0.00067);self.assertNotIn('private',str(out));self.assertNotIn('case',out['NMSE_comparisons'][0])
  def test_corrected_attention_scope_keeps_original_mapping_visible(self):
   raw={'axis_factors':['HBM18'],'original_audit_factor_mapping':{'axis_factors':['C10','K01','HBM08']},'related_factors_not_isolated_treatments':['K01','HBM08'],'factor_mapping_correction':{'reason':'Attention dispatch is not an MMQ tile intervention'}}
   out=e.factor_assignment(raw)
