@@ -232,7 +232,13 @@ def scope_reassessment(accountability):
     result['new_GPU_execution']=review.get('new_GPU_execution') is True
     return result
 def snippets(obj):
-    return {k:text(obj[k]) for k in ['decision','qualification','interpretation','hypothesis','research_question','scope','measurement_type','evidence_class','score_rule'] if isinstance(obj.get(k),str)} | {k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)}
+    result={k:text(obj[k]) for k in ['decision','qualification','interpretation','hypothesis','research_question','scope','scope_correction','treatment_comparison','warmup_to_history_state','measurement_type','evidence_class','score_rule'] if isinstance(obj.get(k),str)}
+    result.update({k:obj[k] for k in ['all_21_history_envelopes_match_R313','slot1_erase_confirmed_n_erased','slot0_snapshot_repeatability_at_all_3_boundaries','critical_response_matches_archived_R313_valid_envelope','data_leak_or_GDN_bug_proven','full_isolation_or_quality_qualification','speed_or_champion_claim'] if isinstance(obj.get(k),(bool,int))})
+    targets=obj.get('history_slot_targets')
+    if isinstance(targets,dict) and all(isinstance(targets.get(k),int) for k in ['slot0','slot1']) and isinstance(targets.get('ordinal_ranges'),str):
+        result['history_slot_targets']={'slot0':targets['slot0'],'slot1':targets['slot1'],'ordinal_ranges':text(targets['ordinal_ranges'])}
+    result.update({k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)})
+    return result
 def write(name,obj):
     p=HERE/'data'/name;p.parent.mkdir(exist_ok=True);p.write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2,allow_nan=False)+'\n')
 def main():
@@ -315,7 +321,11 @@ def main():
                 ident='R'+str(int(match[1]));factor_links[ident].add(f['id'])
                 if ident in experiments and not experiments[ident].get('audit_id'):
                     experiments[ident]['audit_id']=aid;experiments[ident]['evidence_status']='ORIGINAL_AUDIT_HASH_VERIFIED'
-                if ident not in experiments:experiments[ident]={'id':ident,'factor_ids':[],'audit_id':aid,'evidence_status':'ORIGINAL_AUDIT_HASH_VERIFIED','statements':catalog[aid]['statements'],'aggregate_metrics':catalog[aid]['aggregate_metrics'],'winner_qualified':False,'model':None,'date':None,'reference_A0':None}
+                if ident not in experiments:experiments[ident]={'id':ident,'factor_ids':[],'audit_id':aid,'related_audit_ids':[],'evidence_status':'ORIGINAL_AUDIT_HASH_VERIFIED','statements':catalog[aid]['statements'],'aggregate_metrics':catalog[aid]['aggregate_metrics'],'winner_qualified':False,'model':None,'date':None,'reference_A0':None}
+                if aid not in experiments[ident].setdefault('related_audit_ids',[]):experiments[ident]['related_audit_ids'].append(aid)
+                if ident=='R407' and p.name=='INDEPENDENT_REVIEW.json':experiments[ident]['independent_review']={'audit_id':aid,'statements':catalog[aid]['statements'],'aggregate_metrics':catalog[aid]['aggregate_metrics']}
+                if ident=='R407' and p.name=='AUDIT.json':
+                    experiments[ident]['factor_ids']=['K05'];experiments[ident]['model']='OmniCoder2';experiments[ident]['date']='2026-10-22'
         for exp in experiments.values():
             if f['id'] in exp['factor_ids'] or f['id'] in factor_links[exp['id']]:f['experiment_ids'].append(exp['id'])
     events=[]

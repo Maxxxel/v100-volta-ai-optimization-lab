@@ -8,6 +8,9 @@
     "id": "R77",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0963c28da9e75652ddb6"
+    ],
     "statements": {
       "qualification": "NO_TREATMENT_PATH_EXERCISE"
     },
@@ -22,6 +25,9 @@
     "id": "R78",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-17618b6e23f03561f324"
+    ],
     "statements": {
       "qualification": "MEASURED_REPEATED_PROMPT_GAIN_PENDING_INDEPENDENT_RELEASE"
     },
@@ -36,6 +42,9 @@
     "id": "R79",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a349fe2570247d40770b"
+    ],
     "statements": {
       "qualification": "NO_TREATMENT_PATH_EXERCISE"
     },
@@ -50,6 +59,9 @@
     "id": "R80",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2ca8e1a7d98f86217acb"
+    ],
     "statements": {
       "qualification": "MEASURED_CONTINUATION_2K_4K_PENDING_INDEPENDENT_RELEASE"
     },
@@ -94,6 +106,10 @@
     "id": "R81",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-083ec3e6b24d6e01589b",
+      "audit-d798c15e0eb73ae5a51c"
+    ],
     "statements": {
       "decision": "NO_PROMOTION_NO_PRACTICAL_GAIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -133,6 +149,9 @@
     "id": "R82",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f818d211483856d94cf3"
+    ],
     "statements": {
       "evidence_class": "LOKAL_GEMESSEN",
       "qualification": "MEMORY_SAVING_AND_FROZEN_QUALITY_OBSERVED_ONE_START_PER_ARM"
@@ -163,6 +182,9 @@
     "id": "R83",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-386203c8d6cf777f3bb9"
+    ],
     "statements": {
       "qualification": "PREFIX_REUSE_COMPATIBILITY_OBSERVED_ONE_SESSION_PER_KV_FORMAT"
     },
@@ -188,6 +210,9 @@
     "id": "R84",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-08f23b255116d9168a8a"
+    ],
     "statements": {
       "qualification": "SMALL_WARM_SIGNAL_WITH_LARGE_COLD_REGRESSION"
     },
@@ -217,6 +242,9 @@
     "id": "R85",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-fc1044fd56ab12aefecc"
+    ],
     "statements": {
       "qualification": "SEEDED_NUMERICAL_AND_OPERATOR_KERNEL_PATH_CHECK_PASSED"
     },
@@ -231,6 +259,9 @@
     "id": "R86",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ab1b0e85a0de6f355bc1"
+    ],
     "statements": {
       "decision": "STOP_CONDITIONAL_ROUTING_BRANCH_INSUFFICIENT_PRACTICAL_BENEFIT_OR_CLOCK_COMPARABILITY"
     },
@@ -245,6 +276,9 @@
     "id": "R87",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d7fc97756655a4112227"
+    ],
     "statements": {
       "qualification": "FULL_MODEL_CUDA_KERNEL_ACTIVITY_CAPTURED"
     },
@@ -312,6 +346,9 @@
     "id": "R88",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f01e69f875f6c1042276"
+    ],
     "statements": {
       "decision": "PROMISING_PREFILL_GAIN_REQUIRES_WINNER_QUALIFICATION",
       "qualification": "MODEL_SCREEN_AND_TARGETED_CONFIRMATION"
@@ -371,6 +408,9 @@
     "id": "R89",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7a9b64a68a7800dd100d"
+    ],
     "statements": {
       "decision": "PARAMETER_SCREEN_PROMISING_REQUIRES_JOINT_QUALIFICATION"
     },
@@ -397,6 +437,9 @@
     "id": "R90",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-273b2160c856596f102f"
+    ],
     "statements": {
       "decision": "QUALIFIED_NATIVE_PROFILE_CHAMPION_ELIGIBLE"
     },
@@ -519,6 +562,9 @@
     "id": "R91",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-fe2e5fbb2e31d1cf8f9f"
+    ],
     "statements": {
       "decision": "PROMISING_COMBINATION_NEEDS_INDEPENDENT_CONFIRMATION"
     },
@@ -544,6 +590,9 @@
     "id": "R92",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-74211c6727a78a62efe6"
+    ],
     "statements": {
       "decision": "STOP_COMBINATION_QUALIFICATION_PREDECLARED_5PCT_GATE_NOT_REPEATED"
     },
@@ -558,6 +607,9 @@
     "id": "R93",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3c1799daa595eea43052"
+    ],
     "statements": {
       "decision": "PROMISING_32K_CACHE_NEEDS_INDEPENDENT_CONFIRMATION"
     },
@@ -574,6 +626,9 @@
     "id": "R94",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-b4e2008571fcb429d31e"
+    ],
     "statements": {
       "decision": "PROMISING_COMBINATION_NEEDS_INDEPENDENT_CONFIRMATION"
     },
@@ -588,6 +643,9 @@
     "id": "R95",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dc120944347a4f5cf410"
+    ],
     "statements": {
       "decision": "NO_PROMOTION_SSE_TOKEN_CONTRACT_FAILED"
     },
@@ -602,6 +660,9 @@
     "id": "R96",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-569d2b6c6b62c3a08a91"
+    ],
     "statements": {
       "decision": "NEAR_TIE_HYPOTHESIS_NOT_CONFIRMED"
     },
@@ -618,6 +679,9 @@
     "id": "R97",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-948c3b9a87cf3ab44211"
+    ],
     "statements": {
       "decision": "REPRESENTATIVE_GDN_CHUNKING_NUMERICALLY_QUALIFIED"
     },
@@ -634,6 +698,9 @@
     "id": "R98",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a97b2e7c7fc4654e7441"
+    ],
     "statements": {
       "decision": "REPRESENTATIVE_CAUSAL_F16_FA_NUMERICALLY_QUALIFIED"
     },
@@ -650,6 +717,9 @@
     "id": "R99",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-adaf17de26bb75121da1"
+    ],
     "statements": {
       "decision": "SAMPLED_Q6_PROJECTION_NUMERICALLY_QUALIFIED"
     },
@@ -664,6 +734,9 @@
     "id": "R100",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-01288096354b4d254f2a"
+    ],
     "statements": {
       "decision": "PROMISING_LOW_VRAM_CONFIGURATION_NEEDS_FUNCTIONAL_QUALIFICATION"
     },
@@ -680,6 +753,9 @@
     "id": "R101",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a3c4f6af14192c47c448"
+    ],
     "statements": {
       "decision": "FUNCTIONALLY_COMPARABLE_LOW_VRAM_TRADEOFF_NO_BROAD_CODING_SPEED_WIN",
       "evidence_class": "LOKAL_GEMESSEN"
@@ -715,6 +791,9 @@
     "id": "R102",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-93f7fb61b86674e46b11"
+    ],
     "statements": {
       "decision": "PROMISING_POWER_EFFICIENCY_NEEDS_FRESH_CONFIRMATION"
     },
@@ -731,6 +810,9 @@
     "id": "R103",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-279bd808c8487b9d9681"
+    ],
     "statements": {
       "decision": "CONFIRMED_POWER_EFFICIENCY_TRADEOFF_NEEDS_TASK_QUALIFICATION"
     },
@@ -747,6 +829,9 @@
     "id": "R104",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-01890c2a82328f8c3796"
+    ],
     "statements": {
       "decision": "PROMISING_150W_INCREMENTAL_ENERGY_GAIN_NEEDS_CONFIRMATION"
     },
@@ -763,6 +848,9 @@
     "id": "R105",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7a099423089cce84e68f"
+    ],
     "statements": {
       "decision": "CONFIRMED_FUNCTIONAL_TASK_ENERGY_GAIN_NEEDS_FINAL_QUALIFICATION"
     },
@@ -789,6 +877,9 @@
     "id": "R106",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-db8ee1f15a2aba4eaeed"
+    ],
     "statements": {
       "decision": "CODING_TASK_ENERGY_PROFILE_WINNER_QUALIFIED"
     },
@@ -805,6 +896,9 @@
     "id": "R107",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d3d48f461ddbab44a526"
+    ],
     "statements": {
       "decision": "PROMISING_LOW_VRAM_COMBINATION_NEEDS_WINNER_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -829,6 +923,9 @@
     "id": "R108",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-22786f761eb0e7bce306"
+    ],
     "statements": {
       "decision": "PROMISING_LONG_CONTEXT_LOW_VRAM_NEEDS_STABILITY_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -859,6 +956,9 @@
     "id": "R109",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-72561777b6d13a0a47fe"
+    ],
     "statements": {
       "decision": "LOW_VRAM_NATURAL_SSE_CONFIGURATION_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -907,6 +1007,9 @@
     "id": "R110",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-b1fac35bfe4735e7500b"
+    ],
     "statements": {
       "decision": "PROMISING_175W_NEEDS_FRESH150W_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -932,6 +1035,9 @@
     "id": "R111",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3a5da87dc341e4331390"
+    ],
     "statements": {
       "decision": "CONFIRMED_175W_LATENCY_ENERGY_TRADEOFF_NEEDS_WINNER_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -965,6 +1071,9 @@
     "id": "R112",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3727ed46efb9075e5bee"
+    ],
     "statements": {
       "decision": "175W_CANDIDATE_STABILITY_PASSED_NEEDS_POST150W_CONTROL",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -991,6 +1100,9 @@
     "id": "R113",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-836a463ab5e93aea2a7d"
+    ],
     "statements": {
       "decision": "175W_BALANCED_LOW_VRAM_PROFILE_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -1533,6 +1645,9 @@
     "id": "R125",
     "model": "qwen35",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-34aef30f35e398a2b566"
+    ],
     "statements": {
       "decision": "ALLOW_Q4_CACHE_MODEL_B_SCREEN_NOT_A_WINNER",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -1831,6 +1946,10 @@
     "id": "R132",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-cc4a0b8610c091844255",
+      "audit-e2e8d7332a99655835d5"
+    ],
     "statements": {
       "decision": "MATCHED_OMNICODER2_Q4_ORIGINAL_NATIVE_A0_CALIBRATED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -1858,6 +1977,9 @@
     "id": "R133",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ef37383ee044d72312b7"
+    ],
     "statements": {
       "decision": "PROMISING_OMNICODER2_Q4_Q6_CACHE_TRANSFER_NEEDS_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -1886,6 +2008,9 @@
     "id": "R134",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-056d794ebc3542e436de"
+    ],
     "statements": {
       "decision": "OMNICODER2_Q4_CACHE_PREFILL_TRADEOFF_CONFIRMED_QUALIFICATION_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2085,6 +2210,9 @@
     "id": "R135",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-944476f62657e0327321"
+    ],
     "statements": {
       "decision": "MATCHED_OMNICODER2_Q6_NATIVE_BFCL_A0_CALIBRATED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2112,6 +2240,9 @@
     "id": "R136",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2680061ad08d56e324f6"
+    ],
     "statements": {
       "decision": "OMNICODER2_32K_CACHE_PERFORMANCE_INDEPENDENTLY_CONFIRMED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2150,6 +2281,9 @@
     "id": "R137",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-b03e2e4e845bab47e372"
+    ],
     "statements": {
       "decision": "MATCHED_OMNICODER2_AGENT_A0_CALIBRATED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2187,6 +2321,9 @@
     "id": "R138",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-25d985a05f3d442d8f1c"
+    ],
     "statements": {
       "decision": "STOP_AGENT_PREVIOUS_SUCCESS_LOST",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2335,6 +2472,9 @@
     "id": "R139",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a0af491648ec3e01a834"
+    ],
     "statements": {
       "decision": "STOP_AGENT_PREVIOUS_SUCCESS_LOST",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2480,6 +2620,9 @@
     "id": "R140",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ed76b419fda3c3aa183e"
+    ],
     "statements": {
       "decision": "OMNICODER2_AGENT_REFERENCE_DECISIONS_REPRODUCED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2628,6 +2771,9 @@
     "id": "R141",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7be4a096b60529fdd3d1"
+    ],
     "statements": {
       "decision": "OMNICODER2_AGENT_WEIGHT_CACHE_SCREEN_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2777,6 +2923,9 @@
     "id": "R142",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6e8fc40945c6d265d61b"
+    ],
     "statements": {
       "decision": "OMNICODER2_AGENT_175W_ENERGY_SCREEN_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -2926,6 +3075,9 @@
     "id": "R143",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-46e12a310b5c14e20d97"
+    ],
     "statements": {
       "decision": "PROMISING_OMNICODER2_AGENT_200W_ENERGY_NEEDS_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3075,6 +3227,9 @@
     "id": "R144",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-07e0c748aa3ce4016cab"
+    ],
     "statements": {
       "decision": "OMNICODER2_AGENT_200W_ENERGY_TRADEOFF_CONFIRMED_NEEDS_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3100,6 +3255,9 @@
     "id": "R145",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dee725ecb6001d751b59"
+    ],
     "statements": {
       "decision": "ORIGINAL12_INCONCLUSIVE_BROADER_QUALITY_REQUIRED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3188,6 +3346,9 @@
     "id": "R146",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-265b28068c9edd24c2df"
+    ],
     "statements": {
       "decision": "MATCHED_OMNICODER2_Q4_NATIVE_BFCL_A0_CALIBRATED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3276,6 +3437,9 @@
     "id": "R147",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0e11cf177f1c6825ed9e"
+    ],
     "statements": {
       "decision": "OMNICODER2_IMATRIX_TOOL_SCREEN_REQUIREMENTS_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3303,6 +3467,9 @@
     "id": "R148",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3439b202b658187a3859"
+    ],
     "statements": {
       "decision": "STOP_DRAFT_CLEAR_DECODE_REGRESSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3450,6 +3617,9 @@
     "id": "R149",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-97b2bd9c2d3316dd4eab"
+    ],
     "statements": {
       "decision": "STOP_LONG_CONTEXT_SEMANTIC_FUTILITY",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3596,6 +3766,9 @@
     "id": "R150",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-8fbf1dc664eb548e63a0"
+    ],
     "statements": {
       "decision": "PROMISING_KEYED_RETRIEVAL_PILOT_NEEDS_INDEPENDENT_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3739,6 +3912,9 @@
     "id": "R151",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-68977e5f1d14a10a6a70"
+    ],
     "statements": {
       "decision": "SOURCE_SELECTION_FRESH_PAIRED_CONFIRMATION_PASSED_NEEDS_PROFILE_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -3888,6 +4064,9 @@
     "id": "R152",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-aa3173b6909f83dad10b"
+    ],
     "statements": {
       "decision": "INDEPENDENT_200W_AGENT_STABILITY_PASSED_NEEDS_POSTCONTROL",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4038,6 +4217,9 @@
     "id": "R153",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-261651f358a67acc29ea"
+    ],
     "statements": {
       "decision": "OMNICODER2_200W_AGENT_ENERGY_PROFILE_WINNER_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4062,6 +4244,9 @@
     "id": "R154",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-c0beafb45c744eff4e32"
+    ],
     "statements": {
       "decision": "STOP_NATIVE_BFCL_QUALITY_REGRESSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4087,6 +4272,9 @@
     "id": "R155",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-9d2f6a0dc3868506e98b"
+    ],
     "statements": {
       "decision": "STOP_NATIVE_BFCL_QUALITY_REGRESSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4164,6 +4352,9 @@
     "id": "R156",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-df410b8de1cd62df8230"
+    ],
     "statements": {
       "decision": "STOP_QUANT_ORIGINAL12_QUALITY_LOSS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4278,6 +4469,9 @@
     "id": "R157",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4042397b2f6e914c34e6"
+    ],
     "statements": {
       "decision": "GENERIC_JSON_GRAMMAR_SCREEN_REQUIREMENTS_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4386,6 +4580,9 @@
     "id": "R158",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-baefb52b9ddfc2ae03af"
+    ],
     "statements": {
       "decision": "STOP_QUANT_ORIGINAL12_QUALITY_LOSS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4415,6 +4612,9 @@
     "id": "R159",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-005e431f9699e2f9139e"
+    ],
     "statements": {
       "decision": "STOP_DRAFT_CLEAR_DECODE_REGRESSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4530,6 +4730,9 @@
     "id": "R160",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-307acb7d054d5e3795cc"
+    ],
     "statements": {
       "decision": "STOP_QUANT_ORIGINAL12_QUALITY_LOSS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4674,6 +4877,9 @@
     "id": "R161",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-61a96d130f54f7937707"
+    ],
     "statements": {
       "decision": "MATCHED_EVENT_HISTORY_A0_MEASURED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4819,6 +5025,9 @@
     "id": "R162",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a9e8aec3cba1732eb0d6"
+    ],
     "statements": {
       "decision": "PROMISING_EVENT_HISTORY_COMPACTION_NEEDS_FRESH_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -4962,6 +5171,9 @@
     "id": "R163",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d9908c3e584b27f2b7c9"
+    ],
     "statements": {
       "decision": "STOP_RETRIEVAL_CONFIRMATION_QUALITY_FUTILITY",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5041,6 +5253,9 @@
     "id": "R164",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-19f775a48851e68714ca"
+    ],
     "statements": {
       "decision": "STOP_QUANT_ORIGINAL12_QUALITY_LOSS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5093,6 +5308,9 @@
     "id": "R165",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1bcbaa3ce104e67fe6d6"
+    ],
     "statements": {
       "decision": "UNCLEAR_CONTEXT_GAIN_NEEDS_TARGETED_CONTROL",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5121,6 +5339,9 @@
     "id": "R166",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ec82b4c9401ad086f524"
+    ],
     "statements": {
       "decision": "STOP_NO_CONFIRMED_PRACTICAL_CONTEXT_GAIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5147,6 +5368,9 @@
     "id": "R167",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ad5701a8a56b4b744c64"
+    ],
     "statements": {
       "decision": "APPLICATION_CLOCK_SCREEN_REQUIREMENTS_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5199,6 +5423,9 @@
     "id": "R169",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-5808fcc39609b88c7456"
+    ],
     "statements": {
       "decision": "MLOCK_WARM_SCREEN_REQUIREMENTS_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5235,6 +5462,9 @@
     "id": "R170",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-763cc0f31475ad60a851"
+    ],
     "statements": {
       "decision": "PRIVATE_FRONTEND_GPU_ORIGINAL12_COMPATIBILITY_MEASURED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5267,6 +5497,9 @@
     "id": "R171",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-8b0a5f586ab7c4916cc8"
+    ],
     "statements": {
       "decision": "COMPATIBLE_EXTERNAL_BASE_MTP_HEAD_CANDIDATE_ADMITTED_FOR_B_SCREEN",
       "evidence_class": "EXTERN_BELEGT",
@@ -5291,6 +5524,9 @@
     "id": "R172",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-c7ca0d0405f4d0cdcb9f"
+    ],
     "statements": {
       "decision": "PROMISING_EXTERNAL_DRAFT_NATIVE_SCREEN_NEEDS_FUNCTIONAL_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5318,6 +5554,9 @@
     "id": "R173",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f966ff96cd7e62ab7c38"
+    ],
     "statements": {
       "decision": "MTP_NATIVE_GAIN_CONFIRMED_NEEDS_FUNCTIONAL_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5404,6 +5643,9 @@
     "id": "R174",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4f9c259520d274f056b6"
+    ],
     "statements": {
       "decision": "PROMISING_OMNI_EXTERNAL_MTP_TOOL_SCREEN_NEEDS_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5458,6 +5700,9 @@
     "id": "R175",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2cc154e4c127f0906ae0"
+    ],
     "statements": {
       "decision": "PROMISING_OMNI_EXTERNAL_MTP_CODING_NEEDS_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5602,6 +5847,9 @@
     "id": "R176",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-5a6acf8414af5ba4fef9"
+    ],
     "statements": {
       "decision": "PROMISING_OMNI_EXTERNAL_MTP_AGENT_SCREEN_NEEDS_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5747,6 +5995,9 @@
     "id": "R177",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4376616d031747b32c87"
+    ],
     "statements": {
       "decision": "OMNI_EXTERNAL_MTP_AGENT_GAIN_CONFIRMED_NEEDS_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -5891,6 +6142,9 @@
     "id": "R178",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-683c5d2a873df7e2c3ce"
+    ],
     "statements": {
       "decision": "INDEPENDENT_MTP_AGENT_STABILITY_PASSED_NEEDS_POSTCONTROL",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6036,6 +6290,9 @@
     "id": "R179",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-62ba042a766f67beec9f"
+    ],
     "statements": {
       "decision": "OMNICODER2_EXTERNAL_MTP_AGENT_THROUGHPUT_WINNER_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6090,6 +6347,9 @@
     "id": "R180",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-943484dd7722dbde7820"
+    ],
     "statements": {
       "decision": "OMNI_EXTERNAL_MTP_CODING_GAIN_CONFIRMED_NEEDS_INDEPENDENT_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6144,6 +6404,9 @@
     "id": "R181",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7ac0039875dbca1d0b67"
+    ],
     "statements": {
       "decision": "INDEPENDENT_300W_MTP_CODING_CONFIRMATION_PASSED_PROFILE_REVIEW_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6230,6 +6493,9 @@
     "id": "R182",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-29320e8e583d52eb5f20"
+    ],
     "statements": {
       "decision": "OMNI_MTP_NATIVE_TOOL_GAIN_CONFIRMED_NEEDS_INDEPENDENT_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6316,6 +6582,9 @@
     "id": "R183",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-74d034ef6a5873b4a5e9"
+    ],
     "statements": {
       "decision": "INDEPENDENT_300W_MTP_NATIVE_TOOL_CONFIRMATION_PASSED_PROFILE_REVIEW_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6392,6 +6661,9 @@
     "id": "R184",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-cf094fc512d83c5c3636"
+    ],
     "statements": {
       "decision": "MTP_MICROBATCH_INTERACTION_SCREEN_REQUIREMENTS_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6419,6 +6691,9 @@
     "id": "R185",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f28dcaeb906ada4b945b"
+    ],
     "statements": {
       "decision": "MTP_MICROBATCH_CONTROL_DRIFT_OR_FRESH_PAIR_FAILED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6495,6 +6770,9 @@
     "id": "R186",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-81a482bba6bcc81336a6"
+    ],
     "statements": {
       "decision": "PROMISING_MTP_WEIGHT_CACHE_INTERACTION_NEEDS_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6607,6 +6885,9 @@
     "id": "R187",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dc3c265b65c1ca67fbb3"
+    ],
     "statements": {
       "decision": "STOP_QUANT_ORIGINAL12_QUALITY_LOSS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6630,6 +6911,9 @@
     "id": "R188",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d8153ea70260b2285397"
+    ],
     "statements": {
       "decision": "A02_R188_REQUIREMENTS_NOT_MET",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6670,6 +6954,9 @@
     "id": "R190",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d409fca5493455899670"
+    ],
     "statements": {
       "decision": "M13_R190_REQUIREMENTS_NOT_MET",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6690,6 +6977,9 @@
     "id": "R191",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-acd0d0a644cf194577a3"
+    ],
     "statements": {
       "decision": "M09_R191_REQUIREMENTS_NOT_MET",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6730,6 +7020,9 @@
     "id": "R193",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4e5c4e18df8e19bfef6a"
+    ],
     "statements": {
       "decision": "E08_R193_SCREEN_PASSED_NOT_CHAMPION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6750,6 +7043,9 @@
     "id": "R194",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dc8a8b9d5095ace488a2"
+    ],
     "statements": {
       "decision": "K05_K4_GDN_SNAPSHOT_ROLLBACK_NUMERIC_PASS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -6777,6 +7073,9 @@
     "id": "R195",
     "model": "omnicoder2",
     "reference_A0": "ba22de96ef2cdda41e184c07bead0ee638f67ae3a75ea94398f3a82bfbd6e752",
+    "related_audit_ids": [
+      "audit-e7e6febdba552a313117"
+    ],
     "statements": {
       "decision": "M07_COMPACT_INSTRUCTION_QUALITY_REGRESSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7167,6 +7466,9 @@
     "id": "R200",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1e481b9ad01b4b62af21"
+    ],
     "statements": {
       "decision": "MTP_GRAFT_SCREEN_SURVIVES_NEEDS_INDEPENDENT_PRACTICAL_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7200,6 +7502,9 @@
     "id": "R201",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dffb404b82747d32d666"
+    ],
     "statements": {
       "decision": "GRAFT_AGENT_MEMORY_SCREEN_PASSES_CORRECT_C_NEEDS_INDEPENDENT_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7228,6 +7533,9 @@
     "id": "R202",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0f287160bf817b3ca016"
+    ],
     "statements": {
       "decision": "HOST_CT_STAGE_PATH_MISMATCH_BEFORE_MODEL_START",
       "evidence_class": "LOCAL_PRESTART_TECHNICAL_FAILURE_NO_GPU_MEASUREMENT"
@@ -7256,6 +7564,9 @@
     "id": "R203",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-fb076ec1a01a891d9edb"
+    ],
     "statements": {
       "decision": "GRAFT_MEMORY_ADVANTAGE_CONFIRMED_NEEDS_INDEPENDENT_GRAFT_PROCESS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7291,6 +7602,9 @@
     "id": "R204",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-642fa8e7d42cda1f1762"
+    ],
     "statements": {
       "decision": "CONFIDENCE_DRAFT_FILTER_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7339,6 +7653,9 @@
     "id": "R205",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-058f7fb472328b4ccdee"
+    ],
     "statements": {
       "decision": "GRAFT_CODING_QUALITY_MEMORY_SCREEN_PASSED_NOT_GENERAL_SPEED_CHAMPION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7369,6 +7686,9 @@
     "id": "R206",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4af664a242392bba07e2"
+    ],
     "statements": {
       "decision": "GRAFT_NATIVE_TOOL_QUALITY_MEMORY_SCREEN_PASSED_NOT_GLOBAL_CHAMPION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7401,6 +7721,9 @@
     "id": "R207",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-21267142b49cd147290a"
+    ],
     "statements": {
       "decision": "GRAFT_MEMORY_ALTERNATIVE_QUALIFIED_310_DEVELOPMENT_CASES_NO_GLOBAL_SPEED_CLAIM",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7521,6 +7844,9 @@
     "id": "R208",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0ff1930c5d4878017f54"
+    ],
     "statements": {
       "decision": "STATIC_DRAFT5_NATIVE_SCREEN_PASSED_NEEDS_PRACTICAL_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7554,6 +7880,9 @@
     "id": "R209",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f6ede40a69a9cd5a74b3"
+    ],
     "statements": {
       "decision": "MAX5_PRACTICAL_AGENT_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7675,6 +8004,9 @@
     "id": "R210",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4074703750eba42f8b7f"
+    ],
     "statements": {
       "decision": "Q5_DRAFT_NATIVE_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7708,6 +8040,9 @@
     "id": "R211",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4ed8d00dfd5d86541176"
+    ],
     "statements": {
       "decision": "Q4_DRAFT_AGENT_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7741,6 +8076,9 @@
     "id": "R212",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f342d89e541599ff11aa"
+    ],
     "statements": {
       "decision": "Q5_DRAFT_AGENT_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7861,6 +8199,9 @@
     "id": "R213",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-14791a89af65ec81443c"
+    ],
     "statements": {
       "decision": "GRAFT_HBM07_NATIVE_SCREEN_PASSED_NEEDS_PRACTICAL_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7915,6 +8256,9 @@
     "id": "R214",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-22d741ba21637e69bc9a"
+    ],
     "statements": {
       "decision": "GRAFT_CACHE_CONTROL_OR_FRESH_PAIR_REQUIREMENTS_FAILED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7946,6 +8290,9 @@
     "id": "R215",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-90c23d1af2a59b1df673"
+    ],
     "statements": {
       "decision": "GRAFT_CACHE_AGENT_SCREEN_PASSED_NEEDS_FRESH_CONTROL_AND_INDEPENDENT_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -7978,6 +8325,9 @@
     "id": "R216",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-e5c8f2e9455ada3d921a"
+    ],
     "statements": {
       "decision": "GRAFT_CACHE_AGENT_FRESH_PAIR_CONFIRMED_QUALITY_STABILITY_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8025,6 +8375,9 @@
     "id": "R217",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1f940596d115e34ae02f"
+    ],
     "statements": {
       "decision": "GRAFT_CACHE_CODING_QUALITY_GATE_PASSED_NO_CODING_SPEED_CLAIM",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8055,6 +8408,9 @@
     "id": "R218",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-cad113d219a201e0f5e0"
+    ],
     "statements": {
       "decision": "GRAFT_CACHE_NATIVE_TOOL_QUALITY_COST_GATE_PASSED_NOT_GLOBAL_CHAMPION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8083,6 +8439,9 @@
     "id": "R219",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7c91d45dc1aa187fe880"
+    ],
     "statements": {
       "decision": "GRAFT_CACHE_INDEPENDENT_STABILITY_PASSED_POSTCONTROL_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8116,6 +8475,9 @@
     "id": "R220",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-9a720eae0135df096db9"
+    ],
     "statements": {
       "decision": "OMNICODER2_GRAFT_CACHE_AGENT_THROUGHPUT_WINNER_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8827,6 +9189,9 @@
     "id": "R229",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1687a898032183472357"
+    ],
     "statements": {
       "decision": "R11_CONTEXT_CAP_CONTRACT_CONFIRMED_NO_FIXED_POOL_MEMORY_WIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8874,6 +9239,9 @@
     "id": "R230",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-be78ded0938b2be399c8"
+    ],
     "statements": {
       "decision": "H08_NO_PRACTICAL_PREFAULT_INCLUSIVE_WORKFLOW_WIN_OR_QUALITY_LOSS",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -8961,6 +9329,9 @@
     "id": "R233",
     "model": "omnicoder2",
     "reference_A0": "66957d3248296b9d22c6d49663d6700b9d4218326ab0b3d40b9964fe55d9a220",
+    "related_audit_ids": [
+      "audit-052735eb2d4adf83b1bd"
+    ],
     "statements": {
       "decision": "Q8_KEY_32K_NOT_PRACTICALLY_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9009,6 +9380,9 @@
     "id": "R234",
     "model": "omnicoder2",
     "reference_A0": "66957d3248296b9d22c6d49663d6700b9d4218326ab0b3d40b9964fe55d9a220",
+    "related_audit_ids": [
+      "audit-0b65111832a0e7ae153b"
+    ],
     "statements": {
       "decision": "Q8_VALUE_32K_NOT_PRACTICALLY_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9067,6 +9441,9 @@
     "id": "R236",
     "model": "omnicoder2",
     "reference_A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "related_audit_ids": [
+      "audit-3bbcbd54e7cb734a5ce0"
+    ],
     "statements": {
       "decision": "ADAPTIVE1TO3_AGENT_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9095,6 +9472,9 @@
     "id": "R237",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-c16b8748920037f57079"
+    ],
     "statements": {
       "decision": "MTP_PREFIX_SLOT_STATE_OR_REUSE_ORACLE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9122,6 +9502,9 @@
     "id": "R238",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-37fda1f10a4731b174fa"
+    ],
     "statements": {
       "decision": "PREFIX_TOKEN_VARIATION_ALSO_PRESENT_WITHOUT_MTP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9149,6 +9532,9 @@
     "id": "R239",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-981a7444af5cff4e62cb"
+    ],
     "statements": {
       "decision": "E02_ACTUAL_NATIVE_RENDER_DIFFERS_FROM_FROZEN_NATIVE_PROMPT_NOT_ADMITTED_FOR_TIMING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9179,6 +9565,9 @@
     "id": "R240",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4912e9ed03c1c3a64139"
+    ],
     "statements": {
       "decision": "SIMULATED_ATOMIC_RETRY_COMPONENT_PASSED_NO_DEPLOYMENT",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9206,6 +9595,10 @@
     "id": "R241",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-fe9d4937f9a1adf51176",
+      "audit-70f8a562174c9c89043c"
+    ],
     "statements": {
       "decision": "NATIVE_TOOL_OUTPUT_INJECTION_GATE_SCOPE_PASSED_NOT_DEPLOYED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9338,6 +9731,10 @@
     "id": "R243",
     "model": "omnicoder2",
     "reference_A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "related_audit_ids": [
+      "audit-fb4096705054d7be1534",
+      "audit-b8f8679e9ce0cb9301a6"
+    ],
     "statements": {
       "decision": "LOSSLESS_HISTORY_JSON_AGENT_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9437,6 +9834,9 @@
     "id": "R244",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-483d9caa91ea1c956079"
+    ],
     "statements": {
       "decision": "NGRAM_MOD_NATIVE_B_SCREEN_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9477,6 +9877,9 @@
     "id": "R245",
     "model": "omnicoder2",
     "reference_A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "related_audit_ids": [
+      "audit-429e93ed0d4b5e650ef5"
+    ],
     "statements": {
       "decision": "NGRAM_MOD_ACTUAL_AGENT_SCREEN_PASSED_NEEDS_FRESH_MAX3_AND_INDEPENDENT_CONFIRMATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9509,6 +9912,9 @@
     "id": "R246",
     "model": "omnicoder2",
     "reference_A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "related_audit_ids": [
+      "audit-b27b25417f2e056a1b90"
+    ],
     "statements": {
       "decision": "STANDALONE_NGRAM_MOD_AGENT_GAIN_CONFIRMED_NOT_CURRENT_CHAMPION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9540,6 +9946,9 @@
     "id": "R247",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-c049511098d3ccf388d8"
+    ],
     "statements": {
       "decision": "NEW_PAIRED_PROFILE_CALIBRATION_NOT_ADMITTED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9568,6 +9977,9 @@
     "id": "R248",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7e86b6026996c3c6843c"
+    ],
     "statements": {
       "decision": "COLD_RESPONSE_MATCHES_VALID_SINGLE_SLOT",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -9591,6 +10003,9 @@
     "id": "R249",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-562eaeb901f0c1b39e99"
+    ],
     "statements": {
       "decision": "162_SINGLE_FACTOR_ROUND_DISPOSITIONS_BOUND_TO_EXISTING_EVIDENCE",
       "evidence_class": "LOKAL_GEMESSEN_AND_TECHNICALLY_DEFERRED_DISTINGUISHED",
@@ -9614,6 +10029,9 @@
     "id": "R250",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1ebeea4faa1f402a49cc"
+    ],
     "statements": {
       "decision": "Q6_WEIGHT_PREFETCH_IS_NOT_KV_PREFETCH_AXIS_INTERVENTION"
     },
@@ -9978,6 +10396,9 @@
     "id": "R257",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1907ff8806b26b2738e7"
+    ],
     "statements": {
       "decision": "BOUNDED_REASONING_CODING_PILOT_NO_JOINT_PRACTICAL_GAIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -10390,6 +10811,10 @@
     "id": "R270",
     "model": "omnicoder2",
     "reference_A0": "71373b106b5b4d5fe9284437c90553378d601878d5ae8534ef355d98bf14959a",
+    "related_audit_ids": [
+      "audit-a2270317169dec422f24",
+      "audit-fae4b1903a527efdd0b8"
+    ],
     "statements": {
       "decision": "MEAN_CENTERED_Q4_SCREEN_FAILED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -10664,6 +11089,9 @@
     "id": "R278",
     "model": "OmniCoder2 Q6_K compatible source path",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6408bcaa03dbc0887441"
+    ],
     "statements": {
       "decision": "TECHNICALLY_DEFERRED_P2_AFTER_STATIC_SM70_ADMISSION",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -11041,6 +11469,9 @@
     "id": "R291",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3d840b4f87513c2af730"
+    ],
     "statements": {
       "decision": "SEMANTIC_PREFIX_QA12_SCREEN_PASSED_NOT_INDEPENDENTLY_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11075,6 +11506,9 @@
     "id": "R292",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2da70f9a1f9f3bf94e45"
+    ],
     "statements": {
       "decision": "SEMANTIC_DISK_RESTORE_QA12_SCREEN_PASSED_NOT_INDEPENDENTLY_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11106,6 +11540,9 @@
     "id": "R293",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0096de0ed9992eeb0f2a"
+    ],
     "statements": {
       "decision": "TEMPERATURE02_TOOL_PILOT_NO_PRACTICAL_QUALITY_GAIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11162,6 +11599,9 @@
     "id": "R295",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3e33089c69b5abe2e628"
+    ],
     "statements": {
       "decision": "IQ4_XS_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11196,6 +11636,9 @@
     "id": "R297",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-56e975702f6bb38cac5a"
+    ],
     "statements": {
       "decision": "Q3_K_M_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11230,6 +11673,9 @@
     "id": "R299",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-cbb2a557031bda3cde81"
+    ],
     "statements": {
       "decision": "Q2_K_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11266,6 +11712,9 @@
     "id": "R300",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6eb33e7ef42a9ca0e9b0"
+    ],
     "statements": {
       "decision": "PLANNING_SCREEN_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11298,6 +11747,9 @@
     "id": "R301",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0d3610a4e59d412de154"
+    ],
     "statements": {
       "decision": "THINKING_AGENT_SCREEN_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11337,6 +11789,9 @@
     "id": "R302",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-10405fcc48b064c0ab8d"
+    ],
     "statements": {
       "decision": "POLICY_POSITION_SCREEN_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11393,6 +11848,9 @@
     "id": "R304",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-33a9f3ecdd2c4c1b8a61"
+    ],
     "statements": {
       "decision": "IQ3_S_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11448,6 +11906,9 @@
     "id": "R306",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-df65fab85ed24e0285fd"
+    ],
     "statements": {
       "decision": "IQ2_XS_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11475,6 +11936,9 @@
     "id": "R307",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d4a33af76dc48a634e2b"
+    ],
     "statements": {
       "decision": "TECHNICAL_STOP_KNOWN_RENDER_CLIENT_AND_LEGACY_QUALIFIER_DEFECT_NO_GENERATION",
       "evidence_class": "LOKAL_TECHNISCH_GEPRUEFT",
@@ -11504,6 +11968,9 @@
     "id": "R308",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6d0187032ea3b11a373f"
+    ],
     "statements": {
       "decision": "HISTORY_DIFFERENCE_NOT_REPRODUCED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11539,6 +12006,9 @@
     "id": "R309",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dc34096d24d8ffcb825e"
+    ],
     "statements": {
       "decision": "EXACT_HISTORY_REPRODUCES_PRIOR_BAD_ENVELOPE",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11573,6 +12043,9 @@
     "id": "R310",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-77a576cb73abe6027c4f"
+    ],
     "statements": {
       "decision": "SLOT0_ERASE_DOES_NOT_REMOVE_REPRODUCED_BAD_ENVELOPE",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11608,6 +12081,9 @@
     "id": "R311",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d2ca3001edd31500863e"
+    ],
     "statements": {
       "decision": "GRAPHS_DISABLED_STILL_REPRODUCES_BAD_CRITICAL_ENVELOPE",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11643,6 +12119,9 @@
     "id": "R312",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2ab6c87f9f57ddd547cf"
+    ],
     "statements": {
       "decision": "BOTH_SLOTS_ERASE_RESTORES_PRIOR_VALID_ENVELOPE_COMPONENT_ONLY",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11678,6 +12157,9 @@
     "id": "R313",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d63e8079399509ae7185"
+    ],
     "statements": {
       "decision": "OTHER_SLOT1_ERASE_RESTORES_VALID_CRITICAL0_COMPONENT_ONLY",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11704,6 +12186,11 @@
     "id": "R314",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-9b4c060a8d0361ecec3d",
+      "audit-b033ef384e4ac6ade5de",
+      "audit-fc19a27b5308f4e8f475"
+    ],
     "statements": {
       "decision": "ARTIFACT_NUMERICAL_SAMPLES_ADMITTED_GPU_QUALITY_PENDING",
       "evidence_class": "LOKAL_ARTEFAKT_VERIFIZIERT",
@@ -11740,6 +12227,9 @@
     "id": "R315",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-bbba190fa741d9954839"
+    ],
     "statements": {
       "decision": "IMATRIX_Q4_K_M_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11777,6 +12267,9 @@
     "id": "R316",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-570dc8059b65c21e94a5"
+    ],
     "statements": {
       "decision": "DRY08_NATIVE_AGENT_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11815,6 +12308,9 @@
     "id": "R317",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-9191b0a2f4ca49e44d35"
+    ],
     "statements": {
       "decision": "AUTO_COMPLETION_AGENT_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11842,6 +12338,9 @@
     "id": "R318",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-11bb6893295d3b2f248a"
+    ],
     "statements": {},
     "winner_qualified": false
   },
@@ -11867,6 +12366,10 @@
     "id": "R319",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-723ba65d401aee23b358",
+      "audit-cab601a005c5071b18c2"
+    ],
     "statements": {
       "decision": "Q03_OUTPUT_Q8_QA12_MEMORY_SCREEN_PASSED_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11891,6 +12394,9 @@
     "id": "R320",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a35bfd81fecb9e13e1d4"
+    ],
     "statements": {},
     "winner_qualified": false
   },
@@ -11918,6 +12424,10 @@
     "id": "R321",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2f755bc48277b49d2fb6",
+      "audit-a3c15b138927be6aeafe"
+    ],
     "statements": {
       "decision": "Q03_OUTPUT_Q8_NATIVE_AGENT_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11955,6 +12465,11 @@
     "id": "R322",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-124cbde954065ff1bb4a",
+      "audit-494c5d8218895ee09f71",
+      "audit-4ae77b7220366330bef5"
+    ],
     "statements": {
       "decision": "PUBLIC_TYPED_SCHEMA_PRACTICAL_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -11990,6 +12505,10 @@
     "id": "R323",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d68ed0a58dff13dccaa5",
+      "audit-da137da9b726a1a38dc8"
+    ],
     "statements": {
       "decision": "Q03_ATTENTION_Q8_QA12_MEMORY_SCREEN_PASSED_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12027,6 +12546,11 @@
     "id": "R324",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7f07896fb00964e609a5",
+      "audit-c276baa6f506b896364e",
+      "audit-c7f207dcca6b04f88afa"
+    ],
     "statements": {
       "decision": "Q03_ATTENTION_Q8_NATIVE_AGENT_SCREEN_PROMISING_NOT_QUALIFIED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12051,6 +12575,9 @@
     "id": "R325",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-e68d710b2b5be8b30301"
+    ],
     "statements": {},
     "winner_qualified": false
   },
@@ -12076,6 +12603,10 @@
     "id": "R326",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7425aa98f491b3d19854",
+      "audit-a6fe7e54f0f59d39f607"
+    ],
     "statements": {
       "decision": "Q03_RECURRENT_Q8_QA12_QUALITY_REGRESSION_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12113,6 +12644,11 @@
     "id": "R327",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-24d3907675d816cdc4ec",
+      "audit-c70757d56c2ad9da0c46",
+      "audit-fa450c898c226dedfa5f"
+    ],
     "statements": {
       "decision": "A06_FOCUSED_TEST_NATIVE_AGENT_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12139,6 +12675,9 @@
     "id": "R328",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-20a65a8940bdae64b512"
+    ],
     "statements": {
       "decision": "PRIVATE_NATIVE_TRANSPORT_CPU_ADMITTED_GPU_PROTOCOL_PILOT_STILL_PENDING",
       "evidence_class": "NICHT_VERIFIZIERT",
@@ -12165,6 +12704,10 @@
     "id": "R329",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-42d5d51be97f1a10cc29",
+      "audit-95b8764d9c52f40069de"
+    ],
     "statements": {
       "decision": "E02_NATIVE_AUTO_TOOL_PILOT_DIFFERENCE_OR_TECHNICAL_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12192,6 +12735,15 @@
     "id": "R330",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-232b559e22192d4b00a3",
+      "audit-2efc940d03d7d7d151c8",
+      "audit-645b2faacd2d0de74f44",
+      "audit-76ab8a7658aa2d7c1d09",
+      "audit-b5edd428483c7038becd",
+      "audit-cc8a62122156b0dd0981",
+      "audit-d6e8b377238c39821b26"
+    ],
     "statements": {
       "decision": "E02_NATIVE_AUTO_TOOL_PILOT_DIFFERENCE_OR_TECHNICAL_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12224,6 +12776,14 @@
     "id": "R331",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-639176c0bc0c5abfcd87",
+      "audit-24fbacf95e87efa2341f",
+      "audit-498372969fe59af08725",
+      "audit-8c75207fff9da7c803b6",
+      "audit-af8235b0f8c0e3c8d4eb",
+      "audit-f1167e6f2d040c76c365"
+    ],
     "statements": {
       "decision": "FRONTEND_B_ONLY_NATIVE_SCREEN_RAW_READY_FOR_INDEPENDENT_AST",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12248,6 +12808,9 @@
     "id": "R332",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-9fa0cedab7ded2946331"
+    ],
     "statements": {
       "decision": "CPU_ADMITTED_FOR_ISOLATED_GPU_SCREEN_NOT_MODEL_QUALIFIED"
     },
@@ -12277,6 +12840,14 @@
     "id": "R333",
     "model": "omnicoder2",
     "reference_A0": "ba22de96ef2cdda41e184c07bead0ee638f67ae3a75ea94398f3a82bfbd6e752",
+    "related_audit_ids": [
+      "audit-131969b2849192f9dffc",
+      "audit-204846d88d291bb19e3a",
+      "audit-915f840f4cbc1dd57d7e",
+      "audit-9b2a9875f1b45ed65242",
+      "audit-c256c33e3a884d8a546a",
+      "audit-d1ac241b14bb0a5dbb95"
+    ],
     "statements": {
       "decision": "SCHEMA_PRESERVATION_COMPONENT_VERIFIED_BUT_FRONTEND_QUALITY_SCREEN_FAILED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12337,6 +12908,11 @@
     "id": "R336",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-60cdc8b931d9d182efa9",
+      "audit-e9d83ad46dbaba33819b",
+      "audit-ebc9b00f6d4511a0bebb"
+    ],
     "statements": {
       "decision": "REFLECTION_SCREEN_QUALITY_OR_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12376,6 +12952,10 @@
     "id": "R338",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a1ee955eb446d233e48b",
+      "audit-aa0ca98f1c7f01cc2e07"
+    ],
     "statements": {
       "decision": "NEW14K32K_REFERENCE_FULLY_MEASURED_PENDING_INDEPENDENT_ADMISSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12415,6 +12995,10 @@
     "id": "R339",
     "model": "omnicoder2",
     "reference_A0": "261b79515e6f4a6187ff38d8d546ab9127da36f2ddd6801fd35068de14b36039",
+    "related_audit_ids": [
+      "audit-662f15b1e522537fac5f",
+      "audit-6ef3541ff328197853a5"
+    ],
     "statements": {
       "decision": "CONTEXT16K_SCREEN_QUALITY_OR_MEMORY_COST_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12457,6 +13041,9 @@
     "id": "R341",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a6289cc857c5951da453"
+    ],
     "statements": {
       "decision": "CURRENT_ENGINE_IMROPE_K_SHIFT_NOT_APPLICABLE_NO_REDUNDANT_FLAG_RUN",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12484,6 +13071,9 @@
     "id": "R342",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-8e4059a8a7c91772298b"
+    ],
     "statements": {
       "decision": "DEFERRED_EXECUTION_EXACT_GGUF_MAPPING_AND_GDN_OPERATOR_GATES_UNRESOLVED",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12511,6 +13101,9 @@
     "id": "R343",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-e133d7c4a67007423e1e"
+    ],
     "statements": {
       "decision": "NAMESPACE_ONLY_NOT_SUFFICIENT_INVERSE_GDN_NORM_AND_HEAD_LAYOUT_REQUIRED_NO_INSTALL",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12540,6 +13133,9 @@
     "id": "R344",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6bf359aad595a175989d"
+    ],
     "statements": {
       "decision": "NO_DISTINCT_TREATMENT_ON_PRESERVED_R138_REQUESTS_DO_NOT_REBENCHMARK",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12569,6 +13165,9 @@
     "id": "R345",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-141aa2cf6564d4e72d45"
+    ],
     "statements": {
       "decision": "EXPANDED_BUILD_AND_QUANTIZED_CUDA_KV_RUNTIME_VERIFIED_EXISTING_Q4_QUALITY_VETO_REUSED",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12600,6 +13199,10 @@
     "id": "R346",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-76e9759f615c71dfd110",
+      "audit-e561918dd9750b122081"
+    ],
     "statements": {
       "decision": "REUSE_TRUE_FP32_OPERAND_REGRESSION_AND_NO_PRACTICAL_FP16_POLICY_GAIN_NO_RETEST",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12630,6 +13233,9 @@
     "id": "R347",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-82108ec013b822ad4c84"
+    ],
     "statements": {
       "decision": "KEEP_OPEN_NO_DISTINCT_KERNEL_TREATMENT_SASS_ONLY_PACKAGING_DEFERRED",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12658,6 +13264,9 @@
     "id": "R348",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ea922ad1c3bfe07b0698"
+    ],
     "statements": {
       "decision": "KEEP_VALID_WARP1_2_4_NEGATIVES_NO_RETEST_NO_DIRECT_WARP2_DECODE_GAIN",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12688,6 +13297,9 @@
     "id": "R349",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-c386579435ba2b0b3f02"
+    ],
     "statements": {
       "decision": "KEEP_NATIVE_PROFILE_NO_ARBITRARY_ROPE_OR_STOP_SWEEP",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12717,6 +13329,9 @@
     "id": "R350",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-130ddf475d0ba21d5410"
+    ],
     "statements": {
       "decision": "ADMIT_STATE_GRAPH_NUMERICAL_CHECK_BEFORE_GPU_MODEL_SCREEN",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12752,6 +13367,10 @@
     "id": "R351",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-103d9403b0ae4973ba15",
+      "audit-4a4cc5ffe75f00f0d7bc"
+    ],
     "statements": {
       "decision": "STATE_COMPONENT_FAILURE_NO_MODEL_ADMISSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12785,6 +13404,10 @@
     "id": "R352",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1ef166578e5184d18681",
+      "audit-d2d5c935e9e86b3fca2e"
+    ],
     "statements": {
       "decision": "DIAGNOSTIC_COMPLETE_ORIGINAL_GATE_RETAINED_NO_MODEL_ADMISSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -12815,6 +13438,9 @@
     "id": "R353",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-88c4b8b71bab92ce5e63"
+    ],
     "statements": {
       "decision": "REUSE_SCOPED_TILE_CAP_NEGATIVES_KEEP_GENERIC_C12_COMPONENT_PASS_CORRECT_OMNI_SCOPE",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12861,6 +13487,9 @@
     "id": "R354",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-0801e9ed17de8e125f9a"
+    ],
     "statements": {
       "decision": "PRESERVE_EXISTING_DEFAULT_F32_FUSION_NO_NEW_OPTIMIZATION_OR_FULL_MTP_QUALIFICATION",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12898,6 +13527,9 @@
     "id": "R355",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-13974d59b8cc476497a5"
+    ],
     "statements": {
       "decision": "REUSE_ALIGNED_U32_LOAD_REGRESSION_AND_NO_PRACTICAL_ENGINE_CONFIG_WINNER_NO_RETEST",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12938,6 +13570,9 @@
     "id": "R356",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-e9ba5c7272cdd96e5062"
+    ],
     "statements": {
       "decision": "PRESERVE_VALID_ROUTING_GRAPH_LAUNCH_EVIDENCE_CORRECT_UNEXERCISED_C15",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -12974,6 +13609,9 @@
     "id": "R357",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-68f29d4a2beebd20e166"
+    ],
     "statements": {
       "decision": "REUSE_EXACT_FUSION_AND_TWO_Q6_PORT_NEGATIVES_RETAIN_R81_NO_RETEST",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13009,6 +13647,9 @@
     "id": "R358",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-8d0de00b1f8ea1c46cfb"
+    ],
     "statements": {
       "decision": "RETAIN_EXACT_K_V_AND_PAIRED_FORMAT_SCREENS_AND_32K_NEGATIVES_NO_REPEAT",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13043,6 +13684,9 @@
     "id": "R359",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dc82ea07c3477de8711f"
+    ],
     "statements": {
       "decision": "RETAIN_MICROBATCH_SCREEN_AND_CONFIG_LIMITS_SCOPE_R11_NOOP_TO_ORIGINAL_PROFILE_ONLY",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13079,6 +13723,9 @@
     "id": "R360",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1b094dcce37317f054f2"
+    ],
     "statements": {
       "decision": "REUSE_ACTUAL_THREAD_AND_BATCH_INTERVENTIONS_NO_NEW_PROFILE_WINNER",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13114,6 +13761,9 @@
     "id": "R361",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4b5c075337facd558521"
+    ],
     "statements": {
       "decision": "CORRECT_UNEXERCISED_R10_AND_INTERPRET_FULL_RAM_CYCLES_NO_REPEAT",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13222,6 +13872,10 @@
     "id": "R362",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-88ca632e51c3075e470d",
+      "audit-f51d08f275c7f0c7da37"
+    ],
     "statements": {
       "decision": "EXPLICIT_KV_UNIFIED_ON_NO_QUALIFIED_PRACTICAL_GAIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -13258,6 +13912,9 @@
     "id": "R363",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-29f0caa0d57e03885651"
+    ],
     "statements": {
       "decision": "RETAIN_OFFLOAD_NEGATIVES_SEPARATE_EFFECTIVE_PINNING_AND_TRANSPORT_SCOPE_NO_REPEAT",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13296,6 +13953,9 @@
     "id": "R364",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-791c749579eb66d36d79"
+    ],
     "statements": {
       "decision": "SEPARATE_SLOT_THROUGHPUT_QUALITY_RETAINED_PREFIX_PROOF_AND_CHANGED_WORKLOAD_LENGTHS",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13330,6 +13990,9 @@
     "id": "R365",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-30cb583e005ee5568d0a"
+    ],
     "statements": {
       "decision": "PRESERVE_NARROW_SOURCE_REDUCTION_AND_QUALITY_VETOES_SEPARATE_UNTESTED_SUMMARY_VECTOR_VARIANTS",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13366,6 +14029,9 @@
     "id": "R366",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-e81c5a2b17132ab84d5e"
+    ],
     "statements": {
       "decision": "RETAIN_T06_SAMPLING_SCOPE_AND_TEMPERATURE_DRY_QUALITY_VETOES_NO_GREEDY_SPEEDUP_TRANSFER",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13402,6 +14068,9 @@
     "id": "R367",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-da72ef933842810d7676"
+    ],
     "statements": {
       "decision": "REPRODUCE_THINKING_TOKEN_PARTITIONS_RETAIN_NARROW_QA_GAINS_AND_CODING_AGENT_TEMPLATE_VETOES",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13441,6 +14110,9 @@
     "id": "R368",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-58ce709304e025ad6a62"
+    ],
     "statements": {
       "decision": "REPLAY_SERIALIZATION_AND_READBACK_PRESERVE_GATE_LIMITS_CORRECT_CPU_ONLY_A07_GPU_CREDIT",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13478,6 +14150,9 @@
     "id": "R369",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-f15d4e3c65d3f340c4d2"
+    ],
     "statements": {
       "decision": "REPLAY_EXISTING_SPECULATION_PROOFS_RETAIN_CHAMPIONS_ADMIT_DISTINCT_AGENT_MAX32_MEMORY_SCREEN",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13584,6 +14259,10 @@
     "id": "R370",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-32922590be12d0046a69",
+      "audit-faa39053df3ce18fb628"
+    ],
     "statements": {
       "decision": "MAX32_NATIVE_MEMORY_SCREEN_PASSED_NEEDS_REAL_AGENT_QUALITY",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -13634,6 +14313,10 @@
     "id": "R371",
     "model": "omnicoder2",
     "reference_A0": "719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a",
+    "related_audit_ids": [
+      "audit-f57204a6350ce289d39f",
+      "audit-f69641b871929f084f09"
+    ],
     "statements": {
       "decision": "MAX32_AGENT_SCREEN_NEGATIVE_OR_EARLY_STOP",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -13666,6 +14349,9 @@
     "id": "R372",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-68adf78e010910f8aecd"
+    ],
     "statements": {
       "decision": "RETAIN_QUALIFIED_POWER_CACHE_PROFILES_BIND_TASK_ENERGY_AND_CANDIDATE_IDENTITIES_NO_NEW_SWEEP",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13772,6 +14458,11 @@
     "id": "R373",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-75ee04f78bcfedc623cf",
+      "audit-b015029bb415f7025676",
+      "audit-b02ace8b7df4b0eef848"
+    ],
     "statements": {
       "decision": "MANAGED_MEMORY_NATIVE_SCREEN_NO_QUALIFIED_PRACTICAL_GAIN",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -13804,6 +14495,9 @@
     "id": "R374",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-fe73faa6d74ccb07bdc1"
+    ],
     "statements": {
       "decision": "BIND_EXISTING_TRACES_TRANSPORT_ALLOCATOR_AND_F32_SCOPE_KEEP_ATTENTION_NUMERICS_SEPARATE_FROM_SPEED_QUALIFICATION",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13839,6 +14533,9 @@
     "id": "R375",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-00f780e69d8e14e1c6a9"
+    ],
     "statements": {
       "decision": "EXPLICIT_PHYSICAL_AND_PROTECTED_SCOPE_PREREQUISITES_NO_HOST_RECONFIGURATION_OR_NEW_GPU_TEST",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13878,6 +14575,10 @@
     "id": "R376",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-30bd60412eeac32d4b9f",
+      "audit-b0807613e019b3b30009"
+    ],
     "statements": {
       "decision": "FLASH_OFF_DOES_NOT_QUALIFY_HISTORY_ISOLATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -13913,6 +14614,9 @@
     "id": "R377",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3260f1fb5192e1400bd8"
+    ],
     "statements": {
       "decision": "KEEP_TRANSPORT_GRAMMAR_FRONTEND_AND_ENGINE_SCOPE_DISTINCT_NO_INERT_PARSER_BUILD_OR_FALSE_PARALLEL_QUALIFICATION",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -13948,6 +14652,9 @@
     "id": "R378",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-577b1f3693e2c89cecab"
+    ],
     "statements": {
       "decision": "REUSE_CALIBRATION_DISTINGUISH_NATIVE_EXPERIMENTAL_TRAINER_FROM_QAT_LORA_READINESS_NO_BLANKET_16GB_EXCLUSION",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -14008,6 +14715,9 @@
     "id": "R379",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-b939abaa6c68ac7fbb46"
+    ],
     "statements": {
       "decision": "NATIVE_Q8KV_COMPONENT_PASS_MODEL_SCREEN_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -14289,6 +14999,9 @@
     "id": "R380",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-8caaa3cdf4c079c396fe"
+    ],
     "statements": {
       "decision": "MATCHED_Q8Q8_ROUTER_OFF_CONTROL_CALIBRATED_CANDIDATE_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -14594,6 +15307,9 @@
     "id": "R381",
     "model": "omnicoder2",
     "reference_A0": "f5e665f8a7e9effc75dd2ed0e9643f8fbae5bb1b35439a0623a54b0a1f86dcbb",
+    "related_audit_ids": [
+      "audit-d870ddde2a67de12a375"
+    ],
     "statements": {
       "decision": "Q8KV_ROUTING_SCREEN_PROMISING_NEEDS_FRESH_CONFIRMATION_AND_BROADER_QUALITY",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -14751,6 +15467,9 @@
     "id": "R383",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-41798d952b2c4c70afd2"
+    ],
     "source_package": {
       "license": "NVIDIA Proprietary Software; privateonly,no binaryredistribution",
       "name": "nvidia-cublas-cu12",
@@ -14843,6 +15562,10 @@
     "id": "R385",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-07ce3c7d410cc80f1024",
+      "audit-8a9c78673e8eca6afc99"
+    ],
     "statements": {
       "decision": "NATIVE_KV_PREFETCH_COMPONENT_GATE_FAILED_NO_MODEL_ADMISSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -14912,6 +15635,10 @@
     "id": "R386",
     "model": "omnicoder2",
     "reference_A0": "566c08294de16b66eb5e0c3bea80bc68115d930930cb444e414c718fb8b14999",
+    "related_audit_ids": [
+      "audit-1a4b88a9b1a42ad2ad0a",
+      "audit-7716d550277dc834c504"
+    ],
     "statements": {
       "decision": "STARTUP_CALIBRATION_TOO_VARIABLE_CANDIDATE_NOT_STARTED",
       "evidence_class": "NICHT_VERIFIZIERT",
@@ -14957,6 +15684,10 @@
     "id": "R387",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-be01aabd36ffc1b14b36",
+      "audit-e969fc73e8b1da7c92d7"
+    ],
     "statements": {
       "decision": "ISOLATED_RECEIVER_RETRY_CRASH_CONTRACT_PASSED_CPU_ONLY_NOT_GPU_OPTIMIZATION",
       "evidence_class": "CPU_LOKAL_GEMESSEN_KEIN_NEUER_GPU_TEST",
@@ -15003,6 +15734,10 @@
     "id": "R388",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-662a06f359d8d261c824",
+      "audit-fb4e5bd3e91ea5a60407"
+    ],
     "statements": {
       "decision": "EFFECTIVE_SIZE_COMPRESSION_ADMITTED_FOR_ONE_OBJECT_NO_GPU_OR_FULL_BACKEND_BENEFIT",
       "evidence_class": "CPU_LOKAL_GEMESSEN_KEIN_GPU_TEST",
@@ -15063,6 +15798,10 @@
     "id": "R389",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-5bf62e57530de6c3ae47",
+      "audit-f1a26e9e6cbffc7baca1"
+    ],
     "statements": {
       "decision": "FRACTIONAL_QUEUE_SCREEN_REJECTED_PRIMARY_MEMORY_GATE",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15139,6 +15878,11 @@
     "id": "R390",
     "model": "omnicoder2-architecture-component",
     "reference_A0": "b22af5c446e7db98fabcab1b285f45f54dc6e260864d2119e777319c57c40e29",
+    "related_audit_ids": [
+      "audit-bc43e8b613cc983bfb4a",
+      "audit-5c12c2ecf298df008b8b",
+      "audit-a89046afa98b5bbaa633"
+    ],
     "statements": {
       "decision": "WEIGHTEDV_FP32_NUMERICAL_SCREEN_FAILED_NO_MODEL_ADMISSION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15314,6 +16058,15 @@
     "id": "R391",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-c915993a806f0b95c0f6",
+      "audit-dbac47e8b176d1ba982a",
+      "audit-18678122920b3bae4bfa",
+      "audit-77e97e00457c2d4494e8",
+      "audit-b4763d4fa78c55d3de3e",
+      "audit-ca7d5f9ffc11eb4fcafa",
+      "audit-ffbe3c06cb66ec62a08f"
+    ],
     "statements": {
       "decision": "ACQUISITION_GATE_PASSED_CALIBRATION_AND_ACTION_QUALITY_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15387,6 +16140,11 @@
     "id": "R392",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-7cf42c940fb08a117cf6",
+      "audit-7051e3c06b9fd4ba2852",
+      "audit-e547bc3b623ccc45230b"
+    ],
     "statements": {
       "decision": "NO_FEASIBLE_THRESHOLD_AT_95_PERCENT_RETENTION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15438,6 +16196,11 @@
     "id": "R393",
     "model": "omnicoder2",
     "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "related_audit_ids": [
+      "audit-516c80996de9152c55dc",
+      "audit-c3ea90d682b65a8edf24",
+      "audit-9d3b81ed845e2ae0b2f9"
+    ],
     "statements": {
       "decision": "FIXED_SCHEMA_STOP_SCREEN_PROMISING_INDEPENDENT_QUALIFICATION_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15493,6 +16256,12 @@
     "id": "R394",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-2b7513c1ccc5440fb424",
+      "audit-87bd8d94849c8b89eb1d",
+      "audit-1e0c18f591e363c5bae7",
+      "audit-060728369fad84f595c1"
+    ],
     "statements": {
       "decision": "LLGUIDANCE_QA12_PRACTICAL_GATE_NOT_PASSED",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15631,6 +16400,11 @@
     "id": "R395",
     "model": "omnicoder2-architecture-component",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-67337bdf704104b2d015",
+      "audit-a3984fe0de4957ec6661",
+      "audit-2e96ee859dddd9c15699"
+    ],
     "statements": {
       "decision": "KIVI_COMPONENT_NUMERICS_PASS_ENGINE_ADAPTER_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15759,6 +16533,14 @@
     "id": "R396",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-81393171d6bd5f88651a",
+      "audit-05afcc3469e3e66c1c3f",
+      "audit-33600e4ed4f8397b8406",
+      "audit-d677e9a36e23f8d4d025",
+      "audit-89b244b35fdb3b8b755e",
+      "audit-18b8188a10fb7bf8b528"
+    ],
     "statements": {
       "decision": "FORWARD_PRE_ROPE_KV_CAPTURE_FIDELITY_PASS_NOT_OPTIMIZATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15888,6 +16670,17 @@
     "id": "R397",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-48cb6d3fd512684ed444",
+      "audit-9fae38fc11d0b1751fe9",
+      "audit-e391f6459c49c61c225e",
+      "audit-fc72b2615fc96990427f",
+      "audit-9d3f379df6140155d0ec",
+      "audit-1cb6bc76806bd1de7c63",
+      "audit-2651d48b3aee06a5fdc0",
+      "audit-64091bc93ffae982bb0d",
+      "audit-74b92bb7f70024080925"
+    ],
     "statements": {
       "decision": "FORWARD_FIRST_MLP_INPUT_FIDELITY_PASS_NOT_AWQ_QUALIFICATION",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -15917,6 +16710,10 @@
     "id": "R400",
     "model": null,
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-79e682f96ad57f8e723b",
+      "audit-e3e1fdfbe5f62a01e27d"
+    ],
     "statements": {
       "decision": "A04_GATE_COMPONENT_CHECKS_PASS_SCOPED; REVOCATION_PROPAGATION_AND_PROVENANCE_UNTESTED",
       "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
@@ -15970,6 +16767,10 @@
     "id": "R402",
     "model": "omnicoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-028ff20c5389c10a3e32",
+      "audit-08c6db52d3f7ecfffd3a"
+    ],
     "statements": {
       "decision": "FIXED_SCHEMA_STOP_SCREEN_PROMISING_INDEPENDENT_QUALIFICATION_PENDING",
       "evidence_class": "LOKAL_GEMESSEN",
@@ -16044,6 +16845,10 @@
     "id": "R404",
     "model": "OmniCoder2-9B-Q6_K",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3065546a54fc26cd63ec",
+      "audit-c6037cf66712e2203c95"
+    ],
     "statements": {
       "decision": "Promising safety and latency screen; independent balanced confirmation pending; not qualified.",
       "evidence_class": "LOCAL_MEASUREMENT",
@@ -16135,6 +16940,9 @@
     "id": "R405",
     "model": "OmniCoder2-9B-Q6_K",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-5350f59ad47a9a208e94"
+    ],
     "statements": {
       "limitations": [
         "All eight positive calculations failed in both arms; B gains were correct abstentions on negative or ambiguous cases.",
@@ -16183,6 +16991,9 @@
     "id": "R406",
     "model": "OmniCoder2-9B-Q6_K",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-35de360ef29e2eef51e0"
+    ],
     "statements": {
       "decision": "The candidate emitted a valid native tool call on a pinned irrelevance task. The preregistered strict no-call gate failed, so the screen stopped after that paired task; no complete-suite quality or winner claim is made.",
       "evidence_class": "LOKAL GEMESSEN",
@@ -16206,12 +17017,41 @@
       "peak_device_vram_mib": 7670.5
     },
     "audit_id": "audit-17897219f133a9c454a7",
-    "date": null,
+    "date": "2026-10-22",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
-    "factor_ids": [],
+    "factor_ids": [
+      "K05"
+    ],
     "id": "R407",
-    "model": null,
+    "independent_review": {
+      "aggregate_metrics": {
+        "peak_device_vram_mib": 7670.5
+      },
+      "audit_id": "audit-ac96e386aab761697028",
+      "statements": {
+        "all_21_history_envelopes_match_R313": true,
+        "critical_response_matches_archived_R313_valid_envelope": true,
+        "data_leak_or_GDN_bug_proven": false,
+        "decision": "OTHER_SLOT1_ERASE_LEFT_SERIALIZED_SLOT0_STATE_UNCHANGED_AFTER_MIXED_SLOT_HISTORY",
+        "full_isolation_or_quality_qualification": false,
+        "history_slot_targets": {
+          "ordinal_ranges": "0-8 slot0; 9-17 slot1; 18-20 slot0",
+          "slot0": 12,
+          "slot1": 9
+        },
+        "scope_correction": "Frozen plan text said \"21 Slot 1 history requests\"; the immutable input actually alternates target groups 9/9/3. Treat this as a preregistration description error. The exact bodies/order were preserved and the erase-only before/after comparison remains isolatable; do not interpret warmup-to-history state change as cross-slot contamination.",
+        "slot1_erase_confirmed_n_erased": 3248,
+        "speed_or_champion_claim": false,
+        "treatment_comparison": "Slot0 serialized snapshot SHA256/bytes/n_saved/n_written is identical immediately before and after Slot1 erase; duplicate saves at both boundaries also identical.",
+        "warmup_to_history_state": "n_saved 4096 -> 2029; expected because explicit slot0-targeted history requests updated Slot0."
+      }
+    },
+    "model": "OmniCoder2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-17897219f133a9c454a7",
+      "audit-ac96e386aab761697028"
+    ],
     "statements": {
       "decision": "SLOT0_SERIALIZED_STATE_CHANGED_ACROSS_BOUNDARY",
       "evidence_class": "LOKAL_GEMESSEN",
