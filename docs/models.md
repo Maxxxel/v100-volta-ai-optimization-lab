@@ -292,7 +292,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
   "id": "BMC06",
   "local_scope": null,
   "name": "LFM2.5 8B A1B",
-  "next_step": "Retain valid fit/native-control observations and exact QA negatives. Do not run full BFCL/agents or perform budget/seed/prompt repair on these failures; move to next useful model decision.",
+  "next_step": "DiesesnativeProfilnichtweiterfürTool-/Agentenbenchmarkszulassen;keinPrompt-/Samplingreparatursweep. BestehendeOmni/Qwen/BonsaiVergleicheundnächstenpraktischsinnvollenModellentscheidvorziehen.",
   "priority": "P1",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
   "source_admission": {

@@ -13214,5 +13214,13 @@
     "kind": "LFM25_QA12_CAMPAIGN_FORWARD_NATIVE_INPUT_CONTRACT_VERIFIED",
     "sequence": 1652,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T19:31:40.667843+00:00",
+    "experiment_id": "R420",
+    "factor_id": null,
+    "kind": "R420_NEGATIVE_PROFILE_FAILURES_CLASSIFIED_NO_MODEL_REPAIR",
+    "sequence": 1653,
+    "signature": null
   }
 ]

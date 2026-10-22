@@ -305,7 +305,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "fc840336b8c9db5f60c41e2f9c95ae1f2bdb3808034aa3615b571b4798d7eb01",
+  "measurement_fingerprint": "7a06204ed1df50d90bc16cdc79624f61e4ceecf416d1bc299d9e62ca9dc8d63f",
   "models": [
     {
       "id": "omni",
@@ -335,6 +335,11 @@
     {
       "id": "oxcoder",
       "name": "OxCoder 9B",
+      "quantization": "Q6_K"
+    },
+    {
+      "id": "lfm",
+      "name": "LFM2.5 8B A1B",
       "quantization": "Q6_K"
     }
   ],
