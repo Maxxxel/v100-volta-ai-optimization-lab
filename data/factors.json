@@ -20488,21 +20488,23 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "GGUF deklariert262144Kontexttokens. R339 nutzt16384/freq_scale1; bisheriger32K-Kontext ebenfalls darunter. Das ist keine empirische262K-Qualitätsgarantie; kein konkreter Skalierungseingriff zugelassen.",
+    "decision": "M10 context-scaling admission: retained exactGGUF metadata declares262144tokens and partial64-dimensionRoPE; actual16K/32K controls usefreq_scale1 and are belowthatdeclaredlimit, not extensions or demonstrated262Ksemanticquality. R338/R339longcontext qualitylimitations remain unchanged; no inference thatRoPEscale caused them. Analytical2xF16example uses8attentionlayers/4KVheads/D256:524288tokens require16384MiBKV alone. Adding retainedR3976212.17MiBCUDAmodelbuffer exceeds actual16384MiBdevice beforestate/workspace, so no futileallocationrun. Quantized/offloadedKV or smallerextensions are not excluded by that bound. No exactmodel beyond-native scalingrecipe plus independentlyscoredworkload/resourcecontract is currentlyadmitted. Current documented-extension routeDEFERRED, not allcontextquality or allscalingmethods rejected. Zero newGPUruns/models, no new speed/quality/energy claim.",
     "domain": "model_behavior",
     "evidence_ids": [
+      "audit-1cb6bc76806bd1de7c63",
       "audit-562eaeb901f0c1b39e99",
       "audit-c386579435ba2b0b3f02"
     ],
     "experiment_ids": [
       "R249",
-      "R349"
+      "R349",
+      "R397"
     ],
     "experimentally_covered": false,
     "id": "M10",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "First establish a real context-limit problem; allocation/token speed is not semantic quality.",
+    "next_action": "A concrete useful scaling recipe, exact-model state/position contract, independent semantic oracle and memory budget can reopen the appropriate variant. Native below262K quality remains a separate context/profile question, not a generic scaling flag experiment.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -20564,14 +20566,16 @@
       }
     ],
     "prerequisites": [
-      "Architecture-supported scaling treatment and an independently scored beyond-native-context workload within capacity."
+      "A documented exact hybrid-model partial-IMRoPE-compatible scaling treatment addressing a real beyond-native limit, with its exact factor/metadata/implementation.",
+      "Independent longcontext task-quality oracle and correct native-state controls; declared metadata and context allocation are insufficient.",
+      "A feasible16GB profile for the chosen extension, including weights/KV/GDN/draft/workspace; quantized/offloaded alternatives require their own quality/cost admission."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Native Kontextqualität getrennt prüfen; Skalierung nur für ein dokumentiertes Architektur-/Kontextproblem, nicht als willkürlichen Faktorensweep.",
-    "reopening_conditions": "First establish a real context-limit problem; allocation/token speed is not semantic quality.",
+    "remaining_scope": "Current documented-extension route lacks a qualified scaling/workload/resource contract; native quality and alternative scaling/KV variants remain separately open, not universally excluded.",
+    "reopening_conditions": "A concrete useful scaling recipe, exact-model state/position contract, independent semantic oracle and memory budget can reopen the appropriate variant. Native below262K quality remains a separate context/profile question, not a generic scaling flag experiment.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "DEFERRED",
     "title": "Model Context Scaling",
     "variants": [
       {

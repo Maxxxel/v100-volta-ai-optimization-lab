@@ -78,7 +78,7 @@
 | [M07](factors/M07.md) | Template variants | PARTIAL | YES | P2 |
 | [M08](factors/M08.md) | Output Grammar | PARTIAL | YES | P0 |
 | [M09](factors/M09.md) | Function Serialization | PARTIAL | YES | P2 |
-| [M10](factors/M10.md) | Model Context Scaling | OPEN | NO | P2 |
+| [M10](factors/M10.md) | Model Context Scaling | DEFERRED | NO | P2 |
 | [M11](factors/M11.md) | System Prompt Placement | PARTIAL | YES | P2 |
 | [M12](factors/M12.md) | Stop Tokens | PARTIAL | YES | P2 |
 | [M13](factors/M13.md) | Tool Completion | PARTIAL | YES | P2 |

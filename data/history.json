@@ -12814,5 +12814,13 @@
     "kind": "Q07_PUBLIC_QAT_CHECKPOINT_PROVENANCE_ADMISSION_DEFERRED_NO_GPU",
     "sequence": 1602,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T12:17:03.854053+00:00",
+    "experiment_id": null,
+    "factor_id": "M10",
+    "kind": "M10_CONTEXT_SCALING_RESOURCE_ADMISSION_DEFERRED_NO_GPU",
+    "sequence": 1603,
+    "signature": null
   }
 ]
