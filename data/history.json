@@ -13270,5 +13270,21 @@
     "kind": "R422_GEMMA_M08_JSON_OBJECT_INDEPENDENTLY_REVIEWED",
     "sequence": 1659,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T20:19:03.401972+00:00",
+    "experiment_id": "R423",
+    "factor_id": null,
+    "kind": "R423_NEW8_FROZEN_OBJECT_TASKS_FRESH_AB_PREREGISTRATION",
+    "sequence": 1660,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T20:20:02.510231+00:00",
+    "experiment_id": "R423",
+    "factor_id": null,
+    "kind": "R423_REFERENCE_METADATA_CLARIFIED_BEFORE_GPU",
+    "sequence": 1661,
+    "signature": null
   }
 ]
