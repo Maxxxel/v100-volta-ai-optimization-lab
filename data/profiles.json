@@ -196,5 +196,11 @@
     "C": null,
     "id": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test223-greedy1024-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "909d0f9a921c535f63f0e1e6fefd8045f9061c7f91e4837007ea8bd1cadda60f",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-fast8K-QA12-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]

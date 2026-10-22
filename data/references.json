@@ -9193,5 +9193,86 @@
     "profile": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test223-greedy1024-v1",
     "qualification": "Immutable disjoint-task223 original-profile reference; not full224/378 or model Champion.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_energy_j": 1567.1466031393986,
+        "peak_device_vram_mib": 8118.5,
+        "raw_format_successes": 1,
+        "semantic_successes": 10,
+        "tasks": 12,
+        "wall_s": 6.876421839
+      }
+    },
+    "experiment_id": "R421",
+    "id": "909d0f9a921c535f63f0e1e6fefd8045f9061c7f91e4837007ea8bd1cadda60f",
+    "identity": {
+      "KV": "F16/F16",
+      "batch": 2048,
+      "cache": "warm resident model,per-request cache_prompt false,OSfile cache uncontrolled",
+      "context": 8192,
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "8192",
+        "--flash-attn": "auto",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0",
+        "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+      },
+      "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "sampler": {
+        "min_p": 0.0,
+        "presence_penalty": 0.0,
+        "repeat_penalty": 1.0,
+        "seed": 1001,
+        "temperature": 1.0,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "threads": 6,
+      "ubatch": 512,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "54df227bf8ee29be80a55d38752452efbea78ff228f04bc0df55002058f8e6d4",
+      "6a901906898710ff9d319771c5ce33f4322b2cee27a098ecafdbf4d4da9c346b",
+      "8011b13426de2301a0273fa992900764ca461571eb4ffb0adbc5b81a263b287e",
+      "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "gemma4_12b_it_qat_q4_0",
+    "profile": "gemma4-12b-qat-q40-sm70-native-fast8K-QA12-v1",
+    "qualification": "Complete single-pass diagnostic reference for cheap B-screen only; not repeated-run calibration, model qualification or Champion. Promising format/quality candidate requires independent confirmation.",
+    "winner_qualified": false
   }
 ]

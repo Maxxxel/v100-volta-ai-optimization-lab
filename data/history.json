@@ -13246,5 +13246,13 @@
     "kind": "GEMMA4_QAT_NATIVE_BASE_ADMISSION_INDEPENDENTLY_REVIEWED",
     "sequence": 1656,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T20:01:08.267857+00:00",
+    "experiment_id": "R421",
+    "factor_id": null,
+    "kind": "R421_NATIVE_QA12_IMMUTABLE_SCREEN_REFERENCE_ADMITTED",
+    "sequence": 1657,
+    "signature": null
   }
 ]
