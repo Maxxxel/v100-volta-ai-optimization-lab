@@ -12582,5 +12582,13 @@
     "kind": "R387_A07_ISOLATED_IPC_PROCESS_CRASH_CPU_COMPONENT_PASSED",
     "sequence": 1573,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T07:09:11.554579+00:00",
+    "experiment_id": "R388",
+    "factor_id": null,
+    "kind": "R388_C15_EFFECTIVE_SIZE_COMPRESSION_CPU_SINGLE_OBJECT_ADMISSION",
+    "sequence": 1574,
+    "signature": null
   }
 ]

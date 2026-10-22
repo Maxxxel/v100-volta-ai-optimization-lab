@@ -20,6 +20,7 @@ Original file: `INDEPENDENT_REVIEW.json`; 5034 bytes. The original is retained p
 
 ```json
 {
-  "new_GPU_runs": 0
+  "new_GPU_runs": 0,
+  "source_cases": 24
 }
 ```

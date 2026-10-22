@@ -11490,7 +11490,7 @@
     "id": "C10",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
+    "next_action": "C10isMMQtilewidth: reusepreservedactualMMQwidthnegatives; onlyadmit a distinctMMQkernelwidth/shapeintervention withactualMMQdispatch,numericsandpracticalprofile. R379/R381attentionrouting belongs toHBM18, notC10; noFAfineroutingqualification underthisaxis.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -12421,23 +12421,26 @@
   },
   {
     "coverage_scope": "Cache/buildrequests and historicalGPUruns exist, but effectivecompressionparameter didnotreachgeneratedcompilerinvocation; no confirmedcompressionfactor intervention.",
-    "decision": "C15-Kompressionnichtwirksamvariiert:Cachebalance/speed/none,aberGeneratedNVCCflagsOHNEcompress-mode. FindCUDAToolkit12.0.140schließt>=12.8Gate,obwohlnvcc12.8.93;geladenRuntime12.8bleibtseparatbelegt. AlteWarmzahlenkeinKompressionsvergleich.",
+    "decision": "R388 C15 CPUadmission: explicitNVCC--compress-mode=size actuallycompiled oneoriginalD256TU, unlike oldineffectiveCMakecachelabels. Object6026896->1652688bytes(-72.578%), nativeSM70cubinSHAbyteidentical; decodedPTXSHAdiffers. Stockheaders/objects/toolkit/CMakecachepreserved. No fullbackend, GPUload, quality, startup, decode, VRAM or energy result. ScientificOPEN/experimentalGPU_NEIN retained. Future fullbackend/loadquestion needs a stablepreregisteredreference; R386wasstoppedat28.756%startvariance.",
     "domain": "cuda_kernel",
     "evidence_ids": [
       "audit-2c3e8d6d811f10e78510",
+      "audit-662a06f359d8d261c824",
       "audit-6df5b60d87a67f761a8b",
       "audit-a8b0b3b540e2b38a864a",
       "audit-e86e6fff4640125cc4dc",
-      "audit-e9ba5c7272cdd96e5062"
+      "audit-e9ba5c7272cdd96e5062",
+      "audit-fb4e5bd3e91ea5a60407"
     ],
     "experiment_ids": [
-      "R356"
+      "R356",
+      "R388"
     ],
     "experimentally_covered": false,
     "id": "C15",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "OPEN: tatsächlicheKompressionsvariantevorGPUzulassennurmitwirksamemNVCC-Flag/manifestiertemFatbinundkontrollierterLoader-/Coldstartfrage. FüraktuellenSprintP2-Ausführungzurückgestellt:keinegemesseneLoaderdrift/EngpassundkeinbegründerDecodegewinn. Header/Link/Runtimegleichhalten;bloßesCUDAToolkit_ROOT-KorrigierenwürdezusätzlicheBuildbedingungenändern. GoldenA0/Runtimeunverändertlassen.",
+    "next_action": "Preserve boundedCPUcompressionproof; no compressionmodegrid. Reopen fullbackend/runtime test for a justified loader/storage usecase with stable timing conditions, independentquality and nativeimage identity.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -12560,12 +12563,13 @@
       }
     ],
     "prerequisites": [
-      "Effective per-modeNVCCcompress-mode flag with artifact/fatbin evidence.",
-      "Practical startup/moduleload question, controlledcache/coldstartreference and identicalotherbuildconditions."
+      "Completebackendsize-compressionartifact with every nativeSM70image verified and measuredscratch/buildcost.",
+      "Stablepreregisteredloader/cache/startupworkload; R386calibrationexceedsrangegate.",
+      "ActualGPUload/decompression/quality and usefulstartup/energy benefit beforequalification."
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "OPEN: tatsächlicheKompressionsvariantevorGPUzulassennurmitwirksamemNVCC-Flag/manifestiertemFatbinundkontrollierterLoader-/Coldstartfrage. FüraktuellenSprintP2-Ausführungzurückgestellt:keinegemesseneLoaderdrift/EngpassundkeinbegründerDecodegewinn. Header/Link/Runtimegleichhalten;bloßesCUDAToolkit_ROOT-KorrigierenwürdezusätzlicheBuildbedingungenändern. GoldenA0/Runtimeunverändertlassen.",
+    "remaining_scope": "Effective single-objectcompression proved; no fullbackend pack/loading or GPU result. Completebackend treatment and stableloaderprotocol stillrequired before any speedclaim. Oneobjectsize isnotVRAM or fullengine size.",
     "reopening_conditions": "Do notchangeA0/toolkit; admit explicitcompression-onlybuild onlyafter artifact/resource/loader-benefit gates.",
     "source_model_hypotheses": [],
     "status": "OPEN",

@@ -102182,6 +102182,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "component_wall_s": 1.706744561,
       "gpu_energy_j_approx": 74.54588275865231,
       "model_starts": 0,
       "numerical_component": {
@@ -126648,6 +126649,46 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "model_starts": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-fb4e5bd3e91ea5a60407",
+    "original_bytes": 2402,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fb4e5bd3e91ea5a604077d762fdb33acc10c4e31485ac06dc795d78cda36dd81",
+    "statements": {
+      "decision": "EFFECTIVE_SIZE_COMPRESSION_ADMITTED_FOR_ONE_OBJECT_NO_GPU_OR_FULL_BACKEND_BENEFIT",
+      "evidence_class": "CPU_LOKAL_GEMESSEN_KEIN_GPU_TEST",
+      "limits": [
+        "6026896->1652688bytes(-72.578%) applies to oneD256deviceobject, not the completebackend or GPUVRAM.",
+        "DecodednativeSM70cubinbytesidentical; decodedPTXbytesdiffer, no all-imagesbyteidentity or futureJITequivalence claim.",
+        "ActualNVCC--compress-mode=size added while allothercompileflags/pinnedsource/toolchain fixed; stockCMakecache/toolkit detection unchanged.",
+        "No CUDAengine load, GPUexecution, quality, startup, decode, thermal or energy measurement.",
+        "Fullbackend size-compression requires additional build/repackadmission; startupreferenceR386too variable, no automaticloadbenchmark or champion."
+      ],
+      "measurement_type": "CPU_EFFECTIVE_NVCC_COMPRESSION_SINGLE_TU_ADMISSION"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-662a06f359d8d261c824",
+    "original_bytes": 448,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "662a06f359d8d261c824463bc480a720fbf096883bfdcb39aaf4e0ef98601d25",
+    "statements": {
+      "scope": "CPU artifact/implementation admission only"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -132521,6 +132562,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "component_wall_s": 0.386870717,
       "gpu_energy_j_approx": 16.878811563558017,
       "model_starts": 0,
       "numerical_component": {
@@ -132574,6 +132616,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "component_wall_s": 0.40567326,
       "gpu_energy_j_approx": 17.86341633084,
       "model_starts": 0,
       "numerical_component": {
@@ -160265,6 +160308,35 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": false,
+      "baseline": {
+        "actual_mapped_CUDA_all_starts": true,
+        "all_first_reply_grades_preserved": true,
+        "all_observed_grades_preserved": true,
+        "energy_windows_covered": true,
+        "filesystem_warm_all_starts": true,
+        "median_GPU_energy_to_first_reply_j": 171.483959685326,
+        "median_startup_to_first_reply_s": 2.471156142,
+        "model_original_stat_unchanged": true,
+        "model_starts": 3,
+        "quality_cases": 0,
+        "requests": 3,
+        "startup_MAD_s": 0.042981879999999695,
+        "startup_range_percent": 28.756244452642118
+      },
+      "binary": {
+        "GPU_runs": 0,
+        "all_native_cubin_bytes_identical": true,
+        "candidate_library_bytes": 134546272,
+        "candidate_library_sha256": "9fbf794e460beb29389508ba657742c3b0dbca8fe93263ba1754fe43bfa860eb",
+        "device_objects": 142,
+        "elapsed_seconds": 3.5216920839156955,
+        "library_size_reduction_percent": 30.047993137515384,
+        "model_starts": 0,
+        "no_speed_claim": true,
+        "original_library_bytes": 192340832,
+        "original_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+        "status": "PRIVATE_SM70_ONLY_BACKEND_BUILT_GPU_NOT_ADMITTED"
+      },
       "model_starts": 3,
       "original12_nonregression": false,
       "peak_device_vram_mib": 7238.5,
@@ -161545,7 +161617,8 @@
   },
   {
     "aggregate_metrics": {
-      "actual_generation_requests": 24
+      "actual_generation_requests": 24,
+      "source_cases": 24
     },
     "excerpt_is_not_original": true,
     "id": "audit-fe9d4937f9a1adf51176",
@@ -161724,7 +161797,10 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 0,
-      "model_starts": 0
+      "authorized_cases": 18,
+      "denied_cases": 6,
+      "model_starts": 0,
+      "source_cases": 24
     },
     "excerpt_is_not_original": true,
     "id": "audit-4912e9ed03c1c3a64139",
@@ -161749,8 +161825,20 @@
     "aggregate_metrics": {
       "actual_GPU_execution": false,
       "actual_generation_requests": 0,
+      "after_commit_process_crash_controls": 18,
+      "authority_revocation_controls": 18,
+      "authorized_cases": 18,
+      "baseline_primary_dispatch_events": 54,
+      "before_commit_process_crash_controls": 18,
+      "candidate_primary_dispatch_events": 18,
+      "component_wall_s": 2.120590339996852,
+      "denied_cases": 6,
+      "denied_deliveries": 18,
+      "malformed_envelope_controls": 18,
       "model_starts": 0,
-      "new_GPU_runs": 0
+      "new_GPU_runs": 0,
+      "separate_session_controls": 18,
+      "source_cases": 24
     },
     "excerpt_is_not_original": true,
     "id": "audit-e969fc73e8b1da7c92d7",
@@ -161775,7 +161863,8 @@
   },
   {
     "aggregate_metrics": {
-      "new_GPU_runs": 0
+      "new_GPU_runs": 0,
+      "source_cases": 24
     },
     "excerpt_is_not_original": true,
     "id": "audit-be01aabd36ffc1b14b36",
@@ -164823,6 +164912,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "component_wall_s": 5.079382358,
       "gpu_energy_j_approx": 221.42281895200176,
       "model_starts": 0,
       "numerical_component": {
@@ -166649,7 +166739,8 @@
   },
   {
     "aggregate_metrics": {
-      "actual_generation_requests": 24
+      "actual_generation_requests": 24,
+      "source_cases": 24
     },
     "excerpt_is_not_original": true,
     "id": "audit-3e4c5d441486d25b1ecd",
@@ -168909,6 +169000,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": false,
+      "component_wall_s": 0.669182031,
       "gpu_energy_j_approx": 29.16096797237627,
       "model_starts": 0,
       "numerical_component": {

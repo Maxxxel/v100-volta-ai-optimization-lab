@@ -11,6 +11,11 @@ class PublicationSafety(unittest.TestCase):
  def test_native_numerical_counts_exclude_fixture_and_execution_logs(self):
   raw={'numerical_result':{'cases_count':6,'passed_cases':6,'NMSE_limit':0.0005,'cases':['private fixture'],'execution_markers':['private log'],'model_starts':0}}
   self.assertEqual(e.metrics(raw),{'numerical_component':{'cases_count':6,'passed_cases':6,'NMSE_limit':0.0005,'model_starts':0}})
+ def test_startup_reference_and_CPU_transport_roles_do_not_leak_payloads(self):
+  raw={'baseline':{'model_starts':3,'median_startup_to_first_reply_s':2.47,'startup_range_percent':28.76,'startup_observations':[{'response':'private reply'}],'messages':[{'content':'private conversation'}]},'candidate_model_starts':0,'actual_candidate_GPU_execution':False,'reference_only_calibration':True,'source_cases':24,'candidate_primary_dispatch_events':18,'per_case':[{'reply':'private'}]}
+  out=e.metrics(raw)
+  self.assertEqual(out['baseline'],{'model_starts':3,'median_startup_to_first_reply_s':2.47,'startup_range_percent':28.76})
+  self.assertEqual(out['candidate_model_starts'],0);self.assertFalse(out['actual_candidate_GPU_execution']);self.assertTrue(out['reference_only_calibration']);self.assertEqual(out['candidate_primary_dispatch_events'],18);self.assertNotIn('private',str(out))
  def test_credentials_and_network_are_rejected(self):
   examples=['gh'+'p_'+'A'*30,'-----BEGIN '+'RSA PRIVATE KEY-----','192'+'.168.42.18','sensor'+'.bedroom_temperature','fd00'+':'*2+'12',':'*2+'1','https://user'+':secret'+'@example.com']
   for x in examples:

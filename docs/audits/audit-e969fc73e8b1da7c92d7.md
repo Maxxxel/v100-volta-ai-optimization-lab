@@ -26,7 +26,19 @@ Original file: `AUDIT.json`; 11808 bytes. The original is retained privately and
 {
   "actual_GPU_execution": false,
   "actual_generation_requests": 0,
+  "after_commit_process_crash_controls": 18,
+  "authority_revocation_controls": 18,
+  "authorized_cases": 18,
+  "baseline_primary_dispatch_events": 54,
+  "before_commit_process_crash_controls": 18,
+  "candidate_primary_dispatch_events": 18,
+  "component_wall_s": 2.120590339996852,
+  "denied_cases": 6,
+  "denied_deliveries": 18,
+  "malformed_envelope_controls": 18,
   "model_starts": 0,
-  "new_GPU_runs": 0
+  "new_GPU_runs": 0,
+  "separate_session_controls": 18,
+  "source_cases": 24
 }
 ```

@@ -22,6 +22,7 @@ Original file: `AUDIT.json`; 12909 bytes. The original is retained privately and
 
 ```json
 {
-  "actual_generation_requests": 24
+  "actual_generation_requests": 24,
+  "source_cases": 24
 }
 ```
