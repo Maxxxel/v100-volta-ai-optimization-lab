@@ -30579,20 +30579,22 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Sparse/Lookahead-Prefetch benötigt kompatible Attention-/Cacheänderungen und eine Qualitätsgrenze für ausgelassene Daten; keine zugelassene Omni-Variante.",
+    "decision": "HBM13 OasisKV source admission: published v1 implements head-wise min/max key summaries, draft-query block prediction, capped replacement and asynchronous pinned-host KV gathering on a modified vLLM0.12 serving path; evaluation uses H100 and different models. No matching Omni/GDN SM70 implementation was established. The exact D256 CPU algebra control proves that a valid min/max block bound can rank the wrong block even with an exact query; this is not a measured task-quality regression or rejection of approximate selection. Local metadata imply 1GiB F16 attention-KV payload at32K for8attentionlayers/4KVheads/D256; this is analytical payload accounting, not observed VRAMsaving. ExistingR396data contain preRoPEK/V but no draft/target query sequence or attention importance labels, so they cannot validate this lookahead predictor. Defer full port until a compatible sparse operator, head-wise cache map, partialIMRoPE/GDN rollback and transfer/event lifecycle are concretely implemented. No newGPUrun, modelquality, speed or energymeasurement; coverageNEIN.",
     "domain": "hbm_memory",
     "evidence_ids": [
+      "audit-18b8188a10fb7bf8b528",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R396"
     ],
     "experimentally_covered": false,
     "id": "HBM13",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Admit a real sparse workload and quality oracle; prefix reuse is not equivalent.",
+    "next_action": "A concrete source-pinned SM70 sparse operator and exact-model state/query oracle admit a bounded component test; whole OasisKV requires staged transfer and event ownership plus real quality/resource evidence. Future engine changes may reopen it.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -30654,14 +30656,17 @@
       }
     ],
     "prerequisites": [
-      "Compatible sparse selector/cache path, independent quality bounds and end-to-end transfer metering."
+      "Exact-model draft and true-query trace with full-context attention oracle, independent of benchmark evaluation tasks; current K/V-only observer is insufficient.",
+      "Block/head sparse selection and layout operator compatible with partial IMRoPE and hybrid GDN snapshots, plus native numerical/reset/rollback tests.",
+      "Bounded host full-KV storage, pinned-memory and UVA/transfer-stream support verified on this topology, dependency events and allocator/copy-on-write ownership.",
+      "Measured selection, KV reads, bytes transferred, missed deadline/stall and task-success costs; do not substitute PCIe theoretical bandwidth."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Port- und Qualitätskosten vor GPU-Zulassung begründen; vorhandene Prefix-Reuse-Ergebnisse nicht als Sparse-Attention ausgeben.",
-    "reopening_conditions": "Admit a real sparse workload and quality oracle; prefix reuse is not equivalent.",
+    "remaining_scope": "Source-defined lookahead sparse KV port and meaningful exact-model selection/transfer tests remain unimplemented; not a universal hardware exclusion.",
+    "reopening_conditions": "A concrete source-pinned SM70 sparse operator and exact-model state/query oracle admit a bounded component test; whole OasisKV requires staged transfer and event ownership plus real quality/resource evidence. Future engine changes may reopen it.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "DEFERRED",
     "title": "OasisKV Lookahead Sparse Prefetching",
     "variants": [
       {

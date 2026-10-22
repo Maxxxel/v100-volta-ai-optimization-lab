@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P3 |
+| DEFERRED | False | False | P3 |
 
 
 ## Theory and Volta implications
@@ -22,6 +22,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-18b8188a10fb7bf8b528.md)
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
@@ -103,16 +104,16 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-Sparse/Lookahead-Prefetch benötigt kompatible Attention-/Cacheänderungen und eine Qualitätsgrenze für ausgelassene Daten; keine zugelassene Omni-Variante.
+HBM13 OasisKV source admission: published v1 implements head-wise min/max key summaries, draft-query block prediction, capped replacement and asynchronous pinned-host KV gathering on a modified vLLM0.12 serving path; evaluation uses H100 and different models. No matching Omni/GDN SM70 implementation was established. The exact D256 CPU algebra control proves that a valid min/max block bound can rank the wrong block even with an exact query; this is not a measured task-quality regression or rejection of approximate selection. Local metadata imply 1GiB F16 attention-KV payload at32K for8attentionlayers/4KVheads/D256; this is analytical payload accounting, not observed VRAMsaving. ExistingR396data contain preRoPEK/V but no draft/target query sequence or attention importance labels, so they cannot validate this lookahead predictor. Defer full port until a compatible sparse operator, head-wise cache map, partialIMRoPE/GDN rollback and transfer/event lifecycle are concretely implemented. No newGPUrun, modelquality, speed or energymeasurement; coverageNEIN.
 
-**Remaining scope:** Port- und Qualitätskosten vor GPU-Zulassung begründen; vorhandene Prefix-Reuse-Ergebnisse nicht als Sparse-Attention ausgeben.
+**Remaining scope:** Source-defined lookahead sparse KV port and meaningful exact-model selection/transfer tests remain unimplemented; not a universal hardware exclusion.
 
-**Reopening condition:** Admit a real sparse workload and quality oracle; prefix reuse is not equivalent.
+**Reopening condition:** A concrete source-pinned SM70 sparse operator and exact-model state/query oracle admit a bounded component test; whole OasisKV requires staged transfer and event ownership plus real quality/resource evidence. Future engine changes may reopen it.
 
-**Next action:** Admit a real sparse workload and quality oracle; prefix reuse is not equivalent.
+**Next action:** A concrete source-pinned SM70 sparse operator and exact-model state/query oracle admit a bounded component test; whole OasisKV requires staged transfer and event ownership plus real quality/resource evidence. Future engine changes may reopen it.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R249](../experiments/R249.md), [R382](../experiments/R382.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md), [R396](../experiments/R396.md)

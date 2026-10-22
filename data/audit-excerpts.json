@@ -165971,6 +165971,31 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "model_starts": 0,
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-18b8188a10fb7bf8b528",
+    "original_bytes": 7424,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "18b8188a10fb7bf8b528c87b479b4e5fde30cbe9e5dc45795df2c37e404db9bc",
+    "statements": {
+      "decision": "DEFERRED_CURRENT_OMNI_SPARSE_LOOKAHEAD_OPERATOR_AND_TRANSFER_LIFECYCLE",
+      "evidence_class": "LOKAL_STATISCH_GEPRUEFT",
+      "limits": [
+        "Paper throughput and prediction accuracy are external results on different stacks; no numeric speedup is transferred locally.",
+        "The CPU ranking control is a mathematical counterexample, not GPU experimental coverage.",
+        "Full attention-KV payload arithmetic excludes recurrent/draft state, metadata, CPU replica, runtime padding and scratch; it is not total model VRAM.",
+        "No evidence that SM70 universally cannot execute sparse attention or UVA gathering."
+      ],
+      "measurement_type": "SOURCE_ONLY_LOOKAHEAD_SPARSE_KV_ADMISSION"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

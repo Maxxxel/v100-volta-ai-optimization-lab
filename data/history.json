@@ -12782,5 +12782,13 @@
     "kind": "HBM11_SOURCE_INTERFACE_AND_HYBRID_STATE_ADMISSION_DEFERRED_NO_GPU",
     "sequence": 1598,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T11:43:32.769252+00:00",
+    "experiment_id": null,
+    "factor_id": "HBM13",
+    "kind": "HBM13_SOURCE_LOOKAHEAD_SPARSE_KV_ADMISSION_DEFERRED_NO_GPU",
+    "sequence": 1599,
+    "signature": null
   }
 ]
