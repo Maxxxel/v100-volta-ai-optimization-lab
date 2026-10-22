@@ -121,7 +121,7 @@ The table deliberately distinguishes demonstrated OmniCoder2 scope from conditio
 | [HBM09](factors/HBM09.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [HBM10](factors/HBM10.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [HBM11](factors/HBM11.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM12](factors/HBM12.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
+| [HBM12](factors/HBM12.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [HBM13](factors/HBM13.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [HBM14](factors/HBM14.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [HBM15](factors/HBM15.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |

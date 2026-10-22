@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P3 |
+| PARTIAL | True | True | P2 |
 
 
 ## Theory and Volta implications
@@ -22,12 +22,14 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-07ce3c7d410cc80f1024.md)
 - [Original audit hash and public excerpt](../audits/audit-1ebeea4faa1f402a49cc.md)
+- [Original audit hash and public excerpt](../audits/audit-8a9c78673e8eca6afc99.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
 | off | BLOCKED | PARTIAL | False |
-| sm70_prefetch_port | BLOCKED | DEFERRED | False |
+| sm70_prefetch_port | BLOCKED | TESTED_NEGATIVE | True |
 
 
 ### Recorded model-specific variant coverage
@@ -101,18 +103,28 @@ Historical states and window signatures are evidence links, not qualification of
 Values, baseline/candidate comparisons, model/engine identity and limits are in the linked audit excerpts and profile records. Missing measurements are **NOT MEASURED**. Existing native screens are not HumanEval, BFCL or full-agent qualifications.
 
 
+### Variant sm70_prefetch_port
+
+```json
+{
+  "native_numerical_cases": 6,
+  "passed_cases": 4,
+  "peak_device_vram_mib": 812.5
+}
+```
+
 ## Decision and remaining research
 
-HBM12 bleibt ohne gemessenen KV-Eingriff: R242 verändert Q6-Gewichts-Prefetch inMMVQ, nicht Attention-KV-Prefetch. Sein gültiger Negativbefund bleibt separat erhalten. Kein lokal zugelassener KV-Prefetch-Patch/gezielter KV-Bottlenecknachweis; aufwändiger SM70-Pfad deshalb zurückgestellt.
+R385: actual SM70 F16 D256 KV-prefetch component executed at Omni16-query/4KV/GQA4 shapes. 4/6 native CPU-reference cases pass unchanged NMSE5e-4; two32K cases fail at0.000724829/0.000741057. Actual long-KV launch grid_y40,nbatch64,next_stride2560; privatepatchedCUDA mapped. Candidate fails numerical admission, no model/performance screen or champion. Unpatched identical-input32K control not measured; patch-caused regression is not established. R242 remains weight-prefetch, not this KV treatment. R384 zero-case attempt remains separate and receives no coverage.
 
-**Remaining scope:** Erst mit KV-spezifischem Zugriffspfad, gemessenem Speicherlatenz-Engpass, isoliertem SM70-Patch und numerischem Attention-Orakel zulassen. Kein cp.async/TMA aufVolta voraussetzen; Gewichts-Prefetch nicht alsKV-Test zählen.
+**Remaining scope:** One prefetch prototype numerically screened, not qualified; isolated causal baseline control and useful model speed remain unmeasured. Other KV-prefetch implementations require a genuinely new hypothesis and CPU/native oracle before any model run.
 
-**Reopening condition:** Only reopen with actual KV addresses/instructions exercised; retain R250 scope correction.
+**Reopening condition:** Only after breadth priorities: isolated same-input numerical cause or materially different KV-prefetch mechanism. No tolerance waiver, distance grid or automatic16K model winner.
 
-**Next action:** Only reopen with actual KV addresses/instructions exercised; retain R250 scope correction.
+**Next action:** Numerical gate failed; preserve exact scope and continue another distinct single. No model screen/qualification of this candidate.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R242](../experiments/R242.md), [R250](../experiments/R250.md), [R382](../experiments/R382.md)
+[R242](../experiments/R242.md), [R250](../experiments/R250.md), [R382](../experiments/R382.md), [R384](../experiments/R384.md), [R385](../experiments/R385.md)

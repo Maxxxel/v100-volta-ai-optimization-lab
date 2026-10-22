@@ -14764,5 +14764,84 @@
       "measurement_type": "GPU_PRIVATE_CUBLAS126_SINGLE_FACTOR_SCREEN"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "gpu_energy_j_approx": 29.16096797237627,
+      "model_starts": 0,
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 0,
+        "model_starts": 0,
+        "numerical_gate_passed": false,
+        "passed_cases": 0,
+        "private_library_mapping_verified": true,
+        "wall_s": 0.669182031
+      },
+      "peak_device_vram_mib": 550.5
+    },
+    "audit_id": "audit-82f3d7c217bf9fc6f74c",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "HBM12"
+    ],
+    "id": "R384",
+    "model": "omnicoder2-architecture-component",
+    "reference_A0": null,
+    "statements": {
+      "decision": "NATIVE_KV_PREFETCH_COMPONENT_GATE_FAILED_NO_MODEL_ADMISSION",
+      "evidence_class": "NICHT_VERIFIZIERT",
+      "limits": [
+        "New KV prefetch treatment only; R242 weight-prefetch and R381 Q8 route remain separate.",
+        "Static prefetch instruction presence plus an eligible actual CUDA launch is recorded; no hardware counter or memory-transaction claim.",
+        "Native component correctness does not establish model quality, speed, energy per task or champion qualification.",
+        "GQA4 is exercised with eight KV heads in available native fixtures; exact whole Omni model uses four KV heads and requires separate model screen.",
+        "No fresh reference recalibration, no model starts, no optimization combinations."
+      ],
+      "measurement_type": "GPU_F16_KV_PREFETCH_NUMERICAL_ADMISSION"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 221.42281895200176,
+      "model_starts": 0,
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 6,
+        "model_starts": 0,
+        "numerical_gate_passed": false,
+        "passed_cases": 4,
+        "private_library_mapping_verified": true,
+        "wall_s": 5.079382358
+      },
+      "peak_device_vram_mib": 812.5
+    },
+    "audit_id": "audit-07ce3c7d410cc80f1024",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "HBM12"
+    ],
+    "id": "R385",
+    "model": "omnicoder2-architecture-component",
+    "reference_A0": null,
+    "statements": {
+      "decision": "NATIVE_KV_PREFETCH_COMPONENT_GATE_FAILED_NO_MODEL_ADMISSION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "New KV prefetch treatment only; R242 weight-prefetch and R381 Q8 route remain separate.",
+        "Static prefetch instruction presence plus an eligible actual CUDA launch is recorded; no hardware counter or memory-transaction claim.",
+        "Native component correctness does not establish model quality, speed, energy per task or champion qualification.",
+        "No fresh reference recalibration, no model starts, no optimization combinations.",
+        "Explicit eval fixture list only; all native CPU oracle/initialization/test_flash_attn_ext methods unchanged. Original test executable preserved.",
+        "All six cases use actual Omni head sizes/GQA; native random component inputs are not whole-model quality tests."
+      ],
+      "measurement_type": "GPU_F16_KV_PREFETCH_NUMERICAL_ADMISSION"
+    },
+    "winner_qualified": false
   }
 ]

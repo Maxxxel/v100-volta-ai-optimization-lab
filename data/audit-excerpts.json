@@ -164728,6 +164728,64 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 221.42281895200176,
+      "model_starts": 0,
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 6,
+        "model_starts": 0,
+        "numerical_gate_passed": false,
+        "passed_cases": 4,
+        "private_library_mapping_verified": true,
+        "wall_s": 5.079382358
+      },
+      "peak_device_vram_mib": 812.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-07ce3c7d410cc80f1024",
+    "original_bytes": 3591,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "07ce3c7d410cc80f1024eaebbb194c7c83b2732a928758b3251387a67a48a431",
+    "statements": {
+      "decision": "NATIVE_KV_PREFETCH_COMPONENT_GATE_FAILED_NO_MODEL_ADMISSION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "New KV prefetch treatment only; R242 weight-prefetch and R381 Q8 route remain separate.",
+        "Static prefetch instruction presence plus an eligible actual CUDA launch is recorded; no hardware counter or memory-transaction claim.",
+        "Native component correctness does not establish model quality, speed, energy per task or champion qualification.",
+        "No fresh reference recalibration, no model starts, no optimization combinations.",
+        "Explicit eval fixture list only; all native CPU oracle/initialization/test_flash_attn_ext methods unchanged. Original test executable preserved.",
+        "All six cases use actual Omni head sizes/GQA; native random component inputs are not whole-model quality tests."
+      ],
+      "measurement_type": "GPU_F16_KV_PREFETCH_NUMERICAL_ADMISSION"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "model_starts": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8a9c78673e8eca6afc99",
+    "original_bytes": 2163,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8a9c78673e8eca6afc99a70918734adae6a4654ab759146e8800f3ea0564b195",
+    "statements": {
+      "limits": [
+        "Native same-process CUDA vs CPU reference; randomized native tensor data not archived and separate processes are not identical-input A/B.",
+        "Component telemetry is not model energy per successful task, tokens/s or task latency.",
+        "Pass at16K does not qualify an independent16K model profile.",
+        "No thermal/ECC/VRAM safety violation; all original weights/source/audits preserved."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -168752,6 +168810,42 @@
         "Additional129differentcodepoints/continuousparameterchoices are not automatically required; only a distinct useful implementable missingtreatment merits a new experiment."
       ],
       "measurement_type": "BREADTH_RECONCILIATION_162_FACTORS_355_ORIGINAL_CELLS"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "gpu_energy_j_approx": 29.16096797237627,
+      "model_starts": 0,
+      "numerical_component": {
+        "NMSE_limit": 0.0005,
+        "cases_count": 0,
+        "model_starts": 0,
+        "numerical_gate_passed": false,
+        "passed_cases": 0,
+        "private_library_mapping_verified": true,
+        "wall_s": 0.669182031
+      },
+      "peak_device_vram_mib": 550.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-82f3d7c217bf9fc6f74c",
+    "original_bytes": 1613,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "82f3d7c217bf9fc6f74c9ba4f448a3442f07367b55093719f6ce6a29080a6b99",
+    "statements": {
+      "decision": "NATIVE_KV_PREFETCH_COMPONENT_GATE_FAILED_NO_MODEL_ADMISSION",
+      "evidence_class": "NICHT_VERIFIZIERT",
+      "limits": [
+        "New KV prefetch treatment only; R242 weight-prefetch and R381 Q8 route remain separate.",
+        "Static prefetch instruction presence plus an eligible actual CUDA launch is recorded; no hardware counter or memory-transaction claim.",
+        "Native component correctness does not establish model quality, speed, energy per task or champion qualification.",
+        "GQA4 is exercised with eight KV heads in available native fixtures; exact whole Omni model uses four KV heads and requires separate model screen.",
+        "No fresh reference recalibration, no model starts, no optimization combinations."
+      ],
+      "measurement_type": "GPU_F16_KV_PREFETCH_NUMERICAL_ADMISSION"
     }
   },
   {

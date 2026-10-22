@@ -12542,5 +12542,21 @@
     "kind": "R383_ORIGINAL_E07_ACTUAL_GPU_SCREEN_INDEPENDENTLY_REPLAYED_NEGATIVE",
     "sequence": 1568,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T06:31:09.144116+00:00",
+    "experiment_id": "R384",
+    "factor_id": null,
+    "kind": "R384_ZERO_CASE_NUMERICAL_ADMISSION_TECHNICAL_STOP",
+    "sequence": 1569,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T06:36:18.324939+00:00",
+    "experiment_id": "R385",
+    "factor_id": null,
+    "kind": "R385_ACTUAL_HBM12_KV_PREFETCH_NUMERICAL_GATE_FAILED",
+    "sequence": 1570,
+    "signature": null
   }
 ]
