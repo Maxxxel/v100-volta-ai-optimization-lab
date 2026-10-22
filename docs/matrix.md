@@ -67,7 +67,7 @@
 | [Q04](factors/Q04.md) | AWQ Calibration | PARTIAL | NO | P3 |
 | [Q05](factors/Q05.md) | Outlier Tensor Retention | PARTIAL | YES | P1 |
 | [Q06](factors/Q06.md) | Quant Format Kernel Compatibility | PARTIAL | YES | P0 |
-| [Q07](factors/Q07.md) | QAT Checkpoint | OPEN | NO | P3 |
+| [Q07](factors/Q07.md) | QAT Checkpoint | DEFERRED | NO | P3 |
 | [Q08](factors/Q08.md) | Selective Hybrid State Precision | PARTIAL | YES | P2 |
 | [M01](factors/M01.md) | Native Thinking Budget | PARTIAL | YES | P2 |
 | [M02](factors/M02.md) | Temperature | PARTIAL | YES | P2 |

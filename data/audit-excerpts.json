@@ -132945,6 +132945,31 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": false,
+      "model_starts": 0,
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9d3f379df6140155d0ec",
+    "original_bytes": 7014,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9d3f379df6140155d0ec1823e5e65a0cdaa3dc9b69672ec248d2ee80fb31044f",
+    "statements": {
+      "decision": "DEFERRED_NO_VERIFIED_EXACT_OMNI_QAT_CHECKPOINT_IN_REVIEWED_SOURCES",
+      "evidence_class": "EXTERN_BELEGT",
+      "limits": [
+        "HTTP401 cannot distinguish private/gated/nonexistent source; no stronger absenceclaim.",
+        "Publiclabelsearch can miss QAT without labels or a renamedcheckpoint.",
+        "ForeignQATcheckpoints may remain later modelcandidates; no new modelcomparison is started.",
+        "A PTQexport can originate from QATweights; missingdocumentation is not evidenceofnoQAT."
+      ],
+      "measurement_type": "SOURCE_ONLY_QAT_CHECKPOINT_PROVENANCE_ADMISSION"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
       "new_GPU_runs": 0
     },
     "excerpt_is_not_original": true,

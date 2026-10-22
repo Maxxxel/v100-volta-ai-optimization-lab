@@ -12806,5 +12806,13 @@
     "kind": "Q04_CPU_NATIVE_Q4K_FIRST_MLP_AWQ_PROXY_DEVELOPMENT_GATE_FAILED",
     "sequence": 1601,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T12:13:12.852730+00:00",
+    "experiment_id": null,
+    "factor_id": "Q07",
+    "kind": "Q07_PUBLIC_QAT_CHECKPOINT_PROVENANCE_ADMISSION_DEFERRED_NO_GPU",
+    "sequence": 1602,
+    "signature": null
   }
 ]

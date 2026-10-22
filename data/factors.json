@@ -16905,21 +16905,23 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Existing official foreign-model QAT examples are external evidence, not an Omni-specific trained checkpoint. No matching OmniQATartifact is locally admitted; not proofnoneexists.",
+    "decision": "Q07 published-checkpoint admission: retained staticOmniCoder2GGUF revisionbd26f7e9... and fetched weighted/imatrix revisionc3a24c5d... describe quantizedexports, not a documentedQATtraining recipe or exactQATcheckpoint. Static/PTQexport wording does not disprove upstreamQAT. PublicOmniCoder namesearch returned86models and0QAT-labelled names/tags; this boundedlabelsearch is not proofnoneexists. ExactTesslate/OmniCoder-2-9B publicAPI returned401 again, so its actualQATprovenance/license/weights remain unverifiable through that route. RetainedofficialGemma3QAT evidence is a different architecture/checkpoint, not transferableOmniweights. Current publishedOmniQATcandidate route is technicallyDEFERRED until an identifiable, accessible sourcecheckpoint with documentedQAT and compatiblegraph/format is admitted. NativeGGUFexecution of a correctlyconvertedQATmodel is not ruledout onSM70. No downloads ofweights, training, GPUtest, qualityscore, speedup or Champion; coverageNEIN.",
     "domain": "quantization",
     "evidence_ids": [
       "audit-562eaeb901f0c1b39e99",
-      "audit-577b1f3693e2c89cecab"
+      "audit-577b1f3693e2c89cecab",
+      "audit-9d3f379df6140155d0ec"
     ],
     "experiment_ids": [
       "R249",
-      "R378"
+      "R378",
+      "R397"
     ],
     "experimentally_covered": false,
     "id": "Q07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
+    "next_action": "An accessible source-pinned Omni-compatible QATcheckpoint with training provenance permits checkpoint admission; alternatively a separately authorized T06 quantization-aware training step must be proved feasible and produced, not inferred from calibration. No universal QAT/16GB/SM70 impossibility claim.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -16981,14 +16983,16 @@
       }
     ],
     "prerequisites": [
-      "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof."
+      "Accessible exact-model checkpoint identity/hash and training recipe proving quantization-aware optimization; names, SFT tags and imatrix exports alone do not establish it.",
+      "Verified upstream/source redistribution license and exact hybridarchitecture/tokenizer/weights lineage; siblingOmniCoder9B is not assumed byteidentical toOmniCoder2.",
+      "Deployment quantizer/format matching training assumptions, concrete SM70execution route and measured16GB context/resource budget."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
-    "reopening_conditions": "Verify actualOmni-compatible published checkpoint architecture/license/hash/quantization and16GBcontextfit, or enter the authorized later QATfeasibility phase. Ordinary Q4/Q6weights are not QATproof.",
+    "remaining_scope": "Published exactOmniQATcheckpoint admission remains missing in reviewed sources; no assertion allQATmethods/weights are unavailable.",
+    "reopening_conditions": "An accessible source-pinned Omni-compatible QATcheckpoint with training provenance permits checkpoint admission; alternatively a separately authorized T06 quantization-aware training step must be proved feasible and produced, not inferred from calibration. No universal QAT/16GB/SM70 impossibility claim.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "DEFERRED",
     "title": "QAT Checkpoint",
     "variants": [
       {
