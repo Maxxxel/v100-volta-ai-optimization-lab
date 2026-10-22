@@ -13126,5 +13126,45 @@
     "kind": "MBPP223_CHART_ADMISSION_AND_BMC06_NATIVE_SOURCE_REVIEW",
     "sequence": 1641,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T19:01:49.494631+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "BMC06_PINNED_OFFICIAL_Q6_WEIGHT_STREAM_STARTED",
+    "sequence": 1642,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:03:04.483638+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "BMC06_OFFICIAL_Q6_WEIGHTS_HOST_AND_CONTAINER_HASH_VERIFIED",
+    "sequence": 1643,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:06:29.103488+00:00",
+    "experiment_id": "R417",
+    "factor_id": null,
+    "kind": "R417_LFM25_NATIVE_BASELINE_PREREGISTRATION",
+    "sequence": 1644,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:06:53.239946+00:00",
+    "experiment_id": "R417",
+    "factor_id": null,
+    "kind": "R417_PREREGISTRATION_SAMPLER_BINDING_CORRECTION_BEFORE_GPU",
+    "sequence": 1645,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:12:03.515948+00:00",
+    "experiment_id": "R417",
+    "factor_id": null,
+    "kind": "R417_PARTIAL_NATIVE_CONTROL_CONTROLLER_BOS_STOP_AUDITED",
+    "sequence": 1646,
+    "signature": null
   }
 ]

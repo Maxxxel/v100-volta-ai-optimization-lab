@@ -10,7 +10,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R262 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
-| BMC06 | LFM2.5 8B A1B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
+| BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R417 |
 | BMC07 | Gemma 4 12B IT QAT | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -286,20 +286,20 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "Mit Draft/Additional Memory einzeln laden; aktiv 1.5B nicht Gesamtgröße.",
-  "current_experiment": null,
-  "evidence_class": null,
+  "assessment": "LFM25:25/25GPUlayers,Q6nativeecho7PASS;controllerBOS101vs102assertion. QA0/12,nichtmodellnegativ. OriginalerwartungsfixtureundRohdatenunverändert.",
+  "current_experiment": "R417",
+  "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC06",
   "local_scope": null,
   "name": "LFM2.5 8B A1B",
-  "next_step": "Ein offizielles Q6-Artefakt unter Speicherplatz-/Hashschutz zulassen; danach begrenzter nativer Fit-/Tool-Control-/12er-Qualitätsscreen mit Originalaufgaben. Kein DSpark/MTP/Kernelzweig vor Basisqualität.",
+  "next_step": "R418 continue only unstarted original12 QA with native BOS prepended to rendered token fixtures. Reuse R417 valid echo only after exact non-generating retokenization of all102IDs. No new model/sampler/output-budget change or control regeneration.",
   "priority": "P1",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
   "source_admission": {
     "GPU_runs": 0,
     "sha256": "a2da6db6acd28bbce0145323499402b0edeacf11e3f5aec45c2290d1b2c7677a"
   },
-  "status": "offen"
+  "status": "teilweise"
 }
 ```
 
