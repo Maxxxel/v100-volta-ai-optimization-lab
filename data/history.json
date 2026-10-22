@@ -13550,5 +13550,21 @@
     "kind": "R438_BONSAI_NATIVE_LONG_CONTEXT_PILOT_PREREGISTERED",
     "sequence": 1694,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:18:40.468508+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "R438_PRE_GPU_METADATA_CORRECTION",
+    "sequence": 1695,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:21:51.681012+00:00",
+    "experiment_id": "R438",
+    "factor_id": null,
+    "kind": "R438_BONSAI_NATIVE_LONG_CONTEXT_PILOT_AUDITED",
+    "sequence": 1696,
+    "signature": null
   }
 ]

@@ -7,7 +7,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | Track | Candidate | Status | Evidence | Latest recorded sprint |
 |---|---|---|---|---|
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
-| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R262 |
+| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R438 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
@@ -232,13 +232,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "BonsaiThinkingAgent2048: 17/18vsOmniC13/18;4Gewinne/0Verluste/0zusätzlichePolicyfehler. 599.02s,161410GPU-J,8158.5MiB;3.69xOmni-C-Laufzeit. Qualitätskandidat,keinGeschwindigkeits-/Allround-Champion. Coding151/164+16/16,Tools90/100;InstructverlusteR282/R283separatbeibehalten.",
-  "current_experiment": "R262",
+  "assessment": "R438 Bonsai native32K/medium4096: 2/2pilot tasks, QA9/12semantic;pilotpass=True,peak9718.5MiB. No12caseoroverallwinner claim.",
+  "current_experiment": "R438",
   "evidence_class": null,
   "id": "BMC04",
   "local_scope": null,
   "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-  "next_step": "BonsaiThinkingersteCoding/Tool/AgentenbereichevollständigmitgetrenntenBudgets:151/164+16/16(Coding4096),90/100Tools4096,17/18Agents2048. KeineweitereInstruct100-AusweitungnachR283Negativ. AlsnächstesBMC03MiMoDistill9BQuellen/GGUF/NativeChat-KompatibilitätzulassenundbreiteModellgrundlagenvergleichen;BonsaiNativeGPU-A05Workloadsnochfehlend,nichtausWarmupsableiten. AlleOmniA0/Cunverändert,keineProduktivübernahme.",
+  "next_step": "Native2casepilot passed: consider remaining10fixedR338inventorycases at exactsameBonsai32K/medium4096profile, preservingpilotrawresults/no repeatedpilotanswers. Separateprotocol from256capGemma/Qwen; fullscope requires all12outcomes and faircosts.",
   "priority": "P1",
   "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
   "source_admission": null,

@@ -18497,5 +18497,45 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 18,
+      "context_tokens": 32768,
+      "gpu_energy_j_approx": 13897.95127466547,
+      "gpu_j_per_success": 6948.975637332735,
+      "model_starts": 1,
+      "observed_cases": 2,
+      "original12": {
+        "format": 7,
+        "observed": 12,
+        "semantic": 9
+      },
+      "peak_device_vram_mib": 9718.5,
+      "planned_cases": 2,
+      "solved": 2,
+      "wall_s": 50.079635315000004
+    },
+    "audit_id": "audit-3d9b124233ea2577d8cc",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R19"
+    ],
+    "id": "R438",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "BONSAI_NATIVE32K_2CASE_PILOT_PASS_SCOPE_ONLY",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Two preregisteredmiddle familycases only, not12casequality or fullagent/coding qualification.",
+        "OwnnativeBonsai mediumthinking4096cap/customPQ2engine; do notmixwithGemma/Qwen256capcohorts.",
+        "Original12regeneratedat32K; sameoriginaltexts/scorer, no previoussuccessloss allowed.",
+        "GPUboard caseinferenceenergy only, excludes startup/CPU/system/warmups; no actualtools."
+      ]
+    },
+    "winner_qualified": false
   }
 ]
