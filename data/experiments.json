@@ -17821,5 +17821,34 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
+      "gpu_energy_j_approx": 34637.24230076317,
+      "gpu_j_per_success": 412.348122628133,
+      "model_starts": 1,
+      "peak_device_vram_mib": 8118.5,
+      "wall_s": 144.725644477
+    },
+    "audit_id": "audit-45e2cae381364ba4f29f",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R424",
+    "model": "gemma4",
+    "reference_A0": null,
+    "statements": {
+      "decision": "GEMMA4_NATIVE_TOOL_MODEL_SCREEN_NO_PRACTICAL_WIN",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Same100balancedBFCLpilot/developmenttasks,notfullBFCLornewholdout",
+        "Gemma native template/tokenizer and publisher T1/P.95/K64; same task messages/tools/scorer/1024 cap, different source sampling; noTok/s-onlyrank",
+        "SingleBscreenagainstvalidstoredcomparators;independentconfirmationneededforwinner",
+        "Official QAT Q4_0 fast/noMTP/cache Gemma profile; JSON-object not applied to native function framing",
+        "GPUboardinferenceenergyonly,notCPU/system/load;no actualtoolsproductiondispatch"
+      ]
+    },
+    "winner_qualified": false
   }
 ]

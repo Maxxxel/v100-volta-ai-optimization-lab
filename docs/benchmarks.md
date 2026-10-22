@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `4d79c192d9dbd7db88cedf2ec9db1cb1adb335eabb6f9a65e5df9a3452c991d0`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `cad419d3af60838011c6b734ed357ad395fab1bb324d8cefdbac93c56e640a87`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -302,6 +302,7 @@ Task identity: `7c273de654cb6f5dec4dacb5d65b1ea8cd236c8dac9ba674ecfed21e292b8698
 |---|---|---|---|---|---|
 | OmniCoder2 9B Q6_K — MTP; fast / NOT RECORDED | 88/100 | 0.82237 | 107.007 s / 27438.98 J | NOT MEASURED | [R183](experiments/R183.md) |
 | Qwen3.5 9B Q4_K_M — Fast non-reasoning / 2026-10-20 | 87/100 | 0.70201 | 123.930 s / 32539.27 J | 5956.5 | [R227](experiments/R227.md) |
+| Gemma4 12B IT QAT Q4_0 — Fast non-reasoning / 2026-10-22 | 84/100 | 0.58041 | 144.726 s / 34637.24 J | 8118.5 | [R424](experiments/R424.md) |
 | Ternary Bonsai 2 27B PQ2_0 — Thinking medium; 4096 output / 2026-10-21 | 90/100 | 0.15166 | 593.425 s / 159652.16 J | 8158.5 | [R281](experiments/R281.md) |
 
 ### OmniCoder2 9B · Q6_K · R183
@@ -357,6 +358,33 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
 
 - [audit-3282effcb0cfa011c3fa](audits/audit-3282effcb0cfa011c3fa.md): `3282effcb0cfa011c3fa3df749c6a84d28051aaebad9d1b286031a3190c7df83`
+
+### Gemma4 12B IT QAT · Q4_0 · R424
+
+Fast non-reasoning. No additional policy claim is inferred from this discipline.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
+| Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
+| Scorer adapter SHA-256 | 55290a596d5e49a066e58ba5ce3cc6c204520e730078e27abc4f50831782678d |
+| EvalPlus provenance SHA-256 | 332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d |
+| Plan SHA-256 | fb0bbe31323fc9bb761a901bca0bcdae8ce43d729dddee41acd188784f4a979e |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-45e2cae381364ba4f29f](audits/audit-45e2cae381364ba4f29f.md): `45e2cae381364ba4f29f2c96e7d010d2eb28b3bc53eb87de4b5f31a2910c2011`
 
 ### Ternary Bonsai 2 27B · PQ2_0 · R281
 

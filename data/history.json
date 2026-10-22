@@ -13302,5 +13302,13 @@
     "kind": "R424_GEMMA_NATIVE_TOOL100_MODEL_COMPARISON_PREREGISTRATION",
     "sequence": 1663,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T20:46:46.723693+00:00",
+    "experiment_id": "R424",
+    "factor_id": null,
+    "kind": "R424_GEMMA_NATIVE_TOOL100_AUDITED_NEGATIVE",
+    "sequence": 1664,
+    "signature": null
   }
 ]
