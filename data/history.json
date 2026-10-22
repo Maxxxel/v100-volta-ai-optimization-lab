@@ -12830,5 +12830,13 @@
     "kind": "RETAINED_C15_E06_BUILD_SCOPE_CLARIFICATION_NOT_NEW_EXPERIMENT",
     "sequence": 1604,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T12:38:36.226145+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "T01_NATIVE_REDUCED_GRAPH_CPU_ORACLE_PREFLIGHT",
+    "sequence": 1605,
+    "signature": null
   }
 ]

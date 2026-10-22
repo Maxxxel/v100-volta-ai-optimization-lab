@@ -26284,21 +26284,23 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "A native experimentaltrainer exists, but its supplied optimizer marksF32modeltensors, not a demonstrated trainableLoRAadapter path; systemPython has no torch/transformers/peft/bitsandbytes. Otherprivateenvironments are not excluded.",
+    "decision": "R378 full-model trainer limitation remains. New CPU-only proof uses the already pinned native ggml_opt API for a reduced frozen-feature rank-8 output-LoRA graph at actual 4096x248320 tensor dimensions; one AdamW update and one independent analytic-gradient probe pass. This establishes CPU graph/API feasibility only; actual adapter file registration, SM70 execution, device memory, model-derived feature capture and training quality remain unverified.",
     "domain": "training_research",
     "evidence_ids": [
+      "audit-2651d48b3aee06a5fdc0",
       "audit-562eaeb901f0c1b39e99",
       "audit-577b1f3693e2c89cecab"
     ],
     "experiment_ids": [
       "R249",
-      "R378"
+      "R378",
+      "R397"
     ],
     "experimentally_covered": false,
     "id": "T01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
+    "next_action": "Freeze actual adapter tensor registration/metadata and train/dev data; verify 16-bit/F32 choices and V100 CUDA dispatch/resource behavior, then capture only result_norm on disjoint R187-derived training tokens and perform one bounded GPU step under existing broker guards.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26364,7 +26366,7 @@
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
+    "remaining_scope": "Verify adapter metadata/registration and independent train/dev split; capture result_norm from the pinned Omni model, then run one bounded GPU optimizer step and measure actual VRAM/dispatch. No task quality or training benefit from the synthetic CPU oracle.",
     "reopening_conditions": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
     "source_model_hypotheses": [],
     "status": "OPEN",
