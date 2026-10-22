@@ -11,7 +11,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
-| BMC07 | Gemma 4 12B IT QAT | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
+| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R421 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -307,21 +307,21 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "SM70 multimodaler Enginepfad aktuell ungeprüft.",
-  "current_experiment": null,
-  "evidence_class": null,
+  "assessment": "R421 Gemma4 12B QAT Q4_0 native: echo7 PASS; QA10/12semantic,1/12format; full12=True; 6.876s,1567.15GPU-J;peak8118.5MiB; screen FAIL. No Champion.",
+  "current_experiment": "R421",
+  "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC07",
   "local_scope": null,
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Schreibgeschützten temporären Forschungs-Dateipfad vom Host in neuen LXC-Benchmarkpfad prüfen, ohne [REDACTED]/Produktivpfade zu ändern; vor großem Download Speicherreserve und Enginecompatibility prüfen. Andernfalls konkrete Speicher-Voraussetzung offenhalten.",
-  "priority": "P2",
+  "next_step": "Retain valid fit/native-control observations and exact QA negatives. Do not run full BFCL/agents or perform budget/seed/prompt repair on these failures; move to next useful model decision.",
+  "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {
     "GPU_runs": 0,
     "sha256": "230de81437f1f93f18388351ef795cde9470b096f93f2c2226dac94d9bfbc57f",
     "weights_available": false
   },
-  "status": "offen"
+  "status": "teilweise"
 }
 ```
 

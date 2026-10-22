@@ -13230,5 +13230,21 @@
     "kind": "BMC07_PINNED_QAT_SOURCE_AND_STORAGE_PREREQUISITE_REVIEW",
     "sequence": 1654,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T19:55:36.139492+00:00",
+    "experiment_id": "R421",
+    "factor_id": null,
+    "kind": "R421_GEMMA4_QAT_NATIVE_BASELINE_PREREGISTRATION",
+    "sequence": 1655,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T19:57:24.516025+00:00",
+    "experiment_id": "R421",
+    "factor_id": null,
+    "kind": "GEMMA4_QAT_NATIVE_BASE_ADMISSION_INDEPENDENTLY_REVIEWED",
+    "sequence": 1656,
+    "signature": null
   }
 ]
