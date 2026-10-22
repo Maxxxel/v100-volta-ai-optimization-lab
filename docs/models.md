@@ -272,7 +272,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
   "id": "BMC02",
   "local_scope": null,
   "name": "OxCoder 9B",
-  "next_step": "Zuerst 130 Originalachsen und 32 Benchmark-Techniken: Status und experimentelle Abdeckung getrennt ausweisen; verbleibende Einzelvarianten nach Qualität, Zustandskorrektheit und V100-Machbarkeit prüfen. Keine weiteren Modelle oder Kombinationen vor diesen Einzeltests.",
+  "next_step": "R290 hat Q6-GGUF, Modellrevision, Template und Lizenzmetadaten belegt; kein GPU-Fit oder Qualitätslauf. Nach dem geschlossenen OmniCoder2-Profil-Gate ist OxCoder der nächste unvermessene P1-Codingkandidat: zuerst ein begrenzter nativer GPU-Admission-/Qualitätsscreen (Fit/VRAM, Template-Rendern, eingefrorene QA12 und sichere native Tool-Vorprüfung), ohne Optimierung und ohne Vollsuite. Bei bestandenem Basis-Gate dieselben passenden Coding-/Tool-/Agenten-Fixtures wie für Omni/Qwen verwenden. Anschließend architekturspezifische Einzeloptimierungen neu bewerten und testen, bevor irgendeine Kombination folgt.",
   "priority": "P1",
   "repository": "https://huggingface.co/OrionLLM/OxCoder-9B",
   "source_admission": null,
