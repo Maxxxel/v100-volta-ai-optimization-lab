@@ -11,7 +11,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
-| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R426 |
+| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R427 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -307,13 +307,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R426 Gemma4 agents:9/18 observed,full18=True; 323.942s,8827.58GPU-J/success,peak8118.5MiB; 3 additional policy-fault cases vs retainedOmni. Screen only,no overallChampion.",
-  "current_experiment": "R426",
+  "assessment": "R427 Gemma4 MBPP32:23/32,128.352s,30729.31GPU-J,peak8118.5MiB;screen_passed=True. NativeTools84/100 andagents9/18+3extra policycases retained; noChampion.",
+  "current_experiment": "R427",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC07",
   "local_scope": null,
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Consolidate model-specific Coding/Tools/Agent tradeoffs from retained comparable suites and inspect only distinct architecture-enabled single-factor hypotheses. Gemma QAT coding quality does not imply tool/agent superiority; preserve every prior profile. No combinations until per-model compatibility gate.",
+  "next_step": "Extend only the191already-admitted disjoint MBPP tasks with exactlyR427profile; preserve original32outputs, join223onlyafter fullaudit. No repeatedreference or new sampler.",
   "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {

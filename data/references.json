@@ -9714,5 +9714,75 @@
     "profile": "gemma4-12b-qat-q40-sm70-native-agent18-T1-v1",
     "qualification": "Valid model-specific diagnostic baseline; no policy or production qualification.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_energy_j": 30729.307379933496,
+        "gpu_j_per_success": 1336.0568426058041,
+        "peak_device_vram_mib": 8118.5,
+        "solved": 23,
+        "tasks": 32,
+        "wall_s": 128.351662529
+      }
+    },
+    "experiment_id": "R427",
+    "id": "e51331f8a63fbdd0fb12a79ff0a30d525c59c0397b153e221f3d509f35aa47b5",
+    "identity": {
+      "cache": "Warm model/coldKV each request; OSfilecache uncontrolled; startup excluded",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "8192",
+        "--flash-attn": "auto",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0",
+        "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+      },
+      "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "seed": 1001,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "8a99dd1df80eee911a1b5ed4b3272564216ad6cd62137fb5c2b2690bdfc32c96",
+      "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "b54e762755248ca411b523c917fa9f93c07b5ff2966bf60b3917b853926a3dad",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "d9002a8395aa6f8980a77abb15c99c9bdc54d25d9cec3659f89ddf952f5acd5d",
+      "da42d5d6a97421ae137bd641efb343300203b8886bb40c6b76d4b9bc1ed7461f",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+      "feab8af4812a3ff082f3a99c146e18229a9e053876d42b17dd98305b0b613e0a"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "gemma4_12b_it_qat_q4_0",
+    "profile": "gemma4-12b-qat-q40-sm70-native-MBPP020-originaltest32-T1-v1",
+    "qualification": "Valid model-specific MBPP32 diagnostic baseline; no general model qualification.",
+    "winner_qualified": false
   }
 ]
