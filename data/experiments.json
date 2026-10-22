@@ -16195,5 +16195,33 @@
       "scope": "Partial fresh BFCL-v4 native-tool screen; stopped on strict irrelevance gate; incomplete quality set"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 26,
+      "critical_matches_previous_bad": false,
+      "critical_matches_previous_valid": true,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7670.5
+    },
+    "audit_id": "audit-17897219f133a9c454a7",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R407",
+    "model": null,
+    "reference_A0": null,
+    "statements": {
+      "decision": "SLOT0_SERIALIZED_STATE_CHANGED_ACROSS_BOUNDARY",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "State serialization equality is only an observational proxy; hash differences do not identify causal fields or prove leakage.",
+        "One critical request and one process; no full task-quality, speed, champion or cross-process isolation qualification.",
+        "Original R313 inputs and references retained; no new A0; no state binary retained.",
+        "R313 result remains valid independently and is not replaced."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

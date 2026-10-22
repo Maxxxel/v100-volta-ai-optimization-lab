@@ -12934,5 +12934,13 @@
     "kind": "R406_M07_FRESH_BFCL_V4_STRICT_IRRELEVANCE_EARLY_STOP",
     "sequence": 1617,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T15:57:44.159998+00:00",
+    "experiment_id": "R407",
+    "factor_id": null,
+    "kind": "UNKNOWN",
+    "sequence": 1618,
+    "signature": null
   }
 ]
