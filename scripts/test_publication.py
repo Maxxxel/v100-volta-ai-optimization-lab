@@ -4,6 +4,9 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_mock_calibration_never_turns_unrun_holdout_into_zero_risk(self):
+  raw={'measurement_type':'GPU_MOCK_ACTION_SELECTIVE_RISK_CALIBRATION_SCREEN','calibration_cases':80,'holdout_pairs':0,'thresholds_fitted':0,'holdout_unsafe_allows_A':None,'holdout_unsafe_allows_B':None,'original12_quality_cases':0,'case_details':[{'trusted':'private context','oracle':'private answer'}]}
+  out=e.metrics(raw)['mock_action_calibration'];self.assertIsNone(out['holdout_unsafe_allows_A']);self.assertIsNone(out['holdout_unsafe_allows_B']);self.assertEqual(out['holdout_pairs'],0);self.assertEqual(out['original12_quality_cases'],0);self.assertNotIn('private',str(out))
  def test_acquisition_export_does_not_publish_token_scores_or_prompts(self):
   raw={'measurement_type':'GPU_HEAD_FREE_PROBABILITY_ACQUISITION_SCREEN','matched_pairs':6,'calibration_fits':0,'original12_quality_cases':0,'comparisons':[{'case':'private prompt label','round':1,'token_IDs_equal':True,'A_e2e_s':1.0,'B_e2e_s':1.1,'token_ids':[1,2],'completion_probabilities':[{'token':'private generated text','logprob':-2}]}]}
   out=e.metrics(raw)['probability_acquisition'];self.assertEqual(out['calibration_fits'],0);self.assertEqual(out['original12_quality_cases'],0);self.assertTrue(out['matched_acquisition_costs'][0]['token_IDs_equal']);self.assertNotIn('private',str(out));self.assertNotIn('token_ids',str(out));self.assertNotIn('logprob',str(out))
