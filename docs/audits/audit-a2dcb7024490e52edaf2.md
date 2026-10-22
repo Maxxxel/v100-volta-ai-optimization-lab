@@ -1,0 +1,69 @@
+# Public audit excerpt
+
+Original SHA256: `a2dcb7024490e52edaf22775f2d957c7f569a2fc78584e8e9ea23178216e4334`
+
+Original file: `AUDIT.json`; 10239 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "GEMMA32K_EXTENDED_CAPACITY_SCREEN_PROMISING_NEEDS_CONFIRMATION",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "Common14KsameinputIDs compared only tostoredR42916K; extended doubledcatalog separateworkload, no causal speedup fromdifferentlengths.",
+    "Extendedactualtokenlengthverified>16Kandfit32K; fixedgenerator/oracles,12developmentcases notmodeltrainingholdout.",
+    "Original12nativeJSONweaknessandCoding/Tools/Agentnegativefindingsretained; no overallmodel or productionqualification.",
+    "OnlyGPUboardcaseinferenceenergy; startup,warmup,CPU/systemenergyexcluded; no repeated-run variance or visibleTTFT."
+  ]
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "VRAM_increase_MiB_vs16K": 272.0,
+  "actual_GPU_execution": true,
+  "actual_generation_requests": 40,
+  "common_GPU_J_per_success_change_percent_vs16K": 0.6189166930110623,
+  "common_control_passed": true,
+  "common_wall_change_percent_vs16K": 0.1392732662457652,
+  "context_profile_token_ranges": {
+    "common": {
+      "maximum_tokens": 14817,
+      "minimum_tokens": 14743
+    },
+    "extended": {
+      "maximum_tokens": 29439,
+      "minimum_tokens": 29256
+    }
+  },
+  "context_tokens": 32768,
+  "model_starts": 1,
+  "original12": {
+    "format": 1,
+    "observed": 12,
+    "semantic": 10
+  },
+  "peak_device_vram_mib": 8526.5,
+  "scopes": {
+    "common": {
+      "full12": true,
+      "gpu_energy_j_approx": 33635.965420296845,
+      "gpu_j_per_success": 2802.9971183580706,
+      "observed": 12,
+      "planned": 12,
+      "solved": 12,
+      "wall_s": 124.273959488
+    },
+    "extended": {
+      "full12": true,
+      "gpu_energy_j_approx": 72543.89129358661,
+      "gpu_j_per_success": 6594.8992085078735,
+      "observed": 12,
+      "planned": 12,
+      "solved": 11,
+      "wall_s": 267.083560098
+    }
+  }
+}
+```

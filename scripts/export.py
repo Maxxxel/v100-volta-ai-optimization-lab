@@ -73,6 +73,19 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('factor')=='R19':
+        for name in ('observed_cases','planned_cases','full_12_semantic_score_claimed','common_control_passed','common_wall_change_percent_vs16K','common_GPU_J_per_success_change_percent_vs16K','VRAM_increase_MiB_vs16K'):
+            value=obj.get(name)
+            if isinstance(value,(int,float,bool)) and (not isinstance(value,float) or math.isfinite(value)):result[name]=value
+        ranges={}
+        context=obj.get('context_tokens')
+        if type(context) is int and context>0:
+            for name,scope in (obj.get('scopes') if isinstance(obj.get('scopes'),dict) else {}).items():
+                if name not in ('common','extended') or not isinstance(scope,dict):continue
+                band=scope.get('actual_input_token_range')
+                if isinstance(band,list) and len(band)==2 and all(type(x) is int for x in band) and 0<band[0]<=band[1]<=context:
+                    ranges[name]={'minimum_tokens':band[0],'maximum_tokens':band[1]}
+        if ranges:result['context_profile_token_ranges']=ranges
     if obj.get('experiment_id')=='R404' and obj.get('factor')=='A02':
         audit={}
         for arm,name in (('A0','baseline'),('B','candidate')):

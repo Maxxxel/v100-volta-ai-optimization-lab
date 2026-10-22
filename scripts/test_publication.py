@@ -4,6 +4,10 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_context_capacity_exports_only_valid_ranges_and_aggregate_denominators(self):
+  raw={'factor':'R19','context_tokens':32768,'observed_cases':2,'planned_cases':12,'scopes':{'common':{'observed':12,'solved':12,'actual_input_token_range':[14743,14817],'per_task':[{'prompt':'private prompt','token_ids':[1,2]}]},'extended':{'observed':2,'solved':2,'actual_input_token_range':[29500,29600],'messages':['private answer']},'untrusted':{'actual_input_token_range':[1,2]}},'responses':['private']}
+  out=e.metrics(raw);self.assertEqual(out['observed_cases'],2);self.assertEqual(out['planned_cases'],12);self.assertEqual(out['context_profile_token_ranges']['extended']['minimum_tokens'],29500);self.assertNotIn('private',str(out));self.assertNotIn('per_task',str(out));self.assertNotIn('token_ids',str(out));self.assertNotIn('untrusted',out['context_profile_token_ranges'])
+  raw['scopes']['extended']['actual_input_token_range']=[1,40000];self.assertNotIn('extended',e.metrics(raw)['context_profile_token_ranges'])
  def test_r407_independent_review_exports_scope_correction_without_payloads(self):
   raw={'scope_correction':'Frozen plan text overstates the slot assignment; use immutable targets instead.','history_slot_targets':{'slot0':12,'slot1':9,'ordinal_ranges':'0-8 slot0; 9-17 slot1; 18-20 slot0'},'treatment_comparison':'Slot0 snapshot unchanged across Slot1 erase.','slot1_erase_confirmed_n_erased':3248,'data_leak_or_GDN_bug_proven':False,'full_isolation_or_quality_qualification':False,'private_path':'/'+'opt/private/audit.json','prompt':'private text'}
   out=e.snippets(raw);self.assertEqual(out['history_slot_targets']['slot0'],12);self.assertEqual(out['history_slot_targets']['slot1'],9);self.assertIn('scope_correction',out);self.assertFalse(out['data_leak_or_GDN_bug_proven']);self.assertNotIn('private_path',str(out));self.assertNotIn('private text',str(out))

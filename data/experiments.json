@@ -12966,15 +12966,18 @@
       "actual_GPU_execution": true,
       "actual_generation_requests": 28,
       "context_tokens": 32768,
+      "full_12_semantic_score_claimed": true,
       "gpu_energy_j_approx": 20274.567872957683,
       "gpu_j_per_success": 2252.7297636619646,
       "model_starts": 1,
+      "observed_cases": 12,
       "original12": {
         "format": 8,
         "observed": 12,
         "semantic": 9
       },
       "peak_device_vram_mib": 8148.5,
+      "planned_cases": 12,
       "solved": 9,
       "wall_s": 75.01273366
     },
@@ -13008,9 +13011,11 @@
       "actual_GPU_execution": true,
       "actual_generation_requests": 25,
       "context_tokens": 16384,
+      "full_12_semantic_score_claimed": false,
       "gpu_energy_j_approx": 15214.717678743455,
       "gpu_j_per_success": 2173.5310969633506,
       "model_starts": 1,
+      "observed_cases": 9,
       "original12": {
         "complete": true,
         "format": 8,
@@ -13018,6 +13023,7 @@
         "semantic": 9
       },
       "peak_device_vram_mib": 7620.5,
+      "planned_cases": 12,
       "solved": 7,
       "wall_s": 56.339854087
     },
@@ -18000,15 +18006,18 @@
       "actual_GPU_execution": true,
       "actual_generation_requests": 28,
       "context_tokens": 16384,
+      "full_12_semantic_score_claimed": true,
       "gpu_energy_j_approx": 33429.067342198075,
       "gpu_j_per_success": 2785.7556118498396,
       "model_starts": 1,
+      "observed_cases": 12,
       "original12": {
         "format": 1,
         "observed": 12,
         "semantic": 10
       },
       "peak_device_vram_mib": 8254.5,
+      "planned_cases": 12,
       "solved": 12,
       "wall_s": 124.101119805
     },
@@ -18030,6 +18039,74 @@
         "No GDN/MTP/cache/grammar optimization;16Knewprofile only;32Knot yet tested.",
         "Original12knownnativeJSONformatweakness retained; sourceprevioussuccess loss stops thisprofile.",
         "GPUboardlongtask inferencewindow only; noCPU/system/load/warmupenergy; no productiontools."
+      ]
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "VRAM_increase_MiB_vs16K": 272.0,
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 40,
+      "common_GPU_J_per_success_change_percent_vs16K": 0.6189166930110623,
+      "common_control_passed": true,
+      "common_wall_change_percent_vs16K": 0.1392732662457652,
+      "context_profile_token_ranges": {
+        "common": {
+          "maximum_tokens": 14817,
+          "minimum_tokens": 14743
+        },
+        "extended": {
+          "maximum_tokens": 29439,
+          "minimum_tokens": 29256
+        }
+      },
+      "context_tokens": 32768,
+      "model_starts": 1,
+      "original12": {
+        "format": 1,
+        "observed": 12,
+        "semantic": 10
+      },
+      "peak_device_vram_mib": 8526.5,
+      "scopes": {
+        "common": {
+          "full12": true,
+          "gpu_energy_j_approx": 33635.965420296845,
+          "gpu_j_per_success": 2802.9971183580706,
+          "observed": 12,
+          "planned": 12,
+          "solved": 12,
+          "wall_s": 124.273959488
+        },
+        "extended": {
+          "full12": true,
+          "gpu_energy_j_approx": 72543.89129358661,
+          "gpu_j_per_success": 6594.8992085078735,
+          "observed": 12,
+          "planned": 12,
+          "solved": 11,
+          "wall_s": 267.083560098
+        }
+      }
+    },
+    "audit_id": "audit-a2dcb7024490e52edaf2",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R19"
+    ],
+    "id": "R430",
+    "model": "gemma4",
+    "reference_A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
+    "statements": {
+      "decision": "GEMMA32K_EXTENDED_CAPACITY_SCREEN_PROMISING_NEEDS_CONFIRMATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Common14KsameinputIDs compared only tostoredR42916K; extended doubledcatalog separateworkload, no causal speedup fromdifferentlengths.",
+        "Extendedactualtokenlengthverified>16Kandfit32K; fixedgenerator/oracles,12developmentcases notmodeltrainingholdout.",
+        "Original12nativeJSONweaknessandCoding/Tools/Agentnegativefindingsretained; no overallmodel or productionqualification.",
+        "OnlyGPUboardcaseinferenceenergy; startup,warmup,CPU/systemenergyexcluded; no repeated-run variance or visibleTTFT."
       ]
     },
     "winner_qualified": false
