@@ -282,5 +282,24 @@
     "revision": "ArchivedCUDA12.8.0;contentSHA pinned",
     "scope": "Pinnedmemorybandwidth and async-overlap requirements distinguishable from Volta ATS copycapability; no transferbenchmark repeated.",
     "url": "https://docs.nvidia.com/cuda/archive/12.8.0/cuda-c-best-practices-guide/index.html"
+  },
+  {
+    "axes": [
+      "HBM07",
+      "HBM01",
+      "HBM04",
+      "HBM18"
+    ],
+    "classification": "ALREADY_COVERED",
+    "content_sha256": "4d05db201890309725c315f9721066293956a644dda2edec1fcb15a385e3056f",
+    "evidence_class": "EXTERN_BELEGT",
+    "id": "CUDA128_CUPTI_KERNEL_FIELDS",
+    "local_test_status": "EXISTING_TRACE_METADATA_INTERPRETATION_ONLY",
+    "obstacles": [
+      "No actualpreferredcarveout treatment or cache-hit/achievedoccupancy measurement."
+    ],
+    "revision": "CUDA12.8CUPTI ActivityKernel9; frozenHTMLSHA",
+    "scope": "sharedMemoryExecuted denotes driver-selected sharedmemorysize; staticSharedMemory/dynamicSharedMemory are distinct. Historicalmetadata reused, not newperformance/hardwarecounter result.",
+    "url": "https://docs.nvidia.com/cupti/12.8.1/api/structCUpti__ActivityKernel9.html"
   }
 ]

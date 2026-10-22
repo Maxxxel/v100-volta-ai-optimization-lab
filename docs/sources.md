@@ -347,6 +347,30 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+## CUDA128_CUPTI_KERNEL_FIELDS
+
+```json
+{
+  "axes": [
+    "HBM07",
+    "HBM01",
+    "HBM04",
+    "HBM18"
+  ],
+  "classification": "ALREADY_COVERED",
+  "content_sha256": "4d05db201890309725c315f9721066293956a644dda2edec1fcb15a385e3056f",
+  "evidence_class": "EXTERN_BELEGT",
+  "id": "CUDA128_CUPTI_KERNEL_FIELDS",
+  "local_test_status": "EXISTING_TRACE_METADATA_INTERPRETATION_ONLY",
+  "obstacles": [
+    "No actualpreferredcarveout treatment or cache-hit/achievedoccupancy measurement."
+  ],
+  "revision": "CUDA12.8CUPTI ActivityKernel9; frozenHTMLSHA",
+  "scope": "sharedMemoryExecuted denotes driver-selected sharedmemorysize; staticSharedMemory/dynamicSharedMemory are distinct. Historicalmetadata reused, not newperformance/hardwarecounter result.",
+  "url": "https://docs.nvidia.com/cupti/12.8.1/api/structCUpti__ActivityKernel9.html"
+}
+```
+
 ## Factor-specific bibliography
 
 - [K05](factors/K05.md): https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docs/FA_V100_AUDIT.md, https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/fa_v100_prefill.py

@@ -48,6 +48,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-cad113d219a201e0f5e0.md)
 - [Original audit hash and public excerpt](../audits/audit-cc4a0b8610c091844255.md)
 - [Original audit hash and public excerpt](../audits/audit-d3d48f461ddbab44a526.md)
+- [Original audit hash and public excerpt](../audits/audit-dbac47e8b176d1ba982a.md)
 - [Original audit hash and public excerpt](../audits/audit-dc120944347a4f5cf410.md)
 - [Original audit hash and public excerpt](../audits/audit-e5c8f2e9455ada3d921a.md)
 - [Original audit hash and public excerpt](../audits/audit-ec82b4c9401ad086f524.md)
@@ -430,11 +431,11 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 R90 nativer Prefill-Champion und R219/R220-Agenten-Cacheprofil qualifiziert. R219 tatsächlicher Kandidat14106,5MiB/13Erfolge/162,465s; R220 Kontrollprofil7966,5MiB. Mehrspeicher6140MiB gegenüber Graft-Alternative, keine Addition einzelner Gewinne.
 
-**Remaining scope:** Existing conversion-cache profiles remain QUALIFIED within scope. GIST-V02 per-kernel L1/shared carveout is a distinct unmeasured conditional subcase, not covered by conversioncache wins. Resource/dispatch and actual compatible differing preference required before GPU.
+**Remaining scope:** ExistingconversioncacheChampionsremainqualified. Newpreferredcarveout hasno GPUtreatment. SelectedQ6decode resourceanalysis defersmore-L1 becausealready8KiBminimumshared. Otherkernels needdistinctresourcebottleneck, notanotherconversioncachetest.
 
 **Reopening condition:** Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.
 
-**Next action:** GIST-V02: inspect one executed stockkernel shared-memory/resource contract; no allocation of new conversioncache or assumed cachepartition effect.
+**Next action:** No selectedQ6decodecarveoutbuild/run. Reopen only a concrete differentresource-constrainedkernel/shape; preserve allscopedconversioncachewins.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 

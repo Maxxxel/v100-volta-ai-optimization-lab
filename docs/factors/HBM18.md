@@ -31,6 +31,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-b0807613e019b3b30009.md)
 - [Original audit hash and public excerpt](../audits/audit-b8a83b89fd187aadf424.md)
 - [Original audit hash and public excerpt](../audits/audit-c915993a806f0b95c0f6.md)
+- [Original audit hash and public excerpt](../audits/audit-dbac47e8b176d1ba982a.md)
 - [Original audit hash and public excerpt](../audits/audit-e950bd432e12a6880a36.md)
 - [Original audit hash and public excerpt](../audits/audit-f2e1299acd91cad7c2df.md)
 - [Original audit hash and public excerpt](../audits/audit-fe73faa6d74ccb07bdc1.md)
