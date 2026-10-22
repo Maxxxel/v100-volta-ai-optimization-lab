@@ -13254,5 +13254,21 @@
     "kind": "R421_NATIVE_QA12_IMMUTABLE_SCREEN_REFERENCE_ADMITTED",
     "sequence": 1657,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T20:06:06.388612+00:00",
+    "experiment_id": "R422",
+    "factor_id": null,
+    "kind": "R422_M08_NEW_GEMMA_MODEL_TRANSFER_PREREGISTRATION",
+    "sequence": 1658,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T20:09:17.718980+00:00",
+    "experiment_id": "R422",
+    "factor_id": null,
+    "kind": "R422_GEMMA_M08_JSON_OBJECT_INDEPENDENTLY_REVIEWED",
+    "sequence": 1659,
+    "signature": null
   }
 ]

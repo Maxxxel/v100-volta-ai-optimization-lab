@@ -11,7 +11,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
-| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R421 |
+| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R422 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -307,13 +307,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R421 Gemma4 12B QAT Q4_0 native: echo7 PASS; QA10/12semantic,1/12format; full12=True; 6.876s,1567.15GPU-J;peak8118.5MiB; screen FAIL. No Champion.",
-  "current_experiment": "R421",
+  "assessment": "R422 GemmaM08 JSON-object: strict10/12 (A01/12), semantic10/12,lostA0=0;6.996s,1556.07GPU-J;activegrammar=True;screen=PASS. No Champion.",
+  "current_experiment": "R422",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC07",
   "local_scope": null,
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Retain valid fit/native-control observations and exact QA negatives. Do not run full BFCL/agents or perform budget/seed/prompt repair on these failures; move to next useful model decision.",
+  "next_step": "Independent fresh tasks/control for promising Gemma structured-JSON profile, then native tool/coding/agent comparison only within admitted scopes. Keep unstructured-native format negative and all earlier A0/C unchanged; no general model winner or combination.",
   "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {
