@@ -22,8 +22,15 @@ Original file: `AUDIT.json`; 7274 bytes. The original is retained privately and 
 
 ```json
 {
+  "actual_full_GPU_offload": true,
   "actual_generation_requests": 17,
+  "actual_sampler_control_passed": true,
+  "diagnostic_format_passes": 8,
+  "diagnostic_semantic_passes": 9,
   "model_starts": 1,
-  "peak_device_vram_mib": 8158.5
+  "observed_original_QA_cases": 12,
+  "original12_full_score_claimed": true,
+  "peak_device_vram_mib": 8158.5,
+  "quality_wall_s": 11.957781277
 }
 ```

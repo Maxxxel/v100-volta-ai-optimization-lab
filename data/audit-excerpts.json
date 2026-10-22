@@ -131961,6 +131961,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 7,
       "model_starts": 1,
       "peak_device_vram_mib": 5602.5,
@@ -131992,6 +131993,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 3,
       "model_starts": 1,
       "peak_device_vram_mib": 5116.5,
@@ -132023,6 +132025,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 1,
       "model_starts": 1,
       "peak_device_vram_mib": 4346.5,
@@ -132054,6 +132057,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 11,
       "model_starts": 1,
       "peak_device_vram_mib": 4884.5,
@@ -132085,6 +132089,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 5,
       "model_starts": 1,
       "peak_device_vram_mib": 3938.5,
@@ -132375,6 +132380,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 11,
       "model_starts": 1,
       "peak_device_vram_mib": 5956.5,
@@ -132591,6 +132597,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 12,
       "model_starts": 1,
       "peak_device_vram_mib": 7590.5,
@@ -132698,6 +132705,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 12,
       "model_starts": 1,
       "peak_device_vram_mib": 7464.5,
@@ -132820,6 +132828,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 11,
       "model_starts": 1,
       "peak_device_vram_mib": 7728.5,
@@ -146177,6 +146186,7 @@
   {
     "aggregate_metrics": {
       "actual_GPU_execution": true,
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 12,
       "gpu_energy_j_approx": 1276.0200289797049,
       "model_starts": 1,
@@ -170119,6 +170129,8 @@
     "aggregate_metrics": {
       "actual_generation_requests": 10,
       "model_starts": 1,
+      "observed_original_QA_cases": 4,
+      "original12_full_score_claimed": false,
       "peak_device_vram_mib": 7364.5
     },
     "excerpt_is_not_original": true,
@@ -170179,6 +170191,8 @@
     "aggregate_metrics": {
       "actual_generation_requests": 12,
       "model_starts": 1,
+      "observed_original_QA_cases": 8,
+      "original12_full_score_claimed": false,
       "peak_device_vram_mib": 7356.5
     },
     "excerpt_is_not_original": true,
@@ -170276,9 +170290,16 @@
   },
   {
     "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 17,
+      "actual_sampler_control_passed": true,
+      "diagnostic_format_passes": 7,
+      "diagnostic_semantic_passes": 9,
       "model_starts": 1,
-      "peak_device_vram_mib": 8158.5
+      "observed_original_QA_cases": 12,
+      "original12_full_score_claimed": true,
+      "peak_device_vram_mib": 8158.5,
+      "quality_wall_s": 52.057268294
     },
     "excerpt_is_not_original": true,
     "id": "audit-cb3154bbdb83211a6d35",
@@ -170834,9 +170855,16 @@
   },
   {
     "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 17,
+      "actual_sampler_control_passed": true,
+      "diagnostic_format_passes": 8,
+      "diagnostic_semantic_passes": 9,
       "model_starts": 1,
-      "peak_device_vram_mib": 8158.5
+      "observed_original_QA_cases": 12,
+      "original12_full_score_claimed": true,
+      "peak_device_vram_mib": 8158.5,
+      "quality_wall_s": 11.957781277
     },
     "excerpt_is_not_original": true,
     "id": "audit-d0df87ad458d68f6ffd8",
@@ -170987,9 +171015,16 @@
   },
   {
     "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
       "actual_generation_requests": 17,
+      "actual_sampler_control_passed": true,
+      "diagnostic_format_passes": 10,
+      "diagnostic_semantic_passes": 11,
       "model_starts": 1,
-      "peak_device_vram_mib": 9188.5
+      "observed_original_QA_cases": 12,
+      "original12_full_score_claimed": true,
+      "peak_device_vram_mib": 9188.5,
+      "quality_wall_s": 20.388572271
     },
     "excerpt_is_not_original": true,
     "id": "audit-ba18c1ee9282e9a6e74d",
@@ -171252,6 +171287,80 @@
     "original_sha256": "b1b67c6be63b4923022f493d4e4e01f4a05dc294fda281736e7303bd4be9a57a",
     "statements": {
       "decision": "No benchmark result; preserve failed launch. No M12 coverage increment."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
+      "actual_generation_requests": 8,
+      "actual_sampler_control_passed": true,
+      "diagnostic_format_passes": 2,
+      "diagnostic_semantic_passes": 2,
+      "gpu_j_per_semantic_success": 5334.768920691288,
+      "model_starts": 1,
+      "observed_original_QA_cases": 3,
+      "original12_full_score_claimed": false,
+      "peak_device_vram_mib": 7356.5,
+      "quality_gpu_energy_j": 10669.537841382577,
+      "quality_wall_s": 43.160299344,
+      "semantic_successes_per_s": 0.04633888157399986
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-be30647ee7c664807785",
+    "original_bytes": 5267,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "be30647ee7c664807785b78bbd38a76137d72b5ed115447c4a8c7ac4383c4651",
+    "statements": {
+      "decision": "OXCODER_NATIVE_ADMISSION_GATE_NOT_PASSED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "NativeOxCoderoperational/QA12admissiononly;notfullBFCL/coding/agent/modelwinner",
+        "Pinnedpublishergenerationparams/nativeThinking2048andownfixedGGUFtemplate;notSGLangSWEavg3reproduction",
+        "ExistingstockSM70engine/CUDA12.8runtime;no kernelbuild or borrowedBonsaiPQ2paths",
+        "BoardGPUenergyonlynotwhole-system;referenceA0/Cunchanged",
+        "No actualtools/model-codeexecution/visionprojector"
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_full_GPU_offload": true,
+      "actual_generation_requests": 7,
+      "actual_sampler_control_passed": true,
+      "diagnostic_format_passes": 3,
+      "diagnostic_semantic_passes": 3,
+      "gpu_j_per_semantic_success": 15226.255438721904,
+      "model_starts": 1,
+      "new_QA_cases": 3,
+      "observed_original_QA_cases": 3,
+      "original12_full_score_claimed": false,
+      "peak_device_vram_mib": 7354.5,
+      "quality_gpu_energy_j": 45678.76631616571,
+      "quality_wall_s": 182.377379389,
+      "reused_QA_cases": 2,
+      "semantic_successes_per_s": 0.01644940841923811,
+      "unique_QA_cases": 5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0968af3757c6e547ffcf",
+    "original_bytes": 6558,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0968af3757c6e547ffcf299401f81c1974b23c161fa27c73a6d56ffef0b4f186",
+    "statements": {
+      "decision": "OXCODER_NATIVE_ADMISSION_GATE_NOT_PASSED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "NativeOxCoderoperational/QA12admissiononly;notfullBFCL/coding/agent/modelwinner",
+        "Pinnedpublishergenerationparams/nativeThinking2048andownfixedGGUFtemplate;notSGLangSWEavg3reproduction",
+        "ExistingstockSM70engine/CUDA12.8runtime;no kernelbuild or borrowedBonsaiPQ2paths",
+        "BoardGPUenergyonlynotwhole-system;referenceA0/Cunchanged",
+        "No actualtools/model-codeexecution/visionprojector",
+        "First two naturally stopped R409 QA answers reused; remaining ten use 4096 output budget. No general model conclusion from an incomplete profile."
+      ]
     }
   },
   {
@@ -247734,5 +247843,113 @@
     "original_publicly_available": false,
     "original_sha256": "c02efa044688767d0f3575b3a120ddf3fbfbbeba0208fcaddb1a7b55507c10b9",
     "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "GPU_J_per_success": 4647.213219674477,
+        "GPU_J_per_success_change_percent_vs_Omni_C": 695.7295853876135,
+        "Omni_C_R181_energy_J": 86434.83529354882,
+        "Omni_C_R181_solved": 148,
+        "Omni_C_R181_wall_s": 317.343890774,
+        "case_GPU_energy_J_approx": 776084.6076856377,
+        "case_inference_wall_s": 2812.892842268,
+        "peak_device_vram_mib": 8158.5,
+        "solved": 167,
+        "successful_tasks_per_s": 0.05936948521129941,
+        "successful_tasks_per_s_change_percent_vs_Omni_C": -87.26990308770053,
+        "wall_ratio_vs_Omni_C": 8.86386322234649
+      },
+      "scopes": {
+        "custom_long16": {
+          "solved": 16,
+          "tasks": 16
+        },
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164
+        },
+        "standard_validated163": {
+          "solved": 151,
+          "tasks": 163
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3cc9e94338b5c4d2b889",
+    "original_bytes": 9293,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3cc9e94338b5c4d2b889a5fd21d88cfc308a0d287fcab2e9981a24393725e0e9",
+    "statements": {
+      "limits": [
+        "Single observed answer per task under respective admitted recipes; no repeated-seed statistical superiority qualification.",
+        "Native Tool-Calling, real isolated agents, German reasoning and independent winner confirmation pending.",
+        "GPU energy covers case-inference telemetry, excludes loading/warmup/CPU judge/system energy.",
+        "Loads used uncontrolled OS page cache; no calibrated cold disk/whole-model change-cost claim."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "GPU_J_per_success": 1773.9128353576807,
+        "GPU_J_per_success_change_percent_vs_Omni_C": 468.9144379598278,
+        "case_GPU_energy_J_approx": 159652.15518219126,
+        "case_inference_wall_s": 593.42491826,
+        "complete": 100,
+        "matched_Omni_C_solved": 88,
+        "matched_Omni_R183_GPU_J": 27438.98187419507,
+        "matched_Omni_R183_wall_s": 107.007172433,
+        "observed_cases": 100,
+        "peak_device_vram_mib": 8158.5,
+        "protocol_valid": 100,
+        "solved": 90,
+        "successful_tasks_per_s": 0.15166198322762017,
+        "successful_tasks_per_s_change_percent_vs_Omni_C": -81.55804546503556,
+        "wall_ratio_vs_Omni_C": 5.545655536609558
+      },
+      "model_starts": 2
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-66c5bf1378a74271d1b1",
+    "original_bytes": 4600,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "66c5bf1378a74271d1b1ac12af19cd2490388f09906312cec02483605e71a1c3",
+    "statements": {
+      "limits": [
+        "Frozenbalanced100developmentcohort,notfullBFCL/independentholdout",
+        "PublishedThinkingmedium/T1/4096vsOmniFastT0/1024/nativearchitecture-tokenizer-engine differences:wholeconfigurations,notcausalkernel/quantizationspeedup",
+        "Singleobservedanswerpercase;allpilotfailuresretained,nonewseedsearch",
+        "Case-inferenceGPUboardenergyexcludesCPU/system/loading/warmup;no streamingTTFTorcoldmodel-switchqualification",
+        "Coding151/164+16/16retainedfromR279;German/security/realagentstabilityandindependentmodelqualificationpending"
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 8158.5,
+      "solved": 17
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-355f55bd44c49fb08916",
+    "original_bytes": 3400,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "355f55bd44c49fb089167f11e666581db3bf3c188d499a6104c2d897d5be04af",
+    "statements": {
+      "limits": [
+        "18developmentcases/oneobservedanswerpercase,notheldout/statisticaluniversalsuperiority",
+        "OwnThinkingmodeT1andlocal2048adaptercapvsOmniFastT0/1400;mode/params/architecture/quantization/engine/tokenizer differ",
+        "Twofinitepartswithindependentwarmup;all16prioranswersincludingfailure reused;no response tuning/resampling",
+        "Case-inferenceGPUboardenergyincludesfailedcases/excludesstartup/warmup/CPU/systemenergy",
+        "BonsaiCoding151/164+16/16uses4096cap,separateprofile;Instruct9/12+17/20failuresnoterased",
+        "Independentwinnerconfirmation/German-HA-policyholdouts/stability/routerandothermodelsremainpending"
+      ]
+    }
   }
 ]

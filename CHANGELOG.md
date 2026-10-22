@@ -359,3 +359,7 @@ Audited public snapshot with distinct factor, experiment and profile inventories
 ## Matrix revision 317
 
 Audited public snapshot with distinct factor, experiment and profile inventories. See the commit diff and original audit hashes for additions and corrections. Historical original artifacts remain unchanged.
+
+## Audited research checkpoint R410 / fc8c6ea68f4b
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

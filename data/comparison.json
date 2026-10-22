@@ -1,0 +1,1206 @@
+{
+  "cohorts": {
+    "agents": {
+      "definition": "Frozen 18 development agent tasks with unchanged effect/policy simulator; all tools isolated; not a new holdout.",
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186"
+    },
+    "coding": {
+      "definition": "HumanEvalPlus frozen 164; base AND plus; HumanEval/32 known invalid retained as failure (163 subset is separate).",
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5"
+    },
+    "tools": {
+      "definition": "Frozen balanced native-tool subset: 100 cases, 20 in each of five categories; official AST plus irrelevance rules; not full BFCL leaderboard.",
+      "task_sha256": "7c273de654cb6f5dec4dacb5d65b1ea8cd236c8dac9ba674ecfed21e292b8698"
+    }
+  },
+  "historical_native": [
+    {
+      "audit_ids": [
+        "audit-944476f62657e0327321"
+      ],
+      "audit_sha256": [
+        "944476f62657e032732177de16aaaf2fad25362a09532004a73e6ba4a928edc4"
+      ],
+      "comparability": "HISTORICAL_SYNTHETIC_ONLY",
+      "conditions": {
+        "batch_size": 2048,
+        "cache_prompt": false,
+        "ctx": 8192,
+        "decode_ignore_eos": true,
+        "decode_output": 128,
+        "prefill_output": 1,
+        "seed": 1001,
+        "slots": 1,
+        "temperature": 0,
+        "thinking": false,
+        "threads": 6,
+        "tool_max_tokens": 128,
+        "ubatch_size": 512
+      },
+      "date": "NOT RECORDED in imported reference identity; audited in R135",
+      "engine_binary_sha256": [
+        "71199b6d5fdcde4c27ea83a0bf278fdb2d432ad43fe51411b564c6354e9bb8bd"
+      ],
+      "hardware": "Tesla V100-SXM2 16 GB HBM2",
+      "metrics": [
+        {
+          "actual_prompt_tokens": [
+            505
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 17.2680561834145,
+          "median": 2576.0385962377522,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill"
+        },
+        {
+          "actual_prompt_tokens": [
+            2048
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 11.671908409997286,
+          "median": 2876.5142080493615,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill2048"
+        },
+        {
+          "actual_prompt_tokens": [
+            4096
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 12.14049848351624,
+          "median": 2910.453639954765,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill4096"
+        },
+        {
+          "actual_prompt_tokens": [
+            31
+          ],
+          "generated_tokens": [
+            128
+          ],
+          "mad": 0.03149305201455377,
+          "median": 79.5699713571424,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "decode"
+        }
+      ],
+      "model": "omni",
+      "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+      "name": "OmniCoder2 9B",
+      "note": "Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.",
+      "power_limit_w": null,
+      "quantization": "Q6_K",
+      "record_id": "e0a5d6c242421e9fd9fedd7f4796c7c0cb5154434fe3908a9053e3b9250da661",
+      "reference_identity_sha256": "4ad6e5ca4b6f5fc453e9c6dfd1be5356b0fbb440a5c000a87820aa93f7093d22"
+    },
+    {
+      "audit_ids": [
+        "audit-944476f62657e0327321"
+      ],
+      "audit_sha256": [
+        "944476f62657e032732177de16aaaf2fad25362a09532004a73e6ba4a928edc4"
+      ],
+      "comparability": "HISTORICAL_SYNTHETIC_ONLY",
+      "conditions": {
+        "batch_size": 2048,
+        "cache_prompt": false,
+        "ctx": 8192,
+        "decode_ignore_eos": true,
+        "decode_output": 128,
+        "prefill_output": 1,
+        "seed": 1001,
+        "slots": 1,
+        "temperature": 0,
+        "thinking": false,
+        "threads": 6,
+        "tool_max_tokens": 128,
+        "ubatch_size": 512
+      },
+      "date": "NOT RECORDED in imported reference identity; audited in R135",
+      "engine_binary_sha256": [
+        "71199b6d5fdcde4c27ea83a0bf278fdb2d432ad43fe51411b564c6354e9bb8bd"
+      ],
+      "hardware": "Tesla V100-SXM2 16 GB HBM2",
+      "metrics": [
+        {
+          "actual_prompt_tokens": [
+            505
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 17.794653529488187,
+          "median": 2478.3074360953333,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill"
+        },
+        {
+          "actual_prompt_tokens": [
+            2048
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 11.200786955733975,
+          "median": 2728.730360565549,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill2048"
+        },
+        {
+          "actual_prompt_tokens": [
+            4096
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 12.585139946831987,
+          "median": 2746.470542662081,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill4096"
+        },
+        {
+          "actual_prompt_tokens": [
+            31
+          ],
+          "generated_tokens": [
+            128
+          ],
+          "mad": 0.036740735304775285,
+          "median": 97.02774692678442,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "decode"
+        }
+      ],
+      "model": "q35",
+      "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+      "name": "Qwen3.5 9B",
+      "note": "Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.",
+      "power_limit_w": null,
+      "quantization": "Q4_K_M",
+      "record_id": "8d659da13e52a886c39537beefbeee5aee65931bd6ddc9a53faa05fe434c891f",
+      "reference_identity_sha256": "a16131b77bb59c3f072ce098f8514506e36f7c9b113a625263867951fb70c1ef"
+    },
+    {
+      "audit_ids": [
+        "audit-944476f62657e0327321"
+      ],
+      "audit_sha256": [
+        "944476f62657e032732177de16aaaf2fad25362a09532004a73e6ba4a928edc4"
+      ],
+      "comparability": "HISTORICAL_SYNTHETIC_ONLY",
+      "conditions": {
+        "batch_size": 2048,
+        "cache_prompt": false,
+        "ctx": 8192,
+        "decode_ignore_eos": true,
+        "decode_output": 128,
+        "prefill_output": 1,
+        "seed": 1001,
+        "slots": 1,
+        "temperature": 0,
+        "thinking": false,
+        "threads": 6,
+        "tool_max_tokens": 128,
+        "ubatch_size": 512
+      },
+      "date": "NOT RECORDED in imported reference identity; audited in R135",
+      "engine_binary_sha256": [
+        "71199b6d5fdcde4c27ea83a0bf278fdb2d432ad43fe51411b564c6354e9bb8bd"
+      ],
+      "hardware": "Tesla V100-SXM2 16 GB HBM2",
+      "metrics": [
+        {
+          "actual_prompt_tokens": [
+            505
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 2.3333237952676313,
+          "median": 700.3046250344378,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill"
+        },
+        {
+          "actual_prompt_tokens": [
+            2048
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 2.6142052854893336,
+          "median": 748.6666678011356,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill2048"
+        },
+        {
+          "actual_prompt_tokens": [
+            4096
+          ],
+          "generated_tokens": [
+            1
+          ],
+          "mad": 1.6637532652516143,
+          "median": 753.9037151402888,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "prefill4096"
+        },
+        {
+          "actual_prompt_tokens": [
+            31
+          ],
+          "generated_tokens": [
+            128
+          ],
+          "mad": 0.023046119920486774,
+          "median": 35.48910555069617,
+          "n": 6,
+          "sessions": 2,
+          "unit": "tokens/s",
+          "workload": "decode"
+        }
+      ],
+      "model": "q38",
+      "model_sha256": "64b53b64c7aa39f20a7e54bd80582fe595b1d745624ee8a72e92508c0326d810",
+      "name": "Qwen3.8 27B",
+      "note": "Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.",
+      "power_limit_w": null,
+      "quantization": "GSQ/RCO IQ3_S",
+      "record_id": "649420efeb0212271674362d3bb3b20bf268a46f5fc40ece74359d7f6ca572fb",
+      "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
+    }
+  ],
+  "measurement_fingerprint": "fc8c6ea68f4ba0ddf1f478c6de252408e8cfd326db9a39404f367e08a8c649c6",
+  "models": [
+    {
+      "id": "omni",
+      "name": "OmniCoder2 9B",
+      "quantization": "Q6_K"
+    },
+    {
+      "id": "q35",
+      "name": "Qwen3.5 9B",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "id": "q38",
+      "name": "Qwen3.8 27B",
+      "quantization": "GSQ/RCO IQ3_S"
+    },
+    {
+      "id": "ornith",
+      "name": "Ornith 1.5 9B",
+      "quantization": "Q6_K"
+    },
+    {
+      "id": "bonsai",
+      "name": "Ternary Bonsai 2 27B",
+      "quantization": "PQ2_0"
+    },
+    {
+      "id": "oxcoder",
+      "name": "OxCoder 9B",
+      "quantization": "Q6_K"
+    }
+  ],
+  "records": [
+    {
+      "audit_ids": [
+        "audit-1f940596d115e34ae02f"
+      ],
+      "audit_sha256": [
+        "1f940596d115e34ae02fb770a10219149578150e431be646376f8fb223d15c0e"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "coding",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R217",
+      "gpu_j": 74366.51748586204,
+      "id": "omni-coding-217",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-draft-n-max": "3",
+          "--spec-type": "draft-mtp",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": 1024,
+        "plan_sha256": "a9dbcbb0fe047611864d33b97e5f8dd8c21651c35075bb353a418dc477b2d15c",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "omni",
+      "name": "OmniCoder2 9B",
+      "peak_vram_mib": 14106.5,
+      "profile": "MTP + weight cache; fast",
+      "quantization": "Q6_K",
+      "repeat_range": null,
+      "solved": 132,
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "tasks": 164,
+      "wall_s": 268.206266829,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-a898f240d6d584ddfcaa"
+      ],
+      "audit_sha256": [
+        "a898f240d6d584ddfcaaa6fdcf3b3d1a75c250ee73960005a4fe362f2551abb9"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "coding",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R254",
+      "gpu_j": 130686.38691340903,
+      "id": "ornith-coding-254",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": 1024,
+        "plan_sha256": "b46e4897903b1a45684bdc73d94f7ba1bf30603a8c1bd0bd9c8561b6ca1ea668",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
+        "template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235"
+      },
+      "model": "ornith",
+      "name": "Ornith 1.5 9B",
+      "peak_vram_mib": 7356.5,
+      "profile": "Fast non-reasoning",
+      "quantization": "Q6_K",
+      "repeat_range": null,
+      "solved": 117,
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "tasks": 164,
+      "wall_s": 456.935627082,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-69ed2894e20c7705ff38"
+      ],
+      "audit_sha256": [
+        "69ed2894e20c7705ff385fc72bb70a5f0e9e353f42744449fadd8407f0c73fdb"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "coding",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R255",
+      "gpu_j": 122784.66475353314,
+      "id": "q35-coding-255",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": 1024,
+        "plan_sha256": "528c2a92df377e362e50fc0a7c90999be9091fff514d36589eb0482bdc553d27",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "q35",
+      "name": "Qwen3.5 9B",
+      "peak_vram_mib": 5956.5,
+      "profile": "Fast non-reasoning",
+      "quantization": "Q4_K_M",
+      "repeat_range": null,
+      "solved": 132,
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "tasks": 164,
+      "wall_s": 452.205552483,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-0a001d95dc6b53c43508"
+      ],
+      "audit_sha256": [
+        "0a001d95dc6b53c43508ef53594a7cde7256e64c5089d38aa2def3b9d19f7087"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "coding",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R117",
+      "gpu_j": 311884.76097498904,
+      "id": "q38-coding-117",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "batch_size": 2048,
+          "cache_prompt": false,
+          "ctx": 8192,
+          "seed": 1001,
+          "slots": 1,
+          "temperature": 0,
+          "thinking": false,
+          "threads": 6,
+          "ubatch_size": 512
+        },
+        "date": "NOT RECORDED",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": 1024,
+        "plan_sha256": "de4acb1d78b6a6ec052b975456574afc8d560af31dfcbce71044e5f31e4aed06",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": 12212,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "ecb62cb09cc50680b985831c6799392bdbfebbf24c8820a876ecab31cfb65296",
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": null,
+      "profile": "Fast; no MTP",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 148,
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "tasks": 164,
+      "wall_s": 1095.974418532,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-ab44bd9905753dd56faf"
+      ],
+      "audit_sha256": [
+        "ab44bd9905753dd56faf682336ba75ef247818df7d6ba3774c7ac50fdfc4feef"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "coding",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R118",
+      "gpu_j": 158094.1982154647,
+      "id": "q38-coding-118",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "batch_size": 2048,
+          "cache_prompt": false,
+          "ctx": 8192,
+          "seed": 1001,
+          "slots": 1,
+          "temperature": 0,
+          "thinking": false,
+          "threads": 6,
+          "ubatch_size": 512
+        },
+        "date": "NOT RECORDED",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": 1024,
+        "plan_sha256": "7f3ab2f95edf05d58dec91ed60dab2ea85feb8c6c57ecb4c68cda36d6b661c54",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": 13358,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "ecb62cb09cc50680b985831c6799392bdbfebbf24c8820a876ecab31cfb65296",
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": null,
+      "profile": "Fast; MTP3",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 150,
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "tasks": 164,
+      "wall_s": 575.609562259,
+      "warning": "MTP target-token identity is not lossless; no allround qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-74d034ef6a5873b4a5e9"
+      ],
+      "audit_sha256": [
+        "74d034ef6a5873b4a5e96b0fef4f39dcf84706bad9ee7d1baa3800b4dd7cefc2"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "tools",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R183",
+      "gpu_j": 27438.98187419507,
+      "id": "omni-tools-183",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "batch_size": 2048,
+          "cache_prompt": false,
+          "ctx": 8192,
+          "seed": 1001,
+          "slots": 1,
+          "temperature": 0,
+          "thinking": false,
+          "threads": 6,
+          "ubatch_size": 512
+        },
+        "date": "NOT RECORDED",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1024,
+        "plan_sha256": "3de468fe73193dd6faa10bf982d9b022be06f1018d587b50399e03f1a88efd55",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": 8758,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "55290a596d5e49a066e58ba5ce3cc6c204520e730078e27abc4f50831782678d",
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "omni",
+      "name": "OmniCoder2 9B",
+      "peak_vram_mib": null,
+      "profile": "MTP; fast",
+      "quantization": "Q6_K",
+      "repeat_range": null,
+      "solved": 88,
+      "task_sha256": "7c273de654cb6f5dec4dacb5d65b1ea8cd236c8dac9ba674ecfed21e292b8698",
+      "tasks": 100,
+      "wall_s": 107.007172433,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-3282effcb0cfa011c3fa"
+      ],
+      "audit_sha256": [
+        "3282effcb0cfa011c3fa3df749c6a84d28051aaebad9d1b286031a3190c7df83"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "tools",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R227",
+      "gpu_j": 32539.26549423958,
+      "id": "q35-tools-227",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": null,
+        "plan_sha256": "04cef369fdba9073bd68111484d2163709a381f4b79e610da049aec1a5a9b887",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": "55290a596d5e49a066e58ba5ce3cc6c204520e730078e27abc4f50831782678d",
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "q35",
+      "name": "Qwen3.5 9B",
+      "peak_vram_mib": 5956.5,
+      "profile": "Fast non-reasoning",
+      "quantization": "Q4_K_M",
+      "repeat_range": null,
+      "solved": 87,
+      "task_sha256": "7c273de654cb6f5dec4dacb5d65b1ea8cd236c8dac9ba674ecfed21e292b8698",
+      "tasks": 100,
+      "wall_s": 123.929553805,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-f48de8313838adc8b3b4"
+      ],
+      "audit_sha256": [
+        "f48de8313838adc8b3b4940143dd90a7822a1e350aca33f67feaafb6318cebf3"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R228",
+      "gpu_j": 56164.790740286684,
+      "id": "q35-agents-228",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1400,
+        "plan_sha256": "fa8712f46e5cc987775cecd5fe3662414cd31b252b614f51c550946f5f704cb1",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "q35",
+      "name": "Qwen3.5 9B",
+      "peak_vram_mib": 5956.5,
+      "profile": "Fast non-reasoning; no MTP",
+      "quantization": "Q4_K_M",
+      "repeat_range": null,
+      "solved": 8,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 214.550275628,
+      "warning": "Additional policy violations observed; no assistant qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-c35dd0584281950f1dfd"
+      ],
+      "audit_sha256": [
+        "c35dd0584281950f1dfd8c72d357463f0efe9b45c10a50d5eb631bbb91325a42"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R253",
+      "gpu_j": 54846.30806567538,
+      "id": "ornith-agents-253",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1400,
+        "plan_sha256": "8c20cddbcc71524da3919ade5ca0fbcc4fa72816fd1db6853348f82ea1f5a950",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235"
+      },
+      "model": "ornith",
+      "name": "Ornith 1.5 9B",
+      "peak_vram_mib": 7356.5,
+      "profile": "Fast non-reasoning; no MTP",
+      "quantization": "Q6_K",
+      "repeat_range": null,
+      "solved": 14,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 201.46956243099999,
+      "warning": "Additional policy violations observed; no assistant qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-7ea265b5613fdf6bd79c"
+      ],
+      "audit_sha256": [
+        "7ea265b5613fdf6bd79c6760b4925284a8c3d434edace84ad822e0982651cf0d"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R260",
+      "gpu_j": 130284.60460233485,
+      "id": "q38-agents-260",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1400,
+        "plan_sha256": "fb28c2f2e80ced215af46c100f17c9f9c3192e629f3e5efde7683776967b278b",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": 12454.5,
+      "profile": "Fast non-reasoning; no MTP",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 14,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 477.19566971300003,
+      "warning": "Additional policy violations observed; no assistant qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-87f6ea8a70d72917e748"
+      ],
+      "audit_sha256": [
+        "87f6ea8a70d72917e7486912fe5b5201c8e9b68d21d020ec6a698c3b54f3b43e"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R261",
+      "gpu_j": 105913.79799421734,
+      "id": "q38-agents-261",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-draft-n-max": "3",
+          "--spec-type": "draft-mtp",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1400,
+        "plan_sha256": "c78e3a0d6960cf2c19c584789ec4ebcd6b1535ae3a38ce87b065061897d562d1",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": 13600.5,
+      "profile": "Fast; MTP3",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 14,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 408.702045542,
+      "warning": "Additional policy failure inherited; coding-specialist screen, no general assistant qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-7c91d45dc1aa187fe880",
+        "audit-9a720eae0135df096db9"
+      ],
+      "audit_sha256": [
+        "7c91d45dc1aa187fe8800d41cca25dc34e52b817b7f974e3c8bb16bd2d59cc2a",
+        "9a720eae0135df096db9e1b28bed9134ef98bc6aa4bd656dbd9b5e0d7328ccb3"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R219",
+      "gpu_j": 41893.38831143596,
+      "id": "omni-agents-219",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-draft-n-max": "3",
+          "--spec-type": "draft-mtp",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-20",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1400,
+        "plan_sha256": "096e2b2496adec4ad1feee8e69d3db0d18aaba5990cf61961a074266ad29c5c7",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "omni",
+      "name": "OmniCoder2 9B",
+      "peak_vram_mib": 14106.5,
+      "profile": "MTP + weight cache; 300 W",
+      "quantization": "Q6_K",
+      "repeat_range": {
+        "cycles": 3,
+        "definition": "Observed min–max of three repeated 18-case cycle aggregates; not 54 independent tasks.",
+        "distinct_tasks": 18,
+        "gpu_j_per_success": [
+          3149.358012020302,
+          3273.0281563251824
+        ],
+        "wall_s": [
+          161.517902836,
+          162.699835085
+        ]
+      },
+      "solved": 13,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 162.46511194,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-3cc9e94338b5c4d2b889",
+        "audit-e6219eada24128727880",
+        "audit-948e1d010537c3c580cf",
+        "audit-74b93fada14b5c6b65e7",
+        "audit-32897bfde6c4ab6f8dd7",
+        "audit-e4d67e27df9647a6df70",
+        "audit-cabcd14d12eea705c5e9",
+        "audit-a0b196e900db38e0a0cd"
+      ],
+      "audit_sha256": [
+        "3cc9e94338b5c4d2b889a5fd21d88cfc308a0d287fcab2e9981a24393725e0e9",
+        "e6219eada24128727880ea8a7c2af81904eada756424d0c6141d546425791e71",
+        "948e1d010537c3c580cf7020ee5abe80cce8bae0b09412275654d7d405aa39f5",
+        "74b93fada14b5c6b65e7978ed61dadea14c4b179ced003df9e9eab626b42c1b6",
+        "32897bfde6c4ab6f8dd73ac3d27a0b548cc8ff4807b59b10e046b87170a1b769",
+        "e4d67e27df9647a6df704b60d8e96076a62a0ea327550e70521a681524931a81",
+        "cabcd14d12eea705c5e935a0213aa17768f67e546da2ac1691becc784da8864f",
+        "a0b196e900db38e0a0cd73ed2b69fd7e615121450ef9f246509e88c92ea78e53"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "coding",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R279",
+      "gpu_j": 694855.8237756976,
+      "id": "bonsai-coding-271",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "on",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-21",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+        "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
+        "output_cap": 4096,
+        "plan_sha256": "84db86fe519aaf41421f1e920ccda55c7b2103f63cde297ee7910938398da0d5",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.05,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "temperature": 1.0,
+          "top_k": 20,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
+        "template_sha256": null
+      },
+      "model": "bonsai",
+      "name": "Ternary Bonsai 2 27B",
+      "peak_vram_mib": 8158.5,
+      "profile": "Thinking medium; 4096 output",
+      "quantization": "PQ2_0",
+      "repeat_range": null,
+      "solved": 151,
+      "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "tasks": 164,
+      "wall_s": 2519.754664823,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-66c5bf1378a74271d1b1",
+        "audit-6ba69d79b075c99f03ac",
+        "audit-c1f01d3d15d56ff49206"
+      ],
+      "audit_sha256": [
+        "66c5bf1378a74271d1b1ac12af19cd2490388f09906312cec02483605e71a1c3",
+        "6ba69d79b075c99f03acc9d8dd5e343d27771106cebbbdbc0c6a0629a73e868f",
+        "c1f01d3d15d56ff49206bcb86e1c8b925163c79ce3e41c61794fb7a490826981"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "tools",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R281",
+      "gpu_j": 159652.15518219126,
+      "id": "bonsai-tools-280",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "on",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-21",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 4096,
+        "plan_sha256": "c47c5993a526d67abb70d1cba56e1d9741cd82cb89ced1f488c179f7d5566555",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.05,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "temperature": 1.0,
+          "top_k": 20,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": "b0c619f7f1022b4c06c18ba6c6e608006e1609b667ed0d90a399f906afd2c2a5",
+        "template_sha256": null
+      },
+      "model": "bonsai",
+      "name": "Ternary Bonsai 2 27B",
+      "peak_vram_mib": 8158.5,
+      "profile": "Thinking medium; 4096 output",
+      "quantization": "PQ2_0",
+      "repeat_range": null,
+      "solved": 90,
+      "task_sha256": "7c273de654cb6f5dec4dacb5d65b1ea8cd236c8dac9ba674ecfed21e292b8698",
+      "tasks": 100,
+      "wall_s": 593.42491826,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-355f55bd44c49fb08916",
+        "audit-c654b84d0dcad4ee1544",
+        "audit-b1fc6b9a04856cba1af0"
+      ],
+      "audit_sha256": [
+        "355f55bd44c49fb089167f11e666581db3bf3c188d499a6104c2d897d5be04af",
+        "c654b84d0dcad4ee15440f026387212919515eb04b65b8dbf152f4f3efd33485",
+        "b1fc6b9a04856cba1af0acf96a90c9ec3f7dfdd9c15e919f3b73b53cfaea52aa"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R286",
+      "gpu_j": 161409.6739826662,
+      "id": "bonsai-agents-284",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "on",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-21",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 4096,
+        "plan_sha256": "55333c56e9fa5fd6d9841fc35126c94fd2c05d87c084f7be3c82c3637857a412",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.05,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "temperature": 1.0,
+          "top_k": 20,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": null
+      },
+      "model": "bonsai",
+      "name": "Ternary Bonsai 2 27B",
+      "peak_vram_mib": 8158.5,
+      "profile": "Thinking medium; 2048 output",
+      "quantization": "PQ2_0",
+      "repeat_range": null,
+      "solved": 17,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 599.015520518,
+      "warning": null
+    }
+  ],
+  "rules": [
+    "No combined score. Counts are one observed answer per task unless repeated cycles are explicitly stated.",
+    "Whole configurations: model, tokenizer, native template, output budget, sampling, quantization and engine can differ. Task/scorer matching permits comparison of these profiles, not causal architecture claims.",
+    "GPU board energy includes failed task attempts; excludes load/warmup and CPU/system energy. Latency is measured request/case time; startup and judge time are excluded.",
+    "NOT MEASURED means no full comparable audited result in this cohort. Partial screens are not converted into full-suite scores."
+  ],
+  "schema": 1
+}

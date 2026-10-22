@@ -171,7 +171,7 @@ flowchart LR
 - Agent throughput and energy: separate qualified profiles with different latency, energy and memory trade-offs.
 - Low-VRAM and long-context profiles: preserve their exact task and numerical limits; a fast prefill screen is not general agent qualification.
 
-See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model benchmarks](models.md) and the full [Optimization matrix](matrix.md).
+See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model Comparison & Benchmarks](benchmarks.md), [model evidence](models.md) and the full [Optimization matrix](matrix.md).
 
 ## How to read the evidence
 
@@ -180,7 +180,7 @@ See [Qualified configurations](configurations.md), [Rejected optimizations](reje
 Numerical values are exported without invented missing measurements. Original rationale excerpts may remain in German. Public audit excerpts are intentionally incomplete and have different bytes from the original audits whose hashes they cite.
 '''
  put('index.md',overview)
- readme=overview.replace('(configurations.md)','(docs/configurations.md)').replace('(rejected.md)','(docs/rejected.md)').replace('(models.md)','(docs/models.md)').replace('(matrix.md)','(docs/matrix.md)')+'\n## Documentation and collaboration\n\nBuild the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.\n'
+ readme=overview.replace('(benchmarks.md)','(docs/benchmarks.md)').replace('(configurations.md)','(docs/configurations.md)').replace('(rejected.md)','(docs/rejected.md)').replace('(models.md)','(docs/models.md)').replace('(matrix.md)','(docs/matrix.md)')+'\n## Documentation and collaboration\n\nBuild the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.\n'
  (P/'README.md').write_text(readme)
  put('hardware.md','# Overview & hardware\n\n'+overview.split('## Hardware and software')[1].split('## What has helped')[0]+'\nCompiler version, CMake-discovered toolkit and loaded runtime are separate identities. R356 found that a compression-mode cache setting was ineffective because a discovered-toolkit version gate omitted the NVCC option; no baseline was changed.\n')
  put('methodology.md','''# Research methodology
@@ -260,10 +260,12 @@ The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint bas
   if x['id']=='BMC01':stage=['YES: pinned Q6','YES: R253','YES: R259','YES: R254/R258','UNVERIFIED full100','YES: R253','YES: reasoning profile']
   elif x['id']=='BMC04':stage=['YES: PQ2 track','YES: R267+','YES: archived native suite','YES: recorded 164','YES: recorded 100','YES: recorded 18','YES: kernel/recipe variants']
   elif x['id']=='BMC03':stage=['YES: R287','YES: R288','YES: R288','UNVERIFIED','UNVERIFIED','PARTIAL: R289 early stop','UNVERIFIED']
-  elif x['id']=='BMC02':stage=['YES: R290','UNVERIFIED','UNVERIFIED','UNVERIFIED','UNVERIFIED','UNVERIFIED','UNVERIFIED']
+  elif x['id']=='BMC02':stage=['YES: R290','YES: R409','PARTIAL: audited output-budget profile','NOT MEASURED','Control only; no100-case score','NOT MEASURED','NOT MEASURED']
   stage_rows.append([x['name']]+stage+['UNVERIFIED / no comparable-profile qualification'])
  stage_table=table(['Model','Local weights','GPU load','Basic quality','Coding','Tools','Agents','Own optimization','Comparable profile qualified'],stage_rows)
- put('models.md','# Model benchmarks and transfer\n\nModels are compared within the same tasks using correct model-specific tokenizers/templates. A higher coding score is not general assistant superiority. Base-versus-plus joint coding scores, task success, VRAM and energy remain separate.\n\n'+table(['Track','Candidate','Status','Evidence','Latest recorded sprint'],[[x['id'],x['name'],x['status'],x['evidence_class'],x['current_experiment']] for x in models])+'\n## Evidence stages (not a ranking)\n\n'+stage_table+'\nYES indicates an observed stage, not a passed quality gate. Old source-admission records are historical and may precede later GPU work. Bonsai PQ2 and the separate PTQ port must not be conflated.\n\n## Existing OmniCoder2 / Qwen / challenger measurements\n\n'+pretty(read('model-benchmarks.json'))+'\n## Candidate admission records\n\n'+''.join('\n### '+x['id']+' — '+x['name']+'\n\n'+pretty(x) for x in models)+'\n## Stage semantics\n\nResearched, locally available weights, GPU-load success, measured basic quality, coding, tool calling, agents and qualified comparable profile are separate stages. Missing stage evidence is **UNVERIFIED**, not NO and not YES. A model file or source-only architecture review does not prove any downstream stage. See the linked experiments rather than infer completion from a track status.\n')
+ from comparison import render as render_comparison
+ render_comparison(read('comparison.json'),D)
+ put('models.md','# Model benchmarks and transfer\n\n[View Model Comparison & Benchmarks with audited charts](benchmarks.md).\n\nModels are compared within the same tasks using correct model-specific tokenizers/templates. A higher coding score is not general assistant superiority. Base-versus-plus joint coding scores, task success, VRAM and energy remain separate.\n\n'+table(['Track','Candidate','Status','Evidence','Latest recorded sprint'],[[x['id'],x['name'],x['status'],x['evidence_class'],x['current_experiment']] for x in models])+'\n## Evidence stages (not a ranking)\n\n'+stage_table+'\nYES indicates an observed stage, not a passed quality gate. Old source-admission records are historical and may precede later GPU work. Bonsai PQ2 and the separate PTQ port must not be conflated.\n\n## Existing OmniCoder2 / Qwen / challenger measurements\n\n'+pretty(read('model-benchmarks.json'))+'\n## Candidate admission records\n\n'+''.join('\n### '+x['id']+' — '+x['name']+'\n\n'+pretty(x) for x in models)+'\n## Stage semantics\n\nResearched, locally available weights, GPU-load success, measured basic quality, coding, tool calling, agents and qualified comparable profile are separate stages. Missing stage evidence is **UNVERIFIED**, not NO and not YES. A model file or source-only architecture review does not prove any downstream stage. See the linked experiments rather than infer completion from a track status.\n')
  comp=[]
  for f in fs:
   comp.append([f"[{f['id']}](factors/{f['id']}.md)",'Local evidence in stated scope' if f['omnicoder2_experimentally_covered'] else 'Unverified / architecture-specific', 'Requires model-specific audit','Requires model-specific audit','No automatic transfer'])
@@ -345,10 +347,10 @@ Die englischen Hauptseiten enthalten Methodik, Faktoren, Originalaudit-Hashes, q
 Es gibt noch keinen endgültigen universellen Modellgewinner. Die Einzeltest-Priorität und bestehenden Schutzmechanismen bleiben verbindlich.
 ''')
  changelog=P/'CHANGELOG.md'
- entry='## Matrix revision '+str(s['matrix_revision'])
+ entry='## Audited research checkpoint '+max((e['id'] for e in es),key=lambda x:int(x[1:]))+' / '+read('comparison.json')['measurement_fingerprint'][:12]
  if not changelog.exists():changelog.write_text('# Changelog\n\n')
  previous=changelog.read_text()
  if entry not in previous:
-  changelog.write_text(previous+'\n'+entry+'\n\nAudited public snapshot with distinct factor, experiment and profile inventories. See the commit diff and original audit hashes for additions and corrections. Historical original artifacts remain unchanged.\n')
+  changelog.write_text(previous+'\n'+entry+'\n\nAudited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.\n')
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
 if __name__=='__main__':main()

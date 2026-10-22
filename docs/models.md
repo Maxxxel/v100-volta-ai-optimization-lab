@@ -1,5 +1,7 @@
 # Model benchmarks and transfer
 
+[View Model Comparison & Benchmarks with audited charts](benchmarks.md).
+
 Models are compared within the same tasks using correct model-specific tokenizers/templates. A higher coding score is not general assistant superiority. Base-versus-plus joint coding scores, task success, VRAM and energy remain separate.
 
 | Track | Candidate | Status | Evidence | Latest recorded sprint |
@@ -7,7 +9,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
 | BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R262 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
-| BMC02 | OxCoder 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
+| BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC07 | Gemma 4 12B IT QAT | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -27,7 +29,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | Ornith 1.5 9B | YES: pinned Q6 | YES: R253 | YES: R259 | YES: R254/R258 | UNVERIFIED full100 | YES: R253 | YES: reasoning profile | UNVERIFIED / no comparable-profile qualification |
 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | YES: PQ2 track | YES: R267+ | YES: archived native suite | YES: recorded 164 | YES: recorded 100 | YES: recorded 18 | YES: kernel/recipe variants | UNVERIFIED / no comparable-profile qualification |
 | MiMo V2.6 Distill Qwen 9B | YES: R287 | YES: R288 | YES: R288 | UNVERIFIED | UNVERIFIED | PARTIAL: R289 early stop | UNVERIFIED | UNVERIFIED / no comparable-profile qualification |
-| OxCoder 9B | YES: R290 | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED / no comparable-profile qualification |
+| OxCoder 9B | YES: R290 | YES: R409 | PARTIAL: audited output-budget profile | NOT MEASURED | Control only; no100-case score | NOT MEASURED | NOT MEASURED | UNVERIFIED / no comparable-profile qualification |
 | LFM2.5 8B A1B | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED / no comparable-profile qualification |
 | Gemma 4 12B IT QAT | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED / no comparable-profile qualification |
 | Qwen3.6 27B | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED | UNVERIFIED / no comparable-profile qualification |
@@ -266,13 +268,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R290: OxCoder Q6 vollständig SHA256-verifiziert (7.359.268.288 Byte), 0 GPU-Starts, 0 Qualitätsfälle. Originalgewichte und Ollama unverändert. GPU-VRAM/nativeQualitätnochNICHTVERIFIZIERT.",
-  "current_experiment": null,
-  "evidence_class": null,
+  "assessment": "R410 OxCoder Q6 Thinking4096: Coding korrekt; HA semantisch falsch; PVE bei4096 Tokens ohne finale Antwort. Mit zwei unverändert wiederverwendeten R409-Erfolgen 3/5 beobachtete Fälle korrekt, kein vollständiger12erScore. 182.377s/45678.77GPU-J für diese5 QA-Fälle; Peak7354.5MiB. Profil nicht zugelassen; kein weiterer Budgetsweep.",
+  "current_experiment": "R410",
+  "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC02",
   "local_scope": null,
   "name": "OxCoder 9B",
-  "next_step": "R290 hat Q6-GGUF, Modellrevision, Template und Lizenzmetadaten belegt; kein GPU-Fit oder Qualitätslauf. Nach dem geschlossenen OmniCoder2-Profil-Gate ist OxCoder der nächste unvermessene P1-Codingkandidat: zuerst ein begrenzter nativer GPU-Admission-/Qualitätsscreen (Fit/VRAM, Template-Rendern, eingefrorene QA12 und sichere native Tool-Vorprüfung), ohne Optimierung und ohne Vollsuite. Bei bestandenem Basis-Gate dieselben passenden Coding-/Tool-/Agenten-Fixtures wie für Omni/Qwen verwenden. Anschließend architekturspezifische Einzeloptimierungen neu bewerten und testen, bevor irgendeine Kombination folgt.",
+  "next_step": "OxCoder T1/P.95 Thinking2K/4K in dieser Vergleichsrunde zurückstellen; keine gezielte Prompt-/Seed-/Budgetreparatur auf bekannten Fehlern. NativeGPU-/Tool-Control-Erfolg behalten; vollständige Coding-/BFCL-/Agentenwerte NICHT GEMESSEN. Vorhandene vollständige Omni/Qwen/Ornith/Bonsai-Suiten vergleichen.",
   "priority": "P1",
   "repository": "https://huggingface.co/OrionLLM/OxCoder-9B",
   "source_admission": null,

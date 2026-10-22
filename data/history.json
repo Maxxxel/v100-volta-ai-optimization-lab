@@ -12966,5 +12966,37 @@
     "kind": "R408_GPU_COMPLETE_INDEPENDENTLY_REVIEWED",
     "sequence": 1621,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T17:25:02.545094+00:00",
+    "experiment_id": "R409",
+    "factor_id": null,
+    "kind": "R409_MODEL_COMPARISON_NATIVE_ADMISSION_PREREGISTRATION",
+    "sequence": 1622,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T17:30:15.726022+00:00",
+    "experiment_id": "R409",
+    "factor_id": null,
+    "kind": "OXCODER_NATIVE_ADMISSION_INDEPENDENTLY_REVIEWED",
+    "sequence": 1623,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T17:31:16.556432+00:00",
+    "experiment_id": "R410",
+    "factor_id": null,
+    "kind": "R410_MODEL_QA_4096_PREREGISTRATION",
+    "sequence": 1624,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T17:40:11.029046+00:00",
+    "experiment_id": "R410",
+    "factor_id": null,
+    "kind": "OXCODER_QA4096_PROFILE_INDEPENDENTLY_REVIEWED",
+    "sequence": 1625,
+    "signature": null
   }
 ]

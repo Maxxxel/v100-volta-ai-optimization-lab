@@ -52,7 +52,8 @@ nav:
   - Experiment Results: results.md
   - Qualified Configurations: configurations.md
   - Rejected Optimizations: rejected.md
-  - Model Benchmarks: models.md
+  - Model Comparison & Benchmarks: benchmarks.md
+  - Model Evidence & Transfer: models.md
   - Compatibility Matrix: compatibility.md
   - Scientific Background: background.md
   - Papers & Sources: sources.md

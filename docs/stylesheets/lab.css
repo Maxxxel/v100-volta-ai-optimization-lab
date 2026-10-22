@@ -8,3 +8,7 @@
 .hero p { margin-bottom: 0; }
 .md-typeset code { overflow-wrap: anywhere; }
 @media (max-width: 760px) { .hero { padding: 1rem; } .hero strong { font-size: 1.25rem; } }
+
+/* Standalone SVGs are self-contained, keyboard/screen-reader labelled and offline. */
+.benchmark-svg { display: block; width: 100%; max-width: 42rem; height: auto; border-radius: .9rem; margin: 1rem auto 1.7rem; box-shadow: 0 .3rem 1.2rem #0002; }
+@media (max-width: 600px) { .benchmark-svg { max-width: 100%; margin: .7rem 0 1.2rem; } .md-typeset table { display: block; overflow-x: auto; } }

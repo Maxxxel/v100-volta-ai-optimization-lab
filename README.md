@@ -6,7 +6,7 @@ This project is not affiliated with or endorsed by NVIDIA, Ollama, engine develo
 
 ## Evidence snapshot
 
-Matrix revision **317**, canonical assessment date **2026-10-22T17:20:00+00:00**.
+Matrix revision **322**, canonical assessment date **2026-10-22T17:46:02.038949+00:00**.
 
 | Original axes | Additional techniques | Experimentally covered | Qualified factor scopes | Model challengers |
 |---|---|---|---|---|
@@ -14,7 +14,7 @@ Matrix revision **317**, canonical assessment date **2026-10-22T17:20:00+00:00**
 
 
 
-These are different units: **327 sprint records**, **302 historical signed windows**, **1621 ledger events**, **42 immutable reference records**, **10 current profile champions**. None is a total count of independent GPU experiments.
+These are different units: **329 sprint records**, **302 historical signed windows**, **1625 ledger events**, **42 immutable reference records**, **10 current profile champions**. None is a total count of independent GPU experiments.
 
 ## Hardware and software
 
@@ -41,7 +41,7 @@ flowchart LR
 - Agent throughput and energy: separate qualified profiles with different latency, energy and memory trade-offs.
 - Low-VRAM and long-context profiles: preserve their exact task and numerical limits; a fast prefill screen is not general agent qualification.
 
-See [Qualified configurations](docs/configurations.md), [Rejected optimizations](docs/rejected.md), [Model benchmarks](docs/models.md) and the full [Optimization matrix](docs/matrix.md).
+See [Qualified configurations](docs/configurations.md), [Rejected optimizations](docs/rejected.md), [Model Comparison & Benchmarks](docs/benchmarks.md), [model evidence](docs/models.md) and the full [Optimization matrix](docs/matrix.md).
 
 ## How to read the evidence
 

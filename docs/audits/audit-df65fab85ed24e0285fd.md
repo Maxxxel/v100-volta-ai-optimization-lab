@@ -22,6 +22,7 @@ Original file: `research-metadata.json`; 8159 bytes. The original is retained pr
 ```json
 {
   "actual_GPU_execution": true,
+  "actual_full_GPU_offload": true,
   "actual_generation_requests": 5,
   "model_starts": 1,
   "peak_device_vram_mib": 3938.5,

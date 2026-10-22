@@ -23,6 +23,8 @@ Original file: `AUDIT.json`; 4262 bytes. The original is retained privately and 
 {
   "actual_generation_requests": 12,
   "model_starts": 1,
+  "observed_original_QA_cases": 8,
+  "original12_full_score_claimed": false,
   "peak_device_vram_mib": 7356.5
 }
 ```
