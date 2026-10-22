@@ -12670,5 +12670,13 @@
     "kind": "BMT27_ACTION_PROTOCOL_200_CASES_FROZEN_NO_MODEL_QUERY",
     "sequence": 1584,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T08:59:03.883327+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "BMT27_ACTION_PARSER_AND_ORACLE_CPU_CONTRACTS_PASSED_NO_GPU",
+    "sequence": 1585,
+    "signature": null
   }
 ]

@@ -28,6 +28,7 @@ Actual Omni inference with pre-sampling probability extraction on three neutral 
 - [Original audit hash and public excerpt](../audits/audit-b4763d4fa78c55d3de3e.md)
 - [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 - [Original audit hash and public excerpt](../audits/audit-ca7d5f9ffc11eb4fcafa.md)
+- [Original audit hash and public excerpt](../audits/audit-ffbe3c06cb66ec62a08f.md)
 
 ### Recorded model-specific variant coverage
 
