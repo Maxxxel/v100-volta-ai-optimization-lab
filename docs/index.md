@@ -6,7 +6,7 @@ This project is not affiliated with or endorsed by NVIDIA, Ollama, engine develo
 
 ## Evidence snapshot
 
-Matrix revision **292**, canonical assessment date **2026-10-22T13:52:48+00:00**.
+Matrix revision **293**, canonical assessment date **2026-10-22T14:08:40+00:00**.
 
 | Original axes | Additional techniques | Experimentally covered | Qualified factor scopes | Model challengers |
 |---|---|---|---|---|
