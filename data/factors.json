@@ -30097,22 +30097,25 @@
     ]
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "KIVI ist nicht identisch mit nativen Q8/Q4-KV-Flags. Asymmetrische Gruppierung/Skalen und passende SM70-Kernel wurden nicht zugelassen. R233/R234 widerlegen KIVI nicht.",
+    "coverage_scope": "Relevant OmniD256/GQA4 quantizedKV CUDA numerical component only; no loaded Omni model or fullcacheintegration.",
+    "decision": "R395 KIVI actualupstream2bitCUDA component: unchanged kernel/helper from commit 876b4d2d08e3b1d5f70d0969c299d8c7c42ddfb6 compiled/nativebinarySM70 and executed onV100; four QKperchannelK/AVpertokenV cases atD256/GQA4,M1,contexts512/8192,group64. All147456outputelements independently checked against savedFP64reconstruction;4/4pass, NMSE4.15e-8–4.37e-8 below1e-6. Oneoperatorprocess,zero models. Peak550.5MiB. SyntheticcachequantizationNMSE~0.101 againstoriginalF16 is separate substantialquantizationloss, not measuredmodelquality. Packed/scalebytes exclude residualwindow and state. No throughput, wholemodelVRAMsaving, agentquality, MTPverification, energyper-success or Champion claim.",
     "domain": "hbm_memory",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-67337bdf704104b2d015",
+      "audit-a3984fe0de4957ec6661"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R395"
     ],
-    "experimentally_covered": false,
+    "experimentally_covered": true,
     "id": "HBM09",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Justify measured KV pressure, then independent numerics and quality before a kernel port.",
-    "omnicoder2_experimentally_covered": false,
+    "next_action": "Continue remaining originalsingles with HBM10/KVQuant exact calibration/codebook/SM70 operator admission. Retain R395as componentonly proof: KIVI is not inherently excluded by Volta. FullKIVI port needs an admitted quantizer/cachelayout/residuallifetime and correct hybridGDN/reset/rollback plusM>1/MTP handling; only then modelquality and E2E/memory tests. No extra synthetickernel timing grid, combinations or newmodels yet.",
+    "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
         "levels": [
@@ -30173,14 +30176,16 @@
       }
     ],
     "prerequisites": [
-      "Asymmetric channel/token grouping, scales, hybrid-state lifetime and SM70 dequant/attention implementation."
+      "Correct GGUF/hybrid attention cache integration and quantizer, including residual buffers, scaling, reset/rollback and M>1 support.",
+      "Real model tensor quantization/attention error and unchanged originalQA/tool/agent quality.",
+      "Fair saved/fresh F16control and practical capacity/latency/energy gates before any Champion."
     ],
     "primary_sources": [],
-    "priority": "P3",
-    "remaining_scope": "Einen realen asymmetrischen Cachepfad samt Numerik/State-Lebensdauer vorlegen; sonst Portaufwand zurückstellen.",
+    "priority": "P2",
+    "remaining_scope": "FullGGUF cachelayout/quantizer/scale+residual memory/lifetime, serial andM>1/MTP correctness, original12/tool/agentquality and E2E/VRAM/energy remain untested.",
     "reopening_conditions": "Justify measured KV pressure, then independent numerics and quality before a kernel port.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "PARTIAL",
     "title": "KIVI asymmetrischer KV",
     "variants": [
       {

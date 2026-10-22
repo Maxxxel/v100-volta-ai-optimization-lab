@@ -12742,5 +12742,13 @@
     "kind": "HBM22_PINNED_QSERVE_SM80_INTEGER_MMA_SOURCE_DEFERRAL",
     "sequence": 1593,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T10:39:56.375657+00:00",
+    "experiment_id": "R395",
+    "factor_id": null,
+    "kind": "R395_HBM09_ACTUAL_UPSTREAM_KIVI_SM70_COMPONENT_NUMERICS",
+    "sequence": 1594,
+    "signature": null
   }
 ]
