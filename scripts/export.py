@@ -72,6 +72,22 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('measurement_type')=='GPU_UPSTREAM_KIVI_2BIT_SM70_COMPONENT_NUMERICAL_ADMISSION':
+        allowed=('native_cases','passed_cases','NMSE_limit','native_binary_SM','model_starts','operator_processes','actual_GPU_inference','original12_quality_cases','numerical_gate_passed','screen_passed','winner_qualified','peak_device_vram_mib')
+        component={k:obj[k] for k in allowed if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
+        fields=('IC','OC','query_heads','KV_heads','M','bits','group','seed','native_binary_SM','registers','output_elements','NMSE','limit','max_abs_error','finite','passed','synthetic_cache_quantization_NMSE','packed_bytes','scale_zero_bytes','F16_cache_bytes','residual_buffer_included')
+        cases=[]
+        for row in obj.get('cases',[]):
+            if not isinstance(row,dict):continue
+            clean={k:row[k] for k in fields if isinstance(row.get(k),(int,float,bool)) and (not isinstance(row[k],float) or math.isfinite(row[k]))}
+            if clean:cases.append(clean)
+        if cases:component['numeric_component_cases']=cases
+        commit=obj.get('upstream_commit')
+        if isinstance(commit,str) and re.fullmatch('[0-9a-f]{40}',commit):component['upstream_commit']=commit
+        if component:result['KIVI_SM70_component']=component
+    if obj.get('measurement_type')=='GPU_ACTUAL_LLGUIDANCE_TYPED_SCHEMA_QA12_SCREEN':
+        fields=('observed_cases','planned_cases','actual_llguidance_requests','model_starts','wall_s','matched_reference_wall_s','archived_reference_E2E_change_percent','gpu_energy_j_approx','peak_device_vram_mib','screen_passed','winner_qualified','token_distribution_preserved')
+        result['LLGuidance_QA12_screen']={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
     if obj.get('measurement_type')=='GPU_FIXED_SCHEMA_NATIVE_STOP_FRAMING_SCREEN':
         fields=('model_starts','requests','template_requests','timed_pairs','functional_gate_passed','actual_stop_intervention_executed','paired_geomean_E2E_change_percent','correct_mock_labels_per_arm','minimum_E2E_reduction_percent','peak_device_vram_mib','hardware_guards_passed','receiver_framing_required','raw_candidate_is_not_complete_JSON','original12_quality_cases','screen_passed','winner_qualified','request_GPU_j_A_approx','request_GPU_j_B_approx','request_GPU_j_change_percent')
         aggregate={k:obj[k] for k in fields if k in obj and (obj[k] is None or isinstance(obj[k],(int,float,bool)))}
