@@ -13030,5 +13030,13 @@
     "kind": "MBPP32_MTP_ZERO_LOSS_GATE_FAILED_AUDITED",
     "sequence": 1629,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T18:23:16.986515+00:00",
+    "experiment_id": "R413",
+    "factor_id": null,
+    "kind": "QWEN38_MBPP32_CODING_PROFILE_PREREGISTRATION",
+    "sequence": 1630,
+    "signature": null
   }
 ]
