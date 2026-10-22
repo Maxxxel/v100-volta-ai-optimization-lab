@@ -20842,25 +20842,28 @@
     ]
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "GGUF-EOS248046 und Padding248044; tatsächliche Engine-EOG-Menge umfasst248044/248046/248063/248064/248065. PaddingistauchEOG. Keine belegte äquivalente alternative Stopregel oder unbeabsichtigte Abschneidung nachgewiesen.",
+    "coverage_scope": "Actual nativeOmni stop-delimiter intervention under fixed enum-onlyobject grammar with explicitreceiverframing; not arbitrarytoolarguments or allM12variants.",
+    "decision": "R393 M12 fixed soledecision-enum JSON protocol: one stockOmniQ6K/8K/F16/300W process,82generations including2warmups,40timedpairs over20existinginputs/tworounds. All40templateprompt/nativegenerated-prefix/framedJSON/decision comparisons preserved;12→11generatedtokens each. RequestE2E pairedgeomean -4.519% versus freshmatchedcontrols, includingapply-templateHTTP,completionHTTP,receiverframing/parse. RequestGPUenergy sums 2988.239J→2812.200J (-5.89%, NVMLapproximation). Screenpromising, not independentlyqualified. Rawcandidate reply isdeliberatelydelimiter-truncated; declaredreceiverframingrequired. No general tool/agent/JSONspeedup, original12quality or Champion.",
     "domain": "model_behavior",
     "evidence_ids": [
+      "audit-516c80996de9152c55dc",
       "audit-562eaeb901f0c1b39e99",
       "audit-7cf42c940fb08a117cf6",
-      "audit-c386579435ba2b0b3f02"
+      "audit-c386579435ba2b0b3f02",
+      "audit-c3ea90d682b65a8edf24"
     ],
     "experiment_ids": [
       "R249",
       "R349",
-      "R392"
+      "R392",
+      "R393"
     ],
-    "experimentally_covered": false,
+    "experimentally_covered": true,
     "id": "M12",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Implement oneguardednativecomparison from frozenM12plan:20existingcalibrationcases,2balancedrounds,<=82generations includingwarmups; identicaltemplate/render/schema/seed, onlystopdelimiterprotocol changes. Require actualstopmetadata,completeJSON,matchingnativeprefixanddecision before3%E2Egate. Rawgenericclient compatibilitynotassumed.",
-    "omnicoder2_experimentally_covered": false,
+    "next_action": "Retain R393promisingscreen and rawprotocol tradeoff. Defer furtherM12latencyfinequalification until currentdistinctsingles reviewed; nextE08actualparser source/build admission.",
+    "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
         "levels": [
@@ -20927,10 +20930,10 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "NewconcreteM12case: fixedenumJSON closingdelimiter plusdeclarednative receiverframing. OriginalnaturalEOS evidence iscontrolonly, not a stopintervention. Source/CPUcontractadmitted; no nativeA/BGPUexecution, speed or qualitywinner.",
+    "remaining_scope": "Independentfreshsessionconfirmation and matchingreferenceprofile qualification pending; no automaticgenericJSON/toolcompatibility. NaturalEOScontrols retained; otherstoprules need a distinctcompletioncontract.",
     "reopening_conditions": "Only admit an actual rule with demonstrated overhead or incomplete-response problem.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "PARTIAL",
     "title": "Stop Tokens",
     "variants": [
       {

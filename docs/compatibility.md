@@ -80,7 +80,7 @@ The table deliberately distinguishes demonstrated OmniCoder2 scope from conditio
 | [M09](factors/M09.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [M10](factors/M10.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [M11](factors/M11.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M12](factors/M12.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
+| [M12](factors/M12.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [M13](factors/M13.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [S01](factors/S01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [S02](factors/S02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |

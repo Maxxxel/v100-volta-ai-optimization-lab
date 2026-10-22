@@ -12702,5 +12702,13 @@
     "kind": "M12_FIXED_SCHEMA_STOP_SOURCE_AND_FRAMING_ADMISSION_NO_GPU",
     "sequence": 1588,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T09:38:52.850123+00:00",
+    "experiment_id": "R393",
+    "factor_id": null,
+    "kind": "R393_M12_REAL_GPU_FIXED_SCHEMA_STOP_SCREEN_PROMISING_NOT_QUALIFIED",
+    "sequence": 1589,
+    "signature": null
   }
 ]
