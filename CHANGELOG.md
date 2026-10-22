@@ -467,3 +467,7 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 ## Audited research checkpoint R438 / 48869f40b1d3
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R439 / 48869f40b1d3
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

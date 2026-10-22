@@ -10293,5 +10293,75 @@
     "profile": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
     "qualification": "Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss.",
     "winner_qualified": true
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_energy_j_approx": 82071.24753281694,
+        "gpu_j_per_success": 6839.270627734745,
+        "observed": 12,
+        "peak_device_vram_mib": 9718.5,
+        "solved": 12,
+        "wall_s": 297.068972224
+      }
+    },
+    "experiment_id": "R439",
+    "id": "d410e7cde86335bf8933fe8a7de626dd4390f91bc29c356b9e3004606c5b2223",
+    "identity": {
+      "cache": "warmmodel,coldKV",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "32768",
+        "--flash-attn": "on",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "on",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0",
+        "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+      },
+      "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "seed": 1001,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0560986e4e40400f9a1beaa474aade93b3c6236f78cde94609ae0d6d72c4a09d",
+      "1d32e8c7a5ba375008ffd3c010f70dfdd76c3c449ee4cd26e76004cd5e43e41c",
+      "32ed0e13c30a135600f667c46f0ba0c2df0e2eca5e0558b6302fa178e475e2d3",
+      "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+      "5f92b5321867cca18dfde0638a1c12f599cb7d00b05833a41398148b20fe4898",
+      "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+      "717966da46cfa4e9753ce2241df90215224329a344005bfd603b753e4e264019",
+      "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+      "7bff05c54f510fb2408268889c245e42843ffaf469ff52fcc53a2199cd1df790",
+      "8386c6c6b932e9b15a675e6f09910b252934a33c256fb4732e8d06800db73b6d",
+      "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+      "9bcac20d6fd1640fb05136e57255f0dd4a015b5f78bad3c86283266797355dbd",
+      "a48373656da8d0e2f3c9e24c5be5239343ad708fa1f0f5d4de3eea82c31f4d3f",
+      "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+      "cfb310938f8a59e625b24e3bef1886ece36567410babf2b981f3cb0f9e4509e3",
+      "e666c714a773c996ef611d6cf19638b001ad894d9ba32569a15cfdc08ff93506"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "bonsai2_27b_pq2",
+    "profile": "bonsai2-pq2-sm70-native-medium-context32K-longinventory-full12-v1",
+    "qualification": "Model-specific complete12case baseline only; no production/overallChampion.",
+    "winner_qualified": false
   }
 ]

@@ -82,7 +82,7 @@ def metrics(obj):
         if isinstance(cycles,list) and len(cycles)<=3:
             result['energy_stability_cycles']=[{k:row[k] for k in allowed if numeric(row.get(k))} for row in cycles if isinstance(row,dict)]
     if obj.get('factor')=='R19':
-        for name in ('observed_cases','planned_cases','full_12_semantic_score_claimed','common_control_passed','common_wall_change_percent_vs16K','common_GPU_J_per_success_change_percent_vs16K','VRAM_increase_MiB_vs16K'):
+        for name in ('observed_cases','planned_cases','observed','planned','full12_observed','full_pilot2_score_claimed','full_remaining10_score_claimed','native_output_cap','full_12_semantic_score_claimed','common_control_passed','common_wall_change_percent_vs16K','common_GPU_J_per_success_change_percent_vs16K','VRAM_increase_MiB_vs16K'):
             value=obj.get(name)
             if isinstance(value,(int,float,bool)) and (not isinstance(value,float) or math.isfinite(value)):result[name]=value
         ranges={}

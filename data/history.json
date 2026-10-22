@@ -13566,5 +13566,21 @@
     "kind": "R438_BONSAI_NATIVE_LONG_CONTEXT_PILOT_AUDITED",
     "sequence": 1696,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:23:32.473123+00:00",
+    "experiment_id": "R439",
+    "factor_id": null,
+    "kind": "R439_BONSAI_REMAINING10_PREREGISTERED",
+    "sequence": 1697,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:29:03.754285+00:00",
+    "experiment_id": "R439",
+    "factor_id": null,
+    "kind": "R439_BONSAI_NATIVE_LONG_INVENTORY_CAMPAIGN_AUDITED",
+    "sequence": 1698,
+    "signature": null
   }
 ]

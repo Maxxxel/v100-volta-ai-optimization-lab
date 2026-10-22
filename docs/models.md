@@ -7,7 +7,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | Track | Candidate | Status | Evidence | Latest recorded sprint |
 |---|---|---|---|---|
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
-| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R438 |
+| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R439 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
@@ -232,13 +232,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R438 Bonsai native32K/medium4096: 2/2pilot tasks, QA9/12semantic;pilotpass=True,peak9718.5MiB. No12caseoroverallwinner claim.",
-  "current_experiment": "R438",
+  "assessment": "R439 Bonsai32K/medium4096: 12/12 combinedobserved(12planned),new10/10;full12=True,wall297.069s,GPUJ/success6839.270627734745. Nooverallwinner.",
+  "current_experiment": "R439",
   "evidence_class": null,
   "id": "BMC04",
   "local_scope": null,
   "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-  "next_step": "Native2casepilot passed: consider remaining10fixedR338inventorycases at exactsameBonsai32K/medium4096profile, preservingpilotrawresults/no repeatedpilotanswers. Separateprotocol from256capGemma/Qwen; fullscope requires all12outcomes and faircosts.",
+  "next_step": "Bonsai native longinventory fullscope recorded; compare source-native quality/latency/VRAM/energy tradeoffs separately from256capprotocols. Assess next concrete model-compatible gap, no prompt/budget repair or automaticcombination.",
   "priority": "P1",
   "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
   "source_admission": null,

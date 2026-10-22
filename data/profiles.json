@@ -268,5 +268,11 @@
     "C": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
     "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "d410e7cde86335bf8933fe8a7de626dd4390f91bc29c356b9e3004606c5b2223",
+    "C": null,
+    "id": "bonsai2-pq2-sm70-native-medium-context32K-longinventory-full12-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]
