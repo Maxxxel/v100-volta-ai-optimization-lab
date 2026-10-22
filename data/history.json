@@ -13542,5 +13542,13 @@
     "kind": "BONSAI_LONG_CONTEXT_SOURCE_ADMISSION",
     "sequence": 1693,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:18:01.081754+00:00",
+    "experiment_id": "R438",
+    "factor_id": null,
+    "kind": "R438_BONSAI_NATIVE_LONG_CONTEXT_PILOT_PREREGISTERED",
+    "sequence": 1694,
+    "signature": null
   }
 ]
