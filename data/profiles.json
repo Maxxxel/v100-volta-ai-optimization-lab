@@ -132,6 +132,12 @@
     "scope": "Champion only in this exact profile; no automatic production deployment."
   },
   {
+    "A0": "566c08294de16b66eb5e0c3bea80bc68115d930930cb444e414c718fb8b14999",
+    "C": null,
+    "id": "omnicoder2-sm70-cuda128-q6k-ctx8192-processcold-filesystemwarm-startup-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
     "A0": "066a38d404944bb593e5364fc30e41c05eecbcacbc4930b6147e1908518e7291",
     "C": "70f9438a1b180ed16e1bf4bdd217d84959c11bcb0424f32d5addfbb277153420",
     "id": "omnicoder2-sm70-cuda128-sse-pp2k4k16-decode128-ctx8192-v1",

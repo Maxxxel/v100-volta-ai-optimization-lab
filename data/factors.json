@@ -23784,21 +23784,24 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Stock-CUDA-Binary: 142 native SM70-Cubins und142 SM70-PTX-Module; CMake-Ziel70. Keine fremden Architekturmodule gefunden. SASS-only wäre eine eigenständige Packaging-Variante, kein belegter Decode-Gewinn.",
+    "decision": "R386: private nativeSM70-only backend built with all142nativecubinimages byteidentical, noPTX,192340832->134546272bytes(-30.05%). New matching process-cold/startup reference calibrated on3serial originalmodelstarts:3.138790761/2.471156142/2.428174262s tofirstvalidreply; median2.471156142s,range28.756% exceeds preregistered10%gate. CandidateBwasNOTstarted. Calibration kept with automatic_reuseFalse; no speed, quality12, Decode or GPU-memorysaving claim for the candidate. Three firstcasegrades preserved; not12qualitycases. E06remainsOPEN/experimentallyNEIN; CPUartifactdifferenceisnotGPUintervention.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-1a4b88a9b1a42ad2ad0a",
       "audit-562eaeb901f0c1b39e99",
+      "audit-7716d550277dc834c504",
       "audit-82108ec013b822ad4c84"
     ],
     "experiment_ids": [
       "R249",
-      "R347"
+      "R347",
+      "R386"
     ],
     "experimentally_covered": false,
     "id": "E06",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "SASS-only70-real erst bei konkret belegtem Loader-/JIT-/Startzeitproblem und zugelassenem Scratchbudget; unveränderte native SM70-Instruktionen prüfen, Lade-/Modellready-/Erstantwortzeit inkl.GPU-J/VRAM/Qualität messen. Kein Multiarch-Build ohne eigene Hypothese.",
+    "next_action": "Defer additional startupdiagnosis until breadth priorities addressed; preserve noisy A0, no posthocoutlier removal or automatic reuse.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -23881,15 +23884,16 @@
       }
     ],
     "prerequisites": [
-      "A concrete load-time or executed-kernel difference versus this existing SM70 build."
+      "Stable preregistered loader/startup reference: current28.756%range exceeds10%gate.",
+      "Actual candidate GPU mapping/startup/quality measurement, not binarysizealone."
     ],
     "primary_sources": [
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docker/Dockerfile.vllm019_cu126",
       "https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docker/Dockerfile.vllm021_cu126"
     ],
     "priority": "P2",
-    "remaining_scope": "SASS-only70-real erst bei konkret belegtem Loader-/JIT-/Startzeitproblem und zugelassenem Scratchbudget; unveränderte native SM70-Instruktionen prüfen, Lade-/Modellready-/Erstantwortzeit inkl.GPU-J/VRAM/Qualität messen. Kein Multiarch-Build ohne eigene Hypothese.",
-    "reopening_conditions": "Admit a rebuild only for an actual distinct path or measured startup problem.",
+    "remaining_scope": "SM70-onlyartifactexistsandnativecubinbytesarepreserved, butstartupcalibrationexceeds10%range. No candidate execution. Stablepreregisteredrepeated-reload/loaderprotocol and a practicalstartupquestion needed before B; no expected Decodekernelchange from removedPTX.",
+    "reopening_conditions": "Concrete loader/startup usecase and stable conditions for allrelevant loader/driver/filecaches, fixed before measurement; explicitly newprofile if conditions change. Existing142SM70-onlyartifactready, no kernelrebuildrequired.",
     "source_model_hypotheses": [],
     "status": "OPEN",
     "title": "SM70 Build Target",

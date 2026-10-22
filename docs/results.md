@@ -309,6 +309,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R383](experiments/R383.md) | E07 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 | [R384](experiments/R384.md) | HBM12 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2-architecture-component |
 | [R385](experiments/R385.md) | HBM12 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2-architecture-component |
+| [R386](experiments/R386.md) | E06 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 
 
 ## Historical signed windows

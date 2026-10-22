@@ -160264,6 +160264,51 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "model_starts": 3,
+      "original12_nonregression": false,
+      "peak_device_vram_mib": 7238.5,
+      "requests": 3
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7716d550277dc834c504",
+    "original_bytes": 3532,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7716d550277dc834c5044022f60322bfe0ade53f0e950e56d95fc08c01309ed3",
+    "statements": {
+      "decision": "SM70_ONLY_STARTUP_NO_PRACTICAL_QUALIFICATION",
+      "evidence_class": "NICHT_VERIFIZIERT",
+      "limits": [
+        "Process-cold/filesystem-warm only; preparation read time separately reported/excluded. No claim about storage-cold boot or total assistant deployment latency.",
+        "Stock and candidate model/server/cache/sampler identical except SM70-only private CUDA backend; no R384prefetch, Q8route, privatecuBLAS, MTP or power change.",
+        "Native cubinbyteidentity is verified offline; actualmappedprivatebackend and original12 are checked on real GPU.",
+        "NVMLboardJapproximation over startup-to-firstreply, not whole-systemenergy and not energy per successful agenttask.",
+        "Three process timing repetitions are not three quality suites. A promising screen still needs independentconfirmation/stability and scopedqualification."
+      ],
+      "measurement_type": "GPU_SM70_ONLY_PROCESS_STARTUP_SCREEN"
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-1a4b88a9b1a42ad2ad0a",
+    "original_bytes": 2131,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1a4b88a9b1a42ad2ad0a0aef865adbc533d358d1c95524b987c6e835b1b68f3f",
+    "statements": {
+      "limits": [
+        "RawAUDITgeneric no-practical-qualification decision is a stopped calibration, not a negative measurement of the candidate.",
+        "Only model/server/backend file residency was controlled; other loader/driver state not independently isolated. Do not infer cause of firststartdifference.",
+        "All three starts kept; no posthocoutlier/warmup exclusion. New protocol would need separate preregistration/reference, not change this A0."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "actual_GPU_execution": true,
       "actual_generation_requests": 28,
       "actual_private_cublas126": true,

@@ -12566,5 +12566,13 @@
     "kind": "R384_R385_PUBLIC_AGGREGATE_ANNOTATION_NO_NEW_TEST",
     "sequence": 1571,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T06:53:49.548970+00:00",
+    "experiment_id": "R386",
+    "factor_id": null,
+    "kind": "R386_NEW_STARTUP_REFERENCE_TOO_VARIABLE_CANDIDATE_NOT_STARTED",
+    "sequence": 1572,
+    "signature": null
   }
 ]

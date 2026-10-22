@@ -14852,5 +14852,39 @@
       "measurement_type": "GPU_F16_KV_PREFETCH_NUMERICAL_ADMISSION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": false,
+      "model_starts": 3,
+      "original12_nonregression": false,
+      "peak_device_vram_mib": 7238.5,
+      "requests": 3
+    },
+    "audit_id": "audit-7716d550277dc834c504",
+    "date": "2026-10-22T06:51:26.488226+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "E06"
+    ],
+    "id": "R386",
+    "model": "omnicoder2",
+    "reference_A0": "566c08294de16b66eb5e0c3bea80bc68115d930930cb444e414c718fb8b14999",
+    "statements": {
+      "decision": "STARTUP_CALIBRATION_TOO_VARIABLE_CANDIDATE_NOT_STARTED",
+      "evidence_class": "NICHT_VERIFIZIERT",
+      "limits": [
+        "Process-cold/filesystem-warm only; preparation read time separately reported/excluded. No claim about storage-cold boot or total assistant deployment latency.",
+        "Stock and candidate model/server/cache/sampler identical except SM70-only private CUDA backend; no R384prefetch, Q8route, privatecuBLAS, MTP or power change.",
+        "Native cubinbyteidentity is verified offline; actualmappedprivatebackend and original12 are checked on real GPU.",
+        "NVMLboardJapproximation over startup-to-firstreply, not whole-systemenergy and not energy per successful agenttask.",
+        "Three process timing repetitions are not three quality suites. A promising screen still needs independentconfirmation/stability and scopedqualification.",
+        "RawAUDITgeneric no-practical-qualification decision is a stopped calibration, not a negative measurement of the candidate.",
+        "Only model/server/backend file residency was controlled; other loader/driver state not independently isolated. Do not infer cause of firststartdifference.",
+        "All three starts kept; no posthocoutlier/warmup exclusion. New protocol would need separate preregistration/reference, not change this A0."
+      ],
+      "measurement_type": "GPU_SM70_ONLY_PROCESS_STARTUP_SCREEN"
+    },
+    "winner_qualified": false
   }
 ]
