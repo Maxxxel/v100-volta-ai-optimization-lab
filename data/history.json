@@ -12590,5 +12590,13 @@
     "kind": "R388_C15_EFFECTIVE_SIZE_COMPRESSION_CPU_SINGLE_OBJECT_ADMISSION",
     "sequence": 1574,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T07:35:59.646122+00:00",
+    "experiment_id": "R389",
+    "factor_id": null,
+    "kind": "R389_C16_QUARTER_HALF_GPU_MEMORY_SCREENS_EARLY_NEGATIVE",
+    "sequence": 1575,
+    "signature": null
   }
 ]

@@ -8157,7 +8157,7 @@
     "prerequisites": [],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "R381 isolatedroute screen: longdecodephase improves9.439%, fullE2E0.961%, noenergywin. Independent relevanttaskquality/latency/stability and freshcontrols still needed before scopedqualification. Existing formatnegatives preserved.",
+    "remaining_scope": "ExistingF16/Q8/Q4format-scoped measurements andqualityfailuresretained. R381changesattentiondispatchatfixedQ8/Q8, belongs toHBM18andisnotanothercacheformatintervention. Differentformats orprecisionapproaches needactualdistinctimplementation,numericalandtaskqualitybeforeGPU; no blindknownformatretest.",
     "reopening_conditions": "KIVI/KVQuant sind separate Originalachsen. Weitere Kalibration nur mit eigenständiger Numerik-/Aufgabenhypothese, nicht gegen bekannte Fehlantworten.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -8554,7 +8554,7 @@
     "prerequisites": [],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "R381 isolatedroute screen: longdecodephase improves9.439%, fullE2E0.961%, noenergywin. Independent relevanttaskquality/latency/stability and freshcontrols still needed before scopedqualification. Existing formatnegatives preserved.",
+    "remaining_scope": "ExistingF16/Q8/Q4format-scoped measurements andqualityfailuresretained. R381changesattentiondispatchatfixedQ8/Q8, belongs toHBM18andisnotanothercacheformatintervention. Differentformats orprecisionapproaches needactualdistinctimplementation,numericalandtaskqualitybeforeGPU; no blindknownformatretest.",
     "reopening_conditions": "Neuen Value-Cachepfad nur bei konkret anderem kompatiblem Layout/Qualitätsvertrag; kein weiterer32K-Q8-Kontrolllauf.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -12745,21 +12745,24 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Launchqueue1x/2x/4x-EnvironmentinrealenCUDA-Modellstartsbelegt;Warmzeitenüberwiegendinnerhalb0,3%,keinpraktischerGewinn. QueuesizeistnichtConnection-/Streamanzahl;Driverqueuebelegungnichtgemessen.",
+    "decision": "R389 C16 new0.25x/0.5x actualGPUresourcevariants onunchangedstockOmniQ6K/8K/F16/300W: each4frozenwarmuprequests,7354.5MiBobserveddeviceVRAM vsstoredA07356.5MiB (2MiBdifference, not independentlyattributed). Bothfail preregistered64MiBmemorygate; fullworkloadpeakcannotundoalreadyobservedallocation, so original12/native3repscorrectlynotrun.8/8nativeoutputIDarrays preserved;2serialmodelstarts/8requests. No newA0, no speed/quality12/energy-per-success or queuecounterclaim; prior1x/2x/4xnegativesretained.",
     "domain": "cuda_kernel",
     "evidence_ids": [
       "audit-184d7e983fb62df75178",
+      "audit-5bf62e57530de6c3ae47",
       "audit-83935f9040ea44f97cfa",
-      "audit-e9ba5c7272cdd96e5062"
+      "audit-e9ba5c7272cdd96e5062",
+      "audit-f1a26e9e6cbffc7baca1"
     ],
     "experiment_ids": [
-      "R356"
+      "R356",
+      "R389"
     ],
     "experimentally_covered": true,
     "id": "C16",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Original1x/2x/4xnichtwiederholen. Dokumentierte0,25x/0,5xbleibenungeprüfteP2-Untervarianten,nurbei tatsächlicherQueue-/Hostenqueue-RessourcenfrageodergeändertemWorkload. KeinebehauptetenQueue-Counter.",
+    "next_action": "Closequarter/half64MiBmemoryhypothesesnegative; reuseallfivecapacityscopes. Furtherthroughput/qualityexpansiononlyfor a concretechangedhost-enqueue/queuepressureworkload, not anothergenericflagsweep.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -12858,8 +12861,8 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Original1x/2x/4xnichtwiederholen. Dokumentierte0,25x/0,5xbleibenungeprüfteP2-Untervarianten,nurbei tatsächlicherQueue-/Hostenqueue-RessourcenfrageodergeändertemWorkload. KeinebehauptetenQueue-Counter.",
-    "reopening_conditions": "Erst anderen echten Launch-/Queue-Engpass belegen; keine Wiederholung derselben Umgebungswerte.",
+    "remaining_scope": "Namedcapacities1x/2x/4xhistoricalwarmnativeprofiles retained.0.25x/0.5xnowbothGPU-screened for practicaldevice-memorysaving andfailed64MiBgate afterwarmup. Theirfullquality/steadythroughputeffectsremainunmeasured, not positive. No furthercapacitysweepwithoutdifferentdemonstratedqueue/enqueueproblem.",
+    "reopening_conditions": "Actual differentlaunch-pressure/multistream/copy workload withstateguards andindependentlyspecified latency/resourcequestion; neitherenvironmentvaluenorNVMLMIBis a measuredqueuecounter.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "CUDA Launch Queues",

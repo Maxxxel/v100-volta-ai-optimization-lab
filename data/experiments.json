@@ -15016,5 +15016,37 @@
       "measurement_type": "CPU_EFFECTIVE_NVCC_COMPRESSION_SINGLE_TU_ADMISSION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "model_starts": 2,
+      "peak_device_vram_mib": 7354.5,
+      "requests": 8
+    },
+    "audit_id": "audit-5bf62e57530de6c3ae47",
+    "date": "2026-10-22T07:22:07.779018+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "C16"
+    ],
+    "id": "R389",
+    "model": "omnicoder2",
+    "reference_A0": "417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239",
+    "statements": {
+      "decision": "FRACTIONAL_QUEUE_SCREEN_REJECTED_PRIMARY_MEMORY_GATE",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "New0.25x/0.5x values only; existing1x/2x/4xnegatives preserved, no repeatedA0calibration.",
+        "Originalstockbackend andCUDA/cuBLAS used; no privateSASS-only/compression/prefetch/MMQ/MTP/power combination.",
+        "Environmentvalue verifiedinactualownedGPUchild; not a measurement of effectivephysicalqueuecapacity or proof of whichmemoryallocationchanged.",
+        "NVMLdevice/processmemoryobservations only. No occupancy, HBMtransaction or commandbufferhardwarecounter claimed.",
+        "Earlymemoryfutility means no completeoriginal12/nativeperformance/agentquality claim. Warmuptimings are not winnerqualification.",
+        "TotalvariantNVMLboardJincludesprocessload/warmups/teardown, not matchedagenttaskenergy or energyper success.",
+        "Anypromisingscreen needs independentfreshconfirmation/quality/stability; no directChampionpromotion."
+      ],
+      "measurement_type": "GPU_C16_FRACTIONAL_QUEUE_MEMORY_SCREEN"
+    },
+    "winner_qualified": false
   }
 ]
