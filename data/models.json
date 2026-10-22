@@ -99,10 +99,14 @@
     "id": "BMC07",
     "local_scope": null,
     "name": "Gemma 4 12B IT QAT",
-    "next_step": "IT QAT GGUF + Projector, Bild/Audio/Text jeweils eigene Eval; Toolqualität separat.",
+    "next_step": "Schreibgeschützten temporären Forschungs-Dateipfad vom Host in neuen LXC-Benchmarkpfad prüfen, ohne [REDACTED]/Produktivpfade zu ändern; vor großem Download Speicherreserve und Enginecompatibility prüfen. Andernfalls konkrete Speicher-Voraussetzung offenhalten.",
     "priority": "P2",
     "repository": "https://huggingface.co/google/gemma-4-12B-it",
-    "source_admission": null,
+    "source_admission": {
+      "GPU_runs": 0,
+      "sha256": "230de81437f1f93f18388351ef795cde9470b096f93f2c2226dac94d9bfbc57f",
+      "weights_available": false
+    },
     "status": "offen"
   },
   {
