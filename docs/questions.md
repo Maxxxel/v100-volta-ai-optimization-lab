@@ -4,10 +4,10 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 
 | Subcase | Public research issue | Status |
 |---|---|---|
-| R340-S01 | [Research: targeted SM70 resource/traffic profiling for a distinct kernel patch](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1) | OPEN_HYPOTHESIS_NOT_GPU_ADMISSION |
-| R340-S03 | [Research: admit one SM70 vLLM source lane only after model and memory gates](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2) | OPEN_HYPOTHESIS_NOT_GPU_ADMISSION |
-| R340-S06 | [Research: evaluate block-FP8 W8A16 fused dequantization on SM70](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3) | OPEN_HYPOTHESIS_NOT_GPU_ADMISSION |
-| R340-S07 | [Research: flash-attention V100 page/stride and causal-mask correctness](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4) | OPEN_HYPOTHESIS_NOT_GPU_ADMISSION |
+| R340-S01 | [Research: targeted SM70 resource/traffic profiling for a distinct kernel patch](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1) | CLOSED_SCOPED_TECHNICAL_DEFERRAL |
+| R340-S03 | [Research: admit one SM70 vLLM source lane only after model and memory gates](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2) | OPEN_MODEL_AND_MEMORY_ADMISSION_GATE |
+| R340-S06 | [Research: evaluate block-FP8 W8A16 fused dequantization on SM70](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3) | OPEN_MODEL_ARTIFACT_AND_KERNEL_GATE |
+| R340-S07 | [Research: flash-attention V100 page/stride and causal-mask correctness](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4) | OPEN_DISTINCT_ADAPTER_CORRECTNESS_PATH |
 
 
 ## R340-S01
