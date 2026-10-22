@@ -13294,5 +13294,13 @@
     "kind": "R423_GEMMA_JSON_NEW8_FRESH_AB_CONFIRMATION_AUDITED",
     "sequence": 1662,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T20:31:09.786852+00:00",
+    "experiment_id": "R424",
+    "factor_id": null,
+    "kind": "R424_GEMMA_NATIVE_TOOL100_MODEL_COMPARISON_PREREGISTRATION",
+    "sequence": 1663,
+    "signature": null
   }
 ]
