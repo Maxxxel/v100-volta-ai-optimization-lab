@@ -22863,7 +22863,7 @@
     "id": "S04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Reuse R148 negative and qualified MTP scopes. No draft download/port without compatibility and resource admission.",
+    "next_action": "After higher-ranked feasible individual variants, admit a separate pinned BeeLlama CUDA12.4/SM70 build for DFlash. Verify draft provenance, target taps/token IDs, loader, state/verification behavior, and measured 16-GiB budget; then run only an isolated same-engine no-draft vs DFlash B-only screen. No production engine change; preserve R179 as reference.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -22927,7 +22927,14 @@
     "prerequisites": [
       "Pinned Qwen3.5 DFlash has a source-supported candidate engine route in BeeLlama CUDA12.4/SM70, but no local build/runtime result. Confirm exact draft tensor/config provenance (the available Anbeeld Q4 GGUF is structurally different from the pinned Z-Lab checkpoint), tokenizer and target-layer taps, state/verification correctness, and measured combined 16-GiB budget before an isolated B-only test."
     ],
-    "primary_sources": [],
+    "primary_sources": [
+      "https://arxiv.org/abs/2602.06036",
+      "https://github.com/Anbeeld/beellama.cpp/blob/58a1629274d8d74ea5a6acf34f30fb5946c2422b/docs/beellama-features.md",
+      "https://github.com/Anbeeld/beellama.cpp/blob/58a1629274d8d74ea5a6acf34f30fb5946c2422b/src/models/dflash.cpp",
+      "https://github.com/ggml-org/llama.cpp/issues/29145",
+      "https://huggingface.co/Anbeeld/Qwen3.5-9B-DFlash-GGUF/tree/9bb5f9196eee5804fb7dd5c597726543989ee09f",
+      "https://huggingface.co/z-lab/Qwen3.5-9B-DFlash/tree/5fc3b3d474760f18c516db87d84c37edbfd3ede6"
+    ],
     "priority": "P1",
     "remaining_scope": "Pinned Qwen3.5 DFlash has a source-supported candidate engine route in BeeLlama CUDA12.4/SM70, but no local build/runtime result. Confirm exact draft tensor/config provenance (the available Anbeeld Q4 GGUF is structurally different from the pinned Z-Lab checkpoint), tokenizer and target-layer taps, state/verification correctness, and measured combined 16-GiB budget before an isolated B-only test.",
     "reopening_conditions": "Pinned Qwen3.5 DFlash has a source-supported candidate engine route in BeeLlama CUDA12.4/SM70, but no local build/runtime result. Confirm exact draft tensor/config provenance (the available Anbeeld Q4 GGUF is structurally different from the pinned Z-Lab checkpoint), tokenizer and target-layer taps, state/verification correctness, and measured combined 16-GiB budget before an isolated B-only test.",
