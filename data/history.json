@@ -13478,5 +13478,21 @@
     "kind": "R434_QWEN38_32K_NEWCASE_CAPACITY_VALIDATION_AUDITED",
     "sequence": 1685,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T22:55:56.876974+00:00",
+    "experiment_id": "R435",
+    "factor_id": null,
+    "kind": "R435_H03_GEMMA_225W_PREREGISTERED",
+    "sequence": 1686,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:00:13.155438+00:00",
+    "experiment_id": "R435",
+    "factor_id": null,
+    "kind": "R435_GEMMA225W_SINGLE_AUDITED",
+    "sequence": 1687,
+    "signature": null
   }
 ]

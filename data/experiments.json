@@ -18328,5 +18328,43 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 28,
+      "context_tokens": 16384,
+      "gpu_energy_j_approx": 28627.064357836807,
+      "gpu_j_per_success": 2385.5886964864007,
+      "model_starts": 1,
+      "original12": {
+        "format": 1,
+        "observed": 12,
+        "semantic": 10
+      },
+      "peak_device_vram_mib": 8254.5,
+      "solved": 12,
+      "wall_s": 134.098632611
+    },
+    "audit_id": "audit-d30cc6527ce85d7d1784",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "H03"
+    ],
+    "id": "R435",
+    "model": "gemma4",
+    "reference_A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
+    "statements": {
+      "decision": "225W_ENERGY_SCREEN_PROMISING_NEEDS_FRESH_CONTROL",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Bonly screen against valid storedR429; no independentqualification or championpromotion.",
+        "Same12synthetic read-only inventories, ownnativeT1, no fullagent or coding energy claim.",
+        "GPUboard inferencewindows only; excludes startup/CPU/system/warmup.",
+        "Allhistoricalnativeformat and agentpolicynegatives remain."
+      ]
+    },
+    "winner_qualified": false
   }
 ]
