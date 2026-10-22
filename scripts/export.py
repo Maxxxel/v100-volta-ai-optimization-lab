@@ -75,6 +75,15 @@ def metrics(obj):
     if obj.get('measurement_type')=='GPU_MOCK_ACTION_SELECTIVE_RISK_CALIBRATION_SCREEN':
         fields=('model_starts','requests','calibration_cases','calibration_correct_decisions','calibration_unsafe_allows','holdout_pairs','underlying_holdout_decisions_equal','thresholds_fitted','holdout_unsafe_allows_A','holdout_unsafe_allows_B','correct_allow_retention','holdout_abstentions','holdout_request_wall_A_s','holdout_request_wall_B_s','holdout_GPU_j_A_approx','holdout_GPU_j_B_approx','peak_device_vram_mib','hardware_guards_passed','original12_quality_cases','winner_qualified','screen_passed')
         aggregate={k:obj[k] for k in fields if k in obj and (obj[k] is None or isinstance(obj[k],(int,float,bool)))}
+        if obj.get('holdout_pairs')==0:
+            # A vacuous True from an empty loop does not prove a comparison.
+            aggregate['underlying_holdout_decisions_equal']=None
+            aggregate['holdout_comparison_performed']=False
+        for k in ('calibration_request_GPU_j_approx','calibration_request_wall_s'):
+            if isinstance(obj.get(k),(int,float)):aggregate[k]=obj[k]
+        confusion=obj.get('calibration_confusion')
+        if isinstance(confusion,dict):
+            aggregate['calibration_confusion']={label:{pred:value for pred,value in row.items() if pred in {'allow','deny','ask'} and type(value) is int} for label,row in confusion.items() if label in {'allow','deny','ask'} and isinstance(row,dict)}
         if aggregate:result['mock_action_calibration']=aggregate
     if obj.get('measurement_type')=='GPU_HEAD_FREE_PROBABILITY_ACQUISITION_SCREEN':
         fields=('matched_pairs','all_paired_token_IDs_equal','probability_metadata_valid','probability_token_entries','nondegenerate_top_logprob_entries','model_starts','requests','calibration_fits','original12_quality_cases','task_successes_measured','peak_device_vram_mib','screen_passed')

@@ -12686,5 +12686,13 @@
     "kind": "PRE_GPU_STRICT_JSON_PARSER_CORRECTION",
     "sequence": 1586,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T09:13:48.721278+00:00",
+    "experiment_id": "R392",
+    "factor_id": null,
+    "kind": "R392_BMT27_CUTOFF_CALIBRATION_NEGATIVE_HOLDOUT_NOT_RUN",
+    "sequence": 1587,
+    "signature": null
   }
 ]

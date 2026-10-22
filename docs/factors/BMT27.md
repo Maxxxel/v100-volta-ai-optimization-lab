@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| PARTIAL | True | True | P1 |
+| PARTIAL | True | True | P2 |
 
 
 ## Theory and Volta implications
@@ -25,10 +25,12 @@ These are source links or general implementation background, not local speedup e
 Actual Omni inference with pre-sampling probability extraction on three neutral acquisition inputs; no action confidence calibration or broad model quality.
 
 - [Original audit hash and public excerpt](../audits/audit-18678122920b3bae4bfa.md)
+- [Original audit hash and public excerpt](../audits/audit-7051e3c06b9fd4ba2852.md)
 - [Original audit hash and public excerpt](../audits/audit-77e97e00457c2d4494e8.md)
 - [Original audit hash and public excerpt](../audits/audit-b4763d4fa78c55d3de3e.md)
 - [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 - [Original audit hash and public excerpt](../audits/audit-ca7d5f9ffc11eb4fcafa.md)
+- [Original audit hash and public excerpt](../audits/audit-e547bc3b623ccc45230b.md)
 - [Original audit hash and public excerpt](../audits/audit-ffbe3c06cb66ec62a08f.md)
 
 ### Recorded model-specific variant coverage
@@ -46,13 +48,13 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-R391 BMT27 acquisition gate: one actual stock Omni Q6K/8K/F16/300W model start,14requests,6matchedpairs on3newneutralinputs. All6nativeoutputIDarrays identical;360selected-token logprob entries and top5lists independently verified against returnedtokenIDs and nativepre-sampling settings. Paired E2E overhead 11.14–12.82%, median 11.83%; summed paired boardenergy change +4.12%, descriptive only. Metadata acquisition works in this exact greedy profile, but incurs cost. Zero calibration fits, original12/task-success or tool-safety qualification. BMT27 PARTIAL; no Champion or confidence correctness claim.
+R392 BMT27: one stock Omni Q6K/8K/F16/300W model start,80new self-authored calibration cases,65/80correct labels and15unsafeallows. Independent raw-byte/logprob/oracle replay confirms the chosen likelihood feature cannot eliminate all15unsafeallows while retaining95%ofcorrectallows. At zero observed unsafeallows, at most19/28correctallows could remain (67.86%). Preregistered early stop used: zero accepted thresholds, zero holdoutpairs;120holdoutcases untouched. Concrete mean-selected-decision-token-logprob cutoff rejected in this calibration scope. No source-head, broadagentsecurity, independentholdout, original12 or globalOmniqualityclaim; no knownfailureprompt/thresholdrepair.
 
-**Remaining scope:** Independentaction-calibration andholdout data nowfrozen(self-authored80/120family-disjoint); byte-alignedscoreobservable/API, modelacquisition, thresholdfit andheldoutselective-risk/fullcostevidence remainunmeasured. R391neutralacquisition isnotactionconfidencequalification.
+**Remaining scope:** R391acquisition works but R392mean-selected-label-logprob threshold failed80casecalibration;120holdoutnotrun. Otherconfidencefeatures or trainedheads require a distinct independentlymotivated implementation/data contract, not retuningthese15failures.
 
 **Reopening condition:** Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.
 
-**Next action:** BMT27 action-level abstention study: frozen200self-authoredpolicycases,80calibration/120family-disjointholdout; pin selected-labelbyte/logprob parser and CPUoracle/no-leakage checks, then controlled stockruntime admission. Onefrozen threshold only,>=95%correctallowretention, zero calibration unsafeallow; if no baselineunsafeallow or no feasiblethreshold, stopbeforeholdout. No originalbenchmark tuning, no calibratedprobability/deployment claim; single-factor gate remains active.
+**Next action:** Keep this cutoff negative; do not weaken95%retention or force heldoutgeneration. No newthreshold/promptfeaturesearch on these calibrationfailures. Different confidence methods remain separate hypotheses.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
@@ -74,4 +76,4 @@ This is a source/evidence review, not a new GPU experiment.
 
 ## Related sprint records
 
-[R390](../experiments/R390.md), [R391](../experiments/R391.md)
+[R390](../experiments/R390.md), [R391](../experiments/R391.md), [R392](../experiments/R392.md)
