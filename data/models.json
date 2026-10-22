@@ -93,13 +93,13 @@
     "status": "teilweise"
   },
   {
-    "assessment": "R430 Gemma32K:common12/12,extended11/12(each12planned);commonwallchange0.1392732662457652,peak8526.5MiB;screen=True. Scopes separated,noChampion.",
-    "current_experiment": "R430",
+    "assessment": "R431 Gemma32K independentnewcases:11/12 observed(12planned),validationpassed=True;sourceextended11/12 retained;peak8526.5MiB. Capacityscope only,nooverallChampion.",
+    "current_experiment": "R431",
     "evidence_class": "LOKAL_GEMESSEN",
     "id": "BMC07",
     "local_scope": null,
     "name": "Gemma 4 12B IT QAT",
-    "next_step": "Independently confirm only the promising32Kcapacity profile with fresh prespecified context-position cases/control; preserve16K lowerVRAM profile. Do not repeat full coding suites or infer assistantqualification from native longinventory retrieval.",
+    "next_step": "Close the Gemma longcontext branch at its measured scope; preserve source/validation failures. Reassess only concrete remaining model-compatible single hypotheses and fair model/engine tradeoffs; do not repeat Gemma coding/tool/agent suites or start combinations prematurely.",
     "priority": "P1",
     "repository": "https://huggingface.co/google/gemma-4-12B-it",
     "source_admission": {

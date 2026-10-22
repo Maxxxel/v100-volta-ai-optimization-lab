@@ -18110,5 +18110,59 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 16,
+      "context_profile_token_ranges": {
+        "validation": {
+          "maximum_tokens": 29490,
+          "minimum_tokens": 29119
+        }
+      },
+      "context_tokens": 32768,
+      "full_12_semantic_score_claimed": true,
+      "gpu_energy_j_approx": 72487.35421607949,
+      "gpu_j_per_success": 6589.759474189044,
+      "model_starts": 1,
+      "observed_cases": 12,
+      "peak_device_vram_mib": 8526.5,
+      "planned_cases": 12,
+      "scopes": {
+        "validation": {
+          "full12": true,
+          "gpu_energy_j_approx": 72487.35421607949,
+          "gpu_j_per_success": 6589.759474189044,
+          "observed": 12,
+          "planned": 12,
+          "solved": 11,
+          "wall_s": 266.1359924
+        }
+      },
+      "solved": 11,
+      "wall_s": 266.1359924
+    },
+    "audit_id": "audit-cd8eb8e97cb00d82a151",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R19"
+    ],
+    "id": "R431",
+    "model": "gemma4",
+    "reference_A0": "1abad08845b8100943527b5fcede7cd34f4669485263cfabaa246457d0ac0836",
+    "statements": {
+      "decision": "GEMMA32K_NEW_CASE_CAPACITY_VALIDATION_PASSED_SCOPE_ONLY",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "New12syntheticrecords, fixedsamefamily/position/row-countstrata, sourcegenerator/oracles frozen beforeoutputs; notmodeltrainingholdout.",
+        "Unchanged32Kmodel/runtime/template/T1P95K64/native256cap; originalQAandcommon14K validR430evidence reused, notgeneratedagain.",
+        "Capacity-validation scope only, no speedup fromdifferentinputs and no overallmodel/agent/productionChampion.",
+        "Known source11/12extended failure and nativeTool84/100/agent9/18policynegatives retained; one outputtrajectory percase, no population/repeated-run uncertainty.",
+        "GPUboardtaskinferenceenergyonly; startup,warmup,CPU/systemexcluded; no actualtools."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

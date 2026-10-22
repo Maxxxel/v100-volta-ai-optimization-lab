@@ -81,7 +81,7 @@ def metrics(obj):
         context=obj.get('context_tokens')
         if type(context) is int and context>0:
             for name,scope in (obj.get('scopes') if isinstance(obj.get('scopes'),dict) else {}).items():
-                if name not in ('common','extended') or not isinstance(scope,dict):continue
+                if name not in ('common','extended','validation') or not isinstance(scope,dict):continue
                 band=scope.get('actual_input_token_range')
                 if isinstance(band,list) and len(band)==2 and all(type(x) is int for x in band) and 0<band[0]<=band[1]<=context:
                     ranges[name]={'minimum_tokens':band[0],'maximum_tokens':band[1]}

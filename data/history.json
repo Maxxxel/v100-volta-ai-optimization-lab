@@ -13406,5 +13406,21 @@
     "kind": "R430_GEMMA32K_COMMON_AND_CAPACITY_AUDITED",
     "sequence": 1676,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T21:57:14.071306+00:00",
+    "experiment_id": "R431",
+    "factor_id": null,
+    "kind": "R431_GEMMA32K_NEW12_CAPACITY_VALIDATION_PREREGISTRATION",
+    "sequence": 1677,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T22:03:31.253590+00:00",
+    "experiment_id": "R431",
+    "factor_id": null,
+    "kind": "R431_GEMMA32K_NEWCASE_CAPACITY_VALIDATION_AUDITED",
+    "sequence": 1678,
+    "signature": null
   }
 ]
