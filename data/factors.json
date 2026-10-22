@@ -26284,12 +26284,14 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R378 full-model trainer limitation remains. New CPU-only proof uses the already pinned native ggml_opt API for a reduced frozen-feature rank-8 output-LoRA graph at actual 4096x248320 tensor dimensions; one AdamW update and one independent analytic-gradient probe pass. This establishes CPU graph/API feasibility only; actual adapter file registration, SM70 execution, device memory, model-derived feature capture and training quality remain unverified.",
+    "decision": "Native reduced output-LoRA graph has passed CPU-only MSE and cross-entropy optimizer checks at actual Omni dimensions. The mixed graph uses F32 master A/B parameters (required by the pinned AdamW kernels) and explicit F16 forward casts; the analytic gradient matched exactly in both latest CE and MSE checks. Pinned CUDA source supports the required operation families, but actual V100 dispatch, adapter GGUF loading, model-derived features and measured training memory remain unverified.",
     "domain": "training_research",
     "evidence_ids": [
       "audit-2651d48b3aee06a5fdc0",
       "audit-562eaeb901f0c1b39e99",
-      "audit-577b1f3693e2c89cecab"
+      "audit-577b1f3693e2c89cecab",
+      "audit-64091bc93ffae982bb0d",
+      "audit-74b92bb7f70024080925"
     ],
     "experiment_ids": [
       "R249",
@@ -26300,7 +26302,7 @@
     "id": "T01",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Freeze actual adapter tensor registration/metadata and train/dev data; verify 16-bit/F32 choices and V100 CUDA dispatch/resource behavior, then capture only result_norm on disjoint R187-derived training tokens and perform one bounded GPU step under existing broker guards.",
+    "next_action": "Freeze exact adapter metadata and disjoint training/dev token IDs, reusing R397 teacher logits only for the matching captured positions. Then run one broker-guarded V100 result_norm capture plus F32-master/F16-forward AdamW step; audit actual adapter tensor registration/load, backend assignment and memory.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -26366,7 +26368,7 @@
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Verify adapter metadata/registration and independent train/dev split; capture result_norm from the pinned Omni model, then run one bounded GPU optimizer step and measure actual VRAM/dispatch. No task quality or training benefit from the synthetic CPU oracle.",
+    "remaining_scope": "Freeze adapter GGUF metadata/shapes and isolated R187-derived train/dev token IDs. On GPU capture result_norm for those selected positions, train one bounded cross-entropy step with F32 masters/F16 forward, verify a saved adapter loads into the pinned model, and measure real VRAM/backend placement. No quality claim from one step.",
     "reopening_conditions": "Demonstrate actual trainableadapter registration, compatibleQwen35GDN/autograd or a correctly frozen-backbone path, private data split and one boundedFP16/SM70optimizerstep with measuredmemory. No blanketclaimthatQLoRAcannotfit16GB.",
     "source_model_hypotheses": [],
     "status": "OPEN",

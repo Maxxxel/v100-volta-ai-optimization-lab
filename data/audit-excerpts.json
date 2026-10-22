@@ -162537,6 +162537,35 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-64091bc93ffae982bb0d",
+    "original_bytes": 3004,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "64091bc93ffae982bb0d28c245940a763f820430cd9dcf46f3e1cc369cbfdce1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-74b92bb7f70024080925",
+    "original_bytes": 2531,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "74b92bb7f7002408092513942641dbd3df0f38f25f8ae0dddeaca612ce90f884",
+    "statements": {
+      "limits": [
+        "No actual GGUF adapter file was loaded.",
+        "No GPU/SM70 operator assignment or Tensor Core usage measured.",
+        "The CUDA optimizer kernels update F32 masters; F16 is only the forward path.",
+        "No model-derived result_norm, training effectiveness or task quality result."
+      ]
+    }
+  },
+  {
     "aggregate_metrics": {
       "models": {
         "omnicoder2": {
