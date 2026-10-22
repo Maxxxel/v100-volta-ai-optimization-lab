@@ -9,7 +9,7 @@
     "omnicoder2_experimentally_covered": 107,
     "original_factors": 130,
     "qualified_profile_pointers": 10,
-    "reference_records": 37,
+    "reference_records": 38,
     "scientific_status": {
       "DEFERRED": 23,
       "NOT_APPLICABLE": 5,
@@ -32,7 +32,7 @@
   "schema": 1,
   "source_date": "2026-10-22T06:36:18.324939+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "73227a53ea9faf22ca2de2398c7ad8e1a211d2f1f90cb16521fab3efdb7d5901",
+    "BENCHMARK_REFERENCES.json": "c2749ba01554a4405c6e758935a3dcf9af6088f2b5ceea79595b2e2f6ee70826",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "1ad1116966a015c4d116e1f245edcb45975fa1906b4acc4e258330335e9cdcc4",
     "O2_EXPERIMENTS.jsonl": "c48ebbe01d984fb2126817fd9cdf0c9919a0429b79ecb7d3808b6d59f2935472",

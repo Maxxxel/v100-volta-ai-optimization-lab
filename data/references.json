@@ -6308,6 +6308,70 @@
   {
     "aggregate_metrics": {
       "metrics": {
+        "NMSE_results": [
+          {
+            "NMSE": 2.9314524719616203e-06,
+            "limit": 0.0005
+          },
+          {
+            "NMSE": 0.00036829741005028356,
+            "limit": 0.0005
+          },
+          {
+            "NMSE": 0.0006796596455055297,
+            "limit": 0.0005
+          },
+          {
+            "NMSE": 0.0007395845164017028,
+            "limit": 0.0005
+          },
+          {
+            "NMSE": 2.2232163018119267e-05,
+            "limit": 0.0005
+          },
+          {
+            "NMSE": 2.4111667347203536e-05,
+            "limit": 0.0005
+          }
+        ],
+        "native_cases": 6,
+        "passed_cases": 4
+      }
+    },
+    "experiment_id": null,
+    "id": "b22af5c446e7db98fabcab1b285f45f54dc6e260864d2119e777319c57c40e29",
+    "identity": {
+      "context": "NativeF16D256GQA4sixfixtures;16K/32Kandcontrols, notwholemodel",
+      "inference_flags": {},
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0"
+      },
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "723aaa36beca9efde27d220840b306330db563b009f928b92e2036262a62bbbc",
+      "7dd39f3fad1d9ba4580306ad5a49988bcd44de455c700c528a853d54d19580fa",
+      "8b52ca6130d726bc1e9fc93a7d2db1835103bb2474cfc20d710195c4eb2ae485",
+      "97f2d73c202449f96ea59e4041f91b347d3825b9522161c2c7b288c1748b74a0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+      "f8ff76963ab77c828e5a0aeb1f5dbd5ffb7eb7e2c8724ec3c3daea56d8258719"
+    ],
+    "kind": "seeded_native_FA_precision_golden_control",
+    "limits": [
+      "Baseline may fail32KnativeCPUreferencetolerance; retained as exact-input corrective-treatment control, not qualified32Kmodelquality.",
+      "No wholemodel, performance, taskquality or energyper-success conclusion."
+    ],
+    "model": "omnicoder2-architecture-component",
+    "profile": null,
+    "qualification": "EXACT_INPUT_NUMERICAL_CONTROL_NOT_A_MODEL_CHAMPION",
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
         "gpu_energy_j": 47344.030280743646,
         "gpu_j_per_success": 3641.8484831341266,
         "solved": 13,

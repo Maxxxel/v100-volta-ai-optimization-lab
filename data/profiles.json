@@ -166,5 +166,11 @@
     "C": null,
     "id": "qwen38-iq3s-mtp-sm70-cuda128-native-ctx8192-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "b22af5c446e7db98fabcab1b285f45f54dc6e260864d2119e777319c57c40e29",
+    "C": null,
+    "id": "sm70-f16-d256-gqa4-fa-weightedv-seeded-sixcases-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]
