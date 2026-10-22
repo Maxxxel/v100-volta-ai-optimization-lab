@@ -12614,5 +12614,13 @@
     "kind": "R390_C14_EXACT_INPUT_GPU_PRECISION_NUMERICAL_GATE_NEGATIVE",
     "sequence": 1577,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T08:22:00.603505+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "DEFERRAL_SCOPE_REASSESSMENT_NO_NEW_EXPERIMENT",
+    "sequence": 1578,
+    "signature": null
   }
 ]

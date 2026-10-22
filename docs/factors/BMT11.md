@@ -26,6 +26,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -48,6 +49,26 @@ QAT/QAD is a trained checkpoint property. NativeNVFP4 instructions are not SM70;
 
 **Reopening condition:** Passender Omni-QAT/QAD-Checkpoint oder zugelassener realer Trainingsschritt; Fremdmodell-QAT ist keine Omni-Inferenzintervention.
 
-**Next action:** Passender Omni-QAT/QAD-Checkpoint oder zugelassener realer Trainingsschritt; Fremdmodell-QAT ist keine Omni-Inferenzintervention.
+**Next action:** Later model-phase artifact/license/hash/SM70-load admission for the linked GGUF; no download or generic NVFP4 exclusion now.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | SPLIT_OMNI_AND_OTHER_MODEL_QAT |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Omni-specific QAT is unadmitted, but the archived QUASAR card explicitly links a Qwen3.5-4B Q4_0 GGUF. Native NVFP4 absence does not exclude supported dequantized QAT deployment. |
+| new GPU execution | False |
+| next action | Later model-phase artifact/license/hash/SM70-load admission for the linked GGUF; no download or generic NVFP4 exclusion now. |
+| previous status | DEFERRED |
+| priority | P2 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

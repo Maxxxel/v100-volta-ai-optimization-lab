@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | False | False | P3 |
+| DEFERRED | False | False | P2 |
 
 
 ## Theory and Volta implications
@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,6 +47,26 @@ MLA/MQA/SWA/MSA/gelernte Sinks nur als kompatible Modellarchitektur vergleichen.
 
 **Reopening condition:** GQA/GDN sind bereits Teil der Omni-Architektur. MQA/MLA/gelernte lokale Muster benötigen passende Gewichte; laufzeitseitige Sink-/Sparse-KV-Policies separat mit state-sicherem Cachepfad und unabhängiger Qualität prüfen.
 
-**Next action:** GQA/GDN sind bereits Teil der Omni-Architektur. MQA/MLA/gelernte lokale Muster benötigen passende Gewichte; laufzeitseitige Sink-/Sparse-KV-Policies separat mit state-sicherem Cachepfad und unabhängiger Qualität prüfen.
+**Next action:** For a runtime policy require actual KV-pressure benefit and state-safe eviction including recurrent layers; freeze independent retention/quality tasks before any port or GPU test.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | SPLIT_LEARNED_ARCHITECTURE_AND_RUNTIME_CACHE |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | GQA/GDN already exist in Omni. Learned MLA/MQA/SWA/sink architectures need matching weights; a runtime sink/window/sparse-cache policy is a separate implementable but approximate treatment. |
+| new GPU execution | False |
+| next action | For a runtime policy require actual KV-pressure benefit and state-safe eviction including recurrent layers; freeze independent retention/quality tasks before any port or GPU test. |
+| previous status | DEFERRED |
+| priority | P2 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

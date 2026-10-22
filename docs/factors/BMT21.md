@@ -22,6 +22,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -44,6 +45,26 @@ Jointtask/scaffold evolution changes trainingdata/policy. Must have reproducible
 
 **Reopening condition:** Reproduzierbarer Trainings-/Scaffold-Verifier, saubere Datenpartitionen und zugelassener Trainer; MiMo-Inferenz misst nicht die kausale Wirksamkeit des Trainingsrezepts.
 
-**Next action:** Reproduzierbarer Trainings-/Scaffold-Verifier, saubere Datenpartitionen und zugelassener Trainer; MiMo-Inferenz misst nicht die kausale Wirksamkeit des Trainingsrezepts.
+**Next action:** Separate static scaffold hypothesis from a bounded admitted training recipe; no evaluation-task recycling.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_TRAINING_EFFECT_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Offline scaffold proposals are possible; joint policy/task evolution requires disjoint data, a verifier and actual training. Foreign model scores do not prove the training cause. |
+| new GPU execution | False |
+| next action | Separate static scaffold hypothesis from a bounded admitted training recipe; no evaluation-task recycling. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

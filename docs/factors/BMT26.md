@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | False | False | P2 |
+| DEFERRED | False | False | P3 |
 
 
 ## Theory and Volta implications
@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,6 +47,26 @@ StreamingRNNT is audioarchitecture/serving for ASR, not an Omnidecoderoptimizati
 
 **Reopening condition:** ASR/RNNT-Komponente und Audiotests in späterer Assistentenphase; keine Änderung des Omni-Textdecoders durch ASR-Servingparameter.
 
-**Next action:** ASR/RNNT-Komponente und Audiotests in späterer Assistentenphase; keine Änderung des Omni-Textdecoders durch ASR-Servingparameter.
+**Next action:** Later ASR engine/SM70 model/license and audio latency/quality test; no new Omni text benchmark.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_AUDIO_COMPONENT_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Streaming RNNT and transcript-state handling are ASR component methods, not modifications to text decoder KV/GDN state. |
+| new GPU execution | False |
+| next action | Later ASR engine/SM70 model/license and audio latency/quality test; no new Omni text benchmark. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

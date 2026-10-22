@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | False | False | P2 |
+| DEFERRED | False | False | P3 |
 
 
 ## Theory and Volta implications
@@ -22,6 +22,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -44,6 +45,26 @@ PublishedstochasticMamba-rounding H100/vLLM is not a GDNstorage/kernel implement
 
 **Reopening condition:** Tatsächlich anderer GDN-State-Speicherpfad, stochastische Rundungsregel und CPU-/GPU-Orakel inklusive Rollback; Mamba/H100-Quelle ist kein SM70-GDN-Port.
 
-**Next action:** Tatsächlich anderer GDN-State-Speicherpfad, stochastische Rundungsregel und CPU-/GPU-Orakel inklusive Rollback; Mamba/H100-Quelle ist kein SM70-GDN-Port.
+**Next action:** Explicit random rounding/storage kernel, deterministic-seed oracle, drift/rollback tests and actual SM70 graph; no tolerance waiver.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_NEW_GDN_STORAGE_PORT_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Stochastic rounding is not intrinsically H100-only, but the referenced Mamba storage path is not a GDN implementation. Prior F16 GDN trajectory failures remain binding. |
+| new GPU execution | False |
+| next action | Explicit random rounding/storage kernel, deterministic-seed oracle, drift/rollback tests and actual SM70 graph; no tolerance waiver. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

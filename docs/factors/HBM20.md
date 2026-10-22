@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
@@ -109,10 +110,26 @@ Custom HBM hardware is not retrofittable through a CUDA flag on this V100; exclu
 
 **Reopening condition:** Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.
 
-**Next action:** Kundenspezifische HBM-Schaltungen sind physisch keine CUDA-Softwarevariante der vorhandenen V100.
+**Next action:** A different physical memory architecture; software caches are separate factors.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | NOT_APPLICABLE |
+| decision | KEEP_PHYSICAL_HARDWARE_NOT_APPLICABLE |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Custom HBM hardware is not a software modification to the installed V100. |
+| new GPU execution | False |
+| next action | A different physical memory architecture; software caches are separate factors. |
+| previous status | NOT_APPLICABLE |
+| priority | P3 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md), [R382](../experiments/R382.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md), [R390](../experiments/R390.md)

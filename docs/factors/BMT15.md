@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -45,10 +46,26 @@ SVD/pruning changes weights and needs calibrated ranks, independent quality and 
 
 **Reopening condition:** Konkrete Ränge/Pruningstruktur, veränderte Gewichte, kompatible CUDA-Operatoren und unabhängige Qualität; keine CPU-SVD als GPU-Gewinn.
 
-**Next action:** Konkrete Ränge/Pruningstruktur, veränderte Gewichte, kompatible CUDA-Operatoren und unabhängige Qualität; keine CPU-SVD als GPU-Gewinn.
+**Next action:** Named tensor/rank policy, compatible factorized operators, numerical checks and independent tasks.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_EXECUTABLE_COMPRESSION_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Sensitivity analysis may be offline, but actual rank/pruning benefit requires compressed weights and an execution graph that avoids reconstructing dense work. |
+| new GPU execution | False |
+| next action | Named tensor/rank policy, compatible factorized operators, numerical checks and independent tasks. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md)
+[R249](../experiments/R249.md), [R390](../experiments/R390.md)

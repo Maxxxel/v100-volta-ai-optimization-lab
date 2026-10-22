@@ -148,7 +148,7 @@ These are hypotheses or admission plans, never claimed local improvements. They 
   "id": "R340-S05",
   "local_test_status": "NO_NEW_GPU_TEST",
   "mechanism": "Upstream smallM wähltK128; Pluginheuristik ändert auchM/N/Warps/Stages. Veröffentlichter Gesamtpatch ist kein reinerK-Einzelnachweis.",
-  "next_action": "Nur für späteren modellbezogenenMoE-Transfer erhalten.",
+  "next_action": "Whole-model applicability remains dense-Omni NOT_APPLICABLE. A distinct isolated FP16 MoE K128/K64 component test is conditionally possible without a full vLLM install, but pinned compiler/kernel dependencies are not admitted; no GPU test or local benefit claim.",
   "prerequisites": "RoutedMoE-Modell und exakteFP16Experten/Shapes/TP; aktuellesOmni ist dense.",
   "priority_band": "P2",
   "risks": "KeinDense- oderFP8-Pfad; kein pauschaler9xGewinn;32GBTPJSONs nicht blind kopieren.",

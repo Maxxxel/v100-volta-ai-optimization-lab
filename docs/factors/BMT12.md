@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| NOT_APPLICABLE | False | False | P3 |
+| NOT_APPLICABLE | False | False | P2 |
 
 
 ## Theory and Volta implications
@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -45,10 +46,26 @@ Omni9B is dense, not MoE. Expert residency/prefetch needs a compatible MoE targe
 
 **Reopening condition:** Aktuelles Omni ist dicht; Experten-Residency benötigt ein tatsächlich anderes MoE-Modell und ist kein nachrüstbarer Omni-Flagtest.
 
-**Next action:** Aktuelles Omni ist dicht; Experten-Residency benötigt ein tatsächlich anderes MoE-Modell und ist kein nachrüstbarer Omni-Flagtest.
+**Next action:** Later MoE checkpoint/operator/PCIe budget admission; no claim that every MoE must fit full FP16 weights in 16GB.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | NOT_APPLICABLE |
+| decision | KEEP_DENSE_OMNI_NOT_APPLICABLE |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Dense Omni has no routed experts. Expert residency/prefetch remains applicable to a separately admitted MoE, with actual expert working-set and transfer costs. |
+| new GPU execution | False |
+| next action | Later MoE checkpoint/operator/PCIe budget admission; no claim that every MoE must fit full FP16 weights in 16GB. |
+| previous status | NOT_APPLICABLE |
+| priority | P2 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md)
+[R249](../experiments/R249.md), [R390](../experiments/R390.md)

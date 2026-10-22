@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | False | False | P0 |
+| DEFERRED | False | False | P1 |
 
 
 ## Theory and Volta implications
@@ -26,6 +26,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -48,6 +49,26 @@ Cold loads/switches/multi-model routing require admitted multiplemodels and a di
 
 **Reopening condition:** Bewusst spätere Routingphase mit mehreren qualifizierten Modellen; echte Lade-/Wechselkosten samt Cachebedingungen, nicht erneuter Omni-Warmtest.
 
-**Next action:** Bewusst spätere Routingphase mit mehreren qualifizierten Modellen; echte Lade-/Wechselkosten samt Cachebedingungen, nicht erneuter Omni-Warmtest.
+**Next action:** After the single-factor gate, use preserved artifacts with frozen task-only routing and include all cold loads, switch costs and energy; no test-label oracle.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | LATER_ROUTING_PHASE_NOT_OMNI_SINGLE_GAP |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Existing Omni and Bonsai scoped results provide routing leads; not all routing prerequisites require new models. Switching cost and selection quality remain unmeasured. |
+| new GPU execution | False |
+| next action | After the single-factor gate, use preserved artifacts with frozen task-only routing and include all cold loads, switch costs and energy; no test-label oracle. |
+| previous status | DEFERRED |
+| priority | P1 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

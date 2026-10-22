@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,10 +47,26 @@ No admitted trained DFlash/DSpark/Medusa/EAGLE head matching this Omni target+to
 
 **Reopening condition:** Matching trainierter Draft/Head und SM70-Verifikationspfad; kein großer EAGLE/Medusa/DFlash-Port ohne beides.
 
-**Next action:** Matching trainierter Draft/Head und SM70-Verifikationspfad; kein großer EAGLE/Medusa/DFlash-Port ohne beides.
+**Next action:** Matching licensed trained head plus bounded verifier/state correctness proof; no large speculative port on publication speed alone.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_MATCHING_DRAFT_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | The qualified external MTP route is not a DFlash/Medusa/EAGLE head. A target/tokenizer-compatible trained head and SM70 verifier are missing for these distinct methods. |
+| new GPU execution | False |
+| next action | Matching licensed trained head plus bounded verifier/state correctness proof; no large speculative port on publication speed alone. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md)
+[R249](../experiments/R249.md), [R390](../experiments/R390.md)

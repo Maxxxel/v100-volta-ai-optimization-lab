@@ -90145,6 +90145,26 @@
   },
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bc43e8b613cc983bfb4a",
+    "original_bytes": 47234,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bc43e8b613cc983bfb4a2e3f0ad0840efc158dd3935a1e67639803ac1fcafeac",
+    "statements": {
+      "decision": "ONE_HEAD_FREE_TRANSFER_REOPENED_REST_INDIVIDUALLY_SCOPED_NOT_UNIVERSALLY_EXCLUDED",
+      "limits": [
+        "Reassessment uses existing pinned source revisions; no claim of latest upstream content.",
+        "Source inspection is not a calibrated confidence method, actual MoE kernel run or independent model qualification.",
+        "This reviews the 28 selected decisions, not every remaining OPEN/PARTIAL variant or the full single-factor gate."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "affinity": {

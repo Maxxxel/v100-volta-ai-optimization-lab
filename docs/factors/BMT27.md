@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | False | False | P1 |
+| OPEN | False | False | P1 |
 
 
 ## Theory and Volta implications
@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -39,12 +40,32 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-Publishedpplx255x5120 noncausalconfidencehead is checkpoint-specific, not a generic scalar confidence output. No trained Omnihead/calibration; implementing threshold on uncalibrated scores is not reproduction.
+Head-free post-hoc calibration is a distinct unresolved transfer, not excluded by the unavailable checkpoint-specific decision head. Native probability extraction is source-visible; calibrated quality, safety and acquisition cost remain unmeasured.
 
-**Remaining scope:** Nur mit unabhängigem Kalibrations-/Testsplit, festem Merkmal und False-accept/Coverage-Vertrag zulassen; vorhandene R192/R241-Antworten nicht auf eigene Freigaben hin nachoptimieren.
+**Remaining scope:** OPEN head-free acquisition/calibration/abstention; DEFERRED checkpoint-specific trained noncausal head. No new experimental coverage.
 
-**Reopening condition:** Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren.
+**Reopening condition:** Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.
 
-**Next action:** Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren.
+**Next action:** Pin an unmodified native probability observable, verify acquisition cost/output invariance on independent inputs, then separate calibration/test data and false-accept versus coverage limits. No confidence claim from raw token probability.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | OPEN |
+| decision | REOPEN_HEAD_FREE_CALIBRATION_ONLY |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | The trained noncausal decision head is checkpoint-specific. A head-free post-hoc calibration/abstention wrapper is separately possible on frozen Omni; existing native pre-sampling probability extraction is source-visible. |
+| new GPU execution | False |
+| next action | Pin an unmodified native probability observable, verify acquisition cost/output invariance on independent inputs, then separate calibration/test data and false-accept versus coverage limits. No confidence claim from raw token probability. |
+| previous status | DEFERRED |
+| priority | P1 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

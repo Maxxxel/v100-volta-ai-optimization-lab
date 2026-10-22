@@ -143,13 +143,13 @@
 | [BMT07](factors/BMT07.md) | Source-grounded retrieval | PARTIAL | YES | P0 |
 | [BMT08](factors/BMT08.md) | Hybrid attention KV precision | PARTIAL | YES | P1 |
 | [BMT09](factors/BMT09.md) | KV rotation and mean centering | TESTED_NEGATIVE | YES | P1 |
-| [BMT10](factors/BMT10.md) | DP4A/ternary inference kernels | DEFERRED | YES | P1 |
+| [BMT10](factors/BMT10.md) | DP4A/ternary inference kernels | DEFERRED | YES | P2 |
 | [BMT11](factors/BMT11.md) | Deployment-compatible QAD/QAT checkpoints | DEFERRED | NO | P2 |
-| [BMT12](factors/BMT12.md) | MoE residency and expert prefetch | NOT_APPLICABLE | NO | P3 |
+| [BMT12](factors/BMT12.md) | MoE residency and expert prefetch | NOT_APPLICABLE | NO | P2 |
 | [BMT13](factors/BMT13.md) | DFlash/DSpark drafting | DEFERRED | NO | P3 |
 | [BMT14](factors/BMT14.md) | Verified trajectory distillation | DEFERRED | NO | P3 |
 | [BMT15](factors/BMT15.md) | Sensitivity-guided rank/pruning | DEFERRED | NO | P3 |
-| [BMT16](factors/BMT16.md) | Cold-load and specialist routing | DEFERRED | NO | P0 |
+| [BMT16](factors/BMT16.md) | Cold-load and specialist routing | DEFERRED | NO | P1 |
 | [BMT17](factors/BMT17.md) | SM70 graphs and GDN fusion | PARTIAL | YES | P2 |
 | [BMT18](factors/BMT18.md) | Independent tool authorization gates | PARTIAL | YES | P0 |
 | [BMT19](factors/BMT19.md) | Looped transformer weight sharing | DEFERRED | NO | P3 |
@@ -157,12 +157,12 @@
 | [BMT21](factors/BMT21.md) | Task/scaffold/rollout co-evolution | DEFERRED | NO | P3 |
 | [BMT22](factors/BMT22.md) | Trajectory-level DPPO | DEFERRED | NO | P3 |
 | [BMT23](factors/BMT23.md) | Weakness-directed cross-model training data | DEFERRED | NO | P2 |
-| [BMT24](factors/BMT24.md) | Geometry-grounded OCR | DEFERRED | NO | P2 |
+| [BMT24](factors/BMT24.md) | Geometry-grounded OCR | DEFERRED | NO | P3 |
 | [BMT25](factors/BMT25.md) | Action-grounded GUI policies | DEFERRED | NO | P3 |
-| [BMT26](factors/BMT26.md) | Streaming cache-aware RNNT ASR | DEFERRED | NO | P2 |
-| [BMT27](factors/BMT27.md) | Confidence calibration and selective tool use | DEFERRED | NO | P1 |
-| [BMT28](factors/BMT28.md) | Stochastic recurrent-state rounding | DEFERRED | NO | P2 |
+| [BMT26](factors/BMT26.md) | Streaming cache-aware RNNT ASR | DEFERRED | NO | P3 |
+| [BMT27](factors/BMT27.md) | Confidence calibration and selective tool use | OPEN | NO | P1 |
+| [BMT28](factors/BMT28.md) | Stochastic recurrent-state rounding | DEFERRED | NO | P3 |
 | [BMT29](factors/BMT29.md) | Adaptive reasoning budgets | PARTIAL | YES | P1 |
 | [BMT30](factors/BMT30.md) | Learned ngram embeddings | DEFERRED | NO | P3 |
 | [BMT31](factors/BMT31.md) | Q4/Q6 conversion-cache transfer | QUALIFIED | YES | P0 |
-| [BMT32](factors/BMT32.md) | GQA/MQA/MLA and sparse/local attention | DEFERRED | NO | P3 |
+| [BMT32](factors/BMT32.md) | GQA/MQA/MLA and sparse/local attention | DEFERRED | NO | P2 |

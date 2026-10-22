@@ -106,6 +106,14 @@ def factor_assignment(summary):
     original=sorted({x for x in old.get('axis_factors',[]) if valid(x)})
     related=sorted({x for x in summary.get('related_factors_not_isolated_treatments',[]) if valid(x)}-set(current))
     return {'current_factor_ids':current,'original_audit_factor_ids':original,'related_context_factor_ids':related,'reason':text(summary.get('factor_mapping_correction',{}).get('reason'))}
+def scope_reassessment(accountability):
+    """Public rationale only; exclude local evidence paths and source payloads."""
+    review=accountability.get('deferral_reassessment_20261022')
+    if not isinstance(review,dict):return None
+    allowed=('previous_status','current_status','priority','model_engine_compatibility','decision','next_action','expected_benefit')
+    result={k:text(review[k]) for k in allowed if isinstance(review.get(k),str)}
+    result['new_GPU_execution']=review.get('new_GPU_execution') is True
+    return result
 def snippets(obj):
     return {k:text(obj[k]) for k in ['decision','qualification','interpretation','hypothesis','research_question','scope','measurement_type','evidence_class','score_rule'] if isinstance(obj.get(k),str)} | {k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)}
 def write(name,obj):
@@ -157,6 +165,8 @@ def main():
             variants.append({'value':text(v['variant']),'historical_signed_states':[text(x) for x in v['original_cell_states']],'evidence_ids':sorted(set(refs)),'scope_status':review.get('status_in_concrete_scope'),'experimental_coverage':review.get('experimentally_covered'),'scope':text(review.get('scope')),'remaining_requirement':text(review.get('remaining_requirement')),'aggregate_metrics':projection(review.get('metrics'))})
         methods=a.get('research_source_updates_20261021') or c.get('research_source_updates_20261021') or {}
         f={'id':a['id'],'kind':'original' if a['id'] in mapping else 'additional','title':text(a['title']),'domain':a.get('domain',mapping.get(a['id'],{}).get('domain','transfer')),'status':c['status'],'experimentally_covered':c['experimentally_covered'],'omnicoder2_experimentally_covered':c.get('omnicoder2_experimentally_covered',False),'priority':a.get('current_priority_band',a.get('priority_band','P3')),'decision':text(c.get('decision_reason')),'coverage_scope':text(c.get('coverage_scope')),'remaining_scope':text(c.get('remaining_scope')),'reopening_conditions':text(c.get('reopening_conditions')),'prerequisites':[text(x) for x in c.get('missing_prerequisites',[]) if isinstance(x,str)],'next_action':text(c.get('next_action')),'linked_original_axes':a.get('linked_original_axes',[]),'evidence_ids':sorted(set(links)),'variants':variants,'primary_sources':urls(a)+urls(methods),'source_model_hypotheses':[text(x) for x in a.get('source_models',[])],'experiment_ids':[], 'per_model_original_coverage':[{ 'model':text(mc['model']), 'levels':[{ 'value':text(l['level']), 'signed_window_signatures':l.get('signed_window_signatures',[]), 'historical_states':l.get('original_cell_states',[]) } for l in mc.get('levels',[])]} for mc in mapping.get(a['id'],{}).get('model_level_coverage',[])]}
+        reassessment=scope_reassessment(c)
+        if reassessment:f['scope_reassessment']=reassessment
         assert f['status'] in STATUS
         factors.append(f)
     # Canonical sprint summaries and explicit existing audit paths; no recursive source-tree crawl.

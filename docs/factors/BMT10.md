@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | True | False | P1 |
+| DEFERRED | True | False | P2 |
 
 
 ## Theory and Volta implications
@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 Bonsai PQ2 CUDA-/CPU-Komponente lokal gemessen; PTQ1-Gegenvergleich und Omni-Transfer nicht gemessen.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,10 +47,26 @@ Ternary Bonsai PTQ1/PQ2 packing and DP4A kernels require matching trained/quanti
 
 **Reopening condition:** PQ2-Pfad auf Bonsai lokal gemessen, PTQ1-Gegenvergleich und Omni-Ternärgewichte fehlen. Kompatibles Omni-Artefakt oder spätere Bonsai-Quantisierungsphase nötig.
 
-**Next action:** PQ2-Pfad auf Bonsai lokal gemessen, PTQ1-Gegenvergleich und Omni-Ternärgewichte fehlen. Kompatibles Omni-Artefakt oder spätere Bonsai-Quantisierungsphase nötig.
+**Next action:** Inventory a matching PTQ1 checkpoint and pinned SM70 unpack/DP4A kernel before later Bonsai model-phase comparison; do not repeat PQ2.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_PTQ1_COMPARISON_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Bonsai PQ2 CUDA/CPU seven-shape evidence R273 is real and retained. PTQ1 is a different weight packing/operator. Neither transfers ternary weights into unchanged Omni. |
+| new GPU execution | False |
+| next action | Inventory a matching PTQ1 checkpoint and pinned SM70 unpack/DP4A kernel before later Bonsai model-phase comparison; do not repeat PQ2. |
+| previous status | DEFERRED |
+| priority | P2 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md)
+[R249](../experiments/R249.md), [R390](../experiments/R390.md)

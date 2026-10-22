@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -45,6 +46,26 @@ DPPOfullterminaltrajectory training needs objective/logprobs/rewards and admitte
 
 **Reopening condition:** Differenzierbare Trajektorien-/Logprob-/Reward-Pipeline und echtes Training; bisherige MiMo-Agentenmessungen schließen Omni-DPPO nicht experimentell ab.
 
-**Next action:** Differenzierbare Trajektorien-/Logprob-/Reward-Pipeline und echtes Training; bisherige MiMo-Agentenmessungen schließen Omni-DPPO nicht experimentell ab.
+**Next action:** Pinned objective/trainer, clean data and one measured training step before any trajectory optimization.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_TRAJECTORY_RL_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Full trajectory RL requires logprobs/rewards and a differentiable policy pipeline. Existing foreign-model agent runs are not an Omni DPPO intervention. |
+| new GPU execution | False |
+| next action | Pinned objective/trainer, clean data and one measured training step before any trajectory optimization. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

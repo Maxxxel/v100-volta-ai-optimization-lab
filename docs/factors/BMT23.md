@@ -27,6 +27,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -49,6 +50,26 @@ Cross-model consensus/weakness curation requires labels independent from finalte
 
 **Reopening condition:** Vom finalen Test getrennte Labels und qualifizierte Lehrer-/Konsensverfahren; Datenkurationsidee ist noch keine Laufzeitoptimierung.
 
-**Next action:** Vom finalen Test getrennte Labels und qualifizierte Lehrer-/Konsensverfahren; Datenkurationsidee ist noch keine Laufzeitoptimierung.
+**Next action:** Admit a licensed nonbenchmark corpus and dedup/contamination checks; treat its output as data preparation with zero GPU performance credit.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | SPLIT_OFFLINE_CURATION_FROM_TRAINING |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Offline weakness taxonomy and deduplication do not require retraining or live teacher models. Cross-model consensus still needs separately licensed labels and independent training/evaluation partitions. |
+| new GPU execution | False |
+| next action | Admit a licensed nonbenchmark corpus and dedup/contamination checks; treat its output as data preparation with zero GPU performance credit. |
+| previous status | DEFERRED |
+| priority | P2 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

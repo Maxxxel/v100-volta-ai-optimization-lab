@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| DEFERRED | False | False | P2 |
+| DEFERRED | False | False | P3 |
 
 
 ## Theory and Volta implications
@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -45,6 +46,26 @@ GeometricOCR typedblocks/bboxes require matching visionmodel/component and docum
 
 **Reopening condition:** Passende Vision-/OCR-Komponente und Dokumentaufgaben; kein Bounding-Box-Ausgabemodus in textonlyOmni ohne Visiongewichte.
 
-**Next action:** Passende Vision-/OCR-Komponente und Dokumentaufgaben; kein Bounding-Box-Ausgabemodus in textonlyOmni ohne Visiongewichte.
+**Next action:** Licensed small OCR model and independent document set with complete component cost; no artificial Omni vision claim.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_COMPONENT_PHASE_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Geometric OCR needs a vision/OCR component and document evaluation, not just JSON bounding boxes from the current text-only target. |
+| new GPU execution | False |
+| next action | Licensed small OCR model and independent document set with complete component cost; no artificial Omni vision claim. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

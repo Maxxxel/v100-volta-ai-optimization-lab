@@ -25,6 +25,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -47,6 +48,26 @@ Looped weights/depth and loop-aware KV require a matching trained architecture/c
 
 **Reopening condition:** Passend trainierte Loop-/Gewichtsteilungsarchitektur samt KV-Semantik; keine andere Layeranzahl auf unveränderten Omni-Gewichten.
 
-**Next action:** Passend trainierte Loop-/Gewichtsteilungsarchitektur samt KV-Semantik; keine andere Layeranzahl auf unveränderten Omni-Gewichten.
+**Next action:** Compatible trained checkpoint, graph and loop-aware cache/state contract in later model admission.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_ARCHITECTURE_TRANSFER_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Looped layer sharing is a trained model property. Changing the repeat count on Omni does not reproduce it. |
+| new GPU execution | False |
+| next action | Compatible trained checkpoint, graph and loop-aware cache/state contract in later model admission. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

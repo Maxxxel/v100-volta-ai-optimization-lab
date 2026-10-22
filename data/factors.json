@@ -6136,17 +6136,19 @@
     "domain": "runtime",
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R375"
+      "R375",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "R16",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
+    "next_action": "Reopen only with two exposed physical NUMA nodes; no synthetic topology change.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -6235,6 +6237,16 @@
     "priority": "P3",
     "remaining_scope": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
     "reopening_conditions": "A topology with at least two actual NUMA nodes or an isolated alternate host; do not fabricate two nodes or change productive topology.",
+    "scope_reassessment": {
+      "current_status": "NOT_APPLICABLE",
+      "decision": "KEEP_CURRENT_HOST_NOT_APPLICABLE",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Current host has one NUMA node. Process affinity remains applicable (H01/R18); cross-node placement requires different physical topology.",
+      "new_GPU_execution": false,
+      "next_action": "Reopen only with two exposed physical NUMA nodes; no synthetic topology change.",
+      "previous_status": "NOT_APPLICABLE",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "NOT_APPLICABLE",
     "title": "NUMA policy",
@@ -13758,17 +13770,19 @@
     "domain": "hardware",
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R375"
+      "R375",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "H02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
+    "next_action": "Dedicated nonproductive cores and demonstrated CPU contention before host isolation.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -13836,6 +13850,16 @@
     "priority": "P3",
     "remaining_scope": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
     "reopening_conditions": "Dedicated nonproductive CPU/host resource reservation and measured contention question; existing private process-affinity data cannot certify exclusivity.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_PROTECTED_HOST_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Exclusive CPU reservation affects productive services; process-local pinning is a different already-tested treatment.",
+      "new_GPU_execution": false,
+      "next_action": "Dedicated nonproductive cores and demonstrated CPU contention before host isolation.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "Host CPU Isolation",
@@ -14483,17 +14507,19 @@
     "domain": "hardware",
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R375"
+      "R375",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "H05",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
+    "next_action": "Independent controllable cooling arrangement and actual throttling question.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14561,6 +14587,16 @@
     "priority": "P3",
     "remaining_scope": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
     "reopening_conditions": "A separate controllable cooling test arrangement that preserves productive cooling, with workload/clock/throttle/power identity and an independently justified thermal question.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_PROTECTED_COOLING_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Protected cooling remains unchanged. Thermal drift is telemetry; throttle prevention is valid, arbitrary cold-start temperature is not.",
+      "new_GPU_execution": false,
+      "next_action": "Independent controllable cooling arrangement and actual throttling question.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "Airflow Fan Cooling",
@@ -14627,17 +14663,19 @@
     "domain": "hardware",
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R375"
+      "R375",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "H06",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
+    "next_action": "Measured link degradation, transfer bottleneck, or a physically available alternate link.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14705,6 +14743,16 @@
     "priority": "P3",
     "remaining_scope": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
     "reopening_conditions": "Concrete link errors/degradation or available alternate physical topology; then bounded copies with fair directions/payloads, not a generic redundant sweep.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_TOPOLOGY_INTERVENTION_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Existing Gen3 x16 observation is current=max; this is not a sustained-bandwidth result. Alternative physical links and multi-GPU paths are absent.",
+      "new_GPU_execution": false,
+      "next_action": "Measured link degradation, transfer bottleneck, or a physically available alternate link.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "PCIe and Topology",
@@ -14771,17 +14819,19 @@
     "domain": "hardware",
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R375"
+      "R375",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "H07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
+    "next_action": "Private bounded allocation policy plus a concrete host-memory bottleneck; never induce host-wide pressure.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -14870,6 +14920,16 @@
     "priority": "P3",
     "remaining_scope": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
     "reopening_conditions": "Useful workload with measured model paging/translation cost and a private bounded memory policy; explicit hugetlb needs a separately available nonproductive pool. Do not induce global memory pressure or disable host swap.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_HOST_POLICY_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Global swap/hugetlb changes affect the host. Private THP advice is separable and potentially applicable, but no measured model paging/translation bottleneck supports a new run.",
+      "new_GPU_execution": false,
+      "next_action": "Private bounded allocation policy plus a concrete host-memory bottleneck; never induce host-wide pressure.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "Swap Hugepages",
@@ -15129,17 +15189,19 @@
     "domain": "hardware",
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R375"
+      "R375",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "H09",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
+    "next_action": "State-safe isolated concurrency workload and separately admitted MPS lifecycle; no daemon installation now.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -15207,6 +15269,16 @@
     "priority": "P3",
     "remaining_scope": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
     "reopening_conditions": "A justified compatible concurrency workload, proven state isolation, private MPS endpoints and lease/nonce/NVML attribution plus cleanup that retain existing single-job safeguards; no daemon started merely to increase coverage.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_CONCURRENCY_SCOPE_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "CUDA MPS needs a justified multi-process workload and explicit ownership/telemetry contract. The current single-heavy-job rule precludes a sharing-throughput trial.",
+      "new_GPU_execution": false,
+      "next_action": "State-safe isolated concurrency workload and separately admitted MPS lifecycle; no daemon installation now.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "DEFERRED",
     "title": "CUDA MPS",
@@ -35833,17 +35905,19 @@
     "decision": "Custom HBM hardware is not retrofittable through a CUDA flag on this V100; excluded from local software sprint.",
     "domain": "hbm_memory",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "HBM20",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Kundenspezifische HBM-Schaltungen sind physisch keine CUDA-Softwarevariante der vorhandenen V100.",
+    "next_action": "A different physical memory architecture; software caches are separate factors.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -35911,6 +35985,16 @@
     "priority": "P3",
     "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
     "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "scope_reassessment": {
+      "current_status": "NOT_APPLICABLE",
+      "decision": "KEEP_PHYSICAL_HARDWARE_NOT_APPLICABLE",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Custom HBM hardware is not a software modification to the installed V100.",
+      "new_GPU_execution": false,
+      "next_action": "A different physical memory architecture; software caches are separate factors.",
+      "previous_status": "NOT_APPLICABLE",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "NOT_APPLICABLE",
     "title": "StreamDQ kundenspezifisches HBM",
@@ -35946,17 +36030,19 @@
     "decision": "High-bandwidth flash requires hardware architecture changes; SSD PCIe is not equivalent; excluded.",
     "domain": "hbm_memory",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "HBM21",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "HBF-/FlashAccel-Hardware ist nicht vorhanden; SSD/PCIe ist kein entsprechender Hardwareumbau.",
+    "next_action": "Actual supported hardware and its transfer path.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -36024,6 +36110,16 @@
     "priority": "P3",
     "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
     "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "scope_reassessment": {
+      "current_status": "NOT_APPLICABLE",
+      "decision": "KEEP_PHYSICAL_HARDWARE_NOT_APPLICABLE",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "High-bandwidth flash hardware is not equivalent to the existing PCIe SSD or an HBM allocation flag.",
+      "new_GPU_execution": false,
+      "next_action": "Actual supported hardware and its transfer path.",
+      "previous_status": "NOT_APPLICABLE",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "NOT_APPLICABLE",
     "title": "FlashAccel High-Bandwidth Flash",
@@ -36285,17 +36381,19 @@
     "decision": "Current artifacts are qwen35 architecture, not qwen4exp; unavailable model-specific path not executed.",
     "domain": "hbm_memory",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "HBM24",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Omni-GGUF ist qwen35, nicht qwen4exp/QSA; passende andere Architektur ist spätere Modellphase.",
+    "next_action": "Admitted qwen4exp weights, loader/graph/operator compatibility and bounded 16GB deployment.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -36363,6 +36461,16 @@
     "priority": "P3",
     "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
     "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
+    "scope_reassessment": {
+      "current_status": "NOT_APPLICABLE",
+      "decision": "KEEP_CURRENT_MODEL_NOT_APPLICABLE",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "The cited fork path is qwen4exp-specific. Current qwen35 artifacts do not exercise it; this does not rule out future compatible model artifacts.",
+      "new_GPU_execution": false,
+      "next_action": "Admitted qwen4exp weights, loader/graph/operator compatibility and bounded 16GB deployment.",
+      "previous_status": "NOT_APPLICABLE",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [],
     "status": "NOT_APPLICABLE",
     "title": "Fork qwen4exp-spezifische Speicherpfade",
@@ -36793,10 +36901,12 @@
     "decision": "Ternary Bonsai PTQ1/PQ2 packing and DP4A kernels require matching trained/quantized weights. Not an OmniQ6 runtime flag. Assess as separate model candidate; no currentOmniGPUtrial.",
     "domain": "transfer",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R390"
     ],
     "experimentally_covered": true,
     "id": "BMT10",
@@ -36808,7 +36918,7 @@
       "HBM06",
       "C09"
     ],
-    "next_action": "PQ2-Pfad auf Bonsai lokal gemessen, PTQ1-Gegenvergleich und Omni-Ternärgewichte fehlen. Kompatibles Omni-Artefakt oder spätere Bonsai-Quantisierungsphase nötig.",
+    "next_action": "Inventory a matching PTQ1 checkpoint and pinned SM70 unpack/DP4A kernel before later Bonsai model-phase comparison; do not repeat PQ2.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -36819,9 +36929,19 @@
       "https://github.com/PrismML-Eng/Bonsai-demo/blob/db871ea96bffff5ce5609873c412b75d7cd5ba3c/community-benchmarks/bonsai2/cuda-tesla-v100-windows.md",
       "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf"
     ],
-    "priority": "P1",
+    "priority": "P2",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "PQ2-Pfad auf Bonsai lokal gemessen, PTQ1-Gegenvergleich und Omni-Ternärgewichte fehlen. Kompatibles Omni-Artefakt oder spätere Bonsai-Quantisierungsphase nötig.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_PTQ1_COMPARISON_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Bonsai PQ2 CUDA/CPU seven-shape evidence R273 is real and retained. PTQ1 is a different weight packing/operator. Neither transfers ternary weights into unchanged Omni.",
+      "new_GPU_execution": false,
+      "next_action": "Inventory a matching PTQ1 checkpoint and pinned SM70 unpack/DP4A kernel before later Bonsai model-phase comparison; do not repeat PQ2.",
+      "previous_status": "DEFERRED",
+      "priority": "P2"
+    },
     "source_model_hypotheses": [
       "Bonsai2 27B"
     ],
@@ -36833,8 +36953,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "QAT/QAD is a trained checkpoint property. NativeNVFP4 instructions are not SM70; a supported dequant path may exist but requires a compatible specific artifact. No admitted OmniQATcheckpoint, no generic FP16flag substitute.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT11",
     "kind": "additional",
@@ -36845,7 +36969,7 @@
       "Q01",
       "T05"
     ],
-    "next_action": "Passender Omni-QAT/QAD-Checkpoint oder zugelassener realer Trainingsschritt; Fremdmodell-QAT ist keine Omni-Inferenzintervention.",
+    "next_action": "Later model-phase artifact/license/hash/SM70-load admission for the linked GGUF; no download or generic NVFP4 exclusion now.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -36862,6 +36986,16 @@
     "priority": "P2",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Passender Omni-QAT/QAD-Checkpoint oder zugelassener realer Trainingsschritt; Fremdmodell-QAT ist keine Omni-Inferenzintervention.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "SPLIT_OMNI_AND_OTHER_MODEL_QAT",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Omni-specific QAT is unadmitted, but the archived QUASAR card explicitly links a Qwen3.5-4B Q4_0 GGUF. Native NVFP4 absence does not exclude supported dequantized QAT deployment.",
+      "new_GPU_execution": false,
+      "next_action": "Later model-phase artifact/license/hash/SM70-load admission for the linked GGUF; no download or generic NVFP4 exclusion now.",
+      "previous_status": "DEFERRED",
+      "priority": "P2"
+    },
     "source_model_hypotheses": [
       "LFM2.5 24B QAD",
       "Gemma4 IT QAT"
@@ -36875,10 +37009,12 @@
     "decision": "Omni9B is dense, not MoE. Expert residency/prefetch needs a compatible MoE target/modelcomparison and actual RAM/PCIe capacity; cannot retrofit experts into these weights.",
     "domain": "transfer",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "BMT12",
@@ -36889,7 +37025,7 @@
       "HBM14",
       "R13"
     ],
-    "next_action": "Aktuelles Omni ist dicht; Experten-Residency benötigt ein tatsächlich anderes MoE-Modell und ist kein nachrüstbarer Omni-Flagtest.",
+    "next_action": "Later MoE checkpoint/operator/PCIe budget admission; no claim that every MoE must fit full FP16 weights in 16GB.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -36899,9 +37035,19 @@
       "https://arxiv.org/abs/2312.17238",
       "https://huggingface.co/LiquidAI/LFM2.5-24B-A2B"
     ],
-    "priority": "P3",
+    "priority": "P2",
     "remaining_scope": "Keine Omni-Ausführung für diese Architektur; passende Modellkandidaten gesondert bewerten.",
     "reopening_conditions": "Aktuelles Omni ist dicht; Experten-Residency benötigt ein tatsächlich anderes MoE-Modell und ist kein nachrüstbarer Omni-Flagtest.",
+    "scope_reassessment": {
+      "current_status": "NOT_APPLICABLE",
+      "decision": "KEEP_DENSE_OMNI_NOT_APPLICABLE",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Dense Omni has no routed experts. Expert residency/prefetch remains applicable to a separately admitted MoE, with actual expert working-set and transfer costs.",
+      "new_GPU_execution": false,
+      "next_action": "Later MoE checkpoint/operator/PCIe budget admission; no claim that every MoE must fit full FP16 weights in 16GB.",
+      "previous_status": "NOT_APPLICABLE",
+      "priority": "P2"
+    },
     "source_model_hypotheses": [
       "LFM2.5-24B-A2B",
       "GLM4.7 Flash"
@@ -36915,10 +37061,12 @@
     "decision": "No admitted trained DFlash/DSpark/Medusa/EAGLE head matching this Omni target+tokenizer with a validated localSM70 verifier. Differenttarget/5090/Apple reports are not transferable speed evidence; largeport deferred.",
     "domain": "transfer",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "BMT13",
@@ -36928,7 +37076,7 @@
       "S03",
       "S04"
     ],
-    "next_action": "Matching trainierter Draft/Head und SM70-Verifikationspfad; kein großer EAGLE/Medusa/DFlash-Port ohne beides.",
+    "next_action": "Matching licensed trained head plus bounded verifier/state correctness proof; no large speculative port on publication speed alone.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -36942,6 +37090,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Matching trainierter Draft/Head und SM70-Verifikationspfad; kein großer EAGLE/Medusa/DFlash-Port ohne beides.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_MATCHING_DRAFT_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "The qualified external MTP route is not a DFlash/Medusa/EAGLE head. A target/tokenizer-compatible trained head and SM70 verifier are missing for these distinct methods.",
+      "new_GPU_execution": false,
+      "next_action": "Matching licensed trained head plus bounded verifier/state correctness proof; no large speculative port on publication speed alone.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "Muse-Glimmer DFlash",
       "LFM8B DSpark"
@@ -36955,10 +37113,12 @@
     "decision": "Training requires a validated autograd MTP forward/target hidden-state interface, software and disjoint data. Current GGUF inference artifacts are not an admitted trainer. Bound realtrain-step gate retained; no long training or claim16GiB makes PEFT fundamentally impossible.",
     "domain": "transfer",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "BMT14",
@@ -36969,7 +37129,7 @@
       "T05",
       "A06"
     ],
-    "next_action": "Differenzierbarer MTP-/Hidden-State-Pfad, trainierbare Tensoren, getrennte Daten und echter Speicher-/Trainingsschritt; derzeit GGUF-Inferenzartefakte kein Trainer.",
+    "next_action": "Independent data splits, supported trainable tensor path and one real bounded optimizer step before training; no blanket 16GB impossibility.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -36983,6 +37143,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Differenzierbarer MTP-/Hidden-State-Pfad, trainierbare Tensoren, getrennte Daten und echter Speicher-/Trainingsschritt; derzeit GGUF-Inferenzartefakte kein Trainer.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "SPLIT_DATA_AND_TRAINING_PREREQUISITES",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Trajectory curation can be CPU-only; MTP specialization additionally requires a correct trainable hidden-state/head interface. Native experimental training exists but GDN backward is incomplete.",
+      "new_GPU_execution": false,
+      "next_action": "Independent data splits, supported trainable tensor path and one real bounded optimizer step before training; no blanket 16GB impossibility.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "MiMo2.6-Distill-Qwen-9B",
       "VeriLoop"
@@ -36996,10 +37166,12 @@
     "decision": "SVD/pruning changes weights and needs calibrated ranks, independent quality and compatible kernel/engine. Current originalGGUF is preserved, no compatible compressed checkpoint admitted. Cost outweighs unmeasured gain before finalist evaluation.",
     "domain": "transfer",
     "evidence_ids": [
-      "audit-562eaeb901f0c1b39e99"
+      "audit-562eaeb901f0c1b39e99",
+      "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
-      "R249"
+      "R249",
+      "R390"
     ],
     "experimentally_covered": false,
     "id": "BMT15",
@@ -37010,7 +37182,7 @@
       "T07",
       "Q05"
     ],
-    "next_action": "Konkrete Ränge/Pruningstruktur, veränderte Gewichte, kompatible CUDA-Operatoren und unabhängige Qualität; keine CPU-SVD als GPU-Gewinn.",
+    "next_action": "Named tensor/rank policy, compatible factorized operators, numerical checks and independent tasks.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37023,6 +37195,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Konkrete Ränge/Pruningstruktur, veränderte Gewichte, kompatible CUDA-Operatoren und unabhängige Qualität; keine CPU-SVD als GPU-Gewinn.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_EXECUTABLE_COMPRESSION_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Sensitivity analysis may be offline, but actual rank/pruning benefit requires compressed weights and an execution graph that avoids reconstructing dense work.",
+      "new_GPU_execution": false,
+      "next_action": "Named tensor/rank policy, compatible factorized operators, numerical checks and independent tasks.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "SVD-LLM",
       "benchmark quant models"
@@ -37035,8 +37217,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "Cold loads/switches/multi-model routing require admitted multiplemodels and a distinct load/cache workload. Not single-factor Omni warm-runtime benefit; preserve H08 and R11 outstanding workload scopes.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT16",
     "kind": "additional",
@@ -37049,7 +37235,7 @@
       "A04",
       "HBM19"
     ],
-    "next_action": "Bewusst spätere Routingphase mit mehreren qualifizierten Modellen; echte Lade-/Wechselkosten samt Cachebedingungen, nicht erneuter Omni-Warmtest.",
+    "next_action": "After the single-factor gate, use preserved artifacts with frozen task-only routing and include all cold loads, switch costs and energy; no test-label oracle.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37063,9 +37249,19 @@
       "https://huggingface.co/nvidia/Nemotron-Orchestrator-8B/blob/26df4b9aad5abdc5b7871ee4c71063ce888feb26/README.md",
       "https://huggingface.co/ornith-ai/Ornith-1.5-9B"
     ],
-    "priority": "P0",
+    "priority": "P1",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Bewusst spätere Routingphase mit mehreren qualifizierten Modellen; echte Lade-/Wechselkosten samt Cachebedingungen, nicht erneuter Omni-Warmtest.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "LATER_ROUTING_PHASE_NOT_OMNI_SINGLE_GAP",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Existing Omni and Bonsai scoped results provide routing leads; not all routing prerequisites require new models. Switching cost and selection quality remain unmeasured.",
+      "new_GPU_execution": false,
+      "next_action": "After the single-factor gate, use preserved artifacts with frozen task-only routing and include all cold loads, switch costs and energy; no test-label oracle.",
+      "previous_status": "DEFERRED",
+      "priority": "P1"
+    },
     "source_model_hypotheses": [
       "Ornith9B",
       "LFM8B",
@@ -37162,8 +37358,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "Looped weights/depth and loop-aware KV require a matching trained architecture/checkpoint; not a runtime retrofit of Omni32blocks. Separatechallenger admission only.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT19",
     "kind": "additional",
@@ -37172,7 +37372,7 @@
       "K07",
       "E06"
     ],
-    "next_action": "Passend trainierte Loop-/Gewichtsteilungsarchitektur samt KV-Semantik; keine andere Layeranzahl auf unveränderten Omni-Gewichten.",
+    "next_action": "Compatible trained checkpoint, graph and loop-aware cache/state contract in later model admission.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37188,6 +37388,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Passend trainierte Loop-/Gewichtsteilungsarchitektur samt KV-Semantik; keine andere Layeranzahl auf unveränderten Omni-Gewichten.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_ARCHITECTURE_TRANSFER_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Looped layer sharing is a trained model property. Changing the repeat count on Omni does not reproduce it.",
+      "new_GPU_execution": false,
+      "next_action": "Compatible trained checkpoint, graph and loop-aware cache/state contract in later model admission.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "Nanbeige/Nanbeige4.2-3B",
       "Nanbeige/Nanbeige4.2-3B"
@@ -37200,8 +37410,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "LoopSplit/mHC/depth-attention sourceflags are not proof currentweights trainedfor them. Need matching checkpoint/layout and enginepath; no Omni flag-only treatment.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT20",
     "kind": "additional",
@@ -37210,7 +37424,7 @@
       "K05",
       "HBM16"
     ],
-    "next_action": "Passend trainierte mHC/Depth-Attention/LoopSplit-Gewichte und Enginepfad; Quellflags allein sind keine Interventionszulassung.",
+    "next_action": "Per-technique primary implementation/checkpoint and supported graph; no compound source label as implementation evidence.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37226,6 +37440,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Passend trainierte mHC/Depth-Attention/LoopSplit-Gewichte und Enginepfad; Quellflags allein sind keine Interventionszulassung.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_DISTINCT_ARCHITECTURE_PREREQUISITES",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "LoopSplit, mHC and depth attention are separate model mechanisms; the shared source card alone does not establish all three in a runnable Omni graph.",
+      "new_GPU_execution": false,
+      "next_action": "Per-technique primary implementation/checkpoint and supported graph; no compound source label as implementation evidence.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "Nanbeige/Nanbeige4.2-3B",
       "Nanbeige/Nanbeige4.2-3B"
@@ -37238,8 +37462,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "Jointtask/scaffold evolution changes trainingdata/policy. Must have reproducible verifier and clean data splits; publisherrecipe is not a measured Omniinference gain. No uncontrolled rollout-trainingbranch.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT21",
     "kind": "additional",
@@ -37248,7 +37476,7 @@
       "T02",
       "T05"
     ],
-    "next_action": "Reproduzierbarer Trainings-/Scaffold-Verifier, saubere Datenpartitionen und zugelassener Trainer; MiMo-Inferenz misst nicht die kausale Wirksamkeit des Trainingsrezepts.",
+    "next_action": "Separate static scaffold hypothesis from a bounded admitted training recipe; no evaluation-task recycling.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37261,6 +37489,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Reproduzierbarer Trainings-/Scaffold-Verifier, saubere Datenpartitionen und zugelassener Trainer; MiMo-Inferenz misst nicht die kausale Wirksamkeit des Trainingsrezepts.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_TRAINING_EFFECT_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Offline scaffold proposals are possible; joint policy/task evolution requires disjoint data, a verifier and actual training. Foreign model scores do not prove the training cause.",
+      "new_GPU_execution": false,
+      "next_action": "Separate static scaffold hypothesis from a bounded admitted training recipe; no evaluation-task recycling.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "ornith-ai/Ornith-1.5-9B"
     ],
@@ -37272,8 +37510,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "DPPOfullterminaltrajectory training needs objective/logprobs/rewards and admitted trainer. No equivalent inference switch; large training development outside coarse inference shortlist.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT22",
     "kind": "additional",
@@ -37281,7 +37523,7 @@
       "T02",
       "A06"
     ],
-    "next_action": "Differenzierbare Trajektorien-/Logprob-/Reward-Pipeline und echtes Training; bisherige MiMo-Agentenmessungen schließen Omni-DPPO nicht experimentell ab.",
+    "next_action": "Pinned objective/trainer, clean data and one measured training step before any trajectory optimization.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37295,6 +37537,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Differenzierbare Trajektorien-/Logprob-/Reward-Pipeline und echtes Training; bisherige MiMo-Agentenmessungen schließen Omni-DPPO nicht experimentell ab.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_TRAJECTORY_RL_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Full trajectory RL requires logprobs/rewards and a differentiable policy pipeline. Existing foreign-model agent runs are not an Omni DPPO intervention.",
+      "new_GPU_execution": false,
+      "next_action": "Pinned objective/trainer, clean data and one measured training step before any trajectory optimization.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "allenai/tmax-9b"
     ],
@@ -37306,8 +37558,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "Cross-model consensus/weakness curation requires labels independent from finaltests and multiplequalifiedteacher workflows. Qualitydata strategy, no automaticruntime speed gain.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT23",
     "kind": "additional",
@@ -37316,7 +37572,7 @@
       "T05",
       "A06"
     ],
-    "next_action": "Vom finalen Test getrennte Labels und qualifizierte Lehrer-/Konsensverfahren; Datenkurationsidee ist noch keine Laufzeitoptimierung.",
+    "next_action": "Admit a licensed nonbenchmark corpus and dedup/contamination checks; treat its output as data preparation with zero GPU performance credit.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37334,6 +37590,16 @@
     "priority": "P2",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Vom finalen Test getrennte Labels und qualifizierte Lehrer-/Konsensverfahren; Datenkurationsidee ist noch keine Laufzeitoptimierung.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "SPLIT_OFFLINE_CURATION_FROM_TRAINING",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Offline weakness taxonomy and deduplication do not require retraining or live teacher models. Cross-model consensus still needs separately licensed labels and independent training/evaluation partitions.",
+      "new_GPU_execution": false,
+      "next_action": "Admit a licensed nonbenchmark corpus and dedup/contamination checks; treat its output as data preparation with zero GPU performance credit.",
+      "previous_status": "DEFERRED",
+      "priority": "P2"
+    },
     "source_model_hypotheses": [
       "PaddlePaddle/PaddleOCR-VL-1.6",
       "opendatalab/MinerU2.5-Pro-2605-1.2B"
@@ -37346,8 +37612,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "GeometricOCR typedblocks/bboxes require matching visionmodel/component and documentdataset. Not a technique present in/retrofit to current textonlyOmniGGUF.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT24",
     "kind": "additional",
@@ -37355,7 +37625,7 @@
       "A08",
       "M08"
     ],
-    "next_action": "Passende Vision-/OCR-Komponente und Dokumentaufgaben; kein Bounding-Box-Ausgabemodus in textonlyOmni ohne Visiongewichte.",
+    "next_action": "Licensed small OCR model and independent document set with complete component cost; no artificial Omni vision claim.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37366,9 +37636,19 @@
       "https://huggingface.co/lightonai/LightOnOCR-3-0.8B",
       "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/blob/36d8636925327c671bd8e479c517a004f7566bd9/README.md"
     ],
-    "priority": "P2",
+    "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Passende Vision-/OCR-Komponente und Dokumentaufgaben; kein Bounding-Box-Ausgabemodus in textonlyOmni ohne Visiongewichte.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_COMPONENT_PHASE_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Geometric OCR needs a vision/OCR component and document evaluation, not just JSON bounding boxes from the current text-only target.",
+      "new_GPU_execution": false,
+      "next_action": "Licensed small OCR model and independent document set with complete component cost; no artificial Omni vision claim.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "lightonai/LightOnOCR-3-0.8B",
       "PaddlePaddle/PaddleOCR-VL-1.6-GGUF"
@@ -37381,8 +37661,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "Screenshot-groundedGUIpolicy requires admitted vision/actionweights+simulator; currenttext/tooltarget does not gain coordinatepolicy from flags. No productionGUIactions.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT25",
     "kind": "additional",
@@ -37391,7 +37675,7 @@
       "A05",
       "M07"
     ],
-    "next_action": "Vision-/Actiongewichte, Screenshot-Simulator und disjunkte Aufgaben; keine produktiven GUI-Aktionen oder erfundene Koordinatenfähigkeit.",
+    "next_action": "Admitted vision/action component and simulator with all actions isolated from productive systems.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37406,6 +37690,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Vision-/Actiongewichte, Screenshot-Simulator und disjunkte Aufgaben; keine produktiven GUI-Aktionen oder erfundene Koordinatenfähigkeit.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_GUI_COMPONENT_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "GUI grounding requires vision/action weights and isolated screenshot tasks. Text-only tool schemas do not provide a trained coordinate policy.",
+      "new_GPU_execution": false,
+      "next_action": "Admitted vision/action component and simulator with all actions isolated from productive systems.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "Hcompany/Holo2-4B",
       "inclusionAI/UI-Venus-1.5-8B"
@@ -37418,8 +37712,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "StreamingRNNT is audioarchitecture/serving for ASR, not an Omnidecoderoptimization. Evaluate later as assistantcomponent; not an untested OmniGPUfactor.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT26",
     "kind": "additional",
@@ -37428,7 +37726,7 @@
       "E08",
       "A05"
     ],
-    "next_action": "ASR/RNNT-Komponente und Audiotests in späterer Assistentenphase; keine Änderung des Omni-Textdecoders durch ASR-Servingparameter.",
+    "next_action": "Later ASR engine/SM70 model/license and audio latency/quality test; no new Omni text benchmark.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37440,9 +37738,19 @@
       "https://huggingface.co/nvidia/nemotron-3.5-asr-streaming-0.6b",
       "https://huggingface.co/nvidia/nemotron-3.5-asr-streaming-0.6b/blob/ea30d66debe3740a08b573244286791d423d6b3e/README.md"
     ],
-    "priority": "P2",
+    "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "ASR/RNNT-Komponente und Audiotests in späterer Assistentenphase; keine Änderung des Omni-Textdecoders durch ASR-Servingparameter.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_AUDIO_COMPONENT_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Streaming RNNT and transcript-state handling are ASR component methods, not modifications to text decoder KV/GDN state.",
+      "new_GPU_execution": false,
+      "next_action": "Later ASR engine/SM70 model/license and audio latency/quality test; no new Omni text benchmark.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "nvidia/nemotron-3.5-asr-streaming-0.6b",
       "OpenMOSS-Team/MOSS-Transcribe-Diarize"
@@ -37453,10 +37761,14 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Publishedpplx255x5120 noncausalconfidencehead is checkpoint-specific, not a generic scalar confidence output. No trained Omnihead/calibration; implementing threshold on uncalibrated scores is not reproduction.",
+    "decision": "Head-free post-hoc calibration is a distinct unresolved transfer, not excluded by the unavailable checkpoint-specific decision head. Native probability extraction is source-visible; calibrated quality, safety and acquisition cost remain unmeasured.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT27",
     "kind": "additional",
@@ -37465,7 +37777,7 @@
       "M08",
       "M13"
     ],
-    "next_action": "Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren.",
+    "next_action": "Pin an unmodified native probability observable, verify acquisition cost/output invariance on independent inputs, then separate calibration/test data and false-accept versus coverage limits. No confidence claim from raw token probability.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37477,12 +37789,22 @@
       "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b/blob/14c9d90137962d300f3de95633f7b6535e80c5ce/README.md"
     ],
     "priority": "P1",
-    "remaining_scope": "Nur mit unabhängigem Kalibrations-/Testsplit, festem Merkmal und False-accept/Coverage-Vertrag zulassen; vorhandene R192/R241-Antworten nicht auf eigene Freigaben hin nachoptimieren.",
-    "reopening_conditions": "Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren.",
+    "remaining_scope": "OPEN head-free acquisition/calibration/abstention; DEFERRED checkpoint-specific trained noncausal head. No new experimental coverage.",
+    "reopening_conditions": "Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.",
+    "scope_reassessment": {
+      "current_status": "OPEN",
+      "decision": "REOPEN_HEAD_FREE_CALIBRATION_ONLY",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "The trained noncausal decision head is checkpoint-specific. A head-free post-hoc calibration/abstention wrapper is separately possible on frozen Omni; existing native pre-sampling probability extraction is source-visible.",
+      "new_GPU_execution": false,
+      "next_action": "Pin an unmodified native probability observable, verify acquisition cost/output invariance on independent inputs, then separate calibration/test data and false-accept versus coverage limits. No confidence claim from raw token probability.",
+      "previous_status": "DEFERRED",
+      "priority": "P1"
+    },
     "source_model_hypotheses": [
       "perplexity-ai/pplx-decider-v1.1-27b"
     ],
-    "status": "DEFERRED",
+    "status": "OPEN",
     "title": "Konfidenzkalibrierung und selektive Tool-Entscheidung",
     "variants": []
   },
@@ -37490,8 +37812,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "PublishedstochasticMamba-rounding H100/vLLM is not a GDNstorage/kernel implementation. CurrentrecurrentF32 hardcoded; needs newCPUoracle+realactivationdrift/rollbackproof thenSM70port. Not attentionKVquantization.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT28",
     "kind": "additional",
@@ -37500,7 +37826,7 @@
       "Q08",
       "HBM16"
     ],
-    "next_action": "Tatsächlich anderer GDN-State-Speicherpfad, stochastische Rundungsregel und CPU-/GPU-Orakel inklusive Rollback; Mamba/H100-Quelle ist kein SM70-GDN-Port.",
+    "next_action": "Explicit random rounding/storage kernel, deterministic-seed oracle, drift/rollback tests and actual SM70 graph; no tolerance waiver.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37510,9 +37836,19 @@
       "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
       "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/README.md"
     ],
-    "priority": "P2",
+    "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Tatsächlich anderer GDN-State-Speicherpfad, stochastische Rundungsregel und CPU-/GPU-Orakel inklusive Rollback; Mamba/H100-Quelle ist kein SM70-GDN-Port.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_NEW_GDN_STORAGE_PORT_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Stochastic rounding is not intrinsically H100-only, but the referenced Mamba storage path is not a GDN implementation. Prior F16 GDN trajectory failures remain binding.",
+      "new_GPU_execution": false,
+      "next_action": "Explicit random rounding/storage kernel, deterministic-seed oracle, drift/rollback tests and actual SM70 graph; no tolerance waiver.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16"
     ],
@@ -37565,8 +37901,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "Learned contextual ngramembeddings are trained architecture/weights, not promptlookup or ngramdrafting. No matching Omnicheckpoint; no S01rerun.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT30",
     "kind": "additional",
@@ -37575,7 +37915,7 @@
       "S02",
       "M11"
     ],
-    "next_action": "Passend trainierte kontextuelle N-Gram-Embeddinggewichte und Architekturpfad; S01-Promptlookup übt dieses Verfahren nicht aus.",
+    "next_action": "Matching checkpoint and supported graph in later model admission, not another S01 flag run.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37590,6 +37930,16 @@
     "priority": "P3",
     "remaining_scope": "Voraussetzung vor Ausführung belegen; kein GPU-Gewinn behauptet.",
     "reopening_conditions": "Passend trainierte kontextuelle N-Gram-Embeddinggewichte und Architekturpfad; S01-Promptlookup übt dieses Verfahren nicht aus.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "KEEP_TRAINED_EMBEDDING_TRANSFER_DEFERRED",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "Learned contextual n-gram embeddings require trained lookup/projection weights. Prompt lookup and existing n-gram speculative decoding do not test them.",
+      "new_GPU_execution": false,
+      "next_action": "Matching checkpoint and supported graph in later model admission, not another S01 flag run.",
+      "previous_status": "DEFERRED",
+      "priority": "P3"
+    },
     "source_model_hypotheses": [
       "Nanbeige/Nanbeige4.2-3B"
     ],
@@ -37643,8 +37993,12 @@
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
     "decision": "MLA/MQA/SWA/MSA/gelernte Sinks nur als kompatible Modellarchitektur vergleichen. Kein laufzeitneutraler Umbau bestehender Omni-Gewichte zugelassen; aktuelle GQA-/GDN-Struktur bewahren. Kernel-/Cachepfade getrennt behandeln.",
     "domain": "transfer",
-    "evidence_ids": [],
-    "experiment_ids": [],
+    "evidence_ids": [
+      "audit-bc43e8b613cc983bfb4a"
+    ],
+    "experiment_ids": [
+      "R390"
+    ],
     "experimentally_covered": false,
     "id": "BMT32",
     "kind": "additional",
@@ -37658,7 +38012,7 @@
       "HBM16",
       "HBM18"
     ],
-    "next_action": "GQA/GDN sind bereits Teil der Omni-Architektur. MQA/MLA/gelernte lokale Muster benötigen passende Gewichte; laufzeitseitige Sink-/Sparse-KV-Policies separat mit state-sicherem Cachepfad und unabhängiger Qualität prüfen.",
+    "next_action": "For a runtime policy require actual KV-pressure benefit and state-safe eviction including recurrent layers; freeze independent retention/quality tasks before any port or GPU test.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37670,9 +38024,19 @@
       "https://huggingface.co/moonshotai/Kimi-K2.6/blob/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/README.md",
       "https://huggingface.co/stepfun-ai/Step-3.5-Flash/blob/ab446a3de5e171ea341227e24bb1f090e1b771f7/README.md"
     ],
-    "priority": "P3",
+    "priority": "P2",
     "remaining_scope": "MLA/MQA/SWA/MSA/gelernte Sinks nur als kompatible Modellarchitektur vergleichen. Kein laufzeitneutraler Umbau bestehender Omni-Gewichte zugelassen; aktuelle GQA-/GDN-Struktur bewahren. Kernel-/Cachepfade getrennt behandeln.",
     "reopening_conditions": "GQA/GDN sind bereits Teil der Omni-Architektur. MQA/MLA/gelernte lokale Muster benötigen passende Gewichte; laufzeitseitige Sink-/Sparse-KV-Policies separat mit state-sicherem Cachepfad und unabhängiger Qualität prüfen.",
+    "scope_reassessment": {
+      "current_status": "DEFERRED",
+      "decision": "SPLIT_LEARNED_ARCHITECTURE_AND_RUNTIME_CACHE",
+      "expected_benefit": "Unverified; no numerical performance forecast.",
+      "model_engine_compatibility": "GQA/GDN already exist in Omni. Learned MLA/MQA/SWA/sink architectures need matching weights; a runtime sink/window/sparse-cache policy is a separate implementable but approximate treatment.",
+      "new_GPU_execution": false,
+      "next_action": "For a runtime policy require actual KV-pressure benefit and state-safe eviction including recurrent layers; freeze independent retention/quality tasks before any port or GPU test.",
+      "previous_status": "DEFERRED",
+      "priority": "P2"
+    },
     "source_model_hypotheses": [
       "moonshotai/Kimi-K2.6",
       "stepfun-ai/Step-3.5-Flash",

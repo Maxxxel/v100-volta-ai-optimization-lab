@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,10 +47,26 @@ Training requires a validated autograd MTP forward/target hidden-state interface
 
 **Reopening condition:** Differenzierbarer MTP-/Hidden-State-Pfad, trainierbare Tensoren, getrennte Daten und echter Speicher-/Trainingsschritt; derzeit GGUF-Inferenzartefakte kein Trainer.
 
-**Next action:** Differenzierbarer MTP-/Hidden-State-Pfad, trainierbare Tensoren, getrennte Daten und echter Speicher-/Trainingsschritt; derzeit GGUF-Inferenzartefakte kein Trainer.
+**Next action:** Independent data splits, supported trainable tensor path and one real bounded optimizer step before training; no blanket 16GB impossibility.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | SPLIT_DATA_AND_TRAINING_PREREQUISITES |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Trajectory curation can be CPU-only; MTP specialization additionally requires a correct trainable hidden-state/head interface. Native experimental training exists but GDN backward is incomplete. |
+| new GPU execution | False |
+| next action | Independent data splits, supported trainable tensor path and one real bounded optimizer step before training; no blanket 16GB impossibility. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md)
+[R249](../experiments/R249.md), [R390](../experiments/R390.md)

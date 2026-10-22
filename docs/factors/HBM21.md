@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
 |---|---|---|---|
@@ -109,10 +110,26 @@ High-bandwidth flash requires hardware architecture changes; SSD PCIe is not equ
 
 **Reopening condition:** Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.
 
-**Next action:** HBF-/FlashAccel-Hardware ist nicht vorhanden; SSD/PCIe ist kein entsprechender Hardwareumbau.
+**Next action:** Actual supported hardware and its transfer path.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | NOT_APPLICABLE |
+| decision | KEEP_PHYSICAL_HARDWARE_NOT_APPLICABLE |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | High-bandwidth flash hardware is not equivalent to the existing PCIe SSD or an HBM allocation flag. |
+| new GPU execution | False |
+| next action | Actual supported hardware and its transfer path. |
+| previous status | NOT_APPLICABLE |
+| priority | P3 |
+
+
 ## Related sprint records
 
-[R249](../experiments/R249.md), [R382](../experiments/R382.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md), [R390](../experiments/R390.md)

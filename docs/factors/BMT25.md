@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,6 +47,26 @@ Screenshot-groundedGUIpolicy requires admitted vision/actionweights+simulator; c
 
 **Reopening condition:** Vision-/Actiongewichte, Screenshot-Simulator und disjunkte Aufgaben; keine produktiven GUI-Aktionen oder erfundene Koordinatenfähigkeit.
 
-**Next action:** Vision-/Actiongewichte, Screenshot-Simulator und disjunkte Aufgaben; keine produktiven GUI-Aktionen oder erfundene Koordinatenfähigkeit.
+**Next action:** Admitted vision/action component and simulator with all actions isolated from productive systems.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_GUI_COMPONENT_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | GUI grounding requires vision/action weights and isolated screenshot tasks. Text-only tool schemas do not provide a trained coordinate policy. |
+| new GPU execution | False |
+| next action | Admitted vision/action component and simulator with all actions isolated from productive systems. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)

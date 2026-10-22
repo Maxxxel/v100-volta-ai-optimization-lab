@@ -24,6 +24,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
 
@@ -46,6 +47,26 @@ Learned contextual ngramembeddings are trained architecture/weights, not promptl
 
 **Reopening condition:** Passend trainierte kontextuelle N-Gram-Embeddinggewichte und Architekturpfad; S01-Promptlookup übt dieses Verfahren nicht aus.
 
-**Next action:** Passend trainierte kontextuelle N-Gram-Embeddinggewichte und Architekturpfad; S01-Promptlookup übt dieses Verfahren nicht aus.
+**Next action:** Matching checkpoint and supported graph in later model admission, not another S01 flag run.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
+
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_TRAINED_EMBEDDING_TRANSFER_DEFERRED |
+| expected benefit | Unverified; no numerical performance forecast. |
+| model engine compatibility | Learned contextual n-gram embeddings require trained lookup/projection weights. Prompt lookup and existing n-gram speculative decoding do not test them. |
+| new GPU execution | False |
+| next action | Matching checkpoint and supported graph in later model admission, not another S01 flag run. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
+## Related sprint records
+
+[R390](../experiments/R390.md)
