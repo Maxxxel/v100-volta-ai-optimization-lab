@@ -12558,5 +12558,13 @@
     "kind": "R385_ACTUAL_HBM12_KV_PREFETCH_NUMERICAL_GATE_FAILED",
     "sequence": 1570,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T06:41:51.828957+00:00",
+    "experiment_id": "R385",
+    "factor_id": null,
+    "kind": "R384_R385_PUBLIC_AGGREGATE_ANNOTATION_NO_NEW_TEST",
+    "sequence": 1571,
+    "signature": null
   }
 ]

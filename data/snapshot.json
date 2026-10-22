@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 110,
     "factors": 162,
-    "ledger_events": 1570,
+    "ledger_events": 1571,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 107,
     "original_factors": 130,
@@ -32,10 +32,10 @@
   "schema": 1,
   "source_date": "2026-10-22T06:36:18.324939+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "4661e09b698f8e91f195839825da74cb3e4044a95dfd2b05e9ce52f722efd519",
+    "BENCHMARK_REFERENCES.json": "3b2bd3f88ae2e3fac9478021eaaa736933e89bffff1d758f7b5e574446dadf0e",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "6265543a0a0aa94809515864ea587ac107a98c131c789e15b4533f370ce9e9aa",
-    "O2_EXPERIMENTS.jsonl": "d760ad4472557037d96ef4dda12ad98726deaa554c34cf4ada0c4199fbb383cc",
+    "O2_EXPERIMENTS.jsonl": "3dad167bdf6969a5d167ddb383461b8e375ef5f6d4b0c08695a57ba06dcdf242",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }
