@@ -1,8 +1,10 @@
 import copy,unittest,xml.etree.ElementTree as ET
-from comparison import check,ratio,fingerprint,svg
+from comparison import check,ratio,fingerprint,svg,model_entries,MODELS
 class ComparisonTests(unittest.TestCase):
  def fixture(self):
   return {'cohorts':{'coding':{'task_sha256':'a'*64}},'records':[{'id':'a','tasks':164,'solved':132,'discipline':'coding','task_sha256':'a'*64,'audit_ids':['audit-abc'],'audit_sha256':['b'*64],'wall_s':12,'gpu_j':34,'peak_vram_mib':None}]}
+ def test_source_key_order_does_not_change_charts(self):
+  self.assertEqual(model_entries(MODELS),model_entries(dict(reversed(list(MODELS.items())))))
  def test_cohort_mismatch_fails(self):
   d=self.fixture();d['records'][0]['task_sha256']='c'*64
   with self.assertRaises(ValueError):check(d)

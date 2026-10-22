@@ -1278,10 +1278,10 @@
   "docs/stylesheets/lab.css": "7debee9414cec2e3b588580aae1910d2af9cb5c335cc7def193212f2ae3da7ff",
   "mkdocs.yml": "4d8b1de5404fbca5de75cf766b2de828b49d8f1e9ebe75cf0e8634c45b0c36cf",
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
-  "scripts/comparison.py": "0d3dc69a3eb4b1ab4c91a1fb595b2d021462f770d5db1ae39db826855befec42",
+  "scripts/comparison.py": "9754435c766025cef48bf0352c9898c2b205acddf1135be501d80d810a9212c8",
   "scripts/export.py": "3c55d6a6879c89f183c5b3120e54341fc9c9739582f8198d9c6521cef6a47441",
   "scripts/render.py": "a819f15ee6417157769459ac99956175d8818dd7869d523bf0f25f83f4658fc8",
-  "scripts/test_comparison.py": "87d61491a74746b00b73df33d95c1c33bcb3ca52cd98dfe68aef941848aa6a7a",
+  "scripts/test_comparison.py": "559987061f3a1c454cc27abd388a16fe435c67302de18391d706093a9a916fb3",
   "scripts/test_publication.py": "92e2aa00d662e3aa4bdb8539185a595ca6b38d6515c9c2c4980ebe1869072611",
   "scripts/validate.py": "bf3db42f5a40f41960ff6f8c26a6ea1373f1fe53f80bcabcd8509e70383ca9df"
 }
