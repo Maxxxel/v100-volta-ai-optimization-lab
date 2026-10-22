@@ -171424,6 +171424,125 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 36,
+      "gpu_energy_j": 18372.302698455565,
+      "gpu_j_per_success": 918.6151349227782,
+      "model_starts": 1,
+      "peak_device_vram_mib": 13596.5,
+      "solved": 20,
+      "tasks": 32,
+      "wall_s": 70.64503819
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-12a7d0b17bab09967917",
+    "original_bytes": 11600,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "12a7d0b17bab09967917bafee75b68d3b4baa81550f298602c406d56b4e7f05a",
+    "statements": {
+      "decision": "QWEN38_MBPP32_CODING_PROFILE_PROMISING_NEEDS_CONFIRMATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "32/224 fixed original-test MBPP screen, not full378 or training-exclusion proof",
+        "Existing Qwen3.8 GSQ/RCO IQ3S+MTP coding profile; not an isolated model architecture/quantization effect",
+        "Known native-tool/policy disqualifications retained; no allround/agent/production claim; no lossless target-token assertion",
+        "GPU-board generation intervals only; loading/warmup/CPU judge excluded; positive screen not Champion qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 12,
+      "gpu_energy_j": 43574.99420265064,
+      "gpu_j_per_success": 7262.499033775107,
+      "model_starts": 1,
+      "peak_device_vram_mib": 8156.5,
+      "solved": 6,
+      "tasks": 8,
+      "wall_s": 159.120588977
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1ec559a9c15a5184cbd6",
+    "original_bytes": 4254,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1ec559a9c15a5184cbd662027b9d17109607e8fe0ac01c83425beeffe28cfa20",
+    "statements": {
+      "decision": "BONSAI_MBPP8_NO_PRACTICAL_EXTENSION_GATE",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "First8 of pre-frozen32 only, never full32/full378; outcomes not used for inclusion",
+        "Existing Bonsai native thinking medium/T1/4096 vs Qwen MTP/T0/1024: whole profiles, not isolated architecture speedup",
+        "GPU-board generation windows only; startup/warmup/CPU/system energy excluded",
+        "Positive screen only permits remaining24; no Champion or agent/tool/allround qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 195,
+      "gpu_energy_j": 115744.93795848779,
+      "gpu_j_per_success": 809.4051605488656,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7364.5,
+      "solved": 143,
+      "tasks": 191,
+      "wall_s": 406.63893758
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e65387abe0a60505cf31",
+    "original_bytes": 58968,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e65387abe0a60505cf31669aea4e05193eedd2c7f472eeff8312200123cae6c2",
+    "statements": {
+      "decision": "REMAINING191_ORIGINAL_PROFILE_MEASURED_NOT_MODEL_QUALIFIED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "191 new tasks; combine with original32 only after profile checks;223/224 original-test pool, official canonical-resource-failed255 separately deferred;not full378 or training-exclusion proof",
+        "OriginalQ6/noMTP/noWeightCache greedy1024; new profile A0 only; existing A0/C untouched",
+        "GPU-board generation intervals only; startup/warmups/CPU judge/system energy excluded"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 195,
+      "gpu_energy_j": 109275.2249533228,
+      "gpu_j_per_success": 718.9159536402816,
+      "model_starts": 1,
+      "peak_device_vram_mib": 13616.5,
+      "solved": 152,
+      "tasks": 191,
+      "wall_s": 406.587450855
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-48622d74f74d1c3f7630",
+    "original_bytes": 59895,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "48622d74f74d1c3f76300417b6a167b884bb86d11ba1255a135a6e448b0ac8f0",
+    "statements": {
+      "decision": "QWEN38_MBPP32_CODING_PROFILE_PROMISING_NEEDS_CONFIRMATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Remaining191, reuse old32 only after profile checks;223/224 admitted tasks; canonical-resource-failed255 separately deferred; no full378 or training-exclusion proof",
+        "Existing Qwen3.8 GSQ/RCO IQ3S+MTP coding profile; not an isolated model architecture/quantization effect",
+        "Known native-tool/policy disqualifications retained; no allround/agent/production claim; no lossless target-token assertion",
+        "GPU-board generation intervals only; loading/warmup/CPU judge excluded; positive screen not Champion qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -248009,6 +248128,86 @@
         "BonsaiCoding151/164+16/16uses4096cap,separateprofile;Instruct9/12+17/20failuresnoterased",
         "Independentwinnerconfirmation/German-HA-policyholdouts/stability/routerandothermodelsremainpending"
       ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "gpu_energy_j": 137779.71181276528,
+      "gpu_j_per_success": 850.4920482269462,
+      "peak_device_vram_mib": 7364.5,
+      "solved": 162,
+      "tasks": 223,
+      "wall_s": 487.009940287
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c3eda7245a81d8aea7e7",
+    "original_bytes": 108190,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c3eda7245a81d8aea7e7503a0109288e7ee02de2efccda32d9e545050d32393b",
+    "statements": {
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Disjoint32+191 task campaign; board energy/request windows only; startup, warmups, judge and system energy excluded.",
+        "Same exact model/build/template/sampling verified; dates/temperature telemetry retained by each original audit.",
+        "One answer per task; no repeated-seed uncertainty or global/allround qualification."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 143
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-779c649d0c7aedb3a542",
+    "original_bytes": 732,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "779c649d0c7aedb3a54236109c23f8c25787ab480e2a63639400a12146f208ec",
+    "statements": {
+      "scope": "Remaining191 only; join original32 only under verified unchanged profile. Canonical-resource-failed255 excluded before new outputs; never counted as a model error."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "gpu_energy_j": 127647.52765177836,
+      "gpu_j_per_success": 742.13678867313,
+      "peak_device_vram_mib": 13616.5,
+      "solved": 172,
+      "tasks": 223,
+      "wall_s": 477.232489045
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-066a121f6734b7aaf3d8",
+    "original_bytes": 108239,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "066a121f6734b7aaf3d87b38f43ecddb7d6b51c6a5cda5982b323d6b93a57dce",
+    "statements": {
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Disjoint32+191 task campaign; board energy/request windows only; startup,warmup,judge and system energy excluded.",
+        "Exact same Qwen profile across batches; different model/quantization/tokenizer from Omni. One output per task; not repeated-run uncertainty.",
+        "Known Qwen native-tool/policy/target-ranking negatives remain; no allround/agent/production or lossless claim."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 152
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-84dc3818048e9e8fb943",
+    "original_bytes": 1028,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "84dc3818048e9e8fb9435aa06e7f5000b3e8e60d8c1daeab49f3e934440d4a78",
+    "statements": {
+      "scope": "Remaining191 only; join original32 only under verified unchanged profile. Canonical-resource-failed255 excluded before new outputs; never counted as a model error."
     }
   }
 ]

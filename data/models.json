@@ -83,10 +83,13 @@
     "id": "BMC06",
     "local_scope": null,
     "name": "LFM2.5 8B A1B",
-    "next_step": "Resident Budget und echte Tasks/s gegen Qwen3.5 und OmniCoder prüfen.",
+    "next_step": "Ein offizielles Q6-Artefakt unter Speicherplatz-/Hashschutz zulassen; danach begrenzter nativer Fit-/Tool-Control-/12er-Qualitätsscreen mit Originalaufgaben. Kein DSpark/MTP/Kernelzweig vor Basisqualität.",
     "priority": "P1",
     "repository": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
-    "source_admission": null,
+    "source_admission": {
+      "GPU_runs": 0,
+      "sha256": "a2da6db6acd28bbce0145323499402b0edeacf11e3f5aec45c2290d1b2c7677a"
+    },
     "status": "offen"
   },
   {

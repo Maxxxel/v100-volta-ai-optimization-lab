@@ -9124,5 +9124,74 @@
     "profile": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test32-greedy1024-v1",
     "qualification": "Immutable single-pass32 original-configuration reference; no full378 or final model qualification.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_energy_j": 137779.71181276528,
+        "gpu_j_per_success": 850.4920482269462,
+        "peak_device_vram_mib": 7364.5,
+        "solved": 162,
+        "successful_tasks_per_s": 0.33264208099023956,
+        "tasks": 223,
+        "wall_s": 487.009940287
+      }
+    },
+    "experiment_id": "R415",
+    "id": "01e121494d6bbc2e830d051b714ad2ff3f7b0db59a6f05049c77be5e88e7d57c",
+    "identity": {
+      "cache": "Warm resident model, cold request KV; OS file cache uncontrolled",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "8192",
+        "--flash-attn": "on",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0"
+      },
+      "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+      "power_limit_w": 300,
+      "quantization": "Q6_K",
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "0d292600c5bfc98d34caeb82e59fbe6e28830fc72f60ee5ee515e90698d7bb65",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "62fddd2a49139a8a47d3e1fbda1c5b10e7d1bc2e580043043cdbba9d50fc7d7e",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+      "b54e762755248ca411b523c917fa9f93c07b5ff2966bf60b3917b853926a3dad",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "da42d5d6a97421ae137bd641efb343300203b8886bb40c6b76d4b9bc1ed7461f",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "omnicoder2",
+    "profile": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test223-greedy1024-v1",
+    "qualification": "Immutable disjoint-task223 original-profile reference; not full224/378 or model Champion.",
+    "winner_qualified": false
   }
 ]

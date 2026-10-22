@@ -13038,5 +13038,93 @@
     "kind": "QWEN38_MBPP32_CODING_PROFILE_PREREGISTRATION",
     "sequence": 1630,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T18:29:02.825302+00:00",
+    "experiment_id": "R413",
+    "factor_id": null,
+    "kind": "MBPP32_QWEN38_PROFILE_SCREEN_AUDITED",
+    "sequence": 1631,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:30:28.611230+00:00",
+    "experiment_id": "R414",
+    "factor_id": null,
+    "kind": "BONSAI_MBPP8_BOUNDED_SCREEN_PREREGISTRATION",
+    "sequence": 1632,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:30:54.869339+00:00",
+    "experiment_id": "R414",
+    "factor_id": null,
+    "kind": "PREREGISTRATION_METADATA_CORRECTION_BEFORE_ANY_GPU",
+    "sequence": 1633,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:34:59.703634+00:00",
+    "experiment_id": "R414",
+    "factor_id": null,
+    "kind": "BONSAI_MBPP_PREFIX8_SCREEN_AUDITED",
+    "sequence": 1634,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:36:20.306359+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "MBPP_ORIGINAL_TEST_REMAINING192_ADMISSION_PLANNED",
+    "sequence": 1635,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:38:27.817452+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "MBPP_REMAINING191_CANONICAL_CONTROLS_ADMITTED",
+    "sequence": 1636,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:39:10.208288+00:00",
+    "experiment_id": "R415",
+    "factor_id": null,
+    "kind": "MBPP_REMAINING191_ORIGINAL_OMNI_PREREGISTRATION",
+    "sequence": 1637,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:47:54.414282+00:00",
+    "experiment_id": "R415",
+    "factor_id": null,
+    "kind": "MBPP223_ORIGINAL_PROFILE_REFERENCE_AUDITED",
+    "sequence": 1638,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:48:02.469910+00:00",
+    "experiment_id": "R416",
+    "factor_id": null,
+    "kind": "MBPP_REMAINING191_QWEN_EXISTING_PROFILE_PREREGISTRATION",
+    "sequence": 1639,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:56:54.834670+00:00",
+    "experiment_id": "R416",
+    "factor_id": null,
+    "kind": "MBPP223_PAIRED_MODEL_COMPARISON_AUDITED",
+    "sequence": 1640,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:57:47.670812+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "MBPP223_CHART_ADMISSION_AND_BMC06_NATIVE_SOURCE_REVIEW",
+    "sequence": 1641,
+    "signature": null
   }
 ]

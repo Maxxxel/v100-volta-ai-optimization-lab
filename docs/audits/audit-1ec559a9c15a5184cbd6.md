@@ -1,0 +1,34 @@
+# Public audit excerpt
+
+Original SHA256: `1ec559a9c15a5184cbd662027b9d17109607e8fe0ac01c83425beeffe28cfa20`
+
+Original file: `AUDIT.json`; 4254 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "BONSAI_MBPP8_NO_PRACTICAL_EXTENSION_GATE",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "First8 of pre-frozen32 only, never full32/full378; outcomes not used for inclusion",
+    "Existing Bonsai native thinking medium/T1/4096 vs Qwen MTP/T0/1024: whole profiles, not isolated architecture speedup",
+    "GPU-board generation windows only; startup/warmup/CPU/system energy excluded",
+    "Positive screen only permits remaining24; no Champion or agent/tool/allround qualification"
+  ],
+  "score_rule": "base_pass AND plus_pass"
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_generation_requests": 12,
+  "gpu_energy_j": 43574.99420265064,
+  "gpu_j_per_success": 7262.499033775107,
+  "model_starts": 1,
+  "peak_device_vram_mib": 8156.5,
+  "solved": 6,
+  "tasks": 8,
+  "wall_s": 159.120588977
+}
+```

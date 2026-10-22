@@ -17306,5 +17306,128 @@
       "score_rule": "base_pass AND plus_pass"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 36,
+      "gpu_energy_j": 18372.302698455565,
+      "gpu_j_per_success": 918.6151349227782,
+      "model_starts": 1,
+      "peak_device_vram_mib": 13596.5,
+      "solved": 20,
+      "tasks": 32,
+      "wall_s": 70.64503819
+    },
+    "audit_id": "audit-12a7d0b17bab09967917",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R413",
+    "model": "qwen38",
+    "reference_A0": "274e76c7812114ac961938363318106274893736950ebc4bb1dac1452e1568bb",
+    "statements": {
+      "decision": "QWEN38_MBPP32_CODING_PROFILE_PROMISING_NEEDS_CONFIRMATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "32/224 fixed original-test MBPP screen, not full378 or training-exclusion proof",
+        "Existing Qwen3.8 GSQ/RCO IQ3S+MTP coding profile; not an isolated model architecture/quantization effect",
+        "Known native-tool/policy disqualifications retained; no allround/agent/production claim; no lossless target-token assertion",
+        "GPU-board generation intervals only; loading/warmup/CPU judge excluded; positive screen not Champion qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 12,
+      "gpu_energy_j": 43574.99420265064,
+      "gpu_j_per_success": 7262.499033775107,
+      "model_starts": 1,
+      "peak_device_vram_mib": 8156.5,
+      "solved": 6,
+      "tasks": 8,
+      "wall_s": 159.120588977
+    },
+    "audit_id": "audit-1ec559a9c15a5184cbd6",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R414",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "BONSAI_MBPP8_NO_PRACTICAL_EXTENSION_GATE",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "First8 of pre-frozen32 only, never full32/full378; outcomes not used for inclusion",
+        "Existing Bonsai native thinking medium/T1/4096 vs Qwen MTP/T0/1024: whole profiles, not isolated architecture speedup",
+        "GPU-board generation windows only; startup/warmup/CPU/system energy excluded",
+        "Positive screen only permits remaining24; no Champion or agent/tool/allround qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 195,
+      "gpu_energy_j": 115744.93795848779,
+      "gpu_j_per_success": 809.4051605488656,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7364.5,
+      "solved": 143,
+      "tasks": 191,
+      "wall_s": 406.63893758
+    },
+    "audit_id": "audit-e65387abe0a60505cf31",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R415",
+    "model": "omnicoder2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "REMAINING191_ORIGINAL_PROFILE_MEASURED_NOT_MODEL_QUALIFIED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "191 new tasks; combine with original32 only after profile checks;223/224 original-test pool, official canonical-resource-failed255 separately deferred;not full378 or training-exclusion proof",
+        "OriginalQ6/noMTP/noWeightCache greedy1024; new profile A0 only; existing A0/C untouched",
+        "GPU-board generation intervals only; startup/warmups/CPU judge/system energy excluded"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 195,
+      "gpu_energy_j": 109275.2249533228,
+      "gpu_j_per_success": 718.9159536402816,
+      "model_starts": 1,
+      "peak_device_vram_mib": 13616.5,
+      "solved": 152,
+      "tasks": 191,
+      "wall_s": 406.587450855
+    },
+    "audit_id": "audit-48622d74f74d1c3f7630",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R416",
+    "model": "qwen38",
+    "reference_A0": "01e121494d6bbc2e830d051b714ad2ff3f7b0db59a6f05049c77be5e88e7d57c",
+    "statements": {
+      "decision": "QWEN38_MBPP32_CODING_PROFILE_PROMISING_NEEDS_CONFIRMATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Remaining191, reuse old32 only after profile checks;223/224 admitted tasks; canonical-resource-failed255 separately deferred; no full378 or training-exclusion proof",
+        "Existing Qwen3.8 GSQ/RCO IQ3S+MTP coding profile; not an isolated model architecture/quantization effect",
+        "Known native-tool/policy disqualifications retained; no allround/agent/production claim; no lossless target-token assertion",
+        "GPU-board generation intervals only; loading/warmup/CPU judge excluded; positive screen not Champion qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
   }
 ]

@@ -335,6 +335,10 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R410](experiments/R410.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | oxcoder9b_q6 |
 | [R411](experiments/R411.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 | [R412](experiments/R412.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R413](experiments/R413.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | qwen38 |
+| [R414](experiments/R414.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
+| [R415](experiments/R415.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R416](experiments/R416.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | qwen38 |
 
 
 ## Historical signed windows

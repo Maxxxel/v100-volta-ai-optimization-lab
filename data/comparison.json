@@ -8,6 +8,11 @@
       "definition": "HumanEvalPlus frozen 164; base AND plus; HumanEval/32 known invalid retained as failure (163 subset is separate).",
       "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5"
     },
+    "mbpp": {
+      "definition": "MBPP+ v0.2.0 original-test release pool: 223/224 tasks admitted before new model outputs; Mbpp/255 official canonical solution exceeds sandbox memory and is separately DEFERRED. Original32 + disjoint191, one answer per task, base AND plus. Not full224 or full378 leaderboard; separate from HumanEval and no proof of training exclusion.",
+      "task_count": 223,
+      "task_sha256": "86471d0ad0e68285d87a8c1b1d70bd35f12f3d55d23eb72fef7eca5a663b6c45"
+    },
     "tools": {
       "definition": "Frozen balanced native-tool subset: 100 cases, 20 in each of five categories; official AST plus irrelevance rules; not full BFCL leaderboard.",
       "task_sha256": "7c273de654cb6f5dec4dacb5d65b1ea8cd236c8dac9ba674ecfed21e292b8698"
@@ -300,7 +305,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "fc8c6ea68f4ba0ddf1f478c6de252408e8cfd326db9a39404f367e08a8c649c6",
+  "measurement_fingerprint": "fc840336b8c9db5f60c41e2f9c95ae1f2bdb3808034aa3615b571b4798d7eb01",
   "models": [
     {
       "id": "omni",
@@ -1194,6 +1199,139 @@
       "tasks": 18,
       "wall_s": 599.015520518,
       "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-e65387abe0a60505cf31",
+        "audit-c3eda7245a81d8aea7e7",
+        "audit-779c649d0c7aedb3a542",
+        "audit-7fc79c331d1e88062f8a",
+        "audit-e65387abe0a60505cf31"
+      ],
+      "audit_sha256": [
+        "e65387abe0a60505cf31669aea4e05193eedd2c7f472eeff8312200123cae6c2",
+        "c3eda7245a81d8aea7e7503a0109288e7ee02de2efccda32d9e545050d32393b",
+        "779c649d0c7aedb3a54236109c23f8c25787ab480e2a63639400a12146f208ec",
+        "7fc79c331d1e88062f8a749a024abca4577d945eae39de2ba8b6991f388d90c4",
+        "e65387abe0a60505cf31669aea4e05193eedd2c7f472eeff8312200123cae6c2"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "mbpp",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R415",
+      "gpu_j": 137779.71181276528,
+      "id": "omni-mbpp-415",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "measurement_batches": "R411:32 + R415:191, disjoint tasks; no repeats",
+        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1024,
+        "plan_sha256": "bb595974d3f8a74077f6a350a967ceb402990061100ef6dd50582af3cf0ef473",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0.0
+        },
+        "scorer_adapter_sha256": "1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7",
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+      },
+      "model": "omni",
+      "name": "OmniCoder2 9B",
+      "peak_vram_mib": 7364.5,
+      "profile": "Original Q6; no MTP or weight cache",
+      "quantization": "Q6_K",
+      "repeat_range": null,
+      "solved": 162,
+      "task_sha256": "86471d0ad0e68285d87a8c1b1d70bd35f12f3d55d23eb72fef7eca5a663b6c45",
+      "tasks": 223,
+      "wall_s": 487.009940287,
+      "warning": null
+    },
+    {
+      "audit_ids": [
+        "audit-48622d74f74d1c3f7630",
+        "audit-066a121f6734b7aaf3d8",
+        "audit-84dc3818048e9e8fb943",
+        "audit-12a7d0b17bab09967917",
+        "audit-48622d74f74d1c3f7630"
+      ],
+      "audit_sha256": [
+        "48622d74f74d1c3f76300417b6a167b884bb86d11ba1255a135a6e448b0ac8f0",
+        "066a121f6734b7aaf3d87b38f43ecddb7d6b51c6a5cda5982b323d6b93a57dce",
+        "84dc3818048e9e8fb9435aa06e7f5000b3e8e60d8c1daeab49f3e934440d4a78",
+        "12a7d0b17bab09967917bafee75b68d3b4baa81550f298602c406d56b4e7f05a",
+        "48622d74f74d1c3f76300417b6a167b884bb86d11ba1255a135a6e448b0ac8f0"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "mbpp",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R416",
+      "gpu_j": 127647.52765177836,
+      "id": "q38-mbpp-416",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-draft-n-max": "3",
+          "--spec-type": "draft-mtp",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "measurement_batches": "R413:32 + R416:191, disjoint tasks; no repeats",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1024,
+        "plan_sha256": "ad7af282e525daf3a4b2fc1cdb71a37021cf347d0bd0d22d8bcd90a4998ac003",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0.0
+        },
+        "scorer_adapter_sha256": "1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7",
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": 13616.5,
+      "profile": "IQ3_S grafted MTP3; coding profile",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 172,
+      "task_sha256": "86471d0ad0e68285d87a8c1b1d70bd35f12f3d55d23eb72fef7eca5a663b6c45",
+      "tasks": 223,
+      "wall_s": 477.232489045,
+      "warning": "Known native-tool/policy limitations remain; coding only, no allround or lossless claim."
     }
   ],
   "rules": [

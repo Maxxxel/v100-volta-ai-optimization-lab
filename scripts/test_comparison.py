@@ -8,6 +8,12 @@ class ComparisonTests(unittest.TestCase):
  def test_cohort_mismatch_fails(self):
   d=self.fixture();d['records'][0]['task_sha256']='c'*64
   with self.assertRaises(ValueError):check(d)
+ def test_admitted_mbpp_denominator_cannot_be_relabelled(self):
+  d=self.fixture();d['cohorts']['coding']['task_count']=223
+  with self.assertRaises(ValueError):check(d)
+  d['records'][0]['tasks']=223;self.assertTrue(check(d))
+  d['records'][0]['tasks']=224
+  with self.assertRaises(ValueError):check(d)
  def test_counts_and_nonfinite_fail(self):
   for key,value in [('solved',165),('tasks',0),('wall_s',float('nan'))]:
    d=self.fixture();d['records'][0][key]=value

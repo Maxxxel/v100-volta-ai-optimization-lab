@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `fc8c6ea68f4ba0ddf1f478c6de252408e8cfd326db9a39404f367e08a8c649c6`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `fc840336b8c9db5f60c41e2f9c95ae1f2bdb3808034aa3615b571b4798d7eb01`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -47,6 +47,8 @@ MTP + weight cache; fast. No additional policy claim is inferred from this disci
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82 |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -72,6 +74,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -97,6 +101,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -122,6 +128,8 @@ Fast; no MTP. No additional policy claim is inferred from this discipline.
 | Context, batching, KV, speculation | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -147,6 +155,8 @@ Fast; MTP3. MTP target-token identity is not lossless; no allround qualification
 | Context, batching, KV, speculation | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -172,6 +182,8 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
 | Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
@@ -190,6 +202,87 @@ Original audit SHA-256 (originals retained privately; public excerpts are not th
 - [audit-e4d67e27df9647a6df70](audits/audit-e4d67e27df9647a6df70.md): `e4d67e27df9647a6df704b60d8e96076a62a0ea327550e70521a681524931a81`
 - [audit-cabcd14d12eea705c5e9](audits/audit-cabcd14d12eea705c5e9.md): `cabcd14d12eea705c5e935a0213aa17768f67e546da2ac1691becc784da8864f`
 - [audit-a0b196e900db38e0a0cd](audits/audit-a0b196e900db38e0a0cd.md): `a0b196e900db38e0a0cd73ed2b69fd7e615121450ef9f246509e88c92ea78e53`
+
+## Coding · MBPP+ admitted 223
+
+MBPP+ v0.2.0 original-test release pool: 223/224 tasks admitted before new model outputs; Mbpp/255 official canonical solution exceeds sandbox memory and is separately DEFERRED. Original32 + disjoint191, one answer per task, base AND plus. Not full224 or full378 leaderboard; separate from HumanEval and no proof of training exclusion.
+
+Task identity: `86471d0ad0e68285d87a8c1b1d70bd35f12f3d55d23eb72fef7eca5a663b6c45`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.
+
+![Coding · MBPP+ admitted 223: Successful tasks; missing results labelled NOT MEASURED](assets/benchmarks/mbpp-success.svg){ .benchmark-svg }
+
+![Coding · MBPP+ admitted 223: Mean task E2E; missing results labelled NOT MEASURED](assets/benchmarks/mbpp-latency.svg){ .benchmark-svg }
+
+![Coding · MBPP+ admitted 223: GPU energy per success; missing results labelled NOT MEASURED](assets/benchmarks/mbpp-energy.svg){ .benchmark-svg }
+
+![Coding · MBPP+ admitted 223: Peak device VRAM; missing results labelled NOT MEASURED](assets/benchmarks/mbpp-vram.svg){ .benchmark-svg }
+
+| Profile / record date | Success | Successful tasks/s | Total task time / GPU energy | Peak VRAM | Audit |
+|---|---|---|---|---|---|
+| OmniCoder2 9B Q6_K — Original Q6; no MTP or weight cache / 2026-10-22 | 162/223 | 0.33264 | 487.010 s / 137779.71 J | 7364.5 | [R415](experiments/R415.md) |
+| Qwen3.8 27B GSQ/RCO IQ3_S — IQ3_S grafted MTP3; coding profile / 2026-10-22 | 172/223 | 0.36041 | 477.232 s / 127647.53 J | 13616.5 | [R416](experiments/R416.md) |
+
+### OmniCoder2 9B · Q6_K · R415
+
+Original Q6; no MTP or weight cache. No additional policy claim is inferred from this discipline.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 1024 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | R411:32 + R415:191, disjoint tasks; no repeats |
+| Actual template controls | {"enable_thinking": false} |
+| Task count / repeats | 223 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715 |
+| Scorer adapter SHA-256 | 1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | bb595974d3f8a74077f6a350a967ceb402990061100ef6dd50582af3cf0ef473 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-e65387abe0a60505cf31](audits/audit-e65387abe0a60505cf31.md): `e65387abe0a60505cf31669aea4e05193eedd2c7f472eeff8312200123cae6c2`
+- [audit-c3eda7245a81d8aea7e7](audits/audit-c3eda7245a81d8aea7e7.md): `c3eda7245a81d8aea7e7503a0109288e7ee02de2efccda32d9e545050d32393b`
+- [audit-779c649d0c7aedb3a542](audits/audit-779c649d0c7aedb3a542.md): `779c649d0c7aedb3a54236109c23f8c25787ab480e2a63639400a12146f208ec`
+- [audit-7fc79c331d1e88062f8a](audits/audit-7fc79c331d1e88062f8a.md): `7fc79c331d1e88062f8a749a024abca4577d945eae39de2ba8b6991f388d90c4`
+- [audit-e65387abe0a60505cf31](audits/audit-e65387abe0a60505cf31.md): `e65387abe0a60505cf31669aea4e05193eedd2c7f472eeff8312200123cae6c2`
+
+### Qwen3.8 27B · GSQ/RCO IQ3_S · R416
+
+IQ3_S grafted MTP3; coding profile. Known native-tool/policy limitations remain; coding only, no allround or lossless claim.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 1024 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | R413:32 + R416:191, disjoint tasks; no repeats |
+| Actual template controls | {"enable_thinking": false} |
+| Task count / repeats | 223 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
+| Scorer adapter SHA-256 | 1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | ad7af282e525daf3a4b2fc1cdb71a37021cf347d0bd0d22d8bcd90a4998ac003 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-48622d74f74d1c3f7630](audits/audit-48622d74f74d1c3f7630.md): `48622d74f74d1c3f76300417b6a167b884bb86d11ba1255a135a6e448b0ac8f0`
+- [audit-066a121f6734b7aaf3d8](audits/audit-066a121f6734b7aaf3d8.md): `066a121f6734b7aaf3d87b38f43ecddb7d6b51c6a5cda5982b323d6b93a57dce`
+- [audit-84dc3818048e9e8fb943](audits/audit-84dc3818048e9e8fb943.md): `84dc3818048e9e8fb9435aa06e7f5000b3e8e60d8c1daeab49f3e934440d4a78`
+- [audit-12a7d0b17bab09967917](audits/audit-12a7d0b17bab09967917.md): `12a7d0b17bab09967917bafee75b68d3b4baa81550f298602c406d56b4e7f05a`
+- [audit-48622d74f74d1c3f7630](audits/audit-48622d74f74d1c3f7630.md): `48622d74f74d1c3f76300417b6a167b884bb86d11ba1255a135a6e448b0ac8f0`
 
 ## Native Tools · balanced 100
 
@@ -224,6 +317,8 @@ MTP; fast. No additional policy claim is inferred from this discipline.
 | Context, batching, KV, speculation | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -249,6 +344,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / NOT RECORDED |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -274,6 +371,8 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
 | Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
@@ -324,6 +423,8 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -349,6 +450,8 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -374,6 +477,8 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -399,6 +504,8 @@ Fast; MTP3. Additional policy failure inherited; coding-specialist screen, no ge
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -424,6 +531,8 @@ MTP + weight cache; 300 W. No additional policy claim is inferred from this disc
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 18 unique; Observed min–max of three repeated 18-case cycle aggregates; not 54 independent tasks. |
 | Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -450,6 +559,8 @@ Thinking medium; 2048 output. No additional policy claim is inferred from this d
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
 | Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
