@@ -71,6 +71,15 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('measurement_type')=='GPU_HEAD_FREE_PROBABILITY_ACQUISITION_SCREEN':
+        fields=('matched_pairs','all_paired_token_IDs_equal','probability_metadata_valid','probability_token_entries','nondegenerate_top_logprob_entries','model_starts','requests','calibration_fits','original12_quality_cases','task_successes_measured','peak_device_vram_mib','screen_passed')
+        aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool))}
+        pairs=[]
+        for row in obj.get('comparisons',[]):
+            if not isinstance(row,dict):continue
+            pairs.append({k:row[k] for k in ('round','token_IDs_equal','A_e2e_s','B_e2e_s','E2E_change_percent','A_GPU_j','B_GPU_j','A_energy_coverage','B_energy_coverage') if isinstance(row.get(k),(int,float,bool))})
+        if pairs:aggregate['matched_acquisition_costs']=pairs
+        if aggregate:result['probability_acquisition']=aggregate
     if obj.get('measurement_type')=='GPU_WEIGHTEDV_FP32_EXACT_INPUT_NUMERICAL_SCREEN':
         allowed=('native_cases_per_arm','baseline_passed_cases','candidate_passed_cases','NMSE_limit','model_starts','operator_processes','tensor_upload_records','identical_tensor_upload_bytes_SHA_verified','actual_precision_dispatch_verified','candidate_numerical_gate_passed','peak_device_vram_mib')
         component={k:obj[k] for k in allowed if isinstance(obj.get(k),(int,float,bool))}

@@ -25,7 +25,7 @@
   "data/research-issues.json": "14e327fa9548872d168fd4dd168117bfbdfb43e0cb69b1523ea721925c9e50c8",
   "data/research-subcases.json": "a0dd9174360646abc21a0998e7fb9597301262018f7aa2a88456072651e4ebcd",
   "data/signed-windows.json": "bab8615c26a387e58586682bb7cd0a90148104a7c1b2d7976f7d6732f2438a3d",
-  "data/snapshot.json": "025d44c5e31bc71879089253ed5dacf08b439d0c155d98cbb312b2ef76f2321e",
+  "data/snapshot.json": "ffedf1672abfe9c8df585835ed4cd38dd68ba0ee83eb85f749f6b3bb9acf311e",
   "data/sources.json": "2063a7de9e741094d2e8eb170c7fba02dfb609e2fca7ce9aea1f98752c1595fc",
   "docs/audits/audit-005e431f9699e2f9139e.md": "1074674cb5589acba7c70a5bc86c5c3ca6086a577e59edddb5116dc079898c5e",
   "docs/audits/audit-0096de0ed9992eeb0f2a.md": "83158b461dfc7a551839ff778fe45c3043491fa1afba2d5b90817bca421cc9e5",
@@ -1178,8 +1178,8 @@
   "docs/stylesheets/lab.css": "7450704bc20d051426a89d13c83595eb0a031b786d95b9180a2e633f43e8a255",
   "mkdocs.yml": "c25db7e0d940f300c986a6856538ea52869e5de2b3e2c5dbaddb84cf92265911",
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
-  "scripts/export.py": "1fa95b53e9ab62317e1350003c061aef726733bdce1c752aeebbe9535008ba2e",
+  "scripts/export.py": "2da3ca549ee08ddb6b950108065a84fe2db547d786282c40b59e78c5e67e6b2d",
   "scripts/render.py": "6c1927ecd69cc1bf30ce7d58779b47df6e849a47608a4e54331601d15030f411",
-  "scripts/test_publication.py": "d3ed98313841ee458b6a1485ec93b44fefd10f57ec75e0a9d649abf27cfc1a6f",
+  "scripts/test_publication.py": "a6e969cd5a88caa315680ca7606a35589ed4b4d8baf7f84b5d236388b53f38db",
   "scripts/validate.py": "053c7fdd72a3d1ca7f61429f9df7a839134dac9314d3fd79321ac8f1b220a8b2"
 }

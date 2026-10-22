@@ -4,6 +4,9 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_acquisition_export_does_not_publish_token_scores_or_prompts(self):
+  raw={'measurement_type':'GPU_HEAD_FREE_PROBABILITY_ACQUISITION_SCREEN','matched_pairs':6,'calibration_fits':0,'original12_quality_cases':0,'comparisons':[{'case':'private prompt label','round':1,'token_IDs_equal':True,'A_e2e_s':1.0,'B_e2e_s':1.1,'token_ids':[1,2],'completion_probabilities':[{'token':'private generated text','logprob':-2}]}]}
+  out=e.metrics(raw)['probability_acquisition'];self.assertEqual(out['calibration_fits'],0);self.assertEqual(out['original12_quality_cases'],0);self.assertTrue(out['matched_acquisition_costs'][0]['token_IDs_equal']);self.assertNotIn('private',str(out));self.assertNotIn('token_ids',str(out));self.assertNotIn('logprob',str(out))
  def test_scope_reassessment_exports_only_public_rationale(self):
   raw={'deferral_reassessment_20261022':{'previous_status':'DEFERRED','current_status':'OPEN','priority':'P1','decision':'REOPEN_HEAD_FREE_ONLY','new_GPU_execution':False,'previous_evidence':[{'path':'private evidence path'}],'native_source':'private source payload'}}
   out=e.scope_reassessment(raw);self.assertEqual(out['current_status'],'OPEN');self.assertFalse(out['new_GPU_execution']);self.assertNotIn('private',str(out));self.assertIsNone(e.scope_reassessment({}))
