@@ -4,6 +4,9 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_completion_export_retains_framing_limit_without_outputs(self):
+  raw={'measurement_type':'GPU_FIXED_SCHEMA_NATIVE_STOP_FRAMING_SCREEN','timed_pairs':40,'receiver_framing_required':True,'raw_candidate_is_not_complete_JSON':True,'paired_geomean_E2E_change_percent':-4.0,'original12_quality_cases':0,'winner_qualified':False,'responses':[{'content':'private JSON'}],'native_requests':[{'prompt':'private prompt'}]}
+  out=e.metrics(raw)['schema_completion_protocol'];self.assertTrue(out['receiver_framing_required']);self.assertTrue(out['raw_candidate_is_not_complete_JSON']);self.assertFalse(out['winner_qualified']);self.assertEqual(out['timed_pairs'],40);self.assertNotIn('private',str(out))
  def test_mock_calibration_never_turns_unrun_holdout_into_zero_risk(self):
   raw={'measurement_type':'GPU_MOCK_ACTION_SELECTIVE_RISK_CALIBRATION_SCREEN','calibration_cases':80,'holdout_pairs':0,'underlying_holdout_decisions_equal':True,'thresholds_fitted':0,'holdout_unsafe_allows_A':None,'holdout_unsafe_allows_B':None,'original12_quality_cases':0,'case_details':[{'trusted':'private context','oracle':'private answer'}]}
   out=e.metrics(raw)['mock_action_calibration'];self.assertIsNone(out['holdout_unsafe_allows_A']);self.assertIsNone(out['holdout_unsafe_allows_B']);self.assertIsNone(out['underlying_holdout_decisions_equal']);self.assertFalse(out['holdout_comparison_performed']);self.assertEqual(out['holdout_pairs'],0);self.assertEqual(out['original12_quality_cases'],0);self.assertNotIn('private',str(out))
