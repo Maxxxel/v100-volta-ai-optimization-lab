@@ -24879,11 +24879,12 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung. R404 BMT07 screen recorded separately: 4/12 correct abstentions in B vs 0/12 in A0; A0 made four false tool calls on negative/ambiguous cases, B made none. All eight positive calculations failed in both arms, so independent balanced confirmation is required and no broad retrieval-quality claim is made.",
+    "decision": "R151 exakte Asset-ID-/Policy-Quellenwahl: 12/12 gegen 8/12, 15,955 gegen 123,081 s, GPU-J 4135,82 gegen 32983,62 im engen frischen Aufgabenpaar. R188 unabhängige HA/PVE-Fälle nur 5/12 gegen 3/12; absolutes Qualitätsgate verfehlt. Keine Embedding-/Vector-RAG- oder LLM-Summary-Messung. R404 BMT07 screen recorded separately: 4/12 correct abstentions in B vs 0/12 in A0; A0 made four false tool calls on negative/ambiguous cases, B made none. All eight positive calculations failed in both arms, so independent balanced confirmation is required and no broad retrieval-quality claim is made. R405 independently replicated the narrow synthetic abstention/latency screen: A0 0/12 strict, B 4/12 (four correct abstentions), positive calculations 0/8 both, no B false calls; total request latency 71.04% lower in this workload. No broad retrieval-quality claim or champion promotion.",
     "domain": "agent_harness",
     "evidence_ids": [
       "audit-3065546a54fc26cd63ec",
       "audit-30cb583e005ee5568d0a",
+      "audit-5350f59ad47a9a208e94",
       "audit-68977e5f1d14a10a6a70",
       "audit-8fbf1dc664eb548e63a0",
       "audit-c6037cf66712e2203c95",
@@ -24894,13 +24895,14 @@
       "R151",
       "R188",
       "R365",
-      "R404"
+      "R404",
+      "R405"
     ],
     "experimentally_covered": true,
     "id": "A02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Run a fresh, balanced confirmation on independent synthetic fixtures. Keep the same isolated source-context treatment and strict scoring; inspect positive arithmetic and negative abstention separately. If positive correctness remains 0/8 in both arms, report only the safety/latency scope and do not claim general agent success. Vector RAG and LLM summarization stay deferred pending separately pinned components and contracts.",
+    "next_action": "Do not repeat the same BMT07 selector treatment. Continue the next technically executable, distinct single-factor gap; retain vector retrieval and summarization as separate scoped opportunities pending a pinned component and positive-case quality gate.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -24987,7 +24989,7 @@
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "R404 independent balanced confirmation; positive arithmetic remained 0/8 both arms. Vector RAG still needs a pinned licensed embedding/index, update/RAM budget and independent paraphrase/provenance tasks. LLM summarization needs a separate fact/authority contract.",
+    "remaining_scope": "BMT07 exact deterministic source-selection screen is independently replicated only on synthetic abstention cases; positive calculation remains failed in both arms. Vector retrieval and LLM summarization remain separately untested and require pinned components, provenance tests and full downstream task accounting.",
     "reopening_conditions": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -36949,12 +36951,14 @@
     "domain": "transfer",
     "evidence_ids": [
       "audit-3065546a54fc26cd63ec",
+      "audit-5350f59ad47a9a208e94",
       "audit-c6037cf66712e2203c95",
       "audit-d8153ea70260b2285397"
     ],
     "experiment_ids": [
       "R188",
-      "R404"
+      "R404",
+      "R405"
     ],
     "experimentally_covered": true,
     "id": "BMT07",

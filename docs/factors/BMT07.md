@@ -23,6 +23,7 @@ These are source links or general implementation background, not local speedup e
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
 - [Original audit hash and public excerpt](../audits/audit-3065546a54fc26cd63ec.md)
+- [Original audit hash and public excerpt](../audits/audit-5350f59ad47a9a208e94.md)
 - [Original audit hash and public excerpt](../audits/audit-c6037cf66712e2203c95.md)
 - [Original audit hash and public excerpt](../audits/audit-d8153ea70260b2285397.md)
 
@@ -53,4 +54,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R188](../experiments/R188.md), [R404](../experiments/R404.md)
+[R188](../experiments/R188.md), [R404](../experiments/R404.md), [R405](../experiments/R405.md)

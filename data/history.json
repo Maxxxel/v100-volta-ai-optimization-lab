@@ -12918,5 +12918,13 @@
     "kind": "R404_FACTOR_ID_METADATA_CORRECTION",
     "sequence": 1615,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T14:47:54.101672+00:00",
+    "experiment_id": "R405",
+    "factor_id": null,
+    "kind": "R405_A02_BMT07_INDEPENDENT_SYNTHETIC_CONFIRMATION",
+    "sequence": 1616,
+    "signature": null
   }
 ]

@@ -16063,5 +16063,41 @@
       "scope": "Synthetic read-only provenance/currentness retrieval; exact 12-case A0/B screen"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "baseline": {
+        "successes": 0,
+        "successful_tasks_per_s": 0.0,
+        "tasks": 12,
+        "wall_s_median": 3.827802787,
+        "wall_s_sum": 48.259248689
+      },
+      "candidate": {
+        "successes": 4,
+        "successful_tasks_per_s": 0.286182882649743,
+        "tasks": 12,
+        "wall_s_median": 1.465782266,
+        "wall_s_sum": 13.977076347
+      }
+    },
+    "audit_id": "audit-5350f59ad47a9a208e94",
+    "date": "2026-10-22T14:47:54.101672+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "A02"
+    ],
+    "id": "R405",
+    "model": null,
+    "reference_A0": null,
+    "statements": {
+      "limitations": [
+        "All eight positive calculations failed in both arms; B gains were correct abstentions on negative or ambiguous cases.",
+        "Confirms only deterministic source selection on fresh synthetic cases, not semantic retrieval or general agent quality.",
+        "The 71.04% request-time reduction and gross GPU energy are workload-scoped; startup excluded.",
+        "No independent quality gate for broader retrieval passed; no Champion promotion."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

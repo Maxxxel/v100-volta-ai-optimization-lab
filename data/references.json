@@ -320,6 +320,37 @@
   },
   {
     "aggregate_metrics": {
+      "comparison": {
+        "candidate_false_positive_count": 0,
+        "latency_gain_fraction": 0.7103751772624286
+      },
+      "metrics": {
+        "successes": 4,
+        "successful_tasks_per_s": 0.286182882649743,
+        "tasks": 12,
+        "wall_s_median": 1.465782266,
+        "wall_s_sum": 13.977076347
+      }
+    },
+    "experiment_id": null,
+    "id": "105492b6ada2e823e39f339a2c9e4eaea74649368bdead4732c380ae9f5c5dde",
+    "identity": {
+      "inference_flags": {},
+      "kernel_switches": {},
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [],
+    "kind": null,
+    "limits": [],
+    "model": "OmniCoder2-9B-Q6_K",
+    "profile": null,
+    "qualification": null,
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
       "metrics": {
         "actual_per_slot_context": 16384,
         "actual_slots": 2,
@@ -1041,6 +1072,33 @@
     "model": null,
     "profile": "omnicoder2-9b-q4km-sm70-cuda128-original-native-ctx8192-v1",
     "qualification": "ORIGINAL_ENGINE_OMNICODER2_Q4_NATIVE_CACHE_OFF_BASELINE",
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "successes": 0,
+        "successful_tasks_per_s": 0.0,
+        "tasks": 12,
+        "wall_s_median": 3.827802787,
+        "wall_s_sum": 48.259248689
+      }
+    },
+    "experiment_id": null,
+    "id": "20972bb318a8f61096a85e8292a09a5a3bd5861b6e8f9bd8d78dc2901e3ccd7f",
+    "identity": {
+      "inference_flags": {},
+      "kernel_switches": {},
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [],
+    "kind": null,
+    "limits": [],
+    "model": "OmniCoder2-9B-Q6_K",
+    "profile": null,
+    "qualification": null,
     "winner_qualified": false
   },
   {

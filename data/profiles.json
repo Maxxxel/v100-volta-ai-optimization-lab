@@ -42,6 +42,12 @@
     "scope": "Champion only in this exact profile; no automatic production deployment."
   },
   {
+    "A0": "20972bb318a8f61096a85e8292a09a5a3bd5861b6e8f9bd8d78dc2901e3ccd7f",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-a02-bmt07-provenance-synthetic-r405-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
     "A0": "ba22de96ef2cdda41e184c07bead0ee638f67ae3a75ea94398f3a82bfbd6e752",
     "C": "fa9451c63b8d00e62025d12642a4f8bfa21bbc5942de04dc48f6298e9c1c802c",
     "id": "omnicoder2-q6k-sm70-cuda128-bfcl-balanced100-native-v1",
