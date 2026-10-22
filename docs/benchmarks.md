@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `1b38fe979380406a3366da743e7446c777d938c6a09a905759fb1445f77ce426`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `a0e0619e232a611c9d3d86288a46f65c578978a743de484c97e6da1f52ee5386`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -249,6 +249,7 @@ Task identity: `86471d0ad0e68285d87a8c1b1d70bd35f12f3d55d23eb72fef7eca5a663b6c45
 |---|---|---|---|---|---|
 | OmniCoder2 9B Q6_K — Original Q6; no MTP or weight cache / 2026-10-22 | 162/223 | 0.33264 | 487.010 s / 137779.71 J | 7364.5 | [R415](experiments/R415.md) |
 | Qwen3.8 27B GSQ/RCO IQ3_S — IQ3_S grafted MTP3; coding profile / 2026-10-22 | 172/223 | 0.36041 | 477.232 s / 127647.53 J | 13616.5 | [R416](experiments/R416.md) |
+| Gemma4 12B IT QAT Q4_0 — Official QAT Q4_0; native fast; no MTP or weight cache / 2026-10-22 | 168/223 | 0.19142 | 877.635 s / 216064.31 J | 8118.5 | [R428](experiments/R428.md) |
 
 ### OmniCoder2 9B · Q6_K · R415
 
@@ -311,6 +312,37 @@ Original audit SHA-256 (originals retained privately; public excerpts are not th
 - [audit-84dc3818048e9e8fb943](audits/audit-84dc3818048e9e8fb943.md): `84dc3818048e9e8fb9435aa06e7f5000b3e8e60d8c1daeab49f3e934440d4a78`
 - [audit-12a7d0b17bab09967917](audits/audit-12a7d0b17bab09967917.md): `12a7d0b17bab09967917bafee75b68d3b4baa81550f298602c406d56b4e7f05a`
 - [audit-48622d74f74d1c3f7630](audits/audit-48622d74f74d1c3f7630.md): `48622d74f74d1c3f76300417b6a167b884bb86d11ba1255a135a6e448b0ac8f0`
+
+### Gemma4 12B IT QAT · Q4_0 · R428
+
+Official QAT Q4_0; native fast; no MTP or weight cache. Native-tool84/100 and agent9/18 with additional policy faults retained; coding results do not qualify an assistant.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | R427:32 + R428:191, disjoint tasks; no repeats |
+| Actual template controls | {"enable_thinking": false} |
+| Task count / repeats | 223 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
+| Scorer adapter SHA-256 | 1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | 6e9646206b88a6d093d60ea2d1e163ad71247f87d33dadcc3ac61f792749ab67 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-a496d811bed11b4d3351](audits/audit-a496d811bed11b4d3351.md): `a496d811bed11b4d3351353f73538f1922ff39dfdaef39e2c8e23f0f4850dd9f`
+- [audit-1b31ba0c1159d8d3f3cd](audits/audit-1b31ba0c1159d8d3f3cd.md): `1b31ba0c1159d8d3f3cd1f3ff75c30157616d2ed5cd192f1ee9c4f39388c6401`
+- [audit-f19c98d28f6d0f2baf73](audits/audit-f19c98d28f6d0f2baf73.md): `f19c98d28f6d0f2baf7356728309b91b1e04a95a5555932392d7e6fcb26c36d0`
+- [audit-ff32d141eb26b6f4d1eb](audits/audit-ff32d141eb26b6f4d1eb.md): `ff32d141eb26b6f4d1ebb3cbc94ff906b85dba3b0e43657d9dc4e46822710c42`
+- [audit-a496d811bed11b4d3351](audits/audit-a496d811bed11b4d3351.md): `a496d811bed11b4d3351353f73538f1922ff39dfdaef39e2c8e23f0f4850dd9f`
 
 ## Native Tools · balanced 100
 
