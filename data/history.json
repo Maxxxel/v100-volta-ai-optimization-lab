@@ -13326,5 +13326,21 @@
     "kind": "R425_GEMMA_CODING180_AUDITED",
     "sequence": 1666,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T21:05:18.824899+00:00",
+    "experiment_id": "R426",
+    "factor_id": null,
+    "kind": "R426_GEMMA_NATIVE_AGENT18_PREREGISTRATION",
+    "sequence": 1667,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T21:12:16.582307+00:00",
+    "experiment_id": "R426",
+    "factor_id": null,
+    "kind": "R426_GEMMA_NATIVE_AGENT_COMPARISON_AUDITED",
+    "sequence": 1668,
+    "signature": null
   }
 ]

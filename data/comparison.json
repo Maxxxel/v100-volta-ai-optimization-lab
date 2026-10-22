@@ -305,7 +305,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "e6df3dc75565bb8089fe1603a0d6931749190b763f6fd7e4526a3069153d6c8c",
+  "measurement_fingerprint": "1b38fe979380406a3366da743e7446c777d938c6a09a905759fb1445f77ce426",
   "models": [
     {
       "id": "omni",
@@ -1006,6 +1006,65 @@
       "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
       "tasks": 18,
       "wall_s": 477.19566971300003,
+      "warning": "Additional policy violations observed; no assistant qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-021cfb8ba15cb4471b11"
+      ],
+      "audit_sha256": [
+        "021cfb8ba15cb4471b111ebcbe44088d2d26d06809f01981d24db6cde1b6f4a5"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R426",
+      "gpu_j": 79448.26361013179,
+      "id": "gemma4-agents-426",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 1400,
+        "plan_sha256": "bc06f49a06e3fa99d8cc16a1f3c8e91dc2f4ba6aa60405198febff6dd0244d94",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.0,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "seed": 1001,
+          "temperature": 1.0,
+          "top_k": 64,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+      },
+      "model": "gemma4",
+      "name": "Gemma4 12B IT QAT",
+      "peak_vram_mib": 8118.5,
+      "profile": "Fast non-reasoning; no MTP",
+      "quantization": "Q4_0",
+      "repeat_range": null,
+      "solved": 9,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 323.94243338399997,
       "warning": "Additional policy violations observed; no assistant qualification"
     },
     {

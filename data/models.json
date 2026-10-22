@@ -93,13 +93,13 @@
     "status": "teilweise"
   },
   {
-    "assessment": "R425 Gemma4 coding:149/164 HumanEvalPlus, 16/16 separate long-context; 741.044s,183962.59GPU-J for164,peak8118.5MiB. Screen only,nooverallChampion. NativeTool84/100negative retained.",
-    "current_experiment": "R425",
+    "assessment": "R426 Gemma4 agents:9/18 observed,full18=True; 323.942s,8827.58GPU-J/success,peak8118.5MiB; 3 additional policy-fault cases vs retainedOmni. Screen only,no overallChampion.",
+    "current_experiment": "R426",
     "evidence_class": "LOKAL_GEMESSEN",
     "id": "BMC07",
     "local_scope": null,
     "name": "Gemma 4 12B IT QAT",
-    "next_step": "Measure the same isolated18agent workflows with source-correct Gemma fast native protocol; preserve coding and native-tool results separately. No combinations or new model downloads.",
+    "next_step": "Consolidate model-specific Coding/Tools/Agent tradeoffs from retained comparable suites and inspect only distinct architecture-enabled single-factor hypotheses. Gemma QAT coding quality does not imply tool/agent superiority; preserve every prior profile. No combinations until per-model compatibility gate.",
     "priority": "P1",
     "repository": "https://huggingface.co/google/gemma-4-12B-it",
     "source_admission": {

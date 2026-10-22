@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `e6df3dc75565bb8089fe1603a0d6931749190b763f6fd7e4526a3069153d6c8c`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `1b38fe979380406a3366da743e7446c777d938c6a09a905759fb1445f77ce426`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -462,6 +462,7 @@ Task identity: `104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186
 | Qwen3.5 9B Q4_K_M — Fast non-reasoning; no MTP / 2026-10-20 | 8/18 | 0.03729 | 214.550 s / 56164.79 J | 5956.5 | [R228](experiments/R228.md) |
 | Ornith 1.5 9B Q6_K — Fast non-reasoning; no MTP / 2026-10-20 | 14/18 | 0.06949 | 201.470 s / 54846.31 J | 7356.5 | [R253](experiments/R253.md) |
 | Qwen3.8 27B GSQ/RCO IQ3_S — Fast non-reasoning; no MTP / 2026-10-20 | 14/18 | 0.02934 | 477.196 s / 130284.60 J | 12454.5 | [R260](experiments/R260.md) |
+| Gemma4 12B IT QAT Q4_0 — Fast non-reasoning; no MTP / 2026-10-22 | 9/18 | 0.02778 | 323.942 s / 79448.26 J | 8118.5 | [R426](experiments/R426.md) |
 | Qwen3.8 27B GSQ/RCO IQ3_S — Fast; MTP3 / 2026-10-20 | 14/18 | 0.03425 | 408.702 s / 105913.80 J | 13600.5 | [R261](experiments/R261.md) |
 | OmniCoder2 9B Q6_K — MTP + weight cache; 300 W / 2026-10-20 | 13/18 | 0.08002 | 162.465 s / 41893.39 J | 14106.5 | [R219](experiments/R219.md) |
 | Ternary Bonsai 2 27B PQ2_0 — Thinking medium; 2048 output / 2026-10-21 | 17/18 | 0.02838 | 599.016 s / 161409.67 J | 8158.5 | [R286](experiments/R286.md) |
@@ -546,6 +547,33 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
 
 - [audit-7ea265b5613fdf6bd79c](audits/audit-7ea265b5613fdf6bd79c.md): `7ea265b5613fdf6bd79c6760b4925284a8c3d434edace84ad822e0982651cf0d`
+
+### Gemma4 12B IT QAT · Q4_0 · R426
+
+Fast non-reasoning; no MTP. Additional policy violations observed; no assistant qualification
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1400 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | See pinned native request evidence |
+| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
+| Scorer adapter SHA-256 | See audit scoring contract |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | bc06f49a06e3fa99d8cc16a1f3c8e91dc2f4ba6aa60405198febff6dd0244d94 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-021cfb8ba15cb4471b11](audits/audit-021cfb8ba15cb4471b11.md): `021cfb8ba15cb4471b111ebcbe44088d2d26d06809f01981d24db6cde1b6f4a5`
 
 ### Qwen3.8 27B · GSQ/RCO IQ3_S · R261
 
