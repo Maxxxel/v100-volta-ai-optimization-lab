@@ -131,7 +131,7 @@
 | [HBM19](factors/HBM19.md) | Energy per correct task/token | PARTIAL | YES | P0 |
 | [HBM20](factors/HBM20.md) | StreamDQ custom HBM | NOT_APPLICABLE | NO | P3 |
 | [HBM21](factors/HBM21.md) | FlashAccel high-bandwidth flash | NOT_APPLICABLE | NO | P3 |
-| [HBM22](factors/HBM22.md) | QServe W4A8KV4 | OPEN | NO | P3 |
+| [HBM22](factors/HBM22.md) | QServe W4A8KV4 | DEFERRED | NO | P3 |
 | [HBM23](factors/HBM23.md) | FlashInfer attention engine | DEFERRED | NO | P3 |
 | [HBM24](factors/HBM24.md) | Fork-specific experimental attention | NOT_APPLICABLE | NO | P3 |
 | [BMT01](factors/BMT01.md) | Minimal tool-schema descriptions | TESTED_NEGATIVE | YES | P0 |

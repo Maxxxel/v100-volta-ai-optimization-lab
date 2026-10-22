@@ -166476,6 +166476,24 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-1e0c18f591e363c5bae7",
+    "original_bytes": 4407,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1e0c18f591e363c5bae7725ed14264c343dcf14201048d475e33c55c4bd424ae",
+    "statements": {
+      "decision": "DEFER_CURRENT_QSERVE_W4A8_PORT_SM80_INTEGER_MMA_REQUIRED",
+      "limits": [
+        "Current pinned QServe/OmniServe implementation only; not a proof that all W4A8 research is mathematically impossible on Volta.",
+        "DP4A or FP16 emulation would be a distinct kernel with unmeasured cost; published INT8 TensorCore gains do not transfer.",
+        "No installation/build/GPU attempt justified for this source path."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-060728369fad84f595c1",
     "original_bytes": 3170,
     "original_filename": "research-metadata.json",

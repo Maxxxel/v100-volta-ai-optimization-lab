@@ -12734,5 +12734,13 @@
     "kind": "HBM23_PINNED_UPSTREAM_MINIMUM_SM75_SOURCE_DEFERRAL",
     "sequence": 1592,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T10:25:32.417561+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "HBM22_PINNED_QSERVE_SM80_INTEGER_MMA_SOURCE_DEFERRAL",
+    "sequence": 1593,
+    "signature": null
   }
 ]
