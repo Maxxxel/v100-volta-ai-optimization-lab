@@ -18164,5 +18164,47 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "actual_generation_requests": 28,
+      "context_tokens": 16384,
+      "full_12_semantic_score_claimed": true,
+      "gpu_energy_j_approx": 73375.72355809102,
+      "gpu_j_per_success": 6114.643629840918,
+      "model_starts": 1,
+      "observed_cases": 12,
+      "original12": {
+        "format": 6,
+        "observed": 12,
+        "semantic": 10
+      },
+      "peak_device_vram_mib": 12974.5,
+      "planned_cases": 12,
+      "solved": 12,
+      "wall_s": 269.406874028
+    },
+    "audit_id": "audit-25a40c7b02bf60e588a1",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R19"
+    ],
+    "id": "R432",
+    "model": "qwen38",
+    "reference_A0": null,
+    "statements": {
+      "decision": "QWEN38_NO_MTP_16K_LONG_INPUT_BASELINE_ADMITTED_FOR32K_CONTROL_SCREEN",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "SameR338text/tools/oracles;Qwen own native template/tokenizer andfrozennativeT0/seed1001, versusGemmaT1; wholeconfigcomparison.",
+        "12development longinventory tasks, not fullBFCL or independentmodelwinner; actualGemmatokenlengths retained.",
+        "No GDN/MTP/cache/grammar optimization;16Knewprofile only;32Knot yet tested.",
+        "Original12knownnativeJSONformatweakness retained; sourceprevioussuccess loss stops thisprofile.",
+        "GPUboardlongtask inferencewindow only; noCPU/system/load/warmupenergy; no productiontools."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

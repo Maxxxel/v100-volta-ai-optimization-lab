@@ -13422,5 +13422,29 @@
     "kind": "R431_GEMMA32K_NEWCASE_CAPACITY_VALIDATION_AUDITED",
     "sequence": 1678,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T22:07:07.404882+00:00",
+    "experiment_id": "R432",
+    "factor_id": null,
+    "kind": "R432_QWEN38_NATIVE_NO_MTP16K_LONG_INPUT_PREREGISTRATION",
+    "sequence": 1679,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T22:08:14.792861+00:00",
+    "experiment_id": "R432",
+    "factor_id": null,
+    "kind": "R432_PRE_START_METADATA_CORRECTION",
+    "sequence": 1680,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T22:15:22.930423+00:00",
+    "experiment_id": "R432",
+    "factor_id": null,
+    "kind": "R432_GEMMA16K_FIXED_LONG_INPUTS_AUDITED",
+    "sequence": 1681,
+    "signature": null
   }
 ]
