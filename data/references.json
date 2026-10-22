@@ -9050,5 +9050,79 @@
     "profile": "omnicoder2-q6k-sm70-cuda128-bfcl-balanced100-native-v1",
     "qualification": "R174_SCREEN_R182_CURRENT_ORIGINAL_R183_INDEPENDENT_NATIVE_TOOLS_AND_FINAL_SCOPED_REVIEW_PASSED",
     "winner_qualified": true
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_energy_j": 22034.773854277493,
+        "gpu_j_per_success": 1159.7249396988154,
+        "peak_device_vram_mib": 7354.5,
+        "solved": 19,
+        "successful_tasks_per_s": 0.23640366998115322,
+        "tasks": 32,
+        "wall_s": 80.371002707
+      }
+    },
+    "experiment_id": "R411",
+    "id": "274e76c7812114ac961938363318106274893736950ebc4bb1dac1452e1568bb",
+    "identity": {
+      "cache": "Warm resident model, per-request cold KV; OS file cache uncontrolled; startup/warmup excluded",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "8192",
+        "--flash-attn": "on",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0"
+      },
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "workload_description": "Frozen MBPP+v0.2.0 original-test224-pool32-screen; not full378 leaderboard"
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "0aec25f437dbc7637219ba749ba71921670e71cd2e70b1cc23988896c0754bb1",
+      "186e09b7b14dcf12ed259dfca1d6644a1c266c1bbac41c917fd3c0449a734b24",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "76857b678cddca08dcaf54d7927b9a77826715cf657654ca5baf6c2b267f4c34",
+      "81a7f0ee32dda4b5794f9645cc1199dc4b5ad8f187c6bd36fca32892ac2b8eef",
+      "92b126b907ee493121b55de06f6a34058b6e18adc8cf1c48737eedcd83f24cdd",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+      "b4bba3c6a0352c1d0c1f0ba7322f02b117d7764da60823d906406047fafa736c",
+      "b54e762755248ca411b523c917fa9f93c07b5ff2966bf60b3917b853926a3dad",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "c705c0b73fbc38a40413e0b8a23381562a5e664fa953998a4097e6314a0d8009",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "da42d5d6a97421ae137bd641efb343300203b8886bb40c6b76d4b9bc1ed7461f",
+      "dc5ef251d235778cc074963ef5d7080231e6d982affa003dd11a8ca456f3d283",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+      "fd8bd103579e95d9a9114272caf122360d6957c5ee4d67dc047884fefe0c48c2"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "omnicoder2",
+    "profile": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test32-greedy1024-v1",
+    "qualification": "Immutable single-pass32 original-configuration reference; no full378 or final model qualification.",
+    "winner_qualified": false
   }
 ]

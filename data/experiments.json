@@ -17245,5 +17245,35 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 36,
+      "gpu_energy_j": 22034.773854277493,
+      "gpu_j_per_success": 1159.7249396988154,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "solved": 19,
+      "tasks": 32,
+      "wall_s": 80.371002707
+    },
+    "audit_id": "audit-7fc79c331d1e88062f8a",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R411",
+    "model": "omnicoder2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "NEW_MBPP32_ORIGINAL_PROFILE_A0_CALIBRATED_NOT_MODEL_QUALIFIED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "32/224 original test-split screen from MBPP+v0.2.0; not full378 leaderboard or proof of training exclusion",
+        "OriginalQ6/noMTP/noWeightCache greedy1024; new profile A0 only; existing A0/C untouched",
+        "GPU-board generation intervals only; startup/warmups/CPU judge/system energy excluded"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
   }
 ]

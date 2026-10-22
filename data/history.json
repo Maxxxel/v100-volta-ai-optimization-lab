@@ -12998,5 +12998,21 @@
     "kind": "OXCODER_QA4096_PROFILE_INDEPENDENTLY_REVIEWED",
     "sequence": 1625,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T18:09:52.227380+00:00",
+    "experiment_id": "R411",
+    "factor_id": null,
+    "kind": "MBPP32_ORIGINAL_PROFILE_A0_PREREGISTRATION",
+    "sequence": 1626,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:15:40.512794+00:00",
+    "experiment_id": "R411",
+    "factor_id": null,
+    "kind": "MBPP32_A0_INDEPENDENTLY_REVIEWED",
+    "sequence": 1627,
+    "signature": null
   }
 ]

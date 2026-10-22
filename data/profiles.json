@@ -184,5 +184,11 @@
     "C": null,
     "id": "sm70-f16-d256-gqa4-fa-weightedv-seeded-sixcases-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "274e76c7812114ac961938363318106274893736950ebc4bb1dac1452e1568bb",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test32-greedy1024-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]
