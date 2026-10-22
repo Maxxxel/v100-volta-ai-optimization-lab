@@ -13286,5 +13286,13 @@
     "kind": "R423_REFERENCE_METADATA_CLARIFIED_BEFORE_GPU",
     "sequence": 1661,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T20:24:18.455584+00:00",
+    "experiment_id": "R423",
+    "factor_id": null,
+    "kind": "R423_GEMMA_JSON_NEW8_FRESH_AB_CONFIRMATION_AUDITED",
+    "sequence": 1662,
+    "signature": null
   }
 ]

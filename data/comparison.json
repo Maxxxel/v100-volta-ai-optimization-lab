@@ -305,7 +305,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "7a06204ed1df50d90bc16cdc79624f61e4ceecf416d1bc299d9e62ca9dc8d63f",
+  "measurement_fingerprint": "4d79c192d9dbd7db88cedf2ec9db1cb1adb335eabb6f9a65e5df9a3452c991d0",
   "models": [
     {
       "id": "omni",
@@ -336,6 +336,11 @@
       "id": "oxcoder",
       "name": "OxCoder 9B",
       "quantization": "Q6_K"
+    },
+    {
+      "id": "gemma4",
+      "name": "Gemma4 12B IT QAT",
+      "quantization": "Q4_0"
     },
     {
       "id": "lfm",

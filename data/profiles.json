@@ -202,5 +202,11 @@
     "C": null,
     "id": "gemma4-12b-qat-q40-sm70-native-fast8K-QA12-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "4d973b7ae84d7f789049158bb68c135afc953c994ae9b9382932bd087d230fd8",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-object-validation8-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]

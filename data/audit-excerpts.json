@@ -171713,6 +171713,213 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 20,
+      "arms": {
+        "A": {
+          "gpu_j": 1171.5744368250448,
+          "measurements": [
+            {
+              "e2e_s": 0.484581551,
+              "energy_coverage": 1.0,
+              "gpu_j": 109.55734817177459,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.486371865,
+              "energy_coverage": 1.0,
+              "gpu_j": 106.20199564164945,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.78558956,
+              "energy_coverage": 1.0,
+              "gpu_j": 175.55765981945774,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.799862622,
+              "energy_coverage": 1.0,
+              "gpu_j": 182.40365963106876,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.566973026,
+              "energy_coverage": 1.0,
+              "gpu_j": 130.7860744526279,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.610134358,
+              "energy_coverage": 1.0,
+              "gpu_j": 139.8399225834362,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.825150675,
+              "energy_coverage": 1.0,
+              "gpu_j": 195.60232184581122,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.621584027,
+              "energy_coverage": 1.0,
+              "gpu_j": 131.62545467921905,
+              "grade": {
+                "format_pass": false,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            }
+          ],
+          "observed": 8,
+          "semantic_successes": 8,
+          "strict_successes": 0,
+          "strict_successes_per_s": 0.0,
+          "wall_s": 5.180247684
+        },
+        "B": {
+          "gpu_j": 1180.8117826863693,
+          "gpu_j_per_strict_success": 147.60147283579616,
+          "measurements": [
+            {
+              "e2e_s": 0.485370034,
+              "energy_coverage": 1.0,
+              "gpu_j": 112.46645360325061,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.488514412,
+              "energy_coverage": 1.0,
+              "gpu_j": 110.59169340234818,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.788282034,
+              "energy_coverage": 1.0,
+              "gpu_j": 176.97227907088217,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.799173384,
+              "energy_coverage": 1.0,
+              "gpu_j": 180.30699385036584,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.567748582,
+              "energy_coverage": 1.0,
+              "gpu_j": 127.5839642000852,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.611274351,
+              "energy_coverage": 1.0,
+              "gpu_j": 138.58056382807743,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.826565261,
+              "energy_coverage": 1.0,
+              "gpu_j": 192.26007366016955,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            },
+            {
+              "e2e_s": 0.632912842,
+              "energy_coverage": 1.0,
+              "gpu_j": 142.04976107119018,
+              "grade": {
+                "format_pass": true,
+                "raw_preserved": true,
+                "semantic_pass": true
+              }
+            }
+          ],
+          "observed": 8,
+          "semantic_successes": 8,
+          "strict_successes": 8,
+          "strict_successes_per_s": 1.5385086109076915,
+          "wall_s": 5.1998409
+        }
+      },
+      "model_starts": 1,
+      "peak_device_vram_mib": 8118.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c35e190e826c63925e73",
+    "original_bytes": 9235,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c35e190e826c63925e734a85d51c7aee951af7f7c0d38c4e4b5c7475d1071de8",
+    "statements": {
+      "decision": "NEW_TASK_PAIRED_JSON_OBJECT_CONFIRMATION_PASSED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Eight subsequent locally authored frozen object-output tasks, not HumanEval/BFCL/agent benchmark or proof of model-training exclusion.",
+        "One answer per arm/task; no repeated-run uncertainty; freshAB balanced by case, cache_prompt false.",
+        "Both original12/nativeA0 and original model/engine/queue unchanged. Only B response_format=json_object; no answer constants or prompt repair.",
+        "GPU-board generation windows only, no startup/warmup/system energy. Local format confirmation only; no overall model or production Champion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

@@ -11,7 +11,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
-| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R422 |
+| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R423 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -307,13 +307,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R422 GemmaM08 JSON-object: strict10/12 (A01/12), semantic10/12,lostA0=0;6.996s,1556.07GPU-J;activegrammar=True;screen=PASS. No Champion.",
-  "current_experiment": "R422",
+  "assessment": "R423 freshJSON8: A strict0/8,B8/8; semantic8/8both;zero losses;A/Btime5.180/5.200s,GPUJ1171.57/1180.81;JSON-object local benefit confirmed,no CUDA speedup or overall Champion.",
+  "current_experiment": "R423",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC07",
   "local_scope": null,
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Independent fresh tasks/control for promising Gemma structured-JSON profile, then native tool/coding/agent comparison only within admitted scopes. Keep unstructured-native format negative and all earlier A0/C unchanged; no general model winner or combination.",
+  "next_step": "Gemma4 broader model comparison: frozen balanced native-tool100 under admitted native function protocol, then standard coding/isolatedagent suites. JSON-object applied only when object-content is requested; never force it on native tool-call token framing. Preserve native free-form format negative and all older references.",
   "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {

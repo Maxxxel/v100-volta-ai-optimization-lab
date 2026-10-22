@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `7a06204ed1df50d90bc16cdc79624f61e4ceecf416d1bc299d9e62ca9dc8d63f`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `4d79c192d9dbd7db88cedf2ec9db1cb1adb335eabb6f9a65e5df9a3452c991d0`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 

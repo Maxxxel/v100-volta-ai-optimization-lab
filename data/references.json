@@ -9274,5 +9274,54 @@
     "profile": "gemma4-12b-qat-q40-sm70-native-fast8K-QA12-v1",
     "qualification": "Complete single-pass diagnostic reference for cheap B-screen only; not repeated-run calibration, model qualification or Champion. Promising format/quality candidate requires independent confirmation.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_j": 1171.5744368250448,
+        "observed": 8,
+        "semantic_successes": 8,
+        "strict_successes": 0,
+        "strict_successes_per_s": 0.0,
+        "wall_s": 5.180247684
+      }
+    },
+    "experiment_id": "R423",
+    "id": "4d973b7ae84d7f789049158bb68c135afc953c994ae9b9382932bd087d230fd8",
+    "identity": {
+      "KV": "F16/F16",
+      "batch": 2048,
+      "cache": "Warm model,per-request coldKV,OSfile cache uncontrolled",
+      "inference_flags": {},
+      "kernel_switches": {},
+      "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "threads": 6,
+      "ubatch": 512,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "0bc56ee803f6b02733d712ac1d83cc221198063148541aee3024721d049f4527",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "6a901906898710ff9d319771c5ce33f4322b2cee27a098ecafdbf4d4da9c346b",
+      "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "gemma4_12b_it_qat_q4_0",
+    "profile": "gemma4-12b-qat-q40-sm70-native-object-validation8-v1",
+    "qualification": "Fresh paired native control8, oneanswer/case; not a model/production Champion or repeated-run performance calibration.",
+    "winner_qualified": false
   }
 ]
