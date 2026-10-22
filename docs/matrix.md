@@ -101,7 +101,7 @@
 | [A04](factors/A04.md) | Tool Security Gate | PARTIAL | YES | P0 |
 | [A05](factors/A05.md) | Planning Loop | PARTIAL | YES | P2 |
 | [A06](factors/A06.md) | Code Test Harness | PARTIAL | YES | P0 |
-| [A07](factors/A07.md) | Idempotency | PARTIAL | NO | P0 |
+| [A07](factors/A07.md) | Idempotency | PARTIAL | NO | P1 |
 | [A08](factors/A08.md) | Context Compression | PARTIAL | YES | P1 |
 | [T01](factors/T01.md) | LoRA QLoRA | OPEN | NO | P3 |
 | [T02](factors/T02.md) | Domain Fine Tuning | OPEN | NO | P3 |

@@ -12574,5 +12574,13 @@
     "kind": "R386_NEW_STARTUP_REFERENCE_TOO_VARIABLE_CANDIDATE_NOT_STARTED",
     "sequence": 1572,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T07:01:06.522472+00:00",
+    "experiment_id": "R387",
+    "factor_id": null,
+    "kind": "R387_A07_ISOLATED_IPC_PROCESS_CRASH_CPU_COMPONENT_PASSED",
+    "sequence": 1573,
+    "signature": null
   }
 ]

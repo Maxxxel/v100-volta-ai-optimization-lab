@@ -25703,7 +25703,7 @@
   },
   {
     "coverage_scope": "CPU-Retry-Komponente über gespeicherte GPU-Vorschläge gemessen; kein eigener Live-GPU-Retry-Eingriff.",
-    "decision": "CPU-Komponente R240: gespeicherte R192-GPU-Vorschläge,54Wiederholungszustellungen→18simulierte Effekte, Widerruf/Konflikt/Rollback/Reopen geprüft; null Modellstarts/Generierungen. Verknüpfte GPU-Agentenläufe ändern andere Faktoren und belegen keinen eigenen GPU-Retry-Eingriff. Experimentell GPU NEIN, CPU-Befund PARTIAL erhalten.",
+    "decision": "R387 CPU-only A07 shadow extends R240 through actual socketpair/process boundary, preserving R19224GPUproposals.18authorized primaryoperations:54at-least-once receiverdispatches vs18durablydeduplicated effects.18receiver-abort-beforecommit rollback/retry,18lost-response-aftercommit/restart,18revocation,18malformed-envelope,18sessioncontrols,6deniedcasesx3deliveries allpass. Fault/sessioncontrolsadd36legitimate distinctoperations; not an extra54->18overallclaim. Receiver-sideSQLiteatomicity is simulated; arbitraryexternal effects remain outside it.0newGPU/0models/0generations/no speed-energyclaim. A07PARTIAL/experimentalGPU_NEIN retained.",
     "domain": "agent_harness",
     "evidence_ids": [
       "audit-07e0c748aa3ce4016cab",
@@ -25716,7 +25716,9 @@
       "audit-7be4a096b60529fdd3d1",
       "audit-a0af491648ec3e01a834",
       "audit-aa3173b6909f83dad10b",
-      "audit-b03e2e4e845bab47e372"
+      "audit-b03e2e4e845bab47e372",
+      "audit-be01aabd36ffc1b14b36",
+      "audit-e969fc73e8b1da7c92d7"
     ],
     "experiment_ids": [
       "R137",
@@ -25729,13 +25731,14 @@
       "R152",
       "R153",
       "R240",
-      "R368"
+      "R368",
+      "R387"
     ],
     "experimentally_covered": false,
     "id": "A07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+    "next_action": "Reuse passed localshadowcontract and R192proposals; only implement a realisolatedserviceadapter when its supported receiveridempotency/transaction semantics are specified. No redundant modelgeneration.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -25818,12 +25821,12 @@
       }
     ],
     "prerequisites": [
-      "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf."
+      "Concrete isolated realserviceadapter with a receiver-side idempotency/transaction contract before any live-pipeline qualification."
     ],
     "primary_sources": [],
-    "priority": "P0",
-    "remaining_scope": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
-    "reopening_conditions": "Shadow benötigt einen gepinnten isolierten Zustell-/Retryadapter mit eindeutigem Identitäts-, Authority- und Transaktionsvertrag. Produktive Remoteeffekte sind nicht atomar durch die lokale SQLite-Transaktion gedeckt und im Forschungsauftrag nicht freigegeben. Keine GPU-Regenerierung nur zur Erhöhung des Abdeckungszählers; neuer Live-Pipeline-Test nur bei konkretem zusätzlichen Erkenntnisbedarf.",
+    "priority": "P1",
+    "remaining_scope": "Trustedcalleridentity/authorityanddurablereceiveratomicity demonstratedonlyinlocalprocess/IPCsimulator. A realserviceadapter requires actual receiver-idempotency/transactioncontract andisolatedeffects; a callerledger cannot atomicallycover arbitraryexternal effects. Production remains excluded; no freshGPUneededmerelytoincreasecoverage.",
+    "reopening_conditions": "A concrete isolated realserviceendpoint/adapter with stablehost-assigned operationidentity, revocationpolicy, receiverdedup and effect/receipt atomicity or an explicitly tested reconciliationcontract; separateconcurrency/powerloss/authenticationtests if needed.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
     "title": "Idempotency",
