@@ -13014,5 +13014,21 @@
     "kind": "MBPP32_A0_INDEPENDENTLY_REVIEWED",
     "sequence": 1627,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T18:17:44.443324+00:00",
+    "experiment_id": "R412",
+    "factor_id": null,
+    "kind": "EXISTING_QUALIFIED_MTP_MBPP32_PREREGISTRATION",
+    "sequence": 1628,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T18:21:20.632204+00:00",
+    "experiment_id": "R412",
+    "factor_id": null,
+    "kind": "MBPP32_MTP_ZERO_LOSS_GATE_FAILED_AUDITED",
+    "sequence": 1629,
+    "signature": null
   }
 ]

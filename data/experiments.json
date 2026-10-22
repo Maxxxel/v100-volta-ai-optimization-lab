@@ -17275,5 +17275,36 @@
       "score_rule": "base_pass AND plus_pass"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 36,
+      "gpu_energy_j": 13302.363587449874,
+      "gpu_j_per_success": 700.124399339467,
+      "model_starts": 1,
+      "peak_device_vram_mib": 8998.5,
+      "solved": 19,
+      "tasks": 32,
+      "wall_s": 49.011552342
+    },
+    "audit_id": "audit-38f2c93e6bfec2a80b26",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R412",
+    "model": "omnicoder2",
+    "reference_A0": "274e76c7812114ac961938363318106274893736950ebc4bb1dac1452e1568bb",
+    "statements": {
+      "decision": "MBPP32_MTP_SCREEN_QUALITY_OR_PRACTICAL_GAIN_GATE_NOT_MET",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "32/224 fixed original-test MBPP screen, not full378 or training-exclusion proof",
+        "Existing independently qualified R181 singleMTP profile transferred to new benchmark; no weight cache/new combination",
+        "MTP target decisions may differ; exact task success is scored; no lossless claim",
+        "GPU-board generation intervals only; loading/warmup/CPU judge excluded; positive screen not Champion qualification"
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
   }
 ]
