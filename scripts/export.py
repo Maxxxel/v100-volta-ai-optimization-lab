@@ -73,6 +73,12 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('extended_technique')=='MODEL_BONSAI_AGENT18_INDEPENDENT_REPRODUCTION':
+        for k in ('reproduction_passed','allround_practical_gate_reopened','energy_drift_percent_vs_source','total_task_wall_s','full_task_wall_change_percent_vs_control'):
+            value=obj.get(k)
+            if type(value) in (int,float,bool) and (type(value) is not float or math.isfinite(value)):result[k]=value
+        for source,target in (('reference_success_losses','previous_success_losses_count'),('additional_policy_violations','additional_policy_failures_count')):
+            if isinstance(obj.get(source),list):result[target]=len(obj[source])
     if obj.get('factor')=='H03' and obj.get('model')=='gemma4':
         fields=('observed_cases','planned_cases','full_36_executions_claimed','unique_tasks','completed_cycles','planned_cycles','control_comparable','control_wall_drift_percent','control_energy_drift_percent','energy_saving_percent_vs_stored','wall_change_percent_vs_stored','candidate_energy_saving_percent_vs_fresh','candidate_wall_change_percent_vs_fresh','qualification_candidate_passed')
         numeric=lambda v:type(v) in (int,float,bool) and (type(v) is not float or math.isfinite(v))

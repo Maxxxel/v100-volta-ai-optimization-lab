@@ -313,7 +313,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "48869f40b1d3c4f482ca9cf9aa20c2a5a348c4fc1e7b7d28c6706fbb22f08299",
+  "measurement_fingerprint": "8618784a56cea388065d3ab5b4df176039d53882614269c09e8e48d52d833b0d",
   "models": [
     {
       "id": "omni",
@@ -1074,6 +1074,65 @@
       "tasks": 18,
       "wall_s": 323.94243338399997,
       "warning": "Additional policy violations observed; no assistant qualification"
+    },
+    {
+      "audit_ids": [
+        "audit-f4df3d5aa78011e3584d"
+      ],
+      "audit_sha256": [
+        "f4df3d5aa78011e3584d3639348b5135ed9accc95661823a349cffc8480e018c"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "agents",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R440",
+      "gpu_j": 161928.84960849368,
+      "id": "bonsai-agents-440",
+      "metadata": {
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "on",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "measurement_batches": "R440:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks",
+        "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 2048,
+        "plan_sha256": "b10a050b49051f92a3a8fcd6960005e56e2a42ced50b6b081e0718d74f44760f",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.05,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "temperature": 1.0,
+          "top_k": 20,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": null,
+        "template_sha256": null
+      },
+      "model": "bonsai",
+      "name": "Ternary Bonsai 2 27B",
+      "peak_vram_mib": 8158.5,
+      "profile": "Thinking medium; local2048; independent repeat",
+      "quantization": "PQ2_0",
+      "repeat_range": null,
+      "solved": 17,
+      "task_sha256": "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "tasks": 18,
+      "wall_s": 599.643605137,
+      "warning": null
     },
     {
       "audit_ids": [

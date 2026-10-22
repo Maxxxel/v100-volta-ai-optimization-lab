@@ -79,7 +79,10 @@ def build(root, db, matrix, receipt):
     for model,n in registry['agents']:
         a,ap,aid=source(n);p=load(root/f'staging/r{n}/PLAN.json');assert a['full18_score_claimed'] and a['observed_tasks']==18
         warning='Additional policy violations observed; no assistant qualification' if a.get('additional_policy_violations') else None
-        add(model,'agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,n,a,aid,'Fast non-reasoning; no MTP',p['agent_workload']['tasks_sha256'],warning=warning)
+        add(model,'agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,n,a,aid,'Thinking medium; local2048; independent repeat' if model=='bonsai' else 'Fast non-reasoning; no MTP',p['agent_workload']['tasks_sha256'],warning=warning)
+        if model=='bonsai':
+            if p['agent_workload']['max_output_tokens']!=2048:raise ValueError('Bonsai agent repeat budget changed')
+            rows[-1]['metadata']['measurement_batches']=f'R{n}:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks'
     a,ap,aid=source(261);p=load(root/'staging/r261/PLAN.json');assert a['full18_score_claimed'] and a['observed_tasks']==18
     add('q38','agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,261,a,aid,'Fast; MTP3',p['agent_workload']['tasks_sha256'],warning='Additional policy failure inherited; coding-specialist screen, no general assistant qualification')
     a,ap,aid=source(219);cycles=a['cycle_metrics'];q=summary['r220']['qualified_candidate'];assert len(cycles)==3 and all(x['solved']==q['metrics']['solved'] for x in cycles)

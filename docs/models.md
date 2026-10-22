@@ -7,7 +7,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | Track | Candidate | Status | Evidence | Latest recorded sprint |
 |---|---|---|---|---|
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
-| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R439 |
+| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R440 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
@@ -232,13 +232,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R439 Bonsai32K/medium4096: 12/12 combinedobserved(12planned),new10/10;full12=True,wall297.069s,GPUJ/success6839.270627734745. Nooverallwinner.",
-  "current_experiment": "R439",
+  "assessment": "R440 Bonsai agentrepeat:17/18observed(18planned),prior-success losses0,extra policyfaults0;reproduction=True,wall599.644s. No newholdout/allroundChampion.",
+  "current_experiment": "R440",
   "evidence_class": null,
   "id": "BMC04",
   "local_scope": null,
   "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-  "next_step": "Bonsai native longinventory fullscope recorded; compare source-native quality/latency/VRAM/energy tradeoffs separately from256capprotocols. Assess next concrete model-compatible gap, no prompt/budget repair or automaticcombination.",
+  "next_step": "Bonsai agentrepeatability recorded; next P0source-admitted R22prefixreuse first3codingagent Bscreen at otherwise identical8K/medium2048/300W. Require actualcachehits, zero success/policy loss and>=10percentE2E/GPUJsuccess benefit vsfreshR440same3. C01PQ2routing staysconditionalP1; no globalFORCE_MMQ or independentGPUjobs.",
   "priority": "P1",
   "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
   "source_admission": null,

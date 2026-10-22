@@ -13582,5 +13582,21 @@
     "kind": "R439_BONSAI_NATIVE_LONG_INVENTORY_CAMPAIGN_AUDITED",
     "sequence": 1698,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:33:04.878821+00:00",
+    "experiment_id": "R440",
+    "factor_id": null,
+    "kind": "R440_BONSAI_AGENT18_REPRODUCTION_PREREGISTERED",
+    "sequence": 1699,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T23:44:48.060913+00:00",
+    "experiment_id": "R440",
+    "factor_id": null,
+    "kind": "R440_BONSAI_AGENT_REPRODUCTION_AUDITED",
+    "sequence": 1700,
+    "signature": null
   }
 ]
