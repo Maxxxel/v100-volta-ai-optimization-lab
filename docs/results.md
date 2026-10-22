@@ -317,6 +317,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R391](experiments/R391.md) | BMT27 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 | [R392](experiments/R392.md) | BMT27 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 | [R393](experiments/R393.md) | M12 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
+| [R394](experiments/R394.md) | E08 | ORIGINAL_AUDIT_HASH_VERIFIED | omnicoder2 |
 
 
 ## Historical signed windows

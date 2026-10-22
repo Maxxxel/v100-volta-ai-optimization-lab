@@ -24246,23 +24246,26 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar. E08 actualLLGuidance pinnedv1.0.1 CPUadmission: privateRustdependency built offline; onlysampling.cpp/llguidance.cpp recompiled and privatecommon relinked; stockengine/CUDA unchanged. Two vocabulary-only CPUprobes, each3fixeddecisionJSONstrings/18prefixmasks over248320tokens. Canonical3strings accepted byboth;27maskdifferences perprobe (15normal-token,12EOG;allAallows/Bmasks). This changes token support: no distribution-preservingGPUadmission for this grammar. No GPUperformance/energy or agent/toolquality result, no independentqualification. Not a universal byte-language incompatibility or performance rejection.",
+    "decision": "R19332native answers regraded16/16each, only JSON-vs-SSEtransport. R32212nonlazy typed-schema generations use stockgrammar, not LLGuidance. LLGuidancebuildOFF; enablingbuildalone does not select %llguidance/Lark grammar. E08 actualLLGuidance pinnedv1.0.1 CPUadmission: privateRustdependency built offline; onlysampling.cpp/llguidance.cpp recompiled and privatecommon relinked; stockengine/CUDA unchanged. Two vocabulary-only CPUprobes, each3fixeddecisionJSONstrings/18prefixmasks over248320tokens. Canonical3strings accepted byboth;27maskdifferences perprobe (15normal-token,12EOG;allAallows/Bmasks). This changes token support: no distribution-preservingGPUadmission for this grammar. No GPUperformance/energy or agent/toolquality result, no independentqualification. Not a universal byte-language incompatibility or performance rejection. R394 actualLLGuidance default explicitJSON-schema parser: one OmniQ6K/8K/F16/300W GPUprocess,12unchanged originalquality tasks, same publicschemas asR322. Actualprivatecommon/CUDAmapping verified. All12outputtoken sequences equal savedtypedGBNFcontrol; quality9/12semantic and9/12format retained, all12structurally validJSON. Coldrequestwall 6.090906s versus archived 5.120053s (+18.96%). Fails3%latencygate; no quality gain. Firstrequest1.255s versus0.209s dominates; other11combined only1.53%below archive, not independentwarmspeedproof. Peak7356.5MiB; requestGPUenergyapprox 1309.366J, or145.485J per successfulQA task over all12requests, excludingload/host. No matchedenergycontrol, no Champion, no generalLLGuidance rejection.",
     "domain": "engine",
     "evidence_ids": [
+      "audit-2b7513c1ccc5440fb424",
       "audit-3260f1fb5192e1400bd8",
       "audit-4e5c4e18df8e19bfef6a",
+      "audit-87bd8d94849c8b89eb1d",
       "audit-9d3b81ed845e2ae0b2f9"
     ],
     "experiment_ids": [
       "R193",
       "R377",
-      "R393"
+      "R393",
+      "R394"
     ],
     "experimentally_covered": true,
     "id": "E08",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Keep E08 PARTIAL and preserve privateartifacts. For a useful quality-scoped structured-tool parser screen, first resolve/document the observed ordinary-token and EOG support differences against the pinned matcher/source contract and admit an independent equal-byte-language workload. Do not assert target-distribution preservation, disable quality gates or benchmark an inert buildflag. Limit CPUdiagnosis to that concrete admission; otherwise resume remaining distinct singles from canonicalper-factor prerequisites. No combinations/newmodels yet.",
+    "next_action": "Resume breadth of remaining distinct originalsingles: HBM23 FlashInfer exactsource/SM70/operator admission, using retained paper/JIT evidence first and pinned upstream compatibility sources if needed. No package/engine installation, fullport or GPUtest until a compatible operator and meaningful target-model adapter are established. Preserve R394scopednegative and privateparser artifacts; no more parser-tuning/repetition without a distinct workload hypothesis. No combinations/newmodels yet.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -24350,7 +24353,7 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "R193 transport scope retained; actual alternative-parser token support differs on fixed JSON probe. Independent structured-tool quality/latency scope and compatible stopping/token semantics remain unqualified. No broad exclusion of LLGuidance.",
+    "remaining_scope": "Actual alternativeparser now GPU-screened in the12originaltyped-schema coldrequest profile, practicalgate failed; other grammar/workload/lifecycle scopes require distinct benefit and quality contracts. No universal parser exclusion.",
     "reopening_conditions": "Actual parser implementation and equivalent native-tool grammar language, refusal/multicall/partialUTF8/raw-wire contract, safe private pinnedRustdependency and measured relevant CPU-parser cost. Not a new GPUtest from an inert flag.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",

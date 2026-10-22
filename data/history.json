@@ -12718,5 +12718,13 @@
     "kind": "E08_PRIVATE_CPU_PARSER_TOKEN_MASK_ADMISSION",
     "sequence": 1590,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T10:20:03.451645+00:00",
+    "experiment_id": "R394",
+    "factor_id": null,
+    "kind": "R394_E08_ACTUAL_LLGUIDANCE_GPU_QA12_SCREEN_NEGATIVE",
+    "sequence": 1591,
+    "signature": null
   }
 ]

@@ -160794,6 +160794,64 @@
   },
   {
     "aggregate_metrics": {
+      "actual_GPU_execution": true,
+      "gpu_energy_j_approx": 1309.3657259315446,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7356.5,
+      "quality": {
+        "candidate_format": 9,
+        "candidate_semantic": 9,
+        "reference_format_on_observed": 9,
+        "reference_semantic_on_observed": 9
+      },
+      "reference": {
+        "sha256": "4ae77b7220366330bef5f0a21af2e94e586356e431f37e8b8294b4cc21256a16"
+      },
+      "wall_s": 6.0909061630000005
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-87bd8d94849c8b89eb1d",
+    "original_bytes": 11607,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "87bd8d94849c8b89eb1db1757a39a940f40244bcdc556aa6f6e627396f45b587",
+    "statements": {
+      "decision": "LLGUIDANCE_QA12_PRACTICAL_GATE_NOT_PASSED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Saved R322 scoped typed-schema screen is a historical control, not Champion; existing A0/C unchanged.",
+        "Token support/EOG differs as documented; no target-distribution-preserving claim.",
+        "Private explicit grammar only; original json_schema dispatch and CUDA kernels unchanged.",
+        "Cold parser/tokenizer initialization included; no arbitrary native-tool/agent qualification.",
+        "Fresh controls/repetitions required for any latency/energy winner; archived energy is not new measurement."
+      ],
+      "measurement_type": "GPU_ACTUAL_LLGUIDANCE_TYPED_SCHEMA_QA12_SCREEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "wall_s": 6.0909061630000005
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2b7513c1ccc5440fb424",
+    "original_bytes": 1512,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2b7513c1ccc5440fb42408e497db7f1659212eca0a5e767b199a3c3e26257a92",
+    "statements": {
+      "decision": "DEFAULT_LLGUIDANCE_COLD_QA12_SCREEN_FAILS_PRACTICAL_GATE_NO_QUALITY_LOSS",
+      "limits": [
+        "Historical latency control, not a new balanced causal comparison.",
+        "Other11requests combined1.53%below historical times, not warm performance qualification.",
+        "No global parser/grammar/engine exclusion. Default token support differs, despite12identical observed outputs."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "actual_generation_requests": 31,
       "gpu_energy_j_approx": 13880.690239834055,
       "model_starts": 1,
