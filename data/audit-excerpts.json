@@ -126980,6 +126980,21 @@
   },
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1397edad3cadbeca1505",
+    "original_bytes": 6179,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1397edad3cadbeca15050e151231e63c5759a0a866d566a5695c2b04eab28a7c",
+    "statements": {
+      "scope": "Five OPEN original-variant cells in the current 130-axis inventory plus the current A04 safety remainder; no experiments or coverage claims."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

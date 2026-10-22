@@ -12462,6 +12462,7 @@
     "decision": "Scope reconciliation of retainedR388, no new experiment: actualNVCC size-compression flag compiled one originalD256 object,6026896→1652688bytes(-72.578%), nativeSM70cubin bytes identical, decodedPTX differs. This is actual partialCPUartifact evidence; fullbackend/runtime loader, startup, taskquality/latency/VRAM/energy remain untested. Existing unstableR386 startup control is not automatically reusable. ParentPARTIAL is a scope-classification clarification, not GPUcoverage or a performance qualification. No rebuild or new modelstart.",
     "domain": "cuda_kernel",
     "evidence_ids": [
+      "audit-1397edad3cadbeca1505",
       "audit-2c3e8d6d811f10e78510",
       "audit-48cb6d3fd512684ed444",
       "audit-662a06f359d8d261c824",
@@ -12480,7 +12481,7 @@
     "id": "C15",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Preserve boundedCPUcompressionproof; no compressionmodegrid. Reopen fullbackend/runtime test for a justified loader/storage usecase with stable timing conditions, independentquality and nativeimage identity.",
+    "next_action": "Reopen if a measured cold-load/package-transfer bottleneck appears and the effective mode changes a pinned native runtime artifact.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -12609,7 +12610,7 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Effective single-objectcompression proved; no fullbackend pack/loading or GPU result. Completebackend treatment and stableloaderprotocol stillrequired before any speedclaim. Oneobjectsize isnotVRAM or fullengine size.",
+    "remaining_scope": "CPU object-size evidence for the actual size mode is retained. All four requested mode cells lack a justified runtime/cold-load treatment in the current local serving profile; the potential benefit is package/startup footprint, not decode. No GPU mode grid.",
     "reopening_conditions": "Do notchangeA0/toolkit; admit explicitcompression-onlybuild onlyafter artifact/resource/loader-benefit gates.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -12622,9 +12623,9 @@
         "historical_signed_states": [
           "BASELINE_SHARED"
         ],
-        "remaining_requirement": "OPEN: tatsächlicheKompressionsvariantevorGPUzulassennurmitwirksamemNVCC-Flag/manifestiertemFatbinundkontrollierterLoader-/Coldstartfrage. FüraktuellenSprintP2-Ausführungzurückgestellt:keinegemesseneLoaderdrift/EngpassundkeinbegründerDecodegewinn. Header/Link/Runtimegleichhalten;bloßesCUDAToolkit_ROOT-KorrigierenwürdezusätzlicheBuildbedingungenändern. GoldenA0/Runtimeunverändertlassen.",
+        "remaining_requirement": "Reopen only with a measured cold-load/package-transfer bottleneck, a proven effective mode and manifested/native image hashes; compare total load-to-first-token with cache/JIT controls. No in-kernel decode claim.",
         "scope": "Requestedcompressioncachevalue size not confirmed incompilerflags; oldrunsnotanexecutedcompressioncomparison",
-        "scope_status": "OPEN",
+        "scope_status": "DEFERRED",
         "value": "size"
       },
       {
@@ -12673,9 +12674,9 @@
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": "OPEN: tatsächlicheKompressionsvariantevorGPUzulassennurmitwirksamemNVCC-Flag/manifestiertemFatbinundkontrollierterLoader-/Coldstartfrage. FüraktuellenSprintP2-Ausführungzurückgestellt:keinegemesseneLoaderdrift/EngpassundkeinbegründerDecodegewinn. Header/Link/Runtimegleichhalten;bloßesCUDAToolkit_ROOT-KorrigierenwürdezusätzlicheBuildbedingungenändern. GoldenA0/Runtimeunverändertlassen.",
+        "remaining_requirement": "Reopen only with a measured cold-load/package-transfer bottleneck, a proven effective mode and manifested/native image hashes; compare total load-to-first-token with cache/JIT controls. No in-kernel decode claim.",
         "scope": "Requestedcompressioncachevalue balance not confirmed incompilerflags; oldrunsnotanexecutedcompressioncomparison",
-        "scope_status": "OPEN",
+        "scope_status": "DEFERRED",
         "value": "balance"
       },
       {
@@ -12725,9 +12726,9 @@
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": "OPEN: tatsächlicheKompressionsvariantevorGPUzulassennurmitwirksamemNVCC-Flag/manifestiertemFatbinundkontrollierterLoader-/Coldstartfrage. FüraktuellenSprintP2-Ausführungzurückgestellt:keinegemesseneLoaderdrift/EngpassundkeinbegründerDecodegewinn. Header/Link/Runtimegleichhalten;bloßesCUDAToolkit_ROOT-KorrigierenwürdezusätzlicheBuildbedingungenändern. GoldenA0/Runtimeunverändertlassen.",
+        "remaining_requirement": "Reopen only with a measured cold-load/package-transfer bottleneck, a proven effective mode and manifested/native image hashes; compare total load-to-first-token with cache/JIT controls. No in-kernel decode claim.",
         "scope": "Requestedcompressioncachevalue speed not confirmed incompilerflags; oldrunsnotanexecutedcompressioncomparison",
-        "scope_status": "OPEN",
+        "scope_status": "DEFERRED",
         "value": "speed"
       },
       {
@@ -12776,9 +12777,9 @@
         "historical_signed_states": [
           "READY"
         ],
-        "remaining_requirement": "OPEN: tatsächlicheKompressionsvariantevorGPUzulassennurmitwirksamemNVCC-Flag/manifestiertemFatbinundkontrollierterLoader-/Coldstartfrage. FüraktuellenSprintP2-Ausführungzurückgestellt:keinegemesseneLoaderdrift/EngpassundkeinbegründerDecodegewinn. Header/Link/Runtimegleichhalten;bloßesCUDAToolkit_ROOT-KorrigierenwürdezusätzlicheBuildbedingungenändern. GoldenA0/Runtimeunverändertlassen.",
+        "remaining_requirement": "Reopen only with a measured cold-load/package-transfer bottleneck, a proven effective mode and manifested/native image hashes; compare total load-to-first-token with cache/JIT controls. No in-kernel decode claim.",
         "scope": "Requestedcompressioncachevalue none not confirmed incompilerflags; oldrunsnotanexecutedcompressioncomparison",
-        "scope_status": "OPEN",
+        "scope_status": "DEFERRED",
         "value": "none"
       }
     ]
@@ -16109,6 +16110,7 @@
     "domain": "quantization",
     "evidence_ids": [
       "audit-0e11cf177f1c6825ed9e",
+      "audit-1397edad3cadbeca1505",
       "audit-265b28068c9edd24c2df",
       "audit-9b4c060a8d0361ecec3d",
       "audit-b033ef384e4ac6ade5de",
@@ -16127,7 +16129,7 @@
     "id": "Q02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Q02CAL4-fromQ8-Kandidatnichtweiterqualifizieren;keineKalibrierungaufbekannteFehlernachstimmen. Andere ursprünglicheEinzelumfängefortsetzen: M06nativeAgenten mitfestemDRY-Multiplier0,8 gegen dokumentierte Wiederholungs-/Policy-Schleifen,sofern bestehendeQuelle/Parameterzugang bestätigt. AltekurzeDRY-Messungnichtwiederholen;keineKombinationen/Modelle.",
+    "next_action": "Do not calibrate on benchmark or observed failure cases. Reopen only when the independent corpus and matched artifact path are ready.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -16256,7 +16258,7 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Other importance corpora/sourceprecisions not universally rejected;new independent calibration/precision hypothesis required,notknownQAfailuretuning. No matchednoimatrixcontrol for disqualified practicalcandidate.",
+    "remaining_scope": "The general importance-matrix cell is DEFERRED pending a license-cleared, representative calibration corpus disjoint from evaluation and a matched with/without-imatrix control. Existing Q02 quality regression remains binding.",
     "reopening_conditions": "Concrete independent data andsource path now admitted within4chunk scope;no neednewcalibration. Follow frozenR314budget/gates;do not optimize known answers.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -16281,9 +16283,9 @@
         "historical_signed_states": [
           "PENDING_RESOURCES"
         ],
-        "remaining_requirement": "Eigenständige eingefrorene repräsentative Korpusidentität und Kontrollquelle erforderlich;Publisher-i1 nicht stillschweigend als general klassifizieren.",
+        "remaining_requirement": "Reopen only with a license-cleared representative general calibration corpus disjoint from every evaluation/holdout task and matched Q8-to-Q4 with/without-imatrix artifacts; no tuning on observed failures.",
         "scope": "Kein ausreichend identifizierter allgemeiner Korpusversuch;R147 ist verwandt,belegt den konkreten Korpus aber nicht.",
-        "scope_status": "OPEN",
+        "scope_status": "DEFERRED",
         "value": "general"
       },
       {
@@ -25340,6 +25342,7 @@
     "decision": "R192/R241 native GPU-Vorschläge und logische Gateprüfung getrennt: R241 zwölf unzulässige Vorschläge, alle blockiert; nur3/18 erlaubte Aufgaben mit korrektem Call. Keine tatsächlichen Tool-Ausführungen. Feld-/Typ-/Envelopeprüfung ist eine Komponente, keine bewiesene umfassende Autorisierung oder injectionsicheres Modell.",
     "domain": "agent_harness",
     "evidence_ids": [
+      "audit-1397edad3cadbeca1505",
       "audit-58ce709304e025ad6a62",
       "audit-79e682f96ad57f8e723b",
       "audit-c0beafb45c744eff4e32",
@@ -25358,7 +25361,7 @@
     "id": "A04",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Continue other prioritized single-factor items. Reopen policy provenance/revocation only when an independently specified isolated authority/receiver contract is available; do not implement a self-validating simulator or run production HA/Proxmox actions.",
+    "next_action": "Do not replay existing fixtures or run production actions. Reopen only with a versioned policy authority/receiver test contract; proceed to other prioritized singles.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -25445,7 +25448,7 @@
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "Defer this subcase; retain R241 GPU proposal evidence and R400 CPU fixture checks as narrow component evidence. No broad model-security or production enforcement claim.",
+    "remaining_scope": "Current R192/R241 synthetic proposal/gateway evidence and R400 CPU component checks retained. Policy provenance/revocation remain DEFERRED until a real isolated versioned authority/receiver contract exists. No additional high-stakes scenario is admitted without a distinct contract or threat model.",
     "reopening_conditions": "Erforderlich für neue Safety-/Recoveryvariante: unabhängige Policies, Widerruf/Provenienz, Typ-/Bereichsfehler und erlaubte Calls einschließlich Fehlblockierungen prüfen. Keine realen HA-/[REDACTED]. Vorhandene24er-Injectionprobe nicht wiederholen oder als breite Modellqualität ausgeben.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
