@@ -10093,5 +10093,94 @@
     "profile": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context16K-fixedR338-T0-v1",
     "qualification": "New model-specific16K reference only.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "original12": {
+          "format": 6,
+          "observed": 12,
+          "semantic": 10
+        },
+        "peak_device_vram_mib": 14014.5,
+        "scopes": {
+          "common": {
+            "full12": true,
+            "gpu_energy_j_approx": 73402.4561531012,
+            "gpu_j_per_success": 6116.871346091767,
+            "observed": 12,
+            "planned": 12,
+            "solved": 12,
+            "wall_s": 269.612280729
+          },
+          "extended": {
+            "full12": true,
+            "gpu_energy_j_approx": 148646.22863598037,
+            "gpu_j_per_success": 12387.18571966503,
+            "observed": 12,
+            "planned": 12,
+            "solved": 12,
+            "wall_s": 551.395513527
+          }
+        }
+      }
+    },
+    "experiment_id": "R433",
+    "id": "7c600045aef3c161c541ca249d31b396209ff329e75a41e1a5114539d3e7c3ef",
+    "identity": {
+      "cache": "Warmmodel,coldKV,OSfilecache uncontrolled; no truncation",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "32768",
+        "--flash-attn": "on",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "off",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0"
+      },
+      "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "seed": 1001,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+      "0571ddc3d442ba587e42398d7071409b52e559267250df89af1fe1054287ba23",
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "0f066d04ca563da02c1c7006b60e45327e38156fe0786e9b7b151ad3d40cc1c4",
+      "11f08a46b653c41c9134bbb8f4932a9798e445107fdbe282082eb07ff8676448",
+      "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+      "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+      "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+      "69f0aa6e62c9a7fcb4e45241deaa56bf448b3e583ea57b7f9ab17e4b9b806daa",
+      "7431fbe92c8546efd5bd1d1fd31de8db7127a7b771af4eee0e2a33c5252f1a8b",
+      "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+      "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+      "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+      "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+      "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+      "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "qwen38",
+    "profile": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context32K-common-and-extended-T0-v1",
+    "qualification": "Measured model-specific32Kcommon/capacity baseline only.",
+    "winner_qualified": false
   }
 ]

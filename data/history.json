@@ -13446,5 +13446,21 @@
     "kind": "R432_GEMMA16K_FIXED_LONG_INPUTS_AUDITED",
     "sequence": 1681,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T22:18:12.166597+00:00",
+    "experiment_id": "R433",
+    "factor_id": null,
+    "kind": "R433_QWEN38_NO_MTP32K_COMMON_AND_EXTENDED_PREREGISTRATION",
+    "sequence": 1682,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T22:34:58.837065+00:00",
+    "experiment_id": "R433",
+    "factor_id": null,
+    "kind": "R433_GEMMA32K_COMMON_AND_CAPACITY_AUDITED",
+    "sequence": 1683,
+    "signature": null
   }
 ]

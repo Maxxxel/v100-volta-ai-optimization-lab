@@ -13,7 +13,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
 | BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R431 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
-| BMC05 | LFM2.5 24B A2B QAD | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
+| BMC05 | LFM2.5 24B A2B QAD | technisch zurückgestellt | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC09 | UI-Venus 1.5 8B / Holo2 8B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC11 | Qwen3.8 Flash-MTP-Derivat | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -353,11 +353,15 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
   "id": "BMC05",
   "local_scope": null,
   "name": "LFM2.5 24B A2B QAD",
-  "next_step": "Official QAD Q4_0 gegen eigenes Q4_K_M, State/16GB Fit vor Langloop prüfen.",
+  "next_step": "Admit adequate dedicatedresearchstorage without deletingoriginalweights/audits or productiveconfigurationchanges; verifylicense/SM70tensorpath/VRAMbudget beforefirstload.",
   "priority": "P2",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-24B-A2B",
-  "source_admission": null,
-  "status": "offen"
+  "source_admission": {
+    "GPU_runs": 0,
+    "model_starts": 0,
+    "sha256": "819239f28ed8c8da96d1df75df8c8aaa87eed9136680497689c983d98d5927dc"
+  },
+  "status": "technisch zurückgestellt"
 }
 ```
 

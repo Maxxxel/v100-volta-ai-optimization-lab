@@ -355,6 +355,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R430](experiments/R430.md) | R19 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4 |
 | [R431](experiments/R431.md) | R19 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4 |
 | [R432](experiments/R432.md) | R19 | ORIGINAL_AUDIT_HASH_VERIFIED | qwen38 |
+| [R433](experiments/R433.md) | R19 | ORIGINAL_AUDIT_HASH_VERIFIED | qwen38 |
 
 
 ## Historical signed windows

@@ -256,5 +256,11 @@
     "C": null,
     "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context16K-fixedR338-T0-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "7c600045aef3c161c541ca249d31b396209ff329e75a41e1a5114539d3e7c3ef",
+    "C": null,
+    "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context32K-common-and-extended-T0-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]
