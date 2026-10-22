@@ -36321,20 +36321,22 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Kein lokal zugelassener FlashInfer-Build/Dispatch für genau dieses Modell auf SM70. Vorhandene native FlashAttention ist ein anderer Implementierungsnachweis.",
+    "decision": "EXTERN_BELEGT / CPU source admission only: FlashInfer commit 0179e5b312d6aa0c790e8e571b9037bb277f4dbd README declares SM75+; unchanged check_cuda_arch AST rejects {(7,0)} and accepts SM75/SM80 controls without importing torch or initializing CUDA. Current upstream integration DEFERRED on V100SM70; not a GPU negative or universal rejection of historical forks/algorithm ports. Installing this package or deleting its architecture check does not establish a compatible kernel. Reopening needs a pinned executable SM70 operator plus correct GGUF/hybrid attention/KV/state adapter and numerics.",
     "domain": "hbm_memory",
     "evidence_ids": [
+      "audit-060728369fad84f595c1",
       "audit-562eaeb901f0c1b39e99"
     ],
     "experiment_ids": [
       "R249",
-      "R382"
+      "R382",
+      "R394"
     ],
     "experimentally_covered": false,
     "id": "HBM23",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Source/architecture/SM70 admission first; toolkit availability alone is insufficient.",
+    "next_action": "Require a real pinned SM70 implementation and cache/state adapter before reopening; no architecture-check deletion trial.",
     "omnicoder2_experimentally_covered": false,
     "per_model_original_coverage": [
       {
@@ -36396,14 +36398,16 @@
       }
     ],
     "prerequisites": [
-      "Pinned compatible FlashInfer operators and a correct integration for current model/cache."
+      "A real pinned SM70-compatible operator implementation, not merely removal of the version check.",
+      "Correct integration with OmniCoder2 GGUF attention/KV and recurrent-state boundaries, with numerical reference tests.",
+      "A workload with measurable expected latency/VRAM/energy benefit beyond existing native attention."
     ],
     "primary_sources": [],
     "priority": "P3",
-    "remaining_scope": "Nur mit gepinnter tatsächlich kompatibler Implementierung testen; keine umfangreiche Portierung allein aus externem Speedup.",
-    "reopening_conditions": "Source/architecture/SM70 admission first; toolkit availability alone is insufficient.",
+    "remaining_scope": "Historical versions, unofficial forks and isolated kernel ports are not universally ruled out; require exact supported SM70 operator, generated code, Qwen35/GDN-attention state/cache adapter and numerics before any installation/GPU trial.",
+    "reopening_conditions": "A real pinned SM70-compatible operator implementation, not merely removal of the version check.; Correct integration with OmniCoder2 GGUF attention/KV and recurrent-state boundaries, with numerical reference tests.; A workload with measurable expected latency/VRAM/energy benefit beyond existing native attention.",
     "source_model_hypotheses": [],
-    "status": "OPEN",
+    "status": "DEFERRED",
     "title": "FlashInfer Attention Engine",
     "variants": [
       {

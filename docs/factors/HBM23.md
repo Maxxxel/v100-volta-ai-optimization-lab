@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P3 |
+| DEFERRED | False | False | P3 |
 
 
 ## Theory and Volta implications
@@ -22,6 +22,7 @@ These are source links or general implementation background, not local speedup e
 
 Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
 
+- [Original audit hash and public excerpt](../audits/audit-060728369fad84f595c1.md)
 - [Original audit hash and public excerpt](../audits/audit-562eaeb901f0c1b39e99.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
@@ -103,16 +104,16 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-Kein lokal zugelassener FlashInfer-Build/Dispatch für genau dieses Modell auf SM70. Vorhandene native FlashAttention ist ein anderer Implementierungsnachweis.
+EXTERN_BELEGT / CPU source admission only: FlashInfer commit 0179e5b312d6aa0c790e8e571b9037bb277f4dbd README declares SM75+; unchanged check_cuda_arch AST rejects {(7,0)} and accepts SM75/SM80 controls without importing torch or initializing CUDA. Current upstream integration DEFERRED on V100SM70; not a GPU negative or universal rejection of historical forks/algorithm ports. Installing this package or deleting its architecture check does not establish a compatible kernel. Reopening needs a pinned executable SM70 operator plus correct GGUF/hybrid attention/KV/state adapter and numerics.
 
-**Remaining scope:** Nur mit gepinnter tatsächlich kompatibler Implementierung testen; keine umfangreiche Portierung allein aus externem Speedup.
+**Remaining scope:** Historical versions, unofficial forks and isolated kernel ports are not universally ruled out; require exact supported SM70 operator, generated code, Qwen35/GDN-attention state/cache adapter and numerics before any installation/GPU trial.
 
-**Reopening condition:** Source/architecture/SM70 admission first; toolkit availability alone is insufficient.
+**Reopening condition:** A real pinned SM70-compatible operator implementation, not merely removal of the version check.; Correct integration with OmniCoder2 GGUF attention/KV and recurrent-state boundaries, with numerical reference tests.; A workload with measurable expected latency/VRAM/energy benefit beyond existing native attention.
 
-**Next action:** Source/architecture/SM70 admission first; toolkit availability alone is insufficient.
+**Next action:** Require a real pinned SM70 implementation and cache/state adapter before reopening; no architecture-check deletion trial.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R249](../experiments/R249.md), [R382](../experiments/R382.md)
+[R249](../experiments/R249.md), [R382](../experiments/R382.md), [R394](../experiments/R394.md)

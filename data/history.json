@@ -12726,5 +12726,13 @@
     "kind": "R394_E08_ACTUAL_LLGUIDANCE_GPU_QA12_SCREEN_NEGATIVE",
     "sequence": 1591,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T10:22:17.684445+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "HBM23_PINNED_UPSTREAM_MINIMUM_SM75_SOURCE_DEFERRAL",
+    "sequence": 1592,
+    "signature": null
   }
 ]
