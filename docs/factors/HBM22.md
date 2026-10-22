@@ -114,6 +114,21 @@ EXTERN_BELEGT / source admission: QServe redirects to OmniServe, pinned commit 0
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_QSERVE_INTEGER_MMA_SM80_DEFERRED |
+| expected benefit | Unverified; no local performance forecast. |
+| new GPU execution | False |
+| next action | Real SM70 kernel implementation, compatible calibration/packing, hybrid GDN/KV integration and independent numeric/resource gates. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
 ## Related sprint records
 
 [R249](../experiments/R249.md), [R382](../experiments/R382.md), [R394](../experiments/R394.md)

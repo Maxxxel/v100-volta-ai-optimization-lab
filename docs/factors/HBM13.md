@@ -114,6 +114,21 @@ HBM13 OasisKV source admission: published v1 implements head-wise min/max key su
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_OMNI_SPARSE_LOOKAHEAD_PORT_DEFERRED |
+| expected benefit | Unverified; no local performance forecast. |
+| new GPU execution | False |
+| next action | Pinned executable SM70 operator, exact-model query/attention oracle on non-benchmark calibration data, transfer/event ownership and a practical cost hypothesis. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
 ## Related sprint records
 
 [R249](../experiments/R249.md), [R382](../experiments/R382.md), [R396](../experiments/R396.md)

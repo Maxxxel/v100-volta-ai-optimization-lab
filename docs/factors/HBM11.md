@@ -114,6 +114,21 @@ HBM11 current-engine admission: exact pinned get_k/get_v expose strided 4D views
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
+## Deferral scope reassessment — 2026-10-22
+
+This is a source/evidence review, not a new GPU experiment.
+
+| Field | Assessment |
+|---|---|
+| current status | DEFERRED |
+| decision | KEEP_CURRENT_ENGINE_PAGED_PORT_DEFERRED |
+| expected benefit | Unverified; no local performance forecast. |
+| new GPU execution | False |
+| next action | A concrete exact-model block-table-aware attention operator plus hybrid KV/GDN copy-on-write/reset/rollback contract and bounded correctness oracle. |
+| previous status | DEFERRED |
+| priority | P3 |
+
+
 ## Related sprint records
 
 [R249](../experiments/R249.md), [R382](../experiments/R382.md), [R396](../experiments/R396.md)
