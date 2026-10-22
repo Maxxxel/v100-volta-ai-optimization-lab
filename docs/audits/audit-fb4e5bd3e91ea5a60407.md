@@ -24,6 +24,11 @@ Original file: `AUDIT.json`; 2402 bytes. The original is retained privately and 
 ```json
 {
   "actual_GPU_execution": false,
-  "model_starts": 0
+  "decoded_PTX_byte_identity": false,
+  "decoded_cubin_byte_identity": true,
+  "explicit_NVCCflag_applied": true,
+  "model_starts": 0,
+  "object_size_change_percent": -72.57812313336748,
+  "original_inputs_preserved": true
 }
 ```
