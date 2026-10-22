@@ -72,6 +72,16 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('measurement_type')=='CPU_UNWEIGHTED_NUQ4_DEVELOPMENT_RECONSTRUCTION_PROXY':
+        fields=('GPU_runs','model_starts','optimizer_steps','codebook_fits','completed_books','planned_books','development_values','development_sequences','precision_bits','numerical_proxy_gate_passed','winner_qualified','model_quality_measured','model_performance_measured','new_experimental_factor_coverage','geomean_error_ratio','proxy_error_reduction_percent','uniform_logical_payload_bytes','NUQ_logical_payload_bytes','additional_logical_LUT_bytes','uniform_aligned256_estimate_bytes','NUQ_aligned256_estimate_bytes','independent_full_development_reconstruction')
+        aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
+        cases=[]
+        for row in obj.get('cases',[]):
+            if not isinstance(row,dict) or row.get('role') not in ('K','V') or type(row.get('layer')) is not int or row['layer'] not in range(3,32,4):continue
+            clean={k:row[k] for k in ('layer','elements','fit_sample_count','Lloyd_iterations','NUQ_uniform_error_ratio','NUQ_SSE','uniform_SSE','NUQ_NMSE','uniform_NMSE','FP16_floor_SSE','sparse_entries','sparse_fraction') if isinstance(row.get(k),(int,float,bool)) and (not isinstance(row[k],float) or math.isfinite(row[k]))}
+            clean['role']=row['role'];cases.append(clean)
+        if cases:aggregate['numeric_reconstruction_cases']=cases
+        result['CPU_NUQ_development_proxy']=aggregate
     if obj.get('measurement_type')=='GPU_NATIVE_PRE_ROPE_KV_FORWARD_OBSERVER_ADMISSION':
         fields=('model_starts','actual_generation_requests','forward_calls_completed','completed_chunks','planned_chunks','tokens_per_chunk','captured_named_tensors','raw_activation_bytes','calibration_fidelity_passed','original12_quality_cases','optimizer_steps','quantizer_fits','new_experimental_factor_coverage','winner_qualified','peak_device_vram_mib')
         aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}

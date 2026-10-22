@@ -14,7 +14,7 @@
   "LICENSE": "47063776ede77a6b1b895b57bbf12e43d4c1b40639112bc7be2187d291f2ef95",
   "README.md": "01eacc485784533aa4a4f75ea47248f24021b6e1c9bb30ce5c737989271850a5",
   "SECURITY.md": "3ee1d2b2360430066002ad0446e391933c23eb38e9ef52b5fa4848a979b1581b",
-  "data/audit-excerpts.json": "9d49057cb86d9e7e21d773fd5cff6e87e810b843a2969cab340708dba89d8b20",
+  "data/audit-excerpts.json": "9dd21f3c7bf63a45394a55bebfeb865e7352bc253bf35bac0f9aac06a488b609",
   "data/experiments.json": "a05cf0e567777c52cd66c89c5d4eefd84031b5c3010ac028d46aee5c42a48ad3",
   "data/factors.json": "ad511b05cda71ccf647e799ebc0053f76deafc1be6f68cd98dbd37ab9552fa53",
   "data/history.json": "4cfa74ee6216fb2505fd51e312ee3ffc1f9ab5a2693c04a4e8562c9d2c0ed698",
@@ -39,7 +39,7 @@
   "docs/audits/audit-052735eb2d4adf83b1bd.md": "bca07a61724f36c29cffc6963d53693f035959bdaeb67f28c443bc8673e2c7e4",
   "docs/audits/audit-056d794ebc3542e436de.md": "6f060f12924930216ed935ae9d310ec6c1667778ff5b2a499679453328fdc490",
   "docs/audits/audit-058f7fb472328b4ccdee.md": "4b41aa520ed848d010405443a33cce4c2b802a2a930d254925110f9aeceef107",
-  "docs/audits/audit-05afcc3469e3e66c1c3f.md": "96856c473676a2b37b3281c8d310423066377e86ab41fee741704b24ef505a48",
+  "docs/audits/audit-05afcc3469e3e66c1c3f.md": "1904c07d6a67f502afcd566c691cd504e0fe94ef43cff24e563613ed7a8960c5",
   "docs/audits/audit-060728369fad84f595c1.md": "997a946ced6fbf6cd936a7f2917872ee79c9f0d3454d2e6a1ebb60fc2c1e8ace",
   "docs/audits/audit-062276a2f82e45159752.md": "d140b0d6451ec5326148b01e6a0d3246ac590b62425e11a5ee5abba5d9df0eb0",
   "docs/audits/audit-0639f03b284a3d498faf.md": "57c2a3946fcf8545acb3ba5871d1dc4ce98f39fae4473a5bf33d537665c1e49c",
@@ -1207,8 +1207,8 @@
   "docs/stylesheets/lab.css": "7450704bc20d051426a89d13c83595eb0a031b786d95b9180a2e633f43e8a255",
   "mkdocs.yml": "c25db7e0d940f300c986a6856538ea52869e5de2b3e2c5dbaddb84cf92265911",
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
-  "scripts/export.py": "4beae0e9bb6329e44c887ccf0ca06ec19b7c02cd7baa89d5cd304c04a71656cb",
+  "scripts/export.py": "a54359b41e8fc5d4772289c60e9900b247bd32ad43dac58d5dae7f9bd12afc57",
   "scripts/render.py": "6c1927ecd69cc1bf30ce7d58779b47df6e849a47608a4e54331601d15030f411",
-  "scripts/test_publication.py": "4ea725249c80ca92ee81205daef842fac1ee3ef92f2024076adcce01695226a5",
+  "scripts/test_publication.py": "1bd173414f121e699de345f98b2ba48f0adf95df5cb82f9a3e496494b1bcf9a4",
   "scripts/validate.py": "053c7fdd72a3d1ca7f61429f9df7a839134dac9314d3fd79321ac8f1b220a8b2"
 }
