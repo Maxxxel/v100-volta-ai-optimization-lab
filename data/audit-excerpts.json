@@ -163087,6 +163087,21 @@
   },
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-513de9fcf2f94f95c0c2",
+    "original_bytes": 3748,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "513de9fcf2f94f95c0c28430b35a47a7d20804004ca6cee5a20db928e728ed85",
+    "statements": {
+      "decision": "T01_OPEN_NO_RETRY_UNTIL_DIRECT_OPTIMIZER_NODE_OBSERVER_IS_FROZEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
