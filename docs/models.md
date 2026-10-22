@@ -52,6 +52,9 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
       "tasks": 18
     },
     "R228_prepared_not_submitted": false,
+    "current_single_factor_gate_audit": {
+      "sha256": "d700f44e620df53562534cafd76eb4e53cf35c042c7a5dc04f132be40875629e"
+    },
     "existing_qwen38_coding_scores_independently_checked": {
       "new_GPU_generations": 0,
       "records": {
@@ -89,6 +92,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
         }
       }
     },
+    "matrix_revision": 316,
     "ornith_agents": {
       "gpu_j_per_success": 3917.593433262527,
       "original12_format": 5,
