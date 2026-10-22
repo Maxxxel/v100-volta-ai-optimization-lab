@@ -162626,6 +162626,19 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e56172e45206ed5f74d6",
+    "original_bytes": 3842,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e56172e45206ed5f74d61cf63db737b0dffe6b45b36c966d4ea3af18a65141c7",
+    "statements": {
+      "evidence_class": "LOCAL_TECHNICAL_INSPECTION_AND_PRIOR_LOCAL_GPU_RESULTS"
+    }
+  },
+  {
     "aggregate_metrics": {
       "full18_score_claimed": false,
       "gpu_energy_j_approx": 23976.98388705848,
@@ -162653,6 +162666,20 @@
         "Original12freshonlyifagentfunnelcomplete, negativeearlystopsdonotclaim12coverage",
         "B-onlyvsstoredmatchingnoMTPA0; currentCgraft/cachedescriptivecomparisononly. Positive requiresfreshcontrol/independentquality,no promotion"
       ]
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-a44da8b7b6e25cbf55b9",
+    "original_bytes": 2592,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a44da8b7b6e25cbf55b9866aa4819534984d2212d35e65590af4ca376da306b3",
+    "statements": {
+      "decision": "DEFERRED_NO_ADMISSIBLE_NEW_TRANSFORMATION_WITH_FROZEN_SEMANTIC_CONTRACT",
+      "evidence_class": "LOCAL_GPU_EVIDENCE_REUSE_AND_TECHNICAL_REVIEW"
     }
   },
   {

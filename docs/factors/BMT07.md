@@ -26,6 +26,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-5350f59ad47a9a208e94.md)
 - [Original audit hash and public excerpt](../audits/audit-c6037cf66712e2203c95.md)
 - [Original audit hash and public excerpt](../audits/audit-d8153ea70260b2285397.md)
+- [Original audit hash and public excerpt](../audits/audit-e56172e45206ed5f74d6.md)
 
 ### Recorded model-specific variant coverage
 
@@ -44,11 +45,11 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 R404 BMT07 GPU screen: candidate B correctly abstained on all 4 negative/ambiguous cases while A0 made 4 unsupported calls; all 8 positive calculations failed in both arms. Aggregate request latency was 69.98% lower, but this is a single synthetic screen and not a qualified agent/retrieval winner.
 
-**Remaining scope:** Fresh balanced independent confirmation; report positive calculation quality separately from safe negative abstention. Vector retrieval and generated summaries remain separate untested scopes.
+**Remaining scope:** R404/R405 independently confirm only the synthetic provenance selector scope; positive calculations are 0/8 in both arms. Embedding-backed vector RAG and generated summaries are separate DEFERRED branches with pinned prerequisites; no blanket retrieval winner.
 
 **Reopening condition:** Fresh independent balanced confirmation with new task IDs; no rerun or tuning of R404 tasks.
 
-**Next action:** Run fresh balanced A/B on new task IDs. Keep model, engine, policy contract, tool schema and sampler fixed; vary only full-history versus provenance-selected source context. Qualification requires positive-case task quality and no candidate false calls on negatives; do not promote from R404 screen.
+**Next action:** A03 tool-schema/harness compression: inspect only a distinct candidate that preserves all disambiguating permissions and complete strict tool quality; do not replay R155/R191.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 

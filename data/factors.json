@@ -24907,7 +24907,8 @@
       "audit-68977e5f1d14a10a6a70",
       "audit-8fbf1dc664eb548e63a0",
       "audit-c6037cf66712e2203c95",
-      "audit-d8153ea70260b2285397"
+      "audit-d8153ea70260b2285397",
+      "audit-e56172e45206ed5f74d6"
     ],
     "experiment_ids": [
       "R150",
@@ -24921,7 +24922,7 @@
     "id": "A02",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Do not repeat the same BMT07 selector treatment. Continue the next technically executable, distinct single-factor gap; retain vector retrieval and summarization as separate scoped opportunities pending a pinned component and positive-case quality gate.",
+    "next_action": "A03 tool-schema/harness compression: inspect only a distinct candidate that preserves all disambiguating permissions and complete strict tool quality; do not replay R155/R191.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -25008,7 +25009,7 @@
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "BMT07 exact deterministic source-selection screen is independently replicated only on synthetic abstention cases; positive calculation remains failed in both arms. Vector retrieval and LLM summarization remain separately untested and require pinned components, provenance tests and full downstream task accounting.",
+    "remaining_scope": "A02 remains PARTIAL. BMT07 safe-abstention/latency scope is measured but positive calculations were 0/8 in both R404 and R405 arms. Embedding-backed vector RAG and model-generated summaries remain separate DEFERRED variants with prerequisites in A02_VARIANT_ADMISSION_20261022.json.",
     "reopening_conditions": "Exakte ID-Auswahl nicht als semantischen Retriever ausgeben. Vektorsuche erfordert gepinntes lizenziertes Embedding-/Index-Artefakt, RAM/VRAM-/Updatebudget, Paraphrasen und Provenienz sowie vollständige Downstream-Aufgabenkosten. Zusammenfassung benötigt eigenen Fakten-/Authority-Vertrag und unabhängige Bewertung.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -25158,6 +25159,7 @@
     "evidence_ids": [
       "audit-30cb583e005ee5568d0a",
       "audit-9d2f6a0dc3868506e98b",
+      "audit-a44da8b7b6e25cbf55b9",
       "audit-fb4096705054d7be1534"
     ],
     "experiment_ids": [
@@ -25169,7 +25171,7 @@
     "id": "A03",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
+    "next_action": "Do not repeat R155/R243. Reopen only with the named semantic contract and a distinct transform; next inspect A04 adversarial tool-gateway cases.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -25256,7 +25258,7 @@
     ],
     "primary_sources": [],
     "priority": "P1",
-    "remaining_scope": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
+    "remaining_scope": "A03 remains PARTIAL. R155 and R243 already tested distinct lossy treatments and observed quality regressions. Additional semantic compression is DEFERRED until a different transformation and frozen provenance/permission/revocation/time contract with unseen tests exist.",
     "reopening_conditions": "Nur eine tatsächlich andere allgemein spezifizierte Transformation mit Provenienz-/Authority-Erhaltung und unabhängigen Fällen zulassen. Gleiches JSON oder weniger Promptzeichen beweist keine Antwortgleichheit. Nicht auf beobachtete Fehlerantworten nachoptimieren.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",
@@ -36972,7 +36974,8 @@
       "audit-3065546a54fc26cd63ec",
       "audit-5350f59ad47a9a208e94",
       "audit-c6037cf66712e2203c95",
-      "audit-d8153ea70260b2285397"
+      "audit-d8153ea70260b2285397",
+      "audit-e56172e45206ed5f74d6"
     ],
     "experiment_ids": [
       "R188",
@@ -36988,7 +36991,7 @@
       "K07",
       "R19"
     ],
-    "next_action": "Run fresh balanced A/B on new task IDs. Keep model, engine, policy contract, tool schema and sampler fixed; vary only full-history versus provenance-selected source context. Qualification requires positive-case task quality and no candidate false calls on negatives; do not promote from R404 screen.",
+    "next_action": "A03 tool-schema/harness compression: inspect only a distinct candidate that preserves all disambiguating permissions and complete strict tool quality; do not replay R155/R191.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [],
     "prerequisites": [
@@ -37000,7 +37003,7 @@
       "https://huggingface.co/datasets/hkust-nlp/Toolathlon"
     ],
     "priority": "P0",
-    "remaining_scope": "Fresh balanced independent confirmation; report positive calculation quality separately from safe negative abstention. Vector retrieval and generated summaries remain separate untested scopes.",
+    "remaining_scope": "R404/R405 independently confirm only the synthetic provenance selector scope; positive calculations are 0/8 in both arms. Embedding-backed vector RAG and generated summaries are separate DEFERRED branches with pinned prerequisites; no blanket retrieval winner.",
     "reopening_conditions": "Fresh independent balanced confirmation with new task IDs; no rerun or tuning of R404 tasks.",
     "source_model_hypotheses": [
       "R151/R188 OmniCoder2",
