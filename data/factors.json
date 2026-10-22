@@ -19643,10 +19643,11 @@
   },
   {
     "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe.",
+    "decision": "Original-/Kandidat-Jinja-SHA, echte gerenderte Eingabetokens und96 gespeicherte Fälle geprüft. Typed-Output-Anweisung: semantisch18/24 unverändert, Format16→18/24; keine harte Grammatik. Kurzes Tool-Template semantisch18/24 jeArm. R195 breitere100Tools:89Erfolge, aber zwei vorherige Referenzerfolge verloren; keine Freigabe. R406 tested a distinct fresh BFCL-v4 native-tool instruction treatment. The candidate emitted a valid native call on irrelevance_68; the strict no-call quality gate failed, so the screen stopped after 51 paired tasks. No full-suite score, performance result, or Champion claim; M07 remains PARTIAL.",
     "domain": "model_behavior",
     "evidence_ids": [
       "audit-10405fcc48b064c0ab8d",
+      "audit-35de360ef29e2eef51e0",
       "audit-898de70e8475928c24a9",
       "audit-91c6c7a4d3eed88eeb33",
       "audit-9d2f6a0dc3868506e98b",
@@ -19669,13 +19670,14 @@
       "R283",
       "R288",
       "R302",
-      "R367"
+      "R367",
+      "R406"
     ],
     "experimentally_covered": true,
     "id": "M07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+    "next_action": "Other instruction/grammar/schema treatments remain distinct; do not repeat R406 or the compact R195 wording. Any next M07 treatment needs a different function-preserving hypothesis and a preregistered irrelevance/no-loss gate.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -19766,7 +19768,7 @@
     ],
     "primary_sources": [],
     "priority": "P2",
-    "remaining_scope": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
+    "remaining_scope": "Other instruction/grammar/schema treatments remain distinct; do not repeat R406 or the compact R195 wording. Any next M07 treatment needs a different function-preserving hypothesis and a preregistered irrelevance/no-loss gate.",
     "reopening_conditions": "Template-Instruktion, erzwungene Grammatik und Schema-/Beschreibungsänderung getrennt behandeln. Neuer Templatepfad nur bei tatsächlichem Renderingunterschied und eigenständigem Qualitäts-/Authority-Vertrag; keine Wiederholung des bekannten kompakten Tooltexts. Originaltemplate und erfolgreiche Native-Tool-Profile bleiben erhalten.",
     "source_model_hypotheses": [],
     "status": "PARTIAL",

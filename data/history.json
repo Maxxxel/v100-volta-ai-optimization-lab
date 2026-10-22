@@ -12926,5 +12926,13 @@
     "kind": "R405_A02_BMT07_INDEPENDENT_SYNTHETIC_CONFIRMATION",
     "sequence": 1616,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T15:27:48.185605+00:00",
+    "experiment_id": "R406",
+    "factor_id": null,
+    "kind": "R406_M07_FRESH_BFCL_V4_STRICT_IRRELEVANCE_EARLY_STOP",
+    "sequence": 1617,
+    "signature": null
   }
 ]

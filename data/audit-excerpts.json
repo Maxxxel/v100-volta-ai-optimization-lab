@@ -143257,6 +143257,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-35de360ef29e2eef51e0",
+    "original_bytes": 7418,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "35de360ef29e2eef51e019ccf8cfbf79608a888bcc00bfe20cb6b73efd76f13c",
+    "statements": {
+      "decision": "TESTED_NEGATIVE_QUALITY_REGRESSION_EARLY_STOP",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Screen stopped at the first B irrelevance tool call; only the first 51 paired tasks were generated.",
+        "No model-response BFCL AST score, full-suite quality score, tasks-per-success, or joules-per-success is available.",
+        "Partial request timings, prompt tokens and GPU energy are descriptive only and are not a performance result.",
+        "No independent confirmation, Champion promotion, or deployment is warranted."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
