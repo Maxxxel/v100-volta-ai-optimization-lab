@@ -12370,7 +12370,7 @@
       "Neue Präzision benötigt tatsächlichen anderen Akkumulationspfad und sinnvolle Toleranzen; Numerik-/Qualitätsgrenzen behalten, keine bloße Formatumbenennung."
     ],
     "primary_sources": [],
-    "priority": "P2",
+    "priority": "P1",
     "remaining_scope": "FP16/FP32-Komponenten-Numerik im Archiv vorhanden; native Unterschiede gering, einige Einstellungen autoäquivalent.",
     "reopening_conditions": "Neue Präzision benötigt tatsächlichen anderen Akkumulationspfad und sinnvolle Toleranzen; Numerik-/Qualitätsgrenzen behalten, keine bloße Formatumbenennung.",
     "source_model_hypotheses": [],

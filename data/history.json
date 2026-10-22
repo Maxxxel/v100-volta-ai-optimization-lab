@@ -12598,5 +12598,13 @@
     "kind": "R389_C16_QUARTER_HALF_GPU_MEMORY_SCREENS_EARLY_NEGATIVE",
     "sequence": 1575,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T07:49:01.301852+00:00",
+    "experiment_id": null,
+    "factor_id": "C14",
+    "kind": "C16_ARCHIVED_OFFICIAL_SOURCE_LINKED_AND_C14_NEXT_NATIVE_ORACLE_CPU_PREPARATION",
+    "sequence": 1576,
+    "signature": null
   }
 ]

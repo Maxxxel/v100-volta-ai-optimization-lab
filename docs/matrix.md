@@ -46,7 +46,7 @@
 | [C11](factors/C11.md) | Dequant GEMM fusion | PARTIAL | YES | P2 |
 | [C12](factors/C12.md) | RMSNorm RoPE Fusion | PARTIAL | YES | P2 |
 | [C13](factors/C13.md) | Delta State Fusion | PARTIAL | YES | P2 |
-| [C14](factors/C14.md) | FP16 / FP32 accumulation | PARTIAL | YES | P2 |
+| [C14](factors/C14.md) | FP16 / FP32 accumulation | PARTIAL | YES | P1 |
 | [C15](factors/C15.md) | Binary Compression Mode | OPEN | NO | P2 |
 | [C16](factors/C16.md) | CUDA Launch Queues | PARTIAL | YES | P2 |
 | [C17](factors/C17.md) | CUDA Max Connections | PARTIAL | YES | P2 |

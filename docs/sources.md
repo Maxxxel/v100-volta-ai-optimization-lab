@@ -250,6 +250,27 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+## CUDA128_QUEUE_CAPACITY
+
+```json
+{
+  "axes": [
+    "C16"
+  ],
+  "classification": "PARTIALLY_COVERED",
+  "evidence_class": "EXTERN_BELEGT",
+  "id": "CUDA128_QUEUE_CAPACITY",
+  "local_test_status": "R389:0.25x/0.5x each4nativewarmups/7354.5MiB;2MiBdifferencevsstoredA0,64MiBpracticalgatefailed. No fullqualityclaim.",
+  "obstacles": [
+    "Fullquarter/halfquality/throughputnotrunafterprimary64MiBmemorygatefutility.",
+    "No physicalqueuecapacity/transactioncounter measured."
+  ],
+  "revision": "ArchivedCUDA12.8.0; frozenHTMLSHA256:cdc49d93372b4e03e94d56f24345373f82ad76b8663c745073463263009637ce",
+  "scope": "Documentedfractionalcommandbuffercapacities, not a promisedVRAMsaving or measuredphysicalqueuecounter. Existing1x/2x/4x andnewR389quarter/halfmemoryscreensremainseparate scoped evidence.",
+  "url": "https://docs.nvidia.com/cuda/archive/12.8.0/cuda-c-programming-guide/index.html"
+}
+```
+
 ## Factor-specific bibliography
 
 - [K05](factors/K05.md): https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docs/FA_V100_AUDIT.md, https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/fa_v100_prefill.py
