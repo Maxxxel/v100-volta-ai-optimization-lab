@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `a0e0619e232a611c9d3d86288a46f65c578978a743de484c97e6da1f52ee5386`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `44d0f0ea0f0e498cbbef8e4e934966d1fa1be3d0e9e73add8c7fed83e24b83a2`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -50,6 +50,7 @@ MTP + weight cache; fast. No additional policy claim is inferred from this disci
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82 |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -77,6 +78,7 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -104,6 +106,7 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -131,6 +134,7 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -158,6 +162,7 @@ Fast; no MTP. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -185,6 +190,7 @@ Fast; MTP3. MTP target-token identity is not lossless; no allround qualification
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -212,6 +218,7 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 164 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
 | Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
@@ -266,6 +273,7 @@ Original Q6; no MTP or weight cache. No additional policy claim is inferred from
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R411:32 + R415:191, disjoint tasks; no repeats |
 | Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 223 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -297,6 +305,7 @@ IQ3_S grafted MTP3; coding profile. Known native-tool/policy limitations remain;
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R413:32 + R416:191, disjoint tasks; no repeats |
 | Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 223 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -328,6 +337,7 @@ Official QAT Q4_0; native fast; no MTP or weight cache. Native-tool84/100 and ag
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R427:32 + R428:191, disjoint tasks; no repeats |
 | Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 223 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -380,6 +390,7 @@ MTP; fast. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -407,6 +418,7 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -434,6 +446,7 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -461,6 +474,7 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 100 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
 | Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
@@ -514,6 +528,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -541,6 +556,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -568,6 +584,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -595,6 +612,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -622,6 +640,7 @@ Fast; MTP3. Additional policy failure inherited; coding-specialist screen, no ge
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -649,6 +668,7 @@ MTP + weight cache; 300 W. No additional policy claim is inferred from this disc
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; Observed min–max of three repeated 18-case cycle aggregates; not 54 independent tasks. |
 | Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
 | Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
@@ -677,6 +697,7 @@ Thinking medium; 2048 output. No additional policy claim is inferred from this d
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
 | Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
 | Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
 | Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
 | Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
@@ -690,6 +711,160 @@ Original audit SHA-256 (originals retained privately; public excerpts are not th
 - [audit-355f55bd44c49fb08916](audits/audit-355f55bd44c49fb08916.md): `355f55bd44c49fb089167f11e666581db3bf3c188d499a6104c2d897d5be04af`
 - [audit-c654b84d0dcad4ee1544](audits/audit-c654b84d0dcad4ee1544.md): `c654b84d0dcad4ee15440f026387212919515eb04b65b8dbf152f4f3efd33485`
 - [audit-b1fc6b9a04856cba1af0](audits/audit-b1fc6b9a04856cba1af0.md): `b1fc6b9a04856cba1af0acf96a90c9ec3f7dfdd9c15e919f3b73b53cfaea52aa`
+
+## Long inventory · 16K profiles
+
+Twelve identical frozen long-inventory texts and typed native-call oracles; context16384, output256. Same requests/scoring with own native model templates/tokenizers and T0 versus T1 sampling. Original Omni16K partial R339 is excluded from full12 bars; Omni32K R338 remains a separate context/protocol evidence record. No full BFCL or agent claim.
+
+Task identity: `c2218e9d5a2e2cef411698f637add2cf76465c6f0766ef22de16d8b5c4840a83`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.
+
+![Long inventory · 16K profiles: Successful tasks; missing results labelled NOT MEASURED](assets/benchmarks/long16k-success.svg){ .benchmark-svg }
+
+![Long inventory · 16K profiles: Mean task E2E; missing results labelled NOT MEASURED](assets/benchmarks/long16k-latency.svg){ .benchmark-svg }
+
+![Long inventory · 16K profiles: GPU energy per success; missing results labelled NOT MEASURED](assets/benchmarks/long16k-energy.svg){ .benchmark-svg }
+
+![Long inventory · 16K profiles: Peak device VRAM; missing results labelled NOT MEASURED](assets/benchmarks/long16k-vram.svg){ .benchmark-svg }
+
+| Profile / record date | Success | Successful tasks/s | Total task time / GPU energy | Peak VRAM | Audit |
+|---|---|---|---|---|---|
+| Gemma4 12B IT QAT Q4_0 — Native fast; T1; no MTP; 16K / 2026-10-22 | 12/12 | 0.09670 | 124.101 s / 33429.07 J | 8254.5 | [R429](experiments/R429.md) |
+| Qwen3.8 27B GSQ/RCO IQ3_S — Native fast; T0; no MTP; 16K / 2026-10-22 | 12/12 | 0.04454 | 269.407 s / 73375.72 J | 12974.5 | [R432](experiments/R432.md) |
+
+### Gemma4 12B IT QAT · Q4_0 · R429
+
+Native fast; T1; no MTP; 16K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "16384", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 256 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | [14743, 14817] |
+| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
+| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | d817683964a08b892be642f76a2acc2018d3fd5492915cafe48ab66574d6e6f1 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-13697d6c2db1e7cf8ca9](audits/audit-13697d6c2db1e7cf8ca9.md): `13697d6c2db1e7cf8ca9b8da7d086f1e2069d7a1d354b506ebc1abd92a1c5fcb`
+- [audit-7b1ef9844e4319cdb9a5](audits/audit-7b1ef9844e4319cdb9a5.md): `7b1ef9844e4319cdb9a5e1f367a92e3646329a4d1094a884621fba8d1b9a9c00`
+
+### Qwen3.8 27B · GSQ/RCO IQ3_S · R432
+
+Native fast; T0; no MTP; 16K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "16384", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 256 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | [14003, 14066] |
+| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
+| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | a08b57998f7de37c22b773f5b6168592d08190eb46e3087d6629ec2a49380635 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-25a40c7b02bf60e588a1](audits/audit-25a40c7b02bf60e588a1.md): `25a40c7b02bf60e588a1ce906f5e567171fb9e5bbe23908407cdc430bff285ff`
+- [audit-6612c4abb324bb5b83bb](audits/audit-6612c4abb324bb5b83bb.md): `6612c4abb324bb5b83bb99d699f4e9a86fdbe12cd2385013599195c719f90483`
+
+## Long inventory · new 32K validation
+
+Twelve identical subsequent local validation inventories frozen in R431 before Qwen screen outputs; context32768, output256, actualnative inputs above16384. Same texts/tools/oracles; own native tokenizers and T0 versus T1. Not a model-training holdout or population-accuracy claim. Partial runs remain on experiment pages and never become full12 scores.
+
+Task identity: `d3848a79caceaef4ad202f0f6aa27d93558085e004006325ed83d471c7425d2a`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.
+
+![Long inventory · new 32K validation: Successful tasks; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-success.svg){ .benchmark-svg }
+
+![Long inventory · new 32K validation: Mean task E2E; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-latency.svg){ .benchmark-svg }
+
+![Long inventory · new 32K validation: GPU energy per success; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-energy.svg){ .benchmark-svg }
+
+![Long inventory · new 32K validation: Peak device VRAM; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-vram.svg){ .benchmark-svg }
+
+| Profile / record date | Success | Successful tasks/s | Total task time / GPU energy | Peak VRAM | Audit |
+|---|---|---|---|---|---|
+| Gemma4 12B IT QAT Q4_0 — Native fast; T1; no MTP; 32K / 2026-10-22 | 11/12 | 0.04133 | 266.136 s / 72487.35 J | 8526.5 | [R431](experiments/R431.md) |
+| Qwen3.8 27B GSQ/RCO IQ3_S — Native fast; T0; no MTP; 32K / 2026-10-22 | 12/12 | 0.02189 | 548.199 s / 147942.94 J | 14010.5 | [R434](experiments/R434.md) |
+
+### Gemma4 12B IT QAT · Q4_0 · R431
+
+Native fast; T1; no MTP; 32K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "32768", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 256 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | [29119, 29490] |
+| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
+| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | 1712592a47c05ef398bdf9acf30ee365b78fb402f952cc1c7283fac6014c6955 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-cd8eb8e97cb00d82a151](audits/audit-cd8eb8e97cb00d82a151.md): `cd8eb8e97cb00d82a151afd35bd6e0d38cbd6e8eac1eadbaecebfa8baf450c80`
+- [audit-57702f047eb73912c9f0](audits/audit-57702f047eb73912c9f0.md): `57702f047eb73912c9f0e0cb436535a0a757e711c5df86754bf0f30015097d4b`
+
+### Qwen3.8 27B · GSQ/RCO IQ3_S · R434
+
+Native fast; T0; no MTP; 32K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "32768", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 256 |
+| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
+| Measurement batches | Single suite or repeated cycles as stated |
+| Actual template controls | {"enable_thinking": false} |
+| Actual input-token range (if exported) | [27415, 27777] |
+| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
+| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
+| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
+| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | 619156ecdd8a3ac287376ff4e6d661c8afef89e9244157cc66726bc7c4e5a9ab |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-d8e1609bb2632a6b88cf](audits/audit-d8e1609bb2632a6b88cf.md): `d8e1609bb2632a6b88cfd55c530a935c3916a66913cdcb4dcc8b8bc2ba485cd9`
+- [audit-dfffa11e6009d9343cf0](audits/audit-dfffa11e6009d9343cf0.md): `dfffa11e6009d9343cf0186cdb40df485da2c22f2f043bc52cbbb99bb4a96777`
 
 ## Historical synthetic performance — separate protocol
 

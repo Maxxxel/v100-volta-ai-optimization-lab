@@ -13462,5 +13462,21 @@
     "kind": "R433_GEMMA32K_COMMON_AND_CAPACITY_AUDITED",
     "sequence": 1683,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T22:37:09.188086+00:00",
+    "experiment_id": "R434",
+    "factor_id": null,
+    "kind": "R434_QWEN38_NO_MTP32K_NEW12_CAPACITY_VALIDATION_PREREGISTRATION",
+    "sequence": 1684,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T22:51:38.750329+00:00",
+    "experiment_id": "R434",
+    "factor_id": null,
+    "kind": "R434_QWEN38_32K_NEWCASE_CAPACITY_VALIDATION_AUDITED",
+    "sequence": 1685,
+    "signature": null
   }
 ]

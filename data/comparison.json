@@ -8,6 +8,14 @@
       "definition": "HumanEvalPlus frozen 164; base AND plus; HumanEval/32 known invalid retained as failure (163 subset is separate).",
       "task_sha256": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5"
     },
+    "long16k": {
+      "definition": "Twelve identical frozen long-inventory texts and typed native-call oracles; context16384, output256. Same requests/scoring with own native model templates/tokenizers and T0 versus T1 sampling. Original Omni16K partial R339 is excluded from full12 bars; Omni32K R338 remains a separate context/protocol evidence record. No full BFCL or agent claim.",
+      "task_sha256": "c2218e9d5a2e2cef411698f637add2cf76465c6f0766ef22de16d8b5c4840a83"
+    },
+    "long32k_validation": {
+      "definition": "Twelve identical subsequent local validation inventories frozen in R431 before Qwen screen outputs; context32768, output256, actualnative inputs above16384. Same texts/tools/oracles; own native tokenizers and T0 versus T1. Not a model-training holdout or population-accuracy claim. Partial runs remain on experiment pages and never become full12 scores.",
+      "task_sha256": "d3848a79caceaef4ad202f0f6aa27d93558085e004006325ed83d471c7425d2a"
+    },
     "mbpp": {
       "definition": "MBPP+ v0.2.0 original-test release pool: 223/224 tasks admitted before new model outputs; Mbpp/255 official canonical solution exceeds sandbox memory and is separately DEFERRED. Original32 + disjoint191, one answer per task, base AND plus. Not full224 or full378 leaderboard; separate from HumanEval and no proof of training exclusion.",
       "task_count": 223,
@@ -305,7 +313,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "a0e0619e232a611c9d3d86288a46f65c578978a743de484c97e6da1f52ee5386",
+  "measurement_fingerprint": "44d0f0ea0f0e498cbbef8e4e934966d1fa1be3d0e9e73add8c7fed83e24b83a2",
   "models": [
     {
       "id": "omni",
@@ -1592,6 +1600,268 @@
       "tasks": 223,
       "wall_s": 877.635254544,
       "warning": "Native-tool84/100 and agent9/18 with additional policy faults retained; coding results do not qualify an assistant."
+    },
+    {
+      "audit_ids": [
+        "audit-13697d6c2db1e7cf8ca9",
+        "audit-7b1ef9844e4319cdb9a5"
+      ],
+      "audit_sha256": [
+        "13697d6c2db1e7cf8ca9b8da7d086f1e2069d7a1d354b506ebc1abd92a1c5fcb",
+        "7b1ef9844e4319cdb9a5e1f367a92e3646329a4d1094a884621fba8d1b9a9c00"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "long16k",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R429",
+      "gpu_j": 33429.067342198075,
+      "id": "gemma4-long16k-429",
+      "metadata": {
+        "actual_input_token_range": [
+          14743,
+          14817
+        ],
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "16384",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 256,
+        "plan_sha256": "d817683964a08b892be642f76a2acc2018d3fd5492915cafe48ab66574d6e6f1",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.0,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "seed": 1001,
+          "temperature": 1.0,
+          "top_k": 64,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+      },
+      "model": "gemma4",
+      "name": "Gemma4 12B IT QAT",
+      "peak_vram_mib": 8254.5,
+      "profile": "Native fast; T1; no MTP; 16K",
+      "quantization": "Q4_0",
+      "repeat_range": null,
+      "solved": 12,
+      "task_sha256": "c2218e9d5a2e2cef411698f637add2cf76465c6f0766ef22de16d8b5c4840a83",
+      "tasks": 12,
+      "wall_s": 124.101119805,
+      "warning": "Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification."
+    },
+    {
+      "audit_ids": [
+        "audit-25a40c7b02bf60e588a1",
+        "audit-6612c4abb324bb5b83bb"
+      ],
+      "audit_sha256": [
+        "25a40c7b02bf60e588a1ce906f5e567171fb9e5bbe23908407cdc430bff285ff",
+        "6612c4abb324bb5b83bb99d699f4e9a86fdbe12cd2385013599195c719f90483"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "long16k",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R432",
+      "gpu_j": 73375.72355809102,
+      "id": "q38-long16k-432",
+      "metadata": {
+        "actual_input_token_range": [
+          14003,
+          14066
+        ],
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "16384",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 256,
+        "plan_sha256": "a08b57998f7de37c22b773f5b6168592d08190eb46e3087d6629ec2a49380635",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0.0
+        },
+        "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": 12974.5,
+      "profile": "Native fast; T0; no MTP; 16K",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 12,
+      "task_sha256": "c2218e9d5a2e2cef411698f637add2cf76465c6f0766ef22de16d8b5c4840a83",
+      "tasks": 12,
+      "wall_s": 269.406874028,
+      "warning": "Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification."
+    },
+    {
+      "audit_ids": [
+        "audit-cd8eb8e97cb00d82a151",
+        "audit-57702f047eb73912c9f0"
+      ],
+      "audit_sha256": [
+        "cd8eb8e97cb00d82a151afd35bd6e0d38cbd6e8eac1eadbaecebfa8baf450c80",
+        "57702f047eb73912c9f0e0cb436535a0a757e711c5df86754bf0f30015097d4b"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "long32k_validation",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R431",
+      "gpu_j": 72487.35421607949,
+      "id": "gemma4-long32k_validation-431",
+      "metadata": {
+        "actual_input_token_range": [
+          29119,
+          29490
+        ],
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "32768",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 256,
+        "plan_sha256": "1712592a47c05ef398bdf9acf30ee365b78fb402f952cc1c7283fac6014c6955",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "min_p": 0.0,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "seed": 1001,
+          "temperature": 1.0,
+          "top_k": 64,
+          "top_p": 0.95
+        },
+        "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+      },
+      "model": "gemma4",
+      "name": "Gemma4 12B IT QAT",
+      "peak_vram_mib": 8526.5,
+      "profile": "Native fast; T1; no MTP; 32K",
+      "quantization": "Q4_0",
+      "repeat_range": null,
+      "solved": 11,
+      "task_sha256": "d3848a79caceaef4ad202f0f6aa27d93558085e004006325ed83d471c7425d2a",
+      "tasks": 12,
+      "wall_s": 266.1359924,
+      "warning": "Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification."
+    },
+    {
+      "audit_ids": [
+        "audit-d8e1609bb2632a6b88cf",
+        "audit-dfffa11e6009d9343cf0"
+      ],
+      "audit_sha256": [
+        "d8e1609bb2632a6b88cfd55c530a935c3916a66913cdcb4dcc8b8bc2ba485cd9",
+        "dfffa11e6009d9343cf0186cdb40df485da2c22f2f043bc52cbbb99bb4a96777"
+      ],
+      "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
+      "discipline": "long32k_validation",
+      "evidence_class": "LOCALLY MEASURED",
+      "experiment": "R434",
+      "gpu_j": 147942.93721426307,
+      "id": "q38-long32k_validation-434",
+      "metadata": {
+        "actual_input_token_range": [
+          27415,
+          27777
+        ],
+        "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "context_and_runtime": {
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "32768",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
+        },
+        "date": "2026-10-22",
+        "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_evalplus_provenance_sha256": null,
+        "output_cap": 256,
+        "plan_sha256": "619156ecdd8a3ac287376ff4e6d661c8afef89e9244157cc66726bc7c4e5a9ab",
+        "power_limit_w": 300,
+        "process_peak_vram_mib": null,
+        "sampling": {
+          "seed": 1001,
+          "temperature": 0.0
+        },
+        "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "model": "q38",
+      "name": "Qwen3.8 27B",
+      "peak_vram_mib": 14010.5,
+      "profile": "Native fast; T0; no MTP; 32K",
+      "quantization": "GSQ/RCO IQ3_S",
+      "repeat_range": null,
+      "solved": 12,
+      "task_sha256": "d3848a79caceaef4ad202f0f6aa27d93558085e004006325ed83d471c7425d2a",
+      "tasks": 12,
+      "wall_s": 548.199342112,
+      "warning": "Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification."
     }
   ],
   "rules": [
