@@ -1,0 +1,130 @@
+# Public audit excerpt
+
+Original SHA256: `9fae38fc11d0b1751fe9274ba3beff7ca34d79fa779cb439d617a5cbbc7d4ca2`
+
+Original file: `AUDIT.json`; 4277 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "decision": "FORWARD_FIRST_MLP_INPUT_FIDELITY_PASS_NOT_AWQ_QUALIFICATION",
+  "evidence_class": "LOKAL_GEMESSEN",
+  "limits": [
+    "Only first MLP, not full-model AWQ or an upstream Qwen3.5 support claim.",
+    "No scaling search/quantization in observation run; no generated responses or task-quality result.",
+    "Published AWQ affine W4 quantization is distinct from existing native GGUF Q4_K/Q6_K block formats; no assumed equivalence.",
+    "Missing GDN autograd is not an obstacle to this forward-only post-training route.",
+    "No new factor coverage from calibration alone.",
+    "Actual calibration data reuse admission: R187 moments and R396 K/V do not contain the required MLP input statistic.",
+    "Whole process energy includes fresh logits controls/copies; not task efficiency."
+  ],
+  "measurement_type": "GPU_NATIVE_FIRST_MLP_INPUT_FORWARD_OBSERVER_ADMISSION"
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "actual_GPU_execution": true,
+  "actual_generation_requests": 0,
+  "forward_MLP_calibration_admission": {
+    "actual_generation_requests": 0,
+    "calibration_fidelity_passed": true,
+    "captured_named_tensors": 4,
+    "completed_chunks": 4,
+    "fidelity_checks": [
+      {
+        "captured_named_tensors": 1,
+        "chunk": 0,
+        "control_logits_byte_identical": true,
+        "finite_logits": true,
+        "maximum_abs_logit_difference": 0,
+        "optimizer_steps": 0,
+        "quantizer_fits": 0,
+        "tokens": 512,
+        "vocabulary_logits": 248320
+      },
+      {
+        "captured_named_tensors": 1,
+        "chunk": 1,
+        "control_logits_byte_identical": true,
+        "finite_logits": true,
+        "maximum_abs_logit_difference": 0,
+        "optimizer_steps": 0,
+        "quantizer_fits": 0,
+        "tokens": 512,
+        "vocabulary_logits": 248320
+      },
+      {
+        "captured_named_tensors": 1,
+        "chunk": 2,
+        "control_logits_byte_identical": true,
+        "finite_logits": true,
+        "maximum_abs_logit_difference": 0,
+        "optimizer_steps": 0,
+        "quantizer_fits": 0,
+        "tokens": 512,
+        "vocabulary_logits": 248320
+      },
+      {
+        "captured_named_tensors": 1,
+        "chunk": 3,
+        "control_logits_byte_identical": true,
+        "finite_logits": true,
+        "maximum_abs_logit_difference": 0,
+        "optimizer_steps": 0,
+        "quantizer_fits": 0,
+        "tokens": 512,
+        "vocabulary_logits": 248320
+      }
+    ],
+    "forward_calls_completed": 8,
+    "model_starts": 1,
+    "new_experimental_factor_coverage": 0,
+    "optimizer_steps": 0,
+    "original12_quality_cases": 0,
+    "peak_device_vram_mib": 7412.5,
+    "planned_chunks": 4,
+    "quantizer_fits": 0,
+    "raw_activation_bytes": 33554432,
+    "tokens_per_chunk": 512,
+    "winner_qualified": false
+  },
+  "model_starts": 1,
+  "observations": [
+    {
+      "chunk": 0,
+      "cumulative_raw_bytes": 8388608,
+      "model_starts": 1,
+      "optimizer_steps": 0,
+      "quantizer_fits": 0,
+      "tokens": 512
+    },
+    {
+      "chunk": 1,
+      "cumulative_raw_bytes": 16777216,
+      "model_starts": 1,
+      "optimizer_steps": 0,
+      "quantizer_fits": 0,
+      "tokens": 512
+    },
+    {
+      "chunk": 2,
+      "cumulative_raw_bytes": 25165824,
+      "model_starts": 1,
+      "optimizer_steps": 0,
+      "quantizer_fits": 0,
+      "tokens": 512
+    },
+    {
+      "chunk": 3,
+      "cumulative_raw_bytes": 33554432,
+      "model_starts": 1,
+      "optimizer_steps": 0,
+      "quantizer_fits": 0,
+      "tokens": 512
+    }
+  ],
+  "peak_device_vram_mib": 7412.5
+}
+```

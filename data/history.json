@@ -12790,5 +12790,13 @@
     "kind": "HBM13_SOURCE_LOOKAHEAD_SPARSE_KV_ADMISSION_DEFERRED_NO_GPU",
     "sequence": 1599,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T11:53:18.556809+00:00",
+    "experiment_id": "R397",
+    "factor_id": "Q04",
+    "kind": "R397_Q04_NATIVE_FIRST_MLP_FORWARD_CALIBRATION_PASS_NOT_AWQ_QUALIFICATION",
+    "sequence": 1600,
+    "signature": null
   }
 ]

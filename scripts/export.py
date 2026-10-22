@@ -82,15 +82,15 @@ def metrics(obj):
             clean['role']=row['role'];cases.append(clean)
         if cases:aggregate['numeric_reconstruction_cases']=cases
         result['CPU_NUQ_development_proxy']=aggregate
-    if obj.get('measurement_type')=='GPU_NATIVE_PRE_ROPE_KV_FORWARD_OBSERVER_ADMISSION':
-        fields=('model_starts','actual_generation_requests','forward_calls_completed','completed_chunks','planned_chunks','tokens_per_chunk','captured_named_tensors','raw_activation_bytes','calibration_fidelity_passed','original12_quality_cases','optimizer_steps','quantizer_fits','new_experimental_factor_coverage','winner_qualified','peak_device_vram_mib')
+    if obj.get('measurement_type') in ('GPU_NATIVE_PRE_ROPE_KV_FORWARD_OBSERVER_ADMISSION','GPU_NATIVE_FIRST_MLP_INPUT_FORWARD_OBSERVER_ADMISSION'):
+        fields=('model_starts','actual_generation_requests','forward_calls_completed','completed_chunks','planned_chunks','tokens_per_chunk','captured_named_tensors','raw_activation_bytes','calibration_fidelity_passed','original12_quality_cases','optimizer_steps','quantizer_fits','new_experimental_factor_coverage','winner_qualified','peak_device_vram_mib','meanabs_channels')
         aggregate={k:obj[k] for k in fields if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
         checks=[]
         for row in obj.get('observations',[]):
             if not isinstance(row,dict):continue
             checks.append({k:row[k] for k in ('chunk','tokens','captured_named_tensors','finite_logits','control_logits_byte_identical','maximum_abs_logit_difference','vocabulary_logits','quantizer_fits','optimizer_steps') if isinstance(row.get(k),(int,float,bool)) and (not isinstance(row[k],float) or math.isfinite(row[k]))})
         if checks:aggregate['fidelity_checks']=checks
-        if aggregate:result['forward_KV_calibration_admission']=aggregate
+        if aggregate:result['forward_MLP_calibration_admission' if obj.get('measurement_type')=='GPU_NATIVE_FIRST_MLP_INPUT_FORWARD_OBSERVER_ADMISSION' else 'forward_KV_calibration_admission']=aggregate
     if obj.get('measurement_type')=='GPU_UPSTREAM_KIVI_2BIT_SM70_COMPONENT_NUMERICAL_ADMISSION':
         allowed=('native_cases','passed_cases','NMSE_limit','native_binary_SM','model_starts','operator_processes','actual_GPU_inference','original12_quality_cases','numerical_gate_passed','screen_passed','winner_qualified','peak_device_vram_mib')
         component={k:obj[k] for k in allowed if isinstance(obj.get(k),(int,float,bool)) and (not isinstance(obj[k],float) or math.isfinite(obj[k]))}
