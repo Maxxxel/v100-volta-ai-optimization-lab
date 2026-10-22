@@ -2,7 +2,7 @@
 
 | Scientific status | Experimental coverage | OmniCoder2 coverage | Priority |
 |---|---|---|---|
-| OPEN | False | False | P1 |
+| PARTIAL | True | True | P1 |
 
 
 ## Theory and Volta implications
@@ -22,8 +22,10 @@ These are source links or general implementation background, not local speedup e
 
 ## Implementation and evidence
 
-Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.
+Actual Omni inference with pre-sampling probability extraction on three neutral acquisition inputs; no action confidence calibration or broad model quality.
 
+- [Original audit hash and public excerpt](../audits/audit-18678122920b3bae4bfa.md)
+- [Original audit hash and public excerpt](../audits/audit-b4763d4fa78c55d3de3e.md)
 - [Original audit hash and public excerpt](../audits/audit-bc43e8b613cc983bfb4a.md)
 
 ### Recorded model-specific variant coverage
@@ -41,13 +43,13 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ## Decision and remaining research
 
-Head-free post-hoc calibration is a distinct unresolved transfer, not excluded by the unavailable checkpoint-specific decision head. Native probability extraction is source-visible; calibrated quality, safety and acquisition cost remain unmeasured.
+R391 BMT27 acquisition gate: one actual stock Omni Q6K/8K/F16/300W model start,14requests,6matchedpairs on3newneutralinputs. All6nativeoutputIDarrays identical;360selected-token logprob entries and top5lists independently verified against returnedtokenIDs and nativepre-sampling settings. Paired E2E overhead 11.14–12.82%, median 11.83%; summed paired boardenergy change +4.12%, descriptive only. Metadata acquisition works in this exact greedy profile, but incurs cost. Zero calibration fits, original12/task-success or tool-safety qualification. BMT27 PARTIAL; no Champion or confidence correctness claim.
 
-**Remaining scope:** OPEN head-free acquisition/calibration/abstention; DEFERRED checkpoint-specific trained noncausal head. No new experimental coverage.
+**Remaining scope:** Action-level score definition, independent licensed calibration/test data, selective-risk/coverage limits and total verifier/abstention costs remain unmeasured.
 
 **Reopening condition:** Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.
 
-**Next action:** Pin an unmodified native probability observable, verify acquisition cost/output invariance on independent inputs, then separate calibration/test data and false-accept versus coverage limits. No confidence claim from raw token probability.
+**Next action:** Do not repeat acquisition. Design a separate action-level calibration/holdout protocol that accounts for measured extraction cost; raw token likelihood is not action correctness probability.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
@@ -69,4 +71,4 @@ This is a source/evidence review, not a new GPU experiment.
 
 ## Related sprint records
 
-[R390](../experiments/R390.md)
+[R390](../experiments/R390.md), [R391](../experiments/R391.md)

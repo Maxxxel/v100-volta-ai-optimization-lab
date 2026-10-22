@@ -44,6 +44,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-97b2bd9c2d3316dd4eab.md)
 - [Original audit hash and public excerpt](../audits/audit-9a720eae0135df096db9.md)
 - [Original audit hash and public excerpt](../audits/audit-b4e2008571fcb429d31e.md)
+- [Original audit hash and public excerpt](../audits/audit-c915993a806f0b95c0f6.md)
 - [Original audit hash and public excerpt](../audits/audit-cad113d219a201e0f5e0.md)
 - [Original audit hash and public excerpt](../audits/audit-cc4a0b8610c091844255.md)
 - [Original audit hash and public excerpt](../audits/audit-d3d48f461ddbab44a526.md)
@@ -429,14 +430,14 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 R90 nativer Prefill-Champion und R219/R220-Agenten-Cacheprofil qualifiziert. R219 tatsächlicher Kandidat14106,5MiB/13Erfolge/162,465s; R220 Kontrollprofil7966,5MiB. Mehrspeicher6140MiB gegenüber Graft-Alternative, keine Addition einzelner Gewinne.
 
-**Remaining scope:** None identified beyond already reviewed evidence; do not automatically repeat.
+**Remaining scope:** Existing conversion-cache profiles remain QUALIFIED within scope. GIST-V02 per-kernel L1/shared carveout is a distinct unmeasured conditional subcase, not covered by conversioncache wins. Resource/dispatch and actual compatible differing preference required before GPU.
 
 **Reopening condition:** Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.
 
-**Next action:** Qualifizierter workloadgebundener Prefill-Cachegewinn bleibt gültig, hoher VRAM und nahezu unverändertes Decode explizit. Kein neu etikettierter Cachetest.
+**Next action:** GIST-V02: inspect one executed stockkernel shared-memory/resource contract; no allocation of new conversioncache or assumed cachepartition effect.
 
 These canonical rationale excerpts preserve the original language. Potential combinations require independently qualified constituents and fresh interaction controls. Transfer to another model requires compatible architecture, weights, tokenizer, state layout and engine dispatch.
 
 ## Related sprint records
 
-[R100](../experiments/R100.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R122](../experiments/R122.md), [R123](../experiments/R123.md), [R124](../experiments/R124.md), [R125](../experiments/R125.md), [R126](../experiments/R126.md), [R127](../experiments/R127.md), [R132](../experiments/R132.md), [R133](../experiments/R133.md), [R134](../experiments/R134.md), [R136](../experiments/R136.md), [R141](../experiments/R141.md), [R149](../experiments/R149.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R186](../experiments/R186.md), [R213](../experiments/R213.md), [R214](../experiments/R214.md), [R215](../experiments/R215.md), [R216](../experiments/R216.md), [R217](../experiments/R217.md), [R218](../experiments/R218.md), [R219](../experiments/R219.md), [R220](../experiments/R220.md), [R221](../experiments/R221.md), [R222](../experiments/R222.md), [R251](../experiments/R251.md), [R372](../experiments/R372.md), [R88](../experiments/R88.md), [R89](../experiments/R89.md), [R90](../experiments/R90.md), [R91](../experiments/R91.md), [R92](../experiments/R92.md), [R93](../experiments/R93.md), [R94](../experiments/R94.md), [R95](../experiments/R95.md)
+[R100](../experiments/R100.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R122](../experiments/R122.md), [R123](../experiments/R123.md), [R124](../experiments/R124.md), [R125](../experiments/R125.md), [R126](../experiments/R126.md), [R127](../experiments/R127.md), [R132](../experiments/R132.md), [R133](../experiments/R133.md), [R134](../experiments/R134.md), [R136](../experiments/R136.md), [R141](../experiments/R141.md), [R149](../experiments/R149.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R186](../experiments/R186.md), [R213](../experiments/R213.md), [R214](../experiments/R214.md), [R215](../experiments/R215.md), [R216](../experiments/R216.md), [R217](../experiments/R217.md), [R218](../experiments/R218.md), [R219](../experiments/R219.md), [R220](../experiments/R220.md), [R221](../experiments/R221.md), [R222](../experiments/R222.md), [R251](../experiments/R251.md), [R372](../experiments/R372.md), [R391](../experiments/R391.md), [R88](../experiments/R88.md), [R89](../experiments/R89.md), [R90](../experiments/R90.md), [R91](../experiments/R91.md), [R92](../experiments/R92.md), [R93](../experiments/R93.md), [R94](../experiments/R94.md), [R95](../experiments/R95.md)

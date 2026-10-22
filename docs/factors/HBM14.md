@@ -24,6 +24,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 
 - [Original audit hash and public excerpt](../audits/audit-3a0b0ee463a9a6eaaab3.md)
 - [Original audit hash and public excerpt](../audits/audit-b5b72880a82c7c178bfd.md)
+- [Original audit hash and public excerpt](../audits/audit-c915993a806f0b95c0f6.md)
 - [Original audit hash and public excerpt](../audits/audit-fe73faa6d74ccb07bdc1.md)
 
 | Original variant | Signed historical state | Reviewed scoped status | Hardware coverage in this variant |
@@ -1357,4 +1358,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R374](../experiments/R374.md)
+[R374](../experiments/R374.md), [R391](../experiments/R391.md)

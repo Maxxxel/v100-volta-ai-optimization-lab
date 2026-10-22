@@ -160,7 +160,7 @@
 | [BMT24](factors/BMT24.md) | Geometry-grounded OCR | DEFERRED | NO | P3 |
 | [BMT25](factors/BMT25.md) | Action-grounded GUI policies | DEFERRED | NO | P3 |
 | [BMT26](factors/BMT26.md) | Streaming cache-aware RNNT ASR | DEFERRED | NO | P3 |
-| [BMT27](factors/BMT27.md) | Confidence calibration and selective tool use | OPEN | NO | P1 |
+| [BMT27](factors/BMT27.md) | Confidence calibration and selective tool use | PARTIAL | YES | P1 |
 | [BMT28](factors/BMT28.md) | Stochastic recurrent-state rounding | DEFERRED | NO | P3 |
 | [BMT29](factors/BMT29.md) | Adaptive reasoning budgets | PARTIAL | YES | P1 |
 | [BMT30](factors/BMT30.md) | Learned ngram embeddings | DEFERRED | NO | P3 |

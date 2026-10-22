@@ -39,6 +39,7 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 - [Original audit hash and public excerpt](../audits/audit-93f7fb61b86674e46b11.md)
 - [Original audit hash and public excerpt](../audits/audit-aa3173b6909f83dad10b.md)
 - [Original audit hash and public excerpt](../audits/audit-b1fac35bfe4735e7500b.md)
+- [Original audit hash and public excerpt](../audits/audit-c915993a806f0b95c0f6.md)
 - [Original audit hash and public excerpt](../audits/audit-d3d48f461ddbab44a526.md)
 - [Original audit hash and public excerpt](../audits/audit-db8ee1f15a2aba4eaeed.md)
 - [Original audit hash and public excerpt](../audits/audit-ec82b4c9401ad086f524.md)
@@ -428,4 +429,4 @@ These canonical rationale excerpts preserve the original language. Potential com
 
 ## Related sprint records
 
-[R102](../experiments/R102.md), [R103](../experiments/R103.md), [R104](../experiments/R104.md), [R105](../experiments/R105.md), [R106](../experiments/R106.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R110](../experiments/R110.md), [R111](../experiments/R111.md), [R112](../experiments/R112.md), [R113](../experiments/R113.md), [R142](../experiments/R142.md), [R143](../experiments/R143.md), [R144](../experiments/R144.md), [R152](../experiments/R152.md), [R153](../experiments/R153.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R372](../experiments/R372.md)
+[R102](../experiments/R102.md), [R103](../experiments/R103.md), [R104](../experiments/R104.md), [R105](../experiments/R105.md), [R106](../experiments/R106.md), [R107](../experiments/R107.md), [R108](../experiments/R108.md), [R109](../experiments/R109.md), [R110](../experiments/R110.md), [R111](../experiments/R111.md), [R112](../experiments/R112.md), [R113](../experiments/R113.md), [R142](../experiments/R142.md), [R143](../experiments/R143.md), [R144](../experiments/R144.md), [R152](../experiments/R152.md), [R153](../experiments/R153.md), [R165](../experiments/R165.md), [R166](../experiments/R166.md), [R372](../experiments/R372.md), [R391](../experiments/R391.md)

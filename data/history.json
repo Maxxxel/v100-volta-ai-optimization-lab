@@ -12630,5 +12630,29 @@
     "kind": "BMT27_ACQUISITION_PROTOCOL_AND_ISSUE6_NO_GPU_ADMISSION",
     "sequence": 1579,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T08:41:17.484504+00:00",
+    "experiment_id": "R391",
+    "factor_id": null,
+    "kind": "R391_BMT27_REAL_GPU_ACQUISITION_GATE_PASSED",
+    "sequence": 1580,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T08:41:17.484504+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "REQUESTED_VOLTA_GIST_SOURCE_REVIEW_NO_GPU",
+    "sequence": 1581,
+    "signature": null
+  },
+  {
+    "date": "2026-10-22T08:42:28.917404+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "GIST_SOURCE_SCHEMA_AND_ANNOTATION_COUNTERS_COMPLETED",
+    "sequence": 1582,
+    "signature": null
   }
 ]

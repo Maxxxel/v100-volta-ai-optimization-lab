@@ -5516,10 +5516,12 @@
     "domain": "runtime",
     "evidence_ids": [
       "audit-29f0caa0d57e03885651",
-      "audit-3a0b0ee463a9a6eaaab3"
+      "audit-3a0b0ee463a9a6eaaab3",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
-      "R363"
+      "R363",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "R13",
@@ -9196,6 +9198,7 @@
       "audit-9907670c98fb135ab20f",
       "audit-a6289cc857c5951da453",
       "audit-c16b8748920037f57079",
+      "audit-c915993a806f0b95c0f6",
       "audit-d2ca3001edd31500863e",
       "audit-d63e8079399509ae7185",
       "audit-dc34096d24d8ffcb825e"
@@ -9213,7 +9216,8 @@
       "R312",
       "R313",
       "R341",
-      "R364"
+      "R364",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "K05",
@@ -9533,10 +9537,12 @@
     "domain": "kv_state",
     "evidence_ids": [
       "audit-29f0caa0d57e03885651",
-      "audit-b5b72880a82c7c178bfd"
+      "audit-b5b72880a82c7c178bfd",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
-      "R363"
+      "R363",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "K06",
@@ -11254,12 +11260,14 @@
     "evidence_ids": [
       "audit-2e1860757e2916d6fcff",
       "audit-b0f72f931a0f006c7f1e",
+      "audit-c915993a806f0b95c0f6",
       "audit-d9756453b1f9bd997a38",
       "audit-e2238f64473e0e4d2c93",
       "audit-ea922ad1c3bfe07b0698"
     ],
     "experiment_ids": [
-      "R348"
+      "R348",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "C09",
@@ -11489,6 +11497,7 @@
       "audit-88c4b8b71bab92ce5e63",
       "audit-8caaa3cdf4c079c396fe",
       "audit-b939abaa6c68ac7fbb46",
+      "audit-c915993a806f0b95c0f6",
       "audit-d870ddde2a67de12a375",
       "audit-f96908ff12c1e106761e"
     ],
@@ -11496,7 +11505,8 @@
       "R353",
       "R379",
       "R380",
-      "R381"
+      "R381",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "C10",
@@ -12116,10 +12126,12 @@
     "domain": "cuda_kernel",
     "evidence_ids": [
       "audit-0801e9ed17de8e125f9a",
-      "audit-8fb7e72fcd73c8402e82"
+      "audit-8fb7e72fcd73c8402e82",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
-      "R354"
+      "R354",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "C13",
@@ -12275,13 +12287,15 @@
     "evidence_ids": [
       "audit-5c12c2ecf298df008b8b",
       "audit-a89046afa98b5bbaa633",
+      "audit-c915993a806f0b95c0f6",
       "audit-d2a8ccfa47fa9e5574a6",
       "audit-d7242ae53e0eff78fbf8",
       "audit-e561918dd9750b122081"
     ],
     "experiment_ids": [
       "R346",
-      "R390"
+      "R390",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "C14",
@@ -13242,10 +13256,12 @@
     "evidence_ids": [
       "audit-6812b5bedd6abb3e5370",
       "audit-68f29d4a2beebd20e166",
-      "audit-c8798d90457d71bb7682"
+      "audit-c8798d90457d71bb7682",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
-      "R357"
+      "R357",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "C18",
@@ -14664,12 +14680,14 @@
     "evidence_ids": [
       "audit-00f780e69d8e14e1c6a9",
       "audit-562eaeb901f0c1b39e99",
-      "audit-bc43e8b613cc983bfb4a"
+      "audit-bc43e8b613cc983bfb4a",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
       "R249",
       "R375",
-      "R390"
+      "R390",
+      "R391"
     ],
     "experimentally_covered": false,
     "id": "H06",
@@ -15347,11 +15365,13 @@
       "audit-562eaeb901f0c1b39e99",
       "audit-75ee04f78bcfedc623cf",
       "audit-b015029bb415f7025676",
-      "audit-b02ace8b7df4b0eef848"
+      "audit-b02ace8b7df4b0eef848",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
       "R249",
-      "R373"
+      "R373",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "H10",
@@ -23872,12 +23892,14 @@
       "audit-1a4b88a9b1a42ad2ad0a",
       "audit-562eaeb901f0c1b39e99",
       "audit-7716d550277dc834c504",
-      "audit-82108ec013b822ad4c84"
+      "audit-82108ec013b822ad4c84",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
       "R249",
       "R347",
-      "R386"
+      "R386",
+      "R391"
     ],
     "experimentally_covered": false,
     "id": "E06",
@@ -27283,12 +27305,14 @@
     "decision": "Acht konservierte CUDA-Traces erneut read-only geprüft. Kernel-/Memcpy-Ereignisse und Ressourcenmetadaten vorhanden, aber keine HBM-Transaktions-/Bandbreiten-/Occupancy-Hardwarecounter. Keine LLM-Roofline aus Copy-Bytes oder summierter Kerneldauer ableiten.",
     "domain": "hbm_memory",
     "evidence_ids": [
+      "audit-c915993a806f0b95c0f6",
       "audit-d7fc97756655a4112227",
       "audit-e2e30ac7c1edebb0842f",
       "audit-fe73faa6d74ccb07bdc1"
     ],
     "experiment_ids": [
       "R374",
+      "R391",
       "R87"
     ],
     "experimentally_covered": true,
@@ -28083,10 +28107,12 @@
     "domain": "hbm_memory",
     "evidence_ids": [
       "audit-0c85f6a8fd53d28ec35e",
-      "audit-13974d59b8cc476497a5"
+      "audit-13974d59b8cc476497a5",
+      "audit-c915993a806f0b95c0f6"
     ],
     "experiment_ids": [
-      "R355"
+      "R355",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "HBM02",
@@ -28247,12 +28273,14 @@
       "audit-2e4467cc7d157b5b6514",
       "audit-39ab6c81075e07c1190b",
       "audit-b0f72f931a0f006c7f1e",
+      "audit-c915993a806f0b95c0f6",
       "audit-d9756453b1f9bd997a38",
       "audit-e2238f64473e0e4d2c93",
       "audit-ea922ad1c3bfe07b0698"
     ],
     "experiment_ids": [
-      "R348"
+      "R348",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "HBM03",
@@ -28550,10 +28578,12 @@
     "evidence_ids": [
       "audit-13974d59b8cc476497a5",
       "audit-76529acdcbe759e8bcab",
+      "audit-c915993a806f0b95c0f6",
       "audit-f96908ff12c1e106761e"
     ],
     "experiment_ids": [
-      "R355"
+      "R355",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "HBM04",
@@ -28704,10 +28734,12 @@
     "evidence_ids": [
       "audit-083ec3e6b24d6e01589b",
       "audit-68f29d4a2beebd20e166",
+      "audit-c915993a806f0b95c0f6",
       "audit-d798c15e0eb73ae5a51c"
     ],
     "experiment_ids": [
       "R357",
+      "R391",
       "R81"
     ],
     "experimentally_covered": true,
@@ -29065,6 +29097,7 @@
       "audit-97b2bd9c2d3316dd4eab",
       "audit-9a720eae0135df096db9",
       "audit-b4e2008571fcb429d31e",
+      "audit-c915993a806f0b95c0f6",
       "audit-cad113d219a201e0f5e0",
       "audit-cc4a0b8610c091844255",
       "audit-d3d48f461ddbab44a526",
@@ -29107,6 +29140,7 @@
       "R222",
       "R251",
       "R372",
+      "R391",
       "R88",
       "R89",
       "R90",
@@ -29120,7 +29154,7 @@
     "id": "HBM07",
     "kind": "original",
     "linked_original_axes": [],
-    "next_action": "Qualifizierter workloadgebundener Prefill-Cachegewinn bleibt gültig, hoher VRAM und nahezu unverändertes Decode explizit. Kein neu etikettierter Cachetest.",
+    "next_action": "GIST-V02: inspect one executed stockkernel shared-memory/resource contract; no allocation of new conversioncache or assumed cachepartition effect.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
       {
@@ -29186,7 +29220,7 @@
     ],
     "primary_sources": [],
     "priority": "P0",
-    "remaining_scope": "None identified beyond already reviewed evidence; do not automatically repeat.",
+    "remaining_scope": "Existing conversion-cache profiles remain QUALIFIED within scope. GIST-V02 per-kernel L1/shared carveout is a distinct unmeasured conditional subcase, not covered by conversioncache wins. Resource/dispatch and actual compatible differing preference required before GPU.",
     "reopening_conditions": "Nur bei konkret anderer zulässiger Hypothese/technischer Voraussetzung; kein Wiederholen gültiger Belege.",
     "source_model_hypotheses": [],
     "status": "QUALIFIED",
@@ -30630,10 +30664,12 @@
     "evidence_ids": [
       "audit-3a0b0ee463a9a6eaaab3",
       "audit-b5b72880a82c7c178bfd",
+      "audit-c915993a806f0b95c0f6",
       "audit-fe73faa6d74ccb07bdc1"
     ],
     "experiment_ids": [
-      "R374"
+      "R374",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "HBM14",
@@ -33042,6 +33078,7 @@
       "audit-a200c5c240a36583e62e",
       "audit-b0807613e019b3b30009",
       "audit-b8a83b89fd187aadf424",
+      "audit-c915993a806f0b95c0f6",
       "audit-e950bd432e12a6880a36",
       "audit-f2e1299acd91cad7c2df",
       "audit-fe73faa6d74ccb07bdc1"
@@ -33050,7 +33087,8 @@
       "R374",
       "R376",
       "R379",
-      "R381"
+      "R381",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "HBM18",
@@ -35490,6 +35528,7 @@
       "audit-93f7fb61b86674e46b11",
       "audit-aa3173b6909f83dad10b",
       "audit-b1fac35bfe4735e7500b",
+      "audit-c915993a806f0b95c0f6",
       "audit-d3d48f461ddbab44a526",
       "audit-db8ee1f15a2aba4eaeed",
       "audit-ec82b4c9401ad086f524"
@@ -35514,7 +35553,8 @@
       "R153",
       "R165",
       "R166",
-      "R372"
+      "R372",
+      "R391"
     ],
     "experimentally_covered": true,
     "id": "HBM19",
@@ -37760,16 +37800,19 @@
     "variants": []
   },
   {
-    "coverage_scope": "Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Beweis vollständiger Achsenabdeckung.",
-    "decision": "Head-free post-hoc calibration is a distinct unresolved transfer, not excluded by the unavailable checkpoint-specific decision head. Native probability extraction is source-visible; calibrated quality, safety and acquisition cost remain unmeasured.",
+    "coverage_scope": "Actual Omni inference with pre-sampling probability extraction on three neutral acquisition inputs; no action confidence calibration or broad model quality.",
+    "decision": "R391 BMT27 acquisition gate: one actual stock Omni Q6K/8K/F16/300W model start,14requests,6matchedpairs on3newneutralinputs. All6nativeoutputIDarrays identical;360selected-token logprob entries and top5lists independently verified against returnedtokenIDs and nativepre-sampling settings. Paired E2E overhead 11.14–12.82%, median 11.83%; summed paired boardenergy change +4.12%, descriptive only. Metadata acquisition works in this exact greedy profile, but incurs cost. Zero calibration fits, original12/task-success or tool-safety qualification. BMT27 PARTIAL; no Champion or confidence correctness claim.",
     "domain": "transfer",
     "evidence_ids": [
+      "audit-18678122920b3bae4bfa",
+      "audit-b4763d4fa78c55d3de3e",
       "audit-bc43e8b613cc983bfb4a"
     ],
     "experiment_ids": [
-      "R390"
+      "R390",
+      "R391"
     ],
-    "experimentally_covered": false,
+    "experimentally_covered": true,
     "id": "BMT27",
     "kind": "additional",
     "linked_original_axes": [
@@ -37777,8 +37820,8 @@
       "M08",
       "M13"
     ],
-    "next_action": "Pin an unmodified native probability observable, verify acquisition cost/output invariance on independent inputs, then separate calibration/test data and false-accept versus coverage limits. No confidence claim from raw token probability.",
-    "omnicoder2_experimentally_covered": false,
+    "next_action": "Do not repeat acquisition. Design a separate action-level calibration/holdout protocol that accounts for measured extraction cost; raw token likelihood is not action correctness probability.",
+    "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [],
     "prerequisites": [
       "Unabhängige Kalibrations-/Testpartition, festes Konfidenzmerkmal und Coverage/False-accept-Grenzen; veröffentlichten fremden Konfidenzkopf nicht in Omni hineininterpretieren."
@@ -37790,7 +37833,7 @@
       "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b/blob/14c9d90137962d300f3de95633f7b6535e80c5ce/README.md"
     ],
     "priority": "P1",
-    "remaining_scope": "OPEN head-free acquisition/calibration/abstention; DEFERRED checkpoint-specific trained noncausal head. No new experimental coverage.",
+    "remaining_scope": "Action-level score definition, independent licensed calibration/test data, selective-risk/coverage limits and total verifier/abstention costs remain unmeasured.",
     "reopening_conditions": "Independent acquisition controls, disjoint calibration/evaluation partitions, prespecified coverage/false-accept and full-cost criteria.",
     "scope_reassessment": {
       "current_status": "OPEN",
@@ -37805,7 +37848,7 @@
     "source_model_hypotheses": [
       "perplexity-ai/pplx-decider-v1.1-27b"
     ],
-    "status": "OPEN",
+    "status": "PARTIAL",
     "title": "Konfidenzkalibrierung und selektive Tool-Entscheidung",
     "variants": []
   },

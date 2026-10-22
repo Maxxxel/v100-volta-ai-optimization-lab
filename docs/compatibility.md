@@ -160,7 +160,7 @@ The table deliberately distinguishes demonstrated OmniCoder2 scope from conditio
 | [BMT24](factors/BMT24.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [BMT25](factors/BMT25.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [BMT26](factors/BMT26.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT27](factors/BMT27.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
+| [BMT27](factors/BMT27.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [BMT28](factors/BMT28.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [BMT29](factors/BMT29.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
 | [BMT30](factors/BMT30.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |

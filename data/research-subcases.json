@@ -301,5 +301,206 @@
     ],
     "test_design": "Nicht linear herunterrechnen; nur einzelnpassendeModelle später prüfen.",
     "title": "Mehrkarten-NVLink-Headlines"
+  },
+  {
+    "axes": [
+      "E06",
+      "HBM01"
+    ],
+    "classification": "ALREADY_COVERED",
+    "counts_as_factor": false,
+    "decision": "CORRECT_SOURCE_SUMMARY_NO_GPU_TEST",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V01",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Full die design has84SM; localread-only driverquery exposes80activeSM,4096-bitbus,96KiBshared/SM. NVIDIA lists8x512-bitcontrollers, not gist4x512.",
+    "next_action": "Retain actual80SM and existing roofline-method limits.",
+    "prerequisites": "Use actual device attributes, not full-die diagram counts.",
+    "priority_band": "P3",
+    "risks": "900GB/s is theoretical board bandwidth; not observed model traffic.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "No benchmark for an inventory correction.",
+    "title": "GV100 design limits versus installed V100"
+  },
+  {
+    "axes": [
+      "HBM07",
+      "HBM04",
+      "HBM18"
+    ],
+    "classification": "NEW_SUBCASE",
+    "counts_as_factor": false,
+    "decision": "ADMIT_BOUNDED_SOURCE_RESOURCE_FEASIBILITY_NOT_GPU_RUN",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V02",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Combined128KiB L1/shared resource with selectable shared capacities; preferred carveout is an advisory CUDAfunctionattribute, distinct from conversioncache or MaxDynamicSharedMemorySize.",
+    "next_action": "Inspect one dominant originalkernel resource/launch contract. No partitiongrid, no retest of HBM07 conversioncache.",
+    "prerequisites": "Choose one executed SM70 kernel/shape; identify actual static/dynamic shared usage and resident-block limits before selecting a meaningfully different compatible preference.",
+    "priority_band": "P2",
+    "risks": "Preference may map to same physical partition or be overridden by dynamic shared needs; no assumed occupancy, cachehit, bandwidth or speedup.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "Query originalfunction resources under the broker, then at mostone preference treatment with unchanged device code/math/layout/launch. Native input/output oracle before B-only model-screen; all actualattributes, shared requirement and timing limits archived.",
+    "title": "Per-kernel L1/shared-memory carveout"
+  },
+  {
+    "axes": [
+      "C09",
+      "C10",
+      "C18",
+      "HBM03",
+      "HBM04"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "counts_as_factor": false,
+    "decision": "NO_CONCRETE_NEW_PATCH_NO_GENERIC_COUNTER_RUN",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V03",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Volta has separate FP32/INT32 issue resources; address/arithmetic scheduling can matter. Four schedulers are not a four-resident-warp limit.",
+    "next_action": "Reuse current tiling/warp negatives; reopen for an independently specified scheduling patch.",
+    "prerequisites": "A distinct code-generation/data-dependency change with actual source/SASS and a real hotpath, not added dummy integer work.",
+    "priority_band": "P2",
+    "risks": "Static instruction presence is not measured dual-issue utilization or speedup.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "Only attach profiling to a proposed kernel patch; preserve registers/precision and independent numerics.",
+    "title": "FP32 and INT32 pipeline overlap"
+  },
+  {
+    "axes": [
+      "C13",
+      "C14",
+      "K05",
+      "HBM05"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "counts_as_factor": false,
+    "decision": "ALREADY_IN_CORRECTNESS_ADMISSION_NO_REPEAT",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V04",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Explicit active masks/barriers are correctness requirements when exchanging data. Cooperative groups express valid synchronization but are not a free cross-grid speedup.",
+    "next_action": "Keep existing native negatives and test synchronization only with a concrete new patch.",
+    "prerequisites": "Specific changed synchronization path; grid-wide cooperative launches additionally require supported launch/residency contract.",
+    "priority_band": "P1",
+    "risks": "No inference that existing E09/state failures are caused by warp synchronization; no source-only correctness certificate.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "Reuse R340-S02 correctness gate; divergent/tail/state oracle only for a changed kernel.",
+    "title": "Independent thread scheduling and Cooperative Groups"
+  },
+  {
+    "axes": [
+      "HBM14",
+      "H10",
+      "R13",
+      "K06"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "counts_as_factor": false,
+    "decision": "KEEP_TRANSFER_PREREQUISITES_NO_REDO_R373",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V05",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Volta page-fault-capable copy engines do not imply that pinned hostbuffers have no benefit. CUDA12.8 best-practices separately documents pinned transfer bandwidth and async-overlap conditions.",
+    "next_action": "Reuse managed-memory negative and offload results; require a real transfer/overlap patch.",
+    "prerequisites": "Actual transfer-dominated workload, bounded private pinned buffers and measured packing/pinning/lifetime cost.",
+    "priority_band": "P2",
+    "risks": "Gist no-speedup anecdote has no matching local workload; pageable copies do not prove asynchronous overlap.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "Only compare a real staging implementation with equal bytes/direction/cache state and full allocation cost; not another residency/offload flag test.",
+    "title": "Pinned/pageable transfers and staging"
+  },
+  {
+    "axes": [
+      "H06",
+      "H10"
+    ],
+    "classification": "NOT_APPLICABLE",
+    "counts_as_factor": false,
+    "decision": "NOT_APPLICABLE_CURRENT_TOPOLOGY_ONLY",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V06",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Whitepaper describes ATS over NVLink and IBM Power platform support. CurrentsingleV100 x86_64profile does not supply that CPU-GPU topology.",
+    "next_action": "Retain CUDAmanagedmemory measurements; no productive topology or IOMMU changes.",
+    "prerequisites": "Different host/interconnect with verified platform capability.",
+    "priority_band": "P3",
+    "risks": "Do not extrapolate to generic Linux/x86 pageable-memory support or rule out all UnifiedMemory paths.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "No local ATS/NVLink flag sweep on the existing host.",
+    "title": "POWER9 NVLink coherency and ATS"
+  },
+  {
+    "axes": [
+      "HBM02",
+      "HBM07",
+      "HBM18"
+    ],
+    "classification": "PARTIALLY_COVERED",
+    "counts_as_factor": false,
+    "decision": "HARDWARE_FEATURE_NOT_NEW_OPTIMIZATION",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V07",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "Whitepaper explicitly states GV100 write caching. Store locality/cache reuse may affect memory work, but this hardware feature is already present without an enable flag.",
+    "next_action": "No generic cachehint sweep without a concrete store-path hypothesis.",
+    "prerequisites": "An actually redundant/store-bound target and a distinct supported store-layout/policy patch.",
+    "priority_band": "P2",
+    "risks": "Write-caching support does not establish storepolicy efficacy or measured HBM-energy reduction.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "Reuse current data-layout/cache evidence; independently check output bytes and physical counters only when tool access permits.",
+    "title": "Write caching and global-store locality"
+  },
+  {
+    "axes": [
+      "HBM01",
+      "HBM19"
+    ],
+    "classification": "ALREADY_COVERED",
+    "counts_as_factor": false,
+    "decision": "PRESERVE_ECC_GUARD_NO_NEW_TREATMENT",
+    "expected_knowledge_gain": "Identify a distinct compatible treatment, not a source-derived speedup.",
+    "id": "GIST-V08",
+    "local_test_status": "SOURCE_ADMISSION_ONLY_NO_NEW_GPU_TEST",
+    "mechanism": "SECDED reliability and900GB/s theoretical HBM2 figures are hardware properties; currentguard captures ECC and board energy.",
+    "next_action": "Keep ECC enabled and preserve energy-per-success methodology.",
+    "prerequisites": "Existing hardware-safety and traffic-accounting contracts.",
+    "priority_band": "P3",
+    "risks": "HBM-internal energy and useful-task efficiency are not inferable from theoretical bandwidth/ECC bits.",
+    "sources": [
+      "WOLFRAM77_VOLTA_NOTES",
+      "NVIDIA_VOLTA_WHITEPAPER",
+      "VOLTA_GUIDE"
+    ],
+    "test_design": "No ECC-disable performance trial.",
+    "title": "SECDED ECC and theoretical bandwidth"
   }
 ]

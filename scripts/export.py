@@ -15,6 +15,7 @@ METRIC_ROOTS = {'native_metrics','context_tokens','slots','actual_KV_unified','m
 METRIC_ROOTS |= {'factors_reviewed','original_variant_cells','existing_unique_evidence_files_SHA_verified','new_model_starts','scientific_status_changes','experimental_factor_coverage_changes'}
 METRIC_ROOTS |= {'prefill_geomean_E2E_change_percent','actual_private_cublas126'}
 DOMAINS.add('pypi.org')
+DOMAINS.update({'gist.github.com','images.nvidia.com'})
 METRIC_ROOTS |= {'object_size_change_percent','decoded_cubin_byte_identity','decoded_PTX_byte_identity','explicit_NVCCflag_applied','original_inputs_preserved'}
 METRIC_ROOTS |= {'baseline','binary','reference_only_calibration','actual_reference_GPU_inference','actual_candidate_GPU_execution','candidate_model_starts','source_cases','authorized_cases','denied_cases','baseline_primary_dispatch_events','candidate_primary_dispatch_events','before_commit_process_crash_controls','after_commit_process_crash_controls','authority_revocation_controls','malformed_envelope_controls','separate_session_controls','denied_deliveries','component_wall_s'}
 # Explicit numeric aggregate fields for speculation memory/task-cost screens.
@@ -254,7 +255,9 @@ def main():
         challengers.append({'id':x['id'],'name':text(x['title']),'repository':url(x.get('repo')),'status':text(x.get('current_work_status',x.get('status'))),'priority':x.get('current_priority_band',x.get('priority_band')),'assessment':text(x.get('current_assessment_de',x.get('interpretation'))),'next_step':text(x.get('current_next_step_de',x.get('admission_test'))),'evidence_class':text(x.get('evidence_class')),'source_admission':projection(x.get('source_admission')),'local_scope':projection(x.get('local_evidence')),'current_experiment':text(x.get('current_experiment'))})
     sources=[]
     for x in matrix.get('research_source_integration_20261021',{}).get('sources',[]):
-        sources.append({'id':x['id'],'url':url(x['url']),'revision':text(x['revision']),'classification':x['classification'],'axes':x['linked_original_axes'],'scope':text(x['review_scope']),'obstacles':[text(y) for y in x.get('obstacles',[])],'evidence_class':'EXTERN_BELEGT','local_test_status':x['local_test_status']})
+        source={'id':x['id'],'url':url(x['url']),'revision':text(x['revision']),'classification':x['classification'],'axes':x['linked_original_axes'],'scope':text(x['review_scope']),'obstacles':[text(y) for y in x.get('obstacles',[])],'evidence_class':'EXTERN_BELEGT','local_test_status':x['local_test_status']}
+        if isinstance(x.get('content_sha256'),str) and re.fullmatch('[a-f0-9]{64}',x['content_sha256']):source['content_sha256']=x['content_sha256']
+        sources.append(source)
     for source_id,name in [('VOLTA_MICROARCH','volta-paper-abs.html'),('HBM_POWER','hbm-paper-abs.html')]:
         original=root/'staging/r340/sources'/name
         if original.is_file():

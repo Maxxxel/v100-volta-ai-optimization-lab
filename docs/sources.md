@@ -271,6 +271,82 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+## WOLFRAM77_VOLTA_NOTES
+
+```json
+{
+  "axes": [
+    "HBM07",
+    "HBM04",
+    "HBM18",
+    "HBM14",
+    "H10",
+    "K05",
+    "C13"
+  ],
+  "classification": "PARTIALLY_COVERED",
+  "content_sha256": "7b77200ada112f7df1620f421b64e74732d004ce74b2ef81cb1cbdf701f70b74",
+  "evidence_class": "EXTERN_BELEGT",
+  "id": "WOLFRAM77_VOLTA_NOTES",
+  "local_test_status": "SOURCE_REVIEW_ONLY_NO_NEW_GPU_TEST",
+  "obstacles": [
+    "No local performance qualification from this source review."
+  ],
+  "revision": "3379202fc878f03659c79089f0c89608620753de",
+  "scope": "Secondarywhitepaper notes reviewed against NVIDIAprimarysources. One distinct conditionalcarveout lead; controllercount corrected; ATS/copyclaims topologylimited. No localspeedup.",
+  "url": "https://gist.github.com/wolfram77/a42aeb021a2fec7b7e85ceb71b398772"
+}
+```
+
+## NVIDIA_VOLTA_WHITEPAPER
+
+```json
+{
+  "axes": [
+    "HBM07",
+    "HBM14",
+    "H10",
+    "H06",
+    "C13"
+  ],
+  "classification": "PARTIALLY_COVERED",
+  "content_sha256": "86ab6ff6b0d8633fc196f709810f20e185769af0698ec9274034119bf3feec8d",
+  "evidence_class": "EXTERN_BELEGT",
+  "id": "NVIDIA_VOLTA_WHITEPAPER",
+  "local_test_status": "SOURCE_REVIEW_ONLY_NO_NEW_GPU_TEST",
+  "obstacles": [
+    "No local performance qualification from this source review."
+  ],
+  "revision": "WP-08608-001_v1.1 August2017",
+  "scope": "Primarysource:8x512-bitcontrollers; combinedL1/shared; writecaching; fault-capablecopyengines withATScontext; separateFP32/INT32resources. Architecturecapabilityisnotnewmeasuredoptimization.",
+  "url": "https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf"
+}
+```
+
+## CUDA128_PINNED_MEMORY
+
+```json
+{
+  "axes": [
+    "HBM14",
+    "H10",
+    "R13",
+    "K06"
+  ],
+  "classification": "PARTIALLY_COVERED",
+  "content_sha256": "97125fe674e1db6134d3a4ebe0b4b57ae33fd83056e826ccc336b8cc3bb55463",
+  "evidence_class": "EXTERN_BELEGT",
+  "id": "CUDA128_PINNED_MEMORY",
+  "local_test_status": "SOURCE_REVIEW_ONLY_NO_NEW_GPU_TEST",
+  "obstacles": [
+    "No local performance qualification from this source review."
+  ],
+  "revision": "ArchivedCUDA12.8.0;contentSHA pinned",
+  "scope": "Pinnedmemorybandwidth and async-overlap requirements distinguishable from Volta ATS copycapability; no transferbenchmark repeated.",
+  "url": "https://docs.nvidia.com/cuda/archive/12.8.0/cuda-c-best-practices-guide/index.html"
+}
+```
+
 ## Factor-specific bibliography
 
 - [K05](factors/K05.md): https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/docs/FA_V100_AUDIT.md, https://raw.githubusercontent.com/KumphanartDansiri/vllm-fp8-w8a16-sm70/9e1aa6bc3398c5ea823a80027963709d20ee1974/src/fp8_w8a16_sm70/fa_v100_prefill.py
