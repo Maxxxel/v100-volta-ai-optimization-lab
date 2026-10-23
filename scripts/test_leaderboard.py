@@ -311,7 +311,7 @@ class LeaderboardTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    d=pathlib.Path(tmp);(d/'benchmarks.md').write_text('# Old\n\n## Official benchmark results and overall mean\n\n91.04%\n\n## Configuration parameters and ranked benchmark results\n\nHistorical details\n');(d/'local-benchmarks.md').write_text('# Local')
    render(reg,hist,comp,d)
-   main=(d/'benchmarks.md').read_text();supp=(d/'supplemental-comparison.md').read_text();self.assertIn(str(sum(r['official_eligible'] for r in hist['runs']))+' eligible official runs',main);self.assertIn('NOT MEASURED',main);self.assertNotIn('91.04%',supp);self.assertNotIn('reported_score',main);self.assertIn('EXTERNAL PUBLISHER SELF-REPORTS',(d/'benchmark-register.md').read_text());self.assertEqual(len(list((d/'configuration-profiles').glob('*.md'))),len(hist['profiles']))
+   main=(d/'benchmarks.md').read_text();supp=(d/'supplemental-comparison.md').read_text();self.assertIn('configuration-comparison.md#all-measured-results',main);self.assertNotIn('official-leaderboard',main);self.assertNotIn('all-measured-results\"',supp);self.assertNotIn('91.04%',supp);self.assertEqual(main,supp);self.assertNotIn('| ---',main);self.assertNotIn('<div',main);self.assertNotIn('reported_score',main);self.assertIn('EXTERNAL PUBLISHER SELF-REPORTS',(d/'benchmark-register.md').read_text());self.assertEqual(len(list((d/'configuration-profiles').glob('*.md'))),len(hist['profiles']))
  def evidence_fixture(self,tmp):
   root=pathlib.Path(tmp);folder=root/'staging/r1';folder.mkdir(parents=True)
   (folder/'AUDIT.json').write_text('{}')

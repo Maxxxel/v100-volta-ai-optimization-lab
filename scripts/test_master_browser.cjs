@@ -61,6 +61,20 @@ async function main() {
     assert(partials.length>=3,'Retained LFM and MiMo partial benchmark records');
     for(const r of partials){const cell=page.locator(`.master-table tr[data-configuration-id="${r.id}"] td[data-column-key="family:humanevalplus"]`);assert((await cell.textContent()).includes(`${r.solved}/${r.tasks}`));assert((await cell.textContent()).includes('PARTIAL'));}
     report.checks.push('exactly one table; partial results visible by default in the same HumanEval column with original denominators');
+    for (const legacy of ['benchmarks/', 'supplemental-comparison/']) {
+      const old = await context.newPage();
+      await old.goto(new URL(legacy, base).href, { waitUntil: 'networkidle' });
+      await old.waitForURL('**/configuration-comparison/**');
+      await old.locator('.master-table tbody tr').first().waitFor();
+      assert.equal(await old.locator('.md-content table').count(), 1);
+      assert.equal(await old.locator('.master-table tbody tr').count(), expected.profiles);
+      await old.close();
+    }
+    const nav = await page.locator('.md-nav--primary').innerText();
+    assert(!nav.includes('Supplemental Model Comparisons'));
+    assert(!nav.includes('Local Supplemental Benchmarks'));
+    report.checks.push('legacy result URLs redirect to the same table; no competing comparison navigation');
+
     const initialIds = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId));
     const measuredIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.map(r => r.id));
     assert.deepEqual(initialIds.slice().sort(), measuredIds.slice().sort());

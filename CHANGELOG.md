@@ -585,3 +585,7 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 ## Audited research checkpoint R452 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Single benchmark-table entry point — 2026-10-23
+
+The model comparison has one public result table. Legacy benchmark and supplemental comparison URLs redirect to it; duplicate comparison navigation is removed. Full and partial results retain their measured task counts and qualification within the same family columns. Original datasets, immutable profiles, audits and scores are unchanged. Browser checks cover both old URLs, desktop and mobile.

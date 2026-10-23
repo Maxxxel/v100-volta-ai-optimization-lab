@@ -47,7 +47,7 @@ extra_javascript:
   - javascripts/benchmark-tables.js
   - assets/benchmarks/leaderboard-data.js?v=8696172aa0378ff6
   - javascripts/master-table.js?v=0f1d1fc7cd9541ac
-  - javascripts/leaderboard.js?v=23343d2da7e75cd6
+  - javascripts/leaderboard.js?v=697620605486078d
 extra:
   generator: false
 nav:
@@ -60,13 +60,10 @@ nav:
   - Qualified Configurations: configurations.md
   - Rejected Optimizations: rejected.md
   - Model Comparison & Benchmarks: configuration-comparison.md
-  - Configuration Archive: configuration-archive.md
   - Benchmark Definitions: benchmark-register.md
   - Model Weight Integrity:
       - Same Quantizer: weight-integrity-same-quantizer.md
       - Earlier Cross-Quantizer Review: weight-integrity.md
-  - Supplemental Model Comparisons: supplemental-comparison.md
-  - Local Supplemental Benchmarks: local-benchmarks.md
   - Model Evidence & Transfer: models.md
   - OmniCoder Derivative Research: omnicoder-derivatives.md
   - Compatibility Matrix: compatibility.md

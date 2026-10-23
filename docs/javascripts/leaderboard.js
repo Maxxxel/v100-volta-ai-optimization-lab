@@ -1,3 +1,12 @@
+/* Legacy comparison URLs all lead to the single measured-result table. */
+(function () {
+  'use strict';
+  const path = window.location.pathname;
+  if (/\/(?:benchmarks|supplemental-comparison)(?:\/|\/index\.html|\.html)?$/.test(path)) {
+    window.location.replace(path.replace(/(?:benchmarks|supplemental-comparison)(?:\/|\/index\.html|\.html)?$/, 'configuration-comparison/') + window.location.search + '#all-measured-results');
+    return;
+  }
+}());
 /* Offline, audited dataset only. No network calls, prompts or model execution. */
 (function(root){
 'use strict';
