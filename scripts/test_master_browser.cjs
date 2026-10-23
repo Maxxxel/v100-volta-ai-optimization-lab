@@ -45,6 +45,11 @@ async function main() {
     assert.equal(await page.locator('.master-table tbody td[data-kind=metric]').count(), 0);
     assert.equal(await page.locator('.master-family-choice[data-family-id^=local-]').count(), 0);
     assert.equal(await page.locator('.master-table th[data-column-key="engine.build_id"]').count(), 0);
+    const engineVersions = await page.locator('.master-table tbody td[data-column-key="engine.version"]').allTextContents();
+    assert(engineVersions.every(v => v !== 'NICHT ERFASST'), 'Known source revisions must be displayed without fabricating release tags');
+    const modelNames = await page.locator('.master-table tbody td[data-column-key="model.name"] a').allTextContents();
+    assert(modelNames.includes('OmniCoder 9B'));
+    assert(modelNames.every(v => !/OmniCoder2|OmniCoder-2|V1\/V2/i.test(v)), 'One OmniCoder family label; historic IDs preserved separately');
     assert.equal(await page.locator('.master-benchmark-choices select[data-protocol-family]').count(), expected.families);
     assert((await page.locator('.master-counter').innerText()).includes(String(expected.profiles)));
     assert.equal(await page.locator('.master-pagination').count(), 0);

@@ -45,8 +45,9 @@
     'model.name': 'Modell', 'model.historical_name': 'Historische Modellbezeichnung', 'model.identity_annotation': 'Beleg zur Modellidentität', 'model.family_id': 'Modellfamilie', 'model.quantization': 'Quantisierung',
     'model.parameter_count': 'Parameterzahl', 'model.qat': 'QAT', 'model.svd': 'SVD',
     'model.hf_repository': 'Hugging Face', 'model.hf_revision': 'Modellrevision',
-    'model.artifact_sha256': 'Modell SHA256', 'engine.name': 'Engine', 'engine.version': 'Engine-Version',
+    'model.artifact_sha256': 'Modell SHA256', 'engine.name': 'Engine', 'engine.version': 'Engine-Version / Quellstand',
     'engine.git_commit': 'Engine-Commit', 'engine.build_id': 'Build-ID', 'engine.binary_sha256': 'Binary SHA256',
+    'engine.source_base_commit': 'Belegter Engine-Basiscommit', 'engine.source_version_label': 'Belegter Engine-Quellstand',
     'engine.cuda_version': 'CUDA-Version', 'engine.driver_version': 'Treiber',
     'engine.executed_kernel_backend_path': 'Kernelpfad (nachgewiesen)',
     'runtime.context': 'Kontext', 'runtime.max_output': 'Output-Limit',
@@ -151,6 +152,15 @@
         values['model.name'] = identityLabel.display_name;
         values['model.identity_annotation'] = identityLabel;
       }
+      const familyLabel = data.register.model_family_labels?.[profile.model.family_id];
+      if (familyLabel) { values['model.historical_name'] = profile.model.name; values['model.name'] = familyLabel; }
+      const sourceReviews = (data.register.engine_source_reviews || []).flatMap(review => review.engines.map(engine => ({ ...engine, audit_id: review.audit_id, audit_sha256: review.audit_sha256 })));
+      const source = sourceReviews.find(e => e.build_id === profile.engine.build_id && e.binary_sha256 === profile.engine.binary_sha256 && e.kernel_library_sha256 === profile.engine.kernel_library_sha256);
+      if (source) {
+        values['engine.source_base_commit'] = source.source_base_commit;
+        values['engine.source_version_label'] = source.source_version_label;
+        values['engine.source_evidence'] = source;
+      }
       values["evidence.metadata_receipts"] = evidence.map(e => ({ evidence_id: e.evidence_id, sources: e.sources }));
       benchmarks.forEach(b => { scores[b.key] = aggregate(runs.filter(r => data.master.run_columns[r.run_id] === b.key)); });
       const paths = new Set(attempts.flatMap(a => Object.keys(flatten(a.lab_metrics || {}))));
@@ -219,6 +229,7 @@
     if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
     if (column.kind === 'benchmark' || column.kind === 'family') return row.scores[protocolKey(column, state)]?.score ?? null;
     if (column.kind === 'metric') return measuredValue(row.scores[column.benchmark.key], column.path);
+    if (column.key === 'engine.version') return row.values['engine.version'] ?? row.values['engine.source_version_label'] ?? null;
     return row.values[column.key] ?? null;
   }
   function matches(v, expression) {
@@ -468,6 +479,7 @@
           thinking: row.values['requested.thinking'], MTP: row.values['requested.MTP'], context: row.values['runtime.context'], output_limit: row.values['runtime.max_output'],
           prefill_tok_s: measuredValue(a, 'prefill_tok_s'), decode_tok_s: measuredValue(a, 'decode_tok_s'), ttft_s: measuredValue(a, 'ttft_s'),
           wall_s: measuredValue(a, 'wall_s'), gpu_j: measuredValue(a, 'gpu_j'), gpu_j_per_success: measuredValue(a, 'gpu_j_per_success'), peak_vram_mib: measuredValue(a, 'peak_vram_mib'),
+          engine_source_evidence: row.values['engine.source_evidence'],
           configuration: row.profile, runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, (k, v) => absent(v) ? UNKNOWN : v, 2);
         dialogLinks.textContent = '';
         a.records.forEach(r => {

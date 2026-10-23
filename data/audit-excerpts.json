@@ -250028,6 +250028,21 @@
       "new_GPU_runs": 0
     },
     "excerpt_is_not_original": true,
+    "id": "audit-ad26886527c71fef3b59",
+    "original_bytes": 3440,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ad26886527c71fef3b5939f99898e39b6df2dec5f97b037a5e60b39de9ccefc6",
+    "statements": {
+      "interpretation": "Exact build ID, server SHA256 and CUDA-library SHA256 bind the recorded source base and local patch lineage. Source revision labels are not upstream release tags. Runtime logs saying build 0 (unknown) do not invalidate separately preserved source/build receipts. Shared executable hash alone is insufficient to equate different CUDA libraries. No GPU execution or new benchmark score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
     "id": "audit-36c5628322e65e0bca66",
     "original_bytes": 2374,
     "original_filename": "research-metadata.json",

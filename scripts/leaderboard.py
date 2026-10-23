@@ -385,8 +385,54 @@ def same_quantizer_review(a,header,rows,plan):
  public_rows=[{k:r[k] for k in ('name','shape','type','parameters','payload_bytes','byte_identical','payload_sha256_V1','payload_sha256_V2')} for r in rows]
  return {'analysis_id':a['analysis_id'],'represented_weight_verdict':verdict,**counts,'artifacts':artifacts,'metadata_differences':header['metadata_differences'],'type_counts':header['V1_header']['type_counts'],'elapsed_s':a['elapsed_s'],'numerical_interpretation':a['numerical_interpretation'],'source_checkpoint_limit':a['source_checkpoint_limit'],'new_GPU_runs':0,'tensor_results':public_rows}
 
+def engine_source_annotations(raw):
+ """Recover source revisions from linked build receipts, not binary-name guesses.
+
+ A source base plus local patches is not an upstream release tag. Match both
+ executable and CUDA library identities before attaching the annotation.
+ """
+ main=raw['main-build.json'];contract=raw['main-source-contract.json'];cache=raw['cache-build.json'];patch=raw['cache-patch.json'];bonsai=raw['bonsai-build.json'];bp=raw['bonsai-plan.json']
+ if main['source_proof']['commit']!=contract['reference_commit'] or main['source_proof']['source_inputs_sha256']!=contract['reference_inputs_canonical_sha256']:raise ValueError('Engine source contract mismatch')
+ if main['source_proof']['source_contract_sha256']!=H_BYTES(raw['_bytes']['main-source-contract.json']):raise ValueError('Engine contract hash mismatch')
+ if cache['source_proof']!=patch or patch['parent_manifest_sha256']!=H_BYTES(raw['_bytes']['main-build.json']):raise ValueError('Engine patch ancestry mismatch')
+ if pathlib.PurePosixPath(patch['parent']).name!=pathlib.PurePosixPath(main['engine']).parent.parent.name:raise ValueError('Wrong engine patch parent')
+ if bonsai['source_commit']!=bp['source_commit'] or bonsai['status']!='CPU_BUILD_COMPLETE_STATIC_SM70_PRESENT_GPU_UNTESTED':raise ValueError('Incomplete Bonsai source build')
+ def identity(item):
+  ids=item.get('identities',item.get('runtime_files_sha256'));server=[v for k,v in ids.items() if pathlib.PurePosixPath(k).name=='llama-server'];cuda=[v for k,v in ids.items() if re.fullmatch(r'libggml-cuda\.so\.[0-9]+\.[0-9]+\.[0-9]+',pathlib.PurePosixPath(k).name)]
+  if len(server)!=1 or len(cuda)!=1 or any(not re.fullmatch('[a-f0-9]{64}',v) for v in server+cuda):raise ValueError('Ambiguous engine binary/library identity')
+  return server[0],cuda[0]
+ result=[]
+ for item,base,flavour in [(main,contract['reference_commit'],'local patches'),(cache,contract['reference_commit'],'local patches + HBM cache'),(bonsai,bonsai['source_commit'],'Bonsai PQ2 SM70')]:
+  if not re.fullmatch('[a-f0-9]{40}',base):raise ValueError('Unverified source revision')
+  server,cuda=identity(item);build_id=pathlib.PurePosixPath(item.get('engine',item.get('runtime_path',''))).parent.parent.name if 'engine' in item else pathlib.PurePosixPath(item['runtime_path']).parent.name
+  result.append({'build_id':build_id,'binary_sha256':server,'kernel_library_sha256':cuda,'source_base_commit':base,
+   'source_version_label':base[:7]+' + '+flavour,'release_version':None,
+   'source_repository':contract['remote_url'].removesuffix('.git') if item is not bonsai else None,
+   'local_variant':flavour,'comparison_upstream_commit':contract['upstream_commit'] if item is not bonsai else None,
+   'source_inputs_sha256':main['source_proof']['source_inputs_sha256'] if item is not bonsai else None,
+   'patch_sha256':patch['patch_sha256'] if item is cache else contract['local_patch_sha256'] if item is main else None})
+ return result
+
+def H_BYTES(raw):
+ return hashlib.sha256(raw).hexdigest()
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
+ for item in reg.get('engine_source_reviews',[]):
+  ap=(root/item.pop('audit_path')).resolve()
+  if not ap.is_relative_to(root.resolve()) or digest(ap)!=item['audit_sha256']:raise ValueError('Engine source review changed')
+  a=read(ap)
+  if a['kind']!='ENGINE_SOURCE_VERSION_REVIEW' or a['new_GPU_runs']!=0:raise ValueError('Invalid engine source review')
+  raw={'_bytes':{}}
+  required={'main-build.json','main-source-contract.json','cache-build.json','cache-patch.json','bonsai-build.json','bonsai-plan.json'}
+  if set(a['raw_sources'])!=required:raise ValueError('Incomplete engine source receipts')
+  for name,sha in a['raw_sources'].items():
+   p=ap.parent/name
+   if digest(p)!=sha:raise ValueError('Engine source receipt changed')
+   raw['_bytes'][name]=p.read_bytes();raw[name]=read(p)
+  engines=engine_source_annotations(raw)
+  if engines!=a['engines']:raise ValueError('Engine source interpretation mismatch')
+  item.update(audit_id=receipt(ap,item['audit_sha256']),engines=engines,raw_sources=a['raw_sources'],interpretation=a['interpretation'])
  for item in reg.get('same_quantizer_weight_reviews',[]):
   if set(item)!={'review_id','at_utc',*(k+suffix for k in ('audit','header','tensor_results','plan','verification','rename') for suffix in ('_path','_sha256'))}:raise ValueError('Unreviewed same-quantizer export schema')
   paths={}
@@ -709,12 +755,17 @@ def render(register,history,comparison,docs,model_registry=None):
    if not isinstance(obj,dict) or key not in obj:return None
    obj=obj[key]
   return obj
- measured_ids={r['runtime_configuration_id'] for r in history['runs']};measured_profiles=[p for p in history['profiles'] if p['runtime_configuration_id'] in measured_ids]
+ measured_ids={r['runtime_configuration_id'] for r in history['runs']}
+ comparison_ids={r['runtime_configuration_id'] for r in history['runs'] if not r['benchmark_id'].startswith('local-')}
+ measured_profiles=[p for p in history['profiles'] if p['runtime_configuration_id'] in comparison_ids]
+ gap_paths+=['engine.source_base_commit','engine.source_version_label']
  def observed(p,path):
   values=[e['fields'][path] for e in history.get('configuration_evidence',[]) if e['runtime_configuration_id']==p['runtime_configuration_id'] and path in e['fields']]
+  if path in ('engine.source_base_commit','engine.source_version_label'):
+   values=[e[path.removeprefix('engine.')] for review in register.get('engine_source_reviews',[]) for e in review['engines'] if all(p['engine'].get(k)==e[k] for k in ('build_id','binary_sha256','kernel_library_sha256'))]
   return values[0] if values else field(p,path)
  page+=table(['Recorded field','Profiles with a value','Profiles without a value'],[[path,sum(observed(p,path) is not None for p in measured_profiles),sum(observed(p,path) is None for p in measured_profiles)] for path in gap_paths])
- page+='Coverage counts above refer only to measured configurations. Additional column-picker fields expose pinned observed sampler/template controls, engine-reported build information and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.\n\n'
+ page+='Coverage counts above refer to the measured benchmark configurations shown in this table, excluding local-only supplemental profiles. **Engine-Version / Quellstand** shows a recorded release when available, otherwise the independently linked source-base commit plus local patch variant. A source revision is not an invented upstream release tag. Matching requires the build, server SHA256 and CUDA-library SHA256; shared executable bytes alone cannot establish identical kernels. Source receipts and patch lineage are linked in each profile; unknown historical release tags stay unknown. OmniCoder V1/V2 naming is unified as **OmniCoder 9B** in the display while immutable original labels and separate measured configurations are preserved. Additional column-picker fields expose pinned observed sampler/template controls and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.\n\n'
  page+='Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.\n\n'
  page+='Prefill/decode/TTFT and other costs are shown only where the original run actually records them. Request wall time is not silently renamed total system latency. Performance columns are benchmark-specific, not pooled across unrelated tasks. CSV exports all filtered rows with the currently selected columns, complete identities and available audit links. CSV formula-like text is escaped.\n\nThe Top-5 analysis describes observed configurations and missing coverage. Suggested controlled A/B work is a research hypothesis, not a causal explanation, predicted speedup or automatic GPU authorization.\n\n[Immutable configuration history](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/configuration-history.json) · [Benchmark definitions and publisher evidence](benchmark-register.md) · [Original experiments](results.md)\n\n'
  page+='## Provenance gaps — excluded from reconstructed profiles\n\n'+table(['Experiment','Reason','Original audit'],[[g['experiment_id'],g['reason'],audit_links([g['audit_id']])] for g in history.get('provenance_gaps',[])])
@@ -787,9 +838,14 @@ def render(register,history,comparison,docs,model_registry=None):
  for ident,p in profiles.items():
   runs=[r for r in history['runs'] if r['runtime_configuration_id']==ident];attempts=[a for a in history['attempts'] if a['runtime_configuration_id']==ident]
   annotations=[e for e in history.get('configuration_evidence',[]) if e['runtime_configuration_id']==ident]
-  s='# '+str(p['model']['name'])+' · '+ident[:16]+'\n\n[Back to configuration comparison](../configuration-comparison.md)\n\nProfile ID: `'+ident+'`. Null means **NOT MEASURED**, never a default setting. Hardware evidence and costs are attached to each measured run; current host settings are not retrospectively assigned to historical runs.\n\n'
+  display_name=register.get('model_family_labels',{}).get(p['model']['family_id'],p['model']['name'])
+  s='# '+str(display_name)+' · '+ident[:16]+'\n\n[Back to configuration comparison](../configuration-comparison.md)\n\nProfile ID: `'+ident+'`. Null means **NOT MEASURED**, never a default setting. Hardware evidence and costs are attached to each measured run; current host settings are not retrospectively assigned to historical runs.\n\n'
   for title,key in [('Model and weights','model'),('Engine and backend','engine'),('Optimizations','optimizations'),('Runtime and sampler','runtime'),('Ordered startup parameters','start_parameters')]:
    s+='## '+title+'\n\n```json\n'+pretty(p[key])+'\n```\n\n'
+  for review in register.get('engine_source_reviews',[]):
+   for e in review['engines']:
+    if all(p['engine'].get(k)==e[k] for k in ('build_id','binary_sha256','kernel_library_sha256')):
+     s+='## Verified engine source revision\n\nThe original profile remains immutable. This matched build receipt supplies a source-base revision plus local patch lineage, not a reconstructed upstream release tag.\n\n```json\n'+pretty(e)+'\n```\n\n'+audit_links([review['audit_id']],'../')+'\n\n'
   s+='## Results and original audits\n\n'+table(['Experiment','Benchmark / scope','Success','Wall s','GPU J / success','Peak VRAM MiB','Original audits'],[[r['experiment_id'],r['benchmark_id']+' / '+r['status'],str(r['solved'])+'/'+str(r['tasks']),r['wall_s'],r['gpu_j_per_success'],r['peak_vram_mib'],audit_links(r['audit_ids'],'../')] for r in runs])
   s+='Separate benchmark qualification audits: '+audit_links([r.get('qualification_audit_id') for r in runs],'../')+'\n\n'
   s+=table(['Experiment / arm','Execution evidence','Scientific decision','Original audit'],[[a['experiment_id']+' / '+str(a['arm_index']),a['execution_status'],a['scientific_status'],audit_links([a['audit_id']],'../')] for a in attempts])

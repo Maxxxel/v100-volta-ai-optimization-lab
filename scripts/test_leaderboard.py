@@ -1,9 +1,34 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
+ def engine_source_fixture(self):
+  contract={'reference_commit':'a'*40,'upstream_commit':'b'*40,'reference_inputs_canonical_sha256':'c'*64,'local_patch_sha256':'d'*64,'remote_url':'https://github.com/ggml-org/llama.cpp.git'}
+  cbytes=json.dumps(contract).encode();sha=lambda b:__import__('hashlib').sha256(b).hexdigest()
+  def ids(server,cuda):return {'/build/runtime/llama-server':server*64,'/build/runtime/libggml-cuda.so.0.26.0':cuda*64}
+  main={'engine':'/builds/main/runtime/llama-server','identities':ids('1','2'),'source_proof':{'commit':'a'*40,'source_inputs_sha256':'c'*64,'source_contract_sha256':sha(cbytes)}}
+  mbytes=json.dumps(main).encode();patch={'parent':'/builds/main','parent_manifest_sha256':sha(mbytes),'patch_sha256':'e'*64}
+  cache={'engine':'/builds/cache/runtime/llama-server','identities':ids('1','3'),'source_proof':patch}
+  bonsai={'source_commit':'f'*40,'status':'CPU_BUILD_COMPLETE_STATIC_SM70_PRESENT_GPU_UNTESTED','runtime_path':'/builds/bonsai/runtime','runtime_files_sha256':ids('4','5')}
+  return {'main-build.json':main,'main-source-contract.json':contract,'cache-build.json':cache,'cache-patch.json':patch,'bonsai-build.json':bonsai,'bonsai-plan.json':{'source_commit':'f'*40},'_bytes':{'main-build.json':mbytes,'main-source-contract.json':cbytes}}
+ def test_engine_source_label_is_not_a_release_and_distinguishes_cuda_variants(self):
+  rows=engine_source_annotations(self.engine_source_fixture());self.assertEqual(len(rows),3);self.assertTrue(all(r['release_version'] is None for r in rows))
+  self.assertEqual(rows[0]['source_base_commit'],rows[1]['source_base_commit']);self.assertEqual(rows[0]['binary_sha256'],rows[1]['binary_sha256']);self.assertNotEqual(rows[0]['kernel_library_sha256'],rows[1]['kernel_library_sha256'])
+  self.assertEqual([r['build_id'] for r in rows],['main','cache','bonsai']);self.assertIn('HBM cache',rows[1]['source_version_label'])
+ def test_engine_source_review_rejects_broken_contract_parent_and_binary_links(self):
+  for mode in ('commit','contract-hash','parent-hash','parent-name','missing-binary','ambiguous-library','unfinished-build','bonsai-commit'):
+   raw=self.engine_source_fixture()
+   if mode=='commit':raw['main-source-contract.json']['reference_commit']='e'*40
+   elif mode=='contract-hash':raw['_bytes']['main-source-contract.json']=b'changed'
+   elif mode=='parent-hash':raw['cache-patch.json']['parent_manifest_sha256']='0'*64
+   elif mode=='parent-name':raw['cache-patch.json']['parent']='/builds/other'
+   elif mode=='missing-binary':raw['main-build.json']['identities'].pop('/build/runtime/llama-server')
+   elif mode=='ambiguous-library':raw['main-build.json']['identities']['/build/runtime/libggml-cuda.so.0.21.0']='9'*64
+   elif mode=='unfinished-build':raw['bonsai-build.json']['status']='INCOMPLETE'
+   else:raw['bonsai-plan.json']['source_commit']='0'*40
+   with self.subTest(mode=mode),self.assertRaises(ValueError):engine_source_annotations(raw)
  def payload_fixture(self):
   plan={key:{'repository':'owner/model','revision':'c'*40,'filename':key+'.gguf','bytes':300,'sha256':letter*64} for key,letter in [('V1','a'),('V2','b')]}
   rows=[{'name':'matrix.weight','shape':[256],'type':'Q6_K','parameters':256,'payload_bytes':210,'byte_identical':True,'payload_sha256_V1':'d'*64,'payload_sha256_V2':'d'*64}]

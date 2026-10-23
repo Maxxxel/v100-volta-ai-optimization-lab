@@ -1,4 +1,4 @@
-# OmniCoder2 9B · cfg-98af84008b03
+# OmniCoder 9B · cfg-98af84008b03
 
 [Back to configuration comparison](../configuration-comparison.md)
 

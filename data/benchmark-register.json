@@ -9484,6 +9484,63 @@
       "version": "v4, entire simple_python category only"
     }
   ],
+  "engine_source_reviews": [
+    {
+      "audit_id": "audit-ad26886527c71fef3b59",
+      "audit_sha256": "ad26886527c71fef3b5939f99898e39b6df2dec5f97b037a5e60b39de9ccefc6",
+      "engines": [
+        {
+          "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+          "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "comparison_upstream_commit": "ea0c4c2c85fb183ec0fbd30a1af4e4275a18a064",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "local_variant": "local patches",
+          "patch_sha256": "69fd43355a882451812995e5cfb6eae8af2c01224c0c3d41ef75c73fbd6e8b45",
+          "release_version": null,
+          "source_base_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267",
+          "source_inputs_sha256": "9e3f8d55281b16afdd88a51c1e51f2c658ae1958caf88fdf1537601b35245213",
+          "source_repository": "https://github.com/ggml-org/llama.cpp",
+          "source_version_label": "097cf33 + local patches"
+        },
+        {
+          "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+          "build_id": "bbae889168127411ddd91d4576791ef20917e7a534d974d134347a33ea626499",
+          "comparison_upstream_commit": "ea0c4c2c85fb183ec0fbd30a1af4e4275a18a064",
+          "kernel_library_sha256": "b1596b98ba033d8a400d5ecaba5630168c5c5626b493ed2230ecb239c84a62ad",
+          "local_variant": "local patches + HBM cache",
+          "patch_sha256": "bf224920b6295d0c28060b7c43787878008c6b016b3f98dd1e1f4c237ee1de3d",
+          "release_version": null,
+          "source_base_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267",
+          "source_inputs_sha256": "9e3f8d55281b16afdd88a51c1e51f2c658ae1958caf88fdf1537601b35245213",
+          "source_repository": "https://github.com/ggml-org/llama.cpp",
+          "source_version_label": "097cf33 + local patches + HBM cache"
+        },
+        {
+          "binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+          "build_id": "bonsai-pq2-sm70-9a9394a895b9",
+          "comparison_upstream_commit": null,
+          "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+          "local_variant": "Bonsai PQ2 SM70",
+          "patch_sha256": null,
+          "release_version": null,
+          "source_base_commit": "9a9394a895b96003ca842a6041cb28ac49a108f7",
+          "source_inputs_sha256": null,
+          "source_repository": null,
+          "source_version_label": "9a9394a + Bonsai PQ2 SM70"
+        }
+      ],
+      "interpretation": "Exact build ID, server SHA256 and CUDA-library SHA256 bind the recorded source base and local patch lineage. Source revision labels are not upstream release tags. Runtime logs saying build 0 (unknown) do not invalidate separately preserved source/build receipts. Shared executable hash alone is insufficient to equate different CUDA libraries. No GPU execution or new benchmark score.",
+      "raw_sources": {
+        "bonsai-build.json": "dcf7d695300a6859abb4be2fdf54e7bc4eb37d6bb2f2dcb565a7998b084e12e3",
+        "bonsai-plan.json": "573439f59acee30327cf2bd53da60ced76d3ecb4c562d72270b74196e39bd270",
+        "cache-build.json": "6b86deecca3a7275f8b5d9143afb447a8924d61d67aafe00cdba83fb22d9a73d",
+        "cache-patch.json": "be1f72563322282a25e3d4446ce51a35c6610a5646f7467f70d1ec8c596d3b1f",
+        "main-build.json": "b23f17f03e34ae0d68f5ea11fa58b4a22ef19e3a74a5e933d20f2818a1f4eaa9",
+        "main-source-contract.json": "05f3faf4a561a1a5a6e172359b4ce04d24e11d1707a5d9db6032f2835fd513f0"
+      },
+      "review_id": "engine-source-versions-20261023"
+    }
+  ],
   "generation_policy": "Publisher claims are separate; official eligibility requires full exact task/scorer/protocol conformance. No visualization GPU runs.",
   "local_cohort_classification": {
     "coding": {
@@ -9703,6 +9760,11 @@
       "url": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md"
     }
   ],
+  "model_family_labels": {
+    "OmniCoder2-9B-Q6_K": "OmniCoder 9B",
+    "omni": "OmniCoder 9B",
+    "omnicoder2": "OmniCoder 9B"
+  },
   "model_label_annotations": [
     {
       "artifact_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",

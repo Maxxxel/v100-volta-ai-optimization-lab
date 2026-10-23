@@ -16,25 +16,27 @@ Model names and file names are not proof of architecture, parameter count, QAT, 
 
 | Recorded field | Profiles with a value | Profiles without a value |
 | --- | --- | --- |
-| model.hf_revision | 13 | 15 |
-| model.hf_repository | 13 | 15 |
-| model.parameter_count | 0 | 28 |
-| model.qat | 0 | 28 |
-| model.svd | 0 | 28 |
-| model.architecture | 25 | 3 |
-| engine.version | 0 | 28 |
-| engine.git_commit | 0 | 28 |
-| engine.fork_repository | 0 | 28 |
-| engine.cuda_version | 0 | 28 |
-| engine.driver_version | 0 | 28 |
-| engine.executed_kernel_backend_path | 0 | 28 |
-| runtime.thinking_level | 0 | 28 |
-| runtime.reasoning_budget_tokens | 0 | 28 |
-| optimizations.speculation_effective | 0 | 28 |
-| optimizations.flash_attention_effective | 0 | 28 |
-| optimizations.cuda_graphs.actual_capture_replay | 0 | 28 |
+| model.hf_revision | 6 | 9 |
+| model.hf_repository | 6 | 9 |
+| model.parameter_count | 0 | 15 |
+| model.qat | 0 | 15 |
+| model.svd | 0 | 15 |
+| model.architecture | 13 | 2 |
+| engine.version | 0 | 15 |
+| engine.git_commit | 0 | 15 |
+| engine.fork_repository | 0 | 15 |
+| engine.cuda_version | 0 | 15 |
+| engine.driver_version | 0 | 15 |
+| engine.executed_kernel_backend_path | 0 | 15 |
+| runtime.thinking_level | 0 | 15 |
+| runtime.reasoning_budget_tokens | 0 | 15 |
+| optimizations.speculation_effective | 0 | 15 |
+| optimizations.flash_attention_effective | 0 | 15 |
+| optimizations.cuda_graphs.actual_capture_replay | 0 | 15 |
+| engine.source_base_commit | 15 | 0 |
+| engine.source_version_label | 15 | 0 |
 
-Coverage counts above refer only to measured configurations. Additional column-picker fields expose pinned observed sampler/template controls, engine-reported build information and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.
+Coverage counts above refer to the measured benchmark configurations shown in this table, excluding local-only supplemental profiles. **Engine-Version / Quellstand** shows a recorded release when available, otherwise the independently linked source-base commit plus local patch variant. A source revision is not an invented upstream release tag. Matching requires the build, server SHA256 and CUDA-library SHA256; shared executable bytes alone cannot establish identical kernels. Source receipts and patch lineage are linked in each profile; unknown historical release tags stay unknown. OmniCoder V1/V2 naming is unified as **OmniCoder 9B** in the display while immutable original labels and separate measured configurations are preserved. Additional column-picker fields expose pinned observed sampler/template controls and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.
 
 Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.
 

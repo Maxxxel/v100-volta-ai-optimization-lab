@@ -20,6 +20,7 @@ test('artifact-specific identity labels preserve immutable model names, runs and
   const target = model.rows.find(r => r.profile.model.artifact_sha256);
   const hash = target.profile.model.artifact_sha256;
   copy.register.model_label_annotations = [{ artifact_sha256: hash, display_name: 'Verified weight-equivalent artifact', review_id: 'fixture' }];
+  copy.register.model_family_labels = {};
   const before = JSON.stringify(copy.history), view = M.build(copy);
   for (const row of view.rows) {
     if (row.profile.model.artifact_sha256 === hash) {
@@ -234,4 +235,22 @@ test('comparison view excludes own supplemental tests without deleting any sourc
   for (const row of model.rows) assert(view.rows.includes(row) || view.supplementalRows.includes(row));
   assert.equal(M.canonical(data), before);
   assert(model.benchmarks.some(b => b.scope === 'LOCAL_SUPPLEMENTAL'));
+});
+
+test('OmniCoder historical V2 labels collapse to one display family without losing configurations', () => {
+  const view = M.comparisonView(M.build(data));
+  const omni = view.rows.filter(r => Object.hasOwn(data.register.model_family_labels || {}, r.profile.model.family_id));
+  assert(omni.length > 1);
+  assert(omni.every(r => r.displayName === 'OmniCoder 9B'));
+  assert.equal(new Set(omni.map(r => r.id)).size, omni.length);
+  assert(omni.every(r => r.values['model.historical_name'] === r.profile.model.name));
+});
+test('engine source labels require the exact recorded server, CUDA library and build tuple', () => {
+  const view = M.comparisonView(M.build(data)), column = view.columns.find(c => c.key === 'engine.version');
+  assert(view.rows.every(r => typeof M.value(r, column, {}, view.benchmarkMap) === 'string'));
+  assert(view.rows.every(r => r.profile.engine.version === null), 'No synthetic upstream release written into immutable profiles');
+  const copy = JSON.parse(JSON.stringify(data)), review = copy.register.engine_source_reviews?.[0]; assert(review);
+  review.engines.forEach(e => { e.kernel_library_sha256 = '0'.repeat(64); });
+  const wrong = M.comparisonView(M.build(copy));
+  assert(wrong.rows.every(r => r.values['engine.source_version_label'] === undefined));
 });
