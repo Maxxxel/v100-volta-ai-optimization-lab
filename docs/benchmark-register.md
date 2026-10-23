@@ -17,7 +17,7 @@
 | hf_latest_observed_revision | d32357cf319e50e9c8d8dab5ea876c72b0fd321b |
 | hf_revision_is_not_release_equivalence_proof | True |
 | license | Apache-2.0 |
-| local_complete_conformant_results | 5 independently replayed full official API records under the declared local evaluation protocol; not publisher-protocol or production qualifications. |
+| local_complete_conformant_results | 7 independently replayed full official API records under the declared local evaluation protocol; not publisher-protocol or production qualifications. |
 | metric | pass_at_1_percent |
 | name | HumanEval+ v0.1.10 |
 | official_definition_verified | True |
@@ -247,6 +247,8 @@ These are verification events for existing measurements, **not new GPU runs**. O
 | R425 | 164 | 149 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
 | R117 | 164 | 148 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
 | R118 | 164 | 150 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
+| R254 | 164 | 117 | 0 | [audit-58f7f002ffc04c7f34a7](audits/audit-58f7f002ffc04c7f34a7.md) |
+| R279 | 164 | 151 | 0 | [audit-58f7f002ffc04c7f34a7](audits/audit-58f7f002ffc04c7f34a7.md) |
 
 ## Unreachable / unresolved model-card identities
 

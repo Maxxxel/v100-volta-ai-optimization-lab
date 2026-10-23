@@ -515,3 +515,7 @@ Separated full official highscores from frozen BFCL/MBPP subsets, HumanEval scor
 ## Independent full164 official API verification
 
 Replayed the existing R217, R255, R425, R117 and R118 answers in CPU isolation using the pinned official EvalPlus checker and pass@1 estimator. All 820 original task outcomes (both base and plus verdicts per task) were reproduced without changes; no GPU generation was repeated. Five full164 configurations enter the declared local official-API track. The initial project gate requiring every canonical reference to pass was corrected transparently: the HumanEval/32 anomaly belongs to the unchanged official oracle, and remains disclosed with all164 tasks included, unchanged tolerance, validated remaining controls and explicit local evaluation-resource limits. This does not establish publisher-protocol equivalence, lossless MTP, overall model superiority or production qualification. Earlier supplemental records and startup failures remain preserved.
+
+## Remaining archived full164 profiles verified
+
+Completed the same independent CPU-only verification for Ornith R254 (117/164) and Bonsai’s disjoint R271–R279 campaign (151/164). All original task judgments matched. Seven configurations across six models now have full164 official-API evidence under the same declared local scoring protocol. This adds verification, not new GPU measurements or a claim of overall model superiority. Incomplete native-tool/MBPP cohorts remain separate and no cross-benchmark mean is computed.

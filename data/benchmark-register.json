@@ -388,7 +388,7 @@
       "hf_latest_observed_revision": "d32357cf319e50e9c8d8dab5ea876c72b0fd321b",
       "hf_revision_is_not_release_equivalence_proof": true,
       "license": "Apache-2.0",
-      "local_complete_conformant_results": "5 independently replayed full official API records under the declared local evaluation protocol; not publisher-protocol or production qualifications.",
+      "local_complete_conformant_results": "7 independently replayed full official API records under the declared local evaluation protocol; not publisher-protocol or production qualifications.",
       "metric": "pass_at_1_percent",
       "model_card_references": [
         {
@@ -741,6 +741,26 @@
       "model_generations": 0,
       "solved": 150,
       "tasks": 164
+    },
+    {
+      "GPU_runs": 0,
+      "audit_id": "audit-58f7f002ffc04c7f34a7",
+      "audit_sha256": "58f7f002ffc04c7f34a78810af63cadddc3f9d982fc6442a79ac29fb54eab458",
+      "changed_judgements": 0,
+      "experiment_id": "R254",
+      "model_generations": 0,
+      "solved": 117,
+      "tasks": 164
+    },
+    {
+      "GPU_runs": 0,
+      "audit_id": "audit-58f7f002ffc04c7f34a7",
+      "audit_sha256": "58f7f002ffc04c7f34a78810af63cadddc3f9d982fc6442a79ac29fb54eab458",
+      "changed_judgements": 0,
+      "experiment_id": "R279",
+      "model_generations": 0,
+      "solved": 151,
+      "tasks": 164
     }
   ],
   "model_card_evidence": [
@@ -867,7 +887,7 @@
   "next_test_priorities": [
     {
       "GPU_required_initially": false,
-      "action": "Five full164 archived model profiles independently replayed with exact official scoring functions. All original judgements confirmed. Known upstream canonical32 anomaly explicitly admitted without exclusions or scorer changes; retain local evaluation limits and publisher-protocol separation.",
+      "action": "All seven existing full164 model profiles independently replayed with exact official scoring functions. All1148 task outcomes confirmed, with both base and plus checks. Known unchanged upstream canonical32 anomaly explicitly admitted without exclusions/tolerance changes. Local evaluation limits and publisher-protocol separation remain mandatory.",
       "priority": "P0_COMPLETE"
     },
     {
@@ -916,6 +936,18 @@
       "proof_path": "staging/leaderboard-register/cohorts/r118/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "09c5716742d2ca13849d06c1bd6fb7a269631141419135fd94beee18e3ddbfb5",
       "source_audit_hash": "ab44bd9905753dd56faf682336ba75ef247818df7d6ba3774c7ac50fdfc4feef"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/leaderboard-register/cohorts/r254/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "b2aa36e18b0ab8266456b76e3138729a13fb9c513b486dd1bff8c7c509a487d3",
+      "source_audit_hash": "a898f240d6d584ddfcaaa6fdcf3b3d1a75c250ee73960005a4fe362f2551abb9"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/leaderboard-register/cohorts/r279/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "8da8b2d944d9524098ee50c6a65657faa4cd6d76f620fcbfca7135e3de9a6ead",
+      "source_audit_hash": "3cc9e94338b5c4d2b889a5fd21d88cfc308a0d287fcab2e9981a24393725e0e9"
     }
   ],
   "publisher_claims": [

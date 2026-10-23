@@ -250089,5 +250089,66 @@
       "decision": "FULL_OFFICIAL_API_RESULTS_ADMITTED_UNDER_PINNED_LOCAL_PROTOCOL_WITH_DECLARED_UNCHANGED_UPSTREAM_REFERENCE_ANOMALY",
       "scope": "Benchmark measurement qualification only, not production/model superiority/optimization causality. Publisher protocols remain separate."
     }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 117,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b2aa36e18b0ab8266456",
+    "original_bytes": 6801,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b2aa36e18b0ab8266456b76e3138729a13fb9c513b486dd1bff8c7c509a487d3",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 151,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8da8b2d944d9524098ee",
+    "original_bytes": 8031,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8da8b2d944d9524098ee50c6a65657faa4cd6d76f620fcbfca7135e3de9a6ead",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 0,
+      "models": {
+        "R254": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 117,
+          "tasks": 164
+        },
+        "R279": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 151,
+          "tasks": 164
+        }
+      },
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-58f7f002ffc04c7f34a7",
+    "original_bytes": 1363,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "58f7f002ffc04c7f34a78810af63cadddc3f9d982fc6442a79ac29fb54eab458",
+    "statements": {
+      "decision": "TWO_ADDITIONAL_ARCHIVED_FULL164_API_PROFILES_CONFIRMED_UNDER_SAME_PINNED_LOCAL_PROTOCOL",
+      "scope": "Original judgements unchanged. Bonsai disjoint campaign pieces were merged without changing answer code or task coverage. Benchmark-only API qualification; no publisher-protocol equivalence, production Champion or causal optimization claim."
+    }
   }
 ]

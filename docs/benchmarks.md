@@ -10,7 +10,7 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 ## Current admission status
 
-5 eligible official runs under the declared local protocol. 34 versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. 246 content-addressed profiles and 219 additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.
+7 eligible official runs under the declared local protocol. 36 versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. 246 content-addressed profiles and 219 additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.
 
 | Original local cohort classification | Historical scope | Reason before separate admission |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 | Priority | Technical decision / next step | GPU initially required |
 | --- | --- | --- |
-| P0_COMPLETE | Five full164 archived model profiles independently replayed with exact official scoring functions. All original judgements confirmed. Known upstream canonical32 anomaly explicitly admitted without exclusions or scorer changes; retain local evaluation limits and publisher-protocol separation. | False |
+| P0_COMPLETE | All seven existing full164 model profiles independently replayed with exact official scoring functions. All1148 task outcomes confirmed, with both base and plus checks. Known unchanged upstream canonical32 anomaly explicitly admitted without exclusions/tolerance changes. Local evaluation limits and publisher-protocol separation remain mandatory. | False |
 | P1 | Admit full BFCLv4 manifest, scorer and categories before new full-tool runs. Keep native100 as pilot. | False |
 | P1 | Assess missing155 MBPP+ tasks and resource-failed task with official scorer before deciding whether a full378 run is practical. Reuse all valid stored answers; no test-driven parameter tuning. | False |
 | P2 | SWE-bench/Terminal-Bench isolated scaffold, disk/RAM and task-image admission; no production tools or implied128K support. | False |
