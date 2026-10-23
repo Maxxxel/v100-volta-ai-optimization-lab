@@ -10724,6 +10724,34 @@
       "official_eligible": false,
       "runtime_configuration_id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
       "scientific_status": "BOUNDED_NATIVE_EXECUTION_OBSERVED"
+    },
+    {
+      "arm_index": 0,
+      "attempt_id": "attempt-81e48d4433ab581868c75bed2b8896f1a7976875f5b5e2d8257e748e993825a5",
+      "audit_hash": "2e280e36b1b4fa0174d6e1a7f41851b0f8fd75a517a4c08691cb19a053fc0d9d",
+      "audit_id": "audit-2e280e36b1b4fa0174d6",
+      "execution_status": "INFERENCE_OBSERVED_IN_BROKER_CAMPAIGN; FULL_BENCHMARK_NOT_IMPLIED",
+      "experiment_id": "R449",
+      "lab_metrics": {},
+      "model_family_id": "mimo_v26_distill_qwen9b_q8",
+      "model_name": "mimo_v26_distill_qwen9b_q8",
+      "official_eligible": false,
+      "runtime_configuration_id": "cfg-14441132be88d350d8da9e4d1c849096b30f8f0f5f03f3b826f3e69e2515f8a7",
+      "scientific_status": "BOUNDED_NATIVE_EXECUTION_OBSERVED"
+    },
+    {
+      "arm_index": 0,
+      "attempt_id": "attempt-b6ddcf7c80f7dc08e5b8dd92a321e7d9ecc6f8c8c0814c5fef4fd3456fdd2d57",
+      "audit_hash": "2b532d4c46d82f8bc7dcae0d7b2096dd8be12cf78dec78d028aa5342e09cd527",
+      "audit_id": "audit-2b532d4c46d82f8bc7dc",
+      "execution_status": "INFERENCE_OBSERVED_IN_BROKER_CAMPAIGN; FULL_BENCHMARK_NOT_IMPLIED",
+      "experiment_id": "R450",
+      "lab_metrics": {},
+      "model_family_id": "lfm25_8b_a1b_q6",
+      "model_name": "lfm25_8b_a1b_q6",
+      "official_eligible": false,
+      "runtime_configuration_id": "cfg-a51d911a8a1a253ac85c1d49f74a10cfa8b07372a063453b2e47f6696e37eed3",
+      "scientific_status": "BOUNDED_NATIVE_EXECUTION_OBSERVED"
     }
   ],
   "configuration_evidence": [
@@ -12765,6 +12793,208 @@
           "sha256": "5e07d61a69e1c3304eddd8a95d2889fdf57f5aca66d1bfadb0fb31296a6473bf"
         }
       ]
+    },
+    {
+      "evidence_id": "evidence-6db9ca7dbd7abd7901fb3124824d843deeb864d17a96a927855191da73cc39fa",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 4096,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.6000000238418579,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0.6,
+        "runtime.observed_request_sampling.top_k": 20,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": true
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-14441132be88d350d8da9e4d1c849096b30f8f0f5f03f3b826f3e69e2515f8a7",
+      "sources": [
+        {
+          "authority_audit_id": "audit-342ec449ec9bd805c3e3",
+          "filename": "LAUNCH.json",
+          "sha256": "a27b78040e924fec6466ba91493091a30ea60b3fbb2c6271a60658a057595f04"
+        },
+        {
+          "authority_audit_id": "audit-cc20e1194373f02b7518",
+          "filename": "server.log",
+          "sha256": "eefb8023c925247cc4e67e0a08c856c2869f8d50c96476247e232bbcc2d35f6f"
+        },
+        {
+          "authority_audit_id": "audit-85cb9470eff12a48245e",
+          "filename": "LAUNCH.json",
+          "sha256": "b18bb701f833daf0af19c10a21267972d098dc85464fd574b911d5b84dd89e67"
+        },
+        {
+          "authority_audit_id": "audit-342ec449ec9bd805c3e3",
+          "filename": "server.log",
+          "sha256": "068a55bcc0ee506bba87e833678e20f8c1f992d521a634d3eb6755aec6224fc8"
+        },
+        {
+          "authority_audit_id": "audit-6d41ec3dcb2e5002f5ae",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "b7322b8b31009826e3b8dd6bb4f441a0d5be891fbe718c234aa0e8849d23573e"
+        },
+        {
+          "authority_audit_id": "audit-3dd61dc81b57bf251f88",
+          "filename": "LAUNCH.json",
+          "sha256": "697dd71aeb1e14a7d295c820915ed42459fcb1c9bed2b70e963065f899e55e6d"
+        },
+        {
+          "authority_audit_id": "audit-85cb9470eff12a48245e",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "fad8782d17368b468690c65bb767bc83cce461bfd6185fead3c3a80f4a21975e"
+        },
+        {
+          "authority_audit_id": "audit-cc20e1194373f02b7518",
+          "filename": "LAUNCH.json",
+          "sha256": "8f2e02a2901da7e7e4f600cde4dd306584bb9e33069cbcbe46e8796fc196b3e6"
+        },
+        {
+          "authority_audit_id": "audit-cc20e1194373f02b7518",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7443d75110659cf84279bad7559ab96c43093f4af294e75c32a1402c8f5804e8"
+        },
+        {
+          "authority_audit_id": "audit-3dd61dc81b57bf251f88",
+          "filename": "server.log",
+          "sha256": "5080df37a973252cbd2b463265141b07582fac41a6d2333d69115e6b1389ee39"
+        },
+        {
+          "authority_audit_id": "audit-3dd61dc81b57bf251f88",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "6b2021644adf5bcccb062e2f91536837795bcb34ece3de5f1f2838c1fe5c2389"
+        },
+        {
+          "authority_audit_id": "audit-6d41ec3dcb2e5002f5ae",
+          "filename": "LAUNCH.json",
+          "sha256": "77b7c01db47bb738167606dc901c006cb1a60373c6530c60d07aa6688143953a"
+        },
+        {
+          "authority_audit_id": "audit-85cb9470eff12a48245e",
+          "filename": "server.log",
+          "sha256": "2fed0471b58eb5874922553b7c13cf21d740c5dd077cd3974d302b6898bcb44b"
+        },
+        {
+          "authority_audit_id": "audit-6d41ec3dcb2e5002f5ae",
+          "filename": "server.log",
+          "sha256": "2528e855734a1169a6639a1b81bdc1dd7819f384657c5522dcba301d5337e947"
+        },
+        {
+          "authority_audit_id": "audit-342ec449ec9bd805c3e3",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "bcfa274be6fbaebd3933e830b658d1e1f909a1f293c47ef00c32fa0373c71c5d"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-86248c5b774dee59055bf7f5b05355b17d621c09d2dad03a2314b8a394cc4ef5",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "lfm2moe",
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 4096,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0499999523162842,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.20000000298023224,
+        "runtime.observed_generation_settings.top_k": 80,
+        "runtime.observed_generation_settings.top_p": 1.0,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.05,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0.2,
+        "runtime.observed_request_sampling.top_k": 80,
+        "runtime.observed_request_sampling.top_p": 1.0
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-a51d911a8a1a253ac85c1d49f74a10cfa8b07372a063453b2e47f6696e37eed3",
+      "sources": [
+        {
+          "authority_audit_id": "audit-f9f3940763fb3e78efdd",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "6be65715fbca8c4f2c0fb58cf2d4a66d90beb915b8ff52ce945f400b050c96ba"
+        },
+        {
+          "authority_audit_id": "audit-f9f3940763fb3e78efdd",
+          "filename": "server.log",
+          "sha256": "f4b3a1f0c12faa2a0e8f5924a910a44884a6871e1f7fe2521c365ea1eeb800ef"
+        },
+        {
+          "authority_audit_id": "audit-1e104e9c10a6d5af2077",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "07ed2c1db669622d94905249151a3e124d1e3d63d8a577d7daca8986f072d256"
+        },
+        {
+          "authority_audit_id": "audit-1e104e9c10a6d5af2077",
+          "filename": "LAUNCH.json",
+          "sha256": "bf5c0d628ac4ae2e40b7d43ef391108f631a5cedd6b32590c5924de1c73ed61a"
+        },
+        {
+          "authority_audit_id": "audit-86ece832399ad8c6e5b4",
+          "filename": "server.log",
+          "sha256": "3674f6f654a0af2dc76a2f522a902fcaec0f7d74c507f7d2df82fc5822f338b3"
+        },
+        {
+          "authority_audit_id": "audit-86ece832399ad8c6e5b4",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "754b06bb3bd96202fb6b6bab9b139c5e8844bc232609538c03cc25b0e09fe63e"
+        },
+        {
+          "authority_audit_id": "audit-1e104e9c10a6d5af2077",
+          "filename": "server.log",
+          "sha256": "8c678ed55405e9fe1c14dbad3baa3c2889ca848d48a789d9d3e591ad7a9c608d"
+        },
+        {
+          "authority_audit_id": "audit-f9f3940763fb3e78efdd",
+          "filename": "LAUNCH.json",
+          "sha256": "6bd2e050b04854edac42da33e1e6958b05e81c5f4362cde3e5f37293c33e8b05"
+        },
+        {
+          "authority_audit_id": "audit-86ece832399ad8c6e5b4",
+          "filename": "LAUNCH.json",
+          "sha256": "25996a88a0408bc84907d1dd94542136d2a4cad464f1fff066306ef929b56309"
+        }
+      ]
     }
   ],
   "measurement_evidence": [
@@ -14001,6 +14231,266 @@
         "prefill_tokens": 177466
       },
       "wall_sum_s": 124.101119805
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-c1793b473d43a3666a8dbf23adb334a122a4deba9fe5c895ae529c8423bdb586",
+      "run_id": "run-f878bb572531aaacad105cd8b0239df5545a324b82406b137ad673067e07d2a0",
+      "runtime_configuration_id": "cfg-14441132be88d350d8da9e4d1c849096b30f8f0f5f03f3b826f3e69e2515f8a7",
+      "sources": [
+        {
+          "authority_audit_id": "audit-342ec449ec9bd805c3e3",
+          "filename": "LAUNCH.json",
+          "sha256": "a27b78040e924fec6466ba91493091a30ea60b3fbb2c6271a60658a057595f04"
+        },
+        {
+          "authority_audit_id": "audit-cc20e1194373f02b7518",
+          "filename": "server.log",
+          "sha256": "eefb8023c925247cc4e67e0a08c856c2869f8d50c96476247e232bbcc2d35f6f"
+        },
+        {
+          "authority_audit_id": "audit-85cb9470eff12a48245e",
+          "filename": "LAUNCH.json",
+          "sha256": "b18bb701f833daf0af19c10a21267972d098dc85464fd574b911d5b84dd89e67"
+        },
+        {
+          "authority_audit_id": "audit-342ec449ec9bd805c3e3",
+          "filename": "server.log",
+          "sha256": "068a55bcc0ee506bba87e833678e20f8c1f992d521a634d3eb6755aec6224fc8"
+        },
+        {
+          "authority_audit_id": "audit-6d41ec3dcb2e5002f5ae",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "b7322b8b31009826e3b8dd6bb4f441a0d5be891fbe718c234aa0e8849d23573e"
+        },
+        {
+          "authority_audit_id": "audit-3dd61dc81b57bf251f88",
+          "filename": "LAUNCH.json",
+          "sha256": "697dd71aeb1e14a7d295c820915ed42459fcb1c9bed2b70e963065f899e55e6d"
+        },
+        {
+          "authority_audit_id": "audit-85cb9470eff12a48245e",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "fad8782d17368b468690c65bb767bc83cce461bfd6185fead3c3a80f4a21975e"
+        },
+        {
+          "authority_audit_id": "audit-cc20e1194373f02b7518",
+          "filename": "LAUNCH.json",
+          "sha256": "8f2e02a2901da7e7e4f600cde4dd306584bb9e33069cbcbe46e8796fc196b3e6"
+        },
+        {
+          "authority_audit_id": "audit-cc20e1194373f02b7518",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7443d75110659cf84279bad7559ab96c43093f4af294e75c32a1402c8f5804e8"
+        },
+        {
+          "authority_audit_id": "audit-3dd61dc81b57bf251f88",
+          "filename": "server.log",
+          "sha256": "5080df37a973252cbd2b463265141b07582fac41a6d2333d69115e6b1389ee39"
+        },
+        {
+          "authority_audit_id": "audit-3dd61dc81b57bf251f88",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "6b2021644adf5bcccb062e2f91536837795bcb34ece3de5f1f2838c1fe5c2389"
+        },
+        {
+          "authority_audit_id": "audit-6d41ec3dcb2e5002f5ae",
+          "filename": "LAUNCH.json",
+          "sha256": "77b7c01db47bb738167606dc901c006cb1a60373c6530c60d07aa6688143953a"
+        },
+        {
+          "authority_audit_id": "audit-85cb9470eff12a48245e",
+          "filename": "server.log",
+          "sha256": "2fed0471b58eb5874922553b7c13cf21d740c5dd077cd3974d302b6898bcb44b"
+        },
+        {
+          "authority_audit_id": "audit-6d41ec3dcb2e5002f5ae",
+          "filename": "server.log",
+          "sha256": "2528e855734a1169a6639a1b81bdc1dd7819f384657c5522dcba301d5337e947"
+        },
+        {
+          "authority_audit_id": "audit-342ec449ec9bd805c3e3",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "bcfa274be6fbaebd3933e830b658d1e1f909a1f293c47ef00c32fa0373c71c5d"
+        }
+      ],
+      "tasks": 30,
+      "values": {
+        "decode_engine_ms": 126657.057,
+        "decode_tok_s": 73.03185640891688,
+        "decode_tokens": 9250,
+        "gpu_j_per_output_token": 3.2371654328611,
+        "prefill_engine_ms": 3522.8650000000002,
+        "prefill_tok_s": 1239.3321912704573,
+        "prefill_tokens": 4366
+      },
+      "wall_sum_s": 130.25978048300001
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-7d94d0febe7e09f1c5747075c33d45277d29609d4d105ca5ecbe0d700883fe9e",
+      "run_id": "run-b3fbfd00ec5cfdddbd555ec601bd920cb1561fe354d810a44f00b0f4d08bd49b",
+      "runtime_configuration_id": "cfg-66197a37964ebf638e5f284a711c59cf382740b838563e53abe295841a619307",
+      "sources": [
+        {
+          "authority_audit_id": "audit-ed1f07fd94496257f766",
+          "filename": "server.log",
+          "sha256": "dd019ef402effd228fa55731de48c570d50d74e58da23a72a8f9b111d3b618c3"
+        },
+        {
+          "authority_audit_id": "audit-ed1f07fd94496257f766",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "f2ec30167d67fcfd41377921531ab295929dcde8d147ebc4fa841ecfafae9247"
+        },
+        {
+          "authority_audit_id": "audit-ed1f07fd94496257f766",
+          "filename": "LAUNCH.json",
+          "sha256": "32b33ef1fbd55c76f2ebdec89a7db43cf949d2508c0eb6409169048e3c93878b"
+        }
+      ],
+      "tasks": 140,
+      "values": {
+        "decode_engine_ms": 738813.762,
+        "decode_tok_s": 201.24016043978347,
+        "decode_tokens": 148679,
+        "gpu_j_per_output_token": 0.9958979955707158,
+        "prefill_engine_ms": 12389.408,
+        "prefill_tok_s": 1969.1013485067244,
+        "prefill_tokens": 24396
+      },
+      "wall_sum_s": 751.536414132
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-c98fcf485d37b2fb469db0bf81f7d13301f118413d09f03939f4e12691dce13a",
+      "run_id": "run-2b2c2a95109c3dd3714f70918c237f2ca66d0e97acea2b2d091dd367fdd33ac9",
+      "runtime_configuration_id": "cfg-a51d911a8a1a253ac85c1d49f74a10cfa8b07372a063453b2e47f6696e37eed3",
+      "sources": [
+        {
+          "authority_audit_id": "audit-f9f3940763fb3e78efdd",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "6be65715fbca8c4f2c0fb58cf2d4a66d90beb915b8ff52ce945f400b050c96ba"
+        },
+        {
+          "authority_audit_id": "audit-f9f3940763fb3e78efdd",
+          "filename": "server.log",
+          "sha256": "f4b3a1f0c12faa2a0e8f5924a910a44884a6871e1f7fe2521c365ea1eeb800ef"
+        },
+        {
+          "authority_audit_id": "audit-1e104e9c10a6d5af2077",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "07ed2c1db669622d94905249151a3e124d1e3d63d8a577d7daca8986f072d256"
+        },
+        {
+          "authority_audit_id": "audit-1e104e9c10a6d5af2077",
+          "filename": "LAUNCH.json",
+          "sha256": "bf5c0d628ac4ae2e40b7d43ef391108f631a5cedd6b32590c5924de1c73ed61a"
+        },
+        {
+          "authority_audit_id": "audit-86ece832399ad8c6e5b4",
+          "filename": "server.log",
+          "sha256": "3674f6f654a0af2dc76a2f522a902fcaec0f7d74c507f7d2df82fc5822f338b3"
+        },
+        {
+          "authority_audit_id": "audit-86ece832399ad8c6e5b4",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "754b06bb3bd96202fb6b6bab9b139c5e8844bc232609538c03cc25b0e09fe63e"
+        },
+        {
+          "authority_audit_id": "audit-1e104e9c10a6d5af2077",
+          "filename": "server.log",
+          "sha256": "8c678ed55405e9fe1c14dbad3baa3c2889ca848d48a789d9d3e591ad7a9c608d"
+        },
+        {
+          "authority_audit_id": "audit-f9f3940763fb3e78efdd",
+          "filename": "LAUNCH.json",
+          "sha256": "6bd2e050b04854edac42da33e1e6958b05e81c5f4362cde3e5f37293c33e8b05"
+        },
+        {
+          "authority_audit_id": "audit-86ece832399ad8c6e5b4",
+          "filename": "LAUNCH.json",
+          "sha256": "25996a88a0408bc84907d1dd94542136d2a4cad464f1fff066306ef929b56309"
+        }
+      ],
+      "tasks": 8,
+      "values": {
+        "decode_engine_ms": 25336.885,
+        "decode_tok_s": 199.90618420535912,
+        "decode_tokens": 5065,
+        "gpu_j_per_output_token": 0.9348311242720886,
+        "prefill_engine_ms": 705.496,
+        "prefill_tok_s": 1683.9216664587752,
+        "prefill_tokens": 1188
+      },
+      "wall_sum_s": 26.060485172
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-3735449e0ee6c0d0ce126913f29c23d2df83a1db811f373e53cde5e4818e3c12",
+      "run_id": "run-a55bbe8d91be919670541eb56ff8bb90659c37aaed21451e38ebf7ff57587f48",
+      "runtime_configuration_id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+      "sources": [
+        {
+          "authority_audit_id": "audit-4f666cc33e7511656c9a",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "57c44a716787fab4660b1820fdbe2cbfea76a22c11e3d3535a519ba61757b9a5"
+        },
+        {
+          "authority_audit_id": "audit-4f666cc33e7511656c9a",
+          "filename": "LAUNCH.json",
+          "sha256": "dff70bc8488ce4f14f0ae70b994eb9ef0afa0cc28f792b59282c806a6041afdf"
+        },
+        {
+          "authority_audit_id": "audit-4f666cc33e7511656c9a",
+          "filename": "server.log",
+          "sha256": "5e07d61a69e1c3304eddd8a95d2889fdf57f5aca66d1bfadb0fb31296a6473bf"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 887068.234,
+        "decode_tok_s": 200.7962783165111,
+        "decode_tokens": 178120,
+        "gpu_j_per_output_token": 1.001736272503434,
+        "prefill_engine_ms": 14617.002,
+        "prefill_tok_s": 1982.0753941198066,
+        "prefill_tokens": 28972
+      },
+      "wall_sum_s": 902.080752153
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-85c3e0f47dd759e4c5d2d4bede40a29ed683ac126b199ca15b7a22890bec5ef9",
+      "run_id": "run-88a982f747a5e722ff0c3f7f846defa3f013b3bf9730b07b695ab7cc99b9c453",
+      "runtime_configuration_id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+      "sources": [
+        {
+          "authority_audit_id": "audit-4f666cc33e7511656c9a",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "57c44a716787fab4660b1820fdbe2cbfea76a22c11e3d3535a519ba61757b9a5"
+        },
+        {
+          "authority_audit_id": "audit-4f666cc33e7511656c9a",
+          "filename": "LAUNCH.json",
+          "sha256": "dff70bc8488ce4f14f0ae70b994eb9ef0afa0cc28f792b59282c806a6041afdf"
+        },
+        {
+          "authority_audit_id": "audit-4f666cc33e7511656c9a",
+          "filename": "server.log",
+          "sha256": "5e07d61a69e1c3304eddd8a95d2889fdf57f5aca66d1bfadb0fb31296a6473bf"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 887068.234,
+        "decode_tok_s": 200.7962783165111,
+        "decode_tokens": 178120,
+        "gpu_j_per_output_token": 1.001736272503434,
+        "prefill_engine_ms": 14617.002,
+        "prefill_tok_s": 1982.0753941198066,
+        "prefill_tokens": 28972
+      },
+      "wall_sum_s": 902.080752153
     }
   ],
   "profiles": [
@@ -53315,6 +53805,353 @@
           47
         ]
       }
+    },
+    {
+      "engine": {
+        "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+        "cuda_version": null,
+        "driver_version": null,
+        "executed_kernel_backend_path": null,
+        "fork_repository": null,
+        "ggml_backend_version": null,
+        "git_commit": null,
+        "kernel_library_file": "libggml-cuda.so.0.26.0",
+        "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+        "name": "llama.cpp-compatible",
+        "patches": null,
+        "version": null
+      },
+      "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+      "incomplete_identity_run": null,
+      "model": {
+        "architecture": null,
+        "artifact_sha256": "de6dae10334e088876358ef9f574835bb3b401ea2ecf5d6a9473f37894df6b73",
+        "family_id": "mimo_v26_distill_qwen9b_q8",
+        "hf_repository": null,
+        "hf_revision": null,
+        "name": "mimo_v26_distill_qwen9b_q8",
+        "quantization": "NOT MEASURED",
+        "tensor_precision_map": null,
+        "variant": "mimo-q8-native-coding-reviewed-sm70",
+        "weight_transformations": {
+          "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+          "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "proof": null
+        }
+      },
+      "model_artifact_id": "artifact-73c30673fe49067ad1b2aa393735f7033e1850bde82e3306daa55c1e132e2866",
+      "optimizations": {
+        "GDN_state_changes": null,
+        "HBM_conversion_weight_cache_limit_mib": "0",
+        "KV_precision": {
+          "k": "f16",
+          "v": "f16"
+        },
+        "cuda_graphs": {
+          "actual_capture_replay": null,
+          "disable_knob": null,
+          "optimization_knob": "0"
+        },
+        "draft_head_or_model": null,
+        "draft_parameters": {
+          "--spec-type": "none"
+        },
+        "draft_sha256": null,
+        "flash_attention_requested": "on",
+        "other_explicit_knobs": {
+          "GGML_CUDA_GRAPH_OPT": "0",
+          "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+        },
+        "prefix_reuse": null,
+        "quantization_calibration": null,
+        "speculation_type": "none"
+      },
+      "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+      "runtime": {
+        "CPU_budget": null,
+        "CPU_threads": "6",
+        "GPU_offload": "99",
+        "RAM_budget": null,
+        "VRAM_budget_mib": 14336,
+        "batch": "2048",
+        "chat_template_sha256": "d2365d1a768f61a6e46156c7dc5a7e08fe95f6bd0a9ce5cf606e908b3489a840",
+        "context": "8192",
+        "execution_deadline_s": 480,
+        "max_output": 4096,
+        "microbatch": "512",
+        "native_template_controls": {
+          "enable_thinking": true
+        },
+        "power_limit_w": 300,
+        "sampling": {
+          "min_p": 0.0,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "seed": 1001,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95
+        },
+        "thinking_reasoning_requested": "on",
+        "tokenizer_identity": null
+      },
+      "runtime_configuration_id": "cfg-14441132be88d350d8da9e4d1c849096b30f8f0f5f03f3b826f3e69e2515f8a7",
+      "schema_version": 1,
+      "source_plan_sha256": "158f42b2e6f6d180a221e706e9fd5083df413627647f6078717459a613edee67",
+      "source_provenance": {
+        "first_part_collection_audit_sha256": "2e280e36b1b4fa0174d6e1a7f41851b0f8fd75a517a4c08691cb19a053fc0d9d",
+        "first_part_contract_sha256": "de7b509bb32c4f098e27070b595179075ee72bfe8a660ed171a8f06c62e78864",
+        "frozen_model_profile_sha256": "078ab9ede33783a80164cea135fdcf45368e482f9f0550cc650e388fff18a843",
+        "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+      },
+      "start_parameters": {
+        "argv": [
+          "llama-server",
+          "--model",
+          "[artifact:de6dae10334e088876358ef9f574835bb3b401ea2ecf5d6a9473f37894df6b73]",
+          "--alias",
+          "[session-local value]",
+          "--host",
+          "[session-local value]",
+          "--port",
+          "[session-local value]",
+          "--no-webui",
+          "--offline",
+          "--ctx-size",
+          "8192",
+          "--parallel",
+          "1",
+          "--n-gpu-layers",
+          "99",
+          "--threads",
+          "6",
+          "--threads-batch",
+          "6",
+          "--batch-size",
+          "2048",
+          "--ubatch-size",
+          "512",
+          "--seed",
+          "1001",
+          "--ctx-checkpoints",
+          "2",
+          "--cache-ram",
+          "0",
+          "--cache-reuse",
+          "0",
+          "--no-cache-idle-slots",
+          "--reasoning",
+          "on",
+          "--no-reasoning-preserve",
+          "--load-mode",
+          "mmap",
+          "--flash-attn",
+          "on",
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--jinja",
+          "--chat-template-file",
+          "[artifact:d2365d1a768f61a6e46156c7dc5a7e08fe95f6bd0a9ce5cf606e908b3489a840]",
+          "--log-verbosity",
+          "4",
+          "--no-log-prefix",
+          "--no-log-timestamps",
+          "--spec-type",
+          "none",
+          "--reasoning-format",
+          "deepseek"
+        ],
+        "environment": {
+          "GGML_CUDA_GRAPH_OPT": "0",
+          "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+          "OMP_NUM_THREADS": "6"
+        },
+        "exact_private_launch_sha256": "6fd982e2bcf7074585f0233ac438a7248d2f5ca4694057362f9c87422d98d39f",
+        "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+        "redacted_argument_positions": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          47
+        ]
+      }
+    },
+    {
+      "engine": {
+        "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+        "cuda_version": null,
+        "driver_version": null,
+        "executed_kernel_backend_path": null,
+        "fork_repository": null,
+        "ggml_backend_version": null,
+        "git_commit": null,
+        "kernel_library_file": "libggml-cuda.so.0.26.0",
+        "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+        "name": "llama.cpp-compatible",
+        "patches": null,
+        "version": null
+      },
+      "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+      "incomplete_identity_run": null,
+      "model": {
+        "architecture": null,
+        "artifact_sha256": "7ccf57a2d410d8822d1560a1ca10c8318f3e15d6a8f6d42d1903d58e80ea20a6",
+        "family_id": "lfm25_8b_a1b_q6",
+        "hf_repository": "LiquidAI/LFM2.5-8B-A1B-GGUF",
+        "hf_revision": "49c14831707011e64d70b2ebd8462ba08d608434",
+        "name": "lfm25_8b_a1b_q6",
+        "quantization": "NOT MEASURED",
+        "tensor_precision_map": null,
+        "variant": "lfm25-q6-native-coding-reviewed-sm70",
+        "weight_transformations": {
+          "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+          "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "proof": null
+        }
+      },
+      "model_artifact_id": "artifact-532877a17633c81aefe7049b757e3d12d603b2ebff8726ad3021cecde87f1877",
+      "optimizations": {
+        "GDN_state_changes": null,
+        "HBM_conversion_weight_cache_limit_mib": "0",
+        "KV_precision": {
+          "k": "f16",
+          "v": "f16"
+        },
+        "cuda_graphs": {
+          "actual_capture_replay": null,
+          "disable_knob": null,
+          "optimization_knob": "0"
+        },
+        "draft_head_or_model": null,
+        "draft_parameters": {
+          "--spec-type": "none"
+        },
+        "draft_sha256": null,
+        "flash_attention_requested": "on",
+        "other_explicit_knobs": {
+          "GGML_CUDA_GRAPH_OPT": "0",
+          "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+        },
+        "prefix_reuse": null,
+        "quantization_calibration": null,
+        "speculation_type": "none"
+      },
+      "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+      "runtime": {
+        "CPU_budget": null,
+        "CPU_threads": "6",
+        "GPU_offload": "99",
+        "RAM_budget": null,
+        "VRAM_budget_mib": 14336,
+        "batch": "2048",
+        "chat_template_sha256": "c5b67247c9f736f6c40eaa91ae1ef27dc67f5b041eedaadb97a1bea5030fb0ff",
+        "context": "8192",
+        "execution_deadline_s": 840,
+        "max_output": 4096,
+        "microbatch": "512",
+        "native_template_controls": {},
+        "power_limit_w": 300,
+        "sampling": {
+          "min_p": 0.0,
+          "repeat_penalty": 1.05,
+          "seed": 1001,
+          "temperature": 0.2,
+          "top_k": 80,
+          "top_p": 1.0
+        },
+        "thinking_reasoning_requested": "on",
+        "tokenizer_identity": null
+      },
+      "runtime_configuration_id": "cfg-a51d911a8a1a253ac85c1d49f74a10cfa8b07372a063453b2e47f6696e37eed3",
+      "schema_version": 1,
+      "source_plan_sha256": "6be7d83ef221e80aadc05c5f3c97048a70ad961a5682abc8ae7e8d7faa32f56b",
+      "source_provenance": {
+        "first_part_collection_audit_sha256": "2b532d4c46d82f8bc7dcae0d7b2096dd8be12cf78dec78d028aa5342e09cd527",
+        "first_part_contract_sha256": "c5346dc874bb52e9083f97e770bd4604e39cdbd102290c2efc6c415ce6165b77",
+        "frozen_model_profile_sha256": "0d3247bbdb80a616066d8d082cfa9157349195e502be9627f8857e74b5ce10c4",
+        "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+      },
+      "start_parameters": {
+        "argv": [
+          "llama-server",
+          "--model",
+          "[artifact:7ccf57a2d410d8822d1560a1ca10c8318f3e15d6a8f6d42d1903d58e80ea20a6]",
+          "--alias",
+          "[session-local value]",
+          "--host",
+          "[session-local value]",
+          "--port",
+          "[session-local value]",
+          "--no-webui",
+          "--offline",
+          "--ctx-size",
+          "8192",
+          "--parallel",
+          "1",
+          "--n-gpu-layers",
+          "99",
+          "--threads",
+          "6",
+          "--threads-batch",
+          "6",
+          "--batch-size",
+          "2048",
+          "--ubatch-size",
+          "512",
+          "--seed",
+          "1001",
+          "--ctx-checkpoints",
+          "2",
+          "--cache-ram",
+          "0",
+          "--cache-reuse",
+          "0",
+          "--no-cache-idle-slots",
+          "--reasoning",
+          "on",
+          "--no-reasoning-preserve",
+          "--load-mode",
+          "mmap",
+          "--flash-attn",
+          "on",
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--jinja",
+          "--chat-template-file",
+          "[artifact:c5b67247c9f736f6c40eaa91ae1ef27dc67f5b041eedaadb97a1bea5030fb0ff]",
+          "--log-verbosity",
+          "4",
+          "--no-log-prefix",
+          "--no-log-timestamps",
+          "--spec-type",
+          "none",
+          "--reasoning-format",
+          "deepseek"
+        ],
+        "environment": {
+          "GGML_CUDA_GRAPH_OPT": "0",
+          "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+          "OMP_NUM_THREADS": "6"
+        },
+        "exact_private_launch_sha256": "0d532ca164bdb5b34e054c7039b6d41677cfb49d93ba257d37fecbe6b436a358",
+        "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+        "redacted_argument_positions": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          47
+        ]
+      }
     }
   ],
   "provenance_gaps": [
@@ -57539,6 +58376,519 @@
       "tasks": 164,
       "wall_s": 902.080752153,
       "warning": "Declared native template/sampling and local output/context limits apply. No publisher-protocol equivalence, model superiority or causal optimization benefit is implied. Monitoring corrections and data recovery remain in original audit lineage."
+    },
+    {
+      "audit_hash": "0c5573999d93c0724d2331195e9da05d201b4ac50f8cc9d296273137736ee182",
+      "audit_ids": [
+        "audit-0c5573999d93c0724d23",
+        "audit-2e280e36b1b4fa0174d6",
+        "audit-50a4ee4caec395baf565",
+        "audit-f6f136f697bce321c507",
+        "audit-29eaeda3530ae8805bf3",
+        "audit-e45e00ae4155a11312cf",
+        "audit-38b9a4143a1d74f3e4b5",
+        "audit-35ac79b413df70933dc5",
+        "audit-dd7a1aa17f22c4c99265",
+        "audit-14a71ec3b01eaa1edb3e",
+        "audit-97932b8c9b0f6b66dbe4"
+      ],
+      "benchmark_id": "humanevalplus-v0.1.10",
+      "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+      "benchmark_revision": "release:v0.1.10",
+      "causal_optimization_proof": null,
+      "dataset_split_hash": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f",
+      "date": "2026-10-23",
+      "discipline": "coding",
+      "evaluated_task_ids": [
+        "HumanEval/1",
+        "HumanEval/2",
+        "HumanEval/3",
+        "HumanEval/4",
+        "HumanEval/5",
+        "HumanEval/6",
+        "HumanEval/7",
+        "HumanEval/8",
+        "HumanEval/9",
+        "HumanEval/11",
+        "HumanEval/12",
+        "HumanEval/13",
+        "HumanEval/14",
+        "HumanEval/15",
+        "HumanEval/16",
+        "HumanEval/17",
+        "HumanEval/18",
+        "HumanEval/19",
+        "HumanEval/20",
+        "HumanEval/22",
+        "HumanEval/23",
+        "HumanEval/24",
+        "HumanEval/25",
+        "HumanEval/26",
+        "HumanEval/27",
+        "HumanEval/28",
+        "HumanEval/29",
+        "HumanEval/30",
+        "HumanEval/31",
+        "HumanEval/32"
+      ],
+      "evaluated_task_set_hash": "e6264025b14d8f31792f854af3a5816c72a661811c80dd0804d756672a4b1660",
+      "experiment_id": "R449",
+      "full_benchmark_score_claimed": false,
+      "gpu_j": 29943.780253965175,
+      "gpu_j_per_success": 1109.0288982950065,
+      "intended_tasks": 164,
+      "measurement_conditions": {
+        "cache_condition": "Native completion-HTTP intervals; model startup excluded",
+        "date": "2026-10-23",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "output_cap": 4096,
+        "power_limit_w": 300,
+        "sampling": {
+          "min_p": 0.0,
+          "presence_penalty": 0.0,
+          "repeat_penalty": 1.0,
+          "seed": 1001,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95
+        }
+      },
+      "metric": "observed_success_percent",
+      "model_artifact_id": "artifact-73c30673fe49067ad1b2aa393735f7033e1850bde82e3306daa55c1e132e2866",
+      "model_family_id": "mimo_v26_distill_qwen9b_q8",
+      "model_name": "mimo_v26_distill_qwen9b_q8",
+      "official_eligible": false,
+      "peak_vram_mib": 9186.5,
+      "qualification_audit": null,
+      "record_schema_version": 1,
+      "repeat_range": null,
+      "run_id": "run-f878bb572531aaacad105cd8b0239df5545a324b82406b137ad673067e07d2a0",
+      "runtime_configuration_id": "cfg-14441132be88d350d8da9e4d1c849096b30f8f0f5f03f3b826f3e69e2515f8a7",
+      "score_percent": 90.0,
+      "scorer_version": {
+        "adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad"
+      },
+      "solved": 27,
+      "source_audit_hashes": [
+        "0c5573999d93c0724d2331195e9da05d201b4ac50f8cc9d296273137736ee182",
+        "2e280e36b1b4fa0174d6e1a7f41851b0f8fd75a517a4c08691cb19a053fc0d9d",
+        "50a4ee4caec395baf5650a50970cef0c9da118ede4f30152f7ea8cbd73e2e259",
+        "f6f136f697bce321c507d93bb5daf5f012373b091d2c8c7120dac1e2362fbe6a",
+        "29eaeda3530ae8805bf3a41853dddd69f68e272570f7526913e8bf6a3b8a4bdb",
+        "e45e00ae4155a11312cf7a50c3a9a4e9ad87b5e8ffd0a5a27b589a53e5fd7e19",
+        "38b9a4143a1d74f3e4b542cbe5a4d1b508addc2df54854e2aaf18c1f80736962",
+        "35ac79b413df70933dc53df724770523166678d80e95b92b761ad2ecf23d857c",
+        "dd7a1aa17f22c4c99265a7ea3b02886e126b3690a7f88f6845a4ae86c09a51fa",
+        "14a71ec3b01eaa1edb3e28fdcf23d5921f5d8954fc7c23af0cdbf4a4ab6bdf1b",
+        "97932b8c9b0f6b66dbe4a5cee136148f9a53c53eefcc52d79e073950ccddb08a"
+      ],
+      "status": "PARTIAL",
+      "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+      "tasks": 30,
+      "wall_s": 130.25978048300004,
+      "warning": "PARTIAL: different task subsets are not directly comparable full-suite scores. Only hash-bound same-profile scored outputs are included; any additional unbound historical reuse is excluded. Request-window costs exclude startup/scoring."
+    },
+    {
+      "audit_hash": "bbf33241d43a2e89af0a80dffd64d6866bf0b34f30189d06a3f64c1665a97528",
+      "audit_ids": [
+        "audit-bbf33241d43a2e89af0a",
+        "audit-2b532d4c46d82f8bc7dc",
+        "audit-3885206039e3538b4c34"
+      ],
+      "benchmark_id": "humanevalplus-v0.1.10",
+      "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+      "benchmark_revision": "release:v0.1.10",
+      "causal_optimization_proof": null,
+      "dataset_split_hash": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f",
+      "date": "2026-10-23",
+      "discipline": "coding",
+      "evaluated_task_ids": [
+        "HumanEval/0",
+        "HumanEval/1",
+        "HumanEval/2",
+        "HumanEval/3",
+        "HumanEval/4",
+        "HumanEval/5",
+        "HumanEval/6",
+        "HumanEval/7"
+      ],
+      "evaluated_task_set_hash": "9deb5768f915f554e5879c573e6d72408a3e7281cb3c1c9181d6896e1e820483",
+      "experiment_id": "R450",
+      "full_benchmark_score_claimed": false,
+      "gpu_j": 4734.919644438129,
+      "gpu_j_per_success": 591.8649555547661,
+      "intended_tasks": 164,
+      "measurement_conditions": {
+        "cache_condition": "Native completion-HTTP intervals; model startup excluded",
+        "date": "2026-10-23",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "output_cap": 4096,
+        "power_limit_w": 300,
+        "sampling": {
+          "min_p": 0.0,
+          "repeat_penalty": 1.05,
+          "seed": 1001,
+          "temperature": 0.2,
+          "top_k": 80,
+          "top_p": 1.0
+        }
+      },
+      "metric": "observed_success_percent",
+      "model_artifact_id": "artifact-532877a17633c81aefe7049b757e3d12d603b2ebff8726ad3021cecde87f1877",
+      "model_family_id": "lfm25_8b_a1b_q6",
+      "model_name": "lfm25_8b_a1b_q6",
+      "official_eligible": false,
+      "peak_vram_mib": 7434.5,
+      "qualification_audit": null,
+      "record_schema_version": 1,
+      "repeat_range": null,
+      "run_id": "run-2b2c2a95109c3dd3714f70918c237f2ca66d0e97acea2b2d091dd367fdd33ac9",
+      "runtime_configuration_id": "cfg-a51d911a8a1a253ac85c1d49f74a10cfa8b07372a063453b2e47f6696e37eed3",
+      "score_percent": 100.0,
+      "scorer_version": {
+        "adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad"
+      },
+      "solved": 8,
+      "source_audit_hashes": [
+        "bbf33241d43a2e89af0a80dffd64d6866bf0b34f30189d06a3f64c1665a97528",
+        "2b532d4c46d82f8bc7dcae0d7b2096dd8be12cf78dec78d028aa5342e09cd527",
+        "3885206039e3538b4c34109e8da2d0e201b1eed2b7a5ad9d9469a936f921b043"
+      ],
+      "status": "PARTIAL",
+      "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+      "tasks": 8,
+      "wall_s": 26.060485172,
+      "warning": "PARTIAL: different task subsets are not directly comparable full-suite scores. Only hash-bound same-profile scored outputs are included; any additional unbound historical reuse is excluded. Request-window costs exclude startup/scoring."
+    },
+    {
+      "audit_hash": "c0841e498189e24dc74642768d8e0a3f330faeebb49693eaa36ca315dabf73ba",
+      "audit_ids": [
+        "audit-c0841e498189e24dc746",
+        "audit-5f68fa7e72e9febb72f0",
+        "audit-406f9e5ee111d8452a7b"
+      ],
+      "benchmark_id": "humanevalplus-v0.1.10",
+      "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+      "benchmark_revision": "release:v0.1.10",
+      "causal_optimization_proof": null,
+      "dataset_split_hash": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f",
+      "date": "2026-10-23",
+      "discipline": "coding",
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "experiment_id": "R452",
+      "gpu_j": 178429.26485831168,
+      "gpu_j_per_success": 1538.1833177440662,
+      "measurement_conditions": {
+        "cache_condition": "Completion HTTP intervals; startup, warmups and CPU evaluation excluded; see original per-request cache setting.",
+        "date": "2026-10-23",
+        "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "output_cap": 4096,
+        "power_limit_w": 300,
+        "sampling": {
+          "min_p": 0.0,
+          "repeat_penalty": 1.05,
+          "seed": 1001,
+          "temperature": 0.2,
+          "top_k": 80,
+          "top_p": 1.0
+        }
+      },
+      "metric": "pass_at_1_percent",
+      "model_artifact_id": "artifact-e72398297ed94d0b78cfd0891c8366f3b3d6e6a52f919d01741758d551b7781c",
+      "model_family_id": "lfm25_8b_a1b_q6",
+      "model_name": "LFM2.5 8B A1B",
+      "official_eligible": true,
+      "peak_vram_mib": 7436.5,
+      "qualification_audit": {
+        "GPU_runs": 0,
+        "all_canonical_controls_passed": false,
+        "audit_hash": "c0841e498189e24dc74642768d8e0a3f330faeebb49693eaa36ca315dabf73ba",
+        "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+        "canonical_reference_exception": {
+          "all_negative_controls_rejected": true,
+          "calibration_sha256": "8d3ae0ee4baa41c101ef10724388725fb708e5a21ae1f5757956cc50f7e9d1c8",
+          "control_task_count": 164,
+          "full_task_set_independently_replayed": true,
+          "official_oracle_source_sha256": "3c833c39b842e33f251c83db4347e0a95191909f23b390c12d73ab29a28a4daf",
+          "other_canonical_tasks_passed": 163,
+          "source_review_sha256": "c7bd0ccf2a32a11dd8fa524c495b71cd1f18bd1003335cbacbcfc085292b62d0",
+          "task_ids": [
+            "HumanEval/32"
+          ],
+          "unchanged_official_oracle_and_dataset": true
+        },
+        "changed_original_task_judgements": [],
+        "complete_task_set": true,
+        "dataset_split_hash": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f",
+        "disclosure": "Full164 official HumanEval+ API result under the declared native LFM profile. The shared unchanged HumanEval/32 canonical-reference anomaly remains disclosed; all164 tasks stay included. Earlier R450/R451 prefixes were observed before the user changed the time allowance; inference settings were unchanged and all164 answers were freshly generated. This is not an unseen holdout, publisher-protocol equivalence, model superiority, optimization speedup or Champion qualification.",
+        "experiment_id": "R452",
+        "immutable_replay_plan_sha256": "56fd77e31bc4ad0bbfe05c91c4ca25d8a8b9296bb08beb278eaf7c6f19867c5f",
+        "independent_audit_verified": true,
+        "metrics_verified": true,
+        "model_artifact_id": "artifact-e72398297ed94d0b78cfd0891c8366f3b3d6e6a52f919d01741758d551b7781c",
+        "model_generations": 0,
+        "no_task_exclusions": true,
+        "official_pass_at_1": 0.7073170731707317,
+        "official_scorer_verified": true,
+        "prompt_protocol_verified": true,
+        "qualification_kind": "FULL_NATIVE164_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+        "raw_replay_sha256": "04c6a556626787afcb002c270c560896e7d4963cd424d8d85dee456bba5d7cca",
+        "runtime_configuration_id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+        "sandbox_receipt_sha256": "d1ebba47083225858ee31fef571c0c4950e8cc0c37fa329595e46968420586f4",
+        "scorer_execution_limits": {
+          "CPU_quota_percent": 100,
+          "adapter": "streaming pinned official check_correctness + untrusted_check + estimate_pass_at_k; not optional full CLI",
+          "cgroup_memory_max_bytes": 1073741824,
+          "complete_actual_evaluation_elapsed_s": 20.021448850631714,
+          "groundtruth": "Reused SHA-verified official canonical outputs/timings; decoded only inside isolation",
+          "groundtruth_time_limit_factor": 4.0,
+          "mini": false,
+          "minimum_case_time_limit_s": 1.0,
+          "noextreme": false,
+          "parallel_evaluation_workers": 1,
+          "per_model_runtime_cap_s": 120,
+          "samples_per_task": 1,
+          "scorer_memory_limit_bytes": 805306368
+        },
+        "scorer_version": {
+          "git_commit": "26d6d00bb1fd0fa37f39c99d5290da67891d1c5e",
+          "package": "evalplus",
+          "source_sha256": "3c833c39b842e33f251c83db4347e0a95191909f23b390c12d73ab29a28a4daf",
+          "version": "0.3.1 + official find_zero progress fix"
+        },
+        "shared_reference_calibration": {
+          "identical_pinned_inputs": {
+            "dataset.jsonl": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f",
+            "evaluator.txt": "47f766df2dbb2280f7dd2c1040bfff0396c2b414a8d44b639424aa941bee7eab",
+            "gt0.jsonl": "850f85ff685b06394a70f164380d7a365929c76cdb3e8453e0b87dae7bac6fc0",
+            "gt1.jsonl": "fec568034557cc62d6f3532ac01990831de278cb9787af6cd545aa4266229942",
+            "official_eval.txt": "3c833c39b842e33f251c83db4347e0a95191909f23b390c12d73ab29a28a4daf"
+          },
+          "qualification_sha256": "8da8b2d944d9524098ee50c6a65657faa4cd6d76f620fcbfca7135e3de9a6ead",
+          "replay_plan_sha256": "57270559e2f593bc0218c61315d929d1e2463d1ec5c12c9b86db78a4cb27aa03",
+          "worker_sha256": "a9d167ece30b454f29512b8fee945a47b72c0bd79abc652d0683a22efb40232b"
+        },
+        "solved": 116,
+        "source_replay_audit_sha256": "195aa6a8cb18e7b98806f9d845e1aa5a7f26f0d9f679690564e9125e1cc17830",
+        "task_ids": [
+          "HumanEval/0",
+          "HumanEval/1",
+          "HumanEval/10",
+          "HumanEval/100",
+          "HumanEval/101",
+          "HumanEval/102",
+          "HumanEval/103",
+          "HumanEval/104",
+          "HumanEval/105",
+          "HumanEval/106",
+          "HumanEval/107",
+          "HumanEval/108",
+          "HumanEval/109",
+          "HumanEval/11",
+          "HumanEval/110",
+          "HumanEval/111",
+          "HumanEval/112",
+          "HumanEval/113",
+          "HumanEval/114",
+          "HumanEval/115",
+          "HumanEval/116",
+          "HumanEval/117",
+          "HumanEval/118",
+          "HumanEval/119",
+          "HumanEval/12",
+          "HumanEval/120",
+          "HumanEval/121",
+          "HumanEval/122",
+          "HumanEval/123",
+          "HumanEval/124",
+          "HumanEval/125",
+          "HumanEval/126",
+          "HumanEval/127",
+          "HumanEval/128",
+          "HumanEval/129",
+          "HumanEval/13",
+          "HumanEval/130",
+          "HumanEval/131",
+          "HumanEval/132",
+          "HumanEval/133",
+          "HumanEval/134",
+          "HumanEval/135",
+          "HumanEval/136",
+          "HumanEval/137",
+          "HumanEval/138",
+          "HumanEval/139",
+          "HumanEval/14",
+          "HumanEval/140",
+          "HumanEval/141",
+          "HumanEval/142",
+          "HumanEval/143",
+          "HumanEval/144",
+          "HumanEval/145",
+          "HumanEval/146",
+          "HumanEval/147",
+          "HumanEval/148",
+          "HumanEval/149",
+          "HumanEval/15",
+          "HumanEval/150",
+          "HumanEval/151",
+          "HumanEval/152",
+          "HumanEval/153",
+          "HumanEval/154",
+          "HumanEval/155",
+          "HumanEval/156",
+          "HumanEval/157",
+          "HumanEval/158",
+          "HumanEval/159",
+          "HumanEval/16",
+          "HumanEval/160",
+          "HumanEval/161",
+          "HumanEval/162",
+          "HumanEval/163",
+          "HumanEval/17",
+          "HumanEval/18",
+          "HumanEval/19",
+          "HumanEval/2",
+          "HumanEval/20",
+          "HumanEval/21",
+          "HumanEval/22",
+          "HumanEval/23",
+          "HumanEval/24",
+          "HumanEval/25",
+          "HumanEval/26",
+          "HumanEval/27",
+          "HumanEval/28",
+          "HumanEval/29",
+          "HumanEval/3",
+          "HumanEval/30",
+          "HumanEval/31",
+          "HumanEval/32",
+          "HumanEval/33",
+          "HumanEval/34",
+          "HumanEval/35",
+          "HumanEval/36",
+          "HumanEval/37",
+          "HumanEval/38",
+          "HumanEval/39",
+          "HumanEval/4",
+          "HumanEval/40",
+          "HumanEval/41",
+          "HumanEval/42",
+          "HumanEval/43",
+          "HumanEval/44",
+          "HumanEval/45",
+          "HumanEval/46",
+          "HumanEval/47",
+          "HumanEval/48",
+          "HumanEval/49",
+          "HumanEval/5",
+          "HumanEval/50",
+          "HumanEval/51",
+          "HumanEval/52",
+          "HumanEval/53",
+          "HumanEval/54",
+          "HumanEval/55",
+          "HumanEval/56",
+          "HumanEval/57",
+          "HumanEval/58",
+          "HumanEval/59",
+          "HumanEval/6",
+          "HumanEval/60",
+          "HumanEval/61",
+          "HumanEval/62",
+          "HumanEval/63",
+          "HumanEval/64",
+          "HumanEval/65",
+          "HumanEval/66",
+          "HumanEval/67",
+          "HumanEval/68",
+          "HumanEval/69",
+          "HumanEval/7",
+          "HumanEval/70",
+          "HumanEval/71",
+          "HumanEval/72",
+          "HumanEval/73",
+          "HumanEval/74",
+          "HumanEval/75",
+          "HumanEval/76",
+          "HumanEval/77",
+          "HumanEval/78",
+          "HumanEval/79",
+          "HumanEval/8",
+          "HumanEval/80",
+          "HumanEval/81",
+          "HumanEval/82",
+          "HumanEval/83",
+          "HumanEval/84",
+          "HumanEval/85",
+          "HumanEval/86",
+          "HumanEval/87",
+          "HumanEval/88",
+          "HumanEval/89",
+          "HumanEval/9",
+          "HumanEval/90",
+          "HumanEval/91",
+          "HumanEval/92",
+          "HumanEval/93",
+          "HumanEval/94",
+          "HumanEval/95",
+          "HumanEval/96",
+          "HumanEval/97",
+          "HumanEval/98",
+          "HumanEval/99"
+        ],
+        "task_phase_timing": {
+          "CPU_scoring_separately_bounded": true,
+          "clock_hashes": {
+            "INITIAL.json": "cf4361a8674d9f77b85ec08597b8d54542351e5a292310567aea74e32e107de2",
+            "TASK_BEGIN.json": "129e398b841ab0e8a7f72e2b5d1bcb837bbe3f8d1588f3bf37fce455f7423017",
+            "TASK_END.json": "358836f390e8f2cf63e9a4324be8ce5a60a968817e4aee512463d31dfada9d94"
+          },
+          "limit_seconds": 1200,
+          "seconds": 902.585251797,
+          "startup_excluded_from_task_budget": true,
+          "startup_seconds": 55.525118849
+        },
+        "tasks": 164,
+        "unique_task_ids_verified": true
+      },
+      "qualification_audit_id": "audit-846227489c7ca68147fe",
+      "record_schema_version": 1,
+      "repeat_range": null,
+      "run_id": "run-88a982f747a5e722ff0c3f7f846defa3f013b3bf9730b07b695ab7cc99b9c453",
+      "runtime_configuration_id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+      "score_percent": 70.73170731707317,
+      "scorer_execution_limits": {
+        "CPU_quota_percent": 100,
+        "adapter": "streaming pinned official check_correctness + untrusted_check + estimate_pass_at_k; not optional full CLI",
+        "cgroup_memory_max_bytes": 1073741824,
+        "complete_actual_evaluation_elapsed_s": 20.021448850631714,
+        "groundtruth": "Reused SHA-verified official canonical outputs/timings; decoded only inside isolation",
+        "groundtruth_time_limit_factor": 4.0,
+        "mini": false,
+        "minimum_case_time_limit_s": 1.0,
+        "noextreme": false,
+        "parallel_evaluation_workers": 1,
+        "per_model_runtime_cap_s": 120,
+        "samples_per_task": 1,
+        "scorer_memory_limit_bytes": 805306368
+      },
+      "scorer_version": {
+        "git_commit": "26d6d00bb1fd0fa37f39c99d5290da67891d1c5e",
+        "package": "evalplus",
+        "source_sha256": "3c833c39b842e33f251c83db4347e0a95191909f23b390c12d73ab29a28a4daf",
+        "version": "0.3.1 + official find_zero progress fix"
+      },
+      "solved": 116,
+      "source_audit_hashes": [
+        "c0841e498189e24dc74642768d8e0a3f330faeebb49693eaa36ca315dabf73ba",
+        "5f68fa7e72e9febb72f091ec69eaa367293ee25dda0aa4c1629220fc2a2e2c89",
+        "406f9e5ee111d8452a7b955b07dc0ad9c13ba6cd01de7bc0232ede62c5e49ff4"
+      ],
+      "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+      "status_reason": "Full official scorer/API task set independently verified; declared local evaluation limits and any pinned upstream reference anomaly remain visible.",
+      "tasks": 164,
+      "wall_s": 902.080752153,
+      "warning": "Declared native template/sampling and local output/context limits apply. No publisher-protocol equivalence, model superiority or causal optimization benefit is implied. Monitoring corrections and data recovery remain in original audit lineage. Full164 official HumanEval+ API result under the declared native LFM profile. The shared unchanged HumanEval/32 canonical-reference anomaly remains disclosed; all164 tasks stay included. Earlier R450/R451 prefixes were observed before the user changed the time allowance; inference settings were unchanged and all164 answers were freshly generated. This is not an unseen holdout, publisher-protocol equivalence, model superiority, optimization speedup or Champion qualification."
     }
   ],
   "schema_version": 1

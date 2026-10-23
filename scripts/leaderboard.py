@@ -360,14 +360,16 @@ def configuration_evidence(root, db, history, receipt):
    candidates=[]
    for filename,records in byfile.items():
     # Select only this measured discipline, excluding warmup/QA and other suites.
-    if run['discipline']=='coding':selected=[r for r in records if r.get('suite') in (None,'standard') and (r.get('task_id') or r.get('task') or r.get('id') or '').removeprefix('standard:').startswith('HumanEval/')]
+    if run['discipline']=='coding':selected=[r for r in records if r.get('kind') not in ('input_identity','warmup') and r.get('suite') in (None,'standard') and (r.get('task_id') or r.get('task') or r.get('id') or '').removeprefix('standard:').startswith('HumanEval/')]
     elif run['discipline']=='tools' and pathlib.Path(filename).name=='BFCL.jsonl':selected=records
     elif run['discipline']=='mbpp':selected=[r for r in records if r.get('kind')=='coding' and str(r.get('task','')).lower().startswith(('mbpp','mbppplus'))]
     elif run['discipline'].startswith('long'):selected=[r for r in records if r.get('kind')==('validation' if run['discipline']=='long32k_validation' else 'long')]
     else:selected=[]
     if selected:candidates.append(selected)
    # Duplicated SAMPLES/FUNCTIONAL logs are alternative witnesses, not extra work.
-   if run['experiment_id']=='R448':candidates=[[r for rows in byfile.values() for r in rows if r.get('kind')=='coding']]
+   if cfg.get('source_provenance',{}).get('kind')=='BROKER_NATIVE_CAPTURED_CONFIGURATION':
+    measured_ids=set(run.get('evaluated_task_ids',[]))
+    candidates=[[r for filename,rows in byfile.items() if pathlib.Path(filename).name=='HTTP_RESULTS.jsonl' for r in rows if r.get('kind')=='coding' and (not measured_ids or r.get('id') in measured_ids)]]
    accepted=[]
    for rows in candidates:
     wall=sum(r.get('e2e_s',0) for r in rows)

@@ -39,7 +39,7 @@
     'optimizations.speculation_effective', 'optimizations.flash_attention_effective'
   ];
   const labels = {
-    'evidence.execution_status': 'Ausführungsnachweis', 'engine.reported_build_number': 'Buildnummer (Startlog)',
+    'evidence.experiments': 'Lauf', 'evidence.execution_status': 'Ausführungsnachweis', 'engine.reported_build_number': 'Buildnummer (Startlog)',
     'engine.version_provenance_note': 'Versionsbeleg / Einschränkung',
     'runtime.observed_template_controls.enable_thinking': 'Thinking (beobachtete Anfrage)',
     'model.name': 'Modell', 'model.historical_name': 'Historische Modellbezeichnung', 'model.identity_annotation': 'Beleg zur Modellidentität', 'model.family_id': 'Modellfamilie', 'model.quantization': 'Quantisierung',
@@ -177,7 +177,7 @@
     const columns = [...paths].sort().map(path => ({ key: path, label: labels[path] || path,
       category: path.startsWith('attempt_metrics.') ? 'Labor-Messungen (mit Herkunft)' : category(path), kind: 'parameter' }));
     benchmarks.forEach(b => {
-      const suffix = b.scope === 'OFFICIAL_LOCAL' ? 'lokal zugelassen' : b.scope === 'HISTORICAL' ? 'historisch / Teilumfang' : b.scope === 'UNQUALIFIED_FULL' ? 'Vollumfang, noch nicht zugelassen' : 'Laborergänzung';
+      const suffix = b.scope === 'OFFICIAL_LOCAL' ? 'lokal zugelassen' : b.scope === 'HISTORICAL' ? 'historisch / Teilumfang' : b.scope === 'UNQUALIFIED_FULL' ? 'Vollumfang, noch nicht zugelassen' : b.scope === 'PARTIAL' ? 'PARTIAL / Teilumfang' : 'Laborergänzung';
       columns.push({ key: b.key, label: b.name + ' · ' + suffix + ' · n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6),
         shortLabel: b.name + ' · ' + b.key.slice(-6), category: 'Benchmarks', kind: 'benchmark', benchmark: b });
       const fixed = ['prefill_tok_s', 'decode_tok_s', 'ttft_s', 'wall_s', 'gpu_j', 'gpu_j_per_success', 'gpu_j_per_output_token', 'peak_vram_mib', 'repeat_range', 'date', 'status', 'status_reason', 'warning'];
@@ -313,7 +313,7 @@
   function mount(target, data) {
     const model = comparisonView(build(data)), byKey = new Map(model.columns.map(c => [c.key, c]));
     const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false, allMeasured: true, strictProtocols: new Set() };
-    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version'];
+    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version', 'evidence.experiments', 'requested.MTP', 'requested.thinking', 'runtime.context'];
     const canAverage = b => !!b && (state.mode !== 'official' || b.scope === 'OFFICIAL_LOCAL');
     const chosenBenchmarks = () => [...state.protocols.values()].map(k => model.benchmarkMap.get(k)).filter(Boolean);
     const columnAllowed = c => !state.officialOnly || !(c?.benchmark || c?.family) || model.benchmarkMap.get(protocolKey(c, state))?.scope === 'OFFICIAL_LOCAL';
@@ -329,12 +329,12 @@
       const url = URL.createObjectURL(blob), a = link('Download', url); a.download = 'v100-configuration-results.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     }); exportButton.dataset.action = 'export-csv';
     const officialOnly = E('input'); officialOnly.type = 'checkbox'; officialOnly.dataset.action = 'official-only';
-    toolbar.append(search, labelInput('Nur offiziell qualifizierte Ergebnisse', officialOnly), labelInput('Durchschnittsmodus', mode), labelInput('Ansicht', presets), exportButton, button('Filter zurücksetzen', () => { state.filters.clear(); state.search = ''; search.value = ''; renderTable(); }));
+    toolbar.append(search, labelInput('Nur offiziell qualifizierte Ergebnisse', officialOnly), labelInput('Durchschnittsmodus', mode), labelInput('Ansicht', presets), exportButton, button('Filter zurücksetzen', () => { state.filters.clear(); state.search = ''; search.value = ''; state.strictProtocols.clear(); state.officialOnly = false; officialOnly.checked = false; renderTable(); }));
     target.append(toolbar);
     const chooser = E('details', undefined, 'master-panel'); chooser.append(E('summary', 'Spaltenauswahl nach Kategorien'));
     const pickerSearch = E('input'); pickerSearch.type = 'search'; pickerSearch.placeholder = 'Spaltenname oder Quellpfad'; pickerSearch.setAttribute('aria-label', 'Spalten suchen'); const picker = E('div', undefined, 'master-column-picker'); chooser.append(pickerSearch, picker); target.append(chooser);
     const selection = E('details', undefined, 'master-panel'); selection.append(E('summary', 'Benchmarkprotokolle und Durchschnitt auswählen'));
-    selection.append(E('p', 'Eine Ergebnisspalte pro Familie. Das gewählte Protokoll gilt für jede Zeile; kein Rückgriff auf historische Ergebnisse. Checkboxen wählen die Familien für den nutzerdefinierten Durchschnitt – nicht offizieller Benchmark. Jede Familie zählt einmal. Fehlende Ergebnisse: NICHT BERECHENBAR. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
+    selection.append(E('p', 'Standardmäßig stehen alle gemessenen Voll- und Teilwerte in derselben Ergebnisspalte. Eine explizite Protokollauswahl filtert diese Spalte exakt; Filter zurücksetzen zeigt wieder alle Messwerte. Checkboxen wählen die Familien für den nutzerdefinierten Durchschnitt – nicht offizieller Benchmark. Jede Familie zählt einmal. Fehlende Ergebnisse: NICHT BERECHENBAR. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
     const benchmarkChoices = E('div', undefined, 'master-benchmark-choices'), selectionWarning = E('p', undefined, 'benchmark-warning'); selection.append(benchmarkChoices, selectionWarning); target.append(selection);
     const definitions = E('details', undefined, 'master-panel'); definitions.append(E('summary', 'Exakte Benchmarkdefinitionen und Messprotokolle'));
     model.benchmarks.forEach(b => {
@@ -368,7 +368,7 @@
       presetName = name; state.visible = new Set(base); state.visible.add('average');
       const bench = chosenBenchmarks();
       if (name === 'Vollständig') model.columns.filter(c => c.kind !== 'family' && c.key !== 'engine.build_id').forEach(c => state.visible.add(c.key));
-      else model.families.forEach(f => state.visible.add(f.key));
+      else model.families.filter(f => f.protocols.some(p => p.records > 0)).forEach(f => state.visible.add(f.key));
       if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
       if (name !== 'Kompakt') ['requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
       if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
@@ -427,7 +427,7 @@
         const th = E('th'); th.scope = 'col'; th.dataset.columnKey = c.key; const b = button((c.shortLabel || c.label) + ' ↕', () => { state.descending = state.sort === c.key ? !state.descending : c.kind !== 'parameter'; state.sort = c.key; renderRows(); }); b.title = (c.description || c.label + '\n' + c.key); th.append(b);
         if (c.kind === 'family') {
           const p = model.benchmarkMap.get(protocolKey(c, state));
-          const note = E('small', p ? (state.allMeasured ? 'n je Zelle · Vollumfang ' : p.scope + ' · n=') + text(p.protocol.tasks) : UNKNOWN, 'master-protocol-note');
+          const note = E('small', p ? (state.allMeasured ? (finite(p.protocol.tasks) ? 'n je Zelle · Vollumfang ' + p.protocol.tasks : 'Umfang je Zelle') : p.scope + ' · n=' + text(p.protocol.tasks)) : UNKNOWN, 'master-protocol-note');
           note.title = p ? text(p.protocol) : UNKNOWN; th.append(note);
         }
         names.append(th); headerCells.set(c.key, th);
@@ -477,7 +477,8 @@
       const { key, benchmark, a } = resolvedScore(row, column, state, model.benchmarkMap);
       if (!a?.n) { td.textContent = UNKNOWN; td.className = 'master-missing'; return; }
       if (a.conflict) { td.textContent = 'WIDERSPRÜCHLICHE AUDITS'; td.className = 'benchmark-warning'; return; }
-      const scope = { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'VOLLSTÄNDIG', PARTIAL: 'PARTIAL', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
+      const partialEvidence = a.records.some(r => r.status === 'PARTIAL' || Number.isInteger(benchmark.definition.required_task_count) && r.tasks < benchmark.definition.required_task_count);
+      const scope = partialEvidence ? 'PARTIAL' : { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'VOLLSTÄNDIG', PARTIAL: 'PARTIAL', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
       const line = E('span', undefined, 'master-score-line');
       line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + a.solved + '/' + a.tasks + ') · '));
       const details = button(scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {
@@ -509,8 +510,8 @@
       if (!result.top.length) { analysisBody.append(E('p', UNKNOWN + ' – keine vollständigen vergleichbaren Ergebnisse für die gewählte Auswertung.')); return; }
       const top = E('ol'); result.top.forEach(({ row, score }) => { const li = E('li'); li.append(link(row.displayName + ' · ' + row.id.slice(0, 16), '../configuration-profiles/' + row.id + '/'), document.createTextNode(' · ' + number(score) + ' %')); top.append(li); }); analysisBody.append(top);
       const details = E('details'); details.append(E('summary', 'Häufige Werte, Unterschiede und fehlende Abdeckung – alle Parameter'));
-      const grid = E('table'), h = E('tr'); ['Parameter', 'Werte in Top 5 (Anzahl)', 'Unbekannt in Top 5', 'Verschiedene erfasste Werte in gemessenen Profilen'].forEach(x => h.append(E('th', x))); grid.append(h);
-      result.coverage.forEach(c => { const r = E('tr'); [c.column.label, c.counts.map(([v, n]) => v + ' (' + n + ')').join('; ') || UNKNOWN, c.missing + '/' + result.top.length, c.testedValues].forEach(x => r.append(E('td', String(x)))); grid.append(r); }); details.append(grid); analysisBody.append(details);
+      const grid = E('dl');
+      result.coverage.forEach(c => { grid.append(E('dt', c.column.label), E('dd', (c.counts.map(([v, n]) => v + ' (' + n + ')').join('; ') || UNKNOWN) + ' · unbekannt: ' + c.missing + '/' + result.top.length + ' · erfasste Ausprägungen: ' + c.testedValues)); }); details.append(grid); analysisBody.append(details);
       analysisBody.append(E('p', 'Abdeckung bezieht sich nur auf diese Ergebnisprofile. Fehlende Metadaten beweisen keinen ungetesteten Matrixfaktor. Vor weiteren Versuchen die kanonischen Audits prüfen; gültige Tests nicht wiederholen.'));
       const proposals = E('ul'); result.coverage.filter(c => /^(runtime|optimizations|requested)\./.test(c.column.key) && !/sha|identity|budget|artifact/i.test(c.column.key)).slice(0, 8).forEach(c => {
         proposals.append(E('li', c.column.label + ': ' + (c.missing ? 'Zuerst fehlende Einstellungen aus Originalbelegen erfassen. ' : '') + (c.testedValues < 2 ? 'Weniger als zwei belegte Ausprägungen: zusätzlicher isolierter Vergleich könnte die Abdeckung schließen.' : 'Kontrollierten A/B-Vergleich erwägen; vorhandene Gesamtprofile ändern möglicherweise mehrere Faktoren.') + ' Modellartefakt, Engine, Aufgaben, Sampler und übrige Parameter konstant halten; keine Wirkung aus dieser Häufigkeit ableiten.'));

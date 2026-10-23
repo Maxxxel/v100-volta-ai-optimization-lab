@@ -6,7 +6,7 @@ This project is not affiliated with or endorsed by NVIDIA, Ollama, engine develo
 
 ## Evidence snapshot
 
-Matrix revision **403**, canonical assessment date **2026-10-23T20:03:25.531957+00:00**.
+Matrix revision **404**, canonical assessment date **2026-10-23T20:51:24.691209+00:00**.
 
 | Original axes | Additional techniques | Experimentally covered | Qualified factor scopes | Model challengers |
 |---|---|---|---|---|
@@ -41,7 +41,7 @@ flowchart LR
 - Agent throughput and energy: separate qualified profiles with different latency, energy and memory trade-offs.
 - Low-VRAM and long-context profiles: preserve their exact task and numerical limits; a fast prefill screen is not general agent qualification.
 
-See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model Comparison & Benchmarks](benchmarks.md), [model evidence](models.md) and the full [Optimization matrix](matrix.md).
+See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model Comparison & Benchmarks](configuration-comparison.md), [model evidence](models.md) and the full [Optimization matrix](matrix.md).
 
 ## How to read the evidence
 

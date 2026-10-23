@@ -24568,6 +24568,8 @@
   ],
   "model_family_labels": {
     "OmniCoder2-9B-Q6_K": "OmniCoder 9B",
+    "lfm25_8b_a1b_q6": "LFM2.5 8B A1B",
+    "mimo_v26_distill_qwen9b_q8": "MiMo V2.6 Distill Qwen 9B",
     "omni": "OmniCoder 9B",
     "omnicoder2": "OmniCoder 9B"
   },
@@ -24644,6 +24646,12 @@
       "proof_path": "staging/leaderboard-register/cohorts/r279/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "8da8b2d944d9524098ee50c6a65657faa4cd6d76f620fcbfca7135e3de9a6ead",
       "source_audit_hash": "3cc9e94338b5c4d2b889a5fd21d88cfc308a0d287fcab2e9981a24393725e0e9"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r452/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "846227489c7ca68147fe1eeba8a742ae659e8096a19cdfcaab1737fe6a296964",
+      "source_audit_hash": "c0841e498189e24dc74642768d8e0a3f330faeebb49693eaa36ca315dabf73ba"
     }
   ],
   "publisher_claims": [

@@ -171,7 +171,7 @@ flowchart LR
 - Agent throughput and energy: separate qualified profiles with different latency, energy and memory trade-offs.
 - Low-VRAM and long-context profiles: preserve their exact task and numerical limits; a fast prefill screen is not general agent qualification.
 
-See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model Comparison & Benchmarks](benchmarks.md), [model evidence](models.md) and the full [Optimization matrix](matrix.md).
+See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model Comparison & Benchmarks](configuration-comparison.md), [model evidence](models.md) and the full [Optimization matrix](matrix.md).
 
 ## How to read the evidence
 
@@ -181,7 +181,7 @@ Numerical values are exported without invented missing measurements. Original ra
 '''
  overview+='\n[Open the interactive Benchmark Master Table](configuration-comparison.md): exact configurations, versioned benchmarks, selectable columns, user-defined averages and audit-linked evidence.\n'
  put('index.md',overview)
- readme=overview.replace('(benchmarks.md)','(docs/benchmarks.md)').replace('(configurations.md)','(docs/configurations.md)').replace('(rejected.md)','(docs/rejected.md)').replace('(models.md)','(docs/models.md)').replace('(matrix.md)','(docs/matrix.md)')+'\n## Documentation and collaboration\n\nBuild the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.\n'
+ readme=overview.replace('(configuration-comparison.md)','(docs/configuration-comparison.md)').replace('(benchmarks.md)','(docs/benchmarks.md)').replace('(configurations.md)','(docs/configurations.md)').replace('(rejected.md)','(docs/rejected.md)').replace('(models.md)','(docs/models.md)').replace('(matrix.md)','(docs/matrix.md)')+'\n## Documentation and collaboration\n\nBuild the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.\n'
  readme=readme.replace('(configuration-comparison.md)','(docs/configuration-comparison.md)')
  (P/'README.md').write_text(readme)
  put('hardware.md','# Overview & hardware\n\n'+overview.split('## Hardware and software')[1].split('## What has helped')[0]+'\nCompiler version, CMake-discovered toolkit and loaded runtime are separate identities. R356 found that a compression-mode cache setting was ineffective because a discovered-toolkit version gate omitted the NVCC option; no baseline was changed.\n')

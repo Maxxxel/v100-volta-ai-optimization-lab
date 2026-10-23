@@ -10,7 +10,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R443 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | R445 |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
-| BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R451 |
+| BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R452 |
 | BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R431 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | technisch zurückgestellt | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -286,13 +286,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "Regulärer HumanEval+164 im unveränderten nativen Profil:140 Antworten gesichert/ausgewertet,99 bestanden. Eine Modellsitzung; Gesamtbudget eingehalten; kein vollständiger Score, keine Modellablehnung oder Champion-Freigabe.",
-  "current_experiment": "R451",
+  "assessment": "Vollständiger nativer HumanEval+164:116/164, unabhängig per offiziellem API nachbewertet,0 abweichende Urteile.902.585s reine Aufgabenzeit, eine Modellsitzung. Frühere Teilwerte bleiben erhalten. Nur Coding-Benchmark qualifiziert, kein Allround- oder Championnachweis.",
+  "current_experiment": "R452",
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC06",
   "local_scope": null,
   "name": "LFM2.5 8B A1B",
-  "next_step": "Teilbefund und Konfiguration veröffentlichen; kein automatischer Neustart. Bestehende vollständige Qwen-/Gemma-Vergleiche erhalten. Weitere Modelltests nur mit vorab definiertem Protokoll und900s-Gesamtgrenze; keine fallweise Testoptimierung.",
+  "next_step": "Offiziellen Tool-/Agentenvergleich mit bestehenden Modellen fortsetzen; vollständige native BFCL-Kategorie bevorzugen, soweit innerhalb1200s Aufgabenzeit ausführbar. Keine Qualitäts-Vorab-Aussortierung, keine neuen OmniCoder-Einzeloptimierungen oder Kombinationen vor dem Modellvergleich.",
   "priority": "P0",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
   "source_admission": {

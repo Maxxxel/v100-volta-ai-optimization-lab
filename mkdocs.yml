@@ -45,8 +45,8 @@ extra_css:
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=c68fb5c8474c09a7
-  - javascripts/master-table.js?v=8477a0a19dd858b0
+  - assets/benchmarks/leaderboard-data.js?v=8696172aa0378ff6
+  - javascripts/master-table.js?v=0f1d1fc7cd9541ac
   - javascripts/leaderboard.js?v=23343d2da7e75cd6
 extra:
   generator: false
@@ -59,8 +59,7 @@ nav:
   - Experiment Results: results.md
   - Qualified Configurations: configurations.md
   - Rejected Optimizations: rejected.md
-  - Model Comparison & Benchmarks: benchmarks.md
-  - Benchmark Master Table: configuration-comparison.md
+  - Model Comparison & Benchmarks: configuration-comparison.md
   - Configuration Archive: configuration-archive.md
   - Benchmark Definitions: benchmark-register.md
   - Model Weight Integrity:

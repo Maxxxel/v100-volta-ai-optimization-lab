@@ -239,7 +239,7 @@ test('comparison view excludes own supplemental tests without deleting any sourc
 
 test('OmniCoder historical V2 labels collapse to one display family without losing configurations', () => {
   const view = M.comparisonView(M.build(data));
-  const omni = view.rows.filter(r => Object.hasOwn(data.register.model_family_labels || {}, r.profile.model.family_id));
+  const omni = view.rows.filter(r => data.register.model_family_labels?.[r.profile.model.family_id] === 'OmniCoder 9B');
   assert(omni.length > 1);
   assert(omni.every(r => r.displayName === 'OmniCoder 9B'));
   assert.equal(new Set(omni.map(r => r.id)).size, omni.length);

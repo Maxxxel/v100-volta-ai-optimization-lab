@@ -251285,6 +251285,216 @@
   {
     "aggregate_metrics": {
       "model_starts": 1,
+      "peak_device_vram_mib": 9186.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2e280e36b1b4fa0174d6",
+    "original_bytes": 6369,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2e280e36b1b4fa0174d6e1a7f41851b0f8fd75a517a4c08691cb19a053fc0d9d",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 5,
+      "tasks": 6
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-50a4ee4caec395baf565",
+    "original_bytes": 564,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "50a4ee4caec395baf5650a50970cef0c9da118ede4f30152f7ea8cbd73e2e259",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 9186.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f6f136f697bce321c507",
+    "original_bytes": 6373,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f6f136f697bce321c507d93bb5daf5f012373b091d2c8c7120dac1e2362fbe6a",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 6,
+      "tasks": 6
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-29eaeda3530ae8805bf3",
+    "original_bytes": 567,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "29eaeda3530ae8805bf3a41853dddd69f68e272570f7526913e8bf6a3b8a4bdb",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 9186.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e45e00ae4155a11312cf",
+    "original_bytes": 6383,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e45e00ae4155a11312cf7a50c3a9a4e9ad87b5e8ffd0a5a27b589a53e5fd7e19",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 6,
+      "tasks": 6
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-38b9a4143a1d74f3e4b5",
+    "original_bytes": 570,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "38b9a4143a1d74f3e4b542cbe5a4d1b508addc2df54854e2aaf18c1f80736962",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 9186.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-35ac79b413df70933dc5",
+    "original_bytes": 6384,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "35ac79b413df70933dc53df724770523166678d80e95b92b761ad2ecf23d857c",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 5,
+      "tasks": 6
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-dd7a1aa17f22c4c99265",
+    "original_bytes": 570,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dd7a1aa17f22c4c99265a7ea3b02886e126b3690a7f88f6845a4ae86c09a51fa",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 9186.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-14a71ec3b01eaa1edb3e",
+    "original_bytes": 6381,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "14a71ec3b01eaa1edb3e28fdcf23d5921f5d8954fc7c23af0cdbf4a4ab6bdf1b",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 5,
+      "tasks": 6
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-97932b8c9b0f6b66dbe4",
+    "original_bytes": 570,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "97932b8c9b0f6b66dbe4a5cee136148f9a53c53eefcc52d79e073950ccddb08a",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7434.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2b532d4c46d82f8bc7dc",
+    "original_bytes": 8100,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2b532d4c46d82f8bc7dcae0d7b2096dd8be12cf78dec78d028aa5342e09cd527",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 8,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3885206039e3538b4c34",
+    "original_bytes": 606,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3885206039e3538b4c34109e8da2d0e201b1eed2b7a5ad9d9469a936f921b043",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
       "peak_device_vram_mib": 7436.5
     },
     "excerpt_is_not_original": true,
@@ -251332,6 +251542,20 @@
     "statements": {
       "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
     }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 116,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-846227489c7ca68147fe",
+    "original_bytes": 8124,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "846227489c7ca68147fe1eeba8a742ae659e8096a19cdfcaab1737fe6a296964",
+    "statements": {}
   },
   {
     "aggregate_metrics": {},
@@ -251416,6 +251640,61 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "9403f0fe4b7260fed1ae609922617810aa6f607afd18fc972a82269eb6db62c9",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-3dd61dc81b57bf251f88",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3dd61dc81b57bf251f881b88bbcbcbd12bea275acad1133f38ed776365be78d3",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-85cb9470eff12a48245e",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "85cb9470eff12a48245e6d46afe7f1e657aefb635e6a707bc1b18dc1c28e289b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-342ec449ec9bd805c3e3",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "342ec449ec9bd805c3e3932c965b8c03aef7734f23a9ecb3dbf18e9af033c65c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-cc20e1194373f02b7518",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cc20e1194373f02b751817afe9b1b71fb15dd08223e994c18b7daec9de856a1e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-6d41ec3dcb2e5002f5ae",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6d41ec3dcb2e5002f5aeea586463e6029e0d12c27d0848689f10b9262bb22941",
     "statements": {}
   },
   {
@@ -251743,6 +252022,39 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "2548f2ead96b517961275f0d876e59dee0b65e3fdf701b47301e1bbdfe62face",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-1e104e9c10a6d5af2077",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1e104e9c10a6d5af20778e94a44dba4635bca2c507e2a94e89465d234ffd315b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-86ece832399ad8c6e5b4",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "86ece832399ad8c6e5b440c9e58709054e64f36c53aec310d626902b680f05cd",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f9f3940763fb3e78efdd",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f9f3940763fb3e78efddb164c36f78faedad411e0ad4706346b8995753e04ddb",
     "statements": {}
   },
   {

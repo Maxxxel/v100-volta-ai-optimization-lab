@@ -12,7 +12,7 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 ## Current admission status
 
-7 eligible official runs under the declared local protocol. 39 versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. 250 content-addressed profiles and 224 additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.
+8 eligible official runs under the declared local protocol. 42 versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. 252 content-addressed profiles and 226 additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.
 
 | Original local cohort classification | Historical scope | Reason before separate admission |
 | --- | --- | --- |

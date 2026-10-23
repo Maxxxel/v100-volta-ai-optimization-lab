@@ -53,6 +53,14 @@ async function main() {
     assert.equal(await page.locator('.master-benchmark-choices select[data-protocol-family]').count(), expected.families);
     assert((await page.locator('.master-counter').innerText()).includes(String(expected.profiles)));
     assert.equal(await page.locator('.master-pagination').count(), 0);
+    assert.equal(await page.locator('.md-content table').count(),1,'Exactly one central table, including optional analysis');
+    const partials = await page.evaluate(() => {
+      const m=window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard));
+      return m.rows.flatMap(row=>row.runs.filter(r=>r.status==='PARTIAL').map(r=>({id:row.id,solved:r.solved,tasks:r.tasks})));
+    });
+    assert(partials.length>=3,'Retained LFM and MiMo partial benchmark records');
+    for(const r of partials){const cell=page.locator(`.master-table tr[data-configuration-id="${r.id}"] td[data-column-key="family:humanevalplus"]`);assert((await cell.textContent()).includes(`${r.solved}/${r.tasks}`));assert((await cell.textContent()).includes('PARTIAL'));}
+    report.checks.push('exactly one table; partial results visible by default in the same HumanEval column with original denominators');
     const initialIds = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId));
     const measuredIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.map(r => r.id));
     assert.deepEqual(initialIds.slice().sort(), measuredIds.slice().sort());

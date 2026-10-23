@@ -1,4 +1,4 @@
-# lfm25_8b_a1b_q6 · cfg-8bfe42a9350f
+# LFM2.5 8B A1B · cfg-8bfe42a9350f
 
 [Back to configuration comparison](../configuration-comparison.md)
 

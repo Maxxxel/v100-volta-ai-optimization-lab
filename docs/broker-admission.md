@@ -42,12 +42,20 @@ Three submitted infrastructure failures occurred before native GPU execution dur
 
 R446 does **not** qualify a routing change, speedup, whole-model numerical equivalence or a Champion. Historical negative FORCE_MMQ results and all existing model/reference profiles remain unchanged.
 
-## Whole-benchmark deadline and model lifetime
+## Historical whole-benchmark deadline and model lifetime
 
-New native coding executions use one sequential model session for the declared full task set. The 900-second wall budget covers the complete benchmark across all jobs and evaluation stages; partitioning, changing a factor label or renaming an otherwise identical profile cannot renew it. Startup/preflight and cleanup reserves reduce the time available for inference. Unknown/stopping service states and residual processes fail closed.
+R451 used one sequential model session for the declared full task set. Its historical 900-second wall budget covered the complete benchmark across all jobs and evaluation stages; partitioning, changing a factor label or renaming an otherwise identical profile cannot renew it. Startup/preflight and cleanup reserves reduce the time available for inference. Unknown/stopping service states and residual processes fail closed.
 
 A genuinely new execution protocol requires a root-owned source/resource review bound to one exact immutable contract and complete ordered task set. The reviewed single-session change keeps model weights, engine, template, sampling, context, output cap, hardware limits and isolation unchanged. It does not authorize new model derivatives or reset a predecessor campaign. Fresh responses are required; incomplete earlier campaigns remain preserved.
 
 The single-session executor passed **87 CPU regression tests**, including existing admission, deadline, ECC, occupancy, numerical-adapter and rollback controls. An actual SIGTERM probe in a private CPU-only PID namespace preserved partial response files without producing a successful completion. These checks qualify the executor safeguards, not model quality or a performance improvement.
 
 Historical one-session coding runs remain valid within their recorded scopes. Small multi-session campaigns are explicitly distinguished when comparing whole-campaign latency and energy. Completion-HTTP metrics exclude model startup and must not be presented as full workflow costs.
+
+## Current timing policy: 20 minutes of task work
+
+The user explicitly replaced the earlier whole-run limit with **1,200 seconds of pure benchmark task work**. For admitted single-session native comparisons, the fixed unprivileged adapter marks the phase after load and warmup and before the first benchmark task. The privileged monitor validates and stores one-shot boot-clock/wall-clock markers and enforces the task limit. Loading, warmup, CPU scoring and cleanup are excluded from task time and remain independently bounded: 180 seconds startup, 1,440 seconds GPU-wrapper ceiling with cleanup reserve, and 120 seconds per CPU evaluation pass. Socket clients cannot reset or fabricate a timer phase; factor/profile/task aliases cannot renew an exact admitted run.
+
+The trusted task client uses a non-dumpable process so another process with the same unprivileged UID cannot write to its protected event stream; the engine has its own log stream. **90 CPU regression controls** passed, with separate actual stop/copy and protected-descriptor probes. Historical 900-second clocks and audits remain unchanged; the new limit applies only through an explicitly reviewed immutable contract.
+
+[R452](experiments/R452.md) collected all164 fresh answers with one model start. Its root-recorded task phase took **902.585 seconds**, excluding about55.5 seconds startup. Independent official-API scoring confirmed **116/164** with zero changed judgments. This qualifies the stated local HumanEval+ result, not an optimization speedup, tool/agent quality or a Champion. Earlier [R450](experiments/R450.md) and [R451](experiments/R451.md) partial results remain visible with their actual denominators.
