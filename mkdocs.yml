@@ -41,12 +41,12 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
-  - stylesheets/lab.css?v=1f6fe015a53b426d
+  - stylesheets/lab.css?v=293ed10c14d01006
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
   - assets/benchmarks/leaderboard-data.js?v=489600720c5666fb
-  - javascripts/master-table.js?v=1c9b218c92f2657a
+  - javascripts/master-table.js?v=81a91dbdada65b0e
   - javascripts/leaderboard.js?v=cb9477bb5e24827e
 extra:
   generator: false

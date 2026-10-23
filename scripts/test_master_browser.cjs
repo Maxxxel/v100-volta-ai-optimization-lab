@@ -30,8 +30,8 @@ async function main() {
     await page.goto(new URL('configuration-comparison/', base).href, { waitUntil: 'networkidle' });
     await page.locator('.master-table tbody tr').first().waitFor();
     const expected = await page.evaluate(() => {
-      const d = window.V100Leaderboard, m = window.V100MasterTable.build(d);
-      return { profiles: m.rows.length, columns: m.columns.filter(c => c.kind !== 'family').length, families: m.families.length,
+      const d = window.V100Leaderboard, m = window.V100MasterTable.comparisonView(window.V100MasterTable.build(d));
+      return { profiles: m.rows.length, columns: m.columns.filter(c => c.kind !== 'family' && c.key !== 'engine.build_id').length, families: m.families.length,
         official: m.benchmarks.filter(b => b.scope === 'OFFICIAL_LOCAL').length,
         currentFamily: m.families.find(f => f.protocols.some(b => b.scope === 'OFFICIAL_LOCAL' && m.rows.some(r => r.scores[b.key]?.n)))?.key,
         missingFamily: m.families.find(f => f.protocols.some(b => b.scope === 'OFFICIAL_LOCAL' && !m.rows.some(r => r.scores[b.key]?.n)))?.id,
@@ -43,11 +43,13 @@ async function main() {
     assert.equal(await page.locator('.master-table th[data-column-key="family:humanevalplus"]').count(), 1);
     assert.equal(await page.locator('.master-table thead th[data-column-key^="benchmark-"]').count(), 0);
     assert.equal(await page.locator('.master-table tbody td[data-kind=metric]').count(), 0);
+    assert.equal(await page.locator('.master-family-choice[data-family-id^=local-]').count(), 0);
+    assert.equal(await page.locator('.master-table th[data-column-key="engine.build_id"]').count(), 0);
     assert.equal(await page.locator('.master-benchmark-choices select[data-protocol-family]').count(), expected.families);
     assert((await page.locator('.master-counter').innerText()).includes(String(expected.profiles)));
     assert.equal(await page.locator('.master-pagination').count(), 0);
     const initialIds = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId));
-    const measuredIds = await page.evaluate(() => [...new Set(window.V100Leaderboard.history.runs.map(r => r.runtime_configuration_id))]);
+    const measuredIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.map(r => r.id));
     assert.deepEqual(initialIds.slice().sort(), measuredIds.slice().sort());
     const geometry = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.getBoundingClientRect().height));
     assert(Math.max(...geometry) <= 52, 'Compact rows including offscreen cells: ' + Math.max(...geometry));
@@ -91,7 +93,7 @@ async function main() {
     assert(await page.locator('.master-table tbody tr').count() > 0);
     const expectedSearch = await page.evaluate(() => {
       const M = window.V100MasterTable;
-      return M.build(window.V100Leaderboard).rows.filter(r => M.canonical({ values: r.values, runs: r.runs }).toLowerCase().includes('bonsai')).map(r => r.id);
+      return M.comparisonView(M.build(window.V100Leaderboard)).rows.filter(r => M.canonical({ values: r.values, runs: r.runs }).toLowerCase().includes('bonsai')).map(r => r.id);
     });
     assert((await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId))).every(id => expectedSearch.includes(id)));
     await global.fill(''); await page.getByLabel('Ansicht', { exact: true }).selectOption('Kompakt'); report.checks.push('per-parameter numeric filter and global search');
@@ -115,12 +117,12 @@ async function main() {
 
     const humanSelect = page.locator('select[data-protocol-family=humanevalplus]');
     const human = await page.evaluate(() => {
-      const m = window.V100MasterTable.build(window.V100Leaderboard), f = m.families.find(f => f.id === 'humanevalplus');
+      const m = window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)), f = m.families.find(f => f.id === 'humanevalplus');
       return { official: window.V100MasterTable.defaultProtocol(f), historical: f.protocols.find(p => p.scope === 'HISTORICAL' && p.records)?.key, original: JSON.stringify(window.V100Leaderboard.history) };
     });
     async function verifyHumanProtocol(key) {
       const observations = await page.evaluate(key => {
-        const m = window.V100MasterTable.build(window.V100Leaderboard);
+        const m = window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard));
         return [...document.querySelectorAll('.master-table tbody tr')].map(tr => {
           const expected = m.rows.find(r => r.id === tr.dataset.configurationId).scores[key]?.score ?? null;
           const cell = tr.querySelector('td[data-column-key="family:humanevalplus"]');
@@ -147,6 +149,7 @@ async function main() {
     for (const preset of ['Qualität', 'Geschwindigkeit', 'Energie', 'Vollständig']) {
       await presets.selectOption(preset);
       assert(await page.locator('.master-table tbody tr').count() > 0);
+      assert.equal(await page.locator('.master-table th[data-column-key="engine.build_id"]').count(), 0, 'Build identity stays in details/picker, not presets');
       if (preset === 'Vollständig') assert.equal(await page.locator('.master-table thead tr:first-child th').count(), expected.columns);
     }
     const fullValue = page.locator('.master-table td[data-column-key="start_parameters.argv"] button').first();
@@ -161,7 +164,7 @@ async function main() {
     await page.getByRole('button', { name: 'CSV exportieren', exact: true }).click();
     const download = await downloadEvent; const downloaded = path.join(artifacts, 'configuration-export.csv'); await download.saveAs(downloaded);
     const csv = await fs.readFile(downloaded, 'utf8'); assert(csv.includes('runtime_configuration_id')); assert(csv.includes('NICHT ERFASST')); assert(csv.includes('mean_percent')); assert(csv.includes('selected_protocols')); assert(csv.includes('evaluated_task_set_hash')); assert(csv.includes('qualification_track'));
-    const allIds = await page.evaluate(() => [...new Set(window.V100Leaderboard.history.runs.map(r => r.runtime_configuration_id))]);
+    const allIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.map(r => r.id));
     assert(allIds.every(id => csv.includes(id))); report.checks.push('CSV contains all filtered configurations, exact IDs and missing markers');
     assert(await page.locator('.master-insights ol li').count() > 0);
     assert((await page.locator('.master-insights').innerText()).includes('Korrelation ist keine Kausalität'));

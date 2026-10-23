@@ -202,6 +202,19 @@
     const key = state.protocols?.get(column.family.id);
     return column.family.protocols.some(p => p.key === key) ? key : null;
   }
+  function comparisonView(model) {
+    // Presentation-only exclusion. The source ledger and full build retain the
+    // local laboratory evidence, available on the separate local-tests pages.
+    const benchmarks = model.benchmarks.filter(b => b.scope !== 'LOCAL_SUPPLEMENTAL' && !b.protocol.benchmark_id.startsWith('local-'));
+    const benchmarkMap = new Map(benchmarks.map(b => [b.key, b]));
+    const families = model.families.map(f => ({ ...f, protocols: f.protocols.filter(b => benchmarkMap.has(b.key)) })).filter(f => f.protocols.length);
+    const familyMap = new Map(families.map(f => [f.id, f]));
+    const columns = model.columns.filter(c => !c.key.startsWith('attempt_metrics.') && (!c.benchmark || benchmarkMap.has(c.benchmark.key)) && (!c.family || familyMap.has(c.family.id)))
+      .map(c => c.family ? { ...c, family: familyMap.get(c.family.id) } : c);
+    const hasBenchmark = row => benchmarks.some(b => row.scores[b.key]?.n > 0);
+    return { ...model, benchmarks, benchmarkMap, families, columns,
+      rows: model.rows.filter(hasBenchmark), supplementalRows: model.rows.filter(r => !hasBenchmark(r)) };
+  }
   function value(row, column, state, benchmarkMap) {
     if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
     if (column.kind === 'benchmark' || column.kind === 'family') return row.scores[protocolKey(column, state)]?.score ?? null;
@@ -264,7 +277,7 @@
     });
     return { top, measuredConfigurations: ranked.length, coverage };
   }
-  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey };
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, comparisonView };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.V100MasterTable = API;
   if (typeof document === 'undefined') return;
@@ -275,7 +288,7 @@
   const button = (label, handler) => { const b = E('button', label); b.type = 'button'; b.addEventListener('click', handler); return b; };
   const number = v => finite(v) ? v.toLocaleString('de-DE', { maximumFractionDigits: 2 }) : UNKNOWN;
   function mount(target, data) {
-    const model = build(data), byKey = new Map(model.columns.map(c => [c.key, c]));
+    const model = comparisonView(build(data)), byKey = new Map(model.columns.map(c => [c.key, c]));
     const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false };
     const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version'];
     const canAverage = b => !!b && (state.mode !== 'official' || b.scope === 'OFFICIAL_LOCAL');
@@ -285,6 +298,9 @@
     if (first) state.selected.add(first.key);
     let presetName = 'Kompakt', filtered = [], shownColumns = [], headerCells = new Map();
     target.textContent = ''; target.append(E('h2', 'Alle gemessenen Ergebnisse'));
+    const localNote = E('p', undefined, 'master-supplemental-note'); localNote.append(link('Eigene Supplemental-Tests separat ansehen', '../local-benchmarks/'));
+    if (model.supplementalRows.length) localNote.append(document.createTextNode(' · ' + model.supplementalRows.length + ' Konfigurationen mit ausschließlich lokalen Testergebnissen sind hier ausgeblendet.'));
+    target.append(localNote);
     const toolbar = E('div', undefined, 'master-toolbar'), search = E('input'); search.type = 'search'; search.placeholder = 'Modell, Engine, Parameter oder Experiment suchen'; search.setAttribute('aria-label', search.placeholder);
     const mode = E('select'); [['official', 'Nur offiziell lokal zugelassene Protokolle'], ['exploratory', 'Explorativ: auch Historie und Teilmengen']].forEach(([v, t]) => { const o = E('option', t); o.value = v; mode.append(o); });
     const presets = E('select'); ['Kompakt', 'Vollständig', 'Qualität', 'Geschwindigkeit', 'Energie'].forEach(t => presets.append(E('option', t)));
@@ -331,10 +347,10 @@
     function preset(name) {
       presetName = name; state.visible = new Set(base); state.visible.add('average');
       const bench = chosenBenchmarks();
-      if (name === 'Vollständig') model.columns.filter(c => c.kind !== 'family').forEach(c => state.visible.add(c.key));
+      if (name === 'Vollständig') model.columns.filter(c => c.kind !== 'family' && c.key !== 'engine.build_id').forEach(c => state.visible.add(c.key));
       else model.families.forEach(f => state.visible.add(f.key));
       if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
-      if (name !== 'Kompakt') ['engine.build_id', 'requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
+      if (name !== 'Kompakt') ['requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
       if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
       if (name === 'Energie') { state.visible.add('runtime.power_limit_w'); model.columns.filter(c => c.kind === 'metric' && /:(gpu_j|gpu_j_per_success|peak_vram_mib)$/.test(c.key) && bench.some(b => b.key === c.benchmark.key)).forEach(c => state.visible.add(c.key)); }
       renderPicker(); renderTable();

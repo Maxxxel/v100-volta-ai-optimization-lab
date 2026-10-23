@@ -222,3 +222,16 @@ test('family CSV preserves exact selected protocol identities even for missing m
   for (const field of ['selected_protocols', key, 'scorer_version', 'evaluated_task_set_hash', 'benchmark_revision', 'qualification_track', 'NICHT BERECHENBAR', 'NICHT ERFASST']) assert(csv.includes(field), field);
   const before = M.canonical(data.history); M.build(data); assert.equal(M.canonical(data.history), before);
 });
+
+test('comparison view excludes own supplemental tests without deleting any source evidence', () => {
+  const before = M.canonical(data), view = M.comparisonView(model);
+  assert(view.benchmarks.every(b => b.scope !== 'LOCAL_SUPPLEMENTAL' && !b.protocol.benchmark_id.startsWith('local-')));
+  assert(view.families.every(f => !f.id.startsWith('local-')));
+  assert(view.columns.every(c => !c.benchmark || view.benchmarkMap.has(c.benchmark.key)));
+  assert(view.columns.every(c => !c.key.startsWith('attempt_metrics.')));
+  assert(view.rows.every(r => view.benchmarks.some(b => r.scores[b.key]?.n > 0)));
+  assert.equal(view.rows.length + view.supplementalRows.length, model.rows.length);
+  for (const row of model.rows) assert(view.rows.includes(row) || view.supplementalRows.includes(row));
+  assert.equal(M.canonical(data), before);
+  assert(model.benchmarks.some(b => b.scope === 'LOCAL_SUPPLEMENTAL'));
+});
