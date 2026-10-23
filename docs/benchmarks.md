@@ -20,6 +20,10 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 | mbpp | SUPPLEMENTAL_SUBSET | 223 observed of378 official release tasks; local original-test filter and Mbpp/255 exclusion retained. |
 | tools | SUPPLEMENTAL_SUBSET | 100 frozen static questions in5 categories, not the full official v4 category manifest/aggregation. |
 
+## Archived response diagnostics
+
+[OxCoder R448: output-cap and reasoning-channel investigation](oxcoder-diagnostic.md). Original scores and profile identities remain unchanged; this is a read-only explanation, not an optimized model result.
+
 ## Next evidence gaps
 
 | Priority | Technical decision / next step | GPU initially required |

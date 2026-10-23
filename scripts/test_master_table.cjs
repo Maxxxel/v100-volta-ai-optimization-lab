@@ -151,3 +151,13 @@ test('Top-5 analysis counts real measured configurations and records unknown par
   assert.equal(a.measuredConfigurations, expected); assert.equal(a.top.length, Math.min(5, expected));
   assert(a.coverage.some(c => c.column.key === 'engine.version'));
 });
+
+test('archived source-identity diagnostics do not change benchmark scores or qualification', () => {
+  for (const original of data.history.runs) {
+    const observed = model.rows.find(r => r.id === original.runtime_configuration_id).runs.find(r => r.run_id === original.run_id);
+    assert.equal(observed.score_percent, original.score_percent); assert.equal(observed.official_eligible, original.official_eligible);
+    if ((data.register.archived_diagnostics || []).some(d => d.experiment_id === original.experiment_id)) {
+      assert(observed.archived_diagnostic); assert(observed.archived_diagnostic.weight_identity_status);
+    }
+  }
+});

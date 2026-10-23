@@ -1,4 +1,362 @@
 {
+  "archived_diagnostics": [
+    {
+      "analysis_sha256": "d9eefff3d6c2342adfb07fbe83ae63493e9d29bf7eb4ff628852b001c5d9b4fa",
+      "at_utc": "2026-10-23T15:45:16.817880+00:00",
+      "audit_id": "audit-d9eefff3d6c2342adfb0",
+      "experiment_id": "R448",
+      "followup": {
+        "common_constraints": {
+          "applies_to_all_parts_and_both_arms_combined": true,
+          "cache_prompt": false,
+          "max_generation_requests": 8,
+          "model_loads": 2,
+          "no_productive_changes": true,
+          "observed_prompt_template_must_confirm_switch": true,
+          "parallel_GPU_jobs": 0,
+          "same_task_order": true,
+          "sampler": "temperature1.0/top_p0.95/top_k0/min_p0/repeat_penalty1/presence0",
+          "seed": 1001,
+          "whole_benchmark_seconds": 900
+        },
+        "development_inputs": {
+          "case_ids": [
+            "code",
+            "sorting",
+            "filtering",
+            "log_injection"
+          ],
+          "prompts": "Original frozen questions unchanged; development screen only. No official test tasks selected by failure outcome.",
+          "scoring": "Existing deterministic QA semantic/format/safety gates; code evaluated only inside original CPU sandbox. Source task per-case output limits overridden uniformly to4096 for both arms; do not conflate this diagnostic with the original QA12 score.",
+          "sha256": "6a901906898710ff9d319771c5ce33f4322b2cee27a098ecafdbf4d4da9c346b"
+        },
+        "early_stop": [
+          "Hard900s for entire paired trial; retain partial raw data and do not report a full score.",
+          "Hardware/ECC/VRAM/power/temperature/broker lease failure.",
+          "Any source/weight/template hash mismatch or unverifiable thinking-mode switch."
+        ],
+        "not_justified": [
+          "Re-scoring reasoning text as final code would change answer-selection semantics and is not an admissible correction.",
+          "Changing only --no-reasoning-preserve is not a remedy established by these single-turn tasks; no previous assistant trace exists.",
+          "Do not simultaneously change thinking, sampler, engine, context and output cap and call it an isolated optimization.",
+          "Do not replay all164 HumanEval tasks for tuning; independent validation must disclose prior test exposure."
+        ],
+        "practical_minimum": "At least20% lower paired task latency or removal of observed empty-final failures, with all previously successful development tasks still passing; one screen is not independent winner qualification.",
+        "primary_metric": "Successful development tasks per total paired-arm inference second; zero quality/safety regression required. No general benchmark qualification from n4.",
+        "proposals": [
+          {
+            "A": {
+              "chat_template_kwargs.enable_thinking": true
+            },
+            "B": {
+              "chat_template_kwargs.enable_thinking": false
+            },
+            "admission_prerequisites": [
+              "Pin original native recipe and template to the recorded binary/model hashes.",
+              "Validate the non-thinking native template path and captured prompt suffix without model generation.",
+              "Register a closed dev-dataset adapter/profile; an existing profile must not be mutated.",
+              "Enforce trusted whole-trial900s deadline including both arms, preflight/load/warmup/collection.",
+              "Obtain the separate GPU approval required by issue12."
+            ],
+            "all_other_parameters_fixed": true,
+            "factor": "Thinking template switch, single factor",
+            "hypothesis": "Suppressing the open thinking prefix may make final output available within the4096-token cap and reduce latency; quality benefit unverified.",
+            "priority": "P0"
+          },
+          {
+            "A": {
+              "reasoning_budget": "unrestricted, actual baseline must be captured",
+              "thinking": true
+            },
+            "B": {
+              "reasoning_budget": 1024,
+              "thinking": true
+            },
+            "admission_prerequisites": [
+              "Local source exposes --reasoning-budget; verify the actual tokenizer/parser and generated closing-marker path before admitting the trial.",
+              "Same independent approval and900s whole-trial gate as P0."
+            ],
+            "all_other_parameters_fixed": true,
+            "factor": "Reasoning-token budget, separate single-factor trial",
+            "hypothesis": "A true reasoning-token cap may leave capacity for final code inside the unchanged4096 total output budget. No claim that this is already supported correctly by the actual parser/sampler path.",
+            "priority": "P1"
+          }
+        ],
+        "secondary_metrics": [
+          "empty_final_content",
+          "finish_reason",
+          "completion_tokens",
+          "reasoning_tokens_only_if_explicitly_recorded",
+          "prefill_decode_timings",
+          "request_wall_s",
+          "GPU_joules_per_success",
+          "peak_VRAM"
+        ],
+        "source_review": {
+          "engine_argument_source_file": "common/arg.cpp",
+          "engine_argument_source_sha256": "449cd9be39dd477c751a8575e99b4deee737ae85a698e1c8bac7c22f28a9d151",
+          "interpretation": "Pinned local source review supports flag meanings; runtime behavior is established separately by the recorded native responses. The snapshot reports no upstream commit.",
+          "preserve_reasoning_source_lines": [
+            3755,
+            3767
+          ],
+          "reasoning_budget_source_lines": [
+            3739,
+            3746
+          ],
+          "reasoning_format_source_lines": [
+            3699,
+            3705
+          ],
+          "template_sha256": "d203f3342d8a7f8474dd55563eece3a26e71b21c6f667c9db9c93b762b3bf997"
+        },
+        "status": "PROPOSED_REQUIRES_SEPARATE_GPU_APPROVAL_AND_HARD_WHOLE_BENCHMARK_900S_ADMISSION"
+      },
+      "followup_audit_id": "audit-0e97dd72c90af4703b6f",
+      "followup_sha256": "0e97dd72c90af4703b6fcf52363877460104c46359b10cbcba5c9327cdc10558",
+      "issue": 12,
+      "new_GPU_runs": 0,
+      "original_results_unchanged": true,
+      "statistics_method": "Median and linearly interpolated P90 at position(n-1)*0.9; request wall sums exclude startup/warmup/scoring. Reasoning characters are not token counts.",
+      "summary": {
+        "classification": {
+          "CAP_REACHED_WITH_UNCLOSED_REASONING_AND_NO_FINAL_CONTENT": 104,
+          "FINAL_CONTENT_PRESENT": 60
+        },
+        "decision": "Observed 104 empty final outputs are fully explained at the recorded-interface level by the4096-token generation cap being reached before reasoning closure. No lost post-reasoning final content is observed. The reason for prolonged reasoning, benefits of disabling thinking or changing the thinking budget, and cross-model causal effects remain unverified. Original53/164 score is preserved; no hidden-reasoning code is promoted to a final answer.",
+        "empty_completion_token_share_percent": 75.21886687173112,
+        "empty_final_content": {
+          "completion_tokens_median": 4096.0,
+          "completion_tokens_p90": 4096.0,
+          "completion_tokens_total": 425984,
+          "content_characters": 0,
+          "decode_engine_s": 6232.860707,
+          "finish_reasons": {
+            "length": 104
+          },
+          "prefill_engine_s": 14.172144,
+          "reasoning_characters": 1516864,
+          "recorded_decode_tok_s": 68.3448612162287,
+          "solved": 0,
+          "tasks": 104,
+          "wall_max_s": 60.892791507,
+          "wall_mean_s": 60.072367113451925,
+          "wall_median_s": 59.9991166155,
+          "wall_min_s": 59.863950551,
+          "wall_p90_s": 60.308621765000005,
+          "wall_sum_s": 6247.526179799
+        },
+        "empty_wall_share_percent": 75.24239997867959,
+        "engine_configuration": {
+          "MTP": false,
+          "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+          "context": 8192,
+          "model_sha256": "468e7c0d6806033050271a8f29d4fefb38f7d376e2f91ce5d442669244b3d82f",
+          "output_cap": 4096,
+          "reasoning_format": "deepseek",
+          "reasoning_preserve": false,
+          "temperature": 1.0,
+          "template_sha256": "d203f3342d8a7f8474dd55563eece3a26e71b21c6f667c9db9c93b762b3bf997",
+          "thinking": true,
+          "top_k": 0,
+          "top_p": 0.95
+        },
+        "historical_comparisons": [
+          {
+            "MTP": true,
+            "comparability": "Historical whole-profile comparison: weights, quantization, endpoint, thinking mode, output cap and sampling differ; MTP also differs for OmniCoder2. No causal model-speed or tuning claim.",
+            "empty_content": 0,
+            "experiment_id": "R217",
+            "interface": "/completion; historical non-thinking task profile, not the R448 chat protocol",
+            "model": "OmniCoder2 9B Q6_K grafted",
+            "output_cap": 1024,
+            "reasoning_tokens": "NOT RECORDED",
+            "score_solved": 132,
+            "statistics": {
+              "completion_tokens_median": 180.0,
+              "completion_tokens_p90": 380.1,
+              "completion_tokens_total": 36785,
+              "content_characters": 120069,
+              "decode_engine_s": 244.112136,
+              "finish_reasons": {
+                "eos": 160,
+                "limit": 4
+              },
+              "prefill_engine_s": 23.911472,
+              "recorded_decode_tok_s": 150.68894403512982,
+              "tasks": 164,
+              "wall_max_s": 7.830750285,
+              "wall_mean_s": 1.6354040660304878,
+              "wall_median_s": 1.313699555,
+              "wall_min_s": 0.433391509,
+              "wall_p90_s": 2.5980146812000013,
+              "wall_sum_s": 268.206266829
+            },
+            "temperature": 0.0
+          },
+          {
+            "MTP": false,
+            "comparability": "Historical whole-profile comparison: weights, quantization, endpoint, thinking mode, output cap and sampling differ; MTP also differs for OmniCoder2. No causal model-speed or tuning claim.",
+            "empty_content": 0,
+            "experiment_id": "R255",
+            "interface": "/completion; historical non-thinking task profile, not the R448 chat protocol",
+            "model": "Qwen3.5 9B Q4_K_M",
+            "output_cap": 1024,
+            "reasoning_tokens": "NOT RECORDED",
+            "score_solved": 132,
+            "statistics": {
+              "completion_tokens_median": 207.5,
+              "completion_tokens_p90": 403.00000000000034,
+              "completion_tokens_total": 41845,
+              "content_characters": 139743,
+              "decode_engine_s": 428.760789,
+              "finish_reasons": {
+                "eos": 159,
+                "limit": 5
+              },
+              "prefill_engine_s": 23.264326999999998,
+              "recorded_decode_tok_s": 97.59521176737083,
+              "tasks": 164,
+              "wall_max_s": 10.74206127,
+              "wall_mean_s": 2.75735092977439,
+              "wall_median_s": 2.2581174534999997,
+              "wall_min_s": 0.618633381,
+              "wall_p90_s": 4.305586797600004,
+              "wall_sum_s": 452.205552483
+            },
+            "temperature": 0.0
+          }
+        ],
+        "nonempty_final_content": {
+          "completion_tokens_median": 2676.5,
+          "completion_tokens_p90": 3919.0,
+          "completion_tokens_total": 140342,
+          "content_characters": 42109,
+          "decode_engine_s": 2047.181526,
+          "finish_reasons": {
+            "length": 3,
+            "stop": 57
+          },
+          "prefill_engine_s": 8.253615,
+          "reasoning_characters": 466531,
+          "recorded_decode_tok_s": 68.55376439148269,
+          "solved": 53,
+          "tasks": 60,
+          "wall_max_s": 60.357712275,
+          "wall_mean_s": 34.261213164833336,
+          "wall_median_s": 39.113010691,
+          "wall_min_s": 9.655591843,
+          "wall_p90_s": 57.4451959663,
+          "wall_sum_s": 2055.67278989
+        },
+        "overall": {
+          "completion_tokens_median": 4096.0,
+          "completion_tokens_p90": 4096.0,
+          "completion_tokens_total": 566326,
+          "content_characters": 42109,
+          "decode_engine_s": 8280.042233,
+          "finish_reasons": {
+            "length": 107,
+            "stop": 57
+          },
+          "prefill_engine_s": 22.425759,
+          "reasoning_characters": 1983395,
+          "recorded_decode_tok_s": 68.3965110398731,
+          "solved": 53,
+          "tasks": 164,
+          "wall_max_s": 60.892791507,
+          "wall_mean_s": 50.62926201029878,
+          "wall_median_s": 59.9503553765,
+          "wall_min_s": 9.655591843,
+          "wall_p90_s": 60.2242152373,
+          "wall_sum_s": 8303.198969689
+        },
+        "parser_checks": {
+          "assistant_history_requests": 0,
+          "context_truncated_requests": 0,
+          "empty_alternative_closing_markers": 0,
+          "empty_reasoning_equals_raw_trimmed": 104,
+          "explicit_reasoning_token_counts_available": 0,
+          "nonempty_final_equals_raw_post_close_trimmed": 60,
+          "prompt_opens_think": 164
+        },
+        "quality_score_unchanged": {
+          "solved": 53,
+          "tasks": 164
+        },
+        "source_experiment_audit_sha256": "bb7e7ca493d0666a21c6b74d231f0c3ecb6144b140ce9477ca25eb92cb0ae4f5"
+      },
+      "weight_provenance": {
+        "at_utc": "2026-10-23T15:54:46.056325+00:00",
+        "external_claim": {
+          "maintainer_response": "Acknowledged tensor comparison and said the export/checkpoint path would be investigated; acknowledgment is not a corrected-weight release.",
+          "status": "EXTERNALLY REPORTED; independent payload census in progress",
+          "url": "https://huggingface.co/OrionLLM/OxCoder-9B/discussions/3"
+        },
+        "independent_header_inventory": {
+          "Qwen_only_tensors": [
+            "mtp.fc.weight",
+            "mtp.layers.0.input_layernorm.weight",
+            "mtp.layers.0.mlp.down_proj.weight",
+            "mtp.layers.0.mlp.gate_proj.weight",
+            "mtp.layers.0.mlp.up_proj.weight",
+            "mtp.layers.0.post_attention_layernorm.weight",
+            "mtp.layers.0.self_attn.k_norm.weight",
+            "mtp.layers.0.self_attn.k_proj.weight",
+            "mtp.layers.0.self_attn.o_proj.weight",
+            "mtp.layers.0.self_attn.q_norm.weight",
+            "mtp.layers.0.self_attn.q_proj.weight",
+            "mtp.layers.0.self_attn.v_proj.weight",
+            "mtp.norm.weight",
+            "mtp.pre_fc_norm_embedding.weight",
+            "mtp.pre_fc_norm_hidden.weight"
+          ],
+          "common_tensors": 760,
+          "dtype_mismatches": 48,
+          "header_comparison_is_payload_comparison": false,
+          "ox_tensors": 760,
+          "qwen_tensors": 775,
+          "shape_mismatches": 0
+        },
+        "local_R448_artifact": {
+          "bytes": 7359268288,
+          "current_published_LFS_matches": true,
+          "fresh_redundant_full_local_hash": false,
+          "full_weight_hash_was_already_verified_by_original_artifact_admission_and_per_job_broker": true,
+          "original_R290_audit_sha256": "e1c1453a8a998cb3545fb54ec2a9808c93bfd8b63cdddcd909c4d2da7049bab8",
+          "quantizer_repository": "mradermacher/OxCoder-9B-GGUF",
+          "quantizer_revision": "525d7144604d67d86d138cde41e93c7bb545f82a",
+          "sha256": "468e7c0d6806033050271a8f29d4fefb38f7d376e2f91ce5d442669244b3d82f"
+        },
+        "next_decision": "Hold all OxCoder GPU optimization follow-ups pending the independent tensor census and resolution of source-to-Q6 lineage. Existing53/164 remains an observed score of the pinned tested artifact, not evidence of advertised fine-tuning superiority or inferiority.",
+        "source_lineage": {
+          "exact_quantizer_to_upstream_checkpoint_derivation": "NOT VERIFIED",
+          "implication": "A Q6 artifact identity is proven, its exact upstream trained-checkpoint provenance is not. Do not claim the advertised fine-tuning quality from the R448 score.",
+          "original_R290_provenance_warning": "QuantizerdeclaresOrionLLM/OxCoder-9B;doesnotpublishcryptographicupstreamcommitderivation. Originalmodelpin07ba04e...andquantizerpin525d714...recordedseparately."
+        },
+        "sources": {
+          "SAFETENSORS_HEADERS.json": "4128473faab475ea7eb5921c3f2e091a82bb3a3307d29a72ac11dcb8e94ff0ec",
+          "discussion-3.json": "b478e9a3410a6b95d1d035156ae0a62530da161dfe48b23cef4d5039592db47c",
+          "oxcoder-commits.json": "e8c810034f8f98b71690e89579bc5893f9e1a062ff11429fb7571fe4029acb6a",
+          "oxcoder-current.json": "6e29b7efcbfb148d24f6e2b824c962d37915b653b3527f1130394c64bf5b591d",
+          "oxcoder-gguf-current.json": "382e30b6f9c73c1d40e79569533ef33224ba788f69b67fde349cc12937b72d77",
+          "oxcoder-original-upload.json": "67ded87262a61eac799e856930239fcceb154a13cb6ba0fc3964f1159b36bff1",
+          "qwen35-current.json": "78b92ec8a24e68cea1aa24dfb935511b959d9fb8472d43bd66fe64652c9974cf"
+        },
+        "upstream_safetensors": {
+          "current_equals_original_upload_LFS": true,
+          "current_file_SHA256_reported_by_HF": "d4fca6821fe35b46e684ab88217ec25cdbfcdf9fa208c01110be95a200fcc33b",
+          "current_revision": "07ba04e2149bace1b43c66448471a70378a7a708",
+          "limitation": "HF commit/file metadata was independently retrieved; full safetensors file SHA was not independently streamed yet.",
+          "original_upload_revision": "301439404fbf6d483b303c172e90591627483caf",
+          "post_discussion_corrected_weight_payload_evidence_found": false,
+          "repository": "OrionLLM/OxCoder-9B"
+        }
+      },
+      "weight_provenance_audit_id": "audit-7469da0fdc13596f8c53",
+      "weight_provenance_sha256": "7469da0fdc13596f8c535e616c0a37d7e881545e5e17e8dd0a5ef9d3817aade7"
+    }
+  ],
   "definition_history": [
     {
       "benchmark_id": "humanevalplus-v0.1.10",

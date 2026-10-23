@@ -212,4 +212,17 @@ class LeaderboardTests(unittest.TestCase):
    root,folder,db,h=self.evidence_fixture(tmp);h['runs'][0]['audit_hash']='a'*64
    ce,me=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertEqual(ce,[]);self.assertEqual(me,[])
 
+ def test_archived_diagnostic_is_not_new_benchmark_or_qualification(self):
+  reg=json.loads((ROOT/'data/benchmark-register.json').read_text());history=json.loads((ROOT/'data/configuration-history.json').read_text())
+  items=reg.get('archived_diagnostics',[]);self.assertTrue(items)
+  for d in items:
+   self.assertEqual(d['new_GPU_runs'],0);self.assertTrue(d['original_results_unchanged']);self.assertNotIn('analysis_path',d);self.assertNotIn('followup_path',d)
+   a=d['summary'];self.assertEqual(sum(a['classification'].values()),a['overall']['tasks']);self.assertEqual(a['quality_score_unchanged']['solved'],a['overall']['solved'])
+   self.assertEqual(a['parser_checks']['empty_reasoning_equals_raw_trimmed'],a['empty_final_content']['tasks']);self.assertEqual(a['parser_checks']['nonempty_final_equals_raw_post_close_trimmed'],a['nonempty_final_content']['tasks'])
+   self.assertEqual(a['parser_checks']['explicit_reasoning_token_counts_available'],0)
+   self.assertEqual(d['followup']['common_constraints']['whole_benchmark_seconds'],900);self.assertIn('SEPARATE_GPU_APPROVAL',d['followup']['status'])
+   self.assertNotIn('case_diagnostics',a);self.assertNotIn('source_evidence',a)
+   w=d['weight_provenance'];self.assertTrue(w['local_R448_artifact']['current_published_LFS_matches']);self.assertTrue(w['upstream_safetensors']['current_equals_original_upload_LFS']);self.assertEqual(w['source_lineage']['exact_quantizer_to_upstream_checkpoint_derivation'],'NOT VERIFIED');self.assertFalse(w['independent_header_inventory']['header_comparison_is_payload_comparison']);self.assertNotIn('weight_provenance_path',d)
+  self.assertTrue(all(r['benchmark_id']!='ARCHIVED_RESPONSE_DIAGNOSTIC_ISSUE12' for r in history['runs']))
+
 if __name__=='__main__':unittest.main()

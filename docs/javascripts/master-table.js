@@ -128,6 +128,8 @@
     const rows = data.history.profiles.filter(p => measuredIds.has(p.runtime_configuration_id)).map(profile => {
       const runs = data.history.runs.filter(r => r.runtime_configuration_id === profile.runtime_configuration_id).map(original => {
         const run = { ...original };
+        const diagnosis = (data.register.archived_diagnostics || []).find(d => d.experiment_id === run.experiment_id);
+        if (diagnosis) run.archived_diagnostic = { audit_id: diagnosis.audit_id, weight_provenance_audit_id: diagnosis.weight_provenance_audit_id, weight_identity_status: diagnosis.weight_provenance.next_decision, report: 'oxcoder-diagnostic' };
         (data.history.measurement_evidence || []).filter(e => e.run_id === run.run_id).forEach(e => {
           if (e.runtime_configuration_id !== run.runtime_configuration_id) throw new Error('Timing evidence/profile mismatch');
           Object.entries(e.values).forEach(([key, v]) => { if (!absent(run[key]) && canonical(run[key]) !== canonical(v)) throw new Error('Conflicting measured evidence: ' + key); run[key] = v; });
@@ -386,7 +388,9 @@
           runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, null, 2);
         dialogLinks.textContent = '';
         a.records.forEach(r => {
-          const section = E('div'); section.append(link(r.experiment_id, '../experiments/' + r.experiment_id + '/'));
+          const section = E('div');
+          if (r.archived_diagnostic) section.append(link('Response and weight provenance diagnosis', '../' + r.archived_diagnostic.report + '/'), document.createTextNode(' · '));
+          section.append(link(r.experiment_id, '../experiments/' + r.experiment_id + '/'));
           r.audit_ids.forEach(id => section.append(document.createTextNode(' · '), link('Audit ' + id, '../audits/' + id + '/')));
           if (r.qualification_audit_id) section.append(link(' Zulassung', '../audits/' + r.qualification_audit_id + '/'));
           dialogLinks.append(section);

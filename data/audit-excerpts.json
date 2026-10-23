@@ -250025,6 +250025,47 @@
   },
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d9eefff3d6c2342adfb0",
+    "original_bytes": 191949,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d9eefff3d6c2342adfb07fbe83ae63493e9d29bf7eb4ff628852b001c5d9b4fa",
+    "statements": {
+      "decision": "Observed 104 empty final outputs are fully explained at the recorded-interface level by the4096-token generation cap being reached before reasoning closure. No lost post-reasoning final content is observed. The reason for prolonged reasoning, benefits of disabling thinking or changing the thinking budget, and cross-model causal effects remain unverified. Original53/164 score is preserved; no hidden-reasoning code is promoted to a final answer."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0e97dd72c90af4703b6f",
+    "original_bytes": 5909,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0e97dd72c90af4703b6fcf52363877460104c46359b10cbcba5c9327cdc10558",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7469da0fdc13596f8c53",
+    "original_bytes": 4033,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7469da0fdc13596f8c535e616c0a37d7e881545e5e17e8dd0a5ef9d3817aade7",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "canonical_positive_controls_verified": 400,
       "model_results_admitted": 0,
       "negative_controls_verified": 1200,
