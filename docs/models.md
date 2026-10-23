@@ -8,7 +8,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 |---|---|---|---|---|
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
 | BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R443 |
-| BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | R444 |
+| BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | R445 |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
 | BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R431 |
@@ -250,13 +250,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R444 MiMo nativeTool:16/20observed(20planned),wall50.060s,GPUJ/success704.8038859989422,full100extension=False;Omni18/20/Bonsai19/20 nativecomparators. Noagent/overallwinner.",
-  "current_experiment": "R444",
+  "assessment": "R445 MiMoCoding4096:HE+8/13,long0/0,wall144.392s,GPUJ/success4238.315008446952;extension=False. No164score ormodelwinner.",
+  "current_experiment": "R445",
   "evidence_class": null,
   "id": "BMC03",
   "local_scope": null,
   "name": "MiMo V2.6 Distill Qwen 9B",
-  "next_step": "Do notexpandMiMo native100: declared20pilot practicalquality/costgate failed. Preservecategoryfailures andR289agentnegative; no sampler/grammar/outputbudgetrepair. Consider newcodingroleonlyifsourceevidence givesconcretequality hypothesis; no all-modelrejection fromnative20alone.",
+  "next_step": "Codingpilot gatefailed: do notgenerate162remaining orchangebudget/sampler/prompts onknownfailures. Preservepartial/full18scope and sourcepublishedclaims asunreproducedhere; oldTool16/20andagent2/4negatives unchanged. Continue decision-orientedcomparison/concretecompatible singles.",
   "priority": "P1",
   "repository": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
   "source_admission": null,

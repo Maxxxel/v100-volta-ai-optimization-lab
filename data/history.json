@@ -13678,5 +13678,13 @@
     "kind": "R445_MIMO_CODING18_PREREGISTERED",
     "sequence": 1710,
     "signature": null
+  },
+  {
+    "date": "2026-10-23T01:00:19.097330+00:00",
+    "experiment_id": "R445",
+    "factor_id": null,
+    "kind": "R445_MIMO_CODING18_PILOT_AUDITED",
+    "sequence": 1711,
+    "signature": null
   }
 ]

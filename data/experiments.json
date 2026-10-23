@@ -18827,5 +18827,44 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 17,
+      "model_starts": 1,
+      "peak_device_vram_mib": 9186.5,
+      "scopes": {
+        "custom_long_pilot": {
+          "solved": 0,
+          "tasks": 0
+        },
+        "standard_pilot": {
+          "solved": 8,
+          "tasks": 13
+        }
+      }
+    },
+    "audit_id": "audit-179f66838a791be334ee",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R445",
+    "model": "mimo_v26_distill_qwen9b_q8",
+    "reference_A0": null,
+    "statements": {
+      "decision": "MIMO_CODING_PILOT_NO_JOINT_PRACTICAL_GAIN",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Frozen18pilot16HEplus2long, notfull164orindependentholdout.",
+        "ExactMiMosourceT.6/P95/K20/minP0/ThinkingTrue/noeffort, localcoding4096predeclared; sameQ8runtime/template, no codegenerationinGPUworker.",
+        "OriginalR288componentQAandR289agent/R444tool2048negatives retained; no sampler/budgetrepair.",
+        "OfficialisolatedEvalPlus baseANDplus, allobservedanswersinclfailures retained; noCodingChampion frompilot.",
+        "GPUboardcaseenergy only; excludesCPUjudge/system/load/warmup."
+      ],
+      "score_rule": "base_pass AND plus_pass"
+    },
+    "winner_qualified": false
   }
 ]
