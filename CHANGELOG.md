@@ -519,3 +519,7 @@ Replayed the existing R217, R255, R425, R117 and R118 answers in CPU isolation u
 ## Remaining archived full164 profiles verified
 
 Completed the same independent CPU-only verification for Ornith R254 (117/164) and Bonsai’s disjoint R271–R279 campaign (151/164). All original task judgments matched. Seven configurations across six models now have full164 official-API evidence under the same declared local scoring protocol. This adds verification, not new GPU measurements or a claim of overall model superiority. Incomplete native-tool/MBPP cohorts remain separate and no cross-benchmark mean is computed.
+
+## Audited research checkpoint R447 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

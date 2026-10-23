@@ -13710,5 +13710,13 @@
     "kind": "BROKER_FACTOR_LABEL_RISK_BOUNDARY_VALIDATED",
     "sequence": 1714,
     "signature": null
+  },
+  {
+    "date": "2026-10-23T10:48:27.792359+00:00",
+    "experiment_id": "R447",
+    "factor_id": null,
+    "kind": "MODEL_COMPARISON_BENCHMARK_FIRST_POLICY_AND_R447_COLLECTION",
+    "sequence": 1715,
+    "signature": null
   }
 ]

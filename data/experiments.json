@@ -18901,5 +18901,27 @@
       "scope": "New Bonsai PQ2 n8/9/63/64 boundary nativeCPU/CUDA agreement only. Original Omni FORCE_MMQ negative unchanged. No routing intervention, counter/performance or whole-model qualification."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 8158.5
+    },
+    "audit_id": "audit-0064d9a3ee4f9f51ebb9",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R447",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "NATIVE_TASK_COLLECTION_COMPLETE_OFFICIAL_AST_CPU_EVALUATION_PENDING",
+      "limits": [
+        "Native tool answers collected under fixed declared recipe; official AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    },
+    "winner_qualified": false
   }
 ]
