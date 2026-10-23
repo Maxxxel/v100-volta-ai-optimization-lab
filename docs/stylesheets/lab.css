@@ -23,3 +23,13 @@
 .benchmark-warning { color:#c48524; }
 /* Benchmark register and offline configuration explorer */
 .leaderboard-scroll{overflow-x:auto;max-width:100%;margin:1rem 0}.leaderboard-scroll td{min-width:8rem;max-width:25rem;overflow-wrap:anywhere}.leaderboard-scroll button{color:var(--md-accent-fg-color);cursor:pointer;text-align:left}.leaderboard-card{border:1px solid var(--md-default-fg-color--lightest);border-radius:.6rem;padding:1rem;margin:1rem 0}.leaderboard-card svg{width:100%;height:auto;max-height:3rem}.leaderboard-card pre{white-space:pre-wrap;overflow-wrap:anywhere}.leaderboard-picker{max-height:24rem;overflow:auto;border:1px solid var(--md-default-fg-color--lightest);padding:.5rem;margin:1rem 0}.leaderboard-picker label{display:block;padding:.6rem;border-bottom:1px solid var(--md-default-fg-color--lightest);overflow-wrap:anywhere}.leaderboard-picker label[hidden]{display:none}#official-leaderboard select,#configuration-comparison input[type=search],#configuration-history input{color:var(--md-default-fg-color);background:var(--md-default-bg-color);border:1px solid var(--md-default-fg-color--lighter);padding:.6rem;max-width:100%;width:100%;font:inherit}#official-leaderboard option{background:var(--md-default-bg-color)}@media(max-width:600px){.leaderboard-scroll td{min-width:7rem}.leaderboard-picker{max-height:20rem}}
+
+/* Compact parameter columns; full raw settings live on profile pages. */
+#all-measured-results input[type=search]{width:100%;padding:.65rem;border:1px solid var(--md-default-fg-color--lighter);border-radius:.4rem;background:var(--md-default-bg-color);color:var(--md-default-fg-color);margin:.5rem 0}
+.results-overview{font-size:.68rem;border-collapse:separate;border-spacing:0}
+.leaderboard-scroll .results-overview td,.leaderboard-scroll .results-overview th{min-width:4.5rem;max-width:14rem;white-space:nowrap;padding:.55rem .7rem;overflow-wrap:normal}
+.results-overview thead th{background:var(--md-default-bg-color);position:sticky;top:0;z-index:2}
+.results-overview td:nth-child(2),.results-overview th:nth-child(2){position:sticky;left:0;background:var(--md-default-bg-color);z-index:1;box-shadow:2px 0 4px #0002}
+.results-overview tbody tr:nth-child(even) td{background:var(--md-code-bg-color)}
+.results-overview tbody tr:hover td{background:var(--md-accent-fg-color--transparent)}
+.benchmark-sortable td{white-space:nowrap;min-width:4rem;max-width:16rem;font-size:.68rem}

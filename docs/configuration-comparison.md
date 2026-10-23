@@ -2,7 +2,7 @@
 
 ## All measured results
 
-Search and sort every measured benchmark record with its actual tuning profile. Full official admissions and historical/subset evidence remain explicitly labelled; this combined view is not a combined ranking. Open **All settings / hashes** for every recorded parameter, or the profile link for full provenance. Unknown values remain **NOT MEASURED**.
+Search and sort every measured benchmark record with its actual tuning profile. Full official admissions and historical/subset evidence remain explicitly labelled; this combined view is not a combined ranking. Tuning parameters have individual sortable columns. Open the model profile link for full startup commands, hashes and provenance. Unknown values remain **NOT MEASURED**.
 
 <div id="all-measured-results" aria-live="polite"></div>
 
