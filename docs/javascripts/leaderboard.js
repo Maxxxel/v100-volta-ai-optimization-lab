@@ -17,7 +17,7 @@ const E=(tag,text)=>{const e=document.createElement(tag);if(text!==undefined)e.t
 const format=(v,d=2)=>missing(v)?'NOT MEASURED':finite(v)?v.toFixed(d):typeof v==='object'?JSON.stringify(v):String(v);
 const link=(text,href)=>{const a=E('a',text);a.href=href;return a;};
 const profileLink=(id)=>link(id.slice(0,16)+'…','../configuration-profiles/'+id+'/');
-function table(headers,rows,sortable=true){const wrap=E('div');wrap.className='leaderboard-scroll';const t=E('table'),head=E('thead'),tr=E('tr'),body=E('tbody');head.append(tr);t.append(head,body);headers.forEach((h,i)=>{const th=E('th');if(sortable){const b=E('button',h+' ↕');b.type='button';b.addEventListener('click',()=>{const desc=th.dataset.order!=='desc';th.dataset.order=desc?'desc':'asc';[...body.rows].sort((a,b)=>{const x=a.cells[i].dataset.sort,y=b.cells[i].dataset.sort;if(x===''||y==='')return x===y?0:x===''?1:-1;const c=!Number.isNaN(Number(x))&&!Number.isNaN(Number(y))?Number(x)-Number(y):x.localeCompare(y,undefined,{numeric:true});return desc?-c:c;}).forEach(r=>body.append(r));head.querySelectorAll('th').forEach(c=>c.removeAttribute('aria-sort'));th.setAttribute('aria-sort',desc?'descending':'ascending');});th.append(b);}else th.textContent=h;tr.append(th);});rows.forEach(cells=>{const r=E('tr');cells.forEach(v=>{const td=E('td');if(v&&v.nodeType){td.append(v);td.dataset.sort=v.textContent;}else{td.textContent=format(v);td.dataset.sort=missing(v)?'':String(v);}r.append(td);});body.append(r);});wrap.append(t);return wrap;}
+function table(headers,rows,sortable=true){const wrap=E('div');wrap.className='leaderboard-scroll';const t=E('table'),head=E('thead'),tr=E('tr'),body=E('tbody');head.append(tr);t.append(head,body);headers.forEach((h,i)=>{const th=E('th');if(sortable){const b=E('button',h+' ↕');b.type='button';b.addEventListener('click',()=>{const desc=th.dataset.order!=='desc';th.dataset.order=desc?'desc':'asc';[...body.rows].sort((a,b)=>{const x=a.cells[i].dataset.sort,y=b.cells[i].dataset.sort;if(x===''||y==='')return x===y?0:x===''?1:-1;const c=!Number.isNaN(Number(x))&&!Number.isNaN(Number(y))?Number(x)-Number(y):x.localeCompare(y,undefined,{numeric:true});return desc?-c:c;}).forEach(r=>body.append(r));head.querySelectorAll('th').forEach(c=>c.removeAttribute('aria-sort'));th.setAttribute('aria-sort',desc?'descending':'ascending');});th.append(b);}else th.textContent=h;tr.append(th);});rows.forEach(cells=>{const r=E('tr');cells.forEach(v=>{const td=E('td');if(v&&v.nodeType){td.append(v);td.dataset.sort=v.dataset.sort??v.textContent;}else{td.textContent=format(v);td.dataset.sort=missing(v)?'':String(v);}r.append(td);});body.append(r);});wrap.append(t);return wrap;}
 const summary=p=>[p.model.name,p.model.quantization,p.engine.name,p.engine.git_commit||p.engine.build_id?.slice(0,12)||'version NOT MEASURED','MTP '+(p.optimizations.speculation_type??'NOT MEASURED'),'ctx '+(p.runtime.context??'NOT MEASURED')].join(' · ');
 function official(target,data,profiles){
  const label=E('label','Official benchmark / exact definition '),select=E('select');select.setAttribute('aria-label','Choose official benchmark');data.register.definitions.forEach(d=>{const o=E('option',d.name);o.value=d.benchmark_id;select.append(o);});label.append(select);target.append(label);const out=E('div');target.append(out);
@@ -26,20 +26,39 @@ function official(target,data,profiles){
  select.addEventListener('change',show);show();
 }
 function allResults(target,data,profiles){
- const filter=E('input');filter.type='search';filter.placeholder='Filter all results: model, benchmark, experiment, engine or tuning';filter.setAttribute('aria-label',filter.placeholder);
- const eligible=E('input');eligible.type='checkbox';const label=E('label');label.append(eligible,document.createTextNode(' Only independently admitted full official results'));target.append(filter,label);
+ const controls=E('div');controls.className='results-controls';
+ const filter=E('input');filter.type='search';filter.placeholder='Search model, engine, experiment or tuning';filter.setAttribute('aria-label',filter.placeholder);controls.append(filter);
+ const eligible=E('input');eligible.type='checkbox';const officialLabel=E('label');officialLabel.append(eligible,document.createTextNode(' Full official results only'));controls.append(officialLabel);
+ const advanced=E('input');advanced.type='checkbox';const tuningLabel=E('label');tuningLabel.append(advanced,document.createTextNode(' Show all tuning columns'));controls.append(tuningLabel);target.append(controls);
  const area=E('div');target.append(area);
- function draw(){
-  const q=filter.value.toLowerCase();const runs=data.history.runs.filter(r=>(!eligible.checked||r.official_eligible)&&canonical({run:r,profile:profiles.get(r.runtime_configuration_id)}).toLowerCase().includes(q));
-  const rows=runs.map(r=>{const p=profiles.get(r.runtime_configuration_id),o=p.optimizations,t=p.runtime;
-   const model=E('div',p.model.name+' ');model.append(profileLink(r.runtime_configuration_id));
-   const audit=E('div');r.audit_ids.forEach(id=>audit.append(link(id,'../audits/'+id+'/'),document.createTextNode(' ')));
-   return [r.experiment_id,model,r.benchmark_id,r.status,r.score_percent,r.solved+'/'+r.tasks,p.model.quantization,p.engine.name,(p.engine.git_commit||p.engine.build_id||p.engine.version)?.slice(0,12),t.thinking_reasoning_requested,o.speculation_type,o.draft_parameters?.['--spec-draft-n-max'],o.flash_attention_requested,o.KV_precision?.k,o.KV_precision?.v,o.HBM_conversion_weight_cache_limit_mib,t.context,t.max_output,t.batch,t.microbatch,t.CPU_threads,t.sampling?.temperature,t.sampling?.top_p,t.sampling?.top_k,t.sampling?.min_p,t.sampling?.seed,t.power_limit_w,r.wall_s,r.gpu_j_per_success,r.peak_vram_mib,audit];});
-  area.textContent='';area.append(E('p',runs.length+' versioned result records. Historical admission revisions can describe the same GPU measurement. Different benchmark definitions are not one ranking.'),table(['Experiment','Model / full profile','Benchmark','Scope','Success %','Passed / tasks','Quant','Engine','Build','Thinking','MTP','Draft max','Flash attention','KV K','KV V','HBM MiB','Context','Output','Batch','Microbatch','Threads','Temperature','Top-p','Top-k','Min-p','Seed','Power W','Request wall s','GPU J / success','VRAM MiB','Audit'],rows));
-  area.querySelector('table').classList.add('results-overview');
-
+ const benchmarkIds=[...new Set(data.history.runs.map(r=>r.benchmark_id))].filter(id=>!id.startsWith('local-'));
+ const names={'humanevalplus-v0.1.10':'HumanEval+','bfcl-v4-full':'BFCL','mbppplus-v0.2.0':'MBPP+'};
+ function scoreCell(runs){
+  if(!runs.length)return null;
+  const box=E('div');box.className='result-scores';
+  const values=[...new Set(runs.map(r=>r.score_percent))];box.dataset.sort=values.length===1?String(values[0]):'';
+  runs.forEach(r=>{const entry=E('div');entry.className='result-score';
+   const value=link(format(r.score_percent)+'%','../configuration-profiles/'+r.runtime_configuration_id+'/');value.className='result-score-value';entry.append(value,E('span',r.solved+' / '+r.tasks));
+   const scope=E('small',r.official_eligible?'FULL · admitted':r.status.includes('SUBSET')?'SUBSET · historical':'HISTORICAL · local protocol');scope.className=r.official_eligible?'result-admitted':'result-historical';entry.append(scope);
+   entry.title=r.experiment_id+' · '+r.benchmark_revision+' · '+r.benchmark_identity_id+' · Request wall: '+format(r.wall_s)+' s · GPU J/success: '+format(r.gpu_j_per_success)+' · VRAM: '+format(r.peak_vram_mib)+' MiB';box.append(entry);
+  });return box;
  }
- filter.addEventListener('input',draw);eligible.addEventListener('change',draw);draw();
+ function draw(){
+  const q=filter.value.toLowerCase(),groups=new Map();
+  data.history.runs.filter(r=>benchmarkIds.includes(r.benchmark_id)&&(!eligible.checked||r.official_eligible)).forEach(r=>{if(!groups.has(r.runtime_configuration_id))groups.set(r.runtime_configuration_id,[]);groups.get(r.runtime_configuration_id).push(r);});
+  const rows=[];
+  [...groups.entries()].sort((a,b)=>profiles.get(a[0]).model.name.localeCompare(profiles.get(b[0]).model.name)).forEach(([id,runs])=>{
+   const p=profiles.get(id),o=p.optimizations,t=p.runtime;if(!canonical({profile:p,runs}).toLowerCase().includes(q))return;
+   const model=E('div');model.className='result-model';model.append(link(p.model.name,'../configuration-profiles/'+id+'/'),E('small',id.slice(0,16)+'…'));
+   const basic=[model,p.model.quantization,p.engine.name,(p.engine.git_commit||p.engine.build_id||p.engine.version)?.slice(0,12),t.thinking_reasoning_requested,o.speculation_type,o.HBM_conversion_weight_cache_limit_mib,t.context];
+   const extra=advanced.checked?[o.draft_parameters?.['--spec-draft-n-max'],o.flash_attention_requested,o.KV_precision?.k,o.KV_precision?.v,t.max_output,t.batch,t.microbatch,t.CPU_threads,t.sampling?.temperature,t.sampling?.top_p,t.sampling?.top_k,t.sampling?.min_p,t.sampling?.seed,t.power_limit_w]:[];
+   rows.push([...basic,...extra,...benchmarkIds.map(bench=>scoreCell(runs.filter(r=>r.benchmark_id===bench)))]);
+  });
+  area.textContent='';area.append(E('p',rows.length+' measured configurations. One row per immutable tuning profile; one column per benchmark. Historical protocol revisions remain labelled. Different profiles are never silently merged.'),table(['Model / full configuration','Quant','Engine','Build','Thinking','MTP','HBM MiB','Context',...(advanced.checked?['Draft max','Flash attention','KV K','KV V','Output','Batch','Microbatch','Threads','Temperature','Top-p','Top-k','Min-p','Seed','Power W']:[]),...benchmarkIds.map(id=>names[id]||id)],rows));
+  const t=area.querySelector('table');t.classList.add('results-overview');
+  const scroll=area.querySelector('.leaderboard-scroll');if(scroll){scroll.setAttribute('tabindex','0');scroll.setAttribute('aria-label','Configuration results table; scroll horizontally for benchmark columns');}
+ }
+ filter.addEventListener('input',draw);eligible.addEventListener('change',draw);advanced.addEventListener('change',draw);draw();
 }
 function comparison(target,data,profiles){
  const label=E('label','Measured profiles (select two or more; on mobile tap each checkbox)'),list=E('div');list.className='leaderboard-picker';const selected=new Set(),out=E('div'),filter=E('input');filter.type='search';filter.placeholder='Filter model, benchmark, experiment or tuning';filter.setAttribute('aria-label',filter.placeholder);target.append(label,filter,list,out);

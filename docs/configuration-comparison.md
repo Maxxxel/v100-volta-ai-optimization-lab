@@ -2,7 +2,7 @@
 
 ## All measured results
 
-Search and sort every measured benchmark record with its actual tuning profile. Full official admissions and historical/subset evidence remain explicitly labelled; this combined view is not a combined ranking. Tuning parameters have individual sortable columns. Open the model profile link for full startup commands, hashes and provenance. Unknown values remain **NOT MEASURED**.
+One row per measured configuration, tuning parameters on the left and one result column per benchmark on the right. Show all tuning columns when needed. Full official admissions and historical/subset evidence remain explicitly labelled; this view is not a combined ranking. Open the model profile link for full startup commands, hashes, individual run metrics and provenance. Unknown values remain **NOT MEASURED**.
 
 <div id="all-measured-results" aria-live="polite"></div>
 
