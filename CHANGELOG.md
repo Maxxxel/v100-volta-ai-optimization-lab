@@ -589,3 +589,11 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 ## Single benchmark-table entry point — 2026-10-23
 
 The model comparison has one public result table. Legacy benchmark and supplemental comparison URLs redirect to it; duplicate comparison navigation is removed. Full and partial results retain their measured task counts and qualification within the same family columns. Original datasets, immutable profiles, audits and scores are unchanged. Browser checks cover both old URLs, desktop and mobile.
+
+## Audited research checkpoint R453 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## R453 — full native BFCL Python category, 2026-10-23
+
+LFM2.5-8B-A1B Q6_K completed all400 pinned `simple_python` cases in one broker-admitted model session. The original official AST checker and a second CPU replay both scored371/400 (92.75%); separate practical checks also scored371/400, with400 valid and complete replies. Task phase:802.998s; request windows:801.605s; GPU energy:153913.043J; GPU J per AST success:414.860; peak VRAM:7436.5MiB. This is one official category under the declared local native profile, not BFCL overall or a model/optimization Champion. Complete source identities, shared canonical controls and both scoring receipts are verified by the export pipeline. All original profiles and partial results remain in the same single master table.

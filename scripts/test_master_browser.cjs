@@ -61,6 +61,17 @@ async function main() {
     assert(partials.length>=3,'Retained LFM and MiMo partial benchmark records');
     for(const r of partials){const cell=page.locator(`.master-table tr[data-configuration-id="${r.id}"] td[data-column-key="family:humanevalplus"]`);assert((await cell.textContent()).includes(`${r.solved}/${r.tasks}`));assert((await cell.textContent()).includes('PARTIAL'));}
     report.checks.push('exactly one table; partial results visible by default in the same HumanEval column with original denominators');
+    const toolCategories = await page.evaluate(() => window.V100Leaderboard.history.runs.filter(r => r.benchmark_id === 'bfcl-v4-simple-python-full400' && r.official_eligible));
+    for (const run of toolCategories) {
+      assert.equal(run.tasks, 400);
+      const cell = page.locator(`.master-table tr[data-configuration-id="${run.runtime_configuration_id}"] td[data-column-key="family:bfcl"]`);
+      assert((await cell.textContent()).includes(`${run.solved}/${run.tasks}`));
+      assert((await cell.textContent()).includes('OFFIZIELL'));
+      assert.equal(run.qualification_audit.category_only, true);
+      assert.equal(run.qualification_audit.official_category, 'simple_python');
+    }
+    if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+
     for (const legacy of ['benchmarks/', 'supplemental-comparison/']) {
       const old = await context.newPage();
       await old.goto(new URL(legacy, base).href, { waitUntil: 'networkidle' });

@@ -197,6 +197,72 @@ def native_complete_run(root,source,cfg,bench,receipt):
  if scope['tasks']!=164 or not math.isclose(scope['wall_s'],wall,rel_tol=1e-10) or (scope['gpu_energy_j'] is None)!=(energy is None) or energy is not None and not math.isclose(scope['gpu_energy_j'],energy,rel_tol=1e-10):raise ValueError('Native aggregate costs mismatch')
  return {'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':workload_sha,'scorer_version':{'adapter_sha256':helper},'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':source['audit_sha256'],'audit_ids':audits,'source_audit_hashes':hashes,'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'coding','tasks':164,'solved':solved,'score_percent':100*solved/164,'metric':'observed_success_percent','wall_s':wall,'gpu_j':energy,'gpu_j_per_success':energy/solved if energy is not None and solved else None,'peak_vram_mib':max(peaks),'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_CODING_OFFICIAL_API_PENDING','status_reason':'All164 original answers and per-part scoring/costs verified; independent official API qualification is separate.','official_eligible':False,'qualification_audit':None,'warning':'Declared native template/sampling and local output/context limits apply. No publisher-protocol equivalence, model superiority or causal optimization benefit is implied. Monitoring corrections and data recovery remain in original audit lineage.','causal_optimization_proof':None,'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','cache_condition':'Completion HTTP intervals; startup, warmups and CPU evaluation excluded; see original per-request cache setting.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
 
+def native_tool_run(root,source,cfg,bench,receipt):
+ """One native BFCL category, bound to original inputs, responses and CPU receipts."""
+ if source.get('benchmark_id')!='bfcl-v4-simple-python-full400':return None
+ root=pathlib.Path(root);ap=pathlib.Path(source['audit_path']);ap=ap if ap.is_absolute() else root/ap
+ if digest(ap)!=source['audit_sha256']:raise ValueError('Native tool audit changed')
+ a=read(ap);stage=ap.parent;campaign=read(stage/'CAMPAIGN_PLAN.json');cp=stage/'CONFIGURATION_PROFILE.json'
+ if digest(stage/'CAMPAIGN_PLAN.json')!=a['campaign_plan_sha256'] or digest(cp)!=a['runtime_configuration_profile_sha256'] or read(cp)!=cfg:raise ValueError('Native tool configuration lineage changed')
+ if cfg['source_plan_sha256']!=a['campaign_plan_sha256'] or len(a['parts'])!=1 or a['model_starts']!=1:raise ValueError('Native tool single-session evidence missing')
+ part=a['parts'][0];gp=pathlib.Path(part['audit_path']);out=gp.parent
+ if digest(gp)!=part['audit_sha256']:raise ValueError('Native tool GPU audit changed')
+ gpu=read(gp);completion=read(out/'HOST_COMPLETION.json');pins=read(out/'RAW_HASHES.json');native=read(out/'profile.json');launch=read(out/'LAUNCH.json');contract=read(out/'CONTRACT.json')
+ if completion['status']!='GPU_COMPLETE_AUDITED' or completion['audit_sha256']!=digest(gp) or gpu.get('measurement_valid') is not True or gpu.get('GPU_execution_observed') is not True:raise ValueError('Native tool GPU execution not proven')
+ for name in ('HTTP_RESULTS.jsonl','profile.json','LAUNCH.json','CONTRACT.json'):
+  if digest(out/name)!=pins[name]:raise ValueError('Native tool raw identity changed')
+ verify_broker_capture(cfg,native,launch)
+ if native['adapter']!='llama-native-tools' or H({k:v for k,v in native.items() if k!='selected_task_inputs'})!=campaign['immutable_profile_identity_sha256']:raise ValueError('Native tool adapter/profile mismatch')
+ dataset=read(out/'TRUST_SNAPSHOT.json')['task_datasets'][bench['benchmark_id']]
+ if dataset['source_question_file_sha256']!=bench['dataset_split_hash'] or dataset['source_answer_file_sha256']!=bench['reference_answers_sha256'] or dataset['source_revision']!=bench['benchmark_revision']:raise ValueError('Native tool dataset revision mismatch')
+ if digest(dataset['tasks_file'])!=dataset['tasks_sha256'] or digest(dataset['tools_file'])!=dataset['tools_sha256']:raise ValueError('Native tool corpus changed')
+ preparation=root/'staging/leaderboard-register/bfcl-simple-python400/PREPARATION_AUDIT.json'
+ if digest(preparation)!=bench['preparation_audit_sha256']:raise ValueError('Native tool conversion review changed')
+ prepared=read(preparation)
+ if dataset['tasks_sha256']!=prepared['TASKS_sha256'] or dataset['tools_sha256']!=prepared['TOOLS_sha256']:raise ValueError('Native tool unreviewed transformed corpus')
+ for name,key in [('quality_eval_frozen.py','frozen_checker_adapter_sha256'),('BFCL_ANALYSIS_SUBSET.tar','frozen_checker_bundle_sha256')]:
+  if digest(root/'staging/r281'/name)!=bench['scorer_version'][key]:raise ValueError('Native tool unreviewed checker')
+ cases={x['id']:x for x in native['selected_task_inputs']['cases']};rows=[json.loads(l) for l in (out/'HTTP_RESULTS.jsonl').read_text().splitlines()];answers=[x for x in rows if x.get('kind')=='native_tool'];ids=[x['id'] for x in answers]
+ if ids!=contract['parameters']['task_ids'] or ids!=campaign['expected_task_ids'] or len(set(ids))!=len(ids):raise ValueError('Native tool missing or repeated tasks')
+ full=len(ids)==bench['required_task_count'] and H(sorted(ids))==bench['expected_task_ids_hash']
+ if not full or a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or a['full_benchmark_score_claimed'] is not True:raise ValueError('Native tool category not complete')
+ original_cases={x['id']:x for x in read(dataset['tasks_file'])['tasks']};original_tools={x['id']:x for x in read(dataset['tools_file'])['tasks']}
+ for r in answers:
+  case=cases[r['id']];original=original_cases[r['id']];tools=original_tools[r['id']]
+  if case['messages']!=original['messages'] or case['tools']!=tools['tools'] or case['original_question_sha256']!=original['original_question_sha256'] or case['native_tools_sha256']!=original['expected_native_tools_sha256'] or H(case['tools'])!=tools['tools_sha256']:raise ValueError('Native tool original task/schema mismatch')
+  body={**native['native_recipe']['request_options'],'messages':case['messages'],'tools':case['tools']}
+  if r['request']!=body or r['request_sha256']!=H(body):raise ValueError('Native tool input changed')
+ scoreplan=read(stage/'SCORING_PLAN.json')
+ if digest(stage/'SCORING_PLAN.json')!=a['scoring_plan_sha256'] or scoreplan['responses_sha256']!=digest(out/'HTTP_RESULTS.jsonl') or scoreplan['case_ids']!=ids:raise ValueError('Native tool scorer input changed')
+ if scoreplan['worker_sha256']!=bench['scorer_version']['native_score_wrapper_sha256'] or scoreplan['official_utils_sha256']!=bench['scorer_version']['official_native_format_sha256']:raise ValueError('Native tool official scorer changed')
+ required={str(root/'staging/bfcl/INPUTS.tar'),str(root/'staging/r281/BFCL_ANALYSIS_SUBSET.tar'),str(root/'staging/r281/quality_eval_frozen.py'),str(out/'HTTP_RESULTS.jsonl'),dataset['tasks_file'],str(stage/'OFFICIAL_BFCL_UTILS.txt'),str(stage/'SCORING_PLAN.json'),str(stage/'score_native.py')}
+ scored=[]
+ for entry in a['scoring_receipts']:
+  label=entry['label'];stdout=stage/(label+'.stdout');rp=stage/(label+'.receipt.json');execution=read(rp)
+  if digest(stdout)!=entry['stdout_sha256'] or digest(rp)!=entry['receipt_sha256'] or execution['returncode']!=0 or 'Result=success' not in execution['properties'] or 'ExecMainStatus=0' not in execution['properties']:raise ValueError('Native tool CPU scoring receipt invalid')
+  if set(execution['input_sha256'])!=required:raise ValueError('Native tool CPU dependencies incomplete')
+  for file,h in execution['input_sha256'].items():
+   if digest(file)!=h:raise ValueError('Native tool CPU dependency changed')
+  if digest(stage/'score_native.py')!=scoreplan['worker_sha256'] or digest(stage/'OFFICIAL_BFCL_UTILS.txt')!=scoreplan['official_utils_sha256']:raise ValueError('Native tool scorer source mismatch')
+  observed=[json.loads(l) for l in stdout.read_text().splitlines()];judgements=[x for x in observed if 'id' in x]
+  if [x['id'] for x in judgements]!=ids or observed[-1]['tasks']!=len(ids):raise ValueError('Native tool scoring coverage mismatch')
+  if observed[-1].get('official_revision')!=bench['benchmark_revision'] or observed[-1].get('official_functions_modified') is not False or observed[-1].get('model_requests')!=0 or observed[-1].get('tool_executions')!=0:raise ValueError('Native tool scorer provenance mismatch')
+  if any(type(x['official_AST_success']) is not bool for x in judgements):raise ValueError('Native tool nonboolean score')
+  scored.append(observed)
+ if len(scored)!=2 or scored[0]!=scored[1] or a['changed_replay_judgements']:raise ValueError('Native tool replay mismatch')
+ solved=sum(x['official_AST_success'] for x in scored[0] if 'id' in x)
+ if solved!=a['solved_observed_tasks'] or solved!=scored[0][-1]['official_AST_solved']:raise ValueError('Native tool score mismatch')
+ if a['practical_solved']!=scored[0][-1]['practical_solved']:raise ValueError('Native tool practical score mismatch')
+ costs={x['id']:x for x in gpu['per_task']}
+ if set(costs)!=set(ids):raise ValueError('Native tool costs missing')
+ for r in answers:
+  if not math.isclose(r['e2e_s'],costs[r['id']]['e2e_s'],rel_tol=1e-10,abs_tol=1e-8):raise ValueError('Native tool timing mismatch')
+ wall=sum(costs[i]['e2e_s'] for i in ids);energy=sum(costs[i]['gpu_energy_j'] for i in ids) if all(finite(costs[i].get('gpu_energy_j')) and costs[i].get('energy_complete') is True for i in ids) else None
+ if not math.isclose(wall,gpu['case_inference_wall_s'],rel_tol=1e-10) or energy!=gpu['case_gpu_energy_j']:raise ValueError('Native tool aggregate metrics mismatch')
+ audits=[receipt(ap,digest(ap)),receipt(gp,digest(gp))]
+ if not all(audits):raise ValueError('Native tool audit unavailable')
+ return {'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':H(sorted(ids)),'evaluated_task_ids':ids,'scorer_version':bench['scorer_version'],'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':digest(ap),'audit_ids':audits,'source_audit_hashes':[digest(ap),digest(gp)],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'tools','tasks':len(ids),'solved':solved,'score_percent':100*solved/len(ids),'metric':bench['metric'],'wall_s':wall,'gpu_j':energy,'gpu_j_per_success':energy/solved if energy is not None and solved else None,'peak_vram_mib':gpu['peak_device_vram_mib'],'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_TOOLS_OFFICIAL_API_PENDING','status_reason':'Complete400 native Python category with identical independent CPU replay; official admission is separate.','official_eligible':False,'qualification_audit':None,'warning':'One official BFCL category, not BFCL overall. Practical protocol checks are separate from official AST. No publisher equivalence, unseen holdout, model superiority, causal optimization or Champion claim.','causal_optimization_proof':None,'practical_protocol':{'solved':a['practical_solved'],'valid':a['protocol_valid'],'complete':a['complete'],'tasks':len(ids)},'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','cache_condition':'Native completion-HTTP intervals; startup/warmup/CPU scoring excluded; per-request native caching in exact recipe.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
+
 def native_partial_run(root,source,cfg,bench,receipt):
  """Measured/scored native prefixes stay visible, without full-suite admission."""
  if source.get('full_benchmark_score_claimed') is not False or source.get('status') not in ('STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET','STOPPED_USER_TASK_TIME_BUDGET'):return None
@@ -334,6 +400,8 @@ def configuration_evidence(root, db, history, receipt):
     if isinstance(value,str) and not re.fullmatch('[A-Za-z0-9_.+ -]{1,80}',value):continue
     if isinstance(value,list) and not all(isinstance(v,str) and re.fullmatch('[A-Za-z0-9_.+ -]{1,40}',v) for v in value):continue
     fields['runtime.observed_generation_settings.'+key]=value
+  tool_choices=[r.get('tool_choice') for r in all_requests]
+  if tool_choices and all(v==tool_choices[0] for v in tool_choices) and tool_choices[0] in ('auto','none','required'):fields['runtime.native_tool_choice_requested']=tool_choices[0]
   kwargs=[r.get('chat_template_kwargs') for r in all_requests]
   if kwargs and all(isinstance(k,dict) and k==kwargs[0] for k in kwargs):
    for k in ('enable_thinking','reasoning_effort','thinking_budget'):
@@ -369,7 +437,7 @@ def configuration_evidence(root, db, history, receipt):
    # Duplicated SAMPLES/FUNCTIONAL logs are alternative witnesses, not extra work.
    if cfg.get('source_provenance',{}).get('kind')=='BROKER_NATIVE_CAPTURED_CONFIGURATION':
     measured_ids=set(run.get('evaluated_task_ids',[]))
-    candidates=[[r for filename,rows in byfile.items() if pathlib.Path(filename).name=='HTTP_RESULTS.jsonl' for r in rows if r.get('kind')=='coding' and (not measured_ids or r.get('id') in measured_ids)]]
+    candidates=[[r for filename,rows in byfile.items() if pathlib.Path(filename).name=='HTTP_RESULTS.jsonl' for r in rows if r.get('kind')==('native_tool' if run['discipline']=='tools' else 'coding') and (not measured_ids or r.get('id') in measured_ids)]]
    accepted=[]
    for rows in candidates:
     wall=sum(r.get('e2e_s',0) for r in rows)
@@ -670,11 +738,12 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   attempt={'experiment_id':key.upper(),'arm_index':0,'runtime_configuration_id':cfg['runtime_configuration_id'],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'audit_hash':first['audit_sha256'],'audit_id':receipt(ap,first['audit_sha256']),'execution_status':'INFERENCE_OBSERVED_IN_BROKER_CAMPAIGN; FULL_BENCHMARK_NOT_IMPLIED','scientific_status':'BOUNDED_NATIVE_EXECUTION_OBSERVED','lab_metrics':{},'official_eligible':False}
   if not attempt['audit_id']:raise ValueError('Broker source audit unavailable for public export')
   attempt['attempt_id']='attempt-'+H(attempt);history_attempts.append(attempt)
-  bench=defs[reg['local_cohort_classification']['coding']['benchmark_id']]
-  complete=native_complete_run(root,a,cfg,bench,receipt)
+  is_tools=a.get('benchmark_id')=='bfcl-v4-simple-python-full400'
+  bench=defs[a['benchmark_id']] if is_tools else defs[reg['local_cohort_classification']['coding']['benchmark_id']]
+  complete=native_tool_run(root,a,cfg,bench,receipt) if is_tools else native_complete_run(root,a,cfg,bench,receipt)
   if complete:
    qualify(complete,bench);complete['run_id']='run-'+H(complete);runs.append(complete)
-  partial=native_partial_run(root,a,cfg,bench,receipt)
+  partial=None if is_tools else native_partial_run(root,a,cfg,bench,receipt)
   if partial:
    partial['run_id']='run-'+H(partial);runs.append(partial)
  prior=previous or {'profiles':[],'runs':[],'attempts':[]}
