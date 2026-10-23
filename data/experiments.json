@@ -18905,7 +18905,16 @@
   {
     "aggregate_metrics": {
       "model_starts": 1,
-      "peak_device_vram_mib": 8158.5
+      "peak_device_vram_mib": 8158.5,
+      "quality": {
+        "complete": 20,
+        "full_benchmark_tasks": 400,
+        "full_score_claimed": false,
+        "observed_tasks": 20,
+        "official_AST_solved": 19,
+        "practical_solved": 19,
+        "protocol_valid": 20
+      }
     },
     "audit_id": "audit-0064d9a3ee4f9f51ebb9",
     "date": null,
@@ -18917,10 +18926,29 @@
     "model": "bonsai2_27b_pq2",
     "reference_A0": null,
     "statements": {
-      "decision": "NATIVE_TASK_COLLECTION_COMPLETE_OFFICIAL_AST_CPU_EVALUATION_PENDING",
+      "decision": "20_NEW_OFFICIAL_CATEGORY_CASES_COLLECTED_AND_INDEPENDENTLY_SCORED; FULL400_PENDING",
       "limits": [
-        "Native tool answers collected under fixed declared recipe; official AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+        "20 new previously unmeasured simple_python tasks; never extrapolate to full400 or whole BFCLv4.",
+        "Official AST accuracy and additional practical protocol safety checked separately.",
+        "GPU-J scope is nonstream case inference intervals, excludes model load/warmup and CPU/system energy; no TTFT or speedup claim.",
+        "Current user policy: normal benchmarks for all technically runnable models before custom-QA exclusion or detailed optimization."
       ]
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-27497c2f5a7d5504ecbc",
+    "date": "2026-10-23T12:38:42.518292+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R448",
+    "model": "oxcoder9b_q6",
+    "reference_A0": null,
+    "statements": {
+      "scope": "All21 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
     },
     "winner_qualified": false
   }

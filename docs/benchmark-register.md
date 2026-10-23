@@ -213,22 +213,22 @@ Model-card sources: [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B/b
 | expected_task_ids_hash | 284fd37e027916e261462b977d9ff61dd129fcade6566a94c709c3430ac1e836 |
 | hf_dataset_id | NOT MEASURED |
 | hf_snapshot_equivalence | NOT VERIFIED: the current HF dataset snapshot is v3; no substitute for this Git-pinned v4 category. |
-| license | NOT MEASURED |
+| license | Apache-2.0 |
 | local_complete_conformant_results | NOT MEASURED |
-| metric | official_category_AST_accuracy_REQUIRES_ADMISSION |
+| metric | bfcl_simple_python_ast_accuracy_percent |
 | model_card_relation | BFCLv4 family mentions only; no same-category publisher result assumed. |
 | name | BFCL v4 Simple Python — complete400 category |
-| official_definition_verified | False |
+| official_definition_verified | True |
 | original100_pilot_overlap | 20 |
+| per_model_progress_scope | Model-specific coverage is tracked in experiment/campaign evidence, not a global remaining count. |
 | preparation_audit_sha256 | b05f0509061815926a201c9b6217a00019356d6ea6cd20129a4dd299301aa3fc |
-| prerequisites | ["Pin and verify original official category aggregation/scorer identity and license.", "Extend the reviewed closed task-driven model-bench adapter; current automatic model adapter only admits native prefill/decode. No arbitrary commands/root programs.", "Retain historical <=100 request chunk limits, single-GPU lease, runtime, power/VRAM/ECC/temperature guards and isolated CPU evaluation."] |
+| prerequisites | ["Collect or exactly reuse all400 unique category task answers under one declared per-model configuration.", "Independently verify input/schema/score/configuration identities and complete original official AST aggregation; preserve separate practical protocol scores.", "No whole-BFCL, publisher-protocol equivalence or assistant qualification claim from this one category."] |
 | provider_repository | https://github.com/ShishirPatil/gorilla/tree/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard |
 | reference_answers_sha256 | 90cd5bc653690ee8e459b5b3f3fc9458606f7f3fcbf795bb51b7dc581f8c86dc |
-| remaining_task_count | 380 |
 | required_evaluation_settings | All400 official category IDs and official AST category aggregation, declared native template/sampler and unchanged task/function schemas. The old20 answers may be reused only for identical verified configuration/input/answer identities. This category is not the complete BFCLv4 overall leaderboard. |
 | required_task_count | 400 |
-| scorer_version | NOT MEASURED |
-| status | FULL400_FIXTURES_PREPARED_AGGREGATION_AND_TASK_ADAPTER_PENDING |
+| scorer_version | {"aggregation": "correct_count / len(model_result); complete400 IDs required", "frozen_checker_adapter_sha256": "a926f83c9dd9fdba5465c3c7c6a02ec31ace9206b91f06fa27f6d7f077363710", "frozen_checker_bundle_sha256": "657dbc00ab40c23a53173b758d6a25e4806a18cd64c10118148b473114042236", "native_score_wrapper_sha256": "585f63055c4abc62057cdb2c51764b3147f2621f9ca4bb1594d2227a5302bfd1", "official_aggregation_helper_sha256": "7c756592af53eb54733989aa03a3fa87854f1c20dd566f3f10a770e17d25a9d7", "official_eval_runner_sha256": "b1033684908819ccb312d4d0e2c563359d69247412f00206013b2292b0e3ce81", "official_native_format_sha256": "3703b9bb63f83581c60b8e0b82aac74c360c9ca781e99e7d4eb28b0cce2285dd", "official_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8"} |
+| status | OFFICIAL_CATEGORY_DEFINITION_AND_NATIVE_ADAPTER_REVIEWED_FULL_MODEL_RESULT_PENDING |
 | version | v4, entire simple_python category only |
 
 Model-card sources: [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md), [LiquidAI/LFM2.5-8B-A1B](https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md)
@@ -373,4 +373,11 @@ These are verification events for existing measurements, **not new GPU runs**. O
 | Previous definition identity | Correction / preserved boundaries |
 | --- | --- |
 | bench-cd00cbe0bd8dc4e4024ca32e47d28496abf2400f18f5e476d1f91c3b609b616f | The initial project admission wording required every canonical reference to pass. Source/API replay proves the documented HumanEval/32 residual anomaly also occurs under the exact official oracle. Permit that explicitly pinned upstream anomaly without dropping any task, changing tolerance or changing the official scorer. This is a transparent admission-policy correction, not a changed score or dataset. |
+| bench-e4fd06b46fd684c2f281978d02c31df1f37ec3f4934f2194e07ca341ab1fc672 | Pinned category scorer/aggregation and reviewed native adapter admitted; no model result admitted. |
+
+## Source and definition checks — no model results
+
+| Verification | Date | New GPU runs | Model results admitted | Source audit |
+| --- | --- | --- | --- | --- |
+| BFCL_FULL400_CATEGORY_DEFINITION_ADMISSION | 2026-10-23T12:06:36.040369+00:00 | 0 | 0 | [audit-c4fd1b463dd5f4e884bb](audits/audit-c4fd1b463dd5f4e884bb.md) |
 

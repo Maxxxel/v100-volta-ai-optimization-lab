@@ -6,6 +6,25 @@ H=lambda x:hashlib.sha256(json.dumps(x,sort_keys=True,allow_nan=False,separators
 def digest(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def read(p):return json.loads(pathlib.Path(p).read_text())
 def finite(v):return type(v) in (int,float) and math.isfinite(v)
+def verify_broker_capture(cfg,native,launch):
+ if cfg['source_provenance']['kind']!='BROKER_NATIVE_CAPTURED_CONFIGURATION' or cfg['start_parameters']['exact_private_launch_sha256']!=H(launch):raise ValueError('Broker launch identity mismatch')
+ if cfg['source_provenance']['frozen_model_profile_sha256']!=H({k:v for k,v in native.items() if k!='selected_task_inputs'}):raise ValueError('Broker native profile changed')
+ assets=native['assets'];options=native['native_recipe']['request_options']
+ if cfg['model']['artifact_sha256']!=assets[native['model']] or cfg['engine']['binary_sha256']!=assets[native['runtime']+'/llama-server']:raise ValueError('Broker model/engine identity mismatch')
+ if launch['uid']!=65534 or launch['native_request_options']!=options:raise ValueError('Unverified native request recipe')
+ sampling={k:v for k,v in options.items() if k in ('temperature','top_p','top_k','min_p','presence_penalty','repeat_penalty','seed')}
+ if cfg['runtime']['sampling']!=sampling or cfg['runtime']['native_template_controls']!=options.get('chat_template_kwargs') or cfg['runtime']['max_output']!=options['max_tokens']:raise ValueError('Broker sampler/template/output mismatch')
+ if cfg['runtime']['chat_template_sha256']!=assets[native['chat_template']]:raise ValueError('Broker template identity mismatch')
+ argv=launch['argv'];flag=lambda key:argv[argv.index(key)+1] if key in argv and argv.index(key)+1<len(argv) else None
+ for field,key in [('context','--ctx-size'),('batch','--batch-size'),('microbatch','--ubatch-size'),('CPU_threads','--threads'),('GPU_offload','--n-gpu-layers'),('thinking_reasoning_requested','--reasoning')]:
+  if cfg['runtime'][field]!=flag(key):raise ValueError('Broker runtime flags mismatch')
+ for field,key in [('speculation_type','--spec-type'),('flash_attention_requested','--flash-attn')]:
+  if cfg['optimizations'][field]!=flag(key):raise ValueError('Broker optimization flags mismatch')
+ if cfg['optimizations']['KV_precision']!={'k':flag('--cache-type-k'),'v':flag('--cache-type-v')}:raise ValueError('Broker KV precision mismatch')
+ if cfg['engine']['build_id']!=pathlib.Path(native['runtime']).parent.name:raise ValueError('Broker build identity mismatch')
+ kernel=cfg['engine'].get('kernel_library_file')
+ if not kernel or cfg['engine']['kernel_library_sha256']!=assets.get(native['runtime']+'/'+kernel):raise ValueError('Broker kernel identity mismatch')
+ return True
 def definition_identity(d):
  keys=['benchmark_id','benchmark_revision','version','dataset_split','dataset_split_hash','scorer_version','required_task_count','expected_task_ids_hash','required_evaluation_settings','metric']
  return 'bench-'+H({k:d.get(k) for k in keys})
@@ -94,6 +113,12 @@ def profile(plan,launch,model,name,quantization,experiment,plan_sha,sanitize,met
 
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
+ for event in reg.get('local_validation_events',[]):
+  if event.get('kind')=='BFCL_FULL400_CATEGORY_DEFINITION_ADMISSION':
+   path=root/event['audit_path']
+   event['audit_id']=receipt(path,event['audit_sha256'])
+   if not event['audit_id']:raise ValueError('Benchmark definition source audit unavailable')
+   event.pop('audit_path')
  for audit in db['summary'].get('official_api_replay_verification',{}).get('audits',[]):
   ident=receipt(audit['path'],audit['sha256'])
   if not ident:raise ValueError('Official API replay audit unavailable')
@@ -164,6 +189,27 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
    cfg=add_profile(p,l,model,name,quant,exp,digest(pfile))
    attempt={'experiment_id':exp,'arm_index':index,'runtime_configuration_id':cfg['runtime_configuration_id'],'model_family_id':model,'model_name':sanitize(name),'audit_hash':a['audit_sha256'],'audit_id':receipt(path,a['audit_sha256']),'execution_status':'INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED' if observed else 'ATTEMPT_OR_DECLARED_PLAN_NOT_PROVEN_EXECUTED','scientific_status':sanitize(a.get('decision')),'lab_metrics':e.get('aggregate_metrics',{}),'official_eligible':False}
    attempt['attempt_id']='attempt-'+H(attempt);history_attempts.append(attempt)
+ # Broker-native campaigns have captured contracts/launches rather than a
+ # retrospective PLAN.json. Record their actual profile without a full score.
+ for key,a in db['summary'].items():
+  if not re.fullmatch('r[0-9]+',key) or not isinstance(a,dict) or not a.get('runtime_configuration_profile_path'):continue
+  cp=pathlib.Path(a['runtime_configuration_profile_path']);cp=cp if cp.is_absolute() else root/cp
+  if not cp.resolve().is_relative_to(root.resolve()) or digest(cp)!=a['runtime_configuration_profile_sha256']:raise ValueError('Broker configuration receipt changed')
+  cfg=read(cp);first=a['parts'][0];ap=pathlib.Path(first['audit_path']);ap=ap if ap.is_absolute() else root/ap
+  if digest(ap)!=first['audit_sha256'] or cfg['source_provenance']['first_part_collection_audit_sha256']!=first['audit_sha256']:raise ValueError('Broker first collection audit changed')
+  pins=read(ap.parent/'RAW_HASHES.json');lp=ap.parent/'LAUNCH.json';np=ap.parent/'profile.json'
+  if digest(lp)!=pins['LAUNCH.json'] or digest(np)!=pins['profile.json']:raise ValueError('Broker captured source changed')
+  contract=ap.parent/'CONTRACT.json'
+  if digest(contract)!=cfg['source_provenance']['first_part_contract_sha256']:raise ValueError('Broker contract changed')
+  limits=read(contract)
+  if cfg['runtime']['power_limit_w']!=limits['power_w'] or cfg['runtime']['VRAM_budget_mib']!=limits['vram_mib'] or cfg['runtime']['execution_deadline_s']!=limits['runtime_seconds']:raise ValueError('Broker configuration limits mismatch')
+  verify_broker_capture(cfg,read(np),read(lp));validate_history({'profiles':[cfg],'runs':[],'attempts':[]},{})
+  audit=read(ap)
+  if audit.get('measurement_valid') is not True or audit.get('GPU_execution_observed') is not True:raise ValueError('Broker GPU execution not proven')
+  profiles.append(cfg)
+  attempt={'experiment_id':key.upper(),'arm_index':0,'runtime_configuration_id':cfg['runtime_configuration_id'],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'audit_hash':first['audit_sha256'],'audit_id':receipt(ap,first['audit_sha256']),'execution_status':'INFERENCE_OBSERVED_IN_BROKER_CAMPAIGN; FULL_BENCHMARK_NOT_IMPLIED','scientific_status':'BOUNDED_NATIVE_EXECUTION_OBSERVED','lab_metrics':{},'official_eligible':False}
+  if not attempt['audit_id']:raise ValueError('Broker source audit unavailable for public export')
+  attempt['attempt_id']='attempt-'+H(attempt);history_attempts.append(attempt)
  prior=previous or {'profiles':[],'runs':[],'attempts':[]}
  result={'schema_version':SCHEMA,'profiles':frozen_merge(prior['profiles'],profiles,'runtime_configuration_id'),'runs':frozen_merge(prior['runs'],runs,'run_id'),'attempts':frozen_merge(prior['attempts'],history_attempts,'attempt_id'),'provenance_gaps':frozen_merge(prior.get('provenance_gaps',[]),gaps,'gap_id')}
  validate_history(result,defs)
@@ -253,9 +299,11 @@ def render(register,history,comparison,docs,model_registry=None):
   page+='Model-card sources: '+', '.join('['+m['model_repository']+']('+m['url']+')' for m in d.get('model_card_references',[]))+'\n\n'
  page+='## Verified cached model cards\n\n'+table(['Model','Revision / source SHA256','Reported benchmark families','Architecture declared by source','Card'],[[m['model_repository'],str(m.get('revision'))+' / '+m['source_sha256'],', '.join(m['benchmark_mentions']),json.dumps(m.get('architecture')),'[source]('+m['url']+')'] for m in register['model_card_evidence']])
  page+='## Publisher numeric claims — never local highscores\n\nReported numeric cells retain the publisher’s scale. Protocol matching and local reproducibility remain unverified; no conversion to local percentage or cross-model ranking is performed.\n\n'+table(['Model / publisher column','Reported label','Reported value','Scale / comparability','Source'],[[c['model_repository']+' / '+c['column_label'],c['benchmark_label'],c['reported_score'],c['score_unit']+' / '+c['benchmark_definition_match'],'[card]('+c['source_url']+')'] for c in register['publisher_claims']])
- page+='## Independent CPU replay of archived model answers\n\nThese are verification events for existing measurements, **not new GPU runs**. Official scoring functions and pass@1 aggregation were replayed through a streaming API adapter, preserving all164 tasks and the known upstream canonical-reference exception. The full optional CLI was not used; evaluation memory limits remain explicitly local. This verifies archived judgments without implying publisher-protocol equivalence or automatic official highscore qualification.\n\n'+table(['Original experiment','Full task coverage','Confirmed successes','Changed judgments','Verification audit'],[[x['experiment_id'],x['tasks'],x['solved'],x.get('changed_judgements'),audit_links([x['audit_id']])] for x in register.get('local_validation_events',[])])
+ page+='## Independent CPU replay of archived model answers\n\nThese are verification events for existing measurements, **not new GPU runs**. Official scoring functions and pass@1 aggregation were replayed through a streaming API adapter, preserving all164 tasks and the known upstream canonical-reference exception. The full optional CLI was not used; evaluation memory limits remain explicitly local. This verifies archived judgments without implying publisher-protocol equivalence or automatic official highscore qualification.\n\n'+table(['Original experiment','Full task coverage','Confirmed successes','Changed judgments','Verification audit'],[[x['experiment_id'],x['tasks'],x['solved'],x.get('changed_judgements'),audit_links([x['audit_id']])] for x in register.get('local_validation_events',[]) if x.get('experiment_id') and x.get('tasks')==164])
  page+='## Unreachable / unresolved model-card identities\n\n```json\n'+pretty(register['unreachable_model_cards'])+'\n```\n\n## Source retrieval receipts\n\n```json\n'+pretty(register['source_checks'])+'\n```\n'
- page+='\n## Transparent admission-policy corrections\n\n'+table(['Previous definition identity','Correction / preserved boundaries'],[[x['previous_identity'],x['correction']] for x in register.get('definition_history',[])])
+ page+='\n## Transparent admission-policy corrections\n\n'+table(['Previous definition identity','Correction / preserved boundaries'],[[x.get('previous_identity') or (definition_identity(x['previous_definition']) if x.get('previous_definition') else 'NOT RECORDED'),x.get('correction') or x.get('reason') or 'NOT RECORDED'] for x in register.get('definition_history',[])])
+ definitions=[x for x in register.get('local_validation_events',[]) if x.get('kind')=='BFCL_FULL400_CATEGORY_DEFINITION_ADMISSION']
+ if definitions:page+='## Source and definition checks — no model results\n\n'+table(['Verification','Date','New GPU runs','Model results admitted','Source audit'],[[x['kind'],x.get('at_utc'),x.get('GPU_runs'),x.get('model_results_admitted'),audit_links([x['audit_id']]) if x.get('audit_id') else 'Audit link pending export'] for x in definitions])
  write(docs/'benchmark-register.md',page)
  reproduce=docs/'reproduce.md'
  if reproduce.is_file():

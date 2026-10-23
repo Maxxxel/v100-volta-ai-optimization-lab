@@ -523,3 +523,7 @@ Completed the same independent CPU-only verification for Ornith R254 (117/164) a
 ## Audited research checkpoint R447 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R448 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

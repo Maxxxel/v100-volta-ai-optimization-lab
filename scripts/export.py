@@ -13,6 +13,7 @@ SAFEKEY = re.compile(r'^[A-Za-z0-9_+().% -]{1,100}$')
 # Only aggregate scientific branches; never raw responses, cases, per-task outputs or prompts.
 METRIC_ROOTS = {'native_metrics','context_tokens','slots','actual_KV_unified','models','comparisons','metrics','comparison','delta','long_metrics','quality','original12','quality_original12','original12_nonregression','peak_process_vram_mib','peak_device_vram_mib','memory_saved_mib','numerical','numerical_reference','numerical_failures','numerical_tests','model_starts','requests','actual_generation_requests','actual_GPU_execution','new_GPU_runs','old_native_model_starts_verified','primary_archives_checked','observations','unique_quality_tasks','quality_losses','format_passes','semantic_passes','tasks','solved','total_wall_s','wall_s','gpu_j_per_success','gpu_energy_j','stability','A','B','arms','reference','candidate','full_standard164','custom_long_context16','scopes','score_rule','model_comparison_progress'}
 METRIC_ROOTS |= {'factors_reviewed','original_variant_cells','existing_unique_evidence_files_SHA_verified','new_model_starts','scientific_status_changes','experimental_factor_coverage_changes'}
+METRIC_ROOTS |= {'model_results_admitted','canonical_positive_controls_verified','negative_controls_verified','new_control_runs'}
 METRIC_ROOTS |= {'prefill_geomean_E2E_change_percent','actual_private_cublas126'}
 DOMAINS.add('pypi.org')
 DOMAINS.update({'gist.github.com','images.nvidia.com'})

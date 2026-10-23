@@ -16,6 +16,16 @@ def allowed(p):
  if parts[:2]==('.github','ISSUE_TEMPLATE'):return len(parts)==3 and p.suffix in {'.md','.yml'}
  if parts[0]=='docs':return p.suffix in {'.md','.css','.js','.svg'} and all(re.fullmatch('[A-Za-z0-9_.-]+',x) for x in parts)
  return False
+def validation_event_matches(event,audit):
+ if audit.get('original_sha256')!=event.get('audit_sha256'):return False
+ aggregate=audit.get('aggregate_metrics',{})
+ if event.get('kind')=='BFCL_FULL400_CATEGORY_DEFINITION_ADMISSION':
+  return all(type(event.get(k)) is int and event[k]==0 for k in ('GPU_runs','model_results_admitted')) and aggregate.get('new_GPU_runs')==0 and aggregate.get('model_results_admitted')==0
+ if event.get('experiment_id') and all(k in event for k in ('tasks','solved','changed_judgements')):
+  metrics=aggregate.get('models',{}).get(event['experiment_id'],{})
+  return all(metrics.get(k)==event[k] for k in ('tasks','solved','changed_judgements'))
+ return False
+
 def content_errors(s):
  issues=[]
  if SECRET.search(s):issues.append('secret-like material')
@@ -90,9 +100,8 @@ def validate(check_manifest=True):
   if not set(r['audit_ids'])<=aids:errors.append('Configuration result missing original audit')
   if r['official_eligible'] and r.get('qualification_audit_id') not in aids:errors.append('Official result missing independent qualification audit')
  for event in register.get('local_validation_events',[]):
-  audit=next((a for a in au if a['id']==event['audit_id']),{})
-  metrics=audit.get('aggregate_metrics',{}).get('models',{}).get(event['experiment_id'],{})
-  if audit.get('original_sha256')!=event['audit_sha256'] or any(metrics.get(k)!=event[k] for k in ('tasks','solved','changed_judgements')):errors.append('CPU replay event disagrees with verified audit excerpt')
+  audit=next((a for a in au if a['id']==event.get('audit_id')),{})
+  if not validation_event_matches(event,audit):errors.append('Validation event disagrees with its pinned audit or event type')
  import xml.etree.ElementTree as ET
  for svg in (ROOT/'docs/assets/benchmarks').glob('*.svg'):
   tree=ET.fromstring(svg.read_text())

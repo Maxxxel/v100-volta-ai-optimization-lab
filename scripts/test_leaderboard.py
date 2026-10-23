@@ -1,6 +1,7 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render
+from validate import validation_event_matches
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
  def fixture(self):
@@ -45,6 +46,15 @@ class LeaderboardTests(unittest.TestCase):
   r,d,p=self.bfcl_fixture();p.pop('official_category_accuracy');p['official_pass_at_1']=.75;self.assertFalse(official_gate(r,d,p))
  def test_pass_at_one_must_match_the_recorded_numerator(self):
   r,d,p=self.fixture();p['official_pass_at_1']=.9;r['score_percent']=90;self.assertFalse(official_gate(r,d,p))
+ def test_definition_verification_is_not_a_model_replay(self):
+  event={'kind':'BFCL_FULL400_CATEGORY_DEFINITION_ADMISSION','audit_sha256':'a'*64,'GPU_runs':0,'model_results_admitted':0};audit={'original_sha256':'a'*64,'aggregate_metrics':{'new_GPU_runs':0,'model_results_admitted':0}}
+  self.assertTrue(validation_event_matches(event,audit))
+  for field,value in [('GPU_runs',1),('model_results_admitted',1),('audit_sha256','b'*64),('kind','UNKNOWN')]:
+   self.assertFalse(validation_event_matches({**event,field:value},audit),field)
+  changed=copy.deepcopy(audit);changed['aggregate_metrics']['model_results_admitted']=1;self.assertFalse(validation_event_matches(event,changed))
+ def test_cpu_replay_validation_still_requires_matching_scores(self):
+  event={'experiment_id':'R1','audit_sha256':'a'*64,'tasks':164,'solved':100,'changed_judgements':[]};audit={'original_sha256':'a'*64,'aggregate_metrics':{'models':{'R1':{'tasks':164,'solved':100,'changed_judgements':[]}}}}
+  self.assertTrue(validation_event_matches(event,audit));self.assertFalse(validation_event_matches({**event,'solved':101},audit));self.assertFalse(validation_event_matches(event,{}))
  def test_known_upstream_exception_requires_full_pinned_controls(self):
   h=json.loads((ROOT/'data/configuration-history.json').read_text());defs={d['benchmark_id']:d for d in json.loads((ROOT/'data/benchmark-register.json').read_text())['definitions']}
   r=next(r for r in h['runs'] if r['official_eligible']);d=defs[r['benchmark_id']];p=r['qualification_audit'];self.assertTrue(official_gate(r,d,p))
@@ -72,6 +82,27 @@ class LeaderboardTests(unittest.TestCase):
   p=profile(plan,{'argv':['/bin/llama-server','--model','/art/model.gguf','--spec-type','none']},'test','Test','Q6','R1','d'*64,lambda x:x)
   self.assertEqual(p['model']['artifact_sha256'],'a'*64);self.assertEqual(p['engine']['name'],'llama.cpp-compatible');self.assertIsNone(p['engine']['version']);self.assertNotIn('/art/model.gguf',str(p))
   self.assertEqual(p['optimizations']['speculation_type'],'none');self.assertIsNone(p['optimizations']['cuda_graphs']['actual_capture_replay'])
+ def captured_fixture(self):
+  assets={'/runtime/build/runtime/model.gguf':'a'*64,'/runtime/build/runtime/llama-server':'b'*64,'/runtime/build/runtime/libggml-cuda.so':'c'*64,'/templates/chat.jinja':'d'*64}
+  options={'temperature':1.0,'seed':1001,'chat_template_kwargs':{'enable_thinking':True},'max_tokens':4096}
+  native={'model':'/runtime/build/runtime/model.gguf','runtime':'/runtime/build/runtime','chat_template':'/templates/chat.jinja','assets':assets,'native_recipe':{'request_options':options}}
+  launch={'argv':['/runtime/build/runtime/llama-server','--model',native['model'],'--ctx-size','8192','--spec-type','none','--reasoning','on'],'environment':{},'uid':65534,'native_request_options':copy.deepcopy(options)}
+  p=profile({'runtime_identities':assets},launch,'test','Test','Q6','R9','e'*64,lambda s:s,{'sampling':{'temperature':1.0,'seed':1001},'chat_template_kwargs':options['chat_template_kwargs'],'output_cap':4096,'template_sha256':assets[native['chat_template']]})
+  p['source_provenance']={'kind':'BROKER_NATIVE_CAPTURED_CONFIGURATION','frozen_model_profile_sha256':H(native)}
+  return p,native,launch
+ def test_native_capture_preserves_actual_configuration_without_a_score(self):
+  p,n,l=self.captured_fixture();self.assertTrue(verify_broker_capture(p,n,l));self.assertNotIn('score',p)
+ def test_native_capture_rejects_false_identities_and_tuning(self):
+  changes=[('model','artifact_sha256','f'*64),('engine','binary_sha256','f'*64),('engine','kernel_library_sha256','f'*64),('engine','build_id','other'),('runtime','context','4096'),('runtime','max_output',1024),('runtime','sampling',{'temperature':0}),('runtime','native_template_controls',{'enable_thinking':False}),('optimizations','speculation_type','mtp'),('source_provenance','frozen_model_profile_sha256','f'*64),('start_parameters','exact_private_launch_sha256','f'*64)]
+  for section,key,value in changes:
+   p,n,l=self.captured_fixture();p[section][key]=value
+   with self.subTest(section=section,key=key):
+    with self.assertRaises(ValueError):verify_broker_capture(p,n,l)
+ def test_native_capture_rejects_unverified_privilege_or_recipe(self):
+  p,n,l=self.captured_fixture();l['uid']=0;p['start_parameters']['exact_private_launch_sha256']=H(l)
+  with self.assertRaises(ValueError):verify_broker_capture(p,n,l)
+  p,n,l=self.captured_fixture();l['native_request_options']['max_tokens']=1024;p['start_parameters']['exact_private_launch_sha256']=H(l)
+  with self.assertRaises(ValueError):verify_broker_capture(p,n,l)
  def test_deltas_require_same_task_set_and_scorer(self):
   a={'benchmark_identity_id':'a','evaluated_task_set_hash':'b','scorer_version':{'x':1},'tasks':2,'score_percent':50,'wall_s':10,'gpu_j_per_success':100};b={**a,'score_percent':100,'wall_s':8,'gpu_j_per_success':None}
   d=pair_delta(a,b);self.assertTrue(d['comparable']);self.assertEqual(d['quality_delta_pp'],50);self.assertAlmostEqual(d['latency_delta_percent'],-20);self.assertIsNone(d['energy_per_success_delta_percent']);self.assertIn('Whole-profile',d['interpretation'])
