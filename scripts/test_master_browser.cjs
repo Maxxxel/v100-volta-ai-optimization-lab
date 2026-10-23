@@ -71,6 +71,21 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const reusedTools = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R455'));
+    if (reusedTools) {
+      assert.equal(reusedTools.solved, 372); assert.equal(reusedTools.tasks, 400);
+      for (const k of ['wall_s', 'gpu_j', 'gpu_j_per_success']) assert.equal(reusedTools[k], null);
+      assert.equal(reusedTools.matched_performance.tasks, 360);
+      assert.equal(reusedTools.matched_performance.solved, 335);
+      await page.getByLabel('Ansicht', { exact: true }).selectOption('Energie');
+      const row = page.locator(`.master-table tr[data-configuration-id="${reusedTools.runtime_configuration_id}"]`);
+      const bounds = row.locator('td[data-column-key$="matched_performance.counter_energy.lower_j"]');
+      assert.equal(await bounds.count(), 1);
+      assert.notEqual((await bounds.textContent()).trim(), 'NICHT ERFASST');
+      assert((await page.locator('th[data-column-key$="matched_performance.counter_energy.lower_j"]').textContent()).includes('Neue Aufgaben:'));
+      await page.getByLabel('Ansicht', { exact: true }).selectOption('Kompakt');
+      report.checks.push('Bonsai400 quality keeps360-task energy bounds separate; no fabricated full400 costs');
+    }
     const mimo = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R454' && r.official_eligible));
     if (mimo) {
       const row = page.locator(`.master-table tr[data-configuration-id="${mimo.runtime_configuration_id}"]`);

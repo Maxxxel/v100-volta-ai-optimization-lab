@@ -197,6 +197,123 @@ def native_complete_run(root,source,cfg,bench,receipt):
  if scope['tasks']!=164 or not math.isclose(scope['wall_s'],wall,rel_tol=1e-10) or (scope['gpu_energy_j'] is None)!=(energy is None) or energy is not None and not math.isclose(scope['gpu_energy_j'],energy,rel_tol=1e-10):raise ValueError('Native aggregate costs mismatch')
  return {'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':workload_sha,'scorer_version':{'adapter_sha256':helper},'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':source['audit_sha256'],'audit_ids':audits,'source_audit_hashes':hashes,'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'coding','tasks':164,'solved':solved,'score_percent':100*solved/164,'metric':'observed_success_percent','wall_s':wall,'gpu_j':energy,'gpu_j_per_success':energy/solved if energy is not None and solved else None,'peak_vram_mib':max(peaks),'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_CODING_OFFICIAL_API_PENDING','status_reason':'All164 original answers and per-part scoring/costs verified; independent official API qualification is separate.','official_eligible':False,'qualification_audit':None,'warning':'Declared native template/sampling and local output/context limits apply. No publisher-protocol equivalence, model superiority or causal optimization benefit is implied. Monitoring corrections and data recovery remain in original audit lineage.','causal_optimization_proof':None,'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','cache_condition':'Completion HTTP intervals; startup, warmups and CPU evaluation excluded; see original per-request cache setting.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
 
+def counter_energy_bounds(telemetry, records, selected_ids):
+ """Reported NVML-counter bounds, no interpolation; include within-group setup."""
+ import bisect
+ if not telemetry or len(telemetry)<2 or any(type(t.get('gpu_energy_counter_mj')) is not int or t['gpu_energy_counter_mj']<0 or type(t.get('at_ns')) is not int or type(t.get('nvml_begin_ns')) is not int or t['nvml_begin_ns']>t['at_ns'] for t in telemetry):raise ValueError('Missing counter/query timestamps')
+ ends=[t['at_ns'] for t in telemetry];begins=[t['nvml_begin_ns'] for t in telemetry];energy=[t['gpu_energy_counter_mj'] for t in telemetry]
+ if any(ends[i]<=ends[i-1] or begins[i]<=begins[i-1] or energy[i]<energy[i-1] for i in range(1,len(energy))) or energy[-1]<=energy[0]:raise ValueError('Counter reset or unordered/nonadvancing trace')
+ ids=[r['id'] for r in records];chosen=set(selected_ids)
+ if not selected_ids or len(chosen)!=len(selected_ids) or len(set(ids))!=len(ids) or any(i not in ids for i in selected_ids):raise ValueError('Missing or repeated selected counter tasks')
+ groups=[];active=None;request_ns=0;last=None
+ for r in records:
+  a,b=r['start_ns'],r['end_ns']
+  if type(a) is not int or type(b) is not int or a>=b or last is not None and a<last:raise ValueError('Unordered/invalid request interval')
+  last=b
+  if r['id'] in chosen:
+   request_ns+=b-a
+   if active is None:active=[a,b];groups.append(active)
+   else:active[1]=b
+  else:active=None
+ low=high=duration=0
+ for a,b in groups:
+  before_a=bisect.bisect_right(ends,a)-1;after_a=bisect.bisect_left(begins,a);before_b=bisect.bisect_right(ends,b)-1;after_b=bisect.bisect_left(begins,b)
+  if min(before_a,before_b)<0 or max(after_a,after_b)>=len(energy):raise ValueError('Counter boundaries not bracketed')
+  lower=max(0,energy[before_b]-energy[after_a]);upper=energy[after_b]-energy[before_a]
+  if upper<lower:raise ValueError('Invalid counter bounds')
+  low+=lower;high+=upper;duration+=b-a
+ return {'method':'NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1','tasks':len(selected_ids),'groups':len(groups),'lower_j':low/1000,'upper_j':high/1000,'group_window_s':duration/1e9,'complete_request_s':request_ns/1e9,'included_between_request_setup_s':(duration-request_ns)/1e9,'max_query_duration_s':max(t['at_ns']-t['nvml_begin_ns'] for t in telemetry)/1e9,'scope':'Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.'}
+
+def native_reused_tool_run(root,source,cfg,bench,receipt):
+ """Full/partial quality is separate from costs measured only on new requests."""
+ root=pathlib.Path(root);ap=pathlib.Path(source['audit_path']);ap=ap if ap.is_absolute() else root/ap
+ if digest(ap)!=source['audit_sha256']:raise ValueError('Reused tool audit changed')
+ a=read(ap);stage=ap.parent;plan=read(stage/'CAMPAIGN_PLAN.json');reuse=read(stage/'REUSE_VALIDATION.json');rp=stage/'REUSED_RESPONSES.jsonl';merged=stage/'MERGED_RESPONSES.jsonl';sp=stage/'SCORING_PLAN.json';scoreplan=read(sp)
+ if digest(stage/'CAMPAIGN_PLAN.json')!=a['campaign_plan_sha256'] or cfg['source_plan_sha256']!=a['campaign_plan_sha256'] or digest(stage/'CONFIGURATION_PROFILE.json')!=a['runtime_configuration_profile_sha256'] or read(stage/'CONFIGURATION_PROFILE.json')!=cfg:raise ValueError('Reused tool profile/campaign changed')
+ if digest(stage/'REUSE_VALIDATION.json')!=plan['reuse_validation_sha256'] or digest(rp)!=plan['reused_responses_sha256'] or digest(merged)!=a['merged_responses_sha256'] or digest(sp)!=a['scoring_plan_sha256']:raise ValueError('Reused tool response/plan changed')
+ if reuse['quality_filtering'] is not False or reuse['status']!='FROZEN_CATEGORY_REUSE_SOURCE_AND_RECIPE_VERIFIED' or len(a['parts'])!=1 or a['new_model_starts']!=1:raise ValueError('Unreviewed or filtered reuse')
+ for file,h in reuse['source_files_sha256'].items():
+  if digest(file)!=h:raise ValueError('Reused tool original witness changed')
+ part=a['parts'][0];gp=pathlib.Path(part['audit_path']);out=gp.parent
+ if digest(gp)!=part['audit_sha256']:raise ValueError('Reused tool GPU audit changed')
+ gpu=read(gp);native=read(out/'profile.json');launch=read(out/'LAUNCH.json');contract=read(out/'CONTRACT.json');snapshot=read(out/'TRUST_SNAPSHOT.json');descriptor=snapshot['task_datasets'][bench['benchmark_id']];pins=read(out/'RAW_HASHES.json')
+ for name in ('profile.json','LAUNCH.json','CONTRACT.json','HTTP_RESULTS.jsonl'):
+  if digest(out/name)!=pins[name]:raise ValueError('Reused tool raw source changed')
+ verify_broker_capture(cfg,native,launch)
+ if gpu.get('measurement_valid') is not True or gpu.get('GPU_execution_observed') is not True or launch['uid']!=65534 or native.get('adapter')!='llama-native-tools':raise ValueError('Reused tool GPU execution unverified')
+ if H({k:v for k,v in native.items() if k!='selected_task_inputs'})!=plan['immutable_profile_identity_sha256']:raise ValueError('Reused tool native snapshot changed')
+ def inference(p):
+  q={k:v for k,v in p.items() if k not in ('execution_review','review','task_time_policy','selected_task_inputs')};q['native_recipe']={k:v for k,v in p['native_recipe'].items() if k not in ('maximum_tasks','maximum_generation_requests','maximum_runtime_seconds')};return q
+ review=read(stage/'EXECUTION_REVIEW.json');base=snapshot['profiles'][review['parent_profile']]
+ if H(base)!=plan['base_profile_identity_sha256'] or H(base)!=reuse['base_profile_identity_sha256'] or inference(native)!=inference(base):raise ValueError('Reused tool historical inference profile differs')
+ if descriptor['source_question_file_sha256']!=bench['dataset_split_hash'] or descriptor['source_answer_file_sha256']!=bench['reference_answers_sha256'] or descriptor['source_revision']!=bench['benchmark_revision']:raise ValueError('Reused tool benchmark revision differs')
+ tasks=pathlib.Path(descriptor['tasks_file']);tools=pathlib.Path(descriptor['tools_file']);prep=root/'staging/leaderboard-register/bfcl-simple-python400/PREPARATION_AUDIT.json'
+ if digest(prep)!=bench['preparation_audit_sha256'] or digest(tasks)!=descriptor['tasks_sha256'] or digest(tools)!=descriptor['tools_sha256'] or descriptor['tasks_sha256']!=read(prep)['TASKS_sha256'] or descriptor['tools_sha256']!=read(prep)['TOOLS_sha256']:raise ValueError('Reused tool corpus differs')
+ old=[json.loads(l) for l in rp.read_text().splitlines()];fresh=[r for r in map(json.loads,(out/'HTTP_RESULTS.jsonl').read_text().splitlines()) if r.get('kind')=='native_tool']
+ if not fresh:return None
+ oldids=[r['id'] for r in old];newids=[r['id'] for r in fresh];expected=plan['expected_task_ids']
+ if oldids!=plan['reused_task_ids'] or oldids!=reuse['reused_task_ids'] or len(oldids)!=40 or set(oldids).intersection(newids) or newids!=plan['new_task_ids'][:len(newids)] or contract['parameters']['task_ids']!=plan['new_task_ids']:raise ValueError('Reused tool task coverage differs')
+ if plan['new_task_ids']!=[i for i in expected if i not in oldids] or reuse['remaining_task_ids']!=plan['new_task_ids']:raise ValueError('Reused tool missing-task complement differs')
+ byid={r['id']:r for r in old+fresh};ids=[i for i in expected if i in byid];observed=[json.loads(l) for l in merged.read_text().splitlines()]
+ if len(byid)!=len(old)+len(fresh) or observed!=[byid[i] for i in ids] or scoreplan['case_ids']!=ids or scoreplan['responses_sha256']!=digest(merged) or scoreplan['new_responses_sha256']!=digest(out/'HTTP_RESULTS.jsonl') or scoreplan['reused_responses_sha256']!=digest(rp):raise ValueError('Reused tool merged answers differ')
+ full=len(ids)==bench['required_task_count'] and H(sorted(ids))==bench['expected_task_ids_hash']
+ if full!=a['full_benchmark_score_claimed'] or a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids):raise ValueError('Reused tool partial/full counts differ')
+ if full:
+  completion=read(out/'HOST_COMPLETION.json')
+  if completion['status']!='GPU_COMPLETE_AUDITED' or completion['audit_sha256']!=digest(gp):raise ValueError('Reused tool new360 completion missing')
+ original={r['id']:r for r in read(tasks)['tasks']};schemas={r['id']:r for r in read(tools)['tasks']}
+ for ident,row in byid.items():
+  if row['request']!={**native['native_recipe']['request_options'],'messages':original[ident]['messages'],'tools':schemas[ident]['tools']}:raise ValueError('Reused tool original request differs')
+ if scoreplan['worker_sha256']!=bench['scorer_version']['native_score_wrapper_sha256'] or scoreplan['official_utils_sha256']!=bench['scorer_version']['official_native_format_sha256'] or digest(stage/'score_native.py')!=scoreplan['worker_sha256'] or digest(stage/'OFFICIAL_BFCL_UTILS.txt')!=scoreplan['official_utils_sha256']:raise ValueError('Reused tool official scorer differs')
+ for file,key in [('quality_eval_frozen.py','frozen_checker_adapter_sha256'),('BFCL_ANALYSIS_SUBSET.tar','frozen_checker_bundle_sha256')]:
+  if digest(root/'staging/r281'/file)!=bench['scorer_version'][key]:raise ValueError('Reused tool unreviewed checker')
+ required={str(root/'staging/bfcl/INPUTS.tar'),str(root/'staging/r281/BFCL_ANALYSIS_SUBSET.tar'),str(root/'staging/r281/quality_eval_frozen.py'),str(merged),str(tasks),str(stage/'OFFICIAL_BFCL_UTILS.txt'),str(sp),str(stage/'score_native.py')};scored=[]
+ for entry in a['scoring_receipts']:
+  stdout=stage/(entry['label']+'.stdout');receiptfile=stage/(entry['label']+'.receipt.json');execution=read(receiptfile)
+  if digest(stdout)!=entry['stdout_sha256'] or digest(receiptfile)!=entry['receipt_sha256'] or execution['returncode']!=0 or 'Result=success' not in execution['properties'] or set(execution['input_sha256'])!=required:raise ValueError('Reused tool CPU receipt differs')
+  for file,h in execution['input_sha256'].items():
+   if digest(file)!=h:raise ValueError('Reused tool CPU input differs')
+  rows=[json.loads(l) for l in stdout.read_text().splitlines()];decisions=[r for r in rows if 'id' in r]
+  if [r['id'] for r in decisions]!=ids or rows[-1]['tasks']!=len(ids) or rows[-1].get('official_revision')!=bench['benchmark_revision'] or rows[-1].get('official_functions_modified') is not False or rows[-1].get('model_requests')!=0 or rows[-1].get('tool_executions')!=0:raise ValueError('Reused tool scoring coverage/provenance differs')
+  scored.append(rows)
+ if len(scored)!=2 or scored[0]!=scored[1] or a['changed_replay_judgements']:raise ValueError('Reused tool replay differs')
+ decisions={r['id']:r for r in scored[0] if 'id' in r};solved=sum(decisions[i]['official_AST_success'] for i in ids);newsolved=sum(decisions[i]['official_AST_success'] for i in newids)
+ if solved!=a['solved_observed_tasks'] or sum(decisions[i]['official_AST_success'] for i in oldids)!=reuse['existing_official_AST_solved'] or a['practical_solved']!=scored[0][-1]['practical_solved']:raise ValueError('Reused tool quality counts differ')
+ costs={r['id']:r for r in gpu['per_task']}
+ if set(costs)!=set(newids) or gpu['case_ids']!=newids or gpu['execution_uid']!=65534 or gpu['model_starts']!=1:raise ValueError('Reused tool cost task set differs')
+ for r in fresh:
+  if not finite(r['e2e_s']) or r['e2e_s']<=0 or not math.isclose(costs[r['id']]['e2e_s'],r['e2e_s'],rel_tol=1e-10):raise ValueError('Reused tool request timing differs')
+ wall=sum(costs[i]['e2e_s'] for i in newids);energy=sum(costs[i]['gpu_energy_j'] for i in newids) if all(costs[i].get('energy_complete') is True and finite(costs[i].get('gpu_energy_j')) for i in newids) else None;perf=a['matched_performance']
+ if perf['tasks']!=len(newids) or perf['solved']!=newsolved or perf['task_ids_hash']!=H(sorted(newids)) or not math.isclose(perf['wall_s'],wall,rel_tol=1e-10) or perf['gpu_j']!=energy or perf['gpu_j_per_success']!=(energy/newsolved if energy is not None and newsolved else None):raise ValueError('Reused tool matched cost scope/count differs')
+ if perf['successful_tasks_per_s']!=newsolved/wall or perf['peak_vram_mib']!=gpu['peak_device_vram_mib']:raise ValueError('Reused tool success rate/VRAM differs')
+ timing=[r['reply'].get('timings',{}) for r in fresh]
+ for name,nkey,tkey in [('prefill','prompt_n','prompt_ms'),('decode','predicted_n','predicted_ms')]:
+  if name+'_tok_s' in perf:
+   if not all(finite(t.get(nkey)) and t[nkey]>=0 and finite(t.get(tkey)) and t[tkey]>0 for t in timing) or not math.isclose(perf[name+'_tok_s'],1000*sum(t[nkey] for t in timing)/sum(t[tkey] for t in timing),rel_tol=1e-12):raise ValueError('Reused tool scoped token rate differs')
+ counter_reference=None
+ energy_review=source.get('energy_counter_review')
+ if energy_review:
+  import inspect
+  ep=pathlib.Path(energy_review['path']);ep=ep if ep.is_absolute() else root/ep
+  if digest(ep)!=energy_review['sha256']:raise ValueError('Counter energy review changed')
+  er=read(ep)
+  if er['status']!='BOUNDED_REPORTED_HARDWARE_COUNTER_ENERGY' or er['GPU_runs']!=0 or er['model_requests']!=0 or er['counter_unit']!='mJ' or er['source_API']!='nvmlDeviceGetTotalEnergyConsumption' or er['selected_task_ids']!=newids or er['source_function_sha256']!=hashlib.sha256(inspect.getsource(counter_energy_bounds).encode()).hexdigest():raise ValueError('Unverified counter energy method/scope')
+  for file,h in er['source_files_sha256'].items():
+   if digest(file)!=h:raise ValueError('Counter energy original source changed')
+  newbounds=counter_energy_bounds([json.loads(l) for l in (out/'GPU_TELEMETRY.jsonl').read_text().splitlines()],fresh,newids)
+  for k,v in newbounds.items():
+   if er['Bonsai_R455'][k]!=v:raise ValueError('Counter energy candidate bounds differ')
+  if er['Bonsai_R455']['solved']!=newsolved or er['Bonsai_R455']['j_per_success_lower']!=newbounds['lower_j']/newsolved or er['Bonsai_R455']['j_per_success_upper']!=newbounds['upper_j']/newsolved:raise ValueError('Counter energy success denominator differs')
+  la=read(root/'staging/r453/AUDIT.json');lg=pathlib.Path(la['parts'][0]['audit_path']).parent;lrows=[r for r in map(json.loads,(lg/'HTTP_RESULTS.jsonl').read_text().splitlines()) if r.get('kind')=='native_tool'];lb=counter_energy_bounds([json.loads(l) for l in (lg/'GPU_TELEMETRY.jsonl').read_text().splitlines()],lrows,newids);lj={r['id']:r for r in map(json.loads,(root/'staging/r453/r453-native-score.stdout').read_text().splitlines()) if 'id' in r};lsolved=sum(lj[i]['official_AST_success'] for i in newids)
+  for k,v in lb.items():
+   if er['LFM_R453'][k]!=v:raise ValueError('Counter energy reference bounds differ')
+  if er['LFM_R453']['solved']!=lsolved or er['LFM_R453']['j_per_success_lower']!=lb['lower_j']/lsolved or er['LFM_R453']['j_per_success_upper']!=lb['upper_j']/lsolved:raise ValueError('Counter energy reference denominator differs')
+  perf=copy.deepcopy(perf);perf['counter_energy']=er['Bonsai_R455'];counter_reference={'experiment_id':'R453','runtime_configuration_id':la['runtime_configuration_id'],'counter_energy':er['LFM_R453'],'audit_id':receipt(root/'staging/r453/AUDIT.json',digest(root/'staging/r453/AUDIT.json')),'kind':'Same tasks, stored native profile; no balanced A/B or causal claim'}
+ audits=[receipt(ap,digest(ap)),receipt(gp,digest(gp)),receipt(stage/'REUSE_VALIDATION.json',digest(stage/'REUSE_VALIDATION.json'))]
+ if energy_review:audits.append(receipt(ep,digest(ep)))
+ if not all(audits):raise ValueError('Reused tool original audit unavailable')
+ return {'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':H(sorted(ids)),'evaluated_task_ids':ids,'scorer_version':bench['scorer_version'],'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':digest(ap),'audit_ids':audits,'source_audit_hashes':[digest(ap),digest(gp),digest(stage/'REUSE_VALIDATION.json')],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'tools','tasks':len(ids),'intended_tasks':400,'solved':solved,'score_percent':100*solved/len(ids),'metric':bench['metric'],'wall_s':None,'gpu_j':None,'gpu_j_per_success':None,'peak_vram_mib':gpu['peak_device_vram_mib'],'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_TOOLS_REUSE_OFFICIAL_API_PENDING' if full else 'PARTIAL','status_reason':'All preserved and new task replies independently replayed. Full fresh400 performance is not measured; new-task costs have their own explicit denominator.','official_eligible':False,'qualification_audit':None,'full_benchmark_score_claimed':full,'matched_performance':perf,'matched_reference':counter_reference,'practical_protocol':{'solved':a['practical_solved'],'valid':a['protocol_valid'],'complete':a['complete'],'tasks':len(ids)},'warning':'Only one BFCL category. Quality includes40 verified original replies; measured performance covers new tasks only, not a fresh400 run or causal speedup. Interrupted/uncollected tasks are unmeasured, never zero. No Champion claim.','causal_optimization_proof':None,'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','quality_tasks':len(ids),'performance_tasks':len(newids),'cache_condition':'New complete-request intervals only; excludes startup, warmup, CPU scoring and any incomplete trailing request. Historical timing is not pooled.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
+
 def native_tool_run(root,source,cfg,bench,receipt):
  """One native BFCL category, bound to original inputs, responses and CPU receipts."""
  if source.get('benchmark_id')!='bfcl-v4-simple-python-full400':return None
@@ -744,9 +861,10 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   attempt['attempt_id']='attempt-'+H(attempt);history_attempts.append(attempt)
   is_tools=a.get('benchmark_id')=='bfcl-v4-simple-python-full400'
   bench=defs[a['benchmark_id']] if is_tools else defs[reg['local_cohort_classification']['coding']['benchmark_id']]
-  complete=native_tool_run(root,a,cfg,bench,receipt) if is_tools else native_complete_run(root,a,cfg,bench,receipt)
+  complete=(native_reused_tool_run(root,a,cfg,bench,receipt) if a.get('reused_task_count') else native_tool_run(root,a,cfg,bench,receipt)) if is_tools else native_complete_run(root,a,cfg,bench,receipt)
   if complete:
-   qualify(complete,bench);complete['run_id']='run-'+H(complete);runs.append(complete)
+   if complete.get('full_benchmark_score_claimed') is not False:qualify(complete,bench)
+   complete['run_id']='run-'+H(complete);runs.append(complete)
   partial=None if is_tools else native_partial_run(root,a,cfg,bench,receipt)
   if partial:
    partial['run_id']='run-'+H(partial);runs.append(partial)

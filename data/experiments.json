@@ -19131,5 +19131,29 @@
       "scope": "Actual same-session MiMo Q8 native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "new_model_starts": 1
+    },
+    "audit_id": "audit-0d9e2a2ed0c7e6b989b9",
+    "date": "2026-10-23T23:02:28.073880+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R455",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "COMPLETE400_TOOL_CATEGORY_WITH40_PRESERVED_AND360_NEW_REPLIES",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Quality covers the400 original tasks only when all360 missing replies are collected; all40 prior replies including failures are retained.",
+        "Performance metrics describe new tasks only; old/new timing is never pooled or silently compared against whole400 LFM. Full400 fresh latency/energy are NOT MEASURED.",
+        "Official AST is separate from extra practical protocol checks. No general model superiority, causal optimization or Champion claim."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

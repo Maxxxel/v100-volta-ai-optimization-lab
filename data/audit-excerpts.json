@@ -173138,6 +173138,27 @@
   },
   {
     "aggregate_metrics": {
+      "new_model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0d9e2a2ed0c7e6b989b9",
+    "original_bytes": 14643,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0d9e2a2ed0c7e6b989b93a9679b19d71c2c1bfd0d4a0be78b218e48a68c49e55",
+    "statements": {
+      "decision": "COMPLETE400_TOOL_CATEGORY_WITH40_PRESERVED_AND360_NEW_REPLIES",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Quality covers the400 original tasks only when all360 missing replies are collected; all40 prior replies including failures are retained.",
+        "Performance metrics describe new tasks only; old/new timing is never pooled or silently compared against whole400 LFM. Full400 fresh latency/energy are NOT MEASURED.",
+        "Official AST is separate from extra practical protocol checks. No general model superiority, causal optimization or Champion claim."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -251685,6 +251706,75 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 8158.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-dddcc904661c2d8aaddd",
+    "original_bytes": 319140,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dddcc904661c2d8aaddd8f66abfe8e73614dd9a6ff4bc386f49dc468203310c2",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a6cd38b7ba5139de098b",
+    "original_bytes": 24875,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a6cd38b7ba5139de098befb213fe918ae72bf60227d6a6828468cd3f166df05f",
+    "statements": {
+      "scope": "Every existing native response retained, including all failures; exact current model/build/template/sampler profile and original task/tool bytes checked. No historical timing is relabelled as a new head-to-head."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0cb5df5db1de1245922c",
+    "original_bytes": 14161,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0cb5df5db1de1245922cfcd5ffadeb1842d7ac96d0f65bd025311830655c3c09",
+    "statements": {
+      "limits": [
+        "These are reported cumulative GPU-counter bounds, not interpolation, extrapolation or guessed counters.",
+        "Bounds account for unknown counter-read time within each recorded query interval. Undocumented NVML sensor/calibration error is not bounded.",
+        "Selected contiguous groups include setup between selected requests; unselected tasks, startup/warmup and CPU/system energy are excluded.",
+        "Stored LFM and fresh Bonsai profiles were measured at different times. This is not balanced A/B, a causal kernel effect or general model superiority.",
+        "Original per-case power integration remains NOT MEASURED because its sampling-gap gate failed. No historical audit or scorer result is replaced."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_model_starts": 1,
+      "solved": 372,
+      "tasks": 400
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8ecca6fc436668be4d84",
+    "original_bytes": 14583,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8ecca6fc436668be4d8493e9b5859e2928bf5272deff804f24ce57fa0c342ee8",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252005,6 +252095,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "ed1f07fd94496257f7669978ef24bb5cbc5d3acd799cab2cc0374eba092ee831",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-864e969f716f591c1098",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "864e969f716f591c1098b08168fa3672901f8023f2cdfdf0b321df79d4204607",
     "statements": {}
   },
   {

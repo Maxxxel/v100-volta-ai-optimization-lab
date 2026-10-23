@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1717,
+    "ledger_events": 1718,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 373
+    "sprint_records": 374
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -32,11 +32,11 @@
   "schema": 1,
   "source_date": "2026-10-23T20:51:24.691209+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "f93042f4c89060140ccfee4a317327f6247ed7df591f330c4f23bd8692ed9af9",
-    "BENCHMARK_REGISTER.json": "c2dbac7920ff6d9d213b864f9b207ae0a0cba133d87d760136c989bc54f76efe",
+    "BENCHMARK_REFERENCES.json": "5214096438d4614e962035054a194cf9f3d7355394eb18cbc43d1a6fb9a55df9",
+    "BENCHMARK_REGISTER.json": "219421233d9212bd839a6dbaac9f5655d00435af0a1086fb708a09878e3e82b6",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "fbb1cefe1c3c9cfbca6d606864de1b07711d531274ebdc8232a2ce0cde5fd9d3",
-    "O2_EXPERIMENTS.jsonl": "3c21ddc621a6837253e6a9f87cc5b93ed5f9a468091955c69d5acd5c59a4acca",
+    "O2_EXPERIMENTS.jsonl": "77f09b39d19bd70a9401f5c95d2b89a180b6c89d6297d103a2f85b59428433d4",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

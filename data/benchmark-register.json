@@ -24664,6 +24664,12 @@
       "proof_path": "staging/r454/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "587d2824c728e3ec09a76e839d9cc963f6ed49a63407c3cde1af679812e1f483",
       "source_audit_hash": "0b536a5614264eb5e25c84dc01bc7914371326ba09c3379d57cb9bdb9f0d3293"
+    },
+    {
+      "evaluated_task_set_hash": "284fd37e027916e261462b977d9ff61dd129fcade6566a94c709c3430ac1e836",
+      "proof_path": "staging/r455/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "8ecca6fc436668be4d8493e9b5859e2928bf5272deff804f24ce57fa0c342ee8",
+      "source_audit_hash": "0d9e2a2ed0c7e6b989b93a9679b19d71c2c1bfd0d4a0be78b218e48a68c49e55"
     }
   ],
   "publisher_claims": [

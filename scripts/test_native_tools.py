@@ -1,7 +1,7 @@
 """Synthetic provenance fixtures only: no GPU, model, tool execution or private data."""
 import copy,json,pathlib,tempfile,unittest
 import test_leaderboard as fixtures
-from leaderboard import H,digest,native_tool_run
+from leaderboard import H,digest,native_tool_run,native_reused_tool_run,counter_energy_bounds
 class NativeToolsTests(unittest.TestCase):
  def fixture(self,root):
   def save(p,obj):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(obj)+'\n');return digest(p)
@@ -49,4 +49,59 @@ class NativeToolsTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.fixture(root);p=root/'staging/r9/replay.stdout';rows=[json.loads(x) for x in p.read_text().splitlines()];rows[0]['official_AST_success']=False;a['scoring_receipts'][1]['stdout_sha256']=lines(p,rows);source['audit_sha256']=save(pathlib.Path(source['audit_path']),a)
    with self.assertRaisesRegex(ValueError,'replay mismatch'):self.project(root,source,cfg,bench)
+class ReusedNativeToolsTests(unittest.TestCase):
+ fixture=NativeToolsTests.fixture
+ def reused_fixture(self,root):
+  source,cfg,bench,a,save,lines=self.fixture(root);stage=pathlib.Path(source['audit_path']).parent;out=root/'results';native=json.loads((out/'profile.json').read_text());base=copy.deepcopy(native);base.pop('selected_task_inputs');allids=[c['id'] for c in native['selected_task_inputs']['cases']];newids=allids[40:];raw=[json.loads(l) for l in (out/'HTTP_RESULTS.jsonl').read_text().splitlines()]
+  for r in raw:r['reply']={}
+  old=raw[:40];fresh=raw[40:];lines(stage/'ORIGINAL40.jsonl',old);reused_sha=lines(stage/'REUSED_RESPONSES.jsonl',old);merged_sha=lines(stage/'MERGED_RESPONSES.jsonl',raw);lines(out/'HTTP_RESULTS.jsonl',fresh);native['selected_task_inputs']['cases']=native['selected_task_inputs']['cases'][40:];save(out/'profile.json',native);save(out/'CONTRACT.json',{'parameters':{'task_ids':newids}})
+  snap=json.loads((out/'TRUST_SNAPSHOT.json').read_text());snap['profiles']={'base':base};save(out/'TRUST_SNAPSHOT.json',snap);save(stage/'EXECUTION_REVIEW.json',{'parent_profile':'base'})
+  reuse={'status':'FROZEN_CATEGORY_REUSE_SOURCE_AND_RECIPE_VERIFIED','quality_filtering':False,'base_profile_identity_sha256':H(base),'reused_task_ids':allids[:40],'remaining_task_ids':newids,'existing_official_AST_solved':40,'source_files_sha256':{str(stage/'ORIGINAL40.jsonl'):digest(stage/'ORIGINAL40.jsonl')}};reuse_sha=save(stage/'REUSE_VALIDATION.json',reuse)
+  plan={'experiment_id':'R9','expected_task_ids':allids,'new_task_ids':newids,'reused_task_ids':allids[:40],'immutable_profile_identity_sha256':H(base),'base_profile_identity_sha256':H(base),'reuse_validation_sha256':reuse_sha,'reused_responses_sha256':reused_sha};plan_sha=save(stage/'CAMPAIGN_PLAN.json',plan);cfg['source_plan_sha256']=plan_sha;cfg_sha=save(stage/'CONFIGURATION_PROFILE.json',cfg)
+  gpu=json.loads((out/'AUDIT.json').read_text());gpu.update(per_task=gpu['per_task'][40:],case_ids=newids,execution_uid=65534,model_starts=1,case_inference_wall_s=360,case_gpu_energy_j=720);gpu_sha=save(out/'AUDIT.json',gpu);save(out/'HOST_COMPLETION.json',{'status':'GPU_COMPLETE_AUDITED','audit_sha256':gpu_sha});save(out/'RAW_HASHES.json',{n:digest(out/n) for n in ('profile.json','LAUNCH.json','CONTRACT.json','HTTP_RESULTS.jsonl')})
+  scoreplan=json.loads((stage/'SCORING_PLAN.json').read_text());scoreplan.update(responses_sha256=merged_sha,new_responses_sha256=digest(out/'HTTP_RESULTS.jsonl'),reused_responses_sha256=reused_sha);scoreplan_sha=save(stage/'SCORING_PLAN.json',scoreplan)
+  for entry in a['scoring_receipts']:
+   rp=stage/(entry['label']+'.receipt.json');execution=json.loads(rp.read_text());execution['input_sha256'].pop(str(out/'HTTP_RESULTS.jsonl'));execution['input_sha256'][str(stage/'MERGED_RESPONSES.jsonl')]=merged_sha;execution['input_sha256'][str(stage/'SCORING_PLAN.json')]=scoreplan_sha;entry['receipt_sha256']=save(rp,execution)
+  a.update(new_model_starts=1,campaign_plan_sha256=plan_sha,runtime_configuration_profile_sha256=cfg_sha,merged_responses_sha256=merged_sha,scoring_plan_sha256=scoreplan_sha,matched_performance={'tasks':360,'solved':260,'task_ids_hash':H(sorted(newids)),'wall_s':360,'gpu_j':720,'gpu_j_per_success':720/260,'successful_tasks_per_s':260/360,'peak_vram_mib':7000});a['parts'][0]['audit_sha256']=gpu_sha;source['audit_sha256']=save(pathlib.Path(source['audit_path']),a);return source,cfg,bench,a,save,lines
+ def reused_project(self,root,source,cfg,bench):return native_reused_tool_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
+ def test_reused400_quality_never_inherits360_costs_as_full400_metrics(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.reused_fixture(root);r=self.reused_project(root,source,cfg,bench);self.assertEqual((r['solved'],r['tasks']),(300,400));self.assertIsNone(r['wall_s']);self.assertIsNone(r['gpu_j']);self.assertIsNone(r['gpu_j_per_success']);self.assertEqual(r['matched_performance']['tasks'],360);self.assertEqual(r['matched_performance']['gpu_j_per_success'],720/260);self.assertFalse(r['official_eligible'])
+ def test_360_energy_cannot_be_divided_by400_quality_successes(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.reused_fixture(root);a['matched_performance']['gpu_j_per_success']=720/300;source['audit_sha256']=save(pathlib.Path(source['audit_path']),a)
+   with self.assertRaisesRegex(ValueError,'cost scope/count'):self.reused_project(root,source,cfg,bench)
+ def test_changed_historical_witness_is_rejected(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.reused_fixture(root);save(root/'staging/r9/ORIGINAL40.jsonl',{'changed':True})
+   with self.assertRaisesRegex(ValueError,'original witness'):self.reused_project(root,source,cfg,bench)
+ def test_merged_reply_cannot_be_silently_replaced(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.reused_fixture(root);stage=pathlib.Path(source['audit_path']).parent;rows=[json.loads(l) for l in (stage/'MERGED_RESPONSES.jsonl').read_text().splitlines()];rows[0]['reply']={'changed':True};a['merged_responses_sha256']=lines(stage/'MERGED_RESPONSES.jsonl',rows);source['audit_sha256']=save(pathlib.Path(source['audit_path']),a)
+   with self.assertRaisesRegex(ValueError,'merged answers'):self.reused_project(root,source,cfg,bench)
+ def test_reuse_profile_changes_are_not_a_controlled_same_profile(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.reused_fixture(root);snap=root/'results/TRUST_SNAPSHOT.json';d=json.loads(snap.read_text());d['profiles']['base']['native_recipe']['request_options']['temperature']=0.2;save(snap,d)
+   with self.assertRaisesRegex(ValueError,'historical inference profile'):self.reused_project(root,source,cfg,bench)
+class CounterEnergyTests(unittest.TestCase):
+ def trace(self):return [{'nvml_begin_ns':i*1000000000,'at_ns':i*1000000000,'gpu_energy_counter_mj':i*100000} for i in range(11)]
+ def rows(self):return [{'id':str(i),'start_ns':(i*2+1)*1000000000,'end_ns':(i*2+2)*1000000000} for i in range(4)]
+ def test_exact_boundaries_recover_known_counter_energy(self):
+  r=counter_energy_bounds(self.trace(),self.rows(),['0','1','2','3']);self.assertEqual((r['lower_j'],r['upper_j']),(700,700));self.assertEqual(r['groups'],1);self.assertEqual(r['included_between_request_setup_s'],3)
+ def test_unselected_task_groups_are_excluded(self):
+  r=counter_energy_bounds(self.trace(),self.rows(),['0','2']);self.assertEqual((r['lower_j'],r['upper_j']),(200,200));self.assertEqual(r['tasks'],2);self.assertEqual(r['groups'],2)
+ def test_query_uncertainty_is_bounded_never_interpolated(self):
+  t=self.trace()
+  for x in t:x['nvml_begin_ns']-=100000000;x['at_ns']+=100000000
+  r=counter_energy_bounds(t,self.rows(),['0','1']);self.assertEqual((r['lower_j'],r['upper_j']),(100,500));self.assertLessEqual(r['lower_j'],300);self.assertGreaterEqual(r['upper_j'],300)
+ def test_missing_or_reset_counters_fail_closed(self):
+  for value in (None,-1,False):
+   t=self.trace();t[5]['gpu_energy_counter_mj']=value
+   with self.subTest(value=value),self.assertRaises(ValueError):counter_energy_bounds(t,self.rows(),['0'])
+  t=self.trace();t[5]['gpu_energy_counter_mj']=0
+  with self.assertRaises(ValueError):counter_energy_bounds(t,self.rows(),['0'])
+ def test_missing_brackets_or_duplicate_tasks_fail_closed(self):
+  with self.assertRaises(ValueError):counter_energy_bounds(self.trace()[2:],self.rows(),['0'])
+  with self.assertRaises(ValueError):counter_energy_bounds(self.trace(),self.rows(),['0','0'])
+  with self.assertRaises(ValueError):counter_energy_bounds(self.trace(),self.rows(),['missing'])
 if __name__=='__main__':unittest.main()

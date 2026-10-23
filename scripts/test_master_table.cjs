@@ -10,6 +10,20 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('reused BFCL quality retains independent new-task cost denominators and counter bounds', () => {
+  const run = data.history.runs.find(r => r.experiment_id === 'R455');
+  assert(run, 'Audited R455 is exported');
+  assert.equal(run.tasks, 400); assert.equal(run.solved, 372);
+  for (const k of ['wall_s', 'gpu_j', 'gpu_j_per_success']) assert.equal(run[k], null);
+  const p = run.matched_performance;
+  assert.equal(p.tasks, 360); assert.equal(p.solved, 335);
+  assert.equal(p.gpu_j, null, 'Failed power integration remains unknown');
+  assert(p.counter_energy.lower_j <= p.counter_energy.upper_j);
+  assert.equal(p.counter_energy.j_per_success_lower, p.counter_energy.lower_j / 335);
+  assert.equal(run.matched_reference.counter_energy.tasks, 360);
+  assert.equal(run.matched_reference.counter_energy.solved, 336);
+  assert(model.columns.some(c => c.path === 'matched_performance.counter_energy.lower_j' && c.label.startsWith('Neue Aufgaben:')));
+});
 const score = (n, audit = 'a') => ({ run_id: 'run-' + audit, audit_hash: audit, experiment_id: 'R1',
   runtime_configuration_id: 'cfg-a', benchmark_id: 'b', benchmark_identity_id: 'definition-1',
   benchmark_revision: 'r1', dataset_split_hash: 'data-1', evaluated_task_set_hash: 'tasks-1',
