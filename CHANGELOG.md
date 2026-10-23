@@ -577,3 +577,7 @@ OmniCoder V1/V2 is displayed uniformly as OmniCoder 9B. Different measured runti
 The existing benchmark register now includes a bounded105-repository research inventory, the six requested seed reviews, publisher claims kept separate from local results, and three proposed Q6 coding profiles. Same-format source samples and nonzero adapter products were observed in CPU-only probes and independently replayed; this is neither a complete weight census nor a quality qualification. Exact source revisions, metadata hashes, byte-range identities, limitations and specialist prerequisites are retained. Raw weights, templates, downloaded code and private infrastructure remain outside the public export.
 
 Nexus, Slopus and Claude-distill are prioritized for investigation, with no measured quality ordering. GUI base/substrate composition and Phase1 adapter/license mapping remain unresolved. The full900-second benchmark budget and separate PhaseC GPU approval apply to all new derivative proposals. No new model benchmark or qualification is added. Existing measured configuration IDs, scores, benchmark definitions, champion records and original artifacts are unchanged.
+
+## Audited research checkpoint R451 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

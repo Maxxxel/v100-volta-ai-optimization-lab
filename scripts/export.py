@@ -74,6 +74,15 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('status')=='STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET' and obj.get('full_benchmark_score_claimed') is False:
+        counts={k:obj.get(k) for k in ('expected_tasks','collected_tasks','scored_tasks','solved_observed_tasks')}
+        if all(type(v) is int for v in counts.values()) and 0<=counts['solved_observed_tasks']<=counts['scored_tasks']<=counts['collected_tasks']<counts['expected_tasks']:
+            evidence={**counts,'full_benchmark_score_claimed':False,'scope':'BUDGET_LIMITED_PARTIAL_TASK_SET; NOT_A_FULL_OFFICIAL_SCORE'}
+            measured=obj.get('prefix_measurement') or obj.get('measurement_summary') or {}
+            for original,public in [('case_inference_wall_s','request_interval_wall_s'),('case_gpu_energy_j','request_interval_gross_GPU_j'),('collected_task_inference_wall_s','request_interval_wall_s'),('collected_task_GPU_energy_j','request_interval_gross_GPU_j')]:
+                v=measured.get(original)
+                if type(v) in (float,int) and math.isfinite(v) and v>=0:evidence[public]=v
+            result['partial_benchmark_evidence']=evidence
     if obj.get('experiment_id') in ('R444','R445','R446'):
         for k in ('observed_cases','planned_cases','complete_cases','protocol_valid_cases','full_pilot','coding_wall_s','coding_gpu_energy_j_approx','independent_native_case_recount','maximum_NMSE_bound','supervised_interval_seconds','supervised_interval_gpu_J','execution_uid'):
             v=obj.get(k)

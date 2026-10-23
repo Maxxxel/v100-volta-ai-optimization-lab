@@ -172987,7 +172987,18 @@
     }
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "partial_benchmark_evidence": {
+        "collected_tasks": 43,
+        "expected_tasks": 164,
+        "full_benchmark_score_claimed": false,
+        "request_interval_gross_GPU_j": 63850.30032154079,
+        "request_interval_wall_s": 274.651304856,
+        "scope": "BUDGET_LIMITED_PARTIAL_TASK_SET; NOT_A_FULL_OFFICIAL_SCORE",
+        "scored_tasks": 43,
+        "solved_observed_tasks": 35
+      }
+    },
     "excerpt_is_not_original": true,
     "id": "audit-0c5573999d93c0724d23",
     "original_bytes": 10657,
@@ -172998,6 +173009,58 @@
     "statements": {
       "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
       "scope": "All26 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "partial_benchmark_evidence": {
+        "collected_tasks": 24,
+        "expected_tasks": 164,
+        "full_benchmark_score_claimed": false,
+        "request_interval_gross_GPU_j": 14909.704875449577,
+        "request_interval_wall_s": 81.767864872,
+        "scope": "BUDGET_LIMITED_PARTIAL_TASK_SET; NOT_A_FULL_OFFICIAL_SCORE",
+        "scored_tasks": 8,
+        "solved_observed_tasks": 8
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bbf33241d43a2e89af0a",
+    "original_bytes": 5417,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bbf33241d43a2e89af0a80dffd64d6866bf0b34f30189d06a3f64c1665a97528",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "scope": "All21 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "partial_benchmark_evidence": {
+        "collected_tasks": 140,
+        "expected_tasks": 164,
+        "full_benchmark_score_claimed": false,
+        "request_interval_gross_GPU_j": 148069.11808345848,
+        "request_interval_wall_s": 751.536414132,
+        "scope": "BUDGET_LIMITED_PARTIAL_TASK_SET; NOT_A_FULL_OFFICIAL_SCORE",
+        "scored_tasks": 140,
+        "solved_observed_tasks": 99
+      },
+      "peak_device_vram_mib": 7436.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-92c085f65d75d349aaa4",
+    "original_bytes": 131622,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "92c085f65d75d349aaa47ca069e355857548a71a87ec61ef79df66db00aee85c",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "scope": "Actual interrupted single-session prefix, generated fresh without output reuse or sampler changes. Complete response/input pairs only; unfinished/uncollected tasks are not scored zero. No full-suite score, model rejection or Champion claim. CPU scoring shares the same root900s clock."
     }
   },
   {
@@ -251192,6 +251255,22 @@
     "original_sha256": "71ba003d7452df043da81c78665d7f9e92c5c404cb5697912583c0840aa456f6",
     "statements": {
       "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7436.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-10f68e4c156224ae6f93",
+    "original_bytes": 122738,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "10f68e4c156224ae6f932c932176747bf80b83f7c939ff50be9ad2938020b046",
+    "statements": {
+      "scope": "Only the140 complete response/input pairs, not the full admitted164-task job. No GPU_COMPLETE_AUDITED receipt exists. Independent post-stop evidence capture, no rerun."
     }
   },
   {

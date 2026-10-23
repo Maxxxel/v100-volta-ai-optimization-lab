@@ -211,6 +211,21 @@ class LeaderboardTests(unittest.TestCase):
  def test_native_complete_files_remain_unqualified_without_api_proof(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root);run=native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20]);self.assertEqual(run['tasks'],164);self.assertEqual(run['solved'],82);self.assertFalse(run['official_eligible']);self.assertIsNone(run['qualification_audit']);self.assertEqual(run['gpu_j'],328)
+ def test_explicit_empty_template_controls_are_preserved(self):
+  cfg=profile({'model_sha256':'a'*64},{'argv':[]},'fixture','Fixture','Q6_K','R9','b'*64,lambda x:x,{'chat_template_kwargs':{}})
+  self.assertEqual(cfg['runtime']['native_template_controls'],{})
+  unknown=profile({'model_sha256':'a'*64},{'argv':[]},'fixture','Fixture','Q6_K','R9','b'*64,lambda x:x)
+  self.assertIsNone(unknown['runtime']['native_template_controls'])
+ def test_single_session_workload_comes_from_original_broker_snapshot(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root)
+   cp=root/'staging/r9/CAMPAIGN_PLAN.json';campaign=json.loads(cp.read_text());workload=campaign.pop('source_workload_sha256');campaign['dataset']='pinned164';final['campaign_plan_sha256']=save(cp,campaign);cfg['source_plan_sha256']=final['campaign_plan_sha256']
+   folder=pathlib.Path(final['parts'][0]['audit_path']).parent;snapshot=folder/'TRUST_SNAPSHOT.json';snapshot_sha=save(snapshot,{'task_datasets':{'pinned164':{'task_ids':campaign['expected_task_ids'],'task_count':164,'original_workload_sha256':workload}}});pins=json.loads((folder/'RAW_HASHES.json').read_text());pins['TRUST_SNAPSHOT.json']=snapshot_sha;save(folder/'RAW_HASHES.json',pins);final['source_workload_sha256']=workload;source['audit_sha256']=save(pathlib.Path(source['audit_path']),final)
+   run=native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20]);self.assertEqual(run['evaluated_task_set_hash'],workload)
+   final['source_workload_sha256']='0'*64;source['audit_sha256']=save(pathlib.Path(source['audit_path']),final)
+   with self.assertRaisesRegex(ValueError,'workload identity'):native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
+   snapshot.write_text('{}')
+   with self.assertRaisesRegex(ValueError,'snapshot changed'):native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
  def test_native_complete_files_cannot_hide_a_missing_part_or_changed_source(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root);child=pathlib.Path(final['parts'][-1]['audit_path']);child.write_text('{}')

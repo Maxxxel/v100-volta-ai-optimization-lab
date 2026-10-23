@@ -41,3 +41,13 @@ Registration validates a separate complete candidate registry before atomic acti
 Three submitted infrastructure failures occurred before native GPU execution during migration. Their logs and one-shot markers remain intact. Fixes addressed the LXC lock-file mount, private file transfer and the distinction between raw reserved NVML bytes and the existing idle rule. No valid benchmark was rerun to repair those startup failures.
 
 R446 does **not** qualify a routing change, speedup, whole-model numerical equivalence or a Champion. Historical negative FORCE_MMQ results and all existing model/reference profiles remain unchanged.
+
+## Whole-benchmark deadline and model lifetime
+
+New native coding executions use one sequential model session for the declared full task set. The 900-second wall budget covers the complete benchmark across all jobs and evaluation stages; partitioning, changing a factor label or renaming an otherwise identical profile cannot renew it. Startup/preflight and cleanup reserves reduce the time available for inference. Unknown/stopping service states and residual processes fail closed.
+
+A genuinely new execution protocol requires a root-owned source/resource review bound to one exact immutable contract and complete ordered task set. The reviewed single-session change keeps model weights, engine, template, sampling, context, output cap, hardware limits and isolation unchanged. It does not authorize new model derivatives or reset a predecessor campaign. Fresh responses are required; incomplete earlier campaigns remain preserved.
+
+The single-session executor passed **87 CPU regression tests**, including existing admission, deadline, ECC, occupancy, numerical-adapter and rollback controls. An actual SIGTERM probe in a private CPU-only PID namespace preserved partial response files without producing a successful completion. These checks qualify the executor safeguards, not model quality or a performance improvement.
+
+Historical one-session coding runs remain valid within their recorded scopes. Small multi-session campaigns are explicitly distinguished when comparing whole-campaign latency and energy. Completion-HTTP metrics exclude model startup and must not be presented as full workflow costs.

@@ -4,6 +4,10 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_budget_partial_exports_counts_and_costs_without_private_responses(self):
+  raw={'status':'STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET','full_benchmark_score_claimed':False,'expected_tasks':164,'collected_tasks':140,'scored_tasks':140,'solved_observed_tasks':99,'prefix_measurement':{'case_inference_wall_s':751.5,'case_gpu_energy_j':148069.1,'per_task':[{'response':'private text','address':'sensitive-network-value'}],'prompt_token_ids':[123]}}
+  out=e.metrics(raw);part=out['partial_benchmark_evidence'];self.assertEqual(part['solved_observed_tasks'],99);self.assertEqual(part['request_interval_wall_s'],751.5);self.assertFalse(part['full_benchmark_score_claimed']);self.assertNotIn('private',str(out));self.assertNotIn('sensitive-network-value',str(out));self.assertNotIn('token_ids',str(out))
+  raw['solved_observed_tasks']=141;self.assertNotIn('partial_benchmark_evidence',e.metrics(raw))
  def test_context_capacity_exports_only_valid_ranges_and_aggregate_denominators(self):
   raw={'factor':'R19','context_tokens':32768,'observed_cases':2,'planned_cases':12,'scopes':{'common':{'observed':12,'solved':12,'actual_input_token_range':[14743,14817],'per_task':[{'prompt':'private prompt','token_ids':[1,2]}]},'extended':{'observed':2,'solved':2,'actual_input_token_range':[29500,29600],'messages':['private answer']},'untrusted':{'actual_input_token_range':[1,2]}},'responses':['private']}
   out=e.metrics(raw);self.assertEqual(out['observed_cases'],2);self.assertEqual(out['planned_cases'],12);self.assertEqual(out['context_profile_token_ranges']['extended']['minimum_tokens'],29500);self.assertNotIn('private',str(out));self.assertNotIn('per_task',str(out));self.assertNotIn('token_ids',str(out));self.assertNotIn('untrusted',out['context_profile_token_ranges'])
