@@ -59,7 +59,7 @@ nav:
   - Qualified Configurations: configurations.md
   - Rejected Optimizations: rejected.md
   - Model Comparison & Benchmarks: benchmarks.md
-  - Configuration Comparison: configuration-comparison.md
+  - All Results & Configurations: configuration-comparison.md
   - Benchmark Definitions: benchmark-register.md
   - Supplemental Model Comparisons: supplemental-comparison.md
   - Local Supplemental Benchmarks: local-benchmarks.md

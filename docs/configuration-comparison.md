@@ -1,4 +1,12 @@
-# Configuration comparison
+# All Results & Configurations
+
+## All measured results
+
+Search and sort every measured benchmark record with its actual tuning profile. Full official admissions and historical/subset evidence remain explicitly labelled; this combined view is not a combined ranking. Open **All settings / hashes** for every recorded parameter, or the profile link for full provenance. Unknown values remain **NOT MEASURED**.
+
+<div id="all-measured-results" aria-live="polite"></div>
+
+## Compare selected configurations
 
 Select two or more **measured result profiles**, including weaker configurations. Differences describe complete tested profiles. A causal claim about MTP, quantization or another factor requires a dedicated isolated experiment.
 

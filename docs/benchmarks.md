@@ -6,6 +6,8 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 **Local official-benchmark API track.** This is an independent project ranking, not an entry on the benchmark authors’ leaderboard. Full164 HumanEval+ admissions preserve the exact official checker and pass@1 estimator through a streaming API adapter. The unchanged upstream HumanEval/32 canonical-reference residual anomaly is explicitly accounted for, with no dropped tasks or relaxed tolerance. Local scorer limits are 1GiB cgroup memory,805306368-byte per-process guard,one CPU,minimum1s/case and GT factor4. Publisher-protocol equivalence is not established. Scores are fixed-suite observations, not proof of overall model superiority.
 
+**[All results & tuning configurations — searchable, sortable table](configuration-comparison.md#all-measured-results)** · [Historical detailed cohort table](supplemental-comparison.md#configuration-parameters-and-ranked-benchmark-results)
+
 <div id="official-leaderboard" aria-live="polite"></div>
 
 ## Current admission status
