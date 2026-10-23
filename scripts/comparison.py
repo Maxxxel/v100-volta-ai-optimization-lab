@@ -201,7 +201,7 @@ def svg(title,unit,values,maximum=None,higher_is_better=True):
         text=row.get('display') or f'{v:,.2f} {unit}';out.append(f'<text x="18" y="{y+58}" font-size="13" fill="{color}">{html.escape(text)}</text>')
     return ''.join(out)+'</g></svg>\n'
 
-def render(data,docs):
+def render(data,docs,model_registry=None):
     docs=pathlib.Path(docs);dest=docs/'assets/benchmarks';dest.mkdir(parents=True,exist_ok=True)
     def write(p,text):
         if not p.exists() or p.read_text()!=text:p.write_text(text)
@@ -210,6 +210,28 @@ def render(data,docs):
     page='# Model Comparison & Benchmarks\n\n<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Separate coding, native tools and agent results on one V100. No combined score and no automatic winner.</p></div>\n\n'
     page+='\n'.join('- '+x for x in data['rules'])+'\n\nCharts run from best measured value at the top to worst at the bottom: success/throughput descending; latency/energy/VRAM ascending. Missing measurements follow all measured values. Ties retain a stable profile order. Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.\n\n'
     page+='Measurement-only fingerprint: `'+data['measurement_fingerprint']+'`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).\n\n'
+    page+='## Model evaluation table\n\n**Cross-discipline overall score: NOT MEASURED.** No established composite is computed from unrelated coding, tool and agent suites. HumanEval+/MBPP+ report one-sample task pass rates; Native Tools is our balanced local subset, not a complete official BFCL leaderboard run. Agent18 is a local development suite. Different profile configurations remain separate below.\n\n'
+    aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'}
+    models=list(data['models']);covered={aliases[x['id']] for x in models if x['id'] in aliases}
+    models += [{'id':x['id'],'name':x['name'],'quantization':'NOT MEASURED / see admission record'} for x in (model_registry or []) if x['id'] not in covered]
+    def scores(model,discipline):
+        records=[r for r in data['records'] if r['model']==model and r['discipline']==discipline]
+        return '; '.join(f"{r['solved']}/{r['tasks']} ({100*r['solved']/r['tasks']:.1f}%) [{r['experiment']}](experiments/{r['experiment']}.md)" for r in records) or 'NOT MEASURED'
+    page+=table(['Model / quantization','HumanEval+164','MBPP+223','Native Tools100','Agent18','Established overall score'],[[m['name']+' / '+m['quantization'],scores(m['id'],'coding'),scores(m['id'],'mbpp'),scores(m['id'],'tools'),scores(m['id'],'agents'),'NOT MEASURED'] for m in models])
+    page+='All '+str(len(models))+' baseline/candidate tracks are listed, including research-only and partial admissions. NOT MEASURED means no full comparable result; it does not erase partial negative tests. See [candidate admission stages](models.md). Multiple values in one model row refer to distinct profiles, never to a combined best-of configuration.\n\n'
+    page+='## Configuration parameters and ranked benchmark results\n\nEach row is one audited discipline/profile. **Ranks are calculated only within the same task cohort**, using solved/tasks, descending, with equal rates sharing a rank. They are not allround model rankings. The optimization/profile column describes the actual tested configuration; full controls and hashes appear in the chart metadata sections below.\n\n'
+    profile_rows=[]
+    for discipline in data['cohorts']:
+        records=sorted([r for r in data['records'] if r['discipline']==discipline],key=lambda r:-r['solved']/r['tasks'])
+        previous=None;rank=0
+        for position,r in enumerate(records,1):
+            rate=r['solved']/r['tasks']
+            if rate!=previous:rank=position;previous=rate
+            m=r['metadata'];controls=m['context_and_runtime'];power=m['power_limit_w']
+            parameters=json.dumps(controls,sort_keys=True)+'; sampler='+json.dumps(m['sampling'],sort_keys=True)+'; output cap='+str(m['output_cap'] or 'NOT RECORDED')+'; power='+str(power if power is not None else 'NOT RECORDED')+' W'
+            profile_rows.append([discipline,str(rank),r['name']+' / '+r['quantization'],r['profile'],m['engine'],parameters,f"{r['solved']}/{r['tasks']} ({100*rate:.1f}%)",f"{r['wall_s']:.3f}" if r['wall_s'] is not None else None,f"{r['gpu_j']/r['solved']:.2f}" if r['gpu_j'] is not None and r['solved'] else None,r['peak_vram_mib'],r['warning'] or 'No additional warning recorded for this discipline',f"[{r['experiment']}](experiments/{r['experiment']}.md)"])
+    page+=table(['Task cohort','Rank within cohort','Model / quantization','Actual optimizations / profile','Engine','Runtime / sampler / limits','Success','Total request time (s)','GPU J / success','Peak VRAM (MiB)','Scope / warning','Audit'],profile_rows)
+    page+='Ranking metric: task pass rate for this cohort only. Time includes failed attempts; GPU energy per success divides the whole suite energy by successful tasks. Warnings remain visible even for high scores. Missing values are never zero.\n\n'
     disciplines=[('coding','Coding · HumanEvalPlus')]+([('mbpp','Coding · MBPP+ admitted 223')] if 'mbpp' in data['cohorts'] else [])+[('tools','Native Tools · balanced 100'),('agents','Agents · isolated 18')]+[(key,title) for key,title in [('long16k','Long inventory · 16K profiles'),('long32k_validation','Long inventory · new 32K validation')] if key in data['cohorts']]
     for dis,title in disciplines:
         rows=[x for x in data['records'] if x['discipline']==dis];by={x['model']:x for x in rows};page+='## '+title+'\n\n'+data['cohorts'][dis]['definition']+'\n\nTask identity: `'+data['cohorts'][dis]['task_sha256']+'`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.\n\n'
