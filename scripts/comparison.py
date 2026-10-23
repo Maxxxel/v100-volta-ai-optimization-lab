@@ -201,7 +201,7 @@ def svg(title,unit,values,maximum=None,higher_is_better=True):
         text=row.get('display') or f'{v:,.2f} {unit}';out.append(f'<text x="18" y="{y+58}" font-size="13" fill="{color}">{html.escape(text)}</text>')
     return ''.join(out)+'</g></svg>\n'
 
-def render(data,docs,model_registry=None):
+def render(data,docs,model_registry=None,experiments=None):
     docs=pathlib.Path(docs);dest=docs/'assets/benchmarks';dest.mkdir(parents=True,exist_ok=True)
     def write(p,text):
         if not p.exists() or p.read_text()!=text:p.write_text(text)
@@ -213,12 +213,24 @@ def render(data,docs,model_registry=None):
     page+='## Model evaluation table\n\n**Cross-discipline overall score: NOT MEASURED.** No established composite is computed from unrelated coding, tool and agent suites. HumanEval+/MBPP+ report one-sample task pass rates; Native Tools is our balanced local subset, not a complete official BFCL leaderboard run. Agent18 is a local development suite. Different profile configurations remain separate below.\n\n'
     aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'}
     models=list(data['models']);covered={aliases[x['id']] for x in models if x['id'] in aliases}
-    models += [{'id':x['id'],'name':x['name'],'quantization':'NOT MEASURED / see admission record'} for x in (model_registry or []) if x['id'] not in covered]
+    models += [{'id':x['id'],'name':x['name'],'quantization':'See admission record'} for x in (model_registry or []) if x['id'] not in covered]
     def scores(model,discipline):
         records=[r for r in data['records'] if r['model']==model and r['discipline']==discipline]
         return '; '.join(f"{r['solved']}/{r['tasks']} ({100*r['solved']/r['tasks']:.1f}%) [{r['experiment']}](experiments/{r['experiment']}.md)" for r in records) or 'NOT MEASURED'
     page+=table(['Model / quantization','HumanEval+164','MBPP+223','Native Tools100','Agent18','Established overall score'],[[m['name']+' / '+m['quantization'],scores(m['id'],'coding'),scores(m['id'],'mbpp'),scores(m['id'],'tools'),scores(m['id'],'agents'),'NOT MEASURED'] for m in models])
     page+='All '+str(len(models))+' baseline/candidate tracks are listed, including research-only and partial admissions. NOT MEASURED means no full comparable result; it does not erase partial negative tests. See [candidate admission stages](models.md). Multiple values in one model row refer to distinct profiles, never to a combined best-of configuration.\n\n'
+    partial=[]
+    descriptions={'R445':'MiMo coding pilot; incomplete frozen18, not164','R444':'MiMo native-tool20 pilot; not100','R289':'MiMo agent early stop; not18','R420':'LFM2.5 diagnostic QA; not full coding/tools/agents','R410':'OxCoder diagnostic QA; includes reused cases'}
+    for e in (experiments or []):
+        if e['id'] not in descriptions:continue
+        a=e['aggregate_metrics'];counts=[]
+        for scope,v in a.get('scopes',{}).items():
+            if isinstance(v,dict) and 'tasks' in v and 'solved' in v:counts.append(scope+': '+(str(v['solved'])+'/'+str(v['tasks']) if v['tasks'] else 'NOT MEASURED'))
+        n=a.get('observed_cases',a.get('observed_tasks'))
+        if n is not None and 'solved' in a:counts.append(str(a['solved'])+'/'+str(n))
+        if 'diagnostic_semantic_passes' in a:counts.append('semantic passes='+str(a['diagnostic_semantic_passes'])+'; QA cases='+str(a.get('unique_QA_cases',a.get('observed_original_QA_cases','NOT MEASURED'))))
+        partial.append([descriptions[e['id']],'; '.join(counts) or 'See original audit',a.get('wall_s',a.get('coding_wall_s',a.get('quality_wall_s'))),a.get('peak_device_vram_mib'),f"[{e['id']}](experiments/{e['id']}.md)"])
+    if partial:page+='### Partial screens — excluded from full-suite rankings\n\n'+table(['Observed scope','Recorded counts','Recorded time (s)','Peak VRAM (MiB)','Audit'],partial)+'Partial denominators remain explicit. Zero observed long-context cases means NOT MEASURED, never a zero score.\n\n'
     page+='## Configuration parameters and ranked benchmark results\n\nEach row is one audited discipline/profile. **Ranks are calculated only within the same task cohort**, using solved/tasks, descending, with equal rates sharing a rank. They are not allround model rankings. The optimization/profile column describes the actual tested configuration; full controls and hashes appear in the chart metadata sections below.\n\n'
     profile_rows=[]
     for discipline in data['cohorts']:

@@ -18799,10 +18799,14 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 24,
+      "complete_cases": 20,
       "gpu_energy_j_approx": 11276.862175983075,
       "gpu_j_per_success": 704.8038859989422,
       "model_starts": 1,
+      "observed_cases": 20,
       "peak_device_vram_mib": 9188.5,
+      "planned_cases": 20,
+      "protocol_valid_cases": 20,
       "solved": 16,
       "wall_s": 50.05956673
     },
@@ -18831,6 +18835,9 @@
   {
     "aggregate_metrics": {
       "actual_generation_requests": 17,
+      "coding_gpu_energy_j_approx": 33906.52006757561,
+      "coding_wall_s": 144.391524373,
+      "full_pilot": false,
       "model_starts": 1,
       "peak_device_vram_mib": 9186.5,
       "scopes": {
@@ -18869,7 +18876,12 @@
   },
   {
     "aggregate_metrics": {
-      "peak_device_vram_mib": 806.5
+      "execution_uid": 65534,
+      "independent_native_case_recount": 12,
+      "maximum_NMSE_bound": 0.0005,
+      "peak_device_vram_mib": 806.5,
+      "supervised_interval_gpu_J": 776.28092386688,
+      "supervised_interval_seconds": 26.451127867
     },
     "audit_id": "audit-96163609c0e98f3b4196",
     "date": null,

@@ -25,14 +25,26 @@ Measurement-only fingerprint: `6f4b95ac37bfb4cabf674ff082283db804ee5c48c6322ba83
 | OxCoder 9B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
 | Gemma4 12B IT QAT / Q4_0 | 149/164 (90.9%) [R425](experiments/R425.md) | 168/223 (75.3%) [R428](experiments/R428.md) | 84/100 (84.0%) [R424](experiments/R424.md) | 9/18 (50.0%) [R426](experiments/R426.md) | NOT MEASURED |
 | LFM2.5 8B A1B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| MiMo V2.6 Distill Qwen 9B / NOT MEASURED / see admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| Qwen3.6 27B / NOT MEASURED / see admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| LFM2.5 24B A2B QAD / NOT MEASURED / see admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| LightOnOCR 3 4B / NOT MEASURED / see admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| UI-Venus 1.5 8B / Holo2 8B / NOT MEASURED / see admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| Qwen3.8 Flash-MTP-Derivat / NOT MEASURED / see admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| MiMo V2.6 Distill Qwen 9B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| Qwen3.6 27B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| LFM2.5 24B A2B QAD / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| LightOnOCR 3 4B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| UI-Venus 1.5 8B / Holo2 8B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| Qwen3.8 Flash-MTP-Derivat / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
 
 All 14 baseline/candidate tracks are listed, including research-only and partial admissions. NOT MEASURED means no full comparable result; it does not erase partial negative tests. See [candidate admission stages](models.md). Multiple values in one model row refer to distinct profiles, never to a combined best-of configuration.
+
+### Partial screens — excluded from full-suite rankings
+
+| Observed scope | Recorded counts | Recorded time (s) | Peak VRAM (MiB) | Audit |
+|---|---|---|---|---|
+| MiMo agent early stop; not18 | 2/4 | NOT MEASURED | 9186.5 | [R289](experiments/R289.md) |
+| OxCoder diagnostic QA; includes reused cases | semantic passes=3; QA cases=5 | 182.377379389 | 7354.5 | [R410](experiments/R410.md) |
+| LFM2.5 diagnostic QA; not full coding/tools/agents | semantic passes=6; QA cases=11 | 17.714614865 | 7448.5 | [R420](experiments/R420.md) |
+| MiMo native-tool20 pilot; not100 | 16/20 | 50.05956673 | 9188.5 | [R444](experiments/R444.md) |
+| MiMo coding pilot; incomplete frozen18, not164 | custom_long_pilot: NOT MEASURED; standard_pilot: 8/13 | 144.391524373 | 9186.5 | [R445](experiments/R445.md) |
+
+Partial denominators remain explicit. Zero observed long-context cases means NOT MEASURED, never a zero score.
 
 ## Configuration parameters and ranked benchmark results
 

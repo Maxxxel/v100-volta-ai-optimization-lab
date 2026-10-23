@@ -38,4 +38,12 @@ class ComparisonTests(unittest.TestCase):
   self.assertLess(ascending.index('LOW_VALUE'),ascending.index('HIGH_VALUE'))
   self.assertLess(ascending.index('HIGH_VALUE'),ascending.index('NOT_AVAILABLE'))
   self.assertEqual(rows[0]['label'],'LOW_VALUE')
+ def test_model_tables_keep_missing_and_partial_separate(self):
+  import tempfile,pathlib,json
+  from comparison import render
+  root=pathlib.Path(__file__).resolve().parents[1]
+  with tempfile.TemporaryDirectory() as directory:
+   render(json.loads((root/'data/comparison.json').read_text()),directory,model_registry=json.loads((root/'data/models.json').read_text()),experiments=json.loads((root/'data/experiments.json').read_text()))
+   page=(pathlib.Path(directory)/'benchmarks.md').read_text()
+   self.assertIn('MiMo V2.6',page);self.assertIn('Rank within cohort',page);self.assertIn('Runtime / sampler / limits',page);self.assertIn('overall score: NOT MEASURED',page);self.assertIn('Partial screens',page)
 if __name__=='__main__':unittest.main()

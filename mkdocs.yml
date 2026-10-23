@@ -48,6 +48,7 @@ nav:
   - Overview: index.md
   - Hardware: hardware.md
   - Research Methodology: methodology.md
+  - Safe Research Admission: broker-admission.md
   - Optimization Matrix: matrix.md
   - Experiment Results: results.md
   - Qualified Configurations: configurations.md
