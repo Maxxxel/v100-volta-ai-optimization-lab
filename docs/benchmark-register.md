@@ -200,6 +200,39 @@ Model-card sources: [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B/b
 
 Model-card sources: [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B/blob/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/README.md), [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md), [prism-ml/Ternary-Bonsai-2-27B-gguf](https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf/blob/b072e1d3b35a0a630cece372c2127528e0994386/README.md), [google/gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it/blob/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/README.md)
 
+## BFCL v4 Simple Python — complete400 category
+
+| Field | Pinned definition |
+| --- | --- |
+| benchmark_id | bfcl-v4-simple-python-full400 |
+| benchmark_revision | 6ea57973c7a6097fd7c5915698c54c17c5b1b6c8 |
+| category | native_tools |
+| dataset_split | official simple_python entire category |
+| dataset_split_hash | 82dd63ba502eb2520c6b5d1d9a5c4b590e03ff261565175561f6228a367d1991 |
+| existing_CPU_controls_reused | {"negative_controls": 1200, "positive_controls": 400, "simple_python_schemas": 400} |
+| expected_task_ids_hash | 284fd37e027916e261462b977d9ff61dd129fcade6566a94c709c3430ac1e836 |
+| hf_dataset_id | NOT MEASURED |
+| hf_snapshot_equivalence | NOT VERIFIED: the current HF dataset snapshot is v3; no substitute for this Git-pinned v4 category. |
+| license | NOT MEASURED |
+| local_complete_conformant_results | NOT MEASURED |
+| metric | official_category_AST_accuracy_REQUIRES_ADMISSION |
+| model_card_relation | BFCLv4 family mentions only; no same-category publisher result assumed. |
+| name | BFCL v4 Simple Python — complete400 category |
+| official_definition_verified | False |
+| original100_pilot_overlap | 20 |
+| preparation_audit_sha256 | b05f0509061815926a201c9b6217a00019356d6ea6cd20129a4dd299301aa3fc |
+| prerequisites | ["Pin and verify original official category aggregation/scorer identity and license.", "Extend the reviewed closed task-driven model-bench adapter; current automatic model adapter only admits native prefill/decode. No arbitrary commands/root programs.", "Retain historical <=100 request chunk limits, single-GPU lease, runtime, power/VRAM/ECC/temperature guards and isolated CPU evaluation."] |
+| provider_repository | https://github.com/ShishirPatil/gorilla/tree/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard |
+| reference_answers_sha256 | 90cd5bc653690ee8e459b5b3f3fc9458606f7f3fcbf795bb51b7dc581f8c86dc |
+| remaining_task_count | 380 |
+| required_evaluation_settings | All400 official category IDs and official AST category aggregation, declared native template/sampler and unchanged task/function schemas. The old20 answers may be reused only for identical verified configuration/input/answer identities. This category is not the complete BFCLv4 overall leaderboard. |
+| required_task_count | 400 |
+| scorer_version | NOT MEASURED |
+| status | FULL400_FIXTURES_PREPARED_AGGREGATION_AND_TASK_ADAPTER_PENDING |
+| version | v4, entire simple_python category only |
+
+Model-card sources: [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md), [LiquidAI/LFM2.5-8B-A1B](https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md)
+
 ## Verified cached model cards
 
 | Model | Revision / source SHA256 | Reported benchmark families | Architecture declared by source | Card |
