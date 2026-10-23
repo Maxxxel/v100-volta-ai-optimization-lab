@@ -608,6 +608,10 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
  result['configuration_evidence']=frozen_merge(prior.get('configuration_evidence',[]),ce,'evidence_id')
  result['measurement_evidence']=frozen_merge(prior.get('measurement_evidence',[]),me,'evidence_id')
  validate_history(result,defs)
+ for item in reg.get('candidate_research',[]):
+  from derivatives import collect as collect_derivatives
+  public=collect_derivatives(root,item,result,receipt)
+  item.pop('audit_path');item.update(public)
  return reg,result
 
 def validate_history(data,defs):

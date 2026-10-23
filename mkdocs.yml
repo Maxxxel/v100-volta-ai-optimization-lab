@@ -45,7 +45,7 @@ extra_css:
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=54428c3d1edc0ab0
+  - assets/benchmarks/leaderboard-data.js?v=bcaf8b54173b88fb
   - javascripts/master-table.js?v=a2751e6d2618b3cc
   - javascripts/leaderboard.js?v=23343d2da7e75cd6
 extra:
@@ -69,6 +69,7 @@ nav:
   - Supplemental Model Comparisons: supplemental-comparison.md
   - Local Supplemental Benchmarks: local-benchmarks.md
   - Model Evidence & Transfer: models.md
+  - OmniCoder Derivative Research: omnicoder-derivatives.md
   - Compatibility Matrix: compatibility.md
   - Scientific Background: background.md
   - Papers & Sources: sources.md

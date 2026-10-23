@@ -216,6 +216,23 @@ async function main() {
     await phone.locator('.master-table').evaluate(e => window.scrollTo(0, window.scrollY + e.getBoundingClientRect().top - 100));
     await phone.screenshot({ path: path.join(artifacts, 'mobile-results.png'), animations: 'disabled' });
     await mobile.close(); report.checks.push('desktop horizontal scrolling and 390px mobile layout');
+    const researchContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+    const research = await researchContext.newPage(); research.on('pageerror', e => errors.push(e.message));
+    await research.goto(new URL('omnicoder-derivatives/', base).href, { waitUntil: 'networkidle' });
+    const reviewed = await research.evaluate(() => window.V100Leaderboard?.register.candidate_research || []);
+    if (reviewed.length) {
+      assert((await research.locator('.md-typeset h1').innerText()).includes('OmniCoder derivatives'));
+      assert((await research.locator('.md-content').innerText()).includes('not a model leaderboard'));
+      await research.goto(new URL('model-research/omnicoder-inventory/', base).href, { waitUntil: 'networkidle' });
+      assert.equal(await research.locator('.md-typeset details').count(), reviewed.at(-1).candidates.length);
+      await research.goto(new URL('model-research/omnicoder-proposals/', base).href, { waitUntil: 'networkidle' });
+      assert.equal(await research.locator('.md-typeset h2').filter({ hasText: /^Priority [123]/ }).count(), 3);
+      assert((await research.locator('.md-content').innerText()).includes('PROPOSED, NOT EXECUTED OR GPU-ADMITTED'));
+      const width = await research.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: innerWidth }));
+      assert(width.page <= width.viewport + 2, 'Proposed profiles overflow mobile layout: ' + JSON.stringify(width));
+      report.checks.push('pinned derivative inventory and unmeasured proposals render separately on mobile');
+    }
+    await researchContext.close();
     assert.deepEqual(errors, []); report.console_errors = errors; report.passed = true;
     await fs.writeFile(path.join(artifacts, 'browser-report.json'), JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify(report));
