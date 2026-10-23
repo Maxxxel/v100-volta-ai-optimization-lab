@@ -71,6 +71,17 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const mimoTools = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R456'));
+    if (mimoTools) {
+      assert.equal(mimoTools.tasks, 400); assert.equal(mimoTools.solved, 320);
+      assert.equal(mimoTools.official_eligible, true);
+      const row=page.locator(`.master-table tr[data-configuration-id="${mimoTools.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('320/400'));
+      assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(), 'Q8_0');
+      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
+      assert.equal(mimoTools.practical_protocol.complete, 398);
+      report.checks.push('MiMo400 native result uses its own exact thinking/Q8 profile; capped replies remain included failures');
+    }
     const reusedTools = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R455'));
     if (reusedTools) {
       assert.equal(reusedTools.solved, 372); assert.equal(reusedTools.tasks, 400);

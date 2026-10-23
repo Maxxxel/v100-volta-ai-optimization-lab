@@ -10,6 +10,18 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('MiMo native full-category result keeps its own thinking profile and full400 cost scope', () => {
+  const r = data.history.runs.find(r => r.experiment_id === 'R456');
+  assert(r && r.official_eligible); assert.equal(r.tasks, 400); assert.equal(r.solved, 320);
+  assert.equal(r.practical_protocol.complete, 398, 'Length-limited replies remain failures');
+  assert.equal(r.gpu_j_per_success, r.gpu_j / 320);
+  assert(r.wall_s > 0 && r.wall_s < 1200);
+  const row = model.rows.find(row => row.id === r.runtime_configuration_id);
+  assert.equal(row.values['requested.thinking'], true);
+  assert.equal(row.values['model.quantization'], 'Q8_0');
+  assert(row.runs.find(run => run.run_id === r.run_id).decode_tok_s > 0);
+  assert.notEqual(r.runtime_configuration_id, data.history.runs.find(r => r.experiment_id === 'R454').runtime_configuration_id);
+});
 test('reused BFCL quality retains independent new-task cost denominators and counter bounds', () => {
   const run = data.history.runs.find(r => r.experiment_id === 'R455');
   assert(run, 'Audited R455 is exported');
