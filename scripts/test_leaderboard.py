@@ -225,6 +225,17 @@ class LeaderboardTests(unittest.TestCase):
   runs=[dict(base,run_id='one'),dict(base,run_id='two',scorer_version='beta'),dict(base,run_id='three',evaluated_task_set_hash='c'*64)]
   view=master_catalog({'definitions':[definition]},{'runs':runs});self.assertEqual(len(set(view['run_columns'].values())),3)
   full=next(c for c in view['benchmark_columns'] if c['scope']=='OFFICIAL_LOCAL');self.assertEqual(full['records'],0);self.assertEqual(full['protocol']['tasks'],400)
+ def test_family_grouping_is_presentation_only_and_preserves_protocol_identity(self):
+  reg=json.loads((ROOT/'data/benchmark-register.json').read_text());hist=json.loads((ROOT/'data/configuration-history.json').read_text());before=copy.deepcopy((reg,hist));view=master_catalog(reg,hist)
+  for c in view['benchmark_columns']:
+   self.assertEqual(c['key'],'benchmark-'+H({'protocol':c['protocol'],'scope':c['scope']}))
+   self.assertTrue(c['family_id']);self.assertTrue(c['family_name'])
+   if c['protocol']['benchmark_id'].startswith('bfcl-'):self.assertEqual(c['family_id'],'bfcl')
+   if c['protocol']['benchmark_id']=='humanevalplus-v0.1.10':self.assertEqual(c['family_name'],'HumanEval+')
+  self.assertEqual((reg,hist),before)
+  unknown={'benchmark_id':'unknown-new-suite','name':'HumanEval+ lookalike'}
+  col=master_catalog({'definitions':[unknown]},{'runs':[]})['benchmark_columns'][0]
+  self.assertEqual(col['family_id'],'unknown-new-suite','No name-based grouping of unknown protocols')
  def test_deltas_require_same_task_set_and_scorer(self):
   a={'benchmark_identity_id':'a','evaluated_task_set_hash':'b','scorer_version':{'x':1},'tasks':2,'score_percent':50,'wall_s':10,'gpu_j_per_success':100};b={**a,'score_percent':100,'wall_s':8,'gpu_j_per_success':None}
   d=pair_delta(a,b);self.assertTrue(d['comparable']);self.assertEqual(d['quality_delta_pp'],50);self.assertAlmostEqual(d['latency_delta_percent'],-20);self.assertIsNone(d['energy_per_success_delta_percent']);self.assertIn('Whole-profile',d['interpretation'])

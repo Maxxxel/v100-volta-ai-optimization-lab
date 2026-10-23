@@ -103,6 +103,8 @@
   }
   function average(scores, selected, official = true, columns = new Map()) {
     if (!selected.length) return null;
+    const families = selected.map(key => columns.get(key)?.family_id || key);
+    if (new Set(families).size !== selected.length) return null;
     const configurations = new Set(selected.flatMap(key => scores[key]?.records.map(r => r.runtime_configuration_id) || []));
     if (configurations.size !== 1 || [...configurations].some(id => typeof id !== 'string' || !id)) return null;
     const values = selected.map(key => {
@@ -174,12 +176,35 @@
       [...new Set([...fixed, ...extra])].sort().forEach(path => columns.push({ key: 'metric:' + b.key + ':' + path,
         label: path + ' · ' + b.name + ' · ' + b.scope + ' · n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6), category: 'Performance je Benchmarkprotokoll', kind: 'metric', benchmark: b, path }));
     });
+    const groups = new Map();
+    benchmarks.forEach(b => {
+      const id = b.family_id || b.protocol.benchmark_id;
+      if (!groups.has(id)) groups.set(id, { id, name: b.family_name || b.name, key: 'family:' + id, protocols: [] });
+      groups.get(id).protocols.push(b);
+    });
+    const families = [...groups.values()];
+    families.forEach(f => columns.push({ key: f.key, label: f.name, category: 'Benchmarkfamilien (gewähltes Protokoll)', kind: 'family', family: f }));
     columns.push({ key: 'average', label: 'Ø Auswahl (%)', description: 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark', category: 'Auswertung', kind: 'average' });
-    return { rows, archive, columns, benchmarks, benchmarkMap };
+    return { rows, archive, columns, benchmarks, benchmarkMap, families };
+  }
+  function protocols(family, mode) {
+    return family.protocols.filter(b => mode === 'official' ? b.scope === 'OFFICIAL_LOCAL' : b.scope !== 'OFFICIAL_LOCAL');
+  }
+  function defaultProtocol(family, mode = 'all') {
+    const options = mode === 'all' ? family.protocols : protocols(family, mode);
+    const priority = b => b.scope === 'OFFICIAL_LOCAL' ? 0 : b.scope === 'UNQUALIFIED_FULL' ? 1 : b.scope === 'HISTORICAL' ? 2 : 3;
+    // Deterministic protocol choice, independent of a model's score. Never fall
+    // back to a different protocol for an individual configuration.
+    return options.slice().sort((a, b) => priority(a) - priority(b) || Number(b.records > 0) - Number(a.records > 0) || a.key.localeCompare(b.key))[0]?.key || null;
+  }
+  function protocolKey(column, state) {
+    if (column.kind !== 'family') return column.key;
+    const key = state.protocols?.get(column.family.id);
+    return column.family.protocols.some(p => p.key === key) ? key : null;
   }
   function value(row, column, state, benchmarkMap) {
     if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
-    if (column.kind === 'benchmark') return row.scores[column.key]?.score ?? null;
+    if (column.kind === 'benchmark' || column.kind === 'family') return row.scores[protocolKey(column, state)]?.score ?? null;
     if (column.kind === 'metric') return measuredValue(row.scores[column.benchmark.key], column.path);
     return row.values[column.key] ?? null;
   }
@@ -213,14 +238,18 @@
   }
   function csv(rows, columns, state, benchmarkMap) {
     const selected = columns.filter(c => c.key !== 'runtime_configuration_id');
-    return '\uFEFF' + [[csvCell('runtime_configuration_id'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), ...selected.map(c => {
-      if (c.kind === 'benchmark') {
-          const a = row.scores[c.key];
-        return csvCell(!a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
+    const identity = key => { const b = benchmarkMap.get(key); return { column_id: key ?? null, family_id: b?.family_id ?? null, qualification_track: b?.scope ?? null, protocol: b?.protocol ?? null }; };
+    const selection = { mode: state.mode ?? null, mean_protocols: [...(state.selected || [])].map(identity),
+      displayed_family_protocols: [...(state.protocols || [])].map(([family_id, key]) => ({ family_id, ...identity(key) })) };
+    return '\uFEFF' + [[csvCell('runtime_configuration_id'), csvCell('selected_protocols'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), csvCell(selection), ...selected.map(c => {
+      if (c.kind === 'benchmark' || c.kind === 'family') {
+        const key = protocolKey(c, state), a = row.scores[key];
+        return csvCell({ ...identity(key), measurement: !a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
           solved: a.solved, tasks: a.tasks, min: a.min, max: a.max, sd: a.sd,
-          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, status: r.status, audits: r.audit_ids })) });
+          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? UNKNOWN : null });
       }
-      return csvCell(value(row, c, state, benchmarkMap));
+      const v = value(row, c, state, benchmarkMap);
+      return csvCell(c.kind === 'average' && absent(v) ? 'NICHT BERECHENBAR' : v);
     })].join(','))].join('\r\n');
   }
   function analysis(rows, target, state, model) {
@@ -235,7 +264,7 @@
     });
     return { top, measuredConfigurations: ranked.length, coverage };
   }
-  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis };
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.V100MasterTable = API;
   if (typeof document === 'undefined') return;
@@ -247,17 +276,17 @@
   const number = v => finite(v) ? v.toLocaleString('de-DE', { maximumFractionDigits: 2 }) : UNKNOWN;
   function mount(target, data) {
     const model = build(data), byKey = new Map(model.columns.map(c => [c.key, c]));
-    const state = { mode: 'official', selected: new Set(), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false };
-    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version', 'engine.build_id', 'requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'];
-    const allowed = () => model.benchmarks.filter(b => state.mode === 'official' ? b.scope === 'OFFICIAL_LOCAL' : b.scope !== 'OFFICIAL_LOCAL');
-    const columnAllowed = c => !state.officialOnly || !c.benchmark || c.benchmark.scope === 'OFFICIAL_LOCAL';
-    const defaultBenchmarks = () => model.benchmarks.filter(b => b.records && columnAllowed({ benchmark: b }));
-    const first = allowed().find(b => model.rows.some(r => finite(r.scores[b.key]?.score)));
+    const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false };
+    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version'];
+    const canAverage = b => !!b && (state.mode !== 'official' || b.scope === 'OFFICIAL_LOCAL');
+    const chosenBenchmarks = () => [...state.protocols.values()].map(k => model.benchmarkMap.get(k)).filter(Boolean);
+    const columnAllowed = c => !state.officialOnly || !(c?.benchmark || c?.family) || model.benchmarkMap.get(protocolKey(c, state))?.scope === 'OFFICIAL_LOCAL';
+    const first = chosenBenchmarks().find(b => canAverage(b) && model.rows.some(r => finite(r.scores[b.key]?.score)));
     if (first) state.selected.add(first.key);
     let presetName = 'Kompakt', filtered = [], shownColumns = [], headerCells = new Map();
     target.textContent = ''; target.append(E('h2', 'Alle gemessenen Ergebnisse'));
     const toolbar = E('div', undefined, 'master-toolbar'), search = E('input'); search.type = 'search'; search.placeholder = 'Modell, Engine, Parameter oder Experiment suchen'; search.setAttribute('aria-label', search.placeholder);
-    const mode = E('select'); [['official', 'Offiziell lokal zugelassen'], ['exploratory', 'Explorativ: Historie und Teilmengen']].forEach(([v, t]) => { const o = E('option', t); o.value = v; mode.append(o); });
+    const mode = E('select'); [['official', 'Nur offiziell lokal zugelassene Protokolle'], ['exploratory', 'Explorativ: auch Historie und Teilmengen']].forEach(([v, t]) => { const o = E('option', t); o.value = v; mode.append(o); });
     const presets = E('select'); ['Kompakt', 'Vollständig', 'Qualität', 'Geschwindigkeit', 'Energie'].forEach(t => presets.append(E('option', t)));
     const exportButton = button('CSV exportieren', () => {
       const blob = new Blob([csv(filtered, shownColumns, state, model.benchmarkMap)], { type: 'text/csv;charset=utf-8' });
@@ -268,8 +297,8 @@
     target.append(toolbar);
     const chooser = E('details', undefined, 'master-panel'); chooser.append(E('summary', 'Spaltenauswahl nach Kategorien'));
     const pickerSearch = E('input'); pickerSearch.type = 'search'; pickerSearch.placeholder = 'Spaltenname oder Quellpfad'; pickerSearch.setAttribute('aria-label', 'Spalten suchen'); const picker = E('div', undefined, 'master-column-picker'); chooser.append(pickerSearch, picker); target.append(chooser);
-    const selection = E('details', undefined, 'master-panel'); selection.open = true; selection.append(E('summary', 'Benchmarks für den nutzerdefinierten Durchschnitt wählen'));
-    selection.append(E('p', 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark. Summe der ausgewählten Prozentwerte / Anzahl der ausgewählten Benchmarks. Alle Ergebnisse müssen für dieselbe Konfiguration vollständig vorhanden sein. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
+    const selection = E('details', undefined, 'master-panel'); selection.append(E('summary', 'Benchmarkprotokolle und Durchschnitt auswählen'));
+    selection.append(E('p', 'Eine Ergebnisspalte pro Familie. Das gewählte Protokoll gilt für jede Zeile; kein Rückgriff auf historische Ergebnisse. Checkboxen wählen die Familien für den nutzerdefinierten Durchschnitt – nicht offizieller Benchmark. Jede Familie zählt einmal. Fehlende Ergebnisse: NICHT BERECHENBAR. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
     const benchmarkChoices = E('div', undefined, 'master-benchmark-choices'), selectionWarning = E('p', undefined, 'benchmark-warning'); selection.append(benchmarkChoices, selectionWarning); target.append(selection);
     const definitions = E('details', undefined, 'master-panel'); definitions.append(E('summary', 'Exakte Benchmarkdefinitionen und Messprotokolle'));
     model.benchmarks.forEach(b => {
@@ -301,9 +330,11 @@
 
     function preset(name) {
       presetName = name; state.visible = new Set(base); state.visible.add('average');
-      const bench = defaultBenchmarks(); bench.forEach(b => state.visible.add(b.key));
-      if (name === 'Vollständig') model.columns.forEach(c => state.visible.add(c.key));
+      const bench = chosenBenchmarks();
+      if (name === 'Vollständig') model.columns.filter(c => c.kind !== 'family').forEach(c => state.visible.add(c.key));
+      else model.families.forEach(f => state.visible.add(f.key));
       if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
+      if (name !== 'Kompakt') ['engine.build_id', 'requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
       if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
       if (name === 'Energie') { state.visible.add('runtime.power_limit_w'); model.columns.filter(c => c.kind === 'metric' && /:(gpu_j|gpu_j_per_success|peak_vram_mib)$/.test(c.key) && bench.some(b => b.key === c.benchmark.key)).forEach(c => state.visible.add(c.key)); }
       renderPicker(); renderTable();
@@ -320,23 +351,49 @@
       });
     }
     function renderBenchmarks() {
+      const previousAnalysis = analysisSelect.value;
       benchmarkChoices.textContent = ''; analysisSelect.textContent = ''; const meanOption = E('option', 'Nutzerdefinierter Durchschnitt'); meanOption.value = 'average'; analysisSelect.append(meanOption);
-      allowed().forEach(b => {
-        const box = E('input'); box.type = 'checkbox'; box.value = b.key; box.checked = state.selected.has(b.key); box.dataset.benchmarkKey = b.key;
-        const label = labelInput(b.name + ' · ' + b.scope + ' · n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6), box); label.title = text(b.protocol);
-        box.addEventListener('change', () => { if (box.checked) { state.selected.add(b.key); state.visible.add(b.key); } else state.selected.delete(b.key); renderTable(); }); benchmarkChoices.append(label);
-        const option = E('option', b.name + ' · ' + b.key.slice(-6)); option.value = b.key; analysisSelect.append(option);
+      model.families.forEach(f => {
+        const selectedKey = state.protocols.get(f.id), b = model.benchmarkMap.get(selectedKey);
+        const field = E('div', undefined, 'master-family-choice'); field.dataset.familyId = f.id;
+        const box = E('input'); box.type = 'checkbox'; box.value = selectedKey; box.checked = state.selected.has(selectedKey); box.dataset.familyKey = f.id; box.disabled = !canAverage(b);
+        box.addEventListener('change', () => { if (box.checked && canAverage(b)) state.selected.add(selectedKey); else state.selected.delete(selectedKey); renderTable(); });
+        field.append(labelInput(f.name + ' · in Ø Auswahl', box));
+        const select = E('select'); select.dataset.protocolFamily = f.id;
+        f.protocols.forEach(p => {
+          const option = E('option', p.name + ' · ' + p.scope + ' · Aufgaben=' + text(p.protocol.tasks) + ' · ' + p.key.slice(-10)); option.value = p.key; select.append(option);
+        }); select.value = selectedKey;
+        const identity = E('small', b ? 'Revision: ' + text(b.protocol.benchmark_revision) + ' · Dataset: ' + text(b.definition.hf_dataset_id) + ' · Split: ' + text(b.definition.dataset_split) + ' · Scorer: ' + text(b.protocol.scorer_version) + ' · Task-Set: ' + text(b.protocol.evaluated_task_set_hash) : UNKNOWN);
+        identity.title = b ? text({ ...b.protocol, definition: b.definition, scope: b.scope }) : UNKNOWN;
+        select.title = identity.title;
+        select.addEventListener('change', () => {
+          const wasSelected = state.selected.delete(state.protocols.get(f.id));
+          state.protocols.set(f.id, select.value);
+          if (wasSelected && canAverage(model.benchmarkMap.get(select.value))) state.selected.add(select.value);
+          renderBenchmarks(); preset(presetName);
+        });
+        field.append(labelInput('Protokoll: ' + f.name, select), identity); benchmarkChoices.append(field);
+        const option = E('option', f.name + ' (gewähltes Protokoll)'); option.value = f.key; analysisSelect.append(option);
       });
+      if ([...analysisSelect.options].some(o => o.value === previousAnalysis)) analysisSelect.value = previousAnalysis;
     }
     function renderTable() {
       state.visible.add('model.name');
       const params = model.columns.filter(c => c.kind === 'parameter' && state.visible.has(c.key));
       params.sort((a, b) => { const rank = c => base.includes(c.key) ? base.indexOf(c.key) : base.length + model.columns.indexOf(c); return rank(a) - rank(b); });
       shownColumns = [...params, ...model.columns.filter(c => c.kind === 'metric' && state.visible.has(c.key) && columnAllowed(c)),
-        ...model.columns.filter(c => c.kind === 'average' && state.visible.has(c.key)), ...model.columns.filter(c => c.kind === 'benchmark' && state.visible.has(c.key) && columnAllowed(c))];
+        ...model.columns.filter(c => c.kind === 'family' && state.visible.has(c.key) && columnAllowed(c)),
+        ...model.columns.filter(c => c.kind === 'benchmark' && state.visible.has(c.key) && columnAllowed(c)),
+        ...model.columns.filter(c => c.kind === 'average' && state.visible.has(c.key))];
       head.textContent = ''; headerCells = new Map(); const names = E('tr'), filters = E('tr');
       shownColumns.forEach(c => {
-        const th = E('th'); th.scope = 'col'; th.dataset.columnKey = c.key; const b = button((c.shortLabel || c.label) + ' ↕', () => { state.descending = state.sort === c.key ? !state.descending : c.kind !== 'parameter'; state.sort = c.key; renderRows(); }); b.title = (c.description || c.label + '\n' + c.key); th.append(b); names.append(th); headerCells.set(c.key, th);
+        const th = E('th'); th.scope = 'col'; th.dataset.columnKey = c.key; const b = button((c.shortLabel || c.label) + ' ↕', () => { state.descending = state.sort === c.key ? !state.descending : c.kind !== 'parameter'; state.sort = c.key; renderRows(); }); b.title = (c.description || c.label + '\n' + c.key); th.append(b);
+        if (c.kind === 'family') {
+          const p = model.benchmarkMap.get(protocolKey(c, state));
+          const note = E('small', p ? p.scope + ' · n=' + text(p.protocol.tasks) : UNKNOWN, 'master-protocol-note');
+          note.title = p ? text(p.protocol) : UNKNOWN; th.append(note);
+        }
+        names.append(th); headerCells.set(c.key, th);
         const cell = E('th'), input = E('input'); input.type = 'search'; input.placeholder = c.kind === 'parameter' ? 'Filter / ?' : 'z. B. >=80'; input.value = state.filters.get(c.key) || ''; input.setAttribute('aria-label', 'Filter: ' + c.label);
         input.addEventListener('input', () => { state.filters.set(c.key, input.value); renderRows(); }); cell.append(input); filters.append(cell);
       }); head.append(names, filters); renderRows();
@@ -352,11 +409,11 @@
         const tr = E('tr'); tr.dataset.configurationId = row.id;
         shownColumns.forEach(c => {
           const td = E('td'); td.dataset.columnKey = c.key; td.dataset.kind = c.kind;
-          if (c.kind === 'benchmark') renderScore(td, row, c);
+          if (c.kind === 'benchmark' || c.kind === 'family') renderScore(td, row, c);
           else {
             const v = value(row, c, state, model.benchmarkMap), display = c.kind === 'average' && finite(v) ? number(v) + ' %'
-              : ['requested.MTP', 'requested.thinking'].includes(c.key) && typeof v === 'boolean' ? (v ? 'Ein' : 'Aus') : text(v);
-            if (c.key === 'model.name') td.append(link(row.displayName, '../configuration-profiles/' + row.id + '/'));
+              : c.kind === 'average' && absent(v) ? 'NICHT BERECHENBAR' : ['requested.MTP', 'requested.thinking'].includes(c.key) && typeof v === 'boolean' ? (v ? 'Ein' : 'Aus') : text(v);
+            if (c.key === 'model.name') { const modelLink = link(row.displayName, '../configuration-profiles/' + row.id + '/'); modelLink.title = row.displayName; td.append(modelLink); }
             else if (c.key === 'engine.version' && absent(v) && row.values['engine.version_provenance_note']) {
               td.append(button(UNKNOWN + ' ⓘ', () => {
                 dialogTitle.textContent = 'Engine-Version · ' + row.displayName;
@@ -376,22 +433,26 @@
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
       const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
       counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Konfigurationen · ' + model.archive.length + ' weitere Profile im separaten Archiv · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
-      const families = [...state.selected].map(key => model.benchmarkMap.get(key)?.protocol.benchmark_id);
-      selectionWarning.textContent = new Set(families).size < families.length ? 'Mehrere Protokolle derselben Benchmarkfamilie ausgewählt: Jedes ausgewählte Protokoll ist ein eigener Summand. Das kann dieselben Originalaufgaben mehrfach gewichten.' : '';
+      selectionWarning.textContent = state.mode === 'official' ? 'Durchschnitt: ausschließlich die ausdrücklich ausgewählten, lokal offiziell zugelassenen Protokolle.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
       renderAnalysis(); scheduleHeader();
     }
     function renderScore(td, row, column) {
-      const a = row.scores[column.key];
+      const key = protocolKey(column, state), benchmark = model.benchmarkMap.get(key), a = row.scores[key];
       if (!a?.n) { td.textContent = UNKNOWN; td.className = 'master-missing'; return; }
       if (a.conflict) { td.textContent = 'WIDERSPRÜCHLICHE AUDITS'; td.className = 'benchmark-warning'; return; }
-      const scope = { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'UNQUALIFIZIERT', LOCAL_SUPPLEMENTAL: 'LOKAL' }[column.benchmark.scope];
+      const scope = { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'UNQUALIFIZIERT', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
       const line = E('span', undefined, 'master-score-line');
       line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + a.solved + '/' + a.tasks + ') · '));
       const details = button(scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {
         dialogTitle.textContent = column.label + ' · ' + row.displayName;
         dialogValue.textContent = JSON.stringify({ mean_percent: a.score, solved: a.solved, tasks: a.tasks, n: a.n,
-          min: a.min, max: a.max, sample_sd: a.sd, protocol: column.benchmark.protocol,
-          runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, null, 2);
+          min: a.min, max: a.max, sample_sd: a.sd, protocol: benchmark.protocol, definition: benchmark.definition, qualification_track: benchmark.scope,
+          model_sha256: row.profile.model.artifact_sha256, runtime_configuration_id: row.id,
+          engine_version: row.values['engine.version'] ?? null, build_id: row.values['engine.build_id'] ?? null,
+          thinking: row.values['requested.thinking'], MTP: row.values['requested.MTP'], context: row.values['runtime.context'], output_limit: row.values['runtime.max_output'],
+          prefill_tok_s: measuredValue(a, 'prefill_tok_s'), decode_tok_s: measuredValue(a, 'decode_tok_s'), ttft_s: measuredValue(a, 'ttft_s'),
+          wall_s: measuredValue(a, 'wall_s'), gpu_j: measuredValue(a, 'gpu_j'), gpu_j_per_success: measuredValue(a, 'gpu_j_per_success'), peak_vram_mib: measuredValue(a, 'peak_vram_mib'),
+          configuration: row.profile, runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, (k, v) => absent(v) ? UNKNOWN : v, 2);
         dialogLinks.textContent = '';
         a.records.forEach(r => {
           const section = E('div');
@@ -402,7 +463,7 @@
           dialogLinks.append(section);
         }); dialog.showModal();
       }); details.className = 'master-score-details'; line.append(details); td.append(line);
-      td.title = column.key + '\n' + text(column.benchmark.protocol);
+      td.title = key + '\n' + text(benchmark.protocol);
     }
     function renderAnalysis() {
       analysisBody.textContent = ''; const column = byKey.get(analysisSelect.value || 'average');
@@ -421,10 +482,8 @@
     pickerSearch.addEventListener('input', renderPicker); presets.addEventListener('change', () => preset(presets.value));
     mode.addEventListener('change', () => {
       state.mode = mode.value; state.selected.clear();
-      [...state.filters.keys()].forEach(key => { if (!columnAllowed(byKey.get(key))) state.filters.delete(key); });
-      if (!columnAllowed(byKey.get(state.sort))) { state.sort = 'average'; state.descending = true; }
-      const b = allowed().find(b => model.rows.some(r => finite(r.scores[b.key]?.score))); if (b) state.selected.add(b.key);
-      renderBenchmarks(); preset(presetName);
+      const b = chosenBenchmarks().find(b => canAverage(b) && model.rows.some(r => finite(r.scores[b.key]?.score))); if (b) state.selected.add(b.key);
+      renderBenchmarks(); renderTable();
     });
     officialOnly.addEventListener('change', () => { state.officialOnly = officialOnly.checked;
       [...state.filters.keys()].forEach(key => { if (!columnAllowed(byKey.get(key))) state.filters.delete(key); });

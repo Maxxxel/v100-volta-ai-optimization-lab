@@ -559,3 +559,9 @@ CPU regression checks, confidentiality validation and desktop/mobile browser acc
 ## 2026-10-23 — R448 archived reasoning/output-budget diagnosis
 
 Issue12 now links a reproducible read-only analysis of all164 original OxCoder responses and their scoring inputs. Empty final answers reached the4096-token cap with unclosed reasoning; recorded post-close final text is preserved in all nonempty answers. The report retains the original53/164 score, distinguishes completion counters from missing reasoning-token counters, and compares historical profiles with explicit endpoint/thinking/sampling/output-cap differences. Thinking-off and reasoning-budget proposals require separate GPU approval and a900-second whole-trial deadline. No model generation or new benchmark score was added.
+
+## 2026-10-23 — Compact benchmark families with explicit protocol selection
+
+The compact measured-configuration table now shows one column per benchmark family. Explicit family selectors retain exact dataset revisions, task sets, scorer identities and qualification tracks; admitted local protocols are preferred without filling their gaps from historical runs. Full view retains every exact protocol, configuration parameter and measurement. Quality, speed and energy presets remain available. Long model names are truncated visually with full titles and profile links on small screens.
+
+Custom means accept at most one protocol per family and require every selected result on the same immutable configuration. Missing coverage displays NICHT BERECHENBAR. CSV exports identify both displayed protocols and the selected mean, including missing results. Result dialogs include configuration, hashes, benchmark definition, task counts, dispersion, measured metrics and audit links. No original score, qualification, configuration identity or benchmark definition changed; no GPU benchmark was started.

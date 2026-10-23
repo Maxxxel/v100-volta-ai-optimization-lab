@@ -178,3 +178,47 @@ test('archived source-identity diagnostics do not change benchmark scores or qua
     }
   }
 });
+
+test('family columns are unique, while every original protocol remains selectable', () => {
+  const human = model.families.filter(f => f.id === 'humanevalplus');
+  assert.equal(human.length, 1); assert(human[0].protocols.length > 1);
+  assert.equal(model.columns.filter(c => c.kind === 'family' && c.label === 'HumanEval+').length, 1);
+  assert.equal(model.families.flatMap(f => f.protocols).length, model.benchmarks.length);
+  assert.equal(new Set(model.families.flatMap(f => f.protocols.map(p => p.key))).size, model.benchmarks.length);
+  for (const b of model.benchmarks) {
+    assert(b.family_id && b.family_name);
+    assert(model.columns.some(c => c.kind === 'benchmark' && c.key === b.key));
+  }
+});
+test('family defaults prefer qualified official protocols without any per-row fallback', () => {
+  const family = model.families.find(f => f.id === 'humanevalplus');
+  const key = M.defaultProtocol(family); assert.equal(model.benchmarkMap.get(key).scope, 'OFFICIAL_LOCAL');
+  const c = model.columns.find(c => c.key === family.key), state = { protocols: new Map([[family.id, key]]) };
+  const historic = family.protocols.find(b => b.scope === 'HISTORICAL'); assert(historic);
+  const row = { scores: { [historic.key]: M.aggregate([score(87)]) } };
+  assert.equal(M.value(row, c, state, model.benchmarkMap), null);
+  state.protocols.set(family.id, historic.key);
+  assert.equal(M.value(row, c, state, model.benchmarkMap), 87);
+  state.protocols.set(family.id, model.families.find(f => f.id !== family.id).protocols[0].key);
+  assert.equal(M.value(row, c, state, model.benchmarkMap), null, 'Cross-family protocol selection fails closed');
+  const officialEmpty = { ...family.protocols.find(b => b.scope === 'OFFICIAL_LOCAL'), records: 0 };
+  assert.equal(M.defaultProtocol({ protocols: [historic, officialEmpty] }), officialEmpty.key);
+});
+test('a family can never be weighted twice, including exploratory averages', () => {
+  const columns = new Map([['a', { family_id: 'humanevalplus', scope: 'OFFICIAL_LOCAL' }], ['b', { family_id: 'humanevalplus', scope: 'HISTORICAL' }]]);
+  const scores = { a: M.aggregate([score(50)]), b: M.aggregate([score(100, 'b')]) };
+  assert.equal(M.average(scores, ['a', 'b'], false, columns), null);
+  assert.equal(M.average(scores, ['a', 'a'], true, columns), null);
+  assert.equal(M.average(scores, ['a'], true, columns), 50);
+  columns.get('b').family_id = 'mbppplus';
+  assert.equal(M.average(scores, ['a', 'b'], false, columns), 75);
+});
+test('family CSV preserves exact selected protocol identities even for missing measurements', () => {
+  const family = model.families.find(f => f.id === 'humanevalplus'), key = M.defaultProtocol(family);
+  const column = model.columns.find(c => c.key === family.key);
+  const state = { mode: 'official', selected: new Set([key]), protocols: new Map([[family.id, key]]) };
+  const row = { id: 'cfg-empty-fixture', values: {}, scores: {} };
+  const csv = M.csv([row], [column, { key: 'average', label: 'Average', kind: 'average' }], state, model.benchmarkMap);
+  for (const field of ['selected_protocols', key, 'scorer_version', 'evaluated_task_set_hash', 'benchmark_revision', 'qualification_track', 'NICHT BERECHENBAR', 'NICHT ERFASST']) assert(csv.includes(field), field);
+  const before = M.canonical(data.history); M.build(data); assert.equal(M.canonical(data.history), before);
+});

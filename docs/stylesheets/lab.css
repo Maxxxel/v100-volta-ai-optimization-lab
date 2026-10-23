@@ -86,3 +86,14 @@ body:has(#all-measured-results) .md-content{min-width:0}
 .master-cell-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere}
 
 .md-typeset .master-table tbody td[data-kind]{padding:.35rem .65rem;height:2rem}
+
+/* A single explicitly selected protocol per family in the comparison view. */
+.master-family-choice{min-width:0;border:1px solid var(--md-default-fg-color--lightest);border-radius:.35rem;padding:.55rem .65rem}
+.master-family-choice label:has(select){display:block}
+.master-family-choice label:has(select)>span{display:block;margin-bottom:.25rem}
+.master-family-choice select{display:block;width:100%;min-width:0;font:inherit;padding:.45rem;border:1px solid var(--md-default-fg-color--lighter);border-radius:.25rem;background:var(--md-default-bg-color);color:var(--md-default-fg-color)}
+.master-family-choice small{display:block;overflow-wrap:anywhere;font-size:.6rem;color:var(--md-default-fg-color--light);margin-top:.35rem;max-height:3.2rem;overflow:auto}
+.md-typeset .master-table td[data-kind=family]{min-width:11rem}
+.master-protocol-note{display:block;font-size:.55rem;font-weight:400;white-space:nowrap}
+.master-table td:first-child>a{display:block;max-width:14rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:700px){.md-typeset .master-table td:first-child{min-width:10rem;max-width:11rem}.master-table td:first-child>a{max-width:9rem}}
