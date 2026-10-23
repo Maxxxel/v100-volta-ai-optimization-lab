@@ -250963,5 +250963,784 @@
     "statements": {
       "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
     }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-8c20cddbcc71524da391",
+    "original_bytes": 35210,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8c20cddbcc71524da3919ade5ca0fbcc4fa72816fd1db6853348f82ea1f5a950",
+    "statements": {
+      "hypothesis": "ComparealreadydownloadedOrnithQ6targetonoriginal18frozenworkflowswithownpublishedtemplateandnativeTokenizer,sharedsampling/budget. SameSM70Qwen35shape supported;firstrealVRAM/quality/performancecheck, no MTP/weightcache. Retainfull18orbudgetpartial, no crossmodeltoken/sranking."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-0d3aec8ca86cc2526591",
+    "original_bytes": 1301,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0d3aec8ca86cc2526591f748585e95d4fc65dab93772cc20789616cb007a1df4",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-de4acb1d78b6a6ec052b",
+    "original_bytes": 710367,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "de4acb1d78b6a6ec052b975456574afc8d560af31dfcbce71044e5f31e4aed06",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "context_tokens": 32768
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1712592a47c05ef398bd",
+    "original_bytes": 15903,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1712592a47c05ef398bdf9acf30ee365b78fb402f952cc1c7283fac6014c6955",
+    "statements": {
+      "hypothesis": "R43011/12extended capacity may reproduce on new records/queries under all existing family/position strata, without tuning any model/engine/sampling/prompt parameter."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-12501a1525abd31c3d52",
+    "original_bytes": 1222,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "12501a1525abd31c3d525c915a94e6a7efbf0568a2e7f6cce25819a4ddd8271c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-5e3286490116ec60196f",
+    "original_bytes": 16388,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5e3286490116ec60196fc87fa052ce1b05a6d8f16b9fffbcd09b429e4c126d3d",
+    "statements": {
+      "hypothesis": "Measure standard coding and separate long-context task success for the existing verified Gemma QAT profile after native tools. No formatting repair or JSON constraint on Python output."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-9403f0fe4b7260fed1ae",
+    "original_bytes": 1794,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9403f0fe4b7260fed1ae609922617810aa6f607afd18fc972a82269eb6db62c9",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-fb28c2f2e80ced215af4",
+    "original_bytes": 36322,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fb28c2f2e80ced215af46c100f17c9f9c3192e629f3e5efde7683776967b278b",
+    "statements": {
+      "hypothesis": "Retainedcoding148/164MTPoffand150/164MTPonandnativeTools77/100donotprove18agentoutcomes. Fillonlymissingnativeagentquality/energy/latencyusingexactoldproviderartifact/runtime/template;specnone/noCache/300W,ownnativeprompt/IDs. Do notrepeatcoding/Tools/Original12/MTPdiagnoses."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f0d91e26bf5f4d13e5dc",
+    "original_bytes": 1391,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f0d91e26bf5f4d13e5dce2d1190fcb12f5a7ce3240572722a349bf22a964a43c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "context_tokens": 32768
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-619156ecdd8a3ac28737",
+    "original_bytes": 12910,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "619156ecdd8a3ac287376ff4e6d661c8afef89e9244157cc66726bc7c4e5a9ab",
+    "statements": {
+      "hypothesis": "QwenR43312/12largeinventory screen may persist onthe newfixedqueries alreadyusedforGemma, at unchangednative/noMTP profile; no assumptiononeextra successprovesglobal superiority."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e3291fb14ff622210e9a",
+    "original_bytes": 1222,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e3291fb14ff622210e9a54821340298a18a7ac61e053629868aca27b478f05ac",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-528c2a92df377e362e50",
+    "original_bytes": 12228,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "528c2a92df377e362e50fc0a7c90999be9091fff514d36589eb0482bdc553d27",
+    "statements": {
+      "hypothesis": "R228Qwen35Q4agent8/18isnotadirectcodingaccuracymeasurement. Canonicalcurrentcodingaudits/recordscoverOmniandQwen38,butnoQwen35full164+16. Measureoncebeforeexcludingcoding-specialistrole;noR228agent/BFCL/nativeperformance repeat.",
+      "score_rule": "base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-efdf562be91fd6a8c7be",
+    "original_bytes": 1702,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "efdf562be91fd6a8c7be1b941bf781d42b495930b298532ea0162cd2cbc29e94",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-3de468fe73193dd6faa1",
+    "original_bytes": 894323,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3de468fe73193dd6faa10bf982d9b022be06f1018d587b50399e03f1a88efd55",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "context_tokens": 16384
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a08b57998f7de37c22b7",
+    "original_bytes": 13177,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a08b57998f7de37c22b773f5b6168592d08190eb46e3087d6629ec2a49380635",
+    "statements": {
+      "hypothesis": "ExistingQwen38artifact148/164coding/noMTP and nativeAgent evidence does not prove longinputability. Larger model may provide a useful read-only longcontext quality/cost tradeoff onthe sameexacttext, before any32Kextension."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ada36443ee3b882ab67f",
+    "original_bytes": 1222,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ada36443ee3b882ab67f2f33a44f430f85dbfe822a67afac82b181a9edc27911",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-b46e4897903b1a45684b",
+    "original_bytes": 11920,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b46e4897903b1a45684bdc73d94f7ba1bf30603a8c1bd0bd9c8561b6ca1ea668",
+    "statements": {
+      "hypothesis": "ComparealreadydownloadedOrnithQ6targetonoriginal18frozenworkflowswithownpublishedtemplateandnativeTokenizer,sharedsampling/budget. SameSM70Qwen35shape supported;firstrealVRAM/quality/performancecheck, no MTP/weightcache. Retainfull18orbudgetpartial, no crossmodeltoken/sranking.",
+      "score_rule": "base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-506364384b32b828051e",
+    "original_bytes": 1702,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "506364384b32b828051e51d402a40e3e752976ee77e6fdc0000c102dc5729114",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-c78e3a0d6960cf2c19c5",
+    "original_bytes": 40855,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c78e3a0d6960cf2c19c584789ec4ebcd6b1535ae3a38ce87b065061897d562d1",
+    "statements": {
+      "hypothesis": "R260solvesall7code-domaincasesbuttakes276+seconds. R118MTPimprovedstandardcodinglatency,butagentMTPnotmeasured. Isolateexistingmax3/min1MTPonthissame18order/runtime/model/sample. EarlystoponlostR260success/policy,notanotherkernel/logit/rollbackdiagnostic."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-773317dbb40e0be12df1",
+    "original_bytes": 1391,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "773317dbb40e0be12df1df741c453fec699515784639ccdd4933d7a2f46ebdc3",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-7f3ab2f95edf05d58dec",
+    "original_bytes": 938618,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7f3ab2f95edf05d58dec91ed60dab2ea85feb8c6c57ecb4c68cda36d6b661c54",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-1683005b2a201069d0d3",
+    "original_bytes": 48934,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1683005b2a201069d0d3de6e0984cdcd7fcf213463ea2f63914d7350bc8135f0",
+    "statements": {
+      "hypothesis": "The R441first3prefixbenefit may extendtoall18frozenagenttasks includingHA/PVE withoutfunctional/state regressions; onlyretain_prefix changes."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-121602f3c1b70b224728",
+    "original_bytes": 1480,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "121602f3c1b70b224728dc204d70710bdcab88cbc2e4216ace17db10c76248af",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ad7af282e525daf3a4b2",
+    "original_bytes": 11982,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ad7af282e525daf3a4b2fc1cdb71a37021cf347d0bd0d22d8bcd90a4998ac003",
+    "statements": {
+      "hypothesis": "Positive R41332 coding-profile screen may persist across the remaining original-test pool; no assumption of allround quality or lossless target-token behavior."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ce32eed77153282b01c9",
+    "original_bytes": 1532,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ce32eed77153282b01c9ad3dab34649dc56aa1cfd0278e669e0f24815fad6dde",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-b10a050b49051f92a3a8",
+    "original_bytes": 48957,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b10a050b49051f92a3a8fcd6960005e56e2a42ced50b6b081e0718d74f44760f",
+    "statements": {
+      "hypothesis": "Bonsai17/18development result may reproduce on a fresh process, retaining every previoussuccess andpolicy outcome with<=10percentaggregate costdrift. This tests repeatability, not newunseen taskgeneralization."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-4bc4206bcc12ff33cac8",
+    "original_bytes": 1480,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4bc4206bcc12ff33cac80e1f0af269baea9bdf020714ab086cbb1812aabc145e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-fa8712f46e5cc987775c",
+    "original_bytes": 37772,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fa8712f46e5cc987775cecd5fe3662414cd31b252b614f51c550946f5f704cb1",
+    "statements": {
+      "hypothesis": "FillmissingQwen35agentquality/costusingunchanged18v080casesandoriginalharness. Samefixedtask/tool/outputbudget/greedyseed/nativeformat/8K,ownQwen35Q4/noMTP/originalengine300W. ComparewithqualifiedOmniagentprofiles;successescantradebetweenmodelsandaredisclosed. No priorOmnicase-lossstop. Gracefulcase-boundary540sbudget preservespartialobservationswithoutfull18claim."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-abc15a00787fd8808e63",
+    "original_bytes": 1301,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "abc15a00787fd8808e63f606f0991b9d8fad411eace57eb6b80ac1fa2483c908",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-096e2b2496adec4ad1fe",
+    "original_bytes": 43378,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "096e2b2496adec4ad1feee8e69d3db0d18aaba5990cf61961a074266ad29c5c7",
+    "statements": {
+      "hypothesis": "IndependentlyrepeatR215graftcacheconfiguration with3consecutivefresh18casecycles in one newprocess; allprevioussuccess/policyretained,>=3%tasks/s vsA0/currentC/timelyR216graft,<=5%GPUJ/successregression,>=450scasewall,<=3%cyclewalldrift/5%energydrift/64MiBVRAMgrowth. Coding132/164+16 and BFCL88required. Qualifiedcandidateonly; finaltimelypostcontrol mandatory beforeCpromotion. R214nativejointgateFAILretained."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-be94d0247c1bb25efe16",
+    "original_bytes": 1301,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "be94d0247c1bb25efe166416475f3e0ebefb94878a97ba1f97249ba4a515b23e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-6e9646206b88a6d093d6",
+    "original_bytes": 18717,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6e9646206b88a6d093d60ea2d1e163ad71247f87d33dadcc3ac61f792749ab67",
+    "statements": {
+      "hypothesis": "Gemma23/32 MBPP and149/164HumanEval justify completing the same admitted223 profile before deciding its coding-quality/VRAM trade-off. Its tool/agent negatives remain."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-2548f2ead96b51796127",
+    "original_bytes": 1532,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2548f2ead96b517961275f0d876e59dee0b65e3fdf701b47301e1bbdfe62face",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-a9dbcbb0fe047611864d",
+    "original_bytes": 14360,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a9dbcbb0fe047611864d33b97e5f8dd8c21651c35075bb353a418dc477b2d15c",
+    "statements": {
+      "hypothesis": "Qualifycodingnonregression ofR215agentpositivegraftxHBM07combination onexact164+16existingtokens/tasks. Not a codingthroughputclaim. ExecuteonlyafterR216freshagentpairconfirmed. JointsuccessbaseANDplus, no rawR205plusonlyaggregate reuse.",
+      "score_rule": "task success = base_pass AND plus_pass"
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-84f6caa563632bf694ca",
+    "original_bytes": 1610,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "84f6caa563632bf694cac75f7290ad0f74ff99208ea32d7dcaf46238d3adeafb",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-bc06f49a06e3fa99d8cc",
+    "original_bytes": 40048,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bc06f49a06e3fa99d8cc16a1f3c8e91dc2f4ba6aa60405198febff6dd0244d94",
+    "statements": {
+      "hypothesis": "Assess the verified Gemma QAT native profile on the same isolated18 development workflows. NativeTool84/100 does not determine multistep task outcomes; do not force genericJSON on native function calls."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-4986f54dcacf1988a89f",
+    "original_bytes": 1393,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4986f54dcacf1988a89f69ae028cecba5b4bca76594c4a2e150880b3ad4ea9cd",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-d18fbbacd0190ef8ea06",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d18fbbacd0190ef8ea06728dbc31284c9a28672738d3c313b6653e46fbf71bbc",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-b24adc02bbe2eaf51d28",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b24adc02bbe2eaf51d28514336561e59df68ffd309bd7ffb069ff9e1d76e87fe",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-9cbbf66c5222305bffc2",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9cbbf66c5222305bffc2a6f79391eb800ce92581b0be7a97bd1f83ed1f9b6c2d",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e7ba3e41b5084c9fd294",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e7ba3e41b5084c9fd294be092fa91b2322164b095c238fb3f04e0204923da720",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-d52317925bc82b0a7b97",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d52317925bc82b0a7b970e0bcfb8d06cfd5f0a731911920ab8e99775efc4d3cc",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-4fbcc587bbb900b4c6f1",
+    "original_bytes": 1447,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4fbcc587bbb900b4c6f151b86d9aefa12528c8014679d359426524435c1386bf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f4e9e5fa8e297e889740",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f4e9e5fa8e297e889740f0474309bca4db7f5f3409260c67a62b070112cf72c4",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e675d1e895cb06cf66f3",
+    "original_bytes": 1447,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e675d1e895cb06cf66f36abe941cebfeba91b6197127ac6f4fa15f08a7e4b8d3",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-a4d7ff243bb8d3dfc409",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a4d7ff243bb8d3dfc409287a283e129344e74cd4202d64b7bfc9529d1a9148c8",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-dc0071f57c461e9dba16",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dc0071f57c461e9dba169ba5576cf208e274e7d896586ff802f4aaecd9feac85",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-aaa33bad3515da40c5f2",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "aaa33bad3515da40c5f26d8e9f79f219ca655b83701505c54e7a1a8797248f7a",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-150baffec67f20582274",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "150baffec67f2058227434aa12e958eb90f74cac18e187094cda9c51d9f27719",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-6ff83711161ab85cc778",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6ff83711161ab85cc7784cb237f5933d7aaf8518840ae9c958b9dce04feabba1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-23acb629f4de43bdb03f",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "23acb629f4de43bdb03fede2a8729601459fe4c844ebbdc85aba22c1df367b0d",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-23fcfa726d3a70900717",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "23fcfa726d3a709007171f3905aee67c6bc325c8e1130e636d1a51204ef702d8",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-3306956ad331ebeb0e48",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3306956ad331ebeb0e4842e05f2b77b35b90221c7d0954ec3e0063f8136c0a50",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-b6b6b3237d5c7d1e8b85",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b6b6b3237d5c7d1e8b85d9e28905458bf95ab31e30515575fba481dd4fa9a022",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-45e813a3f8cf5e462d01",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "45e813a3f8cf5e462d01dda7079fbf0a97b89f39924dc8e8432ef6eaa02547f5",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e2c63f8d5b9df0e43b58",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e2c63f8d5b9df0e43b58940e9a80748bd1fe78615d5d55407fab6fa3b91de514",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-686cb603d405b15b0004",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "686cb603d405b15b00042228d8253a263e15ce710e14e60f493ed607c32d5902",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-11fe0611173134b78e6e",
+    "original_bytes": 1257,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "11fe0611173134b78e6ef38f9321d6dcd3a1703d180ef6374fed005f4a2ec723",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-bb595974d3f8a74077f6",
+    "original_bytes": 10320,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bb595974d3f8a74077f6a350a967ceb402990061100ef6dd50582af3cf0ef473",
+    "statements": {
+      "hypothesis": "R41332-screen quality difference is small. Complete admitted test pool for original Omni and existing Qwen coding profiles to make a stronger model/profile decision without repeating previous32."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-507a16ac7ebf8b7d56c5",
+    "original_bytes": 1532,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "507a16ac7ebf8b7d56c51b5ba5bb2dc8310ad28da72a4ffb1ff1fd5f7829c146",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-fb0bbe31323fc9bb761a",
+    "original_bytes": 15410,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fb0bbe31323fc9bb761a901bca0bcdae8ce43d729dddee41acd188784f4a979e",
+    "statements": {
+      "hypothesis": "Gemma nativefunction control and basic semantic/safety diagnostics support a broader tools comparison; native automatic function-call formatting differs from unconstrained contentJSON and must be measured directly."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-2c70e20645f726071b67",
+    "original_bytes": 1998,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2c70e20645f726071b672ffaf5d265926c4838d1fa337eb1f9cdf53e35e10de8",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-04cef369fdba9073bd68",
+    "original_bytes": 12171,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "04cef369fdba9073bd68111484d2163709a381f4b79e610da049aec1a5a9b887",
+    "statements": {
+      "hypothesis": "After scopedOmnicompletion fillmissingQwen3.5Q4toolqualityonidentical100BFCLtasks/fullschemas/scorer; nativeQwentemplate/tokenizer,greedy1001,ctx8192/noMTP/noWeightCache/300Woriginalruntime. OldQwen35original12/nativeA0R122reused. Comparetasks/s,J/success/quality/VRAMagainstimmutableOmniandQwen38records;no cross-tokenizer tok/s ranking. Full100 unlessincomplete/invalidnativeprotocol, neverstopsolelybecauseOmnisuccesschanges."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-5c6d3fb050e40b7be4bc",
+    "original_bytes": 1542,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5c6d3fb050e40b7be4bc5691e347d8c9cae7232886b0fd6219e5bbc6a55ba7cf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "context_tokens": 16384
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d817683964a08b892be6",
+    "original_bytes": 16006,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d817683964a08b892be642f76a2acc2018d3fd5492915cafe48ab66574d6e6f1",
+    "statements": {
+      "hypothesis": "GemmaSWA+fullattention differs fromOmniGDN and may provide useful long-input native retrieval at lowVRAM. Reuse originalR338text, not oldOmniIDs or model-specific paddingsearch."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-bd1d71efde6e2cdbf82c",
+    "original_bytes": 1222,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bd1d71efde6e2cdbf82cb15e34427dc9a43f7455f1f364c6bfa0c896d0f6adb9",
+    "statements": {}
   }
 ]

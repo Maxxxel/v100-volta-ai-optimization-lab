@@ -535,3 +535,11 @@ The configuration comparison now exposes every recorded profile field and startu
 ## Audited research checkpoint R449 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## 2026-10-23 — Measured-result master table correction
+
+The default table now includes exactly the configurations referenced by measured `history.runs`, across admitted, historical, supplemental and pending-qualification tracks. Result-free profiles and attempts remain in a separate configuration archive. Pagination and the bounded vertical table viewport are removed; all measured configurations render continuously with normal document scrolling, compact single-line result cells, an optional official-only filter and click-through evidence dialogs.
+
+Pinned historical plans, launches, hash manifests, server logs and answer timings add explicit evidence annotations without changing any published profile, result, attempt or immutable ID. Requested, declared and observed controls remain separate. Recorded engine prefill/decode token counts and timing sums are projected only when exact task counts and independently recorded request-wall totals match. Gross case-window GPU J/output token includes prefill energy. Non-streaming inference does not provide TTFT. Historical logs reporting build 0 (unknown) cannot identify an upstream engine release or commit; executable and kernel hashes remain separate identifiers.
+
+CPU regression checks, confidentiality validation and desktop/mobile browser acceptance cover complete measured-row inclusion, no pagination, uniform row heights including offscreen columns, document scrolling, optional qualification filtering, all parameter columns, provenance, CSV and arithmetic means. No GPU benchmark is started for this change.

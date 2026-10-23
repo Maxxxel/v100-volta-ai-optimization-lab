@@ -10698,6 +10698,3173 @@
       "scientific_status": "BOUNDED_NATIVE_EXECUTION_OBSERVED"
     }
   ],
+  "configuration_evidence": [
+    {
+      "evidence_id": "evidence-55f892152c282cc441a75a0c186359608b663ae6ee13972cb250c22256cc6f49",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-024cf24709c569d65d7ea32dff7b27baaa2ed993e784fd74b50e6ba62da22408",
+      "sources": [
+        {
+          "authority_audit_id": "audit-0d3aec8ca86cc2526591",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "88f90240f41e6787763a3d6a00422f27d113743d52dcf06fcd009c903341505f"
+        },
+        {
+          "authority_audit_id": "audit-0d3aec8ca86cc2526591",
+          "filename": "LAUNCH.json",
+          "sha256": "5364368307fc6b7dc42108f484801c184bfb223b82c8a9fab9d5334b2f8170ba"
+        },
+        {
+          "authority_audit_id": "audit-0d3aec8ca86cc2526591",
+          "filename": "server.log",
+          "sha256": "ff97449b545781177d54394a210b1bdefc76e5fcba9d61c009911ab08b850df3"
+        },
+        {
+          "authority_audit_id": "audit-8c20cddbcc71524da391",
+          "filename": "PLAN.json",
+          "sha256": "8c20cddbcc71524da3919ade5ca0fbcc4fa72816fd1db6853348f82ea1f5a950"
+        },
+        {
+          "authority_audit_id": "audit-0d3aec8ca86cc2526591",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "32d9a3573593e8b0bc86b9b2f40d426395f04e928a13a2705589c13b7b54cd5a"
+        },
+        {
+          "authority_audit_id": "audit-0d3aec8ca86cc2526591",
+          "filename": "AGENT.jsonl",
+          "sha256": "25c894dd8a948bfac039356e9cc584baa5bde784d1f5fd955f6b10518dafb5e8"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-9e4f128d5f88d46e950c910b9a1847b919e9316f3bd1c6ad8ca6acc4881ead0a",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.fixed.batch_size": 2048,
+        "recorded_plan.fixed.cache_prompt": false,
+        "recorded_plan.fixed.ctx": 8192,
+        "recorded_plan.fixed.decode_ignore_eos": true,
+        "recorded_plan.fixed.decode_output": 128,
+        "recorded_plan.fixed.prefill_output": 1,
+        "recorded_plan.fixed.seed": 1001,
+        "recorded_plan.fixed.slots": 1,
+        "recorded_plan.fixed.temperature": 0,
+        "recorded_plan.fixed.thinking": false,
+        "recorded_plan.fixed.threads": 6,
+        "recorded_plan.fixed.tool_max_tokens": 128,
+        "recorded_plan.fixed.ubatch_size": 512,
+        "recorded_plan.power_limit_w": 300,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-06043d3a7d18c093e29a06609ddcaa375f519463c78325e89a0df1937cb66307",
+      "sources": [
+        {
+          "authority_audit_id": "audit-de4acb1d78b6a6ec052b",
+          "filename": "PLAN.json",
+          "sha256": "de4acb1d78b6a6ec052b975456574afc8d560af31dfcbce71044e5f31e4aed06"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "9e65ff4f84d969a7f16e626a93cc2a7cd6357b7ca51b68f68af9e351727e78e3"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "launch.json",
+          "sha256": "c875d7d315510b68c0b91f272bf2725ada8e637a80786bab18f8f2632c45a3e6"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "server.log",
+          "sha256": "43fbd6c7fdc1ccd7ca8ebca0e25683edf1c33c0142a9990ab757be95a415c529"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-536389d437bfe572704a1be76d90a489bc6664f038fcb7d3191d3cae2bb3c6d6",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "gemma4",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 800,
+        "recorded_plan.maximum_output_tokens": 256,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.min_p": 0.0,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 64,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 256,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 64,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 64,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-0a294703691cf20a0500a6ae3f16cad564fccb51a26ab775d9c8d1e85a97f749",
+      "sources": [
+        {
+          "authority_audit_id": "audit-1712592a47c05ef398bd",
+          "filename": "PLAN.json",
+          "sha256": "1712592a47c05ef398bdf9acf30ee365b78fb402f952cc1c7283fac6014c6955"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "6b578214ee62f57a7cf68e21f46b70186dcea88d443b3491d5de509df69d5315"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "server.log",
+          "sha256": "d2856ad9e7f2bfd331f4b195fa6d3f75b372c16772b300625e8cfb7c9dfc7765"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "LAUNCH.json",
+          "sha256": "2be7fb9e0fdd740a6b628597934ed3e1f16f3bd11e6d9b6ba29aff790291a834"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "6f1bbf783b84d8a38089ca7c301e8776351f6cac6e6e2e374f3cc75a8b28eddd"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-59523b32de2765a0158a2c008738efd4c2a552091e5dddece8a8623162cef010",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "gemma4",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 1100,
+        "recorded_plan.maximum_output_tokens": 1024,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.min_p": 0.0,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 64,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 64,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 64,
+        "runtime.observed_request_sampling.top_p": 0.95
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-0ae84c0e94364fd137d104cdd1f6a62ec72661c4520a27ddfdfce9f791574450",
+      "sources": [
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "LAUNCH.json",
+          "sha256": "5073fa0549efa164f9e9a585fc7c3170e985d99bddcdd4587e57f9cadc6dc054"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "a49a781e418cc2a75fe665ab2b0aeef75ff0708d7429feabcf0ba9d8098f6f4d"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "aa61cdd56b8a19ddd4b032dccdab129089aef4e0df452fbcf451c67b12913115"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "62947293cb6d70fcf8e4e28d6a02da643c80a1d5aabcd0ffef242fff9033f2dd"
+        },
+        {
+          "authority_audit_id": "audit-5e3286490116ec60196f",
+          "filename": "PLAN.json",
+          "sha256": "5e3286490116ec60196fc87fa052ce1b05a6d8f16b9fffbcd09b429e4c126d3d"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "server.log",
+          "sha256": "86de8c9b08b3b761683bdcdd29201c071931e3f989fbf02afdfc7fc86bbbde1d"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-084e492a58289abe03be51c608b68c522da80beecc409a3f2d6da43eff2ded67",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.cache_mib": 0,
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-20fefa3e8e4e04a4a7e411c01d6b0557cb1e2d832e7a97d608560f49ab7fc2da",
+      "sources": [
+        {
+          "authority_audit_id": "audit-f0d91e26bf5f4d13e5dc",
+          "filename": "AGENT.jsonl",
+          "sha256": "fe2feba3cfa672a5711372c729138678e67382470edbdeab6dcd13cd49e6c245"
+        },
+        {
+          "authority_audit_id": "audit-fb28c2f2e80ced215af4",
+          "filename": "PLAN.json",
+          "sha256": "fb28c2f2e80ced215af46c100f17c9f9c3192e629f3e5efde7683776967b278b"
+        },
+        {
+          "authority_audit_id": "audit-f0d91e26bf5f4d13e5dc",
+          "filename": "server.log",
+          "sha256": "62b8d104f2bd16f50389e46f63aff2d4241b393939c64699674b5ee564010bab"
+        },
+        {
+          "authority_audit_id": "audit-f0d91e26bf5f4d13e5dc",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "b5a8735d5c0c19b1a8e69ac6bed06846f0aca585113be12c0c8fb9b49e1970eb"
+        },
+        {
+          "authority_audit_id": "audit-f0d91e26bf5f4d13e5dc",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "6bc85d9b9925fe9c0596279a6ad48bff840e0d4d51dfb536bb6bc1e817dc5eb9"
+        },
+        {
+          "authority_audit_id": "audit-f0d91e26bf5f4d13e5dc",
+          "filename": "LAUNCH.json",
+          "sha256": "d90d33c3fcb9aadb2507f28cfa410493721994950c276f22fdb5ddbd39f56b40"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-28bfa7b355b9986345a45612b8b9fda8f84769b828e6e364f4ff8af9a575ba7a",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 800,
+        "recorded_plan.maximum_output_tokens": 256,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.temperature": 0.0,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 256,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0.0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-28459adca97e8df465070c010a2b60e83f9c60e49e4c6f7f687a52bef0512792",
+      "sources": [
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "61fb6537a8b688e7c0a7dde9278330cee04648f8968094960d3e778416496aae"
+        },
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "439b5701fed38bf7d51ae8201d00608a8f98d4b57598c215cf1eee7ba0a2783f"
+        },
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "LAUNCH.json",
+          "sha256": "3c9647fe690b7bc9e5e1ca0c69a06e824fc78a4c3ad5cd303997419911752429"
+        },
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "server.log",
+          "sha256": "e4e518eacdc7b76c9bb9f3bc37c610dc2320bfdfa7bec43e633bc5123de25cf4"
+        },
+        {
+          "authority_audit_id": "audit-619156ecdd8a3ac28737",
+          "filename": "PLAN.json",
+          "sha256": "619156ecdd8a3ac287376ff4e6d661c8afef89e9244157cc66726bc7c4e5a9ab"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-e584ecadfa1c3dd5ff72d6eb8dc8d3df7b8044886c0d6dbcae3ce44e06d1de0d",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.05000000074505806,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.speculative.types": "none",
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 40,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-3a4e792f68b45a2e90c5792a2115936434eefcdfec54c6e5795ea0d236d9d920",
+      "sources": [
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "101de7b2c4e48b0d3eb25db4a200bcbbf23586b5d6b1bb45314602cc85228e96"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "LAUNCH.json",
+          "sha256": "3f9f03d82b8ea223618b23239e0fda91a1d00bb4a17adb337b033347840929b4"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "server.log",
+          "sha256": "7a6ddbd0691a6476c33bd30fb2ed22d728bfb2e8cbffb86eccb5a96347c6defe"
+        },
+        {
+          "authority_audit_id": "audit-528c2a92df377e362e50",
+          "filename": "PLAN.json",
+          "sha256": "528c2a92df377e362e50fc0a7c90999be9091fff514d36589eb0482bdc553d27"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "7be74a157e57e3c12201dca3c7aa9e6a8df924261afe5915106d8d5c9df7c5c3"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "eaf94c17b911f1bf78b8b228b375eb082728555b399061fbad6190dab39286b8"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-ca31749ee01f6aaf5825389a5bb457a672be72b90baafd937dda7db9a0c41c12",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.fixed.batch_size": 2048,
+        "recorded_plan.fixed.cache_prompt": false,
+        "recorded_plan.fixed.ctx": 8192,
+        "recorded_plan.fixed.decode_ignore_eos": true,
+        "recorded_plan.fixed.decode_output": 128,
+        "recorded_plan.fixed.prefill_output": 1,
+        "recorded_plan.fixed.seed": 1001,
+        "recorded_plan.fixed.slots": 1,
+        "recorded_plan.fixed.temperature": 0,
+        "recorded_plan.fixed.thinking": false,
+        "recorded_plan.fixed.threads": 6,
+        "recorded_plan.fixed.tool_max_tokens": 128,
+        "recorded_plan.fixed.ubatch_size": 512,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-4338df43fddef895d8bcd61676da34c72f06f0f2c6188a1575c2fad58fd697cb",
+      "sources": [
+        {
+          "authority_audit_id": "audit-74d034ef6a5873b4a5e9",
+          "filename": "launch.json",
+          "sha256": "96a33344adf44abaf1855b5be80ec75be760653e8b706f0672019fdad9c84978"
+        },
+        {
+          "authority_audit_id": "audit-74d034ef6a5873b4a5e9",
+          "filename": "BFCL.jsonl",
+          "sha256": "d61e2d5e8fd0a6b08dbd771152fe46c2b9e120a5c04f79703919f505b9729d55"
+        },
+        {
+          "authority_audit_id": "audit-74d034ef6a5873b4a5e9",
+          "filename": "server.log",
+          "sha256": "bc0304fcb5205f6c26b3fdae72cf90754c5233d1907c88985f72b170eec59969"
+        },
+        {
+          "authority_audit_id": "audit-3de468fe73193dd6faa1",
+          "filename": "PLAN.json",
+          "sha256": "3de468fe73193dd6faa10bf982d9b022be06f1018d587b50399e03f1a88efd55"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-42e65e3af0e4c588cdec0bc8a1d2477284ccf015ad3898109bbca49da33b60a0",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 640,
+        "recorded_plan.maximum_output_tokens": 256,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.temperature": 0.0,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0.0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-4a595502808367e0618c83624da9066fd5d8976e85136668c1ca541c4510914f",
+      "sources": [
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "server.log",
+          "sha256": "13277c02ebf85c5b0c884ae78230c1d53eb2b85f5c6e0a7d3a6f358d7dcddca9"
+        },
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "LAUNCH.json",
+          "sha256": "966ae26f6cefb398e6ba06271c9f6cac198881b9031b5dbd94870e8f42447f62"
+        },
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "1850c2666e818f5d73cc10f9c8ae8bd256e65039adb8dbbc116f0556b22b7161"
+        },
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "7173ca3131f883539235ca14ff6ab7f2f8957ea10cb36f467815f328f0e110d0"
+        },
+        {
+          "authority_audit_id": "audit-a08b57998f7de37c22b7",
+          "filename": "PLAN.json",
+          "sha256": "a08b57998f7de37c22b773f5b6168592d08190eb46e3087d6629ec2a49380635"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-873a372a8a9af65a96ea102cae76793e106717e3215c1849af081b0c1daf91f5",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.05000000074505806,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 40,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-515700b7314a68b615da95138e8bd30da9c6011ad6762cd581468394c6cc996e",
+      "sources": [
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "d5a7be51a5a85287b4c9d97f96bf7dca4db9cb851985d96b4bfd4c69e001dd37"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "1111fb66fded670f08d6a48c32f8ba4e906ad1fde87cc1d00e64a3757102e748"
+        },
+        {
+          "authority_audit_id": "audit-b46e4897903b1a45684b",
+          "filename": "PLAN.json",
+          "sha256": "b46e4897903b1a45684bdc73d94f7ba1bf30603a8c1bd0bd9c8561b6ca1ea668"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "LAUNCH.json",
+          "sha256": "ea7b735c8b49e4f7f5da3613c632c6987ff50bcce8799dd33a0d175ee0102b0e"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ef62279b32f78e171c5e52862608c47e4f320c39559574ddf8a6e258726fcb7d"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "server.log",
+          "sha256": "9f7fea973e14245fdbd924c8ccbf2ce37ab937bd3d568ef6a451acccef6ce048"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-065c4f9c1f30c9826f58499dc55a215a7c3a01aac0e9fb7496b6b8cddb5fd6fc",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.cache_mib": 0,
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-51d889235a2a85cdf10debfcd1e21fed8154cd69d7bdd5bb9f53b0e5db720774",
+      "sources": [
+        {
+          "authority_audit_id": "audit-773317dbb40e0be12df1",
+          "filename": "server.log",
+          "sha256": "488c56fa957dca4213c8ed25acd3fda0fe771fdc6a42b655207c61425f2d1fce"
+        },
+        {
+          "authority_audit_id": "audit-c78e3a0d6960cf2c19c5",
+          "filename": "PLAN.json",
+          "sha256": "c78e3a0d6960cf2c19c584789ec4ebcd6b1535ae3a38ce87b065061897d562d1"
+        },
+        {
+          "authority_audit_id": "audit-773317dbb40e0be12df1",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "4573f6d8f0675481777537534831f5ac1c3052572a28a4973eae2d4a21767015"
+        },
+        {
+          "authority_audit_id": "audit-773317dbb40e0be12df1",
+          "filename": "LAUNCH.json",
+          "sha256": "9772400631819ce1ab70d1b9ff0b7a085c1917694242fcda629339623901c5a6"
+        },
+        {
+          "authority_audit_id": "audit-773317dbb40e0be12df1",
+          "filename": "AGENT.jsonl",
+          "sha256": "222337f9150ec13f4803936dd5e64b722a1cb70a18994d2cfef8cdaf34ca30b7"
+        },
+        {
+          "authority_audit_id": "audit-773317dbb40e0be12df1",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "fbbbc00b8b87a6eeca35d3e610f5f5821ac639f8f2e6fc9fcdd5d3e3b25959c2"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-67422af637b3232c2c7bfa98dac91ad3c7ddcaf4da0d3bc22eb1b27c7f3e01f2",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.fixed.batch_size": 2048,
+        "recorded_plan.fixed.cache_prompt": false,
+        "recorded_plan.fixed.ctx": 8192,
+        "recorded_plan.fixed.decode_ignore_eos": true,
+        "recorded_plan.fixed.decode_output": 128,
+        "recorded_plan.fixed.prefill_output": 1,
+        "recorded_plan.fixed.seed": 1001,
+        "recorded_plan.fixed.slots": 1,
+        "recorded_plan.fixed.temperature": 0,
+        "recorded_plan.fixed.thinking": false,
+        "recorded_plan.fixed.threads": 6,
+        "recorded_plan.fixed.tool_max_tokens": 128,
+        "recorded_plan.fixed.ubatch_size": 512,
+        "recorded_plan.power_limit_w": 300,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-5722b8039c1512e61e3c28558f7983b16695457fa164e45f1d3b4d0f24839b45",
+      "sources": [
+        {
+          "authority_audit_id": "audit-7f3ab2f95edf05d58dec",
+          "filename": "PLAN.json",
+          "sha256": "7f3ab2f95edf05d58dec91ed60dab2ea85feb8c6c57ecb4c68cda36d6b661c54"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "server.log",
+          "sha256": "582dead5048f78ca549d7674ee5c64c7b9f522fcbea6a2d2ea8dd2cb72f69126"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ecdd8c5873f3487e254c46a62b7ecc89fe352e8e992efbc5d55a1865189a278b"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "launch.json",
+          "sha256": "bc7247345fd05a34fe8d5b5e677025d19c6cb7d08f8bbb772808708e7b28bc32"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-b2c427e744d4593fa7cd2b521ea94e74523792033bb6c9972a7cebef2529b963",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.source_sampling.min_p": 0.05,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 20,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "requested.thinking": true,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.05000000074505806,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 2048,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.05,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 20,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": true,
+        "runtime.observed_template_controls.reasoning_effort": "medium"
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-74354e64b46cb66871caf93fd459dc987a38861910bb6193776e3fe5c9b4fd1f",
+      "sources": [
+        {
+          "authority_audit_id": "audit-121602f3c1b70b224728",
+          "filename": "LAUNCH.json",
+          "sha256": "6ed4d9ef5af0d32d2137468e8e1552a15eae7347f98d52aeac1ae7fc85456e9c"
+        },
+        {
+          "authority_audit_id": "audit-121602f3c1b70b224728",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "91cd6e61ead0e1bd25a8bf90707bf316b5a32e86932b5b09985a7a5b591cd598"
+        },
+        {
+          "authority_audit_id": "audit-121602f3c1b70b224728",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "54a9c3ff28d01a36b9befc807cda7f7c5894f9c978ab10adcecfcb1859c2caa1"
+        },
+        {
+          "authority_audit_id": "audit-121602f3c1b70b224728",
+          "filename": "AGENT.jsonl",
+          "sha256": "1c91cea109b43651583347271377f5150392bee45cbb21da1ea42fab0fea6ce8"
+        },
+        {
+          "authority_audit_id": "audit-121602f3c1b70b224728",
+          "filename": "server.log",
+          "sha256": "67a0dd332d45019585b8a4a3e3dc8c55e0c7a879cd1b1cbd943fce24b795ef9c"
+        },
+        {
+          "authority_audit_id": "audit-1683005b2a201069d0d3",
+          "filename": "PLAN.json",
+          "sha256": "1683005b2a201069d0d3de6e0984cdcd7fcf213463ea2f63914d7350bc8135f0"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-748cf21fe31a8568c4249c5c441cde1893ecaea2daf7d73b483c3f5ae0745aa0",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 1000,
+        "recorded_plan.maximum_output_tokens": 1024,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.source_sampling.seed": 1001,
+        "recorded_plan.source_sampling.temperature": 0.0,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-7d5a2238ab0634cadaa1c867e3719910300734ec5915a4d462b9f0e3092bc208",
+      "sources": [
+        {
+          "authority_audit_id": "audit-ad7af282e525daf3a4b2",
+          "filename": "PLAN.json",
+          "sha256": "ad7af282e525daf3a4b2fc1cdb71a37021cf347d0bd0d22d8bcd90a4998ac003"
+        },
+        {
+          "authority_audit_id": "audit-ce32eed77153282b01c9",
+          "filename": "LAUNCH.json",
+          "sha256": "a0b5d2a8db73afcc2943de0558c31d3e8de639a5a1365795f646aed9ff682e06"
+        },
+        {
+          "authority_audit_id": "audit-ce32eed77153282b01c9",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "645ed23e2e32b5262b105b42504166ea5d3c1a0ae710ba02a04394a529763722"
+        },
+        {
+          "authority_audit_id": "audit-ce32eed77153282b01c9",
+          "filename": "server.log",
+          "sha256": "a890deabcd1c03f2f681bbd9f218cf34e64ab02e8ae64a9f8181e9c4e4ce724c"
+        },
+        {
+          "authority_audit_id": "audit-ce32eed77153282b01c9",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "e1727f8b073c4df4094b9c600467b7a7525f545c3248f5d9364937220bd48e7d"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-1dc6570448d60837a5e625912b3ca3816a2cf9a0324a82045094422015d021b3",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.source_sampling.min_p": 0.05,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 20,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "requested.thinking": true,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.05000000074505806,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 2048,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 20,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.05,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 20,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": true,
+        "runtime.observed_template_controls.reasoning_effort": "medium"
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-857468e57a322f2d5d7bc61eb7b4c853c572d05cff8e0339b8c944914dcebcdd",
+      "sources": [
+        {
+          "authority_audit_id": "audit-4bc4206bcc12ff33cac8",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "12343f984b26a3162ee165e276e382d1f342b42636454a0e7a19daf99f93e4ec"
+        },
+        {
+          "authority_audit_id": "audit-4bc4206bcc12ff33cac8",
+          "filename": "LAUNCH.json",
+          "sha256": "7ef52300f9ff184625fd3a17be1122af7aaad7b94242a6375e0ceda6040ba51c"
+        },
+        {
+          "authority_audit_id": "audit-4bc4206bcc12ff33cac8",
+          "filename": "AGENT.jsonl",
+          "sha256": "4a19fa4a4bcea6ddef69e64ad0033f81d52f35ec2e289f8b87151bcef771c065"
+        },
+        {
+          "authority_audit_id": "audit-4bc4206bcc12ff33cac8",
+          "filename": "server.log",
+          "sha256": "1129e61f5de21c3b9a94dbea4e07be18d458608f7f28e4ad135501f0af04fa1c"
+        },
+        {
+          "authority_audit_id": "audit-4bc4206bcc12ff33cac8",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "de33622e6f6806971f44eb132cc2d0ee792ae5a9ecad032a0ec7812420e1de6e"
+        },
+        {
+          "authority_audit_id": "audit-b10a050b49051f92a3a8",
+          "filename": "PLAN.json",
+          "sha256": "b10a050b49051f92a3a8fcd6960005e56e2a42ced50b6b081e0718d74f44760f"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-e225b527a6d8f456aff6f2ea050e587c11764926ad4db95bdf64f184d0c9edfe",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.cache_mib": 0,
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-8757e6c2b5b0d794a86c1d6b5ebef108ff77905c9e1ed2be96a892263f4ffdd1",
+      "sources": [
+        {
+          "authority_audit_id": "audit-abc15a00787fd8808e63",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "faeba63424ab0b23ebaa0998c2b32f6e5eb9aa7168c84c94170f7dc8dc732dd9"
+        },
+        {
+          "authority_audit_id": "audit-abc15a00787fd8808e63",
+          "filename": "LAUNCH.json",
+          "sha256": "c50f0ed3e069576b1731c02b966309d67a5356a7f6ff6de01d5e74cb826e0ec3"
+        },
+        {
+          "authority_audit_id": "audit-abc15a00787fd8808e63",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "e88ebd9b1f0115ba910b8ea15419151aab962975a498581e8b70f33ac634d514"
+        },
+        {
+          "authority_audit_id": "audit-abc15a00787fd8808e63",
+          "filename": "AGENT.jsonl",
+          "sha256": "f1475feb05743a8eeeeef1a0b85b6cc15574bd01939905395ca31e9ffc3b4367"
+        },
+        {
+          "authority_audit_id": "audit-abc15a00787fd8808e63",
+          "filename": "server.log",
+          "sha256": "762b896e9b753edaf4352ecf76ac2edfc4174bd70c64ecbb3e29fe1f37265fd9"
+        },
+        {
+          "authority_audit_id": "audit-fa8712f46e5cc987775c",
+          "filename": "PLAN.json",
+          "sha256": "fa8712f46e5cc987775cecd5fe3662414cd31b252b614f51c550946f5f704cb1"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-e78f67191b68882d6c10f86141fee9fc5d17c6fe1f3aba1cd8ea9b83e9b6e5b3",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.cache_mib": 6144,
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-984026dd552b75a597cf35797bac61f4744802b23ec8e10cc3c66df1c79d3ae2",
+      "sources": [
+        {
+          "authority_audit_id": "audit-be94d0247c1bb25efe16",
+          "filename": "LAUNCH.json",
+          "sha256": "31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a"
+        },
+        {
+          "authority_audit_id": "audit-096e2b2496adec4ad1fe",
+          "filename": "PLAN.json",
+          "sha256": "096e2b2496adec4ad1feee8e69d3db0d18aaba5990cf61961a074266ad29c5c7"
+        },
+        {
+          "authority_audit_id": "audit-be94d0247c1bb25efe16",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "e04a5ee5f56669de64b47d0f60233083ea2f11c0e636a4aa6617288694a47fd1"
+        },
+        {
+          "authority_audit_id": "audit-be94d0247c1bb25efe16",
+          "filename": "AGENT.jsonl",
+          "sha256": "0740e9048a07c52b93ca73879b6e1844fb88d2415fd9e9c56478c406feb81028"
+        },
+        {
+          "authority_audit_id": "audit-be94d0247c1bb25efe16",
+          "filename": "server.log",
+          "sha256": "e2925c148d258776ab6d4ffd5f399b09a90780a1b503f8f987a262960b939e35"
+        },
+        {
+          "authority_audit_id": "audit-be94d0247c1bb25efe16",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "00b76c5498897d60261b024bf74cdf492edbc9f86c9727805789a75af7e4199e"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-bc73a98e40b6bdedc48c21574f89d7765c84c79428140f312e95ca01ba074890",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "gemma4",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 1000,
+        "recorded_plan.maximum_output_tokens": 1024,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.min_p": 0.0,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 64,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 64,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 64,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-a4399622030ca831d01d8d2636d30d09c2fb5f393fa20a0ec93ec26caca8d27d",
+      "sources": [
+        {
+          "authority_audit_id": "audit-2548f2ead96b51796127",
+          "filename": "server.log",
+          "sha256": "2368d1d3f103b3876baabf5fdbf47685f69b89f96ed4b773a7c56d8d4722515f"
+        },
+        {
+          "authority_audit_id": "audit-2548f2ead96b51796127",
+          "filename": "LAUNCH.json",
+          "sha256": "cb2446d577f2f691cb10efb59fdf089464a54fcefc8b12145e8c17bbb214d5dd"
+        },
+        {
+          "authority_audit_id": "audit-6e9646206b88a6d093d6",
+          "filename": "PLAN.json",
+          "sha256": "6e9646206b88a6d093d60ea2d1e163ad71247f87d33dadcc3ac61f792749ab67"
+        },
+        {
+          "authority_audit_id": "audit-2548f2ead96b51796127",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "1fc5b8013c6587fadd3d185d5b6ee66136875700d0c9308a40d2ff042e5b3c41"
+        },
+        {
+          "authority_audit_id": "audit-2548f2ead96b51796127",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "b65f8aa2426210bcf92bee7528ec3fefa539708bc9727bdf46c44e62e65d6438"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-57a592f70fb0b3edb49116bcea24e74cad1456dddd7c4453938377deed98d1a0",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.cache_mib": 6144,
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.power_limit_w": 300,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.05000000074505806,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 40,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-a69d0e339eeab4501399d65d30c2b6f7846566e191a7aec7cf4299fad4ee5c90",
+      "sources": [
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "d8ab8e2c6223aad59d8ec4683f6ba76aff5edc013284f7c16762ba1a896c5dc7"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "server.log",
+          "sha256": "e2c890a05789bf1d8ceb9ea34de9aff1047d2a2b7240f387016e54c55a9e94d2"
+        },
+        {
+          "authority_audit_id": "audit-a9dbcbb0fe047611864d",
+          "filename": "PLAN.json",
+          "sha256": "a9dbcbb0fe047611864d33b97e5f8dd8c21651c35075bb353a418dc477b2d15c"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "LAUNCH.json",
+          "sha256": "31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "db4401ff4d85348c8d448fb01b797450a26dd34e3f15965551042520ed717228"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "82f87edbec3acecc2978138c1e15ee2496a7e6794ffc3cfa102e35f527c1bdea"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-bda1c9ab584fb153fa75c169c85220eb1b9074079d458597aa8015bf3537852a",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "gemma4",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.maximum_output_tokens": 1400,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.min_p": 0.0,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 64,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 64,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-bb96d470f3fd73950a2a734df81ff167e577a82222afe15e113684c028d5d682",
+      "sources": [
+        {
+          "authority_audit_id": "audit-4986f54dcacf1988a89f",
+          "filename": "LAUNCH.json",
+          "sha256": "9d96f094876023be84f3b4a5abece6fd91975921470f27c388e5e06ec37d635c"
+        },
+        {
+          "authority_audit_id": "audit-4986f54dcacf1988a89f",
+          "filename": "AGENT.jsonl",
+          "sha256": "89f545fd4d2b5be5d8384a9608e38e7faa19e836fea2640561a4bde337aeb08c"
+        },
+        {
+          "authority_audit_id": "audit-4986f54dcacf1988a89f",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "eb652eb42ca9db6ee65aa5191c17cd4717257d602a8187e9b40a6009c01d3d38"
+        },
+        {
+          "authority_audit_id": "audit-bc06f49a06e3fa99d8cc",
+          "filename": "PLAN.json",
+          "sha256": "bc06f49a06e3fa99d8cc16a1f3c8e91dc2f4ba6aa60405198febff6dd0244d94"
+        },
+        {
+          "authority_audit_id": "audit-4986f54dcacf1988a89f",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "a7c71b4a0be2eec75fd843a268a14b425daf7bb6cf4ae20c236c4c3160f3db9a"
+        },
+        {
+          "authority_audit_id": "audit-4986f54dcacf1988a89f",
+          "filename": "server.log",
+          "sha256": "11ca8023e5d74b74ddf6437e56b843102bc5b63f4f3666b8960e1d6e7aeb4e93"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-13da59cad037169969c0180b52cbb8a1f9ec8aebcb14941a29f367a98d290e90",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 4096,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 0,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 0,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": true
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-bcdfe5252a45537d15476e68deadc19f8e3d656198cfe1f0c54b7665a39d3a36",
+      "sources": [
+        {
+          "authority_audit_id": "audit-a4d7ff243bb8d3dfc409",
+          "filename": "LAUNCH.json",
+          "sha256": "6a8c3a0d0e0b27753e6d7f9aede1d48334f0b197698f39c6eae5a6344b90a633"
+        },
+        {
+          "authority_audit_id": "audit-686cb603d405b15b0004",
+          "filename": "LAUNCH.json",
+          "sha256": "944fa8722e43ed5671caade5774c87d5f43dcab0c3c235a54355774a83207cde"
+        },
+        {
+          "authority_audit_id": "audit-e675d1e895cb06cf66f3",
+          "filename": "LAUNCH.json",
+          "sha256": "1827fff58d3e52a2215620e8dbd6693d9b1cb36d01cef40de753ee1287c10454"
+        },
+        {
+          "authority_audit_id": "audit-9cbbf66c5222305bffc2",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "b5d371615f56c00f4036f6b05dcf7ae86b70ead89450b5bcd9afcd70015fa80f"
+        },
+        {
+          "authority_audit_id": "audit-dc0071f57c461e9dba16",
+          "filename": "server.log",
+          "sha256": "e39c853c2e68764d4053bb26f53c9b0fb3e03a44fd9a273b4417f85448df23cb"
+        },
+        {
+          "authority_audit_id": "audit-e7ba3e41b5084c9fd294",
+          "filename": "server.log",
+          "sha256": "f69a2eb47364d04216967934426272b070c061f88f97c3f92d0cc9429d6981a9"
+        },
+        {
+          "authority_audit_id": "audit-686cb603d405b15b0004",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7cf711b173d3b2ed31c5e6bfea9832b4efb9abe2f30eca585c2c1b8b18270a07"
+        },
+        {
+          "authority_audit_id": "audit-dc0071f57c461e9dba16",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "385282f7ae385faf2682e9a72a150854762a7767691a694f40587493df29fe81"
+        },
+        {
+          "authority_audit_id": "audit-23fcfa726d3a70900717",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7352ec2bebd489bc0c1a1c815a1e7851f7d1790729e7faf2d9fe9dd65bd5e148"
+        },
+        {
+          "authority_audit_id": "audit-e2c63f8d5b9df0e43b58",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "63e220ece0cbdf89dcc5d8692301171daa1b0d1c166b988b74b6fa0daef38564"
+        },
+        {
+          "authority_audit_id": "audit-23acb629f4de43bdb03f",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "3825bfbc26134173f57787f5f0ff31c8e3266041c67ca8f682cf6de5bed7e7ef"
+        },
+        {
+          "authority_audit_id": "audit-d52317925bc82b0a7b97",
+          "filename": "LAUNCH.json",
+          "sha256": "946a846003812b72b9353c471a268b1af7c5b4a35b5b4a97063d93397b9951ac"
+        },
+        {
+          "authority_audit_id": "audit-dc0071f57c461e9dba16",
+          "filename": "LAUNCH.json",
+          "sha256": "f2c6e0bf4016876ff7627686738e7366c018f35d9aba3c6beee837ab88603555"
+        },
+        {
+          "authority_audit_id": "audit-150baffec67f20582274",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "f94580f02505d0c90282dfb2a0440d7fa2ab15ce89a5b26c4d9303a16a123d9f"
+        },
+        {
+          "authority_audit_id": "audit-3306956ad331ebeb0e48",
+          "filename": "server.log",
+          "sha256": "770e0aa1eeca178b700611263e0573da609d8017e3254cb39c5453294246e4a1"
+        },
+        {
+          "authority_audit_id": "audit-3306956ad331ebeb0e48",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "675bbf465fa1df42bc6965c06c149a77ccf3fa76b0f60fe96139cec11d4c18ee"
+        },
+        {
+          "authority_audit_id": "audit-e2c63f8d5b9df0e43b58",
+          "filename": "LAUNCH.json",
+          "sha256": "1f3976fe9e7f44662e3113d3463db406ce38ba766fee42bf3ea01781889989c5"
+        },
+        {
+          "authority_audit_id": "audit-b24adc02bbe2eaf51d28",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "6caa66d639e43af999c6c8934a6ac6236a4ebbe8d87d87e50d157ae10c073e7e"
+        },
+        {
+          "authority_audit_id": "audit-686cb603d405b15b0004",
+          "filename": "server.log",
+          "sha256": "a3793fa68bc3b8d7650863f9594929c221bedaafda008319324ce46bec416e38"
+        },
+        {
+          "authority_audit_id": "audit-f4e9e5fa8e297e889740",
+          "filename": "LAUNCH.json",
+          "sha256": "606e42f67bed74514399293a7a9fe11d49acd82285da30dd4f7ae53305225706"
+        },
+        {
+          "authority_audit_id": "audit-23acb629f4de43bdb03f",
+          "filename": "server.log",
+          "sha256": "9b60226d03765292e17db8eefb5e16259d91f4bab75267783284adaaad9c4b31"
+        },
+        {
+          "authority_audit_id": "audit-9cbbf66c5222305bffc2",
+          "filename": "server.log",
+          "sha256": "93d9deff1c33db5fe5018262ef6ea9780b3965255f5c75864038ead53c7f5a46"
+        },
+        {
+          "authority_audit_id": "audit-6ff83711161ab85cc778",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "18fa7be1a3eebd64a8f5e3af10f94196694b260b3c28874b0b0dd9e0606f6ad7"
+        },
+        {
+          "authority_audit_id": "audit-b24adc02bbe2eaf51d28",
+          "filename": "LAUNCH.json",
+          "sha256": "d272704f2b6dec2f05198f34ff4f9cc264fa7103adfc851c91aad9cb0b138dfd"
+        },
+        {
+          "authority_audit_id": "audit-e675d1e895cb06cf66f3",
+          "filename": "server.log",
+          "sha256": "1bc7c556a4aa3e6af1c1241eff4aa595d0f8873f6fec6e8c6c31aabb750cfbde"
+        },
+        {
+          "authority_audit_id": "audit-11fe0611173134b78e6e",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7bb1b79aedf9c812ff4802a6c38008e7fd749be7db00b1cdfeca59ff307e7d95"
+        },
+        {
+          "authority_audit_id": "audit-6ff83711161ab85cc778",
+          "filename": "server.log",
+          "sha256": "06fac32019e29767876b7b23a916311eed464fc626dae03da674033ec7766ca3"
+        },
+        {
+          "authority_audit_id": "audit-23acb629f4de43bdb03f",
+          "filename": "LAUNCH.json",
+          "sha256": "12d235d3d53112dc41ef2523692fad7b3c1ae1710e16a092b00232624bbac6ef"
+        },
+        {
+          "authority_audit_id": "audit-d18fbbacd0190ef8ea06",
+          "filename": "server.log",
+          "sha256": "bd9300bf6470c866fe0761244108d04ee38b1f0a2624d2051d15e17f9e7b7701"
+        },
+        {
+          "authority_audit_id": "audit-e2c63f8d5b9df0e43b58",
+          "filename": "server.log",
+          "sha256": "daa667f9f41e24cfb28f641e42a071dc328eed7cde28f7562f1679f0ab86d3b1"
+        },
+        {
+          "authority_audit_id": "audit-4fbcc587bbb900b4c6f1",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "98669f7058b553b6d35733d4b97651f9f4e93ab56bbc64b0d658ece8e6e981a5"
+        },
+        {
+          "authority_audit_id": "audit-d18fbbacd0190ef8ea06",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "c4a9b80aecaae8ac3c0f97f5573785814ca43824b31f030f33da2ecb76a368c8"
+        },
+        {
+          "authority_audit_id": "audit-f4e9e5fa8e297e889740",
+          "filename": "server.log",
+          "sha256": "c20c81fecd5018d2a113f9d27ba5028fdc783d691a91b9062a5c181380be23b9"
+        },
+        {
+          "authority_audit_id": "audit-aaa33bad3515da40c5f2",
+          "filename": "server.log",
+          "sha256": "392e0cdd3705f35b50cccfc704aa985110e628f9a8b455f1991b76d009577330"
+        },
+        {
+          "authority_audit_id": "audit-b6b6b3237d5c7d1e8b85",
+          "filename": "LAUNCH.json",
+          "sha256": "d3b6a4b83541a967db778ac35a984a2e5da377cc31c44e28e61392b25b6dddb3"
+        },
+        {
+          "authority_audit_id": "audit-11fe0611173134b78e6e",
+          "filename": "LAUNCH.json",
+          "sha256": "8953c7f69545e6475bc1b92e09f1de9a21c7a11a219050fb49776aaf5b1a642a"
+        },
+        {
+          "authority_audit_id": "audit-aaa33bad3515da40c5f2",
+          "filename": "LAUNCH.json",
+          "sha256": "663c93e743c07cc22e982eea09224a46377fe21cc28b6851edeec47662da981e"
+        },
+        {
+          "authority_audit_id": "audit-e7ba3e41b5084c9fd294",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "4790c157b06c8b200701128d1354d70da6b4fbec132613a3fc1771fb9013cd57"
+        },
+        {
+          "authority_audit_id": "audit-4fbcc587bbb900b4c6f1",
+          "filename": "server.log",
+          "sha256": "f253f9133d43b647d8f6c3587fcca27bebef9d376915f914700a26aeb0c4eee6"
+        },
+        {
+          "authority_audit_id": "audit-aaa33bad3515da40c5f2",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "50106dc433cb843137750db9ec4f8dfede04b1385d3330db2b81924b45ded014"
+        },
+        {
+          "authority_audit_id": "audit-23fcfa726d3a70900717",
+          "filename": "LAUNCH.json",
+          "sha256": "9ad4190960ac17226060f10e8add949f604b9b9e1beb37465554daaccebd794f"
+        },
+        {
+          "authority_audit_id": "audit-23fcfa726d3a70900717",
+          "filename": "server.log",
+          "sha256": "88caa543de289ef249a3238a8b8f0bd0cd5ab91ef89f6733ff64821aa0ec88d7"
+        },
+        {
+          "authority_audit_id": "audit-11fe0611173134b78e6e",
+          "filename": "server.log",
+          "sha256": "a24db5d7465f8d9c28487531ad31acc47cd165f0d89f1cd7eb306f3565194023"
+        },
+        {
+          "authority_audit_id": "audit-b24adc02bbe2eaf51d28",
+          "filename": "server.log",
+          "sha256": "1ca4f74cbee9762001aedb141a98cefd2f4777db9c4b8891ed1a295546125431"
+        },
+        {
+          "authority_audit_id": "audit-b6b6b3237d5c7d1e8b85",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "630362f443a3f249751c26423b773509514a1d95d3118b1442ee1a8e6ad50698"
+        },
+        {
+          "authority_audit_id": "audit-9cbbf66c5222305bffc2",
+          "filename": "LAUNCH.json",
+          "sha256": "a499dfef19dc64fbed0a959cc92f34d1aad3c4222967404d35be09e57350bc6f"
+        },
+        {
+          "authority_audit_id": "audit-a4d7ff243bb8d3dfc409",
+          "filename": "server.log",
+          "sha256": "5c43693c3e4be423890be77c809f7a80c6fb625b8626fa02324e0a338ff39116"
+        },
+        {
+          "authority_audit_id": "audit-4fbcc587bbb900b4c6f1",
+          "filename": "LAUNCH.json",
+          "sha256": "0e3c108036efd3200ed5220645829573038bb757eaec9fcbe375fb668473a465"
+        },
+        {
+          "authority_audit_id": "audit-3306956ad331ebeb0e48",
+          "filename": "LAUNCH.json",
+          "sha256": "38e71a90cb4d082944329939e7221cff50acef225a87ba837df91618657d5966"
+        },
+        {
+          "authority_audit_id": "audit-a4d7ff243bb8d3dfc409",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "e2c30ea20164c1f2b1f105945ef1bcdf2ad5a14efa3a0cb85598ce90d4ad1f08"
+        },
+        {
+          "authority_audit_id": "audit-45e813a3f8cf5e462d01",
+          "filename": "LAUNCH.json",
+          "sha256": "cdbc525bf93c88436efad028378fd660543ef3eb9b183fe54e29c60f9a5a3b49"
+        },
+        {
+          "authority_audit_id": "audit-e7ba3e41b5084c9fd294",
+          "filename": "LAUNCH.json",
+          "sha256": "1d3c3e84265c16f67a1a64456c7ce4d90e6e9504bad4c0d1af5453bcf8066075"
+        },
+        {
+          "authority_audit_id": "audit-d18fbbacd0190ef8ea06",
+          "filename": "LAUNCH.json",
+          "sha256": "9c6c240f058598ab400068673a0353a63d8376d3d25bf9798ed9cfbd5230839f"
+        },
+        {
+          "authority_audit_id": "audit-150baffec67f20582274",
+          "filename": "server.log",
+          "sha256": "038e3e1e3e79dc9d55ecb3b3ea23a40c0583db673254bca56948d281cd360c96"
+        },
+        {
+          "authority_audit_id": "audit-e675d1e895cb06cf66f3",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "2f8afc886ca613b007e2225f21e5d48aa0ca6ec69cc8c56a8fd7fed6828b89a0"
+        },
+        {
+          "authority_audit_id": "audit-d52317925bc82b0a7b97",
+          "filename": "server.log",
+          "sha256": "2b8e64f858d3cff3f8980ccb1b72e605cb666d9ae3d2089c21a1ae5a8eeed755"
+        },
+        {
+          "authority_audit_id": "audit-45e813a3f8cf5e462d01",
+          "filename": "server.log",
+          "sha256": "edcee1a3b0052b8bed9020becf0d71874c19c67af423927cadf28fe160eb6fd5"
+        },
+        {
+          "authority_audit_id": "audit-d52317925bc82b0a7b97",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "d3df63ed6b6385d0c69d3c1412c5f2da2c018c11df88835f46b361308185f065"
+        },
+        {
+          "authority_audit_id": "audit-150baffec67f20582274",
+          "filename": "LAUNCH.json",
+          "sha256": "32cac58c0e7c25d1d9557138d4af01d5b3d7c9211bb5b57f6df1dab6fb22dfbb"
+        },
+        {
+          "authority_audit_id": "audit-6ff83711161ab85cc778",
+          "filename": "LAUNCH.json",
+          "sha256": "8f452f981969413ec596a3b6f6ed8ed55b2eabf301878a813eb5bddfcb4668b5"
+        },
+        {
+          "authority_audit_id": "audit-45e813a3f8cf5e462d01",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "936fe16d382b8f3102d6d3f6a8c2873bf6a2963c87e17f399c451ab453dc4f63"
+        },
+        {
+          "authority_audit_id": "audit-b6b6b3237d5c7d1e8b85",
+          "filename": "server.log",
+          "sha256": "7f82d234c5a394ddcc8b0e8a9d04120f8a897ec99ecbac8f4205e6921b5d30ea"
+        },
+        {
+          "authority_audit_id": "audit-f4e9e5fa8e297e889740",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "43f9563b2769f914e35f57b80b07932dc7e4fe17dcaad4e5b5a18898779c8610"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-312592e7546d5900058bc50cc77975761c2a281d1415789af1c364b45e2371e2",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 1000,
+        "recorded_plan.maximum_output_tokens": 1024,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.source_sampling.seed": 1001,
+        "recorded_plan.source_sampling.temperature": 0.0,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.05000000074505806,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.n_predict": 1024,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 0.0,
+        "runtime.observed_generation_settings.top_k": 40,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-db19b046804804c0f1ff31257a67d7d68b46539d99656db6ad649d889e2e407e",
+      "sources": [
+        {
+          "authority_audit_id": "audit-507a16ac7ebf8b7d56c5",
+          "filename": "LAUNCH.json",
+          "sha256": "32d3c6db0c57eb1134b67107a6629631f8b1ac2d7c4d18fbd689225be5f316a8"
+        },
+        {
+          "authority_audit_id": "audit-507a16ac7ebf8b7d56c5",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "4647e7b1bafeae631c3eed64b78c9de726871080e264e1730224e6bf91b7e72a"
+        },
+        {
+          "authority_audit_id": "audit-507a16ac7ebf8b7d56c5",
+          "filename": "server.log",
+          "sha256": "5a02198589bf3a24d3a845c195ba63aef7877cfe9a7248da3784829a94552c93"
+        },
+        {
+          "authority_audit_id": "audit-507a16ac7ebf8b7d56c5",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "208515e2da2fc8612b44a00b1fe4321871895de6e0f7b145cb2c97ff0ceb407e"
+        },
+        {
+          "authority_audit_id": "audit-bb595974d3f8a74077f6",
+          "filename": "PLAN.json",
+          "sha256": "bb595974d3f8a74077f6a350a967ceb402990061100ef6dd50582af3cf0ef473"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-1aab45a769010693b25298a5db17d685dc156600a8bf7f33abcbbb6065ef4450",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "gemma4",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 840,
+        "recorded_plan.maximum_output_tokens": 1024,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.min_p": 0.0,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 64,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 64,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-e1b2d23bee212e2572767a19a2c67d39ab66de5ce7de645809ace750d07e5d1c",
+      "sources": [
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "LAUNCH.json",
+          "sha256": "7f57fcd2963fa613f6dc0252c5be6a15e52629d0233106694422274f172fbc96"
+        },
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "BFCL.jsonl",
+          "sha256": "65de82ff62ff5052fcc7bcc1cb3c41b28a2c624043dd57c5d4643d253d7e0f13"
+        },
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "server.log",
+          "sha256": "efc03c9d1908d8020877a0bc25add29b988dbb743be6d3237777db1d33da7f2e"
+        },
+        {
+          "authority_audit_id": "audit-fb0bbe31323fc9bb761a",
+          "filename": "PLAN.json",
+          "sha256": "fb0bbe31323fc9bb761a901bca0bcdae8ce43d729dddee41acd188784f4a979e"
+        },
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "a025d69ffc8f6831c16ee739c74257c8d428ddc2363fce2a675728b583a606ab"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-a4054ce01c621619194f025b336ab728b944629fec76e955746365e2aaadd5b5",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "qwen35",
+        "recorded_plan.maximum_device_vram_mib": 14848,
+        "recorded_plan.maximum_model_seconds": 540,
+        "recorded_plan.power_limit_w": 300,
+        "requested.thinking": false,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 0,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-ed15a4074c8bc075a4a7b975c38d7d0a6ad77e1716e9637856ea3eb54b62dcf0",
+      "sources": [
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "BFCL.jsonl",
+          "sha256": "341de3cd4f9b8c65f9a38864507ba7a80c8ff9c833c6d2b87c5366b2f998bf95"
+        },
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "118a71b694b41277e8e0d77821b3438f1160ad2436131845e46878828853a053"
+        },
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "server.log",
+          "sha256": "6f8bb9097d064e562a69f340d0c7e1e558b060a99227c4ef8c468d2821caba04"
+        },
+        {
+          "authority_audit_id": "audit-04cef369fdba9073bd68",
+          "filename": "PLAN.json",
+          "sha256": "04cef369fdba9073bd68111484d2163709a381f4b79e610da049aec1a5a9b887"
+        },
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "LAUNCH.json",
+          "sha256": "0c661184b276de887ef6001036e32e895b0cb07a39f79a19b6ff892cfef6edbb"
+        }
+      ]
+    },
+    {
+      "evidence_id": "evidence-514a42eda3b95f4db29822d75b3c3b2c1eb61847c84b6a1d4ba95062168e6c8f",
+      "fields": {
+        "engine.reported_build_number": 0,
+        "engine.reported_compiled_CUDA_archs": "700",
+        "engine.version_provenance_note": "Pinned historical server log reports build 0 (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.",
+        "model.architecture": "gemma4",
+        "recorded_plan.maximum_device_vram_mib": 14336,
+        "recorded_plan.maximum_model_seconds": 640,
+        "recorded_plan.maximum_output_tokens": 256,
+        "recorded_plan.power_limit_w": 300,
+        "recorded_plan.seed": 1001,
+        "recorded_plan.source_sampling.min_p": 0.0,
+        "recorded_plan.source_sampling.presence_penalty": 0.0,
+        "recorded_plan.source_sampling.repeat_penalty": 1.0,
+        "recorded_plan.source_sampling.temperature": 1.0,
+        "recorded_plan.source_sampling.top_k": 64,
+        "recorded_plan.source_sampling.top_p": 0.95,
+        "runtime.observed_generation_settings.backend_sampling": false,
+        "runtime.observed_generation_settings.frequency_penalty": 0.0,
+        "runtime.observed_generation_settings.ignore_eos": false,
+        "runtime.observed_generation_settings.min_p": 0.0,
+        "runtime.observed_generation_settings.mirostat": 0,
+        "runtime.observed_generation_settings.mirostat_eta": 0.10000000149011612,
+        "runtime.observed_generation_settings.mirostat_tau": 5.0,
+        "runtime.observed_generation_settings.n_discard": 0,
+        "runtime.observed_generation_settings.n_keep": 0,
+        "runtime.observed_generation_settings.presence_penalty": 0.0,
+        "runtime.observed_generation_settings.reasoning_format": "deepseek",
+        "runtime.observed_generation_settings.reasoning_in_content": false,
+        "runtime.observed_generation_settings.repeat_last_n": 64,
+        "runtime.observed_generation_settings.repeat_penalty": 1.0,
+        "runtime.observed_generation_settings.seed": 1001,
+        "runtime.observed_generation_settings.stream": false,
+        "runtime.observed_generation_settings.temperature": 1.0,
+        "runtime.observed_generation_settings.top_k": 64,
+        "runtime.observed_generation_settings.top_p": 0.949999988079071,
+        "runtime.observed_generation_settings.typical_p": 1.0,
+        "runtime.observed_request_sampling.min_p": 0.0,
+        "runtime.observed_request_sampling.presence_penalty": 0.0,
+        "runtime.observed_request_sampling.repeat_penalty": 1.0,
+        "runtime.observed_request_sampling.seed": 1001,
+        "runtime.observed_request_sampling.temperature": 1.0,
+        "runtime.observed_request_sampling.top_k": 64,
+        "runtime.observed_request_sampling.top_p": 0.95,
+        "runtime.observed_template_controls.enable_thinking": false
+      },
+      "interpretation": "Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.",
+      "runtime_configuration_id": "cfg-fe590f19e96a50061754a251f43b70dc0db0f66e048a52b08bff8b70fce0f3d2",
+      "sources": [
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "LAUNCH.json",
+          "sha256": "a3cf8dbd61ec33d3acf8036eb0eecf3617856e72642061372d0e197eca83bc8b"
+        },
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "server.log",
+          "sha256": "bfec606af37c61531cd9859286985ff35df7b2b3dd9e8bada9f6302b3c37f8e0"
+        },
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "997ca7826c5e653128746fd19bd8cff580e84960dd478f1c7219f04d809b9824"
+        },
+        {
+          "authority_audit_id": "audit-d817683964a08b892be6",
+          "filename": "PLAN.json",
+          "sha256": "d817683964a08b892be642f76a2acc2018d3fd5492915cafe48ab66574d6e6f1"
+        },
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "8e56d3a435b6832bf682a518c596062bb6fab156de511e725957103ffd9efaa5"
+        }
+      ]
+    }
+  ],
+  "measurement_evidence": [
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-5a9e0f1737ae6d4afd3f982574c8e0ede9b581e156a74a5dfd622f653ac4c44e",
+      "run_id": "run-96f59adb49228945f554962807f55a7db8932a84790989ac78d73a6ce0296fcc",
+      "runtime_configuration_id": "cfg-06043d3a7d18c093e29a06609ddcaa375f519463c78325e89a0df1937cb66307",
+      "sources": [
+        {
+          "authority_audit_id": "audit-de4acb1d78b6a6ec052b",
+          "filename": "PLAN.json",
+          "sha256": "de4acb1d78b6a6ec052b975456574afc8d560af31dfcbce71044e5f31e4aed06"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "9e65ff4f84d969a7f16e626a93cc2a7cd6357b7ca51b68f68af9e351727e78e3"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "launch.json",
+          "sha256": "c875d7d315510b68c0b91f272bf2725ada8e637a80786bab18f8f2632c45a3e6"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "server.log",
+          "sha256": "43fbd6c7fdc1ccd7ca8ebca0e25683edf1c33c0142a9990ab757be95a415c529"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 1004355.362,
+        "decode_tok_s": 35.37094672273975,
+        "decode_tokens": 35525,
+        "gpu_j_per_output_token": 8.779303616466969,
+        "prefill_engine_ms": 91457.627,
+        "prefill_tok_s": 337.1069314973589,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 1095.974418532
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-d54bdab69592a5ce0cf21b19ff653e4b2c1eabd46dfadf73d64f8a1a715cd782",
+      "run_id": "run-010ca7071befb8f0f453d7d41735d79e8d06d6464b9175761c68424e17ecc804",
+      "runtime_configuration_id": "cfg-06043d3a7d18c093e29a06609ddcaa375f519463c78325e89a0df1937cb66307",
+      "sources": [
+        {
+          "authority_audit_id": "audit-de4acb1d78b6a6ec052b",
+          "filename": "PLAN.json",
+          "sha256": "de4acb1d78b6a6ec052b975456574afc8d560af31dfcbce71044e5f31e4aed06"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "9e65ff4f84d969a7f16e626a93cc2a7cd6357b7ca51b68f68af9e351727e78e3"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "launch.json",
+          "sha256": "c875d7d315510b68c0b91f272bf2725ada8e637a80786bab18f8f2632c45a3e6"
+        },
+        {
+          "authority_audit_id": "audit-0a001d95dc6b53c43508",
+          "filename": "server.log",
+          "sha256": "43fbd6c7fdc1ccd7ca8ebca0e25683edf1c33c0142a9990ab757be95a415c529"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 1004355.362,
+        "decode_tok_s": 35.37094672273975,
+        "decode_tokens": 35525,
+        "gpu_j_per_output_token": 8.779303616466969,
+        "prefill_engine_ms": 91457.627,
+        "prefill_tok_s": 337.1069314973589,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 1095.974418532
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-2f4ecc5ea513d60f3f8f46684a3f2fbf181dd3228a8b14816bac297db6729c22",
+      "run_id": "run-ddeeadd78112e94d89463dfa2ae72e4ef21c9afce547e329d20db14e71c29e0b",
+      "runtime_configuration_id": "cfg-0a294703691cf20a0500a6ae3f16cad564fccb51a26ab775d9c8d1e85a97f749",
+      "sources": [
+        {
+          "authority_audit_id": "audit-1712592a47c05ef398bd",
+          "filename": "PLAN.json",
+          "sha256": "1712592a47c05ef398bdf9acf30ee365b78fb402f952cc1c7283fac6014c6955"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "6b578214ee62f57a7cf68e21f46b70186dcea88d443b3491d5de509df69d5315"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "server.log",
+          "sha256": "d2856ad9e7f2bfd331f4b195fa6d3f75b372c16772b300625e8cfb7c9dfc7765"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "LAUNCH.json",
+          "sha256": "2be7fb9e0fdd740a6b628597934ed3e1f16f3bd11e6d9b6ba29aff790291a834"
+        },
+        {
+          "authority_audit_id": "audit-12501a1525abd31c3d52",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "6f1bbf783b84d8a38089ca7c301e8776351f6cac6e6e2e374f3cc75a8b28eddd"
+        }
+      ],
+      "tasks": 12,
+      "values": {
+        "decode_engine_ms": 9665.251,
+        "decode_tok_s": 66.32005728563075,
+        "decode_tokens": 641,
+        "gpu_j_per_output_token": 113.08479596892276,
+        "prefill_engine_ms": 256169.218,
+        "prefill_tok_s": 1375.173031132882,
+        "prefill_tokens": 352277
+      },
+      "wall_sum_s": 266.1359924
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-4ed82c7f71bb276088408716245e6b62e65d4299db4e5515720713e4d1655761",
+      "run_id": "run-7409ef97fe66a47706461b63f5c04205e2b662a108e897ec6f29712983f46b6a",
+      "runtime_configuration_id": "cfg-0ae84c0e94364fd137d104cdd1f6a62ec72661c4520a27ddfdfce9f791574450",
+      "sources": [
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "LAUNCH.json",
+          "sha256": "5073fa0549efa164f9e9a585fc7c3170e985d99bddcdd4587e57f9cadc6dc054"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "a49a781e418cc2a75fe665ab2b0aeef75ff0708d7429feabcf0ba9d8098f6f4d"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "aa61cdd56b8a19ddd4b032dccdab129089aef4e0df452fbcf451c67b12913115"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "62947293cb6d70fcf8e4e28d6a02da643c80a1d5aabcd0ffef242fff9033f2dd"
+        },
+        {
+          "authority_audit_id": "audit-5e3286490116ec60196f",
+          "filename": "PLAN.json",
+          "sha256": "5e3286490116ec60196fc87fa052ce1b05a6d8f16b9fffbcd09b429e4c126d3d"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "server.log",
+          "sha256": "86de8c9b08b3b761683bdcdd29201c071931e3f989fbf02afdfc7fc86bbbde1d"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 703957.043,
+        "decode_tok_s": 72.10951364826391,
+        "decode_tokens": 50762,
+        "gpu_j_per_output_token": 3.6240216217636267,
+        "prefill_engine_ms": 36898.367,
+        "prefill_tok_s": 863.6154548519722,
+        "prefill_tokens": 31866
+      },
+      "wall_sum_s": 741.044285822
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-0b47b8d617c31a08ac4b3ee71fa7254b5ca86d01b03b3a95a5f8ff172dc00789",
+      "run_id": "run-dc79a876e5ab3a8075b206af020442a3eb192466c7985762925bfa112975f86e",
+      "runtime_configuration_id": "cfg-0ae84c0e94364fd137d104cdd1f6a62ec72661c4520a27ddfdfce9f791574450",
+      "sources": [
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "LAUNCH.json",
+          "sha256": "5073fa0549efa164f9e9a585fc7c3170e985d99bddcdd4587e57f9cadc6dc054"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "a49a781e418cc2a75fe665ab2b0aeef75ff0708d7429feabcf0ba9d8098f6f4d"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "aa61cdd56b8a19ddd4b032dccdab129089aef4e0df452fbcf451c67b12913115"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "62947293cb6d70fcf8e4e28d6a02da643c80a1d5aabcd0ffef242fff9033f2dd"
+        },
+        {
+          "authority_audit_id": "audit-5e3286490116ec60196f",
+          "filename": "PLAN.json",
+          "sha256": "5e3286490116ec60196fc87fa052ce1b05a6d8f16b9fffbcd09b429e4c126d3d"
+        },
+        {
+          "authority_audit_id": "audit-9403f0fe4b7260fed1ae",
+          "filename": "server.log",
+          "sha256": "86de8c9b08b3b761683bdcdd29201c071931e3f989fbf02afdfc7fc86bbbde1d"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 703957.043,
+        "decode_tok_s": 72.10951364826391,
+        "decode_tokens": 50762,
+        "gpu_j_per_output_token": 3.6240216217636267,
+        "prefill_engine_ms": 36898.367,
+        "prefill_tok_s": 863.6154548519722,
+        "prefill_tokens": 31866
+      },
+      "wall_sum_s": 741.044285822
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-0b2c953f29855ff206d717a0d3aabb14ae936074ec2a0ce7ae8ecf0b26760d73",
+      "run_id": "run-a01b3ae9b805fdf5b476ea5f6b75559be865969c272de3944de131887e6e6b2c",
+      "runtime_configuration_id": "cfg-28459adca97e8df465070c010a2b60e83f9c60e49e4c6f7f687a52bef0512792",
+      "sources": [
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "61fb6537a8b688e7c0a7dde9278330cee04648f8968094960d3e778416496aae"
+        },
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "439b5701fed38bf7d51ae8201d00608a8f98d4b57598c215cf1eee7ba0a2783f"
+        },
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "LAUNCH.json",
+          "sha256": "3c9647fe690b7bc9e5e1ca0c69a06e824fc78a4c3ad5cd303997419911752429"
+        },
+        {
+          "authority_audit_id": "audit-e3291fb14ff622210e9a",
+          "filename": "server.log",
+          "sha256": "e4e518eacdc7b76c9bb9f3bc37c610dc2320bfdfa7bec43e633bc5123de25cf4"
+        },
+        {
+          "authority_audit_id": "audit-619156ecdd8a3ac28737",
+          "filename": "PLAN.json",
+          "sha256": "619156ecdd8a3ac287376ff4e6d661c8afef89e9244157cc66726bc7c4e5a9ab"
+        }
+      ],
+      "tasks": 12,
+      "values": {
+        "decode_engine_ms": 29984.845,
+        "decode_tok_s": 30.615465912863648,
+        "decode_tokens": 918,
+        "gpu_j_per_output_token": 161.15788367566785,
+        "prefill_engine_ms": 517966.584,
+        "prefill_tok_s": 640.4370672684167,
+        "prefill_tokens": 331725
+      },
+      "wall_sum_s": 548.199342112
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-674a12f834815d0b83b324c874ecaf89803a4b086b653fc99252d68e2244816d",
+      "run_id": "run-0463f0bc490030eb07b7ffb7342cddca6c495f76790c31ac829359264f4d82ed",
+      "runtime_configuration_id": "cfg-3a4e792f68b45a2e90c5792a2115936434eefcdfec54c6e5795ea0d236d9d920",
+      "sources": [
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "101de7b2c4e48b0d3eb25db4a200bcbbf23586b5d6b1bb45314602cc85228e96"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "LAUNCH.json",
+          "sha256": "3f9f03d82b8ea223618b23239e0fda91a1d00bb4a17adb337b033347840929b4"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "server.log",
+          "sha256": "7a6ddbd0691a6476c33bd30fb2ed22d728bfb2e8cbffb86eccb5a96347c6defe"
+        },
+        {
+          "authority_audit_id": "audit-528c2a92df377e362e50",
+          "filename": "PLAN.json",
+          "sha256": "528c2a92df377e362e50fc0a7c90999be9091fff514d36589eb0482bdc553d27"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "7be74a157e57e3c12201dca3c7aa9e6a8df924261afe5915106d8d5c9df7c5c3"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "eaf94c17b911f1bf78b8b228b375eb082728555b399061fbad6190dab39286b8"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 428760.789,
+        "decode_tok_s": 97.59521176737083,
+        "decode_tokens": 41845,
+        "gpu_j_per_output_token": 2.9342732645126812,
+        "prefill_engine_ms": 23264.327,
+        "prefill_tok_s": 1325.2478784363716,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 452.205552483
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-c80a03dcaec9a38ad79b29a369d8c41e48abb77a6fab8d7a17c46facf4f1097f",
+      "run_id": "run-4f3ae2446a4c9ef228623a9104fe0bbf41a26aeeaec91cc8ce9b4c8b2132ac61",
+      "runtime_configuration_id": "cfg-3a4e792f68b45a2e90c5792a2115936434eefcdfec54c6e5795ea0d236d9d920",
+      "sources": [
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "101de7b2c4e48b0d3eb25db4a200bcbbf23586b5d6b1bb45314602cc85228e96"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "LAUNCH.json",
+          "sha256": "3f9f03d82b8ea223618b23239e0fda91a1d00bb4a17adb337b033347840929b4"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "server.log",
+          "sha256": "7a6ddbd0691a6476c33bd30fb2ed22d728bfb2e8cbffb86eccb5a96347c6defe"
+        },
+        {
+          "authority_audit_id": "audit-528c2a92df377e362e50",
+          "filename": "PLAN.json",
+          "sha256": "528c2a92df377e362e50fc0a7c90999be9091fff514d36589eb0482bdc553d27"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "7be74a157e57e3c12201dca3c7aa9e6a8df924261afe5915106d8d5c9df7c5c3"
+        },
+        {
+          "authority_audit_id": "audit-efdf562be91fd6a8c7be",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "eaf94c17b911f1bf78b8b228b375eb082728555b399061fbad6190dab39286b8"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 428760.789,
+        "decode_tok_s": 97.59521176737083,
+        "decode_tokens": 41845,
+        "gpu_j_per_output_token": 2.9342732645126812,
+        "prefill_engine_ms": 23264.327,
+        "prefill_tok_s": 1325.2478784363716,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 452.205552483
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-47ac54c7f8a20c08d5a1df440cdd837faa5e5d91b6df291903a9d0a02bbaa2ce",
+      "run_id": "run-b1dbdf1d99e34ac3f2458929a686cbc6b7e60f38f3cf826aa1da56a97b5bf890",
+      "runtime_configuration_id": "cfg-4338df43fddef895d8bcd61676da34c72f06f0f2c6188a1575c2fad58fd697cb",
+      "sources": [
+        {
+          "authority_audit_id": "audit-74d034ef6a5873b4a5e9",
+          "filename": "launch.json",
+          "sha256": "96a33344adf44abaf1855b5be80ec75be760653e8b706f0672019fdad9c84978"
+        },
+        {
+          "authority_audit_id": "audit-74d034ef6a5873b4a5e9",
+          "filename": "BFCL.jsonl",
+          "sha256": "d61e2d5e8fd0a6b08dbd771152fe46c2b9e120a5c04f79703919f505b9729d55"
+        },
+        {
+          "authority_audit_id": "audit-74d034ef6a5873b4a5e9",
+          "filename": "server.log",
+          "sha256": "bc0304fcb5205f6c26b3fdae72cf90754c5233d1907c88985f72b170eec59969"
+        },
+        {
+          "authority_audit_id": "audit-3de468fe73193dd6faa1",
+          "filename": "PLAN.json",
+          "sha256": "3de468fe73193dd6faa10bf982d9b022be06f1018d587b50399e03f1a88efd55"
+        }
+      ],
+      "tasks": 100,
+      "values": {
+        "decode_engine_ms": 74461.315,
+        "decode_tok_s": 144.81345111887964,
+        "decode_tokens": 10783,
+        "gpu_j_per_output_token": 2.5446519404799286,
+        "prefill_engine_ms": 32185.027000000002,
+        "prefill_tok_s": 1470.559586605287,
+        "prefill_tokens": 47330
+      },
+      "wall_sum_s": 107.007172433
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-75e86f96d5af7e0cd443cb10766da25bf980a9dd610474352422bee7588bf98a",
+      "run_id": "run-a3a5b1d3ceeed133038216bf964623f007a935d11c123cef8bfd1f7fd69748a2",
+      "runtime_configuration_id": "cfg-4a595502808367e0618c83624da9066fd5d8976e85136668c1ca541c4510914f",
+      "sources": [
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "server.log",
+          "sha256": "13277c02ebf85c5b0c884ae78230c1d53eb2b85f5c6e0a7d3a6f358d7dcddca9"
+        },
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "LAUNCH.json",
+          "sha256": "966ae26f6cefb398e6ba06271c9f6cac198881b9031b5dbd94870e8f42447f62"
+        },
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "1850c2666e818f5d73cc10f9c8ae8bd256e65039adb8dbbc116f0556b22b7161"
+        },
+        {
+          "authority_audit_id": "audit-ada36443ee3b882ab67f",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "7173ca3131f883539235ca14ff6ab7f2f8957ea10cb36f467815f328f0e110d0"
+        },
+        {
+          "authority_audit_id": "audit-a08b57998f7de37c22b7",
+          "filename": "PLAN.json",
+          "sha256": "a08b57998f7de37c22b773f5b6168592d08190eb46e3087d6629ec2a49380635"
+        }
+      ],
+      "tasks": 12,
+      "values": {
+        "decode_engine_ms": 28060.347,
+        "decode_tok_s": 32.89339223068054,
+        "decode_tokens": 923,
+        "gpu_j_per_output_token": 79.49699193726005,
+        "prefill_engine_ms": 241124.502,
+        "prefill_tok_s": 698.6100483475544,
+        "prefill_tokens": 168452
+      },
+      "wall_sum_s": 269.406874028
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-bf813fd44b9b4d09505e574326a9878d1650604abfd98604ea0db91332e92790",
+      "run_id": "run-bcc0c572a32010227df4b1b30699d424276762cd1fec525dbb598242dfa7430b",
+      "runtime_configuration_id": "cfg-515700b7314a68b615da95138e8bd30da9c6011ad6762cd581468394c6cc996e",
+      "sources": [
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "d5a7be51a5a85287b4c9d97f96bf7dca4db9cb851985d96b4bfd4c69e001dd37"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "1111fb66fded670f08d6a48c32f8ba4e906ad1fde87cc1d00e64a3757102e748"
+        },
+        {
+          "authority_audit_id": "audit-b46e4897903b1a45684b",
+          "filename": "PLAN.json",
+          "sha256": "b46e4897903b1a45684bdc73d94f7ba1bf30603a8c1bd0bd9c8561b6ca1ea668"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "LAUNCH.json",
+          "sha256": "ea7b735c8b49e4f7f5da3613c632c6987ff50bcce8799dd33a0d175ee0102b0e"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ef62279b32f78e171c5e52862608c47e4f320c39559574ddf8a6e258726fcb7d"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "server.log",
+          "sha256": "9f7fea973e14245fdbd924c8ccbf2ce37ab937bd3d568ef6a451acccef6ce048"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 434829.305,
+        "decode_tok_s": 80.065900802155,
+        "decode_tokens": 34815,
+        "gpu_j_per_output_token": 3.753737955289646,
+        "prefill_engine_ms": 21933.448,
+        "prefill_tok_s": 1405.6613442628811,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 456.935627082
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-d8581b5a8e4afed11c8e3a0ee3a57e737206b095a4a6568b80d064318e9c09d9",
+      "run_id": "run-aa806b5acd6ee7e18de8ee77bb3d9800ab55c6c4420c13f358bf14fedf2ef7b8",
+      "runtime_configuration_id": "cfg-515700b7314a68b615da95138e8bd30da9c6011ad6762cd581468394c6cc996e",
+      "sources": [
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "d5a7be51a5a85287b4c9d97f96bf7dca4db9cb851985d96b4bfd4c69e001dd37"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "1111fb66fded670f08d6a48c32f8ba4e906ad1fde87cc1d00e64a3757102e748"
+        },
+        {
+          "authority_audit_id": "audit-b46e4897903b1a45684b",
+          "filename": "PLAN.json",
+          "sha256": "b46e4897903b1a45684bdc73d94f7ba1bf30603a8c1bd0bd9c8561b6ca1ea668"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "LAUNCH.json",
+          "sha256": "ea7b735c8b49e4f7f5da3613c632c6987ff50bcce8799dd33a0d175ee0102b0e"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ef62279b32f78e171c5e52862608c47e4f320c39559574ddf8a6e258726fcb7d"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "server.log",
+          "sha256": "9f7fea973e14245fdbd924c8ccbf2ce37ab937bd3d568ef6a451acccef6ce048"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 434829.305,
+        "decode_tok_s": 80.065900802155,
+        "decode_tokens": 34815,
+        "gpu_j_per_output_token": 3.753737955289646,
+        "prefill_engine_ms": 21933.448,
+        "prefill_tok_s": 1405.6613442628811,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 456.935627082
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-959c833c503567b40c7144025cbed23931bd6870a9e726e908fdc2ef83c2cc83",
+      "run_id": "run-a83b7291baa467b8e167a9c4cf1cab8ce5c6d8485b8ce39a0e02bd03c67e76ce",
+      "runtime_configuration_id": "cfg-515700b7314a68b615da95138e8bd30da9c6011ad6762cd581468394c6cc996e",
+      "sources": [
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "d5a7be51a5a85287b4c9d97f96bf7dca4db9cb851985d96b4bfd4c69e001dd37"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "1111fb66fded670f08d6a48c32f8ba4e906ad1fde87cc1d00e64a3757102e748"
+        },
+        {
+          "authority_audit_id": "audit-b46e4897903b1a45684b",
+          "filename": "PLAN.json",
+          "sha256": "b46e4897903b1a45684bdc73d94f7ba1bf30603a8c1bd0bd9c8561b6ca1ea668"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "LAUNCH.json",
+          "sha256": "ea7b735c8b49e4f7f5da3613c632c6987ff50bcce8799dd33a0d175ee0102b0e"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ef62279b32f78e171c5e52862608c47e4f320c39559574ddf8a6e258726fcb7d"
+        },
+        {
+          "authority_audit_id": "audit-506364384b32b828051e",
+          "filename": "server.log",
+          "sha256": "9f7fea973e14245fdbd924c8ccbf2ce37ab937bd3d568ef6a451acccef6ce048"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 434829.305,
+        "decode_tok_s": 80.065900802155,
+        "decode_tokens": 34815,
+        "gpu_j_per_output_token": 3.753737955289646,
+        "prefill_engine_ms": 21933.448,
+        "prefill_tok_s": 1405.6613442628811,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 456.935627082
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-3dc2284e96adc1d8e61c4f40d10ac708cd70d1b5c28fa163827a71e3a5cd890d",
+      "run_id": "run-f74b00c4005a3e3398cc79a05ad584531baaae815cf6ec3aa75544c8dc835861",
+      "runtime_configuration_id": "cfg-5722b8039c1512e61e3c28558f7983b16695457fa164e45f1d3b4d0f24839b45",
+      "sources": [
+        {
+          "authority_audit_id": "audit-7f3ab2f95edf05d58dec",
+          "filename": "PLAN.json",
+          "sha256": "7f3ab2f95edf05d58dec91ed60dab2ea85feb8c6c57ecb4c68cda36d6b661c54"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "server.log",
+          "sha256": "582dead5048f78ca549d7674ee5c64c7b9f522fcbea6a2d2ea8dd2cb72f69126"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ecdd8c5873f3487e254c46a62b7ecc89fe352e8e992efbc5d55a1865189a278b"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "launch.json",
+          "sha256": "bc7247345fd05a34fe8d5b5e677025d19c6cb7d08f8bbb772808708e7b28bc32"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 472233.3,
+        "decode_tok_s": 76.75655232276081,
+        "decode_tokens": 36247,
+        "gpu_j_per_output_token": 4.36158021947926,
+        "prefill_engine_ms": 103205.608,
+        "prefill_tok_s": 298.73376648292214,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 575.609562259
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-e7dd169fc4ccbf4f09b018c146481427df7f8c9d9db6ab632cf122f933f2b889",
+      "run_id": "run-25b2f3c7c923c6c556d914496c87a54df1a4e831897bdbdf207942f33a6002b1",
+      "runtime_configuration_id": "cfg-5722b8039c1512e61e3c28558f7983b16695457fa164e45f1d3b4d0f24839b45",
+      "sources": [
+        {
+          "authority_audit_id": "audit-7f3ab2f95edf05d58dec",
+          "filename": "PLAN.json",
+          "sha256": "7f3ab2f95edf05d58dec91ed60dab2ea85feb8c6c57ecb4c68cda36d6b661c54"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "server.log",
+          "sha256": "582dead5048f78ca549d7674ee5c64c7b9f522fcbea6a2d2ea8dd2cb72f69126"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "ecdd8c5873f3487e254c46a62b7ecc89fe352e8e992efbc5d55a1865189a278b"
+        },
+        {
+          "authority_audit_id": "audit-ab44bd9905753dd56faf",
+          "filename": "launch.json",
+          "sha256": "bc7247345fd05a34fe8d5b5e677025d19c6cb7d08f8bbb772808708e7b28bc32"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 472233.3,
+        "decode_tok_s": 76.75655232276081,
+        "decode_tokens": 36247,
+        "gpu_j_per_output_token": 4.36158021947926,
+        "prefill_engine_ms": 103205.608,
+        "prefill_tok_s": 298.73376648292214,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 575.609562259
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-5c81bc5343f313b288814f97ae2d5d92b06591d1cb8411ff21ce494b325c8f1f",
+      "run_id": "run-6bd7e2b99b66411b9717fd7dfb3d7d29a7d8aef2bd49326a3de4f971d8cc736f",
+      "runtime_configuration_id": "cfg-a69d0e339eeab4501399d65d30c2b6f7846566e191a7aec7cf4299fad4ee5c90",
+      "sources": [
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "d8ab8e2c6223aad59d8ec4683f6ba76aff5edc013284f7c16762ba1a896c5dc7"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "server.log",
+          "sha256": "e2c890a05789bf1d8ceb9ea34de9aff1047d2a2b7240f387016e54c55a9e94d2"
+        },
+        {
+          "authority_audit_id": "audit-a9dbcbb0fe047611864d",
+          "filename": "PLAN.json",
+          "sha256": "a9dbcbb0fe047611864d33b97e5f8dd8c21651c35075bb353a418dc477b2d15c"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "LAUNCH.json",
+          "sha256": "31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "db4401ff4d85348c8d448fb01b797450a26dd34e3f15965551042520ed717228"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "82f87edbec3acecc2978138c1e15ee2496a7e6794ffc3cfa102e35f527c1bdea"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 244112.136,
+        "decode_tok_s": 150.68894403512982,
+        "decode_tokens": 36785,
+        "gpu_j_per_output_token": 2.021653322981162,
+        "prefill_engine_ms": 23911.472,
+        "prefill_tok_s": 1289.3810970734046,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 268.206266829
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-796cca5d5c521be3a1f1e5b0afadccf26654e56a782e008545bf9faa775a20ff",
+      "run_id": "run-4c63e40b7b722f86a2d313d3b7a48a4f9eebad48f3e7a10d63e7f8d2dfec1901",
+      "runtime_configuration_id": "cfg-a69d0e339eeab4501399d65d30c2b6f7846566e191a7aec7cf4299fad4ee5c90",
+      "sources": [
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "FUNCTIONAL.jsonl",
+          "sha256": "d8ab8e2c6223aad59d8ec4683f6ba76aff5edc013284f7c16762ba1a896c5dc7"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "server.log",
+          "sha256": "e2c890a05789bf1d8ceb9ea34de9aff1047d2a2b7240f387016e54c55a9e94d2"
+        },
+        {
+          "authority_audit_id": "audit-a9dbcbb0fe047611864d",
+          "filename": "PLAN.json",
+          "sha256": "a9dbcbb0fe047611864d33b97e5f8dd8c21651c35075bb353a418dc477b2d15c"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "LAUNCH.json",
+          "sha256": "31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "db4401ff4d85348c8d448fb01b797450a26dd34e3f15965551042520ed717228"
+        },
+        {
+          "authority_audit_id": "audit-84f6caa563632bf694ca",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "82f87edbec3acecc2978138c1e15ee2496a7e6794ffc3cfa102e35f527c1bdea"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 244112.136,
+        "decode_tok_s": 150.68894403512982,
+        "decode_tokens": 36785,
+        "gpu_j_per_output_token": 2.021653322981162,
+        "prefill_engine_ms": 23911.472,
+        "prefill_tok_s": 1289.3810970734046,
+        "prefill_tokens": 30831
+      },
+      "wall_sum_s": 268.206266829
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-258513f1f9f15cb8b34669dbe97a1ad1e7dbfb211cf8cb767d5eefc76d842f2b",
+      "run_id": "run-d1354042a8e55c21e7e7e715be66c1d8688d7bfaae7e773f7485ec33c638aeb2",
+      "runtime_configuration_id": "cfg-bcdfe5252a45537d15476e68deadc19f8e3d656198cfe1f0c54b7665a39d3a36",
+      "sources": [
+        {
+          "authority_audit_id": "audit-a4d7ff243bb8d3dfc409",
+          "filename": "LAUNCH.json",
+          "sha256": "6a8c3a0d0e0b27753e6d7f9aede1d48334f0b197698f39c6eae5a6344b90a633"
+        },
+        {
+          "authority_audit_id": "audit-686cb603d405b15b0004",
+          "filename": "LAUNCH.json",
+          "sha256": "944fa8722e43ed5671caade5774c87d5f43dcab0c3c235a54355774a83207cde"
+        },
+        {
+          "authority_audit_id": "audit-e675d1e895cb06cf66f3",
+          "filename": "LAUNCH.json",
+          "sha256": "1827fff58d3e52a2215620e8dbd6693d9b1cb36d01cef40de753ee1287c10454"
+        },
+        {
+          "authority_audit_id": "audit-9cbbf66c5222305bffc2",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "b5d371615f56c00f4036f6b05dcf7ae86b70ead89450b5bcd9afcd70015fa80f"
+        },
+        {
+          "authority_audit_id": "audit-dc0071f57c461e9dba16",
+          "filename": "server.log",
+          "sha256": "e39c853c2e68764d4053bb26f53c9b0fb3e03a44fd9a273b4417f85448df23cb"
+        },
+        {
+          "authority_audit_id": "audit-e7ba3e41b5084c9fd294",
+          "filename": "server.log",
+          "sha256": "f69a2eb47364d04216967934426272b070c061f88f97c3f92d0cc9429d6981a9"
+        },
+        {
+          "authority_audit_id": "audit-686cb603d405b15b0004",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7cf711b173d3b2ed31c5e6bfea9832b4efb9abe2f30eca585c2c1b8b18270a07"
+        },
+        {
+          "authority_audit_id": "audit-dc0071f57c461e9dba16",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "385282f7ae385faf2682e9a72a150854762a7767691a694f40587493df29fe81"
+        },
+        {
+          "authority_audit_id": "audit-23fcfa726d3a70900717",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7352ec2bebd489bc0c1a1c815a1e7851f7d1790729e7faf2d9fe9dd65bd5e148"
+        },
+        {
+          "authority_audit_id": "audit-e2c63f8d5b9df0e43b58",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "63e220ece0cbdf89dcc5d8692301171daa1b0d1c166b988b74b6fa0daef38564"
+        },
+        {
+          "authority_audit_id": "audit-23acb629f4de43bdb03f",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "3825bfbc26134173f57787f5f0ff31c8e3266041c67ca8f682cf6de5bed7e7ef"
+        },
+        {
+          "authority_audit_id": "audit-d52317925bc82b0a7b97",
+          "filename": "LAUNCH.json",
+          "sha256": "946a846003812b72b9353c471a268b1af7c5b4a35b5b4a97063d93397b9951ac"
+        },
+        {
+          "authority_audit_id": "audit-dc0071f57c461e9dba16",
+          "filename": "LAUNCH.json",
+          "sha256": "f2c6e0bf4016876ff7627686738e7366c018f35d9aba3c6beee837ab88603555"
+        },
+        {
+          "authority_audit_id": "audit-150baffec67f20582274",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "f94580f02505d0c90282dfb2a0440d7fa2ab15ce89a5b26c4d9303a16a123d9f"
+        },
+        {
+          "authority_audit_id": "audit-3306956ad331ebeb0e48",
+          "filename": "server.log",
+          "sha256": "770e0aa1eeca178b700611263e0573da609d8017e3254cb39c5453294246e4a1"
+        },
+        {
+          "authority_audit_id": "audit-3306956ad331ebeb0e48",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "675bbf465fa1df42bc6965c06c149a77ccf3fa76b0f60fe96139cec11d4c18ee"
+        },
+        {
+          "authority_audit_id": "audit-e2c63f8d5b9df0e43b58",
+          "filename": "LAUNCH.json",
+          "sha256": "1f3976fe9e7f44662e3113d3463db406ce38ba766fee42bf3ea01781889989c5"
+        },
+        {
+          "authority_audit_id": "audit-b24adc02bbe2eaf51d28",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "6caa66d639e43af999c6c8934a6ac6236a4ebbe8d87d87e50d157ae10c073e7e"
+        },
+        {
+          "authority_audit_id": "audit-686cb603d405b15b0004",
+          "filename": "server.log",
+          "sha256": "a3793fa68bc3b8d7650863f9594929c221bedaafda008319324ce46bec416e38"
+        },
+        {
+          "authority_audit_id": "audit-f4e9e5fa8e297e889740",
+          "filename": "LAUNCH.json",
+          "sha256": "606e42f67bed74514399293a7a9fe11d49acd82285da30dd4f7ae53305225706"
+        },
+        {
+          "authority_audit_id": "audit-23acb629f4de43bdb03f",
+          "filename": "server.log",
+          "sha256": "9b60226d03765292e17db8eefb5e16259d91f4bab75267783284adaaad9c4b31"
+        },
+        {
+          "authority_audit_id": "audit-9cbbf66c5222305bffc2",
+          "filename": "server.log",
+          "sha256": "93d9deff1c33db5fe5018262ef6ea9780b3965255f5c75864038ead53c7f5a46"
+        },
+        {
+          "authority_audit_id": "audit-6ff83711161ab85cc778",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "18fa7be1a3eebd64a8f5e3af10f94196694b260b3c28874b0b0dd9e0606f6ad7"
+        },
+        {
+          "authority_audit_id": "audit-b24adc02bbe2eaf51d28",
+          "filename": "LAUNCH.json",
+          "sha256": "d272704f2b6dec2f05198f34ff4f9cc264fa7103adfc851c91aad9cb0b138dfd"
+        },
+        {
+          "authority_audit_id": "audit-e675d1e895cb06cf66f3",
+          "filename": "server.log",
+          "sha256": "1bc7c556a4aa3e6af1c1241eff4aa595d0f8873f6fec6e8c6c31aabb750cfbde"
+        },
+        {
+          "authority_audit_id": "audit-11fe0611173134b78e6e",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "7bb1b79aedf9c812ff4802a6c38008e7fd749be7db00b1cdfeca59ff307e7d95"
+        },
+        {
+          "authority_audit_id": "audit-6ff83711161ab85cc778",
+          "filename": "server.log",
+          "sha256": "06fac32019e29767876b7b23a916311eed464fc626dae03da674033ec7766ca3"
+        },
+        {
+          "authority_audit_id": "audit-23acb629f4de43bdb03f",
+          "filename": "LAUNCH.json",
+          "sha256": "12d235d3d53112dc41ef2523692fad7b3c1ae1710e16a092b00232624bbac6ef"
+        },
+        {
+          "authority_audit_id": "audit-d18fbbacd0190ef8ea06",
+          "filename": "server.log",
+          "sha256": "bd9300bf6470c866fe0761244108d04ee38b1f0a2624d2051d15e17f9e7b7701"
+        },
+        {
+          "authority_audit_id": "audit-e2c63f8d5b9df0e43b58",
+          "filename": "server.log",
+          "sha256": "daa667f9f41e24cfb28f641e42a071dc328eed7cde28f7562f1679f0ab86d3b1"
+        },
+        {
+          "authority_audit_id": "audit-4fbcc587bbb900b4c6f1",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "98669f7058b553b6d35733d4b97651f9f4e93ab56bbc64b0d658ece8e6e981a5"
+        },
+        {
+          "authority_audit_id": "audit-d18fbbacd0190ef8ea06",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "c4a9b80aecaae8ac3c0f97f5573785814ca43824b31f030f33da2ecb76a368c8"
+        },
+        {
+          "authority_audit_id": "audit-f4e9e5fa8e297e889740",
+          "filename": "server.log",
+          "sha256": "c20c81fecd5018d2a113f9d27ba5028fdc783d691a91b9062a5c181380be23b9"
+        },
+        {
+          "authority_audit_id": "audit-aaa33bad3515da40c5f2",
+          "filename": "server.log",
+          "sha256": "392e0cdd3705f35b50cccfc704aa985110e628f9a8b455f1991b76d009577330"
+        },
+        {
+          "authority_audit_id": "audit-b6b6b3237d5c7d1e8b85",
+          "filename": "LAUNCH.json",
+          "sha256": "d3b6a4b83541a967db778ac35a984a2e5da377cc31c44e28e61392b25b6dddb3"
+        },
+        {
+          "authority_audit_id": "audit-11fe0611173134b78e6e",
+          "filename": "LAUNCH.json",
+          "sha256": "8953c7f69545e6475bc1b92e09f1de9a21c7a11a219050fb49776aaf5b1a642a"
+        },
+        {
+          "authority_audit_id": "audit-aaa33bad3515da40c5f2",
+          "filename": "LAUNCH.json",
+          "sha256": "663c93e743c07cc22e982eea09224a46377fe21cc28b6851edeec47662da981e"
+        },
+        {
+          "authority_audit_id": "audit-e7ba3e41b5084c9fd294",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "4790c157b06c8b200701128d1354d70da6b4fbec132613a3fc1771fb9013cd57"
+        },
+        {
+          "authority_audit_id": "audit-4fbcc587bbb900b4c6f1",
+          "filename": "server.log",
+          "sha256": "f253f9133d43b647d8f6c3587fcca27bebef9d376915f914700a26aeb0c4eee6"
+        },
+        {
+          "authority_audit_id": "audit-aaa33bad3515da40c5f2",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "50106dc433cb843137750db9ec4f8dfede04b1385d3330db2b81924b45ded014"
+        },
+        {
+          "authority_audit_id": "audit-23fcfa726d3a70900717",
+          "filename": "LAUNCH.json",
+          "sha256": "9ad4190960ac17226060f10e8add949f604b9b9e1beb37465554daaccebd794f"
+        },
+        {
+          "authority_audit_id": "audit-23fcfa726d3a70900717",
+          "filename": "server.log",
+          "sha256": "88caa543de289ef249a3238a8b8f0bd0cd5ab91ef89f6733ff64821aa0ec88d7"
+        },
+        {
+          "authority_audit_id": "audit-11fe0611173134b78e6e",
+          "filename": "server.log",
+          "sha256": "a24db5d7465f8d9c28487531ad31acc47cd165f0d89f1cd7eb306f3565194023"
+        },
+        {
+          "authority_audit_id": "audit-b24adc02bbe2eaf51d28",
+          "filename": "server.log",
+          "sha256": "1ca4f74cbee9762001aedb141a98cefd2f4777db9c4b8891ed1a295546125431"
+        },
+        {
+          "authority_audit_id": "audit-b6b6b3237d5c7d1e8b85",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "630362f443a3f249751c26423b773509514a1d95d3118b1442ee1a8e6ad50698"
+        },
+        {
+          "authority_audit_id": "audit-9cbbf66c5222305bffc2",
+          "filename": "LAUNCH.json",
+          "sha256": "a499dfef19dc64fbed0a959cc92f34d1aad3c4222967404d35be09e57350bc6f"
+        },
+        {
+          "authority_audit_id": "audit-a4d7ff243bb8d3dfc409",
+          "filename": "server.log",
+          "sha256": "5c43693c3e4be423890be77c809f7a80c6fb625b8626fa02324e0a338ff39116"
+        },
+        {
+          "authority_audit_id": "audit-4fbcc587bbb900b4c6f1",
+          "filename": "LAUNCH.json",
+          "sha256": "0e3c108036efd3200ed5220645829573038bb757eaec9fcbe375fb668473a465"
+        },
+        {
+          "authority_audit_id": "audit-3306956ad331ebeb0e48",
+          "filename": "LAUNCH.json",
+          "sha256": "38e71a90cb4d082944329939e7221cff50acef225a87ba837df91618657d5966"
+        },
+        {
+          "authority_audit_id": "audit-a4d7ff243bb8d3dfc409",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "e2c30ea20164c1f2b1f105945ef1bcdf2ad5a14efa3a0cb85598ce90d4ad1f08"
+        },
+        {
+          "authority_audit_id": "audit-45e813a3f8cf5e462d01",
+          "filename": "LAUNCH.json",
+          "sha256": "cdbc525bf93c88436efad028378fd660543ef3eb9b183fe54e29c60f9a5a3b49"
+        },
+        {
+          "authority_audit_id": "audit-e7ba3e41b5084c9fd294",
+          "filename": "LAUNCH.json",
+          "sha256": "1d3c3e84265c16f67a1a64456c7ce4d90e6e9504bad4c0d1af5453bcf8066075"
+        },
+        {
+          "authority_audit_id": "audit-d18fbbacd0190ef8ea06",
+          "filename": "LAUNCH.json",
+          "sha256": "9c6c240f058598ab400068673a0353a63d8376d3d25bf9798ed9cfbd5230839f"
+        },
+        {
+          "authority_audit_id": "audit-150baffec67f20582274",
+          "filename": "server.log",
+          "sha256": "038e3e1e3e79dc9d55ecb3b3ea23a40c0583db673254bca56948d281cd360c96"
+        },
+        {
+          "authority_audit_id": "audit-e675d1e895cb06cf66f3",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "2f8afc886ca613b007e2225f21e5d48aa0ca6ec69cc8c56a8fd7fed6828b89a0"
+        },
+        {
+          "authority_audit_id": "audit-d52317925bc82b0a7b97",
+          "filename": "server.log",
+          "sha256": "2b8e64f858d3cff3f8980ccb1b72e605cb666d9ae3d2089c21a1ae5a8eeed755"
+        },
+        {
+          "authority_audit_id": "audit-45e813a3f8cf5e462d01",
+          "filename": "server.log",
+          "sha256": "edcee1a3b0052b8bed9020becf0d71874c19c67af423927cadf28fe160eb6fd5"
+        },
+        {
+          "authority_audit_id": "audit-d52317925bc82b0a7b97",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "d3df63ed6b6385d0c69d3c1412c5f2da2c018c11df88835f46b361308185f065"
+        },
+        {
+          "authority_audit_id": "audit-150baffec67f20582274",
+          "filename": "LAUNCH.json",
+          "sha256": "32cac58c0e7c25d1d9557138d4af01d5b3d7c9211bb5b57f6df1dab6fb22dfbb"
+        },
+        {
+          "authority_audit_id": "audit-6ff83711161ab85cc778",
+          "filename": "LAUNCH.json",
+          "sha256": "8f452f981969413ec596a3b6f6ed8ed55b2eabf301878a813eb5bddfcb4668b5"
+        },
+        {
+          "authority_audit_id": "audit-45e813a3f8cf5e462d01",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "936fe16d382b8f3102d6d3f6a8c2873bf6a2963c87e17f399c451ab453dc4f63"
+        },
+        {
+          "authority_audit_id": "audit-b6b6b3237d5c7d1e8b85",
+          "filename": "server.log",
+          "sha256": "7f82d234c5a394ddcc8b0e8a9d04120f8a897ec99ecbac8f4205e6921b5d30ea"
+        },
+        {
+          "authority_audit_id": "audit-f4e9e5fa8e297e889740",
+          "filename": "HTTP_RESULTS.jsonl",
+          "sha256": "43f9563b2769f914e35f57b80b07932dc7e4fe17dcaad4e5b5a18898779c8610"
+        }
+      ],
+      "tasks": 164,
+      "values": {
+        "decode_engine_ms": 8280042.233,
+        "decode_tok_s": 68.3965110398731,
+        "decode_tokens": 566326,
+        "gpu_j_per_output_token": 3.831760079802395,
+        "prefill_engine_ms": 22425.759,
+        "prefill_tok_s": 1360.1769286827707,
+        "prefill_tokens": 30503
+      },
+      "wall_sum_s": 8303.198969689
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-1b1ae00b01ed1926913b0e8704060826c95398a57bf5a387b9dde0afc40c5a4e",
+      "run_id": "run-b3f50c0b7b204c0d7c90fe4bdd66e49f610ed3d86456849614c16b1144f579ee",
+      "runtime_configuration_id": "cfg-e1b2d23bee212e2572767a19a2c67d39ab66de5ce7de645809ace750d07e5d1c",
+      "sources": [
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "LAUNCH.json",
+          "sha256": "7f57fcd2963fa613f6dc0252c5be6a15e52629d0233106694422274f172fbc96"
+        },
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "BFCL.jsonl",
+          "sha256": "65de82ff62ff5052fcc7bcc1cb3c41b28a2c624043dd57c5d4643d253d7e0f13"
+        },
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "server.log",
+          "sha256": "efc03c9d1908d8020877a0bc25add29b988dbb743be6d3237777db1d33da7f2e"
+        },
+        {
+          "authority_audit_id": "audit-fb0bbe31323fc9bb761a",
+          "filename": "PLAN.json",
+          "sha256": "fb0bbe31323fc9bb761a901bca0bcdae8ce43d729dddee41acd188784f4a979e"
+        },
+        {
+          "authority_audit_id": "audit-2c70e20645f726071b67",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "a025d69ffc8f6831c16ee739c74257c8d428ddc2363fce2a675728b583a606ab"
+        }
+      ],
+      "tasks": 100,
+      "values": {
+        "decode_engine_ms": 111326.913,
+        "decode_tok_s": 72.6149659786219,
+        "decode_tokens": 8084,
+        "gpu_j_per_output_token": 4.284666291534287,
+        "prefill_engine_ms": 32891.176,
+        "prefill_tok_s": 776.9865084787482,
+        "prefill_tokens": 25556
+      },
+      "wall_sum_s": 144.725644477
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-f309881d2fa360aa2d4d691a3dc89b9e75d81e10df34392b2d84d7b006b3b52a",
+      "run_id": "run-a17b00acb8cc526769f1a03343903b6db9e09136b1f16c73cd70e38d76a4e4eb",
+      "runtime_configuration_id": "cfg-ed15a4074c8bc075a4a7b975c38d7d0a6ad77e1716e9637856ea3eb54b62dcf0",
+      "sources": [
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "BFCL.jsonl",
+          "sha256": "341de3cd4f9b8c65f9a38864507ba7a80c8ff9c833c6d2b87c5366b2f998bf95"
+        },
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "118a71b694b41277e8e0d77821b3438f1160ad2436131845e46878828853a053"
+        },
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "server.log",
+          "sha256": "6f8bb9097d064e562a69f340d0c7e1e558b060a99227c4ef8c468d2821caba04"
+        },
+        {
+          "authority_audit_id": "audit-04cef369fdba9073bd68",
+          "filename": "PLAN.json",
+          "sha256": "04cef369fdba9073bd68111484d2163709a381f4b79e610da049aec1a5a9b887"
+        },
+        {
+          "authority_audit_id": "audit-5c6d3fb050e40b7be4bc",
+          "filename": "LAUNCH.json",
+          "sha256": "0c661184b276de887ef6001036e32e895b0cb07a39f79a19b6ff892cfef6edbb"
+        }
+      ],
+      "tasks": 100,
+      "values": {
+        "decode_engine_ms": 96599.997,
+        "decode_tok_s": 97.46377114276721,
+        "decode_tokens": 9415,
+        "gpu_j_per_output_token": 3.456108921321251,
+        "prefill_engine_ms": 26974.066,
+        "prefill_tok_s": 1754.6483351823933,
+        "prefill_tokens": 47330
+      },
+      "wall_sum_s": 123.929553805
+    },
+    {
+      "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+      "evidence_id": "measurement-43bbb1141dc6d97fdfa9722be53e8788f2a18ae2f46d4a1fc18d824068d09297",
+      "run_id": "run-cbff0c7ccd0c5f306eb5c96e8588a4bcb9b10706e4f7867771e0fb8ba52cbe46",
+      "runtime_configuration_id": "cfg-fe590f19e96a50061754a251f43b70dc0db0f66e048a52b08bff8b70fce0f3d2",
+      "sources": [
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "LAUNCH.json",
+          "sha256": "a3cf8dbd61ec33d3acf8036eb0eecf3617856e72642061372d0e197eca83bc8b"
+        },
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "server.log",
+          "sha256": "bfec606af37c61531cd9859286985ff35df7b2b3dd9e8bada9f6302b3c37f8e0"
+        },
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "SAMPLES.jsonl",
+          "sha256": "997ca7826c5e653128746fd19bd8cff580e84960dd478f1c7219f04d809b9824"
+        },
+        {
+          "authority_audit_id": "audit-d817683964a08b892be6",
+          "filename": "PLAN.json",
+          "sha256": "d817683964a08b892be642f76a2acc2018d3fd5492915cafe48ab66574d6e6f1"
+        },
+        {
+          "authority_audit_id": "audit-bd1d71efde6e2cdbf82c",
+          "filename": "HOST_PRECHECK.json",
+          "sha256": "8e56d3a435b6832bf682a518c596062bb6fab156de511e725957103ffd9efaa5"
+        }
+      ],
+      "tasks": 12,
+      "values": {
+        "decode_engine_ms": 9363.031,
+        "decode_tok_s": 68.56753972084466,
+        "decode_tokens": 642,
+        "gpu_j_per_output_token": 52.07019835233345,
+        "prefill_engine_ms": 114559.419,
+        "prefill_tok_s": 1549.117493342036,
+        "prefill_tokens": 177466
+      },
+      "wall_sum_s": 124.101119805
+    }
+  ],
   "profiles": [
     {
       "engine": {

@@ -105,7 +105,7 @@ def profile(plan,launch,model,name,quantization,experiment,plan_sha,sanitize,met
  engine_sha=next((ident[x] for x in argv if x in ident and pathlib.PurePosixPath(x).name==exe),metadata.get('engine_binary_sha256'))
  flags=t['runtime_flags'];env=t['environment_knobs'];kwargs=metadata.get('chat_template_kwargs') or plan.get('chat_template_kwargs')
  launch_data=safe_launch(launch,ident,sanitize)
- cfg={'schema_version':SCHEMA,'model_artifact_id':artifact_id,'model':artifact,'engine':{'name':engine,'version':None,'git_commit':t['engine_source_commit'],'fork_repository':None,'build_id':t['engine_build_id'],'patches':None,'binary_sha256':engine_sha,'cuda_version':plan.get('cuda_version'),'driver_version':plan.get('driver_version'),'ggml_backend_version':None,'kernel_library_file':t['kernel_library'],'kernel_library_sha256':t['kernel_library_sha256'],'executed_kernel_backend_path':None},'optimizations':{'speculation_type':flags.get('--spec-type'),'draft_head_or_model':t.get('draft_artifact'),'draft_sha256':t.get('draft_model_sha256'),'draft_parameters':{k:v for k,v in flags.items() if k.startswith('--spec-')},'flash_attention_requested':flags.get('--flash-attn'),'cuda_graphs':{'optimization_knob':env.get('GGML_CUDA_GRAPH_OPT'),'disable_knob':env.get('GGML_CUDA_DISABLE_GRAPHS'),'actual_capture_replay':None},'KV_precision':{'k':flags.get('--cache-type-k'),'v':flags.get('--cache-type-v')},'GDN_state_changes':None,'HBM_conversion_weight_cache_limit_mib':env.get('GGML_CUDA_O2_WEIGHT_CACHE_MIB'),'prefix_reuse':metadata.get('context_and_runtime',{}).get('retain_prefix',plan.get('agent_workload',{}).get('retain_prefix')),'quantization_calibration':None,'other_explicit_knobs':env},'runtime':{'context':flags.get('--ctx-size',plan.get('fixed',{}).get('ctx')),'max_output':metadata.get('output_cap') or plan.get('maximum_output_tokens'),'thinking_reasoning_requested':flags.get('--reasoning'),'native_template_controls':kwargs,'sampling':metadata.get('sampling') or plan.get('source_sampling') or plan.get('coding_sampling') or None,'batch':flags.get('--batch-size'),'microbatch':flags.get('--ubatch-size'),'CPU_threads':flags.get('--threads'),'GPU_offload':flags.get('--n-gpu-layers'),'chat_template_sha256':metadata.get('template_sha256') or plan.get('template_sha256'),'tokenizer_identity':None,'power_limit_w':metadata.get('power_limit_w',plan.get('power_limit_w')),'CPU_budget':None,'RAM_budget':None,'VRAM_budget_mib':plan.get('maximum_device_vram_mib'),'execution_deadline_s':plan.get('maximum_model_seconds')},'start_parameters':launch_data,'source_plan_sha256':plan_sha,'provenance_status':'KNOWN_FIELDS_ONLY; null means NOT MEASURED','evaluation_exposure':'Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.'}
+ cfg={'schema_version':SCHEMA,'model_artifact_id':artifact_id,'model':artifact,'engine':{'name':engine,'version':plan.get('engine_version'),'git_commit':t['engine_source_commit'],'fork_repository':None,'build_id':t['engine_build_id'],'patches':None,'binary_sha256':engine_sha,'cuda_version':plan.get('cuda_version'),'driver_version':plan.get('driver_version'),'ggml_backend_version':None,'kernel_library_file':t['kernel_library'],'kernel_library_sha256':t['kernel_library_sha256'],'executed_kernel_backend_path':None},'optimizations':{'speculation_type':flags.get('--spec-type'),'draft_head_or_model':t.get('draft_artifact'),'draft_sha256':t.get('draft_model_sha256'),'draft_parameters':{k:v for k,v in flags.items() if k.startswith('--spec-')},'flash_attention_requested':flags.get('--flash-attn'),'cuda_graphs':{'optimization_knob':env.get('GGML_CUDA_GRAPH_OPT'),'disable_knob':env.get('GGML_CUDA_DISABLE_GRAPHS'),'actual_capture_replay':None},'KV_precision':{'k':flags.get('--cache-type-k'),'v':flags.get('--cache-type-v')},'GDN_state_changes':None,'HBM_conversion_weight_cache_limit_mib':env.get('GGML_CUDA_O2_WEIGHT_CACHE_MIB'),'prefix_reuse':metadata.get('context_and_runtime',{}).get('retain_prefix',plan.get('agent_workload',{}).get('retain_prefix')),'quantization_calibration':None,'other_explicit_knobs':env},'runtime':{'context':flags.get('--ctx-size',plan.get('fixed',{}).get('ctx')),'max_output':metadata.get('output_cap') or plan.get('maximum_output_tokens'),'thinking_reasoning_requested':flags.get('--reasoning'),'native_template_controls':kwargs,'sampling':metadata.get('sampling') or plan.get('source_sampling') or plan.get('coding_sampling') or None,'batch':flags.get('--batch-size'),'microbatch':flags.get('--ubatch-size'),'CPU_threads':flags.get('--threads'),'GPU_offload':flags.get('--n-gpu-layers'),'chat_template_sha256':metadata.get('template_sha256') or plan.get('template_sha256'),'tokenizer_identity':None,'power_limit_w':metadata.get('power_limit_w',plan.get('power_limit_w')),'CPU_budget':None,'RAM_budget':None,'VRAM_budget_mib':plan.get('maximum_device_vram_mib'),'execution_deadline_s':plan.get('maximum_model_seconds')},'start_parameters':launch_data,'source_plan_sha256':plan_sha,'provenance_status':'KNOWN_FIELDS_ONLY; null means NOT MEASURED','evaluation_exposure':'Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.'}
  # Never merge two unknown identities just because both use null placeholders.
  cfg['incomplete_identity_run']=experiment if not (model_sha and engine_sha) else None
  cfg['runtime_configuration_id']='cfg-'+H(cfg)
@@ -187,6 +187,133 @@ def native_complete_run(root,source,cfg,bench,receipt):
  energy=sum(energies) if all(v is not None for v in energies) else None;scope=a['scopes']['standard_full164']
  if scope['tasks']!=164 or not math.isclose(scope['wall_s'],wall,rel_tol=1e-10) or (scope['gpu_energy_j'] is None)!=(energy is None) or energy is not None and not math.isclose(scope['gpu_energy_j'],energy,rel_tol=1e-10):raise ValueError('Native aggregate costs mismatch')
  return {'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':campaign['source_workload_sha256'],'scorer_version':{'adapter_sha256':helper},'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':source['audit_sha256'],'audit_ids':audits,'source_audit_hashes':hashes,'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'coding','tasks':164,'solved':solved,'score_percent':100*solved/164,'metric':'observed_success_percent','wall_s':wall,'gpu_j':energy,'gpu_j_per_success':energy/solved if energy is not None and solved else None,'peak_vram_mib':max(peaks),'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_CODING_OFFICIAL_API_PENDING','status_reason':'All164 original answers and per-part scoring/costs verified; independent official API qualification is separate.','official_eligible':False,'qualification_audit':None,'warning':'Declared native template/sampling and local output/context limits apply. No publisher-protocol equivalence, model superiority or causal optimization benefit is implied. Monitoring corrections and data recovery remain in original audit lineage.','causal_optimization_proof':None,'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','cache_condition':'Completion HTTP intervals; startup, warmups and CPU evaluation excluded; see original per-request cache setting.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
+
+def configuration_evidence(root, db, history, receipt):
+ """Append public-safe observations to immutable identities, never rewrite profiles/runs.
+
+ Only hash-pinned source rows are inspected. Aggregate timing rates require the
+ exact task count and an independently matching request-wall sum. Logs, prompts,
+ request bodies and model outputs are never exported.
+ """
+ root=pathlib.Path(root);configs={p['runtime_configuration_id']:p for p in history['profiles']};ce=[];me=[]
+ sampler_keys=('temperature','seed','top_p','top_k','min_p','repeat_penalty','presence_penalty','frequency_penalty','typical_p','repeat_last_n','mirostat','mirostat_tau','mirostat_eta')
+ for cid in sorted({r['runtime_configuration_id'] for r in history['runs']}):
+  cfg=configs[cid];runs=[r for r in history['runs'] if r['runtime_configuration_id']==cid];sources=[];fields={};all_requests=[];all_replies=[];logs=[];files={}
+  def pinned(path, expected, authority):
+   path=pathlib.Path(path);path=path if path.is_absolute() else root/path
+   if not path.resolve().is_relative_to(root.parent.resolve()) or not path.is_file() or digest(path)!=expected:raise ValueError('Configuration evidence source changed')
+   key=str(path.resolve());files[key]=(path,expected)
+   sources.append({'filename':path.name,'sha256':expected,'authority_audit_id':authority})
+   return path
+  for exp in sorted({r['experiment_id'] for r in runs}):
+   entry=db['summary'].get(exp.lower(),{});ap=pathlib.Path(entry.get('audit_path',''));ap=ap if ap.is_absolute() else root/ap
+   if not ap.is_file():continue
+   original={r['audit_hash'] for r in runs if r['experiment_id']==exp}
+   if digest(ap) not in original:continue
+   aid=receipt(ap,digest(ap));audit=read(ap);folder=ap.parent;pins={}
+   plan=root/'staging'/exp.lower()/'PLAN.json'
+   if plan.is_file() and digest(plan)==cfg.get('source_plan_sha256'):
+    original_plan=read(plan);pa=receipt(plan,digest(plan))
+    sources.append({'filename':'PLAN.json','sha256':digest(plan),'authority_audit_id':pa})
+    def plan_parameters(obj,prefix):
+     for key,value in obj.items():
+      if not re.fullmatch('[A-Za-z0-9_.-]{1,80}',key):continue
+      path=prefix+'.'+key
+      if isinstance(value,dict):plan_parameters(value,path)
+      elif isinstance(value,(bool,int,float)) or isinstance(value,str) and re.fullmatch('[A-Za-z0-9_.+ -]{1,80}',value):fields[path]=value
+    for name in ('fixed','runtime','sampling','source_sampling','coding_sampling','chat_template_kwargs','runtime_options','tuning'):
+     if isinstance(original_plan.get(name),dict):plan_parameters(original_plan[name],'recorded_plan.'+name)
+    for name in ('cache_mib','maximum_output_tokens','maximum_device_vram_mib','maximum_model_seconds','power_limit_w','engine_version','cuda_version','driver_version','seed'):
+     value=original_plan.get(name)
+     if isinstance(value,(bool,int,float)) or isinstance(value,str) and re.fullmatch('[A-Za-z0-9_.+ -]{1,80}',value):fields['recorded_plan.'+name]=value
+   raw=folder/'RAW_HASHES.json'
+   if raw.is_file():
+    pins=read(raw)
+    if pins.get('AUDIT.json') not in (None,digest(ap)):raise ValueError('Evidence audit/hash manifest mismatch')
+    authority=receipt(raw,digest(raw))
+    for name in ['LAUNCH.json','server.log','SAMPLES.jsonl','FUNCTIONAL.jsonl','BFCL.jsonl','AGENT.jsonl','HOST_PRECHECK.json']:
+     if name in pins:pinned(folder/name,pins[name],authority)
+   for rel,sha in audit.get('evidence',{}).items():
+    if rel.startswith('staging/'+exp.lower()+'/measurements/') and pathlib.Path(rel).name in ('launch.json','server.log','FUNCTIONAL.jsonl','SAMPLES.jsonl','BFCL.jsonl','AGENT.jsonl'):pinned(root/rel,sha,aid)
+   # Native broker campaigns: no inferred plan; captured launch and answer rows.
+   for part in entry.get('parts',[]):
+    pap=pathlib.Path(part['audit_path']);pap=pap if pap.is_absolute() else root/pap
+    if digest(pap)!=part['audit_sha256']:raise ValueError('Native metadata audit changed')
+    manifest=pap.parent/'RAW_HASHES.json';authority=receipt(manifest,digest(manifest));pins=read(manifest)
+    for name in ('LAUNCH.json','HTTP_RESULTS.jsonl','server.log'):
+     if name in pins:pinned(pap.parent/name,pins[name],authority)
+  byfile={}
+  for path,sha in files.values():
+   if path.name=='server.log':logs.append(path.read_text(errors='replace'));continue
+   if path.suffix=='.jsonl':
+    records=[json.loads(line) for line in path.read_text().splitlines() if line.strip()];byfile[str(path)]=records
+    for row in records:
+     if row.get('kind')!='warmup' and isinstance(row.get('request'),dict):
+      all_requests.append(row['request']);all_replies.append(row.get('native_reply') or row.get('reply') or {})
+  # Request settings are evidence, not an excuse to overwrite the original profile.
+  for key in sampler_keys:
+   values=[r[key] for r in all_requests if key in r]
+   if values and len(values)==len(all_requests) and all(v==values[0] for v in values) and isinstance(values[0],(int,float)):
+    fields['runtime.observed_request_sampling.'+key]=values[0]
+  # Actual server-returned sampler values are distinct from requested flags.
+  settings=[reply.get('generation_settings') or reply.get('__verbose',{}).get('generation_settings') or {} for reply in all_replies]
+  for key in (*sampler_keys,'n_predict','ignore_eos','stream','cache_prompt','n_keep','n_discard','reasoning_format','reasoning_in_content','backend_sampling','speculative.types'):
+   values=[a.get(key) for a in settings]
+   if values and all(v is not None and v==values[0] for v in values) and isinstance(values[0],(bool,int,float,str,list)):
+    value=values[0]
+    if isinstance(value,str) and not re.fullmatch('[A-Za-z0-9_.+ -]{1,80}',value):continue
+    if isinstance(value,list) and not all(isinstance(v,str) and re.fullmatch('[A-Za-z0-9_.+ -]{1,40}',v) for v in value):continue
+    fields['runtime.observed_generation_settings.'+key]=value
+  kwargs=[r.get('chat_template_kwargs') for r in all_requests]
+  if kwargs and all(isinstance(k,dict) and k==kwargs[0] for k in kwargs):
+   for k in ('enable_thinking','reasoning_effort','thinking_budget'):
+    if k in kwargs[0] and isinstance(kwargs[0][k],(bool,int,float,str)):
+     fields['runtime.observed_template_controls.'+k]=kwargs[0][k]
+     if k=='enable_thinking' and cfg['runtime'].get('native_template_controls') is None:fields['requested.thinking']=kwargs[0][k]
+  joined='\n'.join(logs)
+  versions=set(re.findall(r'\bversion:\s*([0-9]+\.[0-9]+\.[0-9]+(?:-[A-Za-z0-9.]+)?)',joined))
+  if len(versions)==1:fields['engine.version']=versions.pop()
+  builds=re.findall(r'common_params_print_info: build (\d+) \(([^)]+)\)',joined)
+  if builds and len(set(builds))==1:
+   number,commit=builds[0];fields['engine.reported_build_number']=int(number)
+   if re.fullmatch('[a-f0-9]{40}',commit):fields['engine.git_commit']=commit
+   elif commit=='unknown':fields['engine.version_provenance_note']='Pinned historical server log reports build '+number+' (unknown); no identifiable upstream version or commit. Binary and CUDA-library hashes remain authoritative.'
+  archs=set(re.findall(r'CUDA : ARCHS = ([0-9, ]+) \|',joined))
+  if len(archs)==1:fields['engine.reported_compiled_CUDA_archs']=archs.pop().strip()
+  # Only record explicit, uniform GGUF metadata printed by the actual engine.
+  architectures=set(re.findall(r'general\.architecture\s+\S+\s*=\s*([A-Za-z0-9_]+)',joined))
+  if len(architectures)==1:fields['model.architecture']=architectures.pop()
+  if fields:
+   evidence={'runtime_configuration_id':cid,'fields':fields,'sources':sorted({H(s):s for s in sources}.values(),key=H),'interpretation':'Additional observations from pinned original execution evidence. Immutable original profile unchanged; reported build identity is not an upstream release. Requested options do not establish effective kernel dispatch.'}
+   evidence['evidence_id']='evidence-'+H(evidence);ce.append(evidence)
+  for run in runs:
+   candidates=[]
+   for filename,records in byfile.items():
+    # Select only this measured discipline, excluding warmup/QA and other suites.
+    if run['discipline']=='coding':selected=[r for r in records if r.get('suite') in (None,'standard') and (r.get('task_id') or r.get('task') or r.get('id') or '').removeprefix('standard:').startswith('HumanEval/')]
+    elif run['discipline']=='tools' and pathlib.Path(filename).name=='BFCL.jsonl':selected=records
+    elif run['discipline']=='mbpp':selected=[r for r in records if r.get('kind')=='coding' and str(r.get('task','')).lower().startswith(('mbpp','mbppplus'))]
+    elif run['discipline'].startswith('long'):selected=[r for r in records if r.get('kind')==('validation' if run['discipline']=='long32k_validation' else 'long')]
+    else:selected=[]
+    if selected:candidates.append(selected)
+   # Duplicated SAMPLES/FUNCTIONAL logs are alternative witnesses, not extra work.
+   if run['experiment_id']=='R448':candidates=[[r for rows in byfile.values() for r in rows if r.get('kind')=='coding']]
+   accepted=[]
+   for rows in candidates:
+    wall=sum(r.get('e2e_s',0) for r in rows)
+    ids=[r.get('task_id') or r.get('task') or r.get('id') for r in rows]
+    if len(rows)==run['tasks'] and len(set(ids))==len(rows) and finite(run.get('wall_s')) and math.isclose(wall,run['wall_s'],rel_tol=1e-7,abs_tol=1e-5):accepted.append(rows)
+   if not accepted:continue
+   rows=accepted[0];timings=[(r.get('native_reply') or r.get('reply') or {}).get('timings',{}) for r in rows];values={}
+   for name,count_key,time_key in [('prefill','prompt_n','prompt_ms'),('decode','predicted_n','predicted_ms')]:
+    if all(finite(t.get(count_key)) and t[count_key]>=0 and finite(t.get(time_key)) and t[time_key]>0 for t in timings):
+     tokens=sum(t[count_key] for t in timings);ms=sum(t[time_key] for t in timings)
+     values[name+'_tok_s']=1000*tokens/ms;values[name+'_tokens']=tokens;values[name+'_engine_ms']=ms
+   if 'decode_tokens' in values and values['decode_tokens']>0 and finite(run.get('gpu_j')):values['gpu_j_per_output_token']=run['gpu_j']/values['decode_tokens']
+   if values:
+    item={'run_id':run['run_id'],'runtime_configuration_id':cid,'values':values,'tasks':len(rows),'wall_sum_s':sum(r['e2e_s'] for r in rows),'sources':sorted({H(s):s for s in sources}.values(),key=H),'aggregation':'Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.'}
+    item['evidence_id']='measurement-'+H(item);me.append(item)
+ return ce,me
 
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
@@ -295,6 +422,9 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
    qualify(complete,bench);complete['run_id']='run-'+H(complete);runs.append(complete)
  prior=previous or {'profiles':[],'runs':[],'attempts':[]}
  result={'schema_version':SCHEMA,'profiles':frozen_merge(prior['profiles'],profiles,'runtime_configuration_id'),'runs':frozen_merge(prior['runs'],runs,'run_id'),'attempts':frozen_merge(prior['attempts'],history_attempts,'attempt_id'),'provenance_gaps':frozen_merge(prior.get('provenance_gaps',[]),gaps,'gap_id')}
+ ce,me=configuration_evidence(root,db,result,receipt)
+ result['configuration_evidence']=frozen_merge(prior.get('configuration_evidence',[]),ce,'evidence_id')
+ result['measurement_evidence']=frozen_merge(prior.get('measurement_evidence',[]),me,'evidence_id')
  validate_history(result,defs)
  return reg,result
 
@@ -321,6 +451,29 @@ def validate_history(data,defs):
  for a in data['attempts']:
   if a['runtime_configuration_id'] not in profiles:raise ValueError('Orphan configuration attempt')
   if a['attempt_id']!='attempt-'+H({k:v for k,v in a.items() if k!='attempt_id'}):raise ValueError('Attempt identity mismatch')
+ observed_fields={}
+ for kind,identity,tag in [('configuration_evidence','runtime_configuration_id','evidence-'),('measurement_evidence','run_id','measurement-')]:
+  seen_evidence=set()
+  for e in data.get(kind,[]):
+   if e['evidence_id']!=tag+H({k:v for k,v in e.items() if k!='evidence_id'}) or e['evidence_id'] in seen_evidence:raise ValueError('Invalid evidence content identity')
+   seen_evidence.add(e['evidence_id'])
+   if e['runtime_configuration_id'] not in profiles or identity=='run_id' and e['run_id'] not in seen:raise ValueError('Orphan evidence')
+   if not e.get('sources') or any(not re.fullmatch('[a-f0-9]{64}',s.get('sha256','')) or not s.get('authority_audit_id') for s in e['sources']):raise ValueError('Missing evidence provenance')
+   if kind=='measurement_evidence':
+    original=next(r for r in data['runs'] if r['run_id']==e['run_id'])
+    if original['runtime_configuration_id']!=e['runtime_configuration_id'] or original['tasks']!=e['tasks'] or not math.isclose(original['wall_s'],e['wall_sum_s'],rel_tol=1e-7,abs_tol=1e-5):raise ValueError('Timing evidence/profile/task/wall mismatch')
+    if any(not finite(v) or v<0 for v in e['values'].values()):raise ValueError('Invalid recorded timing metric')
+    for name in ('prefill','decode'):
+     vals=e['values']
+     if name+'_tok_s' in vals and (vals[name+'_engine_ms']<=0 or not math.isclose(vals[name+'_tok_s'],1000*vals[name+'_tokens']/vals[name+'_engine_ms'],rel_tol=1e-12)):raise ValueError('Invalid recorded token-rate conversion')
+   if kind=='configuration_evidence':
+    for key,v in e['fields'].items():
+     pair=(e['runtime_configuration_id'],key)
+     if pair in observed_fields and observed_fields[pair]!=v:raise ValueError('Conflicting evidence annotations')
+     observed_fields[pair]=v
+     cur=profiles[e['runtime_configuration_id']]
+     for part in key.split('.'):cur=cur.get(part) if isinstance(cur,dict) else None
+     if cur is not None and cur!=v:raise ValueError('Evidence contradicts immutable profile')
  return True
 
 def pair_delta(a,b):
@@ -396,31 +549,45 @@ def render(register,history,comparison,docs,model_registry=None):
  page+='## Next evidence gaps\n\n'+table(['Priority','Technical decision / next step','GPU initially required'],[[x['priority'],x['action'],x.get('GPU_required_initially')] for x in register['next_test_priorities']])
  page+='[Benchmark definitions and publisher evidence](benchmark-register.md) · [Local agent and synthetic tests](local-benchmarks.md) · [Reproduction](reproduce.md)\n\nEach profile records unknown fields as null (**NOT MEASURED**). An absent MTP/graph/cache setting is never assumed off. No-MTP execution does not establish that weights are original. Actual kernel execution is distinct from a requested backend. Historical development suites were reused; no unseen-holdout or absence-of-overfitting claim is made.\n'
  write(docs/'benchmarks.md',page)
- page='# Configuration Comparison & Benchmark Master Table\n\nOne row per immutable configuration. Every recorded profile field and startup flag is available through the categorized column picker. Each benchmark column is bound to its exact register definition, dataset/task set, scorer and qualification track. Unknown means **NICHT ERFASST**, never off or zero. Failed and weaker configurations remain visible.\n\nSelect **Offiziell lokal zugelassen** for admitted full results or the separate **Explorativ** view for historical protocols and subsets. The user-defined arithmetic mean is not an official benchmark score; every selected result must exist for the exact same configuration. Distinct original run observations use their arithmetic mean, with count and dispersion; admission-history duplicates do not create extra observations. Provenance-defined observation counts do not establish statistical independence. Conflicting judgments are excluded from numerical summaries.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n## Comparing individual measurements\n\n<div id="configuration-comparison" aria-live="polite"></div>\n\n## Data coverage and missing fields\n\nModel names and file names are not proof of architecture, parameter count, QAT, SVD, original weights or the executed kernel. Requested flags and verified execution remain separate fields. Engine versions are never substituted with build hashes. Newly discovered fields automatically become selectable; unknown historical values are not backfilled.\n\n'
+ page='# Configuration Comparison & Benchmark Master Table\n\n**Default: Alle gemessenen Ergebnisse.** One continuous row per immutable configuration appearing in `history.runs`, with no pagination. Official, historical, supplemental and unqualified measured results are visible together, in distinct protocol/status columns. Plans and result-free configuration attempts remain in the [separate archive](configuration-archive.md). Every recorded profile field and startup flag is available through the categorized column picker. Each benchmark column is bound to its exact register definition, dataset/task set, scorer and qualification track. Unknown means **NICHT ERFASST**, never off or zero. Failed and weaker configurations remain visible.\n\nUse **Nur offiziell qualifizierte Ergebnisse** to optionally restrict the display. **Durchschnittsmodus** only changes which exact protocols may enter the user-selected mean; it does not hide historical measurements in the default table. The user-defined arithmetic mean is not an official benchmark score; every selected result must exist for the exact same configuration. Distinct original run observations use their arithmetic mean, with count and dispersion; admission-history duplicates do not create extra observations. Provenance-defined observation counts do not establish statistical independence. Conflicting judgments are excluded from numerical summaries.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n## Comparing individual measurements\n\n<div id="configuration-comparison" aria-live="polite"></div>\n\n## Data coverage and missing fields\n\nModel names and file names are not proof of architecture, parameter count, QAT, SVD, original weights or the executed kernel. Requested flags and verified execution remain separate fields. Engine versions are never substituted with build hashes. Newly discovered fields automatically become selectable; historical fields are supplemented only through hash-bound evidence annotations; immutable profiles and results are never rewritten. Historical server logs reporting `build 0 (unknown)` cannot establish an upstream release or Git commit. Build IDs, executable hashes and CUDA-library hashes remain separate identities.\n\n'
  gap_paths=['model.hf_revision','model.hf_repository','model.parameter_count','model.qat','model.svd','model.architecture','engine.version','engine.git_commit','engine.fork_repository','engine.cuda_version','engine.driver_version','engine.executed_kernel_backend_path','runtime.thinking_level','runtime.reasoning_budget_tokens','optimizations.speculation_effective','optimizations.flash_attention_effective','optimizations.cuda_graphs.actual_capture_replay']
  def field(obj,path):
   for key in path.split('.'):
    if not isinstance(obj,dict) or key not in obj:return None
    obj=obj[key]
   return obj
- page+=table(['Recorded field','Profiles with a value','Profiles without a value'],[[path,sum(field(p,path) is not None for p in history['profiles']),sum(field(p,path) is None for p in history['profiles'])] for path in gap_paths])
+ measured_ids={r['runtime_configuration_id'] for r in history['runs']};measured_profiles=[p for p in history['profiles'] if p['runtime_configuration_id'] in measured_ids]
+ def observed(p,path):
+  values=[e['fields'][path] for e in history.get('configuration_evidence',[]) if e['runtime_configuration_id']==p['runtime_configuration_id'] and path in e['fields']]
+  return values[0] if values else field(p,path)
+ page+=table(['Recorded field','Profiles with a value','Profiles without a value'],[[path,sum(observed(p,path) is not None for p in measured_profiles),sum(observed(p,path) is None for p in measured_profiles)] for path in gap_paths])
+ page+='Coverage counts above refer only to measured configurations. Additional column-picker fields expose pinned observed sampler/template controls, engine-reported build information and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.\n\n'
  page+='Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.\n\n'
  page+='Prefill/decode/TTFT and other costs are shown only where the original run actually records them. Request wall time is not silently renamed total system latency. Performance columns are benchmark-specific, not pooled across unrelated tasks. CSV exports all filtered rows with the currently selected columns, complete identities and available audit links. CSV formula-like text is escaped.\n\nThe Top-5 analysis describes observed configurations and missing coverage. Suggested controlled A/B work is a research hypothesis, not a causal explanation, predicted speedup or automatic GPU authorization.\n\n[Immutable configuration history](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/configuration-history.json) · [Benchmark definitions and publisher evidence](benchmark-register.md) · [Original experiments](results.md)\n\n'
  page+='## Provenance gaps — excluded from reconstructed profiles\n\n'+table(['Experiment','Reason','Original audit'],[[g['experiment_id'],g['reason'],audit_links([g['audit_id']])] for g in history.get('provenance_gaps',[])])
  page+='## UI reproduction checks\n\nRun `python -m unittest discover -s scripts` and `node --test scripts/test_master_table.cjs` with Node.js 22 or newer. The optional real-browser acceptance script is `scripts/test_master_browser.cjs`: it accepts a site root URL and artifact directory and uses Playwright 1.64.1. Browser screenshots, CSVs and reports belong outside the public export tree. It runs with GPU rendering disabled. Development asset overrides are explicitly reported and must be disabled for the final published-site check.\n\nFilters accept substrings, `=value`, `!=value`, numeric comparisons such as `>=80`, and `?` for unknown. The CSV always includes immutable configuration IDs, all filtered rows and the currently visible columns. Long field values can be inspected directly in a table dialog without leaving the page.\n\n'
  write(docs/'configuration-comparison.md',page)
+ archive='# Configuration archive\n\nPlans, configuration attempts and profiles without benchmark result records are preserved here, separately from the [measured-result master table](configuration-comparison.md). Execution evidence does not imply a scored benchmark or qualification.\n\n<div id="configuration-history"></div>\n\n## Profiles without benchmark result records\n\n'
+ archive+=table(['Model','Immutable profile','Evidence'],[[p['model']['name'],'['+p['runtime_configuration_id'][:20]+'](configuration-profiles/'+p['runtime_configuration_id']+'.md)','No benchmark result in history.runs; inspect archived attempt evidence'] for p in history['profiles'] if p['runtime_configuration_id'] not in measured_ids])
+ write(docs/'configuration-archive.md',archive)
  profiles={p['runtime_configuration_id']:p for p in history['profiles']}
  # Remove only stale generated previews; append-only ledger profiles remain retained.
  for stale in (docs/'configuration-profiles').glob('cfg-*.md'):
   if re.fullmatch(r'cfg-[a-f0-9]{64}',stale.stem) and stale.stem not in profiles:stale.unlink()
  for ident,p in profiles.items():
   runs=[r for r in history['runs'] if r['runtime_configuration_id']==ident];attempts=[a for a in history['attempts'] if a['runtime_configuration_id']==ident]
+  annotations=[e for e in history.get('configuration_evidence',[]) if e['runtime_configuration_id']==ident]
   s='# '+str(p['model']['name'])+' · '+ident[:16]+'\n\n[Back to configuration comparison](../configuration-comparison.md)\n\nProfile ID: `'+ident+'`. Null means **NOT MEASURED**, never a default setting. Hardware evidence and costs are attached to each measured run; current host settings are not retrospectively assigned to historical runs.\n\n'
   for title,key in [('Model and weights','model'),('Engine and backend','engine'),('Optimizations','optimizations'),('Runtime and sampler','runtime'),('Ordered startup parameters','start_parameters')]:
    s+='## '+title+'\n\n```json\n'+pretty(p[key])+'\n```\n\n'
   s+='## Results and original audits\n\n'+table(['Experiment','Benchmark / scope','Success','Wall s','GPU J / success','Peak VRAM MiB','Original audits'],[[r['experiment_id'],r['benchmark_id']+' / '+r['status'],str(r['solved'])+'/'+str(r['tasks']),r['wall_s'],r['gpu_j_per_success'],r['peak_vram_mib'],audit_links(r['audit_ids'],'../')] for r in runs])
   s+='Separate benchmark qualification audits: '+audit_links([r.get('qualification_audit_id') for r in runs],'../')+'\n\n'
   s+=table(['Experiment / arm','Execution evidence','Scientific decision','Original audit'],[[a['experiment_id']+' / '+str(a['arm_index']),a['execution_status'],a['scientific_status'],audit_links([a['audit_id']],'../')] for a in attempts])
+  if annotations:
+   s+='## Additional hash-bound execution evidence\n\nThese observations supplement the original immutable profile; they do not assign a release version to an unidentified historical build. Declared plan controls, observed request settings and executed sampler settings remain separate.\n\n```json\n'+pretty(annotations)+'\n```\n\n'
+   s+='Evidence metadata: '+audit_links(sorted({src['authority_audit_id'] for e in annotations for src in e['sources']}),'../')+'\n\n'
+  timings=[e for e in history.get('measurement_evidence',[]) if e['runtime_configuration_id']==ident]
+  if timings:s+='## Recorded engine timings and energy denominator\n\n```json\n'+pretty(timings)+'\n```\n\n'
   s+='## Immutable full profile and measurements\n\n```json\n'+pretty({'profile':p,'runs':runs,'attempts':attempts})+'\n```\n'
   write(docs/'configuration-profiles'/(ident+'.md'),s)
  page='# Benchmark register and publisher evidence\n\n**EXTERNAL PUBLISHER SELF-REPORTS are not local measurements.** A mention on a model card does not establish the dataset version, scorer, scaffold or hardware equivalence. HumanEval is distinct from HumanEval+; BFCL v3 is distinct from v4.\n\n'

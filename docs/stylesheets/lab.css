@@ -56,7 +56,7 @@ body:has(#all-measured-results) .md-content{min-width:0}
 .master-benchmark-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:.2rem 1rem}
 .master-panel dl{display:grid;grid-template-columns:minmax(8rem,1fr) 3fr;gap:.3rem .8rem}.master-panel dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}.master-panel dt{font-weight:600;overflow-wrap:anywhere}
 .master-counter{font-size:.72rem;color:var(--md-default-fg-color--light)}
-.master-scroll{max-height:72vh;overflow:auto;border:1px solid var(--md-default-fg-color--lightest);border-radius:.35rem;position:relative;isolation:isolate}
+.master-scroll{overflow-x:auto;border:1px solid var(--md-default-fg-color--lightest);border-radius:.35rem;position:relative;isolation:isolate}
 .md-typeset .master-table{margin:0;border:0;border-collapse:separate;border-spacing:0;font-size:.7rem;width:max-content;min-width:100%}
 .master-table caption{text-align:left;position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 .md-typeset .master-table th,.md-typeset .master-table td{min-width:8rem;max-width:24rem;padding:.6rem .7rem;border-bottom:1px solid var(--md-default-fg-color--lightest);border-right:1px solid var(--md-default-fg-color--lightest);vertical-align:top;white-space:normal;overflow-wrap:anywhere;background:var(--md-default-bg-color)}
@@ -66,12 +66,23 @@ body:has(#all-measured-results) .md-content{min-width:0}
 .md-typeset .master-table th:first-child,.md-typeset .master-table td:first-child{position:sticky;left:0;z-index:2;min-width:12rem;max-width:16rem;box-shadow:2px 0 4px #0001}.md-typeset .master-table thead th:first-child{z-index:4}
 .master-table td>span,.master-table td>small{display:block;margin-top:.2rem}.master-table td>strong{font-variant-numeric:tabular-nums;font-size:.85rem;white-space:nowrap}.master-table td>small{font-size:.6rem}
 .md-typeset .master-table tbody tr:hover td{background:var(--md-code-bg-color)}.master-missing{color:var(--md-default-fg-color--light);font-size:.65rem}
-.master-pagination{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.8rem 0;font-size:.72rem}.master-pagination label{display:flex;align-items:center;gap:.4rem}
 .master-insights{margin:2rem 0}.master-insights>label{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap}.master-insights details{margin-top:1rem;overflow:auto;max-height:60vh}.master-insights td{max-width:30rem;overflow-wrap:anywhere}.master-insights p,.master-insights li{font-size:.78rem}
 .master-cell-dialog{max-width:min(90vw,60rem);max-height:85vh;background:var(--md-default-bg-color);color:var(--md-default-fg-color);border:1px solid var(--md-default-fg-color--lighter);border-radius:.4rem;padding:1rem}.master-cell-dialog::backdrop{background:#0008}.master-cell-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere}
-@media(max-width:700px){.master-toolbar{align-items:stretch}.master-toolbar>input{min-width:100%}.master-toolbar label{flex:1}.master-column-picker{grid-template-columns:1fr}.master-benchmark-choices{grid-template-columns:1fr}.master-panel dl{grid-template-columns:1fr}.master-scroll{max-height:65vh}.md-typeset .master-table th:first-child,.md-typeset .master-table td:first-child{min-width:10rem;max-width:11rem}.master-table th input{min-width:6rem}}
+@media(max-width:700px){.master-toolbar{align-items:stretch}.master-toolbar>input{min-width:100%}.master-toolbar label{flex:1}.master-column-picker{grid-template-columns:1fr}.master-benchmark-choices{grid-template-columns:1fr}.master-panel dl{grid-template-columns:1fr}.md-typeset .master-table th:first-child,.md-typeset .master-table td:first-child{min-width:10rem;max-width:11rem}.master-table th input{min-width:6rem}}
 .master-score-line{display:flex;gap:.6rem;align-items:baseline;white-space:nowrap}.master-score-line strong{font-size:.82rem;font-variant-numeric:tabular-nums}.master-score-line span{font-size:.63rem;opacity:.75}
 .master-value-button{font:inherit;color:inherit;text-align:left;cursor:pointer;max-width:15rem;line-height:1.4;text-decoration:underline dotted;text-underline-offset:3px}
 .md-typeset .master-table td[data-kind=parameter],.md-typeset .master-table td[data-kind=average]{min-width:6rem;max-width:15rem;padding:.55rem .65rem}
 .md-typeset .master-table th{min-width:6rem;max-width:16rem}.md-typeset .master-table td:first-child{min-width:12rem}.md-typeset .master-table td[data-kind=benchmark]{min-width:11rem}
 .master-table td small button{font:inherit;color:var(--md-accent-fg-color);cursor:pointer;padding:0}
+
+/* Full measured-result list: document scrolling, compact cells including offscreen columns. */
+.md-typeset .master-table td{height:2rem;line-height:1.4;white-space:nowrap;overflow-wrap:normal;vertical-align:middle}
+.md-typeset .master-table td>*{white-space:nowrap}
+.master-table td>.master-score-line{display:inline-flex;align-items:center;gap:.25rem;margin:0}
+.master-score-details{font:inherit;color:var(--md-accent-fg-color);cursor:pointer;white-space:nowrap}
+.master-table .master-value-button{white-space:nowrap;max-width:14rem;overflow:hidden;text-overflow:ellipsis}
+.master-toolbar input[type=checkbox]{width:auto;min-width:0}
+.master-table th button{white-space:normal;overflow-wrap:anywhere}
+.master-cell-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+.md-typeset .master-table tbody td[data-kind]{padding:.35rem .65rem;height:2rem}

@@ -15,15 +15,43 @@ const score = (n, audit = 'a') => ({ run_id: 'run-' + audit, audit_hash: audit, 
   benchmark_revision: 'r1', dataset_split_hash: 'data-1', evaluated_task_set_hash: 'tasks-1',
   scorer_version: 'scorer-1', metric: 'pass_at_1_percent', solved: n, tasks: 100,
   score_percent: n, official_eligible: true, audit_ids: [] });
-test('all documented configurations including weaker and failed attempts remain available', () => {
-  assert.equal(model.rows.length, data.history.profiles.length);
-  assert.deepEqual(new Set(model.rows.map(r => r.id)), new Set(data.history.profiles.map(p => p.runtime_configuration_id)));
+test('exactly every measured configuration is shown and result-free profiles stay in the archive', () => {
+  const ids = new Set(data.history.runs.map(r => r.runtime_configuration_id));
+  assert.equal(model.rows.length, ids.size);
+  assert.deepEqual(new Set(model.rows.map(r => r.id)), ids);
+  assert(model.rows.every(r => r.runs.length > 0 && Object.values(r.scores).some(s => s.n > 0)));
+  assert.equal(model.archive.length + model.rows.length, data.history.profiles.length);
+  assert(model.archive.every(p => !ids.has(p.runtime_configuration_id)));
 });
-test('every profile leaf and every explicitly recorded startup flag has a selectable column', () => {
+test('every measured profile leaf, evidence field and startup flag has a selectable column', () => {
   const keys = new Set(model.columns.map(c => c.key));
-  for (const profile of data.history.profiles) for (const key of Object.keys(M.parameters(profile))) assert(keys.has(key), key);
+  for (const row of model.rows) for (const key of Object.keys(row.values)) assert(keys.has(key), key);
   for (const key of ['model.qat', 'model.svd', 'model.parameter_count', 'engine.version', 'engine.build_id',
     'optimizations.speculation_effective', 'optimizations.cuda_graphs.actual_capture_replay']) assert(keys.has(key));
+});
+test('all measured protocol tracks stay present without pagination or a bounded vertical viewport', () => {
+  const js = fs.readFileSync(path.join(__dirname, '../docs/javascripts/master-table.js'), 'utf8');
+  const css = fs.readFileSync(path.join(__dirname, '../docs/stylesheets/lab.css'), 'utf8');
+  assert(!/pageSize|state\.page|master-pagination|filtered\.slice/.test(js));
+  assert(!/master-scroll\s*\{[^}]*max-height/.test(css));
+  assert(js.includes('officialOnly: false'));
+  assert(js.includes('filtered.forEach(row =>'));
+  for (const r of data.history.runs) assert(model.rows.some(row => row.runs.some(x => x.run_id === r.run_id)));
+});
+test('configuration and timing annotations preserve original identities and provenance', () => {
+  const before = M.canonical(data.history);
+  const view = M.build(data);
+  assert.equal(M.canonical(data.history), before);
+  for (const e of data.history.configuration_evidence || []) {
+    const row = view.rows.find(r => r.id === e.runtime_configuration_id); assert(row);
+    for (const [key, v] of Object.entries(e.fields)) assert.equal(M.canonical(row.values[key]), M.canonical(v));
+    assert(e.sources.every(s => /^[a-f0-9]{64}$/.test(s.sha256) && s.authority_audit_id));
+  }
+  for (const e of data.history.measurement_evidence || []) {
+    const row = view.rows.find(r => r.id === e.runtime_configuration_id); const run = row.runs.find(r => r.run_id === e.run_id); assert(run);
+    for (const [key, v] of Object.entries(e.values)) assert.equal(run[key], v);
+    assert(e.sources.length); assert(run.timing_provenance);
+  }
 });
 test('every current official register definition has a distinct column even without measurements', () => {
   for (const d of data.register.definitions) assert(model.benchmarks.some(b => b.scope === 'OFFICIAL_LOCAL' && b.protocol.benchmark_id === d.benchmark_id));

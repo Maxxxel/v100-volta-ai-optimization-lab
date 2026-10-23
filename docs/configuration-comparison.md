@@ -1,8 +1,8 @@
 # Configuration Comparison & Benchmark Master Table
 
-One row per immutable configuration. Every recorded profile field and startup flag is available through the categorized column picker. Each benchmark column is bound to its exact register definition, dataset/task set, scorer and qualification track. Unknown means **NICHT ERFASST**, never off or zero. Failed and weaker configurations remain visible.
+**Default: Alle gemessenen Ergebnisse.** One continuous row per immutable configuration appearing in `history.runs`, with no pagination. Official, historical, supplemental and unqualified measured results are visible together, in distinct protocol/status columns. Plans and result-free configuration attempts remain in the [separate archive](configuration-archive.md). Every recorded profile field and startup flag is available through the categorized column picker. Each benchmark column is bound to its exact register definition, dataset/task set, scorer and qualification track. Unknown means **NICHT ERFASST**, never off or zero. Failed and weaker configurations remain visible.
 
-Select **Offiziell lokal zugelassen** for admitted full results or the separate **Explorativ** view for historical protocols and subsets. The user-defined arithmetic mean is not an official benchmark score; every selected result must exist for the exact same configuration. Distinct original run observations use their arithmetic mean, with count and dispersion; admission-history duplicates do not create extra observations. Provenance-defined observation counts do not establish statistical independence. Conflicting judgments are excluded from numerical summaries.
+Use **Nur offiziell qualifizierte Ergebnisse** to optionally restrict the display. **Durchschnittsmodus** only changes which exact protocols may enter the user-selected mean; it does not hide historical measurements in the default table. The user-defined arithmetic mean is not an official benchmark score; every selected result must exist for the exact same configuration. Distinct original run observations use their arithmetic mean, with count and dispersion; admission-history duplicates do not create extra observations. Provenance-defined observation counts do not establish statistical independence. Conflicting judgments are excluded from numerical summaries.
 
 <div id="all-measured-results" aria-live="polite"></div>
 
@@ -12,27 +12,29 @@ Select **Offiziell lokal zugelassen** for admitted full results or the separate 
 
 ## Data coverage and missing fields
 
-Model names and file names are not proof of architecture, parameter count, QAT, SVD, original weights or the executed kernel. Requested flags and verified execution remain separate fields. Engine versions are never substituted with build hashes. Newly discovered fields automatically become selectable; unknown historical values are not backfilled.
+Model names and file names are not proof of architecture, parameter count, QAT, SVD, original weights or the executed kernel. Requested flags and verified execution remain separate fields. Engine versions are never substituted with build hashes. Newly discovered fields automatically become selectable; historical fields are supplemented only through hash-bound evidence annotations; immutable profiles and results are never rewritten. Historical server logs reporting `build 0 (unknown)` cannot establish an upstream release or Git commit. Build IDs, executable hashes and CUDA-library hashes remain separate identities.
 
 | Recorded field | Profiles with a value | Profiles without a value |
 | --- | --- | --- |
-| model.hf_revision | 58 | 190 |
-| model.hf_repository | 58 | 190 |
-| model.parameter_count | 0 | 248 |
-| model.qat | 0 | 248 |
-| model.svd | 0 | 248 |
-| model.architecture | 0 | 248 |
-| engine.version | 0 | 248 |
-| engine.git_commit | 0 | 248 |
-| engine.fork_repository | 0 | 248 |
-| engine.cuda_version | 0 | 248 |
-| engine.driver_version | 3 | 245 |
-| engine.executed_kernel_backend_path | 0 | 248 |
-| runtime.thinking_level | 0 | 248 |
-| runtime.reasoning_budget_tokens | 0 | 248 |
-| optimizations.speculation_effective | 0 | 248 |
-| optimizations.flash_attention_effective | 0 | 248 |
-| optimizations.cuda_graphs.actual_capture_replay | 0 | 248 |
+| model.hf_revision | 13 | 15 |
+| model.hf_repository | 13 | 15 |
+| model.parameter_count | 0 | 28 |
+| model.qat | 0 | 28 |
+| model.svd | 0 | 28 |
+| model.architecture | 25 | 3 |
+| engine.version | 0 | 28 |
+| engine.git_commit | 0 | 28 |
+| engine.fork_repository | 0 | 28 |
+| engine.cuda_version | 0 | 28 |
+| engine.driver_version | 0 | 28 |
+| engine.executed_kernel_backend_path | 0 | 28 |
+| runtime.thinking_level | 0 | 28 |
+| runtime.reasoning_budget_tokens | 0 | 28 |
+| optimizations.speculation_effective | 0 | 28 |
+| optimizations.flash_attention_effective | 0 | 28 |
+| optimizations.cuda_graphs.actual_capture_replay | 0 | 28 |
+
+Coverage counts above refer only to measured configurations. Additional column-picker fields expose pinned observed sampler/template controls, engine-reported build information and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.
 
 Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.
 

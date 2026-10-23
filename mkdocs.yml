@@ -41,12 +41,12 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
-  - stylesheets/lab.css?v=0b79c513c1f56913
+  - stylesheets/lab.css?v=3314d49ba0c1ff9a
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=16fe5d7cecacd782
-  - javascripts/master-table.js?v=c466f0627f2fc56e
+  - assets/benchmarks/leaderboard-data.js?v=4ae40071e4765bdb
+  - javascripts/master-table.js?v=00682fa0323c7a07
   - javascripts/leaderboard.js?v=9aa41c8c9168a5dd
 extra:
   generator: false
@@ -61,6 +61,7 @@ nav:
   - Rejected Optimizations: rejected.md
   - Model Comparison & Benchmarks: benchmarks.md
   - Benchmark Master Table: configuration-comparison.md
+  - Configuration Archive: configuration-archive.md
   - Benchmark Definitions: benchmark-register.md
   - Supplemental Model Comparisons: supplemental-comparison.md
   - Local Supplemental Benchmarks: local-benchmarks.md

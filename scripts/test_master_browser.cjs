@@ -31,14 +31,23 @@ async function main() {
     await page.locator('.master-table tbody tr').first().waitFor();
     const expected = await page.evaluate(() => {
       const d = window.V100Leaderboard, m = window.V100MasterTable.build(d);
-      return { profiles: m.rows.length, columns: m.columns.filter(c => !c.benchmark || c.benchmark.scope === 'OFFICIAL_LOCAL').length,
+      return { profiles: m.rows.length, columns: m.columns.length,
         official: m.benchmarks.filter(b => b.scope === 'OFFICIAL_LOCAL').length,
         current: m.benchmarks.find(b => b.scope === 'OFFICIAL_LOCAL' && m.rows.some(r => r.scores[b.key]?.n))?.key,
         missing: m.benchmarks.find(b => b.scope === 'OFFICIAL_LOCAL' && !m.rows.some(r => r.scores[b.key]?.n))?.key };
     });
-    assert.equal(await page.locator('.master-table tbody tr').count(), Math.min(25, expected.profiles));
+    assert.equal(await page.locator('.master-table tbody tr').count(), expected.profiles);
     assert.equal(await page.locator('.master-benchmark-choices input').count(), expected.official);
     assert((await page.locator('.master-counter').innerText()).includes(String(expected.profiles)));
+    assert.equal(await page.locator('.master-pagination').count(), 0);
+    const initialIds = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId));
+    const measuredIds = await page.evaluate(() => [...new Set(window.V100Leaderboard.history.runs.map(r => r.runtime_configuration_id))]);
+    assert.deepEqual(initialIds.slice().sort(), measuredIds.slice().sort());
+    const geometry = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.getBoundingClientRect().height));
+    assert(Math.max(...geometry) <= 52, 'Compact rows including offscreen cells: ' + Math.max(...geometry));
+    assert(Math.max(...geometry) - Math.min(...geometry) <= 2, 'Uniform result row heights');
+    assert.equal(await page.locator('.master-scroll').evaluate(e => getComputedStyle(e).maxHeight), 'none');
+    assert(await page.locator('.master-scroll').evaluate(e => e.clientHeight >= e.scrollHeight - 2));
     assert.equal(await page.locator('.master-table thead').evaluate(e => getComputedStyle(e).position), 'sticky');
     assert.equal(await page.locator('.master-table tbody td').first().evaluate(e => getComputedStyle(e).position), 'sticky');
     report.checks.push('rows, register definitions, sticky header and model column');
@@ -53,8 +62,11 @@ async function main() {
       const result = await page.locator(`.master-table tbody td[data-column-key="${expected.current}"] strong`).allTextContents();
       const numbers = result.map(s => Number(s.replace('%', '').replaceAll('.', '').replace(',', '.').trim()));
       assert(numbers.every((x, i) => !i || numbers[i - 1] >= x));
-      assert(await page.locator('.master-table a[href*="/audits/"]').count() > 0);
-      assert(await page.locator('.master-table a[href*="/experiments/"]').count() > 0);
+      await page.locator('.master-score-details').first().click();
+      assert(await page.locator('.master-cell-dialog a[href*="/audits/"]').count() > 0);
+      assert(await page.locator('.master-cell-dialog a[href*="/experiments/"]').count() > 0);
+      assert((await page.locator('.master-cell-dialog pre').innerText()).includes('audit_hash'));
+      await page.getByRole('button', { name: 'Schließen', exact: true }).click();
       report.checks.push('missing benchmark prevents average; numeric sorting; direct audit/run links');
     }
 
@@ -85,7 +97,7 @@ async function main() {
     await pickerSearch.fill(''); await picker.locator('summary').first().click();
     report.checks.push('categorized searchable column picker');
 
-    const mode = page.getByLabel('Auswertung', { exact: true });
+    const mode = page.getByLabel('Durchschnittsmodus', { exact: true });
     await mode.selectOption('exploratory');
     const scopes = await page.locator('.master-benchmark-choices input').evaluateAll(inputs => inputs.map(i => window.V100Leaderboard.master.benchmark_columns.find(b => b.key === i.value).scope));
     assert(scopes.length > 0 && scopes.every(s => s !== 'OFFICIAL_LOCAL'));
@@ -109,13 +121,22 @@ async function main() {
     await page.getByRole('button', { name: 'CSV exportieren', exact: true }).click();
     const download = await downloadEvent; const downloaded = path.join(artifacts, 'configuration-export.csv'); await download.saveAs(downloaded);
     const csv = await fs.readFile(downloaded, 'utf8'); assert(csv.includes('runtime_configuration_id')); assert(csv.includes('NICHT ERFASST')); assert(csv.includes('mean_percent'));
-    const allIds = await page.evaluate(() => window.V100Leaderboard.history.profiles.map(p => p.runtime_configuration_id));
+    const allIds = await page.evaluate(() => [...new Set(window.V100Leaderboard.history.runs.map(r => r.runtime_configuration_id))]);
     assert(allIds.every(id => csv.includes(id))); report.checks.push('CSV contains all filtered configurations, exact IDs and missing markers');
     assert(await page.locator('.master-insights ol li').count() > 0);
     assert((await page.locator('.master-insights').innerText()).includes('Korrelation ist keine Kausalität'));
     report.checks.push('Top-5 analysis and non-causal interpretation');
 
-    await page.locator('.master-scroll').scrollIntoViewIfNeeded();
+    const onlyOfficial = page.locator('input[data-action=official-only]');
+    await onlyOfficial.check();
+    const officialIds = await page.evaluate(() => [...new Set(window.V100Leaderboard.history.runs.filter(r => r.official_eligible === true).map(r => r.runtime_configuration_id))]);
+    assert.deepEqual((await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId))).sort(), officialIds.sort());
+    await onlyOfficial.uncheck(); assert.equal(await page.locator('.master-table tbody tr').count(), expected.profiles);
+    report.checks.push('official-only filter is optional; all measured statuses return by default');
+    await page.locator('.master-table').evaluate(e => window.scrollTo(0, window.scrollY + e.getBoundingClientRect().top + 200));
+    await page.waitForTimeout(100);
+    const headerY = await page.locator('.master-table thead').evaluate(e => e.getBoundingClientRect().top);
+    assert(headerY >= 0 && headerY < 120, 'Header follows document scrolling: ' + headerY);
     const stickyBefore = await page.locator('.master-table tbody td').first().boundingBox();
     await page.locator('.master-scroll').evaluate(e => { e.scrollLeft = e.scrollWidth; });
     const stickyAfter = await page.locator('.master-table tbody td').first().boundingBox();
@@ -132,7 +153,12 @@ async function main() {
       scroll: document.querySelector('.master-scroll').scrollWidth, width: document.querySelector('.master-scroll').clientWidth }));
     assert(layout.page <= layout.viewport + 2, 'Page itself overflows mobile viewport: ' + JSON.stringify(layout));
     assert(layout.scroll > layout.width, 'Wide table must scroll inside its container');
-    await phone.locator('.master-scroll').scrollIntoViewIfNeeded();
+    assert.equal(await phone.locator('.master-table tbody tr').count(), expected.profiles);
+    assert.equal(await phone.locator('.master-pagination').count(), 0);
+    assert.equal(await phone.locator('.master-scroll').evaluate(e => getComputedStyle(e).maxHeight), 'none');
+    const mobileHeights = await phone.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.getBoundingClientRect().height));
+    assert(Math.max(...mobileHeights) <= 52, 'Mobile row heights stay compact');
+    await phone.locator('.master-table').evaluate(e => window.scrollTo(0, window.scrollY + e.getBoundingClientRect().top - 100));
     await phone.screenshot({ path: path.join(artifacts, 'mobile-results.png'), animations: 'disabled' });
     await mobile.close(); report.checks.push('desktop horizontal scrolling and 390px mobile layout');
     assert.deepEqual(errors, []); report.console_errors = errors; report.passed = true;

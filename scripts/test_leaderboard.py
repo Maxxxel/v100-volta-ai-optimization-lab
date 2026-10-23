@@ -1,7 +1,7 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
  def fixture(self):
@@ -178,4 +178,38 @@ class LeaderboardTests(unittest.TestCase):
    d=pathlib.Path(tmp);(d/'benchmarks.md').write_text('# Old\n\n## Official benchmark results and overall mean\n\n91.04%\n\n## Configuration parameters and ranked benchmark results\n\nHistorical details\n');(d/'local-benchmarks.md').write_text('# Local')
    render(reg,hist,comp,d)
    main=(d/'benchmarks.md').read_text();supp=(d/'supplemental-comparison.md').read_text();self.assertIn(str(sum(r['official_eligible'] for r in hist['runs']))+' eligible official runs',main);self.assertIn('NOT MEASURED',main);self.assertNotIn('91.04%',supp);self.assertNotIn('reported_score',main);self.assertIn('EXTERNAL PUBLISHER SELF-REPORTS',(d/'benchmark-register.md').read_text());self.assertEqual(len(list((d/'configuration-profiles').glob('*.md'))),len(hist['profiles']))
+ def evidence_fixture(self,tmp):
+  root=pathlib.Path(tmp);folder=root/'staging/r1';folder.mkdir(parents=True)
+  (folder/'AUDIT.json').write_text('{}')
+  def row(i,suite='standard',seconds=1):
+   return {'task_id':'HumanEval/'+str(i),'suite':suite,'e2e_s':seconds,'request':{'temperature':0,'seed':1},'native_reply':{'timings':{'prompt_n':10,'prompt_ms':100,'predicted_n':20,'predicted_ms':500}}}
+  (folder/'FUNCTIONAL.jsonl').write_text('\n'.join(json.dumps(x) for x in [row(0),row(1),row(0,'long_context_stress',5)]))
+  (folder/'server.log').write_text('common_params_print_info: build 0 (unknown)\nCUDA : ARCHS = 700 |\ngeneral.architecture str = qwen35\n')
+  pins={p.name:digest(p) for p in folder.iterdir()};(folder/'RAW_HASHES.json').write_text(json.dumps(pins))
+  cfg={'runtime_configuration_id':'cfg-test','runtime':{'native_template_controls':None}}
+  run={'run_id':'run-test','runtime_configuration_id':'cfg-test','experiment_id':'R1','audit_hash':digest(folder/'AUDIT.json'),'discipline':'coding','tasks':2,'wall_s':2,'gpu_j':40}
+  db={'summary':{'r1':{'audit_path':str(folder/'AUDIT.json')}}}
+  return root,folder,db,{'profiles':[cfg],'runs':[run]}
+ def test_pinned_exact_task_timing_projection_and_unknown_upstream_version(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root,folder,db,h=self.evidence_fixture(tmp);before=copy.deepcopy(h)
+   ce,me=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertEqual(h,before)
+   self.assertEqual(ce[0]['fields']['model.architecture'],'qwen35');self.assertNotIn('engine.version',ce[0]['fields']);self.assertIn('unknown',ce[0]['fields']['engine.version_provenance_note'])
+   self.assertEqual(me[0]['values']['prefill_tok_s'],100);self.assertEqual(me[0]['values']['decode_tok_s'],40);self.assertEqual(me[0]['values']['gpu_j_per_output_token'],1)
+   self.assertNotIn('ttft_s',me[0]['values']);self.assertEqual(me[0]['tasks'],2)
+   self.assertNotIn('HumanEval/',json.dumps(ce)+json.dumps(me));self.assertTrue(all(x['authority_audit_id'] for x in me[0]['sources']))
+ def test_modified_execution_evidence_is_rejected(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root,folder,db,h=self.evidence_fixture(tmp);(folder/'server.log').write_text('version: 99.0.0')
+   with self.assertRaisesRegex(ValueError,'source changed'):configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20])
+ def test_timing_requires_matching_count_and_independent_wall_sum(self):
+  for key,value in [('tasks',3),('wall_s',9)]:
+   with tempfile.TemporaryDirectory() as tmp:
+    root,folder,db,h=self.evidence_fixture(tmp);h['runs'][0][key]=value
+    ce,me=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertTrue(ce);self.assertEqual(me,[])
+ def test_no_metadata_reconstruction_from_different_original_audit(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root,folder,db,h=self.evidence_fixture(tmp);h['runs'][0]['audit_hash']='a'*64
+   ce,me=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertEqual(ce,[]);self.assertEqual(me,[])
+
 if __name__=='__main__':unittest.main()
