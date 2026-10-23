@@ -1,6 +1,6 @@
 # Supplemental laboratory benchmarks
 
-These local agent, QA, context and native performance tests remain auditable but do not contribute to the official-category percentage mean. [Return to official benchmark results](benchmarks.md).
+These local agent, QA, context and native performance tests remain auditable but are excluded from official highscores; no combined mean is calculated. [Return to official benchmark results](benchmarks.md).
 
 ## Agents · isolated 18
 

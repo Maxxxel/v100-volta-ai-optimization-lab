@@ -507,3 +507,7 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 ## Audited research checkpoint R446 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Official benchmark admission and immutable configuration history
+
+Separated full official highscores from frozen BFCL/MBPP subsets, HumanEval scorer exceptions and local agent/QA tests. Removed the mixed partial-suite mean from the current comparison view. Added pinned benchmark definitions, separate publisher claims, offline benchmark selection, selectable profile comparisons and immutable per-configuration detail pages. Historical plan-pin mismatches are exposed as provenance gaps rather than silently reconstructed. No new GPU measurements or historical score changes were made for this documentation update.
