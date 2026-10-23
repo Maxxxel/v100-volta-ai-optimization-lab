@@ -42,7 +42,7 @@
     'evidence.execution_status': 'Ausführungsnachweis', 'engine.reported_build_number': 'Buildnummer (Startlog)',
     'engine.version_provenance_note': 'Versionsbeleg / Einschränkung',
     'runtime.observed_template_controls.enable_thinking': 'Thinking (beobachtete Anfrage)',
-    'model.name': 'Modell', 'model.family_id': 'Modellfamilie', 'model.quantization': 'Quantisierung',
+    'model.name': 'Modell', 'model.historical_name': 'Historische Modellbezeichnung', 'model.identity_annotation': 'Beleg zur Modellidentität', 'model.family_id': 'Modellfamilie', 'model.quantization': 'Quantisierung',
     'model.parameter_count': 'Parameterzahl', 'model.qat': 'QAT', 'model.svd': 'SVD',
     'model.hf_repository': 'Hugging Face', 'model.hf_revision': 'Modellrevision',
     'model.artifact_sha256': 'Modell SHA256', 'engine.name': 'Engine', 'engine.version': 'Engine-Version',
@@ -143,6 +143,12 @@
         if (!absent(values[key]) && canonical(values[key]) !== canonical(v)) throw new Error("Conflicting configuration evidence: " + key);
         values[key] = v;
       }));
+      const identityLabel = (data.register.model_label_annotations || []).find(a => a.artifact_sha256 === profile.model.artifact_sha256);
+      if (identityLabel) {
+        values['model.historical_name'] = profile.model.name;
+        values['model.name'] = identityLabel.display_name;
+        values['model.identity_annotation'] = identityLabel;
+      }
       values["evidence.metadata_receipts"] = evidence.map(e => ({ evidence_id: e.evidence_id, sources: e.sources }));
       benchmarks.forEach(b => { scores[b.key] = aggregate(runs.filter(r => data.master.run_columns[r.run_id] === b.key)); });
       const paths = new Set(attempts.flatMap(a => Object.keys(flatten(a.lab_metrics || {}))));
@@ -153,7 +159,7 @@
       values['evidence.execution_status'] = [...new Set(attempts.map(a => a.execution_status))];
       values['evidence.scientific_status'] = [...new Set(attempts.map(a => a.scientific_status))];
       values['evidence.experiments'] = [...new Set([...runs, ...attempts].map(a => a.experiment_id))];
-      return { id: profile.runtime_configuration_id, profile, runs, attempts, values, scores };
+      return { id: profile.runtime_configuration_id, profile, displayName: values['model.name'], runs, attempts, values, scores };
     });
     const paths = new Set([...required, ...rows.flatMap(r => Object.keys(r.values))]);
     const columns = [...paths].sort().map(path => ({ key: path, label: labels[path] || path,
@@ -350,15 +356,15 @@
           else {
             const v = value(row, c, state, model.benchmarkMap), display = c.kind === 'average' && finite(v) ? number(v) + ' %'
               : ['requested.MTP', 'requested.thinking'].includes(c.key) && typeof v === 'boolean' ? (v ? 'Ein' : 'Aus') : text(v);
-            if (c.key === 'model.name') td.append(link(row.profile.model.name, '../configuration-profiles/' + row.id + '/'));
+            if (c.key === 'model.name') td.append(link(row.displayName, '../configuration-profiles/' + row.id + '/'));
             else if (c.key === 'engine.version' && absent(v) && row.values['engine.version_provenance_note']) {
               td.append(button(UNKNOWN + ' ⓘ', () => {
-                dialogTitle.textContent = 'Engine-Version · ' + row.profile.model.name;
+                dialogTitle.textContent = 'Engine-Version · ' + row.displayName;
                 dialogValue.textContent = row.values['engine.version_provenance_note']; dialogLinks.textContent = ''; dialog.showModal();
               }));
             }
             else if (display.length > 42) { const full = button(display.slice(0, 36) + '…', () => {
-              dialogTitle.textContent = c.label + ' · ' + row.profile.model.name; dialogLinks.textContent = '';
+              dialogTitle.textContent = c.label + ' · ' + row.displayName; dialogLinks.textContent = '';
               dialogValue.textContent = typeof v === 'object' ? JSON.stringify(v, null, 2) : display;
               dialog.showModal();
             }); full.className = 'master-value-button'; full.setAttribute('aria-label', 'Vollständiger Wert: ' + c.label); td.append(full); }
@@ -382,7 +388,7 @@
       const line = E('span', undefined, 'master-score-line');
       line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + a.solved + '/' + a.tasks + ') · '));
       const details = button(scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {
-        dialogTitle.textContent = column.label + ' · ' + row.profile.model.name;
+        dialogTitle.textContent = column.label + ' · ' + row.displayName;
         dialogValue.textContent = JSON.stringify({ mean_percent: a.score, solved: a.solved, tasks: a.tasks, n: a.n,
           min: a.min, max: a.max, sample_sd: a.sd, protocol: column.benchmark.protocol,
           runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, null, 2);
@@ -402,7 +408,7 @@
       analysisBody.textContent = ''; const column = byKey.get(analysisSelect.value || 'average');
       const result = analysis(filtered, column, state, model); analysisBody.append(E('p', result.measuredConfigurations + ' Konfigurationen mit tatsächlich vorhandenem Ergebnis für diese Metrik. Gezeigt werden höchstens fünf; Gleichstände sind keine Überlegenheit.'));
       if (!result.top.length) { analysisBody.append(E('p', UNKNOWN + ' – keine vollständigen vergleichbaren Ergebnisse für die gewählte Auswertung.')); return; }
-      const top = E('ol'); result.top.forEach(({ row, score }) => { const li = E('li'); li.append(link(row.profile.model.name + ' · ' + row.id.slice(0, 16), '../configuration-profiles/' + row.id + '/'), document.createTextNode(' · ' + number(score) + ' %')); top.append(li); }); analysisBody.append(top);
+      const top = E('ol'); result.top.forEach(({ row, score }) => { const li = E('li'); li.append(link(row.displayName + ' · ' + row.id.slice(0, 16), '../configuration-profiles/' + row.id + '/'), document.createTextNode(' · ' + number(score) + ' %')); top.append(li); }); analysisBody.append(top);
       const details = E('details'); details.append(E('summary', 'Häufige Werte, Unterschiede und fehlende Abdeckung – alle Parameter'));
       const grid = E('table'), h = E('tr'); ['Parameter', 'Werte in Top 5 (Anzahl)', 'Unbekannt in Top 5', 'Verschiedene erfasste Werte in gemessenen Profilen'].forEach(x => h.append(E('th', x))); grid.append(h);
       result.coverage.forEach(c => { const r = E('tr'); [c.column.label, c.counts.map(([v, n]) => v + ' (' + n + ')').join('; ') || UNKNOWN, c.missing + '/' + result.top.length, c.testedValues].forEach(x => r.append(E('td', String(x)))); grid.append(r); }); details.append(grid); analysisBody.append(details);

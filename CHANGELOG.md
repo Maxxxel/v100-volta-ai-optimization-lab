@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-23 — Same-quantizer OmniCoder identity and deduplication
+
+The mradermacher OmniCoder V1 Q6_K and retained V2 Q6_K artifacts have different whole-file hashes but identical payload bytes for all 427 tensors / 8,953,803,264 represented values. Full local file hashes, complete typed layouts and each tensor payload were checked; every V2 payload hash also matches the earlier complete CPU-dequantization audit. All non-weight parsed metadata agree except five naming/source/date fields. This proves equality of these stored quantized weights, without a claim about unquantized training history or the cause of an upstream release problem.
+
+At the user's request, rename the retained main file to OmniCoder-9B.Q6_K.gguf and remove the additional downloaded mradermacher V1 copy. Preserve the original main inode, bytes, SHA256, metadata and old compatibility paths. Show an artifact-hash-bound identity label in the benchmark interface while retaining original historical names and immutable scores/IDs. No new GPU jobs or synthetic benchmark results.
+
 ## 2026-10-23 — OmniCoder artifact integrity
 
 Complete CPU-only comparison of all 427 matched V1/V2 tensors (8,953,803,264 values): 248 tensors differ after dequantization and 179 are identical. Different tensor precision policies prevent a conclusion about distinct unquantized checkpoints or new fine-tuning. Publish full per-tensor metrics, artifact/source identities and the explicit inconclusive source-weight verdict. No GPU jobs or changes to historical benchmark records.

@@ -250028,6 +250028,71 @@
       "new_GPU_runs": 0
     },
     "excerpt_is_not_original": true,
+    "id": "audit-36c5628322e65e0bca66",
+    "original_bytes": 2374,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "36c5628322e65e0bca66a33126b217681e6122c4f14d35d237879ff4a8f5117b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c781081055b2edb51609",
+    "original_bytes": 102889,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c781081055b2edb51609d3253a3f4cf7e98b2c461069e9e1c087c18937ae7e47",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-73e6dff02c234be9effe",
+    "original_bytes": 775,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "73e6dff02c234be9effec9c3a71af4c529cb5dcd172e469008eae9d6a8b18220",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7d0f5b394f8250c59398",
+    "original_bytes": 1162,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7d0f5b394f8250c59398bc9fe84e5be15d52c970a821b6fda45601c91376fd52",
+    "statements": {
+      "decision": "All427 typed tensor payloads identical; all8,953,803,264 decoded represented values therefore identical. Source training/release provenance remains unverified. Earlier cross-quantizer comparison preserved."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cda68ec3ecfd3ec441a6",
+    "original_bytes": 1144,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cda68ec3ecfd3ec441a670db211a42e13f568b74e057c54b1dfaa13b5ea34377",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
     "id": "audit-f020a7c2e0c3ef2c527e",
     "original_bytes": 223795,
     "original_filename": "AUDIT.json",

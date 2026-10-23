@@ -24,9 +24,13 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 [OxCoder R448: output-cap and reasoning-channel investigation](oxcoder-diagnostic.md). Original scores and profile identities remain unchanged; this is a read-only explanation, not an optimized model result.
 
-## Artifact integrity
+## Same-quantizer artifact comparison
 
-[OmniCoder V1 / V2: complete CPU weight comparison](weight-integrity.md). Different quantized representations are measured; underlying checkpoint and fine-tuning identity remain inconclusive. Historical benchmark results are preserved.
+[OmniCoder V1 / V2 from mradermacher: full tensor payload comparison](weight-integrity-same-quantizer.md). This is distinct from the earlier cross-quantizer comparison. Both reports and all historical benchmark results remain available.
+
+## Earlier cross-quantizer artifact comparison
+
+[OmniCoder V1 / V2: bartowski versus mradermacher](weight-integrity.md). Different quantized representations are measured; underlying checkpoint and fine-tuning identity remain inconclusive. Historical benchmark results are preserved.
 
 ## Next evidence gaps
 

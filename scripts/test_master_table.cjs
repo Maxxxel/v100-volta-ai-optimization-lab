@@ -15,6 +15,23 @@ const score = (n, audit = 'a') => ({ run_id: 'run-' + audit, audit_hash: audit, 
   benchmark_revision: 'r1', dataset_split_hash: 'data-1', evaluated_task_set_hash: 'tasks-1',
   scorer_version: 'scorer-1', metric: 'pass_at_1_percent', solved: n, tasks: 100,
   score_percent: n, official_eligible: true, audit_ids: [] });
+test('artifact-specific identity labels preserve immutable model names, runs and scores', () => {
+  const copy = JSON.parse(JSON.stringify(data));
+  const target = model.rows.find(r => r.profile.model.artifact_sha256);
+  const hash = target.profile.model.artifact_sha256;
+  copy.register.model_label_annotations = [{ artifact_sha256: hash, display_name: 'Verified weight-equivalent artifact', review_id: 'fixture' }];
+  const before = JSON.stringify(copy.history), view = M.build(copy);
+  for (const row of view.rows) {
+    if (row.profile.model.artifact_sha256 === hash) {
+      assert.equal(row.displayName, 'Verified weight-equivalent artifact');
+      assert.equal(row.values['model.historical_name'], row.profile.model.name);
+      assert.equal(row.values['model.name'], row.displayName);
+    } else assert.equal(row.displayName, row.profile.model.name);
+  }
+  assert.equal(JSON.stringify(copy.history), before);
+  assert(view.columns.some(c => c.key === 'model.historical_name'));
+  assert(view.columns.some(c => c.key === 'model.identity_annotation'));
+});
 test('exactly every measured configuration is shown and result-free profiles stay in the archive', () => {
   const ids = new Set(data.history.runs.map(r => r.runtime_configuration_id));
   assert.equal(model.rows.length, ids.size);

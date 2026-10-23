@@ -97,6 +97,15 @@ def validate(check_manifest=True):
  from leaderboard import validate_history
  history=read('configuration-history.json');register=read('benchmark-register.json')
  validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
+ for review in register.get('same_quantizer_weight_reviews',[]):
+  if not set(review.get('evidence_audit_ids',[]))<=aids:errors.append('Same-quantizer review missing evidence')
+  result=review['result'];rows=result['tensor_results']
+  if len(rows)!=result['compared_tensors'] or len({r['name'] for r in rows})!=len(rows) or sum(r['parameters'] for r in rows)!=result['compared_parameters']:errors.append('Incomplete payload census')
+  if result['represented_weight_verdict']=='IDENTICAL_MODEL_WEIGHTS_PROVEN_FOR_ALL_STORED_GGUF_TENSORS' and any(not r['byte_identical'] or r['payload_sha256_V1']!=r['payload_sha256_V2'] for r in rows):errors.append('False identical-payload claim')
+  if result['new_GPU_runs']!=0 or any(k.endswith('_path') for k in review):errors.append('Unsafe same-quantizer review projection')
+ for label in register.get('model_label_annotations',[]):
+  sources=[r for r in register.get('same_quantizer_weight_reviews',[]) if r['review_id']==label['review_id'] and r['rename_sha256']==label['audit_sha256']]
+  if len(sources)!=1 or sources[0]['result']['rename_and_dedup']['retained_main_sha256']!=label['artifact_sha256'] or sources[0]['result']['rename_and_dedup']['display_name']!=label['display_name']:errors.append('Unproven model identity label')
  for review in register.get('artifact_weight_reviews',[]):
   if not set(review.get('evidence_audit_ids',[]))<=aids:errors.append('Weight review missing original evidence')
   result=review['result'];rows=result['tensor_results']

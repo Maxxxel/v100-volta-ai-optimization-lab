@@ -45,9 +45,9 @@ extra_css:
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=26b819389952cc83
-  - javascripts/master-table.js?v=395bcd6af72a41e7
-  - javascripts/leaderboard.js?v=9aa41c8c9168a5dd
+  - assets/benchmarks/leaderboard-data.js?v=dce212f7b873daf7
+  - javascripts/master-table.js?v=d46e1fab10093259
+  - javascripts/leaderboard.js?v=cb9477bb5e24827e
 extra:
   generator: false
 nav:
@@ -63,7 +63,9 @@ nav:
   - Benchmark Master Table: configuration-comparison.md
   - Configuration Archive: configuration-archive.md
   - Benchmark Definitions: benchmark-register.md
-  - Model Weight Integrity: weight-integrity.md
+  - Model Weight Integrity:
+      - Same Quantizer: weight-integrity-same-quantizer.md
+      - Earlier Cross-Quantizer Review: weight-integrity.md
   - Supplemental Model Comparisons: supplemental-comparison.md
   - Local Supplemental Benchmarks: local-benchmarks.md
   - Model Evidence & Transfer: models.md

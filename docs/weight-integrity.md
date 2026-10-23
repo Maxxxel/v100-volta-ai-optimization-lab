@@ -1,5 +1,7 @@
 # OmniCoder V1 / V2: CPU weight integrity
 
+**Follow-up:** [same-quantizer mradermacher V1/V2 comparison](weight-integrity-same-quantizer.md) addresses the different-quantizer confound. This earlier report remains unchanged in scope.
+
 This artifact review adds **zero GPU experiments, model requests or benchmark scores**. All historical configuration IDs, scores, qualifications and negative findings remain unchanged.
 
 ## Decision

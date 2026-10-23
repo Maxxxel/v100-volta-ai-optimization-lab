@@ -1,9 +1,35 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
+ def payload_fixture(self):
+  plan={key:{'repository':'owner/model','revision':'c'*40,'filename':key+'.gguf','bytes':300,'sha256':letter*64} for key,letter in [('V1','a'),('V2','b')]}
+  rows=[{'name':'matrix.weight','shape':[256],'type':'Q6_K','parameters':256,'payload_bytes':210,'byte_identical':True,'payload_sha256_V1':'d'*64,'payload_sha256_V2':'d'*64}]
+  header={'tensor_descriptors_equal':True,'V2_data_start':32,'V1_header':{'data_start':32,'type_counts':{'Q6_K':1},'tensors':{'matrix.weight':{'shape':[256],'type_name':'Q6_K','parameters':256,'bytes':210}}},'metadata_differences':{'general.name':{'V1':'Version1','V2':'Version2'}}}
+  a={'analysis_id':'OMNICODER_SAME_QUANTIZER_V1_V2_PAYLOAD_COMPARISON','status':'COMPLETE_ALL_TENSOR_PAYLOADS','new_GPU_runs':0,'new_model_requests':0,'original_weights_modified':False,'execution_uid':65534,'V2_input_read_only':True,'compared_tensors':1,'compared_parameters':256,'compared_payload_bytes':210,'identical_tensor_payloads':1,'different_tensor_payloads':0,'represented_weight_verdict':'IDENTICAL_MODEL_WEIGHTS_PROVEN_FOR_ALL_STORED_GGUF_TENSORS','artifacts':[{'version':k,**v,'actual_sha256':v['sha256']} for k,v in plan.items()],'elapsed_s':1.,'numerical_interpretation':'Same typed bytes imply equal decoded values.','source_checkpoint_limit':'No source training identity claim.'}
+  return a,header,rows,plan
+ def test_complete_identical_typed_payloads_do_not_require_identical_file_hashes(self):
+  a,h,rows,p=self.payload_fixture();v=same_quantizer_review(a,h,rows,p);self.assertNotEqual(v['artifacts'][0]['sha256'],v['artifacts'][1]['sha256']);self.assertEqual(v['different_tensor_payloads'],0);self.assertIn('IDENTICAL_MODEL_WEIGHTS',v['represented_weight_verdict'])
+ def test_payload_census_rejects_partial_wrong_format_hash_and_false_identity(self):
+  for mode in ('missing','duplicate','shape','type','hash','aggregate','model','unreviewed-metadata'):
+   a,h,rows,p=self.payload_fixture()
+   if mode=='missing':rows.clear()
+   elif mode=='duplicate':rows.append(copy.deepcopy(rows[0]))
+   elif mode=='shape':rows[0]['shape']=[128,2]
+   elif mode=='type':rows[0]['type']='F32'
+   elif mode=='hash':rows[0]['payload_sha256_V2']='e'*64
+   elif mode=='aggregate':a['compared_payload_bytes']=209
+   elif mode=='model':a['artifacts'][0]['actual_sha256']='e'*64
+   else:h['metadata_differences']['unreviewed']={'V1':'extra','V2':'other'}
+   with self.subTest(mode=mode),self.assertRaises(ValueError):same_quantizer_review(a,h,rows,p)
+ def test_different_payloads_cannot_be_called_identical_without_dequantization(self):
+  a,h,rows,p=self.payload_fixture();rows[0].update(byte_identical=False,payload_sha256_V2='e'*64);a.update(identical_tensor_payloads=0,different_tensor_payloads=1)
+  with self.assertRaises(ValueError):same_quantizer_review(a,h,rows,p)
+  a['represented_weight_verdict']='DIFFERENT_STORED_PAYLOADS_DEQUANTIZATION_REQUIRED';self.assertIn('DEQUANTIZATION_REQUIRED',same_quantizer_review(a,h,rows,p)['represented_weight_verdict'])
+ def test_payload_public_projection_excludes_unapproved_fields(self):
+  a,h,rows,p=self.payload_fixture();a['artifacts'][0]['private_source']='private file';rows[0]['sampled_weights']=[1.,2.];result=same_quantizer_review(a,h,rows,p);self.assertNotIn('private_source',str(result));self.assertNotIn('sampled_weights',str(result))
  def weight_fixture(self):
   rows=[]
   for name,changed in [('norm.weight',False),('matrix.weight',True)]:
