@@ -2,6 +2,29 @@
 
 Read-only investigation of [issue12](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/12). **No new GPU runs, model requests or changes to original benchmark results.**
 
+## Current operator decision
+
+**Stopped at the user’s explicit request; no automatic resume.** 440 source tensors were compared before the stop; this is not a complete census. The user is selecting an alternative artifact. All partial evidence is retained. Earlier proposed GPU follow-ups below are historical plans, not scheduled work.
+
+```json
+{
+  "at_utc": "2026-10-23T16:15:43.279028+00:00",
+  "classifications": {
+    "F32_TO_BF16_ROUNDING_MATCH": 48,
+    "IDENTICAL_BYTES": 392
+  },
+  "compared_parameters": 8969043920,
+  "completed_evidence_preserved": true,
+  "completed_tensors": 440,
+  "full_census_completed": false,
+  "no_automatic_resume": true,
+  "scope": "A partial source-tensor comparison does not prove identity for every tensor, nor exact Q6 conversion lineage. Preserve the original53/164 result without declaring a trained-model verdict.",
+  "status": "STOPPED_AT_EXPLICIT_USER_REQUEST_ALTERNATIVE_OXCODER_ARTIFACT_PENDING"
+}
+```
+
+[audit-fc5929f0a91760a7a005](audits/audit-fc5929f0a91760a7a005.md)
+
 ## Confirmed observations
 
 All104 empty final responses reached4096 completion tokens with `finish_reason=length`. Their archived reasoning equals the complete raw text, with no closing thinking tag. All60 nonempty final responses contain the closing tag and their final-channel text matches the text after that tag. This establishes an exhausted output budget before final-answer emission in the recorded profile; it does not prove why the model reasons for so long.

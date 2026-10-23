@@ -315,10 +315,86 @@ def configuration_evidence(root, db, history, receipt):
     item['evidence_id']='measurement-'+H(item);me.append(item)
  return ce,me
 
+def weight_integrity_review(a,rows,plan,decision):
+ """Verify a complete CPU tensor census; export metrics, never model values."""
+ if a.get('analysis_id')!='OMNICODER_V1_V2_CPU_WEIGHT_INTEGRITY' or a.get('status')!='COMPLETE_ALL_COMPARABLE_TENSORS':raise ValueError('Incomplete weight comparison')
+ if a.get('new_GPU_runs')!=0 or a.get('new_model_requests')!=0 or a.get('model_files_modified') is not False or a.get('execution_uid')!=65534 or a.get('input_FDs_read_only') is not True:raise ValueError('Unverified CPU/read-only execution')
+ controls=('q6_zero','q6_nonzero','q6_negative_control','different_encodings_equal_values','q8_signed_values','native_and_numpy_agree')
+ if any(a.get('controls',{}).get(k) is not True for k in controls):raise ValueError('Missing decoder controls')
+ A,B=a['headers'];names=set(A['tensors'])&set(B['tensors']);matched={k for k in names if A['tensors'][k]['shape']==B['tensors'][k]['shape']}
+ if set(A['tensors'])!=set(B['tensors']) or matched!=set(A['tensors']) or A['tensor_count']!=len(matched) or B['tensor_count']!=len(matched):raise ValueError('Report requires complete matched tensor rosters')
+ if len(rows)!=len(matched) or {r['name'] for r in rows}!=matched or len(rows)!=a['compared_tensors']:raise ValueError('Missing/duplicate tensor results')
+ groups={};public_rows=[]
+ keep=('name','parameters','type_A','type_B','changed_values_exact','equal_values_exact','max_abs_difference','mean_abs_difference','rmse','relative_l2_A','cosine_similarity','payload_sha256_A','payload_sha256_B','decoder_reference_checks','decoder_max_abs_difference')
+ for r in rows:
+  name=r['name'];ta=A['tensors'][name];tb=B['tensors'][name];n=r['parameters']
+  if not re.fullmatch('[A-Za-z0-9_.-]{1,160}',name) or type(n) is not int or n<=0 or n!=ta['parameters'] or n!=tb['parameters'] or n!=math.prod(ta['shape']):raise ValueError('Tensor identity/count mismatch')
+  if r['type_A']!=ta['type_name'] or r['type_B']!=tb['type_name']:raise ValueError('Tensor precision mismatch')
+  if type(r['changed_values_exact']) is not int or not 0<=r['changed_values_exact']<=n or r['equal_values_exact']!=n-r['changed_values_exact']:raise ValueError('Invalid tensor difference count')
+  if any(not finite(r[k]) or r[k]<0 for k in ('max_abs_difference','mean_abs_difference','rmse','squared_difference_sum','squared_norm_A','squared_norm_B','decoder_max_abs_difference')):raise ValueError('Invalid tensor metric')
+  if not math.isclose(r['rmse']**2*n,r['squared_difference_sum'],rel_tol=1e-10,abs_tol=1e-15) or r['decoder_reference_checks']<2:raise ValueError('Unverified tensor decoder/metric')
+  if any(not re.fullmatch('[a-f0-9]{64}',r[k]) for k in ('payload_sha256_A','payload_sha256_B')):raise ValueError('Missing tensor payload identity')
+  g=groups.setdefault(r['type_A']+' / '+r['type_B'],{'tensors':0,'parameters':0,'changed_tensors':0,'changed_values_exact':0,'squared_difference_sum':0.0,'max_abs_difference':0.0})
+  for k,v in [('tensors',1),('parameters',n),('changed_tensors',int(r['changed_values_exact']>0)),('changed_values_exact',r['changed_values_exact']),('squared_difference_sum',r['squared_difference_sum'])]:g[k]+=v
+  g['max_abs_difference']=max(g['max_abs_difference'],r['max_abs_difference']);public_rows.append({k:r[k] for k in keep})
+ totals={'compared_parameters':sum(r['parameters'] for r in rows),'changed_values_exact':sum(r['changed_values_exact'] for r in rows),'changed_tensors':sum(r['changed_values_exact']>0 for r in rows),'identical_tensors':sum(r['changed_values_exact']==0 for r in rows)}
+ if any(a[k]!=v for k,v in totals.items()):raise ValueError('Tensor aggregate mismatch')
+ rmse=math.sqrt(sum(r['squared_difference_sum'] for r in rows)/totals['compared_parameters'])
+ if not math.isclose(rmse,a['global_rmse'],rel_tol=1e-12,abs_tol=1e-15):raise ValueError('Global RMSE mismatch')
+ represented='DIFFERENT_RECONSTRUCTED_WEIGHTS' if totals['changed_values_exact'] else 'IDENTICAL_RECONSTRUCTED_WEIGHTS'
+ if a['represented_weight_identity']!=represented or decision['represented_weight_identity']!=represented or decision['underlying_checkpoint_verdict']!='NOT_UNAMBIGUOUSLY_DETERMINABLE':raise ValueError('Unsupported checkpoint identity claim')
+ artifacts=[]
+ for i,version in enumerate(('V1','V2')):
+  p=plan[version];actual=a['artifacts'][i]
+  if actual['sha256']!=p['sha256'] or actual['bytes']!=p['bytes']:raise ValueError('Wrong compared artifact')
+  artifacts.append({k:p[k] for k in ('source_repository','source_revision','filename','sha256','bytes')})
+ for g in groups.values():g['rmse']=math.sqrt(g.pop('squared_difference_sum')/g['parameters'])
+ keys=('general.architecture','general.name','general.quantization_version','general.file_type','general.size_label','tokenizer.ggml.model','tokenizer.ggml.pre','tokenizer.ggml.tokens','tokenizer.ggml.merges','tokenizer.ggml.token_type','tokenizer.chat_template')
+ metadata=[{k:h['metadata'][k] for k in keys if k in h['metadata']} for h in (A,B)]
+ # Strings are deliberately limited to named public GGUF fields; no template text.
+ for m in metadata:
+  if isinstance(m.get('tokenizer.chat_template'),str):m['tokenizer.chat_template']={'utf8_sha256':hashlib.sha256(m['tokenizer.chat_template'].encode()).hexdigest()}
+ rel=math.sqrt(sum(r['squared_difference_sum'] for r in rows)/sum(r['squared_norm_A'] for r in rows))
+ if not math.isclose(rel,a['global_relative_l2_A'],rel_tol=1e-12,abs_tol=1e-15) or max(r['max_abs_difference'] for r in rows)!=a['global_max_abs_difference']:raise ValueError('Global difference metric mismatch')
+ agreements={prefix:all(A['metadata'].get(k)==B['metadata'].get(k) for k in set(A['metadata'])|set(B['metadata']) if k.startswith(prefix)) for prefix in ('qwen35.','tokenizer.')}
+ return {'analysis_id':a['analysis_id'],'at_utc':decision['at_utc'],'represented_weight_identity':represented,'underlying_checkpoint_verdict':decision['underlying_checkpoint_verdict'],**totals,'compared_tensors':len(rows),'global_rmse':rmse,'global_relative_l2_A':rel,'global_max_abs_difference':a['global_max_abs_difference'],'type_pairs':groups,'type_counts_A':A['type_counts'],'type_counts_B':B['type_counts'],'metadata_agreement':agreements,'identical_quantized_tensors':[r['name'] for r in rows if r['changed_values_exact']==0 and r['type_A']!='F32'],'metadata':metadata,'artifacts':artifacts,'decoder_controls':a['controls'],'decoder_identities':a['decoder_identities'],'NumPy_version':a['NumPy_version'],'elapsed_s':a['elapsed_s'],'quantization_noise_conclusion':a['quantization_noise_conclusion'],'training_history_conclusion':a['training_history_conclusion'],'new_GPU_runs':0,'tensor_results':public_rows}
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
+ for item in reg.get('artifact_weight_reviews',[]):
+  if set(item)!={'review_id','audit_path','audit_sha256','tensor_results_path','tensor_results_sha256','plan_path','plan_sha256','decision_path','decision_sha256'}:raise ValueError('Unreviewed artifact review schema')
+  originals={}
+  for key in ('audit','tensor_results','plan','decision'):
+   p=(root/item.pop(key+'_path')).resolve()
+   if not p.is_relative_to(root.resolve()) or digest(p)!=item[key+'_sha256']:raise ValueError('Artifact review source changed')
+   originals[key]=p
+  a=read(originals['audit']);plan=read(originals['plan']);decision=read(originals['decision']);rows=[json.loads(s) for s in originals['tensor_results'].read_text().splitlines()]
+  if a['tensor_results_sha256']!=item['tensor_results_sha256'] or a['source_plan_sha256']!=item['plan_sha256']:raise ValueError('Artifact review lineage mismatch')
+  item['result']=weight_integrity_review(a,rows,plan,decision)
+  item['evidence_audit_ids']=[ident for k in originals if (ident:=receipt(originals[k],item[k+'_sha256']))]
+  sources=[]
+  for source in decision['source_evidence']:
+   p=(root/source['path']).resolve()
+   if not p.is_relative_to(root.resolve()) or digest(p)!=source['sha256']:raise ValueError('Weight review provenance changed')
+   sources.append({'role':source['role'],'sha256':source['sha256'],'audit_id':receipt(p,source['sha256']),'url':source.get('url')})
+  item['result']['source_evidence']=sources
+  item['result']['provenance_findings']={k:decision['provenance_findings'][k] for k in ('V1_quantizer','V2_quantizer','V2_upstream_lineage','reported_faulty_release_relationship','cached_source_object_observation')}
+  cleanup=decision['artifact_availability'];cp=(root/cleanup['cleanup_result_path']).resolve()
+  if not cp.is_relative_to(root.resolve()) or digest(cp)!=cleanup['cleanup_result_sha256']:raise ValueError('Cleanup evidence changed')
+  c=read(cp)
+  if c['deleted_count']!=len(c['deleted_files']) or c['main_unchanged'] is not True or c['historical_audits_and_hashes_modified'] is not False:raise ValueError('Invalid artifact availability evidence')
+  item['result']['artifact_availability']={k:c[k] for k in ('completed_at_utc','deleted_files','deleted_count','deleted_allocated_bytes','main_unchanged','main_alias_preserved','historical_audits_and_hashes_modified','note')}
+  item['result']['artifact_availability']['audit_id']=receipt(cp,cleanup['cleanup_result_sha256'])
  for item in reg.get('archived_diagnostics',[]):
-  if set(item)!={'experiment_id','issue','at_utc','analysis_path','analysis_sha256','followup_path','followup_sha256','new_GPU_runs','original_results_unchanged','weight_provenance_path','weight_provenance_sha256'}:raise ValueError('Unreviewed diagnostic export schema')
+  required={'experiment_id','issue','at_utc','analysis_path','analysis_sha256','followup_path','followup_sha256','new_GPU_runs','original_results_unchanged','weight_provenance_path','weight_provenance_sha256'}
+  if set(item) not in (required,required|{'operator_stop_path','operator_stop_sha256'}):raise ValueError('Unreviewed diagnostic export schema')
+  if 'operator_stop_path' in item:
+   sp=(root/item.pop('operator_stop_path')).resolve()
+   if not sp.is_relative_to(root.resolve()) or digest(sp)!=item['operator_stop_sha256']:raise ValueError('Operator stop evidence changed')
+   stop=read(sp)
+   if stop['no_automatic_resume'] is not True or stop['new_GPU_runs']!=0 or stop['full_census_completed'] is not False:raise ValueError('Invalid partial-census stop decision')
+   item['operator_stop']={k:stop[k] for k in ('at_utc','status','completed_tensors','compared_parameters','classifications','full_census_completed','completed_evidence_preserved','no_automatic_resume','scope')}
+   item['operator_stop_audit_id']=receipt(sp,item['operator_stop_sha256'])
   ap=root/item.pop('analysis_path');fp=root/item.pop('followup_path')
   if digest(ap)!=item['analysis_sha256'] or digest(fp)!=item['followup_sha256']:raise ValueError('Archived diagnostic changed')
   a=read(ap);follow=read(fp)
@@ -564,6 +640,7 @@ def render(register,history,comparison,docs,model_registry=None):
  page+='## Current admission status\n\n'+str(len(eligible))+' eligible official runs under the declared local protocol. '+str(len(history['runs']))+' versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. '+str(len(history['profiles']))+' content-addressed profiles and '+str(len(history['attempts']))+' additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.\n\n'
  page+=table(['Original local cohort classification','Historical scope','Reason before separate admission'],[[k,v['status'],v['reason']] for k,v in register['local_cohort_classification'].items()])
  if register.get('archived_diagnostics'):page+='## Archived response diagnostics\n\n[OxCoder R448: output-cap and reasoning-channel investigation](oxcoder-diagnostic.md). Original scores and profile identities remain unchanged; this is a read-only explanation, not an optimized model result.\n\n'
+ if register.get('artifact_weight_reviews'):page+='## Artifact integrity\n\n[OmniCoder V1 / V2: complete CPU weight comparison](weight-integrity.md). Different quantized representations are measured; underlying checkpoint and fine-tuning identity remain inconclusive. Historical benchmark results are preserved.\n\n'
  page+='## Next evidence gaps\n\n'+table(['Priority','Technical decision / next step','GPU initially required'],[[x['priority'],x['action'],x.get('GPU_required_initially')] for x in register['next_test_priorities']])
  page+='[Benchmark definitions and publisher evidence](benchmark-register.md) · [Local agent and synthetic tests](local-benchmarks.md) · [Reproduction](reproduce.md)\n\nEach profile records unknown fields as null (**NOT MEASURED**). An absent MTP/graph/cache setting is never assumed off. No-MTP execution does not establish that weights are original. Actual kernel execution is distinct from a requested backend. Historical development suites were reused; no unseen-holdout or absence-of-overfitting claim is made.\n'
  write(docs/'benchmarks.md',page)
@@ -587,6 +664,8 @@ def render(register,history,comparison,docs,model_registry=None):
  if register.get('archived_diagnostics'):
   diagnostic='# OxCoder R448: archived response diagnosis\n\nRead-only investigation of [issue12](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/12). **No new GPU runs, model requests or changes to original benchmark results.**\n\n'
   for item in register['archived_diagnostics']:
+   if item.get('operator_stop'):
+    stop=item['operator_stop'];diagnostic+='## Current operator decision\n\n**Stopped at the user’s explicit request; no automatic resume.** '+str(stop['completed_tensors'])+' source tensors were compared before the stop; this is not a complete census. The user is selecting an alternative artifact. All partial evidence is retained. Earlier proposed GPU follow-ups below are historical plans, not scheduled work.\n\n```json\n'+pretty(stop)+'\n```\n\n'+audit_links([item['operator_stop_audit_id']])+'\n\n'
    a=item['summary'];diagnostic+='## Confirmed observations\n\nAll'+str(a['empty_final_content']['tasks'])+' empty final responses reached'+str(a['engine_configuration']['output_cap'])+' completion tokens with `finish_reason=length`. Their archived reasoning equals the complete raw text, with no closing thinking tag. All'+str(a['nonempty_final_content']['tasks'])+' nonempty final responses contain the closing tag and their final-channel text matches the text after that tag. This establishes an exhausted output budget before final-answer emission in the recorded profile; it does not prove why the model reasons for so long.\n\n'
    diagnostic+=table(['Group','Tasks','Passed','Wall sum s','Median s','P90 s','Completion tokens','Recorded decode tok/s'],[[name,x['tasks'],x['solved'],x['wall_sum_s'],x['wall_median_s'],x['wall_p90_s'],x['completion_tokens_total'],x['recorded_decode_tok_s']] for name,x in [('All',a['overall']),('Empty final',a['empty_final_content']),('Final present',a['nonempty_final_content'])]])
    diagnostic+='Original success remains '+str(a['quality_score_unchanged']['solved'])+'/'+str(a['quality_score_unchanged']['tasks'])+'. Empty-final requests consumed '+str(round(a['empty_wall_share_percent'],2))+'% of summed request latency. '+item['statistics_method']+' Exact reasoning-token counts were not supplied by the API: **NOT RECORDED**. Completion-token counts are measured; they are not silently relabelled reasoning-token counts.\n\n'
@@ -597,6 +676,27 @@ def render(register,history,comparison,docs,model_registry=None):
    diagnostic+='## Frozen R448 profile\n\n```json\n'+pretty(a['engine_configuration'])+'\n```\n\n## Proposed isolated follow-up — not executed\n\n**Separate GPU approval is required by issue12, as is trusted enforcement of the900-second budget for the entire paired trial.** No GPU experiment is authorized or started by this report. P0 changes only explicit thinking true versus false; P1 separately tests a genuine1024-token reasoning budget inside an unchanged4096 total output budget. Native-template switching and actual reasoning-budget support must be verified before execution. Four frozen development cases are proposed; no official HumanEval failures are selected for tuning. This screen cannot qualify a general benchmark winner.\n\n```json\n'+pretty(item['followup'])+'\n```\n\n'
    diagnostic+='## Evidence and remaining hypotheses\n\nSource experiment SHA256: `'+a['source_experiment_audit_sha256']+'`. Diagnostic SHA256: `'+item['analysis_sha256']+'`. Follow-up plan SHA256: `'+item['followup_sha256']+'`. '+audit_links([item['audit_id'],item['followup_audit_id']])+'\n\n**LOCALLY MEASURED:** the original outputs, finish reasons, counters, timing and unchanged score. **LOCAL SOURCE REVIEW:** template and flag meanings, with source hashes in the plan. **NOT VERIFIED:** benefit or quality of thinking-off/budgeted thinking, larger-output profiles, parser alternatives and cross-model causal effects. Original inputs, answers and judgments remain unchanged.\n\n'
   write(docs/'oxcoder-diagnostic.md',diagnostic)
+ if register.get('artifact_weight_reviews'):
+  review='# OmniCoder V1 / V2: CPU weight integrity\n\nThis artifact review adds **zero GPU experiments, model requests or benchmark scores**. All historical configuration IDs, scores, qualifications and negative findings remain unchanged.\n\n'
+  for item in register['artifact_weight_reviews']:
+   a=item['result'];review+='## Decision\n\n**Different dequantized GGUF representations are proven. Underlying checkpoint / new fine-tuning: NOT UNAMBIGUOUSLY DETERMINABLE.** This is the requested three-way verdict at the source-weight level. Different file hashes or reconstruction grids do not prove a new trained checkpoint.\n\n'
+   review+=table(['Measured scope','Value'],[['Date (UTC)',a['at_utc']],['Matched tensors',a['compared_tensors']],['Compared weight values',a['compared_parameters']],['Changed tensors',a['changed_tensors']],['Numerically identical tensors',a['identical_tensors']],['Exactly different reconstructed values',a['changed_values_exact']],['Global RMSE',a['global_rmse']],['Relative L2 against V1',a['global_relative_l2_A']],['Maximum absolute difference',a['global_max_abs_difference']],['CPU comparison elapsed seconds',a['elapsed_s']]])
+   review+='Both files contain '+str(a['compared_tensors'])+' shape-matched tensors. Shared F32 equality and other metadata agreement are reported explicitly below; these are observations, not proof of identical remaining unquantized source weights.\n\n'+table(['Observed identity check','Measured result'],[['Identical quantized tensors',', '.join(a['identical_quantized_tensors'])],['Architecture metadata agreement',a['metadata_agreement']['qwen35.']],['Tokenizer / template metadata agreement',a['metadata_agreement']['tokenizer.']]])
+   review+='## Exact artifact identities\n\n'+table(['Artifact','Bytes','SHA256','Pinned quantizer source'],[[x['filename'],x['bytes'],'`'+x['sha256']+'`','['+x['source_repository']+'](https://huggingface.co/'+x['source_repository']+'/tree/'+x['source_revision']+')'] for x in a['artifacts']])
+   review+='## Precision policy is different despite the Q6_K labels\n\n'+table(['V1 / V2 storage','Tensors','Weight values','Changed tensors','Changed values','RMSE','Max abs'],[[k,g['tensors'],g['parameters'],g['changed_tensors'],g['changed_values_exact'],g['rmse'],g['max_abs_difference']] for k,g in a['type_pairs'].items()])
+   review+='Actual V1 storage counts: `'+json.dumps(a['type_counts_A'],sort_keys=True)+'`. Actual V2 counts: `'+json.dumps(a['type_counts_B'],sort_keys=True)+'`. A same-precision Q6_K pair can still use different quantizer versions or calibration. A changed decoded value is not by itself a trained-weight delta.\n\n'+a['quantization_noise_conclusion']+'\n\n'
+   review+='## Source provenance and reported faulty release\n\n'+table(['Question','Finding'],[[k,v if isinstance(v,str) else '`'+json.dumps(v,sort_keys=True)+'`'] for k,v in a['provenance_findings'].items()])
+   review+='The cached upstream LFS observation is explicitly **external metadata**, not a completed independent source-tensor comparison. No new OxCoder investigation was resumed. Establishing whether V2 came from an originally faulty or corrected release requires an exact upstream conversion revision plus trustworthy original/corrected source payloads. Those prerequisites are absent.\n\n'
+   review+='## Method and limits\n\nInputs were opened read-only, then all parsing and numerical work ran as UID65534 with GPU devices hidden, one CPU thread and a 768 MiB service limit. Both full-file SHA256 values were verified before comparison; inode, size and modification time were rechecked afterward. All comparable tensors were decoded completely in bounded chunks; no tensor sampling substitutes for the full comparison. Native C and NumPy implementations were cross-checked on the first/last chunk of every tensor, plus zero/nonzero/signed and deliberately changed controls. This is two CPU implementations from the reviewed engine tooling, not an independent unquantized training oracle. Float32 reconstructed values are compared exactly; differences use float64 accumulation. No model inference or task-quality claim follows from this audit.\n\n'
+   review+='The missing quantization-noise control is a matched unquantized source pair, or controlled re-quantizations of a known common source with pinned conversion/calibration recipes. Without it, no significance threshold is invented. The original main V2 artifact remains the reproducible identity of its historical benchmark results.\n\n'
+   review+='[All per-tensor measurements](artifact-reviews/omnicoder-tensors.md). [Public numerical dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/benchmark-register.json) (`artifact_weight_reviews`): counts, metrics and tensor payload hashes only; no weight values or model files.\n\n'
+   review+='## Preserved and removed artifacts\n\n'
+   c=a['artifact_availability'];review+=str(c['deleted_count'])+' other OmniCoder2 GGUF variants were removed at the user’s explicit request, freeing'+str(c['deleted_allocated_bytes'])+' allocated bytes. The main Q6_K file and its alias remain. Historical audits/hashes and scientific qualification are preserved. Removed variants, including the grafted MTP artifact, need re-fetch or reconstruction before replay; historical qualification does not imply current local artifact availability.\n\n'+table(['Removed artifact'],[[name] for name in c['deleted_files']])
+   review+='## Evidence\n\n'+audit_links(item['evidence_audit_ids']+[c['audit_id']])+'\n\n'+table(['Source','Pinned SHA256','Original reference'],[[x['role'],'`'+x['sha256']+'`','[Source]('+x['url']+')'] for x in a['source_evidence']])
+   review+='Original numerical audit SHA256: `'+item['audit_sha256']+'`. Original tensor journal SHA256: `'+item['tensor_results_sha256']+'`. Source plan SHA256: `'+item['plan_sha256']+'`. Decision SHA256: `'+item['decision_sha256']+'`.\n\n**LOCALLY MEASURED:** full artifact identities, tensor layouts and all matched dequantized comparisons. **EXTERNALLY EVIDENCED:** publisher recipes, repository revisions and LFS metadata. **NOT VERIFIED:** a distinct fine-tune, differences beyond controlled quantization noise, exact V2 upstream conversion lineage or a corrected initial release.\n\n'
+   tensors='# OmniCoder: complete per-tensor numerical comparison\n\n[Scope, artifact identities, methods and limits](../weight-integrity.md). These are CPU reconstruction differences, not benchmark performance or training-delta significance tests. Full payload hashes and decoder controls are in the public benchmark register.\n\n'
+   tensors+=table(['Tensor','V1 / V2','Values','Changed values','RMSE','Max abs','Relative L2 V1'],[[r['name'],r['type_A']+' / '+r['type_B'],r['parameters'],r['changed_values_exact'],r['rmse'],r['max_abs_difference'],r['relative_l2_A']] for r in a['tensor_results']]);write(docs/'artifact-reviews/omnicoder-tensors.md',tensors)
+  write(docs/'weight-integrity.md',review)
  write(docs/'configuration-comparison.md',page)
  archive='# Configuration archive\n\nPlans, configuration attempts and profiles without benchmark result records are preserved here, separately from the [measured-result master table](configuration-comparison.md). Execution evidence does not imply a scored benchmark or qualification.\n\n<div id="configuration-history"></div>\n\n## Profiles without benchmark result records\n\n'
  archive+=table(['Model','Immutable profile','Evidence'],[[p['model']['name'],'['+p['runtime_configuration_id'][:20]+'](configuration-profiles/'+p['runtime_configuration_id']+'.md)','No benchmark result in history.runs; inspect archived attempt evidence'] for p in history['profiles'] if p['runtime_configuration_id'] not in measured_ids])

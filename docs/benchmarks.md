@@ -24,6 +24,10 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 [OxCoder R448: output-cap and reasoning-channel investigation](oxcoder-diagnostic.md). Original scores and profile identities remain unchanged; this is a read-only explanation, not an optimized model result.
 
+## Artifact integrity
+
+[OmniCoder V1 / V2: complete CPU weight comparison](weight-integrity.md). Different quantized representations are measured; underlying checkpoint and fine-tuning identity remain inconclusive. Historical benchmark results are preserved.
+
 ## Next evidence gaps
 
 | Priority | Technical decision / next step | GPU initially required |

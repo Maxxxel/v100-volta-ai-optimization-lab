@@ -1,9 +1,41 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
+ def weight_fixture(self):
+  rows=[]
+  for name,changed in [('norm.weight',False),('matrix.weight',True)]:
+   rows.append({'name':name,'parameters':2,'type_A':'F32','type_B':'F32','changed_values_exact':int(changed),'equal_values_exact':2-int(changed),'max_abs_difference':float(changed),'mean_abs_difference':.5*changed,'rmse':(0.5*changed)**.5,'squared_difference_sum':float(changed),'squared_norm_A':2.,'squared_norm_B':5. if changed else 2.,'relative_l2_A':(0.5*changed)**.5,'cosine_similarity':None,'payload_sha256_A':'a'*64,'payload_sha256_B':('b' if changed else 'a')*64,'decoder_reference_checks':2,'decoder_max_abs_difference':0.})
+  header={'tensors':{r['name']:{'parameters':2,'shape':[2],'type_name':'F32'} for r in rows},'tensor_count':2,'metadata':{'general.architecture':'test','tokenizer.chat_template':'private template text'},'type_counts':{'F32':2}}
+  artifact={'source_repository':'owner/model','source_revision':'c'*40,'filename':'test.gguf','sha256':'d'*64,'bytes':42};plan={'V1':artifact,'V2':artifact}
+  a={'analysis_id':'OMNICODER_V1_V2_CPU_WEIGHT_INTEGRITY','status':'COMPLETE_ALL_COMPARABLE_TENSORS','new_GPU_runs':0,'new_model_requests':0,'model_files_modified':False,'execution_uid':65534,'input_FDs_read_only':True,'headers':[header,copy.deepcopy(header)],'controls':{k:True for k in ('q6_zero','q6_nonzero','q6_negative_control','different_encodings_equal_values','q8_signed_values','native_and_numpy_agree')},'compared_tensors':2,'compared_parameters':4,'changed_values_exact':1,'changed_tensors':1,'identical_tensors':1,'global_rmse':.5,'global_relative_l2_A':.5,'global_max_abs_difference':1.,'represented_weight_identity':'DIFFERENT_RECONSTRUCTED_WEIGHTS','artifacts':[{'sha256':'d'*64,'bytes':42}]*2,'decoder_identities':{},'NumPy_version':'fixture','elapsed_s':1.,'quantization_noise_conclusion':'No source pair.','training_history_conclusion':'Not established.'}
+  decision={'at_utc':'2026-10-23','represented_weight_identity':a['represented_weight_identity'],'underlying_checkpoint_verdict':'NOT_UNAMBIGUOUSLY_DETERMINABLE'}
+  return a,rows,plan,decision
+ def test_weight_census_has_no_training_or_benchmark_claim(self):
+  result=weight_integrity_review(*self.weight_fixture());self.assertEqual(result['compared_parameters'],4);self.assertEqual(result['underlying_checkpoint_verdict'],'NOT_UNAMBIGUOUSLY_DETERMINABLE');self.assertNotIn('private template text',str(result));self.assertNotIn('score_percent',result)
+ def test_weight_census_rejects_omitted_duplicate_and_misidentified_tensors(self):
+  for mode in ('omit','duplicate','shape','precision','parameters'):
+   a,rows,p,d=self.weight_fixture()
+   if mode=='omit':rows.pop()
+   elif mode=='duplicate':rows[1]=copy.deepcopy(rows[0])
+   elif mode=='shape':a['headers'][1]['tensors']['matrix.weight']['shape']=[3]
+   elif mode=='precision':rows[0]['type_B']='Q6_K'
+   else:rows[0]['parameters']=3
+   with self.subTest(mode=mode),self.assertRaises(ValueError):weight_integrity_review(a,rows,p,d)
+ def test_weight_census_rejects_unverified_controls_costs_and_identity_claims(self):
+  for mode in ('GPU','root','write','decoder','rmse','hash','finetune','aggregate'):
+   a,rows,p,d=self.weight_fixture()
+   if mode=='GPU':a['new_GPU_runs']=1
+   elif mode=='root':a['execution_uid']=0
+   elif mode=='write':a['input_FDs_read_only']=False
+   elif mode=='decoder':a['controls']['q6_negative_control']=False
+   elif mode=='rmse':rows[0]['rmse']=1.
+   elif mode=='hash':a['artifacts'][0]={'sha256':'e'*64,'bytes':42}
+   elif mode=='finetune':d['underlying_checkpoint_verdict']='NEW_FINE_TUNE_PROVEN'
+   else:a['changed_values_exact']=3
+   with self.subTest(mode=mode),self.assertRaises(ValueError):weight_integrity_review(a,rows,p,d)
  def fixture(self):
   ids=['a','b'];d={'benchmark_id':'test','benchmark_revision':'r1','dataset_split_hash':'a'*64,'scorer_version':'v1','required_task_count':2,'expected_task_ids_hash':H(ids),'official_definition_verified':True,'metric':'pass_at_1_percent'}
   r={'audit_hash':'b'*64,'runtime_configuration_id':'cfg-test','tasks':2,'solved':1,'score_percent':50,'benchmark_id':'test','benchmark_identity_id':definition_identity(d),'dataset_split_hash':d['dataset_split_hash'],'scorer_version':'v1'}

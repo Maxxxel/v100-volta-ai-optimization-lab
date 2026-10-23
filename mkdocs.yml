@@ -45,7 +45,7 @@ extra_css:
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=70715c6e82b4ad38
+  - assets/benchmarks/leaderboard-data.js?v=26b819389952cc83
   - javascripts/master-table.js?v=395bcd6af72a41e7
   - javascripts/leaderboard.js?v=9aa41c8c9168a5dd
 extra:
@@ -63,6 +63,7 @@ nav:
   - Benchmark Master Table: configuration-comparison.md
   - Configuration Archive: configuration-archive.md
   - Benchmark Definitions: benchmark-register.md
+  - Model Weight Integrity: weight-integrity.md
   - Supplemental Model Comparisons: supplemental-comparison.md
   - Local Supplemental Benchmarks: local-benchmarks.md
   - Model Evidence & Transfer: models.md

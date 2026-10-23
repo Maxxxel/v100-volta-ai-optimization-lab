@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-23 — OmniCoder artifact integrity
+
+Complete CPU-only comparison of all 427 matched V1/V2 tensors (8,953,803,264 values): 248 tensors differ after dequantization and 179 are identical. Different tensor precision policies prevent a conclusion about distinct unquantized checkpoints or new fine-tuning. Publish full per-tensor metrics, artifact/source identities and the explicit inconclusive source-weight verdict. No GPU jobs or changes to historical benchmark records.
+
+Record the user-authorized deletion of 15 other OmniCoder2 artifacts while retaining the main Q6_K model. Historical qualification remains valid; unavailable artifacts require reconstruction before replay. Record that the partial OxCoder source investigation was stopped at the user's request, with no automatic resume.
+
 ## Initial public snapshot
 
 Canonical matrix revision 219 with original/additional factor separation, immutable reference identities, public-safe audit excerpts, negative results and explicit reproducibility limits. This initial commit does not reconstruct a fictional historical Git history.

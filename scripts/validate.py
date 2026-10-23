@@ -97,6 +97,13 @@ def validate(check_manifest=True):
  from leaderboard import validate_history
  history=read('configuration-history.json');register=read('benchmark-register.json')
  validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
+ for review in register.get('artifact_weight_reviews',[]):
+  if not set(review.get('evidence_audit_ids',[]))<=aids:errors.append('Weight review missing original evidence')
+  result=review['result'];rows=result['tensor_results']
+  if len(rows)!=result['compared_tensors'] or len({r['name'] for r in rows})!=len(rows):errors.append('Weight review incomplete tensor coverage')
+  if sum(r['parameters'] for r in rows)!=result['compared_parameters'] or sum(r['changed_values_exact'] for r in rows)!=result['changed_values_exact']:errors.append('Weight review aggregate mismatch')
+  if result.get('new_GPU_runs')!=0 or result['underlying_checkpoint_verdict']!='NOT_UNAMBIGUOUSLY_DETERMINABLE':errors.append('Unsupported weight-review conclusion')
+  if any(k.endswith('_path') for k in review):errors.append('Private weight-review source path exported')
  for r in history['runs']:
   if not set(r['audit_ids'])<=aids:errors.append('Configuration result missing original audit')
   if r['official_eligible'] and r.get('qualification_audit_id') not in aids:errors.append('Official result missing independent qualification audit')

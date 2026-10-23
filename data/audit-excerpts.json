@@ -250028,6 +250028,115 @@
       "new_GPU_runs": 0
     },
     "excerpt_is_not_original": true,
+    "id": "audit-f020a7c2e0c3ef2c527e",
+    "original_bytes": 223795,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f020a7c2e0c3ef2c527e1884c59283a96942620769e1fee304b18024620c5bc4",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-6a15be92f408e91f019a",
+    "original_bytes": 1604,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6a15be92f408e91f019aec853d5552035f65a1c227c9a55cbaf022b6a1c22813",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b8bb370f8cb74784bd95",
+    "original_bytes": 5180,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b8bb370f8cb74784bd95edec916c59b5a33faf803aa04a78b4e19a768400d760",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-bb0f9edf12c59d6f5267",
+    "original_bytes": 16541,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bb0f9edf12c59d6f52676330122d61989cf894f7f6fde1771d73b6867c5d8183",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ff65927e92d19172fd2a",
+    "original_bytes": 12135,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ff65927e92d19172fd2ac959b01262731fc12ce2991170b9bcd54005bc8b66b8",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-5c8ec952a987800e3cdf",
+    "original_bytes": 12509,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5c8ec952a987800e3cdf08b03469df59b20fa5b702d9168cf121bd8089a0db64",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-6e29b7efcbfb148d24f6",
+    "original_bytes": 20493,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6e29b7efcbfb148d24f6e2b824c962d37915b653b3527f1130394c64bf5b591d",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7baaaf5407cf58fc4e46",
+    "original_bytes": 1139,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7baaaf5407cf58fc4e469123c8f5a8fb0cbe193b3816f484866f1bba3cfb5916",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-fc5929f0a91760a7a005",
+    "original_bytes": 838,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fc5929f0a91760a7a0050e8a5acb2bf638460b822cb6e163b612ef2c1104da03",
+    "statements": {
+      "scope": "A partial source-tensor comparison does not prove identity for every tensor, nor exact Q6 conversion lineage. Preserve the original53/164 result without declaring a trained-model verdict."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
     "id": "audit-d9eefff3d6c2342adfb0",
     "original_bytes": 191949,
     "original_filename": "AUDIT.json",
