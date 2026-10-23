@@ -170529,6 +170529,19 @@
   },
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ac1a102d63636ff16ca0",
+    "original_bytes": 5541,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ac1a102d63636ff16ca0d5077533782258685f564d320d3c1cba037b254dfcfb",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "actual_generation_requests": 22,
       "model_starts": 1,
       "peak_device_vram_mib": 8156.5,
@@ -170622,6 +170635,19 @@
         "NotOmniQ6transfer/PTQ1test/qualityretentionorspeedup"
       ]
     }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4383d2a32927d5cddf1d",
+    "original_bytes": 2372,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4383d2a32927d5cddf1d1ac54356b2c38bbb1ca6a30c2552897ab1959ecfb7bf",
+    "statements": {}
   },
   {
     "aggregate_metrics": {

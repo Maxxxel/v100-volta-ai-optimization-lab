@@ -343,6 +343,11 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):
+            correction_id=receipt(v['audit_correction_path'],v['audit_correction_sha256'])
+            if correction_id:
+                experiments[ident]['independent_review']={'audit_id':correction_id,'statements':catalog[correction_id]['statements'],'aggregate_metrics':catalog[correction_id]['aggregate_metrics']}
+                experiments[ident].setdefault('related_audit_ids',[]).append(correction_id)
         if v.get('factor_mapping_correction'):
             experiments[ident]['factor_mapping_correction']=factor_assignment(v)
             experiments[ident]['factor_ids']=experiments[ident]['factor_mapping_correction']['current_factor_ids']

@@ -10820,9 +10820,17 @@
       "K01"
     ],
     "id": "R270",
+    "independent_review": {
+      "aggregate_metrics": {
+        "new_GPU_runs": 0
+      },
+      "audit_id": "audit-ac1a102d63636ff16ca0",
+      "statements": {}
+    },
     "model": "omnicoder2",
     "reference_A0": "71373b106b5b4d5fe9284437c90553378d601878d5ae8534ef355d98bf14959a",
     "related_audit_ids": [
+      "audit-ac1a102d63636ff16ca0",
       "audit-a2270317169dec422f24",
       "audit-fae4b1903a527efdd0b8"
     ],
@@ -10924,8 +10932,18 @@
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R273",
+    "independent_review": {
+      "aggregate_metrics": {
+        "model_starts": 0
+      },
+      "audit_id": "audit-4383d2a32927d5cddf1d",
+      "statements": {}
+    },
     "model": "bonsai2_27b_pq2",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4383d2a32927d5cddf1d"
+    ],
     "statements": {
       "decision": "PQ2_CUDA_CPU_SEVEN_SHAPES_WITHIN_NATIVE_TOLERANCE",
       "evidence_class": "LOKAL_GEMESSEN",
