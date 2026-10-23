@@ -8,7 +8,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 |---|---|---|---|---|
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
 | BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R443 |
-| BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
+| BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | R444 |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
 | BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R431 |
@@ -250,13 +250,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "MiMoQ8: nativeVorprüfung11/12semantisch/10/12formal/9188,5MiB;AgentenprofilThinking2048nach2/4FällenamzusätzlichenPolicyfehlergestoppt. Kein18erScore;keinUrteilüberalleBudgets/Coding/Tool100.",
-  "current_experiment": null,
+  "assessment": "R444 MiMo nativeTool:16/20observed(20planned),wall50.060s,GPUJ/success704.8038859989422,full100extension=False;Omni18/20/Bonsai19/20 nativecomparators. Noagent/overallwinner.",
+  "current_experiment": "R444",
   "evidence_class": null,
   "id": "BMC03",
   "local_scope": null,
   "name": "MiMo V2.6 Distill Qwen 9B",
-  "next_step": "BMC03MiMoThinking2048AgentenprofilnachR289zusätzlicherPolicyabweichungverworfen(2/4,kein18erScore);14Restfällebewusstnichtgenerieren. KeineSampling-/PromptreparaturaufbekanntenFehlern. BreiteGrundlagenfortsetzen:BMC02OxCoder9BausvorhandenenQuellenalsnächstenP1Quellen/GGUF/Template/SM70zulassen;erstnativeQA/Toolsteuerung,dannrollengerechterB-Screen. Bonsai17/18QualitätskandidatundOmniA–E/Csbehalten;keineGewinnerbehauptung/Produktivübernahme.",
+  "next_step": "Do notexpandMiMo native100: declared20pilot practicalquality/costgate failed. Preservecategoryfailures andR289agentnegative; no sampler/grammar/outputbudgetrepair. Consider newcodingroleonlyifsourceevidence givesconcretequality hypothesis; no all-modelrejection fromnative20alone.",
   "priority": "P1",
   "repository": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
   "source_admission": null,

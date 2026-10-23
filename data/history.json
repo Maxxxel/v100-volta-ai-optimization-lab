@@ -13654,5 +13654,13 @@
     "kind": "R444_MIMO_NATIVE_TOOL20_PREREGISTERED",
     "sequence": 1707,
     "signature": null
+  },
+  {
+    "date": "2026-10-23T00:33:35.200519+00:00",
+    "experiment_id": "R444",
+    "factor_id": null,
+    "kind": "R444_MIMO_NATIVE_TOOL20_PILOT_AUDITED",
+    "sequence": 1708,
+    "signature": null
   }
 ]

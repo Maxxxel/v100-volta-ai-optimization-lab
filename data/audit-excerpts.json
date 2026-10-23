@@ -172802,6 +172802,35 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 24,
+      "gpu_energy_j_approx": 11276.862175983075,
+      "gpu_j_per_success": 704.8038859989422,
+      "model_starts": 1,
+      "peak_device_vram_mib": 9188.5,
+      "solved": 16,
+      "wall_s": 50.05956673
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5443b0c037fc2a23284e",
+    "original_bytes": 13915,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5443b0c037fc2a23284ecb3511a13d5e22827bb3b141e68db5ea36489ac84310",
+    "statements": {
+      "decision": "MIMO_NATIVE_TOOL_PILOT_GATE_FAILED_DEFER_PROFILE",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "First20frozenbalanced100, notfullBFCL/agent/overallwinner.",
+        "Samequestions/schemas/officialAST+strictirrelevance; ownMiMoT.6ThinkingTrue/noeffort/local2048 vsOmni/Bonsainativeprofiles.",
+        "R2892/4agentpolicynegative unchanged; no originalQAregeneration or sampler/grammar/budgetrescue.",
+        "GPUboardcaseenergy only, excludesstartup/warmup/CPUjudge/system; noactualtoolsexecuted.",
+        "Continuefull100onlyatdeclaredquality+wall+energygates, validanswersreused."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
