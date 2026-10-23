@@ -5,9 +5,9 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
  def fixture(self):
   ids=['a','b'];d={'benchmark_id':'test','benchmark_revision':'r1','dataset_split_hash':'a'*64,'scorer_version':'v1','required_task_count':2,'expected_task_ids_hash':H(ids),'official_definition_verified':True,'metric':'pass_at_1_percent'}
-  r={'audit_hash':'b'*64,'runtime_configuration_id':'cfg-test','tasks':2,'solved':1}
+  r={'audit_hash':'b'*64,'runtime_configuration_id':'cfg-test','tasks':2,'solved':1,'score_percent':50,'benchmark_id':'test','benchmark_identity_id':definition_identity(d),'dataset_split_hash':d['dataset_split_hash'],'scorer_version':'v1'}
   proof={k:True for k in ['complete_task_set','official_scorer_verified','all_canonical_controls_passed','no_task_exclusions','prompt_protocol_verified','unique_task_ids_verified','metrics_verified','independent_audit_verified']}
-  proof.update(benchmark_identity_id=definition_identity(d),dataset_split_hash=d['dataset_split_hash'],scorer_version='v1',audit_hash=r['audit_hash'],runtime_configuration_id=r['runtime_configuration_id'],tasks=2,solved=1,task_ids=ids)
+  proof.update(benchmark_identity_id=definition_identity(d),dataset_split_hash=d['dataset_split_hash'],scorer_version='v1',audit_hash=r['audit_hash'],runtime_configuration_id=r['runtime_configuration_id'],tasks=2,solved=1,task_ids=ids,official_pass_at_1=.5)
   return r,d,proof
  def test_full_conformant_fixture(self):
   self.assertTrue(official_gate(*self.fixture()))
@@ -25,7 +25,16 @@ class LeaderboardTests(unittest.TestCase):
   for key in ['benchmark_revision','dataset_split_hash','scorer_version','expected_task_ids_hash']:
    r,d,p=self.fixture();d[key]=None;self.assertFalse(official_gate(r,d,p))
  def test_unsupported_aggregation_cannot_use_simple_percentage(self):
-  r,d,p=self.fixture();d['metric']='BFCL_official_aggregation';p['benchmark_identity_id']=definition_identity(d);self.assertFalse(official_gate(r,d,p))
+  r,d,p=self.fixture();d['metric']='BFCL_official_aggregation';p['benchmark_identity_id']=definition_identity(d);r['benchmark_identity_id']=definition_identity(d);self.assertFalse(official_gate(r,d,p))
+ def test_known_upstream_exception_requires_full_pinned_controls(self):
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());defs={d['benchmark_id']:d for d in json.loads((ROOT/'data/benchmark-register.json').read_text())['definitions']}
+  r=next(r for r in h['runs'] if r['official_eligible']);d=defs[r['benchmark_id']];p=r['qualification_audit'];self.assertTrue(official_gate(r,d,p))
+  self.assertEqual(p['tasks'],164);self.assertFalse(p['all_canonical_controls_passed'])
+  for key,value in [('task_ids',['HumanEval/0']),('control_task_count',163),('other_canonical_tasks_passed',162),('all_negative_controls_rejected',False),('unchanged_official_oracle_and_dataset',False),('full_task_set_independently_replayed',False),('official_oracle_source_sha256','0'*64)]:
+   changed=copy.deepcopy(p);changed['canonical_reference_exception'][key]=value;self.assertFalse(official_gate(r,d,changed),key)
+  changed=copy.deepcopy(p);changed['no_task_exclusions']=False;self.assertFalse(official_gate(r,d,changed))
+ def test_mtp_warning_survives_official_api_admission(self):
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());r=next(r for r in h['runs'] if r['official_eligible'] and r['experiment_id']=='R118');self.assertIn('not lossless',r['warning']);self.assertIn('local memory/time limits',r['warning'])
  def test_history_append_only(self):
   old=[{'id':'a','score':1}];new=[{'id':'b','score':2}];self.assertEqual(len(frozen_merge(old,new,'id')),2)
   with self.assertRaises(ValueError):frozen_merge(old,[{'id':'a','score':2}],'id')

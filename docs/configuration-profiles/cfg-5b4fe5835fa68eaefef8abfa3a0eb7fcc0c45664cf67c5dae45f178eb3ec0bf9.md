@@ -188,6 +188,8 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 | Experiment | Benchmark / scope | Success | Wall s | GPU J / success | Peak VRAM MiB | Original audits |
 | --- | --- | --- | --- | --- | --- | --- |
 
+Separate benchmark qualification audits: 
+
 | Experiment / arm | Execution evidence | Scientific decision | Original audit |
 | --- | --- | --- | --- |
 | R431 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | GEMMA32K_NEW_CASE_CAPACITY_VALIDATION_PASSED_SCOPE_ONLY | [audit-cd8eb8e97cb00d82a151](../audits/audit-cd8eb8e97cb00d82a151.md) |

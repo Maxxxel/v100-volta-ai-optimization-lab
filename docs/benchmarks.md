@@ -4,13 +4,15 @@
 
 Only complete runs passing the task-set, official-scorer, canonical-control and independent-audit gates enter these rankings. **NOT MEASURED** means no eligible result, not zero ability. Different benchmark versions never share a ranking. No cross-discipline overall score is calculated.
 
+**Local official-benchmark API track.** This is an independent project ranking, not an entry on the benchmark authors’ leaderboard. Full164 HumanEval+ admissions preserve the exact official checker and pass@1 estimator through a streaming API adapter. The unchanged upstream HumanEval/32 canonical-reference residual anomaly is explicitly accounted for, with no dropped tasks or relaxed tolerance. Local scorer limits are 1GiB cgroup memory,805306368-byte per-process guard,one CPU,minimum1s/case and GT factor4. Publisher-protocol equivalence is not established. Scores are fixed-suite observations, not proof of overall model superiority.
+
 <div id="official-leaderboard" aria-live="polite"></div>
 
 ## Current admission status
 
-0 eligible official runs. The 27 projected result groups remain available in [supplemental comparisons](supplemental-comparison.md) and the [configuration comparison](configuration-comparison.md). 246 content-addressed profiles and 219 additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs.
+5 eligible official runs under the declared local protocol. 34 versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. 246 content-addressed profiles and 219 additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.
 
-| Local cohort | Official admission | Reason |
+| Original local cohort classification | Historical scope | Reason before separate admission |
 | --- | --- | --- |
 | coding | SUPPLEMENTAL_SCORER_EXCEPTION | All164 answers observed, but original calibration leaves HumanEval/32 invalid and only163 primary tasks validated. No full-conformance official admission. |
 | mbpp | SUPPLEMENTAL_SUBSET | 223 observed of378 official release tasks; local original-test filter and Mbpp/255 exclusion retained. |
@@ -20,7 +22,7 @@ Only complete runs passing the task-set, official-scorer, canonical-control and 
 
 | Priority | Technical decision / next step | GPU initially required |
 | --- | --- | --- |
-| P0 | Resolve HumanEval/32 with official reference/scorer calibration in CPU isolation, then rescore archived model answers if definitions remain identical. Preserve old scores with a new correction audit. | False |
+| P0_COMPLETE | Five full164 archived model profiles independently replayed with exact official scoring functions. All original judgements confirmed. Known upstream canonical32 anomaly explicitly admitted without exclusions or scorer changes; retain local evaluation limits and publisher-protocol separation. | False |
 | P1 | Admit full BFCLv4 manifest, scorer and categories before new full-tool runs. Keep native100 as pilot. | False |
 | P1 | Assess missing155 MBPP+ tasks and resource-failed task with official scorer before deciding whether a full378 run is practical. Reuse all valid stored answers; no test-driven parameter tuning. | False |
 | P2 | SWE-bench/Terminal-Bench isolated scaffold, disk/RAM and task-image admission; no production tools or implied128K support. | False |

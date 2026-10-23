@@ -12,12 +12,26 @@ def definition_identity(d):
 def official_gate(record,definition,proof):
  if not definition.get('official_definition_verified') or not isinstance(proof,dict):return False
  if not all(definition.get(k) for k in ('benchmark_revision','dataset_split_hash','scorer_version','expected_task_ids_hash')):return False
- required=['complete_task_set','official_scorer_verified','all_canonical_controls_passed','no_task_exclusions','prompt_protocol_verified','unique_task_ids_verified','metrics_verified','independent_audit_verified']
+ required=['complete_task_set','official_scorer_verified','no_task_exclusions','prompt_protocol_verified','unique_task_ids_verified','metrics_verified','independent_audit_verified']
  if not all(proof.get(k) is True for k in required):return False
+ if record.get('benchmark_id')!=definition['benchmark_id'] or record.get('benchmark_identity_id')!=definition_identity(definition):return False
+ if record.get('dataset_split_hash')!=definition.get('dataset_split_hash') or record.get('scorer_version')!=definition.get('scorer_version'):return False
+ if proof.get('all_canonical_controls_passed') is not True:
+  # An unchanged, verified upstream oracle anomaly is not a custom scorer.
+  # It can be admitted only when explicitly pinned in this benchmark protocol,
+  # all tasks stay in the denominator, and every other control is validated.
+  x=proof.get('canonical_reference_exception',{});allowed=definition.get('canonical_reference_exceptions')
+  if not allowed or x.get('task_ids')!=allowed:return False
+  if x.get('control_task_count')!=definition.get('required_task_count') or x.get('other_canonical_tasks_passed')!=definition['required_task_count']-len(allowed):return False
+  if not all(x.get(k) is True for k in ('all_negative_controls_rejected','unchanged_official_oracle_and_dataset','full_task_set_independently_replayed')):return False
+  if x.get('official_oracle_source_sha256')!=definition.get('scorer_version',{}).get('source_sha256'):return False
+  if not all(re.fullmatch('[a-f0-9]{64}',str(x.get(k,''))) for k in ('calibration_sha256','source_review_sha256')):return False
  if proof.get('benchmark_identity_id')!=definition_identity(definition) or proof.get('dataset_split_hash')!=definition.get('dataset_split_hash'):return False
  if proof.get('scorer_version')!=definition.get('scorer_version') or proof.get('audit_hash')!=record['audit_hash']:return False
  if proof.get('runtime_configuration_id')!=record.get('runtime_configuration_id'):return False
  if proof.get('solved')!=record.get('solved') or proof.get('tasks')!=record.get('tasks'):return False
+ if not finite(proof.get('official_pass_at_1')) or not 0<=proof['official_pass_at_1']<=1:return False
+ if not math.isclose(100*proof['official_pass_at_1'],record.get('score_percent',-1),rel_tol=1e-12,abs_tol=1e-12):return False
  if definition.get('metric')!='pass_at_1_percent':return False # Other official aggregations need their own validated adapter.
  count=definition.get('required_task_count')
  ids=proof.get('task_ids')
@@ -69,6 +83,9 @@ def profile(plan,launch,model,name,quantization,experiment,plan_sha,sanitize,met
 
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
+ for audit in db['summary'].get('official_api_replay_verification',{}).get('audits',[]):
+  ident=receipt(audit['path'],audit['sha256'])
+  if not ident:raise ValueError('Official API replay audit unavailable')
  origins={}
  for path in (root/'staging/model-comparison-preparation').glob('*/MODEL_FILE_PROVENANCE.json'):
   a=read(path);h=a.get('actual_sha256') or a.get('sha256');u=a.get('source_url') or a.get('url');m=re.match(r'https://huggingface.co/([^/]+/[^/]+)/resolve/([a-f0-9]{40})/',str(u))
@@ -100,8 +117,9 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
     proof_file=root/admission['proof_path']
     if digest(proof_file)!=admission['proof_sha256']:raise ValueError('Official qualification proof modified')
     proof=read(proof_file)
-    if not bench or not official_gate(run,bench,proof):raise ValueError('Invalid official qualification')
-    run.update(official_eligible=True,qualification_audit=proof,qualification_audit_id=receipt(proof_file,admission['proof_sha256']),status='OFFICIAL_CONFORMANT',status_reason='Independent full-protocol qualification verified.')
+    candidate={**run,'scorer_version':bench.get('scorer_version'),'metric':bench.get('metric')} if bench else run
+    if not bench or not official_gate(candidate,bench,proof):raise ValueError('Invalid official qualification')
+    run.update(scorer_version=bench['scorer_version'],metric=bench['metric'],official_eligible=True,qualification_audit=proof,qualification_audit_id=receipt(proof_file,admission['proof_sha256']),status='FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED',status_reason='Full official scorer/API task set independently verified; declared local evaluation limits and any pinned upstream reference anomaly remain visible.',scorer_execution_limits=proof.get('scorer_execution_limits'),warning=' '.join(x for x in [run['warning'],proof.get('disclosure')] if x) or None)
   run['run_id']='run-'+H(run);runs.append(run)
  # Preserve additional executed/failed configurations, not only chart-selected winners.
  byexp={e['id']:e for e in experiments};history_attempts=[];gaps=[]
@@ -148,12 +166,15 @@ def validate_history(data,defs):
   seen.add(r['run_id'])
   if r['run_id']!='run-'+H({k:v for k,v in r.items() if k!='run_id'}):raise ValueError('Run content identity mismatch')
   if r['runtime_configuration_id'] not in profiles:raise ValueError('Missing immutable configuration')
-  if type(r['tasks']) is not int or not 0<=r['solved']<=r['tasks'] or r['tasks']==0:raise ValueError('Invalid observed counts')
+  if type(r['tasks']) is not int or type(r['solved']) is not int or not 0<=r['solved']<=r['tasks'] or r['tasks']==0:raise ValueError('Invalid observed counts')
+  if r['model_artifact_id']!=profiles[r['runtime_configuration_id']]['model_artifact_id']:raise ValueError('Model artifact/profile mismatch')
   if not math.isclose(r['score_percent'],100*r['solved']/r['tasks'],rel_tol=1e-12):raise ValueError('Unauthorized score conversion')
   if not re.fullmatch('[a-f0-9]{64}',r['audit_hash']):raise ValueError('Missing original audit identity')
   if r['official_eligible']:
    d=defs.get(r['benchmark_id'])
    if not d or not official_gate(r,d,r.get('qualification_audit')):raise ValueError('Unqualified official highscore')
+   p=profiles[r['runtime_configuration_id']]
+   if not all(re.fullmatch('[a-f0-9]{64}',str(v or '')) for v in (p['model']['artifact_sha256'],p['engine']['binary_sha256'])):raise ValueError('Official run missing exact model/engine identity')
  for p in profiles.values():
   if not p.get('model_artifact_id') or not p.get('source_plan_sha256'):raise ValueError('Configuration identity incomplete')
   if p['runtime_configuration_id']!='cfg-'+H({k:v for k,v in p.items() if k!='runtime_configuration_id'}):raise ValueError('Configuration content identity mismatch')
@@ -168,7 +189,7 @@ def pair_delta(a,b):
  def percent(x,y):return (y/x-1)*100 if finite(x) and finite(y) and x>0 else None
  return {'comparable':True,'quality_delta_pp':b['score_percent']-a['score_percent'],'latency_delta_percent':percent(a.get('wall_s'),b.get('wall_s')),'energy_per_success_delta_percent':percent(a.get('gpu_j_per_success'),b.get('gpu_j_per_success')),'interpretation':'Whole-profile comparison. No causal optimization claim without a dedicated independent audit.'}
 
-def render(register,history,comparison,docs):
+def render(register,history,comparison,docs,model_registry=None):
  """Offline pages and immutable profile detail routes, independent of matrix revision."""
  docs=pathlib.Path(docs);assets=docs/'assets/benchmarks';assets.mkdir(parents=True,exist_ok=True)
  def write(p,s):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(s)
@@ -182,17 +203,18 @@ def render(register,history,comparison,docs):
  start=legacy.find('## Official benchmark results and overall mean');end=legacy.find('## Configuration parameters and ranked benchmark results')
  if start>=0 and end>start:legacy=legacy[:start]+legacy[end:]
  legacy=legacy.replace('# Model Comparison & Benchmarks','# Supplemental model comparisons',1).replace('Official benchmark categories, exact tuning profiles and an explicitly defined percentage mean on one V100.','Historical local cohorts and exact tuning profiles; these are not official highscores.').replace('Each row is one audited official-benchmark discipline/profile.','Each row is one audited supplemental discipline/profile.').replace('They are excluded from the overall mean.','No combined score is calculated.').replace('- The overall mean is user-defined; complete selected-set coverage is required. No automatic deployment winner.','- No cross-benchmark mean: subsets and scorer exceptions cannot form an official ranking.')
- notice='\n> **SUPPLEMENTAL EVIDENCE.** HumanEval+164 has an unresolved canonical scorer exception; BFCL static100 and MBPP+223 are frozen subsets. Scores below retain their historical meaning and are excluded from [official highscores](benchmarks.md). No combined percentage mean is calculated.\n\n'
+ notice='\n> **SUPPLEMENTAL / HISTORICAL EVIDENCE.** BFCL static100 and MBPP+223 are frozen subsets. Original HumanEval+ records retain their historical scope here; independently verified full164 API admissions appear in [official local highscores](benchmarks.md), with the unchanged upstream reference anomaly and local evaluation limits disclosed. No combined percentage mean is calculated.\n\n'
  legacy=legacy.replace('- The user-defined mean uses the same complete selected benchmark set for every ranked row; it is not an official combined leaderboard score.','- No mean is calculated across subsets or incompatible protocols.')
  legacy=legacy.replace('\n\n','\n\n'+notice,1)
  write(docs/'supplemental-comparison.md',legacy)
  local=docs/'local-benchmarks.md';text=local.read_text().replace('do not contribute to the official-category percentage mean','are excluded from official highscores; no combined mean is calculated');write(local,text)
  page='# Model Comparison & Benchmarks\n\n<div class="hero"><strong>One result. One exact configuration. One verified protocol.</strong><p>Local official highscores, with full provenance. Publisher claims and laboratory subsets stay separate.</p></div>\n\n'
  page+='Only complete runs passing the task-set, official-scorer, canonical-control and independent-audit gates enter these rankings. **NOT MEASURED** means no eligible result, not zero ability. Different benchmark versions never share a ranking. No cross-discipline overall score is calculated.\n\n'
+ page+='**Local official-benchmark API track.** This is an independent project ranking, not an entry on the benchmark authors’ leaderboard. Full164 HumanEval+ admissions preserve the exact official checker and pass@1 estimator through a streaming API adapter. The unchanged upstream HumanEval/32 canonical-reference residual anomaly is explicitly accounted for, with no dropped tasks or relaxed tolerance. Local scorer limits are 1GiB cgroup memory,805306368-byte per-process guard,one CPU,minimum1s/case and GT factor4. Publisher-protocol equivalence is not established. Scores are fixed-suite observations, not proof of overall model superiority.\n\n'
  page+='<div id="official-leaderboard" aria-live="polite"></div>\n\n'
  eligible=[r for r in history['runs'] if r['official_eligible']]
- page+='## Current admission status\n\n'+str(len(eligible))+' eligible official runs. The '+str(len(history['runs']))+' projected result groups remain available in [supplemental comparisons](supplemental-comparison.md) and the [configuration comparison](configuration-comparison.md). '+str(len(history['profiles']))+' content-addressed profiles and '+str(len(history['attempts']))+' additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs.\n\n'
- page+=table(['Local cohort','Official admission','Reason'],[[k,v['status'],v['reason']] for k,v in register['local_cohort_classification'].items()])
+ page+='## Current admission status\n\n'+str(len(eligible))+' eligible official runs under the declared local protocol. '+str(len(history['runs']))+' versioned result records remain available in the [configuration comparison](configuration-comparison.md); these include preserved historical admission/protocol revisions of the same physical measurements. '+str(len(history['profiles']))+' content-addressed profiles and '+str(len(history['attempts']))+' additional audited configuration attempts are preserved; these are **not** counts of qualified optimizations or distinct GPU jobs. [Historical and subset comparisons](supplemental-comparison.md) remain accessible.\n\n'
+ page+=table(['Original local cohort classification','Historical scope','Reason before separate admission'],[[k,v['status'],v['reason']] for k,v in register['local_cohort_classification'].items()])
  page+='## Next evidence gaps\n\n'+table(['Priority','Technical decision / next step','GPU initially required'],[[x['priority'],x['action'],x.get('GPU_required_initially')] for x in register['next_test_priorities']])
  page+='[Benchmark definitions and publisher evidence](benchmark-register.md) · [Local agent and synthetic tests](local-benchmarks.md) · [Reproduction](reproduce.md)\n\nEach profile records unknown fields as null (**NOT MEASURED**). An absent MTP/graph/cache setting is never assumed off. No-MTP execution does not establish that weights are original. Actual kernel execution is distinct from a requested backend. Historical development suites were reused; no unseen-holdout or absence-of-overfitting claim is made.\n'
  write(docs/'benchmarks.md',page)
@@ -210,6 +232,7 @@ def render(register,history,comparison,docs):
   for title,key in [('Model and weights','model'),('Engine and backend','engine'),('Optimizations','optimizations'),('Runtime and sampler','runtime'),('Ordered startup parameters','start_parameters')]:
    s+='## '+title+'\n\n```json\n'+pretty(p[key])+'\n```\n\n'
   s+='## Results and original audits\n\n'+table(['Experiment','Benchmark / scope','Success','Wall s','GPU J / success','Peak VRAM MiB','Original audits'],[[r['experiment_id'],r['benchmark_id']+' / '+r['status'],str(r['solved'])+'/'+str(r['tasks']),r['wall_s'],r['gpu_j_per_success'],r['peak_vram_mib'],audit_links(r['audit_ids'],'../')] for r in runs])
+  s+='Separate benchmark qualification audits: '+audit_links([r.get('qualification_audit_id') for r in runs],'../')+'\n\n'
   s+=table(['Experiment / arm','Execution evidence','Scientific decision','Original audit'],[[a['experiment_id']+' / '+str(a['arm_index']),a['execution_status'],a['scientific_status'],audit_links([a['audit_id']],'../')] for a in attempts])
   s+='## Immutable full profile and measurements\n\n```json\n'+pretty({'profile':p,'runs':runs,'attempts':attempts})+'\n```\n'
   write(docs/'configuration-profiles'/(ident+'.md'),s)
@@ -219,10 +242,14 @@ def render(register,history,comparison,docs):
   page+='Model-card sources: '+', '.join('['+m['model_repository']+']('+m['url']+')' for m in d.get('model_card_references',[]))+'\n\n'
  page+='## Verified cached model cards\n\n'+table(['Model','Revision / source SHA256','Reported benchmark families','Architecture declared by source','Card'],[[m['model_repository'],str(m.get('revision'))+' / '+m['source_sha256'],', '.join(m['benchmark_mentions']),json.dumps(m.get('architecture')),'[source]('+m['url']+')'] for m in register['model_card_evidence']])
  page+='## Publisher numeric claims — never local highscores\n\nReported numeric cells retain the publisher’s scale. Protocol matching and local reproducibility remain unverified; no conversion to local percentage or cross-model ranking is performed.\n\n'+table(['Model / publisher column','Reported label','Reported value','Scale / comparability','Source'],[[c['model_repository']+' / '+c['column_label'],c['benchmark_label'],c['reported_score'],c['score_unit']+' / '+c['benchmark_definition_match'],'[card]('+c['source_url']+')'] for c in register['publisher_claims']])
+ page+='## Independent CPU replay of archived model answers\n\nThese are verification events for existing measurements, **not new GPU runs**. Official scoring functions and pass@1 aggregation were replayed through a streaming API adapter, preserving all164 tasks and the known upstream canonical-reference exception. The full optional CLI was not used; evaluation memory limits remain explicitly local. This verifies archived judgments without implying publisher-protocol equivalence or automatic official highscore qualification.\n\n'+table(['Original experiment','Full task coverage','Confirmed successes','Changed judgments','Verification audit'],[[x['experiment_id'],x['tasks'],x['solved'],x.get('changed_judgements'),audit_links([x['audit_id']])] for x in register.get('local_validation_events',[])])
  page+='## Unreachable / unresolved model-card identities\n\n```json\n'+pretty(register['unreachable_model_cards'])+'\n```\n\n## Source retrieval receipts\n\n```json\n'+pretty(register['source_checks'])+'\n```\n'
+ page+='\n## Transparent admission-policy corrections\n\n'+table(['Previous definition identity','Correction / preserved boundaries'],[[x['previous_identity'],x['correction']] for x in register.get('definition_history',[])])
  write(docs/'benchmark-register.md',page)
  reproduce=docs/'reproduce.md'
  if reproduce.is_file():
   write(reproduce,reproduce.read_text()+'\n## Official benchmark admission and immutable profiles\n\n`data/benchmark-register.json` pins benchmark definitions, task manifests where verified, scorer identities, primary-source receipts and separate publisher claims. `data/configuration-history.json` retains content-addressed profiles, measured groups, failed/declared attempts and explicit provenance gaps. Null fields mean **NOT MEASURED**.\n\nOfficial admission requires an independently audited full task manifest, exact dataset/scorer/configuration/audit identities and validated protocol/controls. Unsupported official metric aggregations require their own adapter. Subsets, canonical-reference exceptions and local tests remain supplemental until resolved through a separate qualification audit. Corrections append a new result/profile; original audits and earlier scores remain preserved.\n\nThe existing documentation publisher fingerprints the canonical benchmark register as well as the research matrix/reference ledger. It regenerates offline views, checks immutable history, task counts, hashes, links and public confidentiality before committing/pushing. Bounded publication retries do not block research; neither export nor GitHub Actions launches GPU jobs. Historical task exposure is disclosed, and parameter tuning belongs on development data.\n\nUse the existing export → render → unit tests → public validation → strict MkDocs sequence. Charts and profile comparisons use only bundled JSON/JavaScript/SVG; no external chart service is required. Whole-profile deltas are descriptive and do not establish the causal effect of an individual optimization.\n')
- payload={'register':register,'history':history,'models':comparison['models']}
+ models=list(comparison['models']);aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'};covered={aliases[x['id']] for x in models if x['id'] in aliases}
+ models += [{'id':m['id'],'name':m['name'],'quantization':'NOT MEASURED'} for m in (model_registry or []) if m['id'] not in covered]
+ payload={'register':register,'history':history,'models':models}
  write(assets/'leaderboard-data.js','window.V100Leaderboard='+json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')+';\n')

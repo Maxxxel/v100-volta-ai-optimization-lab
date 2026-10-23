@@ -45,7 +45,7 @@ class ComparisonTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as directory:
    render(json.loads((root/'data/comparison.json').read_text()),directory,model_registry=json.loads((root/'data/models.json').read_text()),experiments=json.loads((root/'data/experiments.json').read_text()))
    page=(pathlib.Path(directory)/'benchmarks.md').read_text()
-   self.assertIn('MiMo V2.6',page);self.assertIn('Rank within cohort',page);self.assertIn('Other tuning / sampler / limits',page);self.assertIn('Overall mean (%)',page);self.assertIn('Official benchmark',page);self.assertNotIn('## Agents ·',page);self.assertIn('Agents ·',(pathlib.Path(directory)/'local-benchmarks.md').read_text())
+   self.assertIn('MiMo V2.6',page);self.assertIn('Rank within cohort',page);self.assertIn('Other tuning / sampler / limits',page);self.assertNotIn('Overall mean (%)',page);self.assertIn('Supplemental cohort overview',page);self.assertNotIn('## Agents ·',page);self.assertIn('Agents ·',(pathlib.Path(directory)/'local-benchmarks.md').read_text())
  def test_percentage_mean_requires_same_complete_benchmark_set(self):
   from comparison import mean_percentages
   self.assertEqual(mean_percentages({'coding':80,'tools':90},['coding','tools']),85)

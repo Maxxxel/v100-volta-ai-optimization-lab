@@ -8,6 +8,7 @@
 | --- | --- |
 | benchmark_id | humanevalplus-v0.1.10 |
 | benchmark_revision | release:v0.1.10 |
+| canonical_reference_exceptions | ["HumanEval/32"] |
 | category | coding |
 | dataset_split | test |
 | dataset_split_hash | 42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f |
@@ -16,12 +17,12 @@
 | hf_latest_observed_revision | d32357cf319e50e9c8d8dab5ea876c72b0fd321b |
 | hf_revision_is_not_release_equivalence_proof | True |
 | license | Apache-2.0 |
-| local_complete_conformant_results | NOT MEASURED |
+| local_complete_conformant_results | 5 independently replayed full official API records under the declared local evaluation protocol; not publisher-protocol or production qualifications. |
 | metric | pass_at_1_percent |
 | name | HumanEval+ v0.1.10 |
 | official_definition_verified | True |
 | provider_repository | https://github.com/evalplus/evalplus |
-| required_evaluation_settings | All164 IDs, official base AND plus, declared native generation recipe; canonical solutions must pass all calibration tasks. No silent invalid-task exclusion. |
+| required_evaluation_settings | Full164 v0.1.10 IDs; one frozen answer per task; official base AND plus checker and pass@1 estimator; model-native prompt/sampler disclosed. All canonical controls accounted for, including the pinned unchanged upstream HumanEval/32 residual anomaly. No task exclusions or tolerance changes. Local scorer limits: 1GiB cgroup,805306368-byte EVALPLUS memory limit,one CPU,minimum1s/case,GT factor4. Publisher protocol equivalence is NOT VERIFIED. |
 | required_task_count | 164 |
 | scorer_version | {"git_commit": "26d6d00bb1fd0fa37f39c99d5290da67891d1c5e", "package": "evalplus", "source_sha256": "3c833c39b842e33f251c83db4347e0a95191909f23b390c12d73ab29a28a4daf", "version": "0.3.1 + official find_zero progress fix"} |
 | status | DEFINITION_PINNED |
@@ -235,6 +236,18 @@ Reported numeric cells retain the publisher’s scale. Protocol matching and loc
 | LiquidAI/LFM2.5-8B-A1B / LFM2.5-8B-A1B | BFCLv3 45.07 | 64.36 | PUBLISHER_REPORTED_UNCONFIRMED_SCALE / NOT VERIFIED | [card](https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md) |
 | LiquidAI/LFM2.5-8B-A1B / LFM2.5-8B-A1B | BFCLv4 25.52 | 48.5 | PUBLISHER_REPORTED_UNCONFIRMED_SCALE / NOT VERIFIED | [card](https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md) |
 
+## Independent CPU replay of archived model answers
+
+These are verification events for existing measurements, **not new GPU runs**. Official scoring functions and pass@1 aggregation were replayed through a streaming API adapter, preserving all164 tasks and the known upstream canonical-reference exception. The full optional CLI was not used; evaluation memory limits remain explicitly local. This verifies archived judgments without implying publisher-protocol equivalence or automatic official highscore qualification.
+
+| Original experiment | Full task coverage | Confirmed successes | Changed judgments | Verification audit |
+| --- | --- | --- | --- | --- |
+| R217 | 164 | 132 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
+| R255 | 164 | 132 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
+| R425 | 164 | 149 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
+| R117 | 164 | 148 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
+| R118 | 164 | 150 | 0 | [audit-d308fd8d22dee385af6d](audits/audit-d308fd8d22dee385af6d.md) |
+
 ## Unreachable / unresolved model-card identities
 
 ```json
@@ -319,3 +332,10 @@ Reported numeric cells retain the publisher’s scale. Protocol matching and loc
   }
 }
 ```
+
+## Transparent admission-policy corrections
+
+| Previous definition identity | Correction / preserved boundaries |
+| --- | --- |
+| bench-cd00cbe0bd8dc4e4024ca32e47d28496abf2400f18f5e476d1f91c3b609b616f | The initial project admission wording required every canonical reference to pass. Source/API replay proves the documented HumanEval/32 residual anomaly also occurs under the exact official oracle. Permit that explicitly pinned upstream anomaly without dropping any task, changing tolerance or changing the official scorer. This is a transparent admission-policy correction, not a changed score or dataset. |
+

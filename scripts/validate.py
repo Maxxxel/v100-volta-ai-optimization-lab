@@ -84,7 +84,15 @@ def validate(check_manifest=True):
   if len(row['audit_ids'])!=len(row['audit_sha256']) or any(pins.get(k)!=v for k,v in zip(row['audit_ids'],row['audit_sha256'])):errors.append('Comparison audit reference/hash pairing mismatch')
   if not set(row['audit_sha256'])<={x['original_sha256'] for x in au}:errors.append('Comparison original audit hash missing')
  from leaderboard import validate_history
- validate_history(read('configuration-history.json'),{d['benchmark_id']:d for d in read('benchmark-register.json')['definitions']})
+ history=read('configuration-history.json');register=read('benchmark-register.json')
+ validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
+ for r in history['runs']:
+  if not set(r['audit_ids'])<=aids:errors.append('Configuration result missing original audit')
+  if r['official_eligible'] and r.get('qualification_audit_id') not in aids:errors.append('Official result missing independent qualification audit')
+ for event in register.get('local_validation_events',[]):
+  audit=next((a for a in au if a['id']==event['audit_id']),{})
+  metrics=audit.get('aggregate_metrics',{}).get('models',{}).get(event['experiment_id'],{})
+  if audit.get('original_sha256')!=event['audit_sha256'] or any(metrics.get(k)!=event[k] for k in ('tasks','solved','changed_judgements')):errors.append('CPU replay event disagrees with verified audit excerpt')
  import xml.etree.ElementTree as ET
  for svg in (ROOT/'docs/assets/benchmarks').glob('*.svg'):
   tree=ET.fromstring(svg.read_text())

@@ -249965,5 +249965,129 @@
     "original_publicly_available": false,
     "original_sha256": "3c9647fe690b7bc9e5e1ca0c69a06e824fc78a4c3ad5cd303997419911752429",
     "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 132,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6120c9bfbe6837f23550",
+    "original_bytes": 6554,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6120c9bfbe6837f235507708fb0e834f3288ca5e80ed8bd7c5679e128e90d413",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 132,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-613a2462c4d6d4acc9a2",
+    "original_bytes": 6554,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "613a2462c4d6d4acc9a2f8adfd86bc0c279e458656c4a8466e79c1e0ea52171d",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 149,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c9a2aa59b56b7697e2a3",
+    "original_bytes": 6554,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c9a2aa59b56b7697e2a39b2dddbef0a3565d35f352da07d6c1f2cde7a78d0cae",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 148,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-92d1af728ef1dc0c6c83",
+    "original_bytes": 6554,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "92d1af728ef1dc0c6c83f3ddc8b8c74aa2820bf6edb207432e396a8a71d45f00",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 150,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-09c5716742d2ca13849d",
+    "original_bytes": 6554,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "09c5716742d2ca13849d06c1bd6fb7a269631141419135fd94beee18e3ddbfb5",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 0,
+      "models": {
+        "R117": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 148,
+          "tasks": 164
+        },
+        "R118": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 150,
+          "tasks": 164
+        },
+        "R217": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 132,
+          "tasks": 164
+        },
+        "R255": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 132,
+          "tasks": 164
+        },
+        "R425": {
+          "GPU_runs": 0,
+          "changed_judgements": 0,
+          "model_generations": 0,
+          "solved": 149,
+          "tasks": 164
+        }
+      },
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d308fd8d22dee385af6d",
+    "original_bytes": 2196,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d308fd8d22dee385af6da1432019e9853e1883c9f5cc1a9a9f96726faacd4daa",
+    "statements": {
+      "decision": "FULL_OFFICIAL_API_RESULTS_ADMITTED_UNDER_PINNED_LOCAL_PROTOCOL_WITH_DECLARED_UNCHANGED_UPSTREAM_REFERENCE_ANOMALY",
+      "scope": "Benchmark measurement qualification only, not production/model superiority/optimization causality. Publisher protocols remain separate."
+    }
   }
 ]

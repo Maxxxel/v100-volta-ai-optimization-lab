@@ -188,6 +188,8 @@ Profile ID: `cfg-14c6c5ce741ace10eeb28ee482973e7cf91c016ba3aab8120fdcd5eb1acec05
 | Experiment | Benchmark / scope | Success | Wall s | GPU J / success | Peak VRAM MiB | Original audits |
 | --- | --- | --- | --- | --- | --- | --- |
 
+Separate benchmark qualification audits: 
+
 | Experiment / arm | Execution evidence | Scientific decision | Original audit |
 | --- | --- | --- | --- |
 | R426 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | GEMMA4_AGENT_MODEL_SCREEN_NO_PRACTICAL_WIN_OR_PARTIAL | [audit-021cfb8ba15cb4471b11](../audits/audit-021cfb8ba15cb4471b11.md) |

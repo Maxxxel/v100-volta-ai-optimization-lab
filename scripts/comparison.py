@@ -250,28 +250,21 @@ def render(data,docs,model_registry=None,experiments=None):
     page='# Model Comparison & Benchmarks\n\n<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Separate coding, native tools and agent results on one V100. No combined score and no automatic winner.</p></div>\n\n'
     page+='\n'.join('- '+x for x in data['rules'])+'\n\nCharts run from best measured value at the top to worst at the bottom: success/throughput descending; latency/energy/VRAM ascending. Missing measurements follow all measured values. Ties retain a stable profile order. Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.\n\n'
     page+='Measurement-only fingerprint: `'+data['measurement_fingerprint']+'`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).\n\n'
-    page+='## Official benchmark results and overall mean\n\nThe overall score is the **unweighted arithmetic mean of the selected benchmark percentages**, requested for this project. It is not an official cross-benchmark leaderboard score. Every ranked row must have all selected results; missing results are never zero and never silently omitted. The default set is HumanEval+164 and the frozen BFCL v4 static100 subset. MBPP+223 is an optional admitted subset. These subsets are labelled, not presented as complete BFCL/MBPP leaderboards. Local Agent18, custom QA and long-context suites do not enter this ranking.\n\nLatest complete audited runs are selected by default; where multiple profiles exist, the table lets you select the actual run. **Per-benchmark tuning may differ**: the mean compares the selected measured runs, not an independently qualified single deployment configuration. Full tuning parameters and audit links follow below.\n\n'
+    page+='## Supplemental cohort overview\n\nFrozen subsets and historical full-suite records remain visible. Current official API admissions are separate; no cross-benchmark mean is computed.\n\n'
     aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'}
     models=list(data['models']);covered={aliases[x['id']] for x in models if x['id'] in aliases}
     models += [{'id':x['id'],'name':x['name'],'quantization':'See admission record'} for x in (model_registry or []) if x['id'] not in covered]
-    official=['coding','tools','mbpp'];selected=['coding','tools'];overview=[]
+    official=['coding','tools','mbpp'];out=[]
     for model in models:
-        runs={k:sorted([r for r in data['records'] if r['model']==model['id'] and r['discipline']==k],key=lambda r:int(r['experiment'][1:])) for k in official}
-        chosen={k:rr[-1] if rr else None for k,rr in runs.items()}
-        scores={k:(100*r['solved']/r['tasks'] if r else None) for k,r in chosen.items()}
-        overview.append({'model':model,'runs':runs,'chosen':chosen,'scores':scores,'mean':mean_percentages(scores,selected)})
-    ordered=sorted(overview,key=lambda x:(x['mean'] is None,-x['mean'] if x['mean'] is not None else 0,x['model']['name']))
-    previous=None;rank=0;out=[]
-    for position,row in enumerate(ordered,1):
-        mean=row['mean'];model=row['model']
-        if mean is not None and mean!=previous:rank=position;previous=mean
-        def score(k):
-            r=row['chosen'][k]
-            return f"{r['solved']}/{r['tasks']} ({row['scores'][k]:.2f}%) [{r['experiment']}](experiments/{r['experiment']}.md)" if r else 'NOT MEASURED'
-        out.append([model['name']+' / '+model['quantization'],score('coding'),score('tools'),score('mbpp'),f'{mean:.2f}%' if mean is not None else 'NOT MEASURED',str(sum(row['scores'][k] is not None for k in selected))+'/'+str(len(selected)),rank if mean is not None else '—'])
-    page+='<div id="benchmark-selection"></div>\n\n'+table(['Model / quantization','HumanEval+164','BFCL v4 static100 subset','MBPP+223 subset','Overall mean (%)','Selected coverage','Overall rank'],out)
+        cells=[model['name']+' / '+model['quantization']]
+        for k in official:
+            runs=sorted([r for r in data['records'] if r['model']==model['id'] and r['discipline']==k],key=lambda r:int(r['experiment'][1:]))
+            r=runs[-1] if runs else None
+            cells.append(f"{r['solved']}/{r['tasks']} ({100*r['solved']/r['tasks']:.2f}%) [{r['experiment']}](experiments/{r['experiment']}.md)" if r else 'NOT MEASURED')
+        out.append(cells)
+    page+=table(['Model / quantization','HumanEval+164 historical','BFCL v4 static100 subset','MBPP+223 subset'],out)
     page+='All '+str(len(models))+' baseline/candidate tracks remain visible. Partial or research-only models have NOT MEASURED entries until complete comparable runs exist. The official-agent category is currently NOT MEASURED locally; our own agent tests are [supplemental laboratory evidence](local-benchmarks.md), not a substitute for an official agent benchmark.\n\n'
-    page+='## Configuration parameters and ranked benchmark results\n\nEach row is one audited official-benchmark discipline/profile. **Ranks are calculated only within the same task cohort**, using solved/tasks, descending, with equal rates sharing a rank. They are not allround model rankings. The optimization/profile column describes the actual tested configuration; full controls and hashes appear in the chart metadata sections below.\n\n'
+    page+='## Configuration parameters and ranked benchmark results\n\nEach row is one audited supplemental discipline/profile. **Ranks are calculated only within the same task cohort**, using solved/tasks, descending, with equal rates sharing a rank. They are not allround model rankings. The optimization/profile column describes the actual tested configuration; full controls and hashes appear in the chart metadata sections below.\n\n'
     profile_rows=[]
     for discipline in data['cohorts']:
         if discipline not in official:continue
@@ -326,9 +319,7 @@ def render(data,docs,model_registry=None,experiments=None):
     for section in sections[1:]:
         (local if section.startswith(local_titles) else main).append(section)
     page='\n## '.join(main)
-    page=page.replace('Separate coding, native tools and agent results on one V100. No combined score and no automatic winner.','Official benchmark categories, exact tuning profiles and an explicitly defined percentage mean on one V100.')
-    page=page.replace('- No combined score. Counts are one observed answer per task unless repeated cycles are explicitly stated.','- The overall mean is user-defined; complete selected-set coverage is required. No automatic deployment winner.')
-    page+='\n## Supplemental local tests\n\nOwn agent, QA, long-context and historical synthetic results remain [available separately](local-benchmarks.md). They are excluded from the overall mean.\n'
-    write(docs/'local-benchmarks.md','# Supplemental laboratory benchmarks\n\nThese local agent, QA, context and native performance tests remain auditable but do not contribute to the official-category percentage mean. [Return to official benchmark results](benchmarks.md).\n\n'+('## '+'\n## '.join(local) if local else 'NOT MEASURED')+'\n')
-    write(dest/'benchmark-table-data.js','window.V100Comparison='+json.dumps({'models':models,'records':[r for r in data['records'] if r['discipline'] in official],'selected':selected},ensure_ascii=False,allow_nan=False).replace('<','\\u003c')+';\n')
+    page+='\n## Supplemental local tests\n\nOwn agent, QA, long-context and historical synthetic results remain [available separately](local-benchmarks.md). No combined score is calculated.\n'
+    write(docs/'local-benchmarks.md','# Supplemental laboratory benchmarks\n\nThese local agent, QA, context and native performance tests remain auditable but are excluded from official highscores; no combined mean is calculated. [Return to official benchmark results](benchmarks.md).\n\n'+('## '+'\n## '.join(local) if local else 'NOT MEASURED')+'\n')
+    write(dest/'benchmark-table-data.js','window.V100Comparison='+json.dumps({'models':models,'records':[r for r in data['records'] if r['discipline'] in official],'selected':[]},ensure_ascii=False,allow_nan=False).replace('<','\\u003c')+';\n')
     write(docs/'benchmarks.md',page)

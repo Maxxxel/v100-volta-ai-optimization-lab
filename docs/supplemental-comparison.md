@@ -1,9 +1,9 @@
 # Supplemental model comparisons
 
 
-> **SUPPLEMENTAL EVIDENCE.** HumanEval+164 has an unresolved canonical scorer exception; BFCL static100 and MBPP+223 are frozen subsets. Scores below retain their historical meaning and are excluded from [official highscores](benchmarks.md). No combined percentage mean is calculated.
+> **SUPPLEMENTAL / HISTORICAL EVIDENCE.** BFCL static100 and MBPP+223 are frozen subsets. Original HumanEval+ records retain their historical scope here; independently verified full164 API admissions appear in [official local highscores](benchmarks.md), with the unchanged upstream reference anomaly and local evaluation limits disclosed. No combined percentage mean is calculated.
 
-<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Historical local cohorts and exact tuning profiles; these are not official highscores.</p></div>
+<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Separate coding, native tools and agent results on one V100. No combined score and no automatic winner.</p></div>
 
 - No mean is calculated across subsets or incompatible protocols.
 - Whole configurations: model, tokenizer, native template, output budget, sampling, quantization and engine can differ. Task/scorer matching permits comparison of these profiles, not causal architecture claims.
@@ -13,6 +13,29 @@
 Charts run from best measured value at the top to worst at the bottom: success/throughput descending; latency/energy/VRAM ascending. Missing measurements follow all measured values. Ties retain a stable profile order. Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
 Measurement-only fingerprint: `4c76e5c1cfd545d9fd7ac75c4353f5f7d7bef2f87991231122e4b5471493010c`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+
+## Supplemental cohort overview
+
+Frozen subsets and historical full-suite records remain visible. Current official API admissions are separate; no cross-benchmark mean is computed.
+
+| Model / quantization | HumanEval+164 historical | BFCL v4 static100 subset | MBPP+223 subset |
+|---|---|---|---|
+| OmniCoder2 9B / Q6_K | 132/164 (80.49%) [R217](experiments/R217.md) | 88/100 (88.00%) [R183](experiments/R183.md) | 162/223 (72.65%) [R415](experiments/R415.md) |
+| Qwen3.5 9B / Q4_K_M | 132/164 (80.49%) [R255](experiments/R255.md) | 87/100 (87.00%) [R227](experiments/R227.md) | NOT MEASURED |
+| Qwen3.8 27B / GSQ/RCO IQ3_S | 150/164 (91.46%) [R118](experiments/R118.md) | NOT MEASURED | 172/223 (77.13%) [R416](experiments/R416.md) |
+| Ornith 1.5 9B / Q6_K | 117/164 (71.34%) [R254](experiments/R254.md) | NOT MEASURED | NOT MEASURED |
+| Ternary Bonsai 2 27B / PQ2_0 | 151/164 (92.07%) [R279](experiments/R279.md) | 90/100 (90.00%) [R281](experiments/R281.md) | NOT MEASURED |
+| OxCoder 9B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| Gemma4 12B IT QAT / Q4_0 | 149/164 (90.85%) [R425](experiments/R425.md) | 84/100 (84.00%) [R424](experiments/R424.md) | 168/223 (75.34%) [R428](experiments/R428.md) |
+| LFM2.5 8B A1B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| MiMo V2.6 Distill Qwen 9B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| Qwen3.6 27B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| LFM2.5 24B A2B QAD / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| LightOnOCR 3 4B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| UI-Venus 1.5 8B / Holo2 8B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+| Qwen3.8 Flash-MTP-Derivat / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+
+All 14 baseline/candidate tracks remain visible. Partial or research-only models have NOT MEASURED entries until complete comparable runs exist. The official-agent category is currently NOT MEASURED locally; our own agent tests are [supplemental laboratory evidence](local-benchmarks.md), not a substitute for an official agent benchmark.
 
 ## Configuration parameters and ranked benchmark results
 

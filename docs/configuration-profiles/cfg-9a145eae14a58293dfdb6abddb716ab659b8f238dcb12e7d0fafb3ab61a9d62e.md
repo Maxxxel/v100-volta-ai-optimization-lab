@@ -175,6 +175,8 @@ Profile ID: `cfg-9a145eae14a58293dfdb6abddb716ab659b8f238dcb12e7d0fafb3ab61a9d62
 | Experiment | Benchmark / scope | Success | Wall s | GPU J / success | Peak VRAM MiB | Original audits |
 | --- | --- | --- | --- | --- | --- | --- |
 
+Separate benchmark qualification audits: 
+
 | Experiment / arm | Execution evidence | Scientific decision | Original audit |
 | --- | --- | --- | --- |
 | R132 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | MATCHED_OMNICODER2_Q4_ORIGINAL_NATIVE_A0_CALIBRATED | [audit-cc4a0b8610c091844255](../audits/audit-cc4a0b8610c091844255.md) |

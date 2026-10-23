@@ -44,6 +44,6 @@
     }
     render();
   }
-  function init(){document.querySelectorAll('table').forEach(table=>{if(!table.tHead||!table.tBodies.length)return;const text=table.tHead.textContent;if(text.includes('Overall mean (%)')&&root.V100Comparison)modelTable(table,root.V100Comparison);else if(text.includes('Rank within cohort'))sortable(table,true);});}
+  function init(){document.querySelectorAll('table').forEach(table=>{if(!table.tHead||!table.tBodies.length)return;const text=table.tHead.textContent;if(text.includes('Overall mean (%)')&&root.V100Comparison)modelTable(table,root.V100Comparison);else if(text.includes('Rank within cohort'))sortable(table,true);else if(text.includes('Model / quantization'))sortable(table,false);});}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })(typeof window==='undefined'?{}:window);
