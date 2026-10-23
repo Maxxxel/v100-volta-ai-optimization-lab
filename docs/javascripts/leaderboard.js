@@ -35,12 +35,13 @@ function allResults(target,data,profiles){
  const names={'humanevalplus-v0.1.10':'HumanEval+','bfcl-v4-full':'BFCL','mbppplus-v0.2.0':'MBPP+'};
  function scoreCell(runs){
   if(!runs.length)return null;
-  const box=E('div');box.className='result-scores';
-  const values=[...new Set(runs.map(r=>r.score_percent))];box.dataset.sort=values.length===1?String(values[0]):'';
-  runs.forEach(r=>{const entry=E('div');entry.className='result-score';
-   const value=link(format(r.score_percent)+'%','../configuration-profiles/'+r.runtime_configuration_id+'/');value.className='result-score-value';entry.append(value,E('span',r.solved+' / '+r.tasks));
-   const scope=E('small',r.official_eligible?'FULL · admitted':r.status.includes('SUBSET')?'SUBSET · historical':'HISTORICAL · local protocol');scope.className=r.official_eligible?'result-admitted':'result-historical';entry.append(scope);
-   entry.title=r.experiment_id+' · '+r.benchmark_revision+' · '+r.benchmark_identity_id+' · Request wall: '+format(r.wall_s)+' s · GPU J/success: '+format(r.gpu_j_per_success)+' · VRAM: '+format(r.peak_vram_mib)+' MiB';box.append(entry);
+  // Collapse admission-history revisions of the SAME immutable measurement only.
+  // Different task sets, outcomes or source audits always stay separate.
+  const measurements=new Map();runs.forEach(r=>{const key=canonical([r.audit_hash,r.experiment_id,r.runtime_configuration_id,r.benchmark_id,r.solved,r.tasks,r.evaluated_task_set_hash]);const old=measurements.get(key);if(!old||r.official_eligible&&!old.official_eligible)measurements.set(key,r);});
+  const visible=[...measurements.values()],box=E('div');box.className='result-scores';
+  const values=[...new Set(visible.map(r=>r.score_percent))];box.dataset.sort=values.length===1?String(values[0]):'';
+  visible.forEach((r,i)=>{if(i)box.append(E('br'));const mark=r.official_eligible?'':r.status.includes('SUBSET')?'*':'†';const value=link(format(r.score_percent)+'%'+mark+' ('+r.solved+'/'+r.tasks+')','../configuration-profiles/'+r.runtime_configuration_id+'/');
+   value.title=r.experiment_id+' · '+r.status+' · '+r.benchmark_revision+' · Request wall: '+format(r.wall_s)+' s · GPU J/success: '+format(r.gpu_j_per_success)+' · VRAM: '+format(r.peak_vram_mib)+' MiB';box.append(value);
   });return box;
  }
  function draw(){
@@ -49,12 +50,12 @@ function allResults(target,data,profiles){
   const rows=[];
   [...groups.entries()].sort((a,b)=>profiles.get(a[0]).model.name.localeCompare(profiles.get(b[0]).model.name)).forEach(([id,runs])=>{
    const p=profiles.get(id),o=p.optimizations,t=p.runtime;if(!canonical({profile:p,runs}).toLowerCase().includes(q))return;
-   const model=E('div');model.className='result-model';model.append(link(p.model.name,'../configuration-profiles/'+id+'/'),E('small',id.slice(0,16)+'…'));
+   const model=E('div');model.className='result-model';model.append(link(p.model.name,'../configuration-profiles/'+id+'/'));
    const basic=[model,p.model.quantization,p.engine.name,(p.engine.git_commit||p.engine.build_id||p.engine.version)?.slice(0,12),t.thinking_reasoning_requested,o.speculation_type,o.HBM_conversion_weight_cache_limit_mib,t.context];
    const extra=advanced.checked?[o.draft_parameters?.['--spec-draft-n-max'],o.flash_attention_requested,o.KV_precision?.k,o.KV_precision?.v,t.max_output,t.batch,t.microbatch,t.CPU_threads,t.sampling?.temperature,t.sampling?.top_p,t.sampling?.top_k,t.sampling?.min_p,t.sampling?.seed,t.power_limit_w]:[];
    rows.push([...basic,...extra,...benchmarkIds.map(bench=>scoreCell(runs.filter(r=>r.benchmark_id===bench)))]);
   });
-  area.textContent='';area.append(E('p',rows.length+' measured configurations. One row per immutable tuning profile; one column per benchmark. Historical protocol revisions remain labelled. Different profiles are never silently merged.'),table(['Model / full configuration','Quant','Engine','Build','Thinking','MTP','HBM MiB','Context',...(advanced.checked?['Draft max','Flash attention','KV K','KV V','Output','Batch','Microbatch','Threads','Temperature','Top-p','Top-k','Min-p','Seed','Power W']:[]),...benchmarkIds.map(id=>names[id]||id)],rows));
+  area.textContent='';area.append(E('p',rows.length+' measured configurations · * subset · † historical scorer protocol · NOT MEASURED = no result. Equal results from admission revisions of the same original measurement are shown once; complete history remains on each profile.'),table(['Model','Quant','Engine','Build','Thinking','MTP','HBM MiB','Context',...(advanced.checked?['Draft max','Flash attention','KV K','KV V','Output','Batch','Microbatch','Threads','Temperature','Top-p','Top-k','Min-p','Seed','Power W']:[]),...benchmarkIds.map(id=>names[id]||id)],rows));
   const t=area.querySelector('table');t.classList.add('results-overview');
   const scroll=area.querySelector('.leaderboard-scroll');if(scroll){scroll.setAttribute('tabindex','0');scroll.setAttribute('aria-label','Configuration results table; scroll horizontally for benchmark columns');}
  }

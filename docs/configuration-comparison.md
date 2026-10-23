@@ -2,7 +2,7 @@
 
 ## All measured results
 
-One row per measured configuration, tuning parameters on the left and one result column per benchmark on the right. Show all tuning columns when needed. Full official admissions and historical/subset evidence remain explicitly labelled; this view is not a combined ranking. Open the model profile link for full startup commands, hashes, individual run metrics and provenance. Unknown values remain **NOT MEASURED**.
+One row per measured configuration. Tuning parameters are on the left; HumanEval+, BFCL and MBPP+ results are on the right. **Asterisk: subset. Dagger: historical scorer protocol.** Unmarked values passed the declared local official-benchmark admission. Click a model for full parameters, metrics and audits. Additional tuning columns are optional. No combined score. Unknown values remain **NOT MEASURED**.
 
 <div id="all-measured-results" aria-live="polite"></div>
 
