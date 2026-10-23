@@ -1,0 +1,21 @@
+# Public audit excerpt
+
+Original SHA256: `631ae103ba39e19e4eef3af907e8424788c0cd519ebc8b989fde51c635ca3caa`
+
+Original file: `AUDIT.json`; 612 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+```json
+{
+  "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+}
+```
+
+## Selected aggregate measurements
+
+```json
+{
+  "new_GPU_runs": 0,
+  "solved": 4,
+  "tasks": 8
+}
+```

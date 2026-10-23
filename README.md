@@ -49,6 +49,8 @@ See [Qualified configurations](docs/configurations.md), [Rejected optimizations]
 
 Numerical values are exported without invented missing measurements. Original rationale excerpts may remain in German. Public audit excerpts are intentionally incomplete and have different bytes from the original audits whose hashes they cite.
 
+[Open the interactive Benchmark Master Table](docs/configuration-comparison.md): exact configurations, versioned benchmarks, selectable columns, user-defined averages and audit-linked evidence.
+
 ## Documentation and collaboration
 
 Build the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.

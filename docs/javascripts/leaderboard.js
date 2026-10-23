@@ -25,42 +25,7 @@ function official(target,data,profiles){
  identities.forEach(identity=>{out.append(E('h3',def.name+' · '+identity.slice(0,18)));const rows=best(all,identity);let rank=0,last=null;rows.forEach((r,i)=>{const card=E('article');card.className='leaderboard-card';const p=profiles.get(r.runtime_configuration_id);if(r.score_percent!==last){rank=i+1;last=r.score_percent;}card.append(E('h4',rank+'. '+r.model_name+' · '+r.solved+'/'+r.tasks+' ('+format(r.score_percent)+'%)'),E('p',summary(p)),profileLink(r.runtime_configuration_id));const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 600 34');svg.setAttribute('role','img');svg.setAttribute('aria-label',r.model_name+' '+format(r.score_percent)+' percent');const bar=document.createElementNS(svg.namespaceURI,'rect');bar.setAttribute('width',String(6*r.score_percent));bar.setAttribute('height','24');bar.setAttribute('fill','#51d8bc');svg.append(bar);const specificWarning=r.qualification_audit?.disclosure?r.warning?.replace(r.qualification_audit.disclosure,'').trim():r.warning;if(specificWarning){const w=E('p',specificWarning);w.className='benchmark-warning';card.append(w);}if(r.qualification_audit_id)card.append(link('Independent qualification audit','../audits/'+r.qualification_audit_id+'/'));card.append(svg,E('p','Hardware: '+format(r.measurement_conditions.hardware)+' · Date: '+format(r.date)+' · Tasks: '+r.tasks+' · Audit SHA256: '+r.audit_hash),E('p','Single-run result unless repeat metadata below specifies otherwise. No inferred error bars.'));const detail=E('details');detail.append(E('summary','Conditions, repetition / dispersion and audit evidence'),E('pre',JSON.stringify({conditions:r.measurement_conditions,repeat_range:r.repeat_range,audit_hashes:r.source_audit_hashes,scorer_execution_limits:r.scorer_execution_limits,qualification_disclosure:r.qualification_audit?.disclosure},null,2)));card.append(detail);out.append(card);});const measured=new Set(rows.map(r=>r.model_family_id));const absent=data.models.filter(m=>!measured.has(m.id));if(absent.length)out.append(table(['Model / not yet admitted in this track','Official local score'],absent.map(m=>[m.name,null])));});}
  select.addEventListener('change',show);show();
 }
-function allResults(target,data,profiles){
- const controls=E('div');controls.className='results-controls';
- const filter=E('input');filter.type='search';filter.placeholder='Search model, engine, experiment or tuning';filter.setAttribute('aria-label',filter.placeholder);controls.append(filter);
- const eligible=E('input');eligible.type='checkbox';const officialLabel=E('label');officialLabel.append(eligible,document.createTextNode(' Full official results only'));controls.append(officialLabel);
- const advanced=E('input');advanced.type='checkbox';const tuningLabel=E('label');tuningLabel.append(advanced,document.createTextNode(' Show all tuning columns'));controls.append(tuningLabel);target.append(controls);
- const area=E('div');target.append(area);
- const benchmarkIds=[...new Set(data.history.runs.map(r=>r.benchmark_id))].filter(id=>!id.startsWith('local-'));
- const names={'humanevalplus-v0.1.10':'HumanEval+','bfcl-v4-full':'BFCL','mbppplus-v0.2.0':'MBPP+'};
- function scoreCell(runs){
-  if(!runs.length)return null;
-  // Collapse admission-history revisions of the SAME immutable measurement only.
-  // Different task sets, outcomes or source audits always stay separate.
-  const measurements=new Map();runs.forEach(r=>{const key=canonical([r.audit_hash,r.experiment_id,r.runtime_configuration_id,r.benchmark_id,r.solved,r.tasks,r.evaluated_task_set_hash]);const old=measurements.get(key);if(!old||r.official_eligible&&!old.official_eligible)measurements.set(key,r);});
-  const visible=[...measurements.values()],box=E('div');box.className='result-scores';
-  const values=[...new Set(visible.map(r=>r.score_percent))];box.dataset.sort=values.length===1?String(values[0]):'';
-  visible.forEach((r,i)=>{if(i)box.append(E('br'));const mark=r.official_eligible?'':r.status.includes('SUBSET')?'*':'†';const value=link(format(r.score_percent)+'%'+mark+' ('+r.solved+'/'+r.tasks+')','../configuration-profiles/'+r.runtime_configuration_id+'/');
-   value.title=r.experiment_id+' · '+r.status+' · '+r.benchmark_revision+' · Request wall: '+format(r.wall_s)+' s · GPU J/success: '+format(r.gpu_j_per_success)+' · VRAM: '+format(r.peak_vram_mib)+' MiB';box.append(value);
-  });return box;
- }
- function draw(){
-  const q=filter.value.toLowerCase(),groups=new Map();
-  data.history.runs.filter(r=>benchmarkIds.includes(r.benchmark_id)&&(!eligible.checked||r.official_eligible)).forEach(r=>{if(!groups.has(r.runtime_configuration_id))groups.set(r.runtime_configuration_id,[]);groups.get(r.runtime_configuration_id).push(r);});
-  const rows=[];
-  [...groups.entries()].sort((a,b)=>profiles.get(a[0]).model.name.localeCompare(profiles.get(b[0]).model.name)).forEach(([id,runs])=>{
-   const p=profiles.get(id),o=p.optimizations,t=p.runtime;if(!canonical({profile:p,runs}).toLowerCase().includes(q))return;
-   const model=E('div');model.className='result-model';model.append(link(p.model.name,'../configuration-profiles/'+id+'/'));
-   const basic=[model,p.model.quantization,p.engine.name,(p.engine.git_commit||p.engine.build_id||p.engine.version)?.slice(0,12),t.thinking_reasoning_requested,o.speculation_type,o.HBM_conversion_weight_cache_limit_mib,t.context];
-   const extra=advanced.checked?[o.draft_parameters?.['--spec-draft-n-max'],o.flash_attention_requested,o.KV_precision?.k,o.KV_precision?.v,t.max_output,t.batch,t.microbatch,t.CPU_threads,t.sampling?.temperature,t.sampling?.top_p,t.sampling?.top_k,t.sampling?.min_p,t.sampling?.seed,t.power_limit_w]:[];
-   rows.push([...basic,...extra,...benchmarkIds.map(bench=>scoreCell(runs.filter(r=>r.benchmark_id===bench)))]);
-  });
-  area.textContent='';area.append(E('p',rows.length+' measured configurations · * subset · † historical scorer protocol · NOT MEASURED = no result. Equal results from admission revisions of the same original measurement are shown once; complete history remains on each profile.'),table(['Model','Quant','Engine','Build','Thinking','MTP','HBM MiB','Context',...(advanced.checked?['Draft max','Flash attention','KV K','KV V','Output','Batch','Microbatch','Threads','Temperature','Top-p','Top-k','Min-p','Seed','Power W']:[]),...benchmarkIds.map(id=>names[id]||id)],rows));
-  const t=area.querySelector('table');t.classList.add('results-overview');
-  const scroll=area.querySelector('.leaderboard-scroll');if(scroll){scroll.setAttribute('tabindex','0');scroll.setAttribute('aria-label','Configuration results table; scroll horizontally for benchmark columns');}
- }
- filter.addEventListener('input',draw);eligible.addEventListener('change',draw);advanced.addEventListener('change',draw);draw();
-}
+function allResults(target,data,profiles){root.V100MasterTable.mount(target,data);}
 function comparison(target,data,profiles){
  const label=E('label','Measured profiles (select two or more; on mobile tap each checkbox)'),list=E('div');list.className='leaderboard-picker';const selected=new Set(),out=E('div'),filter=E('input');filter.type='search';filter.placeholder='Filter model, benchmark, experiment or tuning';filter.setAttribute('aria-label',filter.placeholder);target.append(label,filter,list,out);
  data.history.runs.forEach(r=>{const p=profiles.get(r.runtime_configuration_id),row=E('label'),box=E('input');box.type='checkbox';const title=r.experiment_id+' · '+r.status+' · '+r.benchmark_identity_id.slice(0,16)+' · '+r.model_name+' · '+r.benchmark_id+' · '+r.solved+'/'+r.tasks+' · '+summary(p);row.append(box,document.createTextNode(' '+title));row.dataset.search=title.toLowerCase();list.append(row);box.addEventListener('change',()=>{if(box.checked)selected.add(r.run_id);else selected.delete(r.run_id);draw();});});

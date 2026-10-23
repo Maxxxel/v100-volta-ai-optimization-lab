@@ -14,6 +14,8 @@
 !/data/*.json
 !/scripts/
 !/scripts/*.py
+!/scripts/test_master_table.cjs
+!/scripts/test_master_browser.cjs
 !/.github/
 !/.github/**
 **/__pycache__/

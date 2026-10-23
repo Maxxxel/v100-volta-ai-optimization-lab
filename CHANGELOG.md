@@ -527,3 +527,7 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 ## Audited research checkpoint R448 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## 2026-10-23 — Interactive benchmark master table
+
+The configuration comparison now exposes every recorded profile field and startup option through categorized columns, per-parameter filters, exact-protocol benchmark columns, presets and CSV export. An explicitly unofficial user-selected arithmetic mean requires complete results for one immutable configuration. Historical/subset and unqualified full runs remain separate from admitted results; distinct original observations are averaged without best-value selection. Top-5 observations and coverage gaps are descriptive hypotheses, not causal claims. Browser acceptance covers desktop and mobile; static assets use content hashes to prevent stale table versions. Missing metadata remain explicit.

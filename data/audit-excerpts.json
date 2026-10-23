@@ -172962,14 +172962,26 @@
     }
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7354.5,
+      "scopes": {
+        "standard_full164": {
+          "GPU_J_per_success": 40943.87469724851,
+          "gpu_energy_j": 2170025.358954171,
+          "solved": 53,
+          "successful_tasks_per_s": 0.00638308201374887,
+          "tasks": 164,
+          "wall_s": 8303.198969689
+        }
+      }
+    },
     "excerpt_is_not_original": true,
-    "id": "audit-27497c2f5a7d5504ecbc",
-    "original_bytes": 15822,
-    "original_filename": "research-metadata.json",
+    "id": "audit-bb7e7ca493d0666a21c6",
+    "original_bytes": 36826,
+    "original_filename": "AUDIT.json",
     "original_pin_verified": true,
     "original_publicly_available": false,
-    "original_sha256": "27497c2f5a7d5504ecbc303ecf39344f0d2da8cdfb58b05daf002457f21467b5",
+    "original_sha256": "bb7e7ca493d0666a21c6b74d231f0c3ecb6144b140ce9477ca25eb92cb0ae4f5",
     "statements": {
       "scope": "All21 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
     }
@@ -250217,6 +250229,725 @@
       "limits": [
         "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
       ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 4,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0f1130b807cc98ae599f",
+    "original_bytes": 603,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0f1130b807cc98ae599fe3628482570408765bfd70649a1b58c28cbe22b6b453",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-aa7ba4311b40c367b555",
+    "original_bytes": 8146,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "aa7ba4311b40c367b5550a42469aef3737a2ac84c397fdf2030b2f29d7377b71",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 1,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3e9e434c58d2d8945801",
+    "original_bytes": 609,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3e9e434c58d2d8945801e9bf11112c433c713903b79b40527c5c10abeae387c0",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-510b702017456661b10d",
+    "original_bytes": 8147,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "510b702017456661b10dfa4093b48abf1ff17b51f2cb42028805011c030cf97d",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 0,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-06641c24fc0d735acdd0",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "06641c24fc0d735acdd0747b40c1fa11f14435d825e47294e687ef28c0c01c4c",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6d926f1472c50e2ec33d",
+    "original_bytes": 8145,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6d926f1472c50e2ec33df2451a5d7dca6d2513c944c8afab1a7e0acb77c56057",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 3,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-06695f8cf5b007fc7796",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "06695f8cf5b007fc7796392096d55acefd7f6447aabe606eeeaf323d147dfa34",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4e06086cd57748ab31f8",
+    "original_bytes": 8150,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4e06086cd57748ab31f82b74cfa082eab640752a7c24fcd91ad4e738de36e640",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 4,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0db04194765030e87b17",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0db04194765030e87b17cf18f2a43d42f06a5d3d092718f5d5209f0837e529a8",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5eb753a13e0bd840fe4d",
+    "original_bytes": 8348,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5eb753a13e0bd840fe4d6aca1e33324b157df74ebb318fd7c77a78f13ad1e4ae",
+    "statements": {
+      "limits": [
+        "Controller exit failure remains preserved; collected model data recovered, not a successful controller exit.",
+        "Quality requires separate CPU evaluation; no complete164 result or Champion qualification."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cdaeff64e8a7cb18be6b",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cdaeff64e8a7cb18be6be3d3b3262774c03d29494b6992399018c1bdc26a0191",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-66c70f940381eeb91b34",
+    "original_bytes": 8151,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "66c70f940381eeb91b341d5bf3fb3aced0a46b17e511cc4945abb1eb2d40c8dd",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 1,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c476c91feb0e407c40b5",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c476c91feb0e407c40b5d1d8e065be5535b9be68e7460a7be033a224cb1dba68",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-61fec70121e4f6c2f52a",
+    "original_bytes": 8333,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "61fec70121e4f6c2f52ae2aa3016c180a16124fb87d0601cd73d25cb706c0b42",
+    "statements": {
+      "limits": [
+        "Failed root-controller status is preserved; successful native CT data recovered without regeneration.",
+        "Independent CPU scoring still required; no full164 or Champion qualification."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-06b5c7df65ec7db800dc",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "06b5c7df65ec7db800dcfd0356a0913c2b748a010e7db4263dc4f232835102e7",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a64c0dd1ff65320758ba",
+    "original_bytes": 8156,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a64c0dd1ff65320758ba9dfe92e81c3ebf37bd97943815d4b8b19c575bc78a2e",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-87e1f883fc9cba9e2f53",
+    "original_bytes": 611,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "87e1f883fc9cba9e2f53224271e389a27e6b97d6ea8ac79a9b0d159b128ab016",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5a0c73ae51bb6895722b",
+    "original_bytes": 8151,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5a0c73ae51bb6895722b4b0b8fdcbe2db3a90e509aeb2ad27f52067bff9d1fd3",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cb0dff8ece5cebbc5ca9",
+    "original_bytes": 612,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cb0dff8ece5cebbc5ca92af3346db99f406e150eeaaee8414e718d3b29e685ea",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e3355d74454b69c50e57",
+    "original_bytes": 8148,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e3355d74454b69c50e577c5fd28fb51416e3bce8e39b74dd7a9dab0024a4c491",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 4,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-631ae103ba39e19e4eef",
+    "original_bytes": 612,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "631ae103ba39e19e4eef3af907e8424788c0cd519ebc8b989fde51c635ca3caa",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ff06d21c89963c34e779",
+    "original_bytes": 8149,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ff06d21c89963c34e77914a6605db244e7d7f96949285da1db1808f08b4cd544",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 0,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ec2950e2a291fe8b0390",
+    "original_bytes": 612,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ec2950e2a291fe8b03907d234632124009aad14475cf43e7c580b73545b5402c",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e13fbd882e3de24e117e",
+    "original_bytes": 8160,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e13fbd882e3de24e117e4a3b4f3bd40636013fe38f3cd1048e8af0a592971f82",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6149e2df581ffe65d4f7",
+    "original_bytes": 616,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6149e2df581ffe65d4f70bd0903c12a80cb3c1a3d08c3ed0f9983f836712e8b4",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-15e5f7f713cd9ac1ad71",
+    "original_bytes": 8163,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "15e5f7f713cd9ac1ad71f6d1a8238148bc1e136c040c49a41c91ceb858ee6335",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 4,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-55d6553ad85a314e405e",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "55d6553ad85a314e405e8155a4cfdd2dded739d899b3280b603520dd2ca1d366",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-21e8f8ee165a1d67fc88",
+    "original_bytes": 8153,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "21e8f8ee165a1d67fc88d48defc9141269ec306a32aff4381fdc5e15cf4e4144",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 6,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9c8bcf33bfccf085659e",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9c8bcf33bfccf085659e622cfa6104275435a501addcd4459394cba708316991",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a849ca5904cc44370823",
+    "original_bytes": 8167,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a849ca5904cc44370823a4940d6b3556d3b454ae612c71ed196a69ee4229a92f",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 3,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7bfa13add88aba25f012",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7bfa13add88aba25f0127fdc4f59f02514107d06259d46bea82d4e22ea27b4cb",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a9a0d9d0861c318b5922",
+    "original_bytes": 8162,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a9a0d9d0861c318b5922b326680afdd1c0c8d1a278e6e884e7ddc40d0a86997a",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 4,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-39130354b24898d313b6",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "39130354b24898d313b6057a1289b1e1d0b0d0af1a08a73a00526818338d11d6",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9a1745874ad42b6bbdf9",
+    "original_bytes": 8165,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9a1745874ad42b6bbdf91819d7fa8a8fe5fbfcac7667b69e38262093ec0fe294",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-117adfb384d1087b65f9",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "117adfb384d1087b65f941cff44cc639aa070d2d021b4de59da70cf46d1a445b",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0f12c5161a9c27e793a9",
+    "original_bytes": 8176,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0f12c5161a9c27e793a9cbc90003de90e281ae57a4aec7d8883f7b29116d42f6",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-564a7dbb70b2b83b463f",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "564a7dbb70b2b83b463f9aac9fb1ca95e444aef36155177252cbc4361cf8240c",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a6155aa19ff53eb8b95a",
+    "original_bytes": 8163,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a6155aa19ff53eb8b95a8990a4ce0085d2873e1e8e671d77e560c509ffe2e8af",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 3,
+      "tasks": 8
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2e07071a356b7a13c879",
+    "original_bytes": 620,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2e07071a356b7a13c8790b8502be14929f6154f9a57bcabf12bf3f17bbf7fdc7",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d6ba52f16059d5131590",
+    "original_bytes": 4675,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d6ba52f16059d5131590c26532567b07d428ea08abc50b668214070de429ca26",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 2,
+      "tasks": 4
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-71ba003d7452df043da8",
+    "original_bytes": 536,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "71ba003d7452df043da81c78665d7f9e92c5c404cb5697912583c0840aa456f6",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
     }
   }
 ]

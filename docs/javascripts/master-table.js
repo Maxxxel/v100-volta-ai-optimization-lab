@@ -1,0 +1,390 @@
+/* Offline configuration explorer. Pure calculations are shared with Node tests. */
+(function (root) {
+  'use strict';
+  const UNKNOWN = 'NICHT ERFASST';
+  const finite = x => typeof x === 'number' && Number.isFinite(x);
+  const absent = x => x === null || x === undefined;
+  const canonical = x => JSON.stringify(x === undefined ? null : x, function (k, v) {
+    return v && typeof v === 'object' && !Array.isArray(v)
+      ? Object.fromEntries(Object.keys(v).sort().map(key => [key, v[key]])) : v;
+  });
+  function flatten(value, prefix = '', out = {}) {
+    if (value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length) {
+      Object.keys(value).sort().forEach(key => flatten(value[key], prefix ? prefix + '.' + key : key, out));
+    } else if (prefix) out[prefix] = value;
+    return out;
+  }
+  function parameters(profile) {
+    const out = flatten(profile);
+    const speculation = profile.optimizations?.speculation_type;
+    out['requested.MTP'] = speculation === 'draft-mtp' ? true : speculation === 'none' ? false : null;
+    const kwargs = profile.runtime?.native_template_controls;
+    out['requested.thinking'] = typeof kwargs?.enable_thinking === 'boolean' ? kwargs.enable_thinking : null;
+    out['requested.thinking_level'] = kwargs?.reasoning_effort ?? profile.runtime?.thinking_level ?? null;
+    out['requested.reasoning_budget'] = kwargs?.thinking_budget ?? profile.runtime?.reasoning_budget_tokens ?? null;
+    const argv = profile.start_parameters?.argv || [];
+    for (let i = 0; i < argv.length; i++) {
+      if (typeof argv[i] !== 'string' || !argv[i].startsWith('--')) continue;
+      const name = 'launch_flags.' + argv[i], values = [];
+      while (i + 1 < argv.length && !String(argv[i + 1]).startsWith('--')) values.push(argv[++i]);
+      const value = values.length === 0 ? true : values.length === 1 ? values[0] : values;
+      if (Object.hasOwn(out, name)) out[name] = [out[name], value]; else out[name] = value;
+    }
+    return out;
+  }
+  const required = [
+    'model.parameter_count', 'model.qat', 'model.svd', 'model.hf_repository', 'model.hf_revision',
+    'engine.version', 'engine.git_commit', 'engine.fork_repository', 'engine.cuda_version', 'engine.driver_version',
+    'engine.executed_kernel_backend_path', 'runtime.thinking_level', 'runtime.reasoning_budget_tokens',
+    'optimizations.speculation_effective', 'optimizations.flash_attention_effective'
+  ];
+  const labels = {
+    'model.name': 'Modell', 'model.family_id': 'Modellfamilie', 'model.quantization': 'Quantisierung',
+    'model.parameter_count': 'Parameterzahl', 'model.qat': 'QAT', 'model.svd': 'SVD',
+    'model.hf_repository': 'Hugging Face', 'model.hf_revision': 'Modellrevision',
+    'model.artifact_sha256': 'Modell SHA256', 'engine.name': 'Engine', 'engine.version': 'Engine-Version',
+    'engine.git_commit': 'Engine-Commit', 'engine.build_id': 'Build-ID', 'engine.binary_sha256': 'Binary SHA256',
+    'engine.cuda_version': 'CUDA-Version', 'engine.driver_version': 'Treiber',
+    'engine.executed_kernel_backend_path': 'Kernelpfad (nachgewiesen)',
+    'runtime.context': 'Kontext', 'runtime.max_output': 'Output-Limit',
+    'runtime.thinking_reasoning_requested': 'Reasoning-Parser (angefordert)', 'runtime.thinking_level': 'Thinking-Level (Rohfeld)',
+    'requested.MTP': 'MTP (angefordert)', 'requested.thinking': 'Thinking (Template explizit)',
+    'requested.thinking_level': 'Thinking-Level (explizit)', 'requested.reasoning_budget': 'Reasoning-Budget (explizit)',
+    'runtime.reasoning_budget_tokens': 'Reasoning-Budget', 'runtime.batch': 'Batch', 'runtime.microbatch': 'Microbatch',
+    'runtime.CPU_threads': 'CPU-Threads', 'runtime.GPU_offload': 'GPU-Offload', 'runtime.power_limit_w': 'Power-Limit W',
+    'optimizations.speculation_type': 'Spekulation (angefordert)',
+    'optimizations.speculation_effective': 'Spekulation (nachgewiesen)',
+    'optimizations.flash_attention_requested': 'Flash Attention (angefordert)',
+    'optimizations.flash_attention_effective': 'Flash Attention (nachgewiesen)',
+    'optimizations.cuda_graphs.actual_capture_replay': 'CUDA Graphs (nachgewiesen)',
+    'optimizations.HBM_conversion_weight_cache_limit_mib': 'HBM-Cache-Limit MiB (angefordert)',
+    'optimizations.KV_precision.k': 'KV K (angefordert)', 'optimizations.KV_precision.v': 'KV V (angefordert)',
+    'optimizations.prefix_reuse': 'Prefix-Reuse', 'optimizations.GDN_state_changes': 'GDN-State',
+    'optimizations.draft_head_or_model': 'Draft-Modell / Head', 'optimizations.draft_parameters.--spec-draft-n-max': 'Draft-Tokens max'
+  };
+  const text = x => absent(x) ? UNKNOWN : typeof x === 'object' ? canonical(x) : String(x);
+  const category = key => key.startsWith('model.') ? 'Modell' : key.startsWith('engine.') ? 'Engine'
+    : key.startsWith('runtime.') ? 'Kontext und Inferenz' : /^(optimizations|requested)\./.test(key) ? 'Optimierungen'
+    : /^(start_parameters|launch_flags)\./.test(key) ? 'Startparameter und Flags' : 'Identitäten und Herkunft';
+  const uniqueRuns = runs => {
+    const groups = new Map();
+    runs.forEach(run => {
+      const key = canonical([run.audit_hash, run.experiment_id, run.runtime_configuration_id,
+        run.benchmark_identity_id, run.dataset_split_hash, run.evaluated_task_set_hash, run.scorer_version]);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(run);
+    });
+    let conflict = false;
+    const records = [...groups.values()].map(group => {
+      if (new Set(group.map(r => canonical([r.score_percent, r.solved, r.tasks]))).size !== 1) conflict = true;
+      return group[0];
+    });
+    return { records, conflict };
+  };
+  function aggregate(runs) {
+    const unique = uniqueRuns(runs), records = unique.records;
+    const protocols = new Set(records.map(r => canonical([r.benchmark_id, r.benchmark_identity_id,
+      r.benchmark_revision, r.dataset_split_hash, r.evaluated_task_set_hash, r.scorer_version, r.tasks, r.metric])));
+    const invalid = records.some(r => !Number.isInteger(r.tasks) || r.tasks <= 0 || !Number.isInteger(r.solved)
+      || r.solved < 0 || r.solved > r.tasks || !finite(r.score_percent)
+      || Math.abs(r.score_percent - 100 * r.solved / r.tasks) > 1e-8);
+    const configs = new Set(records.map(r => r.runtime_configuration_id));
+    const conflict = unique.conflict || protocols.size > 1 || configs.size > 1 || invalid;
+    const scores = records.map(r => r.score_percent);
+    if (!records.length || conflict || scores.some(x => !finite(x))) return { score: null, n: records.length, conflict, records };
+    const score = scores.reduce((a, b) => a + b, 0) / scores.length;
+    return { score, n: records.length, conflict: false, records,
+      solved: records.reduce((n, r) => n + r.solved, 0), tasks: records.reduce((n, r) => n + r.tasks, 0),
+      min: Math.min(...scores), max: Math.max(...scores),
+      sd: scores.length > 1 ? Math.sqrt(scores.reduce((n, x) => n + (x - score) ** 2, 0) / (scores.length - 1)) : null };
+  }
+  function average(scores, selected, official = true, columns = new Map()) {
+    if (!selected.length) return null;
+    const configurations = new Set(selected.flatMap(key => scores[key]?.records.map(r => r.runtime_configuration_id) || []));
+    if (configurations.size !== 1 || [...configurations].some(id => typeof id !== 'string' || !id)) return null;
+    const values = selected.map(key => {
+      if (official && columns.get(key)?.scope !== 'OFFICIAL_LOCAL') return null;
+      const a = scores[key];
+      if (!a || a.conflict || !finite(a.score) || official && a.records.some(r => r.official_eligible !== true)) return null;
+      return a.score;
+    });
+    return values.some(x => x === null) ? null : values.reduce((a, b) => a + b, 0) / values.length;
+  }
+  function measuredValue(a, path) {
+    if (!a?.records.length) return null;
+    const values = a.records.map(r => flatten(r)[path]);
+    if (values.every(absent)) return null;
+    if (values.every(finite)) return values.reduce((n, x) => n + x, 0) / values.length;
+    const unique = [...new Map(values.map(v => [canonical(v), v])).values()];
+    return unique.length === 1 ? unique[0] : values;
+  }
+  function build(data) {
+    const benchmarks = data.master.benchmark_columns, benchmarkMap = new Map(benchmarks.map(b => [b.key, b]));
+    const rows = data.history.profiles.map(profile => {
+      const runs = data.history.runs.filter(r => r.runtime_configuration_id === profile.runtime_configuration_id);
+      const attempts = data.history.attempts.filter(r => r.runtime_configuration_id === profile.runtime_configuration_id);
+      const values = parameters(profile), scores = {};
+      benchmarks.forEach(b => { scores[b.key] = aggregate(runs.filter(r => data.master.run_columns[r.run_id] === b.key)); });
+      const paths = new Set(attempts.flatMap(a => Object.keys(flatten(a.lab_metrics || {}))));
+      paths.forEach(path => {
+        values['attempt_metrics.' + path] = attempts.filter(a => !absent(flatten(a.lab_metrics || {})[path]))
+          .map(a => ({ experiment: a.experiment_id, value: flatten(a.lab_metrics || {})[path] }));
+      });
+      values['evidence.execution_status'] = [...new Set(attempts.map(a => a.execution_status))];
+      values['evidence.scientific_status'] = [...new Set(attempts.map(a => a.scientific_status))];
+      values['evidence.experiments'] = [...new Set([...runs, ...attempts].map(a => a.experiment_id))];
+      return { id: profile.runtime_configuration_id, profile, runs, attempts, values, scores };
+    });
+    const paths = new Set([...required, ...rows.flatMap(r => Object.keys(r.values))]);
+    const columns = [...paths].sort().map(path => ({ key: path, label: labels[path] || path,
+      category: path.startsWith('attempt_metrics.') ? 'Labor-Messungen (mit Herkunft)' : category(path), kind: 'parameter' }));
+    benchmarks.forEach(b => {
+      const suffix = b.scope === 'OFFICIAL_LOCAL' ? 'lokal zugelassen' : b.scope === 'HISTORICAL' ? 'historisch / Teilumfang' : b.scope === 'UNQUALIFIED_FULL' ? 'Vollumfang, noch nicht zugelassen' : 'Laborergänzung';
+      columns.push({ key: b.key, label: b.name + ' · ' + suffix + ' · n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6),
+        shortLabel: b.name + ' · ' + b.key.slice(-6), category: 'Benchmarks', kind: 'benchmark', benchmark: b });
+      const fixed = ['prefill_tok_s', 'decode_tok_s', 'ttft_s', 'wall_s', 'gpu_j', 'gpu_j_per_success', 'peak_vram_mib', 'repeat_range', 'date', 'status', 'status_reason', 'warning'];
+      const extra = data.history.runs.filter(r => data.master.run_columns[r.run_id] === b.key)
+        .flatMap(r => Object.keys(flatten(r)).filter(k => /prefill|decode|latency|wall|energy|gpu_j|vram|repeat|^measurement_conditions\./i.test(k)));
+      [...new Set([...fixed, ...extra])].sort().forEach(path => columns.push({ key: 'metric:' + b.key + ':' + path,
+        label: path + ' · ' + b.name + ' · ' + b.scope + ' · n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6), category: 'Performance je Benchmarkprotokoll', kind: 'metric', benchmark: b, path }));
+    });
+    columns.push({ key: 'average', label: 'Ø Auswahl (%)', description: 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark', category: 'Auswertung', kind: 'average' });
+    return { rows, columns, benchmarks, benchmarkMap };
+  }
+  function value(row, column, state, benchmarkMap) {
+    if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
+    if (column.kind === 'benchmark') return row.scores[column.key]?.score ?? null;
+    if (column.kind === 'metric') return measuredValue(row.scores[column.benchmark.key], column.path);
+    return row.values[column.key] ?? null;
+  }
+  function matches(v, expression) {
+    let q = expression.trim(); if (!q) return true;
+    if (typeof v === 'boolean') q = q.replace(/\bein\b/ig, 'true').replace(/\baus\b/ig, 'false');
+    if (q.toUpperCase() === UNKNOWN || q === '?') return absent(v);
+    const match = q.match(/^(>=|<=|!=|=|>|<)\s*(.*)$/);
+    if (match) {
+      const [_, op, target] = match;
+      if (absent(v)) return false;
+      const numeric = target !== '' && Number.isFinite(Number(target)) && (finite(v)
+        || typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v)));
+      if (!numeric && !['=', '!='].includes(op)) return false;
+      const a = numeric ? Number(v) : text(v).toLowerCase(), b = numeric ? Number(target) : target.toLowerCase();
+      return op === '>=' ? a >= b : op === '<=' ? a <= b : op === '>' ? a > b : op === '<' ? a < b : op === '!=' ? a !== b : a === b;
+    }
+    return text(v).toLowerCase().includes(q.toLowerCase());
+  }
+  function compare(a, b, descending) {
+    if (absent(a) || absent(b)) return absent(a) === absent(b) ? 0 : absent(a) ? 1 : -1;
+    const numeric = (finite(a) || typeof a === 'string' && a.trim() !== '' && Number.isFinite(Number(a)))
+      && (finite(b) || typeof b === 'string' && b.trim() !== '' && Number.isFinite(Number(b)));
+    const c = numeric ? Number(a) - Number(b) : text(a).localeCompare(text(b), undefined, { numeric: true });
+    return descending ? -c : c;
+  }
+  function csvCell(x) {
+    let s = text(x);
+    if (typeof x !== 'number' && /^[\s]*[=+\-@\t\r]/.test(s)) s = "'" + s;
+    return '"' + s.replaceAll('"', '""') + '"';
+  }
+  function csv(rows, columns, state, benchmarkMap) {
+    const selected = columns.filter(c => c.key !== 'runtime_configuration_id');
+    return '\uFEFF' + [[csvCell('runtime_configuration_id'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), ...selected.map(c => {
+      if (c.kind === 'benchmark') {
+          const a = row.scores[c.key];
+        return csvCell(!a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
+          solved: a.solved, tasks: a.tasks, min: a.min, max: a.max, sd: a.sd,
+          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, status: r.status, audits: r.audit_ids })) });
+      }
+      return csvCell(value(row, c, state, benchmarkMap));
+    })].join(','))].join('\r\n');
+  }
+  function analysis(rows, target, state, model) {
+    const ranked = rows.map(row => ({ row, score: value(row, target, state, model.benchmarkMap) })).filter(x => finite(x.score))
+      .sort((a, b) => b.score - a.score || a.row.id.localeCompare(b.row.id));
+    const top = ranked.slice(0, 5), parameters = model.columns.filter(c => c.kind === 'parameter' && /^(model|engine|runtime|optimizations|requested|launch_flags)\./.test(c.key));
+    const coverage = parameters.map(c => {
+      const counts = new Map(); let missing = 0;
+      top.forEach(({ row }) => { const v = row.values[c.key]; if (absent(v)) missing++; else counts.set(text(v), (counts.get(text(v)) || 0) + 1); });
+      const all = new Set(ranked.map(({ row }) => row.values[c.key]).filter(v => !absent(v)).map(text));
+      return { column: c, counts: [...counts].sort((a, b) => b[1] - a[1]), missing, testedValues: all.size };
+    });
+    return { top, measuredConfigurations: ranked.length, coverage };
+  }
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.V100MasterTable = API;
+  if (typeof document === 'undefined') return;
+
+  const E = (tag, content, className) => { const e = document.createElement(tag); if (content !== undefined) e.textContent = content; if (className) e.className = className; return e; };
+  const link = (label, href) => { const a = E('a', label); a.href = href; return a; };
+  const labelInput = (label, input) => { const e = E('label'); input.setAttribute('aria-label', label); e.append(E('span', label), input); return e; };
+  const button = (label, handler) => { const b = E('button', label); b.type = 'button'; b.addEventListener('click', handler); return b; };
+  const number = v => finite(v) ? v.toLocaleString('de-DE', { maximumFractionDigits: 2 }) : UNKNOWN;
+  function mount(target, data) {
+    const model = build(data), byKey = new Map(model.columns.map(c => [c.key, c]));
+    const state = { mode: 'official', selected: new Set(), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, page: 0, pageSize: 25 };
+    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version', 'requested.thinking', 'requested.MTP', 'runtime.context'];
+    const allowed = () => model.benchmarks.filter(b => state.mode === 'official' ? b.scope === 'OFFICIAL_LOCAL' : b.scope !== 'OFFICIAL_LOCAL');
+    const columnAllowed = c => !c.benchmark || allowed().some(b => b.key === c.benchmark.key);
+    const defaultBenchmarks = () => { const measured = allowed().filter(b => b.records); return measured.length ? measured : allowed().slice(0, 3); };
+    const first = allowed().find(b => model.rows.some(r => finite(r.scores[b.key]?.score)));
+    if (first) state.selected.add(first.key);
+    let presetName = 'Kompakt', filtered = [], shownColumns = [], headerCells = new Map();
+    target.textContent = '';
+    const toolbar = E('div', undefined, 'master-toolbar'), search = E('input'); search.type = 'search'; search.placeholder = 'Modell, Engine, Parameter oder Experiment suchen'; search.setAttribute('aria-label', search.placeholder);
+    const mode = E('select'); [['official', 'Offiziell lokal zugelassen'], ['exploratory', 'Explorativ: Historie und Teilmengen']].forEach(([v, t]) => { const o = E('option', t); o.value = v; mode.append(o); });
+    const presets = E('select'); ['Kompakt', 'Vollständig', 'Qualität', 'Geschwindigkeit', 'Energie'].forEach(t => presets.append(E('option', t)));
+    const exportButton = button('CSV exportieren', () => {
+      const blob = new Blob([csv(filtered, shownColumns, state, model.benchmarkMap)], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob), a = link('Download', url); a.download = 'v100-configuration-results.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }); exportButton.dataset.action = 'export-csv';
+    toolbar.append(search, labelInput('Auswertung', mode), labelInput('Ansicht', presets), exportButton, button('Filter zurücksetzen', () => { state.filters.clear(); state.search = ''; search.value = ''; renderTable(); }));
+    target.append(toolbar);
+    const chooser = E('details', undefined, 'master-panel'); chooser.append(E('summary', 'Spaltenauswahl nach Kategorien'));
+    const pickerSearch = E('input'); pickerSearch.type = 'search'; pickerSearch.placeholder = 'Spaltenname oder Quellpfad'; pickerSearch.setAttribute('aria-label', 'Spalten suchen'); const picker = E('div', undefined, 'master-column-picker'); chooser.append(pickerSearch, picker); target.append(chooser);
+    const selection = E('details', undefined, 'master-panel'); selection.open = true; selection.append(E('summary', 'Benchmarks für den nutzerdefinierten Durchschnitt wählen'));
+    selection.append(E('p', 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark. Summe der ausgewählten Prozentwerte / Anzahl der ausgewählten Benchmarks. Alle Ergebnisse müssen für dieselbe Konfiguration vollständig vorhanden sein. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
+    const benchmarkChoices = E('div', undefined, 'master-benchmark-choices'), selectionWarning = E('p', undefined, 'benchmark-warning'); selection.append(benchmarkChoices, selectionWarning); target.append(selection);
+    const definitions = E('details', undefined, 'master-panel'); definitions.append(E('summary', 'Exakte Benchmarkdefinitionen und Messprotokolle'));
+    model.benchmarks.forEach(b => {
+      const d = E('details'); d.append(E('summary', b.name + ' · ' + b.scope + ' · ' + b.key.slice(-6)));
+      const dl = E('dl'); Object.entries({ ...b.definition, ...b.protocol, qualification_track: b.scope, column_id: b.key }).forEach(([key, v]) => dl.append(E('dt', key), E('dd', text(v)))); d.append(dl); definitions.append(d);
+    }); target.append(definitions);
+    const counter = E('p', undefined, 'master-counter'); counter.setAttribute('aria-live', 'polite'); target.append(counter);
+    const scroll = E('div', undefined, 'master-scroll'); scroll.tabIndex = 0; scroll.setAttribute('aria-label', 'Konfigurationsvergleich, horizontal und vertikal scrollbar');
+    const table = E('table', undefined, 'master-table'); table.append(E('caption', 'Unveränderliche Konfigurationen und nach Protokoll getrennte Benchmarkergebnisse'));
+    const head = E('thead'), body = E('tbody'); table.append(head, body); scroll.append(table); target.append(scroll);
+    const pager = E('div', undefined, 'master-pagination'), pageText = E('span'), size = E('select'); [10, 25, 50, 100].forEach(n => { const o = E('option', String(n)); o.value = n; o.selected = n === 25; size.append(o); });
+    const prev = button('Zurück', () => { state.page--; renderRows(); }), next = button('Weiter', () => { state.page++; renderRows(); });
+    pager.append(prev, pageText, next, labelInput('Zeilen', size)); target.append(pager);
+    const insights = E('section', undefined, 'master-insights'); insights.append(E('h2', 'Beobachtungen zu den Top 5'));
+    insights.append(E('p', 'Korrelation ist keine Kausalität. Diese Übersicht priorisiert Forschungsfragen; sie prognostiziert keine Gewinne und startet keine Versuche. Unterschiede unbekannter Parameter bleiben mögliche Störfaktoren.'));
+    const analysisSelect = E('select'), analysisBody = E('div'); insights.append(labelInput('Sortiermetrik der Analyse', analysisSelect), analysisBody); target.append(insights);
+    const dialog = E('dialog', undefined, 'master-cell-dialog'), dialogTitle = E('h3'), dialogValue = E('pre'), dialogLinks = E('div');
+    dialog.append(dialogTitle, dialogValue, dialogLinks, button('Schließen', () => dialog.close())); target.append(dialog);
+
+    function preset(name) {
+      presetName = name; state.visible = new Set(base); state.visible.add('average');
+      if (name === 'Kompakt') { state.pageSize = 25; size.value = '25'; }
+      const bench = defaultBenchmarks(); bench.forEach(b => state.visible.add(b.key));
+      if (name === 'Vollständig') { model.columns.forEach(c => state.visible.add(c.key)); state.pageSize = 10; size.value = '10'; }
+      if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
+      if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
+      if (name === 'Energie') { state.visible.add('runtime.power_limit_w'); model.columns.filter(c => c.kind === 'metric' && /:(gpu_j|gpu_j_per_success|peak_vram_mib)$/.test(c.key) && bench.some(b => b.key === c.benchmark.key)).forEach(c => state.visible.add(c.key)); }
+      state.page = 0; renderPicker(); renderTable();
+    }
+    function renderPicker() {
+      picker.textContent = ''; const query = pickerSearch.value.toLowerCase();
+      const groups = new Map(); model.columns.forEach(c => { if (!(c.label + ' ' + c.key).toLowerCase().includes(query)) return; if (!groups.has(c.category)) groups.set(c.category, []); groups.get(c.category).push(c); });
+      groups.forEach((columns, name) => {
+        const field = E('fieldset'); field.append(E('legend', name + ' (' + columns.length + ')'));
+        columns.forEach(c => { const box = E('input'); box.type = 'checkbox'; box.checked = state.visible.has(c.key); box.dataset.columnKey = c.key; box.disabled = c.key === 'model.name';
+          box.disabled = box.disabled || !columnAllowed(c);
+          const label = labelInput(c.label, box); label.title = c.key + (columnAllowed(c) ? '' : ' · Anderer Auswertungsmodus');
+          box.addEventListener('change', () => { if (box.checked) state.visible.add(c.key); else state.visible.delete(c.key); renderTable(); }); field.append(label); }); picker.append(field);
+      });
+    }
+    function renderBenchmarks() {
+      benchmarkChoices.textContent = ''; analysisSelect.textContent = ''; const meanOption = E('option', 'Nutzerdefinierter Durchschnitt'); meanOption.value = 'average'; analysisSelect.append(meanOption);
+      allowed().forEach(b => {
+        const box = E('input'); box.type = 'checkbox'; box.value = b.key; box.checked = state.selected.has(b.key); box.dataset.benchmarkKey = b.key;
+        const label = labelInput(b.name + ' · ' + b.scope + ' · n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6), box); label.title = text(b.protocol);
+        box.addEventListener('change', () => { if (box.checked) { state.selected.add(b.key); state.visible.add(b.key); } else state.selected.delete(b.key); state.page = 0; renderTable(); }); benchmarkChoices.append(label);
+        const option = E('option', b.name + ' · ' + b.key.slice(-6)); option.value = b.key; analysisSelect.append(option);
+      });
+    }
+    function renderTable() {
+      state.visible.add('model.name');
+      const params = model.columns.filter(c => c.kind === 'parameter' && state.visible.has(c.key));
+      params.sort((a, b) => a.key === 'model.name' ? -1 : b.key === 'model.name' ? 1 : model.columns.indexOf(a) - model.columns.indexOf(b));
+      shownColumns = [...params, ...model.columns.filter(c => c.kind === 'metric' && state.visible.has(c.key) && columnAllowed(c)),
+        ...model.columns.filter(c => c.kind === 'average' && state.visible.has(c.key)), ...model.columns.filter(c => c.kind === 'benchmark' && state.visible.has(c.key) && columnAllowed(c))];
+      head.textContent = ''; headerCells = new Map(); const names = E('tr'), filters = E('tr');
+      shownColumns.forEach(c => {
+        const th = E('th'); th.scope = 'col'; th.dataset.columnKey = c.key; const b = button((c.shortLabel || c.label) + ' ↕', () => { state.descending = state.sort === c.key ? !state.descending : c.kind !== 'parameter'; state.sort = c.key; renderRows(); }); b.title = (c.description || c.label + '\n' + c.key); th.append(b); names.append(th); headerCells.set(c.key, th);
+        const cell = E('th'), input = E('input'); input.type = 'search'; input.placeholder = c.kind === 'parameter' ? 'Filter / ?' : 'z. B. >=80'; input.value = state.filters.get(c.key) || ''; input.setAttribute('aria-label', 'Filter: ' + c.label);
+        input.addEventListener('input', () => { state.filters.set(c.key, input.value); state.page = 0; renderRows(); }); cell.append(input); filters.append(cell);
+      }); head.append(names, filters); state.page = 0; renderRows();
+    }
+    function renderRows() {
+      const query = state.search.toLowerCase();
+      filtered = model.rows.filter(row => (!query || canonical({ values: row.values, runs: row.runs }).toLowerCase().includes(query))
+        && [...state.filters].every(([key, expression]) => !expression.trim() || matches(value(row, byKey.get(key), state, model.benchmarkMap), expression)));
+      const sort = byKey.get(state.sort) || byKey.get('model.name');
+      filtered.sort((a, b) => compare(value(a, sort, state, model.benchmarkMap), value(b, sort, state, model.benchmarkMap), state.descending) || a.id.localeCompare(b.id));
+      const pages = Math.max(1, Math.ceil(filtered.length / state.pageSize)); state.page = Math.max(0, Math.min(state.page, pages - 1));
+      body.textContent = '';
+      filtered.slice(state.page * state.pageSize, (state.page + 1) * state.pageSize).forEach(row => {
+        const tr = E('tr'); tr.dataset.configurationId = row.id;
+        shownColumns.forEach(c => {
+          const td = E('td'); td.dataset.columnKey = c.key; td.dataset.kind = c.kind;
+          if (c.kind === 'benchmark') renderScore(td, row, c);
+          else {
+            const v = value(row, c, state, model.benchmarkMap), display = c.kind === 'average' && finite(v) ? number(v) + ' %'
+              : ['requested.MTP', 'requested.thinking'].includes(c.key) && typeof v === 'boolean' ? (v ? 'Ein' : 'Aus') : text(v);
+            if (c.key === 'model.name') td.append(link(row.profile.model.name, '../configuration-profiles/' + row.id + '/'));
+            else if (display.length > 42) { const full = button(display.slice(0, 36) + '…', () => {
+              dialogTitle.textContent = c.label + ' · ' + row.profile.model.name; dialogLinks.textContent = '';
+              dialogValue.textContent = typeof v === 'object' ? JSON.stringify(v, null, 2) : display;
+              dialog.showModal();
+            }); full.className = 'master-value-button'; full.setAttribute('aria-label', 'Vollständiger Wert: ' + c.label); td.append(full); }
+            else td.textContent = display;
+            td.title = c.key + '\n' + text(v); if (absent(v)) td.classList.add('master-missing');
+          } tr.append(td);
+        }); body.append(tr);
+      });
+      headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
+      const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
+      counter.textContent = filtered.length + ' / ' + model.rows.length + ' dokumentierte Konfigurationen · ' + withResults + ' mit Benchmark-Ergebnisdatensätzen · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
+      const families = [...state.selected].map(key => model.benchmarkMap.get(key)?.protocol.benchmark_id);
+      selectionWarning.textContent = new Set(families).size < families.length ? 'Mehrere Protokolle derselben Benchmarkfamilie ausgewählt: Jedes ausgewählte Protokoll ist ein eigener Summand. Das kann dieselben Originalaufgaben mehrfach gewichten.' : '';
+      pageText.textContent = 'Seite ' + (state.page + 1) + ' / ' + pages; prev.disabled = state.page === 0; next.disabled = state.page >= pages - 1;
+      renderAnalysis();
+    }
+    function renderScore(td, row, column) {
+      const a = row.scores[column.key];
+      if (!a?.n) { td.textContent = UNKNOWN; td.className = 'master-missing'; return; }
+      if (a.conflict) { td.textContent = 'WIDERSPRÜCHLICHE AUDITS'; td.className = 'benchmark-warning'; return; }
+      const line = E('div', undefined, 'master-score-line'); line.append(E('strong', number(a.score) + ' %'), E('span', a.solved + '/' + a.tasks + (a.n > 1 ? '; n=' + a.n : ''))); td.append(line);
+      td.append(E('small', column.benchmark.scope === 'OFFICIAL_LOCAL' ? 'Lokal zugelassen' : column.benchmark.scope === 'HISTORICAL' ? 'Historisch / Teilumfang' : column.benchmark.scope === 'UNQUALIFIED_FULL' ? 'Vollumfang · nicht zugelassen' : 'Laborergänzung'));
+      if (a.n > 1) td.append(E('small', 'Replikatmittel · ' + number(a.min) + '–' + number(a.max) + ' % · s=' + number(a.sd)));
+      const refs = E('small'); a.records.forEach(r => {
+        refs.append(link(r.experiment_id, '../experiments/' + r.experiment_id + '/'), document.createTextNode(' · '));
+        const first = r.audit_ids[0]; if (first) { const audit = link('Audit', '../audits/' + first + '/'); audit.title = first; refs.append(audit, document.createTextNode(' ')); }
+        if (r.audit_ids.length > 1) refs.append(button('+' + (r.audit_ids.length - 1) + ' Belege', () => {
+          dialogTitle.textContent = 'Originalbelege · ' + r.experiment_id; dialogValue.textContent = r.run_id; dialogLinks.textContent = '';
+          const list = E('ul'); r.audit_ids.forEach(id => { const li = E('li'); li.append(link(id, '../audits/' + id + '/')); list.append(li); }); dialogLinks.append(list); dialog.showModal();
+        }), document.createTextNode(' · '));
+        if (r.qualification_audit_id) refs.append(link('Zulassung', '../audits/' + r.qualification_audit_id + '/'));
+        if (r.warning) refs.append(document.createTextNode(' · '), button('Hinweis', () => {
+          dialogTitle.textContent = 'Gültigkeitsgrenzen · ' + r.experiment_id; dialogValue.textContent = r.warning; dialogLinks.textContent = ''; dialog.showModal();
+        }));
+      }); td.append(refs);
+      td.title = column.key + '\n' + text(column.benchmark.protocol);
+    }
+    function renderAnalysis() {
+      analysisBody.textContent = ''; const column = byKey.get(analysisSelect.value || 'average');
+      const result = analysis(filtered, column, state, model); analysisBody.append(E('p', result.measuredConfigurations + ' Konfigurationen mit tatsächlich vorhandenem Ergebnis für diese Metrik. Gezeigt werden höchstens fünf; Gleichstände sind keine Überlegenheit.'));
+      if (!result.top.length) { analysisBody.append(E('p', UNKNOWN + ' – keine vollständigen vergleichbaren Ergebnisse für die gewählte Auswertung.')); return; }
+      const top = E('ol'); result.top.forEach(({ row, score }) => { const li = E('li'); li.append(link(row.profile.model.name + ' · ' + row.id.slice(0, 16), '../configuration-profiles/' + row.id + '/'), document.createTextNode(' · ' + number(score) + ' %')); top.append(li); }); analysisBody.append(top);
+      const details = E('details'); details.append(E('summary', 'Häufige Werte, Unterschiede und fehlende Abdeckung – alle Parameter'));
+      const grid = E('table'), h = E('tr'); ['Parameter', 'Werte in Top 5 (Anzahl)', 'Unbekannt in Top 5', 'Verschiedene erfasste Werte in gemessenen Profilen'].forEach(x => h.append(E('th', x))); grid.append(h);
+      result.coverage.forEach(c => { const r = E('tr'); [c.column.label, c.counts.map(([v, n]) => v + ' (' + n + ')').join('; ') || UNKNOWN, c.missing + '/' + result.top.length, c.testedValues].forEach(x => r.append(E('td', String(x)))); grid.append(r); }); details.append(grid); analysisBody.append(details);
+      analysisBody.append(E('p', 'Abdeckung bezieht sich nur auf diese Ergebnisprofile. Fehlende Metadaten beweisen keinen ungetesteten Matrixfaktor. Vor weiteren Versuchen die kanonischen Audits prüfen; gültige Tests nicht wiederholen.'));
+      const proposals = E('ul'); result.coverage.filter(c => /^(runtime|optimizations|requested)\./.test(c.column.key) && !/sha|identity|budget|artifact/i.test(c.column.key)).slice(0, 8).forEach(c => {
+        proposals.append(E('li', c.column.label + ': ' + (c.missing ? 'Zuerst fehlende Einstellungen aus Originalbelegen erfassen. ' : '') + (c.testedValues < 2 ? 'Weniger als zwei belegte Ausprägungen: zusätzlicher isolierter Vergleich könnte die Abdeckung schließen.' : 'Kontrollierten A/B-Vergleich erwägen; vorhandene Gesamtprofile ändern möglicherweise mehrere Faktoren.') + ' Modellartefakt, Engine, Aufgaben, Sampler und übrige Parameter konstant halten; keine Wirkung aus dieser Häufigkeit ableiten.'));
+      }); analysisBody.append(E('h3', 'Mögliche nächste Forschungsfragen – keine automatische Zulassung'), proposals);
+    }
+    search.addEventListener('input', () => { state.search = search.value; state.page = 0; renderRows(); });
+    pickerSearch.addEventListener('input', renderPicker); presets.addEventListener('change', () => preset(presets.value));
+    mode.addEventListener('change', () => {
+      state.mode = mode.value; state.selected.clear();
+      [...state.filters.keys()].forEach(key => { if (!columnAllowed(byKey.get(key))) state.filters.delete(key); });
+      if (!columnAllowed(byKey.get(state.sort))) { state.sort = 'average'; state.descending = true; }
+      const b = allowed().find(b => model.rows.some(r => finite(r.scores[b.key]?.score))); if (b) state.selected.add(b.key);
+      renderBenchmarks(); preset(presetName);
+    });
+    size.addEventListener('change', () => { state.pageSize = Number(size.value); state.page = 0; renderRows(); }); analysisSelect.addEventListener('change', renderAnalysis);
+    renderBenchmarks(); preset('Kompakt');
+  }
+  API.mount = mount;
+})(typeof window === 'undefined' ? globalThis : window);

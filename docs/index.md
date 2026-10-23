@@ -48,3 +48,5 @@ See [Qualified configurations](configurations.md), [Rejected optimizations](reje
 **LOKAL GEMESSEN / LOCAL MEASUREMENT** means an original hardware measurement exists in the stated scope. **EXTERN BELEGT / EXTERNAL EVIDENCE** means a public source supports an implementation or result. **NICHT VERIFIZIERT / UNVERIFIED** marks a hypothesis or missing local proof. Static source review and independent qualification are separate stages.
 
 Numerical values are exported without invented missing measurements. Original rationale excerpts may remain in German. Public audit excerpts are intentionally incomplete and have different bytes from the original audits whose hashes they cite.
+
+[Open the interactive Benchmark Master Table](configuration-comparison.md): exact configurations, versioned benchmarks, selectable columns, user-defined averages and audit-linked evidence.

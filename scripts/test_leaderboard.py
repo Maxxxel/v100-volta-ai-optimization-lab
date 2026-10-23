@@ -1,7 +1,7 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,digest
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
  def fixture(self):
@@ -134,6 +134,39 @@ class LeaderboardTests(unittest.TestCase):
    with self.assertRaisesRegex(ValueError,'child audit'):native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
   p,n,l=self.captured_fixture();l['native_request_options']['max_tokens']=1024;p['start_parameters']['exact_private_launch_sha256']=H(l)
   with self.assertRaises(ValueError):verify_broker_capture(p,n,l)
+ def replacement_fixture(self,root):
+  # Synthetic proof metadata only; no model output or actual GPU measurement.
+  def save(path,value):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value));return digest(path)
+  old=root/'old';retry=root/'retry';tasks=['HumanEval/0'];before={'id':'r9-old','profile':'fixed','parameters':{'task_ids':tasks}};save(old/'CONTRACT.json',before);save(old/'TRUST_SNAPSHOT.json',{'fixture':True});after=dict(before,id='r9-retry');cp=retry/'CONTRACT.json';save(cp,after);log=retry/'ORIGINAL_CONTROLLER_FAILURE.log';log.write_text('fixture pre-GPU failure')
+  proof={'decision':'PRE_GPU_SOURCE_HANDOFF_LOCK_FAILURE_NO_MODEL_REQUESTS','model_requests_in_failed_attempt':0,'GPU_execution_in_failed_attempt':False,'original_files':{x.name:digest(x) for x in old.iterdir()},'original_job_id':'r9-old','replacement_job_id':'r9-retry','part':1,'original_receipt_root':str(old),'journal_sha256':digest(log),'replacement_contract_sha256':digest(cp),'original_contract_sha256':digest(old/'CONTRACT.json')};fp=retry/'PROOF.json';save(fp,proof)
+  entry={'part':1,'original_job_id':'r9-old','replacement_job_id':'r9-retry','failure_audit_path':str(fp),'failure_audit_sha256':digest(fp),'replacement_contract_path':str(cp),'replacement_contract_sha256':digest(cp)};lp=root/'EXECUTION_ATTEMPTS.json';save(lp,{'campaign_plan_sha256':'a'*64,'replacements':[entry]});a={'campaign_plan_sha256':'a'*64,'execution_attempts':{'path':str(lp),'sha256':digest(lp)}};planned={'index':1,'id':'r9-old','task_ids':tasks};part={'job_id':'r9-retry','planned_job_id':'r9-old'};return a,planned,part,proof,fp,lp,save
+ def test_execution_replacement_requires_bound_pre_gpu_evidence(self):
+  with tempfile.TemporaryDirectory() as temp:
+   root=pathlib.Path(temp);a,p,part,*_=self.replacement_fixture(root);self.assertEqual(native_job_id(root,a,p,part),'r9-retry')
+   with self.assertRaises(ValueError):native_job_id(root,{},p,part)
+ def test_execution_replacement_cannot_hide_existing_generation(self):
+  with tempfile.TemporaryDirectory() as temp:
+   root=pathlib.Path(temp);a,p,part,proof,fp,lp,save=self.replacement_fixture(root);proof['model_requests_in_failed_attempt']=1;save(fp,proof);ledger=json.loads(lp.read_text());ledger['replacements'][0]['failure_audit_sha256']=digest(fp);save(lp,ledger);a['execution_attempts']['sha256']=digest(lp)
+   with self.assertRaisesRegex(ValueError,'repeat actual GPU generation'):native_job_id(root,a,p,part)
+ def test_execution_replacement_cannot_change_model_profile(self):
+  with tempfile.TemporaryDirectory() as temp:
+   root=pathlib.Path(temp);a,p,part,proof,fp,lp,save=self.replacement_fixture(root);cp=root/'retry/CONTRACT.json';contract=json.loads(cp.read_text());contract['profile']='other';save(cp,contract);proof['replacement_contract_sha256']=digest(cp);save(fp,proof);ledger=json.loads(lp.read_text());ledger['replacements'][0].update(failure_audit_sha256=digest(fp),replacement_contract_sha256=digest(cp));save(lp,ledger);a['execution_attempts']['sha256']=digest(lp)
+   with self.assertRaisesRegex(ValueError,'altered the frozen experiment'):native_job_id(root,a,p,part)
+ def test_master_catalog_covers_register_and_retains_each_exact_protocol(self):
+  reg=json.loads((ROOT/'data/benchmark-register.json').read_text());hist=json.loads((ROOT/'data/configuration-history.json').read_text());before=copy.deepcopy(hist);view=master_catalog(reg,hist)
+  self.assertEqual(hist,before);self.assertEqual(set(view['run_columns']),{r['run_id'] for r in hist['runs']})
+  for definition in reg['definitions']:
+   self.assertTrue(any(c['scope']=='OFFICIAL_LOCAL' and c['protocol']['benchmark_id']==definition['benchmark_id'] for c in view['benchmark_columns']))
+  by={c['key']:c for c in view['benchmark_columns']}
+  for run in hist['runs']:
+   col=by[view['run_columns'][run['run_id']]];self.assertEqual(col['protocol']['scorer_version'],run['scorer_version']);self.assertEqual(col['protocol']['tasks'],run['tasks']);self.assertEqual(col['protocol']['evaluated_task_set_hash'],run['evaluated_task_set_hash'])
+   if not run['official_eligible']:self.assertNotEqual(col['scope'],'OFFICIAL_LOCAL')
+ def test_master_catalog_does_not_pool_distinct_scorers_or_task_sets(self):
+  definition={'benchmark_id':'test','name':'Test','benchmark_revision':'r1','dataset_split_hash':'a'*64,'required_task_count':400,'scorer_version':'official'}
+  base={'benchmark_id':'test','benchmark_identity_id':'old','benchmark_revision':'r1','dataset_split_hash':'a'*64,'evaluated_task_set_hash':'b'*64,'scorer_version':'alpha','tasks':100,'metric':'observed_success_percent','official_eligible':False}
+  runs=[dict(base,run_id='one'),dict(base,run_id='two',scorer_version='beta'),dict(base,run_id='three',evaluated_task_set_hash='c'*64)]
+  view=master_catalog({'definitions':[definition]},{'runs':runs});self.assertEqual(len(set(view['run_columns'].values())),3)
+  full=next(c for c in view['benchmark_columns'] if c['scope']=='OFFICIAL_LOCAL');self.assertEqual(full['records'],0);self.assertEqual(full['protocol']['tasks'],400)
  def test_deltas_require_same_task_set_and_scorer(self):
   a={'benchmark_identity_id':'a','evaluated_task_set_hash':'b','scorer_version':{'x':1},'tasks':2,'score_percent':50,'wall_s':10,'gpu_j_per_success':100};b={**a,'score_percent':100,'wall_s':8,'gpu_j_per_success':None}
   d=pair_delta(a,b);self.assertTrue(d['comparable']);self.assertEqual(d['quality_delta_pp'],50);self.assertAlmostEqual(d['latency_delta_percent'],-20);self.assertIsNone(d['energy_per_success_delta_percent']);self.assertIn('Whole-profile',d['interpretation'])

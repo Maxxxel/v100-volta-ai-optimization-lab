@@ -120,6 +120,29 @@ def native_coverage(parts,scores,expected):
  if ids!=expected or len(set(ids))!=164:raise ValueError('Native task set/order mismatch')
  return solved
 
+def native_job_id(stage,a,planned,part):
+ """Resolve only a pinned, proven pre-GPU failed attempt; never hide a rerun."""
+ if part['job_id']==planned['id']:return planned['id']
+ meta=a.get('execution_attempts') or {};path=stage/'EXECUTION_ATTEMPTS.json'
+ if meta.get('path')!=str(path) or not path.exists() or digest(path)!=meta.get('sha256'):raise ValueError('Native execution replacement ledger missing or changed')
+ ledger=read(path)
+ if ledger['campaign_plan_sha256']!=a['campaign_plan_sha256']:raise ValueError('Native replacement campaign changed')
+ entries=[x for x in ledger['replacements'] if x['part']==planned['index']]
+ if len(entries)!=1:raise ValueError('Native replacement is ambiguous')
+ e=entries[0]
+ if e['original_job_id']!=planned['id'] or e['replacement_job_id']!=part['job_id'] or part.get('planned_job_id')!=planned['id']:raise ValueError('Native replacement identity mismatch')
+ proof_path=pathlib.Path(e['failure_audit_path']);cp=pathlib.Path(e['replacement_contract_path'])
+ if digest(proof_path)!=e['failure_audit_sha256'] or digest(cp)!=e['replacement_contract_sha256']:raise ValueError('Native replacement proof changed')
+ proof=read(proof_path);old=pathlib.Path(proof['original_receipt_root'])
+ if proof['decision']!='PRE_GPU_SOURCE_HANDOFF_LOCK_FAILURE_NO_MODEL_REQUESTS' or proof['model_requests_in_failed_attempt']!=0 or proof['GPU_execution_in_failed_attempt'] is not False or set(proof['original_files'])!={'CONTRACT.json','TRUST_SNAPSHOT.json'}:raise ValueError('Native replacement cannot repeat actual GPU generation')
+ if proof['original_job_id']!=planned['id'] or proof['replacement_job_id']!=part['job_id'] or proof['part']!=planned['index']:raise ValueError('Native replacement failed-attempt binding changed')
+ for name,value in proof['original_files'].items():
+  if digest(old/name)!=value:raise ValueError('Native original failed attempt changed')
+ if digest(proof_path.parent/'ORIGINAL_CONTROLLER_FAILURE.log')!=proof['journal_sha256'] or digest(cp)!=proof['replacement_contract_sha256']:raise ValueError('Native original controller failure changed')
+ before=read(old/'CONTRACT.json');after=read(cp)
+ if dict(after,id=planned['id'])!=before or after['id']!=part['job_id'] or after['parameters']['task_ids']!=planned['task_ids'] or digest(old/'CONTRACT.json')!=proof['original_contract_sha256']:raise ValueError('Native replacement altered the frozen experiment')
+ return part['job_id']
+
 def native_complete_run(root,source,cfg,bench,receipt):
  """Full broker coding results only. No code execution or implicit qualification."""
  if source.get('full_benchmark_score_claimed') is not True:return None
@@ -133,7 +156,7 @@ def native_complete_run(root,source,cfg,bench,receipt):
  if cfg['source_plan_sha256']!=a['campaign_plan_sha256'] or campaign['immutable_profile_identity_sha256']!=cfg['source_provenance']['frozen_model_profile_sha256']:raise ValueError('Native configuration lineage mismatch')
  audits=[receipt(path,source['audit_sha256'])];hashes=[source['audit_sha256']];wall=0;energies=[];peaks=[];first_launch=None;first_contract=None;helper=None
  for part,score,planned in zip(a['parts'],a['scoring'],campaign['parts']):
-  if part['part']!=planned['index'] or part['job_id']!=planned['id'] or part['task_ids']!=planned['task_ids']:raise ValueError('Native campaign partition changed')
+  if part['part']!=planned['index'] or part['job_id']!=native_job_id(stage,a,planned,part) or part['task_ids']!=planned['task_ids']:raise ValueError('Native campaign partition changed')
   ap=pathlib.Path(part['audit_path']);sp=pathlib.Path(score['audit_path'])
   if digest(ap)!=part['audit_sha256'] or digest(sp)!=score['audit_sha256']:raise ValueError('Native child audit changed')
   scored=read(sp)
@@ -306,6 +329,43 @@ def pair_delta(a,b):
  def percent(x,y):return (y/x-1)*100 if finite(x) and finite(y) and x>0 else None
  return {'comparable':True,'quality_delta_pp':b['score_percent']-a['score_percent'],'latency_delta_percent':percent(a.get('wall_s'),b.get('wall_s')),'energy_per_success_delta_percent':percent(a.get('gpu_j_per_success'),b.get('gpu_j_per_success')),'interpretation':'Whole-profile comparison. No causal optimization claim without a dedicated independent audit.'}
 
+def master_catalog(register, history):
+ """Presentation identities only; never rewrite the immutable research ledger."""
+ columns=[]; assignments={}; definitions={d['benchmark_id']:d for d in register['definitions']}
+ def protocol(run):
+  return {k:run.get(k) for k in ('benchmark_id','benchmark_identity_id','benchmark_revision','dataset_split_hash','evaluated_task_set_hash','scorer_version','tasks','metric')}
+ def add(definition, runs, scope):
+  identity=protocol(runs[0]) if runs else {
+   'benchmark_id':definition['benchmark_id'],'benchmark_identity_id':definition_identity(definition),
+   'benchmark_revision':definition.get('benchmark_revision'),'dataset_split_hash':definition.get('dataset_split_hash'),
+   'evaluated_task_set_hash':definition.get('expected_task_ids_hash'),'scorer_version':definition.get('scorer_version'),
+   'tasks':definition.get('required_task_count'),'metric':definition.get('metric')}
+  item={'key':'benchmark-'+H({'protocol':identity,'scope':scope}),'name':definition.get('name',identity['benchmark_id']),
+        'scope':scope,'protocol':identity,'definition':{k:definition.get(k) for k in
+        ('benchmark_id','benchmark_revision','version','hf_dataset_id','dataset_split','dataset_split_hash','required_task_count','scorer_version','official_definition_verified','provider_repository','required_evaluation_settings')},
+        'registered':identity['benchmark_id'] in definitions,'records':len(runs)}
+  columns.append(item)
+  for run in runs:assignments[run['run_id']]=item['key']
+ for definition in register['definitions']:
+  full=[r for r in history['runs'] if r['benchmark_id']==definition['benchmark_id'] and r['official_eligible'] and r['benchmark_identity_id']==definition_identity(definition)]
+  groups={}
+  for run in full:groups.setdefault(H(protocol(run)),[]).append(run)
+  if groups:
+   for _,runs in sorted(groups.items()):add(definition,runs,'OFFICIAL_LOCAL')
+  else:add(definition,[],'OFFICIAL_LOCAL')
+ groups={}
+ for run in history['runs']:
+  if run['run_id'] in assignments:continue
+  scope='OFFICIAL_LOCAL' if run['official_eligible'] else 'LOCAL_SUPPLEMENTAL' if run['benchmark_id'].startswith('local-') else 'UNQUALIFIED_FULL' if run.get('status')=='FULL_NATIVE_CODING_OFFICIAL_API_PENDING' else 'HISTORICAL'
+  groups.setdefault((scope,H(protocol(run))),[]).append(run)
+ for (scope,_),runs in sorted(groups.items()):
+  definition=definitions.get(runs[0]['benchmark_id'],{'benchmark_id':runs[0]['benchmark_id'],'name':runs[0]['benchmark_id']})
+  add(definition,runs,scope)
+ if set(assignments)!={r['run_id'] for r in history['runs']}:raise ValueError('Master table lost a measured record')
+ return {'schema_version':1,'benchmark_columns':columns,'run_columns':assignments,
+         'mean_policy':'User-selected unweighted arithmetic mean of exact-protocol replicate means. All selected results required. Official mode accepts admitted results only. Never select a replicate maximum.',
+         'missing_label':'NICHT ERFASST'}
+
 def render(register,history,comparison,docs,model_registry=None):
  """Offline pages and immutable profile detail routes, independent of matrix revision."""
  docs=pathlib.Path(docs);assets=docs/'assets/benchmarks';assets.mkdir(parents=True,exist_ok=True)
@@ -336,9 +396,18 @@ def render(register,history,comparison,docs,model_registry=None):
  page+='## Next evidence gaps\n\n'+table(['Priority','Technical decision / next step','GPU initially required'],[[x['priority'],x['action'],x.get('GPU_required_initially')] for x in register['next_test_priorities']])
  page+='[Benchmark definitions and publisher evidence](benchmark-register.md) · [Local agent and synthetic tests](local-benchmarks.md) · [Reproduction](reproduce.md)\n\nEach profile records unknown fields as null (**NOT MEASURED**). An absent MTP/graph/cache setting is never assumed off. No-MTP execution does not establish that weights are original. Actual kernel execution is distinct from a requested backend. Historical development suites were reused; no unseen-holdout or absence-of-overfitting claim is made.\n'
  write(docs/'benchmarks.md',page)
- page='# All Results & Configurations\n\n## All measured results\n\nOne row per measured configuration. Tuning parameters are on the left; HumanEval+, BFCL and MBPP+ results are on the right. **Asterisk: subset. Dagger: historical scorer protocol.** Unmarked values passed the declared local official-benchmark admission. Click a model for full parameters, metrics and audits. Additional tuning columns are optional. No combined score. Unknown values remain **NOT MEASURED**.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n## Compare selected configurations\n\nSelect two or more **measured result profiles**, including weaker configurations. Differences describe complete tested profiles. A causal claim about MTP, quantization or another factor requires a dedicated isolated experiment.\n\n<div id="configuration-comparison" aria-live="polite"></div>\n\n## Full configuration history\n\nThe searchable history also contains failed or declared attempts, clearly distinguished from observed inference. An attempt without benchmark output is not a scored run. Missing fields remain **NOT MEASURED**.\n\n<div id="configuration-history"></div>\n\n'
- page+='Machine-readable [configuration history](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/configuration-history.json) is append-only. Changed metadata require a new profile identity; old results and original audit hashes remain retained.\n'
- page+='\n## Provenance gaps — excluded from reconstructed profiles\n\n'+table(['Experiment','Reason','Original audit'],[[g['experiment_id'],g['reason'],audit_links([g['audit_id']])] for g in history.get('provenance_gaps',[])])
+ page='# Configuration Comparison & Benchmark Master Table\n\nOne row per immutable configuration. Every recorded profile field and startup flag is available through the categorized column picker. Each benchmark column is bound to its exact register definition, dataset/task set, scorer and qualification track. Unknown means **NICHT ERFASST**, never off or zero. Failed and weaker configurations remain visible.\n\nSelect **Offiziell lokal zugelassen** for admitted full results or the separate **Explorativ** view for historical protocols and subsets. The user-defined arithmetic mean is not an official benchmark score; every selected result must exist for the exact same configuration. Distinct original run observations use their arithmetic mean, with count and dispersion; admission-history duplicates do not create extra observations. Provenance-defined observation counts do not establish statistical independence. Conflicting judgments are excluded from numerical summaries.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n## Comparing individual measurements\n\n<div id="configuration-comparison" aria-live="polite"></div>\n\n## Data coverage and missing fields\n\nModel names and file names are not proof of architecture, parameter count, QAT, SVD, original weights or the executed kernel. Requested flags and verified execution remain separate fields. Engine versions are never substituted with build hashes. Newly discovered fields automatically become selectable; unknown historical values are not backfilled.\n\n'
+ gap_paths=['model.hf_revision','model.hf_repository','model.parameter_count','model.qat','model.svd','model.architecture','engine.version','engine.git_commit','engine.fork_repository','engine.cuda_version','engine.driver_version','engine.executed_kernel_backend_path','runtime.thinking_level','runtime.reasoning_budget_tokens','optimizations.speculation_effective','optimizations.flash_attention_effective','optimizations.cuda_graphs.actual_capture_replay']
+ def field(obj,path):
+  for key in path.split('.'):
+   if not isinstance(obj,dict) or key not in obj:return None
+   obj=obj[key]
+  return obj
+ page+=table(['Recorded field','Profiles with a value','Profiles without a value'],[[path,sum(field(p,path) is not None for p in history['profiles']),sum(field(p,path) is None for p in history['profiles'])] for path in gap_paths])
+ page+='Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.\n\n'
+ page+='Prefill/decode/TTFT and other costs are shown only where the original run actually records them. Request wall time is not silently renamed total system latency. Performance columns are benchmark-specific, not pooled across unrelated tasks. CSV exports all filtered rows with the currently selected columns, complete identities and available audit links. CSV formula-like text is escaped.\n\nThe Top-5 analysis describes observed configurations and missing coverage. Suggested controlled A/B work is a research hypothesis, not a causal explanation, predicted speedup or automatic GPU authorization.\n\n[Immutable configuration history](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/configuration-history.json) · [Benchmark definitions and publisher evidence](benchmark-register.md) · [Original experiments](results.md)\n\n'
+ page+='## Provenance gaps — excluded from reconstructed profiles\n\n'+table(['Experiment','Reason','Original audit'],[[g['experiment_id'],g['reason'],audit_links([g['audit_id']])] for g in history.get('provenance_gaps',[])])
+ page+='## UI reproduction checks\n\nRun `python -m unittest discover -s scripts` and `node --test scripts/test_master_table.cjs` with Node.js 22 or newer. The optional real-browser acceptance script is `scripts/test_master_browser.cjs`: it accepts a site root URL and artifact directory and uses Playwright 1.64.1. Browser screenshots, CSVs and reports belong outside the public export tree. It runs with GPU rendering disabled. Development asset overrides are explicitly reported and must be disabled for the final published-site check.\n\nFilters accept substrings, `=value`, `!=value`, numeric comparisons such as `>=80`, and `?` for unknown. The CSV always includes immutable configuration IDs, all filtered rows and the currently visible columns. Long field values can be inspected directly in a table dialog without leaving the page.\n\n'
  write(docs/'configuration-comparison.md',page)
  profiles={p['runtime_configuration_id']:p for p in history['profiles']}
  # Remove only stale generated previews; append-only ledger profiles remain retained.
@@ -371,5 +440,5 @@ def render(register,history,comparison,docs,model_registry=None):
   write(reproduce,reproduce.read_text()+'\n## Official benchmark admission and immutable profiles\n\n`data/benchmark-register.json` pins benchmark definitions, task manifests where verified, scorer identities, primary-source receipts and separate publisher claims. `data/configuration-history.json` retains content-addressed profiles, measured groups, failed/declared attempts and explicit provenance gaps. Null fields mean **NOT MEASURED**.\n\nOfficial admission requires an independently audited full task manifest, exact dataset/scorer/configuration/audit identities and validated protocol/controls. Unsupported official metric aggregations require their own adapter. Subsets, canonical-reference exceptions and local tests remain supplemental until resolved through a separate qualification audit. Corrections append a new result/profile; original audits and earlier scores remain preserved.\n\nThe existing documentation publisher fingerprints the canonical benchmark register as well as the research matrix/reference ledger. It regenerates offline views, checks immutable history, task counts, hashes, links and public confidentiality before committing/pushing. Bounded publication retries do not block research; neither export nor GitHub Actions launches GPU jobs. Historical task exposure is disclosed, and parameter tuning belongs on development data.\n\nUse the existing export → render → unit tests → public validation → strict MkDocs sequence. Charts and profile comparisons use only bundled JSON/JavaScript/SVG; no external chart service is required. Whole-profile deltas are descriptive and do not establish the causal effect of an individual optimization.\n')
  models=list(comparison['models']);aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'};covered={aliases[x['id']] for x in models if x['id'] in aliases}
  models += [{'id':m['id'],'name':m['name'],'quantization':'NOT MEASURED'} for m in (model_registry or []) if m['id'] not in covered]
- payload={'register':register,'history':history,'models':models}
+ payload={'register':register,'history':history,'models':models,'master':master_catalog(register,history)}
  write(assets/'leaderboard-data.js','window.V100Leaderboard='+json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')+';\n')

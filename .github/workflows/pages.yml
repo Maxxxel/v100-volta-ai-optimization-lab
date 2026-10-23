@@ -23,6 +23,11 @@ jobs:
           cache-dependency-path: requirements-docs.txt
       - run: pip install -r requirements-docs.txt
       - run: python -m unittest discover -s scripts
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Master table scientific and export controls
+        run: node --test scripts/test_master_table.cjs
       - run: python scripts/validate.py
       - name: Verify deterministic generated documentation
         run: |

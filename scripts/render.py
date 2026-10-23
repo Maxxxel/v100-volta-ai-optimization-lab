@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Deterministic English documentation from the reviewed public data snapshot."""
-import json,pathlib,re,html
+import hashlib,json,pathlib,re,html
 P=pathlib.Path(__file__).resolve().parents[1];D=P/'docs'
 def read(n):return json.loads((P/'data'/n).read_text())
 def put(n,s):
@@ -179,8 +179,10 @@ See [Qualified configurations](configurations.md), [Rejected optimizations](reje
 
 Numerical values are exported without invented missing measurements. Original rationale excerpts may remain in German. Public audit excerpts are intentionally incomplete and have different bytes from the original audits whose hashes they cite.
 '''
+ overview+='\n[Open the interactive Benchmark Master Table](configuration-comparison.md): exact configurations, versioned benchmarks, selectable columns, user-defined averages and audit-linked evidence.\n'
  put('index.md',overview)
  readme=overview.replace('(benchmarks.md)','(docs/benchmarks.md)').replace('(configurations.md)','(docs/configurations.md)').replace('(rejected.md)','(docs/rejected.md)').replace('(models.md)','(docs/models.md)').replace('(matrix.md)','(docs/matrix.md)')+'\n## Documentation and collaboration\n\nBuild the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.\n'
+ readme=readme.replace('(configuration-comparison.md)','(docs/configuration-comparison.md)')
  (P/'README.md').write_text(readme)
  put('hardware.md','# Overview & hardware\n\n'+overview.split('## Hardware and software')[1].split('## What has helped')[0]+'\nCompiler version, CMake-discovered toolkit and loaded runtime are separate identities. R356 found that a compression-mode cache setting was ineffective because a discovered-toolkit version gate omitted the NVCC option; no baseline was changed.\n')
  put('methodology.md','''# Research methodology
@@ -358,5 +360,12 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell haben die 
  previous=changelog.read_text()
  if entry not in previous:
   changelog.write_text(previous+'\n'+entry+'\n\nAudited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.\n')
+ # Content-addressed asset URLs prevent mixed old/new table code or datasets.
+ # Unrelated matrix changes do not invalidate unchanged benchmark assets.
+ config=P/'mkdocs.yml';configuration=config.read_text()
+ for asset in ['stylesheets/lab.css','assets/benchmarks/leaderboard-data.js','javascripts/master-table.js','javascripts/leaderboard.js']:
+  version=hashlib.sha256((D/asset).read_bytes()).hexdigest()[:16]
+  configuration=re.sub(r'(?m)^(\s*-\s+)'+re.escape(asset)+r'(?:\?v=\S+)?$',lambda m:m.group(1)+asset+'?v='+version,configuration)
+ config.write_text(configuration)
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
 if __name__=='__main__':main()
