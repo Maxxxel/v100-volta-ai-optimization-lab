@@ -13614,5 +13614,21 @@
     "kind": "R441_BONSAI_PREFIX_FIRST3_AUDITED",
     "sequence": 1702,
     "signature": null
+  },
+  {
+    "date": "2026-10-22T23:58:20.682433+00:00",
+    "experiment_id": "R442",
+    "factor_id": null,
+    "kind": "R442_BONSAI_PREFIX_FIRST3_PREREGISTERED",
+    "sequence": 1703,
+    "signature": null
+  },
+  {
+    "date": "2026-10-23T00:08:47.205979+00:00",
+    "experiment_id": "R442",
+    "factor_id": null,
+    "kind": "R442_BONSAI_PREFIX_FULL18_CONFIRMATION_AUDITED",
+    "sequence": 1704,
+    "signature": null
   }
 ]

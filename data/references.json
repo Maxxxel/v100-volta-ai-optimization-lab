@@ -10432,5 +10432,74 @@
     "profile": "bonsai-pq2-sm70-native-medium-agent-first3-prefix-v1",
     "qualification": "DerivedfromvalidindependentlyauditedR440full18measurements; no newGPUrun or A0overwrite.",
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "gpu_energy_j_approx": 161928.84960849368,
+        "gpu_j_per_success": 9525.226447558452,
+        "solved": 17,
+        "tasks": 18,
+        "total_wall_s": 599.643605137
+      }
+    },
+    "experiment_id": "R440",
+    "id": "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
+    "identity": {
+      "cache": "Warmmodel,coldKV eachrequest;OSfilecacheuncontrolled; startup/warmupexcluded",
+      "inference_flags": {
+        "--batch-size": "2048",
+        "--cache-ram": "0",
+        "--cache-reuse": "0",
+        "--cache-type-k": "f16",
+        "--cache-type-v": "f16",
+        "--ctx-checkpoints": "2",
+        "--ctx-size": "8192",
+        "--flash-attn": "on",
+        "--load-mode": "mmap",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--reasoning": "on",
+        "--seed": "1001",
+        "--spec-type": "none",
+        "--threads": "6",
+        "--threads-batch": "6",
+        "--ubatch-size": "512"
+      },
+      "kernel_switches": {
+        "GGML_CUDA_GRAPH_OPT": "0",
+        "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+      },
+      "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+      "power_limit_w": 300,
+      "request_numeric_settings": null,
+      "seed": 1001,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "0560986e4e40400f9a1beaa474aade93b3c6236f78cde94609ae0d6d72c4a09d",
+      "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+      "1d32e8c7a5ba375008ffd3c010f70dfdd76c3c449ee4cd26e76004cd5e43e41c",
+      "32ed0e13c30a135600f667c46f0ba0c2df0e2eca5e0558b6302fa178e475e2d3",
+      "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+      "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+      "70a27e89ca70cc28d39f9274603cedc3e5598bb1c2039c43435327968e05b4f0",
+      "717966da46cfa4e9753ce2241df90215224329a344005bfd603b753e4e264019",
+      "7bff05c54f510fb2408268889c245e42843ffaf469ff52fcc53a2199cd1df790",
+      "8386c6c6b932e9b15a675e6f09910b252934a33c256fb4732e8d06800db73b6d",
+      "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+      "9bcac20d6fd1640fb05136e57255f0dd4a015b5f78bad3c86283266797355dbd",
+      "a48373656da8d0e2f3c9e24c5be5239343ad708fa1f0f5d4de3eea82c31f4d3f",
+      "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+      "cfb310938f8a59e625b24e3bef1886ece36567410babf2b981f3cb0f9e4509e3",
+      "e666c714a773c996ef611d6cf19638b001ad894d9ba32569a15cfdc08ff93506"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "bonsai2_27b_pq2",
+    "profile": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
+    "qualification": "DerivedfromvalidindependentlyauditedR440full18measurements; no newGPUrun or A0overwrite.",
+    "winner_qualified": false
   }
 ]

@@ -73,7 +73,7 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
-    if obj.get('extended_technique')=='MODEL_BONSAI_PREFIX_REUSE_FIRST3_SCREEN':
+    if obj.get('extended_technique') in ('MODEL_BONSAI_PREFIX_REUSE_FIRST3_SCREEN','MODEL_BONSAI_PREFIX_REUSE_FULL18_CONFIRMATION'):
         for k in ('planned_tasks','full3_score_claimed','total_task_wall_s','wall_reduction_percent_vs_A0','GPU_J_per_success_reduction_percent_vs_A0'):
             value=obj.get(k)
             if type(value) in (int,float,bool) and (type(value) is not float or math.isfinite(value)):result[k]=value

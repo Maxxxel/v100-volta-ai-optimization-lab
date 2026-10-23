@@ -38,13 +38,13 @@
     "status": "teilweise"
   },
   {
-    "assessment": "R441 Bonsai prefixfirst3: 3/3observed,cachehits21,prefixcachedtokens46481,wallgain15.355393938479944,energygain15.87991266036436;screen=True. No18case/state/losslessChampion.",
-    "current_experiment": "R441",
+    "assessment": "R442 Bonsai prefixfull18: 18/18observed,cachehits74,prefixcachedtokens145536,wallgain23.90143765232934,energygain29.170833453062727;screen=True. Full18confirmation only; noindependent/state/losslessChampion.",
+    "current_experiment": "R442",
     "evidence_class": null,
     "id": "BMC04",
     "local_scope": null,
     "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-    "next_step": "PromisingprefixBscreen: independentlyconfirm actualGDN-state correctness andfull18quality/cost at unchangedprofile with timelycontrols. NoChampion from3codingcases; do not combinewithpower/cache/MMQchanges.",
+    "next_step": "Full18prefixconfirmed: obtain one timelyfreshcold-prefix first3 control againstR440drift andR442same3benefit before independent scopedChampion qualification. Keep full18quality17+/zero-loss/policy and>=10percentfullcost gates; no extra tuning/combinations.",
     "priority": "P1",
     "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
     "source_admission": null,

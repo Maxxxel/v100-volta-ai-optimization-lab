@@ -9,7 +9,7 @@
 
 Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `8618784a56cea388065d3ab5b4df176039d53882614269c09e8e48d52d833b0d`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `8512d6f94c9f5d66eb839d5a509915648410c0c573b3ab41e8a3481f4ba950c8`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
 ## Coding · HumanEvalPlus
 
@@ -510,6 +510,7 @@ Task identity: `104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186
 | Qwen3.8 27B GSQ/RCO IQ3_S — Fast non-reasoning; no MTP / 2026-10-20 | 14/18 | 0.02934 | 477.196 s / 130284.60 J | 12454.5 | [R260](experiments/R260.md) |
 | Gemma4 12B IT QAT Q4_0 — Fast non-reasoning; no MTP / 2026-10-22 | 9/18 | 0.02778 | 323.942 s / 79448.26 J | 8118.5 | [R426](experiments/R426.md) |
 | Ternary Bonsai 2 27B PQ2_0 — Thinking medium; local2048; independent repeat / 2026-10-22 | 17/18 | 0.02835 | 599.644 s / 161928.85 J | 8158.5 | [R440](experiments/R440.md) |
+| Ternary Bonsai 2 27B PQ2_0 — Thinking medium; prefix reuse; local2048; confirmation / 2026-10-22 | 18/18 | 0.03945 | 456.320 s / 121439.49 J | 8158.5 | [R442](experiments/R442.md) |
 | Qwen3.8 27B GSQ/RCO IQ3_S — Fast; MTP3 / 2026-10-20 | 14/18 | 0.03425 | 408.702 s / 105913.80 J | 13600.5 | [R261](experiments/R261.md) |
 | OmniCoder2 9B Q6_K — MTP + weight cache; 300 W / 2026-10-20 | 13/18 | 0.08002 | 162.465 s / 41893.39 J | 14106.5 | [R219](experiments/R219.md) |
 | Ternary Bonsai 2 27B PQ2_0 — Thinking medium; 2048 output / 2026-10-21 | 17/18 | 0.02838 | 599.016 s / 161409.67 J | 8158.5 | [R286](experiments/R286.md) |
@@ -524,7 +525,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -552,7 +553,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -580,7 +581,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -608,7 +609,7 @@ Fast non-reasoning; no MTP. Additional policy violations observed; no assistant 
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -636,7 +637,7 @@ Thinking medium; local2048; independent repeat. No additional policy claim is in
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R440:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks |
@@ -654,6 +655,34 @@ Original audit SHA-256 (originals retained privately; public excerpts are not th
 
 - [audit-f4df3d5aa78011e3584d](audits/audit-f4df3d5aa78011e3584d.md): `f4df3d5aa78011e3584d3639348b5135ed9accc95661823a349cffc8480e018c`
 
+### Ternary Bonsai 2 27B · PQ2_0 · R442
+
+Thinking medium; prefix reuse; local2048; confirmation. No additional policy claim is inferred from this discipline.
+
+| Condition | Audited value |
+|---|---|
+| Separate process-VRAM observation (not device peak) | NOT MEASURED |
+| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
+| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
+| Date | 2026-10-22 |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": true} |
+| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
+| Cache / timing scope | Warm model; firstturn resets eachcase, laterturns retainprefix in one slot; OSfilecache uncontrolled, startup/warmupexcluded |
+| Measurement batches | R442:one full18-case prefixcandidate confirmation; no independentChampion fromfirst3screen |
+| Actual template controls | See pinned native request evidence |
+| Actual input-token range (if exported) | Not included in this public aggregate |
+| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
+| Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
+| Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
+| Template SHA-256 | See exact plan audit; not duplicated in public subset |
+| Scorer adapter SHA-256 | See audit scoring contract |
+| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
+| Plan SHA-256 | 1683005b2a201069d0d3de6e0984cdcd7fcf213463ea2f63914d7350bc8135f0 |
+
+Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
+
+- [audit-a0726ce1921a21ae1360](audits/audit-a0726ce1921a21ae1360.md): `a0726ce1921a21ae13604536c04208d97a1d36cbe33230120b39b854d9f3f1ed`
+
 ### Qwen3.8 27B · GSQ/RCO IQ3_S · R261
 
 Fast; MTP3. Additional policy failure inherited; coding-specialist screen, no general assistant qualification
@@ -664,7 +693,7 @@ Fast; MTP3. Additional policy failure inherited; coding-specialist screen, no ge
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -692,7 +721,7 @@ MTP + weight cache; 300 W. No additional policy claim is inferred from this disc
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -721,7 +750,7 @@ Thinking medium; 2048 output. No additional policy claim is inferred from this d
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-21 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R285:16 + R286:2 disjoint agent cases; R284 failed before agent generation and is excluded |

@@ -18665,5 +18665,49 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "GPU_J_per_success_reduction_percent_vs_A0": 29.170833453062727,
+      "actual_generation_requests": 96,
+      "full18_score_claimed": true,
+      "gpu_energy_j_approx": 121439.49308125368,
+      "gpu_j_per_success": 6746.638504514093,
+      "model_requests": 92,
+      "model_starts": 1,
+      "observed_tasks": 18,
+      "peak_device_vram_mib": 8158.5,
+      "planned_tasks": 18,
+      "prefix_cache": {
+        "cached_tokens": 145536,
+        "cases_with_hits": 18,
+        "first_turn_cached_tokens": 0,
+        "requests_with_hits": 74
+      },
+      "solved": 18,
+      "total_task_wall_s": 456.320162719,
+      "wall_reduction_percent_vs_A0": 23.90143765232934
+    },
+    "audit_id": "audit-a0726ce1921a21ae1360",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R442",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
+    "statements": {
+      "decision": "PREFIX_FULL18_CONFIRMED_INDEPENDENT_QUALIFICATION_PENDING",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "All18frozendevelopmentagents; fullHA/PVE/code confirmation only, notindependenttaskholdout or GDNhiddenstateequivalence.",
+        "Onlyretain_prefix flagchanges; graph/checkpoint/cache-reuse/context/model/engine/power/sampler unchanged.",
+        "Functionalgrades/cachehits are notproof ofallinternalGDNstateequivalence or losslessoutputs.",
+        "GPUboardtaskenergy includesfailures,excludesstartup/warmup/CPU/system; no universaldecodegain.",
+        "Full18confirmation againstvalidfreshR440; timelyfreshcontrol neededbefore independentChampion qualification."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

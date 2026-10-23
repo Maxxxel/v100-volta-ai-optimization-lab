@@ -60,6 +60,10 @@ def build(root, db, matrix, receipt):
         'agents':load(root/'staging/r219/PLAN.json')['agent_workload']['tasks_sha256']}
     def add(model,discipline,n,solved,wall,j,peak,ap,plan_n,a,aid,label,task_hash,spread=None,warning=None,extra_ids=None,extra_hashes=None):
         p,metadata=meta(plan_n,a,ap)
+        if discipline=='agents':
+            retained=p.get('agent_workload',{}).get('retain_prefix',False)
+            metadata['context_and_runtime']['retain_prefix']=retained
+            if retained:metadata['cache_condition']='Warm model; firstturn resets eachcase, laterturns retainprefix in one slot; OSfilecache uncontrolled, startup/warmupexcluded'
         row={'id':f'{model}-{discipline}-{plan_n}','model':model,'name':models[model][0],'quantization':models[model][1],'profile':label,'discipline':discipline,'tasks':n,'solved':solved,'wall_s':wall,'gpu_j':j,'peak_vram_mib':peak,'task_sha256':task_hash,'metadata':metadata,'audit_ids':[aid]+(extra_ids or []),'audit_sha256':[sha(ap)]+(extra_hashes or []),'experiment':a.get('experiment_id','R'+str(plan_n)),'repeat_range':spread,'warning':warning,'evidence_class':'LOCALLY MEASURED','comparability':'SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS'}
         rows.append(row)
     for model,n in registry['coding']:
@@ -79,10 +83,10 @@ def build(root, db, matrix, receipt):
     for model,n in registry['agents']:
         a,ap,aid=source(n);p=load(root/f'staging/r{n}/PLAN.json');assert a['full18_score_claimed'] and a['observed_tasks']==18
         warning='Additional policy violations observed; no assistant qualification' if a.get('additional_policy_violations') else None
-        add(model,'agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,n,a,aid,'Thinking medium; local2048; independent repeat' if model=='bonsai' else 'Fast non-reasoning; no MTP',p['agent_workload']['tasks_sha256'],warning=warning)
+        add(model,'agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,n,a,aid,('Thinking medium; prefix reuse; local2048; confirmation' if p['agent_workload'].get('retain_prefix') else 'Thinking medium; local2048; independent repeat') if model=='bonsai' else 'Fast non-reasoning; no MTP',p['agent_workload']['tasks_sha256'],warning=warning)
         if model=='bonsai':
             if p['agent_workload']['max_output_tokens']!=2048:raise ValueError('Bonsai agent repeat budget changed')
-            rows[-1]['metadata']['measurement_batches']=f'R{n}:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks'
+            rows[-1]['metadata']['measurement_batches']=f'R{n}:one full18-case prefixcandidate confirmation; no independentChampion fromfirst3screen' if p['agent_workload'].get('retain_prefix') else f'R{n}:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks'
     a,ap,aid=source(261);p=load(root/'staging/r261/PLAN.json');assert a['full18_score_claimed'] and a['observed_tasks']==18
     add('q38','agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,261,a,aid,'Fast; MTP3',p['agent_workload']['tasks_sha256'],warning='Additional policy failure inherited; coding-specialist screen, no general assistant qualification')
     a,ap,aid=source(219);cycles=a['cycle_metrics'];q=summary['r220']['qualified_candidate'];assert len(cycles)==3 and all(x['solved']==q['metrics']['solved'] for x in cycles)
