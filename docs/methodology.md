@@ -10,6 +10,8 @@ Prefill, decode, streaming TTFT, total task latency, device/process VRAM and GPU
 
 The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint base AND plus success; a larger auxiliary count is not the same score. Repeated observations within one process do not establish independent sessions or broad model superiority. Frozen development suites are not unseen holdouts.
 
+Official percentage admission must match the recorded numerator and denominator. A complete BFCL v4 Simple Python category uses its own AST-accuracy metric over all 400 unique official tasks; it is separate from the BFCL overall leaderboard and the historical static100 pilot. The metric adapter alone admits no model result: pinned scorer/configuration identities, complete coverage, controls and independent audit evidence are still mandatory. Missing results remain NOT MEASURED.
+
 ## Status semantics
 
 | Status | Meaning |

@@ -30,9 +30,20 @@ def official_gate(record,definition,proof):
  if proof.get('scorer_version')!=definition.get('scorer_version') or proof.get('audit_hash')!=record['audit_hash']:return False
  if proof.get('runtime_configuration_id')!=record.get('runtime_configuration_id'):return False
  if proof.get('solved')!=record.get('solved') or proof.get('tasks')!=record.get('tasks'):return False
- if not finite(proof.get('official_pass_at_1')) or not 0<=proof['official_pass_at_1']<=1:return False
- if not math.isclose(100*proof['official_pass_at_1'],record.get('score_percent',-1),rel_tol=1e-12,abs_tol=1e-12):return False
- if definition.get('metric')!='pass_at_1_percent':return False # Other official aggregations need their own validated adapter.
+ metric=definition.get('metric')
+ if metric=='pass_at_1_percent':
+  fraction=proof.get('official_pass_at_1')
+ elif metric=='bfcl_simple_python_ast_accuracy_percent':
+  # This is one complete official category, never BFCL's overall aggregation.
+  if definition.get('benchmark_id')!='bfcl-v4-simple-python-full400' or definition.get('required_task_count')!=400:return False
+  if proof.get('official_category')!='simple_python' or proof.get('category_only') is not True:return False
+  if type(proof.get('official_correct_count')) is not int or proof['official_correct_count']!=record.get('solved'):return False
+  fraction=proof.get('official_category_accuracy')
+ else:return False
+ if not finite(fraction) or not 0<=fraction<=1:return False
+ if type(record.get('tasks')) is not int or record['tasks']<=0 or type(record.get('solved')) is not int or not 0<=record['solved']<=record['tasks']:return False
+ if not math.isclose(fraction,record['solved']/record['tasks'],rel_tol=1e-12,abs_tol=1e-12):return False
+ if not math.isclose(100*fraction,record.get('score_percent',-1),rel_tol=1e-12,abs_tol=1e-12):return False
  count=definition.get('required_task_count')
  ids=proof.get('task_ids')
  if type(count) is not int or type(ids) is not list or len(ids)!=count or len(set(ids))!=count or record['tasks']!=count:return False

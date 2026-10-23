@@ -195,6 +195,8 @@ Prefill, decode, streaming TTFT, total task latency, device/process VRAM and GPU
 
 The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint base AND plus success; a larger auxiliary count is not the same score. Repeated observations within one process do not establish independent sessions or broad model superiority. Frozen development suites are not unseen holdouts.
 
+Official percentage admission must match the recorded numerator and denominator. A complete BFCL v4 Simple Python category uses its own AST-accuracy metric over all 400 unique official tasks; it is separate from the BFCL overall leaderboard and the historical static100 pilot. The metric adapter alone admits no model result: pinned scorer/configuration identities, complete coverage, controls and independent audit evidence are still mandatory. Missing results remain NOT MEASURED.
+
 ## Status semantics
 
 '''+table(['Status','Meaning'],[['QUALIFIED','Independently confirmed only within the named scope'],['TESTED_NEGATIVE','Valid test without sufficient benefit or with quality loss'],['PARTIAL','Only specified variants/components tested'],['OPEN','Insufficient technical or experimental evidence'],['DEFERRED','Specific documented prerequisite/cost blocks execution'],['NOT_APPLICABLE','Architecture, hardware or task mismatch']])+'''\nExperimental coverage is an independent boolean. A status decision, review, build or download is not a GPU intervention. Component coverage does not imply OmniCoder2 model coverage.\n''')
@@ -346,7 +348,7 @@ Aktueller Stand: Revision {s['matrix_revision']}, 130 Originalachsen + 32 Zusatz
 
 Die englischen Hauptseiten enthalten Methodik, Faktoren, Originalaudit-Hashes, qualifizierte Profile und Negativbefunde. Einige genaue Begründungen bleiben in ihrer ursprünglichen deutschen Sprache. Fehlende Messwerte heißen NOT MEASURED. Private Aufgaben, Logs, Infrastruktur und Gewichte werden nicht veröffentlicht; exakte öffentliche Reproduzierbarkeit ist deshalb bei privaten Suites begrenzt.
 
-Es gibt noch keinen endgültigen universellen Modellgewinner. Die Einzeltest-Priorität und bestehenden Schutzmechanismen bleiben verbindlich.
+Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell haben die regulären Modellbenchmarks Vorrang: technisch ausführbare Kandidaten werden nicht durch eigene QA-Vortests ausgeschlossen. Detailoptimierungen folgen nach der vergleichbaren Auswertung, Kombinationen zuletzt. Die bestehenden Schutzmechanismen bleiben verbindlich.
 ''')
  changelog=P/'CHANGELOG.md'
  entry='## Audited research checkpoint '+max((e['id'] for e in es),key=lambda x:int(x[1:]))+' / '+read('comparison.json')['measurement_fingerprint'][:12]

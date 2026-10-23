@@ -26,6 +26,25 @@ class LeaderboardTests(unittest.TestCase):
    r,d,p=self.fixture();d[key]=None;self.assertFalse(official_gate(r,d,p))
  def test_unsupported_aggregation_cannot_use_simple_percentage(self):
   r,d,p=self.fixture();d['metric']='BFCL_official_aggregation';p['benchmark_identity_id']=definition_identity(d);r['benchmark_identity_id']=definition_identity(d);self.assertFalse(official_gate(r,d,p))
+ def bfcl_fixture(self):
+  r,d,p=self.fixture();ids=[f'simple_python_{i}' for i in range(400)]
+  d.update(benchmark_id='bfcl-v4-simple-python-full400',required_task_count=400,expected_task_ids_hash=H(sorted(ids)),metric='bfcl_simple_python_ast_accuracy_percent')
+  r.update(benchmark_id=d['benchmark_id'],benchmark_identity_id=definition_identity(d),tasks=400,solved=300,score_percent=75)
+  p.pop('official_pass_at_1');p.update(benchmark_identity_id=definition_identity(d),tasks=400,solved=300,task_ids=ids,official_category='simple_python',category_only=True,official_correct_count=300,official_category_accuracy=.75)
+  return r,d,p
+ def test_complete_bfcl_category_has_its_own_metric(self):
+  self.assertTrue(official_gate(*self.bfcl_fixture()))
+ def test_bfcl_subset_or_whole_leaderboard_cannot_masquerade_as_category(self):
+  for key,value in [('category_only',False),('official_category','overall'),('official_correct_count',299),('official_category_accuracy',.9),('all_canonical_controls_passed',False)]:
+   r,d,p=self.bfcl_fixture();p[key]=value;self.assertFalse(official_gate(r,d,p),key)
+  for key,value in [('benchmark_id','bfcl-v4-full'),('required_task_count',100)]:
+   r,d,p=self.bfcl_fixture();d[key]=value;r['benchmark_id']=d['benchmark_id'];r['benchmark_identity_id']=p['benchmark_identity_id']=definition_identity(d);self.assertFalse(official_gate(r,d,p),key)
+ def test_bfcl_requires_complete_unique_ids_and_exact_score(self):
+  for ids in [[f'simple_python_{i}' for i in range(100)],['simple_python_0']*400]:
+   r,d,p=self.bfcl_fixture();p['task_ids']=ids;self.assertFalse(official_gate(r,d,p))
+  r,d,p=self.bfcl_fixture();p.pop('official_category_accuracy');p['official_pass_at_1']=.75;self.assertFalse(official_gate(r,d,p))
+ def test_pass_at_one_must_match_the_recorded_numerator(self):
+  r,d,p=self.fixture();p['official_pass_at_1']=.9;r['score_percent']=90;self.assertFalse(official_gate(r,d,p))
  def test_known_upstream_exception_requires_full_pinned_controls(self):
   h=json.loads((ROOT/'data/configuration-history.json').read_text());defs={d['benchmark_id']:d for d in json.loads((ROOT/'data/benchmark-register.json').read_text())['definitions']}
   r=next(r for r in h['runs'] if r['official_eligible']);d=defs[r['benchmark_id']];p=r['qualification_audit'];self.assertTrue(official_gate(r,d,p))
