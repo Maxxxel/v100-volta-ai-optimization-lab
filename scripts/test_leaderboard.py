@@ -1,7 +1,7 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_partial_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
  def engine_source_fixture(self):
@@ -192,6 +192,31 @@ class LeaderboardTests(unittest.TestCase):
   with self.assertRaises(ValueError):native_coverage(parts,[],ids)
  def test_native_partial_result_has_no_run_even_with_profile_present(self):
   self.assertIsNone(native_complete_run('/not/read',{'full_benchmark_score_claimed':False},{},{},lambda *x:None))
+ def partial_native_fixture(self,root):
+  def save(path,obj):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(obj)+'\n');return digest(path)
+  def lines(path,rows):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(''.join(json.dumps(x)+'\n' for x in rows));return digest(path)
+  cfg,native,launch=self.captured_fixture();ids=['HumanEval/0','HumanEval/1'];native['selected_task_inputs']={'cases':[{'id':i,'messages':[{'role':'user','content':'synthetic fixture'}]} for i in ids]};cfg['source_provenance']['frozen_model_profile_sha256']=H({k:v for k,v in native.items() if k!='selected_task_inputs'});cfg['runtime'].update(power_limit_w=300,execution_deadline_s=840)
+  stage=root/'staging/r9';out=root/'results';score=stage/'scoring/partial';out.mkdir();score.mkdir(parents=True)
+  campaign={'expected_task_ids':[f'HumanEval/{i}' for i in range(164)],'immutable_profile_identity_sha256':cfg['source_provenance']['frozen_model_profile_sha256']};ps=save(stage/'CAMPAIGN_PLAN.json',campaign);cfg['source_plan_sha256']=ps
+  save(out/'LAUNCH.json',launch);save(out/'profile.json',native);save(out/'CONTRACT.json',{'power_w':300,'runtime_seconds':840})
+  raw=lines(out/'HTTP_RESULTS.jsonl',[{'kind':'coding','id':case['id'],'request':{**native['native_recipe']['request_options'],'messages':case['messages']}} for case in native['selected_task_inputs']['cases']])
+  samples=lines(score/'JUDGE_SAMPLES.jsonl',[{'task_id':i,'code':'synthetic fixture'} for i in ids]);lines(score/'r9-judge-partial.stdout',[{'task_id':i,'checks':{'base':{'status':'pass'},'plus':{'status':'pass' if n==0 else 'fail'}}} for n,i in enumerate(ids)])
+  helper=save(root/'quality_eval.py',{'fixture':'not executed'});paths=[root/'staging/r101'/n for n in ['JUDGE_TASKS.jsonl','calibration3.stdout','calibration5.stdout']]
+  for path in paths:save(path,{'fixture':'not executed'})
+  save(score/'SCORING_PLAN.json',{'raw_answers_sha256':raw,'judge_samples_sha256':samples,'helper_sha256':helper});save(score/'r9-judge-partial.receipt.json',{'input_sha256':{str(p):digest(p) for p in [score/'JUDGE_SAMPLES.jsonl',root/'quality_eval.py',*paths]}})
+  save(out/'RAW_HASHES.json',{n:digest(out/n) for n in ('LAUNCH.json','profile.json','CONTRACT.json')})
+  final={'experiment_id':'R9','status':'STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET','full_benchmark_score_claimed':False,'campaign_plan_sha256':ps,'raw_root':str(out),'raw_files_sha256':{p.name:digest(p) for p in out.iterdir()},'scoring_files_sha256':{p.name:digest(p) for p in score.iterdir()},'prefix_measurement':{'per_task':[{'id':i,'e2e_s':1,'gpu_energy_j':2} for i in ids]},'peak_device_vram_mib':100,'scored_tasks':2,'solved_observed_tasks':1,'at_utc':'2026-01-01T00:00:00Z'};ap=stage/'TIME_BUDGET_AUDIT.json';ah=save(ap,final);source={**final,'audit_path':str(ap),'audit_sha256':ah};bench={'benchmark_id':'humanevalplus-v0.1.10','benchmark_revision':'fixture','dataset_split_hash':'a'*64,'required_task_count':164};return source,cfg,bench,final,save
+ def test_partial_native_result_is_visible_with_exact_actual_denominator(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.partial_native_fixture(root);run=native_partial_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20]);self.assertEqual((run['solved'],run['tasks'],run['intended_tasks']),(1,2,164));self.assertEqual(run['score_percent'],50);self.assertEqual(run['status'],'PARTIAL');self.assertFalse(run['official_eligible']);self.assertFalse(run['full_benchmark_score_claimed']);self.assertEqual(run['gpu_j'],4)
+   path=pathlib.Path(final['raw_root'])/'HTTP_RESULTS.jsonl';path.write_text('{}\n')
+   with self.assertRaisesRegex(ValueError,'raw evidence'):native_partial_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
+ def test_partial_native_does_not_accept_changed_configuration_or_missing_oracles(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.partial_native_fixture(root);bad=copy.deepcopy(cfg);bad['optimizations']['speculation_type']='draft-mtp'
+   with self.assertRaises(ValueError):native_partial_run(root,source,bad,bench,lambda p,h:'audit-'+h[:20])
+   stage=root/'staging/r9/scoring/partial';rp=stage/'r9-judge-partial.receipt.json';receipt=json.loads(rp.read_text());receipt['input_sha256'].pop(str(root/'staging/r101/calibration5.stdout'));save(rp,receipt);final['scoring_files_sha256'][rp.name]=digest(rp);source['audit_sha256']=save(pathlib.Path(source['audit_path']),final)
+   with self.assertRaisesRegex(ValueError,'oracle/corpus'):native_partial_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
  def native_files_fixture(self,root):
   """Synthetic metadata fixtures only; never model/GPU measurements."""
   def save(p,obj):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(obj)+'\n');return digest(p)

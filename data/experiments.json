@@ -19049,5 +19049,33 @@
       "scope": "Actual interrupted single-session prefix, generated fresh without output reuse or sampler changes. Complete response/input pairs only; unfinished/uncollected tasks are not scored zero. No full-suite score, model rejection or Champion claim. CPU scoring shares the same root900s clock."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7436.5,
+      "scopes": {
+        "standard_full164": {
+          "GPU_J_per_success": 1538.1833177440662,
+          "gpu_energy_j": 178429.26485831168,
+          "solved": 116,
+          "successful_tasks_per_s": 0.12859159196462433,
+          "tasks": 164,
+          "wall_s": 902.080752153
+        }
+      }
+    },
+    "audit_id": "audit-c0841e498189e24dc746",
+    "date": "2026-10-23T20:41:09.534830+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R452",
+    "model": "lfm25_8b_a1b_q6",
+    "reference_A0": null,
+    "statements": {
+      "scope": "All1 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
+    },
+    "winner_qualified": false
   }
 ]

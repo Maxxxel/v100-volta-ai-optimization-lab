@@ -212,6 +212,18 @@
     const key = state.protocols?.get(column.family.id);
     return column.family.protocols.some(p => p.key === key) ? key : null;
   }
+  function resolvedScore(row, column, state, benchmarkMap) {
+    const chosen = protocolKey(column, state);
+    let key = chosen;
+    if (column.kind === 'family' && state.allMeasured && !state.officialOnly && !state.strictProtocols?.has(column.family.id)) {
+      const candidates = column.family.protocols.filter(b => row.scores[b.key]?.n > 0);
+      const priority = b => b.scope === 'OFFICIAL_LOCAL' ? 0 : b.scope === 'UNQUALIFIED_FULL' ? 1 : b.scope === 'PARTIAL' ? 3 : 2;
+      // Prefer qualification and coverage, never the largest observed score.
+      candidates.sort((a, b) => priority(a) - priority(b) || (b.protocol.tasks || 0) - (a.protocol.tasks || 0) || Number(b.key === chosen) - Number(a.key === chosen) || a.key.localeCompare(b.key));
+      if (candidates.length) key = candidates[0].key;
+    }
+    return { key, selectedKey: chosen, benchmark: benchmarkMap.get(key), a: row.scores[key] };
+  }
   function comparisonView(model) {
     // Presentation-only exclusion. The source ledger and full build retain the
     // local laboratory evidence, available on the separate local-tests pages.
@@ -227,7 +239,7 @@
   }
   function value(row, column, state, benchmarkMap) {
     if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
-    if (column.kind === 'benchmark' || column.kind === 'family') return row.scores[protocolKey(column, state)]?.score ?? null;
+    if (column.kind === 'benchmark' || column.kind === 'family') return resolvedScore(row, column, state, benchmarkMap).a?.score ?? null;
     if (column.kind === 'metric') return measuredValue(row.scores[column.benchmark.key], column.path);
     if (column.key === 'engine.version') return row.values['engine.version'] ?? row.values['engine.source_version_label'] ?? null;
     return row.values[column.key] ?? null;
@@ -267,8 +279,8 @@
       displayed_family_protocols: [...(state.protocols || [])].map(([family_id, key]) => ({ family_id, ...identity(key) })) };
     return '\uFEFF' + [[csvCell('runtime_configuration_id'), csvCell('selected_protocols'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), csvCell(selection), ...selected.map(c => {
       if (c.kind === 'benchmark' || c.kind === 'family') {
-        const key = protocolKey(c, state), a = row.scores[key];
-        return csvCell({ ...identity(key), measurement: !a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
+        const { key, selectedKey, a } = resolvedScore(row, c, state, benchmarkMap);
+        return csvCell({ ...identity(key), selected_reference_protocol: identity(selectedKey), measurement: !a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
           solved: a.solved, tasks: a.tasks, min: a.min, max: a.max, sd: a.sd,
           runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? UNKNOWN : null });
       }
@@ -288,7 +300,7 @@
     });
     return { top, measuredConfigurations: ranked.length, coverage };
   }
-  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, comparisonView };
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.V100MasterTable = API;
   if (typeof document === 'undefined') return;
@@ -300,7 +312,7 @@
   const number = v => finite(v) ? v.toLocaleString('de-DE', { maximumFractionDigits: 2 }) : UNKNOWN;
   function mount(target, data) {
     const model = comparisonView(build(data)), byKey = new Map(model.columns.map(c => [c.key, c]));
-    const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false };
+    const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false, allMeasured: true, strictProtocols: new Set() };
     const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version'];
     const canAverage = b => !!b && (state.mode !== 'official' || b.scope === 'OFFICIAL_LOCAL');
     const chosenBenchmarks = () => [...state.protocols.values()].map(k => model.benchmarkMap.get(k)).filter(Boolean);
@@ -309,9 +321,6 @@
     if (first) state.selected.add(first.key);
     let presetName = 'Kompakt', filtered = [], shownColumns = [], headerCells = new Map();
     target.textContent = ''; target.append(E('h2', 'Alle gemessenen Ergebnisse'));
-    const localNote = E('p', undefined, 'master-supplemental-note'); localNote.append(link('Eigene Supplemental-Tests separat ansehen', '../local-benchmarks/'));
-    if (model.supplementalRows.length) localNote.append(document.createTextNode(' · ' + model.supplementalRows.length + ' Konfigurationen mit ausschließlich lokalen Testergebnissen sind hier ausgeblendet.'));
-    target.append(localNote);
     const toolbar = E('div', undefined, 'master-toolbar'), search = E('input'); search.type = 'search'; search.placeholder = 'Modell, Engine, Parameter oder Experiment suchen'; search.setAttribute('aria-label', search.placeholder);
     const mode = E('select'); [['official', 'Nur offiziell lokal zugelassene Protokolle'], ['exploratory', 'Explorativ: auch Historie und Teilmengen']].forEach(([v, t]) => { const o = E('option', t); o.value = v; mode.append(o); });
     const presets = E('select'); ['Kompakt', 'Vollständig', 'Qualität', 'Geschwindigkeit', 'Energie'].forEach(t => presets.append(E('option', t)));
@@ -394,6 +403,7 @@
         identity.title = b ? text({ ...b.protocol, definition: b.definition, scope: b.scope }) : UNKNOWN;
         select.title = identity.title;
         select.addEventListener('change', () => {
+          state.strictProtocols.add(f.id);
           const wasSelected = state.selected.delete(state.protocols.get(f.id));
           state.protocols.set(f.id, select.value);
           if (wasSelected && canAverage(model.benchmarkMap.get(select.value))) state.selected.add(select.value);
@@ -417,7 +427,7 @@
         const th = E('th'); th.scope = 'col'; th.dataset.columnKey = c.key; const b = button((c.shortLabel || c.label) + ' ↕', () => { state.descending = state.sort === c.key ? !state.descending : c.kind !== 'parameter'; state.sort = c.key; renderRows(); }); b.title = (c.description || c.label + '\n' + c.key); th.append(b);
         if (c.kind === 'family') {
           const p = model.benchmarkMap.get(protocolKey(c, state));
-          const note = E('small', p ? p.scope + ' · n=' + text(p.protocol.tasks) : UNKNOWN, 'master-protocol-note');
+          const note = E('small', p ? (state.allMeasured ? 'n je Zelle · Vollumfang ' : p.scope + ' · n=') + text(p.protocol.tasks) : UNKNOWN, 'master-protocol-note');
           note.title = p ? text(p.protocol) : UNKNOWN; th.append(note);
         }
         names.append(th); headerCells.set(c.key, th);
@@ -459,15 +469,15 @@
       });
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
       const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
-      counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Konfigurationen · ' + model.archive.length + ' weitere Profile im separaten Archiv · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
-      selectionWarning.textContent = state.mode === 'official' ? 'Durchschnitt: ausschließlich die ausdrücklich ausgewählten, lokal offiziell zugelassenen Protokolle.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
+      counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Konfigurationen · ' + model.archive.length + ' ergebnislose Profile ausgeblendet · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
+      selectionWarning.textContent = state.mode === 'official' ? 'Alle gemessenen Voll- und Teilwerte stehen in dieser Tabelle. Ø verwendet ausschließlich die ausgewählten, offiziell qualifizierten Protokolle; PARTIAL wird nicht als Vollbenchmark gewertet.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
       renderAnalysis(); scheduleHeader();
     }
     function renderScore(td, row, column) {
-      const key = protocolKey(column, state), benchmark = model.benchmarkMap.get(key), a = row.scores[key];
+      const { key, benchmark, a } = resolvedScore(row, column, state, model.benchmarkMap);
       if (!a?.n) { td.textContent = UNKNOWN; td.className = 'master-missing'; return; }
       if (a.conflict) { td.textContent = 'WIDERSPRÜCHLICHE AUDITS'; td.className = 'benchmark-warning'; return; }
-      const scope = { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'UNQUALIFIZIERT', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
+      const scope = { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'VOLLSTÄNDIG', PARTIAL: 'PARTIAL', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
       const line = E('span', undefined, 'master-score-line');
       line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + a.solved + '/' + a.tasks + ') · '));
       const details = button(scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {

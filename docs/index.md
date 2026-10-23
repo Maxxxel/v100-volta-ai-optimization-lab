@@ -14,7 +14,7 @@ Matrix revision **403**, canonical assessment date **2026-10-23T20:03:25.531957+
 
 
 
-These are different units: **370 sprint records**, **302 historical signed windows**, **1715 ledger events**, **60 immutable reference records**, **12 current profile champions**. None is a total count of independent GPU experiments.
+These are different units: **371 sprint records**, **302 historical signed windows**, **1715 ledger events**, **60 immutable reference records**, **12 current profile champions**. None is a total count of independent GPU experiments.
 
 ## Hardware and software
 

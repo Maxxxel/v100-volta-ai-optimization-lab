@@ -254,3 +254,18 @@ test('engine source labels require the exact recorded server, CUDA library and b
   const wrong = M.comparisonView(M.build(copy));
   assert(wrong.rows.every(r => r.values['engine.source_version_label'] === undefined));
 });
+test('one-table default displays partial results without pretending an official score exists', () => {
+  const full = { key: 'full', family_id: 'h', scope: 'OFFICIAL_LOCAL', protocol: { tasks: 164 } };
+  const partial = { key: 'part', family_id: 'h', scope: 'PARTIAL', protocol: { tasks: 140 } };
+  const small = { key: 'small', family_id: 'h', scope: 'PARTIAL', protocol: { tasks: 8 } };
+  const column = { kind: 'family', family: { id: 'h', protocols: [full, partial, small] } };
+  const row = { scores: { part: M.aggregate([{ ...score(70, 'partial'), solved: 99, tasks: 140, score_percent: 100 * 99 / 140, official_eligible: false, status: 'PARTIAL' }]), small: M.aggregate([{ ...score(100, 'small'), solved: 8, tasks: 8, score_percent: 100, official_eligible: false, status: 'PARTIAL' }]) } };
+  const state = { protocols: new Map([['h', 'full']]), allMeasured: true, officialOnly: false, strictProtocols: new Set() }, map = new Map([full, partial, small].map(x => [x.key, x]));
+  assert.equal(M.resolvedScore(row, column, state, map).key, 'part', 'Coverage, not maximum percentage, chooses the partial result');
+  assert.equal(M.value(row, column, state, map), 100 * 99 / 140);
+  assert.equal(M.average(row.scores, ['full'], true, map), null);
+  assert.equal(M.resolvedScore(row, column, { ...state, officialOnly: true }, map).a, undefined);
+  assert.equal(M.resolvedScore(row, column, { ...state, strictProtocols: new Set(['h']) }, map).a, undefined);
+  const csv = M.csv([{ ...row, id: 'cfg-a' }], [column], { ...state, visible: new Set([column.key]), selected: new Set(), mode: 'official' }, map);
+  assert(csv.includes('PARTIAL') && csv.includes('140') && csv.includes('selected_reference_protocol'));
+});

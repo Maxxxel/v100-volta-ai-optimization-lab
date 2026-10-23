@@ -228,5 +228,4 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | mimo_v26_distill_qwen9b_q8 | [cfg-0a43559e1f529ff4](configuration-profiles/cfg-0a43559e1f529ff409d11fd8d62af2f96bfa10b76f566cd334271a2efe7b0f89.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 | mimo_v26_distill_qwen9b_q8 | [cfg-ec18b02969962246](configuration-profiles/cfg-ec18b02969962246d98530a67e8e70414c377ddd661da5609566befb74d05d87.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 | bonsai2_27b_pq2 | [cfg-e9de151384c39d90](configuration-profiles/cfg-e9de151384c39d90b6131f812f5e5374ae9fc92c5e42b575381b34aae8a15a04.md) | No benchmark result in history.runs; inspect archived attempt evidence |
-| LFM2.5 8B A1B | [cfg-66197a37964ebf63](configuration-profiles/cfg-66197a37964ebf638e5f284a711c59cf382740b838563e53abe295841a619307.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 

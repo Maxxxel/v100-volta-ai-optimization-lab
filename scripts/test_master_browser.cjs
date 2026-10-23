@@ -137,7 +137,8 @@ async function main() {
       }, key);
       observations.forEach(o => { if (o.expected === null) { assert.equal(o.actual, null); assert.equal(o.text, 'NICHT ERFASST'); } else assert(Math.abs(o.actual - o.expected) <= .0051); });
     }
-    await verifyHumanProtocol(human.official);
+    assert.equal(await page.locator('.md-content table').count(),1,'Only one table on the central page');
+    await humanSelect.selectOption(human.official); await verifyHumanProtocol(human.official);
     assert(human.historical);
     await humanSelect.selectOption(human.historical); await verifyHumanProtocol(human.historical);
     assert(await page.locator('input[data-family-key=humanevalplus]').isDisabled());

@@ -173065,6 +173065,31 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 7436.5,
+      "scopes": {
+        "standard_full164": {
+          "GPU_J_per_success": 1538.1833177440662,
+          "gpu_energy_j": 178429.26485831168,
+          "solved": 116,
+          "successful_tasks_per_s": 0.12859159196462433,
+          "tasks": 164,
+          "wall_s": 902.080752153
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c0841e498189e24dc746",
+    "original_bytes": 7850,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c0841e498189e24dc74642768d8e0a3f330faeebb49693eaa36ca315dabf73ba",
+    "statements": {
+      "scope": "All1 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -251274,6 +251299,41 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7436.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5f68fa7e72e9febb72f0",
+    "original_bytes": 143532,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5f68fa7e72e9febb72f091ec69eaa367293ee25dda0aa4c1629220fc2a2e2c89",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 116,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-406f9e5ee111d8452a7b",
+    "original_bytes": 3792,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "406f9e5ee111d8452a7b955b07dc0ad9c13ba6cd01de7bc0232ede62c5e49ff4",
+    "statements": {
+      "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -251528,6 +251588,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "7f3ab2f95edf05d58dec91ed60dab2ea85feb8c6c57ecb4c68cda36d6b661c54",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ed1f07fd94496257f766",
+    "original_bytes": 1283,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ed1f07fd94496257f7669978ef24bb5cbc5d3acd799cab2cc0374eba092ee831",
     "statements": {}
   },
   {
@@ -251952,6 +252023,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "11fe0611173134b78e6ef38f9321d6dcd3a1703d180ef6374fed005f4a2ec723",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-4f666cc33e7511656c9a",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4f666cc33e7511656c9a07ed7ce7090d8f15f87b8e042a745e8e75d4bd6bf093",
     "statements": {}
   },
   {
