@@ -245,7 +245,7 @@ def render(data,docs,model_registry=None,experiments=None):
     docs=pathlib.Path(docs);dest=docs/'assets/benchmarks';dest.mkdir(parents=True,exist_ok=True)
     def write(p,text):
         if not p.exists() or p.read_text()!=text:p.write_text(text)
-    def cell(x):return str(x if x is not None else 'NOT MEASURED').replace('|','\\|').replace('\n',' ')
+    def cell(x):return html.escape(str(x if x is not None else 'NOT MEASURED')).replace('|','\\|').replace('\n',' ')
     def table(headers,rs):return '| '+' | '.join(headers)+' |\n|'+'|'.join('---' for _ in headers)+'|\n'+''.join('| '+' | '.join(cell(x) for x in row)+' |\n' for row in rs)+'\n'
     page='# Model Comparison & Benchmarks\n\n<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Separate coding, native tools and agent results on one V100. No combined score and no automatic winner.</p></div>\n\n'
     page+='\n'.join('- '+x for x in data['rules'])+'\n\nCharts run from best measured value at the top to worst at the bottom: success/throughput descending; latency/energy/VRAM ascending. Missing measurements follow all measured values. Ties retain a stable profile order. Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.\n\n'

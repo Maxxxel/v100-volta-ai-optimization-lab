@@ -1,6 +1,6 @@
 # Safe research admission
 
-Risk classes replace per-factor GPU approvals. A negative optimization result is scientific evidence about its tested configuration; it is not a ban on a distinct model or matrix-shape hypothesis.
+Risk classes replace per-factor GPU approvals. Canonical factor IDs are provenance labels; the model/adapter operation schema and risk envelope determine eligibility. A negative optimization result is scientific evidence about its tested configuration; it is not a ban on a distinct model or matrix-shape hypothesis.
 
 | Class | Automatically allowed scope | Excluded |
 |---|---|---|
@@ -33,7 +33,7 @@ Registration validates a separate complete candidate registry before atomic acti
 
 | Verification | Result | Scope |
 |---|---|---|
-| Broker regression suite | 29 tests passed | Policy boundaries, bad identities/hashes, compatibility, hardware faults, parallel starts, invalid-registration rollback, source links and scoped termination |
+| Broker regression suite | 30 tests passed | Policy boundaries, bad identities/hashes, compatibility, hardware faults, parallel starts, invalid-registration rollback, source links and scoped termination |
 | Isolated source/build probes | Passed | UID 65534, read-only source/system, no GPU devices or protected host files, output quotas and ELF dependency capture |
 | [R446](experiments/R446.md) | 12/12 new PQ2 boundary cases passed | Fixed native CPU/CUDA comparison, NMSE bound 5e-4; 806.5 MiB peak device memory |
 | Candidate namespace GPU regression | One case passed | Reviewed original binaries through the new unprivileged namespace path; not an additional optimization factor |
