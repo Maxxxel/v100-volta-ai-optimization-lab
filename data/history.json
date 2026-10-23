@@ -13662,5 +13662,21 @@
     "kind": "R444_MIMO_NATIVE_TOOL20_PILOT_AUDITED",
     "sequence": 1708,
     "signature": null
+  },
+  {
+    "date": "2026-10-23T00:49:38.889385+00:00",
+    "experiment_id": "R271",
+    "factor_id": null,
+    "kind": "SCIENTIFIC_CORRECTION_R271_PREREGISTRATION_GATE",
+    "sequence": 1709,
+    "signature": null
+  },
+  {
+    "date": "2026-10-23T00:49:38.889447+00:00",
+    "experiment_id": "R445",
+    "factor_id": null,
+    "kind": "R445_MIMO_CODING18_PREREGISTERED",
+    "sequence": 1710,
+    "signature": null
   }
 ]
