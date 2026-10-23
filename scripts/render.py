@@ -197,6 +197,8 @@ The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint bas
 
 Official percentage admission must match the recorded numerator and denominator. A complete BFCL v4 Simple Python category uses its own AST-accuracy metric over all 400 unique official tasks; it is separate from the BFCL overall leaderboard and the historical static100 pilot. The metric adapter alone admits no model result: pinned scorer/configuration identities, complete coverage, controls and independent audit evidence are still mandatory. Missing results remain NOT MEASURED.
 
+Native broker campaigns use their frozen data contracts and captured launch/profile receipts; no preflight plan is invented retrospectively. Full coding result export verifies all 164 unique tasks, every bounded part and scorer output, unchanged model/runtime configuration, and measured task costs. A complete local result still requires a separate official-API qualification before entering the official local highscore view. Partial campaigns export configuration evidence only.
+
 ## Status semantics
 
 '''+table(['Status','Meaning'],[['QUALIFIED','Independently confirmed only within the named scope'],['TESTED_NEGATIVE','Valid test without sufficient benefit or with quality loss'],['PARTIAL','Only specified variants/components tested'],['OPEN','Insufficient technical or experimental evidence'],['DEFERRED','Specific documented prerequisite/cost blocks execution'],['NOT_APPLICABLE','Architecture, hardware or task mismatch']])+'''\nExperimental coverage is an independent boolean. A status decision, review, build or download is not a GPU intervention. Component coverage does not imply OmniCoder2 model coverage.\n''')

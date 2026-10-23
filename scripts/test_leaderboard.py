@@ -1,7 +1,7 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,digest
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
  def fixture(self):
@@ -101,6 +101,37 @@ class LeaderboardTests(unittest.TestCase):
  def test_native_capture_rejects_unverified_privilege_or_recipe(self):
   p,n,l=self.captured_fixture();l['uid']=0;p['start_parameters']['exact_private_launch_sha256']=H(l)
   with self.assertRaises(ValueError):verify_broker_capture(p,n,l)
+ def test_native_full_coverage_rejects_partial_duplicate_and_changed_denominators(self):
+  ids=[f'HumanEval/{i}' for i in range(164)];parts=[{'part':1,'task_ids':ids}];scores=[{'part':1,'tasks':164,'solved':82}];self.assertEqual(native_coverage(parts,scores,ids),82)
+  for bad in [[{'part':1,'task_ids':ids[:-1]}],[{'part':1,'task_ids':ids[:-1]+[ids[0]]}]]:
+   with self.assertRaises(ValueError):native_coverage(bad,scores,ids)
+  with self.assertRaises(ValueError):native_coverage(parts,[{'part':1,'tasks':164,'solved':165}],ids)
+  with self.assertRaises(ValueError):native_coverage(parts,[],ids)
+ def test_native_partial_result_has_no_run_even_with_profile_present(self):
+  self.assertIsNone(native_complete_run('/not/read',{'full_benchmark_score_claimed':False},{},{},lambda *x:None))
+ def native_files_fixture(self,root):
+  """Synthetic metadata fixtures only; never model/GPU measurements."""
+  def save(p,obj):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(obj)+'\n');return digest(p)
+  ids=[f'HumanEval/{i}' for i in range(164)];cfg,native,launch=self.captured_fixture();native['adapter']='llama-native-coding';cfg['source_provenance']['frozen_model_profile_sha256']=H(native)
+  plans=[{'index':i//8+1,'id':f'r9-native-part{i//8+1:02d}','task_ids':ids[i:i+8]} for i in range(0,164,8)]
+  campaign={'parts':plans,'part_count':len(plans),'expected_task_ids':ids,'immutable_profile_identity_sha256':H(native),'source_workload_sha256':'f'*64};campaign_sha=save(root/'staging/r9/CAMPAIGN_PLAN.json',campaign);cfg['source_plan_sha256']=campaign_sha
+  parts=[];scores=[]
+  for plan in plans:
+   i=plan['index'];tasks=plan['task_ids'];folder=root/'results'/str(i);sc=root/'scores'/str(i);folder.mkdir(parents=True);sc.mkdir(parents=True)
+   raw=save(folder/'HTTP_RESULTS.jsonl',{'fixture':'not actual model output'});lh=save(folder/'LAUNCH.json',launch);ph=save(folder/'profile.json',native);ch=save(folder/'CONTRACT.json',{'id':plan['id'],'parameters':{'dataset':'standard164','task_ids':tasks}});save(folder/'RAW_HASHES.json',{'HTTP_RESULTS.jsonl':raw,'LAUNCH.json':lh,'profile.json':ph,'CONTRACT.json':ch})
+   ap=folder/'AUDIT.json';ah=save(ap,{'measurement_valid':True,'GPU_execution_observed':True,'case_ids':tasks,'case_inference_wall_s':len(tasks),'case_gpu_energy_j':2*len(tasks),'peak_device_vram_mib':100})
+   save(folder/'HOST_COMPLETION.json',{'status':'GPU_COMPLETE_AUDITED','starts':1,'audit_sha256':ah})
+   decisions=[{'task_id':task,'checks':{'base':{'status':'pass'},'plus':{'status':'pass' if int(task.split('/')[1])%2==0 else 'fail'}}} for task in tasks];solved=sum(x['checks']['plus']['status']=='pass' for x in decisions)
+   judge=sc/f'r9-judge-part{i:02d}.stdout';judge.write_text(''.join(json.dumps(x)+'\n' for x in decisions));samples=save(sc/'JUDGE_SAMPLES.jsonl',{'fixture':True});jr=save(sc/f'r9-judge-part{i:02d}.receipt.json',{'fixture':True});save(sc/'SCORING_PLAN.json',{'raw_answers_sha256':raw,'judge_samples_sha256':samples,'helper_sha256':'e'*64});sp=sc/'AUDIT.json';sh=save(sp,{'tasks':len(tasks),'solved':solved,'task_ids':tasks})
+   parts.append({'part':i,'job_id':plan['id'],'task_ids':tasks,'audit_path':str(ap),'audit_sha256':ah,'raw_answers_sha256':raw,'launch_sha256':lh,'profile_snapshot_sha256':ph,'contract_sha256':ch});scores.append({'part':i,'tasks':len(tasks),'solved':solved,'audit_path':str(sp),'audit_sha256':sh,'judge_stdout_sha256':digest(judge),'judge_samples_sha256':samples,'judge_receipt_sha256':jr})
+  final={'experiment_id':'R9','full_benchmark_score_claimed':True,'collected_tasks':164,'scored_tasks':164,'campaign_plan_sha256':campaign_sha,'parts':parts,'scoring':scores,'scopes':{'standard_full164':{'tasks':164,'solved':82,'wall_s':164,'gpu_energy_j':328}},'at_utc':'2026-01-01T00:00:00Z'};ap=root/'staging/r9/AUDIT.json';ah=save(ap,final);source={'audit_path':str(ap),'audit_sha256':ah,'full_benchmark_score_claimed':True};d={'benchmark_id':'fixture-native164','required_task_count':164,'expected_task_ids_hash':H(sorted(ids)),'benchmark_revision':'fixture','dataset_split_hash':'a'*64};return source,cfg,d,final,save
+ def test_native_complete_files_remain_unqualified_without_api_proof(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root);run=native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20]);self.assertEqual(run['tasks'],164);self.assertEqual(run['solved'],82);self.assertFalse(run['official_eligible']);self.assertIsNone(run['qualification_audit']);self.assertEqual(run['gpu_j'],328)
+ def test_native_complete_files_cannot_hide_a_missing_part_or_changed_source(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root);child=pathlib.Path(final['parts'][-1]['audit_path']);child.write_text('{}')
+   with self.assertRaisesRegex(ValueError,'child audit'):native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
   p,n,l=self.captured_fixture();l['native_request_options']['max_tokens']=1024;p['start_parameters']['exact_private_launch_sha256']=H(l)
   with self.assertRaises(ValueError):verify_broker_capture(p,n,l)
  def test_deltas_require_same_task_set_and_scorer(self):

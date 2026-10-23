@@ -111,6 +111,60 @@ def profile(plan,launch,model,name,quantization,experiment,plan_sha,sanitize,met
  cfg['runtime_configuration_id']='cfg-'+H(cfg)
  return cfg
 
+def native_coverage(parts,scores,expected):
+ if len(expected)!=164 or len(set(expected))!=164 or len(parts)!=len(scores):raise ValueError('Incomplete native coding coverage')
+ ids=[];solved=0
+ for part,score in zip(parts,scores):
+  if type(part['part']) is not int or type(score['tasks']) is not int or part['part']!=score['part'] or score['tasks']!=len(part['task_ids']) or type(score['solved']) is not int or not 0<=score['solved']<=score['tasks']:raise ValueError('Native part/score mismatch')
+  ids.extend(part['task_ids']);solved+=score['solved']
+ if ids!=expected or len(set(ids))!=164:raise ValueError('Native task set/order mismatch')
+ return solved
+
+def native_complete_run(root,source,cfg,bench,receipt):
+ """Full broker coding results only. No code execution or implicit qualification."""
+ if source.get('full_benchmark_score_claimed') is not True:return None
+ root=pathlib.Path(root);path=pathlib.Path(source['audit_path']);path=path if path.is_absolute() else root/path
+ if digest(path)!=source['audit_sha256']:raise ValueError('Native final audit changed')
+ a=read(path);stage=root/'staging'/a['experiment_id'].lower();campaign=read(stage/'CAMPAIGN_PLAN.json')
+ if a.get('full_benchmark_score_claimed') is not True or a['collected_tasks']!=164 or a['scored_tasks']!=164 or digest(stage/'CAMPAIGN_PLAN.json')!=a['campaign_plan_sha256']:raise ValueError('Native campaign not complete')
+ if len(a['parts'])!=len(campaign['parts']) or len(a['parts'])!=campaign['part_count']:raise ValueError('Native partition manifest incomplete')
+ expected=campaign['expected_task_ids'];solved=native_coverage(a['parts'],a['scoring'],expected)
+ if bench.get('required_task_count')!=164 or H(sorted(expected))!=bench.get('expected_task_ids_hash') or solved!=a['scopes']['standard_full164']['solved']:raise ValueError('Native benchmark definition/count mismatch')
+ if cfg['source_plan_sha256']!=a['campaign_plan_sha256'] or campaign['immutable_profile_identity_sha256']!=cfg['source_provenance']['frozen_model_profile_sha256']:raise ValueError('Native configuration lineage mismatch')
+ audits=[receipt(path,source['audit_sha256'])];hashes=[source['audit_sha256']];wall=0;energies=[];peaks=[];first_launch=None;first_contract=None;helper=None
+ for part,score,planned in zip(a['parts'],a['scoring'],campaign['parts']):
+  if part['part']!=planned['index'] or part['job_id']!=planned['id'] or part['task_ids']!=planned['task_ids']:raise ValueError('Native campaign partition changed')
+  ap=pathlib.Path(part['audit_path']);sp=pathlib.Path(score['audit_path'])
+  if digest(ap)!=part['audit_sha256'] or digest(sp)!=score['audit_sha256']:raise ValueError('Native child audit changed')
+  scored=read(sp)
+  if scored['tasks']!=score['tasks'] or scored['solved']!=score['solved'] or scored['task_ids']!=part['task_ids']:raise ValueError('Native scoring summary changed')
+  folder=ap.parent;observed=read(ap);pins=read(folder/'RAW_HASHES.json');launch=read(folder/'LAUNCH.json');native=read(folder/'profile.json');contract=read(folder/'CONTRACT.json')
+  completed=read(folder/'HOST_COMPLETION.json')
+  if completed.get('status')!='GPU_COMPLETE_AUDITED' or completed.get('starts')!=1 or completed.get('audit_sha256')!=part['audit_sha256']:raise ValueError('Native broker completion missing or changed')
+  if observed.get('recovered_after_controller_exit_race'):
+   if completed.get('recovered_after_controller_exit_race') is not True or digest(folder/'RECOVERY_REVIEW.json')!=completed.get('recovery_review_sha256') or observed.get('recovery_review_sha256')!=completed.get('recovery_review_sha256'):raise ValueError('Native recovered data review changed')
+  for name,key in [('HTTP_RESULTS.jsonl','raw_answers_sha256'),('LAUNCH.json','launch_sha256'),('profile.json','profile_snapshot_sha256'),('CONTRACT.json','contract_sha256')]:
+   if digest(folder/name)!=part[key] or pins[name]!=part[key]:raise ValueError('Native raw/source identity changed')
+  if H({k:v for k,v in native.items() if k!='selected_task_inputs'})!=campaign['immutable_profile_identity_sha256'] or native.get('adapter')!='llama-native-coding':raise ValueError('Native model/profile drift')
+  if launch['native_request_options']!=native['native_recipe']['request_options'] or launch['uid']!=65534 or observed.get('measurement_valid') is not True or observed.get('GPU_execution_observed') is not True:raise ValueError('Native execution not verified')
+  stable_launch={'argv':launch['argv'],'environment':{k:v for k,v in launch['environment'].items() if k!='O2_GPU_BUILD_LEASE'}};stable_contract={k:v for k,v in contract.items() if k not in ('id','parameters')}
+  if first_launch is None:first_launch=stable_launch;first_contract=stable_contract
+  if stable_launch!=first_launch or stable_contract!=first_contract or contract['id']!=part['job_id'] or contract['parameters']['task_ids']!=part['task_ids'] or observed['case_ids']!=part['task_ids']:raise ValueError('Native launch/contract drift')
+  judge=sp.parent/f"{a['experiment_id'].lower()}-judge-part{part['part']:02d}.stdout";plan=read(sp.parent/'SCORING_PLAN.json')
+  if digest(judge)!=score['judge_stdout_sha256'] or digest(sp.parent/'JUDGE_SAMPLES.jsonl')!=score['judge_samples_sha256'] or digest(sp.parent/f"{a['experiment_id'].lower()}-judge-part{part['part']:02d}.receipt.json")!=score['judge_receipt_sha256']:raise ValueError('Native scorer output changed')
+  if plan['raw_answers_sha256']!=part['raw_answers_sha256'] or plan['judge_samples_sha256']!=score['judge_samples_sha256']:raise ValueError('Native scorer input binding changed')
+  if helper is None:helper=plan['helper_sha256']
+  if plan['helper_sha256']!=helper:raise ValueError('Native scorer changed across parts')
+  if not finite(observed['case_inference_wall_s']) or observed['case_inference_wall_s']<=0 or observed['case_gpu_energy_j'] is not None and (not finite(observed['case_gpu_energy_j']) or observed['case_gpu_energy_j']<0):raise ValueError('Native cost measurement invalid')
+  decisions=[json.loads(line) for line in judge.read_text().splitlines()]
+  if [d['task_id'] for d in decisions]!=part['task_ids'] or sum(d['checks']['base']['status']==d['checks']['plus']['status']=='pass' for d in decisions)!=score['solved']:raise ValueError('Native judgments/count mismatch')
+  wall+=observed['case_inference_wall_s'];energies.append(observed['case_gpu_energy_j']);peaks.append(observed['peak_device_vram_mib'])
+  for p,h in [(ap,part['audit_sha256']),(sp,score['audit_sha256'])]:audits.append(receipt(p,h));hashes.append(h)
+ if not all(audits):raise ValueError('Native public audit reference missing')
+ energy=sum(energies) if all(v is not None for v in energies) else None;scope=a['scopes']['standard_full164']
+ if scope['tasks']!=164 or not math.isclose(scope['wall_s'],wall,rel_tol=1e-10) or (scope['gpu_energy_j'] is None)!=(energy is None) or energy is not None and not math.isclose(scope['gpu_energy_j'],energy,rel_tol=1e-10):raise ValueError('Native aggregate costs mismatch')
+ return {'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':campaign['source_workload_sha256'],'scorer_version':{'adapter_sha256':helper},'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':source['audit_sha256'],'audit_ids':audits,'source_audit_hashes':hashes,'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'coding','tasks':164,'solved':solved,'score_percent':100*solved/164,'metric':'observed_success_percent','wall_s':wall,'gpu_j':energy,'gpu_j_per_success':energy/solved if energy is not None and solved else None,'peak_vram_mib':max(peaks),'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_CODING_OFFICIAL_API_PENDING','status_reason':'All164 original answers and per-part scoring/costs verified; independent official API qualification is separate.','official_eligible':False,'qualification_audit':None,'warning':'Declared native template/sampling and local output/context limits apply. No publisher-protocol equivalence, model superiority or causal optimization benefit is implied. Monitoring corrections and data recovery remain in original audit lineage.','causal_optimization_proof':None,'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','cache_condition':'Completion HTTP intervals; startup, warmups and CPU evaluation excluded; see original per-request cache setting.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
  for event in reg.get('local_validation_events',[]):
@@ -133,6 +187,15 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
  def add_profile(p,l,model,name,quant,exp,psha,m=None):
   ids=p.get('runtime_identities',p.get('identities',{}));t=extract_tuning(p,l,ids);orig=origins.get(t.get('executed_model_sha256'))
   cfg=profile(p,l,model,name,quant,exp,psha,sanitize,m,orig);profiles.append(cfg);return cfg
+ def qualify(run,bench):
+  for admission in reg.get('official_qualifications',[]):
+   if admission.get('source_audit_hash')==run['audit_hash'] and admission.get('evaluated_task_set_hash')==run['evaluated_task_set_hash']:
+    proof_file=root/admission['proof_path']
+    if digest(proof_file)!=admission['proof_sha256']:raise ValueError('Official qualification proof modified')
+    proof=read(proof_file)
+    candidate={**run,'scorer_version':bench.get('scorer_version'),'metric':bench.get('metric')} if bench else run
+    if not bench or not official_gate(candidate,bench,proof):raise ValueError('Invalid official qualification')
+    run.update(scorer_version=bench['scorer_version'],metric=bench['metric'],official_eligible=True,qualification_audit=proof,qualification_audit_id=receipt(proof_file,admission['proof_sha256']),status='FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED',status_reason='Full official scorer/API task set independently verified; declared local evaluation limits and any pinned upstream reference anomaly remain visible.',scorer_execution_limits=proof.get('scorer_execution_limits'),warning=' '.join(x for x in [run['warning'],proof.get('disclosure')] if x) or None)
  for row in comparison['records']:
   pn=int(row['id'].rsplit('-',1)[-1]);pfile=root/f'staging/r{pn}/PLAN.json';p=read(pfile)
   source=db['summary'].get(row['experiment'].lower(),{});afile=pathlib.Path(source.get('audit_path',''));afile=afile if afile.is_absolute() else root/afile
@@ -148,14 +211,7 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   scorer={'official_evalplus_provenance_sha256':row['metadata'].get('official_evalplus_provenance_sha256'),'adapter_sha256':row['metadata'].get('scorer_adapter_sha256')}
   run={'record_schema_version':SCHEMA,'benchmark_id':classification['benchmark_id'],'benchmark_identity_id':bid,'benchmark_revision':bench.get('benchmark_revision') if bench else None,'dataset_split_hash':bench.get('dataset_split_hash') if bench else None,'evaluated_task_set_hash':row['task_sha256'],'scorer_version':scorer,'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':row['experiment'],'audit_hash':row['audit_sha256'][0],'audit_ids':row['audit_ids'],'source_audit_hashes':row['audit_sha256'],'model_family_id':row['model'],'model_name':row['name'],'discipline':row['discipline'],'tasks':row['tasks'],'solved':row['solved'],'score_percent':100*row['solved']/row['tasks'],'metric':'observed_success_percent','wall_s':row['wall_s'],'gpu_j':row['gpu_j'],'gpu_j_per_success':row['gpu_j']/row['solved'] if row['gpu_j'] is not None and row['solved'] else None,'peak_vram_mib':row['peak_vram_mib'],'repeat_range':row['repeat_range'],'date':row['metadata']['date'],'status':classification['status'],'status_reason':classification['reason'],'official_eligible':False,'qualification_audit':None,'warning':row['warning'],'causal_optimization_proof':None}
   run['measurement_conditions']={k:row['metadata'].get(k) for k in ('hardware','cache_condition','date','output_cap','sampling','power_limit_w')}
-  for admission in reg.get('official_qualifications',[]):
-   if admission.get('source_audit_hash')==run['audit_hash'] and admission.get('evaluated_task_set_hash')==run['evaluated_task_set_hash']:
-    proof_file=root/admission['proof_path']
-    if digest(proof_file)!=admission['proof_sha256']:raise ValueError('Official qualification proof modified')
-    proof=read(proof_file)
-    candidate={**run,'scorer_version':bench.get('scorer_version'),'metric':bench.get('metric')} if bench else run
-    if not bench or not official_gate(candidate,bench,proof):raise ValueError('Invalid official qualification')
-    run.update(scorer_version=bench['scorer_version'],metric=bench['metric'],official_eligible=True,qualification_audit=proof,qualification_audit_id=receipt(proof_file,admission['proof_sha256']),status='FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED',status_reason='Full official scorer/API task set independently verified; declared local evaluation limits and any pinned upstream reference anomaly remain visible.',scorer_execution_limits=proof.get('scorer_execution_limits'),warning=' '.join(x for x in [run['warning'],proof.get('disclosure')] if x) or None)
+  qualify(run,bench)
   run['run_id']='run-'+H(run);runs.append(run)
  # Preserve additional executed/failed configurations, not only chart-selected winners.
  byexp={e['id']:e for e in experiments};history_attempts=[];gaps=[]
@@ -210,6 +266,10 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   attempt={'experiment_id':key.upper(),'arm_index':0,'runtime_configuration_id':cfg['runtime_configuration_id'],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'audit_hash':first['audit_sha256'],'audit_id':receipt(ap,first['audit_sha256']),'execution_status':'INFERENCE_OBSERVED_IN_BROKER_CAMPAIGN; FULL_BENCHMARK_NOT_IMPLIED','scientific_status':'BOUNDED_NATIVE_EXECUTION_OBSERVED','lab_metrics':{},'official_eligible':False}
   if not attempt['audit_id']:raise ValueError('Broker source audit unavailable for public export')
   attempt['attempt_id']='attempt-'+H(attempt);history_attempts.append(attempt)
+  bench=defs[reg['local_cohort_classification']['coding']['benchmark_id']]
+  complete=native_complete_run(root,a,cfg,bench,receipt)
+  if complete:
+   qualify(complete,bench);complete['run_id']='run-'+H(complete);runs.append(complete)
  prior=previous or {'profiles':[],'runs':[],'attempts':[]}
  result={'schema_version':SCHEMA,'profiles':frozen_merge(prior['profiles'],profiles,'runtime_configuration_id'),'runs':frozen_merge(prior['runs'],runs,'run_id'),'attempts':frozen_merge(prior['attempts'],history_attempts,'attempt_id'),'provenance_gaps':frozen_merge(prior.get('provenance_gaps',[]),gaps,'gap_id')}
  validate_history(result,defs)

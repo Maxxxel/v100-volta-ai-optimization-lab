@@ -1661,7 +1661,7 @@
   "docs/javascripts/leaderboard.js": "a0b8b25f3b59b66f09801506ab4193754d8c85d5e52c0e4bea03b492939ce033",
   "docs/local-benchmarks.md": "db73cfe6fe065d403f9a84d4ad7d12747627fd2cf2dbfd485f18f33e90d323b0",
   "docs/matrix.md": "cc49b9200499f47cc6004af67de97e05600f0abc298df765d9ebdb25dbdeb0ca",
-  "docs/methodology.md": "8cd44c83d8723da92870da16eceea2f4549faac475dbe882baaee0799572fc99",
+  "docs/methodology.md": "c75ebf4e758a3ca875f7089562a7e126b0a4e274a6a1739dbfd11827d8eaa0e7",
   "docs/models.md": "644f53c192b24195aa9ace846cc06ef09978ace2fff6ae415984fb8e712f9aee",
   "docs/publication.md": "833fb5d606c01d2f2e4c1f267870cb31566928a314cdd2fff2fd27c4a6a1efa9",
   "docs/questions.md": "7dd0fe0d08a07d560e5d972420a537812b6ed22b892e893d00f4843a5501e59a",
@@ -1676,10 +1676,10 @@
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
   "scripts/comparison.py": "70790259dd44f0dcdccc388255a9837095de17b540ed67d215dbdd108b1a633a",
   "scripts/export.py": "cb808c20116bfe42aec22f7a64f68944ab8d2cb7f2a80995be9f26b7c6432bde",
-  "scripts/leaderboard.py": "77c85b0b053f6de351b757a9fe117b55762d9b76e9e5da7d2cddb2a410f4ed43",
-  "scripts/render.py": "ba1746de2b395e281415b863994b1b35f35d71a3477e6b975bc6eeb42b044795",
+  "scripts/leaderboard.py": "b2939b5fb8816ef5a05dd324ced87d67d97a9eec0daeabda47e0a64dbf0c4ae3",
+  "scripts/render.py": "67ef1b93857197e4de8231b0097e7085f9c2559730c8022f232114539495be13",
   "scripts/test_comparison.py": "0fd4b3b74df97ff37295d1dec7fbbbdf502dd68ed6dfc6b7306862c22e0c595d",
-  "scripts/test_leaderboard.py": "80567783f6faa2629dfaf5b283d604fe7500abeee6c14c971b7803e13133ab85",
+  "scripts/test_leaderboard.py": "87c6b5fb40b4289357f801ba45328dc5ab227f253c5102106961fed5eafc0383",
   "scripts/test_publication.py": "9889cfa461d9fa79fd7b8e1e6e77408ee9236af353d1be8f0b7d27c2a8e88ade",
   "scripts/validate.py": "986c2208d6104db6f4318967d1f5097fa4847269a19feee1322c0b2c2fbbbc08"
 }
