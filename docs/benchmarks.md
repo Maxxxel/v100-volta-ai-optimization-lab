@@ -1,84 +1,63 @@
 # Model Comparison & Benchmarks
 
-<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Separate coding, native tools and agent results on one V100. No combined score and no automatic winner.</p></div>
+<div class="hero"><strong>Measured tasks. Visible trade-offs.</strong><p>Official benchmark categories, exact tuning profiles and an explicitly defined percentage mean on one V100.</p></div>
 
-- No combined score. Counts are one observed answer per task unless repeated cycles are explicitly stated.
+- The user-defined mean uses the same complete selected benchmark set for every ranked row; it is not an official combined leaderboard score.
 - Whole configurations: model, tokenizer, native template, output budget, sampling, quantization and engine can differ. Task/scorer matching permits comparison of these profiles, not causal architecture claims.
 - GPU board energy includes failed task attempts; excludes load/warmup and CPU/system energy. Latency is measured request/case time; startup and judge time are excluded.
 - NOT MEASURED means no full comparable audited result in this cohort. Partial screens are not converted into full-suite scores.
 
 Charts run from best measured value at the top to worst at the bottom: success/throughput descending; latency/energy/VRAM ascending. Missing measurements follow all measured values. Ties retain a stable profile order. Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
-Measurement-only fingerprint: `6f4b95ac37bfb4cabf674ff082283db804ee5c48c6322ba832e5b70778b4a94a`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
+Measurement-only fingerprint: `4c76e5c1cfd545d9fd7ac75c4353f5f7d7bef2f87991231122e4b5471493010c`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 
-## Model evaluation table
+## Official benchmark results and overall mean
 
-**Cross-discipline overall score: NOT MEASURED.** No established composite is computed from unrelated coding, tool and agent suites. HumanEval+/MBPP+ report one-sample task pass rates; Native Tools is our balanced local subset, not a complete official BFCL leaderboard run. Agent18 is a local development suite. Different profile configurations remain separate below.
+The overall score is the **unweighted arithmetic mean of the selected benchmark percentages**, requested for this project. It is not an official cross-benchmark leaderboard score. Every ranked row must have all selected results; missing results are never zero and never silently omitted. The default set is HumanEval+164 and the frozen BFCL v4 static100 subset. MBPP+223 is an optional admitted subset. These subsets are labelled, not presented as complete BFCL/MBPP leaderboards. Local Agent18, custom QA and long-context suites do not enter this ranking.
 
-| Model / quantization | HumanEval+164 | MBPP+223 | Native Tools100 | Agent18 | Established overall score |
-|---|---|---|---|---|---|
-| OmniCoder2 9B / Q6_K | 132/164 (80.5%) [R217](experiments/R217.md) | 162/223 (72.6%) [R415](experiments/R415.md) | 88/100 (88.0%) [R183](experiments/R183.md) | 13/18 (72.2%) [R219](experiments/R219.md) | NOT MEASURED |
-| Qwen3.5 9B / Q4_K_M | 132/164 (80.5%) [R255](experiments/R255.md) | NOT MEASURED | 87/100 (87.0%) [R227](experiments/R227.md) | 8/18 (44.4%) [R228](experiments/R228.md) | NOT MEASURED |
-| Qwen3.8 27B / GSQ/RCO IQ3_S | 148/164 (90.2%) [R117](experiments/R117.md); 150/164 (91.5%) [R118](experiments/R118.md) | 172/223 (77.1%) [R416](experiments/R416.md) | NOT MEASURED | 14/18 (77.8%) [R260](experiments/R260.md); 14/18 (77.8%) [R261](experiments/R261.md) | NOT MEASURED |
-| Ornith 1.5 9B / Q6_K | 117/164 (71.3%) [R254](experiments/R254.md) | NOT MEASURED | NOT MEASURED | 14/18 (77.8%) [R253](experiments/R253.md) | NOT MEASURED |
-| Ternary Bonsai 2 27B / PQ2_0 | 151/164 (92.1%) [R279](experiments/R279.md) | NOT MEASURED | 90/100 (90.0%) [R281](experiments/R281.md) | 17/18 (94.4%) [R440](experiments/R440.md); 18/18 (100.0%) [R442](experiments/R442.md); 17/18 (94.4%) [R286](experiments/R286.md) | NOT MEASURED |
-| OxCoder 9B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| Gemma4 12B IT QAT / Q4_0 | 149/164 (90.9%) [R425](experiments/R425.md) | 168/223 (75.3%) [R428](experiments/R428.md) | 84/100 (84.0%) [R424](experiments/R424.md) | 9/18 (50.0%) [R426](experiments/R426.md) | NOT MEASURED |
-| LFM2.5 8B A1B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| MiMo V2.6 Distill Qwen 9B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| Qwen3.6 27B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| LFM2.5 24B A2B QAD / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| LightOnOCR 3 4B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| UI-Venus 1.5 8B / Holo2 8B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
-| Qwen3.8 Flash-MTP-Derivat / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED |
+Latest complete audited runs are selected by default; where multiple profiles exist, the table lets you select the actual run. **Per-benchmark tuning may differ**: the mean compares the selected measured runs, not an independently qualified single deployment configuration. Full tuning parameters and audit links follow below.
 
-All 14 baseline/candidate tracks are listed, including research-only and partial admissions. NOT MEASURED means no full comparable result; it does not erase partial negative tests. See [candidate admission stages](models.md). Multiple values in one model row refer to distinct profiles, never to a combined best-of configuration.
+<div id="benchmark-selection"></div>
 
-### Partial screens — excluded from full-suite rankings
+| Model / quantization | HumanEval+164 | BFCL v4 static100 subset | MBPP+223 subset | Overall mean (%) | Selected coverage | Overall rank |
+|---|---|---|---|---|---|---|
+| Ternary Bonsai 2 27B / PQ2_0 | 151/164 (92.07%) [R279](experiments/R279.md) | 90/100 (90.00%) [R281](experiments/R281.md) | NOT MEASURED | 91.04% | 2/2 | 1 |
+| Gemma4 12B IT QAT / Q4_0 | 149/164 (90.85%) [R425](experiments/R425.md) | 84/100 (84.00%) [R424](experiments/R424.md) | 168/223 (75.34%) [R428](experiments/R428.md) | 87.43% | 2/2 | 2 |
+| OmniCoder2 9B / Q6_K | 132/164 (80.49%) [R217](experiments/R217.md) | 88/100 (88.00%) [R183](experiments/R183.md) | 162/223 (72.65%) [R415](experiments/R415.md) | 84.24% | 2/2 | 3 |
+| Qwen3.5 9B / Q4_K_M | 132/164 (80.49%) [R255](experiments/R255.md) | 87/100 (87.00%) [R227](experiments/R227.md) | NOT MEASURED | 83.74% | 2/2 | 4 |
+| LFM2.5 24B A2B QAD / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| LFM2.5 8B A1B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| LightOnOCR 3 4B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| MiMo V2.6 Distill Qwen 9B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| Ornith 1.5 9B / Q6_K | 117/164 (71.34%) [R254](experiments/R254.md) | NOT MEASURED | NOT MEASURED | NOT MEASURED | 1/2 | — |
+| OxCoder 9B / Q6_K | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| Qwen3.6 27B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| Qwen3.8 27B / GSQ/RCO IQ3_S | 150/164 (91.46%) [R118](experiments/R118.md) | NOT MEASURED | 172/223 (77.13%) [R416](experiments/R416.md) | NOT MEASURED | 1/2 | — |
+| Qwen3.8 Flash-MTP-Derivat / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
+| UI-Venus 1.5 8B / Holo2 8B / See admission record | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED | 0/2 | — |
 
-| Observed scope | Recorded counts | Recorded time (s) | Peak VRAM (MiB) | Audit |
-|---|---|---|---|---|
-| MiMo agent early stop; not18 | 2/4 | NOT MEASURED | 9186.5 | [R289](experiments/R289.md) |
-| OxCoder diagnostic QA; includes reused cases | semantic passes=3; QA cases=5 | 182.377379389 | 7354.5 | [R410](experiments/R410.md) |
-| LFM2.5 diagnostic QA; not full coding/tools/agents | semantic passes=6; QA cases=11 | 17.714614865 | 7448.5 | [R420](experiments/R420.md) |
-| MiMo native-tool20 pilot; not100 | 16/20 | 50.05956673 | 9188.5 | [R444](experiments/R444.md) |
-| MiMo coding pilot; incomplete frozen18, not164 | custom_long_pilot: NOT MEASURED; standard_pilot: 8/13 | 144.391524373 | 9186.5 | [R445](experiments/R445.md) |
-
-Partial denominators remain explicit. Zero observed long-context cases means NOT MEASURED, never a zero score.
+All 14 baseline/candidate tracks remain visible. Partial or research-only models have NOT MEASURED entries until complete comparable runs exist. The official-agent category is currently NOT MEASURED locally; our own agent tests are [supplemental laboratory evidence](local-benchmarks.md), not a substitute for an official agent benchmark.
 
 ## Configuration parameters and ranked benchmark results
 
-Each row is one audited discipline/profile. **Ranks are calculated only within the same task cohort**, using solved/tasks, descending, with equal rates sharing a rank. They are not allround model rankings. The optimization/profile column describes the actual tested configuration; full controls and hashes appear in the chart metadata sections below.
+Each row is one audited official-benchmark discipline/profile. **Ranks are calculated only within the same task cohort**, using solved/tasks, descending, with equal rates sharing a rank. They are not allround model rankings. The optimization/profile column describes the actual tested configuration; full controls and hashes appear in the chart metadata sections below.
 
-| Task cohort | Rank within cohort | Model / quantization | Actual optimizations / profile | Engine | Runtime / sampler / limits | Success | Total request time (s) | GPU J / success | Peak VRAM (MiB) | Scope / warning | Audit |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| agents | 1 | Ternary Bonsai 2 27B / PQ2_0 | Thinking medium; prefix reuse; local2048; qualified18-task profile | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": true}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=2048; power=300 W | 18/18 (100.0%) | 456.320 | 6746.64 | 8158.5 | No additional warning recorded for this discipline | [R442](experiments/R442.md) |
-| agents | 2 | Ternary Bonsai 2 27B / PQ2_0 | Thinking medium; local2048; independent repeat | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=2048; power=300 W | 17/18 (94.4%) | 599.644 | 9525.23 | 8158.5 | No additional warning recorded for this discipline | [R440](experiments/R440.md) |
-| agents | 2 | Ternary Bonsai 2 27B / PQ2_0 | Thinking medium; 2048 output | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=2048; power=300 W | 17/18 (94.4%) | 599.016 | 9494.69 | 8158.5 | No additional warning recorded for this discipline | [R286](experiments/R286.md) |
-| agents | 4 | Ornith 1.5 9B / Q6_K | Fast non-reasoning; no MTP | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"seed": 1001, "temperature": 0}; output cap=1400; power=300 W | 14/18 (77.8%) | 201.470 | 3917.59 | 7356.5 | Additional policy violations observed; no assistant qualification | [R253](experiments/R253.md) |
-| agents | 4 | Qwen3.8 27B / GSQ/RCO IQ3_S | Fast non-reasoning; no MTP | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"seed": 1001, "temperature": 0}; output cap=1400; power=300 W | 14/18 (77.8%) | 477.196 | 9306.04 | 12454.5 | Additional policy violations observed; no assistant qualification | [R260](experiments/R260.md) |
-| agents | 4 | Qwen3.8 27B / GSQ/RCO IQ3_S | Fast; MTP3 | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"seed": 1001, "temperature": 0}; output cap=1400; power=300 W | 14/18 (77.8%) | 408.702 | 7565.27 | 13600.5 | Additional policy failure inherited; coding-specialist screen, no general assistant qualification | [R261](experiments/R261.md) |
-| agents | 7 | OmniCoder2 9B / Q6_K | MTP + weight cache; 300 W | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"seed": 1001, "temperature": 0}; output cap=1400; power=300 W | 13/18 (72.2%) | 162.465 | 3222.57 | 14106.5 | No additional warning recorded for this discipline | [R219](experiments/R219.md) |
-| agents | 8 | Gemma4 12B IT QAT / Q4_0 | Fast non-reasoning; no MTP | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1400; power=300 W | 9/18 (50.0%) | 323.942 | 8827.58 | 8118.5 | Additional policy violations observed; no assistant qualification | [R426](experiments/R426.md) |
-| agents | 9 | Qwen3.5 9B / Q4_K_M | Fast non-reasoning; no MTP | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false}; sampler={"seed": 1001, "temperature": 0}; output cap=1400; power=300 W | 8/18 (44.4%) | 214.550 | 7020.60 | 5956.5 | Additional policy violations observed; no assistant qualification | [R228](experiments/R228.md) |
-| coding | 1 | Ternary Bonsai 2 27B / PQ2_0 | Thinking medium; 4096 output | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=4096; power=300 W | 151/164 (92.1%) | 2519.755 | 4601.69 | 8158.5 | No additional warning recorded for this discipline | [R279](experiments/R279.md) |
-| coding | 2 | Qwen3.8 27B / GSQ/RCO IQ3_S | Fast; MTP3 | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W | 150/164 (91.5%) | 575.610 | 1053.96 | NOT MEASURED | MTP target-token identity is not lossless; no allround qualification | [R118](experiments/R118.md) |
-| coding | 3 | Gemma4 12B IT QAT / Q4_0 | Fast non-reasoning | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1024; power=300 W | 149/164 (90.9%) | 741.044 | 1234.65 | 8118.5 | No additional warning recorded for this discipline | [R425](experiments/R425.md) |
-| coding | 4 | Qwen3.8 27B / GSQ/RCO IQ3_S | Fast; no MTP | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W | 148/164 (90.2%) | 1095.974 | 2107.33 | NOT MEASURED | No additional warning recorded for this discipline | [R117](experiments/R117.md) |
-| coding | 5 | OmniCoder2 9B / Q6_K | MTP + weight cache; fast | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W | 132/164 (80.5%) | 268.206 | 563.38 | 14106.5 | No additional warning recorded for this discipline | [R217](experiments/R217.md) |
-| coding | 5 | Qwen3.5 9B / Q4_K_M | Fast non-reasoning | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W | 132/164 (80.5%) | 452.206 | 930.19 | 5956.5 | No additional warning recorded for this discipline | [R255](experiments/R255.md) |
-| coding | 7 | Ornith 1.5 9B / Q6_K | Fast non-reasoning | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W | 117/164 (71.3%) | 456.936 | 1116.98 | 7356.5 | No additional warning recorded for this discipline | [R254](experiments/R254.md) |
-| long16k | 1 | Gemma4 12B IT QAT / Q4_0 | Native fast; T1; no MTP; 16K | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "16384", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=256; power=300 W | 12/12 (100.0%) | 124.101 | 2785.76 | 8254.5 | Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification. | [R429](experiments/R429.md) |
-| long16k | 1 | Qwen3.8 27B / GSQ/RCO IQ3_S | Native fast; T0; no MTP; 16K | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "16384", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0.0}; output cap=256; power=300 W | 12/12 (100.0%) | 269.407 | 6114.64 | 12974.5 | Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification. | [R432](experiments/R432.md) |
-| long32k_validation | 1 | Qwen3.8 27B / GSQ/RCO IQ3_S | Native fast; T0; no MTP; 32K | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "32768", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0.0}; output cap=256; power=300 W | 12/12 (100.0%) | 548.199 | 12328.58 | 14010.5 | Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification. | [R434](experiments/R434.md) |
-| long32k_validation | 2 | Gemma4 12B IT QAT / Q4_0 | Native fast; T1; no MTP; 32K | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "32768", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=256; power=300 W | 11/12 (91.7%) | 266.136 | 6589.76 | 8526.5 | Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification. | [R431](experiments/R431.md) |
-| mbpp | 1 | Qwen3.8 27B / GSQ/RCO IQ3_S | IQ3_S grafted MTP3; coding profile | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0.0}; output cap=1024; power=300 W | 172/223 (77.1%) | 477.232 | 742.14 | 13616.5 | Known native-tool/policy limitations remain; coding only, no allround or lossless claim. | [R416](experiments/R416.md) |
-| mbpp | 2 | Gemma4 12B IT QAT / Q4_0 | Official QAT Q4_0; native fast; no MTP or weight cache | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1024; power=300 W | 168/223 (75.3%) | 877.635 | 1286.10 | 8118.5 | Native-tool84/100 and agent9/18 with additional policy faults retained; coding results do not qualify an assistant. | [R428](experiments/R428.md) |
-| mbpp | 3 | OmniCoder2 9B / Q6_K | Original Q6; no MTP or weight cache | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0.0}; output cap=1024; power=300 W | 162/223 (72.6%) | 487.010 | 850.49 | 7364.5 | No additional warning recorded for this discipline | [R415](experiments/R415.md) |
-| tools | 1 | Ternary Bonsai 2 27B / PQ2_0 | Thinking medium; 4096 output | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=4096; power=300 W | 90/100 (90.0%) | 593.425 | 1773.91 | 8158.5 | No additional warning recorded for this discipline | [R281](experiments/R281.md) |
-| tools | 2 | OmniCoder2 9B / Q6_K | MTP; fast | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W | 88/100 (88.0%) | 107.007 | 311.81 | NOT MEASURED | No additional warning recorded for this discipline | [R183](experiments/R183.md) |
-| tools | 3 | Qwen3.5 9B / Q4_K_M | Fast non-reasoning | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=NOT RECORDED; power=300 W | 87/100 (87.0%) | 123.930 | 374.01 | 5956.5 | No additional warning recorded for this discipline | [R227](experiments/R227.md) |
-| tools | 4 | Gemma4 12B IT QAT / Q4_0 | Fast non-reasoning | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1024; power=300 W | 84/100 (84.0%) | 144.726 | 412.35 | 8118.5 | No additional warning recorded for this discipline | [R424](experiments/R424.md) |
+| Task cohort | Rank within cohort | Model / quantization | Weight artifact / transformation | Thinking / native profile | MTP / draft | HBM / prefix cache | Engine / kernel build | Actual optimizations / profile | Other tuning / sampler / limits | Success | Total request time (s) | GPU J / success | Peak VRAM (MiB) | Scope / warning | Audit |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| coding | 1 | Ternary Bonsai 2 27B / PQ2_0 | Source GGUF; no local transform established; Ternary-Bonsai-2-27B-PQ2_0.gguf | parser=on; declared profile=published_medium_thinking_4096 | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=0; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=bonsai-pq2-sm70-9a9394a895b9; CUDA library=libggml-cuda.so.0.21.0; kernel SHA=60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12 | Thinking medium; 4096 output | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=4096; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"} | 151/164 (92.1%) | 2519.755 | 4601.69 | 8158.5 | No additional warning recorded for this discipline | [R279](experiments/R279.md) |
+| coding | 2 | Qwen3.8 27B / GSQ/RCO IQ3_S | MTP-bearing / grafted GGUF; Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf | parser=off; declared profile=Fast; MTP3 | type=draft-mtp; draft max=3; min=1; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast; MTP3 | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 150/164 (91.5%) | 575.610 | 1053.96 | NOT MEASURED | MTP target-token identity is not lossless; no allround qualification | [R118](experiments/R118.md) |
+| coding | 3 | Gemma4 12B IT QAT / Q4_0 | Source GGUF; no local transform established; gemma-4-12b-it-qat-q4_0.gguf | parser=off; declared profile=official_QAT_fast_T1_P095_K64_coding1024 | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=0; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast non-reasoning | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"} | 149/164 (90.9%) | 741.044 | 1234.65 | 8118.5 | No additional warning recorded for this discipline | [R425](experiments/R425.md) |
+| coding | 4 | Qwen3.8 27B / GSQ/RCO IQ3_S | MTP-bearing / grafted GGUF; Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf | parser=off; declared profile=Fast; no MTP | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast; no MTP | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 148/164 (90.2%) | 1095.974 | 2107.33 | NOT MEASURED | No additional warning recorded for this discipline | [R117](experiments/R117.md) |
+| coding | 5 | OmniCoder2 9B / Q6_K | MTP-bearing / grafted GGUF; OmniCoder-2-9B.Q6_K-MTP-grafted.gguf | parser=off; declared profile=MTP + weight cache; fast | type=draft-mtp; draft max=3; min=1; separate draft=not separately specified | weight cache limit MiB=6144; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=bbae889168127411ddd91d4576791ef20917e7a534d974d134347a33ea626499; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=b1596b98ba033d8a400d5ecaba5630168c5c5626b493ed2230ecb239c84a62ad | MTP + weight cache; fast | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "6144"} | 132/164 (80.5%) | 268.206 | 563.38 | 14106.5 | No additional warning recorded for this discipline | [R217](experiments/R217.md) |
+| coding | 5 | Qwen3.5 9B / Q4_K_M | Source GGUF; no local transform established; qwen3.5-9b.gguf | parser=off; declared profile=fast_nonreasoning_greedy | type=NOT RECORDED; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast non-reasoning | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 132/164 (80.5%) | 452.206 | 930.19 | 5956.5 | No additional warning recorded for this discipline | [R255](experiments/R255.md) |
+| coding | 7 | Ornith 1.5 9B / Q6_K | Source GGUF; no local transform established; Ornith-1.5-9B-Q6_K.gguf | parser=off; declared profile=Fast non-reasoning | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast non-reasoning | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 117/164 (71.3%) | 456.936 | 1116.98 | 7356.5 | No additional warning recorded for this discipline | [R254](experiments/R254.md) |
+| mbpp | 1 | Qwen3.8 27B / GSQ/RCO IQ3_S | MTP-bearing / grafted GGUF; Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf | parser=off; declared profile=GSQ_RCO_IQ3S_graftedMTP3_fast_greedy1024 | type=draft-mtp; draft max=3; min=1; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | IQ3_S grafted MTP3; coding profile | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0.0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 172/223 (77.1%) | 477.232 | 742.14 | 13616.5 | Known native-tool/policy limitations remain; coding only, no allround or lossless claim. | [R416](experiments/R416.md) |
+| mbpp | 2 | Gemma4 12B IT QAT / Q4_0 | Source GGUF; no local transform established; gemma-4-12b-it-qat-q4_0.gguf | parser=off; declared profile=official_QAT_fast_T1_P095_K64_MBPP32_1024 | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=0; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Official QAT Q4_0; native fast; no MTP or weight cache | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"} | 168/223 (75.3%) | 877.635 | 1286.10 | 8118.5 | Native-tool84/100 and agent9/18 with additional policy faults retained; coding results do not qualify an assistant. | [R428](experiments/R428.md) |
+| mbpp | 3 | OmniCoder2 9B / Q6_K | Source GGUF; no local transform established; OmniCoder-2-9B.Q6_K.gguf | parser=off; declared profile=original_Q6_noMTP_noWeightCache_greedy1024 | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Original Q6; no MTP or weight cache | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0.0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 162/223 (72.6%) | 487.010 | 850.49 | 7364.5 | No additional warning recorded for this discipline | [R415](experiments/R415.md) |
+| tools | 1 | Ternary Bonsai 2 27B / PQ2_0 | Source GGUF; no local transform established; Ternary-Bonsai-2-27B-PQ2_0.gguf | parser=on; declared profile=published_medium_thinking_4096 | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=0; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=bonsai-pq2-sm70-9a9394a895b9; CUDA library=libggml-cuda.so.0.21.0; kernel SHA=60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12 | Thinking medium; 4096 output | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95}; output cap=4096; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"} | 90/100 (90.0%) | 593.425 | 1773.91 | 8158.5 | No additional warning recorded for this discipline | [R281](experiments/R281.md) |
+| tools | 2 | OmniCoder2 9B / Q6_K | Source GGUF; no local transform established; OmniCoder-2-9B.Q6_K.gguf | parser=off; declared profile=MTP; fast | type=draft-mtp; draft max=3; min=1; separate draft=Qwen3.5-9B-MTP-ONLY-Q6_K.gguf | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | MTP; fast | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 88/100 (88.0%) | 107.007 | 311.81 | NOT MEASURED | No additional warning recorded for this discipline | [R183](experiments/R183.md) |
+| tools | 3 | Qwen3.5 9B / Q4_K_M | Source GGUF; no local transform established; qwen3.5-9b.gguf | parser=off; declared profile=Fast non-reasoning | type=NOT RECORDED; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast non-reasoning | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}; sampler={"seed": 1001, "temperature": 0}; output cap=NOT RECORDED; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 87/100 (87.0%) | 123.930 | 374.01 | 5956.5 | No additional warning recorded for this discipline | [R227](experiments/R227.md) |
+| tools | 4 | Gemma4 12B IT QAT / Q4_0 | Source GGUF; no local transform established; gemma-4-12b-it-qat-q4_0.gguf | parser=off; declared profile=official_QAT_fast_T1_P095_K64_native_function_calling1024 | type=none; draft max=NOT RECORDED; min=NOT RECORDED; separate draft=not separately specified | weight cache limit MiB=NOT EXPLICITLY SET; prefix=see cache conditions | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below); build=dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4; CUDA library=libggml-cuda.so.0.26.0; kernel SHA=f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5 | Fast non-reasoning | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; sampler={"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95}; output cap=1024; power=300 W; actual launch flags={"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}; engine knobs={"GGML_CUDA_GRAPH_OPT": "0"} | 84/100 (84.0%) | 144.726 | 412.35 | 8118.5 | No additional warning recorded for this discipline | [R424](experiments/R424.md) |
 
 Ranking metric: task pass rate for this cohort only. Time includes failed attempts; GPU energy per success divides the whole suite energy by successful tasks. Warnings remain visible even for high scores. Missing values are never zero.
 
@@ -117,6 +96,8 @@ MTP + weight cache; fast. No additional policy claim is inferred from this disci
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF", "declared_profile": null, "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "bbae889168127411ddd91d4576791ef20917e7a534d974d134347a33ea626499", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "6144"}, "executed_model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "b1596b98ba033d8a400d5ecaba5630168c5c5626b493ed2230ecb239c84a62ad", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "OmniCoder-2-9B.Q6_K-MTP-grafted.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -145,6 +126,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": null, "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "Ornith-1.5-9B-Q6_K.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=ea7b735c8b49e4f7f5da3613c632c6987ff50bcce8799dd33a0d175ee0102b0e |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -173,6 +156,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "fast_nonreasoning_greedy", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "qwen3.5-9b.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=3f9f03d82b8ea223618b23239e0fda91a1d00bb4a17adb337b033347840929b4 |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -201,6 +186,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "official_QAT_fast_T1_P095_K64_coding1024", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"}, "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=5073fa0549efa164f9e9a585fc7c3170e985d99bddcdd4587e57f9cadc6dc054 |
 | Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -228,7 +215,9 @@ Fast; no MTP. No additional policy claim is inferred from this discipline.
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | NOT RECORDED |
-| Context, batching, KV, speculation | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF", "declared_profile": null, "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=c875d7d315510b68c0b91f272bf2725ada8e637a80786bab18f8f2632c45a3e6 |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -256,7 +245,9 @@ Fast; MTP3. MTP target-token identity is not lossless; no allround qualification
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | NOT RECORDED |
-| Context, batching, KV, speculation | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF", "declared_profile": null, "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=bc7247345fd05a34fe8d5b5e677025d19c6cb7d08f8bbb772808708e7b28bc32 |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -285,6 +276,8 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-21 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "published_medium_thinking_4096", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"}, "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.21.0", "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"} |
+| Tuning provenance | Frozen plan; executed launch SHA=NOT RECORDED |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -340,6 +333,8 @@ Original Q6; no MTP or weight cache. No additional policy claim is inferred from
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "original_Q6_noMTP_noWeightCache_greedy1024", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "OmniCoder-2-9B.Q6_K.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=32d3c6db0c57eb1134b67107a6629631f8b1ac2d7c4d18fbd689225be5f316a8 |
 | Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R411:32 + R415:191, disjoint tasks; no repeats |
@@ -372,6 +367,8 @@ IQ3_S grafted MTP3; coding profile. Known native-tool/policy limitations remain;
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF", "declared_profile": "GSQ_RCO_IQ3S_graftedMTP3_fast_greedy1024", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=a0b5d2a8db73afcc2943de0558c31d3e8de639a5a1365795f646aed9ff682e06 |
 | Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R413:32 + R416:191, disjoint tasks; no repeats |
@@ -404,6 +401,8 @@ Official QAT Q4_0; native fast; no MTP or weight cache. Native-tool84/100 and ag
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "official_QAT_fast_T1_P095_K64_MBPP32_1024", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"}, "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=cb2446d577f2f691cb10efb59fdf089464a54fcefc8b12145e8c17bbb214d5dd |
 | Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | R427:32 + R428:191, disjoint tasks; no repeats |
@@ -456,7 +455,9 @@ MTP; fast. No additional policy claim is inferred from this discipline.
 | Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | NOT RECORDED |
-| Context, batching, KV, speculation | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "ubatch_size": 512} |
+| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": null, "draft_artifact": "Qwen3.5-9B-MTP-ONLY-Q6_K.gguf", "draft_model_sha256": "a794337c734d5536b150dbed898d7c3b406fb6f34dc65f53f5309e6fa4efb623", "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-draft-n-min": "1", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "OmniCoder-2-9B.Q6_K.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=96a33344adf44abaf1855b5be80ec75be760653e8b706f0672019fdad9c84978 |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -485,6 +486,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-20 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": null, "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "qwen3.5-9b.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=0c661184b276de887ef6001036e32e895b0cb07a39f79a19b6ff892cfef6edbb |
 | Sampling / output cap | {"seed": 1001, "temperature": 0} / NOT RECORDED |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -513,6 +516,8 @@ Fast non-reasoning. No additional policy claim is inferred from this discipline.
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-22 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "official_QAT_fast_T1_P095_K64_native_function_calling1024", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0"}, "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.26.0", "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "auto", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"} |
+| Tuning provenance | Pinned executed launch; executed launch SHA=7f57fcd2963fa613f6dc0252c5be6a15e52629d0233106694422274f172fbc96 |
 | Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1024 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -541,6 +546,8 @@ Thinking medium; 4096 output. No additional policy claim is inferred from this d
 | Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
 | Date | 2026-10-21 |
 | Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
+| Actual tuning / weight artifact / engine kernel | {"artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED", "declared_profile": "published_medium_thinking_4096", "draft_artifact": null, "draft_model_sha256": null, "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9", "engine_source_commit": null, "environment_knobs": {"GGML_CUDA_GRAPH_OPT": "0", "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"}, "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1", "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.", "kernel_library": "libggml-cuda.so.0.21.0", "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12", "runtime_flags": {"--batch-size": "2048", "--cache-reuse": "0", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-checkpoints": "2", "--ctx-size": "8192", "--flash-attn": "on", "--n-gpu-layers": "99", "--parallel": "1", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"}, "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"} |
+| Tuning provenance | Frozen plan; executed launch SHA=NOT RECORDED |
 | Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 4096 |
 | Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
 | Measurement batches | Single suite or repeated cycles as stated |
@@ -560,527 +567,10 @@ Original audit SHA-256 (originals retained privately; public excerpts are not th
 - [audit-6ba69d79b075c99f03ac](audits/audit-6ba69d79b075c99f03ac.md): `6ba69d79b075c99f03acc9d8dd5e343d27771106cebbbdbc0c6a0629a73e868f`
 - [audit-c1f01d3d15d56ff49206](audits/audit-c1f01d3d15d56ff49206.md): `c1f01d3d15d56ff49206bcb86e1c8b925163c79ce3e41c61794fb7a490826981`
 
-## Agents · isolated 18
-
-Frozen 18 development agent tasks with unchanged effect/policy simulator; all tools isolated; not a new holdout.
-
-Task identity: `104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.
-
-![Agents · isolated 18: Successful tasks; missing results labelled NOT MEASURED](assets/benchmarks/agents-success.svg){ .benchmark-svg }
-
-![Agents · isolated 18: Mean task E2E; missing results labelled NOT MEASURED](assets/benchmarks/agents-latency.svg){ .benchmark-svg }
-
-![Agents · isolated 18: GPU energy per success; missing results labelled NOT MEASURED](assets/benchmarks/agents-energy.svg){ .benchmark-svg }
-
-![Agents · isolated 18: Peak device VRAM; missing results labelled NOT MEASURED](assets/benchmarks/agents-vram.svg){ .benchmark-svg }
-
-| Profile / record date | Success | Successful tasks/s | Total task time / GPU energy | Peak VRAM | Audit |
-|---|---|---|---|---|---|
-| Qwen3.5 9B Q4_K_M — Fast non-reasoning; no MTP / 2026-10-20 | 8/18 | 0.03729 | 214.550 s / 56164.79 J | 5956.5 | [R228](experiments/R228.md) |
-| Ornith 1.5 9B Q6_K — Fast non-reasoning; no MTP / 2026-10-20 | 14/18 | 0.06949 | 201.470 s / 54846.31 J | 7356.5 | [R253](experiments/R253.md) |
-| Qwen3.8 27B GSQ/RCO IQ3_S — Fast non-reasoning; no MTP / 2026-10-20 | 14/18 | 0.02934 | 477.196 s / 130284.60 J | 12454.5 | [R260](experiments/R260.md) |
-| Gemma4 12B IT QAT Q4_0 — Fast non-reasoning; no MTP / 2026-10-22 | 9/18 | 0.02778 | 323.942 s / 79448.26 J | 8118.5 | [R426](experiments/R426.md) |
-| Ternary Bonsai 2 27B PQ2_0 — Thinking medium; local2048; independent repeat / 2026-10-22 | 17/18 | 0.02835 | 599.644 s / 161928.85 J | 8158.5 | [R440](experiments/R440.md) |
-| Ternary Bonsai 2 27B PQ2_0 — Thinking medium; prefix reuse; local2048; qualified18-task profile / 2026-10-22 | 18/18 | 0.03945 | 456.320 s / 121439.49 J | 8158.5 | [R442](experiments/R442.md) |
-| Qwen3.8 27B GSQ/RCO IQ3_S — Fast; MTP3 / 2026-10-20 | 14/18 | 0.03425 | 408.702 s / 105913.80 J | 13600.5 | [R261](experiments/R261.md) |
-| OmniCoder2 9B Q6_K — MTP + weight cache; 300 W / 2026-10-20 | 13/18 | 0.08002 | 162.465 s / 41893.39 J | 14106.5 | [R219](experiments/R219.md) |
-| Ternary Bonsai 2 27B PQ2_0 — Thinking medium; 2048 output / 2026-10-21 | 17/18 | 0.02838 | 599.016 s / 161409.67 J | 8158.5 | [R286](experiments/R286.md) |
-
-### Qwen3.5 9B · Q4_K_M · R228
-
-Fast non-reasoning; no MTP. Additional policy violations observed; no assistant qualification
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715 |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | fa8712f46e5cc987775cecd5fe3662414cd31b252b614f51c550946f5f704cb1 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-f48de8313838adc8b3b4](audits/audit-f48de8313838adc8b3b4.md): `f48de8313838adc8b3b4940143dd90a7822a1e350aca33f67feaafb6318cebf3`
-
-### Ornith 1.5 9B · Q6_K · R253
-
-Fast non-reasoning; no MTP. Additional policy violations observed; no assistant qualification
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | 9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235 |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | 8c20cddbcc71524da3919ade5ca0fbcc4fa72816fd1db6853348f82ea1f5a950 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-c35dd0584281950f1dfd](audits/audit-c35dd0584281950f1dfd.md): `c35dd0584281950f1dfd8c72d357463f0efe9b45c10a50d5eb631bbb91325a42`
-
-### Qwen3.8 27B · GSQ/RCO IQ3_S · R260
-
-Fast non-reasoning; no MTP. Additional policy violations observed; no assistant qualification
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | fb28c2f2e80ced215af46c100f17c9f9c3192e629f3e5efde7683776967b278b |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-7ea265b5613fdf6bd79c](audits/audit-7ea265b5613fdf6bd79c.md): `7ea265b5613fdf6bd79c6760b4925284a8c3d434edace84ad822e0982651cf0d`
-
-### Gemma4 12B IT QAT · Q4_0 · R426
-
-Fast non-reasoning; no MTP. Additional policy violations observed; no assistant qualification
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 1400 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | bc06f49a06e3fa99d8cc16a1f3c8e91dc2f4ba6aa60405198febff6dd0244d94 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-021cfb8ba15cb4471b11](audits/audit-021cfb8ba15cb4471b11.md): `021cfb8ba15cb4471b111ebcbe44088d2d26d06809f01981d24db6cde1b6f4a5`
-
-### Ternary Bonsai 2 27B · PQ2_0 · R440
-
-Thinking medium; local2048; independent repeat. No additional policy claim is inferred from this discipline.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | R440:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
-| Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
-| Template SHA-256 | See exact plan audit; not duplicated in public subset |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | b10a050b49051f92a3a8fcd6960005e56e2a42ced50b6b081e0718d74f44760f |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-f4df3d5aa78011e3584d](audits/audit-f4df3d5aa78011e3584d.md): `f4df3d5aa78011e3584d3639348b5135ed9accc95661823a349cffc8480e018c`
-
-### Ternary Bonsai 2 27B · PQ2_0 · R442
-
-Thinking medium; prefix reuse; local2048; qualified18-task profile. No additional policy claim is inferred from this discipline.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": true} |
-| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
-| Cache / timing scope | Warm model; firstturn resets eachcase, laterturns retainprefix in one slot; OSfilecache uncontrolled, startup/warmupexcluded |
-| Measurement batches | R442:one full18candidate; R441:independentfirst3screen; R443:timelyfreshcold3control. Not a newholdout or36independenttasks. |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
-| Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
-| Template SHA-256 | See exact plan audit; not duplicated in public subset |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | 1683005b2a201069d0d3de6e0984cdcd7fcf213463ea2f63914d7350bc8135f0 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-a0726ce1921a21ae1360](audits/audit-a0726ce1921a21ae1360.md): `a0726ce1921a21ae13604536c04208d97a1d36cbe33230120b39b854d9f3f1ed`
-- [audit-d0773e91e5e3773010d0](audits/audit-d0773e91e5e3773010d0.md): `d0773e91e5e3773010d094ed1af4ea578b34366a73fd19ee6bf345b275e70982`
-
-### Qwen3.8 27B · GSQ/RCO IQ3_S · R261
-
-Fast; MTP3. Additional policy failure inherited; coding-specialist screen, no general assistant qualification
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | c78e3a0d6960cf2c19c584789ec4ebcd6b1535ae3a38ce87b065061897d562d1 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-87f6ea8a70d72917e748](audits/audit-87f6ea8a70d72917e748.md): `87f6ea8a70d72917e7486912fe5b5201c8e9b68d21d020ec6a698c3b54f3b43e`
-
-### OmniCoder2 9B · Q6_K · R219
-
-MTP + weight cache; 300 W. No additional policy claim is inferred from this discipline.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-20 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "off", "--spec-draft-n-max": "3", "--spec-type": "draft-mtp", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0} / 1400 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; Observed min–max of three repeated 18-case cycle aggregates; not 54 independent tasks. |
-| Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715 |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | 096e2b2496adec4ad1feee8e69d3db0d18aaba5990cf61961a074266ad29c5c7 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-7c91d45dc1aa187fe880](audits/audit-7c91d45dc1aa187fe880.md): `7c91d45dc1aa187fe8800d41cca25dc34e52b817b7f974e3c8bb16bd2d59cc2a`
-- [audit-9a720eae0135df096db9](audits/audit-9a720eae0135df096db9.md): `9a720eae0135df096db9e1b28bed9134ef98bc6aa4bd656dbd9b5e0d7328ccb3`
-
-### Ternary Bonsai 2 27B · PQ2_0 · R286
-
-Thinking medium; 2048 output. No additional policy claim is inferred from this discipline.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-21 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "8192", "--reasoning": "on", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512", "retain_prefix": false} |
-| Sampling / output cap | {"min_p": 0.05, "presence_penalty": 0.0, "repeat_penalty": 1.0, "temperature": 1.0, "top_k": 20, "top_p": 0.95} / 2048 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | R285:16 + R286:2 disjoint agent cases; R284 failed before agent generation and is excluded |
-| Actual template controls | See pinned native request evidence |
-| Actual input-token range (if exported) | Not included in this public aggregate |
-| Task count / repeats | 18 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1 |
-| Engine binary SHA-256 | 94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27 |
-| Template SHA-256 | See exact plan audit; not duplicated in public subset |
-| Scorer adapter SHA-256 | See audit scoring contract |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | fb5cfb88f5b1a44a1f6cb6ee15aa02d0fbae7b6e83e61f507feca5a69f67fefb |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-355f55bd44c49fb08916](audits/audit-355f55bd44c49fb08916.md): `355f55bd44c49fb089167f11e666581db3bf3c188d499a6104c2d897d5be04af`
-- [audit-c654b84d0dcad4ee1544](audits/audit-c654b84d0dcad4ee1544.md): `c654b84d0dcad4ee15440f026387212919515eb04b65b8dbf152f4f3efd33485`
-- [audit-b1fc6b9a04856cba1af0](audits/audit-b1fc6b9a04856cba1af0.md): `b1fc6b9a04856cba1af0acf96a90c9ec3f7dfdd9c15e919f3b73b53cfaea52aa`
-
-## Long inventory · 16K profiles
-
-Twelve identical frozen long-inventory texts and typed native-call oracles; context16384, output256. Same requests/scoring with own native model templates/tokenizers and T0 versus T1 sampling. Original Omni16K partial R339 is excluded from full12 bars; Omni32K R338 remains a separate context/protocol evidence record. No full BFCL or agent claim.
-
-Task identity: `c2218e9d5a2e2cef411698f637add2cf76465c6f0766ef22de16d8b5c4840a83`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.
-
-![Long inventory · 16K profiles: Successful tasks; missing results labelled NOT MEASURED](assets/benchmarks/long16k-success.svg){ .benchmark-svg }
-
-![Long inventory · 16K profiles: Mean task E2E; missing results labelled NOT MEASURED](assets/benchmarks/long16k-latency.svg){ .benchmark-svg }
-
-![Long inventory · 16K profiles: GPU energy per success; missing results labelled NOT MEASURED](assets/benchmarks/long16k-energy.svg){ .benchmark-svg }
-
-![Long inventory · 16K profiles: Peak device VRAM; missing results labelled NOT MEASURED](assets/benchmarks/long16k-vram.svg){ .benchmark-svg }
-
-| Profile / record date | Success | Successful tasks/s | Total task time / GPU energy | Peak VRAM | Audit |
-|---|---|---|---|---|---|
-| Gemma4 12B IT QAT Q4_0 — Native fast; T1; no MTP; 16K / 2026-10-22 | 12/12 | 0.09670 | 124.101 s / 33429.07 J | 8254.5 | [R429](experiments/R429.md) |
-| Qwen3.8 27B GSQ/RCO IQ3_S — Native fast; T0; no MTP; 16K / 2026-10-22 | 12/12 | 0.04454 | 269.407 s / 73375.72 J | 12974.5 | [R432](experiments/R432.md) |
-
-### Gemma4 12B IT QAT · Q4_0 · R429
-
-Native fast; T1; no MTP; 16K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "16384", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 256 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | {"enable_thinking": false} |
-| Actual input-token range (if exported) | [14743, 14817] |
-| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
-| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | d817683964a08b892be642f76a2acc2018d3fd5492915cafe48ab66574d6e6f1 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-13697d6c2db1e7cf8ca9](audits/audit-13697d6c2db1e7cf8ca9.md): `13697d6c2db1e7cf8ca9b8da7d086f1e2069d7a1d354b506ebc1abd92a1c5fcb`
-- [audit-7b1ef9844e4319cdb9a5](audits/audit-7b1ef9844e4319cdb9a5.md): `7b1ef9844e4319cdb9a5e1f367a92e3646329a4d1094a884621fba8d1b9a9c00`
-
-### Qwen3.8 27B · GSQ/RCO IQ3_S · R432
-
-Native fast; T0; no MTP; 16K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "16384", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 256 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | {"enable_thinking": false} |
-| Actual input-token range (if exported) | [14003, 14066] |
-| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
-| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | a08b57998f7de37c22b773f5b6168592d08190eb46e3087d6629ec2a49380635 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-25a40c7b02bf60e588a1](audits/audit-25a40c7b02bf60e588a1.md): `25a40c7b02bf60e588a1ce906f5e567171fb9e5bbe23908407cdc430bff285ff`
-- [audit-6612c4abb324bb5b83bb](audits/audit-6612c4abb324bb5b83bb.md): `6612c4abb324bb5b83bb99d699f4e9a86fdbe12cd2385013599195c719f90483`
-
-## Long inventory · new 32K validation
-
-Twelve identical subsequent local validation inventories frozen in R431 before Qwen screen outputs; context32768, output256, actualnative inputs above16384. Same texts/tools/oracles; own native tokenizers and T0 versus T1. Not a model-training holdout or population-accuracy claim. Partial runs remain on experiment pages and never become full12 scores.
-
-Task identity: `d3848a79caceaef4ad202f0f6aa27d93558085e004006325ed83d471c7425d2a`. **Task-matched whole-configuration comparisons**; native sampling, budgets and builds are shown below. These are development results, with no repeated-seed model-superiority claim. Record dates come from the original audit or frozen plan; missing dates remain labelled.
-
-![Long inventory · new 32K validation: Successful tasks; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-success.svg){ .benchmark-svg }
-
-![Long inventory · new 32K validation: Mean task E2E; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-latency.svg){ .benchmark-svg }
-
-![Long inventory · new 32K validation: GPU energy per success; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-energy.svg){ .benchmark-svg }
-
-![Long inventory · new 32K validation: Peak device VRAM; missing results labelled NOT MEASURED](assets/benchmarks/long32k_validation-vram.svg){ .benchmark-svg }
-
-| Profile / record date | Success | Successful tasks/s | Total task time / GPU energy | Peak VRAM | Audit |
-|---|---|---|---|---|---|
-| Gemma4 12B IT QAT Q4_0 — Native fast; T1; no MTP; 32K / 2026-10-22 | 11/12 | 0.04133 | 266.136 s / 72487.35 J | 8526.5 | [R431](experiments/R431.md) |
-| Qwen3.8 27B GSQ/RCO IQ3_S — Native fast; T0; no MTP; 32K / 2026-10-22 | 12/12 | 0.02189 | 548.199 s / 147942.94 J | 14010.5 | [R434](experiments/R434.md) |
-
-### Gemma4 12B IT QAT · Q4_0 · R431
-
-Native fast; T1; no MTP; 32K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "32768", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"min_p": 0.0, "presence_penalty": 0.0, "repeat_penalty": 1.0, "seed": 1001, "temperature": 1.0, "top_k": 64, "top_p": 0.95} / 256 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | {"enable_thinking": false} |
-| Actual input-token range (if exported) | [29119, 29490] |
-| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4 |
-| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | 1712592a47c05ef398bdf9acf30ee365b78fb402f952cc1c7283fac6014c6955 |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-cd8eb8e97cb00d82a151](audits/audit-cd8eb8e97cb00d82a151.md): `cd8eb8e97cb00d82a151afd35bd6e0d38cbd6e8eac1eadbaecebfa8baf450c80`
-- [audit-57702f047eb73912c9f0](audits/audit-57702f047eb73912c9f0.md): `57702f047eb73912c9f0e0cb436535a0a757e711c5df86754bf0f30015097d4b`
-
-### Qwen3.8 27B · GSQ/RCO IQ3_S · R434
-
-Native fast; T0; no MTP; 32K. Separate agent-policy failures remain; this is read-only synthetic inventory retrieval, not agent or assistant qualification.
-
-| Condition | Audited value |
-|---|---|
-| Separate process-VRAM observation (not device peak) | NOT MEASURED |
-| Hardware / power | Tesla V100-SXM2 16 GB HBM2 / 300 W |
-| Engine | llama.cpp / CUDA 12.8 / SM70 (exact audited binary below) |
-| Date | 2026-10-22 |
-| Context, batching, KV, speculation | {"--batch-size": "2048", "--cache-type-k": "f16", "--cache-type-v": "f16", "--ctx-size": "32768", "--reasoning": "off", "--spec-type": "none", "--threads": "6", "--ubatch-size": "512"} |
-| Sampling / output cap | {"seed": 1001, "temperature": 0.0} / 256 |
-| Cache / timing scope | Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded |
-| Measurement batches | Single suite or repeated cycles as stated |
-| Actual template controls | {"enable_thinking": false} |
-| Actual input-token range (if exported) | [27415, 27777] |
-| Task count / repeats | 12 unique; one observed answer per task; no repeated-run uncertainty measured |
-| Model SHA-256 | 58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f |
-| Engine binary SHA-256 | 08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54 |
-| Template SHA-256 | c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041 |
-| Scorer adapter SHA-256 | 719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807 |
-| EvalPlus provenance SHA-256 | Not applicable / not duplicated |
-| Plan SHA-256 | 619156ecdd8a3ac287376ff4e6d661c8afef89e9244157cc66726bc7c4e5a9ab |
-
-Original audit SHA-256 (originals retained privately; public excerpts are not the original files):
-
-- [audit-d8e1609bb2632a6b88cf](audits/audit-d8e1609bb2632a6b88cf.md): `d8e1609bb2632a6b88cfd55c530a935c3916a66913cdcb4dcc8b8bc2ba485cd9`
-- [audit-dfffa11e6009d9343cf0](audits/audit-dfffa11e6009d9343cf0.md): `dfffa11e6009d9343cf0186cdb40df485da2c22f2f043bc52cbbb99bb4a96777`
-
-## Historical synthetic performance — separate protocol
-
-These imported A0 records use historical model/build identities and synthetic native workloads. They are separate from task-success comparisons above. Token/s across tokenizers is a workload measurement, not useful-task superiority. **Bars: stored median; whiskers: median ± measured MAD; labels: MAD and sample size.** There are no invented confidence intervals.
-
-![Historical native Prefill · ~512 tokens: median, MAD and sample size](assets/benchmarks/historical-prefill.svg){ .benchmark-svg }
-
-![Historical native Prefill · ~2K tokens: median, MAD and sample size](assets/benchmarks/historical-prefill2048.svg){ .benchmark-svg }
-
-![Historical native Prefill · ~4K tokens: median, MAD and sample size](assets/benchmarks/historical-prefill4096.svg){ .benchmark-svg }
-
-![Historical native Decode · 128 tokens: median, MAD and sample size](assets/benchmarks/historical-decode.svg){ .benchmark-svg }
-
-### Historical OmniCoder2 9B · Q6_K
-
-| Field | Original reference identity |
-|---|---|
-| Hardware | Tesla V100-SXM2 16 GB HBM2 |
-| Date | NOT RECORDED in imported reference identity; audited in R135 |
-| Power limit | NOT RECORDED; do not assume current 300 W |
-| Model SHA-256 | b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b |
-| Engine binary identity | ["71199b6d5fdcde4c27ea83a0bf278fdb2d432ad43fe51411b564c6354e9bb8bd"] |
-| Runtime | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "decode_ignore_eos": true, "decode_output": 128, "prefill_output": 1, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "tool_max_tokens": 128, "ubatch_size": 512} |
-| Reference | e0a5d6c242421e9fd9fedd7f4796c7c0cb5154434fe3908a9053e3b9250da661 |
-| Audit SHA-256 | 944476f62657e032732177de16aaaf2fad25362a09532004a73e6ba4a928edc4 |
-
-| Workload | Prompt token count(s) | Generated token count(s) | n / sessions |
-|---|---|---|---|
-| prefill | [505] | [1] | 6 / 2 |
-| prefill2048 | [2048] | [1] | 6 / 2 |
-| prefill4096 | [4096] | [1] | 6 / 2 |
-| decode | [31] | [128] | 6 / 2 |
-
-
-[Original audit excerpt](audits/audit-944476f62657e0327321.md). Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.
-
-### Historical Qwen3.5 9B · Q4_K_M
-
-| Field | Original reference identity |
-|---|---|
-| Hardware | Tesla V100-SXM2 16 GB HBM2 |
-| Date | NOT RECORDED in imported reference identity; audited in R135 |
-| Power limit | NOT RECORDED; do not assume current 300 W |
-| Model SHA-256 | 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d |
-| Engine binary identity | ["71199b6d5fdcde4c27ea83a0bf278fdb2d432ad43fe51411b564c6354e9bb8bd"] |
-| Runtime | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "decode_ignore_eos": true, "decode_output": 128, "prefill_output": 1, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "tool_max_tokens": 128, "ubatch_size": 512} |
-| Reference | 8d659da13e52a886c39537beefbeee5aee65931bd6ddc9a53faa05fe434c891f |
-| Audit SHA-256 | 944476f62657e032732177de16aaaf2fad25362a09532004a73e6ba4a928edc4 |
-
-| Workload | Prompt token count(s) | Generated token count(s) | n / sessions |
-|---|---|---|---|
-| prefill | [505] | [1] | 6 / 2 |
-| prefill2048 | [2048] | [1] | 6 / 2 |
-| prefill4096 | [4096] | [1] | 6 / 2 |
-| decode | [31] | [128] | 6 / 2 |
-
-
-[Original audit excerpt](audits/audit-944476f62657e0327321.md). Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.
-
-### Historical Qwen3.8 27B · GSQ/RCO IQ3_S
-
-| Field | Original reference identity |
-|---|---|
-| Hardware | Tesla V100-SXM2 16 GB HBM2 |
-| Date | NOT RECORDED in imported reference identity; audited in R135 |
-| Power limit | NOT RECORDED; do not assume current 300 W |
-| Model SHA-256 | 64b53b64c7aa39f20a7e54bd80582fe595b1d745624ee8a72e92508c0326d810 |
-| Engine binary identity | ["71199b6d5fdcde4c27ea83a0bf278fdb2d432ad43fe51411b564c6354e9bb8bd"] |
-| Runtime | {"batch_size": 2048, "cache_prompt": false, "ctx": 8192, "decode_ignore_eos": true, "decode_output": 128, "prefill_output": 1, "seed": 1001, "slots": 1, "temperature": 0, "thinking": false, "threads": 6, "tool_max_tokens": 128, "ubatch_size": 512} |
-| Reference | 649420efeb0212271674362d3bb3b20bf268a46f5fc40ece74359d7f6ca572fb |
-| Audit SHA-256 | 944476f62657e032732177de16aaaf2fad25362a09532004a73e6ba4a928edc4 |
-
-| Workload | Prompt token count(s) | Generated token count(s) | n / sessions |
-|---|---|---|---|
-| prefill | [505] | [1] | 6 / 2 |
-| prefill2048 | [2048] | [1] | 6 / 2 |
-| prefill4096 | [4096] | [1] | 6 / 2 |
-| decode | [31] | [128] | 6 / 2 |
-
-
-[Original audit excerpt](audits/audit-944476f62657e0327321.md). Different tokenizers and historical model/build identities. Not a current task-success ranking; no cross-tokenizer quality or useful-throughput inference.
-
-## Scientific metadata correction
-
-The Bonsai agent campaign uses **2048 output tokens per turn**, from executed [R285](experiments/R285.md) and [R286](experiments/R286.md). Earlier chart metadata selected the failed pre-generation [R284](experiments/R284.md) plan and displayed 4096. The success counts, measured costs and immutable original audits are unchanged; coding/native-tool budgets remain separate.
-
 ## Missing and partial evidence
 
 A missing bar means no complete audited result under that cohort. In particular, a native echo-control is not a BFCL score, a truncated QA screen is not HumanEval+, and a 2/4 agent early stop is not an 18-task score. See [all model admission stages and negative screens](models.md) and [experiment history](results.md). No existing negative result or qualification limit is removed.
+
+## Supplemental local tests
+
+Own agent, QA, long-context and historical synthetic results remain [available separately](local-benchmarks.md). They are excluded from the overall mean.

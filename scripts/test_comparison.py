@@ -45,5 +45,19 @@ class ComparisonTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as directory:
    render(json.loads((root/'data/comparison.json').read_text()),directory,model_registry=json.loads((root/'data/models.json').read_text()),experiments=json.loads((root/'data/experiments.json').read_text()))
    page=(pathlib.Path(directory)/'benchmarks.md').read_text()
-   self.assertIn('MiMo V2.6',page);self.assertIn('Rank within cohort',page);self.assertIn('Runtime / sampler / limits',page);self.assertIn('overall score: NOT MEASURED',page);self.assertIn('Partial screens',page)
+   self.assertIn('MiMo V2.6',page);self.assertIn('Rank within cohort',page);self.assertIn('Other tuning / sampler / limits',page);self.assertIn('Overall mean (%)',page);self.assertIn('Official benchmark',page);self.assertNotIn('## Agents ·',page);self.assertIn('Agents ·',(pathlib.Path(directory)/'local-benchmarks.md').read_text())
+ def test_percentage_mean_requires_same_complete_benchmark_set(self):
+  from comparison import mean_percentages
+  self.assertEqual(mean_percentages({'coding':80,'tools':90},['coding','tools']),85)
+  self.assertIsNone(mean_percentages({'coding':80,'tools':None},['coding','tools']))
+  self.assertEqual(mean_percentages({'coding':0,'tools':100},['coding','tools']),50)
+  self.assertIsNone(mean_percentages({},[]))
+ def test_grafted_weights_are_not_confused_with_mtp_disabled(self):
+  from comparison import extract_tuning
+  launch={'argv':['llama-server','--model','/weights/test-MTP-grafted.gguf','--spec-type','none'],'environment':{'GGML_CUDA_GRAPH_OPT':'0','GGML_CUDA_O2_WEIGHT_CACHE_MIB':'6144','PRIVATE_PATH':'secret'}}
+  tuning=extract_tuning({},launch,{'/weights/test-MTP-grafted.gguf':'a'*64})
+  self.assertEqual(tuning['artifact_state'],'MTP_BEARING_OR_GRAFTED_GGUF')
+  self.assertEqual(tuning['runtime_flags']['--spec-type'],'none')
+  self.assertEqual(tuning['executed_model_sha256'],'a'*64)
+  self.assertNotIn('PRIVATE_PATH',str(tuning));self.assertNotIn('/weights/',str(tuning))
 if __name__=='__main__':unittest.main()

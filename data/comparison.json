@@ -313,7 +313,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "6f4b95ac37bfb4cabf674ff082283db804ee5c48c6322ba832e5b70778b4a94a",
+  "measurement_fingerprint": "4c76e5c1cfd545d9fd7ac75c4353f5f7d7bef2f87991231122e4b5471493010c",
   "models": [
     {
       "id": "omni",
@@ -371,6 +371,8 @@
       "gpu_j": 74366.51748586204,
       "id": "omni-coding-217",
       "metadata": {
+        "actual_launch_audit_id": "audit-31e37154cfd129fd6a30",
+        "actual_launch_sha256": "31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -387,6 +389,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -398,7 +401,42 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bbae889168127411ddd91d4576791ef20917e7a534d974d134347a33ea626499",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "6144"
+          },
+          "executed_model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "b1596b98ba033d8a400d5ecaba5630168c5c5626b493ed2230ecb239c84a62ad",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-draft-n-max": "3",
+            "--spec-draft-n-min": "1",
+            "--spec-type": "draft-mtp",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "OmniCoder-2-9B.Q6_K-MTP-grafted.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "omni",
       "name": "OmniCoder2 9B",
@@ -426,6 +464,8 @@
       "gpu_j": 130686.38691340903,
       "id": "ornith-coding-254",
       "metadata": {
+        "actual_launch_audit_id": "audit-ea7b735c8b49e4f7f5da",
+        "actual_launch_sha256": "ea7b735c8b49e4f7f5da3613c632c6987ff50bcce8799dd33a0d175ee0102b0e",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -441,6 +481,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -452,7 +493,39 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
-        "template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235"
+        "template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ornith-1.5-9B-Q6_K.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "ornith",
       "name": "Ornith 1.5 9B",
@@ -480,6 +553,8 @@
       "gpu_j": 122784.66475353314,
       "id": "q35-coding-255",
       "metadata": {
+        "actual_launch_audit_id": "audit-3f9f03d82b8ea223618b",
+        "actual_launch_sha256": "3f9f03d82b8ea223618b23239e0fda91a1d00bb4a17adb337b033347840929b4",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -494,6 +569,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -505,7 +581,38 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "fast_nonreasoning_greedy",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "qwen3.5-9b.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q35",
       "name": "Qwen3.5 9B",
@@ -533,6 +640,8 @@
       "gpu_j": 183962.58556396523,
       "id": "gemma4-coding-425",
       "metadata": {
+        "actual_launch_audit_id": "audit-5073fa0549efa164f9e9",
+        "actual_launch_sha256": "5073fa0549efa164f9e9a585fc7c3170e985d99bddcdd4587e57f9cadc6dc054",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -548,6 +657,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -564,7 +674,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
-        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "official_QAT_fast_T1_P095_K64_coding1024",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "gemma4",
       "name": "Gemma4 12B IT QAT",
@@ -592,22 +735,24 @@
       "gpu_j": 311884.76097498904,
       "id": "q38-coding-117",
       "metadata": {
+        "actual_launch_audit_id": "audit-c875d7d315510b68c0b9",
+        "actual_launch_sha256": "c875d7d315510b68c0b91f272bf2725ada8e637a80786bab18f8f2632c45a3e6",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
-          "batch_size": 2048,
-          "cache_prompt": false,
-          "ctx": 8192,
-          "seed": 1001,
-          "slots": 1,
-          "temperature": 0,
-          "thinking": false,
-          "threads": 6,
-          "ubatch_size": 512
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-type": "none",
+          "--threads": "6",
+          "--ubatch-size": "512"
         },
         "date": "NOT RECORDED",
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -619,7 +764,38 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "ecb62cb09cc50680b985831c6799392bdbfebbf24c8820a876ecab31cfb65296",
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -647,22 +823,25 @@
       "gpu_j": 158094.1982154647,
       "id": "q38-coding-118",
       "metadata": {
+        "actual_launch_audit_id": "audit-bc7247345fd05a34fe8d",
+        "actual_launch_sha256": "bc7247345fd05a34fe8d5b5e677025d19c6cb7d08f8bbb772808708e7b28bc32",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
-          "batch_size": 2048,
-          "cache_prompt": false,
-          "ctx": 8192,
-          "seed": 1001,
-          "slots": 1,
-          "temperature": 0,
-          "thinking": false,
-          "threads": 6,
-          "ubatch_size": 512
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-draft-n-max": "3",
+          "--spec-type": "draft-mtp",
+          "--threads": "6",
+          "--ubatch-size": "512"
         },
         "date": "NOT RECORDED",
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -674,7 +853,40 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "ecb62cb09cc50680b985831c6799392bdbfebbf24c8820a876ecab31cfb65296",
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-draft-n-max": "3",
+            "--spec-draft-n-min": "1",
+            "--spec-type": "draft-mtp",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -702,22 +914,25 @@
       "gpu_j": 27438.98187419507,
       "id": "omni-tools-183",
       "metadata": {
+        "actual_launch_audit_id": "audit-96a33344adf44abaf185",
+        "actual_launch_sha256": "96a33344adf44abaf1855b5be80ec75be760653e8b706f0672019fdad9c84978",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
-          "batch_size": 2048,
-          "cache_prompt": false,
-          "ctx": 8192,
-          "seed": 1001,
-          "slots": 1,
-          "temperature": 0,
-          "thinking": false,
-          "threads": 6,
-          "ubatch_size": 512
+          "--batch-size": "2048",
+          "--cache-type-k": "f16",
+          "--cache-type-v": "f16",
+          "--ctx-size": "8192",
+          "--reasoning": "off",
+          "--spec-draft-n-max": "3",
+          "--spec-type": "draft-mtp",
+          "--threads": "6",
+          "--ubatch-size": "512"
         },
         "date": "NOT RECORDED",
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1024,
@@ -729,7 +944,40 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "55290a596d5e49a066e58ba5ce3cc6c204520e730078e27abc4f50831782678d",
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": null,
+          "draft_artifact": "Qwen3.5-9B-MTP-ONLY-Q6_K.gguf",
+          "draft_model_sha256": "a794337c734d5536b150dbed898d7c3b406fb6f34dc65f53f5309e6fa4efb623",
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-draft-n-max": "3",
+            "--spec-draft-n-min": "1",
+            "--spec-type": "draft-mtp",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "OmniCoder-2-9B.Q6_K.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "omni",
       "name": "OmniCoder2 9B",
@@ -757,6 +1005,8 @@
       "gpu_j": 32539.26549423958,
       "id": "q35-tools-227",
       "metadata": {
+        "actual_launch_audit_id": "audit-0c661184b276de887ef6",
+        "actual_launch_sha256": "0c661184b276de887ef6001036e32e895b0cb07a39f79a19b6ff892cfef6edbb",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -771,6 +1021,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": null,
@@ -782,7 +1033,38 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": "55290a596d5e49a066e58ba5ce3cc6c204520e730078e27abc4f50831782678d",
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "qwen3.5-9b.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q35",
       "name": "Qwen3.5 9B",
@@ -810,6 +1092,8 @@
       "gpu_j": 34637.24230076317,
       "id": "gemma4-tools-424",
       "metadata": {
+        "actual_launch_audit_id": "audit-7f57fcd2963fa613f6dc",
+        "actual_launch_sha256": "7f57fcd2963fa613f6dc0252c5be6a15e52629d0233106694422274f172fbc96",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -825,6 +1109,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 1024,
@@ -841,7 +1126,39 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "55290a596d5e49a066e58ba5ce3cc6c204520e730078e27abc4f50831782678d",
-        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "official_QAT_fast_T1_P095_K64_native_function_calling1024",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "gemma4",
       "name": "Gemma4 12B IT QAT",
@@ -869,6 +1186,8 @@
       "gpu_j": 56164.790740286684,
       "id": "q35-agents-228",
       "metadata": {
+        "actual_launch_audit_id": "audit-c50f0ed3e069576b1731",
+        "actual_launch_sha256": "c50f0ed3e069576b1731c02b966309d67a5356a7f6ff6de01d5e74cb826e0ec3",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -884,6 +1203,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1400,
@@ -895,7 +1215,38 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "qwen3.5-9b.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q35",
       "name": "Qwen3.5 9B",
@@ -923,6 +1274,8 @@
       "gpu_j": 54846.30806567538,
       "id": "ornith-agents-253",
       "metadata": {
+        "actual_launch_audit_id": "audit-5364368307fc6b7dc421",
+        "actual_launch_sha256": "5364368307fc6b7dc42108f484801c184bfb223b82c8a9fab9d5334b2f8170ba",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -939,6 +1292,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1400,
@@ -950,7 +1304,39 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235"
+        "template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ornith-1.5-9B-Q6_K.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "ornith",
       "name": "Ornith 1.5 9B",
@@ -978,6 +1364,8 @@
       "gpu_j": 130284.60460233485,
       "id": "q38-agents-260",
       "metadata": {
+        "actual_launch_audit_id": "audit-d90d33c3fcb9aadb2507",
+        "actual_launch_sha256": "d90d33c3fcb9aadb2507f28cfa410493721994950c276f22fdb5ddbd39f56b40",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -994,6 +1382,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1400,
@@ -1005,7 +1394,39 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": "provider_GSQ_RCO_IQ3S_27B_fast_off_noMTP",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -1033,6 +1454,8 @@
       "gpu_j": 79448.26361013179,
       "id": "gemma4-agents-426",
       "metadata": {
+        "actual_launch_audit_id": "audit-9d96f094876023be84f3",
+        "actual_launch_sha256": "9d96f094876023be84f3b4a5abece6fd91975921470f27c388e5e06ec37d635c",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1049,6 +1472,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1400,
@@ -1065,7 +1489,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "official_QAT_fast_T1_P095_K64_native_agents1400",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "gemma4",
       "name": "Gemma4 12B IT QAT",
@@ -1093,6 +1550,8 @@
       "gpu_j": 161928.84960849368,
       "id": "bonsai-agents-440",
       "metadata": {
+        "actual_launch_audit_id": "audit-7ef52300f9ff184625fd",
+        "actual_launch_sha256": "7ef52300f9ff184625fd3a17be1122af7aaad7b94242a6375e0ceda6040ba51c",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1109,6 +1568,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "measurement_batches": "R440:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks",
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": null,
@@ -1125,7 +1585,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": null
+        "template_sha256": null,
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "published_medium_thinking_agent2048_localcap",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.21.0",
+          "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "on",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "bonsai",
       "name": "Ternary Bonsai 2 27B",
@@ -1155,6 +1648,8 @@
       "gpu_j": 121439.49308125368,
       "id": "bonsai-agents-442",
       "metadata": {
+        "actual_launch_audit_id": "audit-6ed4d9ef5af0d32d2137",
+        "actual_launch_sha256": "6ed4d9ef5af0d32d2137468e8e1552a15eae7347f98d52aeac1ae7fc85456e9c",
         "cache_condition": "Warm model; firstturn resets eachcase, laterturns retainprefix in one slot; OSfilecache uncontrolled, startup/warmupexcluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1171,6 +1666,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "measurement_batches": "R442:one full18candidate; R441:independentfirst3screen; R443:timelyfreshcold3control. Not a newholdout or36independenttasks.",
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": null,
@@ -1188,7 +1684,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": null
+        "template_sha256": null,
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "published_medium_thinking_agent2048_localcap",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.21.0",
+          "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "on",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "bonsai",
       "name": "Ternary Bonsai 2 27B",
@@ -1216,6 +1745,8 @@
       "gpu_j": 105913.79799421734,
       "id": "q38-agents-261",
       "metadata": {
+        "actual_launch_audit_id": "audit-9772400631819ce1ab70",
+        "actual_launch_sha256": "9772400631819ce1ab70d1b9ff0b7a085c1917694242fcda629339623901c5a6",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1233,6 +1764,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1400,
@@ -1244,7 +1776,41 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": "provider_GSQ_RCO_IQ3S_MTP3_coding_specialist_screen",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-draft-n-max": "3",
+            "--spec-draft-n-min": "1",
+            "--spec-type": "draft-mtp",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -1274,6 +1840,8 @@
       "gpu_j": 41893.38831143596,
       "id": "omni-agents-219",
       "metadata": {
+        "actual_launch_audit_id": "audit-31e37154cfd129fd6a30",
+        "actual_launch_sha256": "31e37154cfd129fd6a3033c62fdff0c266f4522c1939b4ce2f7c91c6a337476a",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1291,7 +1859,8 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
-        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "legacy_model_hash_field_mismatch": true,
+        "model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 1400,
         "plan_sha256": "096e2b2496adec4ad1feee8e69d3db0d18aaba5990cf61961a074266ad29c5c7",
@@ -1302,7 +1871,42 @@
           "temperature": 0
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": null,
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bbae889168127411ddd91d4576791ef20917e7a534d974d134347a33ea626499",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "6144"
+          },
+          "executed_model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "b1596b98ba033d8a400d5ecaba5630168c5c5626b493ed2230ecb239c84a62ad",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-draft-n-max": "3",
+            "--spec-draft-n-min": "1",
+            "--spec-type": "draft-mtp",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "OmniCoder-2-9B.Q6_K-MTP-grafted.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "omni",
       "name": "OmniCoder2 9B",
@@ -1356,6 +1960,8 @@
       "gpu_j": 694855.8237756976,
       "id": "bonsai-coding-271",
       "metadata": {
+        "actual_launch_audit_id": null,
+        "actual_launch_sha256": null,
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1371,6 +1977,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": "332b4dfcdd92cb653859dd392c9e2430726aa85cc6560dcfc76282d06310e64d",
         "output_cap": 4096,
@@ -1387,7 +1994,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "dea3b58b17e93734bf27e15e3f07419982b28f622427519a0779c5c8106cf3ad",
-        "template_sha256": null
+        "template_sha256": null,
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "published_medium_thinking_4096",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.21.0",
+          "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "on",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+        },
+        "tuning_source": "Frozen plan"
       },
       "model": "bonsai",
       "name": "Ternary Bonsai 2 27B",
@@ -1419,6 +2059,8 @@
       "gpu_j": 159652.15518219126,
       "id": "bonsai-tools-280",
       "metadata": {
+        "actual_launch_audit_id": null,
+        "actual_launch_sha256": null,
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1434,6 +2076,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 4096,
@@ -1450,7 +2093,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "b0c619f7f1022b4c06c18ba6c6e608006e1609b667ed0d90a399f906afd2c2a5",
-        "template_sha256": null
+        "template_sha256": null,
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "published_medium_thinking_4096",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.21.0",
+          "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "on",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+        },
+        "tuning_source": "Frozen plan"
       },
       "model": "bonsai",
       "name": "Ternary Bonsai 2 27B",
@@ -1482,6 +2158,8 @@
       "gpu_j": 161409.6739826662,
       "id": "bonsai-agents-286",
       "metadata": {
+        "actual_launch_audit_id": null,
+        "actual_launch_sha256": null,
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "context_and_runtime": {
           "--batch-size": "2048",
@@ -1498,6 +2176,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "measurement_batches": "R285:16 + R286:2 disjoint agent cases; R284 failed before agent generation and is excluded",
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": null,
@@ -1514,7 +2193,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": null,
-        "template_sha256": null
+        "template_sha256": null,
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "published_medium_thinking_agent2048_localcap",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "bonsai-pq2-sm70-9a9394a895b9",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.21.0",
+          "kernel_library_sha256": "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "on",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Ternary-Bonsai-2-27B-PQ2_0.gguf"
+        },
+        "tuning_source": "Frozen plan"
       },
       "model": "bonsai",
       "name": "Ternary Bonsai 2 27B",
@@ -1550,6 +2262,8 @@
       "gpu_j": 137779.71181276528,
       "id": "omni-mbpp-415",
       "metadata": {
+        "actual_launch_audit_id": "audit-32d3c6db0c57eb1134b6",
+        "actual_launch_sha256": "32d3c6db0c57eb1134b67107a6629631f8b1ac2d7c4d18fbd689225be5f316a8",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1568,6 +2282,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "measurement_batches": "R411:32 + R415:191, disjoint tasks; no repeats",
         "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
         "official_evalplus_provenance_sha256": null,
@@ -1580,7 +2295,39 @@
           "temperature": 0.0
         },
         "scorer_adapter_sha256": "1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7",
-        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "original_Q6_noMTP_noWeightCache_greedy1024",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "OmniCoder-2-9B.Q6_K.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "omni",
       "name": "OmniCoder2 9B",
@@ -1616,6 +2363,8 @@
       "gpu_j": 127647.52765177836,
       "id": "q38-mbpp-416",
       "metadata": {
+        "actual_launch_audit_id": "audit-a0b5d2a8db73afcc2943",
+        "actual_launch_sha256": "a0b5d2a8db73afcc2943de0558c31d3e8de639a5a1365795f646aed9ff682e06",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1635,6 +2384,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "measurement_batches": "R413:32 + R416:191, disjoint tasks; no repeats",
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": null,
@@ -1647,7 +2397,41 @@
           "temperature": 0.0
         },
         "scorer_adapter_sha256": "1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7",
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": "GSQ_RCO_IQ3S_graftedMTP3_fast_greedy1024",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-draft-n-max": "3",
+            "--spec-draft-n-min": "1",
+            "--spec-type": "draft-mtp",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -1683,6 +2467,8 @@
       "gpu_j": 216064.30620399135,
       "id": "gemma4-mbpp-428",
       "metadata": {
+        "actual_launch_audit_id": "audit-cb2446d577f2f691cb10",
+        "actual_launch_sha256": "cb2446d577f2f691cb10efb59fdf089464a54fcefc8b12145e8c17bbb214d5dd",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1701,6 +2487,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "measurement_batches": "R427:32 + R428:191, disjoint tasks; no repeats",
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
         "official_evalplus_provenance_sha256": null,
@@ -1718,7 +2505,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "1b044c31ebf9fa65aff9540afb50ab5e756af65cf464afcc78770131a76728d7",
-        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "official_QAT_fast_T1_P095_K64_MBPP32_1024",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "8192",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "gemma4",
       "name": "Gemma4 12B IT QAT",
@@ -1752,6 +2572,8 @@
           14743,
           14817
         ],
+        "actual_launch_audit_id": "audit-a3cf8dbd61ec33d3acf8",
+        "actual_launch_sha256": "a3cf8dbd61ec33d3acf8036eb0eecf3617856e72642061372d0e197eca83bc8b",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1770,6 +2592,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 256,
@@ -1786,7 +2609,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
-        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "official_QAT_fast_T1_P095_K64_ctx16K_native_functions256",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "16384",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "gemma4",
       "name": "Gemma4 12B IT QAT",
@@ -1820,6 +2676,8 @@
           14003,
           14066
         ],
+        "actual_launch_audit_id": "audit-966ae26f6cefb398e6ba",
+        "actual_launch_sha256": "966ae26f6cefb398e6ba06271c9f6cac198881b9031b5dbd94870e8f42447f62",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1838,6 +2696,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 256,
@@ -1849,7 +2708,39 @@
           "temperature": 0.0
         },
         "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": "existing_GSQ_RCO_IQ3S_fast_T0_noMTP_ctx16K_native_functions256",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "16384",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -1883,6 +2774,8 @@
           29119,
           29490
         ],
+        "actual_launch_audit_id": "audit-2be7fb9e0fdd740a6b62",
+        "actual_launch_sha256": "2be7fb9e0fdd740a6b628597934ed3e1f16f3bd11e6d9b6ba29aff790291a834",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1901,6 +2794,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 256,
@@ -1917,7 +2811,40 @@
           "top_p": 0.95
         },
         "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
-        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+        "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "tuning": {
+          "artifact_state": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+          "declared_profile": "official_QAT_fast_T1_P095_K64_ctx32K_native_functions256",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0",
+            "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+          },
+          "executed_model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "32768",
+            "--flash-attn": "auto",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "gemma-4-12b-it-qat-q4_0.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "gemma4",
       "name": "Gemma4 12B IT QAT",
@@ -1951,6 +2878,8 @@
           27415,
           27777
         ],
+        "actual_launch_audit_id": "audit-3c9647fe690b7bc9e5e1",
+        "actual_launch_sha256": "3c9647fe690b7bc9e5e1ca0c69a06e824fc78a4c3ad5cd303997419911752429",
         "cache_condition": "Warm model; per-request KV reset; OS file cache uncontrolled; model startup excluded",
         "chat_template_kwargs": {
           "enable_thinking": false
@@ -1969,6 +2898,7 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
+        "legacy_model_hash_field_mismatch": false,
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 256,
@@ -1980,7 +2910,39 @@
           "temperature": 0.0
         },
         "scorer_adapter_sha256": "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
-        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+        "template_sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+        "tuning": {
+          "artifact_state": "MTP_BEARING_OR_GRAFTED_GGUF",
+          "declared_profile": "existing_GSQ_RCO_IQ3S_fast_T0_noMTP_ctx32K_native_functions256",
+          "draft_artifact": null,
+          "draft_model_sha256": null,
+          "engine_build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+          "engine_source_commit": null,
+          "environment_knobs": {
+            "GGML_CUDA_GRAPH_OPT": "0"
+          },
+          "executed_model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "interpretation": "No-MTP inference does not imply a non-grafted weight file. GRAPH_OPT=0 does not imply CUDA Graphs disabled. An absent setting is unrecorded, never assumed off.",
+          "kernel_library": "libggml-cuda.so.0.26.0",
+          "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "runtime_flags": {
+            "--batch-size": "2048",
+            "--cache-reuse": "0",
+            "--cache-type-k": "f16",
+            "--cache-type-v": "f16",
+            "--ctx-checkpoints": "2",
+            "--ctx-size": "32768",
+            "--flash-attn": "on",
+            "--n-gpu-layers": "99",
+            "--parallel": "1",
+            "--reasoning": "off",
+            "--spec-type": "none",
+            "--threads": "6",
+            "--ubatch-size": "512"
+          },
+          "weight_artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf"
+        },
+        "tuning_source": "Pinned executed launch"
       },
       "model": "q38",
       "name": "Qwen3.8 27B",
@@ -1996,7 +2958,7 @@
     }
   ],
   "rules": [
-    "No combined score. Counts are one observed answer per task unless repeated cycles are explicitly stated.",
+    "The user-defined mean uses the same complete selected benchmark set for every ranked row; it is not an official combined leaderboard score.",
     "Whole configurations: model, tokenizer, native template, output budget, sampling, quantization and engine can differ. Task/scorer matching permits comparison of these profiles, not causal architecture claims.",
     "GPU board energy includes failed task attempts; excludes load/warmup and CPU/system energy. Latency is measured request/case time; startup and judge time are excluded.",
     "NOT MEASURED means no full comparable audited result in this cohort. Partial screens are not converted into full-suite scores."
