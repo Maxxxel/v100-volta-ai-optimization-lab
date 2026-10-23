@@ -87,6 +87,16 @@ def build(root, db, matrix, receipt):
         if model=='bonsai':
             if p['agent_workload']['max_output_tokens']!=2048:raise ValueError('Bonsai agent repeat budget changed')
             rows[-1]['metadata']['measurement_batches']=f'R{n}:one full18-case prefixcandidate confirmation; no independentChampion fromfirst3screen' if p['agent_workload'].get('retain_prefix') else f'R{n}:one fresh18-case repeat of the same development tasks; not a newholdout or36independent tasks'
+    for row in rows:
+        if row['model']=='bonsai' and row['discipline']=='agents' and row['metadata']['context_and_runtime'].get('retain_prefix'):
+            q=summary.get('bonsai_prefix_agent_qualification',{})
+            if q.get('status')=='QUALIFIED_BONSAI_AGENT18_PREFIX_PROFILE_ONLY':
+                proof,qp,qid=audit(q['qualification_path'],q['qualification_sha256'])
+                if proof.get('candidate_experiment')!=row['experiment'] or proof.get('candidate_solved')!=row['solved']:raise ValueError('Prefix qualification/model record mismatch')
+                row['profile']='Thinking medium; prefix reuse; local2048; qualified18-task profile'
+                row['metadata']['qualification_scope']='Only frozen18developmentagent profile; no globalmodel/production/32K/coding/tool100 qualification'
+                row['metadata']['measurement_batches']='R442:one full18candidate; R441:independentfirst3screen; R443:timelyfreshcold3control. Not a newholdout or36independenttasks.'
+                row['audit_ids'].append(qid);row['audit_sha256'].append(q['qualification_sha256'])
     a,ap,aid=source(261);p=load(root/'staging/r261/PLAN.json');assert a['full18_score_claimed'] and a['observed_tasks']==18
     add('q38','agents',18,a['solved'],a['total_task_wall_s'],a['gpu_energy_j_approx'],a['peak_device_vram_mib'],ap,261,a,aid,'Fast; MTP3',p['agent_workload']['tasks_sha256'],warning='Additional policy failure inherited; coding-specialist screen, no general assistant qualification')
     a,ap,aid=source(219);cycles=a['cycle_metrics'];q=summary['r220']['qualified_candidate'];assert len(cycles)==3 and all(x['solved']==q['metrics']['solved'] for x in cycles)

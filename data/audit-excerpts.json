@@ -172763,6 +172763,45 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 28,
+      "candidate_same3_GPU_Jsuccess_reduction_percent": 17.329221952190576,
+      "candidate_same3_wall_reduction_percent": 15.40717290229967,
+      "control_comparable": true,
+      "control_energy_drift_percent": -0.2799818058737302,
+      "control_wall_drift_percent": -0.09288224457757455,
+      "full18_score_claimed": false,
+      "full3_score_claimed": true,
+      "gpu_energy_j_approx": 40553.66807446159,
+      "gpu_j_per_success": 13517.889358153863,
+      "model_requests": 24,
+      "model_starts": 1,
+      "observed_tasks": 3,
+      "peak_device_vram_mib": 8156.5,
+      "planned_tasks": 3,
+      "qualification_candidate_passed": true,
+      "solved": 3,
+      "total_task_wall_s": 151.807995635
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f6dde4e33f5e50832960",
+    "original_bytes": 2323,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f6dde4e33f5e508329604e5bb49b56df02adadeaa39782ccdffa5026a8d37957",
+    "statements": {
+      "decision": "PREFIX_FRESH_CONTROL_PASSED_INDEPENDENT_QUALIFICATION_PENDING",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Fresh3coldcontrols only, notnewfull18baseline orA0overwrite.",
+        "Qualifiedcandidate if independentlyreviewed isR442prefixTrue, notthiscoldcontrol.",
+        "Original18developmenttasks, nottrainingholdout/populationclaim; noallroundmodel/productionChampion.",
+        "GPUboardcaseenergy includesfailedcases, excludesstartup/warmup/CPU/system; no universaldecode orlosslessstate claim."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -249241,6 +249280,26 @@
     "original_publicly_available": false,
     "original_sha256": "c02efa044688767d0f3575b3a120ddf3fbfbbeba0208fcaddb1a7b55507c10b9",
     "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-d0773e91e5e3773010d0",
+    "original_bytes": 1950,
+    "original_filename": "QUALIFICATION.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d0773e91e5e3773010d094ed1af4ea578b34366a73fd19ee6bf345b275e70982",
+    "statements": {
+      "limits": [
+        "18frozendevelopmenttasks, not independenttaskholdout/populationaccuracy or new globalmodelwinner.",
+        "R442singlefull18run plus R441independentfirst3screen andtimelyR443cold3control; not36independenttasks or threefull18cycles.",
+        "Functional/cached-prefix state qualifiedonlyonthisprofile/tasks; no internalGDNstate/target-token losslessness proof.",
+        "No HE+/native100tools/32K/power/cache/MMQcombination qualification fromthisagentprofile.",
+        "GPUboardtaskenergy only, excludesCPU/system/startup/warmup; no universaldecodegain.",
+        "Bonsai coldprofile oldallroundpracticalfailure versusOmni remains; originalmodels/weights/audits unchanged."
+      ]
+    }
   },
   {
     "aggregate_metrics": {

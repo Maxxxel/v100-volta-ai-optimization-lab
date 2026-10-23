@@ -313,7 +313,7 @@
       "reference_identity_sha256": "7ccdd7e43d2a3ce1a88872c3efeb49bfa482afe1464e7327636a9093e1fea1c2"
     }
   ],
-  "measurement_fingerprint": "8512d6f94c9f5d66eb839d5a509915648410c0c573b3ab41e8a3481f4ba950c8",
+  "measurement_fingerprint": "6f4b95ac37bfb4cabf674ff082283db804ee5c48c6322ba832e5b70778b4a94a",
   "models": [
     {
       "id": "omni",
@@ -1141,10 +1141,12 @@
     },
     {
       "audit_ids": [
-        "audit-a0726ce1921a21ae1360"
+        "audit-a0726ce1921a21ae1360",
+        "audit-d0773e91e5e3773010d0"
       ],
       "audit_sha256": [
-        "a0726ce1921a21ae13604536c04208d97a1d36cbe33230120b39b854d9f3f1ed"
+        "a0726ce1921a21ae13604536c04208d97a1d36cbe33230120b39b854d9f3f1ed",
+        "d0773e91e5e3773010d094ed1af4ea578b34366a73fd19ee6bf345b275e70982"
       ],
       "comparability": "SAME_FROZEN_TASKS_AND_SCORING_WHOLE_CONFIGURATIONS",
       "discipline": "agents",
@@ -1169,13 +1171,14 @@
         "engine": "llama.cpp / CUDA 12.8 / SM70 (exact audited binary below)",
         "engine_binary_sha256": "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
         "hardware": "Tesla V100-SXM2 16 GB HBM2",
-        "measurement_batches": "R442:one full18-case prefixcandidate confirmation; no independentChampion fromfirst3screen",
+        "measurement_batches": "R442:one full18candidate; R441:independentfirst3screen; R443:timelyfreshcold3control. Not a newholdout or36independenttasks.",
         "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
         "official_evalplus_provenance_sha256": null,
         "output_cap": 2048,
         "plan_sha256": "1683005b2a201069d0d3de6e0984cdcd7fcf213463ea2f63914d7350bc8135f0",
         "power_limit_w": 300,
         "process_peak_vram_mib": null,
+        "qualification_scope": "Only frozen18developmentagent profile; no globalmodel/production/32K/coding/tool100 qualification",
         "sampling": {
           "min_p": 0.05,
           "presence_penalty": 0.0,
@@ -1190,7 +1193,7 @@
       "model": "bonsai",
       "name": "Ternary Bonsai 2 27B",
       "peak_vram_mib": 8158.5,
-      "profile": "Thinking medium; prefix reuse; local2048; confirmation",
+      "profile": "Thinking medium; prefix reuse; local2048; qualified18-task profile",
       "quantization": "PQ2_0",
       "repeat_range": null,
       "solved": 18,

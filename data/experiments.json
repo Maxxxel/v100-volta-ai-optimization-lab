@@ -18709,5 +18709,47 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 28,
+      "candidate_same3_GPU_Jsuccess_reduction_percent": 17.329221952190576,
+      "candidate_same3_wall_reduction_percent": 15.40717290229967,
+      "control_comparable": true,
+      "control_energy_drift_percent": -0.2799818058737302,
+      "control_wall_drift_percent": -0.09288224457757455,
+      "full18_score_claimed": false,
+      "full3_score_claimed": true,
+      "gpu_energy_j_approx": 40553.66807446159,
+      "gpu_j_per_success": 13517.889358153863,
+      "model_requests": 24,
+      "model_starts": 1,
+      "observed_tasks": 3,
+      "peak_device_vram_mib": 8156.5,
+      "planned_tasks": 3,
+      "qualification_candidate_passed": true,
+      "solved": 3,
+      "total_task_wall_s": 151.807995635
+    },
+    "audit_id": "audit-f6dde4e33f5e50832960",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R443",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
+    "statements": {
+      "decision": "PREFIX_FRESH_CONTROL_PASSED_INDEPENDENT_QUALIFICATION_PENDING",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limitations": [
+        "Fresh3coldcontrols only, notnewfull18baseline orA0overwrite.",
+        "Qualifiedcandidate if independentlyreviewed isR442prefixTrue, notthiscoldcontrol.",
+        "Original18developmenttasks, nottrainingholdout/populationclaim; noallroundmodel/productionChampion.",
+        "GPUboardcaseenergy includesfailedcases, excludesstartup/warmup/CPU/system; no universaldecode orlosslessstate claim."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

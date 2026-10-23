@@ -283,7 +283,7 @@
   },
   {
     "A0": "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
-    "C": null,
+    "C": "d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e",
     "id": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
   }

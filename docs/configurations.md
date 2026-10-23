@@ -15,6 +15,7 @@ Ten profile pointers do not mean ten universally superior models. Native tools, 
 | [omnicoder2-sm70-cuda128-pinned-nativejson-ctx8192-v1](#profile-0df192a50d76) | R90 | R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED |
 | [omnicoder2-sm70-cuda128-sse-pp2k4k16-decode128-ctx8192-v1](#profile-70f9438a1b18) | R90 | R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED |
 | [gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1](#profile-74d8082d9d63) | R437 | Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss. |
+| [bonsai-pq2-sm70-native-medium-agent18-prefix-v1](#profile-d79c3d4777d8) | R442 | Agent18prefixE2E/energy profile only; quality/source-success/policy preserved, full18andfreshcontrol gates independentlyverified. |
 
 
 ## Profile fa9451c63b8d
@@ -3192,6 +3193,97 @@ C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
   "model": "gemma4_12b_it_qat_q4_0",
   "profile": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
   "qualification": "Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss.",
+  "winner_qualified": true
+}
+```
+
+
+## Profile d79c3d4777d8
+
+`bonsai-pq2-sm70-native-medium-agent18-prefix-v1`
+
+A0: `2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0`
+
+C: `d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e`
+
+```json
+{
+  "aggregate_metrics": {
+    "metrics": {
+      "gpu_energy_j_approx": 121439.49308125368,
+      "gpu_j_per_success": 6746.638504514093,
+      "peak_device_vram_mib": 8158.5,
+      "prefix_cache": {
+        "cached_tokens": 145536,
+        "cases_with_hits": 18,
+        "first_turn_cached_tokens": 0,
+        "requests_with_hits": 74
+      },
+      "solved": 18,
+      "successful_tasks_per_s": 0.03944598873901683,
+      "tasks": 18,
+      "total_wall_s": 456.320162719
+    }
+  },
+  "experiment_id": "R442",
+  "id": "d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e",
+  "identity": {
+    "cache": "Firstturncoldreset percase; subsequentturnprefixreuse inone slot, OSfilecacheuncontrolled; taskenergy excludesstartup/warmup",
+    "inference_flags": {
+      "--batch-size": "2048",
+      "--cache-ram": "0",
+      "--cache-reuse": "0",
+      "--cache-type-k": "f16",
+      "--cache-type-v": "f16",
+      "--ctx-checkpoints": "2",
+      "--ctx-size": "8192",
+      "--flash-attn": "on",
+      "--load-mode": "mmap",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--reasoning": "on",
+      "--seed": "1001",
+      "--spec-type": "none",
+      "--threads": "6",
+      "--threads-batch": "6",
+      "--ubatch-size": "512"
+    },
+    "kernel_switches": {
+      "GGML_CUDA_GRAPH_OPT": "0",
+      "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+    },
+    "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+    "power_limit_w": 300,
+    "request_numeric_settings": null,
+    "seed": 1001,
+    "workload_description": null
+  },
+  "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+  "identity_hashes": [
+    "0560986e4e40400f9a1beaa474aade93b3c6236f78cde94609ae0d6d72c4a09d",
+    "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+    "1d32e8c7a5ba375008ffd3c010f70dfdd76c3c449ee4cd26e76004cd5e43e41c",
+    "1de3d70cf29f0b0fc2438b819c10f3e901b8025b073966198d865fbb6f994d30",
+    "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
+    "32ed0e13c30a135600f667c46f0ba0c2df0e2eca5e0558b6302fa178e475e2d3",
+    "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+    "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+    "717966da46cfa4e9753ce2241df90215224329a344005bfd603b753e4e264019",
+    "784bbad15a8847cdb7fa69cb8646451544eb401290d02e39e2d33ccc2d6dd0c5",
+    "7bff05c54f510fb2408268889c245e42843ffaf469ff52fcc53a2199cd1df790",
+    "8386c6c6b932e9b15a675e6f09910b252934a33c256fb4732e8d06800db73b6d",
+    "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+    "9bcac20d6fd1640fb05136e57255f0dd4a015b5f78bad3c86283266797355dbd",
+    "a48373656da8d0e2f3c9e24c5be5239343ad708fa1f0f5d4de3eea82c31f4d3f",
+    "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+    "cfb310938f8a59e625b24e3bef1886ece36567410babf2b981f3cb0f9e4509e3",
+    "e666c714a773c996ef611d6cf19638b001ad894d9ba32569a15cfdc08ff93506"
+  ],
+  "kind": "C",
+  "limits": [],
+  "model": "bonsai2_27b_pq2",
+  "profile": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
+  "qualification": "Agent18prefixE2E/energy profile only; quality/source-success/policy preserved, full18andfreshcontrol gates independentlyverified.",
   "winner_qualified": true
 }
 ```

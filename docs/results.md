@@ -365,6 +365,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R440](experiments/R440.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
 | [R441](experiments/R441.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
 | [R442](experiments/R442.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
+| [R443](experiments/R443.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
 
 
 ## Historical signed windows

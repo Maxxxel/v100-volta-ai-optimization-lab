@@ -7,7 +7,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | Track | Candidate | Status | Evidence | Latest recorded sprint |
 |---|---|---|---|---|
 | BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
-| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R442 |
+| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R443 |
 | BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
 | BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R420 |
@@ -232,13 +232,13 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R442 Bonsai prefixfull18: 18/18observed,cachehits74,prefixcachedtokens145536,wallgain23.90143765232934,energygain29.170833453062727;screen=True. Full18confirmation only; noindependent/state/losslessChampion.",
-  "current_experiment": "R442",
+  "assessment": "R443 freshcoldcontrol:3/3,wall drift-0.09288224457757455,energy drift-0.2799818058737302;R442same3gain wall15.40717290229967,energy17.329221952190576;qualifiedR442scopeonly=True.",
+  "current_experiment": "R443",
   "evidence_class": null,
   "id": "BMC04",
   "local_scope": null,
   "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-  "next_step": "Full18prefixconfirmed: obtain one timelyfreshcold-prefix first3 control againstR440drift andR442same3benefit before independent scopedChampion qualification. Keep full18quality17+/zero-loss/policy and>=10percentfullcost gates; no extra tuning/combinations.",
+  "next_step": "CloseBonsaiR22prefix branch at qualified8K/nativeagent18 scope; next P1MiMo native20tool pilot usingexistingweights/frozenbalancedBFCLsubset andR288nativeT.6Thinking2048 profile. PreserveR289agentpolicynegative, no newagentbudgetrepair or combinations.",
   "priority": "P1",
   "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
   "source_admission": null,
