@@ -13686,5 +13686,13 @@
     "kind": "R445_MIMO_CODING18_PILOT_AUDITED",
     "sequence": 1711,
     "signature": null
+  },
+  {
+    "date": "2026-10-23T06:30:55.683421+00:00",
+    "experiment_id": "R446",
+    "factor_id": null,
+    "kind": "R446_AUTO_BROKER_NUMERICAL_ADMISSION_COMPLETE",
+    "sequence": 1712,
+    "signature": null
   }
 ]

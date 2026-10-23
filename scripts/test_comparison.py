@@ -28,4 +28,14 @@ class ComparisonTests(unittest.TestCase):
  def test_content_identity_and_whisker(self):
   d=self.fixture();self.assertTrue(check(d));other=copy.deepcopy(d);other['records'][0]['solved']=131;self.assertNotEqual(fingerprint(d),fingerprint(other))
   s=svg('Repeated','s',[{'label':'A','value':10,'range':[9,11]}]);self.assertIn('stroke="#fff"',s)
+ def test_charts_sorted_best_first_missing_last(self):
+  rows=[{'label':'LOW_VALUE','value':1},{'label':'NOT_AVAILABLE','value':None},{'label':'HIGH_VALUE','value':9},{'label':'ZERO_VALUE','value':0}]
+  descending=svg('Success','%',rows)
+  self.assertLess(descending.index('HIGH_VALUE'),descending.index('LOW_VALUE'))
+  self.assertLess(descending.index('ZERO_VALUE'),descending.index('NOT_AVAILABLE'))
+  ascending=svg('Latency','s',rows,higher_is_better=False)
+  self.assertLess(ascending.index('ZERO_VALUE'),ascending.index('LOW_VALUE'))
+  self.assertLess(ascending.index('LOW_VALUE'),ascending.index('HIGH_VALUE'))
+  self.assertLess(ascending.index('HIGH_VALUE'),ascending.index('NOT_AVAILABLE'))
+  self.assertEqual(rows[0]['label'],'LOW_VALUE')
 if __name__=='__main__':unittest.main()

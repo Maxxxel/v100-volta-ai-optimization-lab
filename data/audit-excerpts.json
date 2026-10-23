@@ -172921,6 +172921,23 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 806.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-96163609c0e98f3b4196",
+    "original_bytes": 798,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "96163609c0e98f3b41964a444a1927d5f2c52cbe887a5af3b6d9f60edb4441ea",
+    "statements": {
+      "limits": [
+        "Numerical native CPU agreement only; no FP64/whole-model/quality/speed/path qualification."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

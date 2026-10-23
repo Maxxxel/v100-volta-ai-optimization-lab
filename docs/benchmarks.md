@@ -7,7 +7,7 @@
 - GPU board energy includes failed task attempts; excludes load/warmup and CPU/system energy. Latency is measured request/case time; startup and judge time are excluded.
 - NOT MEASURED means no full comparable audited result in this cohort. Partial screens are not converted into full-suite scores.
 
-Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
+Charts run from best measured value at the top to worst at the bottom: success/throughput descending; latency/energy/VRAM ascending. Missing measurements follow all measured values. Ties retain a stable profile order. Teal bars are measured values; amber identifies a recorded policy warning. NOT MEASURED is never plotted as zero. The tables below each cohort provide exact profile metadata and original audit hashes. Error bars are omitted for single runs; repeated-cycle min–max and historical median absolute deviation (MAD) are labelled explicitly.
 
 Measurement-only fingerprint: `6f4b95ac37bfb4cabf674ff082283db804ee5c48c6322ba832e5b70778b4a94a`. Charts change when these audited measurements/conditions change, independently of matrix revision. New full-suite results are admitted through the existing canonical benchmark reference registry after audit; changed task identities fail the cohort gate rather than silently entering a ranking. Download the [validated aggregate dataset](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/comparison.json).
 

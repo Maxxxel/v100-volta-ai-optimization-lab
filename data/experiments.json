@@ -18866,5 +18866,28 @@
       "score_rule": "base_pass AND plus_pass"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 806.5
+    },
+    "audit_id": "audit-96163609c0e98f3b4196",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "C01"
+    ],
+    "id": "R446",
+    "model": "bonsai2_27b_pq2",
+    "reference_A0": null,
+    "statements": {
+      "decision": "SCOPED_NUMERICS_PASSED_NO_ROUTING_OR_SPEED_QUALIFICATION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Numerical native CPU agreement only; no FP64/whole-model/quality/speed/path qualification."
+      ],
+      "scope": "New Bonsai PQ2 n8/9/63/64 boundary nativeCPU/CUDA agreement only. Original Omni FORCE_MMQ negative unchanged. No routing intervention, counter/performance or whole-model qualification."
+    },
+    "winner_qualified": false
   }
 ]
