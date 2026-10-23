@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 367
+    "sprint_records": 368
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -32,7 +32,7 @@
   "schema": 1,
   "source_date": "2026-10-23T10:48:27.792359+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "1f10e9914120219868332a78988a294987642fde5d190ecb31a6b1efabf86626",
+    "BENCHMARK_REFERENCES.json": "feedc39262284a3e94e93cdef64e6e9fc7974ecb6b58b1f4412c27f5e88ce91f",
     "BENCHMARK_REGISTER.json": "5e6fee831ca8b8cbbab88d80f3109c41b5cc4c0aeb829846792e89caf2b346da",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "8c6e1a74b13f3b3d2b4697f6a9d01f7d6adb7256aa872d9bb3ea181abbdf7f70",
