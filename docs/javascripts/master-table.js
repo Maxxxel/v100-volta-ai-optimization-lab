@@ -4,6 +4,7 @@
   const UNKNOWN = 'NICHT ERFASST';
   const finite = x => typeof x === 'number' && Number.isFinite(x);
   const absent = x => x === null || x === undefined;
+  const unrecordedMetadata = x => absent(x) || x === 'NOT MEASURED' || x === UNKNOWN;
   const canonical = x => JSON.stringify(x === undefined ? null : x, function (k, v) {
     return v && typeof v === 'object' && !Array.isArray(v)
       ? Object.fromEntries(Object.keys(v).sort().map(key => [key, v[key]])) : v;
@@ -143,7 +144,7 @@
       const values = parameters(profile), scores = {};
       const evidence = (data.history.configuration_evidence || []).filter(e => e.runtime_configuration_id === profile.runtime_configuration_id);
       evidence.forEach(e => Object.entries(e.fields).forEach(([key, v]) => {
-        if (!absent(values[key]) && canonical(values[key]) !== canonical(v)) throw new Error("Conflicting configuration evidence: " + key);
+        if (!unrecordedMetadata(values[key]) && canonical(values[key]) !== canonical(v)) throw new Error("Conflicting configuration evidence: " + key);
         values[key] = v;
       }));
       const identityLabel = (data.register.model_label_annotations || []).find(a => a.artifact_sha256 === profile.model.artifact_sha256);

@@ -597,3 +597,13 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 ## R453 — full native BFCL Python category, 2026-10-23
 
 LFM2.5-8B-A1B Q6_K completed all400 pinned `simple_python` cases in one broker-admitted model session. The original official AST checker and a second CPU replay both scored371/400 (92.75%); separate practical checks also scored371/400, with400 valid and complete replies. Task phase:802.998s; request windows:801.605s; GPU energy:153913.043J; GPU J per AST success:414.860; peak VRAM:7436.5MiB. This is one official category under the declared local native profile, not BFCL overall or a model/optimization Champion. Complete source identities, shared canonical controls and both scoring receipts are verified by the export pipeline. All original profiles and partial results remain in the same single master table.
+
+## Audited research checkpoint R454 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## R454 — complete MiMo native coding benchmark, 2026-10-23 UTC
+
+MiMo V2.6 Distill Qwen9B Q8_0 completed all164 HumanEval+ cases in one broker-admitted session. Both CPU scoring paths confirmed119/164 (72.56%), with zero changed judgments, under the existing declared local official-API protocol and its disclosed unchanged upstream reference anomaly. Task time:1036.681s; complete-request windows:1034.471s; GPU energy:254420.561J; GPU J per success:2137.988; peak VRAM:9186.5MiB. Thinking was explicitly enabled, output4096, temperature0.6, top-p0.95, top-k20, seed1001, context8192 and no MTP. Three replies reached the output cap and had empty final content; all remain in the denominator. This does not predict a benefit from raising the cap.
+
+The full result and original partial results share the single master table. Previously unknown quantization fields may now be supplemented only by unambiguous hash-pinned engine metadata, without rewriting original profiles or replacing known values. Original audits, scores, A0 and Champions remain unchanged. The next Bonsai tool-category comparison is prepared to retain40 valid historical answers and request only the360 missing tasks; matched LFM360 costs are derived from existing R453 data with zero new GPU requests. No full Bonsai category score or new speedup is claimed.

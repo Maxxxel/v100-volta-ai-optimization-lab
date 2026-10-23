@@ -24658,6 +24658,12 @@
       "proof_path": "staging/r453/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "7bcd08417373271fcfd002155b063c82d263413f761ff3c51fe844a3fce300b5",
       "source_audit_hash": "822d604acb115502ac9ba665350794d9bfbd61faf553545a5e2c410b84bc100c"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r454/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "587d2824c728e3ec09a76e839d9cc963f6ed49a63407c3cde1af679812e1f483",
+      "source_audit_hash": "0b536a5614264eb5e25c84dc01bc7914371326ba09c3379d57cb9bdb9f0d3293"
     }
   ],
   "publisher_claims": [

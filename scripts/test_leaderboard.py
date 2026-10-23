@@ -332,6 +332,21 @@ class LeaderboardTests(unittest.TestCase):
    self.assertEqual(me[0]['values']['prefill_tok_s'],100);self.assertEqual(me[0]['values']['decode_tok_s'],40);self.assertEqual(me[0]['values']['gpu_j_per_output_token'],1)
    self.assertNotIn('ttft_s',me[0]['values']);self.assertEqual(me[0]['tasks'],2)
    self.assertNotIn('HumanEval/',json.dumps(ce)+json.dumps(me));self.assertTrue(all(x['authority_audit_id'] for x in me[0]['sources']))
+ def test_unknown_quantization_uses_only_unambiguous_pinned_engine_type(self):
+  for log,known,expected in [('print_info: file type = Q8_0\n','NOT MEASURED','Q8_0'),('print_info: file type = Q8_0\nprint_info: file type = Q6_K\n','NOT MEASURED',None),('model filename: something-Q8_0.gguf\n','NOT MEASURED',None),('print_info: file type = Q8_0\n','Q6_K',None)]:
+   with self.subTest(log=log,known=known),tempfile.TemporaryDirectory() as tmp:
+    root,folder,db,h=self.evidence_fixture(tmp);h['profiles'][0]['model']={'quantization':known};before=copy.deepcopy(h);p=folder/'server.log';p.write_text(p.read_text()+log);pins=json.loads((folder/'RAW_HASHES.json').read_text());pins['server.log']=digest(p);(folder/'RAW_HASHES.json').write_text(json.dumps(pins));ce,_=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertEqual(ce[0]['fields'].get('model.quantization'),expected);self.assertEqual(h,before)
+ def test_explicit_unknown_metadata_can_be_supplemented_but_known_values_cannot(self):
+  for value in (None,'NOT MEASURED','NICHT ERFASST','Q6_K'):
+   with self.subTest(value=value):
+    p,_,_=self.captured_fixture();p['model']['quantization']=value;p['runtime_configuration_id']='cfg-'+H({k:v for k,v in p.items() if k!='runtime_configuration_id'});before=copy.deepcopy(p)
+    e={'runtime_configuration_id':p['runtime_configuration_id'],'fields':{'model.quantization':'Q8_0'},'sources':[{'filename':'server.log','sha256':'a'*64,'authority_audit_id':'audit-'+'a'*20}]};e['evidence_id']='evidence-'+H(e);data={'profiles':[p],'runs':[],'attempts':[],'configuration_evidence':[e]}
+    if value=='Q6_K':
+     with self.assertRaisesRegex(ValueError,'contradicts immutable'):validate_history(data,{})
+    else:
+     self.assertTrue(validate_history(data,{}));other=copy.deepcopy(e);other['fields']['model.quantization']='Q6_K';other['evidence_id']='evidence-'+H({k:v for k,v in other.items() if k!='evidence_id'});data['configuration_evidence'].append(other)
+     with self.assertRaisesRegex(ValueError,'Conflicting evidence'):validate_history(data,{})
+    self.assertEqual(p,before)
  def test_modified_execution_evidence_is_rejected(self):
   with tempfile.TemporaryDirectory() as tmp:
    root,folder,db,h=self.evidence_fixture(tmp);(folder/'server.log').write_text('version: 99.0.0')

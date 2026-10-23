@@ -409,6 +409,10 @@ def configuration_evidence(root, db, history, receipt):
      fields['runtime.observed_template_controls.'+k]=kwargs[0][k]
      if k=='enable_thinking' and cfg['runtime'].get('native_template_controls') is None:fields['requested.thinking']=kwargs[0][k]
   joined='\n'.join(logs)
+  file_types=set(re.findall(r'^print_info:\s*file type\s*=\s*([A-Z0-9_]+)\s*$',joined,re.M))
+  if len(file_types)==1:
+   observed_type=next(iter(file_types));fields['model.observed_GGUF_file_type']=observed_type
+   if cfg.get('model',{}).get('quantization') in (None,'NOT MEASURED','NICHT ERFASST') and observed_type=='Q8_0':fields['model.quantization']='Q8_0'
   versions=set(re.findall(r'\bversion:\s*([0-9]+\.[0-9]+\.[0-9]+(?:-[A-Za-z0-9.]+)?)',joined))
   if len(versions)==1:fields['engine.version']=versions.pop()
   builds=re.findall(r'common_params_print_info: build (\d+) \(([^)]+)\)',joined)
@@ -803,7 +807,10 @@ def validate_history(data,defs):
      observed_fields[pair]=v
      cur=profiles[e['runtime_configuration_id']]
      for part in key.split('.'):cur=cur.get(part) if isinstance(cur,dict) else None
-     if cur is not None and cur!=v:raise ValueError('Evidence contradicts immutable profile')
+     # Historical explicit unknown markers carry no measured value. The original
+     # content-addressed profile remains untouched; only pinned annotations fill them.
+     unknown=cur is None or isinstance(cur,str) and cur in ('NOT MEASURED','NICHT ERFASST')
+     if not unknown and cur!=v:raise ValueError('Evidence contradicts immutable profile')
  return True
 
 def pair_delta(a,b):

@@ -71,6 +71,21 @@ test('configuration and timing annotations preserve original identities and prov
     assert(e.sources.length); assert(run.timing_provenance);
   }
 });
+test('pinned metadata can fill explicit historical unknown markers but cannot replace known values', () => {
+  const evidence = data.history.configuration_evidence.find(e => e.fields['model.quantization'] === 'Q8_0');
+  assert(evidence, 'Observed historical Q8 metadata has pinned provenance');
+  for (const marker of [null, 'NOT MEASURED', 'NICHT ERFASST']) {
+    const copy = structuredClone(data), profile = copy.history.profiles.find(p => p.runtime_configuration_id === evidence.runtime_configuration_id);
+    profile.model.quantization = marker;
+    const before = M.canonical(copy.history), view = M.build(copy);
+    assert.equal(view.rows.find(r => r.id === profile.runtime_configuration_id).values['model.quantization'], 'Q8_0');
+    assert.equal(M.canonical(copy.history), before);
+  }
+  for (const known of ['Q6_K', false, 0]) {
+    const copy = structuredClone(data); copy.history.profiles.find(p => p.runtime_configuration_id === evidence.runtime_configuration_id).model.quantization = known;
+    assert.throws(() => M.build(copy), /Conflicting configuration evidence/);
+  }
+});
 test('every current official register definition has a distinct column even without measurements', () => {
   for (const d of data.register.definitions) assert(model.benchmarks.some(b => b.scope === 'OFFICIAL_LOCAL' && b.protocol.benchmark_id === d.benchmark_id));
   assert.equal(new Set(model.benchmarks.map(b => b.key)).size, model.benchmarks.length);

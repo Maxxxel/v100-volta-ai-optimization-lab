@@ -71,6 +71,15 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const mimo = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R454' && r.official_eligible));
+    if (mimo) {
+      const row = page.locator(`.master-table tr[data-configuration-id="${mimo.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:humanevalplus"]').textContent()).includes(`${mimo.solved}/${mimo.tasks}`));
+      assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(), 'Q8_0');
+      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
+      report.checks.push('MiMo full164 score, verified Q8 precision and explicit thinking are present in the same master table');
+    }
+
 
     for (const legacy of ['benchmarks/', 'supplemental-comparison/']) {
       const old = await context.newPage();
