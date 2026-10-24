@@ -4,6 +4,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import datetime,types
+from unittest.mock import patch
+import leaderboard
 from leaderboard import H,digest,native_tool_coverage,verify_native_tool_prefix
 
 
@@ -103,5 +106,52 @@ class ToolPrefix(unittest.TestCase):
     else:
      with self.assertRaises(ValueError):verify_native_tool_prefix(root,out,gpu,c,rows,1,status)
 
+
+class WrapperStop(unittest.TestCase):
+ """Synthetic journal/ownership fixtures only; no actual privileged files."""
+ def fixture(self,root):
+  c={'id':'r990-wrapper-fixture','runtime_seconds':1200}
+  def save(p,v):p.write_text(json.dumps(v));return digest(p)
+  initial=root/'INITIAL.json';save(initial,{'trial_id':c['id'],'contract_sha256':H(c),'policy':{'task_seconds':1200,'startup_seconds':180,'cleanup_seconds':60,'wall_seconds':1440}})
+  marker=root/(c['id']+'.started');m={'trial':c['id'],'at':datetime.datetime.fromtimestamp(1800000000,datetime.timezone.utc).isoformat(),'sha256':'b'*64,'actual_RuntimeMaxSec':1310,'whole_benchmark_budget':{'timing_scope':'TASK_PHASE_ONLY','phase':'startup','remaining_s':1200,'clock_sha256':{'initial':digest(initial)}}};save(marker,m)
+  review={'kind':'VERIFIED_PROTECTED_GPU_WRAPPER_TIMEOUT','trial_id':c['id'],'contract_sha256':H(c),'GPU_reruns':0,'clock_reset':False,'protected_start_marker_file':str(marker),'protected_initial_clock_file':str(initial),'source_files_sha256':{str(p):digest(p) for p in (marker,initial)}};save(root/'WRAPPER_STOP_REVIEW.json',review)
+  unit='v100-gpu-'+c['id']+'.service';base={'UNIT':unit,'_PID':'1','_UID':'0'}
+  journal=[{**base,'MESSAGE':unit+': Service reached runtime time limit. Stopping.','__REALTIME_TIMESTAMP':str(1800001310100000)},{**base,'MESSAGE':unit+": Failed with result 'timeout'.",'__REALTIME_TIMESTAMP':str(1800001312100000)}]
+  return c,review,journal,m,save
+ def valid(self,root,c,journal,uid=0,mode=0o100644):
+  # Model protected-source ownership without requiring root in CI. No actual
+  # filesystem permissions, broker state, GPU or operating-system log is changed.
+  with patch.object(leaderboard.pathlib.Path,'stat',return_value=types.SimpleNamespace(st_uid=uid,st_mode=mode)):
+   return leaderboard.verified_wrapper_stop(root,c,journal,['b'*64])
+ def test_real_timeout_metadata_and_pinned_original_clock_required(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);c,review,journal,m,save=self.fixture(root);self.assertEqual(self.valid(root,c,journal),review)
+ def test_manual_stop_wrong_unit_or_nonroot_journal_cannot_masquerade_as_wrapper_deadline(self):
+  for field,value in (('_PID','100'),('_UID','1001'),('UNIT','other.service'),('MESSAGE','Stopped manually'),('__REALTIME_TIMESTAMP','1800000010000000')):
+   with self.subTest(field=field),tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);c,review,journal,m,save=self.fixture(root);journal[0][field]=value
+    with self.assertRaises(ValueError):self.valid(root,c,journal)
+ def test_changed_marker_unknown_runner_and_unprotected_source_rejected(self):
+  for mode in ('changed','runner','owner','writable'):
+   with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);c,review,journal,m,save=self.fixture(root);p=Path(review['protected_start_marker_file'])
+    if mode=='changed':p.write_text('{}')
+    if mode=='runner':
+     m['sha256']='c'*64;review['source_files_sha256'][str(p)]=save(p,m);save(root/'WRAPPER_STOP_REVIEW.json',review)
+    with self.assertRaises(ValueError):self.valid(root,c,journal,uid=1001 if mode=='owner' else 0,mode=0o100666 if mode=='writable' else 0o100644)
+ def test_rehashed_changed_policy_or_contract_does_not_reset_budget(self):
+  for field in ('policy','contract'):
+   with self.subTest(field=field),tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);c,review,journal,m,save=self.fixture(root)
+    if field=='contract':c['id']='r991-renamed-wrapper'
+    else:
+     initial=Path(review['protected_initial_clock_file']);data=json.loads(initial.read_text());data['policy']['task_seconds']=1201;save(initial,data);m['whole_benchmark_budget']['clock_sha256']['initial']=digest(initial);save(Path(review['protected_start_marker_file']),m)
+     for p in list(review['source_files_sha256']):review['source_files_sha256'][p]=digest(p)
+     save(root/'WRAPPER_STOP_REVIEW.json',review)
+    with self.assertRaises(ValueError):self.valid(root,c,journal)
+ def test_missing_systemd_timeout_event_cannot_be_inferred_from_failed_child(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);c,review,journal,m,save=self.fixture(root)
+   with self.assertRaises(ValueError):self.valid(root,c,journal[1:])
 
 if __name__=='__main__':unittest.main()

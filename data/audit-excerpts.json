@@ -173526,6 +173526,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8a46b0c1b28737158191",
+    "original_bytes": 4410,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8a46b0c1b28737158191c300689375caf69712fd841378c76986ef6ac966e16d",
+    "statements": {
+      "decision": "PARTIAL_OBSERVED_PREFIX_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Qwen3.8 GSQ/RCO IQ3_S profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252897,6 +252919,48 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12454.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-fe87419649ed3e438fd6",
+    "original_bytes": 175272,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fe87419649ed3e438fd6759b727e3d14fe2929bcb7383110f4159d5bf6279d9d",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-af0c44c2b2a28e18d3d3",
+    "original_bytes": 1999,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "af0c44c2b2a28e18d3d3f2383b870722735644310eb77b35c06147e358d9a3cf",
+    "statements": {
+      "scope": "Append-only post-stop integrity for the completed prefix. No original controller attestation, clock reset, successful completion or new inference is fabricated."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5638eddda49a7513512c",
+    "original_bytes": 8485,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5638eddda49a7513512ca484e412ade4f58a9968444a85a3c88ce06bbe87f42a",
+    "statements": {
+      "scope": "Exactly197 completed parallel_multiple requests and165 official AST successes, including failed answers and between-request setup. Excludes incomplete trailing request, model loading, warmups, CPU scoring/system energy. Not whole failed-campaign energy, full200 score, task-budget exhaustion, calibration-error bounds or an independent inference repeat. Missing power integral remains unknown."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -253456,6 +253520,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "5509cc96b8b11d48447bf6ef51eb418ff680be9a48f0993249b2ab3108b5e15a",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-9492fa926ebe5de799e1",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9492fa926ebe5de799e1b3490fb3d2aa62a6258b50b653996fede37beb380c34",
     "statements": {}
   },
   {

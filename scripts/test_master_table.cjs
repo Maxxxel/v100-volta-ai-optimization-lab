@@ -10,6 +10,15 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Qwen3.8 parallel165/197 wrapper-limited prefix remains partial with its exact197-task counter scope',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R473');assert(r);
+ assert.equal(r.tasks,197);assert.equal(r.intended_tasks,200);assert.equal(r.solved,165);assert.equal(r.status,'PARTIAL');assert.equal(r.termination_kind,'STOPPED_GPU_WRAPPER_TIME_BUDGET');assert.equal(r.official_eligible,false);
+ assert.match(r.status_reason,/wrapper timeout/);assert.equal(r.gpu_j,null);assert.equal(r.task_phase_s??null,null);
+ assert.equal(r.counter_energy.tasks,197);assert.equal(r.counter_energy.solved,165);assert.equal(r.counter_energy.j_per_success_lower,331828.269/165);assert.equal(r.counter_energy.j_per_success_upper,331938.119/165);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id)),key=data.master.run_columns[r.run_id];assert(row);
+ assert.equal(row.values['model.quantization'],'GSQ/RCO IQ3_S');assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['requested.thinking'],false);
+ assert.equal(M.average(row.scores,[key],true,v.benchmarkMap),null,'No full200/official average from partial197');
+});
 test('parallel_multiple200 has a separate selectable BFCL protocol and exact original200-task costs',()=>{
  const r=data.history.runs.find(r=>r.experiment_id==='R472');assert(r);
  assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,154);assert.equal(r.score_percent,77);assert.equal(r.official_eligible,true);

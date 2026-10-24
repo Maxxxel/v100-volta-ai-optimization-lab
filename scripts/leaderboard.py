@@ -354,11 +354,43 @@ def native_tool_coverage(ids,planned,contract_ids,a,bench):
  category,count=NATIVE_TOOL_CATEGORIES.get(bench.get('benchmark_id'),(None,None))
  if category is None or bench['required_task_count']!=count or len(planned)!=count or H(sorted(planned))!=bench['expected_task_ids_hash'] or contract_ids!=planned or not ids or ids!=planned[:len(ids)] or len(set(ids))!=len(ids):
   raise ValueError('Native tool missing or repeated tasks')
- partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT')
+ partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT','STOPPED_GPU_WRAPPER_TIME_BUDGET')
  full=len(ids)==count and H(sorted(ids))==bench['expected_task_ids_hash']
  if a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or (not partial and (not full or a.get('full_benchmark_score_claimed') is not True)) or (partial and (full or not 1<=len(ids)<count)):
   raise ValueError('Native tool category not complete or scope inconsistent')
  return partial
+
+def verified_wrapper_stop(stage,contract,journal_rows,trusted_runner_hashes):
+ """Require the actual root start marker, clock and systemd timeout event.
+
+ This classifies a technical wrapper stop, never task-budget exhaustion or
+ successful completion. No executable, admission rule or deadline is changed.
+ """
+ import datetime
+ review=read(stage/'WRAPPER_STOP_REVIEW.json')
+ if review.get('kind')!='VERIFIED_PROTECTED_GPU_WRAPPER_TIMEOUT' or review.get('trial_id')!=contract['id'] or review.get('contract_sha256')!=H(contract) or review.get('GPU_reruns')!=0 or review.get('clock_reset') is not False:raise ValueError('Wrapper stop contract/review differs')
+ sources=review['source_files_sha256']
+ for name,h in sources.items():
+  if digest(name)!=h:raise ValueError('Wrapper stop source changed')
+ marker_path=pathlib.Path(review['protected_start_marker_file'])
+ if marker_path.name!=contract['id']+'.started' or str(marker_path) not in sources or marker_path.is_symlink():raise ValueError('Wrapper original start marker missing')
+ for path in (marker_path,*marker_path.parents):
+  st=path.stat()
+  if st.st_uid!=0 or st.st_mode&0o022:raise ValueError('Wrapper source marker is not protected')
+ marker=read(marker_path);cap=marker.get('actual_RuntimeMaxSec');budget=marker.get('whole_benchmark_budget',{})
+ if marker.get('trial')!=contract['id'] or marker.get('sha256') not in trusted_runner_hashes or type(cap) is not int or not 1<=cap<=1380 or budget.get('timing_scope')!='TASK_PHASE_ONLY' or budget.get('phase')!='startup' or budget.get('remaining_s')!=1200:raise ValueError('Wrapper original admitted time bound differs')
+ initial_path=pathlib.Path(review['protected_initial_clock_file'])
+ if str(initial_path) not in sources or digest(initial_path)!=budget.get('clock_sha256',{}).get('initial'):raise ValueError('Wrapper original clock differs')
+ initial=read(initial_path)
+ if initial.get('trial_id')!=contract['id'] or initial.get('contract_sha256')!=H(contract) or initial.get('policy')!={'task_seconds':1200,'startup_seconds':180,'cleanup_seconds':60,'wall_seconds':1440}:raise ValueError('Wrapper original policy differs')
+ unit='v100-gpu-'+contract['id']+'.service'
+ events=[r for r in journal_rows if r.get('UNIT')==unit and r.get('_PID')=='1' and r.get('_UID')=='0']
+ stop=[r for r in events if r.get('MESSAGE')==unit+': Service reached runtime time limit. Stopping.']
+ failed=[r for r in events if r.get('MESSAGE')==unit+": Failed with result 'timeout'."]
+ if len(stop)!=1 or len(failed)!=1:raise ValueError('Wrapper requires genuine systemd unit timeout metadata')
+ stamp=datetime.datetime.fromisoformat(marker['at']).timestamp();elapsed=int(stop[0]['__REALTIME_TIMESTAMP'])/1e6-stamp
+ if not cap<=elapsed<=cap+3 or int(failed[0]['__REALTIME_TIMESTAMP'])<int(stop[0]['__REALTIME_TIMESTAMP']):raise ValueError('Wrapper timeout timestamp does not match its admitted runtime')
+ return review
 
 def verify_native_tool_prefix(stage,out,gpu,contract,rows,count,stop_status='STOPPED_USER_TASK_TIME_BUDGET',expected_tasks=400):
  """Validate retained deadline evidence without claiming controller success."""
@@ -375,7 +407,8 @@ def verify_native_tool_prefix(stage,out,gpu,contract,rows,count,stop_status='STO
  deadline=any(line.strip()=='TimeoutError: Own native task deadline' for line in text.splitlines()) or any(line.strip()=='RuntimeError: Pure task1200s budget exhausted' for message in messages for line in message.splitlines())
  if proof.get('capture_stop_kind','STOPPED_USER_TASK_TIME_BUDGET')!=stop_status:raise ValueError('Native tool prefix stop classification differs')
  transport=(not deadline and any(line.strip()=='TimeoutError: timed out' for line in text.splitlines()) and 'response.begin()' in text and 'self._read_status()' in text and any('Fixed CT worker failed' in message for message in messages))
- if not (stop_status=='STOPPED_USER_TASK_TIME_BUDGET' and deadline or stop_status=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' and transport):raise ValueError('Native tool prefix lacks verified declared stop cause')
+ wrapper=stop_status=='STOPPED_GPU_WRAPPER_TIME_BUDGET' and verified_wrapper_stop(stage,contract,list(map(json.loads,journal.read_text().splitlines())),read(out/'TRUST_SNAPSHOT.json')['trusted_runner_hashes'])
+ if not (stop_status=='STOPPED_USER_TASK_TIME_BUDGET' and deadline or stop_status=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' and transport or wrapper):raise ValueError('Native tool prefix lacks verified declared stop cause')
  events=[json.loads(line[len('TASK_EVENT '):]) for line in text.splitlines() if line.startswith('TASK_EVENT ')]
  if events!=[r for r in rows if r.get('kind') in ('warmup','native_tool')]:raise ValueError('Native tool prefix differs from privileged event stream')
  tele=[json.loads(line) for line in (out/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
@@ -396,7 +429,7 @@ def native_tool_run(root,source,cfg,bench,receipt):
  part=a['parts'][0];gp=pathlib.Path(part['audit_path']);out=gp.parent
  if digest(gp)!=part['audit_sha256']:raise ValueError('Native tool GPU audit changed')
  gpu=read(gp);pins=read(out/'RAW_HASHES.json');native=read(out/'profile.json');launch=read(out/'LAUNCH.json');contract=read(out/'CONTRACT.json')
- partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT')
+ partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT','STOPPED_GPU_WRAPPER_TIME_BUDGET')
  if gpu.get('measurement_valid') is not True or gpu.get('GPU_execution_observed') is not True:raise ValueError('Native tool GPU execution not proven')
  if not partial:
   completion=read(out/'HOST_COMPLETION.json')
@@ -463,7 +496,7 @@ def native_tool_run(root,source,cfg,bench,receipt):
  if total==200:
   result['status_reason']='Complete200 native parallel/multiple category with identical independent CPU replay; official admission is separate.'
  if partial:
-  result.update(status='PARTIAL',intended_tasks=total,full_benchmark_score_claimed=False,termination_kind=a['status'],status_reason=('Native HTTP response-timeout prefix; total task budget was not exhausted.' if a['status']=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' else 'Observed task-deadline prefix.')+' Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full'+str(total)+' qualification, model rejection or extrapolation.')
+  result.update(status='PARTIAL',intended_tasks=total,full_benchmark_score_claimed=False,termination_kind=a['status'],status_reason=('Native HTTP response-timeout prefix; total task budget was not exhausted.' if a['status']=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' else 'Protected GPU wrapper timeout; no full task-budget exhaustion is claimed.' if a['status']=='STOPPED_GPU_WRAPPER_TIME_BUDGET' else 'Observed task-deadline prefix.')+' Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full'+str(total)+' qualification, model rejection or extrapolation.')
  return result
 
 def native_partial_run(root,source,cfg,bench,receipt):

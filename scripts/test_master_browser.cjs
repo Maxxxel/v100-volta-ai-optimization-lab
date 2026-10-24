@@ -119,6 +119,14 @@ async function main() {
     await page.getByRole('button',{name:'Schließen',exact:true}).click();await bfclSelect.selectOption(parallel.simpleKey);await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
     await page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true}).click();
     report.checks.push('R472 complete154/200 parallel/multiple result uses its own selectable BFCL protocol, result-linked run, exact configuration and200-task counter scope; no cross-category fallback');
+    const wrapperPrefix=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R473'));
+    assert(wrapperPrefix&&wrapperPrefix.status==='PARTIAL'&&wrapperPrefix.termination_kind==='STOPPED_GPU_WRAPPER_TIME_BUDGET'&&wrapperPrefix.official_eligible===false);
+    const wrapperRow=page.locator(`.master-table tr[data-configuration-ids~="${wrapperPrefix.runtime_configuration_id}"]`),wrapperCell=wrapperRow.locator('td[data-column-key="family:bfcl"]');
+    assert((await wrapperCell.innerText()).includes('165/197'));assert((await wrapperCell.innerText()).includes('Parallel Multiple'));assert((await wrapperCell.innerText()).includes('PARTIAL'));
+    await wrapperCell.locator('button').click();
+    assert((await page.locator('.master-cell-dialog').innerText()).includes('STOPPED_GPU_WRAPPER_TIME_BUDGET'));assert((await page.locator('.master-cell-dialog').innerText()).includes('2011.080'));
+    await page.getByRole('button',{name:'Schließen',exact:true}).click();
+    report.checks.push('R473165/197 stays PARTIAL after protected wrapper timeout, distinct from native task exhaustion and full200 results; energy covers exactly197 completed requests');
     const qwen36Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R469'&&r.counter_energy));
     assert(qwen36Coding,'Reviewed Qwen3.6 prefix must be exported');
     {
