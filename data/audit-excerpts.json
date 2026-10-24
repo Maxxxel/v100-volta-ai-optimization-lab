@@ -173782,6 +173782,24 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b40db967f1999cba9144",
+    "original_bytes": 133564,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b40db967f1999cba914410beafdc9190640abb003649734d6eed3fd927370694",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session OmniCoder Opus Distill 9B Q6_K native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -253688,6 +253706,37 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-43a5ee84de68053783fb",
+    "original_bytes": 115647,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "43a5ee84de68053783fbeb7617962da7857e8e5baba7870433e9c51b79651b7c",
+    "statements": {
+      "scope": "Derived observed prefix only, bound to original request/token proofs and privileged single-job NVML process/memory/energy evidence. No full completion or executed-kernel profiling claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a02b474cc9250cae3e7f",
+    "original_bytes": 5581,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a02b474cc9250cae3e7ffe9c4a4755281edf84136b53b12a50bbfc3ff5abcdc6",
+    "statements": {
+      "scope": "Exactly132 completed coding requests and106 successes. Includes failed completed tasks/setup; excludes load/warmup/CPU and any unfinished trailing request. Prefix counters never claim full-session or full164 task energy. Missing power-integral energy stays unknown."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -253985,6 +254034,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "b6489b8ab9226ce5b33e2fc0e50de6c80c76b6e35c26fea4e410209defa6a07b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-dd5bbeca136d2d6e14ca",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dd5bbeca136d2d6e14ca9276d7498402207e801c6af2f73130a556221bbd0317",
     "statements": {}
   },
   {

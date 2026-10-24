@@ -407,6 +407,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R482](experiments/R482.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | nexus9b_q6 |
 | [R483](experiments/R483.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | slopus9b_q6 |
 | [R484](experiments/R484.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | slopus9b_q6 |
+| [R485](experiments/R485.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | omni_opus_distill9b_q6 |
 
 
 ## Historical signed windows

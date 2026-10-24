@@ -275,4 +275,5 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | Ternary Bonsai 2 27B | [cfg-734052029303654f](configuration-profiles/cfg-734052029303654fd54d5b42bdc0dec93f3c5ced66ed981857ee5dc7f524c0dc.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Nexus 9B CodeCore Merge | [cfg-fa7673bc9bbe2719](configuration-profiles/cfg-fa7673bc9bbe2719ab75ce63cc4f67d61bb1e6e4cffe230533194c4d02467853.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Slopus 9B | [cfg-a928ba70765c1ef7](configuration-profiles/cfg-a928ba70765c1ef79611f3070d02eaa47f20e8f14e14ae25f1b2829b7bc944e2.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
+| OmniCoder Opus Distill 9B | [cfg-377170b50200a0a9](configuration-profiles/cfg-377170b50200a0a9f667e68998ed08155cb77536a9c39f1888d0b56f9f3cd0be.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 
