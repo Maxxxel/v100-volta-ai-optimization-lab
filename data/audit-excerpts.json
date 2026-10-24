@@ -173421,6 +173421,24 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13794.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4b21aae587a8232b7737",
+    "original_bytes": 88123,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4b21aae587a8232b7737bc0c74bf6fc9e11ceb2678ddc353ee2ce2c780a4b1a0",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session LFM2.5 24B A2B QAD-Q4_0 native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252579,6 +252597,37 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13794.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0d2b43a927b6ce5ca379",
+    "original_bytes": 74923,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0d2b43a927b6ce5ca37942f03fe3716a00a1c98956ca50a7551208405162cf65",
+    "statements": {
+      "scope": "Derived observed prefix only, bound to original request/token proofs and privileged single-job NVML process/memory/energy evidence. No full completion or executed-kernel profiling claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b1f86b1f9d701e6840a8",
+    "original_bytes": 4410,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b1f86b1f9d701e6840a8d6ea6cea38ae1a3a8a496e8fe73a43d7e23ffa2e98e1",
+    "statements": {
+      "scope": "Exactly85 completed coding requests and77 successes. Excludes unfinished trailing request and all unattempted tasks; no extrapolation to164, no full benchmark qualification, power-integral repair, sensor-accuracy or system-energy claim."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -253140,6 +253189,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "cd5110ff47dba0492f9d3911ff4a3646bf67d814a45f91495a89090f7f00f7c1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-1ffeaf8d454265401389",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1ffeaf8d4542654013890838d126f18456a693afc76a07f622133c283f0d1278",
     "statements": {}
   },
   {

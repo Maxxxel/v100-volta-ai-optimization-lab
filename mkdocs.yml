@@ -45,7 +45,7 @@ extra_css:
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=17eba5261942d1bc
+  - assets/benchmarks/leaderboard-data.js?v=e4c57c73ff1a1fa7
   - javascripts/master-table.js?v=487f4dff9f22ad77
   - javascripts/leaderboard.js?v=697620605486078d
 extra:
