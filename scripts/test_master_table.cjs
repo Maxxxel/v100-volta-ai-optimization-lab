@@ -10,6 +10,22 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('LFM24B full native tools retain QAD identity, exact sampler and400-task cost scope', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R467');assert(r&&r.official_eligible);
+  assert.equal(r.solved,374);assert.equal(r.tasks,400);assert.equal(r.qualification_audit.category_only,true);
+  assert.equal(r.gpu_j,null);assert.equal(r.gpu_j_per_success,null);
+  assert.equal(r.counter_energy.tasks,400);assert.equal(r.counter_energy.solved,374);
+  assert.equal(r.counter_energy.j_per_success_lower,58123.844/374);
+  assert.equal(r.counter_energy.j_per_success_upper,58190.832/374);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.profile.model.name,'LFM2.5 24B A2B');assert.equal(row.profile.model.family_id,'lfm25_24b');
+  assert.equal(row.profile.model.artifact_sha256,'d1c03f73ecaf61017d70419eec9e5dc0b05d50ae26c23d522829b934fbabf8a5');
+  assert.equal(row.values['model.quantization'],'QAD Q4_0');assert.equal(row.values['requested.MTP'],false);
+  assert.equal(row.values['runtime.sampling.temperature'],.1);assert.equal(row.values['runtime.sampling.top_k'],50);
+  assert.equal(Number(row.values['runtime.batch']),512);assert.equal(Number(row.values['runtime.microbatch']),128);
+  assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s,362.70372274);assert.equal(r.peak_vram_mib,13798.5);
+  assert(model.rows.some(x=>x.profile.model.name==='LFM2.5 8B A1B'&&x.profile.model.artifact_sha256!==row.profile.model.artifact_sha256));
+});
 test('Qwen3.8 complete-artifact native coding149/164 keeps explicit no-speculation and full task cost', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy);assert(r&&r.official_eligible);
   assert.equal(r.solved,149);assert.equal(r.tasks,164);assert.equal(r.gpu_j,null);assert.equal(r.gpu_j_per_success,null);

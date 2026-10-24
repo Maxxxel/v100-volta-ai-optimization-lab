@@ -173399,6 +173399,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3162d2a7ef4f94a65938",
+    "original_bytes": 4202,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3162d2a7ef4f94a659389991b2a6f73b8334964f2fe59b1df9b7cba7a6363dff",
+    "statements": {
+      "decision": "FULL400_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native LFM24B QAD-Q4_0 profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252510,6 +252532,53 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13798.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5b1c87ff0b7de3bb3435",
+    "original_bytes": 352162,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5b1c87ff0b7de3bb3435013ebebc07b631d282d9b14307855fb396e9b292c7f2",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e5496acf859f8fbfe1f2",
+    "original_bytes": 12595,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e5496acf859f8fbfe1f21ebe581681883fb5501b263f7c96723f4e28f8a67a8d",
+    "statements": {
+      "scope": "Exact complete400 native-tool request group. Power-integral incompleteness remains null. Reported-counter timing bounds are not sensor accuracy, CPU/system or HBM-only energy. Different model profiles do not establish a causal optimization effect."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 374,
+      "tasks": 400
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-206e36294c1086f0db7c",
+    "original_bytes": 14464,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "206e36294c1086f0db7c095a6e4af87b07950b2a1a00826a93d8816f40536822",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -253025,6 +253094,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "abc15a00787fd8808e63f606f0991b9d8fad411eace57eb6b80ac1fa2483c908",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-5509cc96b8b11d48447b",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5509cc96b8b11d48447bf6ef51eb418ff680be9a48f0993249b2ab3108b5e15a",
     "statements": {}
   },
   {

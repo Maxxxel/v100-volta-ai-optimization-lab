@@ -23,6 +23,14 @@ Ollama source builds require an available or vendored pinned toolchain and offli
 
 ## GPU envelope and immutable evidence
 
+### New model data with an executed engine
+
+A first complete standard benchmark can admit a new model without inventing a previous execution of that model. The root-owned review binds the exact published repository revision, independently verified weight hash, GGUF tensor structure, native template, license, memory budget and inference recipe. Engine assets must match an independently executed, unprivileged parent capture exactly. A new executable requires the separate source/build admission path above.
+
+This path passed **156 CPU regression controls**: 141 existing checks and 15 new tests covering source tampering, missing prerequisites, changed binaries, model identities, task subsets, budget resets and resource limits. All previous profiles and 46 historical clock files were preserved. The first admitted model is the official LFM2.5-24B-A2B QAD-Q4_0 artifact. Admission establishes permission for the bounded experiment; it establishes neither model quality nor measured VRAM fit.
+
+The standard-suite contract retains one model session, a maximum of **1,200 seconds of pure task work**, the existing startup/cleanup wall envelope, immutable benchmark inputs and all GPU safeguards. No preliminary custom-answer quality filter is required. Runtime memory allocation remains independently monitored; an analytical memory budget is not presented as a measured peak.
+
 The automatic path currently uses one V100, one monitored GPU process, baseline 300 W, at most 14 GiB device/process memory, temperature below 90 °C, unchanged zero-uncorrected-ECC and forbidden-throttling checks, bounded execution and existing leases/guardian checks. It does not add a room-temperature start threshold. Previously qualified separate power profiles remain preserved.
 
 The root-owned broker accepts closed JSON data contracts, not shell commands, script paths or custom environments. It snapshots reviewed controller code and plans, verifies model/engine/input identities, checks idle occupancy and serializes admission/start. Experimental code cannot write broker policy or production files. On a guard violation, only the owned candidate unit is terminated; the lease remains held until tagged processes have ended. Baseline power restoration remains mandatory.

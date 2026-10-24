@@ -87,6 +87,20 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const lfm24Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R467'));
+    if(lfm24Tools){
+      assert.equal(lfm24Tools.solved,374);assert.equal(lfm24Tools.tasks,400);assert.equal(lfm24Tools.official_eligible,true);
+      const row=page.locator(`.master-table tr[data-configuration-id="${lfm24Tools.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="model.name"]').textContent()).includes('LFM2.5 24B A2B'));
+      assert((await row.locator('td[data-column-key="model.quantization"]').textContent()).includes('QAD Q4_0'));
+      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('374/400'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],lfm24Tools.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('LFM24B QAD remains distinct from8B with374/400 native tools and separately bounded400-task energy');
+    }
     const qwen38Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy));
     if(qwen38Coding){
       assert.equal(qwen38Coding.solved,149);assert.equal(qwen38Coding.tasks,164);assert.equal(qwen38Coding.official_eligible,true);

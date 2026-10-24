@@ -13,7 +13,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC06 | LFM2.5 8B A1B | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R453 |
 | BMC07 | Gemma 4 12B IT QAT | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R458 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
-| BMC05 | LFM2.5 24B A2B QAD | Quellen-/Formatprüfung vor Ausführung | SOURCE_ONLY_NO_MODEL_DOWNLOAD_OR_GPU_TEST | NOT MEASURED / not recorded |
+| BMC05 | LFM2.5 24B A2B QAD | Tool-Kategorie gemessen und lokal qualifiziert; Coding offen | LOKAL_GEMESSEN | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC09 | UI-Venus 1.5 8B / Holo2 8B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC11 | Qwen3.8 Flash-MTP-Derivat | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -411,28 +411,32 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "Prior storage blocker cleared on the existing container filesystem and thin pool without configuration changes. Exact custom license fetched;24B tensor/SM70/VRAM and first-load admission still pending. No model weights downloaded or GPU result inferred.",
+  "assessment": "R467: offizielles LFM2.5-24B-A2B QAD-Q4_0, vollständige BFCL-v4-simple_python-Kategorie374/400 (93,5%), unabhängiger CPU-Replay identisch;362,704s reine Aufgabenzeit,13798,5MiB Peak-VRAM. NVML-Zähler155,411–155,590J je Erfolg, keine gültige Leistungsintegration. Kein BFCL-Gesamtscore, Coding-/Agentenurteil oder Champion.",
   "current_experiment": null,
-  "evidence_class": "SOURCE_ONLY_NO_MODEL_DOWNLOAD_OR_GPU_TEST",
+  "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC05",
   "local_scope": {
-    "GPU_runs": 0,
-    "format_engine_and_VRAM_admission_pending": true,
-    "kind": "SOURCE_PRECONDITION_REVALIDATION",
-    "model_starts": 0,
-    "published_model_bytes": 13578190880,
-    "weights_downloaded": 0
+    "GPU_runs": 1,
+    "kind": "QUALIFIED_FULL_NATIVE_TOOLS_CATEGORY_ONLY",
+    "model_sha256": "d1c03f73ecaf61017d70419eec9e5dc0b05d50ae26c23d522829b934fbabf8a5",
+    "model_starts": 1,
+    "overall_model_or_champion_qualified": false,
+    "peak_device_vram_mib": 13798.5,
+    "solved": 374,
+    "task_phase_s": 362.70372274,
+    "tasks": 400,
+    "weights_downloaded": 1
   },
   "name": "LFM2.5 24B A2B QAD",
-  "next_step": "Gepinnte QAD-GGUF-Identität, Engine-/Tensor-Kompatibilität und VRAM-Budget prüfen; danach verifizierten Forschungsdownload und reguläre Broker-Zulassung vorbereiten.",
-  "priority": "P2",
+  "next_step": "Normales vollständiges HumanEval+164 mit demselben nativen24B-Profil über den Broker;20min reine Aufgabenzeit. Danach Profilvergleich statt Tuning anhand einzelner Fehlantworten.",
+  "priority": "P0",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-24B-A2B",
   "source_admission": {
     "GPU_runs": 0,
     "model_starts": 0,
     "sha256": "819239f28ed8c8da96d1df75df8c8aaa87eed9136680497689c983d98d5927dc"
   },
-  "status": "Quellen-/Formatprüfung vor Ausführung"
+  "status": "Tool-Kategorie gemessen und lokal qualifiziert; Coding offen"
 }
 ```
 
