@@ -173302,6 +173302,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9fcadcb294fef29ca3aa",
+    "original_bytes": 4170,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9fcadcb294fef29ca3aa824d084596a5ccb1af1ac9583a303c91c72b76539bcc",
+    "statements": {
+      "decision": "FULL400_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native OmniCoder Q6_K profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252137,6 +252159,21 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3b5b5578fab07456af83",
+    "original_bytes": 12704,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3b5b5578fab07456af8350b5222d2888721682a21df0c46c9bd9cf1f8d68216f",
+    "statements": {
+      "scope": "Exact complete400-task group. Failed frozen power-integral coverage remains null. Reported-counter query timing bounds are not sensor accuracy or system/HBM-only energy. Different model profiles do not establish causal optimization benefit."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "solved": 383,
       "tasks": 400
     },
@@ -252147,6 +252184,53 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "1d05bacf4a69b8c3db92efe9389f74cc4a7c84558446dbe5bf77a252b120fb16",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8ef7c121b53fb6063f0e",
+    "original_bytes": 352145,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8ef7c121b53fb6063f0e217e0d64ba13b8db7f6b281d83da9e3c135816a65195",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-30140ebd368f4ff29462",
+    "original_bytes": 12698,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "30140ebd368f4ff294620612455d241794e05bf213173c8c6f223bdf769efa9b",
+    "statements": {
+      "scope": "Exact complete400-task group. Failed frozen power-integral coverage remains null. Reported-counter query timing bounds are not sensor accuracy or system/HBM-only energy. Different model profiles do not establish causal optimization benefit."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 373,
+      "tasks": 400
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6ef6a70c5bffac06de63",
+    "original_bytes": 14463,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6ef6a70c5bffac06de63a9fbd29127137659fe27a8e0f9630c4dfb56b0eb3915",
     "statements": {}
   },
   {
@@ -252678,6 +252762,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "be94d0247c1bb25efe166416475f3e0ebefb94878a97ba1f97249ba4a515b23e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-b6ebe309b269f0120bab",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b6ebe309b269f0120babafaa69ada276ceff8f5151bade541a8a8c81db8e2242",
     "statements": {}
   },
   {

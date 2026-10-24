@@ -10,6 +10,17 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Qwen3.8 full native category retains complete publisher artifact and no-speculation profile', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy);assert(r&&r.official_eligible);
+  assert.equal(r.solved,383);assert.equal(r.tasks,400);assert.equal(r.gpu_j,null);
+  assert.equal(r.counter_energy.tasks,400);assert.equal(r.counter_energy.solved,383);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['requested.MTP'],false);
+  assert.equal(row.values['model.quantization'],'GSQ/RCO IQ3_S');
+  assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s,942.946128526);
+  const key=data.master.run_columns[r.run_id];assert.equal(row.scores[key].n,1);
+  assert.equal(M.value(row,model.columns.find(c=>c.key==='metric:'+key+':counter_energy.j_per_success_lower'),{selected:new Set(),mode:'official'},model.benchmarkMap),r.counter_energy.j_per_success_lower);
+});
 test('Qwen3.5 native full category keeps actual Q4 profile and400-task energy identity', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R461');assert(r&&r.official_eligible);
   assert.equal(r.solved,372);assert.equal(r.tasks,400);assert.equal(r.gpu_j,null);
@@ -211,6 +222,16 @@ test('admission-history duplicates do not become extra replicates', () => {
   const a = M.aggregate([score(50), { ...score(50), run_id: 'new-history-record' }]);
   assert.equal(a.n, 1); assert.equal(a.score, 50); assert.equal(a.sd, null);
 });
+test('one observation retains a later counter supplement without filling power integral or adding a replicate', () => {
+  const first={...score(50),run_id:'original',gpu_j:null,audit_ids:['original-audit']};
+  const later={...first,run_id:'supplement',counter_energy:{lower_j:100,upper_j:101},audit_ids:['counter-audit']};
+  const before=M.canonical([first,later]);const a=M.aggregate([first,later]);
+  assert.equal(a.n,1);assert.equal(a.score,50);assert.equal(a.records[0].gpu_j,null);
+  assert.equal(a.records[0].counter_energy.lower_j,100);assert.equal(a.records[0].measurement_view_run_ids.length,2);
+  assert(a.records[0].audit_ids.includes('counter-audit'));assert.equal(M.canonical([first,later]),before);
+  const conflicting={...later,run_id:'conflicting',counter_energy:{lower_j:50,upper_j:51}};
+  const b=M.aggregate([first,later,conflicting]);assert.equal(b.n,1);assert.equal(b.score,50);assert.equal(b.records[0].counter_energy,null);assert.equal(b.records[0].counter_energy_conflict,true);
+});
 test('conflicting judgments for one observation fail closed', () => {
   const a = M.aggregate([score(50), score(80)]); assert(a.conflict); assert.equal(a.score, null);
 });
@@ -274,6 +295,21 @@ test('family columns are unique, while every original protocol remains selectabl
     assert(b.family_id && b.family_name);
     assert(model.columns.some(c => c.kind === 'benchmark' && c.key === b.key));
   }
+});
+test('OmniCoder original-template full400 reference retains exact identity and measured counter scope', () => {
+  const run = data.history.runs.find(r => r.experiment_id === 'R463' && r.counter_energy);
+  assert(run); assert.equal(run.solved, 373); assert.equal(run.tasks, 400);
+  assert.equal(run.official_eligible, true); assert.equal(run.qualification_audit.category_only, true);
+  assert.equal(run.gpu_j, null); assert.equal(run.gpu_j_per_success, null);
+  assert.equal(run.counter_energy.tasks, 400); assert.equal(run.counter_energy.solved, 373);
+  assert.equal(run.counter_energy.j_per_success_lower, 105077.717 / 373);
+  assert.equal(run.counter_energy.j_per_success_upper, 105181.844 / 373);
+  const row = model.rows.find(r => r.id === run.runtime_configuration_id);
+  assert.equal(row.profile.model.quantization, 'Q6_K');
+  assert.equal(row.profile.model.artifact_sha256, 'b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b');
+  assert.equal(row.values['requested.thinking'], false);
+  assert.equal(row.values['requested.MTP'], false);
+  assert.equal(row.scores[data.master.run_columns[run.run_id]].n, 1);
 });
 test('family defaults prefer qualified official protocols without any per-row fallback', () => {
   const family = model.families.find(f => f.id === 'humanevalplus');

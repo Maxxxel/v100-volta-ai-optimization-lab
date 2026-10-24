@@ -82,7 +82,15 @@
     let conflict = false;
     const records = [...groups.values()].map(group => {
       if (new Set(group.map(r => canonical([r.score_percent, r.solved, r.tasks]))).size !== 1) conflict = true;
-      return group[0];
+      // Later audit views can add a separately verified counter supplement to
+      // the same physical observation. Keep one sample and every source ID.
+      const counters = group.filter(r => r.counter_energy);
+      if (!counters.length) return group[0];
+      const record = { ...group[0], audit_ids: [...new Set(group.flatMap(r => r.audit_ids || []))],
+        measurement_view_run_ids: group.map(r => r.run_id) };
+      if (new Set(counters.map(r => canonical(r.counter_energy))).size === 1) record.counter_energy = counters[0].counter_energy;
+      else { record.counter_energy = null; record.counter_energy_conflict = true; }
+      return record;
     });
     return { records, conflict };
   };
@@ -119,6 +127,7 @@
   }
   function measuredValue(a, path) {
     if (!a?.records.length) return null;
+    if (path.startsWith('counter_energy.') && a.records.some(r => r.counter_energy_conflict)) return null;
     const values = a.records.map(r => flatten(r)[path]);
     if (values.every(absent)) return null;
     if (values.every(finite)) return values.reduce((n, x) => n + x, 0) / values.length;

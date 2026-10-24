@@ -71,6 +71,21 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const qwen38=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy));
+    if(qwen38){
+      assert.equal(qwen38.solved,383);assert.equal(qwen38.tasks,400);
+      const row=page.locator(`.master-table tr[data-configuration-id="${qwen38.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('383/400'));
+      assert((await row.locator('td[data-column-key="requested.MTP"]').textContent()).includes('Aus'));
+      const sampleCount=await page.evaluate(id=>{const d=window.V100Leaderboard,m=window.V100MasterTable.build(d),r=m.rows.find(r=>r.id===id);const run=d.history.runs.find(x=>x.experiment_id==='R462'&&x.counter_energy);return r.scores[d.master.run_columns[run.run_id]].n;},qwen38.runtime_configuration_id);
+      assert.equal(sampleCount,1);
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen38.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Qwen3.8 counter supplement is visible for383/400 while both history views count as one observation');
+    }
     const ornithPrefix=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R460'));
     if(ornithPrefix){
       assert.equal(ornithPrefix.solved,85);assert.equal(ornithPrefix.tasks,93);assert.equal(ornithPrefix.intended_tasks,164);assert.equal(ornithPrefix.official_eligible,false);
