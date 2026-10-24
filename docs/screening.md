@@ -1,10 +1,12 @@
 # Model screening
 
-**6/13 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**13/13 profiles measured** · 16 coding + 16 mock-tool development tasks.
+
+Screening → full qualification → targeted optimization → independent confirmation.
 
 <input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">
 
-<div class="screening-wrap"><table id="screening-table"><thead><tr><th>Model</th><th>Status</th><th>Coding /16</th><th>Mock tools /16</th><th>Request time s</th><th>Output tok/s¹</th><th>GPU J/success ≥²</th><th>VRAM MiB</th><th>Existing benchmarks</th><th>Details</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>14/16 · 87.5%</td><td>67.2</td><td>69.6</td><td>593.8</td><td>7,356.5</td><td><a href="../results/#r471">R471 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+<div class="screening-wrap"><table id="screening-table"><thead><tr><th>Model</th><th>Status</th><th>Coding /16</th><th>Mock tools /16</th><th>Request time s</th><th>Output tok/s¹</th><th>GPU J/success ≥²</th><th>VRAM MiB</th><th>Existing benchmarks</th><th>Details</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>14/16 · 87.5%</td><td>67.2</td><td>69.6</td><td>593.8</td><td>7,356.5</td><td><a href="../experiments/R471/">R471 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R497/">Screening R497</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;29208867310ffb6d01c8051d11831d1b464074f17a0dca03460c8e08c67d303c&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -196,6 +198,7 @@
       &quot;seed&quot;: 1001,
       &quot;temperature&quot;: 0
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-c98ecea3a0e41008f904fc0102cfcf18d5601d145c731403748690d5946ae759&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -223,6 +226,8 @@
       &quot;completed_request_wall_s&quot;: 51.728350785,
       &quot;completion_tokens&quot;: 3913,
       &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 13022.751,
+      &quot;gpu_energy_j_upper&quot;: 14769.649,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 13,
       &quot;successful_tasks_s_completed_requests&quot;: 0.2513128642749943,
@@ -240,6 +245,8 @@
       &quot;completed_request_wall_s&quot;: 15.428932838,
       &quot;completion_tokens&quot;: 761,
       &quot;final_text_present&quot;: 4,
+      &quot;gpu_energy_j_lower&quot;: 3009.737,
+      &quot;gpu_energy_j_upper&quot;: 4762.642,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 14,
       &quot;successful_tasks_s_completed_requests&quot;: 0.9073861521724514,
@@ -251,7 +258,7 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Nexus-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>14/16 · 87.5%</td><td>12/16 · 75.0%</td><td>315.2</td><td>77.5</td><td>3,359.0</td><td>7,356.5</td><td><a href="../results/#r481">R481 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Nexus-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>14/16 · 87.5%</td><td>12/16 · 75.0%</td><td>315.2</td><td>77.5</td><td>3,359.0</td><td>7,356.5</td><td><a href="../experiments/R481/">R481 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R487/">Screening R487</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;46c48438ab0b48f381a182c816dfbc1f58979f9e57238639be49a6556de9ea3b&quot;,
   &quot;conditions&quot;: &quot;Reused native A arm; interleaved ABC schedule. Same tasks/scorer and native sampler; timing is historical, not matched standalone performance evidence.&quot;,
   &quot;configuration&quot;: {
@@ -456,6 +463,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-55c39c010a375967005d3e9ef85275af15a398f50c6eb3e8332cf55a94b9ce2c&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -483,6 +491,8 @@
       &quot;completed_request_wall_s&quot;: 275.414822408,
       &quot;completion_tokens&quot;: 21716,
       &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 77154.497,
+      &quot;gpu_energy_j_upper&quot;: 78998.241,
       &quot;length_stops&quot;: 1,
       &quot;successes&quot;: 14,
       &quot;successful_tasks_s_completed_requests&quot;: 0.050832413003757564,
@@ -500,6 +510,8 @@
       &quot;completed_request_wall_s&quot;: 39.735576887,
       &quot;completion_tokens&quot;: 2718,
       &quot;final_text_present&quot;: 5,
+      &quot;gpu_energy_j_lower&quot;: 10179.587,
+      &quot;gpu_energy_j_upper&quot;: 12079.984,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 12,
       &quot;successful_tasks_s_completed_requests&quot;: 0.30199637051012473,
@@ -511,7 +523,7 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Slopus-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>12/16 · 75.0%</td><td>177.0</td><td>76.1</td><td>1,976.1</td><td>7,356.5</td><td><a href="../results/#r483">R483 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Slopus-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>12/16 · 75.0%</td><td>177.0</td><td>76.1</td><td>1,976.1</td><td>7,356.5</td><td><a href="../experiments/R483/">R483 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R498/">Screening R498</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;ef72de6b227a4bc892f701e0344fa7fa5bd951c711276bfeee819c6c0fbc79bb&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -716,6 +728,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-895f851c9a05ebf887ff2720c76e32206bbc44f99e31b601e4a2139fdc99fee3&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -743,6 +756,8 @@
       &quot;completed_request_wall_s&quot;: 139.844509931,
       &quot;completion_tokens&quot;: 10964,
       &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 38451.824,
+      &quot;gpu_energy_j_upper&quot;: 40312.641,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 12,
       &quot;successful_tasks_s_completed_requests&quot;: 0.08580958956430153,
@@ -760,6 +775,8 @@
       &quot;completed_request_wall_s&quot;: 37.121657838,
       &quot;completion_tokens&quot;: 2503,
       &quot;final_text_present&quot;: 7,
+      &quot;gpu_energy_j_lower&quot;: 8975.144,
+      &quot;gpu_energy_j_upper&quot;: 10840.714,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 12,
       &quot;successful_tasks_s_completed_requests&quot;: 0.32326142470167557,
@@ -771,7 +788,7 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Opus Distill-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>7/16 · 43.8%</td><td>10/16 · 62.5%</td><td>190.7</td><td>76.0</td><td>3,050.2</td><td>7,356.5</td><td><a href="../results/#r485">R485 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Opus Distill-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>7/16 · 43.8%</td><td>10/16 · 62.5%</td><td>190.7</td><td>76.0</td><td>3,050.2</td><td>7,356.5</td><td><a href="../experiments/R485/">R485 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R499/">Screening R499</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;503a80450201f424e1da7093236de909132970e6eee45b81e8d6cdf5aa0461b9&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -976,6 +993,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-a9f7e66a82f6202d535f7491384767a14b7db12e6c787786df994de75142da92&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -1003,6 +1021,8 @@
       &quot;completed_request_wall_s&quot;: 145.339624843,
       &quot;completion_tokens&quot;: 11360,
       &quot;final_text_present&quot;: 15,
+      &quot;gpu_energy_j_lower&quot;: 40335.622,
+      &quot;gpu_energy_j_upper&quot;: 42213.177,
       &quot;length_stops&quot;: 1,
       &quot;successes&quot;: 7,
       &quot;successful_tasks_s_completed_requests&quot;: 0.04816305262629926,
@@ -1020,6 +1040,8 @@
       &quot;completed_request_wall_s&quot;: 45.336913986,
       &quot;completion_tokens&quot;: 3135,
       &quot;final_text_present&quot;: 1,
+      &quot;gpu_energy_j_lower&quot;: 11517.738,
+      &quot;gpu_energy_j_upper&quot;: 13399.352,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 10,
       &quot;successful_tasks_s_completed_requests&quot;: 0.2205708135116561,
@@ -1031,7 +1053,7 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Ornith-1.5-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>11/16 · 68.8%</td><td>361.5</td><td>77.5</td><td>4,207.4</td><td>7,356.5</td><td><a href="../results/#r479">R479 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Ornith-1.5-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>11/16 · 68.8%</td><td>361.5</td><td>77.5</td><td>4,207.4</td><td>7,356.5</td><td><a href="../experiments/R479/">R479 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R500/">Screening R500</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;f5efcab1dbcdfb77af2b3344ab79755e9c792618d05b1687d69e89cfdc2d5d06&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -1241,6 +1263,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-e0d1af3e684f133fde9c9df0ff310d3bcece321dfdaf9dcfe4df1e9522ec8c5e&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -1268,6 +1291,8 @@
       &quot;completed_request_wall_s&quot;: 327.578638926,
       &quot;completion_tokens&quot;: 25779,
       &quot;final_text_present&quot;: 14,
+      &quot;gpu_energy_j_lower&quot;: 92551.745,
+      &quot;gpu_energy_j_upper&quot;: 94604.884,
       &quot;length_stops&quot;: 2,
       &quot;successes&quot;: 13,
       &quot;successful_tasks_s_completed_requests&quot;: 0.03968512734109229,
@@ -1285,6 +1310,8 @@
       &quot;completed_request_wall_s&quot;: 33.91245192,
       &quot;completion_tokens&quot;: 2242,
       &quot;final_text_present&quot;: 7,
+      &quot;gpu_energy_j_lower&quot;: 8426.583,
+      &quot;gpu_energy_j_upper&quot;: 10457.7,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 11,
       &quot;successful_tasks_s_completed_requests&quot;: 0.3243646323760125,
@@ -1296,7 +1323,7 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Qwen3.5-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>15/16 · 93.8%</td><td>12/16 · 75.0%</td><td>79.6</td><td>87.2</td><td>699.7</td><td>5,956.5</td><td><a href="../results/#r474">R474 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Qwen3.5-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>15/16 · 93.8%</td><td>12/16 · 75.0%</td><td>79.6</td><td>87.2</td><td>699.7</td><td>5,956.5</td><td><a href="../experiments/R474/">R474 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R501/">Screening R501</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;9e9b0f0375c964838fb98cac1be993c2b7bb88c3299d8e7e0759f9d3f95deca7&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -1490,6 +1517,7 @@
       &quot;seed&quot;: 1001,
       &quot;temperature&quot;: 0
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-eec00db88dcfa3e17fa958de15a41465ed1601e5a26d4a54ad4501fe842d6655&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -1517,6 +1545,8 @@
       &quot;completed_request_wall_s&quot;: 64.93725960900001,
       &quot;completion_tokens&quot;: 6098,
       &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 16087.204,
+      &quot;gpu_energy_j_upper&quot;: 17841.445,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 15,
       &quot;successful_tasks_s_completed_requests&quot;: 0.23099219293080653,
@@ -1534,6 +1564,8 @@
       &quot;completed_request_wall_s&quot;: 14.623752884,
       &quot;completion_tokens&quot;: 838,
       &quot;final_text_present&quot;: 3,
+      &quot;gpu_energy_j_lower&quot;: 2805.607,
+      &quot;gpu_energy_j_upper&quot;: 4531.886,
       &quot;length_stops&quot;: 0,
       &quot;successes&quot;: 12,
       &quot;successful_tasks_s_completed_requests&quot;: 0.8205827939782355,
@@ -1545,8 +1577,8 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Qwen3.8-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r473">R473 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+}</pre></details></td></tr><tr><td>Qwen3.8-27B</td><td>SCREENING VOLLSTÄNDIG</td><td>16/16 · 100.0%</td><td>13/16 · 81.2%</td><td>132.5</td><td>27.5</td><td>1,187.4</td><td>12,454.5</td><td><a href="../experiments/R473/">R473 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R502/">Screening R502</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;6559318406c61ee8c2e1032f4eb4bfb544a25b53b3a40fe40a99a9ce77dec93c&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -1744,6 +1776,7 @@
       &quot;seed&quot;: 1001,
       &quot;temperature&quot;: 0
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-1d42865a4b3685127bcbd09b6dc8c0a6e72600aee8bf1204cb243b17c54f5794&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -1752,16 +1785,59 @@
     },
     &quot;warmup_requests&quot;: 4
   },
+  &quot;date&quot;: &quot;2026-10-24T21:08:34.997295+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R502&quot;,
+  &quot;independent_review_sha256&quot;: &quot;de9061d3cf9d5b1542bed68e54c4f12a2b4ca69b040e255330a26a49d40a05d4&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Qwen3.8-27B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R473&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Gemma4-12B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r472">R472 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 12454.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 132.500644243,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 1492.73025,
+      &quot;GPU_j_per_success_upper&quot;: 1605.1528125,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 89.031972242,
+      &quot;completion_tokens&quot;: 2885,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 23883.684,
+      &quot;gpu_energy_j_upper&quot;: 25682.445,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 16,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.1797107218574245,
+      &quot;tokens_s_completed_requests&quot;: 32.40408953491686,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.8063923194655637,
+        1
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 811.7017692307692,
+      &quot;GPU_j_per_success_upper&quot;: 949.1646923076922,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 43.450667561,
+      &quot;completion_tokens&quot;: 764,
+      &quot;final_text_present&quot;: 3,
+      &quot;gpu_energy_j_lower&quot;: 10552.123,
+      &quot;gpu_energy_j_upper&quot;: 12339.141,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 13,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.29918987968940675,
+      &quot;tokens_s_completed_requests&quot;: 17.583159083285135,
+      &quot;valid_terminal_output&quot;: 13,
+      &quot;wilson95&quot;: [
+        0.5699111903802586,
+        0.9340840092857187
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>Gemma4-12B</td><td>SCREENING VOLLSTÄNDIG</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>70.1</td><td>62.8</td><td>522.4</td><td>8,128.5</td><td><a href="../experiments/R472/">R472 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R503/">Screening R503</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;c1a7d873cd05b2925811e4ef06efde1c1056e5fa7d7c1c2037ef9d34659707ef&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -1968,6 +2044,7 @@
       &quot;top_k&quot;: 64,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-1304a92162789caaac5ada03c62c855e213b1293e3c3d2b68d37524500f2a45c&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -1976,16 +2053,59 @@
     },
     &quot;warmup_requests&quot;: 2
   },
+  &quot;date&quot;: &quot;2026-10-24T21:12:00.666621+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R503&quot;,
+  &quot;independent_review_sha256&quot;: &quot;2e826b4289beb3b8fd38a91724688c55729249e3e59c557dd695ce02dfbcc66c&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Gemma4-12B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R472&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>MiMo-9B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r480">R480 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 8128.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 70.120594692,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 907.9131428571428,
+      &quot;GPU_j_per_success_upper&quot;: 1029.0434285714286,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 57.288395713,
+      &quot;completion_tokens&quot;: 3935,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 12710.784,
+      &quot;gpu_energy_j_upper&quot;: 14406.608,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 14,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.24437758861561368,
+      &quot;tokens_s_completed_requests&quot;: 68.68755794303142,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.639771727342413,
+        0.9650225122567595
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 136.9222142857143,
+      &quot;GPU_j_per_success_upper&quot;: 255.97607142857143,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 12.815634876,
+      &quot;completion_tokens&quot;: 466,
+      &quot;final_text_present&quot;: 5,
+      &quot;gpu_energy_j_lower&quot;: 1916.911,
+      &quot;gpu_energy_j_upper&quot;: 3583.665,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 14,
+      &quot;successful_tasks_s_completed_requests&quot;: 1.092415641945135,
+      &quot;tokens_s_completed_requests&quot;: 36.36183493903092,
+      &quot;valid_terminal_output&quot;: 14,
+      &quot;wilson95&quot;: [
+        0.639771727342413,
+        0.9650225122567595
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>MiMo-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>105.3</td><td>68.7</td><td>1,047.7</td><td>9,188.5</td><td><a href="../experiments/R480/">R480 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R504/">Screening R504</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;e0bc7965bf9b4193b4d6a47c934663faea44c1dcb07500937da8c5f0e3dfa9fe&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -2194,6 +2314,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-89d46f4a13813c0c26c4122e45c4fa367a47e586b10f8394d00b40d347214e8a&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -2202,16 +2323,59 @@
     },
     &quot;warmup_requests&quot;: 4
   },
+  &quot;date&quot;: &quot;2026-10-24T21:16:45.099593+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R504&quot;,
+  &quot;independent_review_sha256&quot;: &quot;1d7c418edeba12b15e5ad7af3fde77c9fa4d083d9e04ebea8bf010d5fb25fbae&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;MiMo-9B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R480&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>LFM2.5-8B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r476">R476 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 9188.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 105.363514769,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 1619.263,
+      &quot;GPU_j_per_success_upper&quot;: 1772.794,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 79.16284308200001,
+      &quot;completion_tokens&quot;: 5657,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 17811.893,
+      &quot;gpu_energy_j_upper&quot;: 19500.734,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.1389540796129033,
+      &quot;tokens_s_completed_requests&quot;: 71.46029348819945,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 476.1469090909091,
+      &quot;GPU_j_per_success_upper&quot;: 627.3834545454546,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 26.183561683,
+      &quot;completion_tokens&quot;: 1585,
+      &quot;final_text_present&quot;: 6,
+      &quot;gpu_energy_j_lower&quot;: 5237.616,
+      &quot;gpu_energy_j_upper&quot;: 6901.218,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.42011091283818297,
+      &quot;tokens_s_completed_requests&quot;: 60.53416334986545,
+      &quot;valid_terminal_output&quot;: 11,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>LFM2.5-8B</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>86.8</td><td>189.2</td><td>684.8</td><td>7,448.5</td><td><a href="../experiments/R476/">R476 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R505/">Screening R505</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;15b1f86cbdc561077496b659a92808bbc811386bedae2246932068c506288c6f&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -2414,6 +2578,7 @@
       &quot;top_k&quot;: 80,
       &quot;top_p&quot;: 1.0
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-c95787a399c9fd317e7552ef984e726fcc770b566e086d94cc020fc38d9ebb61&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -2422,16 +2587,59 @@
     },
     &quot;warmup_requests&quot;: 1
   },
+  &quot;date&quot;: &quot;2026-10-24T21:21:58.513563+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R505&quot;,
+  &quot;independent_review_sha256&quot;: &quot;d08c18ec7b417a8186d2524d707372c17610fc10a0da48c66c414e4b3379ecd5&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;LFM2.5-8B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R476&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>LFM2.5-24B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r477">R477 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 7448.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 86.852830793,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 925.9827272727272,
+      &quot;GPU_j_per_success_upper&quot;: 1060.9189090909092,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 57.410959971,
+      &quot;completion_tokens&quot;: 11245,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 10185.81,
+      &quot;gpu_energy_j_upper&quot;: 11670.108,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.19160104630816888,
+      &quot;tokens_s_completed_requests&quot;: 195.8685241577599,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 443.61790909090905,
+      &quot;GPU_j_per_success_upper&quot;: 574.0803636363636,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 29.420594416,
+      &quot;completion_tokens&quot;: 5185,
+      &quot;final_text_present&quot;: 7,
+      &quot;gpu_energy_j_lower&quot;: 4879.797,
+      &quot;gpu_energy_j_upper&quot;: 6314.884,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.3738877551032006,
+      &quot;tokens_s_completed_requests&quot;: 176.23709183728138,
+      &quot;valid_terminal_output&quot;: 11,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>LFM2.5-24B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>10/16 · 62.5%</td><td>241.4</td><td>155.5</td><td>1,633.9</td><td>13,796.5</td><td><a href="../experiments/R477/">R477 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R506/">Screening R506</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;c5a2970677678b185f3adf53e9be41cb4a5d5e5e508948ee688e93eb5931de8d&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -2634,6 +2842,7 @@
       &quot;top_k&quot;: 50,
       &quot;top_p&quot;: 1.0
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-478fffcf2e7f388f83f2f791dbbaa798a1060e1fe8b6ebd1f0fd14a6439b24a5&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -2642,16 +2851,59 @@
     },
     &quot;warmup_requests&quot;: 1
   },
+  &quot;date&quot;: &quot;2026-10-24T21:30:52.902537+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R506&quot;,
+  &quot;independent_review_sha256&quot;: &quot;7b92769344562f7dcef7803b4d2ddd1bdadb886b407a2179505e2680a0cf16f7&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;LFM2.5-24B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R477&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Qwen3.6-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r492">R492 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 13796.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 241.464198521,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 2240.3563846153847,
+      &quot;GPU_j_per_success_upper&quot;: 2331.211307692308,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 185.709724326,
+      &quot;completion_tokens&quot;: 29953,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 29124.633,
+      &quot;gpu_energy_j_upper&quot;: 30305.747,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 13,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.07000171933473683,
+      &quot;tokens_s_completed_requests&quot;: 161.28934609487476,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.5699111903802586,
+        0.9340840092857187
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 845.5285,
+      &quot;GPU_j_per_success_upper&quot;: 963.4309,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 55.726972467,
+      &quot;completion_tokens&quot;: 7582,
+      &quot;final_text_present&quot;: 5,
+      &quot;gpu_energy_j_lower&quot;: 8455.285,
+      &quot;gpu_energy_j_upper&quot;: 9634.309,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 10,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.17944631759641577,
+      &quot;tokens_s_completed_requests&quot;: 136.05619800160244,
+      &quot;valid_terminal_output&quot;: 10,
+      &quot;wilson95&quot;: [
+        0.38641040545502714,
+        0.8151876744113636
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>Qwen3.6-27B</td><td>SCREENING VOLLSTÄNDIG</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>208.5</td><td>22.3</td><td>1,982.9</td><td>12,766.5</td><td><a href="../experiments/R492/">R492 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R507/">Screening R507</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;fded363bc68976cb8b1d97d16d52c1dec3bb8bb42a1b485d91ff4dec49b8ac8d&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -2859,6 +3111,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.8
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-154d3f063690166ef43fa2d9b475de65391faf61d8616a63d2b84d760b0477af&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -2867,16 +3120,59 @@
     },
     &quot;warmup_requests&quot;: 1
   },
+  &quot;date&quot;: &quot;2026-10-24T21:38:42.195001+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R507&quot;,
+  &quot;independent_review_sha256&quot;: &quot;21d5129f9437d6035eac4b26ae90e594d658630c6166d6f0a47c6ed94cd57e34&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Qwen3.6-27B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R492&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Bonsai2-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r475">R475 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 12766.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 208.575632234,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 2821.360857142857,
+      &quot;GPU_j_per_success_upper&quot;: 2951.427714285714,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 147.500644822,
+      &quot;completion_tokens&quot;: 3964,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 39499.052,
+      &quot;gpu_energy_j_upper&quot;: 41319.988,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 14,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.09491483930049825,
+      &quot;tokens_s_completed_requests&quot;: 26.87445878479822,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.639771727342413,
+        0.9650225122567595
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 1144.5365714285715,
+      &quot;GPU_j_per_success_upper&quot;: 1278.3473571428572,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 61.048389781,
+      &quot;completion_tokens&quot;: 694,
+      &quot;final_text_present&quot;: 7,
+      &quot;gpu_energy_j_lower&quot;: 16023.512,
+      &quot;gpu_energy_j_upper&quot;: 17896.863,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 14,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.22932627789565713,
+      &quot;tokens_s_completed_requests&quot;: 11.368031204256146,
+      &quot;valid_terminal_output&quot;: 14,
+      &quot;wilson95&quot;: [
+        0.639771727342413,
+        0.9650225122567595
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>Bonsai2-27B</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>13/16 · 81.2%</td><td>452.9</td><td>51.8</td><td>4,887.9</td><td>8,158.5</td><td><a href="../experiments/R475/">R475 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R508/">Screening R508</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;da2e0b26bdb5cce3032b048b13bf8a4c6bbd1fe5120ccf6b7447df243c024f30&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -3088,6 +3384,7 @@
       &quot;top_k&quot;: 20,
       &quot;top_p&quot;: 0.95
     },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-0b7dc4a06e1e28010bf89952b3c3be5d7e7ba098c070578d5135526e44648987&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -3096,14 +3393,57 @@
     },
     &quot;warmup_requests&quot;: 4
   },
+  &quot;date&quot;: &quot;2026-10-24T21:48:51.017314+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R508&quot;,
+  &quot;independent_review_sha256&quot;: &quot;5ce96cdc8da904ffc67a244d8b460d4567ffe886b6cab0f987dd76b65fc295d6&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Bonsai2-27B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R475&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
+  &quot;peak_vram_mib&quot;: 8158.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 452.966795712,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 8961.988166666666,
+      &quot;GPU_j_per_success_upper&quot;: 9119.1265,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 393.30735144700003,
+      &quot;completion_tokens&quot;: 21332,
+      &quot;final_text_present&quot;: 14,
+      &quot;gpu_energy_j_lower&quot;: 107543.858,
+      &quot;gpu_energy_j_upper&quot;: 109429.518,
+      &quot;length_stops&quot;: 2,
+      &quot;successes&quot;: 12,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.030510489966310877,
+      &quot;tokens_s_completed_requests&quot;: 54.237480996778636,
+      &quot;valid_terminal_output&quot;: 14,
+      &quot;wilson95&quot;: [
+        0.5050168346449122,
+        0.8981793250878696
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 1127.285076923077,
+      &quot;GPU_j_per_success_upper&quot;: 1269.985846153846,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 59.639571464999996,
+      &quot;completion_tokens&quot;: 2135,
+      &quot;final_text_present&quot;: 4,
+      &quot;gpu_energy_j_lower&quot;: 14654.706,
+      &quot;gpu_energy_j_upper&quot;: 16509.816,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 13,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.2179760799862414,
+      &quot;tokens_s_completed_requests&quot;: 35.79837929004811,
+      &quot;valid_terminal_output&quot;: 13,
+      &quot;wilson95&quot;: [
+        0.5699111903802586,
+        0.9340840092857187
+      ]
+    }
+  }
 }</pre></details></td></tr></tbody></table></div>
 
 Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. A separate8coding+8mock-tool validation set is frozen and reserved; no model has answered it. Native templates and settings remain unchanged.
@@ -3116,5 +3456,17 @@ Development evidence, not an official benchmark or unseen validation set. These 
 - **Qwen3.5-0.8B-Q8_0.gguf** — TECHNISCH BLOCKIERT: Local draft/small model artifact has no registered executed standalone native screening parent. Requires existing technical/native admission, not quality exclusion.
 - **Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf** — SCREENING OFFEN: Additional nongrafted artifact; established native baseline uses the separately identified MTP-bearing artifact with speculation disabled. No weight equivalence is assumed.
 - **Tesslate_OmniCoder-9B-Q6_K.gguf** — SCREENING OFFEN: Historical alternate quantizer artifact; main canonical Omni checkpoint selected for first baseline pass. Existing weight-integrity evidence retained; no new equality claim.
+
+</details>
+
+<details><summary>Conservative qualification shortlist & next decisions</summary>
+
+- **P0 · OmniCoder-9B, Qwen3.5-9B, Gemma4-12B, MiMo-9B, LFM2.5-8B**: Reuse existing complete native coding/tools results; no repeated GPU benchmarks.
+- **P0 · Qwen3.8-27B**: Reuse complete native coding; inspect the incomplete tools campaign and its shared budget before any justified full200 qualification. No silent reset.
+- **P1 · Qwen3.6-27B, Bonsai2-27B**: Assess missing matched native full benchmarks after screening. Preserve partials and historical valid Bonsai coding under its original profile; no transfer of scores between configurations.
+- **P1 · Nexus-9B, Slopus-9B, Opus Distill-9B, Ornith-1.5-9B**: Retain. Existing full OFF/T0 profiles are separate valid configurations; native ON screening does not inherit their scores. Reuse them; fill native-profile gaps only with a concrete practical reason.
+- **DIAGNOSIS · LFM2.5-24B**: Retain coding/specialist candidacy. Existing complete native tools6/200 is a profile-specific negative result and must not be blindly repeated. Investigate only a concrete configuration hypothesis after qualification decisions.
+
+Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.
 
 </details>

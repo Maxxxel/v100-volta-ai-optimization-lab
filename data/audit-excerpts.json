@@ -174138,6 +174138,111 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 12454.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6559318406c61ee8c2e1",
+    "original_bytes": 27147,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6559318406c61ee8c2e1032f4eb4bfb544a25b53b3a40fe40a99a9ce77dec93c",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 8128.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c1a7d873cd05b2925811",
+    "original_bytes": 27082,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c1a7d873cd05b2925811e4ef06efde1c1056e5fa7d7c1c2037ef9d34659707ef",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 9188.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e0bc7965bf9b4193b4d6",
+    "original_bytes": 27287,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e0bc7965bf9b4193b4d6a47c934663faea44c1dcb07500937da8c5f0e3dfa9fe",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7448.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-15b1f86cbdc561077496",
+    "original_bytes": 27196,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "15b1f86cbdc561077496b659a92808bbc811386bedae2246932068c506288c6f",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 13796.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c5a2970677678b185f3a",
+    "original_bytes": 27508,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c5a2970677678b185f3adf53e9be41cb4a5d5e5e508948ee688e93eb5931de8d",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 12766.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-fded363bc68976cb8b1d",
+    "original_bytes": 27047,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fded363bc68976cb8b1d97d16d52c1dec3bb8bb42a1b485d91ff4dec49b8ac8d",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 8158.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-da2e0b26bdb5cce3032b",
+    "original_bytes": 26582,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "da2e0b26bdb5cce3032b048b13bf8a4c6bbd1fe5120ccf6b7447df243c024f30",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

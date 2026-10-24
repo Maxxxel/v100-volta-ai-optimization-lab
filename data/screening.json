@@ -27,6 +27,57 @@
     }
   ],
   "protocol_sha256": "b42f8f216b62dce35bba1a8e1aab058c09794ee87c8b2f35ac43f80f60d270fc",
+  "qualification_plan": {
+    "agents": "Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.",
+    "holdout": "Reserved8+8 tasks remain unseen by models. Use only for justified independent tie-break/diagnosis; freeze any further selection before responses.",
+    "priorities": [
+      {
+        "action": "Reuse existing complete native coding/tools results; no repeated GPU benchmarks.",
+        "models": [
+          "OmniCoder-9B",
+          "Qwen3.5-9B",
+          "Gemma4-12B",
+          "MiMo-9B",
+          "LFM2.5-8B"
+        ],
+        "priority": "P0"
+      },
+      {
+        "action": "Reuse complete native coding; inspect the incomplete tools campaign and its shared budget before any justified full200 qualification. No silent reset.",
+        "models": [
+          "Qwen3.8-27B"
+        ],
+        "priority": "P0"
+      },
+      {
+        "action": "Assess missing matched native full benchmarks after screening. Preserve partials and historical valid Bonsai coding under its original profile; no transfer of scores between configurations.",
+        "models": [
+          "Qwen3.6-27B",
+          "Bonsai2-27B"
+        ],
+        "priority": "P1"
+      },
+      {
+        "action": "Retain. Existing full OFF/T0 profiles are separate valid configurations; native ON screening does not inherit their scores. Reuse them; fill native-profile gaps only with a concrete practical reason.",
+        "models": [
+          "Nexus-9B",
+          "Slopus-9B",
+          "Opus Distill-9B",
+          "Ornith-1.5-9B"
+        ],
+        "priority": "P1"
+      },
+      {
+        "action": "Retain coding/specialist candidacy. Existing complete native tools6/200 is a profile-specific negative result and must not be blindly repeated. Investigate only a concrete configuration hypothesis after qualification decisions.",
+        "models": [
+          "LFM2.5-24B"
+        ],
+        "priority": "DIAGNOSIS"
+      }
+    ],
+    "rule": "Retain technically valid candidates. Never reject from16-task differences. Reuse complete official results only for their actual immutable configuration. Diagnose output/transport failures separately. New full runs need a justified question and existing broker/budget admission."
+  },
+  "qualification_plan_sha256": "c3c396ce15a01d73663d6babd068ef8ffac9b20a06116d864bb8fb38b6f018e2",
   "rows": [
     {
       "audit_sha256": "29208867310ffb6d01c8051d11831d1b464074f17a0dca03460c8e08c67d303c",
@@ -220,6 +271,7 @@
           "seed": 1001,
           "temperature": 0
         },
+        "screening_configuration_id": "screening-config-c98ecea3a0e41008f904fc0102cfcf18d5601d145c731403748690d5946ae759",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -244,6 +296,8 @@
           "completed_request_wall_s": 51.728350785,
           "completion_tokens": 3913,
           "final_text_present": 16,
+          "gpu_energy_j_lower": 13022.751,
+          "gpu_energy_j_upper": 14769.649,
           "length_stops": 0,
           "successes": 13,
           "successful_tasks_s_completed_requests": 0.2513128642749943,
@@ -261,6 +315,8 @@
           "completed_request_wall_s": 15.428932838,
           "completion_tokens": 761,
           "final_text_present": 4,
+          "gpu_energy_j_lower": 3009.737,
+          "gpu_energy_j_upper": 4762.642,
           "length_stops": 0,
           "successes": 14,
           "successful_tasks_s_completed_requests": 0.9073861521724514,
@@ -481,6 +537,7 @@
           "top_k": 20,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-55c39c010a375967005d3e9ef85275af15a398f50c6eb3e8332cf55a94b9ce2c",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -505,6 +562,8 @@
           "completed_request_wall_s": 275.414822408,
           "completion_tokens": 21716,
           "final_text_present": 16,
+          "gpu_energy_j_lower": 77154.497,
+          "gpu_energy_j_upper": 78998.241,
           "length_stops": 1,
           "successes": 14,
           "successful_tasks_s_completed_requests": 0.050832413003757564,
@@ -522,6 +581,8 @@
           "completed_request_wall_s": 39.735576887,
           "completion_tokens": 2718,
           "final_text_present": 5,
+          "gpu_energy_j_lower": 10179.587,
+          "gpu_energy_j_upper": 12079.984,
           "length_stops": 0,
           "successes": 12,
           "successful_tasks_s_completed_requests": 0.30199637051012473,
@@ -742,6 +803,7 @@
           "top_k": 20,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-895f851c9a05ebf887ff2720c76e32206bbc44f99e31b601e4a2139fdc99fee3",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -766,6 +828,8 @@
           "completed_request_wall_s": 139.844509931,
           "completion_tokens": 10964,
           "final_text_present": 16,
+          "gpu_energy_j_lower": 38451.824,
+          "gpu_energy_j_upper": 40312.641,
           "length_stops": 0,
           "successes": 12,
           "successful_tasks_s_completed_requests": 0.08580958956430153,
@@ -783,6 +847,8 @@
           "completed_request_wall_s": 37.121657838,
           "completion_tokens": 2503,
           "final_text_present": 7,
+          "gpu_energy_j_lower": 8975.144,
+          "gpu_energy_j_upper": 10840.714,
           "length_stops": 0,
           "successes": 12,
           "successful_tasks_s_completed_requests": 0.32326142470167557,
@@ -1003,6 +1069,7 @@
           "top_k": 20,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-a9f7e66a82f6202d535f7491384767a14b7db12e6c787786df994de75142da92",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -1027,6 +1094,8 @@
           "completed_request_wall_s": 145.339624843,
           "completion_tokens": 11360,
           "final_text_present": 15,
+          "gpu_energy_j_lower": 40335.622,
+          "gpu_energy_j_upper": 42213.177,
           "length_stops": 1,
           "successes": 7,
           "successful_tasks_s_completed_requests": 0.04816305262629926,
@@ -1044,6 +1113,8 @@
           "completed_request_wall_s": 45.336913986,
           "completion_tokens": 3135,
           "final_text_present": 1,
+          "gpu_energy_j_lower": 11517.738,
+          "gpu_energy_j_upper": 13399.352,
           "length_stops": 0,
           "successes": 10,
           "successful_tasks_s_completed_requests": 0.2205708135116561,
@@ -1269,6 +1340,7 @@
           "top_k": 20,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-e0d1af3e684f133fde9c9df0ff310d3bcece321dfdaf9dcfe4df1e9522ec8c5e",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -1293,6 +1365,8 @@
           "completed_request_wall_s": 327.578638926,
           "completion_tokens": 25779,
           "final_text_present": 14,
+          "gpu_energy_j_lower": 92551.745,
+          "gpu_energy_j_upper": 94604.884,
           "length_stops": 2,
           "successes": 13,
           "successful_tasks_s_completed_requests": 0.03968512734109229,
@@ -1310,6 +1384,8 @@
           "completed_request_wall_s": 33.91245192,
           "completion_tokens": 2242,
           "final_text_present": 7,
+          "gpu_energy_j_lower": 8426.583,
+          "gpu_energy_j_upper": 10457.7,
           "length_stops": 0,
           "successes": 11,
           "successful_tasks_s_completed_requests": 0.3243646323760125,
@@ -1519,6 +1595,7 @@
           "seed": 1001,
           "temperature": 0
         },
+        "screening_configuration_id": "screening-config-eec00db88dcfa3e17fa958de15a41465ed1601e5a26d4a54ad4501fe842d6655",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -1543,6 +1620,8 @@
           "completed_request_wall_s": 64.93725960900001,
           "completion_tokens": 6098,
           "final_text_present": 16,
+          "gpu_energy_j_lower": 16087.204,
+          "gpu_energy_j_upper": 17841.445,
           "length_stops": 0,
           "successes": 15,
           "successful_tasks_s_completed_requests": 0.23099219293080653,
@@ -1560,6 +1639,8 @@
           "completed_request_wall_s": 14.623752884,
           "completion_tokens": 838,
           "final_text_present": 3,
+          "gpu_energy_j_lower": 2805.607,
+          "gpu_energy_j_upper": 4531.886,
           "length_stops": 0,
           "successes": 12,
           "successful_tasks_s_completed_requests": 0.8205827939782355,
@@ -1576,7 +1657,7 @@
       "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "6559318406c61ee8c2e1032f4eb4bfb544a25b53b3a40fe40a99a9ce77dec93c",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -1774,6 +1855,7 @@
           "seed": 1001,
           "temperature": 0
         },
+        "screening_configuration_id": "screening-config-1d42865a4b3685127bcbd09b6dc8c0a6e72600aee8bf1204cb243b17c54f5794",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -1782,17 +1864,60 @@
         },
         "warmup_requests": 4
       },
+      "date": "2026-10-24T21:08:34.997295+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R502",
+      "independent_review_sha256": "de9061d3cf9d5b1542bed68e54c4f12a2b4ca69b040e255330a26a49d40a05d4",
       "local_artifact_available": true,
       "model": "Qwen3.8-27B",
       "parent_experiment_id": "R473",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 12454.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 1492.73025,
+          "GPU_j_per_success_upper": 1605.1528125,
+          "completed": 16,
+          "completed_request_wall_s": 89.031972242,
+          "completion_tokens": 2885,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 23883.684,
+          "gpu_energy_j_upper": 25682.445,
+          "length_stops": 0,
+          "successes": 16,
+          "successful_tasks_s_completed_requests": 0.1797107218574245,
+          "tokens_s_completed_requests": 32.40408953491686,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.8063923194655637,
+            1
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 811.7017692307692,
+          "GPU_j_per_success_upper": 949.1646923076922,
+          "completed": 16,
+          "completed_request_wall_s": 43.450667561,
+          "completion_tokens": 764,
+          "final_text_present": 3,
+          "gpu_energy_j_lower": 10552.123,
+          "gpu_energy_j_upper": 12339.141,
+          "length_stops": 0,
+          "successes": 13,
+          "successful_tasks_s_completed_requests": 0.29918987968940675,
+          "tokens_s_completed_requests": 17.583159083285135,
+          "valid_terminal_output": 13,
+          "wilson95": [
+            0.5699111903802586,
+            0.9340840092857187
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 132.500644243,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "c1a7d873cd05b2925811e4ef06efde1c1056e5fa7d7c1c2037ef9d34659707ef",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -1999,6 +2124,7 @@
           "top_k": 64,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-1304a92162789caaac5ada03c62c855e213b1293e3c3d2b68d37524500f2a45c",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -2007,17 +2133,60 @@
         },
         "warmup_requests": 2
       },
+      "date": "2026-10-24T21:12:00.666621+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R503",
+      "independent_review_sha256": "2e826b4289beb3b8fd38a91724688c55729249e3e59c557dd695ce02dfbcc66c",
       "local_artifact_available": true,
       "model": "Gemma4-12B",
       "parent_experiment_id": "R472",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 8128.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 907.9131428571428,
+          "GPU_j_per_success_upper": 1029.0434285714286,
+          "completed": 16,
+          "completed_request_wall_s": 57.288395713,
+          "completion_tokens": 3935,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 12710.784,
+          "gpu_energy_j_upper": 14406.608,
+          "length_stops": 0,
+          "successes": 14,
+          "successful_tasks_s_completed_requests": 0.24437758861561368,
+          "tokens_s_completed_requests": 68.68755794303142,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.639771727342413,
+            0.9650225122567595
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 136.9222142857143,
+          "GPU_j_per_success_upper": 255.97607142857143,
+          "completed": 16,
+          "completed_request_wall_s": 12.815634876,
+          "completion_tokens": 466,
+          "final_text_present": 5,
+          "gpu_energy_j_lower": 1916.911,
+          "gpu_energy_j_upper": 3583.665,
+          "length_stops": 0,
+          "successes": 14,
+          "successful_tasks_s_completed_requests": 1.092415641945135,
+          "tokens_s_completed_requests": 36.36183493903092,
+          "valid_terminal_output": 14,
+          "wilson95": [
+            0.639771727342413,
+            0.9650225122567595
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 70.120594692,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "e0bc7965bf9b4193b4d6a47c934663faea44c1dcb07500937da8c5f0e3dfa9fe",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -2226,6 +2395,7 @@
           "top_k": 20,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-89d46f4a13813c0c26c4122e45c4fa367a47e586b10f8394d00b40d347214e8a",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -2234,17 +2404,60 @@
         },
         "warmup_requests": 4
       },
+      "date": "2026-10-24T21:16:45.099593+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R504",
+      "independent_review_sha256": "1d7c418edeba12b15e5ad7af3fde77c9fa4d083d9e04ebea8bf010d5fb25fbae",
       "local_artifact_available": true,
       "model": "MiMo-9B",
       "parent_experiment_id": "R480",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 9188.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 1619.263,
+          "GPU_j_per_success_upper": 1772.794,
+          "completed": 16,
+          "completed_request_wall_s": 79.16284308200001,
+          "completion_tokens": 5657,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 17811.893,
+          "gpu_energy_j_upper": 19500.734,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.1389540796129033,
+          "tokens_s_completed_requests": 71.46029348819945,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 476.1469090909091,
+          "GPU_j_per_success_upper": 627.3834545454546,
+          "completed": 16,
+          "completed_request_wall_s": 26.183561683,
+          "completion_tokens": 1585,
+          "final_text_present": 6,
+          "gpu_energy_j_lower": 5237.616,
+          "gpu_energy_j_upper": 6901.218,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.42011091283818297,
+          "tokens_s_completed_requests": 60.53416334986545,
+          "valid_terminal_output": 11,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 105.363514769,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "15b1f86cbdc561077496b659a92808bbc811386bedae2246932068c506288c6f",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -2447,6 +2660,7 @@
           "top_k": 80,
           "top_p": 1.0
         },
+        "screening_configuration_id": "screening-config-c95787a399c9fd317e7552ef984e726fcc770b566e086d94cc020fc38d9ebb61",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -2455,17 +2669,60 @@
         },
         "warmup_requests": 1
       },
+      "date": "2026-10-24T21:21:58.513563+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R505",
+      "independent_review_sha256": "d08c18ec7b417a8186d2524d707372c17610fc10a0da48c66c414e4b3379ecd5",
       "local_artifact_available": true,
       "model": "LFM2.5-8B",
       "parent_experiment_id": "R476",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 7448.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 925.9827272727272,
+          "GPU_j_per_success_upper": 1060.9189090909092,
+          "completed": 16,
+          "completed_request_wall_s": 57.410959971,
+          "completion_tokens": 11245,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 10185.81,
+          "gpu_energy_j_upper": 11670.108,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.19160104630816888,
+          "tokens_s_completed_requests": 195.8685241577599,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 443.61790909090905,
+          "GPU_j_per_success_upper": 574.0803636363636,
+          "completed": 16,
+          "completed_request_wall_s": 29.420594416,
+          "completion_tokens": 5185,
+          "final_text_present": 7,
+          "gpu_energy_j_lower": 4879.797,
+          "gpu_energy_j_upper": 6314.884,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.3738877551032006,
+          "tokens_s_completed_requests": 176.23709183728138,
+          "valid_terminal_output": 11,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 86.852830793,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "c5a2970677678b185f3adf53e9be41cb4a5d5e5e508948ee688e93eb5931de8d",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -2668,6 +2925,7 @@
           "top_k": 50,
           "top_p": 1.0
         },
+        "screening_configuration_id": "screening-config-478fffcf2e7f388f83f2f791dbbaa798a1060e1fe8b6ebd1f0fd14a6439b24a5",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -2676,17 +2934,60 @@
         },
         "warmup_requests": 1
       },
+      "date": "2026-10-24T21:30:52.902537+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R506",
+      "independent_review_sha256": "7b92769344562f7dcef7803b4d2ddd1bdadb886b407a2179505e2680a0cf16f7",
       "local_artifact_available": true,
       "model": "LFM2.5-24B",
       "parent_experiment_id": "R477",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 13796.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 2240.3563846153847,
+          "GPU_j_per_success_upper": 2331.211307692308,
+          "completed": 16,
+          "completed_request_wall_s": 185.709724326,
+          "completion_tokens": 29953,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 29124.633,
+          "gpu_energy_j_upper": 30305.747,
+          "length_stops": 0,
+          "successes": 13,
+          "successful_tasks_s_completed_requests": 0.07000171933473683,
+          "tokens_s_completed_requests": 161.28934609487476,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.5699111903802586,
+            0.9340840092857187
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 845.5285,
+          "GPU_j_per_success_upper": 963.4309,
+          "completed": 16,
+          "completed_request_wall_s": 55.726972467,
+          "completion_tokens": 7582,
+          "final_text_present": 5,
+          "gpu_energy_j_lower": 8455.285,
+          "gpu_energy_j_upper": 9634.309,
+          "length_stops": 0,
+          "successes": 10,
+          "successful_tasks_s_completed_requests": 0.17944631759641577,
+          "tokens_s_completed_requests": 136.05619800160244,
+          "valid_terminal_output": 10,
+          "wilson95": [
+            0.38641040545502714,
+            0.8151876744113636
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 241.464198521,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "fded363bc68976cb8b1d97d16d52c1dec3bb8bb42a1b485d91ff4dec49b8ac8d",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -2894,6 +3195,7 @@
           "top_k": 20,
           "top_p": 0.8
         },
+        "screening_configuration_id": "screening-config-154d3f063690166ef43fa2d9b475de65391faf61d8616a63d2b84d760b0477af",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -2902,17 +3204,60 @@
         },
         "warmup_requests": 1
       },
+      "date": "2026-10-24T21:38:42.195001+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R507",
+      "independent_review_sha256": "21d5129f9437d6035eac4b26ae90e594d658630c6166d6f0a47c6ed94cd57e34",
       "local_artifact_available": true,
       "model": "Qwen3.6-27B",
       "parent_experiment_id": "R492",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 12766.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 2821.360857142857,
+          "GPU_j_per_success_upper": 2951.427714285714,
+          "completed": 16,
+          "completed_request_wall_s": 147.500644822,
+          "completion_tokens": 3964,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 39499.052,
+          "gpu_energy_j_upper": 41319.988,
+          "length_stops": 0,
+          "successes": 14,
+          "successful_tasks_s_completed_requests": 0.09491483930049825,
+          "tokens_s_completed_requests": 26.87445878479822,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.639771727342413,
+            0.9650225122567595
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 1144.5365714285715,
+          "GPU_j_per_success_upper": 1278.3473571428572,
+          "completed": 16,
+          "completed_request_wall_s": 61.048389781,
+          "completion_tokens": 694,
+          "final_text_present": 7,
+          "gpu_energy_j_lower": 16023.512,
+          "gpu_energy_j_upper": 17896.863,
+          "length_stops": 0,
+          "successes": 14,
+          "successful_tasks_s_completed_requests": 0.22932627789565713,
+          "tokens_s_completed_requests": 11.368031204256146,
+          "valid_terminal_output": 14,
+          "wilson95": [
+            0.639771727342413,
+            0.9650225122567595
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 208.575632234,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "da2e0b26bdb5cce3032b048b13bf8a4c6bbd1fe5120ccf6b7447df243c024f30",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -3124,6 +3469,7 @@
           "top_k": 20,
           "top_p": 0.95
         },
+        "screening_configuration_id": "screening-config-0b7dc4a06e1e28010bf89952b3c3be5d7e7ba098c070578d5135526e44648987",
         "task_time_policy": {
           "cleanup_seconds": 60,
           "startup_seconds": 180,
@@ -3132,14 +3478,57 @@
         },
         "warmup_requests": 4
       },
+      "date": "2026-10-24T21:48:51.017314+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R508",
+      "independent_review_sha256": "5ce96cdc8da904ffc67a244d8b460d4567ffe886b6cab0f987dd76b65fc295d6",
       "local_artifact_available": true,
       "model": "Bonsai2-27B",
       "parent_experiment_id": "R475",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 8158.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 8961.988166666666,
+          "GPU_j_per_success_upper": 9119.1265,
+          "completed": 16,
+          "completed_request_wall_s": 393.30735144700003,
+          "completion_tokens": 21332,
+          "final_text_present": 14,
+          "gpu_energy_j_lower": 107543.858,
+          "gpu_energy_j_upper": 109429.518,
+          "length_stops": 2,
+          "successes": 12,
+          "successful_tasks_s_completed_requests": 0.030510489966310877,
+          "tokens_s_completed_requests": 54.237480996778636,
+          "valid_terminal_output": 14,
+          "wilson95": [
+            0.5050168346449122,
+            0.8981793250878696
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 1127.285076923077,
+          "GPU_j_per_success_upper": 1269.985846153846,
+          "completed": 16,
+          "completed_request_wall_s": 59.639571464999996,
+          "completion_tokens": 2135,
+          "final_text_present": 4,
+          "gpu_energy_j_lower": 14654.706,
+          "gpu_energy_j_upper": 16509.816,
+          "length_stops": 0,
+          "successes": 13,
+          "successful_tasks_s_completed_requests": 0.2179760799862414,
+          "tokens_s_completed_requests": 35.79837929004811,
+          "valid_terminal_output": 13,
+          "wilson95": [
+            0.5699111903802586,
+            0.9340840092857187
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 452.966795712,
+      "timeouts": 0
     }
   ],
   "schema": 1,

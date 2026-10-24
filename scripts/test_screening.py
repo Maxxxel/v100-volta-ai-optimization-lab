@@ -1,5 +1,5 @@
 import copy,json,unittest
-from screening import validate,wilson,render
+from screening import validate,wilson,render,project_group
 class ScreeningTests(unittest.TestCase):
  def fixture(self):
   group={'successes':12,'completed':16,'wilson95':wilson(12,16),'completed_request_wall_s':10.,'completion_tokens':100,'GPU_j_per_success_lower':5.}
@@ -10,7 +10,7 @@ class ScreeningTests(unittest.TestCase):
   with self.assertRaises(AssertionError):validate(d)
  def test_no_missing_to_zero(self):
   d=self.fixture();d['rows'][0]['results']=None;validate(d);self.assertIn('NOT MEASURED',render(d))
- def test_no_duplicate_checkpoint(self):
+ def test_no_duplicate_configuration(self):
   d=self.fixture();d['rows'].append(copy.deepcopy(d['rows'][0]))
   with self.assertRaises(AssertionError):validate(d)
  def test_wrong_counts_or_intervals_rejected(self):
@@ -28,3 +28,15 @@ class PublishedSeparation(unittest.TestCase):
   root=Path(__file__).resolve().parents[1]
   history=json.loads((root/'data/configuration-history.json').read_text())
   self.assertFalse(any(r.get('benchmark_id')=='model-screening32-v1' for r in history['runs']))
+
+class EnergyCosts(unittest.TestCase):
+ def test_zero_success_group_retains_measured_energy(self):
+  g=project_group({'successes':0,'completed':16,'GPU_counter':{'lower_j':100,'upper_j':120}})
+  self.assertEqual(g['gpu_energy_j_lower'],100);self.assertIsNone(g['GPU_j_per_success_lower'])
+ def test_unknown_energy_is_not_zero(self):
+  g=project_group({'successes':10,'completed':16})
+  self.assertIsNone(g['gpu_energy_j_lower'])
+
+class ConfigurationIdentity(unittest.TestCase):
+ def test_same_weights_distinct_runtime_profiles_remain_separate(self):
+  d=ScreeningTests().fixture();other=copy.deepcopy(d['rows'][0]);other['configuration']['parent_profile_id']='different-actual-native-profile';d['rows'].append(other);validate(d)
