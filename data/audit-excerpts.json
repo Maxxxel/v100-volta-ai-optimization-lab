@@ -173479,6 +173479,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 132,
+          "tasks": 164,
+          "wall_s": 492.064461986
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0725b527fc77fa0b1bc3",
+    "original_bytes": 11311,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session OmniCoder 9B Q6_K native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252741,6 +252766,53 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-34f4d8b5047955f594d1",
+    "original_bytes": 143446,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "34f4d8b5047955f594d1397be9f0b59cfaeb8c356dc8f90930db3eec86c7e9e4",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 132,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0ff7da6021c2e2dcdcae",
+    "original_bytes": 3623,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0ff7da6021c2e2dcdcae5ffa5fa472aab5055a988f4c2b5262a2fa9b931e7b08",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 132,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1cfdaa130b39ebaed9a2",
+    "original_bytes": 8625,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1cfdaa130b39ebaed9a20489f0f177e19135e9ae061f77afa7563518e637667e",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252946,6 +253018,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "637e9cd6a48aadaa1a0d0e0908c93b99a10daee5352518486324b65bed5d6121",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-5c53f00a0d134de838bf",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5c53f00a0d134de838bf18fd7d22c6f22cec5e7e0b5369b2398c753472bd6044",
     "statements": {}
   },
   {
