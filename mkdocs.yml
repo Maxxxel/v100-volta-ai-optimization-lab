@@ -40,8 +40,9 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
-  - stylesheets/lab.css?v=61e22c93b26bb81f
+  - stylesheets/lab.css?v=a86370ccd29b341b
 extra_javascript:
+  - javascripts/screening.js?v=7af8f50daa3611bf
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
   - assets/benchmarks/leaderboard-data.js?v=8f0a8334c3bd78b1
@@ -51,6 +52,7 @@ extra:
   generator: false
 nav:
   - Overview: index.md
+  - Screening: screening.md
   - Benchmarks: configuration-comparison.md
   - Research archive:
       - Archive overview: archive.md

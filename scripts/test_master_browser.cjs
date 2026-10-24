@@ -177,6 +177,20 @@ async function main(){
   assert(await page.locator('details.lab-evidence').count()>0);
   assert.equal(await page.locator('details.lab-evidence[open]').count(),0);
   report.checks.push('desktop/mobile overview exposes evidence-backed KPIs and three category cards without overflow; archive routes work and structured experiment evidence is collapsed, not deleted');
+  for(const [name,tab] of [['desktop',page],['mobile',mobile]]){
+   await tab.goto(new URL('screening/',base).href,{waitUntil:'networkidle'});
+   const rows=tab.locator('#screening-table tbody tr');assert(await rows.count()>=13);
+   const omni=rows.filter({has:tab.locator('td:first-child',{hasText:/^OmniCoder-9B$/})});
+   assert.match(await omni.innerText(),/13\/16/);assert.match(await omni.innerText(),/14\/16/);
+   const all=await rows.count();await tab.locator('#screening-search').fill('OmniCoder');
+   assert.equal(await tab.locator('#screening-table tbody tr:visible').count(),1);
+   await tab.locator('#screening-search').fill('');assert.equal(await tab.locator('#screening-table tbody tr:visible').count(),all);
+   await tab.locator('#screening-table thead button').first().click();
+   await omni.locator('summary').click();assert.match(await omni.innerText(),/b0c1664c86338be2/);await omni.locator('summary').click();
+   const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+2);
+   await tab.screenshot({path:path.join(artifacts,name+'-screening.png'),animations:'disabled',fullPage:true});
+  }
+  report.checks.push('separate screening preserves13 native profiles,16+16 development scores, search/sort/details and responsive layout; official rankings remain unchanged');
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
  process.stdout.write(JSON.stringify(report)+'\n');

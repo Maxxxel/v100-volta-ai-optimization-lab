@@ -6,4 +6,4 @@ Aktueller Stand: Revision 435, 130 Originalachsen + 32 Zusatztechniken, 113 expe
 
 Die englischen Hauptseiten enthalten Methodik, Faktoren, Originalaudit-Hashes, qualifizierte Profile und Negativbefunde. Einige genaue Begründungen bleiben in ihrer ursprünglichen deutschen Sprache. Fehlende Messwerte heißen NOT MEASURED. Private Aufgaben, Logs, Infrastruktur und Gewichte werden nicht veröffentlicht; exakte öffentliche Reproduzierbarkeit ist deshalb bei privaten Suites begrenzt.
 
-Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell haben die regulären Modellbenchmarks Vorrang: technisch ausführbare Kandidaten werden nicht durch eigene QA-Vortests ausgeschlossen. Detailoptimierungen folgen nach der vergleichbaren Auswertung, Kombinationen zuletzt. Die bestehenden Schutzmechanismen bleiben verbindlich.
+Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: gemeinsames Entwicklungsscreening → offizielle Qualifikation → gezielte Optimierung → Bestätigung. Kleine Screeningunterschiede führen zu keiner automatischen Qualitätsaussortierung. Die bestehenden Schutzmechanismen bleiben verbindlich.

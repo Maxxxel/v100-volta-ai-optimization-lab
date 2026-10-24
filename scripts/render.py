@@ -154,6 +154,10 @@ def main():
 
 <div class="lab-kpis"><div><strong>162</strong><span>Research factors</span><small>130 original + 32 techniques</small></div><div><strong>{counts['experimentally_covered']}</strong><span>Experimentally covered</span><small>Factors, not GPU run count</small></div><div><strong>{counts['scientific_status']['QUALIFIED']}</strong><span>Qualified factor scopes</span><small>Workload-specific evidence</small></div><div><strong>16 GB</strong><span>HBM2 on one V100</span><small>One GPU benchmark at a time</small></div></div>
 
+## Research pipeline
+
+[Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
+
 ## Model comparison
 
 <div class="lab-results">{''.join(cards)}</div>
@@ -393,7 +397,7 @@ Aktueller Stand: Revision {s['matrix_revision']}, 130 Originalachsen + 32 Zusatz
 
 Die englischen Hauptseiten enthalten Methodik, Faktoren, Originalaudit-Hashes, qualifizierte Profile und Negativbefunde. Einige genaue Begründungen bleiben in ihrer ursprünglichen deutschen Sprache. Fehlende Messwerte heißen NOT MEASURED. Private Aufgaben, Logs, Infrastruktur und Gewichte werden nicht veröffentlicht; exakte öffentliche Reproduzierbarkeit ist deshalb bei privaten Suites begrenzt.
 
-Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell haben die regulären Modellbenchmarks Vorrang: technisch ausführbare Kandidaten werden nicht durch eigene QA-Vortests ausgeschlossen. Detailoptimierungen folgen nach der vergleichbaren Auswertung, Kombinationen zuletzt. Die bestehenden Schutzmechanismen bleiben verbindlich.
+Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: gemeinsames Entwicklungsscreening → offizielle Qualifikation → gezielte Optimierung → Bestätigung. Kleine Screeningunterschiede führen zu keiner automatischen Qualitätsaussortierung. Die bestehenden Schutzmechanismen bleiben verbindlich.
 ''')
  changelog=P/'CHANGELOG.md'
  entry='## Audited research checkpoint '+max((e['id'] for e in es),key=lambda x:int(x[1:]))+' / '+read('comparison.json')['measurement_fingerprint'][:12]
@@ -404,9 +408,11 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell haben die 
  # Content-addressed asset URLs prevent mixed old/new table code or datasets.
  # Unrelated matrix changes do not invalidate unchanged benchmark assets.
  config=P/'mkdocs.yml';configuration=config.read_text()
- for asset in ['stylesheets/lab.css','assets/benchmarks/leaderboard-data.js','javascripts/master-table.js','javascripts/leaderboard.js']:
+ for asset in ['stylesheets/lab.css','assets/benchmarks/leaderboard-data.js','javascripts/master-table.js','javascripts/leaderboard.js','javascripts/screening.js']:
   version=hashlib.sha256((D/asset).read_bytes()).hexdigest()[:16]
   configuration=re.sub(r'(?m)^(\s*-\s+)'+re.escape(asset)+r'(?:\?v=\S+)?$',lambda m:m.group(1)+asset+'?v='+version,configuration)
  config.write_text(configuration)
+ from screening import render as render_screening
+ put('screening.md',render_screening(read('screening.json')))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
 if __name__=='__main__':main()
