@@ -25051,6 +25051,12 @@
       "proof_path": "staging/r486/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "75a7ce17d9b90fd56b8573bbe5aec5c83c3f271ec68e4348f35ac16a32c3b68c",
       "source_audit_hash": "82fa3745132d538d00df05cdb34302a999897fc9febae953809b2fd601be9691"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r488/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "97187bbca62a7d70ab87cb5edb550a9d5ecb71a378f45938b1c0befb1f11a070",
+      "source_audit_hash": "ec11a07b084793cfae3bea8ddde61d1749630a1e81deff2584878e51c2f56ace"
     }
   ],
   "pipeline_method_reviews": [

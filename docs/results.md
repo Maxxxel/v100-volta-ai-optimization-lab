@@ -410,6 +410,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R485](experiments/R485.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | omni_opus_distill9b_q6 |
 | [R486](experiments/R486.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | omni_opus_distill9b_q6 |
 | [R487](experiments/R487.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus9B Q6_K · controlled Thinking development |
+| [R488](experiments/R488.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | nexus_q6 |
 
 
 ## Historical signed windows

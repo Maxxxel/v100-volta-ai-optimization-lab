@@ -173853,6 +173853,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 130,
+          "tasks": 164,
+          "wall_s": 460.929598155
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ec11a07b084793cfae3b",
+    "original_bytes": 11345,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ec11a07b084793cfae3bea8ddde61d1749630a1e81deff2584878e51c2f56ace",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Nexus 9B CodeCore Merge Q6_K native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -253850,6 +253875,68 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a071df05188b185d455a",
+    "original_bytes": 143473,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a071df05188b185d455afd9163e93f8efbab2f6dc6a1e5f3b925bf93b68aa4ad",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 130,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ba949abf5ec97fefd62e",
+    "original_bytes": 3627,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ba949abf5ec97fefd62eccf5cc0a67bff67fdfed0d21e7a035f708ab5f51fbff",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-72595d1cfa8245c61284",
+    "original_bytes": 6430,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "72595d1cfa8245c61284d59d51c78e3c8b429cff5fa245c686d9c3b1a9ff3b21",
+    "statements": {
+      "scope": "Exactly164 completed coding requests and130 successes. Includes failed completed tasks/setup; excludes load/warmup/CPU and any unfinished trailing request. Prefix counters never claim full-session or full164 task energy. Missing power-integral energy stays unknown."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 130,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-97187bbca62a7d70ab87",
+    "original_bytes": 8782,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "97187bbca62a7d70ab87cb5edb550a9d5ecb71a378f45938b1c0befb1f11a070",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -254449,6 +254536,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "ce32eed77153282b01c9ad3dab34649dc56aa1cfd0278e669e0f24815fad6dde",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-b1982f59be6097043890",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b1982f59be6097043890060d83afb09fd13a3140679a96e35cc9435a6070e0d8",
     "statements": {}
   },
   {
