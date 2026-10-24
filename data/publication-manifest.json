@@ -1983,7 +1983,7 @@
   "docs/supplemental-comparison.md": "a08953edd2e1dbfa2300e193c95057abec8b8e17387f740b947a1fa8fd1b40fd",
   "docs/weight-integrity-same-quantizer.md": "82c609c8ed15f1b03772f4fce3d1a9ea9f5dd0b1235ad19e98379f30c256a22d",
   "docs/weight-integrity.md": "c22b19e3628725a4dcfc335b6b7c680fc0d4f37863e8498a08cbd6454d525a4a",
-  "mkdocs.yml": "a0cd8c812d223c2fa9ce81fd381da4fcf094121b073f52ac73ae7e35df5cd168",
+  "mkdocs.yml": "0ee0f7249e41116f1907ea09f116dae0c7b7dfee55dc15fc74d5dfee55b934ff",
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
   "scripts/comparison.py": "9c8263fb9650dc72fa4f1c628023cc1a6146a77851ae9c6bd90678736ab1a138",
   "scripts/derivatives.py": "36e8176c7387c4ba94cbb9de7a01732465843fe80de7af402907eeec38582a5d",
