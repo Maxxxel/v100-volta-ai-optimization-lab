@@ -24688,6 +24688,12 @@
       "proof_path": "staging/r458/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "a5e7e78fd92f649e322ac1c5f24cc633684a080c0f9bc39cd3b03625dce28c5e",
       "source_audit_hash": "741a72d732ef6339d7ea322715160c357714730317e6d8dbf15db01951ec2078"
+    },
+    {
+      "evaluated_task_set_hash": "284fd37e027916e261462b977d9ff61dd129fcade6566a94c709c3430ac1e836",
+      "proof_path": "staging/r461/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "9462fe94950839a9759db3c911fe1e817ce94ff5bc49f5ee9e0963cdd8615fc9",
+      "source_audit_hash": "0fd16b56140c632f41c1fd053713c4e3dfbf5e1bb04e6c25f348bba21eb395c8"
     }
   ],
   "publisher_claims": [

@@ -10,6 +10,16 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Qwen3.5 native full category keeps actual Q4 profile and400-task energy identity', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R461');assert(r&&r.official_eligible);
+  assert.equal(r.solved,372);assert.equal(r.tasks,400);assert.equal(r.gpu_j,null);
+  assert.equal(r.counter_energy.tasks,400);assert.equal(r.counter_energy.solved,372);
+  assert.equal(r.counter_energy.j_per_success_lower,r.counter_energy.lower_j/372);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.max_output'],4096);
+  assert.equal(row.values['model.quantization'],'Q4_K_M');
+  assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s,335.993795138);
+});
 test('Ornith native coding prefix remains partial with exact93-task energy scope', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R460');assert(r);
   assert.equal(r.solved,85);assert.equal(r.tasks,93);assert.equal(r.intended_tasks,164);
