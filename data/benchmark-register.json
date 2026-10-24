@@ -25093,6 +25093,12 @@
       "proof_path": "staging/r495/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "d8e508ea828adb2ad963dbff08aa1b6a73d032589bdc33486698aa3ca8edd50f",
       "source_audit_hash": "1789af9fe3f495e767c367a7237b1f05805b433f4ba371a77b2a901747d9ec32"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r496/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "90b9a40659696e7293c124efa551a1e401e52ac044380e4248fab3df652f07fb",
+      "source_audit_hash": "5c2cfcc885de4a09e78f7f8067f2b744b5b8abb9717be8e4db55a3f51854518a"
     }
   ],
   "paired_coding_reviews": [

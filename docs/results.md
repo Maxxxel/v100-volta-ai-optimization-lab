@@ -418,6 +418,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R493](experiments/R493.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | slopus9b_q6 |
 | [R494](experiments/R494.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | slopus9b_q6 |
 | [R495](experiments/R495.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_q6 |
+| [R496](experiments/R496.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_q6 |
 
 
 ## Historical signed windows

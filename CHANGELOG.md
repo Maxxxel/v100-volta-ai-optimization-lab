@@ -863,3 +863,7 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 R495: record the fixed Ornith OFF/T0 full164 result. Publish source-bound official-task pass/fail booleans for replaying the frozen nine-profile coding-overlap study. Correct the copied R494 Slopus display description through a nonrewriting provenance annotation; original profiles, run records, scores and model bytes remain unchanged. No GPU or admission-policy changes.
+
+## Audited research checkpoint R496 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

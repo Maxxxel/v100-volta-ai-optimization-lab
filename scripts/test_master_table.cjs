@@ -919,3 +919,11 @@ test('Ornith OFF/T0 full117/164 has its real Q6 artifact and cannot borrow ON171
  const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);assert.equal(row.values['model.name'],'Ornith 1.5 9B');assert.equal(row.profile.model.artifact_sha256,'b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a');
  assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);assert(!row.runs.some(x=>['R460','R479'].includes(x.experiment_id)));
 });
+
+
+test('Ornith OFF/T0 full170/200 joins117/164 coding, preserves unknown checkpoint variant and excludes ON tools',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R496'&&r.counter_energy);assert(r&&r.official_eligible);assert.equal(r.tasks,200);assert.equal(r.solved,170);assert.equal(r.counter_energy.j_per_success_lower,865.7229470588236);assert.equal(r.counter_energy.j_per_success_upper,866.4175647058823);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row&&row.runs.some(x=>x.experiment_id==='R495'));assert(!row.runs.some(x=>x.experiment_id==='R479'));assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);
+ const cfg=data.history.profiles.find(p=>p.runtime_configuration_id===r.runtime_configuration_id);assert.equal(cfg.model.variant,null);assert.equal(cfg.model.artifact_sha256,'b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a');
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.count,2);assert.equal(mean.total,3);assert(Math.abs(mean.score-(117/164*100+85)/2)<1e-12);const cost=M.performanceSummary(row,mean.keys,v.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,287);assert.equal(cost.peak_vram_gib,7356.5/1024);
+});
