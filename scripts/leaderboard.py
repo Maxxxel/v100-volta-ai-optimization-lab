@@ -340,6 +340,36 @@ def reviewed_counter_measurement(source,out,ids,solved,receipt,kind='native_tool
  if not aid:raise ValueError('Counter supplement audit unavailable')
  return {**claimed,'audit_id':aid}
 
+def native_tool_coverage(ids,planned,contract_ids,a,bench):
+ if bench['required_task_count']!=400 or len(planned)!=400 or H(sorted(planned))!=bench['expected_task_ids_hash'] or contract_ids!=planned or not ids or ids!=planned[:len(ids)] or len(set(ids))!=len(ids):
+  raise ValueError('Native tool missing or repeated tasks')
+ partial=a.get('full_benchmark_score_claimed') is False and a.get('status')=='STOPPED_USER_TASK_TIME_BUDGET'
+ full=len(ids)==400 and H(sorted(ids))==bench['expected_task_ids_hash']
+ if a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or (not partial and (not full or a.get('full_benchmark_score_claimed') is not True)) or (partial and (full or not 1<=len(ids)<400)):
+  raise ValueError('Native tool category not complete or scope inconsistent')
+ return partial
+
+def verify_native_tool_prefix(stage,out,gpu,contract,rows,count):
+ """Validate retained deadline evidence without claiming controller success."""
+ proof_path=out/'POST_STOP_CAPTURE.json';proof=read(proof_path)
+ if proof.get('kind')!='POST_STOP_PARTIAL_COLLECTION_INTEGRITY_RECEIPT' or proof.get('derived_hash_manifest') is not True or proof.get('full_score_or_successful_GPU_completion_claimed') is not False or proof.get('source_controller_completion_available') is not False or proof.get('GPU_reruns')!=0 or proof.get('model_queries')!=0 or proof.get('native_tool_complete_responses')!=count or proof.get('expected_tasks')!=400:
+  raise ValueError('Native tool prefix lacks explicit partial integrity review')
+ if (out/'HOST_COMPLETION.json').exists() or gpu.get('partial_collection') is not True or gpu.get('execution_uid')!=65534 or read(out/'LAUNCH.json').get('uid')!=65534:
+  raise ValueError('Native tool prefix cannot fabricate full execution')
+ for name,h in proof['original_files_sha256'].items():
+  if digest(out/name)!=h:raise ValueError('Native tool prefix original capture changed')
+ journal=stage/'TIMEOUT_JOURNAL.jsonl'
+ if digest(journal)!=proof['timeout_journal_sha256']:raise ValueError('Native tool prefix timeout journal changed')
+ text=(out/'CT_STDOUT.log').read_text();messages=[r.get('MESSAGE','') for r in map(json.loads,journal.read_text().splitlines())]
+ deadline=any(line.strip()=='TimeoutError: Own native task deadline' for line in text.splitlines()) or any(line.strip()=='RuntimeError: Pure task1200s budget exhausted' for message in messages for line in message.splitlines())
+ if not deadline:raise ValueError('Native tool prefix lacks observed task deadline')
+ events=[json.loads(line[len('TASK_EVENT '):]) for line in text.splitlines() if line.startswith('TASK_EVENT ')]
+ if events!=[r for r in rows if r.get('kind') in ('warmup','native_tool')]:raise ValueError('Native tool prefix differs from privileged event stream')
+ tele=[json.loads(line) for line in (out/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+ if not tele or not any(t['processes'] and t['device_vram_bytes']>2**30 for t in tele) or any(t['ecc_uncorrected']!=0 or t['temperature_c']>=contract['temperature_c'] or t['power_limit_w']!=contract['power_w'] or t['device_vram_bytes']>contract['vram_mib']*2**20 or t['clock_throttle_event_mask']&0xe8 or len(t['processes'])>1 for t in tele):
+  raise ValueError('Native tool prefix hardware evidence invalid')
+ return proof_path
+
 def native_tool_run(root,source,cfg,bench,receipt):
  """One native BFCL category, bound to original inputs, responses and CPU receipts."""
  if source.get('benchmark_id')!='bfcl-v4-simple-python-full400':return None
@@ -350,8 +380,12 @@ def native_tool_run(root,source,cfg,bench,receipt):
  if cfg['source_plan_sha256']!=a['campaign_plan_sha256'] or len(a['parts'])!=1 or a['model_starts']!=1:raise ValueError('Native tool single-session evidence missing')
  part=a['parts'][0];gp=pathlib.Path(part['audit_path']);out=gp.parent
  if digest(gp)!=part['audit_sha256']:raise ValueError('Native tool GPU audit changed')
- gpu=read(gp);completion=read(out/'HOST_COMPLETION.json');pins=read(out/'RAW_HASHES.json');native=read(out/'profile.json');launch=read(out/'LAUNCH.json');contract=read(out/'CONTRACT.json')
- if completion['status']!='GPU_COMPLETE_AUDITED' or completion['audit_sha256']!=digest(gp) or gpu.get('measurement_valid') is not True or gpu.get('GPU_execution_observed') is not True:raise ValueError('Native tool GPU execution not proven')
+ gpu=read(gp);pins=read(out/'RAW_HASHES.json');native=read(out/'profile.json');launch=read(out/'LAUNCH.json');contract=read(out/'CONTRACT.json')
+ partial=a.get('full_benchmark_score_claimed') is False and a.get('status')=='STOPPED_USER_TASK_TIME_BUDGET'
+ if gpu.get('measurement_valid') is not True or gpu.get('GPU_execution_observed') is not True:raise ValueError('Native tool GPU execution not proven')
+ if not partial:
+  completion=read(out/'HOST_COMPLETION.json')
+  if completion['status']!='GPU_COMPLETE_AUDITED' or completion['audit_sha256']!=digest(gp):raise ValueError('Native tool GPU execution not proven')
  for name in ('HTTP_RESULTS.jsonl','profile.json','LAUNCH.json','CONTRACT.json'):
   if digest(out/name)!=pins[name]:raise ValueError('Native tool raw identity changed')
  verify_broker_capture(cfg,native,launch)
@@ -366,9 +400,9 @@ def native_tool_run(root,source,cfg,bench,receipt):
  for name,key in [('quality_eval_frozen.py','frozen_checker_adapter_sha256'),('BFCL_ANALYSIS_SUBSET.tar','frozen_checker_bundle_sha256')]:
   if digest(root/'staging/r281'/name)!=bench['scorer_version'][key]:raise ValueError('Native tool unreviewed checker')
  cases={x['id']:x for x in native['selected_task_inputs']['cases']};rows=[json.loads(l) for l in (out/'HTTP_RESULTS.jsonl').read_text().splitlines()];answers=[x for x in rows if x.get('kind')=='native_tool'];ids=[x['id'] for x in answers]
- if ids!=contract['parameters']['task_ids'] or ids!=campaign['expected_task_ids'] or len(set(ids))!=len(ids):raise ValueError('Native tool missing or repeated tasks')
- full=len(ids)==bench['required_task_count'] and H(sorted(ids))==bench['expected_task_ids_hash']
- if not full or a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or a['full_benchmark_score_claimed'] is not True:raise ValueError('Native tool category not complete')
+ planned=campaign['expected_task_ids']
+ if native_tool_coverage(ids,planned,contract['parameters']['task_ids'],a,bench)!=partial:raise ValueError('Native tool partial classification differs')
+ prefix_proof=verify_native_tool_prefix(stage,out,gpu,contract,rows,len(ids)) if partial else None
  original_cases={x['id']:x for x in read(dataset['tasks_file'])['tasks']};original_tools={x['id']:x for x in read(dataset['tools_file'])['tasks']}
  for r in answers:
   case=cases[r['id']];original=original_cases[r['id']];tools=original_tools[r['id']]
@@ -403,11 +437,14 @@ def native_tool_run(root,source,cfg,bench,receipt):
  wall=sum(costs[i]['e2e_s'] for i in ids);energy=sum(costs[i]['gpu_energy_j'] for i in ids) if all(finite(costs[i].get('gpu_energy_j')) and costs[i].get('energy_complete') is True for i in ids) else None
  if not math.isclose(wall,gpu['case_inference_wall_s'],rel_tol=1e-10) or energy!=gpu['case_gpu_energy_j']:raise ValueError('Native tool aggregate metrics mismatch')
  audits=[receipt(ap,digest(ap)),receipt(gp,digest(gp))]
+ if prefix_proof:audits.append(receipt(prefix_proof,digest(prefix_proof)))
  if not all(audits):raise ValueError('Native tool audit unavailable')
  result={'record_schema_version':SCHEMA,'benchmark_id':bench['benchmark_id'],'benchmark_identity_id':definition_identity(bench),'benchmark_revision':bench['benchmark_revision'],'dataset_split_hash':bench['dataset_split_hash'],'evaluated_task_set_hash':H(sorted(ids)),'evaluated_task_ids':ids,'scorer_version':bench['scorer_version'],'model_artifact_id':cfg['model_artifact_id'],'runtime_configuration_id':cfg['runtime_configuration_id'],'experiment_id':a['experiment_id'],'audit_hash':digest(ap),'audit_ids':audits,'source_audit_hashes':[digest(ap),digest(gp)],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'discipline':'tools','tasks':len(ids),'solved':solved,'score_percent':100*solved/len(ids),'metric':bench['metric'],'wall_s':wall,'gpu_j':energy,'gpu_j_per_success':energy/solved if energy is not None and solved else None,'peak_vram_mib':gpu['peak_device_vram_mib'],'repeat_range':None,'date':a['at_utc'][:10],'status':'FULL_NATIVE_TOOLS_OFFICIAL_API_PENDING','status_reason':'Complete400 native Python category with identical independent CPU replay; official admission is separate.','official_eligible':False,'qualification_audit':None,'warning':'One official BFCL category, not BFCL overall. Practical protocol checks are separate from official AST. No publisher equivalence, unseen holdout, model superiority, causal optimization or Champion claim.','causal_optimization_proof':None,'practical_protocol':{'solved':a['practical_solved'],'valid':a['protocol_valid'],'complete':a['complete'],'tasks':len(ids)},'measurement_conditions':{'hardware':'Tesla V100-SXM2 16 GB HBM2','cache_condition':'Native completion-HTTP intervals; startup/warmup/CPU scoring excluded; per-request native caching in exact recipe.','date':a['at_utc'][:10],'output_cap':cfg['runtime']['max_output'],'sampling':cfg['runtime']['sampling'],'power_limit_w':cfg['runtime']['power_limit_w']}}
 
  counter=reviewed_counter_measurement(source,out,ids,solved,receipt)
  if counter:result["counter_energy"]=counter;result["audit_ids"].append(counter["audit_id"])
+ if partial:
+  result.update(status='PARTIAL',intended_tasks=400,full_benchmark_score_claimed=False,status_reason='Observed task-deadline prefix with identical independent CPU scoring. Unattempted tasks remain unknown; no full400 qualification or extrapolation.')
  return result
 
 def native_partial_run(root,source,cfg,bench,receipt):
@@ -1103,7 +1140,7 @@ def render(register,history,comparison,docs,model_registry=None):
    values=[e[path.removeprefix('engine.')] for review in register.get('engine_source_reviews',[]) for e in review['engines'] if all(p['engine'].get(k)==e[k] for k in ('build_id','binary_sha256','kernel_library_sha256'))]
   return values[0] if values else field(p,path)
  page+=table(['Recorded field','Profiles with a value','Profiles without a value'],[[path,sum(observed(p,path) is not None for p in measured_profiles),sum(observed(p,path) is None for p in measured_profiles)] for path in gap_paths])
- page+='Coverage counts above refer to the measured benchmark configurations shown in this table, excluding local-only supplemental profiles. **Engine-Version / Quellstand** shows a recorded release when available, otherwise the independently linked source-base commit plus local patch variant. A source revision is not an invented upstream release tag. Matching requires the build, server SHA256 and CUDA-library SHA256; shared executable bytes alone cannot establish identical kernels. Source receipts and patch lineage are linked in each profile; unknown historical release tags stay unknown. OmniCoder V1/V2 naming is unified as **OmniCoder 9B** in the display while immutable original labels and separate measured configurations are preserved. Additional column-picker fields expose pinned observed sampler/template controls and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.\n\n'
+ page+='Coverage counts above refer to immutable measured capture profiles before identical execution configurations are joined into comparison rows, excluding local-only supplemental profiles. A capture ID, audit hash or descriptive run label is not an inference parameter. Only broker-captured profiles with matching model bytes, engine/kernel builds, full ordered launch flags, runtime, optimization and observed sampling settings are joined. Tool-choice adapter settings remain attached to their benchmark evidence; conflicting tool settings remain separate. Unknown identities never establish equivalence. **Engine-Version / Quellstand** shows a recorded release when available, otherwise the independently linked source-base commit plus local patch variant. A source revision is not an invented upstream release tag. Matching requires the build, server SHA256 and CUDA-library SHA256; shared executable bytes alone cannot establish identical kernels. Source receipts and patch lineage are linked in each profile; unknown historical release tags stay unknown. OmniCoder V1/V2 naming is unified as **OmniCoder 9B** in the display while immutable original labels and separate measured configurations are preserved. Additional column-picker fields expose pinned observed sampler/template controls and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.\n\n'
  page+='Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.\n\n'
  page+='Prefill/decode/TTFT and other costs are shown only where the original run actually records them. Request wall time is not silently renamed total system latency. Performance columns are benchmark-specific, not pooled across unrelated tasks. CSV exports all filtered rows with the currently selected columns, complete identities and available audit links. CSV formula-like text is escaped.\n\nThe Top-5 analysis describes observed configurations and missing coverage. Suggested controlled A/B work is a research hypothesis, not a causal explanation, predicted speedup or automatic GPU authorization.\n\n[Immutable configuration history](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/configuration-history.json) · [Benchmark definitions and publisher evidence](benchmark-register.md) · [Original experiments](results.md)\n\n'
  page+='## Provenance gaps — excluded from reconstructed profiles\n\n'+table(['Experiment','Reason','Original audit'],[[g['experiment_id'],g['reason'],audit_links([g['audit_id']])] for g in history.get('provenance_gaps',[])])
@@ -1172,7 +1209,7 @@ def render(register,history,comparison,docs,model_registry=None):
   return '\n'.join('- '+' · '.join(label+': '+value.strip() for label,value in zip(head,line.strip('|').split('|'))) for line in rows)+'\n'
  details=page.partition('## Data coverage and missing fields')[2]
  details=re.sub(r'(?m)^\|[^\n]*\n(?:\|[^\n]*\n?)+',prose_table,details)
- page='# Model Comparison & Benchmark Results\n\nOne table for every measured configuration. Full and **PARTIAL** results share one column per benchmark family; every cell shows its actual **solved / evaluated** count and qualification. Missing values are never zero. Select a score to inspect its exact protocol, settings, runtime, energy and original audit.\n\nThe optional official-only filter excludes partial and unqualified results. The custom mean follows its selected exact protocols; partial task sets never silently enter the official mean. Different task subsets do not establish model superiority.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n<details>\n<summary>Scientific provenance, parameter coverage and reproduction</summary>\n\n'+details+'\n</details>\n'
+ page='# Model Comparison & Benchmark Results\n\nOne row per identical, evidenced inference configuration; different benchmark runs share that row. Run links are attached directly to each result. Original profile IDs, source hashes and benchmark protocols remain available in result details and CSV. Different weights, engine binaries, tuning or sampling settings remain separate. Full and **PARTIAL** results share one column per benchmark family; every cell shows its actual **solved / evaluated** count and qualification. Missing values are never zero. Select a score to inspect its exact protocol, settings, runtime, energy and original audit.\n\nThe optional official-only filter excludes partial and unqualified results. The custom mean follows its selected exact protocols; partial task sets never silently enter the official mean. Different task subsets do not establish model superiority.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n<details>\n<summary>Scientific provenance, parameter coverage and reproduction</summary>\n\n'+details+'\n</details>\n'
  write(docs/'configuration-comparison.md',page)
  archive='# Configuration archive\n\nPlans, configuration attempts and profiles without benchmark result records are preserved here, separately from the [measured-result master table](configuration-comparison.md). Execution evidence does not imply a scored benchmark or qualification.\n\n<div id="configuration-history"></div>\n\n## Profiles without benchmark result records\n\n'
  archive+=table(['Model','Immutable profile','Evidence'],[[p['model']['name'],'['+p['runtime_configuration_id'][:20]+'](configuration-profiles/'+p['runtime_configuration_id']+'.md)','No benchmark result in history.runs; inspect archived attempt evidence'] for p in history['profiles'] if p['runtime_configuration_id'] not in measured_ids])

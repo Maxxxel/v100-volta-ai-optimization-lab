@@ -202,7 +202,8 @@ test('exactly every measured configuration is shown and result-free profiles sta
 });
 test('every measured profile leaf, evidence field and startup flag has a selectable column', () => {
   const keys = new Set(model.columns.map(c => c.key));
-  for (const row of model.rows) for (const key of Object.keys(row.values)) assert(keys.has(key), key);
+  for (const row of model.rows) for (const key of Object.keys(row.values)) if(key !== 'evidence.experiments') assert(keys.has(key), key);
+  assert(!keys.has('evidence.experiments'), 'Run links belong to the result cell');
   for (const key of ['model.qat', 'model.svd', 'model.parameter_count', 'engine.version', 'engine.build_id',
     'optimizations.speculation_effective', 'optimizations.cuda_graphs.actual_capture_replay']) assert(keys.has(key));
 });
@@ -430,8 +431,8 @@ test('comparison view excludes own supplemental tests without deleting any sourc
   assert(view.columns.every(c => !c.benchmark || view.benchmarkMap.has(c.benchmark.key)));
   assert(view.columns.every(c => !c.key.startsWith('attempt_metrics.')));
   assert(view.rows.every(r => view.benchmarks.some(b => r.scores[b.key]?.n > 0)));
-  assert.equal(view.rows.length + view.supplementalRows.length, model.rows.length);
-  for (const row of model.rows) assert(view.rows.includes(row) || view.supplementalRows.includes(row));
+  assert.equal(view.rows.reduce((n,r)=>n+r.memberIds.length,0) + view.supplementalRows.length, model.rows.length);
+  for (const row of model.rows) assert(view.rows.some(r=>r.memberIds.includes(row.id)) || view.supplementalRows.includes(row));
   assert.equal(M.canonical(data), before);
   assert(model.benchmarks.some(b => b.scope === 'LOCAL_SUPPLEMENTAL'));
 });
@@ -467,4 +468,71 @@ test('one-table default displays partial results without pretending an official 
   assert.equal(M.resolvedScore(row, column, { ...state, strictProtocols: new Set(['h']) }, map).a, undefined);
   const csv = M.csv([{ ...row, id: 'cfg-a' }], [column], { ...state, visible: new Set([column.key]), selected: new Set(), mode: 'official' }, map);
   assert(csv.includes('PARTIAL') && csv.includes('140') && csv.includes('selected_reference_protocol'));
+});
+
+
+test('capture-independent rows join all seven evidenced coding/tool pairs without changing source records', () => {
+  const before=M.canonical(data), view=M.comparisonView(M.build(data));
+  for(const pair of [['R452','R453'],['R454','R456'],['R460','R457'],['R464','R458'],['R465','R461'],['R466','R462'],['R468','R467']]) {
+    const rows=pair.map(id=>view.rows.find(r=>r.runs.some(run=>run.experiment_id===id)));
+    assert(rows[0]);assert.strictEqual(rows[0],rows[1],pair.join('/'));
+    assert.equal(rows[0].memberIds.length,2);
+    for(const id of pair){
+      const original=data.history.runs.find(r=>r.experiment_id===id);
+      const record=rows[0].runs.find(r=>r.run_id===original.run_id);
+      assert.equal(record.runtime_configuration_id,original.runtime_configuration_id);
+      assert.equal(record.audit_hash,original.audit_hash);assert.equal(record.score_percent,original.score_percent);
+      assert(rows[0].profiles.some(p=>p.runtime_configuration_id===record.runtime_configuration_id));
+      assert.equal(rows[0].scores[data.master.run_columns[record.run_id]].n,1);
+    }
+  }
+  assert.equal(M.canonical(data),before);assert.equal(view.rows.length,model.rows.length-view.supplementalRows.length-7);
+  assert(view.columns.every(c=>c.key!=='evidence.experiments'&&c.label!=='Lauf'));
+  const expected=new Set(model.rows.filter(r=>!view.supplementalRows.some(s=>s.id===r.id)).flatMap(r=>r.runs.map(x=>x.run_id)));
+  assert.deepEqual(new Set(view.rows.flatMap(r=>r.runs.map(x=>x.run_id))),expected);
+});
+test('different actual execution settings, kernels, weights and unknown identities cannot merge', () => {
+  const get=e=>JSON.parse(JSON.stringify(model.rows.find(r=>r.runs.some(x=>x.experiment_id===e))));
+  for(const field of ['weight','server','kernel','context','temperature','MTP','environment','launch','unknown-model','unknown-engine','unknown-template','observed-sampler']){
+    const a=get('R467'),b=get('R468');
+    if(field==='weight')b.profile.model.artifact_sha256='1'.repeat(64);
+    if(field==='server')b.profile.engine.binary_sha256='1'.repeat(64);
+    if(field==='kernel')b.profile.engine.kernel_library_sha256='1'.repeat(64);
+    if(field==='context')b.profile.runtime.context='16384';
+    if(field==='temperature')b.profile.runtime.sampling.temperature=.8;
+    if(field==='MTP')b.profile.optimizations.speculation_type='draft-mtp';
+    if(field==='environment')b.profile.start_parameters.environment.GGML_CUDA_GRAPH_OPT='1';
+    if(field==='launch')b.profile.start_parameters.argv.push('--spec-draft-n-max','3');
+    if(field==='unknown-model')a.profile.model.artifact_sha256=b.profile.model.artifact_sha256=null;
+    if(field==='unknown-engine')a.profile.engine.binary_sha256=b.profile.engine.binary_sha256=null;
+    if(field==='unknown-template')a.profile.runtime.chat_template_sha256=b.profile.runtime.chat_template_sha256=null;
+    if(field==='observed-sampler')b.values['runtime.observed_request_sampling.temperature']=.9;
+    assert.equal(M.mergeConfigurations([a,b],model).length,2,field);
+  }
+});
+test('benchmark tool-adapter choices remain per-run evidence and conflicting tool profiles stay separate',()=>{
+  const a=JSON.parse(JSON.stringify(model.rows.find(r=>r.runs.some(x=>x.experiment_id==='R467'))));
+  const b=JSON.parse(JSON.stringify(a));b.id='cfg-other-choice';b.values['runtime.native_tool_choice_requested']='required';
+  assert.equal(M.mergeConfigurations([a,b],model).length,2);
+  const copy=JSON.parse(JSON.stringify(data));copy.history.runs[0].comparison_configuration_id='forged';
+  assert.throws(()=>M.build(copy),/Reserved presentation identity/);
+});
+test('merged exact configuration supports cross-benchmark averages and CSV retaining every original identity',()=>{
+  const view=M.comparisonView(M.build(data));const row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R464'));
+  const runs=['R464','R458'].map(e=>row.runs.find(r=>r.experiment_id===e));
+  const keys=runs.map(r=>data.master.run_columns[r.run_id]);
+  assert.equal(M.average(row.scores,keys,true,view.benchmarkMap),(100*156/164+100*374/400)/2);
+  const csv=M.csv([row],keys.map(key=>view.columns.find(c=>c.key===key)),{mode:'official',selected:new Set(keys)},view.benchmarkMap);
+  for(const r of runs){assert(csv.includes(r.runtime_configuration_id));assert(csv.includes(r.experiment_id));assert(csv.includes(r.run_id));}
+  assert(csv.includes('source_runtime_configuration_ids'));
+});
+
+test('joining configurations retains every physical-observation view and its reviewed counter supplement',()=>{
+ const view=M.comparisonView(M.build(data));
+ const row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R462'));
+ const original=data.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy);
+ const a=row.scores[data.master.run_columns[original.run_id]];
+ assert.equal(a.n,1);assert.equal(a.records[0].counter_energy.j_per_success_lower,original.counter_energy.j_per_success_lower);
+ assert.equal(a.records[0].counter_energy.j_per_success_upper,original.counter_energy.j_per_success_upper);
+ assert(a.records[0].measurement_view_run_ids.includes(original.run_id));
 });

@@ -40,7 +40,7 @@
     'optimizations.speculation_effective', 'optimizations.flash_attention_effective'
   ];
   const labels = {
-    'evidence.experiments': 'Lauf', 'evidence.execution_status': 'Ausführungsnachweis', 'engine.reported_build_number': 'Buildnummer (Startlog)',
+    'evidence.execution_status': 'Ausführungsnachweis', 'engine.reported_build_number': 'Buildnummer (Startlog)',
     'engine.version_provenance_note': 'Versionsbeleg / Einschränkung',
     'runtime.observed_template_controls.enable_thinking': 'Thinking (beobachtete Anfrage)',
     'model.name': 'Modell', 'model.historical_name': 'Historische Modellbezeichnung', 'model.identity_annotation': 'Beleg zur Modellidentität', 'model.family_id': 'Modellfamilie', 'model.quantization': 'Quantisierung',
@@ -103,7 +103,7 @@
     const invalid = records.some(r => !Number.isInteger(r.tasks) || r.tasks <= 0 || !Number.isInteger(r.solved)
       || r.solved < 0 || r.solved > r.tasks || !finite(r.score_percent)
       || Math.abs(r.score_percent - 100 * r.solved / r.tasks) > 1e-8);
-    const configs = new Set(records.map(r => r.runtime_configuration_id));
+    const configs = new Set(records.map(r => r.comparison_configuration_id || r.runtime_configuration_id));
     const conflict = unique.conflict || protocols.size > 1 || configs.size > 1 || invalid;
     const scores = records.map(r => r.score_percent);
     if (!records.length || conflict || scores.some(x => !finite(x))) return { score: null, n: records.length, conflict, records };
@@ -117,7 +117,7 @@
     if (!selected.length) return null;
     const families = selected.map(key => columns.get(key)?.family_id || key);
     if (new Set(families).size !== selected.length) return null;
-    const configurations = new Set(selected.flatMap(key => scores[key]?.records.map(r => r.runtime_configuration_id) || []));
+    const configurations = new Set(selected.flatMap(key => scores[key]?.records.map(r => r.comparison_configuration_id || r.runtime_configuration_id) || []));
     if (configurations.size !== 1 || [...configurations].some(id => typeof id !== 'string' || !id)) return null;
     const values = selected.map(key => {
       if (official && columns.get(key)?.scope !== 'OFFICIAL_LOCAL') return null;
@@ -142,6 +142,7 @@
     const archive = data.history.profiles.filter(p => !measuredIds.has(p.runtime_configuration_id));
     const rows = data.history.profiles.filter(p => measuredIds.has(p.runtime_configuration_id)).map(profile => {
       const runs = data.history.runs.filter(r => r.runtime_configuration_id === profile.runtime_configuration_id).map(original => {
+        if (Object.hasOwn(original, 'comparison_configuration_id')) throw new Error('Reserved presentation identity in original run');
         const run = { ...original };
         const diagnosis = (data.register.archived_diagnostics || []).find(d => d.experiment_id === run.experiment_id);
         if (diagnosis) run.archived_diagnostic = { audit_id: diagnosis.audit_id, weight_provenance_audit_id: diagnosis.weight_provenance_audit_id, weight_identity_status: diagnosis.weight_provenance.next_decision, report: 'oxcoder-diagnostic' };
@@ -196,6 +197,7 @@
       return { id: profile.runtime_configuration_id, profile, displayName: values['model.name'], runs, attempts, values, scores };
     });
     const paths = new Set([...required, ...rows.flatMap(r => Object.keys(r.values))]);
+    paths.delete('evidence.experiments'); // Run provenance belongs to its score, never a configuration column.
     const columns = [...paths].sort().map(path => ({ key: path, label: labels[path] || path,
       category: path.startsWith('attempt_metrics.') ? 'Labor-Messungen (mit Herkunft)' : category(path), kind: 'parameter' }));
     benchmarks.forEach(b => {
@@ -217,7 +219,7 @@
     const families = [...groups.values()];
     families.forEach(f => columns.push({ key: f.key, label: f.name, category: 'Benchmarkfamilien (gewähltes Protokoll)', kind: 'family', family: f }));
     columns.push({ key: 'average', label: 'Ø Auswahl (%)', description: 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark', category: 'Auswertung', kind: 'average' });
-    return { rows, archive, columns, benchmarks, benchmarkMap, families };
+    return { rows, archive, columns, benchmarks, benchmarkMap, families, runColumns: data.master.run_columns };
   }
   function protocols(family, mode) {
     return family.protocols.filter(b => mode === 'official' ? b.scope === 'OFFICIAL_LOCAL' : b.scope !== 'OFFICIAL_LOCAL');
@@ -246,6 +248,56 @@
     }
     return { key, selectedKey: chosen, benchmark: benchmarkMap.get(key), a: row.scores[key] };
   }
+  // A capture ID binds one immutable plan/audit. It is not an inference setting.
+  // Only complete broker-native captures can share a presentation row. Original
+  // profile/run IDs and exact benchmark identities are never rewritten.
+  function configurationKey(row) {
+    const p = row.profile, sha = v => typeof v === 'string' && /^[a-f0-9]{64}$/.test(v);
+    if (p.source_provenance?.kind !== 'BROKER_NATIVE_CAPTURED_CONFIGURATION'
+        || p.incomplete_identity_run || !sha(p.model?.artifact_sha256)
+        || !sha(p.engine?.binary_sha256) || !sha(p.engine?.kernel_library_sha256)
+        || !sha(p.engine?.build_id) || !sha(p.runtime?.chat_template_sha256)
+        || !p.start_parameters?.argv?.length || !p.runtime?.sampling
+        || absent(p.runtime.context) || absent(p.runtime.max_output)) return 'capture:' + row.id;
+    const copy = { ...p };
+    // These fields describe the capture, not model execution. Weight identity is
+    // the exact artifact SHA, independent of historical names/profile labels.
+    ['runtime_configuration_id', 'model_artifact_id', 'source_plan_sha256',
+      'source_provenance', 'evaluation_exposure', 'provenance_status'].forEach(k => delete copy[k]);
+    copy.model = { ...p.model };
+    ['name', 'family_id', 'variant'].forEach(k => delete copy.model[k]);
+    copy.start_parameters = { ...p.start_parameters };
+    ['exact_private_launch_sha256', 'note', 'redacted_argument_positions'].forEach(k => delete copy.start_parameters[k]);
+    // A differing observed runtime/engine/optimization field must also prevent
+    // a merge, even when it was discovered later in a source-bound receipt.
+    const evidence = Object.fromEntries(Object.entries(row.values).filter(([k]) =>
+      k !== 'runtime.native_tool_choice_requested' && /^(runtime|optimizations)\./.test(k) || /^engine\./.test(k) && !/source_evidence|provenance_note/.test(k)));
+    return canonical({ execution: copy, evidence });
+  }
+  function mergeConfigurations(rows, model) {
+    const groups = new Map();
+    rows.forEach(row => { const key = configurationKey(row); if (!groups.has(key)) groups.set(key, []); groups.get(key).push(row); });
+    // Tool-choice is a benchmark adapter option, absent from coding requests.
+    // Conflicting settings among tool runs are distinct profiles, never pooled.
+    const compatible = [...groups.values()].flatMap(group => {
+      const tools = group.filter(r => r.runs.some(run => run.benchmark_id.startsWith('bfcl-')));
+      return new Set(tools.map(r => canonical(r.values['runtime.native_tool_choice_requested']))).size > 1 ? group.map(r => [r]) : [group];
+    });
+    return compatible.map(members => {
+      const first = members[0], ids = members.map(r => r.id), values = {};
+      const runs = members.flatMap(r => r.runs.map(run => ({ ...run, comparison_configuration_id: first.id })));
+      const paths = new Set(members.flatMap(r => Object.keys(r.values)));
+      paths.forEach(key => {
+        const entries = members.map(r => ({ runtime_configuration_id: r.id, value: r.values[key] ?? null }));
+        values[key] = new Set(entries.map(e => canonical(e.value))).size === 1 ? entries[0].value : entries;
+      });
+      values['evidence.experiments'] = [...new Set(runs.map(r => r.experiment_id))];
+      const scores = Object.fromEntries(model.benchmarks.map(b => [b.key,
+        aggregate(runs.filter(r => model.runColumns[r.run_id] === b.key))]));
+      return { ...first, memberIds: ids, profiles: members.map(r => r.profile), values, runs,
+        attempts: members.flatMap(r => r.attempts), scores };
+    });
+  }
   function comparisonView(model) {
     // Presentation-only exclusion. The source ledger and full build retain the
     // local laboratory evidence, available on the separate local-tests pages.
@@ -257,7 +309,7 @@
       .map(c => c.family ? { ...c, family: familyMap.get(c.family.id) } : c);
     const hasBenchmark = row => benchmarks.some(b => row.scores[b.key]?.n > 0);
     return { ...model, benchmarks, benchmarkMap, families, columns,
-      rows: model.rows.filter(hasBenchmark), supplementalRows: model.rows.filter(r => !hasBenchmark(r)) };
+      rows: mergeConfigurations(model.rows.filter(hasBenchmark), model), supplementalRows: model.rows.filter(r => !hasBenchmark(r)) };
   }
   function value(row, column, state, benchmarkMap) {
     if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
@@ -299,12 +351,12 @@
     const identity = key => { const b = benchmarkMap.get(key); return { column_id: key ?? null, family_id: b?.family_id ?? null, qualification_track: b?.scope ?? null, protocol: b?.protocol ?? null }; };
     const selection = { mode: state.mode ?? null, mean_protocols: [...(state.selected || [])].map(identity),
       displayed_family_protocols: [...(state.protocols || [])].map(([family_id, key]) => ({ family_id, ...identity(key) })) };
-    return '\uFEFF' + [[csvCell('runtime_configuration_id'), csvCell('selected_protocols'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), csvCell(selection), ...selected.map(c => {
+    return '\uFEFF' + [[csvCell('runtime_configuration_id'), csvCell('source_runtime_configuration_ids'), csvCell('selected_protocols'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), csvCell(row.memberIds || [row.id]), csvCell(selection), ...selected.map(c => {
       if (c.kind === 'benchmark' || c.kind === 'family') {
         const { key, selectedKey, a } = resolvedScore(row, c, state, benchmarkMap);
         return csvCell({ ...identity(key), selected_reference_protocol: identity(selectedKey), measurement: !a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
           solved: a.solved, tasks: a.tasks, min: a.min, max: a.max, sd: a.sd,
-          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? UNKNOWN : null });
+          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, runtime_configuration_id: r.runtime_configuration_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? UNKNOWN : null });
       }
       const v = value(row, c, state, benchmarkMap);
       return csvCell(c.kind === 'average' && absent(v) ? 'NICHT BERECHENBAR' : v);
@@ -322,7 +374,7 @@
     });
     return { top, measuredConfigurations: ranked.length, coverage };
   }
-  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView };
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView, configurationKey, mergeConfigurations };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.V100MasterTable = API;
   if (typeof document === 'undefined') return;
@@ -335,7 +387,7 @@
   function mount(target, data) {
     const model = comparisonView(build(data)), byKey = new Map(model.columns.map(c => [c.key, c]));
     const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false, allMeasured: true, strictProtocols: new Set() };
-    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version', 'evidence.experiments', 'requested.MTP', 'requested.thinking', 'runtime.context'];
+    const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version', 'requested.MTP', 'requested.thinking', 'runtime.context'];
     const canAverage = b => !!b && (state.mode !== 'official' || b.scope === 'OFFICIAL_LOCAL');
     const chosenBenchmarks = () => [...state.protocols.values()].map(k => model.benchmarkMap.get(k)).filter(Boolean);
     const columnAllowed = c => !state.officialOnly || !(c?.benchmark || c?.family) || model.benchmarkMap.get(protocolKey(c, state))?.scope === 'OFFICIAL_LOCAL';
@@ -465,7 +517,7 @@
       filtered.sort((a, b) => compare(value(a, sort, state, model.benchmarkMap), value(b, sort, state, model.benchmarkMap), state.descending) || a.id.localeCompare(b.id));
       body.textContent = '';
       filtered.forEach(row => {
-        const tr = E('tr'); tr.dataset.configurationId = row.id;
+        const tr = E('tr'); tr.dataset.configurationId = row.id; tr.dataset.configurationIds = row.memberIds.join(' ');
         shownColumns.forEach(c => {
           const td = E('td'); td.dataset.columnKey = c.key; td.dataset.kind = c.kind;
           if (c.kind === 'benchmark' || c.kind === 'family') renderScore(td, row, c);
@@ -491,7 +543,7 @@
       });
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
       const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
-      counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Konfigurationen · ' + model.archive.length + ' ergebnislose Profile ausgeblendet · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
+      counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Inferenzkonfigurationen · ' + model.archive.length + ' ergebnislose Profile ausgeblendet · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
       selectionWarning.textContent = state.mode === 'official' ? 'Alle gemessenen Voll- und Teilwerte stehen in dieser Tabelle. Ø verwendet ausschließlich die ausgewählten, offiziell qualifizierten Protokolle; PARTIAL wird nicht als Vollbenchmark gewertet.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
       renderAnalysis(); scheduleHeader();
     }
@@ -507,23 +559,25 @@
         dialogTitle.textContent = column.label + ' · ' + row.displayName;
         dialogValue.textContent = JSON.stringify({ mean_percent: a.score, solved: a.solved, tasks: a.tasks, n: a.n,
           min: a.min, max: a.max, sample_sd: a.sd, protocol: benchmark.protocol, definition: benchmark.definition, qualification_track: benchmark.scope,
-          model_sha256: row.profile.model.artifact_sha256, runtime_configuration_id: row.id,
+          model_sha256: row.profile.model.artifact_sha256, runtime_configuration_id: a.records[0].runtime_configuration_id, source_runtime_configuration_ids: row.memberIds,
           engine_version: row.values['engine.version'] ?? null, build_id: row.values['engine.build_id'] ?? null,
           thinking: row.values['requested.thinking'], MTP: row.values['requested.MTP'], context: row.values['runtime.context'], output_limit: row.values['runtime.max_output'],
           prefill_tok_s: measuredValue(a, 'prefill_tok_s'), decode_tok_s: measuredValue(a, 'decode_tok_s'), ttft_s: measuredValue(a, 'ttft_s'),
           wall_s: measuredValue(a, 'wall_s'), gpu_j: measuredValue(a, 'gpu_j'), gpu_j_per_success: measuredValue(a, 'gpu_j_per_success'), peak_vram_mib: measuredValue(a, 'peak_vram_mib'),
           engine_source_evidence: row.values['engine.source_evidence'],
-          configuration: row.profile, runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, (k, v) => absent(v) ? UNKNOWN : v, 2);
+          configuration: row.profiles.find(p => p.runtime_configuration_id === a.records[0].runtime_configuration_id), captured_profiles: row.profiles, runs: a.records, metadata_evidence: row.values['evidence.metadata_receipts'] }, (k, v) => absent(v) ? UNKNOWN : v, 2);
         dialogLinks.textContent = '';
         a.records.forEach(r => {
           const section = E('div');
           if (r.archived_diagnostic) section.append(link('Response and weight provenance diagnosis', '../' + r.archived_diagnostic.report + '/'), document.createTextNode(' · '));
-          section.append(link(r.experiment_id, '../experiments/' + r.experiment_id + '/'));
+          section.append(link(r.experiment_id, '../experiments/' + r.experiment_id + '/'), document.createTextNode(' · '), link('Konfiguration', '../configuration-profiles/' + r.runtime_configuration_id + '/'));
           r.audit_ids.forEach(id => section.append(document.createTextNode(' · '), link('Audit ' + id, '../audits/' + id + '/')));
           if (r.qualification_audit_id) section.append(link(' Zulassung', '../audits/' + r.qualification_audit_id + '/'));
           dialogLinks.append(section);
         }); dialog.showModal();
-      }); details.className = 'master-score-details'; line.append(details); td.append(line);
+      }); details.className = 'master-score-details'; line.append(details);
+      [...new Set(a.records.map(r => r.experiment_id))].forEach(id => { line.append(document.createTextNode(' · '), link(id, '../experiments/' + id + '/')); });
+      td.append(line);
       td.title = key + '\n' + text(benchmark.protocol);
     }
     function renderAnalysis() {

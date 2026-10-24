@@ -1,5 +1,9 @@
 # Changelog
 
+## Capture-independent comparison rows
+
+Join seven verified coding/tool capture pairs by identical artifact, engine/kernel binaries, ordered launch parameters, runtime settings and observed sampler evidence. Attach experiment links to each benchmark result and remove the run column. Keep every original capture ID, score, protocol, cost scope and audit; differing or insufficient execution identities remain separate. CSV and result details retain all source profiles.
+
 ## 2026-10-23 — Same-quantizer OmniCoder identity and deduplication
 
 The mradermacher OmniCoder V1 Q6_K and retained V2 Q6_K artifacts have different whole-file hashes but identical payload bytes for all 427 tensors / 8,953,803,264 represented values. Full local file hashes, complete typed layouts and each tensor payload were checked; every V2 payload hash also matches the earlier complete CPU-dequantization audit. All non-weight parsed metadata agree except five naming/source/date fields. This proves equality of these stored quantized weights, without a claim about unquantized training history or the cause of an upstream release problem.

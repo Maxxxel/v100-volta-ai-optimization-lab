@@ -45,6 +45,22 @@ async function main() {
     assert.equal(await page.locator('.master-table tbody td[data-kind=metric]').count(), 0);
     assert.equal(await page.locator('.master-family-choice[data-family-id^=local-]').count(), 0);
     assert.equal(await page.locator('.master-table th[data-column-key="engine.build_id"]').count(), 0);
+    assert.equal(await page.locator('.master-table th[data-column-key="evidence.experiments"]').count(),0);
+    const merged=await page.evaluate(()=>window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.filter(r=>r.memberIds.length>1).map(r=>({id:r.id,members:r.memberIds,experiments:[...new Set(r.runs.map(x=>x.experiment_id))]})));
+    assert(merged.length>=7,'Coding and tool captures must share their identical execution row');
+    for(const r of merged){
+      const tr=page.locator(`.master-table tr[data-configuration-ids~="${r.id}"]`);assert.equal(await tr.count(),1);
+      for(const e of r.experiments) assert.equal(await tr.locator('td[data-kind="family"] a').filter({hasText:e}).count(),1,'Run link on its score: '+e);
+    }
+    const mergedGemma=merged.find(r=>r.experiments.includes('R464'));
+    const combined=page.locator(`.master-table tr[data-configuration-ids~="${mergedGemma.id}"]`);
+    assert((await combined.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('156/164'));
+    assert((await combined.locator('td[data-column-key="family:bfcl"]').innerText()).includes('374/400'));
+    await combined.locator('td[data-column-key="family:humanevalplus"] button').click();
+    for(const id of mergedGemma.members)assert((await page.locator('.master-cell-dialog').innerText()).includes(id));
+    await page.getByRole('button',{name:'Schließen',exact:true}).click();
+    report.checks.push('no run column; seven identical coding/tool pairs share rows, each score links its run and retains all source profile IDs');
+
     const engineVersions = await page.locator('.master-table tbody td[data-column-key="engine.version"]').allTextContents();
     assert(engineVersions.every(v => v !== 'NICHT ERFASST'), 'Known source revisions must be displayed without fabricating release tags');
     const modelNames = await page.locator('.master-table tbody td[data-column-key="model.name"] a').allTextContents();
@@ -72,15 +88,15 @@ async function main() {
     }
     const partials = await page.evaluate(() => {
       const m=window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard));
-      return m.rows.flatMap(row=>row.runs.filter(r=>r.status==='PARTIAL').map(r=>({id:row.id,solved:r.solved,tasks:r.tasks})));
+      return m.rows.flatMap(row=>{const f=m.families.find(f=>f.id==='humanevalplus');const c=m.columns.find(c=>c.key===f.key);const s={allMeasured:true,protocols:new Map([[f.id,window.V100MasterTable.defaultProtocol(f)]])};return window.V100MasterTable.resolvedScore(row,c,s,m.benchmarkMap).a?.records.filter(r=>r.status==='PARTIAL').map(r=>({id:row.id,solved:r.solved,tasks:r.tasks}))||[];});
     });
     assert(partials.length>=3,'Retained LFM and MiMo partial benchmark records');
-    for(const r of partials){const cell=page.locator(`.master-table tr[data-configuration-id="${r.id}"] td[data-column-key="family:humanevalplus"]`);assert((await cell.textContent()).includes(`${r.solved}/${r.tasks}`));assert((await cell.textContent()).includes('PARTIAL'));}
+    for(const r of partials){const cell=page.locator(`.master-table tr[data-configuration-ids~="${r.id}"] td[data-column-key="family:humanevalplus"]`);assert((await cell.textContent()).includes(`${r.solved}/${r.tasks}`));assert((await cell.textContent()).includes('PARTIAL'));}
     report.checks.push('exactly one table; partial results visible by default in the same HumanEval column with original denominators');
     const toolCategories = await page.evaluate(() => window.V100Leaderboard.history.runs.filter(r => r.benchmark_id === 'bfcl-v4-simple-python-full400' && r.official_eligible));
     for (const run of toolCategories) {
       assert.equal(run.tasks, 400);
-      const cell = page.locator(`.master-table tr[data-configuration-id="${run.runtime_configuration_id}"] td[data-column-key="family:bfcl"]`);
+      const cell = page.locator(`.master-table tr[data-configuration-ids~="${run.runtime_configuration_id}"] td[data-column-key="family:bfcl"]`);
       assert((await cell.textContent()).includes(`${run.solved}/${run.tasks}`));
       assert((await cell.textContent()).includes('OFFIZIELL'));
       assert.equal(run.qualification_audit.category_only, true);
@@ -90,7 +106,7 @@ async function main() {
     const lfm24Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R467'));
     if(lfm24Tools){
       assert.equal(lfm24Tools.solved,374);assert.equal(lfm24Tools.tasks,400);assert.equal(lfm24Tools.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-id="${lfm24Tools.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${lfm24Tools.runtime_configuration_id}"]`);
       assert((await row.locator('td[data-column-key="model.name"]').textContent()).includes('LFM2.5 24B A2B'));
       assert((await row.locator('td[data-column-key="model.quantization"]').textContent()).includes('QAD Q4_0'));
       assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('374/400'));
@@ -104,7 +120,7 @@ async function main() {
     const lfm24Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R468'));
     if(lfm24Coding){
       assert.equal(lfm24Coding.solved,77);assert.equal(lfm24Coding.tasks,85);assert.equal(lfm24Coding.official_eligible,false);
-      const row=page.locator(`.master-table tr[data-configuration-id="${lfm24Coding.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${lfm24Coding.runtime_configuration_id}"]`);
       const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();
       assert(cell.includes('77/85')&&cell.includes('PARTIAL'));
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
@@ -116,7 +132,7 @@ async function main() {
     const qwen38Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy));
     if(qwen38Coding){
       assert.equal(qwen38Coding.solved,149);assert.equal(qwen38Coding.tasks,164);assert.equal(qwen38Coding.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-id="${qwen38Coding.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen38Coding.runtime_configuration_id}"]`);
       const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('149/164')&&cell.includes('OFFIZIELL'));
       assert((await row.locator('td[data-column-key="requested.MTP"]').textContent()).includes('Aus'));
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
@@ -129,7 +145,7 @@ async function main() {
     const qwen35Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R465'&&r.counter_energy));
     if(qwen35Coding){
       assert.equal(qwen35Coding.solved,135);assert.equal(qwen35Coding.tasks,164);assert.equal(qwen35Coding.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-id="${qwen35Coding.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen35Coding.runtime_configuration_id}"]`);
       const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('135/164')&&cell.includes('OFFIZIELL'));
       assert.equal((await row.locator('td[data-column-key="requested.MTP"]').textContent()).trim(),'NICHT ERFASST');
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
@@ -142,7 +158,7 @@ async function main() {
     const gemmaCoding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R464'&&r.counter_energy));
     if(gemmaCoding){
       assert.equal(gemmaCoding.solved,156);assert.equal(gemmaCoding.tasks,164);assert.equal(gemmaCoding.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-id="${gemmaCoding.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${gemmaCoding.runtime_configuration_id}"]`);
       const text=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(text.includes('156/164')&&text.includes('OFFIZIELL'));
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
       const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],gemmaCoding.run_id);
@@ -154,7 +170,7 @@ async function main() {
     const qwen38=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy));
     if(qwen38){
       assert.equal(qwen38.solved,383);assert.equal(qwen38.tasks,400);
-      const row=page.locator(`.master-table tr[data-configuration-id="${qwen38.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen38.runtime_configuration_id}"]`);
       assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('383/400'));
       assert((await row.locator('td[data-column-key="requested.MTP"]').textContent()).includes('Aus'));
       const sampleCount=await page.evaluate(id=>{const d=window.V100Leaderboard,m=window.V100MasterTable.build(d),r=m.rows.find(r=>r.id===id);const run=d.history.runs.find(x=>x.experiment_id==='R462'&&x.counter_energy);return r.scores[d.master.run_columns[run.run_id]].n;},qwen38.runtime_configuration_id);
@@ -169,7 +185,7 @@ async function main() {
     const ornithPrefix=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R460'));
     if(ornithPrefix){
       assert.equal(ornithPrefix.solved,85);assert.equal(ornithPrefix.tasks,93);assert.equal(ornithPrefix.intended_tasks,164);assert.equal(ornithPrefix.official_eligible,false);
-      const row=page.locator(`.master-table tr[data-configuration-id="${ornithPrefix.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${ornithPrefix.runtime_configuration_id}"]`);
       const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('85/93')&&cell.includes('PARTIAL'));
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
       const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],ornithPrefix.run_id);
@@ -181,7 +197,7 @@ async function main() {
     const gemma=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R458'));
     if(gemma){
       assert.equal(gemma.solved,374);assert.equal(gemma.tasks,400);assert.equal(gemma.official_eligible,true);assert.equal(gemma.gpu_j,null);
-      const row=page.locator(`.master-table tr[data-configuration-id="${gemma.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${gemma.runtime_configuration_id}"]`);
       assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('374/400'));
       assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Aus'));
       assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(),'Q4_0');
@@ -195,7 +211,7 @@ async function main() {
     const ornith=await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id==='R457'));
     if(ornith){
       assert.equal(ornith.solved,369);assert.equal(ornith.tasks,400);assert.equal(ornith.gpu_j,null);assert.equal(ornith.gpu_j_per_success,null);
-      const row=page.locator(`.master-table tr[data-configuration-id="${ornith.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${ornith.runtime_configuration_id}"]`);
       assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('369/400'));
       assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
@@ -210,7 +226,7 @@ async function main() {
     if (mimoTools) {
       assert.equal(mimoTools.tasks, 400); assert.equal(mimoTools.solved, 320);
       assert.equal(mimoTools.official_eligible, true);
-      const row=page.locator(`.master-table tr[data-configuration-id="${mimoTools.runtime_configuration_id}"]`);
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${mimoTools.runtime_configuration_id}"]`);
       assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('320/400'));
       assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(), 'Q8_0');
       assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
@@ -224,7 +240,7 @@ async function main() {
       assert.equal(reusedTools.matched_performance.tasks, 360);
       assert.equal(reusedTools.matched_performance.solved, 335);
       await page.getByLabel('Ansicht', { exact: true }).selectOption('Energie');
-      const row = page.locator(`.master-table tr[data-configuration-id="${reusedTools.runtime_configuration_id}"]`);
+      const row = page.locator(`.master-table tr[data-configuration-ids~="${reusedTools.runtime_configuration_id}"]`);
       const bounds = row.locator('td[data-column-key$="matched_performance.counter_energy.lower_j"]');
       assert.equal(await bounds.count(), 1);
       assert.notEqual((await bounds.textContent()).trim(), 'NICHT ERFASST');
@@ -234,7 +250,7 @@ async function main() {
     }
     const mimo = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R454' && r.official_eligible));
     if (mimo) {
-      const row = page.locator(`.master-table tr[data-configuration-id="${mimo.runtime_configuration_id}"]`);
+      const row = page.locator(`.master-table tr[data-configuration-ids~="${mimo.runtime_configuration_id}"]`);
       assert((await row.locator('td[data-column-key="family:humanevalplus"]').textContent()).includes(`${mimo.solved}/${mimo.tasks}`));
       assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(), 'Q8_0');
       assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
@@ -381,7 +397,7 @@ async function main() {
 
     const onlyOfficial = page.locator('input[data-action=official-only]');
     await onlyOfficial.check();
-    const officialIds = await page.evaluate(() => [...new Set(window.V100Leaderboard.history.runs.filter(r => r.official_eligible === true).map(r => r.runtime_configuration_id))]);
+    const officialIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.filter(r=>r.runs.some(run=>run.official_eligible===true)).map(r=>r.id));
     assert.deepEqual((await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId))).sort(), officialIds.sort());
     await onlyOfficial.uncheck(); assert.equal(await page.locator('.master-table tbody tr').count(), expected.profiles);
     report.checks.push('official-only filter is optional; all measured statuses return by default');
