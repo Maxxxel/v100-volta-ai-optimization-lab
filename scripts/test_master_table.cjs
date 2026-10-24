@@ -10,6 +10,18 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Gemma native coding result retains full164 qualification and separate coding energy scope', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R464'&&r.counter_energy);assert(r&&r.official_eligible);
+  assert.equal(r.solved,156);assert.equal(r.tasks,164);assert.equal(r.gpu_j,null);assert.equal(r.gpu_j_per_success,null);
+  assert.equal(r.counter_energy.tasks,164);assert.equal(r.counter_energy.solved,156);
+  assert.equal(r.counter_energy.j_per_success_lower,187683.969/156);
+  assert.equal(r.counter_energy.j_per_success_upper,187773.403/156);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.values['model.quantization'],'Q4_0');assert.equal(row.values['requested.thinking'],false);
+  assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['runtime.max_output'],4096);
+  assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s,757.254538861);
+  assert.equal(row.scores[data.master.run_columns[r.run_id]].n,1);
+});
 test('Qwen3.8 full native category retains complete publisher artifact and no-speculation profile', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy);assert(r&&r.official_eligible);
   assert.equal(r.solved,383);assert.equal(r.tasks,400);assert.equal(r.gpu_j,null);

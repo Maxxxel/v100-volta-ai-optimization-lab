@@ -217,11 +217,11 @@ class LeaderboardTests(unittest.TestCase):
    with self.assertRaises(ValueError):native_partial_run(root,source,bad,bench,lambda p,h:'audit-'+h[:20])
    stage=root/'staging/r9/scoring/partial';rp=stage/'r9-judge-partial.receipt.json';receipt=json.loads(rp.read_text());receipt['input_sha256'].pop(str(root/'staging/r101/calibration5.stdout'));save(rp,receipt);final['scoring_files_sha256'][rp.name]=digest(rp);source['audit_sha256']=save(pathlib.Path(source['audit_path']),final)
    with self.assertRaisesRegex(ValueError,'oracle/corpus'):native_partial_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
- def native_files_fixture(self,root):
+ def native_files_fixture(self,root,part_size=8):
   """Synthetic metadata fixtures only; never model/GPU measurements."""
   def save(p,obj):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(obj)+'\n');return digest(p)
   ids=[f'HumanEval/{i}' for i in range(164)];cfg,native,launch=self.captured_fixture();native['adapter']='llama-native-coding';cfg['source_provenance']['frozen_model_profile_sha256']=H(native)
-  plans=[{'index':i//8+1,'id':f'r9-native-part{i//8+1:02d}','task_ids':ids[i:i+8]} for i in range(0,164,8)]
+  plans=[{'index':i//part_size+1,'id':f'r9-native-part{i//part_size+1:02d}','task_ids':ids[i:i+part_size]} for i in range(0,164,part_size)]
   campaign={'parts':plans,'part_count':len(plans),'expected_task_ids':ids,'immutable_profile_identity_sha256':H(native),'source_workload_sha256':'f'*64};campaign_sha=save(root/'staging/r9/CAMPAIGN_PLAN.json',campaign);cfg['source_plan_sha256']=campaign_sha
   parts=[];scores=[]
   for plan in plans:
@@ -236,6 +236,20 @@ class LeaderboardTests(unittest.TestCase):
  def test_native_complete_files_remain_unqualified_without_api_proof(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root);run=native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20]);self.assertEqual(run['tasks'],164);self.assertEqual(run['solved'],82);self.assertFalse(run['official_eligible']);self.assertIsNone(run['qualification_audit']);self.assertEqual(run['gpu_j'],328)
+ def test_full_coding_counter_stays_separate_from_missing_power_integral(self):
+  from unittest.mock import patch
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root,part_size=164)
+   folder=pathlib.Path(final['parts'][0]['audit_path']).parent;gp=folder/'AUDIT.json';g=json.loads(gp.read_text());g['case_gpu_energy_j']=None;h=save(gp,g);final['parts'][0]['audit_sha256']=h;save(folder/'HOST_COMPLETION.json',{'status':'GPU_COMPLETE_AUDITED','starts':1,'audit_sha256':h});final['scopes']['standard_full164']['gpu_energy_j']=None;source['audit_sha256']=save(pathlib.Path(source['audit_path']),final);source['energy_counter_review']={'fixture':'separate reviewed method'}
+   counter={'tasks':164,'solved':82,'lower_j':320.,'upper_j':340.,'audit_id':'counter-fixture'}
+   with patch('leaderboard.reviewed_counter_measurement',return_value=counter) as review:
+    receipt=lambda p,h:'audit-'+h[:20];run=native_complete_run(root,source,cfg,bench,receipt)
+    review.assert_called_once_with(source,folder,[f'HumanEval/{i}' for i in range(164)],82,receipt,kind='coding')
+   self.assertIsNone(run['gpu_j']);self.assertIsNone(run['gpu_j_per_success']);self.assertEqual(run['counter_energy'],counter);self.assertIn('counter-fixture',run['audit_ids']);self.assertFalse(run['official_eligible'])
+ def test_full_coding_counter_cannot_pool_different_model_sessions(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=pathlib.Path(tmp);source,cfg,bench,final,save=self.native_files_fixture(root);source['energy_counter_review']={'fixture':'not a single session'}
+   with self.assertRaisesRegex(ValueError,'one measured session'):native_complete_run(root,source,cfg,bench,lambda p,h:'audit-'+h[:20])
  def test_explicit_empty_template_controls_are_preserved(self):
   cfg=profile({'model_sha256':'a'*64},{'argv':[]},'fixture','Fixture','Q6_K','R9','b'*64,lambda x:x,{'chat_template_kwargs':{}})
   self.assertEqual(cfg['runtime']['native_template_controls'],{})

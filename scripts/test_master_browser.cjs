@@ -71,6 +71,18 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const gemmaCoding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R464'&&r.counter_energy));
+    if(gemmaCoding){
+      assert.equal(gemmaCoding.solved,156);assert.equal(gemmaCoding.tasks,164);assert.equal(gemmaCoding.official_eligible,true);
+      const row=page.locator(`.master-table tr[data-configuration-id="${gemmaCoding.runtime_configuration_id}"]`);
+      const text=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(text.includes('156/164')&&text.includes('OFFIZIELL'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],gemmaCoding.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Gemma native156/164 coding result has its own full benchmark identity and164-task reported energy without imputed integral');
+    }
     const qwen38=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy));
     if(qwen38){
       assert.equal(qwen38.solved,383);assert.equal(qwen38.tasks,400);
