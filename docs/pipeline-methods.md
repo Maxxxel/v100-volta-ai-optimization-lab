@@ -77,6 +77,15 @@ Random sampling is without replacement. Stratification uses calibration-profile 
 
 These counts describe the frozen study-input snapshot; later experiment additions belong to the live history. The inventories overlap and must never be summed. The 54 explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.
 
+## Executed independent development comparisons
+
+| Experiment | Model | Matched development tasks | Completed requests |
+|---|---|---|---|
+| [R487](experiments/R487.md) | Nexus9B Q6_K · controlled Thinking development | 32 | 96/96 |
+
+
+These are actual independent development-task runs, separate from the retrospective resampling above. This list does not establish screening validity across models. A model absent here has no recorded result on this development set; its official benchmark answers must not be substituted as a development reference. No candidate-selection or cross-model screening claim follows from Nexus-only A/B/C evidence.
+
 ## Nexus: first controlled development comparison
 
 | Arm | Thinking | Temperature | Output tokens |
@@ -130,4 +139,3 @@ CPU controls: **5 unit tests, 3486 exact finite-population coverage controls and
 | Analysis plan | 9d73c8186d1ba92c1107fc5e4597932290ae335794361ef00939729d519d4a64 |
 | Analysis result | 8faf68972992cbde07bd146b1b0820cd4f8bb88ca101bb785a3391ff7c4de2aa |
 | Analysis code | 9f70de0e38af05ed492e0248d55fb3a2e619388c893c5b6cb86d624f45e09d44 |
-

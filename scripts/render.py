@@ -298,6 +298,19 @@ All original experiments, failures, configurations and audit identities remain a
  render_comparison(read('comparison.json'),D,model_registry=read('models.json'),experiments=es)
  from leaderboard import render as render_leaderboard
  render_leaderboard(read('benchmark-register.json'),read('configuration-history.json'),read('comparison.json'),D,model_registry=read('models.json'))
+ # Current development evidence is separate from the frozen retrospective snapshot.
+ development=[e for e in es if e.get('development_comparison')]
+ methods=D/'pipeline-methods.md'
+ if development and methods.exists():
+  rows=[]
+  for e in development:
+   d=e['development_comparison']
+   rows.append([f"[{e['id']}](experiments/{e['id']}.md)",e.get('model'),d['matched_base_tasks'],str(d['completed_requests'])+'/'+str(d['planned_requests'])])
+  section='## Executed independent development comparisons\n\n'+table(['Experiment','Model','Matched development tasks','Completed requests'],rows)
+  section+='\nThese are actual independent development-task runs, separate from the retrospective resampling above. This list does not establish screening validity across models. A model absent here has no recorded result on this development set; its official benchmark answers must not be substituted as a development reference. No candidate-selection or cross-model screening claim follows from Nexus-only A/B/C evidence.\n\n'
+  text=methods.read_text();anchor='## Nexus: first controlled development comparison'
+  assert anchor in text
+  put('pipeline-methods.md',text.replace(anchor,section+anchor,1))
  from derivatives import render as render_derivatives
  registry=read('benchmark-register.json')
  render_derivatives(registry.get('candidate_research',[]),D,registry.get('model_family_labels',{}))

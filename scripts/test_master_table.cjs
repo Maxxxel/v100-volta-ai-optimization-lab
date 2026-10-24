@@ -868,3 +868,28 @@ test('Nexus C178/200 tool result joins its exact130/164 coding profile with hone
  assert(Math.abs(mean.score-(130/164*100+89)/2)<1e-12);
  const cost=M.performanceSummary(row,mean.keys,v.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,308);assert.equal(cost.peak_vram_gib,7356.5/1024);
 });
+
+test('Opus OFF/T0 full131/164 coding retains its real artifact and cannot borrow ON-profile tools',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R490'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,164);assert.equal(r.solved,131);assert.equal(r.counter_energy.tasks,164);assert.equal(r.counter_energy.solved,131);
+ assert.equal(r.counter_energy.j_per_success_lower,1416.1475190839697);assert.equal(r.counter_energy.j_per_success_upper,1416.9221984732824);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);assert.equal(row.values['requested.MTP'],false);
+ assert.equal(row.profile.model.artifact_sha256,'6a089b1b2d1fe21bbe78315a94da5b81e9dde538f9737a7f2c4a53c4eb42ae66');
+ assert(!row.runs.some(x=>['R485','R486'].includes(x.experiment_id)));
+});
+
+test('Opus OFF/T0 full162/200 joins its own131/164 coding result with two-category coverage',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R491'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,200);assert.equal(r.solved,162);assert.equal(r.counter_energy.j_per_success_lower,848.2923086419753);assert.equal(r.counter_energy.j_per_success_upper,848.7947839506173);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row&&row.runs.some(x=>x.experiment_id==='R490'));assert(!row.runs.some(x=>x.experiment_id==='R486'));
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.count,2);assert.equal(mean.total,3);assert(Math.abs(mean.score-(131/164*100+81)/2)<1e-12);
+ const cost=M.performanceSummary(row,mean.keys,v.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,293);assert.equal(cost.peak_vram_gib,7356.5/1024);
+});
+
+
+test('R492 wrapper-truncated Qwen3.6 tools remain157-task partial evidence, outside complete comparison',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R492');assert(r);assert.equal(r.tasks,157);assert.equal(r.solved,137);assert.equal(r.status,'PARTIAL');assert.equal(r.official_eligible,false);
+ assert.equal(r.counter_energy.tasks,157);assert.equal(r.counter_energy.solved,137);assert.equal(r.counter_energy.j_per_success_lower,2419.704583941606);assert.equal(r.counter_energy.j_per_success_upper,2420.562605839416);
+ const v=M.comparisonView(M.build(data));assert(!v.rows.some(x=>x.runs.some(y=>y.experiment_id==='R492')));
+});
