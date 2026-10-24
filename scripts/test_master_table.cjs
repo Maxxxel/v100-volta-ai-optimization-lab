@@ -540,7 +540,9 @@ test('equally qualified family defaults prefer broad measured coverage over arbi
  const narrow={key:'a',scope:'OFFICIAL_LOCAL',records:1},broad={key:'z',scope:'OFFICIAL_LOCAL',records:10};
  assert.equal(M.defaultProtocol({protocols:[narrow,broad]}),'z');
  const family=model.families.find(f=>f.id==='bfcl');
- assert.equal(model.benchmarkMap.get(M.defaultProtocol(family)).protocol.benchmark_id,'bfcl-v4-simple-python-full400');
+ const chosen=model.benchmarkMap.get(M.defaultProtocol(family));
+ assert.equal(chosen.scope,'OFFICIAL_LOCAL');
+ assert(family.protocols.filter(p=>p.scope==='OFFICIAL_LOCAL').every(p=>p.records<=chosen.records),'Default follows actual measured coverage as new profiles arrive; no fixed historical dataset winner');
 });
 test('a family can never be weighted twice, including exploratory averages', () => {
   const columns = new Map([['a', { family_id: 'humanevalplus', scope: 'OFFICIAL_LOCAL' }], ['b', { family_id: 'humanevalplus', scope: 'HISTORICAL' }]]);
@@ -795,4 +797,15 @@ test('Slopus first native coding87/132 remains partial with preserved author sam
  const row=model.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);assert.equal(row.profile.model.hf_repository,'Kukedlc/Slopus-9B');assert.equal(row.profile.model.hf_revision,'85a138681cd780ef45a9b9c6d63363da33d08eb1');
  assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['runtime.sampling.temperature'],.6);assert.equal(row.values['runtime.max_output'],4096);
  assert(!M.comparisonView(M.build(data)).rows.some(x=>x.runs.some(y=>y.experiment_id==='R483')));
+});
+
+
+test('Slopus tools146/200 retains complete category qualification, exact counter bounds and partial coding archive',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R484'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,200);assert.equal(r.solved,146);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,146);
+ assert.equal(r.counter_energy.j_per_success_lower,2354.496417808219);assert.equal(r.counter_energy.j_per_success_upper,2355.2819863013697);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['model.name'],'Slopus 9B');assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.score,73);assert.equal(mean.count,1);assert.equal(mean.total,3);
+ assert(!row.runs.some(r=>r.experiment_id==='R483'));assert.equal(M.performanceSummary(row,mean.keys,v.benchmarkMap).tasks,200);
 });

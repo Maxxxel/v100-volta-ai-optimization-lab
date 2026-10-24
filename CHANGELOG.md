@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-24 — R484 Slopus native tools
+
+- Record146/200 on the complete original BFCL v4 parallel_multiple category; independent CPU replay agrees. This is not the whole BFCL leaderboard or a model Champion.
+- Preserve1198.383987112 s task time,7356.5 MiB peak and2354.496417808219–2355.2819863013697 GPU J/success counter bounds over the200 completed requests. Power-integral energy remains unmeasured.
+- Keep the R483 coding87/132 partial in the archive, outside the complete-only category mean.
+- Make the generic protocol-coverage regression independent of a fixed historical winning dataset as new measured profiles arrive. The selected central categories are unchanged.
+
+
 ## 2026-10-24 — Public research layout
 
 - Replace the long landing page with source-backed research KPIs, latest complete category results and scoped optimization findings.
@@ -765,5 +773,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R483 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R484 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
