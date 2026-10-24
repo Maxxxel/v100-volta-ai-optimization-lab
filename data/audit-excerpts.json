@@ -173280,6 +173280,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4cbeb8d42f51555fee48",
+    "original_bytes": 4185,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4cbeb8d42f51555fee48d7fc7f17cd639602ff789c13c41ac4f2370d0a72553a",
+    "statements": {
+      "decision": "FULL400_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Qwen3.8 GSQ/RCO IQ3_S profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252096,6 +252118,38 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12454.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3ef5ddf60434aceb6b80",
+    "original_bytes": 351907,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3ef5ddf60434aceb6b8077d3cd733edea7234f13583fd29af9ea2f89d4bef950",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 383,
+      "tasks": 400
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1d05bacf4a69b8c3db92",
+    "original_bytes": 14473,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1d05bacf4a69b8c3db92efe9389f74cc4a7c84558446dbe5bf77a252b120fb16",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252517,6 +252571,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "420ab9e6b56065caee09403df7116c4042450ee9085aa68de7a800c82a76e95e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-9bc1f94955a025c69cf9",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9bc1f94955a025c69cf968055472d88605985a53746a84a6150f283cb78145f2",
     "statements": {}
   },
   {
