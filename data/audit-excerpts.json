@@ -173969,6 +173969,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 126,
+          "tasks": 164,
+          "wall_s": 468.433417635
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-81b2f679821eec62c1de",
+    "original_bytes": 11325,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "81b2f679821eec62c1debc80814f917b5de9548db4fc1fd92a1c4d57d525c10e",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Slopus 9B Q6_K native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -254226,6 +254251,68 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9ae0237d9319e7f41b2c",
+    "original_bytes": 143499,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9ae0237d9319e7f41b2ceaf3c2845244a7becc68a6c8cadffdf84b643bd93ad8",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 126,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0b3cba5e41ad80156875",
+    "original_bytes": 3630,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0b3cba5e41ad801568757b9fd705e3f78d4d32208ba0a1ed687df3dc9eb992b1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6e7b0575840bfab9045d",
+    "original_bytes": 6404,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6e7b0575840bfab9045d439b449b1f27ada63b5cab3e82bd638b8657abf3ddeb",
+    "statements": {
+      "scope": "Exactly164 completed coding requests and126 successes. Includes failed completed tasks/setup; excludes load/warmup/CPU and any unfinished trailing request. Prefix counters never claim full-session or full164 task energy. Missing power-integral energy stays unknown."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 126,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-eec82f08d8c390278635",
+    "original_bytes": 8965,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "eec82f08d8c390278635a16cdd03b93a51031e8472f91b642fa875dbc9f86027",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -255388,6 +255475,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "4f666cc33e7511656c9a07ed7ce7090d8f15f87b8e042a745e8e75d4bd6bf093",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-7f9fae48a0e6685769c4",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7f9fae48a0e6685769c49352f84a369a969e744cd65a4ea9567ac3b654ca65e6",
     "statements": {}
   },
   {

@@ -893,3 +893,12 @@ test('R492 wrapper-truncated Qwen3.6 tools remain157-task partial evidence, outs
  assert.equal(r.counter_energy.tasks,157);assert.equal(r.counter_energy.solved,137);assert.equal(r.counter_energy.j_per_success_lower,2419.704583941606);assert.equal(r.counter_energy.j_per_success_upper,2420.562605839416);
  const v=M.comparisonView(M.build(data));assert(!v.rows.some(x=>x.runs.some(y=>y.experiment_id==='R492')));
 });
+
+
+test('Slopus OFF/T0 full126/164 retains Slopus weights despite inherited technical slug and cannot borrow ON tools',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R493'&&r.counter_energy);assert(r&&r.official_eligible);assert.equal(r.tasks,164);assert.equal(r.solved,126);
+ assert.equal(r.counter_energy.j_per_success_lower,1062.2491904761903);assert.equal(r.counter_energy.j_per_success_upper,1063.058373015873);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['model.name'],'Slopus 9B');assert.equal(row.profile.model.artifact_sha256,'aa4bc97efde586ce27e14fedd3fd896d78bb83b633ac8e5cd07113086b49479b');
+ assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);assert(!row.runs.some(x=>['R483','R484','R490','R491'].includes(x.experiment_id)));
+});

@@ -9,7 +9,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-f13e4e7609cb14c796219e155df1c036e56bbc0457fc2fb9295ee5c6c6442770/"><span>Coding</span><strong>131/164</strong><b>OmniCoder Opus Distill 9B</b><small>Latest complete result · R490</small></a><a class="lab-result" href="configuration-profiles/cfg-ff8aa24790daeddd0ca54e128d2f683cb96028060882da81ea694929fb5d3a0b/"><span>Tools</span><strong>162/200</strong><b>OmniCoder Opus Distill 9B</b><small>Latest complete result · R491</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-c55eca0a22e298680cf6a73c62c0f7732aaa8ee23ab8d2f0682fda8a312d3db7/"><span>Coding</span><strong>126/164</strong><b>Slopus 9B</b><small>Latest complete result · R493</small></a><a class="lab-result" href="configuration-profiles/cfg-ff8aa24790daeddd0ca54e128d2f683cb96028060882da81ea694929fb5d3a0b/"><span>Tools</span><strong>162/200</strong><b>OmniCoder Opus Distill 9B</b><small>Latest complete result · R491</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](configuration-comparison.md).
 
@@ -25,7 +25,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **431** · 2026-10-24. 411 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **432** · 2026-10-24. 412 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](methodology.md) · [Hardware](hardware.md) · [Reproduce](reproduce.md).
 
