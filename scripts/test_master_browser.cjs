@@ -80,7 +80,8 @@ async function main() {
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
       const lower=row.locator('td[data-column-key$=":counter_energy.j_per_success_lower"]');
       assert.equal(await lower.count(),1);assert.notEqual((await lower.textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator('td[data-column-key$=":gpu_j_per_success"]').textContent()).trim(),'NICHT ERFASST');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],ornith.run_id);
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
       report.checks.push('Ornith400 exact thinking profile shows separate energy-counter bounds; invalid power integral stays unknown');
     }

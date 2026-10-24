@@ -1891,7 +1891,7 @@
   "scripts/test_comparison.py": "8e20dc6d75423c0933a2c5c73329f6f000c923a3a6f757ba8b50f9eb85df0cb3",
   "scripts/test_derivatives.py": "b31cedef55e972f249eb8448a459d3c0fed619d45563f580accf3d05edea7acd",
   "scripts/test_leaderboard.py": "53ce2abae18396d15638f54740f14f190df74969c5b3702a235625c74510f0bf",
-  "scripts/test_master_browser.cjs": "a2054e1349894159b92dc62bfa9031cf34bfca5b9bff4658ab7fa9634255505c",
+  "scripts/test_master_browser.cjs": "d60f52ed5ba16cb3e343859e7257b7adce95e0e2c7af211c30ee7883ad8ec1b0",
   "scripts/test_master_table.cjs": "f31fc613af58ddd1bd828000d8f0bef560dee16e5674c807630e519455ad96ce",
   "scripts/test_native_tools.py": "5f3b13275b560dc235f471bdd7c9b556ee2671603803a9c774e83051cf38d2b6",
   "scripts/test_publication.py": "35ed39e798454095db6d8068aa01403d34690120a4ee5d9e4998b79d9b08fdd4",
