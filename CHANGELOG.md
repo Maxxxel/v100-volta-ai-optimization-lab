@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-24 — First Nexus coding profile and direct selected-tool admission
+
+Record Nexus CodeCore9B Q6 Thinking:71 successes among81 completed HumanEval+ tasks before the unchanged1200-second whole-task deadline;83 tasks remain unmeasured. Independent isolated CPU replay is identical. Preserve7352.5MiB peak and exact completed-prefix counter costs separately from recorded whole-session energy. No full164 score, global model rejection or Champion claim; partial evidence remains outside the complete-only central table. Activate the closed coding-parent route for the selected200-task tool category after196 CPU controls, preserving all historical source proofs, profiles, clocks and hardware protections. No unrelated400-task test is needed to establish a tools parent.
+
 ## 2026-10-24 — Available-category mean and compact measured costs
 
 Replace the hidden coding-only mean selection with **Ø Benchmarks**: the equal-weight arithmetic mean of every available complete, locally qualified displayed category result for the same evidenced inference configuration. Show coverage (for example2/3), exclude missing categories from the divisor, include measured zero scores, and retain strict protocol selection. Different coverage is not a fair overall ranking. Expose pooled measured decode speed, request latency/task, output tokens/task, GPU joules/success and maximum session VRAM in the compact view; preserve missing metrics, energy-method differences, counter bounds and per-result provenance. CSV carries the actual per-row mean protocols, coverage and cost basis. No benchmark scores, source identities or qualification decisions change; no GPU runs for this UI update.
@@ -733,5 +737,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R480 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R481 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

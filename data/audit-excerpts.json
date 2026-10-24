@@ -173702,6 +173702,24 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7352.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-61e11347ae46dd203c88",
+    "original_bytes": 84346,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "61e11347ae46dd203c8895aa45bc6a8d944c9506cedc5c39b4453d5daeaf550b",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Nexus CodeCore 9B Q6_K native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -253439,6 +253457,37 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7352.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-31da6f0369fb75a61dd2",
+    "original_bytes": 71333,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "31da6f0369fb75a61dd24d41dbd5765da594bc1e35b75ef6a1c1debdcdbf3dda",
+    "statements": {
+      "scope": "Derived observed prefix only, bound to original request/token proofs and privileged single-job NVML process/memory/energy evidence. No full completion or executed-kernel profiling claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9bf54d63a78aa3946189",
+    "original_bytes": 4482,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9bf54d63a78aa394618932f3fdaeb8d727f8d2d75cc2ef488efc775e071d57b5",
+    "statements": {
+      "scope": "Exactly81 completed coding requests and71 successes. Includes failed completed tasks/setup; excludes load/warmup/CPU and any unfinished trailing request. Prefix counters never claim full-session or full164 task energy. Missing power-integral energy stays unknown."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -254596,6 +254645,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "5c6d3fb050e40b7be4bc5691e347d8c9cae7232886b0fd6219e5bbc6a55ba7cf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-14618004db07d0a47b26",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "14618004db07d0a47b2634e8ba68d6f9fc1dcbd1b4039f2efdd058d7b21a1449",
     "statements": {}
   },
   {

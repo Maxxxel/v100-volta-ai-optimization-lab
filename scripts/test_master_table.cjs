@@ -761,3 +761,15 @@ test('strict protocol choice cannot borrow another result for the available mean
  const state={allMeasured:true,strictProtocols:new Set(['tools']),protocols:new Map([['tools','b-other']])};
  const a=M.availableAverage(row,state,map);assert.equal(a.score,50);assert.equal(a.count,1);assert.equal(a.total,2);assert.deepEqual(a.keys,['a']);
 });
+
+
+test('Nexus first reasoning coding prefix71/81 stays partial with exact original configuration and scoped energy',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R481'&&r.counter_energy);assert(r);
+ assert.equal(r.tasks,81);assert.equal(r.solved,71);assert.equal(r.status,'PARTIAL');assert.equal(r.official_eligible,false);
+ assert.equal(r.model_family_id,'nexus9b');assert.equal(r.counter_energy.tasks,81);assert.equal(r.counter_energy.solved,71);
+ assert.equal(r.counter_energy.j_per_success_lower,4804.92138028169);assert.equal(r.counter_energy.j_per_success_upper,4806.36176056338);assert.equal(r.gpu_j,null);
+ const row=model.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);
+ assert.equal(row.values['model.quantization'],'Q6_K');assert.equal(row.values['runtime.sampling.temperature'],.6);assert.equal(row.values['runtime.max_output'],4096);
+ assert.equal(row.profile.model.hf_repository,'prithivMLmods/Nexus-9B-CodeCore-Merge-GGUF');assert.equal(row.profile.model.hf_revision,'330ab686d7784f9b21f553727635efceeb8562e7');
+ const v=M.comparisonView(M.build(data));assert(!v.rows.some(x=>x.runs.some(y=>y.experiment_id==='R481')),'No partial score in complete-only central table');
+});

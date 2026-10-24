@@ -273,4 +273,5 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | Qwen3.6 27B | [cfg-639b84cc37569d13](configuration-profiles/cfg-639b84cc37569d132e80970e3d806d873078d4c5243fdd8b8f57fd06bbb459fd.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Qwen3.8 27B | [cfg-8f78ed6d25af1f69](configuration-profiles/cfg-8f78ed6d25af1f692013432f586b4f86710b67f7e2c3f08af4cb3989b6ca2ca5.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Ternary Bonsai 2 27B | [cfg-734052029303654f](configuration-profiles/cfg-734052029303654fd54d5b42bdc0dec93f3c5ced66ed981857ee5dc7f524c0dc.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
+| Nexus 9B CodeCore Merge | [cfg-fa7673bc9bbe2719](configuration-profiles/cfg-fa7673bc9bbe2719ab75ce63cc4f67d61bb1e6e4cffe230533194c4d02467853.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 
