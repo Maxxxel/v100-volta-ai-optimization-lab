@@ -10,6 +10,23 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+
+test('Qwen3.5 parallel176/200 is category qualified with exact200-task counter bounds', () => {
+ const r=data.history.runs.find(r=>r.experiment_id==='R474'&&r.counter_energy);assert(r);
+ assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,176);assert.equal(r.official_eligible,true);
+ assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,176);
+ assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.j_per_success_lower,123638.996/176);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(row=>row.runs.some(x=>x.run_id===r.run_id));assert(row);
+ assert.equal(row.scores[data.master.run_columns[r.run_id]].n,1);
+});
+test('Bonsai parallel145/171 stays partial after native task cap with exact171-task energy', () => {
+ const r=data.history.runs.find(r=>r.experiment_id==='R475'&&r.counter_energy);assert(r);
+ assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,171);assert.equal(r.solved,145);assert.equal(r.official_eligible,false);
+ assert.equal(r.status,'PARTIAL');assert.equal(r.counter_energy.tasks,171);assert.equal(r.counter_energy.solved,145);
+ assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.j_per_success_lower,324509.274/145);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(row=>row.runs.some(x=>x.run_id===r.run_id));assert(row);
+ assert.equal(row.scores[data.master.run_columns[r.run_id]].n,1);
+});
 test('Qwen3.8 parallel165/197 wrapper-limited prefix remains partial with its exact197-task counter scope',()=>{
  const r=data.history.runs.find(r=>r.experiment_id==='R473');assert(r);
  assert.equal(r.tasks,197);assert.equal(r.intended_tasks,200);assert.equal(r.solved,165);assert.equal(r.status,'PARTIAL');assert.equal(r.termination_kind,'STOPPED_GPU_WRAPPER_TIME_BUDGET');assert.equal(r.official_eligible,false);

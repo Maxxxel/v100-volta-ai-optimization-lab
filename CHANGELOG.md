@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-24 — Complex-tool comparison and partial-cost preservation
+
+Record the complete locally qualified Qwen3.5 parallel/multiple category result (176/200). Preserve Bonsai 145/171 as a native-task-cap partial result, with29 tasks unmeasured. Publish independently checked reported-energy counter bounds for exactly171 completed requests and145 successes, without filling missing power-integral energy or extrapolating to200. Add result-cell and provenance regression coverage for both profiles. No full-BFCL, model superiority or optimization Champion claim.
+
 ## Capture-independent comparison rows
 
 Join seven verified coding/tool capture pairs by identical artifact, engine/kernel binaries, ordered launch parameters, runtime settings and observed sampler evidence. Attach experiment links to each benchmark result and remove the run column. Keep every original capture ID, score, protocol, cost scope and audit; differing or insufficient execution identities remain separate. CSV and result details retain all source profiles.
