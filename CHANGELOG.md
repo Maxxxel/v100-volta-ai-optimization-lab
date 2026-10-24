@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-24 — Nexus controlled Thinking comparison
+
+- R487 completed all32 development tasks across three counterbalanced profiles (96 requests), with independent CPU replay agreement.
+- Coding A/B/C:14/16,10/16,12/16; mock tools:12/16 each. Thinking OFF reduced request cost while losing observed coding successes: no quality-preserving winner or Champion.
+- Keep this development comparison in the research archive, outside official scores and category averages. Preserve measured task time418.311250489 s, peak7,356.5 MiB, token counts, bounded GPU energy and immutable audit identities.
+- Add a source-bound, allowlisted development-result projection; no private prompts, answers, logs, host identifiers or model files are exported. Historical benchmark scores and configurations remain unchanged.
+
 ## 2026-10-24 — R486 Opus native tools
 
 - Qualify167/200 on the complete original BFCL v4 parallel_multiple category after independent CPU replay; this is not the whole BFCL leaderboard or a Champion claim.

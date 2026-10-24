@@ -264,6 +264,49 @@ def metrics(obj):
     if isinstance(managed,dict) and managed.get('logical_allocation_is_not_NVML_residency') is True:
         result.setdefault('actual_managed_allocator',{})['managed_bytes_are_not_residency']=True
     return result
+
+def development_result(root,entry,receipt):
+    """Bounded projection of an independently replayed A/B/C development run.
+
+    Does not create a benchmark definition, history run or highscore row.
+    """
+    root=pathlib.Path(root).resolve()
+    if set(entry)!={'path','sha256'}:raise ValueError('Invalid development review reference')
+    rp=(root/entry['path']).resolve()
+    if not rp.is_relative_to(root) or digest(rp)!=entry['sha256']:raise ValueError('Development review changed')
+    review=load(rp)
+    if review.get('status')!='INDEPENDENT_DEVELOPMENT_REPLAY_IDENTICAL_NOT_OFFICIAL_QUALIFICATION' or review.get('changed_judgments')!=[] or review.get('actual_request_deltas_verified') is not True or review.get('GPU_runs')!=0 or review.get('model_requests')!=0 or review.get('winner_qualified') is not False:raise ValueError('Development replay is not verified')
+    ap=pathlib.Path(review['audit_path']).resolve()
+    if not ap.is_relative_to(root) or digest(ap)!=review['audit_sha256']:raise ValueError('Development original audit changed')
+    audit=load(ap)
+    if audit.get('experiment_id')!=review.get('experiment_id') or audit.get('measurement_valid') is not True or audit.get('GPU_execution_observed') is not True or audit.get('official_benchmark') is not False or audit.get('winner_qualified') is not False or audit.get('full_benchmark_score_claimed') is not False:raise ValueError('Invalid development evidence scope')
+    if not re.fullmatch(r'R[1-9][0-9]{1,3}',audit['experiment_id']) or not 0<=audit['complete_ABC_task_triples']*3<=audit['completed_requests']<=audit['planned_requests'] or audit['task_limit_s']!=1200:raise ValueError('Invalid development task counts/budget')
+    raw=pathlib.Path(audit['raw_root']).resolve()
+    if not raw.is_relative_to(root.parent):raise ValueError('Development capture outside canonical workspace')
+    for name,h in audit['original_raw_files_sha256'].items():
+        source=(raw/name).resolve()
+        if not source.is_relative_to(raw) or digest(source)!=h:raise ValueError('Development original capture changed')
+    native=load(raw/'profile.json');recipe=native['native_recipe']
+    arms=[]
+    for arm in ('A','B','C'):
+        scopes=audit['matched_arms_by_category'][arm]
+        row={'arm':arm,'thinking_requested':arm=='A','temperature':0.0 if arm=='C' else 0.6,
+             'max_output_tokens':recipe['request_options']['max_tokens']}
+        for category in ('coding','tools'):
+            scope=scopes[category]
+            if type(scope['completed']) is not int or type(scope['successes']) is not int or not 0<=scope['successes']<=scope['completed']:raise ValueError('Invalid development success counts')
+            allowed=('completed','successes','final_text_present','valid_terminal_output','length_stops','completed_request_wall_s','completion_tokens','GPU_j_per_success_lower','GPU_j_per_success_upper')
+            row[category]={k:scope[k] for k in allowed}
+        arms.append(row)
+    if any(sum(row[c]['completed'] for c in ('coding','tools'))!=audit['complete_ABC_task_triples'] for row in arms):raise ValueError('Development matched coverage differs')
+    if review['replayed_requests']!=audit['completed_requests'] or review['matched_base_tasks']!=audit['complete_ABC_task_triples']:raise ValueError('Development replay coverage differs')
+    return {'experiment_id':audit['experiment_id'],'evidence':'LOKAL_GEMESSEN_DEVELOPMENT_ONLY','official_benchmark':False,
+            'completed_requests':audit['completed_requests'],'planned_requests':audit['planned_requests'],
+            'matched_base_tasks':audit['complete_ABC_task_triples'],'task_phase_s':audit['task_phase_s'],
+            'peak_device_vram_mib':audit['peak_device_vram_mib'],'arms':arms,
+            'model_sha256':native['model_sha256'],'engine_binary_sha256':native['assets'][native['runtime']+'/llama-server'],
+            'context':recipe['context'],'task_limit_s':audit['task_limit_s'],
+            'audit_ids':[receipt(ap,review['audit_sha256']),receipt(rp,entry['sha256'])]}
 def factor_assignment(summary):
     """A current correction controls the tested scope; original audit stays linked."""
     valid=lambda x:isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)
@@ -360,6 +403,8 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if v.get('development_comparison_review'):
+            experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):
             correction_id=receipt(v['audit_correction_path'],v['audit_correction_sha256'])
             if correction_id:

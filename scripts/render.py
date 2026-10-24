@@ -248,6 +248,16 @@ All original experiments, failures, configurations and audit identities remain a
    text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
+  if e.get('development_comparison'):
+   text=text.replace('\n## Available aggregate results\n\nNOT MEASURED / not recorded in this public projection.\n','')
+   dev=e['development_comparison']
+   text+='\n## Controlled development comparison\n\n**Development evidence only; excluded from official benchmark rankings and averages.** '+str(dev['completed_requests'])+'/'+str(dev['planned_requests'])+' requests; '+str(dev['matched_base_tasks'])+' complete A/B/C task triples.\n\n'
+   rows=[]
+   for arm in dev['arms']:
+    code,tools=arm['coding'],arm['tools']
+    rows.append([arm['arm'],'On' if arm['thinking_requested'] else 'Off',arm['temperature'],str(code['successes'])+'/'+str(code['completed']),str(tools['successes'])+'/'+str(tools['completed']),round(code['completed_request_wall_s']+tools['completed_request_wall_s'],3),code['completion_tokens']+tools['completion_tokens'] if code['completion_tokens'] is not None and tools['completion_tokens'] is not None else None])
+   text+=table(['Arm','Thinking requested','Temperature','Coding','Mock tools','Completed HTTP seconds','Completion tokens'],rows)
+   text+='\nA→B changes only Thinking; B→C changes only temperature. Output cap '+str(dev['arms'][0]['max_output_tokens'])+', context '+str(dev['context'])+'. Actual task phase '+str(round(dev['task_phase_s'],3))+' s; shared cap '+str(dev['task_limit_s'])+' s. Peak VRAM '+str(dev['peak_device_vram_mib'])+' MiB. HTTP duration includes inference request costs; it is not a decode-only or TTFT measurement.\n\nFaster responses alone do not qualify an optimization. Small development counts cannot establish population quality or noninferiority; independent official confirmation remains necessary.\n\n<details><summary>Energy, output completion and immutable identities</summary>\n\n'+pretty(dev)+'\n</details>\n'
   if e.get('factor_mapping_correction'):
    text+='\n## Scientific mapping correction\n\nThe original audit and its hash remain unchanged. The current tested-factor assignment corrects earlier metadata; related cache settings are not separate isolated interventions.\n\n'+pretty(e['factor_mapping_correction'])
   if e.get('source_package'):

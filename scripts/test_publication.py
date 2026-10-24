@@ -4,6 +4,41 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def development_fixture(self,root):
+  import json
+  raw=root/'capture';raw.mkdir()
+  native={'model_sha256':'a'*64,'runtime':'engine','assets':{'engine/llama-server':'b'*64},'native_recipe':{'context':8192,'request_options':{'max_tokens':4096}}}
+  p=raw/'profile.json';p.write_text(json.dumps(native));secret=raw/'private.json';secret.write_text('{"private":"DO_NOT_EXPORT"}')
+  scopes={a:{c:{'completed':1,'successes':1,'final_text_present':1,'valid_terminal_output':1,'length_stops':0,'completed_request_wall_s':2.0,'completion_tokens':10,'GPU_j_per_success_lower':2,'GPU_j_per_success_upper':3} for c in ('coding','tools')} for a in ('A','B','C')}
+  audit={'experiment_id':'R487','measurement_valid':True,'GPU_execution_observed':True,'official_benchmark':False,'winner_qualified':False,'full_benchmark_score_claimed':False,'raw_root':str(raw),'original_raw_files_sha256':{p.name:e.digest(p),secret.name:e.digest(secret)},'matched_arms_by_category':scopes,'completed_requests':6,'planned_requests':96,'complete_ABC_task_triples':2,'task_phase_s':20.0,'peak_device_vram_mib':10.0,'task_limit_s':1200}
+  ap=root/'AUDIT.json';ap.write_text(json.dumps(audit));rp=root/'INDEPENDENT_REVIEW.json'
+  review={'experiment_id':'R487','audit_path':str(ap),'audit_sha256':e.digest(ap),'status':'INDEPENDENT_DEVELOPMENT_REPLAY_IDENTICAL_NOT_OFFICIAL_QUALIFICATION','changed_judgments':[],'actual_request_deltas_verified':True,'GPU_runs':0,'model_requests':0,'winner_qualified':False,'replayed_requests':6,'matched_base_tasks':2}
+  rp.write_text(json.dumps(review));return {'path':rp.name,'sha256':e.digest(rp)},rp,ap,secret
+ def test_development_projection_keeps_private_inputs_out_of_highscores(self):
+  import tempfile,json
+  with tempfile.TemporaryDirectory() as directory:
+   root=pathlib.Path(directory);entry,rp,ap,secret=self.development_fixture(root);out=e.development_result(root,entry,lambda p,h:'audit-'+h[:20]);raw=json.dumps(out)
+   self.assertFalse(out['official_benchmark']);self.assertEqual(len(out['arms']),3)
+   for forbidden in ('DO_NOT_EXPORT',str(root),'raw_root','original_raw_files_sha256','private.json','request','messages'):
+    self.assertNotIn('"'+forbidden+'"',raw)
+   self.assertEqual(out['arms'][2]['temperature'],0);self.assertFalse(out['arms'][2]['thinking_requested'])
+   self.assertNotIn('benchmark_id',out);self.assertNotIn('runtime_configuration_id',out)
+ def test_development_replay_hashes_and_quality_claims_fail_closed(self):
+  import tempfile,json
+  for mode in ('raw','audit','review','judgment','official','counts'):
+   with self.subTest(mode=mode),tempfile.TemporaryDirectory() as directory:
+    root=pathlib.Path(directory);entry,rp,ap,secret=self.development_fixture(root)
+    if mode=='raw':secret.write_text('{}')
+    elif mode=='review':rp.write_text('{}')
+    elif mode=='audit':ap.write_text('{}')
+    elif mode=='judgment':
+     d=json.loads(rp.read_text());d['changed_judgments']=['changed'];rp.write_text(json.dumps(d));entry['sha256']=e.digest(rp)
+    else:
+     a=json.loads(ap.read_text())
+     if mode=='official':a['official_benchmark']=True
+     else:a['matched_arms_by_category']['B']['coding']['successes']=2
+     ap.write_text(json.dumps(a));d=json.loads(rp.read_text());d['audit_sha256']=e.digest(ap);rp.write_text(json.dumps(d));entry['sha256']=e.digest(rp)
+    with self.assertRaises(ValueError):e.development_result(root,entry,lambda p,h:'id')
  def test_overview_numbers_and_latest_cards_are_sourced_not_ranked(self):
   import json,re
   root=P.parent;snapshot=json.loads((root/'data/snapshot.json').read_text());history=json.loads((root/'data/configuration-history.json').read_text());page=(root/'docs/index.md').read_text()

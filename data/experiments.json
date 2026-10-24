@@ -19915,13 +19915,121 @@
   {
     "aggregate_metrics": {},
     "audit_id": "audit-46c48438ab0b48f381a1",
-    "date": null,
+    "date": "2026-10-24T16:22:15.043065+00:00",
+    "development_comparison": {
+      "arms": [
+        {
+          "arm": "A",
+          "coding": {
+            "GPU_j_per_success_lower": 5511.0355,
+            "GPU_j_per_success_upper": 5642.7315,
+            "completed": 16,
+            "completed_request_wall_s": 275.414822408,
+            "completion_tokens": 21716,
+            "final_text_present": 16,
+            "length_stops": 1,
+            "successes": 14,
+            "valid_terminal_output": 16
+          },
+          "max_output_tokens": 4096,
+          "temperature": 0.6,
+          "thinking_requested": true,
+          "tools": {
+            "GPU_j_per_success_lower": 848.2989166666666,
+            "GPU_j_per_success_upper": 1006.6653333333334,
+            "completed": 16,
+            "completed_request_wall_s": 39.735576887,
+            "completion_tokens": 2718,
+            "final_text_present": 5,
+            "length_stops": 0,
+            "successes": 12,
+            "valid_terminal_output": 12
+          }
+        },
+        {
+          "arm": "B",
+          "coding": {
+            "GPU_j_per_success_lower": 893.4816000000001,
+            "GPU_j_per_success_upper": 1084.3168,
+            "completed": 16,
+            "completed_request_wall_s": 35.588352084,
+            "completion_tokens": 2670,
+            "final_text_present": 16,
+            "length_stops": 0,
+            "successes": 10,
+            "valid_terminal_output": 16
+          },
+          "max_output_tokens": 4096,
+          "temperature": 0.6,
+          "thinking_requested": false,
+          "tools": {
+            "GPU_j_per_success_lower": 276.866,
+            "GPU_j_per_success_upper": 433.07300000000004,
+            "completed": 16,
+            "completed_request_wall_s": 15.998429688,
+            "completion_tokens": 820,
+            "final_text_present": 6,
+            "length_stops": 0,
+            "successes": 12,
+            "valid_terminal_output": 12
+          }
+        },
+        {
+          "arm": "C",
+          "coding": {
+            "GPU_j_per_success_lower": 752.6651666666667,
+            "GPU_j_per_success_upper": 905.3910833333333,
+            "completed": 16,
+            "completed_request_wall_s": 35.607166265000004,
+            "completion_tokens": 2673,
+            "final_text_present": 16,
+            "length_stops": 0,
+            "successes": 12,
+            "valid_terminal_output": 16
+          },
+          "max_output_tokens": 4096,
+          "temperature": 0.0,
+          "thinking_requested": false,
+          "tools": {
+            "GPU_j_per_success_lower": 302.9916666666667,
+            "GPU_j_per_success_upper": 460.2225833333334,
+            "completed": 16,
+            "completed_request_wall_s": 15.912705877,
+            "completion_tokens": 822,
+            "final_text_present": 6,
+            "length_stops": 0,
+            "successes": 12,
+            "valid_terminal_output": 12
+          }
+        }
+      ],
+      "audit_ids": [
+        "audit-46c48438ab0b48f381a1",
+        "audit-e5f57e953d1004cfb889"
+      ],
+      "completed_requests": 96,
+      "context": 8192,
+      "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "evidence": "LOKAL_GEMESSEN_DEVELOPMENT_ONLY",
+      "experiment_id": "R487",
+      "matched_base_tasks": 32,
+      "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+      "official_benchmark": false,
+      "peak_device_vram_mib": 7356.5,
+      "planned_requests": 96,
+      "task_limit_s": 1200,
+      "task_phase_s": 418.311250489
+    },
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
-    "factor_ids": [],
+    "factor_ids": [
+      "M07"
+    ],
     "id": "R487",
-    "model": null,
+    "model": "Nexus9B Q6_K · controlled Thinking development",
     "reference_A0": null,
-    "statements": {},
+    "statements": {
+      "scope": "32 newly frozen development tasks, three counterbalanced arms. Coding A/B/C14/10/12 of16, tools12/16 each. Thinking OFF greatly lowers request cost but loses observed coding successes; no quality-preserving winner. C is a separate two-change fast profile for a full quality comparison, not a causal single-factor winner or statistical noninferiority claim. No official benchmark scores, factor qualification or Champion changes."
+    },
     "winner_qualified": false
   }
 ]
