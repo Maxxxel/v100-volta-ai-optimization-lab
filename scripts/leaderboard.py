@@ -843,14 +843,17 @@ def H_BYTES(raw):
 
 def profile_label_annotation(entry,cfg,identity,native):
  """Correct a proven copied description without changing an immutable profile."""
- label='native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools'
+ legacy_label='native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools'
+ label=entry.get('original_descriptive_label')
+ harness_labels={'Slopus-9B-CodeCore-Merge':'Kukedlc/Slopus-9B','OmniCoder Opus Distill-9B-CodeCore-Merge':'mradermacher/OmniCoder-9B-Claude-Opus-High-Reasoning-Distill-GGUF'}
+ if label!=legacy_label and (label not in harness_labels or cfg['model'].get('hf_repository')!=harness_labels[label] or identity.get('hf_repository')!=harness_labels[label]):raise ValueError('Unreviewed copied harness label')
  if entry.get('runtime_configuration_id')!=cfg.get('runtime_configuration_id') or entry.get('original_descriptive_label')!=label or cfg['model'].get('variant')!=label:raise ValueError('Profile-label correction identity differs')
  model=cfg['model'];options=native['native_recipe']['request_options']
  if not re.fullmatch('[a-f0-9]{64}',entry.get('model_artifact_sha256','')) or any(x!=entry['model_artifact_sha256'] for x in (model.get('artifact_sha256'),identity.get('model_sha256'),native.get('model_sha256'))):raise ValueError('Profile-label model identity differs')
  if entry.get('checkpoint_variant') is not None or entry.get('checkpoint_variant_verdict')!='NOT_RECORDED' or entry.get('recorded_QAT') is not None:raise ValueError('Correction invents checkpoint or QAT identity')
  if entry.get('original_profile_unchanged') is not True or entry.get('measured_scores_unchanged') is not True:raise ValueError('Correction cannot rewrite evidence')
  if entry.get('recorded_quantization')!=model.get('quantization') or identity.get('quantization')!=model.get('quantization') or entry.get('recorded_temperature')!=options.get('temperature') or entry.get('recorded_top_k')!=options.get('top_k'):raise ValueError('Profile-label correction contradicts captured settings')
- if options.get('temperature')!=0:raise ValueError('Copied T1 description defect is not established')
+ if label==legacy_label and options.get('temperature')!=0:raise ValueError('Copied T1 description defect is not established')
  return {'runtime_configuration_id':cfg['runtime_configuration_id'],'model_artifact_sha256':model['artifact_sha256'],'immutable_profile_sha256':entry['immutable_profile_sha256'],'original_descriptive_label':label,'checkpoint_variant':None,'classification':'COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE','recorded_quantization':model['quantization'],'recorded_temperature':options['temperature'],'recorded_top_k':options.get('top_k'),'QAT_evidence':'NOT_RECORDED','interpretation':'A copied descriptive run label is retained as historical evidence. Checkpoint variant remains unknown. Captured sampler/flags and the separately recorded artifact/quantization are authoritative; no score, model bytes, original profile or qualification changes.'}
 
 def pipeline_method_review(root,entry,receipt):

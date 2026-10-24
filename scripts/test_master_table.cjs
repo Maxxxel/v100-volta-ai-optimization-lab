@@ -831,3 +831,15 @@ test('Opus first native coding106/132 stays partial with pinned native template,
  assert.equal(row.profile.runtime.chat_template_sha256,'e3a8a616b2fa4670edc927fe333999e709657ddf8df0fb023dd5b5d01dddd4f6');
  assert(!M.comparisonView(model).rows.some(row=>row.runs.some(x=>x.experiment_id==='R485')));
 });
+
+
+test('Opus tools167/200 is category-qualified with unchanged coding partial and preserved historical harness descriptor',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R486'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,200);assert.equal(r.solved,167);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,167);
+ assert.equal(r.counter_energy.j_per_success_lower,1848.3349580838326);assert.equal(r.counter_energy.j_per_success_upper,1848.8037724550898);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['model.name'],'OmniCoder Opus Distill 9B');assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);
+ assert.equal(row.values['model.variant'],null);assert.equal(row.values['model.historical_variant_label'],'OmniCoder Opus Distill-9B-CodeCore-Merge');
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.score,83.5);assert.equal(mean.count,1);assert.equal(mean.total,3);
+ assert(!row.runs.some(r=>r.experiment_id==='R485'));assert.equal(M.performanceSummary(row,mean.keys,v.benchmarkMap).tasks,200);
+});

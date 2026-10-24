@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-24 — R486 Opus native tools
+
+- Qualify167/200 on the complete original BFCL v4 parallel_multiple category after independent CPU replay; this is not the whole BFCL leaderboard or a Champion claim.
+- Preserve1,078.761797445 s task time,7,356.5 MiB peak and1,848.3349580838326–1,848.8037724550898 GPU J/success counter bounds over200 completed requests. Power-integral energy remains unmeasured.
+- Keep Opus coding106/132 PARTIAL outside the complete-only category mean.
+- Annotate copied CodeCore-Merge harness descriptions for Slopus/Opus as historical labels; checkpoint-variant identity remains unknown. Original profiles, IDs, tuning, scores and model bytes are unchanged.
+
+
 ## 2026-10-24 — R485 Opus reasoning-distill coding
 
 - Preserve106/132 HumanEval+ successes under the total1,200-second task cap;32 planned tasks remain unmeasured. Independent isolated replay agrees; no full164 score or Champion claim.
