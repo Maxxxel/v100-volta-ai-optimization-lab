@@ -28,14 +28,14 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 407,
+  "matrix_revision": 408,
   "schema": 1,
-  "source_date": "2026-10-24T05:16:20.046074+00:00",
+  "source_date": "2026-10-24T06:07:12.506696+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "0a5a03d040a40bf6411ce9cdd647ad0345204d0ef8dde49dc6029f1f31d62443",
+    "BENCHMARK_REFERENCES.json": "a3e450d3ea9981ccf31581d511c0c3fa389eba8c05d17585762b9963b148e991",
     "BENCHMARK_REGISTER.json": "4d9db6c07e145a6c452c32c70727fdf44c9a46529f4023428580df98c1ec3725",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "56d0a53ef092eb259dc03c2ec3ecc81197ea08ac8fafe9274a8de8b6f25d796d",
+    "MATRIX_EXTENDED.json": "f83b2ef286b7702318561a7c4d2f65ffea9d076709a0ffb0e8797912effbbe6e",
     "O2_EXPERIMENTS.jsonl": "c975ee415501b456a6cd5d8c1514eadb8a8a091fdf387640e7d389b4f018314f",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }

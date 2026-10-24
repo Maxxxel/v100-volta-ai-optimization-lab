@@ -103,6 +103,21 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const qwen36Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R469'&&r.counter_energy));
+    assert(qwen36Coding,'Reviewed Qwen3.6 prefix must be exported');
+    {
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen36Coding.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('122/130'));
+      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('PARTIAL'));
+      assert((await row.locator('td[data-column-key="requested.thinking"]').innerText()).includes('Aus'));
+      assert((await row.locator('td[data-column-key="requested.MTP"]').innerText()).includes('Aus'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen36Coding.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).innerText()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j"]`).innerText()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Qwen3.6 Q3_K_S122/130 stays partial with reviewed130-request counter bounds and no fabricated full score or power integral');
+    }
     const lfm24Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R467'));
     if(lfm24Tools){
       assert.equal(lfm24Tools.solved,374);assert.equal(lfm24Tools.tasks,400);assert.equal(lfm24Tools.official_eligible,true);

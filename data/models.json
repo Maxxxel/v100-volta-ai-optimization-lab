@@ -174,24 +174,55 @@
     "status": "im dokumentierten Umfang gemessen"
   },
   {
-    "assessment": "Technisch begründeter nächster normaler Modellvergleich, kein Qualitäts-Vorabfilter. Q3_K_S ist ein konservatives Speicherprofil; Q3_K_M ist dadurch nicht widerlegt. Exakte upstream-Konvertierungsrevision unaufgezeichnet.",
+    "assessment": "GPU-Ladefähigkeit und dieses Q3_K_S/Nonthinking-Profil lokal bestätigt. 122/130 ist kein extrapolierter Vollscore und kein Modell- oder Optimierungsgewinner. Energiegrenzen gelten nur für die130 abgeschlossenen Anfrageintervalle.",
     "current_experiment": null,
-    "evidence_class": "CPU_SOURCE_AND_ARTIFACT_VERIFIED_NO_GPU_RESULT",
+    "evidence_class": "LOKAL_GEMESSEN",
     "id": "BMC08",
     "local_scope": {
-      "GPU_runs": 0,
-      "kind": "INDEPENDENT_SHA256_AND_CPU_HEADER_VERIFICATION",
+      "GPU_runs": 1,
+      "actual_GPU_fit": {
+        "batch": 512,
+        "context": 8192,
+        "limit_mib": 14336,
+        "microbatch": 128,
+        "peak_device_vram_mib": 12752.5
+      },
+      "coding": {
+        "audit_sha256": "dcab101208ebe38c999b5d2d07e7a1c1519723f7b8f25235a7ed15f402d2c8e8",
+        "complete_request_wall_s": 1181.08985907,
+        "counter_energy": {
+          "complete_request_s": 1181.08985907,
+          "group_window_s": 1183.037266176,
+          "groups": 1,
+          "included_between_request_setup_s": 1.947407106,
+          "j_per_success_lower": 2713.317606557377,
+          "j_per_success_upper": 2714.0575573770493,
+          "lower_j": 331024.748,
+          "max_query_duration_s": 0.023563307,
+          "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+          "solved": 122,
+          "tasks": 130,
+          "upper_j": 331115.022
+        },
+        "full_qualification": false,
+        "independent_CPU_replay_changed": 0,
+        "observed": 130,
+        "planned": 164,
+        "solved": 122,
+        "status": "PARTIAL"
+      },
+      "kind": "PINNED_ARTIFACT_AND_ACTUAL_GPU_STANDARD_CODING_PREFIX",
       "model_sha256": "4afb4abcf0207a484b0d7e92c0421b74e8ce1c7a7250bb9d824b79288da68f20",
-      "model_starts": 0,
+      "model_starts": 1,
       "parameter_count": 26895998464,
       "weights_downloaded": 1
     },
     "name": "Qwen3.6 27B",
-    "next_step": "Normales HumanEval+164 mit nativem Nonthinking-Herstellerprofil über den regulären Broker;20min reine Aufgabenzeit, anschließend Tool-Kategorie. Nicht ausgeführte Aufgaben unbekannt lassen.",
+    "next_step": "Reguläre vollständige BFCL-v4-simple_python400-Kategorie mit unverändertem Modell-/Engine-/Samplerprofil über Broker; maximal1200s reine Aufgabenzeit. Fehlende Aufgaben bleiben unbekannt.",
     "priority": "P0",
     "repository": "https://huggingface.co/Qwen/Qwen3.6-27B",
     "source_admission": null,
-    "status": "Gewichte und851 Tensorformen geprüft; regulärer Coding-Benchmark vorbereitet"
+    "status": "R469: HumanEval+122/130 beobachtet; PARTIAL nach1200s Aufgabenbudget"
   },
   {
     "assessment": "R467: volle BFCL-v4-simple_python-Kategorie374/400 lokal qualifiziert. R468: HumanEval+77/85 beobachtete Aufgaben, dann1200s Aufgabenlimit; PARTIAL, keine Hochrechnung auf164. Unabhängiger CPU-Replay identisch. Coding-Zählerenergie2549,233–2550,042J je77 Erfolge nur für85 abgeschlossene Anfragen; kein BFCL-Gesamtscore, Allround-Champion oder kausaler Optimierungsgewinn.",

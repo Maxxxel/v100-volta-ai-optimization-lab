@@ -536,3 +536,18 @@ test('joining configurations retains every physical-observation view and its rev
  assert.equal(a.records[0].counter_energy.j_per_success_upper,original.counter_energy.j_per_success_upper);
  assert(a.records[0].measurement_view_run_ids.includes(original.run_id));
 });
+
+test('Qwen3.6 coding122/130 stays partial with exact independent replay and130-request counter scope',()=>{
+ const rs=data.history.runs.filter(r=>r.experiment_id==='R469');assert(rs.length);
+ const record=rs.find(r=>r.counter_energy);assert(record);
+ assert.equal(record.solved,122);assert.equal(record.tasks,130);assert.equal(record.status,'PARTIAL');assert.equal(record.official_eligible,false);
+ assert.equal(record.gpu_j,null);assert.equal(record.gpu_j_per_success,null);assert.equal(record.peak_vram_mib,12752.5);
+ assert.equal(record.counter_energy.tasks,130);assert.equal(record.counter_energy.solved,122);
+ assert.equal(record.counter_energy.j_per_success_lower,331024.748/122);assert.equal(record.counter_energy.j_per_success_upper,331115.022/122);
+ const view=M.comparisonView(M.build(data)),row=view.rows.find(r=>r.runs.some(x=>x.run_id===record.run_id));assert(row);
+ assert.equal(row.values['model.quantization'],'Q3_K_S');assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['requested.thinking'],false);
+ assert.equal(row.values['runtime.sampling.temperature'],.7);assert.equal(row.values['runtime.sampling.presence_penalty'],1.5);
+ const key=data.master.run_columns[record.run_id];assert.equal(row.scores[key].n,1,'Counter review is not an inference replicate');
+ assert.equal(M.average(row.scores,[key],true,view.benchmarkMap),null,'Observed prefix never enters full official mean');
+ assert.equal(row.runs.find(r=>r.run_id===record.run_id).task_phase_s??null,null);
+});

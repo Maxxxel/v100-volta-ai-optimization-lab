@@ -252662,6 +252662,21 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bd2521046324afb2dbcc",
+    "original_bytes": 5312,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bd2521046324afb2dbcc69fc332f65c66e9c795f04df7555d2294075c8168710",
+    "statements": {
+      "scope": "Exactly130 completed coding requests and122 successes. Excludes unfinished trailing request and unattempted tasks; no extrapolation to164, full qualification, power-integral repair, NVML sensor-accuracy or CPU/system-energy claim."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
