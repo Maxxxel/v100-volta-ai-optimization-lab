@@ -12,7 +12,7 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC02 | OxCoder 9B | auf Nutzerwunsch gestoppt | HISTORICAL_PARTIAL_OWNER_STOP_NO_MODEL_REJECTION | R410 |
 | BMC06 | LFM2.5 8B A1B | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R453 |
 | BMC07 | Gemma 4 12B IT QAT | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R458 |
-| BMC08 | Qwen3.6 27B | R469: HumanEval+122/130 beobachtet; PARTIAL nach1200s Aufgabenbudget | LOKAL_GEMESSEN | NOT MEASURED / not recorded |
+| BMC08 | Qwen3.6 27B | R469 Coding122/130; R470 Tools242/260 nach technischem HTTP-Anfrage-Timeout | LOKAL_GEMESSEN | NOT MEASURED / not recorded |
 | BMC05 | LFM2.5 24B A2B QAD | Tool-Kategorie qualifiziert; Coding-Präfix85 unter Zeitlimit ausgewertet | LOKAL_GEMESSEN | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC09 | UI-Venus 1.5 8B / Holo2 8B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -393,12 +393,12 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "GPU-Ladefähigkeit und dieses Q3_K_S/Nonthinking-Profil lokal bestätigt. 122/130 ist kein extrapolierter Vollscore und kein Modell- oder Optimierungsgewinner. Energiegrenzen gelten nur für die130 abgeschlossenen Anfrageintervalle.",
+  "assessment": "Keine vollständigen164er/400er Scores und keine Modellüberlegenheit. Originale Antworten und Negativbefund zur Transportstabilität bleiben erhalten; die unvollständige letzte Antwort wird nicht als gelöst oder falsch gewertet.",
   "current_experiment": null,
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC08",
   "local_scope": {
-    "GPU_runs": 1,
+    "GPU_runs": 2,
     "actual_GPU_fit": {
       "batch": 512,
       "context": 8192,
@@ -432,16 +432,16 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
     },
     "kind": "PINNED_ARTIFACT_AND_ACTUAL_GPU_STANDARD_CODING_PREFIX",
     "model_sha256": "4afb4abcf0207a484b0d7e92c0421b74e8ce1c7a7250bb9d824b79288da68f20",
-    "model_starts": 1,
+    "model_starts": 2,
     "parameter_count": 26895998464,
     "weights_downloaded": 1
   },
   "name": "Qwen3.6 27B",
-  "next_step": "Reguläre vollständige BFCL-v4-simple_python400-Kategorie mit unverändertem Modell-/Engine-/Samplerprofil über Broker; maximal1200s reine Aufgabenzeit. Fehlende Aufgaben bleiben unbekannt.",
+  "next_step": "Zuerst den begrenzten HTTP-Transportfehler als Harnessfrage korrekt behandeln. Keine Wiederholung gültiger Präfixe, kein unzulässiger Budgetreset. Weitere normale Modellprofile vergleichen; keine Kombinationen oder Marketing-Rangfolge.",
   "priority": "P0",
   "repository": "https://huggingface.co/Qwen/Qwen3.6-27B",
   "source_admission": null,
-  "status": "R469: HumanEval+122/130 beobachtet; PARTIAL nach1200s Aufgabenbudget"
+  "status": "R469 Coding122/130; R470 Tools242/260 nach technischem HTTP-Anfrage-Timeout"
 }
 ```
 

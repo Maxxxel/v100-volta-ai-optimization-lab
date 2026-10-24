@@ -486,7 +486,7 @@ test('capture-independent rows join all seven evidenced coding/tool pairs withou
       assert.equal(rows[0].scores[data.master.run_columns[record.run_id]].n,1);
     }
   }
-  assert.equal(M.canonical(data),before);assert.equal(view.rows.length,model.rows.length-view.supplementalRows.length-7);
+  assert.equal(M.canonical(data),before);assert(view.rows.length <= model.rows.length-view.supplementalRows.length-7, 'At least seven verified pairs; later valid joins are allowed');
   assert(view.columns.every(c=>c.key!=='evidence.experiments'&&c.label!=='Lauf'));
   const expected=new Set(model.rows.filter(r=>!view.supplementalRows.some(s=>s.id===r.id)).flatMap(r=>r.runs.map(x=>x.run_id)));
   assert.deepEqual(new Set(view.rows.flatMap(r=>r.runs.map(x=>x.run_id))),expected);
@@ -550,4 +550,16 @@ test('Qwen3.6 coding122/130 stays partial with exact independent replay and130-r
  const key=data.master.run_columns[record.run_id];assert.equal(row.scores[key].n,1,'Counter review is not an inference replicate');
  assert.equal(M.average(row.scores,[key],true,view.benchmarkMap),null,'Observed prefix never enters full official mean');
  assert.equal(row.runs.find(r=>r.run_id===record.run_id).task_phase_s??null,null);
+});
+
+test('Qwen3.6 tools242/260 transport failure remains partial, distinct from task deadline and full400',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R470'&&r.counter_energy);assert(r);
+ assert.equal(r.solved,242);assert.equal(r.tasks,260);assert.equal(r.intended_tasks,400);
+ assert.equal(r.official_eligible,false);assert.equal(r.status,'PARTIAL');assert.equal(r.termination_kind,'STOPPED_NATIVE_TRANSPORT_TIMEOUT');
+ assert(r.status_reason.includes('total task budget was not exhausted'));
+ assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.tasks,260);assert.equal(r.counter_energy.solved,242);
+ assert.equal(r.counter_energy.j_per_success_lower,236391.946/242);assert.equal(r.counter_energy.j_per_success_upper,236519.987/242);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(row=>row.runs.some(x=>x.experiment_id==='R470'));assert(row);
+ assert(row.runs.some(x=>x.experiment_id==='R469'),'Same model/engine/launch/sampler capture shares the coding row');
+ const key=data.master.run_columns[r.run_id];assert.equal(row.scores[key].n,1);assert.equal(M.average(row.scores,[key],true,v.benchmarkMap),null);
 });

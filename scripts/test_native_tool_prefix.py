@@ -73,5 +73,25 @@ class ToolPrefix(unittest.TestCase):
     save(out/'POST_STOP_CAPTURE.json',proof)
     with self.assertRaises((ValueError,json.JSONDecodeError)):verify_native_tool_prefix(root,out,gpu,c,rows,1)
 
+ def test_transport_stop_is_distinct_from_budget_and_requires_privileged_http_trace(self):
+  for mode in ('valid','as-deadline','no-controller-fault','model-text-only','wrong-scope'):
+   with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);out,gpu,c,rows,proof,save=self.fixture(root)
+    status='STOPPED_NATIVE_TRANSPORT_TIMEOUT';proof['capture_stop_kind']=status
+    trace='response.begin()\nself._read_status()\nTimeoutError: timed out\n'
+    p=out/'CT_STDOUT.log';p.write_text(p.read_text()+trace);proof['original_files_sha256'][p.name]=digest(p)
+    journal=root/'TIMEOUT_JOURNAL.jsonl';journal.write_text(json.dumps({'MESSAGE':'AssertionError: Fixed CT worker failed'})+'\n')
+    if mode=='as-deadline':status='STOPPED_USER_TASK_TIME_BUDGET'
+    elif mode=='no-controller-fault':journal.write_text(json.dumps({'MESSAGE':'unexplained'})+'\n')
+    elif mode=='model-text-only':
+     p.write_text(''.join('TASK_EVENT '+json.dumps(r)+'\n' for r in rows)+json.dumps({'reply':trace})+'\n');proof['original_files_sha256'][p.name]=digest(p)
+    elif mode=='wrong-scope':proof['capture_stop_kind']='STOPPED_USER_TASK_TIME_BUDGET'
+    proof['timeout_journal_sha256']=digest(journal);save(out/'POST_STOP_CAPTURE.json',proof)
+    if mode=='valid':
+     args=list(self.coverage());args[3]['status']=status;self.assertTrue(native_tool_coverage(*args))
+     self.assertEqual(verify_native_tool_prefix(root,out,gpu,c,rows,1,status),out/'POST_STOP_CAPTURE.json')
+    else:
+     with self.assertRaises(ValueError):verify_native_tool_prefix(root,out,gpu,c,rows,1,status)
+
 
 if __name__=='__main__':unittest.main()

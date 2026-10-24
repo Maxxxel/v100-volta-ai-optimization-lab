@@ -19495,5 +19495,30 @@
       "scope": "Actual same-session Qwen3.6 27B Q3_K_S native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "audit_id": "audit-2a7f5ea97bae59114edc",
+    "date": "2026-10-24T06:32:53.133638+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R470",
+    "model": "qwen36_27b_q3ks",
+    "reference_A0": null,
+    "statements": {
+      "decision": "PARTIAL_OBSERVED_PREFIX_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Qwen3.6 Q3_K_S profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

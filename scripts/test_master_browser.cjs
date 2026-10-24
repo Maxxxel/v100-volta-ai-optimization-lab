@@ -118,6 +118,17 @@ async function main() {
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
       report.checks.push('Qwen3.6 Q3_K_S122/130 stays partial with reviewed130-request counter bounds and no fabricated full score or power integral');
     }
+    const qwen36Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R470'&&r.counter_energy));
+    assert(qwen36Tools,'Actual transport-failure prefix remains visible');
+    {
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen36Tools.runtime_configuration_id}"]`);
+      const cell=row.locator('td[data-column-key="family:bfcl"]');assert((await cell.innerText()).includes('242/260')&&(await cell.innerText()).includes('PARTIAL'));
+      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('122/130'));
+      await cell.locator('button').click();const details=await page.locator('.master-cell-dialog pre').innerText();
+      assert(details.includes('STOPPED_NATIVE_TRANSPORT_TIMEOUT'));assert(details.includes('total task budget was not exhausted'));
+      await page.getByRole('button',{name:'Schließen',exact:true}).click();
+      report.checks.push('Qwen3.6 coding and tool prefixes share one configuration row;242/260 transport failure is distinct from deadline and official400 results');
+    }
     const lfm24Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R467'));
     if(lfm24Tools){
       assert.equal(lfm24Tools.solved,374);assert.equal(lfm24Tools.tasks,400);assert.equal(lfm24Tools.official_eligible,true);

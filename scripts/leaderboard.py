@@ -343,13 +343,13 @@ def reviewed_counter_measurement(source,out,ids,solved,receipt,kind='native_tool
 def native_tool_coverage(ids,planned,contract_ids,a,bench):
  if bench['required_task_count']!=400 or len(planned)!=400 or H(sorted(planned))!=bench['expected_task_ids_hash'] or contract_ids!=planned or not ids or ids!=planned[:len(ids)] or len(set(ids))!=len(ids):
   raise ValueError('Native tool missing or repeated tasks')
- partial=a.get('full_benchmark_score_claimed') is False and a.get('status')=='STOPPED_USER_TASK_TIME_BUDGET'
+ partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT')
  full=len(ids)==400 and H(sorted(ids))==bench['expected_task_ids_hash']
  if a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or (not partial and (not full or a.get('full_benchmark_score_claimed') is not True)) or (partial and (full or not 1<=len(ids)<400)):
   raise ValueError('Native tool category not complete or scope inconsistent')
  return partial
 
-def verify_native_tool_prefix(stage,out,gpu,contract,rows,count):
+def verify_native_tool_prefix(stage,out,gpu,contract,rows,count,stop_status='STOPPED_USER_TASK_TIME_BUDGET'):
  """Validate retained deadline evidence without claiming controller success."""
  proof_path=out/'POST_STOP_CAPTURE.json';proof=read(proof_path)
  if proof.get('kind')!='POST_STOP_PARTIAL_COLLECTION_INTEGRITY_RECEIPT' or proof.get('derived_hash_manifest') is not True or proof.get('full_score_or_successful_GPU_completion_claimed') is not False or proof.get('source_controller_completion_available') is not False or proof.get('GPU_reruns')!=0 or proof.get('model_queries')!=0 or proof.get('native_tool_complete_responses')!=count or proof.get('expected_tasks')!=400:
@@ -362,7 +362,9 @@ def verify_native_tool_prefix(stage,out,gpu,contract,rows,count):
  if digest(journal)!=proof['timeout_journal_sha256']:raise ValueError('Native tool prefix timeout journal changed')
  text=(out/'CT_STDOUT.log').read_text();messages=[r.get('MESSAGE','') for r in map(json.loads,journal.read_text().splitlines())]
  deadline=any(line.strip()=='TimeoutError: Own native task deadline' for line in text.splitlines()) or any(line.strip()=='RuntimeError: Pure task1200s budget exhausted' for message in messages for line in message.splitlines())
- if not deadline:raise ValueError('Native tool prefix lacks observed task deadline')
+ if proof.get('capture_stop_kind','STOPPED_USER_TASK_TIME_BUDGET')!=stop_status:raise ValueError('Native tool prefix stop classification differs')
+ transport=(not deadline and any(line.strip()=='TimeoutError: timed out' for line in text.splitlines()) and 'response.begin()' in text and 'self._read_status()' in text and any('Fixed CT worker failed' in message for message in messages))
+ if not (stop_status=='STOPPED_USER_TASK_TIME_BUDGET' and deadline or stop_status=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' and transport):raise ValueError('Native tool prefix lacks verified declared stop cause')
  events=[json.loads(line[len('TASK_EVENT '):]) for line in text.splitlines() if line.startswith('TASK_EVENT ')]
  if events!=[r for r in rows if r.get('kind') in ('warmup','native_tool')]:raise ValueError('Native tool prefix differs from privileged event stream')
  tele=[json.loads(line) for line in (out/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
@@ -381,7 +383,7 @@ def native_tool_run(root,source,cfg,bench,receipt):
  part=a['parts'][0];gp=pathlib.Path(part['audit_path']);out=gp.parent
  if digest(gp)!=part['audit_sha256']:raise ValueError('Native tool GPU audit changed')
  gpu=read(gp);pins=read(out/'RAW_HASHES.json');native=read(out/'profile.json');launch=read(out/'LAUNCH.json');contract=read(out/'CONTRACT.json')
- partial=a.get('full_benchmark_score_claimed') is False and a.get('status')=='STOPPED_USER_TASK_TIME_BUDGET'
+ partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT')
  if gpu.get('measurement_valid') is not True or gpu.get('GPU_execution_observed') is not True:raise ValueError('Native tool GPU execution not proven')
  if not partial:
   completion=read(out/'HOST_COMPLETION.json')
@@ -402,7 +404,7 @@ def native_tool_run(root,source,cfg,bench,receipt):
  cases={x['id']:x for x in native['selected_task_inputs']['cases']};rows=[json.loads(l) for l in (out/'HTTP_RESULTS.jsonl').read_text().splitlines()];answers=[x for x in rows if x.get('kind')=='native_tool'];ids=[x['id'] for x in answers]
  planned=campaign['expected_task_ids']
  if native_tool_coverage(ids,planned,contract['parameters']['task_ids'],a,bench)!=partial:raise ValueError('Native tool partial classification differs')
- prefix_proof=verify_native_tool_prefix(stage,out,gpu,contract,rows,len(ids)) if partial else None
+ prefix_proof=verify_native_tool_prefix(stage,out,gpu,contract,rows,len(ids),a['status']) if partial else None
  original_cases={x['id']:x for x in read(dataset['tasks_file'])['tasks']};original_tools={x['id']:x for x in read(dataset['tools_file'])['tasks']}
  for r in answers:
   case=cases[r['id']];original=original_cases[r['id']];tools=original_tools[r['id']]
@@ -444,7 +446,7 @@ def native_tool_run(root,source,cfg,bench,receipt):
  counter=reviewed_counter_measurement(source,out,ids,solved,receipt)
  if counter:result["counter_energy"]=counter;result["audit_ids"].append(counter["audit_id"])
  if partial:
-  result.update(status='PARTIAL',intended_tasks=400,full_benchmark_score_claimed=False,status_reason='Observed task-deadline prefix with identical independent CPU scoring. Unattempted tasks remain unknown; no full400 qualification or extrapolation.')
+  result.update(status='PARTIAL',intended_tasks=400,full_benchmark_score_claimed=False,termination_kind=a['status'],status_reason=('Native HTTP response-timeout prefix; total task budget was not exhausted.' if a['status']=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' else 'Observed task-deadline prefix.')+' Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full400 qualification, model rejection or extrapolation.')
  return result
 
 def native_partial_run(root,source,cfg,bench,receipt):
