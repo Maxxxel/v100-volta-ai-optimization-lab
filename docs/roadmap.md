@@ -1,6 +1,6 @@
 # Changelog & roadmap
 
-Snapshot revision **424**; latest canonical assessment **2026-10-24T14:39:38.761980+00:00**.
+Snapshot revision **425**; latest canonical assessment **2026-10-24T15:22:03.767523+00:00**.
 
 1. Finish technically meaningful remaining single-factor variants; preserve valid negative evidence.
 2. Compare the remaining models, then reassess optimization applicability for each architecture, weight format, quantization, engine/kernel path, context and VRAM budget. A new model may enable a treatment that was unavailable on OmniCoder2.
