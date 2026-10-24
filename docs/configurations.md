@@ -4,6 +4,8 @@ Ten profile pointers do not mean ten universally superior models. Native tools, 
 
 | Profile | Measurement sprint | Qualification scope |
 |---|---|---|
+| [bonsai-pq2-sm70-native-medium-agent18-prefix-v1](#profile-d79c3d4777d8) | R442 | Agent18prefixE2E/energy profile only; quality/source-success/policy preserved, full18andfreshcontrol gates independentlyverified. |
+| [gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1](#profile-74d8082d9d63) | R437 | Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss. |
 | [omnicoder2-q6k-sm70-cuda128-bfcl-balanced100-native-v1](#profile-fa9451c63b8d) | R183 | R174_SCREEN_R182_CURRENT_ORIGINAL_R183_INDEPENDENT_NATIVE_TOOLS_AND_FINAL_SCOPED_REVIEW_PASSED |
 | [omnicoder2-q6k-sm70-cuda128-v080-dev18-native-agents-prefix-v1](#profile-56a1eccb4ec2) | R219 | R215_SCREEN_R216_PRECONTROL_R217_CODING_R218_TOOLS_R219_STABILITY_R220_POSTCONTROL_PASSED |
 | [omnicoder2-q6k-sm70-cuda128-v080-dev18-native-agents-taskenergy-v1](#profile-4bc04eb50250) | R225 | R224_SCREEN_R225_INDEPENDENT_STABILITY_R226_FRESH_POSTCONTROL_PASSED |
@@ -14,8 +16,220 @@ Ten profile pointers do not mean ten universally superior models. Native tools, 
 | [omnicoder2-sm70-cuda128-natural-sse-4k6k-memory8g-taskenergy-ctx8192-v1](#profile-7971777881bb) | R109 | LOW_VRAM_NATURAL_SSE_ENERGY_PROFILE_QUALIFIED |
 | [omnicoder2-sm70-cuda128-pinned-nativejson-ctx8192-v1](#profile-0df192a50d76) | R90 | R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED |
 | [omnicoder2-sm70-cuda128-sse-pp2k4k16-decode128-ctx8192-v1](#profile-70f9438a1b18) | R90 | R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED |
-| [gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1](#profile-74d8082d9d63) | R437 | Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss. |
-| [bonsai-pq2-sm70-native-medium-agent18-prefix-v1](#profile-d79c3d4777d8) | R442 | Agent18prefixE2E/energy profile only; quality/source-success/policy preserved, full18andfreshcontrol gates independentlyverified. |
+
+
+## Profile d79c3d4777d8
+
+`bonsai-pq2-sm70-native-medium-agent18-prefix-v1`
+
+A0: `2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0`
+
+C: `d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e`
+
+```json
+{
+  "aggregate_metrics": {
+    "metrics": {
+      "gpu_energy_j_approx": 121439.49308125368,
+      "gpu_j_per_success": 6746.638504514093,
+      "peak_device_vram_mib": 8158.5,
+      "prefix_cache": {
+        "cached_tokens": 145536,
+        "cases_with_hits": 18,
+        "first_turn_cached_tokens": 0,
+        "requests_with_hits": 74
+      },
+      "solved": 18,
+      "successful_tasks_per_s": 0.03944598873901683,
+      "tasks": 18,
+      "total_wall_s": 456.320162719
+    }
+  },
+  "experiment_id": "R442",
+  "id": "d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e",
+  "identity": {
+    "cache": "Firstturncoldreset percase; subsequentturnprefixreuse inone slot, OSfilecacheuncontrolled; taskenergy excludesstartup/warmup",
+    "inference_flags": {
+      "--batch-size": "2048",
+      "--cache-ram": "0",
+      "--cache-reuse": "0",
+      "--cache-type-k": "f16",
+      "--cache-type-v": "f16",
+      "--ctx-checkpoints": "2",
+      "--ctx-size": "8192",
+      "--flash-attn": "on",
+      "--load-mode": "mmap",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--reasoning": "on",
+      "--seed": "1001",
+      "--spec-type": "none",
+      "--threads": "6",
+      "--threads-batch": "6",
+      "--ubatch-size": "512"
+    },
+    "kernel_switches": {
+      "GGML_CUDA_GRAPH_OPT": "0",
+      "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+    },
+    "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+    "power_limit_w": 300,
+    "request_numeric_settings": null,
+    "seed": 1001,
+    "workload_description": null
+  },
+  "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+  "identity_hashes": [
+    "0560986e4e40400f9a1beaa474aade93b3c6236f78cde94609ae0d6d72c4a09d",
+    "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
+    "1d32e8c7a5ba375008ffd3c010f70dfdd76c3c449ee4cd26e76004cd5e43e41c",
+    "1de3d70cf29f0b0fc2438b819c10f3e901b8025b073966198d865fbb6f994d30",
+    "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
+    "32ed0e13c30a135600f667c46f0ba0c2df0e2eca5e0558b6302fa178e475e2d3",
+    "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+    "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
+    "717966da46cfa4e9753ce2241df90215224329a344005bfd603b753e4e264019",
+    "784bbad15a8847cdb7fa69cb8646451544eb401290d02e39e2d33ccc2d6dd0c5",
+    "7bff05c54f510fb2408268889c245e42843ffaf469ff52fcc53a2199cd1df790",
+    "8386c6c6b932e9b15a675e6f09910b252934a33c256fb4732e8d06800db73b6d",
+    "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
+    "9bcac20d6fd1640fb05136e57255f0dd4a015b5f78bad3c86283266797355dbd",
+    "a48373656da8d0e2f3c9e24c5be5239343ad708fa1f0f5d4de3eea82c31f4d3f",
+    "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+    "cfb310938f8a59e625b24e3bef1886ece36567410babf2b981f3cb0f9e4509e3",
+    "e666c714a773c996ef611d6cf19638b001ad894d9ba32569a15cfdc08ff93506"
+  ],
+  "kind": "C",
+  "limits": [],
+  "model": "bonsai2_27b_pq2",
+  "profile": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
+  "qualification": "Agent18prefixE2E/energy profile only; quality/source-success/policy preserved, full18andfreshcontrol gates independentlyverified.",
+  "winner_qualified": true
+}
+```
+
+
+## Profile 74d8082d9d63
+
+`gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1`
+
+A0: `b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15`
+
+C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
+
+```json
+{
+  "aggregate_metrics": {
+    "metrics": {
+      "case_executions": 36,
+      "cycle_metrics": [
+        {
+          "cycle": 0,
+          "energy_saving_percent": 14.457022484901072,
+          "gpu_energy_j_approx": 28627.93581138441,
+          "gpu_j_per_success": 2385.6613176153674,
+          "observed": 12,
+          "passed": true,
+          "solved": 12,
+          "wall_change_percent": 8.057573073665235,
+          "wall_s": 134.328988545
+        },
+        {
+          "cycle": 1,
+          "energy_saving_percent": 13.107908911881738,
+          "gpu_energy_j_approx": 29079.43209889495,
+          "gpu_j_per_success": 2423.286008241246,
+          "observed": 12,
+          "passed": true,
+          "solved": 12,
+          "wall_change_percent": 8.64874808464049,
+          "wall_s": 135.063892532
+        },
+        {
+          "cycle": 2,
+          "energy_saving_percent": 13.524657546161956,
+          "gpu_energy_j_approx": 28939.962401928296,
+          "gpu_j_per_success": 2411.6635334940247,
+          "observed": 12,
+          "passed": true,
+          "solved": 12,
+          "wall_change_percent": 8.781000198738687,
+          "wall_s": 135.228298341
+        }
+      ],
+      "cycles": 3,
+      "gpu_j_per_success": 2411.6635334940247,
+      "original12": {
+        "format": 1,
+        "observed": 12,
+        "semantic": 10
+      },
+      "peak_device_vram_mib": 8254.5,
+      "solved": 12,
+      "unique_tasks": 12,
+      "wall_s": 135.063892532
+    }
+  },
+  "experiment_id": "R437",
+  "id": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
+  "identity": {
+    "cache": "warmmodel,coldKV",
+    "inference_flags": {
+      "--batch-size": "2048",
+      "--cache-ram": "0",
+      "--cache-reuse": "0",
+      "--cache-type-k": "f16",
+      "--cache-type-v": "f16",
+      "--ctx-checkpoints": "2",
+      "--ctx-size": "16384",
+      "--flash-attn": "auto",
+      "--load-mode": "mmap",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--reasoning": "off",
+      "--seed": "1001",
+      "--spec-type": "none",
+      "--threads": "6",
+      "--threads-batch": "6",
+      "--ubatch-size": "512"
+    },
+    "kernel_switches": {
+      "GGML_CUDA_GRAPH_OPT": "0",
+      "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+    },
+    "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+    "power_limit_w": 225,
+    "request_numeric_settings": null,
+    "seed": 1001,
+    "workload_description": null
+  },
+  "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+  "identity_hashes": [
+    "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
+    "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+    "246e65b935ae5a703ecae822922fe3f3fed7703d3c2104c91e64fe150449fc1b",
+    "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
+    "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
+    "4f4dce8176772511bc931e4ad42ed0dba849e4e457ceacfad131068a29fd619d",
+    "5f92b5321867cca18dfde0638a1c12f599cb7d00b05833a41398148b20fe4898",
+    "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
+    "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+    "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
+    "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "bd86639fa8d9e0eda64329e28ab2687a3eeeec1cb80056dd6382a0e8196543e2",
+    "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
+    "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
+    "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
+    "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
+  ],
+  "kind": "C",
+  "limits": [],
+  "model": "gemma4_12b_it_qat_q4_0",
+  "profile": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
+  "qualification": "Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss.",
+  "winner_qualified": true
+}
+```
 
 
 ## Profile fa9451c63b8d
@@ -3070,220 +3284,6 @@ C: `70f9438a1b180ed16e1bf4bdd217d84959c11bcb0424f32d5addfbb277153420`
   "model": "omnicoder2",
   "profile": null,
   "qualification": "R90_INDEPENDENT_PERFORMANCE_QUALITY_ENERGY_AND_STABILITY_PASSED",
-  "winner_qualified": true
-}
-```
-
-
-## Profile 74d8082d9d63
-
-`gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1`
-
-A0: `b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15`
-
-C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
-
-```json
-{
-  "aggregate_metrics": {
-    "metrics": {
-      "case_executions": 36,
-      "cycle_metrics": [
-        {
-          "cycle": 0,
-          "energy_saving_percent": 14.457022484901072,
-          "gpu_energy_j_approx": 28627.93581138441,
-          "gpu_j_per_success": 2385.6613176153674,
-          "observed": 12,
-          "passed": true,
-          "solved": 12,
-          "wall_change_percent": 8.057573073665235,
-          "wall_s": 134.328988545
-        },
-        {
-          "cycle": 1,
-          "energy_saving_percent": 13.107908911881738,
-          "gpu_energy_j_approx": 29079.43209889495,
-          "gpu_j_per_success": 2423.286008241246,
-          "observed": 12,
-          "passed": true,
-          "solved": 12,
-          "wall_change_percent": 8.64874808464049,
-          "wall_s": 135.063892532
-        },
-        {
-          "cycle": 2,
-          "energy_saving_percent": 13.524657546161956,
-          "gpu_energy_j_approx": 28939.962401928296,
-          "gpu_j_per_success": 2411.6635334940247,
-          "observed": 12,
-          "passed": true,
-          "solved": 12,
-          "wall_change_percent": 8.781000198738687,
-          "wall_s": 135.228298341
-        }
-      ],
-      "cycles": 3,
-      "gpu_j_per_success": 2411.6635334940247,
-      "original12": {
-        "format": 1,
-        "observed": 12,
-        "semantic": 10
-      },
-      "peak_device_vram_mib": 8254.5,
-      "solved": 12,
-      "unique_tasks": 12,
-      "wall_s": 135.063892532
-    }
-  },
-  "experiment_id": "R437",
-  "id": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
-  "identity": {
-    "cache": "warmmodel,coldKV",
-    "inference_flags": {
-      "--batch-size": "2048",
-      "--cache-ram": "0",
-      "--cache-reuse": "0",
-      "--cache-type-k": "f16",
-      "--cache-type-v": "f16",
-      "--ctx-checkpoints": "2",
-      "--ctx-size": "16384",
-      "--flash-attn": "auto",
-      "--load-mode": "mmap",
-      "--n-gpu-layers": "99",
-      "--parallel": "1",
-      "--reasoning": "off",
-      "--seed": "1001",
-      "--spec-type": "none",
-      "--threads": "6",
-      "--threads-batch": "6",
-      "--ubatch-size": "512"
-    },
-    "kernel_switches": {
-      "GGML_CUDA_GRAPH_OPT": "0",
-      "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
-    },
-    "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
-    "power_limit_w": 225,
-    "request_numeric_settings": null,
-    "seed": 1001,
-    "workload_description": null
-  },
-  "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
-  "identity_hashes": [
-    "0175c38f4b4e345199b756365061a9f25cf9f8b575c5b83399c4608dc3f06b78",
-    "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
-    "246e65b935ae5a703ecae822922fe3f3fed7703d3c2104c91e64fe150449fc1b",
-    "36d444fae53a4e0fdc2781d8f8cafa445c9162b46b9b815e227f83b312b2e0c8",
-    "3a02ba5a9a59be8000d7ae589354478dd603f0f11284e29e634386093c2e1468",
-    "4f4dce8176772511bc931e4ad42ed0dba849e4e457ceacfad131068a29fd619d",
-    "5f92b5321867cca18dfde0638a1c12f599cb7d00b05833a41398148b20fe4898",
-    "719e912326059cd85d3c0915afd648c631fd2841fd4f5ba0baa5831c5cf2e807",
-    "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
-    "99b2d9634b9c63168c07c3a9103a0f2051302b69bbd6cf1ab7e4d1f58d406e5d",
-    "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
-    "bd86639fa8d9e0eda64329e28ab2687a3eeeec1cb80056dd6382a0e8196543e2",
-    "c4bf75534b706bbbfaef7c9c0463572c5dc4f0e0a6269be62c35ced515b6de34",
-    "cbf2ea5528c20001bc483d9e146097a314480b17afdd23c89f2e611b85d96b14",
-    "eb2b6f361f604c4e5d613c63d9595890d04a293082a0f5dccd91263747a3d3e0",
-    "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5"
-  ],
-  "kind": "C",
-  "limits": [],
-  "model": "gemma4_12b_it_qat_q4_0",
-  "profile": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
-  "qualification": "Balanced energy profile on12fixedlonginventories; everycycle>=10percentGPUJsuccess reduction at<=10percentlatencycost, no qualityloss.",
-  "winner_qualified": true
-}
-```
-
-
-## Profile d79c3d4777d8
-
-`bonsai-pq2-sm70-native-medium-agent18-prefix-v1`
-
-A0: `2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0`
-
-C: `d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e`
-
-```json
-{
-  "aggregate_metrics": {
-    "metrics": {
-      "gpu_energy_j_approx": 121439.49308125368,
-      "gpu_j_per_success": 6746.638504514093,
-      "peak_device_vram_mib": 8158.5,
-      "prefix_cache": {
-        "cached_tokens": 145536,
-        "cases_with_hits": 18,
-        "first_turn_cached_tokens": 0,
-        "requests_with_hits": 74
-      },
-      "solved": 18,
-      "successful_tasks_per_s": 0.03944598873901683,
-      "tasks": 18,
-      "total_wall_s": 456.320162719
-    }
-  },
-  "experiment_id": "R442",
-  "id": "d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e",
-  "identity": {
-    "cache": "Firstturncoldreset percase; subsequentturnprefixreuse inone slot, OSfilecacheuncontrolled; taskenergy excludesstartup/warmup",
-    "inference_flags": {
-      "--batch-size": "2048",
-      "--cache-ram": "0",
-      "--cache-reuse": "0",
-      "--cache-type-k": "f16",
-      "--cache-type-v": "f16",
-      "--ctx-checkpoints": "2",
-      "--ctx-size": "8192",
-      "--flash-attn": "on",
-      "--load-mode": "mmap",
-      "--n-gpu-layers": "99",
-      "--parallel": "1",
-      "--reasoning": "on",
-      "--seed": "1001",
-      "--spec-type": "none",
-      "--threads": "6",
-      "--threads-batch": "6",
-      "--ubatch-size": "512"
-    },
-    "kernel_switches": {
-      "GGML_CUDA_GRAPH_OPT": "0",
-      "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
-    },
-    "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
-    "power_limit_w": 300,
-    "request_numeric_settings": null,
-    "seed": 1001,
-    "workload_description": null
-  },
-  "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
-  "identity_hashes": [
-    "0560986e4e40400f9a1beaa474aade93b3c6236f78cde94609ae0d6d72c4a09d",
-    "104b1abf22c5d6ea46d7d29e3186a3c540b39140cf4e1feadbec0ec6f871e186",
-    "1d32e8c7a5ba375008ffd3c010f70dfdd76c3c449ee4cd26e76004cd5e43e41c",
-    "1de3d70cf29f0b0fc2438b819c10f3e901b8025b073966198d865fbb6f994d30",
-    "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
-    "32ed0e13c30a135600f667c46f0ba0c2df0e2eca5e0558b6302fa178e475e2d3",
-    "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
-    "60c874aa652e9eb7d09ae128b79d31cbe0042f5e76476fd1d3192c47e7291d12",
-    "717966da46cfa4e9753ce2241df90215224329a344005bfd603b753e4e264019",
-    "784bbad15a8847cdb7fa69cb8646451544eb401290d02e39e2d33ccc2d6dd0c5",
-    "7bff05c54f510fb2408268889c245e42843ffaf469ff52fcc53a2199cd1df790",
-    "8386c6c6b932e9b15a675e6f09910b252934a33c256fb4732e8d06800db73b6d",
-    "94c60d4646249fe067c75a56b15e6a8a9070a5e422cae16ee8dd9973389a6a27",
-    "9bcac20d6fd1640fb05136e57255f0dd4a015b5f78bad3c86283266797355dbd",
-    "a48373656da8d0e2f3c9e24c5be5239343ad708fa1f0f5d4de3eea82c31f4d3f",
-    "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
-    "cfb310938f8a59e625b24e3bef1886ece36567410babf2b981f3cb0f9e4509e3",
-    "e666c714a773c996ef611d6cf19638b001ad894d9ba32569a15cfdc08ff93506"
-  ],
-  "kind": "C",
-  "limits": [],
-  "model": "bonsai2_27b_pq2",
-  "profile": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
-  "qualification": "Agent18prefixE2E/energy profile only; quality/source-success/policy preserved, full18andfreshcontrol gates independentlyverified.",
   "winner_qualified": true
 }
 ```

@@ -381,6 +381,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R456](experiments/R456.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | mimo_v26_distill_qwen9b_q8 |
 | [R457](experiments/R457.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_9b |
 | [R458](experiments/R458.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4_12b_it_qat_q4_0 |
+| [R459](experiments/R459.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_9b |
 
 
 ## Historical signed windows

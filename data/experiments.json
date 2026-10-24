@@ -19230,5 +19230,23 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 0
+    },
+    "audit_id": "audit-e9fd84332797722dbaff",
+    "date": "2026-10-24T00:50:28.644806+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R459",
+    "model": "ornith15_9b",
+    "reference_A0": null,
+    "statements": {
+      "decision": "NO_MODEL_OR_TASK_RESULT; REPAIR_SUBMISSION_RESERVE_BEFORE_FIRST_INFERENCE"
+    },
+    "winner_qualified": false
   }
 ]

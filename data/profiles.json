@@ -1,5 +1,83 @@
 [
   {
+    "A0": "5a20bd90f2961949683c44a7189487e761872837a685f25299c9989aac106aaa",
+    "C": null,
+    "id": "bonsai-pq2-sm70-native-medium-agent-first3-prefix-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
+    "C": "d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e",
+    "id": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "d410e7cde86335bf8933fe8a7de626dd4390f91bc29c356b9e3004606c5b2223",
+    "C": null,
+    "id": "bonsai2-pq2-sm70-native-medium-context32K-longinventory-full12-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "a3af25236a61159abbf9ebc6bb5263050347039592d8e348f46356812354a01f",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-HEPlus164-custom16-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "f1e4d6da7ee2249feada176bce48acc966c98b6c1f397731d8543d1430d33eaf",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-MBPP020-originaltest223-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "e51331f8a63fbdd0fb12a79ff0a30d525c59c0397b153e221f3d509f35aa47b5",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-MBPP020-originaltest32-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "5e335baa7b36e8d1a7ed3b6d7d26532a80e15847fd8856b5920942cbd8fdeffb",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-agent18-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "6b609794fa5e05f00ebe10bdf3e4e3b5e1f924c0e4521503b55d8acd62e076cc",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-bfcl-balanced100-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
+    "C": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
+    "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "1abad08845b8100943527b5fcede7cd34f4669485263cfabaa246457d0ac0836",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-context32K-common-and-extended-T1-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "909d0f9a921c535f63f0e1e6fefd8045f9061c7f91e4837007ea8bd1cadda60f",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-fast8K-QA12-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "4d973b7ae84d7f789049158bb68c135afc953c994ae9b9382932bd087d230fd8",
+    "C": null,
+    "id": "gemma4-12b-qat-q40-sm70-native-object-validation8-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
     "A0": "e0a5d6c242421e9fd9fedd7f4796c7c0cb5154434fe3908a9053e3b9250da661",
     "C": null,
     "id": "o2-original12-synthetic-v1/omnicoder2",
@@ -63,6 +141,18 @@
     "A0": "261b79515e6f4a6187ff38d8d546ab9127da36f2ddd6801fd35068de14b36039",
     "C": null,
     "id": "omnicoder2-q6k-sm70-cuda128-long14k-ctx32k-reference-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "01e121494d6bbc2e830d051b714ad2ff3f7b0db59a6f05049c77be5e88e7d57c",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test223-greedy1024-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "274e76c7812114ac961938363318106274893736950ebc4bb1dac1452e1568bb",
+    "C": null,
+    "id": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test32-greedy1024-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
   },
   {
@@ -162,6 +252,18 @@
     "scope": "Champion only in this exact profile; no automatic production deployment."
   },
   {
+    "A0": "6ca6bfc6ceca1f27c6c2201e93d0744c70ea07b11a2cac8e06440f1fc0c827fc",
+    "C": null,
+    "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context16K-fixedR338-T0-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "7c600045aef3c161c541ca249d31b396209ff329e75a41e1a5114539d3e7c3ef",
+    "C": null,
+    "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context32K-common-and-extended-T0-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
     "A0": "a4f894abc71f73767a614aa6d1ec75168138fedf37730678b60cacd772cdb4b4",
     "C": null,
     "id": "qwen38-iq3s-mtp-sm70-cuda128-bfcl-balanced100-native-v1",
@@ -183,108 +285,6 @@
     "A0": "b22af5c446e7db98fabcab1b285f45f54dc6e260864d2119e777319c57c40e29",
     "C": null,
     "id": "sm70-f16-d256-gqa4-fa-weightedv-seeded-sixcases-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "274e76c7812114ac961938363318106274893736950ebc4bb1dac1452e1568bb",
-    "C": null,
-    "id": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test32-greedy1024-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "01e121494d6bbc2e830d051b714ad2ff3f7b0db59a6f05049c77be5e88e7d57c",
-    "C": null,
-    "id": "omnicoder2-q6k-sm70-cuda128-mbpp020-original-test223-greedy1024-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "909d0f9a921c535f63f0e1e6fefd8045f9061c7f91e4837007ea8bd1cadda60f",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-fast8K-QA12-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "4d973b7ae84d7f789049158bb68c135afc953c994ae9b9382932bd087d230fd8",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-object-validation8-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "6b609794fa5e05f00ebe10bdf3e4e3b5e1f924c0e4521503b55d8acd62e076cc",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-bfcl-balanced100-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "a3af25236a61159abbf9ebc6bb5263050347039592d8e348f46356812354a01f",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-HEPlus164-custom16-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "5e335baa7b36e8d1a7ed3b6d7d26532a80e15847fd8856b5920942cbd8fdeffb",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-agent18-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "e51331f8a63fbdd0fb12a79ff0a30d525c59c0397b153e221f3d509f35aa47b5",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-MBPP020-originaltest32-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "f1e4d6da7ee2249feada176bce48acc966c98b6c1f397731d8543d1430d33eaf",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-MBPP020-originaltest223-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "1abad08845b8100943527b5fcede7cd34f4669485263cfabaa246457d0ac0836",
-    "C": null,
-    "id": "gemma4-12b-qat-q40-sm70-native-context32K-common-and-extended-T1-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "6ca6bfc6ceca1f27c6c2201e93d0744c70ea07b11a2cac8e06440f1fc0c827fc",
-    "C": null,
-    "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context16K-fixedR338-T0-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "7c600045aef3c161c541ca249d31b396209ff329e75a41e1a5114539d3e7c3ef",
-    "C": null,
-    "id": "qwen38-gsq-rco-iq3s-sm70-native-noMTP-context32K-common-and-extended-T0-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15",
-    "C": "74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e",
-    "id": "gemma4-12b-qat-q40-sm70-native-context16K-fixedR338-T1-v1/energy-balanced-225W-long-inventory-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "d410e7cde86335bf8933fe8a7de626dd4390f91bc29c356b9e3004606c5b2223",
-    "C": null,
-    "id": "bonsai2-pq2-sm70-native-medium-context32K-longinventory-full12-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "5a20bd90f2961949683c44a7189487e761872837a685f25299c9989aac106aaa",
-    "C": null,
-    "id": "bonsai-pq2-sm70-native-medium-agent-first3-prefix-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0",
-    "C": "d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e",
-    "id": "bonsai-pq2-sm70-native-medium-agent18-prefix-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]
