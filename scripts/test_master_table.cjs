@@ -10,6 +10,19 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Gemma QAT native category exposes its declared fast profile and bounded full400 energy', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R458');assert(r&&r.official_eligible);
+  assert.equal(r.solved,374);assert.equal(r.tasks,400);assert.equal(r.gpu_j,null);
+  assert.equal(r.counter_energy.tasks,400);assert.equal(r.counter_energy.solved,374);
+  assert.equal(r.counter_energy.j_per_success_lower,r.counter_energy.lower_j/374);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);
+  const observed=row.runs.find(x=>x.run_id===r.run_id);
+  assert.equal(observed.task_phase_s,291.184270093);
+  assert(observed.task_phase_s>observed.wall_s);
+  assert.equal(observed.successful_tasks_per_task_phase_s,374/291.184270093);
+  assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.max_output'],4096);
+  assert.equal(row.values['model.quantization'],'Q4_0');
+});
 test('Ornith full native category retains missing power-integral energy alongside bounded counters', () => {
   const run=data.history.runs.find(r => r.experiment_id==='R457');
   assert(run && run.official_eligible); assert.equal(run.solved,369); assert.equal(run.tasks,400);

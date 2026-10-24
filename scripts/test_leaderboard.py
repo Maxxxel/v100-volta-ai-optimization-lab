@@ -336,6 +336,17 @@ class LeaderboardTests(unittest.TestCase):
   for log,known,expected in [('print_info: file type = Q8_0\n','NOT MEASURED','Q8_0'),('print_info: file type = Q8_0\nprint_info: file type = Q6_K\n','NOT MEASURED',None),('model filename: something-Q8_0.gguf\n','NOT MEASURED',None),('print_info: file type = Q8_0\n','Q6_K',None)]:
    with self.subTest(log=log,known=known),tempfile.TemporaryDirectory() as tmp:
     root,folder,db,h=self.evidence_fixture(tmp);h['profiles'][0]['model']={'quantization':known};before=copy.deepcopy(h);p=folder/'server.log';p.write_text(p.read_text()+log);pins=json.loads((folder/'RAW_HASHES.json').read_text());pins['server.log']=digest(p);(folder/'RAW_HASHES.json').write_text(json.dumps(pins));ce,_=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertEqual(ce[0]['fields'].get('model.quantization'),expected);self.assertEqual(h,before)
+ def test_task_phase_uses_original_audit_not_mutable_summary_and_checks_scope(self):
+  for seconds in (3,1):
+   with self.subTest(seconds=seconds),tempfile.TemporaryDirectory() as tmp:
+    root,folder,db,h=self.evidence_fixture(tmp);audit=folder/'AUDIT.json';audit.write_text(json.dumps({'task_phase_s':seconds,'startup_s':7}))
+    pinned=digest(audit);pins=json.loads((folder/'RAW_HASHES.json').read_text());pins['AUDIT.json']=pinned;(folder/'RAW_HASHES.json').write_text(json.dumps(pins))
+    db['summary']['r1'].update(audit_sha256=pinned,task_phase_s=999);h['runs'][0].update(audit_hash=pinned,solved=1)
+    if seconds==1:
+     with self.assertRaisesRegex(ValueError,'shorter than recorded'):configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20])
+    else:
+     _,me=configuration_evidence(root,db,h,lambda p,s:'audit-'+s[:20]);self.assertEqual(me[0]['values']['task_phase_s'],3);self.assertEqual(me[0]['values']['successful_tasks_per_task_phase_s'],1/3);self.assertEqual(me[0]['values']['startup_s'],7)
+     self.assertTrue(any(s['filename']=='AUDIT.json' and s['sha256']==pinned for s in me[0]['sources']))
  def test_explicit_unknown_metadata_can_be_supplemented_but_known_values_cannot(self):
   for value in (None,'NOT MEASURED','NICHT ERFASST','Q6_K'):
    with self.subTest(value=value):

@@ -183,7 +183,7 @@
         shortLabel: b.name + ' · ' + b.key.slice(-6), category: 'Benchmarks', kind: 'benchmark', benchmark: b });
       const fixed = ['prefill_tok_s', 'decode_tok_s', 'ttft_s', 'wall_s', 'gpu_j', 'gpu_j_per_success', 'gpu_j_per_output_token', 'peak_vram_mib', 'repeat_range', 'date', 'status', 'status_reason', 'warning'];
       const extra = rows.flatMap(row => row.runs).filter(r => data.master.run_columns[r.run_id] === b.key)
-        .flatMap(r => Object.keys(flatten(r)).filter(k => /prefill|decode|latency|wall|energy|gpu_j|vram|repeat|timing_provenance|^matched_performance\.|^measurement_conditions\./i.test(k)));
+        .flatMap(r => Object.keys(flatten(r)).filter(k => /prefill|decode|latency|wall|energy|gpu_j|vram|repeat|task_phase|startup_s|timing_provenance|^matched_performance\.|^measurement_conditions\./i.test(k)));
       [...new Set([...fixed, ...extra])].sort().forEach(path => columns.push({ key: 'metric:' + b.key + ':' + path,
         label: (path.startsWith('matched_performance.') ? 'Neue Aufgaben: ' + path.slice('matched_performance.'.length) : path) + ' · ' + b.name + ' · ' + b.scope + ' · Qualität n=' + text(b.protocol.tasks) + ' · ' + b.key.slice(-6), category: 'Performance je Benchmarkprotokoll', kind: 'metric', benchmark: b, path }));
     });
@@ -372,7 +372,7 @@
       else model.families.filter(f => f.protocols.some(p => p.records > 0)).forEach(f => state.visible.add(f.key));
       if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
       if (name !== 'Kompakt') ['requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
-      if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$|matched_performance\.(tasks|solved|wall_s|successful_tasks_per_s)$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
+      if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$|:task_phase_s$|:startup_s$|:successful_tasks_per_task_phase_s$|matched_performance\.(tasks|solved|wall_s|successful_tasks_per_s)$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
       if (name === 'Energie') { state.visible.add('runtime.power_limit_w'); model.columns.filter(c => c.kind === 'metric' && /:(gpu_j|gpu_j_per_success|peak_vram_mib)$|matched_performance\.(tasks|solved|gpu_j|gpu_j_per_success|peak_vram_mib)$|counter_energy\.(lower_j|upper_j|j_per_success_lower|j_per_success_upper)$/.test(c.key) && bench.some(b => b.key === c.benchmark.key)).forEach(c => state.visible.add(c.key)); }
       renderPicker(); renderTable();
     }

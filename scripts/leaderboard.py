@@ -589,6 +589,18 @@ def configuration_evidence(root, db, history, receipt):
     if len(rows)==run['tasks'] and len(set(ids))==len(rows) and finite(run.get('wall_s')) and math.isclose(wall,run['wall_s'],rel_tol=1e-7,abs_tol=1e-5):accepted.append(rows)
    if not accepted:continue
    rows=accepted[0];timings=[(r.get('native_reply') or r.get('reply') or {}).get('timings',{}) for r in rows];values={}
+   # Keep the real task phase (including request preparation) distinct from
+   # the sum of completion-HTTP windows, without changing immutable run IDs.
+   summary=db['summary'].get(run['experiment_id'].lower(),{});phase_source=None
+   if summary.get('audit_sha256')==run['audit_hash']:
+    original=pathlib.Path(summary['audit_path']);original=original if original.is_absolute() else root/original
+    if digest(original)!=run['audit_hash']:raise ValueError('Task-phase original audit changed')
+    actual=read(original)
+    if finite(actual.get('task_phase_s')) and actual['task_phase_s']>0:
+     if actual['task_phase_s']+1e-6<run['wall_s']:raise ValueError('Task phase shorter than recorded request windows')
+     values['task_phase_s']=actual['task_phase_s'];values['successful_tasks_per_task_phase_s']=run['solved']/actual['task_phase_s']
+     if finite(actual.get('startup_s')):values['startup_s']=actual['startup_s']
+     phase_source={'filename':original.name,'sha256':run['audit_hash'],'authority_audit_id':receipt(original,run['audit_hash'])}
    for name,count_key,time_key in [('prefill','prompt_n','prompt_ms'),('decode','predicted_n','predicted_ms')]:
     if all(finite(t.get(count_key)) and t[count_key]>=0 and finite(t.get(time_key)) and t[time_key]>0 for t in timings):
      tokens=sum(t[count_key] for t in timings);ms=sum(t[time_key] for t in timings)
@@ -596,6 +608,9 @@ def configuration_evidence(root, db, history, receipt):
    if 'decode_tokens' in values and values['decode_tokens']>0 and finite(run.get('gpu_j')):values['gpu_j_per_output_token']=run['gpu_j']/values['decode_tokens']
    if values:
     item={'run_id':run['run_id'],'runtime_configuration_id':cid,'values':values,'tasks':len(rows),'wall_sum_s':sum(r['e2e_s'] for r in rows),'sources':sorted({H(s):s for s in sources}.values(),key=H),'aggregation':'Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.'}
+    if 'task_phase_s' in values:
+     item['sources']=sorted({H(s):s for s in [*item['sources'],phase_source]}.values(),key=H)
+     item['task_phase_scope']='Recorded audited task phase includes input/template/token preparation between requests; completion-HTTP window sums are separate. Startup/warmup and CPU scoring are excluded from task-phase throughput.'
     item['evidence_id']='measurement-'+H(item);me.append(item)
  return ce,me
 

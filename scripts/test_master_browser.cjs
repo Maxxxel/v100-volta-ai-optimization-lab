@@ -71,6 +71,20 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const gemma=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R458'));
+    if(gemma){
+      assert.equal(gemma.solved,374);assert.equal(gemma.tasks,400);assert.equal(gemma.official_eligible,true);assert.equal(gemma.gpu_j,null);
+      const row=page.locator(`.master-table tr[data-configuration-id="${gemma.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('374/400'));
+      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Aus'));
+      assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(),'Q4_0');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],gemma.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Gemma full400 native QAT profile uses explicit thinking-off and distinct counter energy without filling missing integral data');
+    }
     const ornith=await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id==='R457'));
     if(ornith){
       assert.equal(ornith.solved,369);assert.equal(ornith.tasks,400);assert.equal(ornith.gpu_j,null);assert.equal(ornith.gpu_j_per_success,null);

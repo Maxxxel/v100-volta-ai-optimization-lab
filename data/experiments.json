@@ -19205,5 +19205,30 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "audit_id": "audit-741a72d732ef6339d7ea",
+    "date": "2026-10-24T00:30:06.631042+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R458",
+    "model": "gemma4_12b_it_qat_q4_0",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL400_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Gemma4 QAT Q4_0 profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

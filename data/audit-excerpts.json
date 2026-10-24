@@ -173203,6 +173203,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-741a72d732ef6339d7ea",
+    "original_bytes": 4192,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "741a72d732ef6339d7ea322715160c357714730317e6d8dbf15db01951ec2078",
+    "statements": {
+      "decision": "FULL400_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Gemma4 QAT Q4_0 profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -251896,6 +251918,51 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 8118.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1b713044c598f48f2151",
+    "original_bytes": 351908,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1b713044c598f48f2151ad79b16d157a687566d4c4e92fee45eae9ee9d04202e",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-174caec51f84d518101b",
+    "original_bytes": 17358,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "174caec51f84d518101bf705933e571f64cf96d70cf58dacb37683ac4dce68fa",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 374,
+      "tasks": 400
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a5e7e78fd92f649e322a",
+    "original_bytes": 14465,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a5e7e78fd92f649e322ac1c5f24cc633684a080c0f9bc39cd3b03625dce28c5e",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252156,6 +252223,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "ada36443ee3b882ab67f2f33a44f430f85dbfe822a67afac82b181a9edc27911",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-9aa2b393c059282f31a6",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9aa2b393c059282f31a633ce415d31879db15d5f8bb2ee226a19e8f352840b51",
     "statements": {}
   },
   {

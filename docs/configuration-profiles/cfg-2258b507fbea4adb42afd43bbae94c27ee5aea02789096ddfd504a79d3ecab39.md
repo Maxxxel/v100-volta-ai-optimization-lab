@@ -334,6 +334,85 @@ Evidence metadata: [audit-72f41693929ba8555787](../audits/audit-72f41693929ba855
       "prefill_tokens": 150094
     },
     "wall_sum_s": 809.740099683
+  },
+  {
+    "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+    "evidence_id": "measurement-7b1aa086c151764b5f4638780077c3674920b02bd2959b2d3b565dde53cfa97b",
+    "run_id": "run-57a02486b8633db025c471a3c08bca92435fa1c3bf56067c025466ae489bc97c",
+    "runtime_configuration_id": "cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab39",
+    "sources": [
+      {
+        "authority_audit_id": "audit-72f41693929ba8555787",
+        "filename": "LAUNCH.json",
+        "sha256": "9bf2e2110723ba0fdc6977d35201a1f387875bd0745ae47a9f9f9dbc18c488b9"
+      },
+      {
+        "authority_audit_id": "audit-72f41693929ba8555787",
+        "filename": "HTTP_RESULTS.jsonl",
+        "sha256": "13984062cf366974a015a64a55caaf36176b93cc42739a3404ee4091af395746"
+      },
+      {
+        "authority_audit_id": "audit-72f41693929ba8555787",
+        "filename": "server.log",
+        "sha256": "352577698aa53971eacb95b570e2c0fdcf1431a0bd7cee2f33270ce57592c756"
+      }
+    ],
+    "task_phase_scope": "Recorded audited task phase includes input/template/token preparation between requests; completion-HTTP window sums are separate. Startup/warmup and CPU scoring are excluded from task-phase throughput.",
+    "tasks": 400,
+    "values": {
+      "decode_engine_ms": 726189.469,
+      "decode_tok_s": 79.87860259097202,
+      "decode_tokens": 58007,
+      "prefill_engine_ms": 82127.191,
+      "prefill_tok_s": 1827.5798571997914,
+      "prefill_tokens": 150094,
+      "startup_s": 63.890540201,
+      "successful_tasks_per_task_phase_s": 0.45466929282690266,
+      "task_phase_s": 811.578890023
+    },
+    "wall_sum_s": 809.740099683
+  },
+  {
+    "aggregation": "Rate = sum of recorded token counts / sum of engine timing seconds for the exact task set; excludes startup/warmup. GPU J/output token uses gross case-window GPU energy including prefill. Engine prefill time is not TTFT. No unseen holdout claim.",
+    "evidence_id": "measurement-51ce0a59b6c31ef8027bbfc28e411e0c831dea8b332e832bd827e8326e4e32ea",
+    "run_id": "run-57a02486b8633db025c471a3c08bca92435fa1c3bf56067c025466ae489bc97c",
+    "runtime_configuration_id": "cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab39",
+    "sources": [
+      {
+        "authority_audit_id": "audit-656d8435a483b3531063",
+        "filename": "AUDIT.json",
+        "sha256": "656d8435a483b3531063b87a3ffdc981a8ff410baa8d0e8f75f5c0c859874aac"
+      },
+      {
+        "authority_audit_id": "audit-72f41693929ba8555787",
+        "filename": "LAUNCH.json",
+        "sha256": "9bf2e2110723ba0fdc6977d35201a1f387875bd0745ae47a9f9f9dbc18c488b9"
+      },
+      {
+        "authority_audit_id": "audit-72f41693929ba8555787",
+        "filename": "HTTP_RESULTS.jsonl",
+        "sha256": "13984062cf366974a015a64a55caaf36176b93cc42739a3404ee4091af395746"
+      },
+      {
+        "authority_audit_id": "audit-72f41693929ba8555787",
+        "filename": "server.log",
+        "sha256": "352577698aa53971eacb95b570e2c0fdcf1431a0bd7cee2f33270ce57592c756"
+      }
+    ],
+    "task_phase_scope": "Recorded audited task phase includes input/template/token preparation between requests; completion-HTTP window sums are separate. Startup/warmup and CPU scoring are excluded from task-phase throughput.",
+    "tasks": 400,
+    "values": {
+      "decode_engine_ms": 726189.469,
+      "decode_tok_s": 79.87860259097202,
+      "decode_tokens": 58007,
+      "prefill_engine_ms": 82127.191,
+      "prefill_tok_s": 1827.5798571997914,
+      "prefill_tokens": 150094,
+      "startup_s": 63.890540201,
+      "successful_tasks_per_task_phase_s": 0.45466929282690266,
+      "task_phase_s": 811.578890023
+    },
+    "wall_sum_s": 809.740099683
   }
 ]
 ```
