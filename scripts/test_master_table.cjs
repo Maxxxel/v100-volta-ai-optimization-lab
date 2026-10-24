@@ -843,3 +843,28 @@ test('Opus tools167/200 is category-qualified with unchanged coding partial and 
  const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.score,83.5);assert.equal(mean.count,1);assert.equal(mean.total,3);
  assert(!row.runs.some(r=>r.experiment_id==='R485'));assert.equal(M.performanceSummary(row,mean.keys,v.benchmarkMap).tasks,200);
 });
+
+test('Nexus C full130/164 preserves ThinkingOFF/T0 and cannot borrow historical ThinkingON tool results',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R488'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,164);assert.equal(r.solved,130);assert.equal(r.counter_energy.tasks,164);assert.equal(r.counter_energy.solved,130);
+ assert.equal(r.counter_energy.j_per_success_lower,1008.8885461538462);assert.equal(r.counter_energy.j_per_success_upper,1009.3141307692308);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);assert.equal(row.values['requested.MTP'],false);
+ assert.equal(row.profile.model.artifact_sha256,'b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c');
+ assert(!row.runs.some(r=>['R481','R482','R487'].includes(r.experiment_id)));
+ assert(!data.history.runs.some(r=>r.experiment_id==='R487'));
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);
+ if(!row.runs.some(r=>r.experiment_id==='R489')){assert.equal(mean.score,130/164*100);assert.equal(mean.count,1);assert.equal(mean.total,3);}
+});
+
+test('Nexus C178/200 tool result joins its exact130/164 coding profile with honest pooled cost and two-category mean',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R489'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,200);assert.equal(r.solved,178);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,178);
+ assert.equal(r.counter_energy.j_per_success_lower,804.2929101123596);assert.equal(r.counter_energy.j_per_success_upper,804.8204269662921);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert(row.runs.some(x=>x.experiment_id==='R488'));assert(!row.runs.some(x=>x.experiment_id==='R482'));
+ assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.count,2);assert.equal(mean.total,3);
+ assert(Math.abs(mean.score-(130/164*100+89)/2)<1e-12);
+ const cost=M.performanceSummary(row,mean.keys,v.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,308);assert.equal(cost.peak_vram_gib,7356.5/1024);
+});

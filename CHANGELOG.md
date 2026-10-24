@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-24 — Nexus C complete coding/tools profile
+
+- R489 qualifies178/200 on the original BFCL v4 parallel_multiple category after independent CPU replay. Task508.655539313 s, peak7,356.5 MiB and804.2929101123596–804.8204269662921 GPU J/success across all200 completed requests.
+- Join R489 with R488 coding130/164 only through the evidenced identical OFF/T0 configuration. Historical ON-profile coding71/81 PARTIAL and tools174/200 remain separate and unchanged.
+- The user-defined available-category mean is84.13414634146342%, with2/3 categories measured; Agents remains NOT MEASURED. This is not an official overall benchmark or Champion claim.
+- Preserve the complete development A/B/C study and measured quality/cost tradeoff. Automatic publication also waits for actual collector/reviewer processes to finish; CPU/model results are not counted as additional GPU jobs.
+
 ## 2026-10-24 — Nexus controlled Thinking comparison
 
 - R487 completed all32 development tasks across three counterbalanced profiles (96 requests), with independent CPU replay agreement.
@@ -824,5 +831,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R488 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R489 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
