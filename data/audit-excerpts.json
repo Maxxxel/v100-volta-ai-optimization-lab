@@ -173439,6 +173439,24 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12752.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-dcab101208ebe38c999b",
+    "original_bytes": 131746,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dcab101208ebe38c999b5d2d07e7a1c1519723f7b8f25235a7ed15f402d2c8e8",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Qwen3.6 27B Q3_K_S native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252628,6 +252646,22 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12752.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b8b62458b9747bde118b",
+    "original_bytes": 114050,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b8b62458b9747bde118b85ea8c4cf71786998758e7d3f552599f0f29a0292804",
+    "statements": {
+      "scope": "Derived observed prefix only, bound to original request/token proofs and privileged single-job NVML process/memory/energy evidence. No full completion or executed-kernel profiling claim."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252822,6 +252856,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "72f41693929ba8555787de785b6f7f5ef7241ee4bc062a9adef35343a2b37938",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-637e9cd6a48aadaa1a0d",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "637e9cd6a48aadaa1a0d0e0908c93b99a10daee5352518486324b65bed5d6121",
     "statements": {}
   },
   {
