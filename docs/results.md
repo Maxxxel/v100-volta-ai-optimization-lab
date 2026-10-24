@@ -379,6 +379,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R454](experiments/R454.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | mimo_v26_distill_qwen9b_q8 |
 | [R455](experiments/R455.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
 | [R456](experiments/R456.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | mimo_v26_distill_qwen9b_q8 |
+| [R457](experiments/R457.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_9b |
 
 
 ## Historical signed windows

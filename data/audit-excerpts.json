@@ -173181,6 +173181,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-656d8435a483b3531063",
+    "original_bytes": 4173,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "656d8435a483b3531063b87a3ffdc981a8ff410baa8d0e8f75f5c0c859874aac",
+    "statements": {
+      "decision": "FULL400_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full simple_python category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Ornith Q6 profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Exact legacy scorer wrapper conservatively prints full400_claimed=false; full coverage is independently established by all400 unique original IDs, original question/tool manifest hashes and official aggregation."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -251829,6 +251851,51 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f45101def91bb58baefb",
+    "original_bytes": 351541,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f45101def91bb58baefbe017854576243fb3fddc1f995eaf6c115b42d30402c7",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-440a74a6585eb6408263",
+    "original_bytes": 15714,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "440a74a6585eb64082637af091b136bc1dfe2248ca0365636d83ef8b532f37e0",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 369,
+      "tasks": 400
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f6ad9f5b64d639bf8f1d",
+    "original_bytes": 14458,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f6ad9f5b64d639bf8f1dec7aff6a2e0369ae4d981c7df449066f09aa4d4d71ba",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -251990,6 +252057,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "f0d91e26bf5f4d13e5dce2d1190fcb12f5a7ce3240572722a349bf22a964a43c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-72f41693929ba8555787",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "72f41693929ba8555787de785b6f7f5ef7241ee4bc062a9adef35343a2b37938",
     "statements": {}
   },
   {

@@ -373,7 +373,7 @@
       if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
       if (name !== 'Kompakt') ['requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
       if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$|matched_performance\.(tasks|solved|wall_s|successful_tasks_per_s)$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
-      if (name === 'Energie') { state.visible.add('runtime.power_limit_w'); model.columns.filter(c => c.kind === 'metric' && /:(gpu_j|gpu_j_per_success|peak_vram_mib)$|matched_performance\.(tasks|solved|gpu_j|gpu_j_per_success|peak_vram_mib)$|matched_performance\.counter_energy\.(lower_j|upper_j|j_per_success_lower|j_per_success_upper)$/.test(c.key) && bench.some(b => b.key === c.benchmark.key)).forEach(c => state.visible.add(c.key)); }
+      if (name === 'Energie') { state.visible.add('runtime.power_limit_w'); model.columns.filter(c => c.kind === 'metric' && /:(gpu_j|gpu_j_per_success|peak_vram_mib)$|matched_performance\.(tasks|solved|gpu_j|gpu_j_per_success|peak_vram_mib)$|counter_energy\.(lower_j|upper_j|j_per_success_lower|j_per_success_upper)$/.test(c.key) && bench.some(b => b.key === c.benchmark.key)).forEach(c => state.visible.add(c.key)); }
       renderPicker(); renderTable();
     }
     function renderPicker() {

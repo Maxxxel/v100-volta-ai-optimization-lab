@@ -71,6 +71,19 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const ornith=await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id==='R457'));
+    if(ornith){
+      assert.equal(ornith.solved,369);assert.equal(ornith.tasks,400);assert.equal(ornith.gpu_j,null);assert.equal(ornith.gpu_j_per_success,null);
+      const row=page.locator(`.master-table tr[data-configuration-id="${ornith.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('369/400'));
+      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const lower=row.locator('td[data-column-key$=":counter_energy.j_per_success_lower"]');
+      assert.equal(await lower.count(),1);assert.notEqual((await lower.textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator('td[data-column-key$=":gpu_j_per_success"]').textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Ornith400 exact thinking profile shows separate energy-counter bounds; invalid power integral stays unknown');
+    }
     const mimoTools = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R456'));
     if (mimoTools) {
       assert.equal(mimoTools.tasks, 400); assert.equal(mimoTools.solved, 320);

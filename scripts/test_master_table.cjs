@@ -10,6 +10,15 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Ornith full native category retains missing power-integral energy alongside bounded counters', () => {
+  const run=data.history.runs.find(r => r.experiment_id==='R457');
+  assert(run && run.official_eligible); assert.equal(run.solved,369); assert.equal(run.tasks,400);
+  assert.equal(run.gpu_j,null); assert.equal(run.gpu_j_per_success,null);
+  assert.equal(run.counter_energy.tasks,400); assert.equal(run.counter_energy.solved,369);
+  assert(run.counter_energy.lower_j<=run.counter_energy.upper_j);
+  assert.equal(run.counter_energy.j_per_success_upper,run.counter_energy.upper_j/369);
+  assert(run.audit_ids.includes(run.counter_energy.audit_id));
+});
 test('MiMo native full-category result keeps its own thinking profile and full400 cost scope', () => {
   const r = data.history.runs.find(r => r.experiment_id === 'R456');
   assert(r && r.official_eligible); assert.equal(r.tasks, 400); assert.equal(r.solved, 320);

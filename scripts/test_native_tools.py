@@ -1,5 +1,5 @@
 """Synthetic provenance fixtures only: no GPU, model, tool execution or private data."""
-import copy,json,pathlib,tempfile,unittest
+import copy,inspect,hashlib,json,pathlib,tempfile,unittest
 import test_leaderboard as fixtures
 from leaderboard import H,digest,native_tool_run,native_reused_tool_run,counter_energy_bounds
 class NativeToolsTests(unittest.TestCase):
@@ -49,6 +49,34 @@ class NativeToolsTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    root=pathlib.Path(tmp);source,cfg,bench,a,save,lines=self.fixture(root);p=root/'staging/r9/replay.stdout';rows=[json.loads(x) for x in p.read_text().splitlines()];rows[0]['official_AST_success']=False;a['scoring_receipts'][1]['stdout_sha256']=lines(p,rows);source['audit_sha256']=save(pathlib.Path(source['audit_path']),a)
    with self.assertRaisesRegex(ValueError,'replay mismatch'):self.project(root,source,cfg,bench)
+class FullCounterSupplementTests(unittest.TestCase):
+ project=NativeToolsTests.project
+ def fixture(self,root):
+  source,cfg,bench,a,save,lines=NativeToolsTests().fixture(root);out=root/'results';stage=root/'staging/r9';raw=out/'HTTP_RESULTS.jsonl';rows=[json.loads(l) for l in raw.read_text().splitlines()]
+  for i,r in enumerate(rows):r.update(start_ns=i*1000000000,end_ns=(i+1)*1000000000)
+  lines(raw,rows);gpu=json.loads((out/'AUDIT.json').read_text());gpu['case_gpu_energy_j']=None
+  for r in gpu['per_task']:r.update(gpu_energy_j=None,energy_complete=False)
+  gh=save(out/'AUDIT.json',gpu);save(out/'HOST_COMPLETION.json',{'status':'GPU_COMPLETE_AUDITED','audit_sha256':gh});a['parts'][0]['audit_sha256']=gh;save(out/'RAW_HASHES.json',{n:digest(out/n) for n in ('profile.json','LAUNCH.json','CONTRACT.json','HTTP_RESULTS.jsonl')});sp=stage/'SCORING_PLAN.json';d=json.loads(sp.read_text());d['responses_sha256']=digest(raw);a['scoring_plan_sha256']=save(sp,d)
+  for entry in a['scoring_receipts']:
+   rp=stage/(entry['label']+'.receipt.json');d=json.loads(rp.read_text());d['input_sha256'][str(raw)]=digest(raw);d['input_sha256'][str(sp)]=digest(sp);entry['receipt_sha256']=save(rp,d)
+  source['audit_sha256']=save(stage/'AUDIT.json',a);tele=out/'GPU_TELEMETRY.jsonl';lines(tele,[{'nvml_begin_ns':i*1000000000,'at_ns':i*1000000000,'gpu_energy_counter_mj':i*1000} for i in range(401)]);ids=[r['id'] for r in rows];measurement=counter_energy_bounds([json.loads(l) for l in tele.read_text().splitlines()],rows,ids);measurement.update(solved=300,j_per_success_lower=measurement['lower_j']/300,j_per_success_upper=measurement['upper_j']/300)
+  review={'status':'BOUNDED_REPORTED_HARDWARE_COUNTER_ENERGY','GPU_runs':0,'model_requests':0,'source_API':'nvmlDeviceGetTotalEnergyConsumption','counter_unit':'mJ','selected_task_ids':ids,'source_function_sha256':hashlib.sha256(inspect.getsource(counter_energy_bounds).encode()).hexdigest(),'source_files_sha256':{str(p):digest(p) for p in [raw,tele,stage/'AUDIT.json']},'measurement':measurement};path=stage/'ENERGY_COUNTER_REVIEW.json';source['energy_counter_review']={'path':str(path),'sha256':save(path,review)};return source,cfg,bench,review,path,save
+ def test_counter_bounds_do_not_fill_a_failed_power_integral(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=pathlib.Path(t);source,cfg,bench,review,path,save=self.fixture(root);r=self.project(root,source,cfg,bench);self.assertIsNone(r['gpu_j']);self.assertIsNone(r['gpu_j_per_success']);self.assertEqual(r['counter_energy']['lower_j'],400);self.assertEqual(r['counter_energy']['j_per_success_lower'],400/300);self.assertIn(r['counter_energy']['audit_id'],r['audit_ids'])
+ def test_rehashed_bounds_or_success_denominator_cannot_change_the_measurement(self):
+  for field,value in [('lower_j',399),('solved',400),('j_per_success_lower',1)]:
+   with tempfile.TemporaryDirectory() as t:
+    root=pathlib.Path(t);source,cfg,bench,review,path,save=self.fixture(root);review['measurement'][field]=value;source['energy_counter_review']['sha256']=save(path,review)
+    with self.subTest(field=field),self.assertRaisesRegex(ValueError,'bounds/success'):self.project(root,source,cfg,bench)
+ def test_original_telemetry_changes_cannot_be_hidden_by_the_counter_receipt(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=pathlib.Path(t);source,cfg,bench,review,path,save=self.fixture(root);(root/'results/GPU_TELEMETRY.jsonl').write_text('{}\n')
+   with self.assertRaisesRegex(ValueError,'source changed'):self.project(root,source,cfg,bench)
+ def test_an_unreviewed_method_is_rejected_even_with_a_new_receipt_hash(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=pathlib.Path(t);source,cfg,bench,review,path,save=self.fixture(root);review['source_function_sha256']='0'*64;source['energy_counter_review']['sha256']=save(path,review)
+   with self.assertRaisesRegex(ValueError,'method/task'):self.project(root,source,cfg,bench)
 class ReusedNativeToolsTests(unittest.TestCase):
  fixture=NativeToolsTests.fixture
  def reused_fixture(self,root):
