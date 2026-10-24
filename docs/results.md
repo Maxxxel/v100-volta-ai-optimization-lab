@@ -402,6 +402,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R477](experiments/R477.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_24b |
 | [R478](experiments/R478.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | omni |
 | [R479](experiments/R479.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_9b |
+| [R480](experiments/R480.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | mimo_v26_distill_qwen9b_q8 |
 
 
 ## Historical signed windows
