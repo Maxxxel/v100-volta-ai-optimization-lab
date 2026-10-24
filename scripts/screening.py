@@ -58,8 +58,40 @@ def build(root):
   extras.append({k:x[k] for k in ('artifact','status','reason')})
  output['other_local_artifacts']=extras
  plan=read(base/'QUALIFICATION_SELECTION_PLAN.json')
- output['qualification_plan']={k:plan[k] for k in ('rule','priorities','agents','holdout')}
+ output['qualification_plan']={k:plan[k] for k in ('rule','priorities','agents')}
+ output['qualification_plan']['holdout_at_plan_creation']=plan['holdout']
+ output['qualification_plan']['created_at_utc']=plan['at_utc']
  output['qualification_plan_sha256']=H(base/'QUALIFICATION_SELECTION_PLAN.json')
+ validation_dir=base.parent/'independent-validation16'
+ if (validation_dir/'PLAN.json').exists():
+  vp=read(validation_dir/'PLAN.json');vr=[]
+  for spec in vp['profiles']:
+   experiment=spec['experiment'];folder=root/'staging'/experiment.lower();item={'model':spec['model'],'experiment_id':experiment,'status':'NOT MEASURED','groups':None}
+   if (folder/'AUDIT.json').exists() and (folder/'INDEPENDENT_REVIEW.json').exists():
+    a=read(folder/'AUDIT.json');r=read(folder/'INDEPENDENT_REVIEW.json')
+    assert a['official_benchmark'] is False and r['audit_sha256']==H(folder/'AUDIT.json') and r['changed_judgments']==[]
+    assert a['planned_requests']==16 and a['completed_requests']==len(a['scored_tasks'])==r['replayed_requests']
+    for category in ('coding','tools'):
+     subset=[t for t in a['scored_tasks'] if t['category']==category]
+     assert len(subset)==a['groups'][category]['completed'] and sum(t['success'] for t in subset)==a['groups'][category]['successes']
+    raw=Path(a['raw_root']);assert all(H(raw/name)==h for name,h in a['original_raw_files_sha256'].items())
+    actual=read(raw/'profile.json');original=next(x for x in inventory['models'] if x['model']==spec['model']);parent=read(Path(original['parent_capture'])/'profile.json')
+    assert (actual.get('model_sha256') or actual['assets'][actual['model']])==original['model_sha256']
+    assert actual['native_recipe']['request_options']==parent['native_recipe']['request_options']
+    assert actual['assets']==parent['assets'] and actual['native_recipe']['argv_tail']==parent['native_recipe']['argv_tail']
+    item.update(status=a['status'],groups={k:project_group(g) for k,g in a['groups'].items()},audit_sha256=H(folder/'AUDIT.json'),independent_review_sha256=H(folder/'INDEPENDENT_REVIEW.json'),peak_vram_mib=a['peak_device_vram_mib'],task_phase_s=a['task_phase_s'])
+   vr.append(item)
+  output['independent_validation16']={'official_benchmark':False,'scope':'Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Small descriptive validation, not an official benchmark or model-superiority proof.','plan_sha256':H(validation_dir/'PLAN.json'),'rows':vr}
+  if (validation_dir/'COHORT_REVIEW.json').exists():
+   review=read(validation_dir/'COHORT_REVIEW.json');assert review['plan_sha256']==H(validation_dir/'PLAN.json')
+   assert H(validation_dir/'COHORT_REVIEW.json')==read(root/'BENCHMARK_REFERENCES.json')['summary']['independent_validation16']['cohort_review_sha256']
+   for result in review['rows']:
+    projected=next(x for x in vr if x['experiment_id']==result['experiment_id']);assert projected['audit_sha256']==result['audit_sha256'] and projected['independent_review_sha256']==result['independent_review_sha256']
+   output['independent_validation16']['cohort_review_sha256']=H(validation_dir/'COHORT_REVIEW.json')
+   output['independent_validation16']['decision']=review['decision']
+   output['independent_validation16']['failure_classes']=[{'model':r['model'],'experiment_id':r['experiment_id'],'classes':[f['classification'] for f in r['failures']],'actual_tool_executions':0} for r in review['rows']]
+  output['holdout']['status_at_freeze']=output['holdout']['status'];output['holdout']['status']='SEPARATE_PREDECLARED_VALIDATION_PHASE'
+  output['holdout']['current_scope']='The reserved8+8 tasks are now evaluated in a frozen three-profile cohort; these responses are not used to tune parameters.'
  validate(output);return output
 
 def validate(data):
@@ -73,6 +105,20 @@ def validate(data):
   for g in row['results'].values():
    assert type(g['completed']) is int and type(g['successes']) is int and 0<=g['successes']<=g['completed']<=16
    assert g['wilson95']==wilson(g['successes'],g['completed'])
+
+ v=data.get('independent_validation16')
+ if v:
+  assert v['official_benchmark'] is False and len(v['rows'])==3
+  assert len({r['experiment_id'] for r in v['rows']})==3
+  for row in v['rows']:
+   if row['groups'] is None:
+    assert row['status']=='NOT MEASURED'
+    continue
+   assert re.fullmatch('[a-f0-9]{64}',row['audit_sha256']) and re.fullmatch('[a-f0-9]{64}',row['independent_review_sha256'])
+   assert set(row['groups'])=={'coding','tools'}
+   for g in row['groups'].values():
+    assert type(g['completed']) is int and type(g['successes']) is int and 0<=g['successes']<=g['completed']<=8
+    assert g['wilson95']==wilson(g['successes'],g['completed'])
 
 def render(data):
  from html import escape as e
@@ -96,4 +142,18 @@ def render(data):
  plan=data.get('qualification_plan',{})
  if plan:
   extras+='\n<details><summary>Conservative qualification shortlist & next decisions</summary>\n\n'+''.join('- **'+e(x['priority'])+' · '+e(', '.join(x['models']))+'**: '+e(x['action'])+'\n' for x in plan['priorities'])+'\n'+e(plan['agents'])+'\n\n</details>\n'
- measured=sum(r['results'] is not None for r in data['rows']);return '# Model screening\n\n'+f'**{measured}/{len(data["rows"])} profiles measured** · 16 coding + 16 mock-tool development tasks.\n\nScreening → full qualification → targeted optimization → independent confirmation.\n\n'+'<input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">\n\n'+html+'\n\nDevelopment evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. A separate8coding+8mock-tool validation set is frozen and reserved; no model has answered it. Native templates and settings remain unchanged.\n\n¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.\n'+extras
+ if data.get('independent_validation16'):
+  extras+='\n[Reserved independent validation: status and evidence](pipeline-methods.md#independent-native-profile-validation).\n'
+ measured=sum(r['results'] is not None for r in data['rows']);return '# Model screening\n\n'+f'**{measured}/{len(data["rows"])} profiles measured** · 16 coding + 16 mock-tool development tasks.\n\nScreening → full qualification → targeted optimization → independent confirmation.\n\n'+'<input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">\n\n'+html+'\n\nDevelopment evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.\n\n¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.\n'+extras
+
+
+def render_validation(data):
+ from html import escape as e
+ v=data.get('independent_validation16')
+ if not v:return ''
+ rows=[]
+ for r in v['rows']:
+  g=r['groups'];score=lambda c:'NOT MEASURED' if g is None else str(g[c]['successes'])+'/'+str(g[c]['completed'])
+  evidence='['+r['experiment_id']+'](experiments/'+r['experiment_id']+'.md)' if g is not None else 'NOT MEASURED'
+  rows.append('| '+e(r['model'])+' | '+score('coding')+' | '+score('tools')+' | '+evidence+' |')
+ return '\n## Independent native-profile validation\n\n'+v['scope']+'\n\n| Profile | Coding /8 | Mock tools /8 | Evidence |\n|---|---|---|---|\n'+'\n'.join(rows)+'\n\nFull official coding/tools qualifications were reused. No original benchmark score changed.\n'+('\nObserved: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.\n' if v.get('cohort_review_sha256') else '')

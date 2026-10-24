@@ -3446,7 +3446,7 @@ Screening → full qualification → targeted optimization → independent confi
   }
 }</pre></details></td></tr></tbody></table></div>
 
-Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. A separate8coding+8mock-tool validation set is frozen and reserved; no model has answered it. Native templates and settings remain unchanged.
+Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.
 
 ¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.
 
@@ -3470,3 +3470,5 @@ Development evidence, not an official benchmark or unseen validation set. These 
 Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.
 
 </details>
+
+[Reserved independent validation: status and evidence](pipeline-methods.md#independent-native-profile-validation).

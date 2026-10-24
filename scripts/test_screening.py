@@ -40,3 +40,16 @@ class EnergyCosts(unittest.TestCase):
 class ConfigurationIdentity(unittest.TestCase):
  def test_same_weights_distinct_runtime_profiles_remain_separate(self):
   d=ScreeningTests().fixture();other=copy.deepcopy(d['rows'][0]);other['configuration']['parent_profile_id']='different-actual-native-profile';d['rows'].append(other);validate(d)
+
+class IndependentValidation(unittest.TestCase):
+ def data(self):
+  d=ScreeningTests().fixture();g=project_group({'successes':7,'completed':8})
+  d['independent_validation16']={'official_benchmark':False,'rows':[{'model':str(i),'experiment_id':'R'+str(509+i),'status':'INDEPENDENT_VALIDATION16_COMPLETE','groups':{'coding':copy.deepcopy(g),'tools':copy.deepcopy(g)},'audit_sha256':'a'*64,'independent_review_sha256':'b'*64} for i in range(3)]};return d
+ def test_independent_data_stays_separate(self):validate(self.data())
+ def test_cannot_promote_to_official_or_substitute16_task_groups(self):
+  d=self.data();d['independent_validation16']['official_benchmark']=True
+  with self.assertRaises(AssertionError):validate(d)
+  d=self.data();d['independent_validation16']['rows'][0]['groups']['coding']['completed']=16
+  with self.assertRaises(AssertionError):validate(d)
+ def test_missing_validation_is_not_zero(self):
+  d=self.data();r=d['independent_validation16']['rows'][0];r['groups']=None;r['status']='NOT MEASURED';validate(d)

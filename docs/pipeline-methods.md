@@ -166,3 +166,17 @@ Descriptive task overlap of whole configurations; no causal model-training, sign
 
 </details>
 <!-- paired-coding:end -->
+
+## Independent native-profile validation
+
+Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Small descriptive validation, not an official benchmark or model-superiority proof.
+
+| Profile | Coding /8 | Mock tools /8 | Evidence |
+|---|---|---|---|
+| Qwen3.5-9B | 8/8 | 6/8 | [R509](experiments/R509.md) |
+| Gemma4-12B | 7/8 | 7/8 | [R510](experiments/R510.md) |
+| OmniCoder-9B | 8/8 | 6/8 | [R511](experiments/R511.md) |
+
+Full official coding/tools qualifications were reused. No original benchmark score changed.
+
+Observed: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.

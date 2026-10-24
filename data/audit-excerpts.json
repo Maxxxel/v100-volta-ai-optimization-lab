@@ -174243,6 +174243,51 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 5956.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c32f1defdd7183008386",
+    "original_bytes": 16635,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c32f1defdd7183008386e0da9236139c0a482ad39b50ab2405373dd39e8c1e31",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 8118.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4b3e693eb56c8fde0087",
+    "original_bytes": 16602,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4b3e693eb56c8fde0087d4a269d103876f91a155b42fd6a85fe817fe85341bbf",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-dbceec90e287bbc4ae3d",
+    "original_bytes": 16624,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dbceec90e287bbc4ae3d1470f2d8f4414c9e2da9a109886537191900c02ccaef",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

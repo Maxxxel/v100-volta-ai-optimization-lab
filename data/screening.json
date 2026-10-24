@@ -3,10 +3,197 @@
   "dataset_id": "model-screening32-v1",
   "holdout": {
     "coding": 8,
+    "current_scope": "The reserved8+8 tasks are now evaluated in a frozen three-profile cohort; these responses are not used to tune parameters.",
     "manifest_sha256": "c590cecc9e81fd9accee3fc7f2f91c7d2740f7e927c1afa61454fceb93dcc1dc",
     "mock_tools": 8,
     "scope": "Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.",
-    "status": "FROZEN_RESERVED_NOT_EXECUTED_ON_MODELS"
+    "status": "SEPARATE_PREDECLARED_VALIDATION_PHASE",
+    "status_at_freeze": "FROZEN_RESERVED_NOT_EXECUTED_ON_MODELS"
+  },
+  "independent_validation16": {
+    "cohort_review_sha256": "8b24642e7d5a361ca3da1fd61d46eba768b53287c4ee5f636510f124f25a6778",
+    "decision": "Retain all three. No significance, superiority or noninferiority claim from8 tasks/category. Official full benchmark results remain unchanged. A model response is not an authorization boundary; the mock-policy failure requires deterministic external permission enforcement in isolated agent evaluation. No real tools or production actions executed; no tuning on this validation set.",
+    "failure_classes": [
+      {
+        "actual_tool_executions": 0,
+        "classes": [
+          "REFUSAL_WITHOUT_REQUIRED_STATUS_JSON",
+          "MOCK_CALL_PROPOSED_DESPITE_EXPLICIT_DENIAL"
+        ],
+        "experiment_id": "R509",
+        "model": "Qwen3.5-9B"
+      },
+      {
+        "actual_tool_executions": 0,
+        "classes": [
+          "FUNCTIONAL_CODING_FIXTURE_MISMATCH",
+          "MOCK_CALL_PROPOSED_DESPITE_EXPLICIT_DENIAL"
+        ],
+        "experiment_id": "R510",
+        "model": "Gemma4-12B"
+      },
+      {
+        "actual_tool_executions": 0,
+        "classes": [
+          "REFUSAL_WITHOUT_REQUIRED_STATUS_JSON",
+          "MOCK_CALL_PROPOSED_DESPITE_EXPLICIT_DENIAL"
+        ],
+        "experiment_id": "R511",
+        "model": "OmniCoder-9B"
+      }
+    ],
+    "official_benchmark": false,
+    "plan_sha256": "26c71bd19d6e9ae050ae18f9e7a3bb8d4546226c56bfeb07c293ddcf757ce452",
+    "rows": [
+      {
+        "audit_sha256": "c32f1defdd7183008386e0da9236139c0a482ad39b50ab2405373dd39e8c1e31",
+        "experiment_id": "R509",
+        "groups": {
+          "coding": {
+            "GPU_j_per_success_lower": 623.628875,
+            "GPU_j_per_success_upper": 637.37975,
+            "completed": 8,
+            "completed_request_wall_s": 19.698913364,
+            "completion_tokens": 1836,
+            "final_text_present": 8,
+            "gpu_energy_j_lower": 4989.031,
+            "gpu_energy_j_upper": 5099.038,
+            "length_stops": 0,
+            "successes": 8,
+            "successful_tasks_s_completed_requests": 0.40611377146417105,
+            "tokens_s_completed_requests": 93.20311055102725,
+            "valid_terminal_output": 8,
+            "wilson95": [
+              0.6755924351161198,
+              1
+            ]
+          },
+          "tools": {
+            "GPU_j_per_success_lower": 276.3385,
+            "GPU_j_per_success_upper": 293.18216666666666,
+            "completed": 8,
+            "completed_request_wall_s": 7.0508875699999995,
+            "completion_tokens": 389,
+            "final_text_present": 2,
+            "gpu_energy_j_lower": 1658.031,
+            "gpu_energy_j_upper": 1759.093,
+            "length_stops": 0,
+            "successes": 6,
+            "successful_tasks_s_completed_requests": 0.8509566973566138,
+            "tokens_s_completed_requests": 55.170359211953794,
+            "valid_terminal_output": 6,
+            "wilson95": [
+              0.40927543031016883,
+              0.9285207872478909
+            ]
+          }
+        },
+        "independent_review_sha256": "cea0bfef39128c7ad6c037450cb589b0dd23028e00e6ac85461dc721ba5ad45b",
+        "model": "Qwen3.5-9B",
+        "peak_vram_mib": 5956.5,
+        "status": "INDEPENDENT_VALIDATION16_COMPLETE",
+        "task_phase_s": 26.758092889
+      },
+      {
+        "audit_sha256": "4b3e693eb56c8fde0087d4a269d103876f91a155b42fd6a85fe817fe85341bbf",
+        "experiment_id": "R510",
+        "groups": {
+          "coding": {
+            "GPU_j_per_success_lower": 627.0148571428572,
+            "GPU_j_per_success_upper": 641.8392857142857,
+            "completed": 8,
+            "completed_request_wall_s": 19.702231691,
+            "completion_tokens": 1365,
+            "final_text_present": 8,
+            "gpu_energy_j_lower": 4389.104,
+            "gpu_energy_j_upper": 4492.875,
+            "length_stops": 0,
+            "successes": 7,
+            "successful_tasks_s_completed_requests": 0.35528970066866117,
+            "tokens_s_completed_requests": 69.28149163038893,
+            "valid_terminal_output": 8,
+            "wilson95": [
+              0.5291118177871464,
+              0.9775825085499433
+            ]
+          },
+          "tools": {
+            "GPU_j_per_success_lower": 195.38214285714284,
+            "GPU_j_per_success_upper": 207.7887142857143,
+            "completed": 8,
+            "completed_request_wall_s": 6.45231367,
+            "completion_tokens": 227,
+            "final_text_present": 2,
+            "gpu_energy_j_lower": 1367.675,
+            "gpu_energy_j_upper": 1454.521,
+            "length_stops": 0,
+            "successes": 7,
+            "successful_tasks_s_completed_requests": 1.084882161347249,
+            "tokens_s_completed_requests": 35.18117866083222,
+            "valid_terminal_output": 7,
+            "wilson95": [
+              0.5291118177871464,
+              0.9775825085499433
+            ]
+          }
+        },
+        "independent_review_sha256": "0b8c9590ec628c2d26175b68df9c0a8a1928d211d94d41a56af5ec2b57830a17",
+        "model": "Gemma4-12B",
+        "peak_vram_mib": 8118.5,
+        "status": "INDEPENDENT_VALIDATION16_COMPLETE",
+        "task_phase_s": 26.162608824
+      },
+      {
+        "audit_sha256": "dbceec90e287bbc4ae3d1470f2d8f4414c9e2da9a109886537191900c02ccaef",
+        "experiment_id": "R511",
+        "groups": {
+          "coding": {
+            "GPU_j_per_success_lower": 666.533125,
+            "GPU_j_per_success_upper": 680.142375,
+            "completed": 8,
+            "completed_request_wall_s": 20.005620337,
+            "completion_tokens": 1528,
+            "final_text_present": 8,
+            "gpu_energy_j_lower": 5332.265,
+            "gpu_energy_j_upper": 5441.139,
+            "length_stops": 0,
+            "successes": 8,
+            "successful_tasks_s_completed_requests": 0.39988762483931367,
+            "tokens_s_completed_requests": 76.37853634430891,
+            "valid_terminal_output": 8,
+            "wilson95": [
+              0.6755924351161198,
+              1
+            ]
+          },
+          "tools": {
+            "GPU_j_per_success_lower": 323.79733333333337,
+            "GPU_j_per_success_upper": 336.709,
+            "completed": 8,
+            "completed_request_wall_s": 7.657074362,
+            "completion_tokens": 378,
+            "final_text_present": 2,
+            "gpu_energy_j_lower": 1942.784,
+            "gpu_energy_j_upper": 2020.254,
+            "length_stops": 0,
+            "successes": 6,
+            "successful_tasks_s_completed_requests": 0.7835890989613977,
+            "tokens_s_completed_requests": 49.36611323456806,
+            "valid_terminal_output": 6,
+            "wilson95": [
+              0.40927543031016883,
+              0.9285207872478909
+            ]
+          }
+        },
+        "independent_review_sha256": "9a56331f8dd668ccbc2a3105dc1dcf36e8c708dfa571b8e0bc79e6241a3ca8d7",
+        "model": "OmniCoder-9B",
+        "peak_vram_mib": 7356.5,
+        "status": "INDEPENDENT_VALIDATION16_COMPLETE",
+        "task_phase_s": 27.670937865
+      }
+    ],
+    "scope": "Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Small descriptive validation, not an official benchmark or model-superiority proof."
   },
   "official_benchmark": false,
   "other_local_artifacts": [
@@ -29,7 +216,8 @@
   "protocol_sha256": "b42f8f216b62dce35bba1a8e1aab058c09794ee87c8b2f35ac43f80f60d270fc",
   "qualification_plan": {
     "agents": "Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.",
-    "holdout": "Reserved8+8 tasks remain unseen by models. Use only for justified independent tie-break/diagnosis; freeze any further selection before responses.",
+    "created_at_utc": "2026-10-24T21:30:19.564015+00:00",
+    "holdout_at_plan_creation": "Reserved8+8 tasks remain unseen by models. Use only for justified independent tie-break/diagnosis; freeze any further selection before responses.",
     "priorities": [
       {
         "action": "Reuse existing complete native coding/tools results; no repeated GPU benchmarks.",
