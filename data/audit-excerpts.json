@@ -173548,6 +173548,50 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-89329075d5e77e4cc223",
+    "original_bytes": 4512,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Qwen3.5 Q4_K_M profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-db818b8f51677911ced5",
+    "original_bytes": 4419,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "db818b8f51677911ced5e9e1ffef66f3e546ec1db7b0680194cf068c79d108a4",
+    "statements": {
+      "decision": "PARTIAL_OBSERVED_PREFIX_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Ternary Bonsai 2 PQ2_0 profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -252961,6 +253005,80 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 5956.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-dc535e060e2756a5f575",
+    "original_bytes": 177909,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dc535e060e2756a5f575511f2d9eaafe961c1a25a9caf69975ebffba1e1f1927",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f75c96e3356efdcb857d",
+    "original_bytes": 8493,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f75c96e3356efdcb857d04e3da82eebc667d631d9fb5fec1ec9a8219993a2852",
+    "statements": {
+      "scope": "Exactly200 completed parallel_multiple requests and176 official AST successes, including failed responses and between-request setup. Startup/warmup/CPU/system energy excluded. Counter brackets are not calibration-error bounds. Missing power integral stays unknown. One inference set, no optimization or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 176,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-054b387b7db99f4ae04a",
+    "original_bytes": 10287,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "054b387b7db99f4ae04ab6bfd00923e6b88d8f45cc8c3dcfd1298b47ad597595",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 8158.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-989b072d9411fb845cec",
+    "original_bytes": 152075,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "989b072d9411fb845cec3251ebec402fb2a173d426fd70e0e5b249b73c40aa1e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ff5cb1c3739708f40442",
+    "original_bytes": 1997,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ff5cb1c3739708f4044285c9dfdfe5fe60e3203635e4a500d40ee05e5cbe2fd1",
+    "statements": {
+      "scope": "Append-only post-stop integrity for the completed prefix. No original controller attestation, clock reset, successful completion or new inference is fabricated."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -253396,6 +253514,17 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-63348acbeee3fb66ce0f",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "63348acbeee3fb66ce0f04d19bdd95744bd26671439a4c5cafea222c0a419c38",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-1683005b2a201069d0d3",
     "original_bytes": 48934,
     "original_filename": "research-metadata.json",
@@ -253670,6 +253799,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "84f6caa563632bf694cac75f7290ad0f74ff99208ea32d7dcaf46238d3adeafb",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f3a677969fb52e9db8c0",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f3a677969fb52e9db8c0165b47cb1bdeb62865f7a6ae335820d5bcdfd26cb6f3",
     "statements": {}
   },
   {

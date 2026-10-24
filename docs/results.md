@@ -396,6 +396,8 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R471](experiments/R471.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | omni |
 | [R472](experiments/R472.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4_12b_it_qat_q4_0 |
 | [R473](experiments/R473.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | qwen38 |
+| [R474](experiments/R474.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | qwen35 |
+| [R475](experiments/R475.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
 
 
 ## Historical signed windows

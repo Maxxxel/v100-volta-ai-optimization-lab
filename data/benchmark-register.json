@@ -24997,6 +24997,12 @@
       "proof_path": "staging/r472/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "6bdb5830ad0a385050b0fa874fb4afc2e61ba67a86a171ab3050f05ac5154cfb",
       "source_audit_hash": "7bfd00d2fcca7e4c767d6a197c3b1f9cc2bb1a146d794d2977f54d28cf21b1aa"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r474/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "054b387b7db99f4ae04ab6bfd00923e6b88d8f45cc8c3dcfd1298b47ad597595",
+      "source_audit_hash": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0"
     }
   ],
   "profile_label_reviews": [
