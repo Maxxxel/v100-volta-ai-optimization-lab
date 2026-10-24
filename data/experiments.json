@@ -20458,7 +20458,9 @@
     "id": "R512",
     "model": null,
     "reference_A0": null,
-    "statements": {},
+    "statements": {
+      "decision": "PROMISING_MEMORY_SCREEN_NOT_QUALIFIED"
+    },
     "winner_qualified": false
   }
 ]
