@@ -129,6 +129,21 @@ async function main() {
       await page.getByRole('button',{name:'Schließen',exact:true}).click();
       report.checks.push('Qwen3.6 coding and tool prefixes share one configuration row;242/260 transport failure is distinct from deadline and official400 results');
     }
+    const omniCoding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R471'&&r.counter_energy));
+    assert(omniCoding&&omniCoding.official_eligible,'Complete native OmniCoder profile must be exported');
+    {
+      const row=page.locator(`.master-table tr[data-configuration-ids~="${omniCoding.runtime_configuration_id}"]`);
+      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('132/164'));
+      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('OFFIZIELL'));
+      assert((await row.locator('td[data-column-key="requested.MTP"]').innerText()).includes('Aus'));
+      assert((await row.locator('td[data-column-key="model.name"]').innerText()).includes('OmniCoder 9B'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
+      assert((await row.locator('td[data-column-key="runtime.native_HTTP_timeout_policy"]').innerText()).includes('REMAINING_TASK_TIME'));
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],omniCoding.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).innerText()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('OmniCoder native132/164 is qualified in its exact no-MTP/4096/client-policy profile; historical graft result is preserved separately');
+    }
     const lfm24Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R467'));
     if(lfm24Tools){
       assert.equal(lfm24Tools.solved,374);assert.equal(lfm24Tools.tasks,400);assert.equal(lfm24Tools.official_eligible,true);

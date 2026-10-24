@@ -563,3 +563,17 @@ test('Qwen3.6 tools242/260 transport failure remains partial, distinct from task
  assert(row.runs.some(x=>x.experiment_id==='R469'),'Same model/engine/launch/sampler capture shares the coding row');
  const key=data.master.run_columns[r.run_id];assert.equal(row.scores[key].n,1);assert.equal(M.average(row.scores,[key],true,v.benchmarkMap),null);
 });
+
+test('OmniCoder native132/164 reference profile is complete with explicit bounded client and immutable tuning identity',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R471'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.solved,132);assert.equal(r.tasks,164);assert.equal(r.peak_vram_mib,7354.5);assert.equal(r.gpu_j,null);
+ assert.equal(r.counter_energy.tasks,164);assert.equal(r.counter_energy.solved,132);
+ assert.equal(r.counter_energy.j_per_success_lower,140482.936/132);assert.equal(r.counter_energy.j_per_success_upper,140584.646/132);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['model.quantization'],'Q6_K');assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['requested.thinking'],false);
+ assert.equal(row.values['runtime.native_HTTP_timeout_policy'],'REMAINING_TASK_TIME');assert.equal(row.values['runtime.max_output'],4096);
+ assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s,492.647250806);
+ const old=data.history.runs.find(r=>r.experiment_id==='R217'&&r.official_eligible);assert(old);
+ assert.notEqual(old.runtime_configuration_id,r.runtime_configuration_id);assert.notEqual(old.model_artifact_id,r.model_artifact_id);
+ assert.equal(old.solved,132);assert.equal(old.tasks,164);
+});
