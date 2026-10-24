@@ -349,9 +349,12 @@ class LeaderboardTests(unittest.TestCase):
   for c in view['benchmark_columns']:
    self.assertEqual(c['key'],'benchmark-'+H({'protocol':c['protocol'],'scope':c['scope']}))
    self.assertTrue(c['family_id']);self.assertTrue(c['family_name'])
-   if c['protocol']['benchmark_id'].startswith('bfcl-'):self.assertEqual(c['family_id'],'bfcl')
+   if c['protocol']['benchmark_id'].startswith('bfcl-'):
+    self.assertEqual(c['family_id'],'bfcl')
    if c['protocol']['benchmark_id']=='humanevalplus-v0.1.10':self.assertEqual(c['family_name'],'HumanEval+')
   self.assertEqual((reg,hist),before)
+  self.assertEqual({c['category'] for c in view['comparison_categories']},{'coding','tools','agents'})
+  self.assertEqual({c['benchmark_id'] for c in view['comparison_categories']},{'humanevalplus-v0.1.10','bfcl-v4-parallel-multiple-full200','terminal-bench-2.1'})
   unknown={'benchmark_id':'unknown-new-suite','name':'HumanEval+ lookalike'}
   col=master_catalog({'definitions':[unknown]},{'runs':[]})['benchmark_columns'][0]
   self.assertEqual(col['family_id'],'unknown-new-suite','No name-based grouping of unknown protocols')

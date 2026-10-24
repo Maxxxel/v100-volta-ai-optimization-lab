@@ -400,6 +400,8 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R475](experiments/R475.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | bonsai2_27b_pq2 |
 | [R476](experiments/R476.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_8b_a1b_q6 |
 | [R477](experiments/R477.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | lfm25_24b |
+| [R478](experiments/R478.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | omni |
+| [R479](experiments/R479.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | ornith15_9b |
 
 
 ## Historical signed windows

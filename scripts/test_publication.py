@@ -4,6 +4,17 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_compact_history_preserves_every_value_within_existing_file_budget(self):
+  import json,tempfile
+  from unittest.mock import patch
+  data={'profiles':[{'id':'x','unknown':None,'disabled':False,'text':'ä\ntext','score':85.0}], 'runs':[{'ids':['R1','R2']}]}
+  with tempfile.TemporaryDirectory() as directory,patch.object(e,'HERE',pathlib.Path(directory)):
+   e.write('configuration-history.json',data)
+   raw=(pathlib.Path(directory)/'data/configuration-history.json').read_text()
+   self.assertEqual(json.loads(raw),data)
+   self.assertEqual(raw.count('\n'),1)
+   self.assertLess(len(raw),len(json.dumps(data,indent=2)))
+   with self.assertRaises(ValueError):e.write('configuration-history.json',{'score':float('nan')})
  def test_budget_partial_exports_counts_and_costs_without_private_responses(self):
   raw={'status':'STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET','full_benchmark_score_claimed':False,'expected_tasks':164,'collected_tasks':140,'scored_tasks':140,'solved_observed_tasks':99,'prefix_measurement':{'case_inference_wall_s':751.5,'case_gpu_energy_j':148069.1,'per_task':[{'response':'private text','address':'sensitive-network-value'}],'prompt_token_ids':[123]}}
   out=e.metrics(raw);part=out['partial_benchmark_evidence'];self.assertEqual(part['solved_observed_tasks'],99);self.assertEqual(part['request_interval_wall_s'],751.5);self.assertFalse(part['full_benchmark_score_claimed']);self.assertNotIn('private',str(out));self.assertNotIn('sensitive-network-value',str(out));self.assertNotIn('token_ids',str(out))

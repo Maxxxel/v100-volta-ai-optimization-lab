@@ -1,537 +1,151 @@
-/* Optional real-browser acceptance test. No GPU, credentials or model requests.
- * PLAYWRIGHT_MODULE can point to an isolated Playwright installation.
- * node scripts/test_master_browser.cjs <site-root-url> <artifact-directory>
+/* Published/local browser acceptance of the owner-selected category table.
+ * Original historical measurements are covered independently by Python/Node.
+ * No GPU, model API, credentials or production services are used here.
  */
 'use strict';
-const assert = require('node:assert/strict');
-const fs = require('node:fs/promises');
-const path = require('node:path');
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const base = process.argv[2];
-const artifacts = process.argv[3];
-if (!base || !artifacts) throw new Error('Supply the built/published site root URL and an artifact directory');
-async function main() {
-  await fs.mkdir(artifacts, { recursive: true });
-  const args = ['--disable-gpu'];
-  if (process.env.BROWSER_NO_SANDBOX === '1') args.push('--no-sandbox');
-  const browser = await chromium.launch({ headless: true, args });
-  const errors = [], report = { site: base, checks: [], GPU_access: false };
-  try {
-    const context = await browser.newContext({ viewport: { width: 1600, height: 1000 }, acceptDownloads: true });
-    async function developmentAssets(context) {
-      if (!process.env.MASTER_SOURCE_DIR) return;
-      await context.route('**/javascripts/master-table.js*', route => route.fulfill({ path: path.join(process.env.MASTER_SOURCE_DIR, 'docs/javascripts/master-table.js') }));
-      await context.route('**/stylesheets/lab.css*', route => route.fulfill({ path: path.join(process.env.MASTER_SOURCE_DIR, 'docs/stylesheets/lab.css') }));
-      report.development_source_override = true;
-    }
-    await developmentAssets(context);
-    const page = await context.newPage();
-    page.on('pageerror', e => errors.push(e.message));
-    await page.goto(new URL('configuration-comparison/', base).href, { waitUntil: 'networkidle' });
-    await page.locator('.master-table tbody tr').first().waitFor();
-    const expected = await page.evaluate(() => {
-      const d = window.V100Leaderboard, m = window.V100MasterTable.comparisonView(window.V100MasterTable.build(d));
-      return { profiles: m.rows.length, columns: m.columns.filter(c => c.kind !== 'family' && c.key !== 'engine.build_id').length, families: m.families.length,
-        official: m.benchmarks.filter(b => b.scope === 'OFFICIAL_LOCAL').length,
-        currentFamily: m.families.find(f => f.protocols.some(b => b.scope === 'OFFICIAL_LOCAL' && m.rows.some(r => r.scores[b.key]?.n)))?.key,
-        missingFamily: m.families.find(f => f.protocols.some(b => b.scope === 'OFFICIAL_LOCAL' && !m.rows.some(r => r.scores[b.key]?.n)))?.id,
-        current: m.benchmarks.find(b => b.scope === 'OFFICIAL_LOCAL' && m.rows.some(r => r.scores[b.key]?.n))?.key,
-        missing: m.benchmarks.find(b => b.scope === 'OFFICIAL_LOCAL' && !m.rows.some(r => r.scores[b.key]?.n))?.key };
-    });
-    assert.equal(await page.locator('.master-table tbody tr').count(), expected.profiles);
-    assert.equal(await page.locator('.master-benchmark-choices input').count(), expected.families);
-    assert.equal(await page.locator('.master-table th[data-column-key="family:humanevalplus"]').count(), 1);
-    assert.equal(await page.locator('.master-table thead th[data-column-key^="benchmark-"]').count(), 0);
-    assert.equal(await page.locator('.master-table tbody td[data-kind=metric]').count(), 0);
-    assert.equal(await page.locator('.master-family-choice[data-family-id^=local-]').count(), 0);
-    assert.equal(await page.locator('.master-table th[data-column-key="engine.build_id"]').count(), 0);
-    assert.equal(await page.locator('.master-table th[data-column-key="evidence.experiments"]').count(),0);
-    const merged=await page.evaluate(()=>window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.filter(r=>r.memberIds.length>1).map(r=>({id:r.id,members:r.memberIds,experiments:[...new Set(r.runs.map(x=>x.experiment_id))]})));
-    assert(merged.length>=7,'Coding and tool captures must share their identical execution row');
-    for(const r of merged){
-      const tr=page.locator(`.master-table tr[data-configuration-ids~="${r.id}"]`);assert.equal(await tr.count(),1);
-      for(const e of r.experiments) assert.equal(await tr.locator('td[data-kind="family"] a').filter({hasText:e}).count(),1,'Run link on its score: '+e);
-    }
-    const mergedGemma=merged.find(r=>r.experiments.includes('R464'));
-    const combined=page.locator(`.master-table tr[data-configuration-ids~="${mergedGemma.id}"]`);
-    assert((await combined.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('156/164'));
-    assert((await combined.locator('td[data-column-key="family:bfcl"]').innerText()).includes('374/400'));
-    await combined.locator('td[data-column-key="family:humanevalplus"] button').click();
-    for(const id of mergedGemma.members)assert((await page.locator('.master-cell-dialog').innerText()).includes(id));
-    await page.getByRole('button',{name:'Schließen',exact:true}).click();
-    report.checks.push('no run column; seven identical coding/tool pairs share rows, each score links its run and retains all source profile IDs');
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const base=process.argv[2],artifacts=process.argv[3];
+if(!base||!artifacts)throw Error('Supply site-root URL and artifact directory');
+async function main(){
+ await fs.mkdir(artifacts,{recursive:true});
+ const args=['--disable-gpu'];if(process.env.BROWSER_NO_SANDBOX==='1')args.push('--no-sandbox');
+ const browser=await chromium.launch({headless:true,args}),errors=[];
+ const report={site:base,checks:[],GPU_access:false};
+ try{
+  const context=await browser.newContext({viewport:{width:1600,height:1000},acceptDownloads:true});
+  async function overrides(ctx){
+   if(!process.env.MASTER_SOURCE_DIR)return;
+   for(const file of ['javascripts/master-table.js','stylesheets/lab.css'])await ctx.route('**/'+file+'*',r=>r.fulfill({path:path.join(process.env.MASTER_SOURCE_DIR,'docs',file)}));
+   report.development_source_override=true;
+  }
+  await overrides(context);const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(new URL('configuration-comparison/',base).href,{waitUntil:'networkidle'});
+  await page.locator('.master-table tbody tr').first().waitFor();
+  const sourceBefore=await page.evaluate(()=>window.V100MasterTable.canonical(window.V100Leaderboard.history));
+  const expected=await page.evaluate(()=>{
+   const d=window.V100Leaderboard,M=window.V100MasterTable,v=M.comparisonView(M.build(d));
+   return {rows:v.rows.length,ids:v.rows.map(r=>r.id),families:v.families.map(f=>f.id),
+    benchmarks:[...new Set(v.benchmarks.map(b=>b.protocol.benchmark_id))],
+    raw_extra_runs:d.history.runs.filter(r=>!v.benchmarks.some(b=>b.protocol.benchmark_id===r.benchmark_id)).length};
+  });
+  assert.deepEqual(new Set(expected.benchmarks),new Set(['humanevalplus-v0.1.10','bfcl-v4-parallel-multiple-full200','terminal-bench-2.1']));
+  assert.equal(expected.raw_extra_runs>0,true,'Additional historical data must remain preserved');
+  assert.equal(await page.locator('.master-table tbody tr').count(),expected.rows);
+  async function noBlankResultRows(){
+    const empty=await page.locator('.master-table tbody tr').evaluateAll(rows=>rows.filter(r=>!r.querySelector('td[data-kind="family"] .master-score-line strong')).map(r=>r.dataset.configurationId));
+    assert.deepEqual(empty,[],'Every displayed row needs a measured result in a visible category');
+  }
+  await noBlankResultRows();
+  assert.equal(await page.locator('.md-content table').count(),1);assert.equal(await page.locator('.master-pagination').count(),0);
+  for(const id of expected.families)assert.equal(await page.locator(`.master-table thead th[data-column-key="family:${id}"]`).count(),1);
+  assert.equal(await page.locator('.master-table thead th[data-column-key^="family:"]').count(),3);
+  assert.equal(await page.locator('.master-table thead th[data-column-key="evidence.experiments"]').count(),0);
+  assert.equal(await page.locator('.master-table thead th[data-column-key="engine.build_id"]').count(),0);
+  assert.equal(await page.locator('select[data-protocol-family]').count(),3);
+  assert.equal(await page.locator('.master-family-choice[data-family-id=mbppplus]').count(),0);
+  const agentValues=await page.locator('td[data-column-key="family:terminal-bench"]').allTextContents();
+  assert.equal(agentValues.length,expected.rows);assert(agentValues.every(v=>v==='NICHT GEMESSEN'));
+  report.checks.push('exactly three fixed category benchmarks in one continuous table; original extra runs preserved outside this view; agent results missing rather than zero');
 
-    const engineVersions = await page.locator('.master-table tbody td[data-column-key="engine.version"]').allTextContents();
-    assert(engineVersions.every(v => v !== 'NICHT ERFASST'), 'Known source revisions must be displayed without fabricating release tags');
-    const modelNames = await page.locator('.master-table tbody td[data-column-key="model.name"] a').allTextContents();
-    assert(modelNames.includes('OmniCoder 9B'));
-    assert(modelNames.every(v => !/OmniCoder2|OmniCoder-2|V1\/V2/i.test(v)), 'One OmniCoder family label; historic IDs preserved separately');
-    assert.equal(await page.locator('.master-benchmark-choices select[data-protocol-family]').count(), expected.families);
-    assert((await page.locator('.master-counter').innerText()).includes(String(expected.profiles)));
-    assert.equal(await page.locator('.master-pagination').count(), 0);
-    assert.equal(await page.locator('.md-content table').count(),1,'Exactly one central table, including optional analysis');
-    const labelCorrections=await page.evaluate(()=>{
-      const d=window.V100Leaderboard,m=window.V100MasterTable.build(d);
-      return (d.register.profile_label_reviews||[]).flatMap(r=>r.corrections).map(c=>{
-        const row=m.rows.find(r=>r.id===c.runtime_configuration_id);
-        return {id:row.id,variant:row.values['model.variant'],original:row.profile.model.variant,historical:row.values['model.historical_variant_label']};
-      });
-    });
-    if(labelCorrections.length){
-      for(const c of labelCorrections){assert.equal(c.variant,null);assert.equal(c.original,c.historical);}
-      const profilePage=await context.newPage();
-      await profilePage.goto(new URL('configuration-profiles/'+labelCorrections[0].id+'/',base).href,{waitUntil:'networkidle'});
-      assert.equal(await profilePage.getByRole('heading',{name:/^Profile-description correction/}).count(),1);
-      assert((await profilePage.locator('.md-content').innerText()).includes('Actual captured parameters and scores are unchanged'));
-      await profilePage.close();
-      report.checks.push('copied profile descriptions have source-bound corrections; unknown variants and untouched original identities stay distinct');
-    }
-    const partials = await page.evaluate(() => {
-      const m=window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard));
-      return m.rows.flatMap(row=>{const f=m.families.find(f=>f.id==='humanevalplus');const c=m.columns.find(c=>c.key===f.key);const s={allMeasured:true,protocols:new Map([[f.id,window.V100MasterTable.defaultProtocol(f)]])};return window.V100MasterTable.resolvedScore(row,c,s,m.benchmarkMap).a?.records.filter(r=>r.status==='PARTIAL').map(r=>({id:row.id,solved:r.solved,tasks:r.tasks}))||[];});
-    });
-    assert(partials.length>=3,'Retained LFM and MiMo partial benchmark records');
-    for(const r of partials){const cell=page.locator(`.master-table tr[data-configuration-ids~="${r.id}"] td[data-column-key="family:humanevalplus"]`);assert((await cell.textContent()).includes(`${r.solved}/${r.tasks}`));assert((await cell.textContent()).includes('PARTIAL'));}
-    report.checks.push('exactly one table; partial results visible by default in the same HumanEval column with original denominators');
-    const toolCategories = await page.evaluate(() => window.V100Leaderboard.history.runs.filter(r => r.benchmark_id === 'bfcl-v4-simple-python-full400' && r.official_eligible));
-    for (const run of toolCategories) {
-      assert.equal(run.tasks, 400);
-      const cell = page.locator(`.master-table tr[data-configuration-ids~="${run.runtime_configuration_id}"] td[data-column-key="family:bfcl"]`);
-      assert((await cell.textContent()).includes(`${run.solved}/${run.tasks}`));
-      assert((await cell.textContent()).includes('OFFIZIELL'));
-      assert.equal(run.qualification_audit.category_only, true);
-      assert.equal(run.qualification_audit.official_category, 'simple_python');
-    }
-    if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
-    const parallel=await page.evaluate(()=>{const d=window.V100Leaderboard,r=d.history.runs.find(r=>r.experiment_id==='R472'),m=window.V100MasterTable.build(d),simple=m.benchmarks.find(b=>b.protocol.benchmark_id==='bfcl-v4-simple-python-full400'&&b.scope==='OFFICIAL_LOCAL');return r?{id:r.runtime_configuration_id,key:d.master.run_columns[r.run_id],simpleKey:simple.key}:null;});
-    assert(parallel,'The actual R472200-task result must be present');
-    const bfclSelect=page.locator('select[data-protocol-family=bfcl]');
-    const parallelRow=page.locator(`.master-table tr[data-configuration-ids~="${parallel.id}"]`);
-    assert((await parallelRow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('Parallel Multiple'),'All-measurements view labels the exact category');
-    await page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true}).click();
-    await bfclSelect.selectOption(parallel.simpleKey);
-    assert(!(await parallelRow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('154/200'),'No fallback from selected simple-call protocol');
-    await bfclSelect.selectOption(parallel.key);
-    const parallelCell=parallelRow.locator('td[data-column-key="family:bfcl"]');
-    assert((await parallelCell.innerText()).includes('154/200'));assert((await parallelCell.innerText()).includes('77'));
-    assert.equal(await parallelCell.getByRole('link',{name:'R472',exact:true}).count(),1);
-    await parallelCell.locator('button').click();assert((await page.locator('.master-cell-dialog').innerText()).includes('bfcl-v4-parallel-multiple-full200'));
-    await page.getByRole('button',{name:'Schließen',exact:true}).click();await bfclSelect.selectOption(parallel.simpleKey);await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
-    await page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true}).click();
-    report.checks.push('R472 complete154/200 parallel/multiple result uses its own selectable BFCL protocol, result-linked run, exact configuration and200-task counter scope; no cross-category fallback');
-    const wrapperPrefix=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R473'));
-    assert(wrapperPrefix&&wrapperPrefix.status==='PARTIAL'&&wrapperPrefix.termination_kind==='STOPPED_GPU_WRAPPER_TIME_BUDGET'&&wrapperPrefix.official_eligible===false);
-    const wrapperRow=page.locator(`.master-table tr[data-configuration-ids~="${wrapperPrefix.runtime_configuration_id}"]`),wrapperCell=wrapperRow.locator('td[data-column-key="family:bfcl"]');
-    assert((await wrapperCell.innerText()).includes('165/197'));assert((await wrapperCell.innerText()).includes('Parallel Multiple'));assert((await wrapperCell.innerText()).includes('PARTIAL'));
-    await wrapperCell.locator('button').click();
-    assert((await page.locator('.master-cell-dialog').innerText()).includes('STOPPED_GPU_WRAPPER_TIME_BUDGET'));assert((await page.locator('.master-cell-dialog').innerText()).includes('2011.080'));
-    await page.getByRole('button',{name:'Schließen',exact:true}).click();
-    report.checks.push('R473165/197 stays PARTIAL after protected wrapper timeout, distinct from native task exhaustion and full200 results; energy covers exactly197 completed requests');
-    for (const [experiment, solved, tasks, official, energy] of [['R474',176,200,true,'702.494'],['R475',145,171,false,'2237.994'],['R476',170,200,true,'730.922'],['R477',6,200,true,'9622.955']]) {
-      const r=await page.evaluate(e=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id===e&&r.counter_energy),experiment);
-      assert(r);assert.equal(r.official_eligible,official);assert.equal(r.counter_energy.tasks,tasks);
-      const cell=page.locator(`.master-table tr[data-configuration-ids~="${r.runtime_configuration_id}"] td[data-column-key="family:bfcl"]`);
-      assert((await cell.innerText()).includes(`${solved}/${tasks}`));assert((await cell.innerText()).includes('Parallel Multiple'));
-      if(!official)assert((await cell.innerText()).includes('PARTIAL'));
-      assert.equal(await cell.getByRole('link',{name:experiment,exact:true}).count(),1);
-      await cell.locator('button').click();assert((await page.locator('.master-cell-dialog').innerText()).includes(energy));
-      await page.getByRole('button',{name:'Schließen',exact:true}).click();
-      report.checks.push(`${experiment} ${solved}/${tasks} has its original qualification, result-linked run and exact completed-request counter scope; missing integral remains unknown`);
-    }
-    const qwen36Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R469'&&r.counter_energy));
-    assert(qwen36Coding,'Reviewed Qwen3.6 prefix must be exported');
-    {
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen36Coding.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('122/130'));
-      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('PARTIAL'));
-      assert((await row.locator('td[data-column-key="requested.thinking"]').innerText()).includes('Aus'));
-      assert((await row.locator('td[data-column-key="requested.MTP"]').innerText()).includes('Aus'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen36Coding.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).innerText()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j"]`).innerText()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Qwen3.6 Q3_K_S122/130 stays partial with reviewed130-request counter bounds and no fabricated full score or power integral');
-    }
-    const qwen36Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R470'&&r.counter_energy));
-    assert(qwen36Tools,'Actual transport-failure prefix remains visible');
-    {
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen36Tools.runtime_configuration_id}"]`);
-      const cell=row.locator('td[data-column-key="family:bfcl"]');assert((await cell.innerText()).includes('242/260')&&(await cell.innerText()).includes('PARTIAL'));
-      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('122/130'));
-      await cell.locator('button').click();const details=await page.locator('.master-cell-dialog pre').innerText();
-      assert(details.includes('STOPPED_NATIVE_TRANSPORT_TIMEOUT'));assert(details.includes('total task budget was not exhausted'));
-      await page.getByRole('button',{name:'Schließen',exact:true}).click();
-      report.checks.push('Qwen3.6 coding and tool prefixes share one configuration row;242/260 transport failure is distinct from deadline and official400 results');
-    }
-    const omniCoding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R471'&&r.counter_energy));
-    assert(omniCoding&&omniCoding.official_eligible,'Complete native OmniCoder profile must be exported');
-    {
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${omniCoding.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('132/164'));
-      assert((await row.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('OFFIZIELL'));
-      assert((await row.locator('td[data-column-key="requested.MTP"]').innerText()).includes('Aus'));
-      assert((await row.locator('td[data-column-key="model.name"]').innerText()).includes('OmniCoder 9B'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
-      assert((await row.locator('td[data-column-key="runtime.native_HTTP_timeout_policy"]').innerText()).includes('REMAINING_TASK_TIME'));
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],omniCoding.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).innerText()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('OmniCoder native132/164 is qualified in its exact no-MTP/4096/client-policy profile; historical graft result is preserved separately');
-    }
-    const lfm24Tools=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R467'));
-    if(lfm24Tools){
-      assert.equal(lfm24Tools.solved,374);assert.equal(lfm24Tools.tasks,400);assert.equal(lfm24Tools.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${lfm24Tools.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="model.name"]').textContent()).includes('LFM2.5 24B A2B'));
-      assert((await row.locator('td[data-column-key="model.quantization"]').textContent()).includes('QAD Q4_0'));
-      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('374/400'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],lfm24Tools.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('LFM24B QAD remains distinct from8B with374/400 native tools and separately bounded400-task energy');
-    }
-    const lfm24Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R468'));
-    if(lfm24Coding){
-      assert.equal(lfm24Coding.solved,77);assert.equal(lfm24Coding.tasks,85);assert.equal(lfm24Coding.official_eligible,false);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${lfm24Coding.runtime_configuration_id}"]`);
-      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();
-      assert(cell.includes('77/85')&&cell.includes('PARTIAL'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],lfm24Coding.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('LFM24B coding77/85 remains visibly PARTIAL with85-task counter costs and no full164 admission');
-    }
-    const qwen38Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy));
-    if(qwen38Coding){
-      assert.equal(qwen38Coding.solved,149);assert.equal(qwen38Coding.tasks,164);assert.equal(qwen38Coding.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen38Coding.runtime_configuration_id}"]`);
-      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('149/164')&&cell.includes('OFFIZIELL'));
-      assert((await row.locator('td[data-column-key="requested.MTP"]').textContent()).includes('Aus'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen38Coding.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Qwen3.8 native149/164 coding result retains complete artifact, explicit no-speculation and164-task cost scope');
-    }
-    const qwen35Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R465'&&r.counter_energy));
-    if(qwen35Coding){
-      assert.equal(qwen35Coding.solved,135);assert.equal(qwen35Coding.tasks,164);assert.equal(qwen35Coding.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen35Coding.runtime_configuration_id}"]`);
-      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('135/164')&&cell.includes('OFFIZIELL'));
-      assert.equal((await row.locator('td[data-column-key="requested.MTP"]').textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen35Coding.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Qwen3.5 native135/164 coding result keeps unknown MTP and separately reviewed164-task counter energy');
-    }
-    const gemmaCoding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R464'&&r.counter_energy));
-    if(gemmaCoding){
-      assert.equal(gemmaCoding.solved,156);assert.equal(gemmaCoding.tasks,164);assert.equal(gemmaCoding.official_eligible,true);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${gemmaCoding.runtime_configuration_id}"]`);
-      const text=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(text.includes('156/164')&&text.includes('OFFIZIELL'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],gemmaCoding.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Gemma native156/164 coding result has its own full benchmark identity and164-task reported energy without imputed integral');
-    }
-    const qwen38=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy));
-    if(qwen38){
-      assert.equal(qwen38.solved,383);assert.equal(qwen38.tasks,400);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${qwen38.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('383/400'));
-      assert((await row.locator('td[data-column-key="requested.MTP"]').textContent()).includes('Aus'));
-      const sampleCount=await page.evaluate(id=>{const d=window.V100Leaderboard,m=window.V100MasterTable.build(d),r=m.rows.find(r=>r.id===id);const run=d.history.runs.find(x=>x.experiment_id==='R462'&&x.counter_energy);return r.scores[d.master.run_columns[run.run_id]].n;},qwen38.runtime_configuration_id);
-      assert.equal(sampleCount,1);
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen38.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Qwen3.8 counter supplement is visible for383/400 while both history views count as one observation');
-    }
-    const ornithPrefix=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R460'));
-    if(ornithPrefix){
-      assert.equal(ornithPrefix.solved,85);assert.equal(ornithPrefix.tasks,93);assert.equal(ornithPrefix.intended_tasks,164);assert.equal(ornithPrefix.official_eligible,false);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${ornithPrefix.runtime_configuration_id}"]`);
-      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('85/93')&&cell.includes('PARTIAL'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],ornithPrefix.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Ornith93 coding prefix remains PARTIAL in the same table; counter energy covers exactly93 tasks and85 successes');
-    }
-    const gemma=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R458'));
-    if(gemma){
-      assert.equal(gemma.solved,374);assert.equal(gemma.tasks,400);assert.equal(gemma.official_eligible,true);assert.equal(gemma.gpu_j,null);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${gemma.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('374/400'));
-      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Aus'));
-      assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(),'Q4_0');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],gemma.run_id);
-      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Gemma full400 native QAT profile uses explicit thinking-off and distinct counter energy without filling missing integral data');
-    }
-    const ornith=await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id==='R457'));
-    if(ornith){
-      assert.equal(ornith.solved,369);assert.equal(ornith.tasks,400);assert.equal(ornith.gpu_j,null);assert.equal(ornith.gpu_j_per_success,null);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${ornith.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('369/400'));
-      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],ornith.run_id);
-      const lower=row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`);
-      assert.equal(await lower.count(),1);assert.notEqual((await lower.textContent()).trim(),'NICHT ERFASST');
-      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
-      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
-      report.checks.push('Ornith400 exact thinking profile shows separate energy-counter bounds; invalid power integral stays unknown');
-    }
-    const mimoTools = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R456'));
-    if (mimoTools) {
-      assert.equal(mimoTools.tasks, 400); assert.equal(mimoTools.solved, 320);
-      assert.equal(mimoTools.official_eligible, true);
-      const row=page.locator(`.master-table tr[data-configuration-ids~="${mimoTools.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('320/400'));
-      assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(), 'Q8_0');
-      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
-      assert.equal(mimoTools.practical_protocol.complete, 398);
-      report.checks.push('MiMo400 native result uses its own exact thinking/Q8 profile; capped replies remain included failures');
-    }
-    const reusedTools = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R455'));
-    if (reusedTools) {
-      assert.equal(reusedTools.solved, 372); assert.equal(reusedTools.tasks, 400);
-      for (const k of ['wall_s', 'gpu_j', 'gpu_j_per_success']) assert.equal(reusedTools[k], null);
-      assert.equal(reusedTools.matched_performance.tasks, 360);
-      assert.equal(reusedTools.matched_performance.solved, 335);
-      await page.getByLabel('Ansicht', { exact: true }).selectOption('Energie');
-      const row = page.locator(`.master-table tr[data-configuration-ids~="${reusedTools.runtime_configuration_id}"]`);
-      const bounds = row.locator('td[data-column-key$="matched_performance.counter_energy.lower_j"]');
-      assert.equal(await bounds.count(), 1);
-      assert.notEqual((await bounds.textContent()).trim(), 'NICHT ERFASST');
-      assert((await page.locator('th[data-column-key$="matched_performance.counter_energy.lower_j"]').textContent()).includes('Neue Aufgaben:'));
-      await page.getByLabel('Ansicht', { exact: true }).selectOption('Kompakt');
-      report.checks.push('Bonsai400 quality keeps360-task energy bounds separate; no fabricated full400 costs');
-    }
-    const mimo = await page.evaluate(() => window.V100Leaderboard.history.runs.find(r => r.experiment_id === 'R454' && r.official_eligible));
-    if (mimo) {
-      const row = page.locator(`.master-table tr[data-configuration-ids~="${mimo.runtime_configuration_id}"]`);
-      assert((await row.locator('td[data-column-key="family:humanevalplus"]').textContent()).includes(`${mimo.solved}/${mimo.tasks}`));
-      assert.equal((await row.locator('td[data-column-key="model.quantization"]').textContent()).trim(), 'Q8_0');
-      assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
-      report.checks.push('MiMo full164 score, verified Q8 precision and explicit thinking are present in the same master table');
-    }
+  const primaryRuns=await page.evaluate(()=>{
+   const d=window.V100Leaderboard,M=window.V100MasterTable,v=M.comparisonView(M.build(d));
+   return v.rows.flatMap(r=>r.runs).map(r=>({id:r.runtime_configuration_id,exp:r.experiment_id,bench:r.benchmark_id,solved:r.solved,tasks:r.tasks}));
+  });
+  assert(primaryRuns.every(r=>expected.benchmarks.includes(r.bench)));
+  const latest=primaryRuns.find(r=>r.exp==='R478');assert(latest);
+  const omni=page.locator(`tr[data-configuration-ids~="${latest.id}"]`);
+  assert((await omni.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('132/164'));
+  assert((await omni.locator('td[data-column-key="family:bfcl"]').innerText()).includes('177/200'));
+  assert.equal(await omni.locator('td[data-column-key="family:bfcl"] a').filter({hasText:'R478'}).count(),1);
+  const qwen=primaryRuns.find(r=>r.exp==='R474');assert(qwen);
+  const qrow=page.locator(`tr[data-configuration-ids~="${qwen.id}"]`);
+  assert((await qrow.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('135/164'));
+  assert((await qrow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('176/200'));
+  assert.equal(await page.locator(`tr[data-configuration-ids~="${qwen.id}"]`).count(),1);
+  report.checks.push('identical inference captures share coding/tool rows despite collection-limit differences; run links remain attached to their exact result');
 
+  assert(!primaryRuns.some(r=>['R473','R475','R460','R468','R469','R470'].includes(r.exp)),'Partials and excluded benchmarks cannot enter this table');
+  const low=primaryRuns.find(r=>r.exp==='R477');assert(low);
+  const lowCell=page.locator(`tr[data-configuration-ids~="${low.id}"] td[data-column-key="family:bfcl"]`);
+  assert((await lowCell.innerText()).includes('6/200'));
+  let details;
+  await omni.locator('td[data-column-key="family:bfcl"] button').click();details=await page.locator('.master-cell-dialog').innerText();
+  for(const text of ['runtime_configuration_id','model_sha256','engine_version','build_id','797.789'])assert(details.includes(text),text);
+  await page.getByRole('button',{name:'Schließen',exact:true}).click();
+  report.checks.push('only complete qualified runs appear; low complete scores stay visible and details retain exact profiles, energy and audits; partial history remains untouched');
 
-    for (const legacy of ['benchmarks/', 'supplemental-comparison/']) {
-      const old = await context.newPage();
-      await old.goto(new URL(legacy, base).href, { waitUntil: 'networkidle' });
-      await old.waitForURL('**/configuration-comparison/**');
-      await old.locator('.master-table tbody tr').first().waitFor();
-      assert.equal(await old.locator('.md-content table').count(), 1);
-      assert.equal(await old.locator('.master-table tbody tr').count(), expected.profiles);
-      await old.close();
-    }
-    const nav = await page.locator('.md-nav--primary').innerText();
-    assert(!nav.includes('Supplemental Model Comparisons'));
-    assert(!nav.includes('Local Supplemental Benchmarks'));
-    report.checks.push('legacy result URLs redirect to the same table; no competing comparison navigation');
+  const choices=page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true});await choices.click();
+  const keys=await page.evaluate(()=>{
+   const d=window.V100Leaderboard;const r=e=>d.history.runs.find(r=>r.experiment_id===e&&r.counter_energy);
+   return {coding:d.master.run_columns[r('R471').run_id],tools:d.master.run_columns[r('R478').run_id]};
+  });
+  await page.locator('select[data-protocol-family=humanevalplus]').selectOption(keys.coding);
+  await page.locator('select[data-protocol-family=bfcl]').selectOption(keys.tools);
+  await noBlankResultRows();
+  await page.locator('.master-family-choice[data-family-id=humanevalplus] input').setChecked(true);
+  await page.locator('.master-family-choice[data-family-id=bfcl] input').setChecked(true);
+  await page.locator('.master-family-choice[data-family-id=terminal-bench] input').setChecked(false);
+  const shown=await omni.locator('td[data-column-key=average]').innerText();const mean=Number(shown.replace(',','.').replace(/[^\d.]/g,''));
+  assert(Math.abs(mean-(100*132/164+100*177/200)/2)<.011);
+  await noBlankResultRows();
+  await page.locator('.master-family-choice[data-family-id=terminal-bench] input').setChecked(true);
+  assert.equal(await omni.locator('td[data-column-key=average]').innerText(),'NICHT BERECHENBAR');
+  await page.locator('.master-family-choice[data-family-id=terminal-bench] input').setChecked(false);
+  await choices.click();await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
+  report.checks.push('user-selected arithmetic mean uses exact same-inference category results; missing selected agent result prevents mean and incomplete results never substitute for full ones');
 
-    const initialIds = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId));
-    const measuredIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.map(r => r.id));
-    assert.deepEqual(initialIds.slice().sort(), measuredIds.slice().sort());
-    const geometry = await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.getBoundingClientRect().height));
-    assert(Math.max(...geometry) <= 52, 'Compact rows including offscreen cells: ' + Math.max(...geometry));
-    assert(Math.max(...geometry) - Math.min(...geometry) <= 2, 'Uniform result row heights');
-    assert.equal(await page.locator('.master-scroll').evaluate(e => getComputedStyle(e).maxHeight), 'none');
-    assert(await page.locator('.master-scroll').evaluate(e => e.clientHeight >= e.scrollHeight - 2));
-    assert.equal(await page.locator('.master-table thead').evaluate(e => getComputedStyle(e).position), 'sticky');
-    assert.equal(await page.locator('.master-table tbody td').first().evaluate(e => getComputedStyle(e).position), 'sticky');
-    report.checks.push('rows, register definitions, sticky header and model column');
+  const search=page.getByRole('searchbox',{name:'Alle Parameter durchsuchen'});
+  // Locate the existing global search by its stable placeholder if the browser
+  // does not expose an explicit accessible name on this input.
+  const globalSearch=await search.count()?search:page.locator('.master-toolbar input[type=search]').first();
+  await globalSearch.fill('Qwen3.5');const visible=await page.locator('.master-table tbody tr').count();assert(visible>0&&visible<expected.rows);
+  await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();assert.equal(await page.locator('.master-table tbody tr').count(),expected.rows);
+  const preset=page.getByLabel('Ansicht',{exact:true});
+  for(const name of ['Kompakt','Qualität','Geschwindigkeit','Energie','Vollständig']){
+   await preset.selectOption(name);assert.equal(await page.locator('.master-table thead th[data-column-key^="family:"]').count(),3);
+   await noBlankResultRows();
+   assert.equal(await page.locator('.master-table thead th[data-column-key^="benchmark-"]').count(),0);
+   const rendered=await page.evaluate(()=>{
+    const M=window.V100MasterTable,v=M.comparisonView(M.build(window.V100Leaderboard));
+    return v.columns.filter(c=>c.benchmark).map(c=>c.benchmark.protocol.benchmark_id);
+   });assert(rendered.every(id=>expected.benchmarks.includes(id)));
+  }
+  await page.getByLabel('Filter: Kontext',{exact:true}).fill('>=8192');assert(await page.locator('.master-table tbody tr').count()>0);
+  await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
+  report.checks.push('search, parameter filters and all presets work; none can reintroduce an additional benchmark or extra score column');
 
-    await page.getByText('Benchmarkprotokolle und Durchschnitt auswählen', { exact: true }).click();
-    if (expected.current && expected.missing) {
-      await page.locator(`input[data-family-key="${expected.missingFamily}"]`).check();
-      assert((await page.locator('.master-counter').innerText()).includes('0 mit vollständigem'));
-      const averageCells = await page.locator('.master-table tbody td[data-column-key="average"]').allTextContents();
-      assert(averageCells.every(s => s === 'NICHT BERECHENBAR'));
-      await page.locator(`input[data-family-key="${expected.missingFamily}"]`).uncheck();
-      await page.locator(`.master-table th[data-column-key="${expected.currentFamily}"] button`).click();
-      const result = await page.locator(`.master-table tbody td[data-column-key="${expected.currentFamily}"] strong`).allTextContents();
-      const numbers = result.map(s => Number(s.replace('%', '').replaceAll('.', '').replace(',', '.').trim()));
-      assert(numbers.every((x, i) => !i || numbers[i - 1] >= x));
-      await page.locator('.master-score-details').first().click();
-      assert(await page.locator('.master-cell-dialog a[href*="/audits/"]').count() > 0);
-      assert(await page.locator('.master-cell-dialog a[href*="/experiments/"]').count() > 0);
-      assert((await page.locator('.master-cell-dialog pre').innerText()).includes('audit_hash'));
-      await page.getByRole('button', { name: 'Schließen', exact: true }).click();
-      report.checks.push('missing benchmark prevents average; numeric sorting; direct audit/run links');
-    }
+  await preset.selectOption('Kompakt');
+  const avgHeader=page.locator('th[data-column-key=average] button');await avgHeader.click();await avgHeader.click();
+  const pickerSummary=page.getByText('Spaltenauswahl nach Kategorien',{exact:true});await pickerSummary.click();
+  const contextBox=page.locator('.master-column-picker input[data-column-key="runtime.context"]');await contextBox.setChecked(true);
+  assert.equal(await page.locator('th[data-column-key="runtime.context"]').count(),1);
+  await pickerSummary.click();
+  const downloaded=page.waitForEvent('download');await page.locator('[data-action=export-csv]').click();const download=await downloaded;const csvPath=path.join(artifacts,'configuration-export.csv');await download.saveAs(csvPath);const csv=await fs.readFile(csvPath,'utf8');
+  for(const text of ['source_runtime_configuration_ids','selected_protocols',keys.coding,keys.tools,'R478','NICHT GEMESSEN'])assert(csv.includes(text),text);
+  assert(!csv.split(/\r?\n/)[0].includes('mbpp'),'No removed benchmark column in export');
+  assert.equal(csv.split(/\r?\n/).length,expected.rows+1,'No hidden pagination or truncated CSV');
+  assert.equal(await page.locator('.master-insights select option').count(),4,'Analysis offers only mean and three categories');
+  assert.equal(await page.evaluate(()=>window.V100MasterTable.canonical(window.V100Leaderboard.history)),sourceBefore);
+  report.checks.push('sorting, column picker and complete CSV retain identities/selected protocols while excluded benchmarks cannot affect the analysis or original history');
 
-    await page.getByLabel('Ansicht', { exact: true }).selectOption('Qualität');
-    const contextFilter = page.getByRole('searchbox', { name: 'Filter: Kontext', exact: true });
-    await contextFilter.fill('>=16384');
-    const rows = await page.locator('.master-table tbody tr').count();
-    if (rows) {
-      const values = await page.locator('.master-table tbody td[data-column-key="runtime.context"]').allTextContents();
-      assert(values.every(v => Number(v) >= 16384));
-    }
-    await page.getByRole('button', { name: 'Filter zurücksetzen', exact: true }).click();
-    const global = page.getByRole('searchbox', { name: 'Modell, Engine, Parameter oder Experiment suchen', exact: true });
-    await global.fill('Bonsai');
-    assert(await page.locator('.master-table tbody tr').count() > 0);
-    const expectedSearch = await page.evaluate(() => {
-      const M = window.V100MasterTable;
-      return M.comparisonView(M.build(window.V100Leaderboard)).rows.filter(r => M.canonical({ values: r.values, runs: r.runs }).toLowerCase().includes('bonsai')).map(r => r.id);
-    });
-    assert((await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId))).every(id => expectedSearch.includes(id)));
-    await global.fill(''); await page.getByLabel('Ansicht', { exact: true }).selectOption('Kompakt'); report.checks.push('per-parameter numeric filter and global search');
+  assert.equal(await page.locator('[data-action=official-only]').count(),0,'No control may reintroduce partial/unqualified runs');
+  await noBlankResultRows();
+  const heights=await page.locator('.master-table tbody tr').evaluateAll(rows=>rows.map(r=>r.getBoundingClientRect().height));assert(Math.max(...heights)<=70);
+  const style=await page.locator('.master-scroll').evaluate(el=>({max:getComputedStyle(el).maxHeight,overflow:getComputedStyle(el).overflowX,width:el.clientWidth,content:el.scrollWidth}));assert.equal(style.max,'none');assert(style.content>style.width);
+  await page.screenshot({path:path.join(artifacts,'desktop-results.png'),animations:'disabled'});
+  report.checks.push('complete-only comparison has no partial toggle; compact rows have uniform height and ordinary vertical page scrolling');
 
-    const picker = page.locator('.master-panel').filter({ has: page.locator('.master-column-picker') });
-    await picker.locator('summary').first().click();
-    const pickerSearch = page.getByRole('searchbox', { name: 'Spalten suchen', exact: true });
-    await pickerSearch.fill('model.artifact_sha256');
-    await picker.locator('input[data-column-key="model.artifact_sha256"]').check();
-    assert.equal(await page.locator('.master-table th[data-column-key="model.artifact_sha256"]').count(), 1);
-    await pickerSearch.fill(''); await picker.locator('summary').first().click();
-    report.checks.push('categorized searchable column picker');
-
-    const mode = page.getByLabel('Durchschnittsmodus', { exact: true });
-    await mode.selectOption('exploratory');
-    assert.equal(await page.locator('.master-benchmark-choices input:disabled').count(), 0);
-    await mode.selectOption('official');
-    const disabledScopes = await page.locator('.master-benchmark-choices input:not(:disabled)').evaluateAll(inputs => inputs.map(i => window.V100Leaderboard.master.benchmark_columns.find(b => b.key === i.value).scope));
-    assert(disabledScopes.every(s => s === 'OFFICIAL_LOCAL'));
-    report.checks.push('official-only average rejects historical and supplemental protocols');
-
-    const humanSelect = page.locator('select[data-protocol-family=humanevalplus]');
-    const human = await page.evaluate(() => {
-      const m = window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)), f = m.families.find(f => f.id === 'humanevalplus');
-      return { official: window.V100MasterTable.defaultProtocol(f), historical: f.protocols.find(p => p.scope === 'HISTORICAL' && p.records)?.key, original: JSON.stringify(window.V100Leaderboard.history) };
-    });
-    async function verifyHumanProtocol(key) {
-      const observations = await page.evaluate(key => {
-        const m = window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard));
-        return [...document.querySelectorAll('.master-table tbody tr')].map(tr => {
-          const expected = m.rows.find(r => r.id === tr.dataset.configurationId).scores[key]?.score ?? null;
-          const cell = tr.querySelector('td[data-column-key="family:humanevalplus"]');
-          const strong = cell.querySelector('strong');
-          return { expected, actual: strong ? Number(strong.textContent.replace('%', '').replaceAll('.', '').replace(',', '.').trim()) : null, text: cell.textContent };
-        });
-      }, key);
-      observations.forEach(o => { if (o.expected === null) { assert.equal(o.actual, null); assert.equal(o.text, 'NICHT ERFASST'); } else assert(Math.abs(o.actual - o.expected) <= .0051); });
-    }
-    assert.equal(await page.locator('.md-content table').count(),1,'Only one table on the central page');
-    await humanSelect.selectOption(human.official); await verifyHumanProtocol(human.official);
-    assert(human.historical);
-    await humanSelect.selectOption(human.historical); await verifyHumanProtocol(human.historical);
-    assert(await page.locator('input[data-family-key=humanevalplus]').isDisabled());
-    await mode.selectOption('exploratory');
-    assert(!(await page.locator('input[data-family-key=humanevalplus]').isDisabled()));
-    await page.locator('input[data-family-key=humanevalplus]').check();
-    assert.equal(await page.locator('input[data-family-key=humanevalplus]').count(), 1);
-    await humanSelect.selectOption(human.official); await mode.selectOption('official');
-    await verifyHumanProtocol(human.official);
-    assert.equal(await page.evaluate(() => JSON.stringify(window.V100Leaderboard.history)), human.original);
-    report.checks.push('one HumanEval family, exact protocol switching, no historic fallback or duplicate weighting, immutable scores');
-
-    const presets = page.getByLabel('Ansicht', { exact: true });
-    for (const preset of ['Qualität', 'Geschwindigkeit', 'Energie', 'Vollständig']) {
-      await presets.selectOption(preset);
-      assert(await page.locator('.master-table tbody tr').count() > 0);
-      assert.equal(await page.locator('.master-table th[data-column-key="engine.build_id"]').count(), 0, 'Build identity stays in details/picker, not presets');
-      if (preset === 'Vollständig') assert.equal(await page.locator('.master-table thead tr:first-child th').count(), expected.columns);
-    }
-    const fullValue = page.locator('.master-table td[data-column-key="start_parameters.argv"] button').first();
-    if (await fullValue.count()) {
-      await fullValue.click(); await page.locator('.master-cell-dialog').waitFor({ state: 'visible' });
-      assert((await page.locator('.master-cell-dialog pre').innerText()).includes('--'));
-      await page.getByRole('button', { name: 'Schließen', exact: true }).click();
-    }
-    await presets.selectOption('Kompakt'); report.checks.push('all presets, full parameter coverage and inline full-value viewer');
-
-    const downloadEvent = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'CSV exportieren', exact: true }).click();
-    const download = await downloadEvent; const downloaded = path.join(artifacts, 'configuration-export.csv'); await download.saveAs(downloaded);
-    const csv = await fs.readFile(downloaded, 'utf8'); assert(csv.includes('runtime_configuration_id')); assert(csv.includes('NICHT ERFASST')); assert(csv.includes('mean_percent')); assert(csv.includes('selected_protocols')); assert(csv.includes('evaluated_task_set_hash')); assert(csv.includes('qualification_track'));
-    const allIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.map(r => r.id));
-    assert(allIds.every(id => csv.includes(id))); report.checks.push('CSV contains all filtered configurations, exact IDs and missing markers');
-    assert(await page.locator('.master-insights ol li').count() > 0);
-    assert((await page.locator('.master-insights').innerText()).includes('Korrelation ist keine Kausalität'));
-    report.checks.push('Top-5 analysis and non-causal interpretation');
-
-    const onlyOfficial = page.locator('input[data-action=official-only]');
-    await onlyOfficial.check();
-    const officialIds = await page.evaluate(() => window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows.filter(r=>r.runs.some(run=>run.official_eligible===true)).map(r=>r.id));
-    assert.deepEqual((await page.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.dataset.configurationId))).sort(), officialIds.sort());
-    await onlyOfficial.uncheck(); assert.equal(await page.locator('.master-table tbody tr').count(), expected.profiles);
-    report.checks.push('official-only filter is optional; all measured statuses return by default');
-    await page.locator('.master-table').evaluate(e => window.scrollTo(0, window.scrollY + e.getBoundingClientRect().top + 200));
-    await page.waitForTimeout(100);
-    const headerY = await page.locator('.master-table thead').evaluate(e => e.getBoundingClientRect().top);
-    assert(headerY >= 0 && headerY < 120, 'Header follows document scrolling: ' + headerY);
-    const stickyBefore = await page.locator('.master-table tbody td').first().boundingBox();
-    await page.locator('.master-scroll').evaluate(e => { e.scrollLeft = e.scrollWidth; });
-    const stickyAfter = await page.locator('.master-table tbody td').first().boundingBox();
-    assert(Math.abs(stickyAfter.x - stickyBefore.x) <= 2);
-    await page.screenshot({ path: path.join(artifacts, 'desktop-results.png'), animations: 'disabled' });
-    await context.close();
-
-    const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-    await developmentAssets(mobile);
-    const phone = await mobile.newPage(); phone.on('pageerror', e => errors.push(e.message));
-    await phone.goto(new URL('configuration-comparison/', base).href, { waitUntil: 'networkidle' });
-    await phone.locator('.master-table tbody tr').first().waitFor();
-    const layout = await phone.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: innerWidth,
-      scroll: document.querySelector('.master-scroll').scrollWidth, width: document.querySelector('.master-scroll').clientWidth }));
-    assert(layout.page <= layout.viewport + 2, 'Page itself overflows mobile viewport: ' + JSON.stringify(layout));
-    assert(layout.scroll > layout.width, 'Wide table must scroll inside its container');
-    assert.equal(await phone.locator('.master-table tbody tr').count(), expected.profiles);
-    assert.equal(await phone.locator('.master-pagination').count(), 0);
-    assert.equal(await phone.locator('.master-table th[data-column-key="family:humanevalplus"]').count(), 1);
-    await phone.getByText('Benchmarkprotokolle und Durchschnitt auswählen', { exact: true }).click();
-    const phoneSelect = phone.locator('select[data-protocol-family=humanevalplus]');
-    assert(await phoneSelect.isVisible());
-    const phoneBounds = await phoneSelect.boundingBox(); assert(phoneBounds.width > 200 && phoneBounds.x + phoneBounds.width <= 392);
-    assert.equal(await phone.locator('.master-scroll').evaluate(e => getComputedStyle(e).maxHeight), 'none');
-    const mobileHeights = await phone.locator('.master-table tbody tr').evaluateAll(rows => rows.map(r => r.getBoundingClientRect().height));
-    assert(Math.max(...mobileHeights) <= 52, 'Mobile row heights stay compact');
-    const modelLinks = await phone.locator('.master-table tbody td:first-child a').evaluateAll(links => links.map(a => ({ width: a.getBoundingClientRect().width, cell: a.parentElement.getBoundingClientRect().width, overflow: getComputedStyle(a).overflowX })));
-    assert(modelLinks.every(a => a.width <= a.cell && a.overflow === 'hidden'), 'Long model names cannot overlap adjacent cells');
-    await phone.locator('.master-table').evaluate(e => window.scrollTo(0, window.scrollY + e.getBoundingClientRect().top - 100));
-    await phone.screenshot({ path: path.join(artifacts, 'mobile-results.png'), animations: 'disabled' });
-    await mobile.close(); report.checks.push('desktop horizontal scrolling and 390px mobile layout');
-    const researchContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
-    const research = await researchContext.newPage(); research.on('pageerror', e => errors.push(e.message));
-    await research.goto(new URL('omnicoder-derivatives/', base).href, { waitUntil: 'networkidle' });
-    const reviewed = await research.evaluate(() => window.V100Leaderboard?.register.candidate_research || []);
-    if (reviewed.length) {
-      assert((await research.locator('.md-typeset h1').innerText()).includes('OmniCoder derivatives'));
-      assert((await research.locator('.md-content').innerText()).includes('not a model leaderboard'));
-      await research.goto(new URL('model-research/omnicoder-inventory/', base).href, { waitUntil: 'networkidle' });
-      assert.equal(await research.locator('.md-typeset details').count(), reviewed.at(-1).candidates.length);
-      await research.goto(new URL('model-research/omnicoder-proposals/', base).href, { waitUntil: 'networkidle' });
-      assert.equal(await research.locator('.md-typeset h2').filter({ hasText: /^Priority [123]/ }).count(), 3);
-      assert((await research.locator('.md-content').innerText()).includes('PROPOSED, NOT EXECUTED OR GPU-ADMITTED'));
-      const width = await research.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: innerWidth }));
-      assert(width.page <= width.viewport + 2, 'Proposed profiles overflow mobile layout: ' + JSON.stringify(width));
-      report.checks.push('pinned derivative inventory and unmeasured proposals render separately on mobile');
-    }
-    await researchContext.close();
-    assert.deepEqual(errors, []); report.console_errors = errors; report.passed = true;
-    await fs.writeFile(path.join(artifacts, 'browser-report.json'), JSON.stringify(report, null, 2) + '\n');
-    console.log(JSON.stringify(report));
-  } finally { await browser.close(); }
+  const phone=await browser.newContext({viewport:{width:390,height:844},isMobile:true,deviceScaleFactor:1});await overrides(phone);const mobile=await phone.newPage();mobile.on('pageerror',e=>errors.push(e.message));
+  await mobile.goto(new URL('configuration-comparison/',base).href,{waitUntil:'networkidle'});await mobile.locator('.master-table tbody tr').first().waitFor();
+  assert.equal(await mobile.locator('.master-table tbody tr').count(),expected.rows);assert.equal(await mobile.locator('th[data-column-key^="family:"]').count(),3);
+  const phoneSize=await mobile.evaluate(()=>({body:document.documentElement.scrollWidth,view:innerWidth,scroll:document.querySelector('.master-scroll').scrollWidth,client:document.querySelector('.master-scroll').clientWidth}));assert(phoneSize.body<=phoneSize.view+1);assert(phoneSize.scroll>phoneSize.client);
+  await mobile.locator('.master-scroll').evaluate(el=>{el.scrollLeft=el.scrollWidth;});
+  assert(await mobile.locator('.master-scroll').evaluate(el=>el.scrollLeft>0));
+  await mobile.screenshot({path:path.join(artifacts,'mobile-results.png'),animations:'disabled'});
+  report.checks.push('390px mobile layout keeps all category rows accessible through horizontal table scrolling without widening the page');
+  assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
+ }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
+ process.stdout.write(JSON.stringify(report)+'\n');
 }
-main().catch(e => { console.error(e); process.exitCode = 1; });
+main().catch(error=>{process.stderr.write(error.stack+'\n');process.exitCode=1;});

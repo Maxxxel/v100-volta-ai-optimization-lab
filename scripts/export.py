@@ -289,7 +289,10 @@ def snippets(obj):
     result.update({k:[text(x) for x in obj[k] if isinstance(x,str)] for k in ['limits','limitations'] if isinstance(obj.get(k),list)})
     return result
 def write(name,obj):
-    p=HERE/'data'/name;p.parent.mkdir(exist_ok=True);p.write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2,allow_nan=False)+'\n')
+    # Preserve the entire growing immutable history; formatting whitespace is
+    # not research data. Keep the existing per-file publication limit intact.
+    style={'separators':(',',':')} if name=='configuration-history.json' else {'indent':2}
+    p=HERE/'data'/name;p.parent.mkdir(exist_ok=True);p.write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,allow_nan=False,**style)+'\n')
 def main():
     arg=argparse.ArgumentParser();arg.add_argument('--source',required=True,type=pathlib.Path);args=arg.parse_args();root=args.source.resolve()
     for name in ['MATRIX.json','MATRIX_EXTENDED.json','QUEUE.json','BENCHMARK_REFERENCES.json','BENCHMARK_REGISTER.json','O2_EXPERIMENTS.jsonl']:

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-24 — One fixed benchmark per decision category
+
+Restrict the entire comparison interface, every preset, selector, analysis and CSV to Coding/HumanEval+164, Tools/BFCL parallel_multiple200 and Agents/Terminal-Bench2.1. Only complete, locally qualified results appear; no partial toggle or empty-result row remains. Unmeasured agent results stay unknown. Preserve every additional historical measurement in the original ledger/archive, outside the comparison and custom mean. Join identical inference configurations across evaluation-only collection limits, retaining exact per-result protocols and original profile IDs. Serialize the full history compactly without changing any parsed value or increasing publication size/security limits. Add the normal OmniCoder reference177/200 and Ornith171/200 complex-tool results with exact cost scopes.
+
+## 2026-10-24 — OmniCoder normal reference complex-tool comparison
+
+Add the unchanged native reference profile's177/200 complex-tool result,502.671s task time and exact200-request counter costs. Join its evidenced coding/tool captures only in the presentation, keeping original IDs and benchmark identities. One-task difference versus Qwen3.5 is not a general winner claim. No new OmniCoder optimization, original-weight change or valid-suite repetition.
+
 ## 2026-10-24 — LFM24 complete complex-tool negative profile result
 
 Preserve the full6/200 parallel/multiple result,356.536s task time and exact200-request counter costs. All200 native envelopes were complete and valid;193 contained a single call. Record the limited CPU protocol-shape review without claiming an isolated cause or generic model failure. Keep the existing simple400 result, immutable configuration/audits and missing energy measurements.
@@ -709,5 +717,13 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R477 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R478 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R479 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

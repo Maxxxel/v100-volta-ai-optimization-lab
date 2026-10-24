@@ -25015,6 +25015,18 @@
       "proof_path": "staging/r477/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "621d54737dac4f3760400489c612133cff9de78715dfc474909102e52c729900",
       "source_audit_hash": "249c3e61da453d096d87bdf21462a67c95f62dccc8ff8cbf59b1c195c3a36c87"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r478/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "97a63614510649bb1f3ab366608b4b631221b0081b57beff4e18e196b2c07749",
+      "source_audit_hash": "9facd2474e8be80aa0fa2c617e617ec16cd9b11b38d2b6b2d8630435fc6edb42"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r479/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "084c4d06ed9a2652c7261c1fb2de99fb82f3c301d23a4948bdb14a46b841e5cb",
+      "source_audit_hash": "ae71481c7169f4a37b5281bc61f2b96f940172d7bd41e126468d8a16729ae6b1"
     }
   ],
   "profile_label_reviews": [

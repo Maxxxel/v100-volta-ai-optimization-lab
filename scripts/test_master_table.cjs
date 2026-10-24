@@ -10,6 +10,28 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+const archivedView = () => ({ ...model, rows:M.mergeConfigurations(model.rows,model), supplementalRows:[] });
+
+test('Ornith primary tools171/200 retains native Thinking, exact200-request cost and partial coding separately',()=>{
+ const r=data.history.runs.find(x=>x.experiment_id==='R479'&&x.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,200);assert.equal(r.solved,171);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,171);
+ assert.equal(r.counter_energy.j_per_success_lower,1750.5530467836256);assert.equal(r.gpu_j,null);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['requested.thinking'],true);
+ const coding=data.history.runs.find(x=>x.experiment_id==='R460');assert(coding&&coding.tasks===93&&coding.status==='PARTIAL');
+ assert(!row.runs.some(x=>x.experiment_id==='R460'));
+ assert.equal(M.average(row.scores,[data.master.run_columns[coding.run_id],data.master.run_columns[r.run_id]],true,v.benchmarkMap),null);
+});
+
+test('Omni reference177/200 joins its unchanged native coding profile and preserves exact200-request costs', () => {
+ const r=data.history.runs.find(r=>r.experiment_id==='R478'&&r.counter_energy);assert(r);
+ assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,177);assert.equal(r.official_eligible,true);
+ assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,177);assert.equal(r.gpu_j,null);
+ assert.equal(r.counter_energy.j_per_success_lower,797.7892655367232);
+ const v=M.comparisonView(M.build(data));const row=v.rows.find(row=>row.runs.some(x=>x.run_id===r.run_id));assert(row);
+ assert(row.runs.some(x=>x.experiment_id==='R471'));assert(row.memberIds.length>=2);
+ assert.equal(row.profile.model.artifact_sha256,'b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b');
+});
 
 test('LFM24 complex-tool6/200 is a complete measured low score, not missing or a global model rejection', () => {
  const r=data.history.runs.find(r=>r.experiment_id==='R477'&&r.counter_energy);assert(r);
@@ -45,7 +67,7 @@ test('Bonsai parallel145/171 stays partial after native task cap with exact171-t
  assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,171);assert.equal(r.solved,145);assert.equal(r.official_eligible,false);
  assert.equal(r.status,'PARTIAL');assert.equal(r.counter_energy.tasks,171);assert.equal(r.counter_energy.solved,145);
  assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.j_per_success_lower,324509.274/145);
- const v=M.comparisonView(M.build(data)),row=v.rows.find(row=>row.runs.some(x=>x.run_id===r.run_id));assert(row);
+ const v=archivedView(),row=v.rows.find(row=>row.runs.some(x=>x.run_id===r.run_id));assert(row);
  assert.equal(row.scores[data.master.run_columns[r.run_id]].n,1);
 });
 test('Qwen3.8 parallel165/197 wrapper-limited prefix remains partial with its exact197-task counter scope',()=>{
@@ -53,7 +75,7 @@ test('Qwen3.8 parallel165/197 wrapper-limited prefix remains partial with its ex
  assert.equal(r.tasks,197);assert.equal(r.intended_tasks,200);assert.equal(r.solved,165);assert.equal(r.status,'PARTIAL');assert.equal(r.termination_kind,'STOPPED_GPU_WRAPPER_TIME_BUDGET');assert.equal(r.official_eligible,false);
  assert.match(r.status_reason,/wrapper timeout/);assert.equal(r.gpu_j,null);assert.equal(r.task_phase_s??null,null);
  assert.equal(r.counter_energy.tasks,197);assert.equal(r.counter_energy.solved,165);assert.equal(r.counter_energy.j_per_success_lower,331828.269/165);assert.equal(r.counter_energy.j_per_success_upper,331938.119/165);
- const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id)),key=data.master.run_columns[r.run_id];assert(row);
+ const v=archivedView(),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id)),key=data.master.run_columns[r.run_id];assert(row);
  assert.equal(row.values['model.quantization'],'GSQ/RCO IQ3_S');assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['requested.thinking'],false);
  assert.equal(M.average(row.scores,[key],true,v.benchmarkMap),null,'No full200/official average from partial197');
 });
@@ -64,11 +86,12 @@ test('parallel_multiple200 has a separate selectable BFCL protocol and exact ori
  assert.equal(r.counter_energy.j_per_success_lower,81366.541/154);assert.equal(r.counter_energy.j_per_success_upper,81464.148/154);
  const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
  const family=v.families.find(x=>x.id==='bfcl'),column=v.columns.find(x=>x.key===family.key),key=data.master.run_columns[r.run_id];assert(family.protocols.some(x=>x.key===key));
- const other=family.protocols.find(x=>x.protocol.benchmark_id==='bfcl-v4-simple-python-full400'&&x.scope==='OFFICIAL_LOCAL');assert(other);
+ const other=model.benchmarks.find(x=>x.protocol.benchmark_id==='bfcl-v4-simple-python-full400'&&x.scope==='OFFICIAL_LOCAL');assert(other);
+ assert(!family.protocols.some(x=>x.protocol.benchmark_id==='bfcl-v4-simple-python-full400'));
  const state={protocols:new Map([[family.id,other.key]])};assert.equal(M.value(row,column,state,v.benchmarkMap),null,'No fallback between categories');
  state.protocols.set(family.id,key);assert.equal(M.value(row,column,state,v.benchmarkMap),77);
  assert.equal(row.values['model.quantization'],'Q4_0');assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['requested.MTP'],false);
- assert.equal(row.values['runtime.native_HTTP_timeout_policy'],'REMAINING_TASK_TIME');
+ assert(row.profiles.some(p=>p.runtime.native_HTTP_timeout_policy==='REMAINING_TASK_TIME'));
 });
 test('LFM24B deadline prefix77/85 stays partial and cannot enter full164 rankings', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R468');assert(r);
@@ -486,12 +509,16 @@ test('family CSV preserves exact selected protocol identities even for missing m
   const state = { mode: 'official', selected: new Set([key]), protocols: new Map([[family.id, key]]) };
   const row = { id: 'cfg-empty-fixture', values: {}, scores: {} };
   const csv = M.csv([row], [column, { key: 'average', label: 'Average', kind: 'average' }], state, model.benchmarkMap);
-  for (const field of ['selected_protocols', key, 'scorer_version', 'evaluated_task_set_hash', 'benchmark_revision', 'qualification_track', 'NICHT BERECHENBAR', 'NICHT ERFASST']) assert(csv.includes(field), field);
+  for (const field of ['selected_protocols', key, 'scorer_version', 'evaluated_task_set_hash', 'benchmark_revision', 'qualification_track', 'NICHT BERECHENBAR', 'NICHT GEMESSEN']) assert(csv.includes(field), field);
   const before = M.canonical(data.history); M.build(data); assert.equal(M.canonical(data.history), before);
 });
 
-test('comparison view excludes own supplemental tests without deleting any source evidence', () => {
+test('comparison contains exactly one fixed benchmark per coding/tools/agents category, preserving every archive record', () => {
   const before = M.canonical(data), view = M.comparisonView(model);
+  const selected=new Set(['humanevalplus-v0.1.10','bfcl-v4-parallel-multiple-full200','terminal-bench-2.1']);
+  assert.deepEqual(new Set(view.benchmarks.map(b=>b.protocol.benchmark_id)),selected);
+  assert.equal(view.families.length,3);
+  assert(view.rows.every(r=>r.runs.length&&r.runs.every(x=>selected.has(x.benchmark_id)&&x.official_eligible===true&&x.status!=='PARTIAL'&&x.tasks===view.benchmarkMap.get(data.master.run_columns[x.run_id]).definition.required_task_count)));
   assert(view.benchmarks.every(b => b.scope !== 'LOCAL_SUPPLEMENTAL' && !b.protocol.benchmark_id.startsWith('local-')));
   assert(view.families.every(f => !f.id.startsWith('local-')));
   assert(view.columns.every(c => !c.benchmark || view.benchmarkMap.has(c.benchmark.key)));
@@ -538,11 +565,11 @@ test('one-table default displays partial results without pretending an official 
 
 
 test('capture-independent rows join all seven evidenced coding/tool pairs without changing source records', () => {
-  const before=M.canonical(data), view=M.comparisonView(M.build(data));
+  const before=M.canonical(data), view=archivedView();
   for(const pair of [['R452','R453'],['R454','R456'],['R460','R457'],['R464','R458'],['R465','R461'],['R466','R462'],['R468','R467']]) {
     const rows=pair.map(id=>view.rows.find(r=>r.runs.some(run=>run.experiment_id===id)));
     assert(rows[0]);assert.strictEqual(rows[0],rows[1],pair.join('/'));
-    assert.equal(rows[0].memberIds.length,2);
+    assert(rows[0].memberIds.length>=2);
     for(const id of pair){
       const original=data.history.runs.find(r=>r.experiment_id===id);
       const record=rows[0].runs.find(r=>r.run_id===original.run_id);
@@ -576,6 +603,22 @@ test('different actual execution settings, kernels, weights and unknown identiti
     assert.equal(M.mergeConfigurations([a,b],model).length,2,field);
   }
 });
+test('evaluation cutoffs do not split identical inference rows; all original conditions and protocols survive',()=>{
+ const before=M.canonical(data),v=archivedView();
+ for(const ids of [['R461','R465','R474'],['R462','R466','R473'],['R458','R464','R472'],['R467','R468','R477'],['R463','R471','R478']]){
+  const rows=ids.map(e=>v.rows.find(r=>r.runs.some(x=>x.experiment_id===e)));
+  rows.forEach(r=>assert.strictEqual(r,rows[0],ids.join('/')));
+  for(const e of ids){
+   const raw=data.history.runs.find(x=>x.experiment_id===e),profile=data.history.profiles.find(p=>p.runtime_configuration_id===raw.runtime_configuration_id);
+   assert.deepEqual(rows[0].profiles.find(p=>p.runtime_configuration_id===profile.runtime_configuration_id),profile);
+   assert(rows[0].scores[data.master.run_columns[raw.run_id]].n>0);
+  }
+ }
+ assert.equal(M.canonical(data),before);
+ const q=v.rows.find(r=>r.runs.some(x=>x.experiment_id==='R473'));
+ assert(q.runs.some(x=>x.status==='PARTIAL'&&x.tasks===197));
+ assert(q.runs.some(x=>x.official_eligible&&x.tasks===400));
+});
 test('benchmark tool-adapter choices remain per-run evidence and conflicting tool profiles stay separate',()=>{
   const a=JSON.parse(JSON.stringify(model.rows.find(r=>r.runs.some(x=>x.experiment_id==='R467'))));
   const b=JSON.parse(JSON.stringify(a));b.id='cfg-other-choice';b.values['runtime.native_tool_choice_requested']='required';
@@ -585,16 +628,17 @@ test('benchmark tool-adapter choices remain per-run evidence and conflicting too
 });
 test('merged exact configuration supports cross-benchmark averages and CSV retaining every original identity',()=>{
   const view=M.comparisonView(M.build(data));const row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R464'));
-  const runs=['R464','R458'].map(e=>row.runs.find(r=>r.experiment_id===e));
+  const runs=['R464','R472'].map(e=>row.runs.find(r=>r.experiment_id===e));
   const keys=runs.map(r=>data.master.run_columns[r.run_id]);
-  assert.equal(M.average(row.scores,keys,true,view.benchmarkMap),(100*156/164+100*374/400)/2);
-  const csv=M.csv([row],keys.map(key=>view.columns.find(c=>c.key===key)),{mode:'official',selected:new Set(keys)},view.benchmarkMap);
+  assert.equal(M.average(row.scores,keys,true,view.benchmarkMap),(100*156/164+100*154/200)/2);
+  const selected=new Map(keys.map(key=>[view.benchmarkMap.get(key).family_id,key]));
+  const csv=M.csv([row],[...selected.keys()].map(id=>view.columns.find(c=>c.key==='family:'+id)),{mode:'official',selected:new Set(keys),protocols:selected},view.benchmarkMap);
   for(const r of runs){assert(csv.includes(r.runtime_configuration_id));assert(csv.includes(r.experiment_id));assert(csv.includes(r.run_id));}
   assert(csv.includes('source_runtime_configuration_ids'));
 });
 
 test('joining configurations retains every physical-observation view and its reviewed counter supplement',()=>{
- const view=M.comparisonView(M.build(data));
+ const view=archivedView();
  const row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R462'));
  const original=data.history.runs.find(r=>r.experiment_id==='R462'&&r.counter_energy);
  const a=row.scores[data.master.run_columns[original.run_id]];
@@ -610,7 +654,7 @@ test('Qwen3.6 coding122/130 stays partial with exact independent replay and130-r
  assert.equal(record.gpu_j,null);assert.equal(record.gpu_j_per_success,null);assert.equal(record.peak_vram_mib,12752.5);
  assert.equal(record.counter_energy.tasks,130);assert.equal(record.counter_energy.solved,122);
  assert.equal(record.counter_energy.j_per_success_lower,331024.748/122);assert.equal(record.counter_energy.j_per_success_upper,331115.022/122);
- const view=M.comparisonView(M.build(data)),row=view.rows.find(r=>r.runs.some(x=>x.run_id===record.run_id));assert(row);
+ const view=archivedView(),row=view.rows.find(r=>r.runs.some(x=>x.run_id===record.run_id));assert(row);
  assert.equal(row.values['model.quantization'],'Q3_K_S');assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['requested.thinking'],false);
  assert.equal(row.values['runtime.sampling.temperature'],.7);assert.equal(row.values['runtime.sampling.presence_penalty'],1.5);
  const key=data.master.run_columns[record.run_id];assert.equal(row.scores[key].n,1,'Counter review is not an inference replicate');
@@ -625,7 +669,7 @@ test('Qwen3.6 tools242/260 transport failure remains partial, distinct from task
  assert(r.status_reason.includes('total task budget was not exhausted'));
  assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.tasks,260);assert.equal(r.counter_energy.solved,242);
  assert.equal(r.counter_energy.j_per_success_lower,236391.946/242);assert.equal(r.counter_energy.j_per_success_upper,236519.987/242);
- const v=M.comparisonView(M.build(data)),row=v.rows.find(row=>row.runs.some(x=>x.experiment_id==='R470'));assert(row);
+ const v=archivedView(),row=v.rows.find(row=>row.runs.some(x=>x.experiment_id==='R470'));assert(row);
  assert(row.runs.some(x=>x.experiment_id==='R469'),'Same model/engine/launch/sampler capture shares the coding row');
  const key=data.master.run_columns[r.run_id];assert.equal(row.scores[key].n,1);assert.equal(M.average(row.scores,[key],true,v.benchmarkMap),null);
 });

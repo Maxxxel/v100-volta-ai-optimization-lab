@@ -2,6 +2,12 @@
 (function (root) {
   'use strict';
   const UNKNOWN = 'NICHT ERFASST';
+  const NOT_MEASURED = 'NICHT GEMESSEN';
+  // Evaluation cutoffs describe which answers were collected, not how the
+  // model generated them. Keep them in original profiles/result evidence.
+  const measurementRuntimeFields = new Set(['benchmark_task_limit_s', 'timing_scope',
+    'startup_limit_s', 'GPU_wrapper_limit_s', 'CPU_scoring_limit_s', 'native_HTTP_timeout_policy']);
+  const measurementRuntimePath = key => key.startsWith('runtime.') && measurementRuntimeFields.has(key.slice(8));
   const finite = x => typeof x === 'number' && Number.isFinite(x);
   const absent = x => x === null || x === undefined;
   const unrecordedMetadata = x => absent(x) || x === 'NOT MEASURED' || x === UNKNOWN;
@@ -70,7 +76,7 @@
     'optimizations.draft_head_or_model': 'Draft-Modell / Head', 'optimizations.draft_parameters.--spec-draft-n-max': 'Draft-Tokens max'
   };
   const text = x => absent(x) ? UNKNOWN : typeof x === 'object' ? canonical(x) : String(x);
-  const category = key => key.startsWith('recorded_plan.') ? 'Planparameter (deklariert, hashgebunden)' : key.startsWith('model.') ? 'Modell' : key.startsWith('engine.') ? 'Engine'
+  const category = key => measurementRuntimePath(key) ? 'Evaluationsbedingungen (je Lauf)' : key.startsWith('recorded_plan.') ? 'Planparameter (deklariert, hashgebunden)' : key.startsWith('model.') ? 'Modell' : key.startsWith('engine.') ? 'Engine'
     : key.startsWith('runtime.') ? 'Kontext und Inferenz' : /^(optimizations|requested)\./.test(key) ? 'Optimierungen'
     : /^(start_parameters|launch_flags)\./.test(key) ? 'Startparameter und Flags' : 'Identitäten und Herkunft';
   const uniqueRuns = runs => {
@@ -115,7 +121,7 @@
   }
   function average(scores, selected, official = true, columns = new Map()) {
     if (!selected.length) return null;
-    const families = selected.map(key => columns.get(key)?.family_id || key);
+    const families = selected.map(key => columns.get(key)?.aggregation_family_id || columns.get(key)?.family_id || key);
     if (new Set(families).size !== selected.length) return null;
     const configurations = new Set(selected.flatMap(key => scores[key]?.records.map(r => r.comparison_configuration_id || r.runtime_configuration_id) || []));
     if (configurations.size !== 1 || [...configurations].some(id => typeof id !== 'string' || !id)) return null;
@@ -219,7 +225,8 @@
     const families = [...groups.values()];
     families.forEach(f => columns.push({ key: f.key, label: f.name, category: 'Benchmarkfamilien (gewähltes Protokoll)', kind: 'family', family: f }));
     columns.push({ key: 'average', label: 'Ø Auswahl (%)', description: 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark', category: 'Auswertung', kind: 'average' });
-    return { rows, archive, columns, benchmarks, benchmarkMap, families, runColumns: data.master.run_columns };
+    return { rows, archive, columns, benchmarks, benchmarkMap, families, runColumns: data.master.run_columns,
+      comparisonCategories: data.master.comparison_categories };
   }
   function protocols(family, mode) {
     return family.protocols.filter(b => mode === 'official' ? b.scope === 'OFFICIAL_LOCAL' : b.scope !== 'OFFICIAL_LOCAL');
@@ -246,7 +253,9 @@
       candidates.sort((a, b) => priority(a) - priority(b) || (b.protocol.tasks || 0) - (a.protocol.tasks || 0) || Number(b.key === chosen) - Number(a.key === chosen) || a.key.localeCompare(b.key));
       if (candidates.length) key = candidates[0].key;
     }
-    return { key, selectedKey: chosen, benchmark: benchmarkMap.get(key), a: row.scores[key] };
+    const benchmark=benchmarkMap.get(key), score=row.scores[key];
+    const excluded=state.officialOnly && (benchmark?.scope!=='OFFICIAL_LOCAL' || score?.records.some(r=>r.official_eligible!==true));
+    return { key, selectedKey: chosen, benchmark, a:excluded ? undefined : score };
   }
   // A capture ID binds one immutable plan/audit. It is not an inference setting.
   // Only complete broker-native captures can share a presentation row. Original
@@ -266,12 +275,14 @@
       'source_provenance', 'evaluation_exposure', 'provenance_status'].forEach(k => delete copy[k]);
     copy.model = { ...p.model };
     ['name', 'family_id', 'variant'].forEach(k => delete copy.model[k]);
+    copy.runtime = { ...p.runtime };
+    measurementRuntimeFields.forEach(k => delete copy.runtime[k]);
     copy.start_parameters = { ...p.start_parameters };
     ['exact_private_launch_sha256', 'note', 'redacted_argument_positions'].forEach(k => delete copy.start_parameters[k]);
     // A differing observed runtime/engine/optimization field must also prevent
     // a merge, even when it was discovered later in a source-bound receipt.
     const evidence = Object.fromEntries(Object.entries(row.values).filter(([k]) =>
-      k !== 'runtime.native_tool_choice_requested' && /^(runtime|optimizations)\./.test(k) || /^engine\./.test(k) && !/source_evidence|provenance_note/.test(k)));
+      k !== 'runtime.native_tool_choice_requested' && !measurementRuntimePath(k) && /^(runtime|optimizations)\./.test(k) || /^engine\./.test(k) && !/source_evidence|provenance_note/.test(k)));
     return canonical({ execution: copy, evidence });
   }
   function mergeConfigurations(rows, model) {
@@ -299,17 +310,29 @@
     });
   }
   function comparisonView(model) {
-    // Presentation-only exclusion. The source ledger and full build retain the
-    // local laboratory evidence, available on the separate local-tests pages.
-    const benchmarks = model.benchmarks.filter(b => b.scope !== 'LOCAL_SUPPLEMENTAL' && !b.protocol.benchmark_id.startsWith('local-'));
+    // One fixed benchmark per decision category in every comparison preset.
+    // The complete immutable ledger remains available outside this view.
+    if (!Array.isArray(model.comparisonCategories) || model.comparisonCategories.length !== 3
+      || new Set(model.comparisonCategories.map(c=>c.category)).size !== 3) throw new Error('Missing fixed comparison categories');
+    const selected = new Map(model.comparisonCategories.map(c=>[c.benchmark_id,c]));
+    const benchmarks = model.benchmarks.filter(b => selected.has(b.protocol.benchmark_id) && b.scope === 'OFFICIAL_LOCAL'
+      && Number.isInteger(b.definition.required_task_count) && b.protocol.tasks===b.definition.required_task_count);
     const benchmarkMap = new Map(benchmarks.map(b => [b.key, b]));
-    const families = model.families.map(f => ({ ...f, protocols: f.protocols.filter(b => benchmarkMap.has(b.key)) })).filter(f => f.protocols.length);
+    const families = model.comparisonCategories.map(c=>({ id:c.family_id, name:c.label, key:'family:'+c.family_id,
+      protocols:benchmarks.filter(b=>b.protocol.benchmark_id===c.benchmark_id) })).filter(f=>f.protocols.length);
     const familyMap = new Map(families.map(f => [f.id, f]));
-    const columns = model.columns.filter(c => !c.key.startsWith('attempt_metrics.') && (!c.benchmark || benchmarkMap.has(c.benchmark.key)) && (!c.family || familyMap.has(c.family.id)))
-      .map(c => c.family ? { ...c, family: familyMap.get(c.family.id) } : c);
-    const hasBenchmark = row => benchmarks.some(b => row.scores[b.key]?.n > 0);
+    const columns = model.columns.filter(c => c.kind !== 'benchmark' && !c.key.startsWith('attempt_metrics.') && (!c.benchmark || benchmarkMap.has(c.benchmark.key)) && (!c.family || familyMap.has(c.family.id)))
+      .map(c => c.family ? { ...c, label:familyMap.get(c.family.id).name, family: familyMap.get(c.family.id) } : c);
+    const complete = r => {
+      const b=benchmarkMap.get(model.runColumns[r.run_id]);
+      return b && r.official_eligible===true && r.status!=='PARTIAL' && r.tasks===b.definition.required_task_count;
+    };
+    const hasBenchmark = row => row.runs.some(complete);
+    const measured = model.rows.filter(hasBenchmark).map(row=>({ ...row,
+      runs:row.runs.filter(complete),
+      scores:Object.fromEntries(benchmarks.map(b=>[b.key,row.scores[b.key]])) }));
     return { ...model, benchmarks, benchmarkMap, families, columns,
-      rows: mergeConfigurations(model.rows.filter(hasBenchmark), model), supplementalRows: model.rows.filter(r => !hasBenchmark(r)) };
+      rows: mergeConfigurations(measured, { ...model, benchmarks }), supplementalRows: model.rows.filter(r => !hasBenchmark(r)) };
   }
   function value(row, column, state, benchmarkMap) {
     if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
@@ -356,7 +379,7 @@
         const { key, selectedKey, a } = resolvedScore(row, c, state, benchmarkMap);
         return csvCell({ ...identity(key), selected_reference_protocol: identity(selectedKey), measurement: !a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
           solved: a.solved, tasks: a.tasks, min: a.min, max: a.max, sd: a.sd,
-          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, runtime_configuration_id: r.runtime_configuration_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? UNKNOWN : null });
+          runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, runtime_configuration_id: r.runtime_configuration_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? NOT_MEASURED : null });
       }
       const v = value(row, c, state, benchmarkMap);
       return csvCell(c.kind === 'average' && absent(v) ? 'NICHT BERECHENBAR' : v);
@@ -403,12 +426,12 @@
       const url = URL.createObjectURL(blob), a = link('Download', url); a.download = 'v100-configuration-results.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     }); exportButton.dataset.action = 'export-csv';
     const officialOnly = E('input'); officialOnly.type = 'checkbox'; officialOnly.dataset.action = 'official-only';
-    toolbar.append(search, labelInput('Nur offiziell qualifizierte Ergebnisse', officialOnly), labelInput('Durchschnittsmodus', mode), labelInput('Ansicht', presets), exportButton, button('Filter zurücksetzen', () => { state.filters.clear(); state.search = ''; search.value = ''; state.strictProtocols.clear(); state.officialOnly = false; officialOnly.checked = false; renderTable(); }));
+    toolbar.append(search, labelInput('Ansicht', presets), exportButton, button('Filter zurücksetzen', () => { state.filters.clear(); state.search = ''; search.value = ''; state.strictProtocols.clear(); renderTable(); }));
     target.append(toolbar);
     const chooser = E('details', undefined, 'master-panel'); chooser.append(E('summary', 'Spaltenauswahl nach Kategorien'));
     const pickerSearch = E('input'); pickerSearch.type = 'search'; pickerSearch.placeholder = 'Spaltenname oder Quellpfad'; pickerSearch.setAttribute('aria-label', 'Spalten suchen'); const picker = E('div', undefined, 'master-column-picker'); chooser.append(pickerSearch, picker); target.append(chooser);
     const selection = E('details', undefined, 'master-panel'); selection.append(E('summary', 'Benchmarkprotokolle und Durchschnitt auswählen'));
-    selection.append(E('p', 'Standardmäßig stehen alle gemessenen Voll- und Teilwerte in derselben Ergebnisspalte. Eine explizite Protokollauswahl filtert diese Spalte exakt; Filter zurücksetzen zeigt wieder alle Messwerte. Checkboxen wählen die Familien für den nutzerdefinierten Durchschnitt – nicht offizieller Benchmark. Jede Familie zählt einmal. Fehlende Ergebnisse: NICHT BERECHENBAR. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
+    selection.append(E('p', 'Genau ein festgelegter Benchmark je Kategorie; ausschließlich vollständige, lokal qualifizierte Ergebnisse. Protokollauswahl hält Revision, Scorer und Aufgaben identisch. Checkboxen wählen die Kategorien für den nutzerdefinierten Durchschnitt – nicht offizieller Benchmark. Fehlende ausgewählte Ergebnisse: NICHT BERECHENBAR. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
     const benchmarkChoices = E('div', undefined, 'master-benchmark-choices'), selectionWarning = E('p', undefined, 'benchmark-warning'); selection.append(benchmarkChoices, selectionWarning); target.append(selection);
     const definitions = E('details', undefined, 'master-panel'); definitions.append(E('summary', 'Exakte Benchmarkdefinitionen und Messprotokolle'));
     model.benchmarks.forEach(b => {
@@ -440,9 +463,9 @@
 
     function preset(name) {
       presetName = name; state.visible = new Set(base); state.visible.add('average');
+      model.families.forEach(f => state.visible.add(f.key));
       const bench = chosenBenchmarks();
       if (name === 'Vollständig') model.columns.filter(c => c.kind !== 'family' && c.key !== 'engine.build_id').forEach(c => state.visible.add(c.key));
-      else model.families.filter(f => f.protocols.some(p => p.records > 0)).forEach(f => state.visible.add(f.key));
       if (name === 'Qualität') model.columns.filter(c => /thinking|reasoning|sampling|native_template|quantization|draft/.test(c.key)).forEach(c => state.visible.add(c.key));
       if (name !== 'Kompakt') ['requested.thinking', 'requested.MTP', 'runtime.context', 'runtime.max_output', 'runtime.batch', 'runtime.microbatch'].forEach(k => state.visible.add(k));
       if (name === 'Geschwindigkeit') model.columns.filter(c => /runtime\.(batch|microbatch|CPU_threads)|flash_attention|cuda_graphs|prefill_tok_s|decode_tok_s|ttft_s|:wall_s$|:task_phase_s$|:startup_s$|:successful_tasks_per_task_phase_s$|matched_performance\.(tasks|solved|wall_s|successful_tasks_per_s)$/.test(c.key) && (c.kind !== 'metric' || bench.some(b => b.key === c.benchmark.key))).forEach(c => state.visible.add(c.key));
@@ -467,7 +490,14 @@
         const selectedKey = state.protocols.get(f.id), b = model.benchmarkMap.get(selectedKey);
         const field = E('div', undefined, 'master-family-choice'); field.dataset.familyId = f.id;
         const box = E('input'); box.type = 'checkbox'; box.value = selectedKey; box.checked = state.selected.has(selectedKey); box.dataset.familyKey = f.id; box.disabled = !canAverage(b);
-        box.addEventListener('change', () => { if (box.checked && canAverage(b)) state.selected.add(selectedKey); else state.selected.delete(selectedKey); renderTable(); });
+        box.addEventListener('change', () => {
+          if (box.checked && canAverage(b)) {
+            const group=b.aggregation_family_id || b.family_id;
+            [...state.selected].forEach(key=>{const old=model.benchmarkMap.get(key);if((old?.aggregation_family_id || old?.family_id)===group)state.selected.delete(key);});
+            state.selected.add(selectedKey);
+          } else state.selected.delete(selectedKey);
+          renderBenchmarks(); renderTable();
+        });
         field.append(labelInput(f.name + ' · in Ø Auswahl', box));
         const select = E('select'); select.dataset.protocolFamily = f.id;
         f.protocols.forEach(p => {
@@ -511,7 +541,9 @@
     }
     function renderRows() {
       const query = state.search.toLowerCase();
+      const resultColumns=shownColumns.filter(c=>c.kind==='family'||c.kind==='benchmark');
       filtered = model.rows.filter(row => (!state.officialOnly || row.runs.some(r => r.official_eligible === true)) && (!query || canonical({ values: row.values, runs: row.runs }).toLowerCase().includes(query))
+        && resultColumns.some(c=>{const a=resolvedScore(row,c,state,model.benchmarkMap).a;return a?.n>0&&!a.conflict&&finite(a.score);})
         && [...state.filters].every(([key, expression]) => !expression.trim() || matches(value(row, byKey.get(key), state, model.benchmarkMap), expression)));
       const sort = byKey.get(state.sort) || byKey.get('model.name');
       filtered.sort((a, b) => compare(value(a, sort, state, model.benchmarkMap), value(b, sort, state, model.benchmarkMap), state.descending) || a.id.localeCompare(b.id));
@@ -543,13 +575,13 @@
       });
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
       const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
-      counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Inferenzkonfigurationen · ' + model.archive.length + ' ergebnislose Profile ausgeblendet · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
-      selectionWarning.textContent = state.mode === 'official' ? 'Alle gemessenen Voll- und Teilwerte stehen in dieser Tabelle. Unterschiedliche Kategorien/Protokolle sind kein gemeinsames Ranking; für einen direkten Vergleich das genaue Protokoll auswählen. Ø verwendet ausschließlich die ausgewählten, offiziell qualifizierten Protokolle; PARTIAL wird nicht als Vollbenchmark gewertet.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
+      counter.textContent = filtered.length + ' / ' + model.rows.length + ' Konfigurationen mit Kategorie-Ergebnis · ' + model.supplementalRows.length + ' weitere gemessene Profile im Originalarchiv · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
+      selectionWarning.textContent = 'Nur vollständige, geprüfte Kategorie-Ergebnisse. Partials und zusätzliche Benchmarks sind aus Tabelle, Export und Durchschnitt ausgeschlossen. Ø Auswahl ist kein offizieller Gesamtbenchmark; fehlende ausgewählte Kategorien verhindern die Berechnung.';
       renderAnalysis(); scheduleHeader();
     }
     function renderScore(td, row, column) {
       const { key, benchmark, a } = resolvedScore(row, column, state, model.benchmarkMap);
-      if (!a?.n) { td.textContent = UNKNOWN; td.className = 'master-missing'; return; }
+      if (!a?.n) { td.textContent = NOT_MEASURED; td.className = 'master-missing'; return; }
       if (a.conflict) { td.textContent = 'WIDERSPRÜCHLICHE AUDITS'; td.className = 'benchmark-warning'; return; }
       const partialEvidence = a.records.some(r => r.status === 'PARTIAL' || Number.isInteger(benchmark.definition.required_task_count) && r.tasks < benchmark.definition.required_task_count);
       const scope = partialEvidence ? 'PARTIAL' : { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'VOLLSTÄNDIG', PARTIAL: 'PARTIAL', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
