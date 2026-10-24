@@ -139,3 +139,30 @@ CPU controls: **5 unit tests, 3486 exact finite-population coverage controls and
 | Analysis plan | 9d73c8186d1ba92c1107fc5e4597932290ae335794361ef00939729d519d4a64 |
 | Analysis result | 8faf68972992cbde07bd146b1b0820cd4f8bb88ca101bb785a3391ff7c4de2aa |
 | Analysis code | 9f70de0e38af05ed492e0248d55fb3a2e619388c893c5b6cb86d624f45e09d44 |
+
+
+<!-- paired-coding:start -->
+<details><summary>Archived paired coding evidence · 2026-10-24</summary>
+
+Reference: [R471](experiments/R471.md). All 164 exact HumanEval+ task identities and the registered official scorer are shared. These are whole-profile observed overlaps, not a second ranking or a new benchmark.
+
+| Profile | Experiment | Configuration | Both pass | Candidate only | Reference only | Neither passes |
+| --- | --- | --- | --- | --- | --- | --- |
+| LFM2.5 8B A1B | [R452](experiments/R452.md) | [Exact profile](configuration-profiles/cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae.md) | 106 | 10 | 26 | 22 |
+| MiMo V2.6 Distill Qwen 9B | [R454](experiments/R454.md) | [Exact profile](configuration-profiles/cfg-6fee55e4cd29ef463b21160ec81c870ad503865bd3fa368fefb0b64d6c8b830e.md) | 110 | 9 | 22 | 23 |
+| Gemma4 12B IT QAT | [R464](experiments/R464.md) | [Exact profile](configuration-profiles/cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625.md) | 131 | 25 | 1 | 7 |
+| Qwen3.5 9B | [R465](experiments/R465.md) | [Exact profile](configuration-profiles/cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653.md) | 124 | 11 | 8 | 21 |
+| Qwen3.8 27B | [R466](experiments/R466.md) | [Exact profile](configuration-profiles/cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0.md) | 129 | 20 | 3 | 12 |
+| Nexus 9B CodeCore Merge | [R488](experiments/R488.md) | [Exact profile](configuration-profiles/cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba.md) | 122 | 8 | 10 | 24 |
+| OmniCoder Opus Distill 9B | [R490](experiments/R490.md) | [Exact profile](configuration-profiles/cfg-f13e4e7609cb14c796219e155df1c036e56bbc0457fc2fb9295ee5c6c6442770.md) | 121 | 10 | 11 | 22 |
+| Slopus 9B | [R493](experiments/R493.md) | [Exact profile](configuration-profiles/cfg-c55eca0a22e298680cf6a73c62c0f7732aaa8ee23ab8d2f0682fda8a312d3db7.md) | 119 | 7 | 13 | 25 |
+
+
+[Public aggregate-replay data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/benchmark-register.json): the `paired_coding_reviews` records contain only the official task IDs and pass/fail booleans needed to reproduce these counts. No model responses or solutions.
+
+Descriptive task overlap of whole configurations; no causal model-training, significance, unseen-task or router-performance claim. Admission annotations are not independent repetitions. No new inference, official result or Champion qualification. Public official task IDs and pass/fail booleans support aggregate replay. Model responses, solutions and private inputs are withheld.
+
+[audit-6ac57713d46c60a692ce](audits/audit-6ac57713d46c60a692ce.md) · [Frozen public input](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/c7b76a53dba1cedbbff3b1f22422286fdfcc60a4/data/configuration-history.json)
+
+</details>
+<!-- paired-coding:end -->

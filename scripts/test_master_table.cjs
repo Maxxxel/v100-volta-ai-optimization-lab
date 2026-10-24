@@ -814,7 +814,7 @@ test('Slopus tools146/200 retains complete category qualification, exact counter
 test('offline browser bundle retains exact canonical history and every public UI-register value',()=>{
  const history=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/configuration-history.json'),'utf8'));
  const register=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/benchmark-register.json'),'utf8'));
- for(const key of ['artifact_weight_reviews','same_quantizer_weight_reviews','pipeline_method_reviews'])delete register[key];
+ for(const key of ['artifact_weight_reviews','same_quantizer_weight_reviews','pipeline_method_reviews','paired_coding_reviews'])delete register[key];
  assert.equal(M.canonical(data.history),M.canonical(history));
  assert.equal(M.canonical(data.register),M.canonical(register));
  assert(fs.statSync(path.join(__dirname,'../docs/assets/benchmarks/leaderboard-data.js')).size<=3*1024*1024);
@@ -901,4 +901,21 @@ test('Slopus OFF/T0 full126/164 retains Slopus weights despite inherited technic
  const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
  assert.equal(row.values['model.name'],'Slopus 9B');assert.equal(row.profile.model.artifact_sha256,'aa4bc97efde586ce27e14fedd3fd896d78bb83b633ac8e5cd07113086b49479b');
  assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);assert(!row.runs.some(x=>['R483','R484','R490','R491'].includes(x.experiment_id)));
+});
+
+
+test('Slopus OFF/T0 full172/200 joins its own126/164 coding without borrowing historicalON146/200',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R494'&&r.counter_energy);assert(r&&r.official_eligible);assert.equal(r.tasks,200);assert.equal(r.solved,172);
+ assert.equal(r.counter_energy.j_per_success_lower,914.5055465116279);assert.equal(r.counter_energy.j_per_success_upper,915.0135174418606);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row&&row.runs.some(x=>x.experiment_id==='R493'));assert(!row.runs.some(x=>x.experiment_id==='R484'));assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.count,2);assert.equal(mean.total,3);assert(Math.abs(mean.score-(126/164*100+86)/2)<1e-12);
+ const cost=M.performanceSummary(row,mean.keys,v.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,298);assert.equal(cost.peak_vram_gib,7356.5/1024);
+});
+
+
+test('Ornith OFF/T0 full117/164 has its real Q6 artifact and cannot borrow ON171/200 tools',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R495'&&r.counter_energy);assert(r&&r.official_eligible);assert.equal(r.tasks,164);assert.equal(r.solved,117);
+ assert.equal(r.counter_energy.j_per_success_lower,1118.5281709401709);assert.equal(r.counter_energy.j_per_success_upper,1119.4724017094018);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);assert.equal(row.values['model.name'],'Ornith 1.5 9B');assert.equal(row.profile.model.artifact_sha256,'b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a');
+ assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['runtime.sampling.temperature'],0);assert.equal(row.values['runtime.max_output'],4096);assert(!row.runs.some(x=>['R460','R479'].includes(x.experiment_id)));
 });

@@ -56,7 +56,7 @@ def browser_register(register):
  The full records remain in data/benchmark-register.json and their generated
  research pages. Configuration, score, source-label and protocol data stay intact.
  """
- return {k:v for k,v in register.items() if k not in ('artifact_weight_reviews','same_quantizer_weight_reviews','pipeline_method_reviews')}
+ return {k:v for k,v in register.items() if k not in ('artifact_weight_reviews','same_quantizer_weight_reviews','pipeline_method_reviews','paired_coding_reviews')}
 
 def definition_identity(d):
  keys=['benchmark_id','benchmark_revision','version','dataset_split','dataset_split_hash','scorer_version','required_task_count','expected_task_ids_hash','required_evaluation_settings','metric']
@@ -845,7 +845,7 @@ def profile_label_annotation(entry,cfg,identity,native):
  """Correct a proven copied description without changing an immutable profile."""
  legacy_label='native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools'
  label=entry.get('original_descriptive_label')
- harness_labels={'Slopus-9B-CodeCore-Merge':'Kukedlc/Slopus-9B','OmniCoder Opus Distill-9B-CodeCore-Merge':'mradermacher/OmniCoder-9B-Claude-Opus-High-Reasoning-Distill-GGUF'}
+ harness_labels={'OmniCoder Slopus Distill-9B':'Kukedlc/Slopus-9B','Slopus-9B-CodeCore-Merge':'Kukedlc/Slopus-9B','OmniCoder Opus Distill-9B-CodeCore-Merge':'mradermacher/OmniCoder-9B-Claude-Opus-High-Reasoning-Distill-GGUF'}
  if label!=legacy_label and (label not in harness_labels or cfg['model'].get('hf_repository')!=harness_labels[label] or identity.get('hf_repository')!=harness_labels[label]):raise ValueError('Unreviewed copied harness label')
  if entry.get('runtime_configuration_id')!=cfg.get('runtime_configuration_id') or entry.get('original_descriptive_label')!=label or cfg['model'].get('variant')!=label:raise ValueError('Profile-label correction identity differs')
  model=cfg['model'];options=native['native_recipe']['request_options']
@@ -888,9 +888,79 @@ def pipeline_method_review(root,entry,receipt):
   row['audit_id']=receipt(path,row['audit_sha256'])
  return out
 
+def validate_paired_projection(review):
+ """Replay public aggregates using official task IDs and boolean judgments."""
+ import itertools
+ ids=['HumanEval/'+str(i) for i in range(164)];profiles=review['profiles'];experiments=[p['experiment_id'] for p in profiles]
+ if review.get('task_ids')!=ids or len(set(experiments))!=len(experiments) or set(review.get('task_pass',{}))!=set(experiments):raise ValueError('Public paired task identities differ')
+ outcomes=review['task_pass']
+ for p in profiles:
+  row=outcomes[p['experiment_id']]
+  if len(row)!=164 or any(type(x) is not bool for x in row) or p['tasks']!=164 or sum(row)!=p['solved']:raise ValueError('Public paired judgments differ')
+ def pair(x,y):
+  one,two=outcomes[x],outcomes[y];both=sum(a and b for a,b in zip(one,two));ao=sum(a and not b for a,b in zip(one,two));bo=sum(b and not a for a,b in zip(one,two))
+  return dict(A=x,B=y,tasks=164,both_success=both,A_only_success=ao,B_only_success=bo,neither_success=164-both-ao-bo,A_successes=both+ao,B_successes=both+bo,net_success_change_B_minus_A=bo-ao)
+ reference=review['reference']
+ if reference not in experiments or review.get('GPU_runs')!=0 or review.get('Champion_changed') is not False:raise ValueError('Public paired scope differs')
+ if review['all_pairs']!=[pair(x,y) for x,y in itertools.combinations(experiments,2)] or review['versus_reference']!=[pair(reference,e) for e in experiments if e!=reference]:raise ValueError('Public paired aggregates differ')
+
+def paired_coding_review(root,entry,receipt):
+ """Recompute archived task overlaps; never export model responses or code."""
+ import itertools,subprocess
+ root=pathlib.Path(root).resolve()
+ if set(entry)!={'audit_path','audit_sha256','snapshot_path','snapshot_sha256'}:raise ValueError('Unreviewed paired coding entry')
+ def pinned(name,h):
+  p=(root/name).resolve()
+  if not p.is_relative_to(root) or digest(p)!=h:raise ValueError('Paired coding source changed')
+  return p
+ ap=pinned(entry['audit_path'],entry['audit_sha256']);sp=pinned(entry['snapshot_path'],entry['snapshot_sha256']);a=read(ap);snapshot=read(sp)
+ if a.get('kind')!='DESCRIPTIVE_OFFICIAL_API_NATIVE164_PAIRED_REVIEW' or any(a.get(k)!=0 for k in ('GPU_runs','model_requests','factor_coverage_increment')) or a.get('Champion_changed') is not False:raise ValueError('Unverified paired coding scope')
+ if snapshot.get('analysis_review_sha256')!=digest(ap) or snapshot.get('git_path')!='data/configuration-history.json' or not re.fullmatch('[a-f0-9]{40}',snapshot.get('immutable_public_git_commit','')):raise ValueError('Paired coding snapshot identity differs')
+ # The live history grows; its already published Git object is the frozen input.
+ commit=snapshot['immutable_public_git_commit']
+ raw=subprocess.check_output(['git','show',commit+':data/configuration-history.json'],cwd=root.parent/'public-repository',timeout=15)
+ if len(raw)>3*1024*1024 or H_BYTES(raw)!=snapshot['file_sha256']:raise ValueError('Paired coding historical Git input changed')
+ history=json.loads(raw);models={p['runtime_configuration_id']:p for p in history['profiles']}
+ frozen=pathlib.Path(snapshot['mutable_source_path_at_analysis']).resolve()
+ if frozen!=root.parent/'public-repository/data/configuration-history.json' or a['source_files_sha256'].get(str(frozen))!=snapshot['file_sha256']:raise ValueError('Unbound paired coding history')
+ for name,h in a['source_files_sha256'].items():
+  p=pathlib.Path(name).resolve()
+  if p==frozen:continue
+  if not p.is_relative_to(root.parent) or digest(p)!=h:raise ValueError('Paired coding original source changed')
+ if digest(ap.parent/'paired_native_coding.py')!=a['source_code_sha256'] or digest(ap.parent/'PAIRED_NATIVE_CODING_PLAN.json')!=a['plan_sha256']:raise ValueError('Paired coding analysis identity changed')
+ plan=read(ap.parent/'PAIRED_NATIVE_CODING_PLAN.json');experiments=plan['experiments']
+ if len(set(experiments))!=len(experiments) or len(experiments)<2 or [p['experiment_id'] for p in a['profiles']]!=experiments or a['reference']!=plan['reference'] or a['reference'] not in experiments:raise ValueError('Paired coding cohort differs')
+ outcomes={};profiles=[];expected={'HumanEval/'+str(i) for i in range(164)}
+ for p in a['profiles']:
+  exp=p['experiment_id']
+  if not re.fullmatch('R[1-9][0-9]{1,3}',exp):raise ValueError('Invalid paired coding experiment')
+  audit=root/'staging'/exp.lower()/'AUDIT.json';stdout=audit.parent/'official-api-replay'/('official-api-'+exp.lower()+'.stdout')
+  if a['source_files_sha256'].get(str(audit))!=digest(audit) or digest(audit)!=p['original_audit_sha256'] or a['source_files_sha256'].get(str(stdout))!=digest(stdout):raise ValueError('Unbound paired coding judgments')
+  rows=[json.loads(line[len('TASK_STATUS '):]) for line in stdout.read_text().splitlines() if line.startswith('TASK_STATUS ')]
+  if len(rows)!=164 or {r['task_id'] for r in rows}!=expected:raise ValueError('Paired coding task identities differ')
+  result={r['task_id']:r['base']=='pass' and r['plus']=='pass' for r in rows}
+  runs=[r for r in history['runs'] if r['run_id'] in p['admission_views']]
+  if len(p['admission_views'])!=len(set(p['admission_views'])) or len(runs)!=len(p['admission_views']) or not runs or p['deduplicated_observations']!=1:raise ValueError('Paired coding admission views differ')
+  for run in runs:
+   if not run['official_eligible'] or run['experiment_id']!=exp or run['tasks']!=164 or run['solved']!=sum(result.values()) or run['benchmark_identity_id']!=a['benchmark_identity_id'] or run['dataset_split_hash']!=a['dataset_split_hash'] or any(run[k]!=p[k] for k in ('model_artifact_id','runtime_configuration_id')) or run['audit_hash']!=p['original_audit_sha256']:raise ValueError('Paired coding qualified result differs')
+  if p['tasks']!=164 or p['solved']!=sum(result.values()):raise ValueError('Paired coding success count differs')
+  outcomes[exp]=result
+  profiles.append({k:p[k] for k in ('experiment_id','runtime_configuration_id','model_artifact_id','tasks','solved','original_audit_sha256')})
+  profiles[-1].update(model_name=models[p['runtime_configuration_id']]['model']['name'],audit_id=receipt(audit,p['original_audit_sha256']))
+ def pair(x,y):
+  one,two=outcomes[x],outcomes[y];both=sum(one[t] and two[t] for t in expected);ao=sum(one[t] and not two[t] for t in expected);bo=sum(two[t] and not one[t] for t in expected)
+  return dict(A=x,B=y,tasks=164,both_success=both,A_only_success=ao,B_only_success=bo,neither_success=164-both-ao-bo,A_successes=both+ao,B_successes=both+bo,net_success_change_B_minus_A=bo-ao)
+ pairs=[pair(x,y) for x,y in itertools.combinations(experiments,2)];versus=[pair(a['reference'],e) for e in experiments if e!=a['reference']]
+ if pairs!=a['all_pairs'] or versus!=a['versus_reference']:raise ValueError('Paired coding aggregate differs from original judgments')
+ task_ids=['HumanEval/'+str(i) for i in range(164)]
+ projection=dict(date=a['at_utc'][:10],benchmark_identity_id=a['benchmark_identity_id'],dataset_split_hash=a['dataset_split_hash'],reference=a['reference'],profiles=profiles,versus_reference=versus,all_pairs=pairs,task_ids=task_ids,task_pass={e:[outcomes[e][t] for t in task_ids] for e in experiments},GPU_runs=0,Champion_changed=False,audit_id=receipt(ap,entry['audit_sha256']),audit_sha256=entry['audit_sha256'],source_code_sha256=a['source_code_sha256'],history_commit=commit,limits=['Descriptive task overlap of whole configurations; no causal model-training, significance, unseen-task or router-performance claim.','Admission annotations are not independent repetitions. No new inference, official result or Champion qualification.','Public official task IDs and pass/fail booleans support aggregate replay. Model responses, solutions and private inputs are withheld.'])
+ validate_paired_projection(projection)
+ return projection
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
  reg['pipeline_method_reviews']=[pipeline_method_review(root,e,receipt) for e in reg.get('pipeline_method_reviews',[])]
+ reg['paired_coding_reviews']=[paired_coding_review(root,e,receipt) for e in reg.get('paired_coding_reviews',[])]
  for item in reg.get('profile_label_reviews',[]):
   ap=(root/item.pop('audit_path')).resolve()
   if not ap.is_relative_to(root.resolve()) or digest(ap)!=item['audit_sha256']:raise ValueError('Profile-label review changed')
@@ -1270,6 +1340,22 @@ def render(register,history,comparison,docs,model_registry=None):
   write(docs/'pipeline-methods.md',page)
   methodology=docs/'methodology.md'
   if methodology.exists() and 'pipeline-methods.md' not in methodology.read_text():write(methodology,methodology.read_text()+'\n## Pipeline decision\n\n[Retrospective screening evidence and Nexus/Jarvis development plan](pipeline-methods.md). CPU-only study; official results and GPU admission policy remain unchanged.\n')
+ paired_target=docs/'pipeline-methods.md'
+ if paired_target.exists() and '<!-- paired-coding:start -->' in paired_target.read_text():
+  write(paired_target,re.sub(r'(?s)\n<!-- paired-coding:start -->.*?<!-- paired-coding:end -->\n','\n',paired_target.read_text()))
+ for review in register.get('paired_coding_reviews',[]):
+  by_id={p['experiment_id']:p for p in review['profiles']}
+  rows=[]
+  for pair in review['versus_reference']:
+   p=by_id[pair['B']]
+   rows.append([p['model_name'],f"[{p['experiment_id']}](experiments/{p['experiment_id']}.md)",f"[Exact profile](configuration-profiles/{p['runtime_configuration_id']}.md)",pair['both_success'],pair['B_only_success'],pair['A_only_success'],pair['neither_success']])
+  section='\n<!-- paired-coding:start -->\n<details><summary>Archived paired coding evidence · '+review['date']+'</summary>\n\n'
+  section+='Reference: ['+review['reference']+'](experiments/'+review['reference']+'.md). All 164 exact HumanEval+ task identities and the registered official scorer are shared. These are whole-profile observed overlaps, not a second ranking or a new benchmark.\n\n'
+  section+=table(['Profile','Experiment','Configuration','Both pass','Candidate only','Reference only','Neither passes'],rows)
+  section+='\n[Public aggregate-replay data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/benchmark-register.json): the `paired_coding_reviews` records contain only the official task IDs and pass/fail booleans needed to reproduce these counts. No model responses or solutions.\n'
+  section+='\n'+' '.join(review['limits'])+'\n\n'+audit_links([review['audit_id']])+' · [Frozen public input](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/'+review['history_commit']+'/data/configuration-history.json)\n\n</details>\n<!-- paired-coding:end -->\n'
+  target=docs/'pipeline-methods.md'
+  write(target,(target.read_text() if target.exists() else '# Pipeline methods\n')+section)
  # Old result URLs are aliases, never competing leaderboard/table views.
  alias='# Model comparison has one home\n\n[Open the category comparison](configuration-comparison.md#all-measured-results). One fixed benchmark each for coding, tools and agents, with original task counts and statuses.\n\nThis older URL redirects automatically. Original measurements, protocol definitions, source datasets, profile identities and audits remain preserved.\n'
  for route in ('benchmarks.md','supplemental-comparison.md'):

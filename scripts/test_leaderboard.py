@@ -11,8 +11,8 @@ class LeaderboardTests(unittest.TestCase):
   entry={'runtime_configuration_id':cfg['runtime_configuration_id'],'original_descriptive_label':label,'model_artifact_sha256':'b'*64,'immutable_profile_sha256':'c'*64,'checkpoint_variant':None,'checkpoint_variant_verdict':'NOT_RECORDED','recorded_QAT':None,'original_profile_unchanged':True,'measured_scores_unchanged':True,'recorded_quantization':'Q6_K','recorded_temperature':0,'recorded_top_k':None}
   return entry,cfg,identity,native
  def test_known_tool_harness_suffix_is_not_checkpoint_evidence(self):
-  for label,repo in [('Slopus-9B-CodeCore-Merge','Kukedlc/Slopus-9B'),('OmniCoder Opus Distill-9B-CodeCore-Merge','mradermacher/OmniCoder-9B-Claude-Opus-High-Reasoning-Distill-GGUF')]:
-   entry,cfg,identity,native=self.label_fixture();entry.update(original_descriptive_label=label,recorded_temperature=.6);cfg['model'].update(variant=label,hf_repository=repo);identity['hf_repository']=repo;native['native_recipe']['request_options']['temperature']=.6
+  for label,repo,temperature in [('Slopus-9B-CodeCore-Merge','Kukedlc/Slopus-9B',.6),('OmniCoder Opus Distill-9B-CodeCore-Merge','mradermacher/OmniCoder-9B-Claude-Opus-High-Reasoning-Distill-GGUF',.6),('OmniCoder Slopus Distill-9B','Kukedlc/Slopus-9B',0)]:
+   entry,cfg,identity,native=self.label_fixture();entry.update(original_descriptive_label=label,recorded_temperature=temperature);cfg['model'].update(variant=label,hf_repository=repo);identity['hf_repository']=repo;native['native_recipe']['request_options']['temperature']=temperature
    before=copy.deepcopy((entry,cfg,identity,native));out=profile_label_annotation(entry,cfg,identity,native)
    self.assertIsNone(out['checkpoint_variant']);self.assertEqual((entry,cfg,identity,native),before);self.assertEqual(out['original_descriptive_label'],label)
  def test_harness_suffix_correction_cannot_hide_another_repository(self):

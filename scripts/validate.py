@@ -6,7 +6,7 @@ ROOT_FILES={'README.md','LICENSE','CITATION.cff','CONTRIBUTING.md','SECURITY.md'
 DATA={'benchmark-register.json','configuration-history.json','comparison.json','research-issues.json','snapshot.json','factors.json','experiments.json','audit-excerpts.json','signed-windows.json','history.json','references.json','profiles.json','models.json','model-benchmarks.json','sources.json','research-subcases.json','publication-manifest.json'}
 SCRIPTS={'leaderboard.py','test_leaderboard.py','comparison.py','test_comparison.py','export.py','render.py','validate.py','test_publication.py'}
 SCRIPTS.update({'test_master_table.cjs','test_master_browser.cjs'})
-SCRIPTS.add('test_pipeline_methods.py')
+SCRIPTS.update({'test_pipeline_methods.py','test_paired_coding.py'})
 SCRIPTS.update({'derivatives.py','test_derivatives.py','test_native_tools.py','test_native_tool_prefix.py'})
 SECRET=re.compile(r'(?i)(?:gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,}|sk-[A-Za-z0-9]{16,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(?:password|passwd|api[_-]?key|access[_-]?token|authorization)\s*[:=]\s*[\x22\x27]?[A-Za-z0-9/+_=.-]{12,})')
 PRIVATE=re.compile(r'(?i)(?:\bGPU-[a-f0-9-]{16,}|\b[a-z0-9-]+\.(?:lan|local|internal)\b|\b(?:sensor|switch|light|climate|automation|person|device_tracker|input_boolean)\.[a-z0-9_]+|\b(?:pve|proxmox)-[a-z0-9-]+\b|(?:/opt|/root|/home|/run|/var)/(?!\[)[A-Za-z0-9_.-]+/)')
@@ -96,9 +96,10 @@ def validate(check_manifest=True):
   pins={x['id']:x['original_sha256'] for x in au}
   if len(row['audit_ids'])!=len(row['audit_sha256']) or any(pins.get(k)!=v for k,v in zip(row['audit_ids'],row['audit_sha256'])):errors.append('Comparison audit reference/hash pairing mismatch')
   if not set(row['audit_sha256'])<={x['original_sha256'] for x in au}:errors.append('Comparison original audit hash missing')
- from leaderboard import validate_history
+ from leaderboard import validate_history,validate_paired_projection
  history=read('configuration-history.json');register=read('benchmark-register.json')
  validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
+ for review in register.get('paired_coding_reviews',[]):validate_paired_projection(review)
  for review in register.get('same_quantizer_weight_reviews',[]):
   if not set(review.get('evidence_audit_ids',[]))<=aids:errors.append('Same-quantizer review missing evidence')
   result=review['result'];rows=result['tensor_results']

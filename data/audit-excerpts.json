@@ -174016,6 +174016,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 117,
+          "tasks": 164,
+          "wall_s": 457.999249246
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1789af9fe3f495e767c3",
+    "original_bytes": 11332,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1789af9fe3f495e767c367a7237b1f05805b433f4ba371a77b2a901747d9ec32",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Ornith1.5 9B Q6_K native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -251052,6 +251077,26 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6ac57713d46c60a692ce",
+    "original_bytes": 24674,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6ac57713d46c60a692ce5cf5375d93d7aef0a5122529d2207dfa19f6e5c7444c",
+    "statements": {
+      "decision": "Use exact observed overlap to distinguish profile gains and losses; no significance, model-training causality, screening validation, measured router or global superiority claim. Preserve partial profiles outside this full-task cohort.",
+      "limits": [
+        "One answer per task/configuration, not independent stochastic replications.",
+        "No test-answer-driven tuning, screening selection or oracle routing performance claim.",
+        "No global Champion or quality-preservation qualification from these counts."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "new_GPU_runs": 0
     },
     "excerpt_is_not_original": true,
@@ -251076,6 +251121,19 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "eac3d492211575266ccea2f70cc1c2854ad7fbedf9fa49cf019db3eab9025f82",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e3279c86cbb1905af3d4",
+    "original_bytes": 2380,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e3279c86cbb1905af3d4783ed5cc16118152c13a4719bce8f8152bb707fb1a32",
     "statements": {}
   },
   {
@@ -254382,6 +254440,68 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-60520d509b71c5f8cddc",
+    "original_bytes": 143457,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "60520d509b71c5f8cddcc7ef48dafaa7b96b2d57098b1b2ca4813a181793b80e",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 117,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3dfc1fb73d9d4c64947d",
+    "original_bytes": 3630,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3dfc1fb73d9d4c64947deffb11ed0e142db3adcf803c07be157f737f54b45322",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-17c923c1bee6d2bc0f79",
+    "original_bytes": 6418,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "17c923c1bee6d2bc0f791c9159aa998c4dfc3619d273b400edf2bf4d67ba0ee6",
+    "statements": {
+      "scope": "Exactly164 completed coding requests and117 successes. Includes failed completed tasks/setup; excludes load/warmup/CPU and any unfinished trailing request. Prefix counters never claim full-session or full164 task energy. Missing power-integral energy stays unknown."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 117,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d8e508ea828adb2ad963",
+    "original_bytes": 9010,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d8e508ea828adb2ad963dbff08aa1b6a73d032589bdc33486698aa3ca8edd50f",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -254748,6 +254868,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "3de468fe73193dd6faa10bf982d9b022be06f1018d587b50399e03f1a88efd55",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-22606a72ab7422da0a1a",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "22606a72ab7422da0a1a1e6dff04711f6593adf9c22e7668aa4fa2f0ce89dcdd",
     "statements": {}
   },
   {
