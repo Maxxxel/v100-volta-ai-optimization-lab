@@ -11,6 +11,16 @@ vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
 
+test('LFM24 complex-tool6/200 is a complete measured low score, not missing or a global model rejection', () => {
+ const r=data.history.runs.find(r=>r.experiment_id==='R477'&&r.counter_energy);assert(r);
+ assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,6);assert.equal(r.score_percent,3);assert.equal(r.official_eligible,true);
+ assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,6);assert.equal(r.gpu_j,null);
+ assert.equal(r.counter_energy.j_per_success_lower,9622.955833333333);
+ const p=data.history.profiles.find(p=>p.runtime_configuration_id===r.runtime_configuration_id);
+ assert.equal(p.model.family_id,'lfm25_24b');assert.equal(p.model.quantization,'QAD Q4_0');
+ const v=M.comparisonView(M.build(data));assert(v.rows.some(row=>row.runs.some(x=>x.run_id===r.run_id)));
+});
+
 test('LFM8 complex-tool170/200 preserves full category, actual Q6 identity and200-request costs', () => {
  const r=data.history.runs.find(r=>r.experiment_id==='R476'&&r.counter_energy);assert(r);
  assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,170);assert.equal(r.official_eligible,true);

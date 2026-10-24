@@ -13910,5 +13910,13 @@
     "kind": "UNKNOWN",
     "sequence": 1739,
     "signature": null
+  },
+  {
+    "date": "2026-10-24T09:51:45.463105+00:00",
+    "experiment_id": "R477",
+    "factor_id": null,
+    "kind": "UNKNOWN",
+    "sequence": 1740,
+    "signature": null
   }
 ]

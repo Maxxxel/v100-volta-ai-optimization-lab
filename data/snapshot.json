@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1739,
+    "ledger_events": 1740,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 395
+    "sprint_records": 396
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -28,15 +28,15 @@
     "Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.",
     "No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites."
   ],
-  "matrix_revision": 415,
+  "matrix_revision": 416,
   "schema": 1,
-  "source_date": "2026-10-24T09:39:40.185833+00:00",
+  "source_date": "2026-10-24T09:54:01.094866+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "529d7b188e752a2579083a68d0d28ea50d092decd5a441be4b86f906da3cc06f",
-    "BENCHMARK_REGISTER.json": "6098bf3922fec5ccb95ed17e5cc2c9505163193fb7bd196afa16f88e27d9ad41",
+    "BENCHMARK_REFERENCES.json": "587a6baac1a3b97dfb25140ffe3b6f957fae7c14d1f3af89616bead7dfa8c4c3",
+    "BENCHMARK_REGISTER.json": "7dc41f7b8da098d667f7bc0af40c5dd889402ad7d5197efa0cdc8630736cbbc0",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
-    "MATRIX_EXTENDED.json": "a158db6351f351355b8c6f3c874566c157a149633706888482e6478010cb9e9c",
-    "O2_EXPERIMENTS.jsonl": "f8055ba430f2efdbb925c2f520462dc493148d58a400e217735fd54b301d3a40",
+    "MATRIX_EXTENDED.json": "6d94896302c2caf1dc9094bda86bf82f5ecef70ba0fd62c72b9db492eecd1a11",
+    "O2_EXPERIMENTS.jsonl": "4af30a9f34378e761d04da473812b774dbbeae976ec18a92f11194c5fdf1c5a3",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

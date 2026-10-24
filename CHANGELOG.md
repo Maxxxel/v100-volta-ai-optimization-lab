@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-24 — LFM24 complete complex-tool negative profile result
+
+Preserve the full6/200 parallel/multiple result,356.536s task time and exact200-request counter costs. All200 native envelopes were complete and valid;193 contained a single call. Record the limited CPU protocol-shape review without claiming an isolated cause or generic model failure. Keep the existing simple400 result, immutable configuration/audits and missing energy measurements.
+
 ## 2026-10-24 — LFM8 complete complex-tool baseline
 
 Add the existing LFM8 Q6 native profile's independently qualified170/200 parallel/multiple result,641.972s task time and exact200-request energy-counter bounds. Preserve missing integral energy and all historical IDs. Disclose a copied descriptive trial-ID component without changing the pinned LFM weights or registered budget. Document the retrospective common171-task comparison separately from full-suite scores and the CPU-only practical no-call protocol preparation.
@@ -701,5 +705,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R476 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R477 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
