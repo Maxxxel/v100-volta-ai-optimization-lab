@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-24 — LFM8 complete complex-tool baseline
+
+Add the existing LFM8 Q6 native profile's independently qualified170/200 parallel/multiple result,641.972s task time and exact200-request energy-counter bounds. Preserve missing integral energy and all historical IDs. Disclose a copied descriptive trial-ID component without changing the pinned LFM weights or registered budget. Document the retrospective common171-task comparison separately from full-suite scores and the CPU-only practical no-call protocol preparation.
+
 ## 2026-10-24 — Complex-tool comparison and partial-cost preservation
 
 Record the complete locally qualified Qwen3.5 parallel/multiple category result (176/200). Preserve Bonsai 145/171 as a native-task-cap partial result, with29 tasks unmeasured. Publish independently checked reported-energy counter bounds for exactly171 completed requests and145 successes, without filling missing power-integral energy or extrapolating to200. Add result-cell and provenance regression coverage for both profiles. No full-BFCL, model superiority or optimization Champion claim.
@@ -693,5 +697,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R475 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R476 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

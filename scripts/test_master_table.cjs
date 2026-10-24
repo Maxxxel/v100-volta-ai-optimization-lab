@@ -11,6 +11,17 @@ vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
 
+test('LFM8 complex-tool170/200 preserves full category, actual Q6 identity and200-request costs', () => {
+ const r=data.history.runs.find(r=>r.experiment_id==='R476'&&r.counter_energy);assert(r);
+ assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,170);assert.equal(r.official_eligible,true);
+ assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,170);assert.equal(r.gpu_j,null);
+ assert.equal(r.counter_energy.j_per_success_lower,730.922294117647);
+ const p=data.history.profiles.find(p=>p.runtime_configuration_id===r.runtime_configuration_id);
+ assert.equal(p.model.artifact_sha256,'7ccf57a2d410d8822d1560a1ca10c8318f3e15d6a8f6d42d1903d58e80ea20a6');assert.equal(p.model.quantization,'Q6_K');
+ assert.equal(p.model.family_id,'lfm25_8b_a1b_q6');
+ const v=M.comparisonView(M.build(data));assert(v.rows.some(row=>row.runs.some(x=>x.run_id===r.run_id)));
+});
+
 test('Qwen3.5 parallel176/200 is category qualified with exact200-task counter bounds', () => {
  const r=data.history.runs.find(r=>r.experiment_id==='R474'&&r.counter_energy);assert(r);
  assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,176);assert.equal(r.official_eligible,true);

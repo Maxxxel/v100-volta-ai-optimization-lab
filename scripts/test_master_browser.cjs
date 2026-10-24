@@ -127,7 +127,7 @@ async function main() {
     assert((await page.locator('.master-cell-dialog').innerText()).includes('STOPPED_GPU_WRAPPER_TIME_BUDGET'));assert((await page.locator('.master-cell-dialog').innerText()).includes('2011.080'));
     await page.getByRole('button',{name:'Schließen',exact:true}).click();
     report.checks.push('R473165/197 stays PARTIAL after protected wrapper timeout, distinct from native task exhaustion and full200 results; energy covers exactly197 completed requests');
-    for (const [experiment, solved, tasks, official, energy] of [['R474',176,200,true,'702.494'],['R475',145,171,false,'2237.994']]) {
+    for (const [experiment, solved, tasks, official, energy] of [['R474',176,200,true,'702.494'],['R475',145,171,false,'2237.994'],['R476',170,200,true,'730.922']]) {
       const r=await page.evaluate(e=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id===e&&r.counter_energy),experiment);
       assert(r);assert.equal(r.official_eligible,official);assert.equal(r.counter_energy.tasks,tasks);
       const cell=page.locator(`.master-table tr[data-configuration-ids~="${r.runtime_configuration_id}"] td[data-column-key="family:bfcl"]`);
