@@ -75,7 +75,7 @@ Random sampling is without replacement. Stratification uses calibration-profile 
 | Avoidable repeats / developed but unexecuted implementations | NOT ESTABLISHED |
 
 
-These inventories overlap and must never be summed. The 54 explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.
+These counts describe the frozen study-input snapshot; later experiment additions belong to the live history. The inventories overlap and must never be summed. The 54 explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.
 
 ## Nexus: first controlled development comparison
 

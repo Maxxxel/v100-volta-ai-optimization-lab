@@ -809,3 +809,25 @@ test('Slopus tools146/200 retains complete category qualification, exact counter
  const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.score,73);assert.equal(mean.count,1);assert.equal(mean.total,3);
  assert(!row.runs.some(r=>r.experiment_id==='R483'));assert.equal(M.performanceSummary(row,mean.keys,v.benchmarkMap).tasks,200);
 });
+
+
+test('offline browser bundle retains exact canonical history and every public UI-register value',()=>{
+ const history=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/configuration-history.json'),'utf8'));
+ const register=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/benchmark-register.json'),'utf8'));
+ for(const key of ['artifact_weight_reviews','same_quantizer_weight_reviews','pipeline_method_reviews'])delete register[key];
+ assert.equal(M.canonical(data.history),M.canonical(history));
+ assert.equal(M.canonical(data.register),M.canonical(register));
+ assert(fs.statSync(path.join(__dirname,'../docs/assets/benchmarks/leaderboard-data.js')).size<=3*1024*1024);
+});
+
+test('Opus first native coding106/132 stays partial with pinned native template, weights and request-energy scope',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R485'&&r.counter_energy);assert(r);
+ assert.equal(r.tasks,132);assert.equal(r.solved,106);assert.equal(r.status,'PARTIAL');assert.equal(r.official_eligible,false);
+ assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.tasks,132);assert.equal(r.counter_energy.solved,106);
+ assert.equal(r.counter_energy.j_per_success_lower,3237.9986132075474);assert.equal(r.counter_energy.j_per_success_upper,3239.021320754717);
+ const row=model.rows.find(row=>row.runs.some(x=>x.run_id===r.run_id));assert(row);
+ assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['runtime.max_output'],4096);
+ assert.equal(row.profile.model.artifact_sha256,'6a089b1b2d1fe21bbe78315a94da5b81e9dde538f9737a7f2c4a53c4eb42ae66');
+ assert.equal(row.profile.runtime.chat_template_sha256,'e3a8a616b2fa4670edc927fe333999e709657ddf8df0fb023dd5b5d01dddd4f6');
+ assert(!M.comparisonView(model).rows.some(row=>row.runs.some(x=>x.experiment_id==='R485')));
+});

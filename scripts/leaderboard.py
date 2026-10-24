@@ -1,5 +1,5 @@
 """Versioned benchmark/configuration projection. No GPU calls or source mutations."""
-import copy,hashlib,html,json,math,pathlib,re
+import collections,copy,hashlib,html,json,math,pathlib,re
 from comparison import extract_tuning
 SCHEMA=1
 NATIVE_TOOL_CATEGORIES={'bfcl-v4-simple-python-full400':('simple_python',400),'bfcl-v4-parallel-multiple-full200':('parallel_multiple',200)}
@@ -26,6 +26,30 @@ def verify_broker_capture(cfg,native,launch):
  kernel=cfg['engine'].get('kernel_library_file')
  if not kernel or cfg['engine']['kernel_library_sha256']!=assets.get(native['runtime']+'/'+kernel):raise ValueError('Broker kernel identity mismatch')
  return True
+def offline_payload(payload, minimum_bytes=2900000):
+ """Synchronous lossless JSON-token interning; no eval, fetch or dependencies.
+
+ All source JSON remains separately exported and validated. Repeated complete
+ string tokens, including keys, are restored before JSON.parse. The sentinel
+ cannot occur in the original JSON. Existing publication limits remain intact.
+ """
+ raw=json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False)
+ encode=lambda x:json.dumps(x,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')
+ plain='window.V100Leaderboard=JSON.parse('+encode(raw)+');\n'
+ if len(plain.encode())<minimum_bytes:return plain
+ token=re.compile(r'"(?:\\.|[^"\\])*"')
+ counts=collections.Counter(m.group(0) for m in token.finditer(raw))
+ pool=sorted(t for t,n in counts.items() if n>1 and len(t)>=32)
+ if not pool:return plain
+ prefix='__V100_POOL_0__'
+ while prefix in raw:prefix+='X'
+ indexes={t:i for i,t in enumerate(pool)}
+ packed=token.sub(lambda m:json.dumps(prefix+str(indexes[m.group(0)])) if m.group(0) in indexes else m.group(0),raw)
+ pattern='"'+re.escape(prefix)+r'([0-9]+)"'
+ if re.sub(pattern,lambda m:pool[int(m.group(1))],packed)!=raw:raise ValueError('Offline JSON token roundtrip failed')
+ result='(function(){const p='+encode(pool)+';const s='+encode(packed)+';const r='+encode(pattern)+';window.V100Leaderboard=JSON.parse(s.replace(new RegExp(r,"g"),function(_,n){return p[Number(n)];}));})();\n'
+ return result if len(result.encode())<len(plain.encode()) else plain
+
 def browser_register(register):
  """Avoid duplicating non-UI tensor journals in the offline table bundle.
 
@@ -1229,7 +1253,7 @@ def render(register,history,comparison,docs,model_registry=None):
   for name,cohort in review['cohorts'].items():page+='\n**'+name+'**: reference '+cohort['reference']+'; calibration '+', '.join(cohort['calibration_experiments'])+'; validation '+', '.join(cohort['validation_experiments'])+'.\n'
   page+='\nRandom sampling is without replacement. Stratification uses calibration-profile difficulty quartiles and reference prompt lengths as tie-breakers. The rejection rule is a one-sided exact finite-population hypergeometric upper bound below the fixed reference by more than10 percentage points, alpha0.01; stratified bounds use a simultaneous per-stratum allocation. This is a retrospectively evaluated rule, **not an activated admission policy**. Hardware startup, CPU scoring and orchestration overhead are excluded from the cost projection and may increase real costs.\n\n</details>\n\n## Evidence census — distinct units\n\n'
   rows=[['Registered capture profiles',c['registered_capture_profiles']],['Profiles with benchmark evidence',c['capture_profiles_with_benchmark_results']],['Recorded model-family IDs with results (aliases possible)',c['distinct_named_families_with_results']],['Model artifact IDs with results',c['distinct_model_artifact_ids_with_results']],['Exported result views',c['exported_result_views']],['Deduplicated task-set observations',c['deduplicated_task_set_observations']],['Qualified complete task-set observations (includes archived protocols)',c['qualified_complete_task_set_observations']],['Partial task-set observations',c['partial_task_set_observations']],['Hash-registered captures with explicit GPU execution evidence',c['hash_registered_capture_directories_with_GPU_execution_observed']],['Other/legacy capture directories not classified by this reader',c['capture_directories_unclassified_or_not_registered']],['Completed protected task clocks',c['protected_complete_task_clocks']],['Recorded task-window seconds, not GPU busy seconds',c['protected_task_phase_seconds']],['Recorded startup-window seconds',c['protected_startup_phase_seconds']],['Original variant fields',c['original_variant_fields']],['Variant fields with recorded hardware scope',c['original_variant_fields_with_recorded_experimental_scope']],['Global GPU busy time / total project energy','NOT MEASURED'],['Avoidable repeats / developed but unexecuted implementations','NOT ESTABLISHED']]
-  page+=table(['Unit','Verified value'],rows)+'\nThese inventories overlap and must never be summed. The '+str(c['hash_registered_capture_directories_with_GPU_execution_observed'])+' explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.\n\n'
+  page+=table(['Unit','Verified value'],rows)+'\nThese counts describe the frozen study-input snapshot; later experiment additions belong to the live history. The inventories overlap and must never be summed. The '+str(c['hash_registered_capture_directories_with_GPU_execution_observed'])+' explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.\n\n'
   page+='## Nexus: first controlled development comparison\n\n'+table(['Arm','Thinking','Temperature','Output tokens'],[[a['name'],a['thinking'],a['temperature'],a['max_output']] for a in review['nexus_development']['arms']])
   page+='\nA→B changes only native Thinking; B→C changes only temperature. Keep weights, engine/kernel, template bytes, remaining sampler settings and scorer fixed. Start with16 newly frozen coding and16 mock-tool development cases, covering four declared task/error types per category. This is a low-cost diagnostic design, **not proof of ranking reliability or a basis for rejecting small score differences**. At the methods-audit snapshot, workload freezing, CPU scorer controls and broker admission remained pending; each is a separate pre-execution gate.\n\nOne shared1,200-second task clock covers all three arms and all parts. Predeclare counterbalanced task triples; no token-limit reduction or clock reset. Report successes, valid final responses, completion/reasoning tokens, latency, GPU energy including failures and VRAM. If capped, disclose matched task IDs and actual coverage. Temperature0 requests greedy sampling; bitwise deterministic CUDA execution is not assumed.\n\n'
   page+='## Budget and scheduling\n\nThe current owner-authorized budget is **1,200 seconds for the whole task phase**. The admitted class separately bounds startup180 s, cleanup60 s and outer wall1,440 s. All '+str(c['protected_complete_task_clocks'])+' completed protected task clocks in this snapshot use1,200 s. The actual systemd wrapper can end a run earlier; record it separately. Legacy900-second contracts and code paths remain historical and are not rewritten or repurposed for new task-phase tests.\n\nCPU work may accompany only prepared, broker-approved GPU research: one GPU lease, bounded CPU/RAM/I/O, no overlapping heavy jobs, no manufactured utilization. No automatic screening launch, new GPU scheduler or broker-policy change is introduced here.\n\n'
@@ -1388,4 +1412,4 @@ def render(register,history,comparison,docs,model_registry=None):
  models=list(comparison['models']);aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'};covered={aliases[x['id']] for x in models if x['id'] in aliases}
  models += [{'id':m['id'],'name':m['name'],'quantization':'NOT MEASURED'} for m in (model_registry or []) if m['id'] not in covered]
  payload={'register':browser_register(register),'history':history,'models':models,'master':master_catalog(register,history)}
- write(assets/'leaderboard-data.js','window.V100Leaderboard='+json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')+';\n')
+ write(assets/'leaderboard-data.js',offline_payload(payload))

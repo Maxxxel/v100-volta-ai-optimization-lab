@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-24 — R485 Opus reasoning-distill coding
+
+- Preserve106/132 HumanEval+ successes under the total1,200-second task cap;32 planned tasks remain unmeasured. Independent isolated replay agrees; no full164 score or Champion claim.
+- Record1,189.490291688 s across completed requests,7,354.5 MiB peak and3,237.9986132075474–3,239.021320754717 GPU J/success counter bounds over132 completed requests. Whole-task end time and power-integral energy remain unmeasured.
+- Keep this partial profile in the research archive, outside the complete-only central comparison.
+- Intern repeated complete JSON string tokens losslessly in the offline browser asset to retain every profile/value under the unchanged publication byte cap. Restore synchronously before JSON.parse; no external service or asynchronous dependency. Canonical JSON and immutable identities stay unchanged.
+
+
 ## 2026-10-24 — CPU screening methods decision
 
 - Audit six complete coding and nine complete parallel-tool profiles with exact source/task identities; evaluate8–64-task random/stratified subsets in24,000 CPU resamples.

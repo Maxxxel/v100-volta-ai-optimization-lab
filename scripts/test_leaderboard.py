@@ -442,4 +442,40 @@ class LeaderboardTests(unittest.TestCase):
    w=d['weight_provenance'];self.assertTrue(w['local_R448_artifact']['current_published_LFS_matches']);self.assertTrue(w['upstream_safetensors']['current_equals_original_upload_LFS']);self.assertEqual(w['source_lineage']['exact_quantizer_to_upstream_checkpoint_derivation'],'NOT VERIFIED');self.assertFalse(w['independent_header_inventory']['header_comparison_is_payload_comparison']);self.assertNotIn('weight_provenance_path',d)
   self.assertTrue(all(r['benchmark_id']!='ARCHIVED_RESPONSE_DIAGNOSTIC_ISSUE12' for r in history['runs']))
 
+class OfflinePayloadTests(unittest.TestCase):
+ def decode(self,source):
+  import re
+  decoder=json.JSONDecoder()
+  raw_prefix='window.V100Leaderboard=JSON.parse('
+  if source.startswith(raw_prefix):
+   raw,_=decoder.raw_decode(source[len(raw_prefix):]);return json.loads(raw)
+  prefix='(function(){const p='
+  self.assertTrue(source.startswith(prefix))
+  pool,end=decoder.raw_decode(source[len(prefix):]);rest=source[len(prefix)+end:]
+  self.assertTrue(rest.startswith(';const s='))
+  packed,end=decoder.raw_decode(rest[len(';const s='):]);rest=rest[len(';const s=')+end:]
+  self.assertTrue(rest.startswith(';const r='))
+  pattern,_=decoder.raw_decode(rest[len(';const r='):])
+  return json.loads(re.sub(pattern,lambda m:pool[int(m.group(1))],packed))
+ def test_plain_payload_retains_missing_zero_false_and_JSON_keys(self):
+  from leaderboard import offline_payload
+  data={'zero':0,'missing':None,'disabled':False,'empty':'','__proto__':{'prototype_data':'retained'}}
+  source=offline_payload(data);self.assertEqual(self.decode(source),data)
+ def test_packed_payload_preserves_quotes_unicode_arrays_and_every_field(self):
+  from leaderboard import offline_payload
+  text='recorded "quoted" field; path\\name\nDeutsch ä 日本語 <tag> '+'x'*128
+  data={'rows':[{'field_with_long_identity_name':text,'unknown':None,'zero':0,'false':False,'array':[1,2,3]} for _ in range(100)]}
+  source=offline_payload(data,0);self.assertTrue(source.startswith('(function()'))
+  self.assertEqual(self.decode(source),data);self.assertNotIn('<',source)
+  self.assertLess(len(source),len(offline_payload(data,10**9)))
+  self.assertEqual(source,offline_payload(data,0))
+ def test_reserved_sentinel_lookalike_is_original_data(self):
+  from leaderboard import offline_payload
+  data={'sentinel':'__V100_POOL_0__42','repeated':['long existing artifact identity '+('a'*128)]*100}
+  source=offline_payload(data,0);self.assertEqual(self.decode(source),data)
+ def test_nonfinite_numbers_are_rejected_before_publication(self):
+  from leaderboard import offline_payload
+  for value in [float('nan'),float('inf'),-float('inf')]:
+   with self.assertRaises(ValueError):offline_payload({'value':value},0)
+
 if __name__=='__main__':unittest.main()
