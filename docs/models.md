@@ -12,8 +12,8 @@ Models are compared within the same tasks using correct model-specific tokenizer
 | BMC02 | OxCoder 9B | auf Nutzerwunsch gestoppt | HISTORICAL_PARTIAL_OWNER_STOP_NO_MODEL_REJECTION | R410 |
 | BMC06 | LFM2.5 8B A1B | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R453 |
 | BMC07 | Gemma 4 12B IT QAT | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R458 |
-| BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
-| BMC05 | LFM2.5 24B A2B QAD | Tool-Kategorie gemessen und lokal qualifiziert; Coding offen | LOKAL_GEMESSEN | NOT MEASURED / not recorded |
+| BMC08 | Qwen3.6 27B | Gewichte und851 Tensorformen geprüft; regulärer Coding-Benchmark vorbereitet | CPU_SOURCE_AND_ARTIFACT_VERIFIED_NO_GPU_RESULT | NOT MEASURED / not recorded |
+| BMC05 | LFM2.5 24B A2B QAD | Tool-Kategorie qualifiziert; Coding-Präfix85 unter Zeitlimit ausgewertet | LOKAL_GEMESSEN | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC09 | UI-Venus 1.5 8B / Holo2 8B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC11 | Qwen3.8 Flash-MTP-Derivat | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -393,17 +393,24 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "SWE-Pro Herstellerwerte mit anderer Testdefinition nicht addieren.",
+  "assessment": "Technisch begründeter nächster normaler Modellvergleich, kein Qualitäts-Vorabfilter. Q3_K_S ist ein konservatives Speicherprofil; Q3_K_M ist dadurch nicht widerlegt. Exakte upstream-Konvertierungsrevision unaufgezeichnet.",
   "current_experiment": null,
-  "evidence_class": null,
+  "evidence_class": "CPU_SOURCE_AND_ARTIFACT_VERIFIED_NO_GPU_RESULT",
   "id": "BMC08",
-  "local_scope": null,
+  "local_scope": {
+    "GPU_runs": 0,
+    "kind": "INDEPENDENT_SHA256_AND_CPU_HEADER_VERIFICATION",
+    "model_sha256": "4afb4abcf0207a484b0d7e92c0421b74e8ce1c7a7250bb9d824b79288da68f20",
+    "model_starts": 0,
+    "parameter_count": 26895998464,
+    "weights_downloaded": 1
+  },
   "name": "Qwen3.6 27B",
-  "next_step": "Gegen Qwen3.8 bestehenden Q3-Kandidaten exakt gleiche Workloads und Quantbudget.",
-  "priority": "P2",
+  "next_step": "Normales HumanEval+164 mit nativem Nonthinking-Herstellerprofil über den regulären Broker;20min reine Aufgabenzeit, anschließend Tool-Kategorie. Nicht ausgeführte Aufgaben unbekannt lassen.",
+  "priority": "P0",
   "repository": "https://huggingface.co/Qwen/Qwen3.6-27B",
   "source_admission": null,
-  "status": "offen"
+  "status": "Gewichte und851 Tensorformen geprüft; regulärer Coding-Benchmark vorbereitet"
 }
 ```
 
@@ -411,15 +418,26 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R467: offizielles LFM2.5-24B-A2B QAD-Q4_0, vollständige BFCL-v4-simple_python-Kategorie374/400 (93,5%), unabhängiger CPU-Replay identisch;362,704s reine Aufgabenzeit,13798,5MiB Peak-VRAM. NVML-Zähler155,411–155,590J je Erfolg, keine gültige Leistungsintegration. Kein BFCL-Gesamtscore, Coding-/Agentenurteil oder Champion.",
+  "assessment": "R467: volle BFCL-v4-simple_python-Kategorie374/400 lokal qualifiziert. R468: HumanEval+77/85 beobachtete Aufgaben, dann1200s Aufgabenlimit; PARTIAL, keine Hochrechnung auf164. Unabhängiger CPU-Replay identisch. Coding-Zählerenergie2549,233–2550,042J je77 Erfolge nur für85 abgeschlossene Anfragen; kein BFCL-Gesamtscore, Allround-Champion oder kausaler Optimierungsgewinn.",
   "current_experiment": null,
   "evidence_class": "LOKAL_GEMESSEN",
   "id": "BMC05",
   "local_scope": {
-    "GPU_runs": 1,
+    "GPU_runs": 2,
+    "coding": {
+      "HTTP_request_s": 1188.633956511,
+      "evaluated": 85,
+      "full_suite_tasks": 164,
+      "independent_CPU_replay_changed": 0,
+      "official_full_qualified": false,
+      "peak_vram_mib": 13794.5,
+      "solved": 77,
+      "status": "PARTIAL",
+      "task_limit_s": 1200
+    },
     "kind": "QUALIFIED_FULL_NATIVE_TOOLS_CATEGORY_ONLY",
     "model_sha256": "d1c03f73ecaf61017d70419eec9e5dc0b05d50ae26c23d522829b934fbabf8a5",
-    "model_starts": 1,
+    "model_starts": 2,
     "overall_model_or_champion_qualified": false,
     "peak_device_vram_mib": 13798.5,
     "solved": 374,
@@ -428,7 +446,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
     "weights_downloaded": 1
   },
   "name": "LFM2.5 24B A2B QAD",
-  "next_step": "Normales vollständiges HumanEval+164 mit demselben nativen24B-Profil über den Broker;20min reine Aufgabenzeit. Danach Profilvergleich statt Tuning anhand einzelner Fehlantworten.",
+  "next_step": "Quellprofil und beide Messbereiche erhalten. Kein Neustart desselben erschöpften Coding-Benchmarks. Andere vorhandene Modellkandidaten regulär vergleichen, später nur begründete neue Profilhypothesen.",
   "priority": "P0",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-24B-A2B",
   "source_admission": {
@@ -436,7 +454,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
     "model_starts": 0,
     "sha256": "819239f28ed8c8da96d1df75df8c8aaa87eed9136680497689c983d98d5927dc"
   },
-  "status": "Tool-Kategorie gemessen und lokal qualifiziert; Coding offen"
+  "status": "Tool-Kategorie qualifiziert; Coding-Präfix85 unter Zeitlimit ausgewertet"
 }
 ```
 

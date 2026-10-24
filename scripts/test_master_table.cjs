@@ -10,6 +10,18 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('LFM24B deadline prefix77/85 stays partial and cannot enter full164 rankings', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R468');assert(r);
+  assert.equal(r.solved,77);assert.equal(r.tasks,85);assert.equal(r.status,'PARTIAL');assert.equal(r.official_eligible,false);
+  assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.tasks,85);assert.equal(r.counter_energy.solved,77);
+  assert.equal(r.counter_energy.j_per_success_lower,196290.95/77);
+  assert.equal(r.counter_energy.j_per_success_upper,196353.257/77);
+  const tools=data.history.runs.find(r=>r.experiment_id==='R467');assert.equal(r.model_artifact_id,tools.model_artifact_id);
+  assert.notEqual(r.runtime_configuration_id,tools.runtime_configuration_id,'Original capture identities remain distinct');
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.profile.model.quantization,'QAD Q4_0');assert.equal(row.values['requested.MTP'],false);
+  assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s??null,null,'Missing task-end marker is not imputed from1200s budget');
+});
 test('LFM24B full native tools retain QAD identity, exact sampler and400-task cost scope', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R467');assert(r&&r.official_eligible);
   assert.equal(r.solved,374);assert.equal(r.tasks,400);assert.equal(r.qualification_audit.category_only,true);

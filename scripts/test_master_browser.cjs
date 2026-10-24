@@ -101,6 +101,18 @@ async function main() {
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
       report.checks.push('LFM24B QAD remains distinct from8B with374/400 native tools and separately bounded400-task energy');
     }
+    const lfm24Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R468'));
+    if(lfm24Coding){
+      assert.equal(lfm24Coding.solved,77);assert.equal(lfm24Coding.tasks,85);assert.equal(lfm24Coding.official_eligible,false);
+      const row=page.locator(`.master-table tr[data-configuration-id="${lfm24Coding.runtime_configuration_id}"]`);
+      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();
+      assert(cell.includes('77/85')&&cell.includes('PARTIAL'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],lfm24Coding.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('LFM24B coding77/85 remains visibly PARTIAL with85-task counter costs and no full164 admission');
+    }
     const qwen38Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy));
     if(qwen38Coding){
       assert.equal(qwen38Coding.solved,149);assert.equal(qwen38Coding.tasks,164);assert.equal(qwen38Coding.official_eligible,true);
