@@ -8,6 +8,13 @@
   const measurementRuntimeFields = new Set(['benchmark_task_limit_s', 'timing_scope',
     'startup_limit_s', 'GPU_wrapper_limit_s', 'CPU_scoring_limit_s', 'native_HTTP_timeout_policy']);
   const measurementRuntimePath = key => key.startsWith('runtime.') && measurementRuntimeFields.has(key.slice(8));
+  const summaryMetrics = [
+    ['decode_tok_s','Decode tok/s','Gemeldete Decode-Token / gemeldete Decode-Zeit; über die ausgewählten vollständigen Benchmarks gepoolt.'],
+    ['wall_per_task_s','Ø Latenz s/Aufgabe','Summe der vollständigen Anfragezeiten / Aufgaben. Modellstart, Warmup und CPU-Auswertung sind nicht enthalten.'],
+    ['output_tokens_per_task','Ø Output-Token/Aufgabe','Gemeldete Engine-Output-Token / Aufgaben, einschließlich gemeldeter Reasoning-Token. Tokenizer unterscheiden sich zwischen Modellen.'],
+    ['energy_j_per_success','GPU J/Erfolg','Gemessene GPU-Energie / Erfolge einschließlich fehlgeschlagener Aufgaben. Zählerbereiche bleiben Bereiche; Sortierung nach oberer Grenze.'],
+    ['peak_vram_gib','Peak-VRAM GiB','Höchster gemessener Session-Peak der ausgewählten Benchmarks; kein Durchschnitt.']
+  ];
   const finite = x => typeof x === 'number' && Number.isFinite(x);
   const absent = x => x === null || x === undefined;
   const unrecordedMetadata = x => absent(x) || x === 'NOT MEASURED' || x === UNKNOWN;
@@ -142,6 +149,65 @@
     const unique = [...new Map(values.map(v => [canonical(v), v])).values()];
     return unique.length === 1 ? unique[0] : values;
   }
+  function performanceSummary(row, selected, benchmarkMap) {
+    const empty={decode_tok_s:null,wall_per_task_s:null,output_tokens_per_task:null,energy_j_per_success:null,peak_vram_gib:null};
+    const keys=[...selected],groups=keys.map(key=>row.scores[key]);
+    const families=keys.map(key=>benchmarkMap.get(key)?.family_id);
+    if(!keys.length||new Set(families).size!==keys.length||families.some(absent)
+      ||groups.some(a=>!a?.n||a.conflict))return {...empty,status:'MISSING_SELECTED_BENCHMARK'};
+    const records=groups.flatMap(a=>a.records);
+    const configs=new Set(records.map(r=>r.comparison_configuration_id||r.runtime_configuration_id));
+    if(configs.size!==1||[...configs].some(id=>typeof id!=='string'||!id)||records.some(r=>r.official_eligible!==true||r.status==='PARTIAL')
+      ||keys.some((key,i)=>{const b=benchmarkMap.get(key);return b.scope!=='OFFICIAL_LOCAL'||groups[i].records.some(r=>r.tasks!==b.definition.required_task_count);}))
+      return {...empty,status:'INCOMPATIBLE_OR_INCOMPLETE'};
+    const physical=records.map(r=>canonical([r.audit_hash||r.run_id,r.runtime_configuration_id,r.benchmark_identity_id]));
+    if(new Set(physical).size!==records.length)return {...empty,status:'DUPLICATE_OBSERVATION'};
+    const tasks=records.reduce((n,r)=>n+r.tasks,0),solved=records.reduce((n,r)=>n+r.solved,0);
+    const result={...empty,status:'COMPLETE_SELECTED_BASIS',tasks,solved,observations:records.length,
+      benchmark_count:keys.length,basis:keys.map(key=>({key,protocol:benchmarkMap.get(key).protocol})),
+      runs:records.map(r=>({run_id:r.run_id,experiment_id:r.experiment_id,runtime_configuration_id:r.runtime_configuration_id,
+        audit_hash:r.audit_hash,audit_ids:r.audit_ids,measurement_conditions:r.measurement_conditions,timing_provenance:r.timing_provenance}))};
+    const covered=records.every(r=>absent(r.measurement_conditions?.performance_tasks)||r.measurement_conditions.performance_tasks===r.tasks);
+    const sum=key=>records.reduce((n,r)=>n+r[key],0);
+    if(covered&&records.every(r=>Number.isInteger(r.decode_tokens)&&r.decode_tokens>=0)){
+      result.output_tokens=sum('decode_tokens');result.output_tokens_per_task=result.output_tokens/tasks;
+      if(records.every(r=>finite(r.decode_engine_ms)&&r.decode_engine_ms>=0)&&sum('decode_engine_ms')>0){
+        result.decode_engine_ms=sum('decode_engine_ms');result.decode_tok_s=1000*result.output_tokens/result.decode_engine_ms;
+      }
+    }
+    if(covered&&records.every(r=>finite(r.wall_s)&&r.wall_s>=0)){
+      result.wall_s=sum('wall_s');result.wall_per_task_s=result.wall_s/tasks;
+    }
+    if(records.every(r=>finite(r.peak_vram_mib)&&r.peak_vram_mib>=0))result.peak_vram_gib=Math.max(...records.map(r=>r.peak_vram_mib))/1024;
+    const counters=covered&&records.every(r=>!r.counter_energy_conflict&&r.counter_energy?.method==='NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1'
+      &&r.counter_energy.tasks===r.tasks&&r.counter_energy.solved===r.solved&&finite(r.counter_energy.lower_j)&&finite(r.counter_energy.upper_j)
+      &&r.counter_energy.lower_j>=0&&r.counter_energy.upper_j>=r.counter_energy.lower_j);
+    if(counters&&solved>0){
+      const lower=records.reduce((n,r)=>n+r.counter_energy.lower_j,0)/solved,upper=records.reduce((n,r)=>n+r.counter_energy.upper_j,0)/solved;
+      result.energy={lower,upper,method:'NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1',sorting:'upper_bound',scope:'GPU only; request groups include failures/setup, exclude model loading/warmup/CPU/system energy. Query-time brackets, not statistical confidence intervals.'};
+      result.energy_j_per_success=upper;
+    }else if(covered&&solved>0&&records.every(r=>finite(r.gpu_j)&&r.gpu_j>=0)){
+      const value=sum('gpu_j')/solved;result.energy={lower:value,upper:value,method:'STORED_COMPLETE_GPU_ENERGY',sorting:'recorded_value',scope:'Original recorded full-task GPU energy; source conditions remain attached.'};result.energy_j_per_success=value;
+    }else result.energy_status=solved===0?'NO_SUCCESSES':'MISSING_OR_MIXED_ENERGY_METHODS';
+    return result;
+  }
+  function availableAverage(row,state,benchmarkMap){
+    const groups=new Map();
+    benchmarkMap.forEach(b=>{if(!groups.has(b.family_id))groups.set(b.family_id,[]);groups.get(b.family_id).push(b);});
+    const values=[],keys=[],records=[];let total=0;
+    groups.forEach((protocols,id)=>{
+      if(state.visible&&!state.visible.has('family:'+id))return;
+      total++;
+      const result=resolvedScore(row,{kind:'family',family:{id,protocols}},state,benchmarkMap),a=result.a,b=result.benchmark;
+      if(!a?.n||a.conflict||!finite(a.score)||b?.scope!=='OFFICIAL_LOCAL'
+        ||a.records.some(r=>r.official_eligible!==true||r.status==='PARTIAL'||r.tasks!==b.definition.required_task_count))return;
+      values.push(a.score);keys.push(result.key);records.push(...a.records);
+    });
+    const configs=new Set(records.map(r=>r.comparison_configuration_id||r.runtime_configuration_id));
+    const valid=configs.size===1&&![...configs].some(id=>typeof id!=='string'||!id);
+    return {score:values.length&&valid?values.reduce((n,x)=>n+x,0)/values.length:null,count:values.length,total,keys,
+      policy:'Arithmetic mean of available displayed complete qualified category scores; missing categories excluded, never zero. Same evidenced inference configuration only.'};
+  }
   function build(data) {
     const benchmarks = data.master.benchmark_columns, benchmarkMap = new Map(benchmarks.map(b => [b.key, b]));
     const measuredIds = new Set(data.history.runs.map(r => r.runtime_configuration_id));
@@ -224,7 +290,9 @@
     });
     const families = [...groups.values()];
     families.forEach(f => columns.push({ key: f.key, label: f.name, category: 'Benchmarkfamilien (gewähltes Protokoll)', kind: 'family', family: f }));
-    columns.push({ key: 'average', label: 'Ø Auswahl (%)', description: 'Nutzerdefinierter Durchschnitt – nicht offizieller Benchmark', category: 'Auswertung', kind: 'average' });
+    summaryMetrics.forEach(([path,label,description])=>columns.push({key:'summary:'+path,path,label,description,
+      category:'Gemessene Performance · ausgewählte Benchmarks',kind:'summary_metric'}));
+    columns.push({ key: 'average', label: 'Ø Benchmarks (%)', description: 'Arithmetischer Schnitt vorhandener vollständiger Kategorie-Ergebnisse; Abdeckung n/3. Kein offizieller Gesamtbenchmark.', category: 'Auswertung', kind: 'average' });
     return { rows, archive, columns, benchmarks, benchmarkMap, families, runColumns: data.master.run_columns,
       comparisonCategories: data.master.comparison_categories };
   }
@@ -335,7 +403,8 @@
       rows: mergeConfigurations(measured, { ...model, benchmarks }), supplementalRows: model.rows.filter(r => !hasBenchmark(r)) };
   }
   function value(row, column, state, benchmarkMap) {
-    if (column.kind === 'average') return average(row.scores, [...state.selected], state.mode === 'official', benchmarkMap);
+    if(column.kind==='summary_metric')return performanceSummary(row,availableAverage(row,state,benchmarkMap).keys,benchmarkMap)[column.path];
+    if (column.kind === 'average') return availableAverage(row,state,benchmarkMap).score;
     if (column.kind === 'benchmark' || column.kind === 'family') return resolvedScore(row, column, state, benchmarkMap).a?.score ?? null;
     if (column.kind === 'metric') return measuredValue(row.scores[column.benchmark.key], column.path);
     if (column.key === 'engine.version') return row.values['engine.version'] ?? row.values['engine.source_version_label'] ?? null;
@@ -372,9 +441,9 @@
   function csv(rows, columns, state, benchmarkMap) {
     const selected = columns.filter(c => c.key !== 'runtime_configuration_id');
     const identity = key => { const b = benchmarkMap.get(key); return { column_id: key ?? null, family_id: b?.family_id ?? null, qualification_track: b?.scope ?? null, protocol: b?.protocol ?? null }; };
-    const selection = { mode: state.mode ?? null, mean_protocols: [...(state.selected || [])].map(identity),
+    const selection = { mode: state.mode ?? null, mean_policy:'AVAILABLE_DISPLAYED_COMPLETE_CATEGORIES_ARITHMETIC_MEAN',
       displayed_family_protocols: [...(state.protocols || [])].map(([family_id, key]) => ({ family_id, ...identity(key) })) };
-    return '\uFEFF' + [[csvCell('runtime_configuration_id'), csvCell('source_runtime_configuration_ids'), csvCell('selected_protocols'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), csvCell(row.memberIds || [row.id]), csvCell(selection), ...selected.map(c => {
+    return '\uFEFF' + [[csvCell('runtime_configuration_id'), csvCell('source_runtime_configuration_ids'), csvCell('selected_protocols'), ...selected.map(c => csvCell(c.label + ' [' + c.key + ']'))].join(','), ...rows.map(row => [csvCell(row.id), csvCell(row.memberIds || [row.id]), csvCell({...selection,mean:availableAverage(row,state,benchmarkMap),mean_protocols:availableAverage(row,state,benchmarkMap).keys.map(identity)}), ...selected.map(c => {
       if (c.kind === 'benchmark' || c.kind === 'family') {
         const { key, selectedKey, a } = resolvedScore(row, c, state, benchmarkMap);
         return csvCell({ ...identity(key), selected_reference_protocol: identity(selectedKey), measurement: !a?.n ? null : { mean_percent: a.score, distinct_original_observations: a.n, conflict: a.conflict,
@@ -382,6 +451,11 @@
           runs: a.records.map(r => ({ run_id: r.run_id, experiment_id: r.experiment_id, runtime_configuration_id: r.runtime_configuration_id, status: r.status, audits: r.audit_ids })) }, missing_label: !a?.n ? NOT_MEASURED : null });
       }
       const v = value(row, c, state, benchmarkMap);
+      if(c.kind==='summary_metric'){
+        const p=performanceSummary(row,availableAverage(row,state,benchmarkMap).keys,benchmarkMap);
+        return csvCell({value:v,energy:c.path==='energy_j_per_success'?p.energy:null,tasks:p.tasks,solved:p.solved,
+          basis:p.basis,runs:p.runs,status:p.status,missing_label:absent(v)?NOT_MEASURED:null});
+      }
       return csvCell(c.kind === 'average' && absent(v) ? 'NICHT BERECHENBAR' : v);
     })].join(','))].join('\r\n');
   }
@@ -397,7 +471,7 @@
     });
     return { top, measuredConfigurations: ranked.length, coverage };
   }
-  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView, configurationKey, mergeConfigurations };
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView, configurationKey, mergeConfigurations, performanceSummary, availableAverage };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.V100MasterTable = API;
   if (typeof document === 'undefined') return;
@@ -409,17 +483,14 @@
   const number = v => finite(v) ? v.toLocaleString('de-DE', { maximumFractionDigits: 2 }) : UNKNOWN;
   function mount(target, data) {
     const model = comparisonView(build(data)), byKey = new Map(model.columns.map(c => [c.key, c]));
-    const state = { mode: 'official', selected: new Set(), protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false, allMeasured: true, strictProtocols: new Set() };
+    const state = { mode: 'official', protocols: new Map(model.families.map(f => [f.id, defaultProtocol(f)])), visible: new Set(), filters: new Map(), search: '', sort: 'average', descending: true, officialOnly: false, allMeasured: true, strictProtocols: new Set() };
     const base = ['model.name', 'model.quantization', 'engine.name', 'engine.version', 'requested.MTP', 'requested.thinking', 'runtime.context'];
-    const canAverage = b => !!b && (state.mode !== 'official' || b.scope === 'OFFICIAL_LOCAL');
+    summaryMetrics.forEach(([path])=>base.push('summary:'+path));
     const chosenBenchmarks = () => [...state.protocols.values()].map(k => model.benchmarkMap.get(k)).filter(Boolean);
     const columnAllowed = c => !state.officialOnly || !(c?.benchmark || c?.family) || model.benchmarkMap.get(protocolKey(c, state))?.scope === 'OFFICIAL_LOCAL';
-    const first = chosenBenchmarks().find(b => canAverage(b) && model.rows.some(r => finite(r.scores[b.key]?.score)));
-    if (first) state.selected.add(first.key);
     let presetName = 'Kompakt', filtered = [], shownColumns = [], headerCells = new Map();
     target.textContent = ''; target.append(E('h2', 'Alle gemessenen Ergebnisse'));
     const toolbar = E('div', undefined, 'master-toolbar'), search = E('input'); search.type = 'search'; search.placeholder = 'Modell, Engine, Parameter oder Experiment suchen'; search.setAttribute('aria-label', search.placeholder);
-    const mode = E('select'); [['official', 'Nur offiziell lokal zugelassene Protokolle'], ['exploratory', 'Explorativ: auch Historie und Teilmengen']].forEach(([v, t]) => { const o = E('option', t); o.value = v; mode.append(o); });
     const presets = E('select'); ['Kompakt', 'Vollständig', 'Qualität', 'Geschwindigkeit', 'Energie'].forEach(t => presets.append(E('option', t)));
     const exportButton = button('CSV exportieren', () => {
       const blob = new Blob([csv(filtered, shownColumns, state, model.benchmarkMap)], { type: 'text/csv;charset=utf-8' });
@@ -430,8 +501,8 @@
     target.append(toolbar);
     const chooser = E('details', undefined, 'master-panel'); chooser.append(E('summary', 'Spaltenauswahl nach Kategorien'));
     const pickerSearch = E('input'); pickerSearch.type = 'search'; pickerSearch.placeholder = 'Spaltenname oder Quellpfad'; pickerSearch.setAttribute('aria-label', 'Spalten suchen'); const picker = E('div', undefined, 'master-column-picker'); chooser.append(pickerSearch, picker); target.append(chooser);
-    const selection = E('details', undefined, 'master-panel'); selection.append(E('summary', 'Benchmarkprotokolle und Durchschnitt auswählen'));
-    selection.append(E('p', 'Genau ein festgelegter Benchmark je Kategorie; ausschließlich vollständige, lokal qualifizierte Ergebnisse. Protokollauswahl hält Revision, Scorer und Aufgaben identisch. Checkboxen wählen die Kategorien für den nutzerdefinierten Durchschnitt – nicht offizieller Benchmark. Fehlende ausgewählte Ergebnisse: NICHT BERECHENBAR. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
+    const selection = E('details', undefined, 'master-panel'); selection.append(E('summary', 'Benchmarkprotokolle auswählen'));
+    selection.append(E('p', 'Genau ein festgelegter Benchmark je Kategorie; ausschließlich vollständige, lokal qualifizierte Ergebnisse. Protokollauswahl hält Revision, Scorer und Aufgaben identisch. Ø Benchmarks mittelt automatisch alle vorhandenen vollständigen Ergebnisse der sichtbaren Kategorien je Konfiguration. Fehlende Kategorien werden ausgelassen, niemals als null gewertet. Die Abdeckung steht direkt am Durchschnitt (z. B. 2/3). Kein offizieller Gesamtbenchmark; unterschiedliche Abdeckung ist kein fairer Gesamtrangvergleich. Replikate werden arithmetisch gemittelt, niemals nach Bestwert ausgewählt.'));
     const benchmarkChoices = E('div', undefined, 'master-benchmark-choices'), selectionWarning = E('p', undefined, 'benchmark-warning'); selection.append(benchmarkChoices, selectionWarning); target.append(selection);
     const definitions = E('details', undefined, 'master-panel'); definitions.append(E('summary', 'Exakte Benchmarkdefinitionen und Messprotokolle'));
     model.benchmarks.forEach(b => {
@@ -439,6 +510,7 @@
       const dl = E('dl'); Object.entries({ ...b.definition, ...b.protocol, qualification_track: b.scope, column_id: b.key }).forEach(([key, v]) => dl.append(E('dt', key), E('dd', text(v)))); d.append(dl); definitions.append(d);
     }); target.append(definitions);
     const counter = E('p', undefined, 'master-counter'); counter.setAttribute('aria-live', 'polite'); target.append(counter);
+    const basisSummary=E('p',undefined,'master-performance-basis');target.append(basisSummary);
     const scroll = E('div', undefined, 'master-scroll'); scroll.tabIndex = 0; scroll.setAttribute('aria-label', 'Alle gemessenen Ergebnisse, horizontal scrollbar');
     const table = E('table', undefined, 'master-table'); table.append(E('caption', 'Unveränderliche Konfigurationen und nach Protokoll getrennte Benchmarkergebnisse'));
     const head = E('thead'), body = E('tbody'); table.append(head, body); scroll.append(table); target.append(scroll);
@@ -489,16 +561,6 @@
       model.families.forEach(f => {
         const selectedKey = state.protocols.get(f.id), b = model.benchmarkMap.get(selectedKey);
         const field = E('div', undefined, 'master-family-choice'); field.dataset.familyId = f.id;
-        const box = E('input'); box.type = 'checkbox'; box.value = selectedKey; box.checked = state.selected.has(selectedKey); box.dataset.familyKey = f.id; box.disabled = !canAverage(b);
-        box.addEventListener('change', () => {
-          if (box.checked && canAverage(b)) {
-            const group=b.aggregation_family_id || b.family_id;
-            [...state.selected].forEach(key=>{const old=model.benchmarkMap.get(key);if((old?.aggregation_family_id || old?.family_id)===group)state.selected.delete(key);});
-            state.selected.add(selectedKey);
-          } else state.selected.delete(selectedKey);
-          renderBenchmarks(); renderTable();
-        });
-        field.append(labelInput(f.name + ' · in Ø Auswahl', box));
         const select = E('select'); select.dataset.protocolFamily = f.id;
         f.protocols.forEach(p => {
           const option = E('option', p.name + ' · ' + p.scope + ' · Aufgaben=' + text(p.protocol.tasks) + ' · ' + p.key.slice(-10)); option.value = p.key; select.append(option);
@@ -508,9 +570,7 @@
         select.title = identity.title;
         select.addEventListener('change', () => {
           state.strictProtocols.add(f.id);
-          const wasSelected = state.selected.delete(state.protocols.get(f.id));
           state.protocols.set(f.id, select.value);
-          if (wasSelected && canAverage(model.benchmarkMap.get(select.value))) state.selected.add(select.value);
           renderBenchmarks(); preset(presetName);
         });
         field.append(labelInput('Protokoll: ' + f.name, select), identity); benchmarkChoices.append(field);
@@ -522,7 +582,7 @@
       state.visible.add('model.name');
       const params = model.columns.filter(c => c.kind === 'parameter' && state.visible.has(c.key));
       params.sort((a, b) => { const rank = c => base.includes(c.key) ? base.indexOf(c.key) : base.length + model.columns.indexOf(c); return rank(a) - rank(b); });
-      shownColumns = [...params, ...model.columns.filter(c => c.kind === 'metric' && state.visible.has(c.key) && columnAllowed(c)),
+      shownColumns = [...params, ...model.columns.filter(c => c.kind === 'summary_metric' && state.visible.has(c.key)), ...model.columns.filter(c => c.kind === 'metric' && state.visible.has(c.key) && columnAllowed(c)),
         ...model.columns.filter(c => c.kind === 'family' && state.visible.has(c.key) && columnAllowed(c)),
         ...model.columns.filter(c => c.kind === 'benchmark' && state.visible.has(c.key) && columnAllowed(c)),
         ...model.columns.filter(c => c.kind === 'average' && state.visible.has(c.key))];
@@ -553,8 +613,9 @@
         shownColumns.forEach(c => {
           const td = E('td'); td.dataset.columnKey = c.key; td.dataset.kind = c.kind;
           if (c.kind === 'benchmark' || c.kind === 'family') renderScore(td, row, c);
+          else if(c.kind==='summary_metric')renderSummary(td,row,c);
           else {
-            const v = value(row, c, state, model.benchmarkMap), display = c.kind === 'average' && finite(v) ? number(v) + ' %'
+            const v = value(row, c, state, model.benchmarkMap), display = c.kind === 'average' && finite(v) ? number(v) + ' % · ' + availableAverage(row,state,model.benchmarkMap).count + '/' + availableAverage(row,state,model.benchmarkMap).total
               : c.kind === 'average' && absent(v) ? 'NICHT BERECHENBAR' : ['requested.MTP', 'requested.thinking'].includes(c.key) && typeof v === 'boolean' ? (v ? 'Ein' : 'Aus') : text(v);
             if (c.key === 'model.name') { const modelLink = link(row.displayName, '../configuration-profiles/' + row.id + '/'); modelLink.title = row.displayName; td.append(modelLink); }
             else if (c.key === 'engine.version' && absent(v) && row.values['engine.version_provenance_note']) {
@@ -569,15 +630,32 @@
               dialog.showModal();
             }); full.className = 'master-value-button'; full.setAttribute('aria-label', 'Vollständiger Wert: ' + c.label); td.append(full); }
             else td.textContent = display;
-            td.title = c.key + '\n' + text(v); if (absent(v)) td.classList.add('master-missing');
+            td.title = c.key + '\n' + text(c.kind==='average'?availableAverage(row,state,model.benchmarkMap):v); if (absent(v)) td.classList.add('master-missing');
           } tr.append(td);
         }); body.append(tr);
       });
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
-      const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
-      counter.textContent = filtered.length + ' / ' + model.rows.length + ' Konfigurationen mit Kategorie-Ergebnis · ' + model.supplementalRows.length + ' weitere gemessene Profile im Originalarchiv · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
-      selectionWarning.textContent = 'Nur vollständige, geprüfte Kategorie-Ergebnisse. Partials und zusätzliche Benchmarks sind aus Tabelle, Export und Durchschnitt ausgeschlossen. Ø Auswahl ist kein offizieller Gesamtbenchmark; fehlende ausgewählte Kategorien verhindern die Berechnung.';
+      const complete = filtered.filter(r => finite(availableAverage(r,state,model.benchmarkMap).score)).length;
+      counter.textContent = filtered.length + ' / ' + model.rows.length + ' Konfigurationen mit Kategorie-Ergebnis · ' + model.supplementalRows.length + ' weitere gemessene Profile im Originalarchiv · ' + complete + ' mit berechenbarem Benchmark-Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
+      selectionWarning.textContent = 'Nur vollständige, geprüfte Kategorie-Ergebnisse. Partials und zusätzliche Benchmarks bleiben ausgeschlossen. Ø Benchmarks = Summe vorhandener Kategorie-Prozentwerte / Anzahl vorhandener Kategorien derselben Konfiguration. Keine Bestwertselektion. Kein offizieller Gesamtbenchmark.';
+      basisSummary.textContent='Messbasis je Zeile: vorhandene vollständige Ergebnisse der sichtbaren Kategorien; Abdeckung n/3 am Durchschnitt. Unterschiedliche Abdeckung beachten. Decode = Token/Zeit; Latenz und Output-Token je Aufgabe; VRAM = höchster Peak. Fehlende Einzelmetriken bleiben unbekannt. ⓘ öffnet Messbedingungen und Quellen.';
       renderAnalysis(); scheduleHeader();
+    }
+    function renderSummary(td,row,column){
+      const p=performanceSummary(row,availableAverage(row,state,model.benchmarkMap).keys,model.benchmarkMap),v=p[column.path];
+      let display=finite(v)?number(v):NOT_MEASURED;
+      if(column.path==='energy_j_per_success'&&p.energy){
+        display=number(p.energy.lower)+(p.energy.upper!==p.energy.lower?'–'+number(p.energy.upper):'');
+      }else if(column.path==='energy_j_per_success'&&p.energy_status==='NO_SUCCESSES')display='KEIN ERFOLG';
+      const b=button(display+' ⓘ',()=>{
+        dialogTitle.textContent=column.label+' · '+row.displayName;
+        dialogValue.textContent=JSON.stringify({definition:column.description,selected_benchmark_summary:p,
+          source_runtime_configuration_ids:row.memberIds,aggregation:'Totals over unique recorded observations from every selected exact benchmark. No best-run selection, partials, cross-configuration joins or interpolation. Missing required data stays unknown.'},null,2);
+        dialogLinks.textContent='';
+        (p.runs||[]).forEach(r=>{const line=E('div');line.append(link(r.experiment_id,'../experiments/'+r.experiment_id+'/'),document.createTextNode(' · '),link('Konfiguration','../configuration-profiles/'+r.runtime_configuration_id+'/'));(r.audit_ids||[]).forEach(id=>line.append(document.createTextNode(' · '),link('Audit '+id,'../audits/'+id+'/')));dialogLinks.append(line);});
+        dialog.showModal();
+      });b.className='master-value-button';td.append(b);td.title=column.description;
+      if(!finite(v))td.classList.add('master-missing');
     }
     function renderScore(td, row, column) {
       const { key, benchmark, a } = resolvedScore(row, column, state, model.benchmarkMap);
@@ -628,11 +706,6 @@
     }
     search.addEventListener('input', () => { state.search = search.value; renderRows(); });
     pickerSearch.addEventListener('input', renderPicker); presets.addEventListener('change', () => preset(presets.value));
-    mode.addEventListener('change', () => {
-      state.mode = mode.value; state.selected.clear();
-      const b = chosenBenchmarks().find(b => canAverage(b) && model.rows.some(r => finite(r.scores[b.key]?.score))); if (b) state.selected.add(b.key);
-      renderBenchmarks(); renderTable();
-    });
     officialOnly.addEventListener('change', () => { state.officialOnly = officialOnly.checked;
       [...state.filters.keys()].forEach(key => { if (!columnAllowed(byKey.get(key))) state.filters.delete(key); });
       if (!columnAllowed(byKey.get(state.sort))) state.sort = 'average';

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-24 — Available-category mean and compact measured costs
+
+Replace the hidden coding-only mean selection with **Ø Benchmarks**: the equal-weight arithmetic mean of every available complete, locally qualified displayed category result for the same evidenced inference configuration. Show coverage (for example2/3), exclude missing categories from the divisor, include measured zero scores, and retain strict protocol selection. Different coverage is not a fair overall ranking. Expose pooled measured decode speed, request latency/task, output tokens/task, GPU joules/success and maximum session VRAM in the compact view; preserve missing metrics, energy-method differences, counter bounds and per-result provenance. CSV carries the actual per-row mean protocols, coverage and cost basis. No benchmark scores, source identities or qualification decisions change; no GPU runs for this UI update.
+
 ## 2026-10-24 — One fixed benchmark per decision category
 
 Restrict the entire comparison interface, every preset, selector, analysis and CSV to Coding/HumanEval+164, Tools/BFCL parallel_multiple200 and Agents/Terminal-Bench2.1. Only complete, locally qualified results appear; no partial toggle or empty-result row remains. Unmeasured agent results stay unknown. Preserve every additional historical measurement in the original ledger/archive, outside the comparison and custom mean. Join identical inference configurations across evaluation-only collection limits, retaining exact per-result protocols and original profile IDs. Serialize the full history compactly without changing any parsed value or increasing publication size/security limits. Add the normal OmniCoder reference177/200 and Ornith171/200 complex-tool results with exact cost scopes.

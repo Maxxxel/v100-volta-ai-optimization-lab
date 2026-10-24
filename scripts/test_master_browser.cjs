@@ -75,7 +75,18 @@ async function main(){
   await page.getByRole('button',{name:'Schließen',exact:true}).click();
   report.checks.push('only complete qualified runs appear; low complete scores stay visible and details retain exact profiles, energy and audits; partial history remains untouched');
 
-  const choices=page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true});await choices.click();
+  assert((await omni.locator('td[data-column-key=average]').innerText()).includes('84,49 % · 2/3'),'Default must average both results without any selection');
+  const displayedMeans=await page.locator('.master-table tbody tr').evaluateAll(rows=>rows.map(row=>({
+   values:[...row.querySelectorAll('td[data-kind="family"] .master-score-line strong')].map(el=>Number(el.textContent.split('%')[0].trim().replace(',','.'))),
+   mean:row.querySelector('td[data-column-key="average"]').textContent
+  })));
+  for(const row of displayedMeans){
+   const mean=Number(row.mean.split('%')[0].trim().replace(',','.'));
+   assert(Math.abs(mean-row.values.reduce((a,b)=>a+b,0)/row.values.length)<.02);
+   assert(row.mean.includes(row.values.length+'/3'));
+  }
+
+  const choices=page.getByText('Benchmarkprotokolle auswählen',{exact:true});await choices.click();
   const keys=await page.evaluate(()=>{
    const d=window.V100Leaderboard;const r=e=>d.history.runs.find(r=>r.experiment_id===e&&r.counter_energy);
    return {coding:d.master.run_columns[r('R471').run_id],tools:d.master.run_columns[r('R478').run_id]};
@@ -83,17 +94,20 @@ async function main(){
   await page.locator('select[data-protocol-family=humanevalplus]').selectOption(keys.coding);
   await page.locator('select[data-protocol-family=bfcl]').selectOption(keys.tools);
   await noBlankResultRows();
-  await page.locator('.master-family-choice[data-family-id=humanevalplus] input').setChecked(true);
-  await page.locator('.master-family-choice[data-family-id=bfcl] input').setChecked(true);
-  await page.locator('.master-family-choice[data-family-id=terminal-bench] input').setChecked(false);
-  const shown=await omni.locator('td[data-column-key=average]').innerText();const mean=Number(shown.replace(',','.').replace(/[^\d.]/g,''));
-  assert(Math.abs(mean-(100*132/164+100*177/200)/2)<.011);
-  await noBlankResultRows();
-  await page.locator('.master-family-choice[data-family-id=terminal-bench] input').setChecked(true);
-  assert.equal(await omni.locator('td[data-column-key=average]').innerText(),'NICHT BERECHENBAR');
-  await page.locator('.master-family-choice[data-family-id=terminal-bench] input').setChecked(false);
-  await choices.click();await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
-  report.checks.push('user-selected arithmetic mean uses exact same-inference category results; missing selected agent result prevents mean and incomplete results never substitute for full ones');
+  assert.equal(await page.locator('.master-family-choice input[type=checkbox]').count(),0);
+  const shown=await omni.locator('td[data-column-key=average]').innerText();
+  const mean=Number(shown.split('%')[0].trim().replace(',','.'));
+  assert(Math.abs(mean-(100*132/164+100*177/200)/2)<.011);assert(shown.includes('2/3'));
+  assert.equal(await omni.locator('td[data-column-key="family:terminal-bench"]').innerText(),'NICHT GEMESSEN');
+  for(const key of ['decode_tok_s','wall_per_task_s','output_tokens_per_task','energy_j_per_success','peak_vram_gib']){
+   const cell=omni.locator(`td[data-column-key="summary:${key}"]`);assert(!(await cell.innerText()).includes('NICHT GEMESSEN'),key);
+  }
+  await omni.locator('td[data-column-key="summary:energy_j_per_success"] button').click();
+  details=await page.locator('.master-cell-dialog').innerText();
+  for(const text of ['upper_bound','lower','upper','R471','R478'])assert(details.includes(text),text);
+  await page.getByRole('button',{name:'Schließen',exact:true}).click();
+  await noBlankResultRows();await choices.click();await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
+  report.checks.push('automatic arithmetic mean includes every available complete category of the same configuration, displays 2/3 coverage without a zero for missing agents; compact pooled performance retains audit links and energy bounds');
 
   const search=page.getByRole('searchbox',{name:'Alle Parameter durchsuchen'});
   // Locate the existing global search by its stable placeholder if the browser
@@ -122,7 +136,7 @@ async function main(){
   assert.equal(await page.locator('th[data-column-key="runtime.context"]').count(),1);
   await pickerSummary.click();
   const downloaded=page.waitForEvent('download');await page.locator('[data-action=export-csv]').click();const download=await downloaded;const csvPath=path.join(artifacts,'configuration-export.csv');await download.saveAs(csvPath);const csv=await fs.readFile(csvPath,'utf8');
-  for(const text of ['source_runtime_configuration_ids','selected_protocols',keys.coding,keys.tools,'R478','NICHT GEMESSEN'])assert(csv.includes(text),text);
+  for(const text of ['source_runtime_configuration_ids','selected_protocols',keys.coding,keys.tools,'R478','NICHT GEMESSEN','mean_protocols','AVAILABLE_DISPLAYED_COMPLETE_CATEGORIES_ARITHMETIC_MEAN'])assert(csv.includes(text),text);
   assert(!csv.split(/\r?\n/)[0].includes('mbpp'),'No removed benchmark column in export');
   assert.equal(csv.split(/\r?\n/).length,expected.rows+1,'No hidden pagination or truncated CSV');
   assert.equal(await page.locator('.master-insights select option').count(),4,'Analysis offers only mean and three categories');

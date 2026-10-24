@@ -12,6 +12,55 @@ const data = context.window.V100Leaderboard;
 const model = M.build(data);
 const archivedView = () => ({ ...model, rows:M.mergeConfigurations(model.rows,model), supplementalRows:[] });
 
+function performanceFixture(){
+ const record=(id,tasks,solved,tokens,ms,wall,low,high,peak)=>({run_id:id,audit_hash:id,runtime_configuration_id:'cfg-shared',
+  benchmark_id:id,benchmark_identity_id:id,tasks,solved,score_percent:100*solved/tasks,metric:'success',official_eligible:true,
+  decode_tokens:tokens,decode_engine_ms:ms,wall_s:wall,peak_vram_mib:peak,
+  counter_energy:{method:'NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1',tasks,solved,lower_j:low,upper_j:high}});
+ const a=record('a',2,1,100,1000,4,10,12,1024),b=record('b',8,2,1000,100000,24,100,110,2048);
+ const row={id:'cfg-shared',values:{},scores:{a:M.aggregate([a]),b:M.aggregate([b])}};
+ const map=new Map([['a',{key:'a',family_id:'coding',scope:'OFFICIAL_LOCAL',definition:{required_task_count:2},protocol:{benchmark_id:'a'}}],
+  ['b',{key:'b',family_id:'tools',scope:'OFFICIAL_LOCAL',definition:{required_task_count:8},protocol:{benchmark_id:'b'}}]]);
+ return {a,b,row,map};
+}
+test('compact performance pools actual tokens/time and task costs, never means unrelated rates or peaks',()=>{
+ const {row,map}=performanceFixture(),p=M.performanceSummary(row,['a','b'],map);
+ assert.equal(p.tasks,10);assert.equal(p.solved,3);assert.equal(p.decode_tok_s,1100/101);
+ assert.equal(p.wall_per_task_s,2.8);assert.equal(p.output_tokens_per_task,110);assert.equal(p.peak_vram_gib,2);
+ assert.equal(p.energy.lower,110/3);assert.equal(p.energy.upper,122/3);assert.equal(p.energy_j_per_success,122/3);
+ assert.equal(p.energy.sorting,'upper_bound');assert.notEqual(p.decode_tok_s,(100+10)/2);
+});
+test('missing selected category, repeated category and incompatible configuration prevent performance pooling',()=>{
+ const {row,map}=performanceFixture();assert.equal(M.performanceSummary(row,['a','missing'],map).decode_tok_s,null);
+ assert.equal(M.performanceSummary(row,['a','a'],map).energy_j_per_success,null);
+ row.scores.b.records[0].runtime_configuration_id='cfg-other';assert.equal(M.performanceSummary(row,['a','b'],map).wall_per_task_s,null);
+});
+test('performance keeps unavailable token measurements and mixed energy methods unknown independently',()=>{
+ const {row,map}=performanceFixture();row.scores.b.records[0].decode_tokens=null;
+ row.scores.b.records[0].counter_energy=null;row.scores.b.records[0].gpu_j=100;
+ const p=M.performanceSummary(row,['a','b'],map);assert.equal(p.decode_tok_s,null);assert.equal(p.output_tokens_per_task,null);
+ assert.equal(p.energy_j_per_success,null);assert.equal(p.energy_status,'MISSING_OR_MIXED_ENERGY_METHODS');assert.equal(p.wall_per_task_s,2.8);
+});
+test('performance excludes partial/subset costs and avoids an energy-per-success division by zero',()=>{
+ const {row,map}=performanceFixture();row.scores.b.records[0].measurement_conditions={performance_tasks:7};
+ let p=M.performanceSummary(row,['a','b'],map);assert.equal(p.wall_per_task_s,null);assert.equal(p.decode_tok_s,null);assert.equal(p.energy_j_per_success,null);
+ delete row.scores.b.records[0].measurement_conditions;
+ for(const group of Object.values(row.scores)){group.records[0].solved=0;group.records[0].counter_energy.solved=0;}
+ p=M.performanceSummary(row,['a','b'],map);assert.equal(p.energy_j_per_success,null);assert.equal(p.energy_status,'NO_SUCCESSES');
+ row.scores.a.records[0].status='PARTIAL';assert.equal(M.performanceSummary(row,['a','b'],map).decode_tok_s,null);
+});
+test('compact performance and CSV use the original full Omni coding/tool costs and both counter bounds',()=>{
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(r=>r.runs.some(x=>x.experiment_id==='R478'));
+ const keys=['R471','R478'].map(e=>data.master.run_columns[row.runs.find(x=>x.experiment_id===e).run_id]);
+ const p=M.performanceSummary(row,keys,v.benchmarkMap);assert.equal(p.tasks,364);assert.equal(p.solved,309);
+ assert.equal(p.decode_tok_s,1000*(37503+34046)/(469652.68+429179.679));assert.equal(p.output_tokens_per_task,(37503+34046)/364);
+ assert.equal(p.wall_per_task_s,(492.064461986+502.544043479)/364);assert.equal(p.peak_vram_gib,7356.5/1024);
+ assert.equal(p.energy.lower,(140482.936+141208.7)/309);assert.equal(p.energy.upper,(140584.646+141312.049)/309);
+ const column=v.columns.find(c=>c.key==='summary:energy_j_per_success'),state={allMeasured:true,mode:'official'};
+ assert.equal(M.value(row,column,state,v.benchmarkMap),p.energy.upper);
+ const csv=M.csv([row],[column],state,v.benchmarkMap);for(const text of ['upper_bound','NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1','R471','R478','lower','upper'])assert(csv.includes(text));
+});
+
 test('Ornith primary tools171/200 retains native Thinking, exact200-request cost and partial coding separately',()=>{
  const r=data.history.runs.find(x=>x.experiment_id==='R479'&&x.counter_energy);assert(r&&r.official_eligible);
  assert.equal(r.tasks,200);assert.equal(r.solved,171);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,171);
@@ -430,11 +479,10 @@ test('CSV exports missing markers, full identities, replica provenance and safe 
   assert(out.includes("'=DANGER()")); assert(out.includes('NICHT ERFASST')); assert(out.includes('run-a')); assert(out.includes('mean_percent'));
 });
 test('Top-5 analysis counts real measured configurations and records unknown parameter coverage', () => {
-  const benchmark = model.benchmarks.find(b => b.scope === 'OFFICIAL_LOCAL' && model.rows.some(r => r.scores[b.key]?.n));
-  const state = { mode: 'official', selected: new Set([benchmark.key]) };
-  const target = model.columns.find(c => c.key === 'average'); const a = M.analysis(model.rows, target, state, model);
-  const expected = model.rows.filter(r => M.average(r.scores, [benchmark.key], true, model.benchmarkMap) !== null).length;
-  assert.equal(a.measuredConfigurations, expected); assert.equal(a.top.length, Math.min(5, expected));
+  const view=M.comparisonView(model),state={mode:'official',allMeasured:true};
+  const target = view.columns.find(c => c.key === 'average'); const a = M.analysis(view.rows, target, state, view);
+  const expected = view.rows.filter(r => M.availableAverage(r,state,view.benchmarkMap).score!==null).length;
+  assert(expected>0);assert.equal(a.measuredConfigurations, expected); assert.equal(a.top.length, Math.min(5, expected));
   assert(a.coverage.some(c => c.column.key === 'engine.version'));
 });
 
@@ -686,4 +734,30 @@ test('OmniCoder native132/164 reference profile is complete with explicit bounde
  const old=data.history.runs.find(r=>r.experiment_id==='R217'&&r.official_eligible);assert(old);
  assert.notEqual(old.runtime_configuration_id,r.runtime_configuration_id);assert.notEqual(old.model_artifact_id,r.model_artifact_id);
  assert.equal(old.solved,132);assert.equal(old.tasks,164);
+});
+
+
+test('available category mean automatically includes both full results and discloses missing coverage',()=>{
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(r=>r.runs.some(x=>x.experiment_id==='R478'));
+ const state={allMeasured:true},a=M.availableAverage(row,state,v.benchmarkMap);
+ assert.equal(a.score,(100*132/164+100*177/200)/2);assert.equal(a.count,2);assert.equal(a.total,3);
+ const column=v.columns.find(c=>c.key==='average');assert.equal(M.value(row,column,state,v.benchmarkMap),a.score);
+ const oldCheckboxState={...state,selected:new Set([a.keys[0]])};
+ assert.equal(M.value(row,column,oldCheckboxState,v.benchmarkMap),a.score,'Obsolete hidden selection cannot select coding only');
+ const csv=M.csv([row],[column],state,v.benchmarkMap);for(const field of ['AVAILABLE_DISPLAYED_COMPLETE_CATEGORIES_ARITHMETIC_MEAN','count','total','mean_protocols'])assert(csv.includes(field));
+});
+test('available mean counts measured zero, excludes missing or partial categories and never joins configurations',()=>{
+ const {row,map}=performanceFixture();
+ const state={allMeasured:true};map.set('c',{key:'c',family_id:'agents',scope:'OFFICIAL_LOCAL',definition:{required_task_count:89},protocol:{tasks:89}});
+ row.scores.a=M.aggregate([{...row.scores.a.records[0],solved:0,score_percent:0}]);
+ let a=M.availableAverage(row,state,map);assert.equal(a.score,12.5);assert.equal(a.count,2);assert.equal(a.total,3);
+ row.scores.b.records[0].status='PARTIAL';a=M.availableAverage(row,state,map);assert.equal(a.score,0);assert.equal(a.count,1);
+ row.scores.b.records[0].status='QUALIFIED';row.scores.b.records[0].runtime_configuration_id='other';
+ assert.equal(M.availableAverage(row,state,map).score,null);
+ assert.equal(M.availableAverage({scores:{}},state,map).score,null);
+});
+test('strict protocol choice cannot borrow another result for the available mean',()=>{
+ const {row,map}=performanceFixture(),other={...map.get('b'),key:'b-other'};map.set(other.key,other);
+ const state={allMeasured:true,strictProtocols:new Set(['tools']),protocols:new Map([['tools','b-other']])};
+ const a=M.availableAverage(row,state,map);assert.equal(a.score,50);assert.equal(a.count,1);assert.equal(a.total,2);assert.deepEqual(a.keys,['a']);
 });

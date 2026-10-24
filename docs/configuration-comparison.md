@@ -4,7 +4,7 @@
 
 One row per evidenced inference configuration. Runs differing only in collection/time limits share a row, retaining their original conditions in result details. Different weights, engine binaries, templates, tuning, sampling and output/context limits stay separate. Each result links its original run and audit and shows the actual solved/evaluated count and qualification. Only complete, locally qualified results appear in this comparison; missing results are never zero. Incomplete and additional historical benchmarks remain in the original archive and never enter this view, presets, selectors, CSV or mean.
 
-Partial and unqualified measurements are excluded from all comparison controls. The user-selected arithmetic mean uses only these categories and selected exact protocols. Missing selected categories make it NICHT BERECHENBAR; it is not an official overall benchmark score. Different task subsets do not establish model superiority.
+Partial and unqualified measurements are excluded from all comparison controls. **Ø Benchmarks** automatically takes the equal-weight arithmetic mean of all available complete, locally qualified results in the displayed categories for the same evidenced inference configuration. Coverage is shown as **n/3** (or n/visible categories); missing categories are excluded, never zero. A measured zero-percent score is included. No available result means NICHT BERECHENBAR. Different coverage must not be treated as a fair overall ranking. This is not an official overall benchmark score. Protocol selectors still match exact definitions; there is no fallback after an explicit protocol choice. Different task subsets do not establish model superiority.
 
 <div id="all-measured-results" aria-live="polite"></div>
 
@@ -39,7 +39,7 @@ Coverage counts above refer to capture profiles measured on the three selected c
 
 Explicit presentation fields use only recorded options: MTP is true for `draft-mtp`, false for explicit `none`, and unknown otherwise. Thinking mode uses an explicit `enable_thinking` template boolean; a reasoning-parser flag does not prove thinking mode. Model names, optimization-knob zero values and absent flags never establish effective execution.
 
-Prefill/decode/TTFT and other costs are shown only where the original run actually records them. Request wall time is not silently renamed total system latency. Performance columns are benchmark-specific, not pooled across unrelated tasks. CSV exports all filtered rows with the currently selected columns, complete identities and available audit links. CSV formula-like text is escaped.
+Prefill/decode/TTFT and other costs are shown only where the original run actually records them. Request wall time is not silently renamed total system latency. Per-benchmark metrics remain available. Compact performance summaries use the same available category results as the displayed mean: decode is total output tokens divided by total decode time, latency and output tokens are per evaluated task, GPU energy is per successful task including failed-task costs, and VRAM is the maximum session peak. Missing component metrics remain unknown; incompatible energy methods are not mixed. Counter-energy bounds are retained; sorting uses the upper bound explicitly. These workload-dependent summaries are not controlled speed or energy rankings across different coverage or tokenizers. CSV exports all filtered rows with the currently selected columns, complete identities and available audit links. CSV formula-like text is escaped.
 
 The Top-5 analysis describes observed configurations and missing coverage. Suggested controlled A/B work is a research hypothesis, not a causal explanation, predicted speedup or automatic GPU authorization.
 
@@ -53,7 +53,7 @@ The Top-5 analysis describes observed configurations and missing coverage. Sugge
 
 Run `python -m unittest discover -s scripts` and `node --test scripts/test_master_table.cjs` with Node.js 22 or newer. The optional real-browser acceptance script is `scripts/test_master_browser.cjs`: it accepts a site root URL and artifact directory and uses Playwright 1.64.1. Browser screenshots, CSVs and reports belong outside the public export tree. It runs with GPU rendering disabled. Development asset overrides are explicitly reported and must be disabled for the final published-site check.
 
-Filters accept substrings, `=value`, `!=value`, numeric comparisons such as `>=80`, and `?` for unknown. The CSV always includes immutable configuration IDs, all filtered rows, the currently visible columns and the exact identities of displayed family protocols and protocols selected for the mean, including when their result is missing. Long field values can be inspected directly in a table dialog without leaving the page.
+Filters accept substrings, `=value`, `!=value`, numeric comparisons such as `>=80`, and `?` for unknown. The CSV always includes immutable configuration IDs, all filtered rows, the currently visible columns and the exact identities of displayed family protocols and the per-row protocols actually included in the available-results mean, with its coverage and policy. Long field values can be inspected directly in a table dialog without leaving the page.
 
 
 </details>
