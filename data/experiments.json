@@ -19911,5 +19911,17 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-46c48438ab0b48f381a1",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R487",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]
