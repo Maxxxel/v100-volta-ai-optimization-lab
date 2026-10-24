@@ -4,13 +4,19 @@ Original SHA256: `ebc9b00f6d4511a0bebb29dd448e5d02e6c0c8df45431ace257375c3645040
 
 Original file: `research-metadata.json`; 1048 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "THIS_SINGLE_REFLECTION_RULE_TESTED_NEGATIVE_NO_RETUNING_OF_KNOWN_CASES"
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -19,3 +25,5 @@ Original file: `research-metadata.json`; 1048 bytes. The original is retained pr
   "wall_s": 77.504046832
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `b02aaa5954cf03f10c55843447e4ac37f88ae7c06771b304f44ad3026f29ec
 
 Original file: `AUDIT.json`; 81156 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MTP_OFF_LOGIT_REFERENCE_VALID",
@@ -18,10 +20,16 @@ Original file: `AUDIT.json`; 81156 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "actual_generation_requests": 32
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `acd0d0a644cf194577a3fd26b94eaa78d8d219fde9725a8dd0b4a8fc961d2b
 
 Original file: `AUDIT.json`; 1386 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "evidence_class": "LOKAL_GEMESSEN",
@@ -15,6 +17,8 @@ Original file: `AUDIT.json`; 1386 bytes. The original is retained privately and 
   "scope": "fresh 18 BFCL-like HA/PVE native tool-routing scenarios with 8/16/24 tools; only descriptions changed"
 }
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

@@ -4,6 +4,8 @@ Original SHA256: `b02ace8b7df4b0eef8481ae4a1797af01a3edef807b5d7a4a3f1479cc522e5
 
 Original file: `AUDIT.json`; 4964 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MANAGED_MEMORY_NATIVE_SCREEN_NO_QUALIFIED_PRACTICAL_GAIN",
@@ -19,7 +21,11 @@ Original file: `AUDIT.json`; 4964 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -103,3 +109,5 @@ Original file: `AUDIT.json`; 4964 bytes. The original is retained privately and 
   "peak_process_vram_mib": 478.0
 }
 ```
+
+</details>

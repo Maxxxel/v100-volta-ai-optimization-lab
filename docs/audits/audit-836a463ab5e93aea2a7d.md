@@ -4,6 +4,8 @@ Original SHA256: `836a463ab5e93aea2a7ddaad712fb112216eecd7ad36d47e1b6eabe1e7282b
 
 Original file: `AUDIT.json`; 49241 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "175W_BALANCED_LOW_VRAM_PROFILE_QUALIFIED",
@@ -17,10 +19,16 @@ Original file: `AUDIT.json`; 49241 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "actual_generation_requests": 60
 }
 ```
+
+</details>

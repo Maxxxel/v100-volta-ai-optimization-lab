@@ -4,6 +4,8 @@ Original SHA256: `3bbcbd54e7cb734a5ce0207189602a9cf624daf07109f3b22cb39717a9738e
 
 Original file: `AUDIT.json`; 7723 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "ADAPTIVE1TO3_AGENT_SCREEN_NOT_QUALIFIED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 7723 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 7723 bytes. The original is retained privately and 
   "solved": 13
 }
 ```
+
+</details>

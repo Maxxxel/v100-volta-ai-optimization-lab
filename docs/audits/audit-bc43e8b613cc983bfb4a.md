@@ -4,6 +4,8 @@ Original SHA256: `bc43e8b613cc983bfb4a2e3f0ad0840efc158dd3935a1e67639803ac1fcafe
 
 Original file: `research-metadata.json`; 47234 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "ONE_HEAD_FREE_TRANSFER_REOPENED_REST_INDIVIDUALLY_SCOPED_NOT_UNIVERSALLY_EXCLUDED",
@@ -15,10 +17,16 @@ Original file: `research-metadata.json`; 47234 bytes. The original is retained p
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "new_GPU_runs": 0
 }
 ```
+
+</details>

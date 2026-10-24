@@ -4,6 +4,8 @@ Original SHA256: `d2d5c935e9e86b3fca2e8d31cae55e9aeffe6a8505ef59ead099ae14494000
 
 Original file: `INDEPENDENT_REVIEW.json`; 7711 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "CONVERSION_AND_COPY_MATCH_EXACTLY_IN_TESTED_SCOPE_RECURRENT_TRAJECTORY_GATE_STILL_FAILS",
@@ -16,10 +18,16 @@ Original file: `INDEPENDENT_REVIEW.json`; 7711 bytes. The original is retained p
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "model_starts": 0
 }
 ```
+
+</details>

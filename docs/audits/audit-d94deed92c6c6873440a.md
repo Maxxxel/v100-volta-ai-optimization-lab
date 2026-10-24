@@ -4,9 +4,13 @@ Original SHA256: `d94deed92c6c6873440a3c58148ad0877e8b1d2cb1e14379498810bef17e4c
 
 Original file: `research-metadata.json`; 1353 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {}
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

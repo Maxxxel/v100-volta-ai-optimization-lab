@@ -4,6 +4,8 @@ Original SHA256: `58f7f002ffc04c7f34a78810af63cadddc3f9d982fc6442a79ac29fb54eab4
 
 Original file: `research-metadata.json`; 1363 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "TWO_ADDITIONAL_ARCHIVED_FULL164_API_PROFILES_CONFIRMED_UNDER_SAME_PINNED_LOCAL_PROTOCOL",
@@ -11,7 +13,11 @@ Original file: `research-metadata.json`; 1363 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -35,3 +41,5 @@ Original file: `research-metadata.json`; 1363 bytes. The original is retained pr
   "new_GPU_runs": 0
 }
 ```
+
+</details>

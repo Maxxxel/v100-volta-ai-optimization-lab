@@ -4,6 +4,8 @@ Original SHA256: `a898f240d6d584ddfcaaa6fdcf3b3d1a75c250ee73960005a4fe362f2551ab
 
 Original file: `AUDIT.json`; 43761 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "ORNITH_CODING_SCREEN_NO_PRACTICAL_JOINT_WIN",
@@ -20,7 +22,11 @@ Original file: `AUDIT.json`; 43761 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -49,3 +55,5 @@ Original file: `AUDIT.json`; 43761 bytes. The original is retained privately and
   }
 }
 ```
+
+</details>

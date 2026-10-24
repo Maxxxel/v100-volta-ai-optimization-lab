@@ -4,6 +4,27 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_overview_numbers_and_latest_cards_are_sourced_not_ranked(self):
+  import json,re
+  root=P.parent;snapshot=json.loads((root/'data/snapshot.json').read_text());history=json.loads((root/'data/configuration-history.json').read_text());page=(root/'docs/index.md').read_text()
+  self.assertIn('<strong>'+str(snapshot['counts']['experimentally_covered'])+'</strong>',page)
+  self.assertIn('Factors, not GPU run count',page);self.assertIn('Latest complete category measurements, not a ranking',page)
+  for bid,total in [('humanevalplus-v0.1.10',164),('bfcl-v4-parallel-multiple-full200',200)]:
+   rows=[r for r in history['runs'] if r['benchmark_id']==bid and r['official_eligible'] and r['tasks']==total and r['status']!='PARTIAL']
+   latest=max(rows,key=lambda r:int(r['experiment_id'][1:]));self.assertIn(str(latest['solved'])+'/'+str(total),page);self.assertIn('Latest complete result · '+latest['experiment_id'],page)
+  self.assertIn('No local score claimed',page)
+  self.assertFalse(any(href.endswith('.md') for href in re.findall('href="([^"\n]+)"',page)))
+ def test_collapsing_evidence_preserves_original_json_bytes(self):
+  import tempfile
+  from unittest.mock import patch
+  renderer=module('render');source='# Example\n\n```json\n{ "value": 0, "missing": null, "disabled": false }\n```\n'
+  with tempfile.TemporaryDirectory() as directory,patch.object(renderer,'D',pathlib.Path(directory)):
+   renderer.put('example.md',source);output=(pathlib.Path(directory)/'example.md').read_text()
+   self.assertIn(source.split('\n\n',1)[1].strip(),output);self.assertIn('<details class="lab-evidence">',output);self.assertNotIn(' open',output)
+ def test_compact_page_preserves_details_and_current_budget(self):
+  page=(P.parent/'docs/configuration-comparison.md').read_text();source=(P.parent/'docs/javascripts/master-table.js').read_text()
+  self.assertIn('<details>',page);self.assertIn('1,200',page);self.assertIn('Tabelleneinstellungen',source);self.assertIn("E('details', undefined, 'master-insights')",source)
+  self.assertIn('source_version_label',source);self.assertIn('NICHT GEMESSEN',source)
  def test_native_experiment_pages_show_registered_full_and_partial_results(self):
   import json
   root=P.parent;history=json.loads((root/'data/configuration-history.json').read_text())

@@ -36,6 +36,8 @@ GPUforwardcapture prerequisite and actualCPU4bitNUQ reconstruction prototype; qu
 
 ### Recorded model-specific variant coverage
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 [
   {
@@ -97,6 +99,8 @@ GPUforwardcapture prerequisite and actualCPU4bitNUQ reconstruction prototype; qu
   }
 ]
 ```
+
+</details>
 
 Historical states and window signatures are evidence links, not qualification of every model/variant.
 

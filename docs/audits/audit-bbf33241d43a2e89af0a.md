@@ -4,6 +4,8 @@ Original SHA256: `bbf33241d43a2e89af0a80dffd64d6866bf0b34f30189d06a3f64c1665a975
 
 Original file: `research-metadata.json`; 5417 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
@@ -11,7 +13,11 @@ Original file: `research-metadata.json`; 5417 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -27,3 +33,5 @@ Original file: `research-metadata.json`; 5417 bytes. The original is retained pr
   }
 }
 ```
+
+</details>

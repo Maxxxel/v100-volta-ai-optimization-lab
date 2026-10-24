@@ -4,6 +4,8 @@ Original SHA256: `265b28068c9edd24c2df904c8a94baf84f4fa5ab866dee63beb2c8177acae2
 
 Original file: `AUDIT.json`; 254242 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MATCHED_OMNICODER2_Q4_NATIVE_BFCL_A0_CALIBRATED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 254242 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -87,3 +93,5 @@ Original file: `AUDIT.json`; 254242 bytes. The original is retained privately an
   }
 }
 ```
+
+</details>

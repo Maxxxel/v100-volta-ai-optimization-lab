@@ -26,6 +26,8 @@ A0: `2bff0da2dd1f5d43bfff1b24b79f58a3a27db4e691836c8d4d6e2c3d61e51ec0`
 
 C: `d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e`
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "aggregate_metrics": {
@@ -108,6 +110,8 @@ C: `d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e`
 }
 ```
 
+</details>
+
 
 ## Profile 74d8082d9d63
 
@@ -116,6 +120,8 @@ C: `d79c3d4777d849abe8dabfcab8c30532f4931b74fbaa6be9e5af5829f5d82c8e`
 A0: `b291d174dd510825b1b9e8513ebd9a370298f65352fbbd61ed4ed416f1dcbe15`
 
 C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -231,6 +237,8 @@ C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
 }
 ```
 
+</details>
+
 
 ## Profile fa9451c63b8d
 
@@ -239,6 +247,8 @@ C: `74d8082d9d638c78573905adb2eae82067c28a43a2dae967690978c0a027d78e`
 A0: `ba22de96ef2cdda41e184c07bead0ee638f67ae3a75ea94398f3a82bfbd6e752`
 
 C: `fa9451c63b8d00e62025d12642a4f8bfa21bbc5942de04dc48f6298e9c1c802c`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -713,6 +723,8 @@ C: `fa9451c63b8d00e62025d12642a4f8bfa21bbc5942de04dc48f6298e9c1c802c`
 }
 ```
 
+</details>
+
 
 ## Profile 56a1eccb4ec2
 
@@ -721,6 +733,8 @@ C: `fa9451c63b8d00e62025d12642a4f8bfa21bbc5942de04dc48f6298e9c1c802c`
 A0: `719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a`
 
 C: `56a1eccb4ec2cd3f16b07e513f3bbb4588eae5dc476edc269b363d130f4baf6e`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -1236,6 +1250,8 @@ C: `56a1eccb4ec2cd3f16b07e513f3bbb4588eae5dc476edc269b363d130f4baf6e`
 }
 ```
 
+</details>
+
 
 ## Profile 4bc04eb50250
 
@@ -1244,6 +1260,8 @@ C: `56a1eccb4ec2cd3f16b07e513f3bbb4588eae5dc476edc269b363d130f4baf6e`
 A0: `719b03106355917ff5f5e711c576c0889d6defed5a5651127c0772a38716949a`
 
 C: `4bc04eb5025027aabb04604a68aa86a7c4b6393c0665f690fe7dc4cf413492f7`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -1740,6 +1758,8 @@ C: `4bc04eb5025027aabb04604a68aa86a7c4b6393c0665f690fe7dc4cf413492f7`
 }
 ```
 
+</details>
+
 
 ## Profile 1765b77e9b11
 
@@ -1748,6 +1768,8 @@ C: `4bc04eb5025027aabb04604a68aa86a7c4b6393c0665f690fe7dc4cf413492f7`
 A0: `7c77cb2e3eda1bce7277fc09054122050e22730fe3ca8ad33a068c94ae9baf2f`
 
 C: `1765b77e9b11c928c9be2f640573954888da921c1a73f42ccffcec93803f4482`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -2095,6 +2117,8 @@ C: `1765b77e9b11c928c9be2f640573954888da921c1a73f42ccffcec93803f4482`
 }
 ```
 
+</details>
+
 
 ## Profile 3e9e5eb3f221
 
@@ -2103,6 +2127,8 @@ C: `1765b77e9b11c928c9be2f640573954888da921c1a73f42ccffcec93803f4482`
 A0: `7c77cb2e3eda1bce7277fc09054122050e22730fe3ca8ad33a068c94ae9baf2f`
 
 C: `3e9e5eb3f2217c0d3051d09ff7d2dc7cafcd4a15f91b8ec6064c69896a92667d`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -2298,6 +2324,8 @@ C: `3e9e5eb3f2217c0d3051d09ff7d2dc7cafcd4a15f91b8ec6064c69896a92667d`
 }
 ```
 
+</details>
+
 
 ## Profile ec386d8f4052
 
@@ -2306,6 +2334,8 @@ C: `3e9e5eb3f2217c0d3051d09ff7d2dc7cafcd4a15f91b8ec6064c69896a92667d`
 A0: `66957d3248296b9d22c6d49663d6700b9d4218326ab0b3d40b9964fe55d9a220`
 
 C: `ec386d8f4052db9e3879737c045d85bb1f58f0693ec7fe5d1080a0e07e4b9917`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -2543,6 +2573,8 @@ C: `ec386d8f4052db9e3879737c045d85bb1f58f0693ec7fe5d1080a0e07e4b9917`
 }
 ```
 
+</details>
+
 
 ## Profile c38e543fb6e0
 
@@ -2551,6 +2583,8 @@ C: `ec386d8f4052db9e3879737c045d85bb1f58f0693ec7fe5d1080a0e07e4b9917`
 A0: `d230ccb14a48cd8316fbb863ceafb66ab740932c8d0028ff29a6bff2e88898bd`
 
 C: `c38e543fb6e016fc9f2a15ff0994e5c253fc18ea7e72f973defd26567c11dfa9`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -2740,6 +2774,8 @@ C: `c38e543fb6e016fc9f2a15ff0994e5c253fc18ea7e72f973defd26567c11dfa9`
 }
 ```
 
+</details>
+
 
 ## Profile 7971777881bb
 
@@ -2748,6 +2784,8 @@ C: `c38e543fb6e016fc9f2a15ff0994e5c253fc18ea7e72f973defd26567c11dfa9`
 A0: `d230ccb14a48cd8316fbb863ceafb66ab740932c8d0028ff29a6bff2e88898bd`
 
 C: `7971777881bb6de06fa8ae07c4b161a265d1d4977ab5b152b998152cceb148bf`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -2937,6 +2975,8 @@ C: `7971777881bb6de06fa8ae07c4b161a265d1d4977ab5b152b998152cceb148bf`
 }
 ```
 
+</details>
+
 
 ## Profile 0df192a50d76
 
@@ -2945,6 +2985,8 @@ C: `7971777881bb6de06fa8ae07c4b161a265d1d4977ab5b152b998152cceb148bf`
 A0: `417af835ee67d8992d49920dc1acc23b4d9ee1e0ba218539d3205131b2bad239`
 
 C: `0df192a50d76ca9dea33ee1adcff577491fbcc9106f0092570ed022294fe63bd`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -3128,6 +3170,8 @@ C: `0df192a50d76ca9dea33ee1adcff577491fbcc9106f0092570ed022294fe63bd`
 }
 ```
 
+</details>
+
 
 ## Profile 70f9438a1b18
 
@@ -3136,6 +3180,8 @@ C: `0df192a50d76ca9dea33ee1adcff577491fbcc9106f0092570ed022294fe63bd`
 A0: `066a38d404944bb593e5364fc30e41c05eecbcacbc4930b6147e1908518e7291`
 
 C: `70f9438a1b180ed16e1bf4bdd217d84959c11bcb0424f32d5addfbb277153420`
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -3287,3 +3333,5 @@ C: `70f9438a1b180ed16e1bf4bdd217d84959c11bcb0424f32d5addfbb277153420`
   "winner_qualified": true
 }
 ```
+
+</details>

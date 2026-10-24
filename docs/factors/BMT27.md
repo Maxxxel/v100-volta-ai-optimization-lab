@@ -35,9 +35,13 @@ Actual Omni inference with pre-sampling probability extraction on three neutral 
 
 ### Recorded model-specific variant coverage
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 []
 ```
+
+</details>
 
 Historical states and window signatures are evidence links, not qualification of every model/variant.
 

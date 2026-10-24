@@ -4,6 +4,8 @@ Original SHA256: `0f4239ca198c9619efaaf678fb0ff52e30866f33eb2d336128a4322ebcda3c
 
 Original file: `INDEPENDENT_REVIEW.json`; 4476 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "PREREGISTERED_EXACT_ENVELOPE_PARITY_NOT_MET; STATE_SERIALIZATION_OBSERVER_PASSED; TASK_QUALITY_AND_CAUSAL_ROLLBACK_UNRESOLVED",
@@ -13,7 +15,11 @@ Original file: `INDEPENDENT_REVIEW.json`; 4476 bytes. The original is retained p
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -37,3 +43,5 @@ Original file: `INDEPENDENT_REVIEW.json`; 4476 bytes. The original is retained p
   }
 }
 ```
+
+</details>

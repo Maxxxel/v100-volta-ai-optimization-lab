@@ -4,6 +4,8 @@ Original SHA256: `029df91d14afab72e964db792ba2852fde266bfc7c1c467a9f69364b60ac6e
 
 Original file: `AUDIT.json`; 864 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "CONTROLLER_CANNOT_INVERT_LOSSY_VERBOSE_DISPLAY_NO_NEW_QA_GENERATED",
@@ -12,7 +14,11 @@ Original file: `AUDIT.json`; 864 bytes. The original is retained privately and i
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -21,3 +27,5 @@ Original file: `AUDIT.json`; 864 bytes. The original is retained privately and i
   "observed_original_QA_cases": 0
 }
 ```
+
+</details>

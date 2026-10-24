@@ -4,6 +4,8 @@ Original SHA256: `dc8a8b9d5095ace488a268758a7212dd991e3c1ee0670971548d4bfd612ef3
 
 Original file: `AUDIT.json`; 6001 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "K05_K4_GDN_SNAPSHOT_ROLLBACK_NUMERIC_PASS",
@@ -14,6 +16,8 @@ Original file: `AUDIT.json`; 6001 bytes. The original is retained privately and 
   ]
 }
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

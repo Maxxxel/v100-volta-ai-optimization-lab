@@ -4,13 +4,19 @@ Original SHA256: `d798c15e0eb73ae5a51cc1b86f5283c1d4ccd0a3179ff297353894d45f9167
 
 Original file: `research-metadata.json`; 4598 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "qualification": "NUMERIC_OUTPUT_EQUIVALENCE_OBSERVED_REQUIRES_CUDA_NUMERIC_ORACLE"
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -79,3 +85,5 @@ Original file: `research-metadata.json`; 4598 bytes. The original is retained pr
   }
 }
 ```
+
+</details>

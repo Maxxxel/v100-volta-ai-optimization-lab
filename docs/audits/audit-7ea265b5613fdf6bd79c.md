@@ -4,6 +4,8 @@ Original SHA256: `7ea265b5613fdf6bd79c6760b4925284a8c3d434edace84ad822e0982651cf
 
 Original file: `AUDIT.json`; 4324 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "QWEN38_AGENT_MODEL_SCREEN_NO_PRACTICAL_WIN_OR_PARTIAL",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 4324 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -33,3 +39,5 @@ Original file: `AUDIT.json`; 4324 bytes. The original is retained privately and 
   "solved": 14
 }
 ```
+
+</details>

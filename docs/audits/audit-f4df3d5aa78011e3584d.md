@@ -4,6 +4,8 @@ Original SHA256: `f4df3d5aa78011e3584d3639348b5135ed9accc95661823a349cffc8480e01
 
 Original file: `AUDIT.json`; 4441 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "BONSAI_AGENT18_QUALITY_COST_REPRODUCTION_PASSED_SCOPE_ONLY",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 4441 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -40,3 +46,5 @@ Original file: `AUDIT.json`; 4441 bytes. The original is retained privately and 
   "total_task_wall_s": 599.643605137
 }
 ```
+
+</details>

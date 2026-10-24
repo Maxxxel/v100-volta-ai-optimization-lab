@@ -489,7 +489,7 @@
     const chosenBenchmarks = () => [...state.protocols.values()].map(k => model.benchmarkMap.get(k)).filter(Boolean);
     const columnAllowed = c => !state.officialOnly || !(c?.benchmark || c?.family) || model.benchmarkMap.get(protocolKey(c, state))?.scope === 'OFFICIAL_LOCAL';
     let presetName = 'Kompakt', filtered = [], shownColumns = [], headerCells = new Map();
-    target.textContent = ''; target.append(E('h2', 'Alle gemessenen Ergebnisse'));
+    target.textContent = '';
     const toolbar = E('div', undefined, 'master-toolbar'), search = E('input'); search.type = 'search'; search.placeholder = 'Modell, Engine, Parameter oder Experiment suchen'; search.setAttribute('aria-label', search.placeholder);
     const presets = E('select'); ['Kompakt', 'Vollständig', 'Qualität', 'Geschwindigkeit', 'Energie'].forEach(t => presets.append(E('option', t)));
     const exportButton = button('CSV exportieren', () => {
@@ -510,7 +510,8 @@
       const dl = E('dl'); Object.entries({ ...b.definition, ...b.protocol, qualification_track: b.scope, column_id: b.key }).forEach(([key, v]) => dl.append(E('dt', key), E('dd', text(v)))); d.append(dl); definitions.append(d);
     }); target.append(definitions);
     const counter = E('p', undefined, 'master-counter'); counter.setAttribute('aria-live', 'polite'); target.append(counter);
-    const basisSummary=E('p',undefined,'master-performance-basis');target.append(basisSummary);
+    const basisSummary=E('p',undefined,'master-performance-basis'); selection.append(basisSummary);
+    const settings=E('details',undefined,'master-settings');settings.append(E('summary','Tabelleneinstellungen'));settings.append(chooser,selection,definitions);target.insertBefore(settings,counter);
     const scroll = E('div', undefined, 'master-scroll'); scroll.tabIndex = 0; scroll.setAttribute('aria-label', 'Alle gemessenen Ergebnisse, horizontal scrollbar');
     const table = E('table', undefined, 'master-table'); table.append(E('caption', 'Unveränderliche Konfigurationen und nach Protokoll getrennte Benchmarkergebnisse'));
     const head = E('thead'), body = E('tbody'); table.append(head, body); scroll.append(table); target.append(scroll);
@@ -527,7 +528,7 @@
     const scheduleHeader = () => { if (!stickyFrame) stickyFrame = root.requestAnimationFrame(followHeader); };
     root.addEventListener('scroll', scheduleHeader, { passive: true }); root.addEventListener('resize', scheduleHeader);
 
-    const insights = E('section', undefined, 'master-insights'); insights.append(E('h2', 'Beobachtungen zu den Top 5'));
+    const insights = E('details', undefined, 'master-insights'); insights.append(E('summary', 'Top-5-Konfigurationen untersuchen'));
     insights.append(E('p', 'Korrelation ist keine Kausalität. Diese Übersicht priorisiert Forschungsfragen; sie prognostiziert keine Gewinne und startet keine Versuche. Unterschiede unbekannter Parameter bleiben mögliche Störfaktoren.'));
     const analysisSelect = E('select'), analysisBody = E('div'); insights.append(labelInput('Sortiermetrik der Analyse', analysisSelect), analysisBody); target.append(insights);
     const dialog = E('dialog', undefined, 'master-cell-dialog'), dialogTitle = E('h3'), dialogValue = E('pre'), dialogLinks = E('div');
@@ -636,7 +637,7 @@
       });
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
       const complete = filtered.filter(r => finite(availableAverage(r,state,model.benchmarkMap).score)).length;
-      counter.textContent = filtered.length + ' / ' + model.rows.length + ' Konfigurationen mit Kategorie-Ergebnis · ' + model.supplementalRows.length + ' weitere gemessene Profile im Originalarchiv · ' + complete + ' mit berechenbarem Benchmark-Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
+      counter.textContent = filtered.length + ' / ' + model.rows.length + ' Konfigurationen · vollständige Kategorie-Ergebnisse · Ø mit Abdeckung n/3';
       selectionWarning.textContent = 'Nur vollständige, geprüfte Kategorie-Ergebnisse. Partials und zusätzliche Benchmarks bleiben ausgeschlossen. Ø Benchmarks = Summe vorhandener Kategorie-Prozentwerte / Anzahl vorhandener Kategorien derselben Konfiguration. Keine Bestwertselektion. Kein offizieller Gesamtbenchmark.';
       basisSummary.textContent='Messbasis je Zeile: vorhandene vollständige Ergebnisse der sichtbaren Kategorien; Abdeckung n/3 am Durchschnitt. Unterschiedliche Abdeckung beachten. Decode = Token/Zeit; Latenz und Output-Token je Aufgabe; VRAM = höchster Peak. Fehlende Einzelmetriken bleiben unbekannt. ⓘ öffnet Messbedingungen und Quellen.';
       renderAnalysis(); scheduleHeader();

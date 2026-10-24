@@ -4,6 +4,8 @@ Original SHA256: `c7ca0d0405f4d0cdcb9fd8090a3a17bde06a11e58c7f9ceb06c85956fde1a1
 
 Original file: `AUDIT.json`; 5665 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "PROMISING_EXTERNAL_DRAFT_NATIVE_SCREEN_NEEDS_FUNCTIONAL_QUALIFICATION",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 5665 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -26,3 +32,5 @@ Original file: `AUDIT.json`; 5665 bytes. The original is retained privately and 
   "peak_process_vram_mib": 8758
 }
 ```
+
+</details>

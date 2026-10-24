@@ -29,9 +29,13 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 
 ### Recorded model-specific variant coverage
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 []
 ```
+
+</details>
 
 Historical states and window signatures are evidence links, not qualification of every model/variant.
 

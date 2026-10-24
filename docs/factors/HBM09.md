@@ -34,6 +34,8 @@ Relevant OmniD256/GQA4 quantizedKV CUDA numerical component only; no loaded Omni
 
 ### Recorded model-specific variant coverage
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 [
   {
@@ -95,6 +97,8 @@ Relevant OmniD256/GQA4 quantizedKV CUDA numerical component only; no loaded Omni
   }
 ]
 ```
+
+</details>
 
 Historical states and window signatures are evidence links, not qualification of every model/variant.
 

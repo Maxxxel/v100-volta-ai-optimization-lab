@@ -6,6 +6,8 @@ Profile ID: `cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab3
 
 ## Model and weights
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "architecture": null,
@@ -25,7 +27,11 @@ Profile ID: `cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab3
 }
 ```
 
+</details>
+
 ## Engine and backend
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -45,7 +51,11 @@ Profile ID: `cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab3
 }
 ```
 
+</details>
+
 ## Optimizations
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -76,7 +86,11 @@ Profile ID: `cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab3
 }
 ```
 
+</details>
+
 ## Runtime and sampler
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -114,7 +128,11 @@ Profile ID: `cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab3
 }
 ```
 
+</details>
+
 ## Ordered startup parameters
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -194,9 +212,13 @@ Profile ID: `cfg-2258b507fbea4adb42afd43bbae94c27ee5aea02789096ddfd504a79d3ecab3
 }
 ```
 
+</details>
+
 ## Verified engine source revision
 
 The original profile remains immutable. This matched build receipt supplies a source-base revision plus local patch lineage, not a reconstructed upstream release tag.
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -213,6 +235,8 @@ The original profile remains immutable. This matched build receipt supplies a so
   "source_version_label": "097cf33 + local patches"
 }
 ```
+
+</details>
 
 [audit-ad26886527c71fef3b59](../audits/audit-ad26886527c71fef3b59.md)
 
@@ -231,6 +255,8 @@ Separate benchmark qualification audits: [audit-f6ad9f5b64d639bf8f1d](../audits/
 ## Additional hash-bound execution evidence
 
 These observations supplement the original immutable profile; they do not assign a release version to an unidentified historical build. Declared plan controls, observed request settings and executed sampler settings remain separate.
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 [
@@ -296,9 +322,13 @@ These observations supplement the original immutable profile; they do not assign
 ]
 ```
 
+</details>
+
 Evidence metadata: [audit-72f41693929ba8555787](../audits/audit-72f41693929ba8555787.md)
 
 ## Recorded engine timings and energy denominator
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 [
@@ -417,7 +447,11 @@ Evidence metadata: [audit-72f41693929ba8555787](../audits/audit-72f41693929ba855
 ]
 ```
 
+</details>
+
 ## Immutable full profile and measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -1603,3 +1637,5 @@ Evidence metadata: [audit-72f41693929ba8555787](../audits/audit-72f41693929ba855
   ]
 }
 ```
+
+</details>

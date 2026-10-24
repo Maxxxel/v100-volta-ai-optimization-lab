@@ -4,6 +4,8 @@ Original SHA256: `0096de0ed9992eeb0f2a7fd9a6189f2eaa709ff98e90538e6ae1827cfd4cc0
 
 Original file: `AUDIT.json`; 11548 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "TEMPERATURE02_TOOL_PILOT_NO_PRACTICAL_QUALITY_GAIN",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 11548 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -31,3 +37,5 @@ Original file: `AUDIT.json`; 11548 bytes. The original is retained privately and
   "wall_s": 26.683560394
 }
 ```
+
+</details>

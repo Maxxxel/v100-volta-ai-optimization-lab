@@ -4,6 +4,8 @@ Original SHA256: `f8ae7f8896dc81dc170e539234a0e49deda4d04ac37bdb02b039e6e45791d1
 
 Original file: `AUDIT.json`; 2220 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "TECHNICAL_STOP_FRONTEND_RELOAD_AFTER_MATCHED_CONTEXTSHIFT",
@@ -11,10 +13,16 @@ Original file: `AUDIT.json`; 2220 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "actual_generation_requests": 0
 }
 ```
+
+</details>

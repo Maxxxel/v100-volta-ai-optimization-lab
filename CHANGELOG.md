@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-24 — Public research layout
+
+- Replace the long landing page with source-backed research KPIs, latest complete category results and scoped optimization findings.
+- Consolidate navigation into overview, benchmarks, research archive and methods. Preserve historical routes and every result.
+- Keep one continuous comparison table; move protocol settings, analysis and structured evidence behind explicit disclosure controls. Preserve sorting, filters, CSV and all profiles.
+- Document the owner-confirmed1,200-second total task-phase budget; original historical time conditions remain unchanged.
+
+
+## 2026-10-24 — First Slopus normal coding profile
+
+Archive Slopus9B Q6 Thinking:87 successes among132 completed HumanEval+ tasks before the unchanged1200-second whole-task deadline;32 tasks remain unmeasured. Independent isolated CPU replay is identical. Preserve7354.5MiB peak and3943.268–3944.242 reportedGPU-J per observed success for exactly132 completed requests. Full-session costs remain separate; no full164 score, comparison against unequal prefixes, general model rejection or Champion promotion. The known source-attested engine actually loaded the model despite the card's warning about other loaders; this establishes compatibility of this exact build, not all releases. Continue the unchanged profile's selected normal tool benchmark before Thinking-mode experiments or combinations.
+
 ## 2026-10-24 — Complete Nexus selected-tool comparison
 
 Add the pinned Nexus CodeCore9B Q6 Thinking profile's174/200 official AST and practical successes, with identical independent replay,1101.207s task time,7356.5MiB peak and1814.713–1815.299 reportedGPU-J/success over all200 requests. Qualify only this complete category; retain coding71/81 as partial archived evidence outside the central mean. Record a copied descriptive dashboard title correction without changing model identities, source hashes, scores or original audits. Experiment pages now link their exact registered benchmark results/configurations/proofs so full and partial denominators are visible directly from the existing immutable history. No extra model generation for documentation.
@@ -749,5 +761,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R482 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R483 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

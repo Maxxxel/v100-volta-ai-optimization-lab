@@ -6,6 +6,8 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 
 ## Model and weights
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "architecture": null,
@@ -25,7 +27,11 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 }
 ```
 
+</details>
+
 ## Engine and backend
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -45,7 +51,11 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 }
 ```
 
+</details>
+
 ## Optimizations
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -78,7 +88,11 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 }
 ```
 
+</details>
+
 ## Runtime and sampler
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -101,7 +115,11 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 }
 ```
 
+</details>
+
 ## Ordered startup parameters
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -191,6 +209,8 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 }
 ```
 
+</details>
+
 ## Results and original audits
 
 | Experiment | Benchmark / scope | Success | Wall s | GPU J / success | Peak VRAM MiB | Original audits |
@@ -203,6 +223,8 @@ Separate benchmark qualification audits:
 | R236 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | ADAPTIVE1TO3_AGENT_SCREEN_NOT_QUALIFIED | [audit-3bbcbd54e7cb734a5ce0](../audits/audit-3bbcbd54e7cb734a5ce0.md) |
 
 ## Immutable full profile and measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -405,3 +427,5 @@ Separate benchmark qualification audits:
   "runs": []
 }
 ```
+
+</details>

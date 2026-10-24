@@ -4,6 +4,8 @@ Original SHA256: `f15d4e3c65d3f340c4d24c6e6a83edfe569c1c7db7cff6566b05483c901646
 
 Original file: `AUDIT.json`; 820929 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "REPLAY_EXISTING_SPECULATION_PROOFS_RETAIN_CHAMPIONS_ADMIT_DISTINCT_AGENT_MAX32_MEMORY_SCREEN",
@@ -22,7 +24,11 @@ Original file: `AUDIT.json`; 820929 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 820929 bytes. The original is retained privately an
   "primary_archives_checked": 11
 }
 ```
+
+</details>

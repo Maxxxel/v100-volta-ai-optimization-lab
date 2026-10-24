@@ -4,6 +4,8 @@ Original SHA256: `9a7f2ce0a789d78d0beddfb1d27991df0ffcf6a812a8b24b871e3a1b34f5d2
 
 Original file: `research-metadata.json`; 1449 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "PREREGISTERED_JOINT_PRACTICAL_GATE_FAILED_ORIGINAL_CODE_SCREEN_FLAG_RETAINED",
@@ -11,7 +13,11 @@ Original file: `research-metadata.json`; 1449 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -30,3 +36,5 @@ Original file: `research-metadata.json`; 1449 bytes. The original is retained pr
   }
 }
 ```
+
+</details>

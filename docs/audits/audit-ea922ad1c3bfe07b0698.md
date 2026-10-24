@@ -4,6 +4,8 @@ Original SHA256: `ea922ad1c3bfe07b0698d73e480f8a47efe90b797c94c26946e1fc4a50b519
 
 Original file: `AUDIT.json`; 89591 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "KEEP_VALID_WARP1_2_4_NEGATIVES_NO_RETEST_NO_DIRECT_WARP2_DECODE_GAIN",
@@ -20,7 +22,11 @@ Original file: `AUDIT.json`; 89591 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -28,3 +34,5 @@ Original file: `AUDIT.json`; 89591 bytes. The original is retained privately and
   "new_GPU_runs": 0
 }
 ```
+
+</details>

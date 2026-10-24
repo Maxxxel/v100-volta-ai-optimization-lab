@@ -4,6 +4,8 @@ Original SHA256: `c3cb1b75d1f02e35f520d8b80c6b7c6e0443b0382b22c87305343fd599c54b
 
 Original file: `AUDIT.json`; 4262 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "RECOMMENDED_REASONING_RECIPE_OPERATIONALLY_ADMITTED_NOT_QUALITY_WINNER",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 4262 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -28,3 +34,5 @@ Original file: `AUDIT.json`; 4262 bytes. The original is retained privately and 
   "peak_device_vram_mib": 7356.5
 }
 ```
+
+</details>

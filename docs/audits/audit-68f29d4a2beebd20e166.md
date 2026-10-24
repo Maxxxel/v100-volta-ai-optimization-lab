@@ -4,6 +4,8 @@ Original SHA256: `68f29d4a2beebd20e166625829db2b8c980e59e011bbc7f4b725a98012851b
 
 Original file: `AUDIT.json`; 77816 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "REUSE_EXACT_FUSION_AND_TWO_Q6_PORT_NEGATIVES_RETAIN_R81_NO_RETEST",
@@ -22,7 +24,11 @@ Original file: `AUDIT.json`; 77816 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 77816 bytes. The original is retained privately and
   "primary_archives_checked": 3
 }
 ```
+
+</details>

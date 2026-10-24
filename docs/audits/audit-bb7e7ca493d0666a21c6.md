@@ -4,13 +4,19 @@ Original SHA256: `bb7e7ca493d0666a21c6b74d231f0c3ecb6144b140ce9477ca25eb92cb0ae4
 
 Original file: `AUDIT.json`; 36826 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "scope": "All21 bounded parts form one frozen model benchmark. Partial quality counts are supplemental only. No publisher-protocol equivalence, no model superiority, no optimization benefit or production qualification inferred."
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -27,3 +33,5 @@ Original file: `AUDIT.json`; 36826 bytes. The original is retained privately and
   }
 }
 ```
+
+</details>

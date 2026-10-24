@@ -4,6 +4,8 @@ Original SHA256: `429e93ed0d4b5e650ef53c54b5d725c1844425d873ae6b5fdb911620bceb52
 
 Original file: `AUDIT.json`; 7120 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "NGRAM_MOD_ACTUAL_AGENT_SCREEN_PASSED_NEEDS_FRESH_MAX3_AND_INDEPENDENT_CONFIRMATION",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 7120 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -38,3 +44,5 @@ Original file: `AUDIT.json`; 7120 bytes. The original is retained privately and 
   "solved": 13
 }
 ```
+
+</details>

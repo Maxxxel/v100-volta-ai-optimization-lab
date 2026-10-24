@@ -4,6 +4,8 @@ Original SHA256: `0e11cf177f1c6825ed9e99f83880211136493a0b49f1cb9506a9dd46317920
 
 Original file: `AUDIT.json`; 343101 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "OMNICODER2_IMATRIX_TOOL_SCREEN_REQUIREMENTS_NOT_PASSED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 343101 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -87,3 +93,5 @@ Original file: `AUDIT.json`; 343101 bytes. The original is retained privately an
   }
 }
 ```
+
+</details>

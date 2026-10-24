@@ -4,6 +4,8 @@ Original SHA256: `fe73faa6d74ccb07bdc1a61062744f6df9a2f9f082215e7a291ac85f925f43
 
 Original file: `AUDIT.json`; 170715 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "BIND_EXISTING_TRACES_TRANSPORT_ALLOCATOR_AND_F32_SCOPE_KEEP_ATTENTION_NUMERICS_SEPARATE_FROM_SPEED_QUALIFICATION",
@@ -21,7 +23,11 @@ Original file: `AUDIT.json`; 170715 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -29,3 +35,5 @@ Original file: `AUDIT.json`; 170715 bytes. The original is retained privately an
   "new_GPU_runs": 0
 }
 ```
+
+</details>

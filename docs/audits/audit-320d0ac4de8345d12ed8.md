@@ -4,6 +4,8 @@ Original SHA256: `320d0ac4de8345d12ed83e2f094030cbd8778c8d0872c80172d6147ca88a36
 
 Original file: `AUDIT.json`; 352084 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "limits": [
@@ -12,7 +14,11 @@ Original file: `AUDIT.json`; 352084 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -20,3 +26,5 @@ Original file: `AUDIT.json`; 352084 bytes. The original is retained privately an
   "peak_device_vram_mib": 5956.5
 }
 ```
+
+</details>

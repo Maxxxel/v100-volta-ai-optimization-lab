@@ -4,6 +4,8 @@ Original SHA256: `db8ee1f15a2aba4eaeed5853fedaf67ac6289317ce4e412358669a2f996f8d
 
 Original file: `AUDIT.json`; 28421 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "CODING_TASK_ENERGY_PROFILE_WINNER_QUALIFIED",
@@ -17,10 +19,16 @@ Original file: `AUDIT.json`; 28421 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "actual_generation_requests": 538
 }
 ```
+
+</details>

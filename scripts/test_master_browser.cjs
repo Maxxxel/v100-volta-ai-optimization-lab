@@ -86,6 +86,7 @@ async function main(){
    assert(row.mean.includes(row.values.length+'/3'));
   }
 
+  const settings=page.getByText('Tabelleneinstellungen',{exact:true});await settings.click();
   const choices=page.getByText('Benchmarkprotokolle auswählen',{exact:true});await choices.click();
   const keys=await page.evaluate(()=>{
    const d=window.V100Leaderboard;const r=e=>d.history.runs.find(r=>r.experiment_id===e&&r.counter_energy);
@@ -106,7 +107,7 @@ async function main(){
   details=await page.locator('.master-cell-dialog').innerText();
   for(const text of ['upper_bound','lower','upper','R471','R478'])assert(details.includes(text),text);
   await page.getByRole('button',{name:'Schließen',exact:true}).click();
-  await noBlankResultRows();await choices.click();await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
+  await noBlankResultRows();await choices.click();await settings.click();await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
   report.checks.push('automatic arithmetic mean includes every available complete category of the same configuration, displays 2/3 coverage without a zero for missing agents; compact pooled performance retains audit links and energy bounds');
 
   const search=page.getByRole('searchbox',{name:'Alle Parameter durchsuchen'});
@@ -131,10 +132,10 @@ async function main(){
 
   await preset.selectOption('Kompakt');
   const avgHeader=page.locator('th[data-column-key=average] button');await avgHeader.click();await avgHeader.click();
-  const pickerSummary=page.getByText('Spaltenauswahl nach Kategorien',{exact:true});await pickerSummary.click();
+  await settings.click();const pickerSummary=page.getByText('Spaltenauswahl nach Kategorien',{exact:true});await pickerSummary.click();
   const contextBox=page.locator('.master-column-picker input[data-column-key="runtime.context"]');await contextBox.setChecked(true);
   assert.equal(await page.locator('th[data-column-key="runtime.context"]').count(),1);
-  await pickerSummary.click();
+  await pickerSummary.click();await settings.click();
   const downloaded=page.waitForEvent('download');await page.locator('[data-action=export-csv]').click();const download=await downloaded;const csvPath=path.join(artifacts,'configuration-export.csv');await download.saveAs(csvPath);const csv=await fs.readFile(csvPath,'utf8');
   for(const text of ['source_runtime_configuration_ids','selected_protocols',keys.coding,keys.tools,'R478','NICHT GEMESSEN','mean_protocols','AVAILABLE_DISPLAYED_COMPLETE_CATEGORIES_ARITHMETIC_MEAN'])assert(csv.includes(text),text);
   assert(!csv.split(/\r?\n/)[0].includes('mbpp'),'No removed benchmark column in export');
@@ -147,6 +148,7 @@ async function main(){
   await noBlankResultRows();
   const heights=await page.locator('.master-table tbody tr').evaluateAll(rows=>rows.map(r=>r.getBoundingClientRect().height));assert(Math.max(...heights)<=70);
   const style=await page.locator('.master-scroll').evaluate(el=>({max:getComputedStyle(el).maxHeight,overflow:getComputedStyle(el).overflowX,width:el.clientWidth,content:el.scrollWidth}));assert.equal(style.max,'none');assert(style.content>style.width);
+  await page.locator('.master-scroll').scrollIntoViewIfNeeded();
   await page.screenshot({path:path.join(artifacts,'desktop-results.png'),animations:'disabled'});
   report.checks.push('complete-only comparison has no partial toggle; compact rows have uniform height and ordinary vertical page scrolling');
 
@@ -156,8 +158,25 @@ async function main(){
   const phoneSize=await mobile.evaluate(()=>({body:document.documentElement.scrollWidth,view:innerWidth,scroll:document.querySelector('.master-scroll').scrollWidth,client:document.querySelector('.master-scroll').clientWidth}));assert(phoneSize.body<=phoneSize.view+1);assert(phoneSize.scroll>phoneSize.client);
   await mobile.locator('.master-scroll').evaluate(el=>{el.scrollLeft=el.scrollWidth;});
   assert(await mobile.locator('.master-scroll').evaluate(el=>el.scrollLeft>0));
+  await mobile.locator('.master-scroll').evaluate(el=>{el.scrollLeft=0;});
+  await mobile.locator('.master-scroll').scrollIntoViewIfNeeded();
   await mobile.screenshot({path:path.join(artifacts,'mobile-results.png'),animations:'disabled'});
   report.checks.push('390px mobile layout keeps all category rows accessible through horizontal table scrolling without widening the page');
+  for(const [name,tab] of [['desktop',page],['mobile',mobile]]){
+   await tab.goto(base,{waitUntil:'networkidle'});
+   assert.equal(await tab.locator('.lab-kpis>div').count(),4);
+   assert.equal(await tab.locator('.lab-results>a').count(),3);
+   assert.equal(await tab.locator('.lab-status>span').count(),6);
+   assert(await tab.locator('.lab-result').allTextContents().then(v=>v.some(t=>t.includes('Not measured'))));
+   const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+1);
+   for(const href of await tab.locator('.lab-result').evaluateAll(a=>a.map(x=>x.getAttribute('href'))))assert(!href.endsWith('.md'),'HTML card links must target rendered routes');
+   await tab.screenshot({path:path.join(artifacts,name+'-overview.png'),animations:'disabled',fullPage:true});
+   await tab.goto(new URL('archive/',base).href,{waitUntil:'networkidle'});assert.equal(await tab.locator('.lab-links>a').count(),6);
+  }
+  await page.goto(new URL('experiments/R482/',base).href,{waitUntil:'networkidle'});
+  assert(await page.locator('details.lab-evidence').count()>0);
+  assert.equal(await page.locator('details.lab-evidence[open]').count(),0);
+  report.checks.push('desktop/mobile overview exposes evidence-backed KPIs and three category cards without overflow; archive routes work and structured experiment evidence is collapsed, not deleted');
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
  process.stdout.write(JSON.stringify(report)+'\n');

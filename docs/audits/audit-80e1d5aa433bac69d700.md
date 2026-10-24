@@ -4,6 +4,8 @@ Original SHA256: `80e1d5aa433bac69d7009586f011ecde54d4ec6e80a4de09e87bbff7bdfed5
 
 Original file: `AUDIT.json`; 244549 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MATCHED_NATIVE_BFCL_MTP_OFF_A0_CALIBRATED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 244549 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -87,3 +93,5 @@ Original file: `AUDIT.json`; 244549 bytes. The original is retained privately an
   }
 }
 ```
+
+</details>

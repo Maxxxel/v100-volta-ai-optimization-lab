@@ -4,6 +4,8 @@ Original SHA256: `8caaa3cdf4c079c396fe7a40ed7d98d55ac3ded64728ba8d0568b4dcbadec2
 
 Original file: `AUDIT.json`; 18887 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MATCHED_Q8Q8_ROUTER_OFF_CONTROL_CALIBRATED_CANDIDATE_PENDING",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 18887 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -259,3 +265,5 @@ Original file: `AUDIT.json`; 18887 bytes. The original is retained privately and
   "requests": 32
 }
 ```
+
+</details>

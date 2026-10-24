@@ -4,6 +4,8 @@ Original SHA256: `dc82ea07c3477de8711f68bcc2120f1e97c636043bdacb0b6211d133488eb9
 
 Original file: `AUDIT.json`; 505944 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "RETAIN_MICROBATCH_SCREEN_AND_CONFIG_LIMITS_SCOPE_R11_NOOP_TO_ORIGINAL_PROFILE_ONLY",
@@ -23,7 +25,11 @@ Original file: `AUDIT.json`; 505944 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -33,3 +39,5 @@ Original file: `AUDIT.json`; 505944 bytes. The original is retained privately an
   "primary_archives_checked": 8
 }
 ```
+
+</details>

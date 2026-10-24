@@ -4,6 +4,8 @@ Original SHA256: `df65fab85ed24e0285fd21c9bdc901b479130319db0aa50b817e414b216894
 
 Original file: `research-metadata.json`; 8159 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "IQ2_XS_QA12_QUALITY_REGRESSION_STOP",
@@ -17,7 +19,11 @@ Original file: `research-metadata.json`; 8159 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -34,3 +40,5 @@ Original file: `research-metadata.json`; 8159 bytes. The original is retained pr
   }
 }
 ```
+
+</details>

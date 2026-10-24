@@ -785,3 +785,14 @@ test('Nexus full tools174/200 is admitted while its coding prefix stays outside 
  assert.equal(a.score,87);assert.equal(a.count,1);assert.equal(a.total,3);
  assert.equal(M.performanceSummary(row,a.keys,v.benchmarkMap).tasks,200);
 });
+
+
+test('Slopus first native coding87/132 remains partial with preserved author sampler and scoped counters',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R483'&&r.counter_energy);assert(r);
+ assert.equal(r.tasks,132);assert.equal(r.solved,87);assert.equal(r.official_eligible,false);assert.equal(r.status,'PARTIAL');
+ assert.equal(r.model_family_id,'slopus9b');assert.equal(r.counter_energy.tasks,132);assert.equal(r.counter_energy.solved,87);
+ assert.equal(r.counter_energy.j_per_success_lower,3943.267620689655);assert.equal(r.counter_energy.j_per_success_upper,3944.241781609195);assert.equal(r.gpu_j,null);
+ const row=model.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);assert.equal(row.profile.model.hf_repository,'Kukedlc/Slopus-9B');assert.equal(row.profile.model.hf_revision,'85a138681cd780ef45a9b9c6d63363da33d08eb1');
+ assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['runtime.sampling.temperature'],.6);assert.equal(row.values['runtime.max_output'],4096);
+ assert(!M.comparisonView(M.build(data)).rows.some(x=>x.runs.some(y=>y.experiment_id==='R483')));
+});

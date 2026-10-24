@@ -4,6 +4,8 @@ Original SHA256: `f28dcaeb906ada4b945bc3119e9b899ad457d918608d8e4cb7c360d896f38e
 
 Original file: `AUDIT.json`; 13053 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MTP_MICROBATCH_CONTROL_DRIFT_OR_FRESH_PAIR_FAILED",
@@ -16,7 +18,11 @@ Original file: `AUDIT.json`; 13053 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -24,3 +30,5 @@ Original file: `AUDIT.json`; 13053 bytes. The original is retained privately and
   "peak_process_vram_mib": 8758
 }
 ```
+
+</details>

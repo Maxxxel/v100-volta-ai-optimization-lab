@@ -4,6 +4,8 @@ Original SHA256: `c3cec6097613bd4e93c7aaa2331af5ffd4f4771ad2e1b0b9aa06bc2a203804
 
 Original file: `AUDIT.json`; 3643 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "Q6_SM70_PREFETCH_B_SCREEN_NOT_QUALIFIED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 3643 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -98,3 +104,5 @@ Original file: `AUDIT.json`; 3643 bytes. The original is retained privately and 
   "peak_device_vram_mib": 7356.5
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `0801e9ed17de8e125f9a018ebe0e894a9fab3dcfa89d249ec600c9a6f0ac71
 
 Original file: `AUDIT.json`; 14323 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "PRESERVE_EXISTING_DEFAULT_F32_FUSION_NO_NEW_OPTIMIZATION_OR_FULL_MTP_QUALIFICATION",
@@ -22,7 +24,11 @@ Original file: `AUDIT.json`; 14323 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -45,3 +51,5 @@ Original file: `AUDIT.json`; 14323 bytes. The original is retained privately and
   "old_native_model_starts_verified": 4
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `af7db7c4b5312ee0c1c46b0a5d8e578ce95d8f30089c61f544b1aa4f1b6533
 
 Original file: `AUDIT.json`; 245137 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "STOP_NATIVE_BFCL_IRRELEVANCE_FUTILITY",
@@ -17,10 +19,16 @@ Original file: `AUDIT.json`; 245137 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "actual_generation_requests": 101
 }
 ```
+
+</details>

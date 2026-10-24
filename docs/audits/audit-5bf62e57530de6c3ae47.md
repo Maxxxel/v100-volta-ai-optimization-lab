@@ -4,6 +4,8 @@ Original SHA256: `5bf62e57530de6c3ae47821cde6b0949c1e97f46c621b93d673585f0622c6b
 
 Original file: `AUDIT.json`; 3063 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "FRACTIONAL_QUEUE_SCREEN_REJECTED_PRIMARY_MEMORY_GATE",
@@ -21,7 +23,11 @@ Original file: `AUDIT.json`; 3063 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -61,3 +67,5 @@ Original file: `AUDIT.json`; 3063 bytes. The original is retained privately and 
   "requests": 8
 }
 ```
+
+</details>

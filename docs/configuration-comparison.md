@@ -1,15 +1,18 @@
-# Model Comparison & Benchmark Results
+# Model benchmarks
 
-**Exactly one fixed benchmark per category:** Coding — **HumanEval+164**; Tool-Calling — **BFCL parallel_multiple200**; Agents — **Terminal-Bench2.1**. These are the only benchmarks in every comparison preset, selector, analysis and CSV. Agent results are **NICHT GEMESSEN** until actually evaluated; its registered definition still requires admission. The tool score covers the named200-task category, not the whole BFCL leaderboard.
-
-One row per evidenced inference configuration. Runs differing only in collection/time limits share a row, retaining their original conditions in result details. Different weights, engine binaries, templates, tuning, sampling and output/context limits stay separate. Each result links its original run and audit and shows the actual solved/evaluated count and qualification. Only complete, locally qualified results appear in this comparison; missing results are never zero. Incomplete and additional historical benchmarks remain in the original archive and never enter this view, presets, selectors, CSV or mean.
-
-Partial and unqualified measurements are excluded from all comparison controls. **Ø Benchmarks** automatically takes the equal-weight arithmetic mean of all available complete, locally qualified results in the displayed categories for the same evidenced inference configuration. Coverage is shown as **n/3** (or n/visible categories); missing categories are excluded, never zero. A measured zero-percent score is included. No available result means NICHT BERECHENBAR. Different coverage must not be treated as a fair overall ranking. This is not an official overall benchmark score. Protocol selectors still match exact definitions; there is no fallback after an explicit protocol choice. Different task subsets do not establish model superiority.
+Coding, tools and agents on one V100. Complete, locally qualified results only; click a score for its configuration and audit.
 
 <div id="all-measured-results" aria-live="polite"></div>
 
-<details>
-<summary>Scientific provenance, parameter coverage and reproduction</summary>
+<details><summary>Reading the comparison</summary>
+
+HumanEval+164 · BFCL parallel_multiple200 (category only) · Terminal-Bench2.1 (not yet measured). Missing values are not zero. **Ø Benchmarks** averages available complete category percentages for the same configuration, with coverage n/3; it is not an official overall benchmark. Different coverage or protocols do not establish model superiority.
+
+Task budget: **1,200 seconds total**, shared across parts; startup and wrapper limits are separate. Historical/partial results remain in the [archive](configuration-archive.md).
+
+</details>
+
+<details><summary>Scientific provenance and reproduction</summary>
 
 
 

@@ -316,6 +316,8 @@ These are verification events for existing measurements, **not new GPU runs**. O
 
 ## Unreachable / unresolved model-card identities
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 [
   {
@@ -327,7 +329,11 @@ These are verification events for existing measurements, **not new GPU runs**. O
 ]
 ```
 
+</details>
+
 ## Source retrieval receipts
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -398,6 +404,8 @@ These are verification events for existing measurements, **not new GPU runs**. O
   }
 }
 ```
+
+</details>
 
 ## Transparent admission-policy corrections
 

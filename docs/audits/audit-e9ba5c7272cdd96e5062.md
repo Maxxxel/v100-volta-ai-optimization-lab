@@ -4,6 +4,8 @@ Original SHA256: `e9ba5c7272cdd96e5062c8b7c293309e937542e074be54d2240f050c334c6c
 
 Original file: `AUDIT.json`; 174855 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "PRESERVE_VALID_ROUTING_GRAPH_LAUNCH_EVIDENCE_CORRECT_UNEXERCISED_C15",
@@ -22,7 +24,11 @@ Original file: `AUDIT.json`; 174855 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 174855 bytes. The original is retained privately an
   "primary_archives_checked": 11
 }
 ```
+
+</details>

@@ -8,7 +8,7 @@ theme:
   palette:
     - scheme: slate
       primary: teal
-      accent: lime
+      accent: teal
       toggle:
         icon: material/brightness-7
         name: Light mode
@@ -19,7 +19,6 @@ theme:
         icon: material/brightness-4
         name: Dark mode
   features:
-    - navigation.sections
     - navigation.top
     - navigation.tracking
     - content.code.copy
@@ -41,38 +40,41 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
-  - stylesheets/lab.css?v=293ed10c14d01006
+  - stylesheets/lab.css?v=61e22c93b26bb81f
 extra_javascript:
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=7c49467a6b47889e
-  - javascripts/master-table.js?v=bc7eceab4929cf25
+  - assets/benchmarks/leaderboard-data.js?v=fa7022fe60e4d503
+  - javascripts/master-table.js?v=18a9eb659b4c4472
   - javascripts/leaderboard.js?v=697620605486078d
 extra:
   generator: false
 nav:
   - Overview: index.md
-  - Hardware: hardware.md
-  - Research Methodology: methodology.md
-  - Safe Research Admission: broker-admission.md
-  - Optimization Matrix: matrix.md
-  - Experiment Results: results.md
-  - Qualified Configurations: configurations.md
-  - Rejected Optimizations: rejected.md
-  - Model Comparison & Benchmarks: configuration-comparison.md
-  - Benchmark Definitions: benchmark-register.md
-  - Model Weight Integrity:
-      - Same Quantizer: weight-integrity-same-quantizer.md
-      - Earlier Cross-Quantizer Review: weight-integrity.md
-  - Model Evidence & Transfer: models.md
-  - OmniCoder Derivative Research: omnicoder-derivatives.md
-  - Compatibility Matrix: compatibility.md
-  - Scientific Background: background.md
-  - Papers & Sources: sources.md
-  - Open Questions: questions.md
-  - Changelog & Roadmap: roadmap.md
-  - Reproducing Results: reproduce.md
-  - Public Export Policy: publication.md
+  - Benchmarks: configuration-comparison.md
+  - Research archive:
+      - Archive overview: archive.md
+      - Optimization matrix: matrix.md
+      - Experiment history: results.md
+      - Qualified configurations: configurations.md
+      - Negative results: rejected.md
+      - Configuration history: configuration-archive.md
+      - Model research: models.md
+      - OmniCoder derivatives: omnicoder-derivatives.md
+      - Weight integrity: weight-integrity-same-quantizer.md
+      - Earlier weight review: weight-integrity.md
+      - Compatibility: compatibility.md
+      - Open questions: questions.md
+      - Roadmap: roadmap.md
+  - Methods:
+      - Methodology: methodology.md
+      - Hardware: hardware.md
+      - Benchmark definitions: benchmark-register.md
+      - Safety and admission: broker-admission.md
+      - Scientific background: background.md
+      - Papers and sources: sources.md
+      - Reproduction: reproduce.md
+      - Public export policy: publication.md
   - Deutsch: de.md
 validation:
   nav:

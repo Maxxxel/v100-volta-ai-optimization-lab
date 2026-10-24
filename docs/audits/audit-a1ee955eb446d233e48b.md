@@ -4,9 +4,13 @@ Original SHA256: `a1ee955eb446d233e48b9027c482a9f75add655bbcec935ca9c999abd713b5
 
 Original file: `REFERENCE_ADMISSION.json`; 818 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {}
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

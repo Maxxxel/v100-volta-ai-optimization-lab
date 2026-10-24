@@ -6,6 +6,8 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 
 ## Model and weights
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "architecture": null,
@@ -25,7 +27,11 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 }
 ```
 
+</details>
+
 ## Engine and backend
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -45,7 +51,11 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 }
 ```
 
+</details>
+
 ## Optimizations
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -76,7 +86,11 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 }
 ```
 
+</details>
+
 ## Runtime and sampler
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -106,7 +120,11 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 }
 ```
 
+</details>
+
 ## Ordered startup parameters
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -183,9 +201,13 @@ Profile ID: `cfg-5b4fe5835fa68eaefef8abfa3a0eb7fcc0c45664cf67c5dae45f178eb3ec0bf
 }
 ```
 
+</details>
+
 ## Verified engine source revision
 
 The original profile remains immutable. This matched build receipt supplies a source-base revision plus local patch lineage, not a reconstructed upstream release tag.
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -203,6 +225,8 @@ The original profile remains immutable. This matched build receipt supplies a so
 }
 ```
 
+</details>
+
 [audit-ad26886527c71fef3b59](../audits/audit-ad26886527c71fef3b59.md)
 
 ## Results and original audits
@@ -217,6 +241,8 @@ Separate benchmark qualification audits:
 | R431 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | GEMMA32K_NEW_CASE_CAPACITY_VALIDATION_PASSED_SCOPE_ONLY | [audit-cd8eb8e97cb00d82a151](../audits/audit-cd8eb8e97cb00d82a151.md) |
 
 ## Immutable full profile and measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -432,3 +458,5 @@ Separate benchmark qualification audits:
   "runs": []
 }
 ```
+
+</details>

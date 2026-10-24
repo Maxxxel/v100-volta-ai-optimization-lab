@@ -4,11 +4,17 @@ Original SHA256: `60cec6a2e1f3c6fbd24d7cf6fb6bfbe361b9ab7fa0066e391bd17b2e252a8d
 
 Original file: `RESULTS.json`; 39870 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {}
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -536,3 +542,5 @@ Original file: `RESULTS.json`; 39870 bytes. The original is retained privately a
   }
 }
 ```
+
+</details>

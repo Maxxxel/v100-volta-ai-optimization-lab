@@ -1,56 +1,38 @@
 # V100 Volta AI Optimization Lab
 
-<div class="hero"><strong>One Volta GPU. Reproducible evidence. Useful local AI.</strong><p>Independent community research into inference performance, agent reliability and energy efficiency on a single NVIDIA Tesla V100-SXM2 with 16 GB HBM2.</p></div>
+<p class="lab-eyebrow">Independent research · NVIDIA Volta / SM70</p>
+<p class="lab-lead">Better local AI on one Tesla V100-SXM2 with 16 GB HBM2. We measure model quality, useful speed and GPU energy — with reproducible configurations and retained negative results.</p>
 
-This project is not affiliated with or endorsed by NVIDIA, Ollama, engine developers or model publishers. Research is ongoing; there is no final universal model winner or automatic production deployment.
+<div class="lab-actions"><a class="lab-button lab-primary" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-comparison/">Compare models</a><a class="lab-button" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/archive/">Explore the research</a></div>
 
-## Evidence snapshot
+<div class="lab-kpis"><div><strong>162</strong><span>Research factors</span><small>130 original + 32 techniques</small></div><div><strong>113</strong><span>Experimentally covered</span><small>Factors, not GPU run count</small></div><div><strong>6</strong><span>Qualified factor scopes</span><small>Workload-specific evidence</small></div><div><strong>16 GB</strong><span>HBM2 on one V100</span><small>One GPU benchmark at a time</small></div></div>
 
-Matrix revision **421**, canonical assessment date **2026-10-24T12:33:29.314786+00:00**.
+## Model comparison
 
-| Original axes | Additional techniques | Experimentally covered | Qualified factor scopes | Model challengers |
-|---|---|---|---|---|
-| 130 | 32 | 113 | 6 | 11 |
+<div class="lab-results"><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e/"><span>Coding</span><strong>132/164</strong><b>OmniCoder 9B</b><small>Latest complete result · R471</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-256a4259cced4012a6f1d2aca480672d7937d939e945b91ea2e5ad81269fe190/"><span>Tools</span><strong>174/200</strong><b>Nexus 9B CodeCore Merge</b><small>Latest complete result · R482</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
+Latest complete category measurements, not a ranking. [All configurations, costs and audits](docs/configuration-comparison.md).
 
+## Optimization findings
 
-These are different units: **401 sprint records**, **302 historical signed windows**, **1745 ledger events**, **60 immutable reference records**, **12 current profile champions**. None is a total count of independent GPU experiments.
+<div class="lab-links"><a href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configurations/"><strong>Prefix reuse</strong><span>Lower latency with repeated context; not a universal decode gain.</span></a><a href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configurations/"><strong>HBM conversion cache</strong><span>Qualified prefill profiles with additional VRAM cost.</span></a><a href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configurations/"><strong>Energy profiles</strong><span>Measured trade-offs between task latency, memory and GPU joules.</span></a></div>
 
-## Hardware and software
+## Research progress
 
-- One Tesla V100-SXM2, 16 GB HBM2; Volta compute capability 7.0 (SM70).
-- Research host with an isolated Linux container; serialized device access and a local GPU admission broker.
-- CUDA 12.8 llama.cpp/GGUF baseline; driver branch 580.178.04. Engine and weight hashes are recorded per profile.
-- FP16 Tensor Cores are available; native BF16/FP8 Tensor Cores, cp.async and TMA are not assumed.
-- Context, KV/state precision, graph capture and cache capacity all consume the same limited device memory.
-- Temperature is recorded as telemetry. ECC, memory, hardware temperature and restore guards remain mandatory.
+<div class="lab-status"><span><strong>6</strong> Qualified</span><span><strong>8</strong> Negative</span><span><strong>105</strong> Partial</span><span><strong>10</strong> Open</span><span><strong>28</strong> Deferred</span><span><strong>5</strong> Not applicable</span></div>
 
-```mermaid
-flowchart LR
-    A[Canonical local audits] --> B[Allowlisted metadata projection]
-    B --> C[Confidentiality and consistency checks]
-    C --> D[Public data and documentation]
-    D --> E[Static GitHub Pages]
-    A --> F[Immutable A0 and scoped Champions]
-```
+Reviewed, experimentally covered and qualified are separate stages. [Matrix and evidence](docs/matrix.md) · [Open questions](docs/questions.md).
 
-## What has helped, and where
+<details><summary>Snapshot and methodology</summary>
 
-- HBM07 conversion-cache work: qualified prompt-evaluation profiles; extra VRAM and largely unchanged decode.
-- MTP: scoped coding, native tool and agent profiles. Target decisions and hybrid state correctness remain explicit gates.
-- Agent throughput and energy: separate qualified profiles with different latency, energy and memory trade-offs.
-- Low-VRAM and long-context profiles: preserve their exact task and numerical limits; a fast prefill screen is not general agent qualification.
+Revision **422** · 2026-10-24. 402 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
-See [Qualified configurations](docs/configurations.md), [Rejected optimizations](docs/rejected.md), [Model Comparison & Benchmarks](docs/configuration-comparison.md), [model evidence](docs/models.md) and the full [Optimization matrix](docs/matrix.md).
+Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](docs/methodology.md) · [Hardware](docs/hardware.md) · [Reproduce](docs/reproduce.md).
 
-## How to read the evidence
+</details>
 
-**LOKAL GEMESSEN / LOCAL MEASUREMENT** means an original hardware measurement exists in the stated scope. **EXTERN BELEGT / EXTERNAL EVIDENCE** means a public source supports an implementation or result. **NICHT VERIFIZIERT / UNVERIFIED** marks a hypothesis or missing local proof. Static source review and independent qualification are separate stages.
-
-Numerical values are exported without invented missing measurements. Original rationale excerpts may remain in German. Public audit excerpts are intentionally incomplete and have different bytes from the original audits whose hashes they cite.
-
-[Open the interactive Benchmark Master Table](docs/configuration-comparison.md): exact configurations, versioned benchmarks, selectable columns, user-defined averages and audit-linked evidence.
+Independent community project; no affiliation with NVIDIA, Ollama or model publishers. Local measurements, external evidence and unverified hypotheses remain distinct. No universal winner is claimed.
 
 ## Documentation and collaboration
 
-Build the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.
+Build with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. [Contribute](CONTRIBUTING.md) · [Reproduce](docs/reproduce.md) · [German overview](docs/de.md). Publishing never launches a GPU job.

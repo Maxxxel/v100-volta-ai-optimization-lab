@@ -4,6 +4,8 @@ Original SHA256: `b1fc6b9a04856cba1af0acf96a90c9ec3f7dfdd9c15e919f3b73b53cfaea52
 
 Original file: `AUDIT.json`; 2030 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "BONSAI_THINKING_AGENT_MODEL_SCREEN_NO_PRACTICAL_WIN_OR_PARTIAL",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 2030 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -33,3 +39,5 @@ Original file: `AUDIT.json`; 2030 bytes. The original is retained privately and 
   "solved": 2
 }
 ```
+
+</details>

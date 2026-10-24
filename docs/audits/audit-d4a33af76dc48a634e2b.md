@@ -4,6 +4,8 @@ Original SHA256: `d4a33af76dc48a634e2bc83175ad4869bfbd47bfc71730266adeaabbd609eb
 
 Original file: `AUDIT.json`; 5214 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "TECHNICAL_STOP_KNOWN_RENDER_CLIENT_AND_LEGACY_QUALIFIER_DEFECT_NO_GENERATION",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 5214 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -26,3 +32,5 @@ Original file: `AUDIT.json`; 5214 bytes. The original is retained privately and 
   "model_starts": 1
 }
 ```
+
+</details>

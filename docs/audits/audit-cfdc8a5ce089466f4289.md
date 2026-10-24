@@ -4,6 +4,8 @@ Original SHA256: `cfdc8a5ce089466f4289000714608703a392e314e621f7743c382702e1a787
 
 Original file: `AUDIT.json`; 5446 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MLOCK_WARM_SCREEN_REQUIREMENTS_NOT_PASSED",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 5446 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -25,3 +31,5 @@ Original file: `AUDIT.json`; 5446 bytes. The original is retained privately and 
   "peak_process_vram_mib": 7114
 }
 ```
+
+</details>

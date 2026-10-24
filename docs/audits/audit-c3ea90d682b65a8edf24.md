@@ -4,9 +4,13 @@ Original SHA256: `c3ea90d682b65a8edf2493bb2eb9f45de5c6a22da3b9a4b87905efc5ee9d49
 
 Original file: `INDEPENDENT_REVIEW.json`; 1713 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {}
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

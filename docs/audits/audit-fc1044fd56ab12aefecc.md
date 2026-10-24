@@ -4,6 +4,8 @@ Original SHA256: `fc1044fd56ab12aefecc7a78c41782d9258f00dfe5651d03f6e6c4dbb6685e
 
 Original file: `AUDIT.json`; 81796 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "RETAIN_AS_COMPONENT_EVIDENCE; R84_GLOBAL_FORCE_MMQ_STAYS_REJECTED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 81796 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -1006,3 +1012,5 @@ Original file: `AUDIT.json`; 81796 bytes. The original is retained privately and
   }
 }
 ```
+
+</details>

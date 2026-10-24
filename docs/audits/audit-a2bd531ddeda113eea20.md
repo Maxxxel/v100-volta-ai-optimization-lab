@@ -4,6 +4,8 @@ Original SHA256: `a2bd531ddeda113eea20c561062cc028ebe65eb7498a8a204eb462fd7b1c92
 
 Original file: `AUDIT.json`; 13272 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "GEMMA4_JSON_OBJECT_PROMISING_NEEDS_INDEPENDENT_CONFIRMATION",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 13272 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -37,3 +43,5 @@ Original file: `AUDIT.json`; 13272 bytes. The original is retained privately and
   "semantic_successes_per_s": 1.429428095447639
 }
 ```
+
+</details>

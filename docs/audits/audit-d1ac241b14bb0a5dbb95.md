@@ -4,6 +4,8 @@ Original SHA256: `d1ac241b14bb0a5dbb95a3ca1857c7bb2520d7f665c0fbb9532acd0749eb3c
 
 Original file: `research-metadata.json`; 4437 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "hypothesis": "Unknown public schema annotations must reach actual backend unchanged; quality benefit is not assumed. Compare independently against original Q6A0/C88 and previous private frontend85.",
@@ -14,6 +16,8 @@ Original file: `research-metadata.json`; 4437 bytes. The original is retained pr
   ]
 }
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

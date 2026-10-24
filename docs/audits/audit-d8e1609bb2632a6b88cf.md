@@ -4,6 +4,8 @@ Original SHA256: `d8e1609bb2632a6b88cfd55c530a935c3916a66913cdcb4dcc8b8bc2ba485c
 
 Original file: `AUDIT.json`; 5794 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "QWEN38_NO_MTP32K_NEW_CASE_CAPACITY_VALIDATION_PASSED_SCOPE_ONLY",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 5794 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -53,3 +59,5 @@ Original file: `AUDIT.json`; 5794 bytes. The original is retained privately and 
   "wall_s": 548.199342112
 }
 ```
+
+</details>

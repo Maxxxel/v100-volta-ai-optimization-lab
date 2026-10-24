@@ -4,6 +4,8 @@ Original SHA256: `dbac47e8b176d1ba982ac9906084c9e0ca495fcbcfd28afb6841d821d0e7c2
 
 Original file: `research-metadata.json`; 6139 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "DEFER_SELECTED_Q6_DECODE_MORE_L1_TREATMENT_ALREADY_MINIMUM_SHARED",
@@ -17,10 +19,16 @@ Original file: `research-metadata.json`; 6139 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "new_model_starts": 0
 }
 ```
+
+</details>

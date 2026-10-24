@@ -4,6 +4,8 @@ Original SHA256: `577b1f3693e2c89cecab48dc643bf226b17a346dffad9984fa5f87fba4dc3a
 
 Original file: `AUDIT.json`; 17349 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "REUSE_CALIBRATION_DISTINGUISH_NATIVE_EXPERIMENTAL_TRAINER_FROM_QAT_LORA_READINESS_NO_BLANKET_16GB_EXCLUSION",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 17349 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -26,3 +32,5 @@ Original file: `AUDIT.json`; 17349 bytes. The original is retained privately and
   "new_GPU_runs": 0
 }
 ```
+
+</details>

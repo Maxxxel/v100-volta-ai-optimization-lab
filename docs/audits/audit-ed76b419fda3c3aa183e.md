@@ -4,6 +4,8 @@ Original SHA256: `ed76b419fda3c3aa183ea6cd2af69df0846921095463808da047d40aa92671
 
 Original file: `AUDIT.json`; 42148 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "OMNICODER2_AGENT_REFERENCE_DECISIONS_REPRODUCED",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 42148 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -143,3 +149,5 @@ Original file: `AUDIT.json`; 42148 bytes. The original is retained privately and
   "peak_process_vram_mib": 7114
 }
 ```
+
+</details>

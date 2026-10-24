@@ -1,5 +1,7 @@
 # Research methodology
 
+**Current task budget:1,200 seconds total per benchmark**, shared across all parts without resets. Startup, wrapper, cleanup and CPU evaluation limits are separate. Older900-second experiments keep their historical conditions.
+
 Golden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. Balanced sequences are used when drift or small differences justify them.
 
 Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. Reject on quality or correctness loss regardless of synthetic speed. Keep failures, incomplete screens and outliers under their original rules.
@@ -14,7 +16,7 @@ The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint bas
 
 Official percentage admission must match the recorded numerator and denominator. A complete BFCL v4 Simple Python category uses its own AST-accuracy metric over all 400 unique official tasks; it is separate from the BFCL overall leaderboard and the historical static100 pilot. The metric adapter alone admits no model result: pinned scorer/configuration identities, complete coverage, controls and independent audit evidence are still mandatory. Missing results remain NOT MEASURED.
 
-Native broker campaigns use their frozen data contracts and captured launch/profile receipts; no preflight plan is invented retrospectively. Full coding result export verifies all 164 unique tasks, every bounded part and scorer output, unchanged model/runtime configuration, and measured task costs. A complete local result still requires a separate official-API qualification before entering the official local highscore view. Partial campaigns retain actually scored task subsets in the same table, with their original denominators and PARTIAL status. Unfinished or uncollected tasks are not zero; no full-suite official admission is implied.
+Native broker campaigns use their frozen data contracts and captured launch/profile receipts; no preflight plan is invented retrospectively. Full coding result export verifies all 164 unique tasks, every bounded part and scorer output, unchanged model/runtime configuration, and measured task costs. A complete local result still requires a separate official-API qualification before entering the official local highscore view. Partial campaigns retain actually scored task subsets in the research archive, with their original denominators and PARTIAL status; the central comparison admits only complete qualified category results. Unfinished or uncollected tasks are not zero; no full-suite official admission is implied.
 
 ## Status semantics
 

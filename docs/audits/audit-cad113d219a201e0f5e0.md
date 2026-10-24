@@ -4,6 +4,8 @@ Original SHA256: `cad113d219a201e0f5e044928a7b7fde3ff5f8bd107c0133dceaa589523176
 
 Original file: `AUDIT.json`; 1360 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "GRAFT_CACHE_NATIVE_TOOL_QUALITY_COST_GATE_PASSED_NOT_GLOBAL_CHAMPION",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 1360 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -27,3 +33,5 @@ Original file: `AUDIT.json`; 1360 bytes. The original is retained privately and 
   "wall_s": 103.352255875
 }
 ```
+
+</details>

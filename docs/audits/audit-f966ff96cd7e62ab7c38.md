@@ -4,6 +4,8 @@ Original SHA256: `f966ff96cd7e62ab7c3855f6925d5d7d446a76b17a9ea022e50a5199e342b6
 
 Original file: `AUDIT.json`; 5539 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MTP_NATIVE_GAIN_CONFIRMED_NEEDS_FUNCTIONAL_QUALIFICATION",
@@ -16,7 +18,11 @@ Original file: `AUDIT.json`; 5539 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -24,3 +30,5 @@ Original file: `AUDIT.json`; 5539 bytes. The original is retained privately and 
   "peak_process_vram_mib": 7114
 }
 ```
+
+</details>

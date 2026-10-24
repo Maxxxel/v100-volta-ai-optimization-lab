@@ -18,6 +18,8 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 
 ## R340-S01
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "axes": [
@@ -51,7 +53,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S02
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -81,7 +87,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S03
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -110,7 +120,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S04
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -138,7 +152,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S05
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -167,7 +185,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S06
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -198,7 +220,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S07
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -228,7 +254,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S08
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -261,7 +291,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S09
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -296,7 +330,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S10
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -324,7 +362,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S11
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -351,7 +393,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## R340-S12
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -379,7 +425,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V01
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -408,7 +458,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V02
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -438,7 +492,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V03
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -470,7 +528,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V04
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -501,7 +563,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V05
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -532,7 +598,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V06
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -561,7 +631,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V07
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -591,7 +665,11 @@ These are hypotheses or admission plans, never claimed local improvements. They 
 }
 ```
 
+</details>
+
 ## GIST-V08
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -619,3 +697,5 @@ These are hypotheses or admission plans, never claimed local improvements. They 
   "title": "SECDED ECC and theoretical bandwidth"
 }
 ```
+
+</details>

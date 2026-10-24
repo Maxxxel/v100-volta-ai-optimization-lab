@@ -4,6 +4,8 @@ Original SHA256: `6ba69d79b075c99f03acc9d8dd5e343d27771106cebbbdbc0c6a0629a73e86
 
 Original file: `AUDIT.json`; 11497 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "NATIVE_TOOL_PILOT_CONTINUE_FULL100_NOT_QUALIFIED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 11497 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -31,3 +37,5 @@ Original file: `AUDIT.json`; 11497 bytes. The original is retained privately and
   "wall_s": 95.846720209
 }
 ```
+
+</details>

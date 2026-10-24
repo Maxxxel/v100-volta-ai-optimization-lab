@@ -4,6 +4,8 @@ Original SHA256: `88c4b8b71bab92ce5e63695d27359dcf6f12459dc7b5f182eb8d3c35e7359b
 
 Original file: `AUDIT.json`; 57902 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "REUSE_SCOPED_TILE_CAP_NEGATIVES_KEEP_GENERIC_C12_COMPONENT_PASS_CORRECT_OMNI_SCOPE",
@@ -22,7 +24,11 @@ Original file: `AUDIT.json`; 57902 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -30,3 +36,5 @@ Original file: `AUDIT.json`; 57902 bytes. The original is retained privately and
   "new_GPU_runs": 0
 }
 ```
+
+</details>

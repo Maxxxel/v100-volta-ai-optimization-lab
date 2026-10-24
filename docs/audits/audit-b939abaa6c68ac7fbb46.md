@@ -4,6 +4,8 @@ Original SHA256: `b939abaa6c68ac7fbb46989896ffda9bac86f3021dee8d2b91d1e7c19d7a3d
 
 Original file: `AUDIT.json`; 2820 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "NATIVE_Q8KV_COMPONENT_PASS_MODEL_SCREEN_PENDING",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 2820 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -38,3 +44,5 @@ Original file: `AUDIT.json`; 2820 bytes. The original is retained privately and 
   "peak_device_vram_mib": 630.5
 }
 ```
+
+</details>

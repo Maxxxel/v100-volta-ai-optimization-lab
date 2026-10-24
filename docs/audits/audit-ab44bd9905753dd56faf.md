@@ -4,6 +4,8 @@ Original SHA256: `ab44bd9905753dd56faf682336ba75ef247818df7d6ba3774c7ac50fdfc4fe
 
 Original file: `AUDIT.json`; 503127 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MTP_CODING_TRADEOFF_CONFIRMED_NATIVE_TOOLS_STABILITY_PENDING",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 503127 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -53,3 +59,5 @@ Original file: `AUDIT.json`; 503127 bytes. The original is retained privately an
   }
 }
 ```
+
+</details>

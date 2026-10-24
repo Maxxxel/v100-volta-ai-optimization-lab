@@ -4,6 +4,8 @@ Original SHA256: `e81c5a2b17132ab84d5e4ab198acaead97982fe6b579b1439c87d016149502
 
 Original file: `AUDIT.json`; 831475 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "RETAIN_T06_SAMPLING_SCOPE_AND_TEMPERATURE_DRY_QUALITY_VETOES_NO_GREEDY_SPEEDUP_TRANSFER",
@@ -23,7 +25,11 @@ Original file: `AUDIT.json`; 831475 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -33,3 +39,5 @@ Original file: `AUDIT.json`; 831475 bytes. The original is retained privately an
   "primary_archives_checked": 10
 }
 ```
+
+</details>

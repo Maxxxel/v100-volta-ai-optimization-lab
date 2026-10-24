@@ -4,6 +4,8 @@ Original SHA256: `82f3d7c217bf9fc6f74c9ba4f448a3442f07367b55093719f6ce6a29080a6b
 
 Original file: `AUDIT.json`; 1613 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "NATIVE_KV_PREFETCH_COMPONENT_GATE_FAILED_NO_MODEL_ADMISSION",
@@ -19,7 +21,11 @@ Original file: `AUDIT.json`; 1613 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -39,3 +45,5 @@ Original file: `AUDIT.json`; 1613 bytes. The original is retained privately and 
   "peak_device_vram_mib": 550.5
 }
 ```
+
+</details>

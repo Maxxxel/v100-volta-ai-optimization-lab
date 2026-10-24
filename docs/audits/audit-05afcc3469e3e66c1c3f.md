@@ -4,6 +4,8 @@ Original SHA256: `05afcc3469e3e66c1c3f13dfae7d0703ad60438ab5fa48efe29ab25a3f7ec9
 
 Original file: `research-metadata.json`; 24573 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "OFFLINE_NUQ4_ERROR_PROXY_PASS_COMPATIBLE_KERNEL_CACHE_AND_MODEL_QUALITY_PENDING",
@@ -22,7 +24,11 @@ Original file: `research-metadata.json`; 24573 bytes. The original is retained p
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -296,3 +302,5 @@ Original file: `research-metadata.json`; 24573 bytes. The original is retained p
   "model_starts": 0
 }
 ```
+
+</details>

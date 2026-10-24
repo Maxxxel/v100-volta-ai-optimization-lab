@@ -4,6 +4,8 @@ Original SHA256: `42d5d51be97f1a10cc296bfca08a113ce846dbce2be595a6fd75d2b6ddb806
 
 Original file: `AUDIT.json`; 5600 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "E02_NATIVE_AUTO_TOOL_PILOT_DIFFERENCE_OR_TECHNICAL_STOP",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 5600 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -26,3 +32,5 @@ Original file: `AUDIT.json`; 5600 bytes. The original is retained privately and 
   "model_starts": 1
 }
 ```
+
+</details>

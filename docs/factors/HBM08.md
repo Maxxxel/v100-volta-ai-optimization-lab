@@ -51,6 +51,8 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 
 ### Recorded model-specific variant coverage
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 [
   {
@@ -155,6 +157,8 @@ Relevanter OmniCoder2-/SM70-Modell- oder numerischer Komponentenpfad; kein Bewei
 ]
 ```
 
+</details>
+
 Historical states and window signatures are evidence links, not qualification of every model/variant.
 
 ## Available results
@@ -164,6 +168,8 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 
 ### Variant f16_f16
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 [
   {
@@ -338,9 +344,13 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
   }
 ]
 ```
+
+</details>
 
 ### Variant q8_0_q8_0
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 [
   {
@@ -400,7 +410,11 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 ]
 ```
 
+</details>
+
 ### Variant q8_0_q4_0
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 [
@@ -465,7 +479,11 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
 ]
 ```
 
+</details>
+
 ### Variant q4_0_q4_0
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 [
@@ -529,6 +547,8 @@ Values, baseline/candidate comparisons, model/engine identity and limits are in 
   }
 ]
 ```
+
+</details>
 
 ## Decision and remaining research
 

@@ -4,6 +4,8 @@ Original SHA256: `9fae38fc11d0b1751fe9274ba3beff7ca34d79fa779cb439d617a5cbbc7d4c
 
 Original file: `AUDIT.json`; 4277 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "FORWARD_FIRST_MLP_INPUT_FIDELITY_PASS_NOT_AWQ_QUALIFICATION",
@@ -21,7 +23,11 @@ Original file: `AUDIT.json`; 4277 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -128,3 +134,5 @@ Original file: `AUDIT.json`; 4277 bytes. The original is retained privately and 
   "peak_device_vram_mib": 7412.5
 }
 ```
+
+</details>

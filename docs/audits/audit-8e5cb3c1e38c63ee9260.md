@@ -4,6 +4,8 @@ Original SHA256: `8e5cb3c1e38c63ee92608ec958bca8b6d25f9c1ae9e92942da7a351960fecb
 
 Original file: `AUDIT.json`; 5696 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "GRAFT_225W_AGENT_ENERGY_SCREEN_PASSED_NEEDS_INDEPENDENT_STABILITY",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 5696 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -89,3 +95,5 @@ Original file: `AUDIT.json`; 5696 bytes. The original is retained privately and 
   "solved": 13
 }
 ```
+
+</details>

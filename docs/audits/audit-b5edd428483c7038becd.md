@@ -4,6 +4,8 @@ Original SHA256: `b5edd428483c7038becdd10ace30c4e01f8066c427c473dcb7f49424c42a0b
 
 Original file: `research-metadata.json`; 7170 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "limitations": [
@@ -17,7 +19,11 @@ Original file: `research-metadata.json`; 7170 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -85,3 +91,5 @@ Original file: `research-metadata.json`; 7170 bytes. The original is retained pr
   "peak_device_vram_mib": 7356.5
 }
 ```
+
+</details>

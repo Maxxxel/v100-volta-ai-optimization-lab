@@ -4,6 +4,8 @@ Original SHA256: `be78ded0938b2be399c8896a4ebf407c11804504137c22b9635932ced7f1df
 
 Original file: `AUDIT.json`; 2640 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "H08_NO_PRACTICAL_PREFAULT_INCLUSIVE_WORKFLOW_WIN_OR_QUALITY_LOSS",
@@ -19,7 +21,11 @@ Original file: `AUDIT.json`; 2640 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -47,3 +53,5 @@ Original file: `AUDIT.json`; 2640 bytes. The original is retained privately and 
   "model_starts": 2
 }
 ```
+
+</details>

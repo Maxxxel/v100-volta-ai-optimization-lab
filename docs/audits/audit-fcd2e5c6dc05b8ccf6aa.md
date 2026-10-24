@@ -4,6 +4,8 @@ Original SHA256: `fcd2e5c6dc05b8ccf6aaadf06daaf16c14259943d18e65f7287a341307fbf0
 
 Original file: `AUDIT.json`; 2411 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "ARTIFACT_PINNED_FULL_SHA_VERIFIED_NO_GPU_QUALIFICATION",
@@ -12,7 +14,11 @@ Original file: `AUDIT.json`; 2411 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -20,3 +26,5 @@ Original file: `AUDIT.json`; 2411 bytes. The original is retained privately and 
   "actual_generation_requests": 0
 }
 ```
+
+</details>

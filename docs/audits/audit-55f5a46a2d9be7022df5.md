@@ -4,6 +4,8 @@ Original SHA256: `55f5a46a2d9be7022df5d2236c1674f08cdb5a9c6f6f232d0eaaff187bacff
 
 Original file: `AUDIT.json`; 88866 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "BREADTH_EVIDENCE_AND_ALL355_NAMED_CELL_SCOPE_RECORDS_RECONCILED_NO_ALL_TESTED_OR_PHASE_EXIT_CLAIM",
@@ -19,7 +21,11 @@ Original file: `AUDIT.json`; 88866 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -33,3 +39,5 @@ Original file: `AUDIT.json`; 88866 bytes. The original is retained privately and
   "scientific_status_changes": 0
 }
 ```
+
+</details>

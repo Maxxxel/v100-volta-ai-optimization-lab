@@ -4,6 +4,8 @@ Original SHA256: `62ba042a766f67beec9f82c2f79670de8cb502327db658ea8602e2feb9c09e
 
 Original file: `AUDIT.json`; 94714 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "OMNICODER2_EXTERNAL_MTP_AGENT_THROUGHPUT_WINNER_QUALIFIED",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 94714 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -144,3 +150,5 @@ Original file: `AUDIT.json`; 94714 bytes. The original is retained privately and
   "unique_quality_tasks": 18
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `0968af3757c6e547ffcf299401f81c1974b23c161fa27c73a6d56ffef0b4f1
 
 Original file: `AUDIT.json`; 6558 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "OXCODER_NATIVE_ADMISSION_GATE_NOT_PASSED",
@@ -19,7 +21,11 @@ Original file: `AUDIT.json`; 6558 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -41,3 +47,5 @@ Original file: `AUDIT.json`; 6558 bytes. The original is retained privately and 
   "unique_QA_cases": 5
 }
 ```
+
+</details>

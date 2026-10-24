@@ -4,6 +4,8 @@ Original SHA256: `3e4c5d441486d25b1ecd73f77476a064c92c49440a55d060381b3b6a955b6a
 
 Original file: `AUDIT.json`; 10207 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "R192_A04_SIMULATED_GATE_SCOPE_PASSED_NOT_DEPLOYED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 10207 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -26,3 +32,5 @@ Original file: `AUDIT.json`; 10207 bytes. The original is retained privately and
   "source_cases": 24
 }
 ```
+
+</details>

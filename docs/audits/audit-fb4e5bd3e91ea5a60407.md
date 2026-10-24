@@ -4,6 +4,8 @@ Original SHA256: `fb4e5bd3e91ea5a604077d762fdb33acc10c4e31485ac06dc795d78cda36dd
 
 Original file: `AUDIT.json`; 2402 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "EFFECTIVE_SIZE_COMPRESSION_ADMITTED_FOR_ONE_OBJECT_NO_GPU_OR_FULL_BACKEND_BENEFIT",
@@ -19,7 +21,11 @@ Original file: `AUDIT.json`; 2402 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 2402 bytes. The original is retained privately and 
   "original_inputs_preserved": true
 }
 ```
+
+</details>

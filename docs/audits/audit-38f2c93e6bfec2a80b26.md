@@ -4,6 +4,8 @@ Original SHA256: `38f2c93e6bfec2a80b264350b7f2d3c1909be3798c0ccdbee1306311050007
 
 Original file: `AUDIT.json`; 11490 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MBPP32_MTP_SCREEN_QUALITY_OR_PRACTICAL_GAIN_GATE_NOT_MET",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 11490 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 11490 bytes. The original is retained privately and
   "wall_s": 49.011552342
 }
 ```
+
+</details>

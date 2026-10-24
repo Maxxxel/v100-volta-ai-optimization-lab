@@ -4,6 +4,8 @@ Original SHA256: `fae4b1903a527efdd0b8cce27be9692f2edd11e7f361057382e33d0d210975
 
 Original file: `AUDIT.json`; 1555 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MEAN_CENTERED_Q4_SCREEN_FAILED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 1555 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -29,3 +35,5 @@ Original file: `AUDIT.json`; 1555 bytes. The original is retained privately and 
   "requests": 12
 }
 ```
+
+</details>

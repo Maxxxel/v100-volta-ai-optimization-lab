@@ -5,6 +5,8 @@ Original sources are cited rather than republished. Source revisions refer to th
 
 ## VOLTA_GUIDE
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "axes": [
@@ -31,7 +33,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## VOLTA_MICROARCH
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -78,7 +84,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## ARCHWIKI
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -98,7 +108,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## BANDWIDTH_BLOG
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -120,7 +134,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## HBM_POWER
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -171,7 +189,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## REDDIT_LEAD
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -193,7 +215,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## VLLM_REPORT
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -219,7 +245,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## VLLM_IMPLEMENTATION
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -250,7 +280,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## CUDA128_QUEUE_CAPACITY
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -271,7 +305,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## WOLFRAM77_VOLTA_NOTES
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -298,7 +336,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## NVIDIA_VOLTA_WHITEPAPER
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -323,7 +365,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## CUDA128_PINNED_MEMORY
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -347,7 +393,11 @@ Original sources are cited rather than republished. Source revisions refer to th
 }
 ```
 
+</details>
+
 ## CUDA128_CUPTI_KERNEL_FIELDS
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -370,6 +420,8 @@ Original sources are cited rather than republished. Source revisions refer to th
   "url": "https://docs.nvidia.com/cupti/12.8.1/api/structCUpti__ActivityKernel9.html"
 }
 ```
+
+</details>
 
 ## Factor-specific bibliography
 

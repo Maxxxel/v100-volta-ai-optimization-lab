@@ -4,6 +4,8 @@ Original SHA256: `0edbd5fafe7bd6f078a72af7e33a8f1dd3f1fc4e831b51f39d749c7f8d159b
 
 Original file: `AUDIT.json`; 11417 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "GRAFT_225W_INDEPENDENT_STABILITY_PASSED_POSTCONTROL_PENDING",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 11417 bytes. The original is retained privately and
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -27,3 +33,5 @@ Original file: `AUDIT.json`; 11417 bytes. The original is retained privately and
   "peak_device_vram_mib": 7966.5
 }
 ```
+
+</details>

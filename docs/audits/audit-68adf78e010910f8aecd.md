@@ -4,6 +4,8 @@ Original SHA256: `68adf78e010910f8aecdd99a6c3e2d3b707c876021794d815d014132fb1a33
 
 Original file: `AUDIT.json`; 215504 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "RETAIN_QUALIFIED_POWER_CACHE_PROFILES_BIND_TASK_ENERGY_AND_CANDIDATE_IDENTITIES_NO_NEW_SWEEP",
@@ -21,7 +23,11 @@ Original file: `AUDIT.json`; 215504 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -29,3 +35,5 @@ Original file: `AUDIT.json`; 215504 bytes. The original is retained privately an
   "new_GPU_runs": 0
 }
 ```
+
+</details>

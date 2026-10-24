@@ -4,6 +4,8 @@ Original SHA256: `1e481b9ad01b4b62af2188084d18fbdb74e9314be9c8f420351627f726bfd6
 
 Original file: `AUDIT.json`; 3576 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "MTP_GRAFT_SCREEN_SURVIVES_NEEDS_INDEPENDENT_PRACTICAL_QUALIFICATION",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 3576 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -118,3 +124,5 @@ Original file: `AUDIT.json`; 3576 bytes. The original is retained privately and 
   "requests": 28
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `2da70f9a1f9f3bf94e45e80377f5c80da0434637f2e50349227cf150e5a8f8
 
 Original file: `AUDIT.json`; 4445 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "SEMANTIC_DISK_RESTORE_QA12_SCREEN_PASSED_NOT_INDEPENDENTLY_QUALIFIED",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 4445 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -33,3 +39,5 @@ Original file: `AUDIT.json`; 4445 bytes. The original is retained privately and 
   }
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `89b244b35fdb3b8b755e00b6769eb340e8ee54fa2f4018cc9cd7244d49291e
 
 Original file: `research-metadata.json`; 5001 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "DEFERRED_CURRENT_ENGINE_BLOCK_TABLE_OPERATOR_AND_HYBRID_LIFECYCLE_PORT",
@@ -17,7 +19,11 @@ Original file: `research-metadata.json`; 5001 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -26,3 +32,5 @@ Original file: `research-metadata.json`; 5001 bytes. The original is retained pr
   "new_GPU_runs": 0
 }
 ```
+
+</details>

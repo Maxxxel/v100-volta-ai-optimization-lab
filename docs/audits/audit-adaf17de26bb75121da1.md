@@ -4,6 +4,8 @@ Original SHA256: `adaf17de26bb75121da159b04123bacbf5498d6b4b63d5a6cbaa95bfebe407
 
 Original file: `AUDIT.json`; 12529 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "SAMPLED_Q6_PROJECTION_NUMERICALLY_QUALIFIED",
@@ -16,6 +18,8 @@ Original file: `AUDIT.json`; 12529 bytes. The original is retained privately and
   ]
 }
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

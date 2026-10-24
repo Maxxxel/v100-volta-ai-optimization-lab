@@ -43,6 +43,8 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ## Existing OmniCoder2 / Qwen / challenger measurements
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "model_comparison_progress": {
@@ -182,10 +184,14 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ## Candidate admission records
 
 
 ### BMC01 — Ornith 1.5 9B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -242,7 +248,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC04 — Ternary Bonsai 2 27B PQ2_0/PTQ1_0
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -264,7 +274,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC03 — MiMo V2.6 Distill Qwen 9B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -295,7 +309,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC02 — OxCoder 9B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -313,7 +331,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC06 — LFM2.5 8B A1B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -354,7 +376,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC07 — Gemma 4 12B IT QAT
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -389,7 +415,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC08 — Qwen3.6 27B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -445,7 +475,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC05 — LFM2.5 24B A2B QAD
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -489,7 +523,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC10 — LightOnOCR 3 4B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -507,7 +545,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC09 — UI-Venus 1.5 8B / Holo2 8B
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -525,7 +567,11 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 }
 ```
 
+</details>
+
 ### BMC11 — Qwen3.8 Flash-MTP-Derivat
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -542,6 +588,8 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
   "status": "offen"
 }
 ```
+
+</details>
 
 ## Stage semantics
 

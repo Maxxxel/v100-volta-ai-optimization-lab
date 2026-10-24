@@ -4,6 +4,8 @@ Original SHA256: `aa3173b6909f83dad10b03f610b12edb4809310f2cd7da4a099dde8497360d
 
 Original file: `AUDIT.json`; 236283 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "INDEPENDENT_200W_AGENT_STABILITY_PASSED_NEEDS_POSTCONTROL",
@@ -17,7 +19,11 @@ Original file: `AUDIT.json`; 236283 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -144,3 +150,5 @@ Original file: `AUDIT.json`; 236283 bytes. The original is retained privately an
   "unique_quality_tasks": 18
 }
 ```
+
+</details>

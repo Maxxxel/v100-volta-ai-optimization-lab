@@ -28,9 +28,13 @@ Bonsai PQ2 CUDA-/CPU-Komponente lokal gemessen; PTQ1-Gegenvergleich und Omni-Tra
 
 ### Recorded model-specific variant coverage
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 []
 ```
+
+</details>
 
 Historical states and window signatures are evidence links, not qualification of every model/variant.
 

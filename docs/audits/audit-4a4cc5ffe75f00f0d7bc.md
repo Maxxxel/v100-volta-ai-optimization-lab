@@ -4,6 +4,8 @@ Original SHA256: `4a4cc5ffe75f00f0d7bc715898a90b1945ae4bb2f907d9359c010cad7f7554
 
 Original file: `AUDIT.json`; 2702 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "STATE_COMPONENT_FAILURE_NO_MODEL_ADMISSION",
@@ -20,7 +22,11 @@ Original file: `AUDIT.json`; 2702 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -34,3 +40,5 @@ Original file: `AUDIT.json`; 2702 bytes. The original is retained privately and 
   "peak_device_vram_mib": 239.875
 }
 ```
+
+</details>

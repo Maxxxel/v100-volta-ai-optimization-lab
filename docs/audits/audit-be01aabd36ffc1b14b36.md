@@ -4,6 +4,8 @@ Original SHA256: `be01aabd36ffc1b14b36643715cb2e25b0d8d08e07b4313e2b876c82437022
 
 Original file: `INDEPENDENT_REVIEW.json`; 5034 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "interpretation": "Primary18logicaloperations with3at-least-once deliveries each; fault-recovery and separate-session tests intentionally add36otherlogicaloperations. Do not compare total54candidateeffects to the primary18 alone.",
@@ -16,7 +18,11 @@ Original file: `INDEPENDENT_REVIEW.json`; 5034 bytes. The original is retained p
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -24,3 +30,5 @@ Original file: `INDEPENDENT_REVIEW.json`; 5034 bytes. The original is retained p
   "source_cases": 24
 }
 ```
+
+</details>

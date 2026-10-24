@@ -4,6 +4,8 @@ Original SHA256: `5c12c2ecf298df008b8b238d1958e71fec1e4ee18a61c87ec7bff397577193
 
 Original file: `AUDIT.json`; 3972 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "WEIGHTEDV_FP32_NUMERICAL_SCREEN_FAILED_NO_MODEL_ADMISSION",
@@ -20,7 +22,11 @@ Original file: `AUDIT.json`; 3972 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -74,3 +80,5 @@ Original file: `AUDIT.json`; 3972 bytes. The original is retained privately and 
   }
 }
 ```
+
+</details>

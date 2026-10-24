@@ -4,6 +4,8 @@ Original SHA256: `1cb6bc76806bd1de7c63a02007e4c4745adb1036a9c98452f1a553e12b293e
 
 Original file: `research-metadata.json`; 5769 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "DEFERRED_NO_ADMITTED_BEYOND_NATIVE_SCALING_WORKLOAD_AND_CURRENT_F16_2X_EXCEEDS_BUDGET",
@@ -18,7 +20,11 @@ Original file: `research-metadata.json`; 5769 bytes. The original is retained pr
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -27,3 +33,5 @@ Original file: `research-metadata.json`; 5769 bytes. The original is retained pr
   "new_GPU_runs": 0
 }
 ```
+
+</details>

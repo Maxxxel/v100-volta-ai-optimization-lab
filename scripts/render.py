@@ -4,7 +4,9 @@ import hashlib,json,pathlib,re,html
 P=pathlib.Path(__file__).resolve().parents[1];D=P/'docs'
 def read(n):return json.loads((P/'data'/n).read_text())
 def put(n,s):
- p=D/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(s.rstrip()+'\n')
+ p=D/n;p.parent.mkdir(parents=True,exist_ok=True)
+ s=re.sub(r'(?ms)^```json\n.*?^```[ \t]*(?:\n|$)',lambda m:'<details class="lab-evidence"><summary>Structured evidence</summary>\n\n'+m.group(0)+'\n</details>\n',s)
+ p.write_text(s.rstrip()+'\n')
 def pretty(x):return '```json\n'+json.dumps(x,ensure_ascii=False,indent=2)+'\n```\n'
 def esc(x):return str(x if x is not None else 'NOT MEASURED / not recorded').replace('|','\\|').replace('\n',' ')
 def table(headers,rows):return '| '+' | '.join(headers)+' |\n|'+'|'.join(['---']*len(headers))+'|\n'+''.join('| '+' | '.join(esc(x) for x in row)+' |\n' for row in rows)+'\n'
@@ -132,62 +134,61 @@ def rationale(f):
 
 def main():
  s=read('snapshot.json');fs=read('factors.json');es=read('experiments.json');audits={x['id']:x for x in read('audit-excerpts.json')};profiles=read('profiles.json');refs={x['id']:x for x in read('references.json')};models=read('models.json');counts=s['counts']
+ history=read('configuration-history.json');register=read('benchmark-register.json')
+ categories=[('Coding','humanevalplus-v0.1.10',164),('Tools','bfcl-v4-parallel-multiple-full200',200),('Agents','terminal-bench-2.1',89)]
+ cards=[]
+ for label,bid,n in categories:
+  runs=[r for r in history['runs'] if r['benchmark_id']==bid and r['official_eligible'] is True and r['tasks']==n and r['status']!='PARTIAL']
+  latest=max(runs,key=lambda r:int(r['experiment_id'][1:])) if runs else None
+  if latest:
+   score=f"{latest['solved']}/{latest['tasks']}";name=latest['model_name'];target='configuration-profiles/'+latest['runtime_configuration_id']+'/';note='Latest complete result · '+latest['experiment_id']
+  else:score='Not measured';name='Evaluator admission pending';target='configuration-comparison/';note='No local score claimed'
+  cards.append(f'<a class="lab-result" href="{target}"><span>{label}</span><strong>{score}</strong><b>{html.escape(name)}</b><small>{note}</small></a>')
+ status_html=''.join('<span><strong>'+str(counts['scientific_status'].get(k,0))+'</strong> '+label+'</span>' for k,label in [('QUALIFIED','Qualified'),('TESTED_NEGATIVE','Negative'),('PARTIAL','Partial'),('OPEN','Open'),('DEFERRED','Deferred'),('NOT_APPLICABLE','Not applicable')])
  overview=f'''# V100 Volta AI Optimization Lab
 
-<div class="hero"><strong>One Volta GPU. Reproducible evidence. Useful local AI.</strong><p>Independent community research into inference performance, agent reliability and energy efficiency on a single NVIDIA Tesla V100-SXM2 with 16 GB HBM2.</p></div>
+<p class="lab-eyebrow">Independent research · NVIDIA Volta / SM70</p>
+<p class="lab-lead">Better local AI on one Tesla V100-SXM2 with 16 GB HBM2. We measure model quality, useful speed and GPU energy — with reproducible configurations and retained negative results.</p>
 
-This project is not affiliated with or endorsed by NVIDIA, Ollama, engine developers or model publishers. Research is ongoing; there is no final universal model winner or automatic production deployment.
+<div class="lab-actions"><a class="lab-button lab-primary" href="configuration-comparison/">Compare models</a><a class="lab-button" href="archive/">Explore the research</a></div>
 
-## Evidence snapshot
+<div class="lab-kpis"><div><strong>162</strong><span>Research factors</span><small>130 original + 32 techniques</small></div><div><strong>{counts['experimentally_covered']}</strong><span>Experimentally covered</span><small>Factors, not GPU run count</small></div><div><strong>{counts['scientific_status']['QUALIFIED']}</strong><span>Qualified factor scopes</span><small>Workload-specific evidence</small></div><div><strong>16 GB</strong><span>HBM2 on one V100</span><small>One GPU benchmark at a time</small></div></div>
 
-Matrix revision **{s['matrix_revision']}**, canonical assessment date **{s['source_date']}**.
+## Model comparison
 
-{table(['Original axes','Additional techniques','Experimentally covered','Qualified factor scopes','Model challengers'],[[130,32,counts['experimentally_covered'],counts['scientific_status']['QUALIFIED'],11]])}
+<div class="lab-results">{''.join(cards)}</div>
 
-These are different units: **{counts['sprint_records']} sprint records**, **{counts['signed_windows']} historical signed windows**, **{counts['ledger_events']} ledger events**, **{counts['reference_records']} immutable reference records**, **{counts['qualified_profile_pointers']} current profile champions**. None is a total count of independent GPU experiments.
+Latest complete category measurements, not a ranking. [All configurations, costs and audits](configuration-comparison.md).
 
-## Hardware and software
+## Optimization findings
 
-- One Tesla V100-SXM2, 16 GB HBM2; Volta compute capability 7.0 (SM70).
-- Research host with an isolated Linux container; serialized device access and a local GPU admission broker.
-- CUDA 12.8 llama.cpp/GGUF baseline; driver branch 580.178.04. Engine and weight hashes are recorded per profile.
-- FP16 Tensor Cores are available; native BF16/FP8 Tensor Cores, cp.async and TMA are not assumed.
-- Context, KV/state precision, graph capture and cache capacity all consume the same limited device memory.
-- Temperature is recorded as telemetry. ECC, memory, hardware temperature and restore guards remain mandatory.
+<div class="lab-links"><a href="configurations/"><strong>Prefix reuse</strong><span>Lower latency with repeated context; not a universal decode gain.</span></a><a href="configurations/"><strong>HBM conversion cache</strong><span>Qualified prefill profiles with additional VRAM cost.</span></a><a href="configurations/"><strong>Energy profiles</strong><span>Measured trade-offs between task latency, memory and GPU joules.</span></a></div>
 
-```mermaid
-flowchart LR
-    A[Canonical local audits] --> B[Allowlisted metadata projection]
-    B --> C[Confidentiality and consistency checks]
-    C --> D[Public data and documentation]
-    D --> E[Static GitHub Pages]
-    A --> F[Immutable A0 and scoped Champions]
-```
+## Research progress
 
-## What has helped, and where
+<div class="lab-status">{status_html}</div>
 
-- HBM07 conversion-cache work: qualified prompt-evaluation profiles; extra VRAM and largely unchanged decode.
-- MTP: scoped coding, native tool and agent profiles. Target decisions and hybrid state correctness remain explicit gates.
-- Agent throughput and energy: separate qualified profiles with different latency, energy and memory trade-offs.
-- Low-VRAM and long-context profiles: preserve their exact task and numerical limits; a fast prefill screen is not general agent qualification.
+Reviewed, experimentally covered and qualified are separate stages. [Matrix and evidence](matrix.md) · [Open questions](questions.md).
 
-See [Qualified configurations](configurations.md), [Rejected optimizations](rejected.md), [Model Comparison & Benchmarks](configuration-comparison.md), [model evidence](models.md) and the full [Optimization matrix](matrix.md).
+<details><summary>Snapshot and methodology</summary>
 
-## How to read the evidence
+Revision **{s['matrix_revision']}** · {s['source_date'][:10]}. {counts['sprint_records']} sprint records, {counts['reference_records']} immutable references and {counts['qualified_profile_pointers']} scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
-**LOKAL GEMESSEN / LOCAL MEASUREMENT** means an original hardware measurement exists in the stated scope. **EXTERN BELEGT / EXTERNAL EVIDENCE** means a public source supports an implementation or result. **NICHT VERIFIZIERT / UNVERIFIED** marks a hypothesis or missing local proof. Static source review and independent qualification are separate stages.
+Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](methodology.md) · [Hardware](hardware.md) · [Reproduce](reproduce.md).
 
-Numerical values are exported without invented missing measurements. Original rationale excerpts may remain in German. Public audit excerpts are intentionally incomplete and have different bytes from the original audits whose hashes they cite.
+</details>
+
+Independent community project; no affiliation with NVIDIA, Ollama or model publishers. Local measurements, external evidence and unverified hypotheses remain distinct. No universal winner is claimed.
 '''
- overview+='\n[Open the interactive Benchmark Master Table](configuration-comparison.md): exact configurations, versioned benchmarks, selectable columns, user-defined averages and audit-linked evidence.\n'
  put('index.md',overview)
- readme=overview.replace('(configuration-comparison.md)','(docs/configuration-comparison.md)').replace('(benchmarks.md)','(docs/benchmarks.md)').replace('(configurations.md)','(docs/configurations.md)').replace('(rejected.md)','(docs/rejected.md)').replace('(models.md)','(docs/models.md)').replace('(matrix.md)','(docs/matrix.md)')+'\n## Documentation and collaboration\n\nBuild the static website with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. See [reproduction](docs/reproduce.md), [contribution guide](CONTRIBUTING.md), [publication policy](docs/publication.md) and [German overview](docs/de.md). Documentation publishing never launches a GPU job.\n'
- readme=readme.replace('(configuration-comparison.md)','(docs/configuration-comparison.md)')
+ readme=re.sub(r'href="([^":]+)"',lambda m:'href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/'+m.group(1)+'"',overview)
+ readme=re.sub(r'\]\(([^):]+\.md)\)',lambda m:'](docs/'+m.group(1)+')',readme)
+ readme+='\n## Documentation and collaboration\n\nBuild with `pip install -r requirements-docs.txt` and `mkdocs build --strict`. [Contribute](CONTRIBUTING.md) · [Reproduce](docs/reproduce.md) · [German overview](docs/de.md). Publishing never launches a GPU job.\n'
  (P/'README.md').write_text(readme)
- put('hardware.md','# Overview & hardware\n\n'+overview.split('## Hardware and software')[1].split('## What has helped')[0]+'\nCompiler version, CMake-discovered toolkit and loaded runtime are separate identities. R356 found that a compression-mode cache setting was ineffective because a discovered-toolkit version gate omitted the NVCC option; no baseline was changed.\n')
+ put('hardware.md','# Hardware & scope\n\nOne NVIDIA Tesla V100-SXM2 ·16 GB HBM2 ·Volta SM70. Serialized local inference with recorded model, engine and kernel identities.\n\n- CUDA12.8 compiler baseline; driver580.178.04 recorded per run. Compiler, toolkit and loaded runtime identities remain distinct.\n- FP16 Tensor Cores; native BF16/FP8 Tensor Cores, cp.async and TMA are not assumed.\n- Attention KV, recurrent state, graphs and caches share the device memory budget.\n- Temperature is telemetry; existing ECC, VRAM, power, thermal and restore guards remain mandatory.\n\n[Reproduce](reproduce.md) · [Safety and admission](broker-admission.md)\n')
  put('methodology.md','''# Research methodology
 
-Golden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. Balanced sequences are used when drift or small differences justify them.
+**Current task budget:1,200 seconds total per benchmark**, shared across all parts without resets. Startup, wrapper, cleanup and CPU evaluation limits are separate. Older900-second experiments keep their historical conditions.\n\nGolden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. Balanced sequences are used when drift or small differences justify them.
 
 Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. Reject on quality or correctness loss regardless of synthetic speed. Keep failures, incomplete screens and outliers under their original rules.
 
@@ -201,7 +202,7 @@ The original twelve quality tasks remain unchanged. HumanEvalPlus uses joint bas
 
 Official percentage admission must match the recorded numerator and denominator. A complete BFCL v4 Simple Python category uses its own AST-accuracy metric over all 400 unique official tasks; it is separate from the BFCL overall leaderboard and the historical static100 pilot. The metric adapter alone admits no model result: pinned scorer/configuration identities, complete coverage, controls and independent audit evidence are still mandatory. Missing results remain NOT MEASURED.
 
-Native broker campaigns use their frozen data contracts and captured launch/profile receipts; no preflight plan is invented retrospectively. Full coding result export verifies all 164 unique tasks, every bounded part and scorer output, unchanged model/runtime configuration, and measured task costs. A complete local result still requires a separate official-API qualification before entering the official local highscore view. Partial campaigns retain actually scored task subsets in the same table, with their original denominators and PARTIAL status. Unfinished or uncollected tasks are not zero; no full-suite official admission is implied.
+Native broker campaigns use their frozen data contracts and captured launch/profile receipts; no preflight plan is invented retrospectively. Full coding result export verifies all 164 unique tasks, every bounded part and scorer output, unchanged model/runtime configuration, and measured task costs. A complete local result still requires a separate official-API qualification before entering the official local highscore view. Partial campaigns retain actually scored task subsets in the research archive, with their original denominators and PARTIAL status; the central comparison admits only complete qualified category results. Unfinished or uncollected tasks are not zero; no full-suite official admission is implied.
 
 ## Status semantics
 
@@ -229,6 +230,14 @@ Native broker campaigns use their frozen data contracts and captured launch/prof
  put('matrix.md','# Optimization matrix\n\n130 original factors plus 32 additional technique subcases; model candidates, research sources and signed test windows are separate inventories. Each row links to theory, evidence, variants, decisions and reopening conditions.\n\n'+table(['ID','Technique','Status','Experimentally covered','Priority'],rows))
  for aid,a in audits.items():
   put('audits/'+aid+'.md','# Public audit excerpt\n\nOriginal SHA256: `'+a['original_sha256']+'`\n\nOriginal file: `'+a['original_filename']+'`; '+str(a['original_bytes'])+' bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.\n\n'+pretty(a['statements'])+'\n## Selected aggregate measurements\n\n'+(pretty(a['aggregate_metrics']) if a['aggregate_metrics'] else 'NOT MEASURED / not included in the approved public schema.\n'))
+ put('archive.md','''# Research archive
+
+All original experiments, failures, configurations and audit identities remain available. Structured evidence opens on demand.
+
+<div class="lab-links"><a href="../matrix/"><strong>Optimization matrix</strong><span>130 original factors +32 research techniques; scope, status and next questions.</span></a><a href="../results/"><strong>Experiment history</strong><span>Measured results, partial runs and original audit references.</span></a><a href="../configurations/"><strong>Qualified configurations</strong><span>Scoped winners with performance, quality and memory limits.</span></a><a href="../rejected/"><strong>Negative results</strong><span>What failed, why, and what could justify revisiting it.</span></a><a href="../configuration-archive/"><strong>Configuration history</strong><span>All profiles, historical subsets and attempts outside the complete-only comparison.</span></a><a href="../sources/"><strong>Papers and sources</strong><span>Pinned publications, implementations and evidence classifications.</span></a></div>
+
+[Model research](models.md) · [OmniCoder derivatives](omnicoder-derivatives.md) · [Weight identity](weight-integrity-same-quantizer.md) · [Compatibility](compatibility.md) · [Open questions](questions.md) · [Roadmap](roadmap.md)
+''')
  erows=[]
  registered_runs=read('configuration-history.json')['runs']
  for e in es:

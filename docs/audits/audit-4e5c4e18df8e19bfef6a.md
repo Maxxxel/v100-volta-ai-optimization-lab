@@ -4,6 +4,8 @@ Original SHA256: `4e5c4e18df8e19bfef6af51dd2eb65c24960292285d402b9fe9896a35f1d6a
 
 Original file: `AUDIT.json`; 1374 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "evidence_class": "LOKAL_GEMESSEN",
@@ -15,6 +17,8 @@ Original file: `AUDIT.json`; 1374 bytes. The original is retained privately and 
   "scope": "16 fresh native tool routing cases: OpenAI buffered JSON vs SSE, one server and same tokenized prompts"
 }
 ```
+
+</details>
 
 ## Selected aggregate measurements
 

@@ -6,6 +6,8 @@ Read-only investigation of [issue12](https://github.com/Maxxxel/v100-volta-ai-op
 
 **Stopped at the user’s explicit request; no automatic resume.** 440 source tensors were compared before the stop; this is not a complete census. The user is selecting an alternative artifact. All partial evidence is retained. Earlier proposed GPU follow-ups below are historical plans, not scheduled work.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "at_utc": "2026-10-23T16:15:43.279028+00:00",
@@ -23,6 +25,8 @@ Read-only investigation of [issue12](https://github.com/Maxxxel/v100-volta-ai-op
 }
 ```
 
+</details>
+
 [audit-fc5929f0a91760a7a005](audits/audit-fc5929f0a91760a7a005.md)
 
 ## Confirmed observations
@@ -39,6 +43,8 @@ Original success remains 53/164. Empty-final requests consumed 75.24% of summed 
 
 ## Parser, template and scoring checks
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "assistant_history_requests": 0,
@@ -50,6 +56,8 @@ Original success remains 53/164. Empty-final requests consumed 75.24% of summed 
   "prompt_opens_think": 164
 }
 ```
+
+</details>
 
 The frozen template preopens thinking. The `deepseek` response mode separates reasoning into its own field. No unrecognised closing-tag variant or missing post-close final text is observed. The source meaning of `--no-reasoning-preserve` concerns retained assistant history; none of these requests contains prior assistant messages. This is not evidence that toggling that flag would fix the failures. The scorer correctly used final content under its declared answer contract; reasoning-only fenced code is not retroactively promoted to a valid answer.
 
@@ -67,6 +75,8 @@ OmniCoder2 and Qwen3.5 used preclosed thinking prompts, greedy temperature0 and 
 A [reported upstream tensor-identity concern](https://huggingface.co/OrionLLM/OxCoder-9B/discussions/3) was acknowledged by the maintainer as a possible export/checkpoint problem. That report is external evidence, not our completed independent tensor census. Our retrieved HF metadata shows that the currently published safetensors LFS object equals the original upload. No corrected weight payload is established by that history. The tested Q6 artifact matches its pinned quantizer identity, but exact conversion lineage to an upstream checkpoint is not supplied.
 
 The independent header inspection finds760 shared tensors and15 additional Qwen MTP tensors;48 shared tensors have different stored dtypes. Headers alone do not prove equal values. The source tensor-payload census is tracked separately and must not be prematurely labelled complete. All further OxCoder optimization proposals below are **on hold pending weight-identity review**, in addition to their separate GPU-approval and900-second requirements.
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -138,9 +148,13 @@ The independent header inspection finds760 shared tensors and15 additional Qwen 
 }
 ```
 
+</details>
+
 [audit-7469da0fdc13596f8c53](audits/audit-7469da0fdc13596f8c53.md)
 
 ## Frozen R448 profile
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -159,9 +173,13 @@ The independent header inspection finds760 shared tensors and15 additional Qwen 
 }
 ```
 
+</details>
+
 ## Proposed isolated follow-up — not executed
 
 **Separate GPU approval is required by issue12, as is trusted enforcement of the900-second budget for the entire paired trial.** No GPU experiment is authorized or started by this report. P0 changes only explicit thinking true versus false; P1 separately tests a genuine1024-token reasoning budget inside an unchanged4096 total output budget. Native-template switching and actual reasoning-budget support must be verified before execution. Four frozen development cases are proposed; no official HumanEval failures are selected for tuning. This screen cannot qualify a general benchmark winner.
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -272,6 +290,8 @@ The independent header inspection finds760 shared tensors and15 additional Qwen 
   "status": "PROPOSED_REQUIRES_SEPARATE_GPU_APPROVAL_AND_HARD_WHOLE_BENCHMARK_900S_ADMISSION"
 }
 ```
+
+</details>
 
 ## Evidence and remaining hypotheses
 

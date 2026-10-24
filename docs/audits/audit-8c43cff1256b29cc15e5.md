@@ -4,6 +4,8 @@ Original SHA256: `8c43cff1256b29cc15e5d0cbebee79deea0da4048749c5165d7370325a240d
 
 Original file: `AUDIT.json`; 200878 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "ACTIVE_MTP_PIPELINE_REQUIRED_FOR_OBSERVED_BRANCH_SHIFT",
@@ -17,10 +19,16 @@ Original file: `AUDIT.json`; 200878 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "actual_generation_requests": 32
 }
 ```
+
+</details>

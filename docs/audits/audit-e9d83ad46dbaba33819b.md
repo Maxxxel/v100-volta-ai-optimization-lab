@@ -4,6 +4,8 @@ Original SHA256: `e9d83ad46dbaba33819bc756999744fd5ef4903c781fc827a3fb19e2efdd30
 
 Original file: `AUDIT.json`; 864748 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "REFLECTION_SCREEN_QUALITY_OR_COST_GATE_NOT_PASSED",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 864748 bytes. The original is retained privately an
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -36,3 +42,5 @@ Original file: `AUDIT.json`; 864748 bytes. The original is retained privately an
   "wall_s": 77.504046832
 }
 ```
+
+</details>

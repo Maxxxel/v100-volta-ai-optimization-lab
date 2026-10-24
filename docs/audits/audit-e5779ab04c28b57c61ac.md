@@ -4,16 +4,24 @@ Original SHA256: `e5779ab04c28b57c61ac3fb792808b587172cca4b6e6f5fc858ea0e2deb820
 
 Original file: `research-metadata.json`; 12709 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "scope": "Complete400-task group only; power-integral coverage failed and remains null. Independent recomputation of reported counter timing brackets, not sensor accuracy or system/HBM-only energy. Different model profiles are not causal optimization A/B."
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
   "model_requests": 0
 }
 ```
+
+</details>

@@ -4,6 +4,8 @@ Original SHA256: `1ec559a9c15a5184cbd662027b9d17109607e8fe0ac01c83425beeffe28cfa
 
 Original file: `AUDIT.json`; 4254 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "BONSAI_MBPP8_NO_PRACTICAL_EXTENSION_GATE",
@@ -18,7 +20,11 @@ Original file: `AUDIT.json`; 4254 bytes. The original is retained privately and 
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -32,3 +38,5 @@ Original file: `AUDIT.json`; 4254 bytes. The original is retained privately and 
   "wall_s": 159.120588977
 }
 ```
+
+</details>

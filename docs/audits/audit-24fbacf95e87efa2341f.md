@@ -4,6 +4,8 @@ Original SHA256: `24fbacf95e87efa2341f5851c196f729c08155e4a47684a86f009478c2cc7b
 
 Original file: `research-metadata.json`; 17349 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "decision": "FRONTEND_NATIVE_100_QUALITY_FLOOR_FAILED_85_VS_88",
@@ -12,7 +14,11 @@ Original file: `research-metadata.json`; 17349 bytes. The original is retained p
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -28,3 +34,5 @@ Original file: `research-metadata.json`; 17349 bytes. The original is retained p
   "wall_s": 168.29762311
 }
 ```
+
+</details>

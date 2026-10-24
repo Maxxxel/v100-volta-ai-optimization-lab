@@ -4,13 +4,19 @@ Original SHA256: `29eaeda3530ae8805bf3a41853dddd69f68e272570f7526913e8bf6a3b8a4b
 
 Original file: `AUDIT.json`; 567 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
 
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
 ```json
 {
   "scope": "One bounded chunk of the same normal full164 benchmark; continue all remaining tasks regardless of this score."
 }
 ```
 
+</details>
+
 ## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
 
 ```json
 {
@@ -19,3 +25,5 @@ Original file: `AUDIT.json`; 567 bytes. The original is retained privately and i
   "tasks": 6
 }
 ```
+
+</details>
