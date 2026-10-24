@@ -173925,6 +173925,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-229c9dd173d11e0c8569",
+    "original_bytes": 4550,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "229c9dd173d11e0c856989a6f0f71fbc073c8f075bf204d17cdfd460cf7fbbc2",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native Opus fast9B Q6_K profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -254093,6 +254115,53 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5f08663d52fd83a2f4aa",
+    "original_bytes": 177960,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5f08663d52fd83a2f4aaf55d3c139f5558f42344336afc0c3207f62e3a523ca3",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0ae7bce4b4886c7221d2",
+    "original_bytes": 8491,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0ae7bce4b4886c7221d213fc9c3b2f50037a7acd7acd1451fa2b69ec27f2092c",
+    "statements": {
+      "scope": "Exactly200 complete original parallel_multiple requests and162 official AST successes. Includes unsuccessful answers/setup; excludes startup, warmups, CPU/system energy. Missing power-integral energy remains unknown. No interpolation, extrapolation, sensor-confidence or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 162,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3392069bc186adce7865",
+    "original_bytes": 10290,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3392069bc186adce786504e3556ea61b3e8699769b91e2d197e98ee95d24e300",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -255375,6 +255444,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "bd1d71efde6e2cdbf82cb15e34427dc9a43f7455f1f364c6bfa0c896d0f6adb9",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-7da6db43b996bfb67cb0",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7da6db43b996bfb67cb02d32683a6f17094dcd0810f251dc1dc6912a724a01cf",
     "statements": {}
   },
   {

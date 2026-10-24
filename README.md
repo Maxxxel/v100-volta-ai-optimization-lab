@@ -9,7 +9,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-f13e4e7609cb14c796219e155df1c036e56bbc0457fc2fb9295ee5c6c6442770/"><span>Coding</span><strong>131/164</strong><b>OmniCoder Opus Distill 9B</b><small>Latest complete result · R490</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b/"><span>Tools</span><strong>178/200</strong><b>Nexus 9B CodeCore Merge</b><small>Latest complete result · R489</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-f13e4e7609cb14c796219e155df1c036e56bbc0457fc2fb9295ee5c6c6442770/"><span>Coding</span><strong>131/164</strong><b>OmniCoder Opus Distill 9B</b><small>Latest complete result · R490</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-ff8aa24790daeddd0ca54e128d2f683cb96028060882da81ea694929fb5d3a0b/"><span>Tools</span><strong>162/200</strong><b>OmniCoder Opus Distill 9B</b><small>Latest complete result · R491</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](docs/configuration-comparison.md).
 
@@ -25,7 +25,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **429** · 2026-10-24. 409 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **430** · 2026-10-24. 410 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](docs/methodology.md) · [Hardware](docs/hardware.md) · [Reproduce](docs/reproduce.md).
 
