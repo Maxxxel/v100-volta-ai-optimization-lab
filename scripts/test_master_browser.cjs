@@ -71,6 +71,18 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const ornithPrefix=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R460'));
+    if(ornithPrefix){
+      assert.equal(ornithPrefix.solved,85);assert.equal(ornithPrefix.tasks,93);assert.equal(ornithPrefix.intended_tasks,164);assert.equal(ornithPrefix.official_eligible,false);
+      const row=page.locator(`.master-table tr[data-configuration-id="${ornithPrefix.runtime_configuration_id}"]`);
+      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('85/93')&&cell.includes('PARTIAL'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Vollständig');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],ornithPrefix.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Ornith93 coding prefix remains PARTIAL in the same table; counter energy covers exactly93 tasks and85 successes');
+    }
     const gemma=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R458'));
     if(gemma){
       assert.equal(gemma.solved,374);assert.equal(gemma.tasks,400);assert.equal(gemma.official_eligible,true);assert.equal(gemma.gpu_j,null);
@@ -92,9 +104,9 @@ async function main() {
       assert((await row.locator('td[data-column-key="family:bfcl"]').textContent()).includes('369/400'));
       assert((await row.locator('td[data-column-key="requested.thinking"]').textContent()).includes('Ein'));
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
-      const lower=row.locator('td[data-column-key$=":counter_energy.j_per_success_lower"]');
-      assert.equal(await lower.count(),1);assert.notEqual((await lower.textContent()).trim(),'NICHT ERFASST');
       const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],ornith.run_id);
+      const lower=row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`);
+      assert.equal(await lower.count(),1);assert.notEqual((await lower.textContent()).trim(),'NICHT ERFASST');
       assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
       await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
       report.checks.push('Ornith400 exact thinking profile shows separate energy-counter bounds; invalid power integral stays unknown');

@@ -173240,6 +173240,24 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1aa2ab1ca317950c6e99",
+    "original_bytes": 95631,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1aa2ab1ca317950c6e99400d02a68f9603d9bc9c6d37697182e79830f151b337",
+    "statements": {
+      "decision": "PARTIAL_TIME_BUDGET_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Ornith Q6 native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -251978,6 +251996,37 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f9466cb23ecc3cf0e8a3",
+    "original_bytes": 81736,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f9466cb23ecc3cf0e8a34ef0f262933c40ab07cadaf7373d8d0c750180efb4fc",
+    "statements": {
+      "scope": "Derived observed prefix only, bound to original request/token proofs and privileged single-job NVML process/memory/energy evidence. No full completion or executed-kernel profiling claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7b24da18fd757e2621c8",
+    "original_bytes": 5439,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7b24da18fd757e2621c84bf5df69d385357e3f80d83189c82ea16c6840c83b50",
+    "statements": {
+      "scope": "Partial coding benchmark only, no full164 quality/latency/energy claim. Original failed power integral remains null. No imputation, no unfinished-task zero or request replay."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252377,6 +252426,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "121602f3c1b70b224728dc204d70710bdcab88cbc2e4216ace17db10c76248af",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-420ab9e6b56065caee09",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "420ab9e6b56065caee09403df7116c4042450ee9085aa68de7a800c82a76e95e",
     "statements": {}
   },
   {

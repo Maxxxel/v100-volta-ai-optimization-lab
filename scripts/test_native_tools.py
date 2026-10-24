@@ -1,7 +1,7 @@
 """Synthetic provenance fixtures only: no GPU, model, tool execution or private data."""
 import copy,inspect,hashlib,json,pathlib,tempfile,unittest
 import test_leaderboard as fixtures
-from leaderboard import H,digest,native_tool_run,native_reused_tool_run,counter_energy_bounds
+from leaderboard import H,digest,native_tool_run,native_reused_tool_run,counter_energy_bounds,reviewed_counter_measurement
 class NativeToolsTests(unittest.TestCase):
  def fixture(self,root):
   def save(p,obj):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(obj)+'\n');return digest(p)
@@ -77,6 +77,15 @@ class FullCounterSupplementTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as t:
    root=pathlib.Path(t);source,cfg,bench,review,path,save=self.fixture(root);review['source_function_sha256']='0'*64;source['energy_counter_review']['sha256']=save(path,review)
    with self.assertRaisesRegex(ValueError,'method/task'):self.project(root,source,cfg,bench)
+ def test_coding_prefix_counter_keeps_its_exact_task_and_success_denominator(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=pathlib.Path(t);source,cfg,bench,review,path,save=self.fixture(root);out=root/'results';raw=out/'HTTP_RESULTS.jsonl';rows=[json.loads(l) for l in raw.read_text().splitlines()]
+   for r in rows:r['kind']='coding'
+   raw.write_text(''.join(json.dumps(r)+'\n' for r in rows));ids=[r['id'] for r in rows[:93]];tele=[json.loads(l) for l in (out/'GPU_TELEMETRY.jsonl').read_text().splitlines()];bounds=counter_energy_bounds(tele,rows,ids)
+   review.update(selected_task_ids=ids,measurement={**bounds,'solved':85,'j_per_success_lower':bounds['lower_j']/85,'j_per_success_upper':bounds['upper_j']/85});review['source_files_sha256'][str(raw)]=digest(raw);source['energy_counter_review']['sha256']=save(path,review)
+   value=reviewed_counter_measurement(source,out,ids,85,lambda p,h:'audit-'+h[:20],kind='coding');self.assertEqual(value['tasks'],93);self.assertEqual(value['j_per_success_lower'],93/85)
+   with self.assertRaises(ValueError):reviewed_counter_measurement(source,out,ids,85,lambda p,h:'audit-'+h[:20])
+   with self.assertRaisesRegex(ValueError,'bounds/success'):reviewed_counter_measurement(source,out,ids,93,lambda p,h:'audit-'+h[:20],kind='coding')
 class ReusedNativeToolsTests(unittest.TestCase):
  fixture=NativeToolsTests.fixture
  def reused_fixture(self,root):

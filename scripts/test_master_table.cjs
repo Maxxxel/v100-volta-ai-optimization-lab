@@ -10,6 +10,17 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Ornith native coding prefix remains partial with exact93-task energy scope', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R460');assert(r);
+  assert.equal(r.solved,85);assert.equal(r.tasks,93);assert.equal(r.intended_tasks,164);
+  assert.equal(r.status,'PARTIAL');assert.equal(r.official_eligible,false);
+  assert.equal(r.gpu_j,null);assert.equal(r.gpu_j_per_success,null);
+  assert.equal(r.counter_energy.tasks,93);assert.equal(r.counter_energy.solved,85);
+  assert.equal(r.counter_energy.j_per_success_lower,r.counter_energy.lower_j/85);
+  assert.equal(r.counter_energy.j_per_success_upper,r.counter_energy.upper_j/85);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['runtime.max_output'],4096);
+});
 test('Gemma QAT native category exposes its declared fast profile and bounded full400 energy', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R458');assert(r&&r.official_eligible);
   assert.equal(r.solved,374);assert.equal(r.tasks,400);assert.equal(r.gpu_j,null);

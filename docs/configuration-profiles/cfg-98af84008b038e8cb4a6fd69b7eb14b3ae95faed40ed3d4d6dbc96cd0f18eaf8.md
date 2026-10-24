@@ -196,7 +196,7 @@ Profile ID: `cfg-98af84008b038e8cb4a6fd69b7eb14b3ae95faed40ed3d4d6dbc96cd0f18eaf
 | Experiment | Benchmark / scope | Success | Wall s | GPU J / success | Peak VRAM MiB | Original audits |
 | --- | --- | --- | --- | --- | --- | --- |
 
-Separate benchmark qualification audits: 
+Separate benchmark qualification audits:
 
 | Experiment / arm | Execution evidence | Scientific decision | Original audit |
 | --- | --- | --- | --- |
