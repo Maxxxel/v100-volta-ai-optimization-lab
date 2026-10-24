@@ -25047,6 +25047,976 @@
       "source_audit_hash": "b0dcae0da912bdcab55d93e932040c51218876d9af67748ffbb636d48c3c44bf"
     }
   ],
+  "pipeline_method_reviews": [
+    {
+      "analysis_plan_sha256": "9d73c8186d1ba92c1107fc5e4597932290ae335794361ef00939729d519d4a64",
+      "analysis_result_sha256": "8faf68972992cbde07bd146b1b0820cd4f8bb88ca101bb785a3391ff7c4de2aa",
+      "audit_id": "audit-e27136a1a8fadb74ef27",
+      "audit_sha256": "e27136a1a8fadb74ef273477fc2d9bed087126f6bffe7fc75381a6888a10d7bc",
+      "budget": {
+        "GPU_busy_time_is_not_task_wall_time": true,
+        "actual_wrapper_may_stop_earlier": true,
+        "authority": "Current owner instruction, captured in the private work-state policy; approved task-phase broker profiles enforce the same bounds.",
+        "cleanup_seconds": 60,
+        "current_task_seconds": 1200,
+        "historical900s_changed": false,
+        "legacy900_branch_retained": true,
+        "outer_wall_seconds": 1440,
+        "startup_seconds": 180,
+        "task_clock_shared_across_parts": true
+      },
+      "census": {
+        "GPU_busy_seconds": null,
+        "avoidable_GPU_runs_proven": null,
+        "capture_directories_unclassified_or_not_registered": 197,
+        "capture_profiles_with_benchmark_results": 63,
+        "deduplicated_task_set_observations": 63,
+        "developed_but_never_GPU_executed_implementation_count": null,
+        "distinct_model_artifact_ids_with_results": 51,
+        "distinct_named_families_with_results": 15,
+        "exported_result_views": 78,
+        "factor_scientific_status_counts": {
+          "DEFERRED": 28,
+          "NOT_APPLICABLE": 5,
+          "OPEN": 10,
+          "PARTIAL": 105,
+          "QUALIFIED": 6,
+          "TESTED_NEGATIVE": 8
+        },
+        "hash_registered_capture_directories_with_GPU_execution_observed": 54,
+        "hash_registered_valid_GPU_capture_directories": 54,
+        "limitation": "A start marker/submission/build or status is not a GPU execution. Missing costs are not zero. Legacy paths without these schemas remain unclassified. Identical outputs do not prove an unnecessary repetition; temporal knowledge and an independent question are required.",
+        "original_variant_fields": 355,
+        "original_variant_fields_with_recorded_experimental_scope": 181,
+        "partial_task_set_observations": 11,
+        "protected_complete_task_clocks": 24,
+        "protected_startup_phase_seconds": 2092.278287809,
+        "protected_task_phase_seconds": 16997.813959022,
+        "qualified_complete_task_set_observations": 31,
+        "registered_capture_profiles": 283,
+        "scope": "Current public register plus hash-registered native-broker raw captures and protected task clocks; not a complete project-wide GPU-busy-time census.",
+        "task_budget_histogram": {
+          "1200": 24
+        },
+        "total_project_GPU_joules": null,
+        "unnecessary_repeated_GPU_runs_proven": null
+      },
+      "cohort_source_experiments": [
+        {
+          "audit_id": "audit-c0841e498189e24dc746",
+          "audit_sha256": "c0841e498189e24dc74642768d8e0a3f330faeebb49693eaa36ca315dabf73ba",
+          "experiment_id": "R452"
+        },
+        {
+          "audit_id": "audit-0b536a5614264eb5e25c",
+          "audit_sha256": "0b536a5614264eb5e25c84dc01bc7914371326ba09c3379d57cb9bdb9f0d3293",
+          "experiment_id": "R454"
+        },
+        {
+          "audit_id": "audit-a49a6cebc54822e25a33",
+          "audit_sha256": "a49a6cebc54822e25a330d315517e33dc419a8c076b509bf4053d2cf1d64181b",
+          "experiment_id": "R464"
+        },
+        {
+          "audit_id": "audit-543fb9745a67c9c58b9e",
+          "audit_sha256": "543fb9745a67c9c58b9e407a8ec0ed831a3f087c22b2f4d8f669e2f292beae50",
+          "experiment_id": "R465"
+        },
+        {
+          "audit_id": "audit-bd72425d4fcd1c6575db",
+          "audit_sha256": "bd72425d4fcd1c6575db7eeba95220a7a9e2f7dba2763f07b0ff2f310d85d103",
+          "experiment_id": "R466"
+        },
+        {
+          "audit_id": "audit-0725b527fc77fa0b1bc3",
+          "audit_sha256": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+          "experiment_id": "R471"
+        },
+        {
+          "audit_id": "audit-7bfd00d2fcca7e4c767d",
+          "audit_sha256": "7bfd00d2fcca7e4c767d6a197c3b1f9cc2bb1a146d794d2977f54d28cf21b1aa",
+          "experiment_id": "R472"
+        },
+        {
+          "audit_id": "audit-89329075d5e77e4cc223",
+          "audit_sha256": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0",
+          "experiment_id": "R474"
+        },
+        {
+          "audit_id": "audit-fd5e36fba5b2d3f8f325",
+          "audit_sha256": "fd5e36fba5b2d3f8f32557b34a74c478e625de4722c297e487d59ad5e441c276",
+          "experiment_id": "R476"
+        },
+        {
+          "audit_id": "audit-249c3e61da453d096d87",
+          "audit_sha256": "249c3e61da453d096d87bdf21462a67c95f62dccc8ff8cbf59b1c195c3a36c87",
+          "experiment_id": "R477"
+        },
+        {
+          "audit_id": "audit-9facd2474e8be80aa0fa",
+          "audit_sha256": "9facd2474e8be80aa0fa2c617e617ec16cd9b11b38d2b6b2d8630435fc6edb42",
+          "experiment_id": "R478"
+        },
+        {
+          "audit_id": "audit-ae71481c7169f4a37b52",
+          "audit_sha256": "ae71481c7169f4a37b5281bc61f2b96f940172d7bd41e126468d8a16729ae6b1",
+          "experiment_id": "R479"
+        },
+        {
+          "audit_id": "audit-2b900d67234b3bf493bc",
+          "audit_sha256": "2b900d67234b3bf493bcb87bb7ae762e1723084a21846551f6a1f735efe7d4f7",
+          "experiment_id": "R480"
+        },
+        {
+          "audit_id": "audit-a7f63146ef37d27560d5",
+          "audit_sha256": "a7f63146ef37d27560d5f765ac76875bb196a335b851beeb32a24d985fbb3b6f",
+          "experiment_id": "R482"
+        },
+        {
+          "audit_id": "audit-b0dcae0da912bdcab55d",
+          "audit_sha256": "b0dcae0da912bdcab55d93e932040c51218876d9af67748ffbb636d48c3c44bf",
+          "experiment_id": "R484"
+        }
+      ],
+      "cohorts": {
+        "coding": {
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "calibration_experiments": [
+            "R466",
+            "R464",
+            "R452"
+          ],
+          "calibration_profiles": 3,
+          "population_tasks": 164,
+          "reference": "R471",
+          "reference_score_percent": 80.48780487804879,
+          "validation_experiments": [
+            "R454",
+            "R465"
+          ],
+          "validation_profiles": 2
+        },
+        "tools": {
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "calibration_experiments": [
+            "R477",
+            "R479",
+            "R472",
+            "R482"
+          ],
+          "calibration_profiles": 4,
+          "population_tasks": 200,
+          "reference": "R478",
+          "reference_score_percent": 88.5,
+          "validation_experiments": [
+            "R476",
+            "R480",
+            "R474",
+            "R484"
+          ],
+          "validation_profiles": 4
+        }
+      },
+      "controls": {
+        "all_passed": true,
+        "counter_equivalence_controls": 16,
+        "exact_hypergeometric_coverage_controls": 3486,
+        "unit_tests": 5
+      },
+      "date": "2026-10-24",
+      "decision": {
+        "current_GPU_policy_changed": false,
+        "global_GPU_utilization_target": false,
+        "hard_quality_gate_adopted": false,
+        "option_A": "Keep full valid standard benchmarks and normal model comparisons. Valid existing results are reused, never repeated just to fill a new screen.",
+        "option_B": "Technical admission and small independent development diagnostics before justified optimization; do not introduce an automatic quality-elimination gate or a screening leaderboard.",
+        "reason": "On these held-out profile families, conservative screening usually adds request time and energy; small-sample ranking is especially unstable for tools. No general failure risk is proven from only two coding and four tool validation profiles.",
+        "recommendation": "B_DIAGNOSTICS_WITH_A_FULL_QUALITY_EVIDENCE",
+        "screening_scores_in_official_table": false
+      },
+      "evidence": "CPU_RETROSPECTIVE_SIMULATION_OF_LOCAL_MEASUREMENTS",
+      "limitations": [
+        "Only6 full coding and9 full parallel-tool profiles; family-hash split leaves2 coding and4 tool validation profiles. Shared architectural/training lineage may remain.",
+        "All24,000 draws reuse archived fixed responses. They are CPU simulations, not24,000 GPU runs, independent seeds, unseen tasks or measured future savings.",
+        "Confidence bounds describe the finite official task population under the specified random design. Monte Carlo intervals quantify resampling-frequency error, not quality generalization or unseen-model risk.",
+        "Request-window cost projection assumes unchanged replies under subset/order changes; startup, extra CPU scoring, orchestration and cache effects can further increase real cost. No actual GPU-hours saved claim.",
+        "Incomplete profiles, including Nexus and Slopus coding prefixes, are excluded from this full-task retrospective. Diagnosing timeout/thinking failures remains necessary before model rejection.",
+        "Study inputs and task-level responses remain in the local private archive. Public hashes and aggregates do not make withheld raw responses publicly reproducible.",
+        "No comparable total of project-wide GPU-busy seconds, joules, avoidable repetitions or developed-but-unexecuted implementations is established by this bounded census."
+      ],
+      "multi_agent": {
+        "controls": "Same task fixtures, scorer, model configuration and equal TOTAL token/task-time limits across all roles, not a fresh budget per agent. Single centrally scheduled GPU worker; reuse one loaded model where possible.",
+        "metrics": [
+          "whole-task success",
+          "model-call count",
+          "all generated tokens including planning/review",
+          "E2E wall time and GPU energy",
+          "failed delegations",
+          "duplicate work",
+          "context loss",
+          "reviewer corrections and false alarms",
+          "security/authorization violations"
+        ],
+        "qualification": "No official MultiAgentBench or Terminal-Bench result is claimed. MARBLE is a source of evaluation concepts; its code, external APIs and judge are not executed.",
+        "reference": {
+          "README_sha256": "96578ff185805096bb005ed067033190c9a28cfb7a31199166597398db019faf",
+          "arxiv": "2503.01935",
+          "commit": "8d60fa17b5596b44458a52d4296061b9fc13d6f2",
+          "commit_metadata_sha256": "3691a61b0bc5b13ecb8c362d0e491979f6279110d98f008b8d81cec7bcbc8218",
+          "doi": "10.18653/v1/2025.acl-long.421",
+          "local_execution": false,
+          "paper": "MultiAgentBench: Evaluating the Collaboration and Competition of LLM agents",
+          "paper_url": "https://aclanthology.org/2025.acl-long.421/",
+          "repository": "https://github.com/ulab-uiuc/MARBLE",
+          "use": "Methodology inspiration only: separate task success from coordination/milestones; same-model and equal-total-budget single-vs-role comparisons. Not an official local MultiAgentBench result.",
+          "year": 2025
+        },
+        "role_profiles": [
+          "Single agent",
+          "Planner + worker",
+          "Planner + worker + reviewer",
+          "Role-specialized model routing, only after same-model controls"
+        ],
+        "safety": "Mock tools and isolated test resources only; no real Home Assistant, virtualization or GitHub write actions, no remote coding agents or extra Codex instances.",
+        "status": "PLAN_ONLY_NO_AGENTS_OR_GPU_RUNS",
+        "workloads": [
+          "Isolated coding and test repair",
+          "Mock Home Assistant scheduling and authorization",
+          "Mock VM version/conflict recovery",
+          "Tool injection/refusal and retry/idempotency"
+        ]
+      },
+      "new_GPU_runs": 0,
+      "nexus_development": {
+        "arms": [
+          {
+            "max_output": 4096,
+            "name": "A",
+            "temperature": 0.6,
+            "thinking": true
+          },
+          {
+            "max_output": 4096,
+            "name": "B",
+            "temperature": 0.6,
+            "thinking": false
+          },
+          {
+            "max_output": 4096,
+            "name": "C",
+            "temperature": 0,
+            "thinking": false
+          }
+        ],
+        "changed_parameters": [
+          "A-B native thinking control only",
+          "B-C temperature only"
+        ],
+        "execution": "Same frozen development inputs/scorer and model/engine/template bytes; predeclared counterbalanced complete-task triples; one GPU lease, one shared1200-second task clock across all arms, no reset. Full completion is not guaranteed by the budget.",
+        "frozen_workload_pending": true,
+        "initial_coding_tasks": 16,
+        "initial_tool_tasks": 16,
+        "metrics": [
+          "functional success",
+          "nonempty valid final response",
+          "completion/reasoning tokens where captured",
+          "request and task latency",
+          "GPU energy including failures",
+          "GPU J/success and peak VRAM"
+        ],
+        "quality_claim": "Descriptive paired development evidence only; no Champion or official benchmark score. Preserve denominator/coverage and matched task IDs if capped.",
+        "sample_size_purpose": "Four declared task/error types per category with four examples each; low-cost diagnostics, not a statistically reliable quality ranking. Historical16-task overhead is lower than24/32; no automatic exclusion from a small score gap.",
+        "status": "PLANNED_NOT_EXECUTED_NOT_BROKER_ADMITTED",
+        "unseen_final_benchmark_tasks_used_for_tuning": false
+      },
+      "resamples_per_condition": 1000,
+      "review_id": "PIPELINE_RETROSPECTIVE_20261024",
+      "sampling_sizes": [
+        8,
+        16,
+        24,
+        32,
+        48,
+        64
+      ],
+      "simulation": [
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            15.171414011999994,
+            17.12071250200001
+          ],
+          "projected_additional_request_s": 62.83070992963599,
+          "projected_request_time_overhead_percent": 4.039937777180401,
+          "resamples": 1000,
+          "tasks": 8,
+          "true_top_retained_with_ties_fraction": 0.882,
+          "true_top_retention_MC95": [
+            0.8605279149182592,
+            0.9005484415987768
+          ],
+          "unique_correct_top_MC95": [
+            0.5592284411186709,
+            0.6200827423539291
+          ],
+          "unique_correct_top_set_fraction": 0.59,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            36.040066716,
+            39.494639816999985
+          ],
+          "projected_additional_request_s": 147.91405044366297,
+          "projected_request_time_overhead_percent": 9.510692475579727,
+          "resamples": 1000,
+          "tasks": 16,
+          "true_top_retained_with_ties_fraction": 0.917,
+          "true_top_retention_MC95": [
+            0.8982635048659464,
+            0.9325449785571007
+          ],
+          "unique_correct_top_MC95": [
+            0.7129617374007885,
+            0.7671937650091739
+          ],
+          "unique_correct_top_set_fraction": 0.741,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            55.809345321,
+            60.59700027400002
+          ],
+          "projected_additional_request_s": 228.13101312565198,
+          "projected_request_time_overhead_percent": 14.668545033231313,
+          "resamples": 1000,
+          "tasks": 24,
+          "true_top_retained_with_ties_fraction": 0.93,
+          "true_top_retention_MC95": [
+            0.9124853518487167,
+            0.9442236358537061
+          ],
+          "unique_correct_top_MC95": [
+            0.7876522642371055,
+            0.8359521849509368
+          ],
+          "unique_correct_top_set_fraction": 0.813,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            73.38026171299995,
+            79.33458917399999
+          ],
+          "projected_additional_request_s": 299.1227874319999,
+          "projected_request_time_overhead_percent": 19.233229265041988,
+          "resamples": 1000,
+          "tasks": 32,
+          "true_top_retained_with_ties_fraction": 0.961,
+          "true_top_retention_MC95": [
+            0.9471306895804986,
+            0.9713410390958196
+          ],
+          "unique_correct_top_MC95": [
+            0.8787702573809262,
+            0.9161759893476009
+          ],
+          "unique_correct_top_set_fraction": 0.899,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            110.92493070500001,
+            118.69091600199998
+          ],
+          "projected_additional_request_s": 449.56877851238596,
+          "projected_request_time_overhead_percent": 28.9067224258174,
+          "resamples": 1000,
+          "tasks": 48,
+          "true_top_retained_with_ties_fraction": 0.982,
+          "true_top_retention_MC95": [
+            0.9717267448294926,
+            0.9885842599904322
+          ],
+          "unique_correct_top_MC95": [
+            0.9403171620637766,
+            0.9662004877143683
+          ],
+          "unique_correct_top_set_fraction": 0.955,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            150.20851353999998,
+            159.101298285
+          ],
+          "projected_additional_request_s": 605.9296848607662,
+          "projected_request_time_overhead_percent": 38.960537401621664,
+          "resamples": 1000,
+          "tasks": 64,
+          "true_top_retained_with_ties_fraction": 0.995,
+          "true_top_retention_MC95": [
+            0.9883490446266249,
+            0.9978624644726756
+          ],
+          "unique_correct_top_MC95": [
+            0.9804106042992137,
+            0.9938468259019134
+          ],
+          "unique_correct_top_set_fraction": 0.989,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            18.16825517000002,
+            20.11569328499999
+          ],
+          "projected_additional_request_s": 75.03200880777581,
+          "projected_request_time_overhead_percent": 4.824466367159227,
+          "resamples": 1000,
+          "tasks": 8,
+          "true_top_retained_with_ties_fraction": 0.868,
+          "true_top_retention_MC95": [
+            0.8456051419027083,
+            0.8875783638519231
+          ],
+          "unique_correct_top_MC95": [
+            0.5491604008010915,
+            0.6102273178412196
+          ],
+          "unique_correct_top_set_fraction": 0.58,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            36.84912329700004,
+            40.30144130099998
+          ],
+          "projected_additional_request_s": 151.2747061615919,
+          "projected_request_time_overhead_percent": 9.726778526591454,
+          "resamples": 1000,
+          "tasks": 16,
+          "true_top_retained_with_ties_fraction": 0.91,
+          "true_top_retention_MC95": [
+            0.8906582073569279,
+            0.926203850684917
+          ],
+          "unique_correct_top_MC95": [
+            0.7150222127820682,
+            0.769117982593952
+          ],
+          "unique_correct_top_set_fraction": 0.743,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            55.639978227000014,
+            60.42083707199997
+          ],
+          "projected_additional_request_s": 227.42867056998296,
+          "projected_request_time_overhead_percent": 14.62338526619468,
+          "resamples": 1000,
+          "tasks": 24,
+          "true_top_retained_with_ties_fraction": 0.915,
+          "true_top_retention_MC95": [
+            0.8960871089966438,
+            0.9307366814603455
+          ],
+          "unique_correct_top_MC95": [
+            0.7907901792135869,
+            0.8387913094235423
+          ],
+          "unique_correct_top_set_fraction": 0.816,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            74.62143464799999,
+            80.57619176099996
+          ],
+          "projected_additional_request_s": 304.2204200471091,
+          "projected_request_time_overhead_percent": 19.561000805408632,
+          "resamples": 1000,
+          "tasks": 32,
+          "true_top_retained_with_ties_fraction": 0.954,
+          "true_top_retention_MC95": [
+            0.9391877960583809,
+            0.9653375072367351
+          ],
+          "unique_correct_top_MC95": [
+            0.8573230993571588,
+            0.8977762177107904
+          ],
+          "unique_correct_top_set_fraction": 0.879,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            111.42163161,
+            119.228366886
+          ],
+          "projected_additional_request_s": 451.975733351465,
+          "projected_request_time_overhead_percent": 29.061486677140557,
+          "resamples": 1000,
+          "tasks": 48,
+          "true_top_retained_with_ties_fraction": 0.979,
+          "true_top_retention_MC95": [
+            0.9681097049387625,
+            0.9862242604320758
+          ],
+          "unique_correct_top_MC95": [
+            0.9346861797557492,
+            0.9618697376072513
+          ],
+          "unique_correct_top_set_fraction": 0.95,
+          "validation_profiles": 2
+        },
+        {
+          "category": "coding",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            152.45064937199996,
+            161.328735795
+          ],
+          "projected_additional_request_s": 614.523921669839,
+          "projected_request_time_overhead_percent": 39.5131363136806,
+          "resamples": 1000,
+          "tasks": 64,
+          "true_top_retained_with_ties_fraction": 0.994,
+          "true_top_retention_MC95": [
+            0.9869718317581478,
+            0.9972473308581237
+          ],
+          "unique_correct_top_MC95": [
+            0.9778855576244203,
+            0.9923871796106489
+          ],
+          "unique_correct_top_set_fraction": 0.987,
+          "validation_profiles": 2
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            25.736958688000072,
+            29.963019354999954
+          ],
+          "projected_additional_request_s": 110.77528489272208,
+          "projected_request_time_overhead_percent": 3.7465370630112056,
+          "resamples": 1000,
+          "tasks": 8,
+          "true_top_retained_with_ties_fraction": 0.763,
+          "true_top_retention_MC95": [
+            0.7356684892970144,
+            0.7883186357395835
+          ],
+          "unique_correct_top_MC95": [
+            0.1555376102762298,
+            0.2029268221884677
+          ],
+          "unique_correct_top_set_fraction": 0.178,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            46.19930665199997,
+            53.6035502
+          ],
+          "projected_additional_request_s": 201.11420101686008,
+          "projected_request_time_overhead_percent": 6.80189456282821,
+          "resamples": 1000,
+          "tasks": 16,
+          "true_top_retained_with_ties_fraction": 0.728,
+          "true_top_retention_MC95": [
+            0.6995862451694239,
+            0.7546687529611629
+          ],
+          "unique_correct_top_MC95": [
+            0.33768854423226846,
+            0.3973293735248892
+          ],
+          "unique_correct_top_set_fraction": 0.367,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            75.23355972499999,
+            85.47898500500003
+          ],
+          "projected_additional_request_s": 321.550375909876,
+          "projected_request_time_overhead_percent": 10.8751731231222,
+          "resamples": 1000,
+          "tasks": 24,
+          "true_top_retained_with_ties_fraction": 0.732,
+          "true_top_retention_MC95": [
+            0.7036985754211434,
+            0.758525808641559
+          ],
+          "unique_correct_top_MC95": [
+            0.42238588647477426,
+            0.483973828822868
+          ],
+          "unique_correct_top_set_fraction": 0.453,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            97.07872790100004,
+            109.901756651
+          ],
+          "projected_additional_request_s": 416.264050455269,
+          "projected_request_time_overhead_percent": 14.078489570486258,
+          "resamples": 1000,
+          "tasks": 32,
+          "true_top_retained_with_ties_fraction": 0.753,
+          "true_top_retention_MC95": [
+            0.7253357631562045,
+            0.7787278970501046
+          ],
+          "unique_correct_top_MC95": [
+            0.4611041586281342,
+            0.5229570695076347
+          ],
+          "unique_correct_top_set_fraction": 0.492,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            132.102991319,
+            149.24550881599998
+          ],
+          "projected_additional_request_s": 574.0985094211453,
+          "projected_request_time_overhead_percent": 19.416617573575035,
+          "resamples": 1000,
+          "tasks": 48,
+          "true_top_retained_with_ties_fraction": 0.811,
+          "true_top_retention_MC95": [
+            0.7855616182967687,
+            0.8340581379252162
+          ],
+          "unique_correct_top_MC95": [
+            0.6067244308198836,
+            0.6662270373550743
+          ],
+          "unique_correct_top_set_fraction": 0.637,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "random_without_replacement",
+          "projected_additional_counter_kJ_interval": [
+            179.54311926800003,
+            199.92938270899992
+          ],
+          "projected_additional_request_s": 772.9596262691218,
+          "projected_request_time_overhead_percent": 26.142310451587168,
+          "resamples": 1000,
+          "tasks": 64,
+          "true_top_retained_with_ties_fraction": 0.845,
+          "true_top_retention_MC95": [
+            0.821253161260159,
+            0.866106375384808
+          ],
+          "unique_correct_top_MC95": [
+            0.6780414921958111,
+            0.7343742297911691
+          ],
+          "unique_correct_top_set_fraction": 0.707,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            27.968018861999955,
+            32.19339520699998
+          ],
+          "projected_additional_request_s": 118.71419686307405,
+          "projected_request_time_overhead_percent": 4.0150394457016345,
+          "resamples": 1000,
+          "tasks": 8,
+          "true_top_retained_with_ties_fraction": 0.722,
+          "true_top_retention_MC95": [
+            0.6934229755065661,
+            0.7488779437258474
+          ],
+          "unique_correct_top_MC95": [
+            0.16499470988376858,
+            0.21339318741121788
+          ],
+          "unique_correct_top_set_fraction": 0.188,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            56.387033902000056,
+            63.773021766999996
+          ],
+          "projected_additional_request_s": 237.38163186262904,
+          "projected_request_time_overhead_percent": 8.028497355819955,
+          "resamples": 1000,
+          "tasks": 16,
+          "true_top_retained_with_ties_fraction": 0.738,
+          "true_top_retention_MC95": [
+            0.7098723945402419,
+            0.764306068420634
+          ],
+          "unique_correct_top_MC95": [
+            0.36122774950463854,
+            0.4216064838452125
+          ],
+          "unique_correct_top_set_fraction": 0.391,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            84.84412009900002,
+            95.13138541699995
+          ],
+          "projected_additional_request_s": 355.44827871349224,
+          "projected_request_time_overhead_percent": 12.021635976592538,
+          "resamples": 1000,
+          "tasks": 24,
+          "true_top_retained_with_ties_fraction": 0.735,
+          "true_top_retention_MC95": [
+            0.7067846797715454,
+            0.7614167437402437
+          ],
+          "unique_correct_top_MC95": [
+            0.44917079499694124,
+            0.510982275342481
+          ],
+          "unique_correct_top_set_fraction": 0.48,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            113.37379866700009,
+            126.29658966400002
+          ],
+          "projected_additional_request_s": 473.4150669506251,
+          "projected_request_time_overhead_percent": 16.011397273643823,
+          "resamples": 1000,
+          "tasks": 32,
+          "true_top_retained_with_ties_fraction": 0.74,
+          "true_top_retention_MC95": [
+            0.7119317744345645,
+            0.766231381492369
+          ],
+          "unique_correct_top_MC95": [
+            0.47903749580454597,
+            0.5408859690257428
+          ],
+          "unique_correct_top_set_fraction": 0.51,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            169.960322985,
+            187.22343656100003
+          ],
+          "projected_additional_request_s": 705.700640566544,
+          "projected_request_time_overhead_percent": 23.867540560457744,
+          "resamples": 1000,
+          "tasks": 48,
+          "true_top_retained_with_ties_fraction": 0.809,
+          "true_top_retention_MC95": [
+            0.7834719955714221,
+            0.832163067684505
+          ],
+          "unique_correct_top_MC95": [
+            0.5895108843206113,
+            0.6495706936428555
+          ],
+          "unique_correct_top_set_fraction": 0.62,
+          "validation_profiles": 4
+        },
+        {
+          "category": "tools",
+          "false_rejection_of_true_top_MC95": [
+            2.168404344971009e-19,
+            0.0038267584855551234
+          ],
+          "false_rejection_of_true_top_fraction": 0.0,
+          "method": "calibration_difficulty_quartiles",
+          "projected_additional_counter_kJ_interval": [
+            229.28644103500002,
+            249.70047805400003
+          ],
+          "projected_additional_request_s": 946.1570044741211,
+          "projected_request_time_overhead_percent": 32.00002859954592,
+          "resamples": 1000,
+          "tasks": 64,
+          "true_top_retained_with_ties_fraction": 0.873,
+          "true_top_retention_MC95": [
+            0.8509252474282143,
+            0.8922199907415616
+          ],
+          "unique_correct_top_MC95": [
+            0.6841895829243534,
+            0.7401802179608001
+          ],
+          "unique_correct_top_set_fraction": 0.713,
+          "validation_profiles": 4
+        }
+      ],
+      "source_code_sha256": "9f70de0e38af05ed492e0248d55fb3a2e619388c893c5b6cb86d624f45e09d44",
+      "total_resampled_subsets": 24000
+    }
+  ],
   "profile_label_reviews": [
     {
       "audit_id": "audit-7b0f21005f2724c22b53",

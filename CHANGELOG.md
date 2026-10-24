@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-24 — CPU screening methods decision
+
+- Audit six complete coding and nine complete parallel-tool profiles with exact source/task identities; evaluate8–64-task random/stratified subsets in24,000 CPU resamples.
+- Recommend independent development diagnostics without a hard quality-elimination gate. The held-out profiles project extra request time/energy before fresh full confirmation; simulations are not GPU savings or new benchmark results.
+- Publish scoped evidence counts, uncertainty, the1,200-second task-budget review and a mock-only Jarvis role-evaluation plan.
+- Keep every model score/configuration and the interactive score bundle unchanged. Add explicit source/hash/privacy checks for the CPU-report projection.
+
+
 ## 2026-10-24 — R484 Slopus native tools
 
 - Record146/200 on the complete original BFCL v4 parallel_multiple category; independent CPU replay agrees. This is not the whole BFCL leaderboard or a model Champion.

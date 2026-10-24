@@ -1,0 +1,133 @@
+# Benchmark pipeline decision
+
+**CPU retrospective study · 2026-10-24 · no new GPU runs.**
+
+Keep normal full benchmark comparisons and add small independent development diagnostics before justified tuning. **Do not introduce automatic quality elimination or a screening highscore.**
+
+## What the archived data show
+
+15 complete category profiles; the fixed family-hash split leaves 2 coding and 4 tool validation profiles. The table shows **counterfactual additional request time**, not measured GPU savings. Screened development tasks are followed by a fresh full confirmation; original official tests are never reused as development prompts.
+
+| Category | Sampling | Tasks | Unique correct top set · MC95 | Projected request-time overhead | Projected added GPU-counter energy |
+| --- | --- | --- | --- | --- | --- |
+| coding | random without replacement | 16 | 74.1% (71.3–76.7%) | +9.51% | +36.0–+39.5 kJ |
+| coding | random without replacement | 24 | 81.3% (78.8–83.6%) | +14.67% | +55.8–+60.6 kJ |
+| coding | random without replacement | 32 | 89.9% (87.9–91.6%) | +19.23% | +73.4–+79.3 kJ |
+| coding | calibration difficulty quartiles | 16 | 74.3% (71.5–76.9%) | +9.73% | +36.8–+40.3 kJ |
+| coding | calibration difficulty quartiles | 24 | 81.6% (79.1–83.9%) | +14.62% | +55.6–+60.4 kJ |
+| coding | calibration difficulty quartiles | 32 | 87.9% (85.7–89.8%) | +19.56% | +74.6–+80.6 kJ |
+| tools | random without replacement | 16 | 36.7% (33.8–39.7%) | +6.80% | +46.2–+53.6 kJ |
+| tools | random without replacement | 24 | 45.3% (42.2–48.4%) | +10.88% | +75.2–+85.5 kJ |
+| tools | random without replacement | 32 | 49.2% (46.1–52.3%) | +14.08% | +97.1–+109.9 kJ |
+| tools | calibration difficulty quartiles | 16 | 39.1% (36.1–42.2%) | +8.03% | +56.4–+63.8 kJ |
+| tools | calibration difficulty quartiles | 24 | 48.0% (44.9–51.1%) | +12.02% | +84.8–+95.1 kJ |
+| tools | calibration difficulty quartiles | 32 | 51.0% (47.9–54.1%) | +16.01% | +113.4–+126.3 kJ |
+
+
+MC95 describes resampling-frequency uncertainty, not unseen-model quality. All 24000 subset draws reuse fixed archived answers; they are not GPU runs or independent model seeds. A tied first place is not counted as a unique correct winner. Zero observed rejection of the true validation winner does not establish zero future risk.
+
+<details><summary>All sizes, rules and calibration split</summary>
+
+| Category | Sampling | Tasks | Unique correct top set · MC95 | Projected request-time overhead | Projected added GPU-counter energy |
+| --- | --- | --- | --- | --- | --- |
+| coding | random without replacement | 8 | 59.0% (55.9–62.0%) | +4.04% | +15.2–+17.1 kJ |
+| coding | random without replacement | 48 | 95.5% (94.0–96.6%) | +28.91% | +110.9–+118.7 kJ |
+| coding | random without replacement | 64 | 98.9% (98.0–99.4%) | +38.96% | +150.2–+159.1 kJ |
+| coding | calibration difficulty quartiles | 8 | 58.0% (54.9–61.0%) | +4.82% | +18.2–+20.1 kJ |
+| coding | calibration difficulty quartiles | 48 | 95.0% (93.5–96.2%) | +29.06% | +111.4–+119.2 kJ |
+| coding | calibration difficulty quartiles | 64 | 98.7% (97.8–99.2%) | +39.51% | +152.5–+161.3 kJ |
+| tools | random without replacement | 8 | 17.8% (15.6–20.3%) | +3.75% | +25.7–+30.0 kJ |
+| tools | random without replacement | 48 | 63.7% (60.7–66.6%) | +19.42% | +132.1–+149.2 kJ |
+| tools | random without replacement | 64 | 70.7% (67.8–73.4%) | +26.14% | +179.5–+199.9 kJ |
+| tools | calibration difficulty quartiles | 8 | 18.8% (16.5–21.3%) | +4.02% | +28.0–+32.2 kJ |
+| tools | calibration difficulty quartiles | 48 | 62.0% (59.0–65.0%) | +23.87% | +170.0–+187.2 kJ |
+| tools | calibration difficulty quartiles | 64 | 71.3% (68.4–74.0%) | +32.00% | +229.3–+249.7 kJ |
+
+
+**coding**: reference R471; calibration R466, R464, R452; validation R454, R465.
+
+**tools**: reference R478; calibration R477, R479, R472, R482; validation R476, R480, R474, R484.
+
+Random sampling is without replacement. Stratification uses calibration-profile difficulty quartiles and reference prompt lengths as tie-breakers. The rejection rule is a one-sided exact finite-population hypergeometric upper bound below the fixed reference by more than10 percentage points, alpha0.01; stratified bounds use a simultaneous per-stratum allocation. This is a retrospectively evaluated rule, **not an activated admission policy**. Hardware startup, CPU scoring and orchestration overhead are excluded from the cost projection and may increase real costs.
+
+</details>
+
+## Evidence census — distinct units
+
+| Unit | Verified value |
+| --- | --- |
+| Registered capture profiles | 283 |
+| Profiles with benchmark evidence | 63 |
+| Recorded model-family IDs with results (aliases possible) | 15 |
+| Model artifact IDs with results | 51 |
+| Exported result views | 78 |
+| Deduplicated task-set observations | 63 |
+| Qualified complete task-set observations (includes archived protocols) | 31 |
+| Partial task-set observations | 11 |
+| Hash-registered captures with explicit GPU execution evidence | 54 |
+| Other/legacy capture directories not classified by this reader | 197 |
+| Completed protected task clocks | 24 |
+| Recorded task-window seconds, not GPU busy seconds | 16997.813959022 |
+| Recorded startup-window seconds | 2092.278287809 |
+| Original variant fields | 355 |
+| Variant fields with recorded hardware scope | 181 |
+| Global GPU busy time / total project energy | NOT MEASURED |
+| Avoidable repeats / developed but unexecuted implementations | NOT ESTABLISHED |
+
+
+These inventories overlap and must never be summed. The 54 explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.
+
+## Nexus: first controlled development comparison
+
+| Arm | Thinking | Temperature | Output tokens |
+| --- | --- | --- | --- |
+| A | True | 0.6 | 4096 |
+| B | False | 0.6 | 4096 |
+| C | False | 0 | 4096 |
+
+
+A→B changes only native Thinking; B→C changes only temperature. Keep weights, engine/kernel, template bytes, remaining sampler settings and scorer fixed. Start with16 newly frozen coding and16 mock-tool development cases, covering four declared task/error types per category. This is a low-cost diagnostic design, **not proof of ranking reliability or a basis for rejecting small score differences**. At the methods-audit snapshot, workload freezing, CPU scorer controls and broker admission remained pending; each is a separate pre-execution gate.
+
+One shared1,200-second task clock covers all three arms and all parts. Predeclare counterbalanced task triples; no token-limit reduction or clock reset. Report successes, valid final responses, completion/reasoning tokens, latency, GPU energy including failures and VRAM. If capped, disclose matched task IDs and actual coverage. Temperature0 requests greedy sampling; bitwise deterministic CUDA execution is not assumed.
+
+## Budget and scheduling
+
+The current owner-authorized budget is **1,200 seconds for the whole task phase**. The admitted class separately bounds startup180 s, cleanup60 s and outer wall1,440 s. All 24 completed protected task clocks in this snapshot use1,200 s. The actual systemd wrapper can end a run earlier; record it separately. Legacy900-second contracts and code paths remain historical and are not rewritten or repurposed for new task-phase tests.
+
+CPU work may accompany only prepared, broker-approved GPU research: one GPU lease, bounded CPU/RAM/I/O, no overlapping heavy jobs, no manufactured utilization. No automatic screening launch, new GPU scheduler or broker-policy change is introduced here.
+
+## Jarvis role evaluation — plan only
+
+| Comparison | Controlled resource |
+| --- | --- |
+| Single agent | Same task fixtures and model profile; equal TOTAL token/task-time budget across all roles |
+| Planner + worker | Same task fixtures and model profile; equal TOTAL token/task-time budget across all roles |
+| Planner + worker + reviewer | Same task fixtures and model profile; equal TOTAL token/task-time budget across all roles |
+| Role-specialized model routing, only after same-model controls | Same task fixtures and model profile; equal TOTAL token/task-time budget across all roles |
+
+
+Use one centrally scheduled GPU worker and reuse the loaded model. Compare whole-task success, calls, all generated tokens, wall time, GPU J/success, failed delegations, duplicate work, context loss, reviewer corrections/false alarms and permission violations. Development tools are mocks in isolated coding/automation tests; no real home, virtualization or GitHub write actions and no additional Codex agents.
+
+[MultiAgentBench (Zhu et al.,2025)](https://aclanthology.org/2025.acl-long.421/) motivates separate task-outcome and coordination measurements; [MARBLE source at 8d60fa17b559](https://github.com/ulab-uiuc/MARBLE/tree/8d60fa17b5596b44458a52d4296061b9fc13d6f2) is pinned as external evidence. Its code, judge and remote APIs are not executed. No official MultiAgentBench or Terminal-Bench score is claimed.
+
+## Limits and original evidence
+
+- Only6 full coding and9 full parallel-tool profiles; family-hash split leaves2 coding and4 tool validation profiles. Shared architectural/training lineage may remain.
+- All24,000 draws reuse archived fixed responses. They are CPU simulations, not24,000 GPU runs, independent seeds, unseen tasks or measured future savings.
+- Confidence bounds describe the finite official task population under the specified random design. Monte Carlo intervals quantify resampling-frequency error, not quality generalization or unseen-model risk.
+- Request-window cost projection assumes unchanged replies under subset/order changes; startup, extra CPU scoring, orchestration and cache effects can further increase real cost. No actual GPU-hours saved claim.
+- Incomplete profiles, including Nexus and Slopus coding prefixes, are excluded from this full-task retrospective. Diagnosing timeout/thinking failures remains necessary before model rejection.
+- Study inputs and task-level responses remain in the local private archive. Public hashes and aggregates do not make withheld raw responses publicly reproducible.
+- No comparable total of project-wide GPU-busy seconds, joules, avoidable repetitions or developed-but-unexecuted implementations is established by this bounded census.
+
+CPU controls: **5 unit tests, 3486 exact finite-population coverage controls and 16 comparisons with the reviewed counter-bound function**.
+
+[audit-e27136a1a8fadb74ef27](audits/audit-e27136a1a8fadb74ef27.md), [audit-c0841e498189e24dc746](audits/audit-c0841e498189e24dc746.md), [audit-0b536a5614264eb5e25c](audits/audit-0b536a5614264eb5e25c.md), [audit-a49a6cebc54822e25a33](audits/audit-a49a6cebc54822e25a33.md), [audit-543fb9745a67c9c58b9e](audits/audit-543fb9745a67c9c58b9e.md), [audit-bd72425d4fcd1c6575db](audits/audit-bd72425d4fcd1c6575db.md), [audit-0725b527fc77fa0b1bc3](audits/audit-0725b527fc77fa0b1bc3.md), [audit-7bfd00d2fcca7e4c767d](audits/audit-7bfd00d2fcca7e4c767d.md), [audit-89329075d5e77e4cc223](audits/audit-89329075d5e77e4cc223.md), [audit-fd5e36fba5b2d3f8f325](audits/audit-fd5e36fba5b2d3f8f325.md), [audit-249c3e61da453d096d87](audits/audit-249c3e61da453d096d87.md), [audit-9facd2474e8be80aa0fa](audits/audit-9facd2474e8be80aa0fa.md), [audit-ae71481c7169f4a37b52](audits/audit-ae71481c7169f4a37b52.md), [audit-2b900d67234b3bf493bc](audits/audit-2b900d67234b3bf493bc.md), [audit-a7f63146ef37d27560d5](audits/audit-a7f63146ef37d27560d5.md), [audit-b0dcae0da912bdcab55d](audits/audit-b0dcae0da912bdcab55d.md)
+
+| Frozen identity | SHA256 |
+| --- | --- |
+| Methods audit | e27136a1a8fadb74ef273477fc2d9bed087126f6bffe7fc75381a6888a10d7bc |
+| Analysis plan | 9d73c8186d1ba92c1107fc5e4597932290ae335794361ef00939729d519d4a64 |
+| Analysis result | 8faf68972992cbde07bd146b1b0820cd4f8bb88ca101bb785a3391ff7c4de2aa |
+| Analysis code | 9f70de0e38af05ed492e0248d55fb3a2e619388c893c5b6cb86d624f45e09d44 |
+

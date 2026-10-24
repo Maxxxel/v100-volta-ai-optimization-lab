@@ -32,7 +32,7 @@ def browser_register(register):
  The full records remain in data/benchmark-register.json and their generated
  research pages. Configuration, score, source-label and protocol data stay intact.
  """
- return {k:v for k,v in register.items() if k not in ('artifact_weight_reviews','same_quantizer_weight_reviews')}
+ return {k:v for k,v in register.items() if k not in ('artifact_weight_reviews','same_quantizer_weight_reviews','pipeline_method_reviews')}
 
 def definition_identity(d):
  keys=['benchmark_id','benchmark_revision','version','dataset_split','dataset_split_hash','scorer_version','required_task_count','expected_task_ids_hash','required_evaluation_settings','metric']
@@ -829,8 +829,41 @@ def profile_label_annotation(entry,cfg,identity,native):
  if options.get('temperature')!=0:raise ValueError('Copied T1 description defect is not established')
  return {'runtime_configuration_id':cfg['runtime_configuration_id'],'model_artifact_sha256':model['artifact_sha256'],'immutable_profile_sha256':entry['immutable_profile_sha256'],'original_descriptive_label':label,'checkpoint_variant':None,'classification':'COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE','recorded_quantization':model['quantization'],'recorded_temperature':options['temperature'],'recorded_top_k':options.get('top_k'),'QAT_evidence':'NOT_RECORDED','interpretation':'A copied descriptive run label is retained as historical evidence. Checkpoint variant remains unknown. Captured sampler/flags and the separately recorded artifact/quantization are authoritative; no score, model bytes, original profile or qualification changes.'}
 
+def pipeline_method_review(root,entry,receipt):
+ """Export an explicitly bounded CPU-methods summary, never its private inputs."""
+ root=pathlib.Path(root).resolve()
+ if set(entry)!={'audit_path','audit_sha256'}:raise ValueError('Unreviewed pipeline entry fields')
+ ap=(root/entry['audit_path']).resolve()
+ if not ap.is_relative_to(root) or digest(ap)!=entry['audit_sha256']:raise ValueError('Pipeline review audit changed')
+ a=read(ap)
+ if a.get('kind')!='CPU_PIPELINE_METHODS_REVIEW' or a.get('status')!='DECISION_COMPLETE_NO_GPU_ADMISSION' or a.get('new_GPU_runs')!=0 or a.get('new_model_requests')!=0 or a.get('original_audits_modified') is not False or a.get('official_results_modified') is not False or a.get('benchmark_admission_policy_changed') is not False:raise ValueError('Unverified CPU methods review')
+ for name,h in a['source_files_sha256'].items():
+  source=pathlib.Path(name).resolve()
+  if not source.is_relative_to(root.parent) or digest(source)!=h:raise ValueError('Pipeline study source changed')
+ allowed={'review_id','date','evidence','new_GPU_runs','census','sampling_sizes','resamples_per_condition','total_resampled_subsets','cohorts','cohort_source_experiments','simulation','controls','decision','nexus_development','budget','multi_agent','limitations'}
+ summary=a['public_summary']
+ if set(summary)!=allowed or summary['new_GPU_runs']!=0 or summary['decision']['current_GPU_policy_changed'] is not False or summary['decision']['hard_quality_gate_adopted'] is not False or summary['nexus_development']['status']!='PLANNED_NOT_EXECUTED_NOT_BROKER_ADMITTED':raise ValueError('Unreviewed pipeline summary')
+ forbidden={'source_files_sha256','messages','reply','request','prompt','per_task','raw_root','argv','environment','gpu_uuid'}
+ def walk(value):
+  if isinstance(value,dict):
+   if forbidden.intersection(value):raise ValueError('Private pipeline input in public projection')
+   for v in value.values():walk(v)
+  elif isinstance(value,list):
+   for v in value:walk(v)
+ walk(summary)
+ out=dict(summary)
+ out.update(audit_id=receipt(ap,entry['audit_sha256']),audit_sha256=entry['audit_sha256'],analysis_plan_sha256=a['analysis_plan_sha256'],analysis_result_sha256=a['analysis_result_sha256'],source_code_sha256=a['source_code_sha256'])
+ for row in out['cohort_source_experiments']:
+  exp=row['experiment_id']
+  if not re.fullmatch('R[1-9][0-9]{1,3}',exp):raise ValueError('Invalid pipeline source experiment')
+  path=root/'staging'/exp.lower()/'AUDIT.json'
+  if digest(path)!=row['audit_sha256']:raise ValueError('Pipeline original model audit changed')
+  row['audit_id']=receipt(path,row['audit_sha256'])
+ return out
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
+ reg['pipeline_method_reviews']=[pipeline_method_review(root,e,receipt) for e in reg.get('pipeline_method_reviews',[])]
  for item in reg.get('profile_label_reviews',[]):
   ap=(root/item.pop('audit_path')).resolve()
   if not ap.is_relative_to(root.resolve()) or digest(ap)!=item['audit_sha256']:raise ValueError('Profile-label review changed')
@@ -1179,6 +1212,37 @@ def render(register,history,comparison,docs,model_registry=None):
   def cell(x):return str(x if x is not None else 'NOT MEASURED').replace('|','&#124;').replace('\n',' ')
   return '| '+' | '.join(headers)+' |\n| '+' | '.join(['---']*len(headers))+' |\n'+''.join('| '+' | '.join(cell(c) for c in row)+' |\n' for row in rows)+'\n'
  def audit_links(ids,prefix=''):return ', '.join('['+i+']('+prefix+'audits/'+i+'.md)' for i in ids if i)
+ for review in register.get('pipeline_method_reviews',[]):
+  c=review['census'];decision=review['decision']
+  page='# Benchmark pipeline decision\n\n**CPU retrospective study · '+review['date']+' · no new GPU runs.**\n\nKeep normal full benchmark comparisons and add small independent development diagnostics before justified tuning. **Do not introduce automatic quality elimination or a screening highscore.**\n\n## What the archived data show\n\n'
+  page+=str(sum(len(v['calibration_experiments'])+len(v['validation_experiments'])+1 for v in review['cohorts'].values()))+' complete category profiles; the fixed family-hash split leaves '+str(review['cohorts']['coding']['validation_profiles'])+' coding and '+str(review['cohorts']['tools']['validation_profiles'])+' tool validation profiles. The table shows **counterfactual additional request time**, not measured GPU savings. Screened development tasks are followed by a fresh full confirmation; original official tests are never reused as development prompts.\n\n'
+  def study_rows(sizes):
+   rows=[]
+   for x in review['simulation']:
+    if x['tasks'] not in sizes:continue
+    ci=x['unique_correct_top_MC95'];j=x['projected_additional_counter_kJ_interval']
+    rows.append([x['category'],x['method'].replace('_',' '),x['tasks'],f"{100*x['unique_correct_top_set_fraction']:.1f}% ({100*ci[0]:.1f}–{100*ci[1]:.1f}%)",f"{x['projected_request_time_overhead_percent']:+.2f}%",f"{j[0]:+.1f}–{j[1]:+.1f} kJ"])
+   return rows
+  headers=['Category','Sampling','Tasks','Unique correct top set · MC95','Projected request-time overhead','Projected added GPU-counter energy']
+  page+=table(headers,study_rows([16,24,32]))
+  page+='\nMC95 describes resampling-frequency uncertainty, not unseen-model quality. All '+str(review['total_resampled_subsets'])+' subset draws reuse fixed archived answers; they are not GPU runs or independent model seeds. A tied first place is not counted as a unique correct winner. Zero observed rejection of the true validation winner does not establish zero future risk.\n\n<details><summary>All sizes, rules and calibration split</summary>\n\n'+table(headers,study_rows([8,48,64]))
+  for name,cohort in review['cohorts'].items():page+='\n**'+name+'**: reference '+cohort['reference']+'; calibration '+', '.join(cohort['calibration_experiments'])+'; validation '+', '.join(cohort['validation_experiments'])+'.\n'
+  page+='\nRandom sampling is without replacement. Stratification uses calibration-profile difficulty quartiles and reference prompt lengths as tie-breakers. The rejection rule is a one-sided exact finite-population hypergeometric upper bound below the fixed reference by more than10 percentage points, alpha0.01; stratified bounds use a simultaneous per-stratum allocation. This is a retrospectively evaluated rule, **not an activated admission policy**. Hardware startup, CPU scoring and orchestration overhead are excluded from the cost projection and may increase real costs.\n\n</details>\n\n## Evidence census — distinct units\n\n'
+  rows=[['Registered capture profiles',c['registered_capture_profiles']],['Profiles with benchmark evidence',c['capture_profiles_with_benchmark_results']],['Recorded model-family IDs with results (aliases possible)',c['distinct_named_families_with_results']],['Model artifact IDs with results',c['distinct_model_artifact_ids_with_results']],['Exported result views',c['exported_result_views']],['Deduplicated task-set observations',c['deduplicated_task_set_observations']],['Qualified complete task-set observations (includes archived protocols)',c['qualified_complete_task_set_observations']],['Partial task-set observations',c['partial_task_set_observations']],['Hash-registered captures with explicit GPU execution evidence',c['hash_registered_capture_directories_with_GPU_execution_observed']],['Other/legacy capture directories not classified by this reader',c['capture_directories_unclassified_or_not_registered']],['Completed protected task clocks',c['protected_complete_task_clocks']],['Recorded task-window seconds, not GPU busy seconds',c['protected_task_phase_seconds']],['Recorded startup-window seconds',c['protected_startup_phase_seconds']],['Original variant fields',c['original_variant_fields']],['Variant fields with recorded hardware scope',c['original_variant_fields_with_recorded_experimental_scope']],['Global GPU busy time / total project energy','NOT MEASURED'],['Avoidable repeats / developed but unexecuted implementations','NOT ESTABLISHED']]
+  page+=table(['Unit','Verified value'],rows)+'\nThese inventories overlap and must never be summed. The '+str(c['hash_registered_capture_directories_with_GPU_execution_observed'])+' explicit GPU capture witnesses are a verified subset, not the project total. A review, build, submission, start marker or export is not an additional GPU test. No legacy record was relabelled to force a complete census.\n\n'
+  page+='## Nexus: first controlled development comparison\n\n'+table(['Arm','Thinking','Temperature','Output tokens'],[[a['name'],a['thinking'],a['temperature'],a['max_output']] for a in review['nexus_development']['arms']])
+  page+='\nA→B changes only native Thinking; B→C changes only temperature. Keep weights, engine/kernel, template bytes, remaining sampler settings and scorer fixed. Start with16 newly frozen coding and16 mock-tool development cases, covering four declared task/error types per category. This is a low-cost diagnostic design, **not proof of ranking reliability or a basis for rejecting small score differences**. At the methods-audit snapshot, workload freezing, CPU scorer controls and broker admission remained pending; each is a separate pre-execution gate.\n\nOne shared1,200-second task clock covers all three arms and all parts. Predeclare counterbalanced task triples; no token-limit reduction or clock reset. Report successes, valid final responses, completion/reasoning tokens, latency, GPU energy including failures and VRAM. If capped, disclose matched task IDs and actual coverage. Temperature0 requests greedy sampling; bitwise deterministic CUDA execution is not assumed.\n\n'
+  page+='## Budget and scheduling\n\nThe current owner-authorized budget is **1,200 seconds for the whole task phase**. The admitted class separately bounds startup180 s, cleanup60 s and outer wall1,440 s. All '+str(c['protected_complete_task_clocks'])+' completed protected task clocks in this snapshot use1,200 s. The actual systemd wrapper can end a run earlier; record it separately. Legacy900-second contracts and code paths remain historical and are not rewritten or repurposed for new task-phase tests.\n\nCPU work may accompany only prepared, broker-approved GPU research: one GPU lease, bounded CPU/RAM/I/O, no overlapping heavy jobs, no manufactured utilization. No automatic screening launch, new GPU scheduler or broker-policy change is introduced here.\n\n'
+  ma=review['multi_agent'];ref=ma['reference']
+  page+='## Jarvis role evaluation — plan only\n\n'+table(['Comparison','Controlled resource'],[[role,'Same task fixtures and model profile; equal TOTAL token/task-time budget across all roles'] for role in ma['role_profiles']])
+  page+='\nUse one centrally scheduled GPU worker and reuse the loaded model. Compare whole-task success, calls, all generated tokens, wall time, GPU J/success, failed delegations, duplicate work, context loss, reviewer corrections/false alarms and permission violations. Development tools are mocks in isolated coding/automation tests; no real home, virtualization or GitHub write actions and no additional Codex agents.\n\n[MultiAgentBench (Zhu et al.,2025)]('+ref['paper_url']+') motivates separate task-outcome and coordination measurements; [MARBLE source at '+ref['commit'][:12]+']('+ref['repository']+'/tree/'+ref['commit']+') is pinned as external evidence. Its code, judge and remote APIs are not executed. No official MultiAgentBench or Terminal-Bench score is claimed.\n\n'
+  page+='## Limits and original evidence\n\n'+'\n'.join('- '+s for s in review['limitations'])+'\n\n'
+  page+='CPU controls: **'+str(review['controls']['unit_tests'])+' unit tests, '+str(review['controls']['exact_hypergeometric_coverage_controls'])+' exact finite-population coverage controls and '+str(review['controls']['counter_equivalence_controls'])+' comparisons with the reviewed counter-bound function**.\n\n'
+  page+=audit_links([review['audit_id']]+[x['audit_id'] for x in review['cohort_source_experiments']])+'\n\n'
+  page+=table(['Frozen identity','SHA256'],[['Methods audit',review['audit_sha256']],['Analysis plan',review['analysis_plan_sha256']],['Analysis result',review['analysis_result_sha256']],['Analysis code',review['source_code_sha256']]])
+  write(docs/'pipeline-methods.md',page)
+  methodology=docs/'methodology.md'
+  if methodology.exists() and 'pipeline-methods.md' not in methodology.read_text():write(methodology,methodology.read_text()+'\n## Pipeline decision\n\n[Retrospective screening evidence and Nexus/Jarvis development plan](pipeline-methods.md). CPU-only study; official results and GPU admission policy remain unchanged.\n')
  # Old result URLs are aliases, never competing leaderboard/table views.
  alias='# Model comparison has one home\n\n[Open the category comparison](configuration-comparison.md#all-measured-results). One fixed benchmark each for coding, tools and agents, with original task counts and statuses.\n\nThis older URL redirects automatically. Original measurements, protocol definitions, source datasets, profile identities and audits remain preserved.\n'
  for route in ('benchmarks.md','supplemental-comparison.md'):

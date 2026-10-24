@@ -31,3 +31,7 @@ Native broker campaigns use their frozen data contracts and captured launch/prof
 
 
 Experimental coverage is an independent boolean. A status decision, review, build or download is not a GPU intervention. Component coverage does not imply OmniCoder2 model coverage.
+
+## Pipeline decision
+
+[Retrospective screening evidence and Nexus/Jarvis development plan](pipeline-methods.md). CPU-only study; official results and GPU admission policy remain unchanged.

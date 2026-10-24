@@ -68,6 +68,7 @@ nav:
       - Roadmap: roadmap.md
   - Methods:
       - Methodology: methodology.md
+      - Pipeline decision: pipeline-methods.md
       - Hardware: hardware.md
       - Benchmark definitions: benchmark-register.md
       - Safety and admission: broker-admission.md
