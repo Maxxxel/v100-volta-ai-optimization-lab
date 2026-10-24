@@ -773,3 +773,15 @@ test('Nexus first reasoning coding prefix71/81 stays partial with exact original
  assert.equal(row.profile.model.hf_repository,'prithivMLmods/Nexus-9B-CodeCore-Merge-GGUF');assert.equal(row.profile.model.hf_revision,'330ab686d7784f9b21f553727635efceeb8562e7');
  const v=M.comparisonView(M.build(data));assert(!v.rows.some(x=>x.runs.some(y=>y.experiment_id==='R481')),'No partial score in complete-only central table');
 });
+
+
+test('Nexus full tools174/200 is admitted while its coding prefix stays outside the central mean',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R482'&&r.counter_energy);assert(r&&r.official_eligible);
+ assert.equal(r.tasks,200);assert.equal(r.solved,174);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,174);
+ assert.equal(r.counter_energy.j_per_success_lower,1814.7126666666668);assert.equal(r.counter_energy.j_per_success_upper,1815.2992873563219);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ assert.equal(row.values['model.name'],'Nexus 9B CodeCore Merge');assert.equal(row.values['requested.thinking'],true);assert.equal(row.values['requested.MTP'],false);
+ assert(!row.runs.some(x=>x.experiment_id==='R481'));const a=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);
+ assert.equal(a.score,87);assert.equal(a.count,1);assert.equal(a.total,3);
+ assert.equal(M.performanceSummary(row,a.keys,v.benchmarkMap).tasks,200);
+});

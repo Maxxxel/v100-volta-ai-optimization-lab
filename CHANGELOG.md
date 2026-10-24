@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-24 — Complete Nexus selected-tool comparison
+
+Add the pinned Nexus CodeCore9B Q6 Thinking profile's174/200 official AST and practical successes, with identical independent replay,1101.207s task time,7356.5MiB peak and1814.713–1815.299 reportedGPU-J/success over all200 requests. Qualify only this complete category; retain coding71/81 as partial archived evidence outside the central mean. Record a copied descriptive dashboard title correction without changing model identities, source hashes, scores or original audits. Experiment pages now link their exact registered benchmark results/configurations/proofs so full and partial denominators are visible directly from the existing immutable history. No extra model generation for documentation.
+
 ## 2026-10-24 — First Nexus coding profile and direct selected-tool admission
 
 Record Nexus CodeCore9B Q6 Thinking:71 successes among81 completed HumanEval+ tasks before the unchanged1200-second whole-task deadline;83 tasks remain unmeasured. Independent isolated CPU replay is identical. Preserve7352.5MiB peak and exact completed-prefix counter costs separately from recorded whole-session energy. No full164 score, global model rejection or Champion claim; partial evidence remains outside the complete-only central table. Activate the closed coding-parent route for the selected200-task tool category after196 CPU controls, preserving all historical source proofs, profiles, clocks and hardware protections. No unrelated400-task test is needed to establish a tools parent.
@@ -741,5 +745,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R481 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R482 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

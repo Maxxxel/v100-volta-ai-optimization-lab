@@ -230,9 +230,13 @@ Native broker campaigns use their frozen data contracts and captured launch/prof
  for aid,a in audits.items():
   put('audits/'+aid+'.md','# Public audit excerpt\n\nOriginal SHA256: `'+a['original_sha256']+'`\n\nOriginal file: `'+a['original_filename']+'`; '+str(a['original_bytes'])+' bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.\n\n'+pretty(a['statements'])+'\n## Selected aggregate measurements\n\n'+(pretty(a['aggregate_metrics']) if a['aggregate_metrics'] else 'NOT MEASURED / not included in the approved public schema.\n'))
  erows=[]
+ registered_runs=read('configuration-history.json')['runs']
  for e in es:
   erows.append([f"[{e['id']}](experiments/{e['id']}.md)",', '.join(e['factor_ids']),e['evidence_status'],e.get('model')])
   text='# '+e['id']+'\n\n'+table(['Date','Factors','Model','Evidence state'],[[e.get('date'),', '.join(e['factor_ids']),e.get('model'),e['evidence_status']]])+'\n## Research question, decision and limits\n\n'+pretty(e['statements'])+'\n## Available aggregate results\n\n'+(pretty(e['aggregate_metrics']) if e['aggregate_metrics'] else 'NOT MEASURED / not recorded in this public projection.\n')
+  measured=[r for r in registered_runs if r['experiment_id']==e['id']]
+  if measured:
+   text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
   if e.get('factor_mapping_correction'):

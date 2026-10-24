@@ -4,6 +4,17 @@ def module(name):
  s=importlib.util.spec_from_file_location(name,P/(name+'.py'));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 v=module('validate');e=module('export')
 class PublicationSafety(unittest.TestCase):
+ def test_native_experiment_pages_show_registered_full_and_partial_results(self):
+  import json
+  root=P.parent;history=json.loads((root/'data/configuration-history.json').read_text())
+  for experiment in ('R481','R482'):
+   runs=[r for r in history['runs'] if r['experiment_id']==experiment];self.assertTrue(runs)
+   page=(root/'docs/experiments'/f'{experiment}.md').read_text()
+   for run in runs:
+    self.assertIn(str(run['solved'])+'/'+str(run['tasks']),page)
+    self.assertIn(run['status'],page);self.assertIn(run['benchmark_identity_id'],page)
+    self.assertIn(run['runtime_configuration_id'],page)
+    for audit in run['audit_ids']:self.assertIn(audit,page)
  def test_compact_history_preserves_every_value_within_existing_file_budget(self):
   import json,tempfile
   from unittest.mock import patch
