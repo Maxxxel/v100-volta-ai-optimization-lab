@@ -13,7 +13,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655/"><span>Coding</span><strong>117/164</strong><b>Ornith 1.5 9B</b><small>Latest complete result · R495</small></a><a class="lab-result" href="configuration-profiles/cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c/"><span>Tools</span><strong>170/200</strong><b>Ornith 1.5 9B</b><small>Latest complete result · R496</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655/"><span>Coding</span><strong>117/164</strong><b>Ornith 1.5 9B</b><small>Latest complete result · R495</small></a><a class="lab-result" href="configuration-profiles/cfg-18b3c3040974b775b83cb111656e53a39d7005d0e104891cc2e807e5f0eeebc0/"><span>Tools</span><strong>158/200</strong><b>Gemma4 12B IT QAT</b><small>Latest complete result · R513</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](configuration-comparison.md).
 
@@ -29,7 +29,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **435** · 2026-10-24. 431 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **435** · 2026-10-24. 432 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](methodology.md) · [Hardware](hardware.md) · [Reproduce](reproduce.md).
 

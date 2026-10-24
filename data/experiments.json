@@ -20504,5 +20504,53 @@
       "scope": "Development32 only; same runtime except K-cache F16 to Q8. Mixed Q8/F16 attention-vector specialization absent; observed F16 conversion fallback. No speedup, quality superiority or Champion claim."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "baseline": {
+          "AST_correct": 154,
+          "case_inference_wall_s": 333.676096171,
+          "energy_complete_cases": 196,
+          "peak_device_vram_mib": 8118.5,
+          "practical_correct": 154,
+          "successful_tasks_per_s": 0.46152541871347946,
+          "tasks": 200
+        },
+        "candidate": {
+          "AST_correct": 158,
+          "case_inference_wall_s": 354.435688484,
+          "energy_complete_cases": 139,
+          "peak_device_vram_mib": 7986.5,
+          "practical_correct": 158,
+          "successful_tasks_per_s": 0.4457790373080121,
+          "tasks": 200
+        },
+        "memory_gate_passed": true,
+        "memory_saved_mib": 132.0,
+        "quality_gate_passed": true
+      },
+      "model_starts": 1
+    },
+    "audit_id": "audit-bba2d068363f59d27bc0",
+    "date": "2026-10-24T23:22:46.046565+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "K01"
+    ],
+    "id": "R513",
+    "model": "gemma4_12b_it_qat_q4_0",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL_TOOLS_QUALITY_GATE_PASSED_CODING_STABILITY_PENDING",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "Gemma4 QAT Q4_0 with K=q8_0,V=f16; stored F16 reference R472. No fresh balanced control or speedup claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    },
+    "winner_qualified": false
   }
 ]
