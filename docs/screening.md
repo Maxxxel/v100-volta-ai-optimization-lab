@@ -1,6 +1,6 @@
 # Model screening
 
-**4/13 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**6/13 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 <input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">
 
@@ -1031,8 +1031,8 @@
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Ornith-1.5-9B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r479">R479 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+}</pre></details></td></tr><tr><td>Ornith-1.5-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>11/16 · 68.8%</td><td>361.5</td><td>77.5</td><td>4,207.4</td><td>7,356.5</td><td><a href="../results/#r479">R479 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;f5efcab1dbcdfb77af2b3344ab79755e9c792618d05b1687d69e89cfdc2d5d06&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -1249,16 +1249,55 @@
     },
     &quot;warmup_requests&quot;: 4
   },
+  &quot;date&quot;: &quot;2026-10-24T20:54:46.305815+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R500&quot;,
+  &quot;independent_review_sha256&quot;: &quot;24b20a9e63e5c5c5d77efb2b0e0039261d09c310d524e14570a20992951249ef&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Ornith-1.5-9B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R479&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Qwen3.5-9B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r465">R465 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+  &quot;peak_vram_mib&quot;: 7356.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 361.511117741,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 7119.365,
+      &quot;GPU_j_per_success_upper&quot;: 7277.29876923077,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 327.578638926,
+      &quot;completion_tokens&quot;: 25779,
+      &quot;final_text_present&quot;: 14,
+      &quot;length_stops&quot;: 2,
+      &quot;successes&quot;: 13,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.03968512734109229,
+      &quot;tokens_s_completed_requests&quot;: 78.69560751738601,
+      &quot;valid_terminal_output&quot;: 14,
+      &quot;wilson95&quot;: [
+        0.5699111903802586,
+        0.9340840092857187
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 766.053,
+      &quot;GPU_j_per_success_upper&quot;: 950.7,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 33.91245192,
+      &quot;completion_tokens&quot;: 2242,
+      &quot;final_text_present&quot;: 7,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.3243646323760125,
+      &quot;tokens_s_completed_requests&quot;: 66.11140961700183,
+      &quot;valid_terminal_output&quot;: 11,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>Qwen3.5-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>15/16 · 93.8%</td><td>12/16 · 75.0%</td><td>79.6</td><td>87.2</td><td>699.7</td><td>5,956.5</td><td><a href="../results/#r474">R474 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;9e9b0f0375c964838fb98cac1be993c2b7bb88c3299d8e7e0759f9d3f95deca7&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -1269,7 +1308,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d&quot;,
-    &quot;parent_profile_id&quot;: &quot;qwen35-q4-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;qwen35-q4-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;Q4_K_M&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -1299,14 +1338,14 @@
         &quot;name&quot;: &quot;Qwen3.5 9B&quot;,
         &quot;quantization&quot;: &quot;Q4_K_M&quot;,
         &quot;tensor_precision_map&quot;: null,
-        &quot;variant&quot;: &quot;qwen35-q4-native-coding-task1200-reviewed-sm70&quot;,
+        &quot;variant&quot;: &quot;Qwen3.5-9B&quot;,
         &quot;weight_transformations&quot;: {
           &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
           &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
           &quot;proof&quot;: null
         }
       },
-      &quot;model_artifact_id&quot;: &quot;artifact-beed938fd070c13bfba7993d44109e7518bc555eb0556e09671dbced1f396f74&quot;,
+      &quot;model_artifact_id&quot;: &quot;artifact-ddd6ec28478225f72a667b27a60a88676313261cd6901581f8854784127a33b6&quot;,
       &quot;optimizations&quot;: {
         &quot;GDN_state_changes&quot;: null,
         &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
@@ -1347,6 +1386,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {
           &quot;enable_thinking&quot;: false
         },
@@ -1360,13 +1400,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;c1e1034cc33f3d8bba738726af1bc0396b76affcef52b3ee7cf361eaed22bb77&quot;,
+      &quot;source_plan_sha256&quot;: &quot;924f251221d4929978f976f6f90df4640e27b716f1bb6a658222b6b5d4ecc759&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;4eb1556e145765cd44242083090460b4e7a0aaf2069deeac3825bc29c47abf25&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;9dfd38bb5a5c523af88f26763371e343dcc2297ed071cbf50ebca08392660eae&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;d4a1964a65c3b6855b0c08f5a43b3a9dc9568c4a602a3d5df0a04e8b3a2c51af&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;dc535e060e2756a5f575511f2d9eaafe961c1a25a9caf69975ebffba1e1f1927&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;16af9a0ea14cf79f0bb3609eeebf78f266cb908bcaa1c73336ad8134ed5505a1&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;73f83d92df3630237f20d3fe49a7f351af86652d8ee1294b00247ad38fdca5e8&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -1429,7 +1469,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;e453dfc9725c2c35f5a81effebac03a71ec31f8c4e317997723b3b7d27eb06c7&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;71326d5b93b4150a1f942c752b7053ded68b6e5ab6d408e8f320b7b81d121a5f&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -1458,15 +1498,54 @@
     },
     &quot;warmup_requests&quot;: 2
   },
+  &quot;date&quot;: &quot;2026-10-24T21:00:51.448625+00:00&quot;,
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
-  &quot;experiment_id&quot;: null,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;experiment_id&quot;: &quot;R501&quot;,
+  &quot;independent_review_sha256&quot;: &quot;7d2a537289937e394ddec616d533689fb94c88c496d72c6889e4fe87e9a5b438&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Qwen3.5-9B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R465&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Qwen3.8-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r466">R466 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+  &quot;parent_experiment_id&quot;: &quot;R474&quot;,
+  &quot;peak_vram_mib&quot;: 5956.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 79.578397402,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 1072.4802666666667,
+      &quot;GPU_j_per_success_upper&quot;: 1189.4296666666667,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 64.93725960900001,
+      &quot;completion_tokens&quot;: 6098,
+      &quot;final_text_present&quot;: 16,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 15,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.23099219293080653,
+      &quot;tokens_s_completed_requests&quot;: 93.90602616613721,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.7167126242970107,
+        0.9888806552353576
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 233.80058333333332,
+      &quot;GPU_j_per_success_upper&quot;: 377.6571666666667,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 14.623752884,
+      &quot;completion_tokens&quot;: 838,
+      &quot;final_text_present&quot;: 3,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 12,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.8205827939782355,
+      &quot;tokens_s_completed_requests&quot;: 57.30403177948012,
+      &quot;valid_terminal_output&quot;: 12,
+      &quot;wilson95&quot;: [
+        0.5050168346449122,
+        0.8981793250878696
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>Qwen3.8-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r473">R473 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -1478,7 +1557,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f&quot;,
-    &quot;parent_profile_id&quot;: &quot;qwen38-iq3-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;qwen38-iq3-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;GSQ/RCO IQ3_S&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -1508,14 +1587,14 @@
         &quot;name&quot;: &quot;Qwen3.8 27B&quot;,
         &quot;quantization&quot;: &quot;GSQ/RCO IQ3_S&quot;,
         &quot;tensor_precision_map&quot;: null,
-        &quot;variant&quot;: &quot;qwen38-iq3-native-coding-task1200-reviewed-sm70&quot;,
+        &quot;variant&quot;: &quot;Qwen3.8-27B&quot;,
         &quot;weight_transformations&quot;: {
           &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
           &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
           &quot;proof&quot;: null
         }
       },
-      &quot;model_artifact_id&quot;: &quot;artifact-81368257950e68ed0a459e6e33b01ba8e9590d3d071c95b827ce3fcf85bce0de&quot;,
+      &quot;model_artifact_id&quot;: &quot;artifact-caf2bd548235bbc543cf0a388956ebc2e4724badd60bbb95a8b5e543f886a4d0&quot;,
       &quot;optimizations&quot;: {
         &quot;GDN_state_changes&quot;: null,
         &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
@@ -1558,6 +1637,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {
           &quot;enable_thinking&quot;: false
         },
@@ -1571,13 +1651,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-8f78ed6d25af1f692013432f586b4f86710b67f7e2c3f08af4cb3989b6ca2ca5&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;7a21cacd939fae3227c2ceae593ade1092f241e8a59712abe498337486e37a66&quot;,
+      &quot;source_plan_sha256&quot;: &quot;56fa8b24518b215ec5eff2ac8dbeb75e654f968836f26b282eb738337960a657&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;9970f3d75788cb469468e21215f40ef32d805cc392cc157eec4ff211e8c92ba9&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;556c3adf25f8618a0d93218db3402e004446adb9197efb0732806db36f166658&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;c4b078155219cbbfe1a3534d662eb2700c70790a67c4475f2bf247316979c895&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;fe87419649ed3e438fd6759b727e3d14fe2929bcb7383110f4159d5bf6279d9d&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;c438a5a29296e3ecd24879a4284f1de988bd0ae411e0e5bf9f2e81ad6f5a25c0&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;a3467f360dbad23eeaf796ff430ad523186d76951984e000e5df2466fe4bb966&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -1642,7 +1722,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;558f0391ff76b0c1d3eb23cde353e82f5bb93df82c6f20257dee8fa82e21270f&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;f10ce72b41d42ad8ca35496f4690682c22d868ad6f7fe6657cc08709f2c33c99&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -1677,10 +1757,10 @@
   &quot;independent_review_sha256&quot;: null,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Qwen3.8-27B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R466&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R473&quot;,
   &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
   &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Gemma4-12B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r464">R464 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Gemma4-12B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r472">R472 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -1692,7 +1772,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b&quot;,
-    &quot;parent_profile_id&quot;: &quot;gemma4-qat-q4-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;gemma4-qat-q4-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;Q4_0&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -1722,14 +1802,14 @@
         &quot;name&quot;: &quot;Gemma4 12B IT QAT&quot;,
         &quot;quantization&quot;: &quot;Q4_0&quot;,
         &quot;tensor_precision_map&quot;: null,
-        &quot;variant&quot;: &quot;gemma4-qat-q4-native-coding-task1200-reviewed-sm70&quot;,
+        &quot;variant&quot;: &quot;Gemma4-12B-IT-QAT&quot;,
         &quot;weight_transformations&quot;: {
           &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
           &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
           &quot;proof&quot;: null
         }
       },
-      &quot;model_artifact_id&quot;: &quot;artifact-19f0410f08c1621397606da4afa83cbf262d3db9705dbe31926ad8df9e56d6fe&quot;,
+      &quot;model_artifact_id&quot;: &quot;artifact-1ec9fa790255e20ba7009e7654a609b907bdf0da29d1fb3fef77f730e0592a6e&quot;,
       &quot;optimizations&quot;: {
         &quot;GDN_state_changes&quot;: null,
         &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
@@ -1772,6 +1852,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {
           &quot;enable_thinking&quot;: false
         },
@@ -1790,13 +1871,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;8799b221b845bbb9f5de79ea7bb36ca84e27531ae87dd98749002a6d9f433bef&quot;,
+      &quot;source_plan_sha256&quot;: &quot;f6138859b29e191883e0acf88644b036e5dcee08622ff45ba8a7ee97336ac1ea&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;303f5af22c2561933d156539249e593bdb3f0d6bd5d231d54dc66c8ac8d44392&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;9bbba0271eed8fdb3391e3eed7be4ba0b8d77d0a4e4a88c8c3863f98b38a3bd1&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;8cb7aa3284c2b17bea0d85975819f5be9958a381c4717d3867c1b00f8e9743d8&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;649fe42a4411f7135b8c1b1dd12d4a31ce7a42a96dd787a2504c7d9583a2b42f&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;0af23c90de165cfa20a59cabbc5a6ac8007b63c6a7efe34dea9877b5a91654bf&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;d7c0787185abcc04ec22ae198e061e2198e7170373c5958fb7045961ce9ee5a3&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -1861,7 +1942,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;e55ea534cb0bd6069e0705d4a7af7b8a5db9c4ecb6112fd7cf7c006fe95366d5&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;a5b36a29dd7394bed8656479342f82a08388a67a548ffd22591a4b2f400df776&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -1900,10 +1981,10 @@
   &quot;independent_review_sha256&quot;: null,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Gemma4-12B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R464&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R472&quot;,
   &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
   &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>MiMo-9B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r454">R454 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>MiMo-9B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r480">R480 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -1915,7 +1996,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;de6dae10334e088876358ef9f574835bb3b401ea2ecf5d6a9473f37894df6b73&quot;,
-    &quot;parent_profile_id&quot;: &quot;mimo-q8-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;mimo-q8-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;Q8_0&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -1945,14 +2026,14 @@
         &quot;name&quot;: &quot;MiMo V2.6 Distill Qwen 9B&quot;,
         &quot;quantization&quot;: &quot;Q8_0&quot;,
         &quot;tensor_precision_map&quot;: null,
-        &quot;variant&quot;: &quot;mimo-q8-native-coding-task1200-reviewed-sm70&quot;,
+        &quot;variant&quot;: &quot;MiMo-V2.6-Distill-Qwen-9B&quot;,
         &quot;weight_transformations&quot;: {
           &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
           &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
           &quot;proof&quot;: null
         }
       },
-      &quot;model_artifact_id&quot;: &quot;artifact-094fe33ba6e2ef7928eab3c12b17072cfd860d9c18850a9f683130664243087e&quot;,
+      &quot;model_artifact_id&quot;: &quot;artifact-2224e59ff4350ffe912658c5054cac69f6269e0c915a56cbb906f5e5191dc758&quot;,
       &quot;optimizations&quot;: {
         &quot;GDN_state_changes&quot;: null,
         &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
@@ -1995,6 +2076,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {
           &quot;enable_thinking&quot;: true
         },
@@ -2013,13 +2095,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-6fee55e4cd29ef463b21160ec81c870ad503865bd3fa368fefb0b64d6c8b830e&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-146fc8bdf55eefbb6d995e664f5c6ef1f86c8b8d5c5a2f4093859df6decc9a17&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;1cea136f756ab0a6d615cc8a6b9840653579e26e632c118eb25988b4eb20cdfd&quot;,
+      &quot;source_plan_sha256&quot;: &quot;09c7d299580ad564304c5a634c9bfae96f9fb4dbe19e1083f0b2af3a389f0ec6&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;e7102e9559e3ebf42829148500ecc1cb346e5fd6cb500406b1553aaf933ee1d3&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;078741e9273b13b9342a04365c50fa3a1433f2d15f9863ecfca45ccdf292f25e&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;cdaecae2f643c95d72fee2600ed6438b640f891bcc700ae75236120f070f91ae&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;988fce72427535a9ec716e81207026763894b608cb556ca80b112ed43e5d38d4&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;6ba5c5672f6abef6edc20f6841a68b6afdd981f3c13e5f8fb098242254af76fe&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;b460a336eb9f08c7b4154b2a6d70bc1fb2d23fae3a425e6c0fece9d3b781db44&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -2086,7 +2168,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;df5706b689d8a877b0f32ee01b4f9847388896d25206ae6e60fe1cb8b0cea0ac&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;313f669d7e3894a05ec451d60c07e2ffb564b31d2058f210fd9001a8c671445f&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -2125,10 +2207,10 @@
   &quot;independent_review_sha256&quot;: null,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;MiMo-9B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R454&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R480&quot;,
   &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
   &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>LFM2.5-8B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r452">R452 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>LFM2.5-8B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r476">R476 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -2140,7 +2222,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;7ccf57a2d410d8822d1560a1ca10c8318f3e15d6a8f6d42d1903d58e80ea20a6&quot;,
-    &quot;parent_profile_id&quot;: &quot;lfm25-q6-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;lfm25-q6-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;Q6_K&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -2170,14 +2252,14 @@
         &quot;name&quot;: &quot;LFM2.5 8B A1B&quot;,
         &quot;quantization&quot;: &quot;Q6_K&quot;,
         &quot;tensor_precision_map&quot;: null,
-        &quot;variant&quot;: &quot;native_Q6_K_T0.2_K80_output4096_noMTP_single_session&quot;,
+        &quot;variant&quot;: &quot;LFM2.5-8B-A1B&quot;,
         &quot;weight_transformations&quot;: {
           &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
           &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
           &quot;proof&quot;: null
         }
       },
-      &quot;model_artifact_id&quot;: &quot;artifact-e72398297ed94d0b78cfd0891c8366f3b3d6e6a52f919d01741758d551b7781c&quot;,
+      &quot;model_artifact_id&quot;: &quot;artifact-2702a7fc9eace54d1410594cda39f3596ce11ad6cd49fc8c4f59136917460c9d&quot;,
       &quot;optimizations&quot;: {
         &quot;GDN_state_changes&quot;: null,
         &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
@@ -2220,6 +2302,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {},
         &quot;power_limit_w&quot;: 300,
         &quot;sampling&quot;: {
@@ -2235,13 +2318,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-3336324962cd5565abc86e4a6440d7b5a982511204e848fe30f92f1d524f0813&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;2a0fcba676eab52ae6a2f1bd69ab62c7217cfec2c2f1bacbd163741d63da992c&quot;,
+      &quot;source_plan_sha256&quot;: &quot;bd5e403bc5b530b50ed6fe893280c8fd42315ebcc5b2f2593cb4fb6500980aee&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;5f68fa7e72e9febb72f091ec69eaa367293ee25dda0aa4c1629220fc2a2e2c89&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;88b23f3faafa315617244312d18ccd3a11b3cf861e9d9fc118efef38725d9eba&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;573c06ab6d261ecdcc75ce2dec8b91fba2d07111680cbd7ea1de9ea2cd956e96&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;640003a17661439eb3bd232d4e1cbcf2723cac351caf17cd45723402c37c6c3a&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;102642c5fac98ffd1db3a725e51e61eb34cc4c375a452f9c27e99ee096afbc84&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;f5442e8be08c017d87f79c71e583615b42195824ef129d4c60003eb7a0121230&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -2308,7 +2391,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;41b7daf9f7e584b029fdfe6718df2b70dc3441b0baae52c29b4846a390d1e31b&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;9bf2b4f08bae7a81688998d19c72d6ee637603ea2af3e527e96bcb1a9e48071a&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -2344,10 +2427,10 @@
   &quot;independent_review_sha256&quot;: null,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;LFM2.5-8B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R452&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R476&quot;,
   &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
   &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>LFM2.5-24B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r468">R468 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>LFM2.5-24B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r477">R477 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -2359,7 +2442,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;d1c03f73ecaf61017d70419eec9e5dc0b05d50ae26c23d522829b934fbabf8a5&quot;,
-    &quot;parent_profile_id&quot;: &quot;lfm25-24b-qad-q4-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;lfm25-24b-qad-q4-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;QAD Q4_0&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -2439,6 +2522,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;128&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {},
         &quot;power_limit_w&quot;: 300,
         &quot;sampling&quot;: {
@@ -2454,13 +2538,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-a300301b48f44db40a601e616cb8ee7337a28054480f50650ce8d32e85116146&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-7afa9f9f465d059ff54d9b6fef6762dded717f96ac2772dd651304a689955bd3&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;6820cd61dd44641e34171135ef138f415e2aa7119d7af725995fddad11093778&quot;,
+      &quot;source_plan_sha256&quot;: &quot;b54c574811d852cc329956c1f9ccfe7316227f5a536ef8963124ef1bb684aba3&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;0d2b43a927b6ce5ca37942f03fe3716a00a1c98956ca50a7551208405162cf65&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;f0151c0e0ff5fd963e456c048c66d13159912db7fba22bd5864eed78fbcd2b3c&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;b6a27114537fde51dbd6e960b5e8c8533ea35aee989f30354a2e39d1181d7ee0&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;2ccbecd53844ebc8e6b60e6448d4e0245c88fd877567c40dcb10f68023a9b6c7&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;d1e4e6e099fbca4c0abd429bf910eeb5d43c3a9a27538d31dd1cf8fa832bb393&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;b4dc711ea350619cdb04e552b60afce10e56c9a3e1e5afdc30088edc098490ca&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -2527,7 +2611,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;fdc375a49e0ae0fdd9ac0a3797ef04ffec17dc0e49543336b9e1e193699fca6e&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;3fa2b2bb6252b9e917e2134b29b2c03ca3bac1e1740b48b3b59e9b6f148092f4&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -2563,10 +2647,10 @@
   &quot;independent_review_sha256&quot;: null,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;LFM2.5-24B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R468&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R477&quot;,
   &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
   &quot;category_results&quot;: null
-}</pre></details></td></tr><tr><td>Qwen3.6-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r469">R469 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Qwen3.6-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r492">R492 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -2578,7 +2662,7 @@
     &quot;engine_version&quot;: null,
     &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
     &quot;model_sha256&quot;: &quot;4afb4abcf0207a484b0d7e92c0421b74e8ce1c7a7250bb9d824b79288da68f20&quot;,
-    &quot;parent_profile_id&quot;: &quot;qwen36-27b-q3ks-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;qwen36-27b-q3ks-native-parallel200-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;Q3_K_S&quot;,
     &quot;recorded_parent_profile&quot;: {
@@ -2658,6 +2742,7 @@
         &quot;execution_deadline_s&quot;: 1200,
         &quot;max_output&quot;: 4096,
         &quot;microbatch&quot;: &quot;128&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
         &quot;native_template_controls&quot;: {
           &quot;enable_thinking&quot;: false
         },
@@ -2676,13 +2761,13 @@
         &quot;timing_scope&quot;: &quot;TASK_PHASE_ONLY&quot;,
         &quot;tokenizer_identity&quot;: null
       },
-      &quot;runtime_configuration_id&quot;: &quot;cfg-24396c98c2666260c3ff74954ab4895927a8a14520fb8c1e6f059f73b5a3bcd0&quot;,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-22ddad19e7c5ae6c80fc0c4116156b827125813bdf4fd91f2b04dd13a56f68f1&quot;,
       &quot;schema_version&quot;: 1,
-      &quot;source_plan_sha256&quot;: &quot;b80456d161225ee5a38a271d46c3feb7b2d3ebaf6796b3eb63596ff4c4a32cdf&quot;,
+      &quot;source_plan_sha256&quot;: &quot;e30f672384e09df13e6c64a0a9d9e55bea0e20baf702205b099cbf211f9afb11&quot;,
       &quot;source_provenance&quot;: {
-        &quot;first_part_collection_audit_sha256&quot;: &quot;b8b62458b9747bde118b85ea8c4cf71786998758e7d3f552599f0f29a0292804&quot;,
-        &quot;first_part_contract_sha256&quot;: &quot;4e90c9c21fc75e1244506b628e04a56646321b6141f2fed50008357efc38fe3c&quot;,
-        &quot;frozen_model_profile_sha256&quot;: &quot;00e26fff944ddd52c53373f5183225dddaf80c427f827f0d31d9f531d520b5ef&quot;,
+        &quot;first_part_collection_audit_sha256&quot;: &quot;a778c6835cd770378e2f848f952ea40bee39586e7f128496c60f27c0f19bd13c&quot;,
+        &quot;first_part_contract_sha256&quot;: &quot;042f09a6e140c4da0fdad52553758176e77dfcf0624f044a146c025f3a3f6689&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;4e374684f8fb355a8596b7e526efe0897d9a22b2ff15ea1216f83908457883f8&quot;,
         &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;
       },
       &quot;start_parameters&quot;: {
@@ -2747,7 +2832,7 @@
           &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
           &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
         },
-        &quot;exact_private_launch_sha256&quot;: &quot;aa8747f33964711c8d8c7a87cebeebfaffd8d716eeb041e4a2464c47139986ba&quot;,
+        &quot;exact_private_launch_sha256&quot;: &quot;8e7a14894889dcfab9aa8b14766246149f74bdb19c96d4c9ed158c1c269a938e&quot;,
         &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
         &quot;redacted_argument_positions&quot;: [
           0,
@@ -2787,7 +2872,7 @@
   &quot;independent_review_sha256&quot;: null,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Qwen3.6-27B&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R469&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R492&quot;,
   &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
   &quot;category_results&quot;: null
 }</pre></details></td></tr><tr><td>Bonsai2-27B</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../results/#r475">R475 archive</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><details><summary>Profile & evidence</summary><pre>{

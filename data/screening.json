@@ -1060,7 +1060,7 @@
       "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "f5efcab1dbcdfb77af2b3344ab79755e9c792618d05b1687d69e89cfdc2d5d06",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -1277,17 +1277,56 @@
         },
         "warmup_requests": 4
       },
+      "date": "2026-10-24T20:54:46.305815+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R500",
+      "independent_review_sha256": "24b20a9e63e5c5c5d77efb2b0e0039261d09c310d524e14570a20992951249ef",
       "local_artifact_available": true,
       "model": "Ornith-1.5-9B",
       "parent_experiment_id": "R479",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "peak_vram_mib": 7356.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 7119.365,
+          "GPU_j_per_success_upper": 7277.29876923077,
+          "completed": 16,
+          "completed_request_wall_s": 327.578638926,
+          "completion_tokens": 25779,
+          "final_text_present": 14,
+          "length_stops": 2,
+          "successes": 13,
+          "successful_tasks_s_completed_requests": 0.03968512734109229,
+          "tokens_s_completed_requests": 78.69560751738601,
+          "valid_terminal_output": 14,
+          "wilson95": [
+            0.5699111903802586,
+            0.9340840092857187
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 766.053,
+          "GPU_j_per_success_upper": 950.7,
+          "completed": 16,
+          "completed_request_wall_s": 33.91245192,
+          "completion_tokens": 2242,
+          "final_text_present": 7,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.3243646323760125,
+          "tokens_s_completed_requests": 66.11140961700183,
+          "valid_terminal_output": 11,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 361.511117741,
+      "timeouts": 0
     },
     {
-      "audit_sha256": null,
+      "audit_sha256": "9e9b0f0375c964838fb98cac1be993c2b7bb88c3299d8e7e0759f9d3f95deca7",
       "conditions": "Single native-profile session; frozen base-task order",
       "configuration": {
         "binary_identities": {
@@ -1298,7 +1337,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
-        "parent_profile_id": "qwen35-q4-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "qwen35-q4-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "Q4_K_M",
         "recorded_parent_profile": {
@@ -1328,14 +1367,14 @@
             "name": "Qwen3.5 9B",
             "quantization": "Q4_K_M",
             "tensor_precision_map": null,
-            "variant": "qwen35-q4-native-coding-task1200-reviewed-sm70",
+            "variant": "Qwen3.5-9B",
             "weight_transformations": {
               "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
               "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
               "proof": null
             }
           },
-          "model_artifact_id": "artifact-beed938fd070c13bfba7993d44109e7518bc555eb0556e09671dbced1f396f74",
+          "model_artifact_id": "artifact-ddd6ec28478225f72a667b27a60a88676313261cd6901581f8854784127a33b6",
           "optimizations": {
             "GDN_state_changes": null,
             "HBM_conversion_weight_cache_limit_mib": "0",
@@ -1376,6 +1415,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {
               "enable_thinking": false
             },
@@ -1389,13 +1429,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653",
+          "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55",
           "schema_version": 1,
-          "source_plan_sha256": "c1e1034cc33f3d8bba738726af1bc0396b76affcef52b3ee7cf361eaed22bb77",
+          "source_plan_sha256": "924f251221d4929978f976f6f90df4640e27b716f1bb6a658222b6b5d4ecc759",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "4eb1556e145765cd44242083090460b4e7a0aaf2069deeac3825bc29c47abf25",
-            "first_part_contract_sha256": "9dfd38bb5a5c523af88f26763371e343dcc2297ed071cbf50ebca08392660eae",
-            "frozen_model_profile_sha256": "d4a1964a65c3b6855b0c08f5a43b3a9dc9568c4a602a3d5df0a04e8b3a2c51af",
+            "first_part_collection_audit_sha256": "dc535e060e2756a5f575511f2d9eaafe961c1a25a9caf69975ebffba1e1f1927",
+            "first_part_contract_sha256": "16af9a0ea14cf79f0bb3609eeebf78f266cb908bcaa1c73336ad8134ed5505a1",
+            "frozen_model_profile_sha256": "73f83d92df3630237f20d3fe49a7f351af86652d8ee1294b00247ad38fdca5e8",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -1458,7 +1498,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "e453dfc9725c2c35f5a81effebac03a71ec31f8c4e317997723b3b7d27eb06c7",
+            "exact_private_launch_sha256": "71326d5b93b4150a1f942c752b7053ded68b6e5ab6d408e8f320b7b81d121a5f",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -1487,14 +1527,53 @@
         },
         "warmup_requests": 2
       },
+      "date": "2026-10-24T21:00:51.448625+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
-      "experiment_id": null,
-      "independent_review_sha256": null,
+      "experiment_id": "R501",
+      "independent_review_sha256": "7d2a537289937e394ddec616d533689fb94c88c496d72c6889e4fe87e9a5b438",
       "local_artifact_available": true,
       "model": "Qwen3.5-9B",
-      "parent_experiment_id": "R465",
-      "results": null,
-      "status": "SCREENING OFFEN"
+      "parent_experiment_id": "R474",
+      "peak_vram_mib": 5956.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 1072.4802666666667,
+          "GPU_j_per_success_upper": 1189.4296666666667,
+          "completed": 16,
+          "completed_request_wall_s": 64.93725960900001,
+          "completion_tokens": 6098,
+          "final_text_present": 16,
+          "length_stops": 0,
+          "successes": 15,
+          "successful_tasks_s_completed_requests": 0.23099219293080653,
+          "tokens_s_completed_requests": 93.90602616613721,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.7167126242970107,
+            0.9888806552353576
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 233.80058333333332,
+          "GPU_j_per_success_upper": 377.6571666666667,
+          "completed": 16,
+          "completed_request_wall_s": 14.623752884,
+          "completion_tokens": 838,
+          "final_text_present": 3,
+          "length_stops": 0,
+          "successes": 12,
+          "successful_tasks_s_completed_requests": 0.8205827939782355,
+          "tokens_s_completed_requests": 57.30403177948012,
+          "valid_terminal_output": 12,
+          "wilson95": [
+            0.5050168346449122,
+            0.8981793250878696
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 79.578397402,
+      "timeouts": 0
     },
     {
       "audit_sha256": null,
@@ -1508,7 +1587,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
-        "parent_profile_id": "qwen38-iq3-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "qwen38-iq3-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "GSQ/RCO IQ3_S",
         "recorded_parent_profile": {
@@ -1538,14 +1617,14 @@
             "name": "Qwen3.8 27B",
             "quantization": "GSQ/RCO IQ3_S",
             "tensor_precision_map": null,
-            "variant": "qwen38-iq3-native-coding-task1200-reviewed-sm70",
+            "variant": "Qwen3.8-27B",
             "weight_transformations": {
               "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
               "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
               "proof": null
             }
           },
-          "model_artifact_id": "artifact-81368257950e68ed0a459e6e33b01ba8e9590d3d071c95b827ce3fcf85bce0de",
+          "model_artifact_id": "artifact-caf2bd548235bbc543cf0a388956ebc2e4724badd60bbb95a8b5e543f886a4d0",
           "optimizations": {
             "GDN_state_changes": null,
             "HBM_conversion_weight_cache_limit_mib": "0",
@@ -1588,6 +1667,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {
               "enable_thinking": false
             },
@@ -1601,13 +1681,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0",
+          "runtime_configuration_id": "cfg-8f78ed6d25af1f692013432f586b4f86710b67f7e2c3f08af4cb3989b6ca2ca5",
           "schema_version": 1,
-          "source_plan_sha256": "7a21cacd939fae3227c2ceae593ade1092f241e8a59712abe498337486e37a66",
+          "source_plan_sha256": "56fa8b24518b215ec5eff2ac8dbeb75e654f968836f26b282eb738337960a657",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "9970f3d75788cb469468e21215f40ef32d805cc392cc157eec4ff211e8c92ba9",
-            "first_part_contract_sha256": "556c3adf25f8618a0d93218db3402e004446adb9197efb0732806db36f166658",
-            "frozen_model_profile_sha256": "c4b078155219cbbfe1a3534d662eb2700c70790a67c4475f2bf247316979c895",
+            "first_part_collection_audit_sha256": "fe87419649ed3e438fd6759b727e3d14fe2929bcb7383110f4159d5bf6279d9d",
+            "first_part_contract_sha256": "c438a5a29296e3ecd24879a4284f1de988bd0ae411e0e5bf9f2e81ad6f5a25c0",
+            "frozen_model_profile_sha256": "a3467f360dbad23eeaf796ff430ad523186d76951984e000e5df2466fe4bb966",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -1672,7 +1752,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "558f0391ff76b0c1d3eb23cde353e82f5bb93df82c6f20257dee8fa82e21270f",
+            "exact_private_launch_sha256": "f10ce72b41d42ad8ca35496f4690682c22d868ad6f7fe6657cc08709f2c33c99",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -1707,7 +1787,7 @@
       "independent_review_sha256": null,
       "local_artifact_available": true,
       "model": "Qwen3.8-27B",
-      "parent_experiment_id": "R466",
+      "parent_experiment_id": "R473",
       "results": null,
       "status": "SCREENING OFFEN"
     },
@@ -1723,7 +1803,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
-        "parent_profile_id": "gemma4-qat-q4-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "gemma4-qat-q4-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "Q4_0",
         "recorded_parent_profile": {
@@ -1753,14 +1833,14 @@
             "name": "Gemma4 12B IT QAT",
             "quantization": "Q4_0",
             "tensor_precision_map": null,
-            "variant": "gemma4-qat-q4-native-coding-task1200-reviewed-sm70",
+            "variant": "Gemma4-12B-IT-QAT",
             "weight_transformations": {
               "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
               "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
               "proof": null
             }
           },
-          "model_artifact_id": "artifact-19f0410f08c1621397606da4afa83cbf262d3db9705dbe31926ad8df9e56d6fe",
+          "model_artifact_id": "artifact-1ec9fa790255e20ba7009e7654a609b907bdf0da29d1fb3fef77f730e0592a6e",
           "optimizations": {
             "GDN_state_changes": null,
             "HBM_conversion_weight_cache_limit_mib": "0",
@@ -1803,6 +1883,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {
               "enable_thinking": false
             },
@@ -1821,13 +1902,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625",
+          "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7",
           "schema_version": 1,
-          "source_plan_sha256": "8799b221b845bbb9f5de79ea7bb36ca84e27531ae87dd98749002a6d9f433bef",
+          "source_plan_sha256": "f6138859b29e191883e0acf88644b036e5dcee08622ff45ba8a7ee97336ac1ea",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "303f5af22c2561933d156539249e593bdb3f0d6bd5d231d54dc66c8ac8d44392",
-            "first_part_contract_sha256": "9bbba0271eed8fdb3391e3eed7be4ba0b8d77d0a4e4a88c8c3863f98b38a3bd1",
-            "frozen_model_profile_sha256": "8cb7aa3284c2b17bea0d85975819f5be9958a381c4717d3867c1b00f8e9743d8",
+            "first_part_collection_audit_sha256": "649fe42a4411f7135b8c1b1dd12d4a31ce7a42a96dd787a2504c7d9583a2b42f",
+            "first_part_contract_sha256": "0af23c90de165cfa20a59cabbc5a6ac8007b63c6a7efe34dea9877b5a91654bf",
+            "frozen_model_profile_sha256": "d7c0787185abcc04ec22ae198e061e2198e7170373c5958fb7045961ce9ee5a3",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -1892,7 +1973,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "e55ea534cb0bd6069e0705d4a7af7b8a5db9c4ecb6112fd7cf7c006fe95366d5",
+            "exact_private_launch_sha256": "a5b36a29dd7394bed8656479342f82a08388a67a548ffd22591a4b2f400df776",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -1931,7 +2012,7 @@
       "independent_review_sha256": null,
       "local_artifact_available": true,
       "model": "Gemma4-12B",
-      "parent_experiment_id": "R464",
+      "parent_experiment_id": "R472",
       "results": null,
       "status": "SCREENING OFFEN"
     },
@@ -1947,7 +2028,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "de6dae10334e088876358ef9f574835bb3b401ea2ecf5d6a9473f37894df6b73",
-        "parent_profile_id": "mimo-q8-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "mimo-q8-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "Q8_0",
         "recorded_parent_profile": {
@@ -1977,14 +2058,14 @@
             "name": "MiMo V2.6 Distill Qwen 9B",
             "quantization": "Q8_0",
             "tensor_precision_map": null,
-            "variant": "mimo-q8-native-coding-task1200-reviewed-sm70",
+            "variant": "MiMo-V2.6-Distill-Qwen-9B",
             "weight_transformations": {
               "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
               "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
               "proof": null
             }
           },
-          "model_artifact_id": "artifact-094fe33ba6e2ef7928eab3c12b17072cfd860d9c18850a9f683130664243087e",
+          "model_artifact_id": "artifact-2224e59ff4350ffe912658c5054cac69f6269e0c915a56cbb906f5e5191dc758",
           "optimizations": {
             "GDN_state_changes": null,
             "HBM_conversion_weight_cache_limit_mib": "0",
@@ -2027,6 +2108,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {
               "enable_thinking": true
             },
@@ -2045,13 +2127,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-6fee55e4cd29ef463b21160ec81c870ad503865bd3fa368fefb0b64d6c8b830e",
+          "runtime_configuration_id": "cfg-146fc8bdf55eefbb6d995e664f5c6ef1f86c8b8d5c5a2f4093859df6decc9a17",
           "schema_version": 1,
-          "source_plan_sha256": "1cea136f756ab0a6d615cc8a6b9840653579e26e632c118eb25988b4eb20cdfd",
+          "source_plan_sha256": "09c7d299580ad564304c5a634c9bfae96f9fb4dbe19e1083f0b2af3a389f0ec6",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "e7102e9559e3ebf42829148500ecc1cb346e5fd6cb500406b1553aaf933ee1d3",
-            "first_part_contract_sha256": "078741e9273b13b9342a04365c50fa3a1433f2d15f9863ecfca45ccdf292f25e",
-            "frozen_model_profile_sha256": "cdaecae2f643c95d72fee2600ed6438b640f891bcc700ae75236120f070f91ae",
+            "first_part_collection_audit_sha256": "988fce72427535a9ec716e81207026763894b608cb556ca80b112ed43e5d38d4",
+            "first_part_contract_sha256": "6ba5c5672f6abef6edc20f6841a68b6afdd981f3c13e5f8fb098242254af76fe",
+            "frozen_model_profile_sha256": "b460a336eb9f08c7b4154b2a6d70bc1fb2d23fae3a425e6c0fece9d3b781db44",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -2118,7 +2200,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "df5706b689d8a877b0f32ee01b4f9847388896d25206ae6e60fe1cb8b0cea0ac",
+            "exact_private_launch_sha256": "313f669d7e3894a05ec451d60c07e2ffb564b31d2058f210fd9001a8c671445f",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -2157,7 +2239,7 @@
       "independent_review_sha256": null,
       "local_artifact_available": true,
       "model": "MiMo-9B",
-      "parent_experiment_id": "R454",
+      "parent_experiment_id": "R480",
       "results": null,
       "status": "SCREENING OFFEN"
     },
@@ -2173,7 +2255,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "7ccf57a2d410d8822d1560a1ca10c8318f3e15d6a8f6d42d1903d58e80ea20a6",
-        "parent_profile_id": "lfm25-q6-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "lfm25-q6-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "Q6_K",
         "recorded_parent_profile": {
@@ -2203,14 +2285,14 @@
             "name": "LFM2.5 8B A1B",
             "quantization": "Q6_K",
             "tensor_precision_map": null,
-            "variant": "native_Q6_K_T0.2_K80_output4096_noMTP_single_session",
+            "variant": "LFM2.5-8B-A1B",
             "weight_transformations": {
               "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
               "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
               "proof": null
             }
           },
-          "model_artifact_id": "artifact-e72398297ed94d0b78cfd0891c8366f3b3d6e6a52f919d01741758d551b7781c",
+          "model_artifact_id": "artifact-2702a7fc9eace54d1410594cda39f3596ce11ad6cd49fc8c4f59136917460c9d",
           "optimizations": {
             "GDN_state_changes": null,
             "HBM_conversion_weight_cache_limit_mib": "0",
@@ -2253,6 +2335,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {},
             "power_limit_w": 300,
             "sampling": {
@@ -2268,13 +2351,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+          "runtime_configuration_id": "cfg-3336324962cd5565abc86e4a6440d7b5a982511204e848fe30f92f1d524f0813",
           "schema_version": 1,
-          "source_plan_sha256": "2a0fcba676eab52ae6a2f1bd69ab62c7217cfec2c2f1bacbd163741d63da992c",
+          "source_plan_sha256": "bd5e403bc5b530b50ed6fe893280c8fd42315ebcc5b2f2593cb4fb6500980aee",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "5f68fa7e72e9febb72f091ec69eaa367293ee25dda0aa4c1629220fc2a2e2c89",
-            "first_part_contract_sha256": "88b23f3faafa315617244312d18ccd3a11b3cf861e9d9fc118efef38725d9eba",
-            "frozen_model_profile_sha256": "573c06ab6d261ecdcc75ce2dec8b91fba2d07111680cbd7ea1de9ea2cd956e96",
+            "first_part_collection_audit_sha256": "640003a17661439eb3bd232d4e1cbcf2723cac351caf17cd45723402c37c6c3a",
+            "first_part_contract_sha256": "102642c5fac98ffd1db3a725e51e61eb34cc4c375a452f9c27e99ee096afbc84",
+            "frozen_model_profile_sha256": "f5442e8be08c017d87f79c71e583615b42195824ef129d4c60003eb7a0121230",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -2341,7 +2424,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "41b7daf9f7e584b029fdfe6718df2b70dc3441b0baae52c29b4846a390d1e31b",
+            "exact_private_launch_sha256": "9bf2b4f08bae7a81688998d19c72d6ee637603ea2af3e527e96bcb1a9e48071a",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -2377,7 +2460,7 @@
       "independent_review_sha256": null,
       "local_artifact_available": true,
       "model": "LFM2.5-8B",
-      "parent_experiment_id": "R452",
+      "parent_experiment_id": "R476",
       "results": null,
       "status": "SCREENING OFFEN"
     },
@@ -2393,7 +2476,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "d1c03f73ecaf61017d70419eec9e5dc0b05d50ae26c23d522829b934fbabf8a5",
-        "parent_profile_id": "lfm25-24b-qad-q4-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "lfm25-24b-qad-q4-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "QAD Q4_0",
         "recorded_parent_profile": {
@@ -2473,6 +2556,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "128",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {},
             "power_limit_w": 300,
             "sampling": {
@@ -2488,13 +2572,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-a300301b48f44db40a601e616cb8ee7337a28054480f50650ce8d32e85116146",
+          "runtime_configuration_id": "cfg-7afa9f9f465d059ff54d9b6fef6762dded717f96ac2772dd651304a689955bd3",
           "schema_version": 1,
-          "source_plan_sha256": "6820cd61dd44641e34171135ef138f415e2aa7119d7af725995fddad11093778",
+          "source_plan_sha256": "b54c574811d852cc329956c1f9ccfe7316227f5a536ef8963124ef1bb684aba3",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "0d2b43a927b6ce5ca37942f03fe3716a00a1c98956ca50a7551208405162cf65",
-            "first_part_contract_sha256": "f0151c0e0ff5fd963e456c048c66d13159912db7fba22bd5864eed78fbcd2b3c",
-            "frozen_model_profile_sha256": "b6a27114537fde51dbd6e960b5e8c8533ea35aee989f30354a2e39d1181d7ee0",
+            "first_part_collection_audit_sha256": "2ccbecd53844ebc8e6b60e6448d4e0245c88fd877567c40dcb10f68023a9b6c7",
+            "first_part_contract_sha256": "d1e4e6e099fbca4c0abd429bf910eeb5d43c3a9a27538d31dd1cf8fa832bb393",
+            "frozen_model_profile_sha256": "b4dc711ea350619cdb04e552b60afce10e56c9a3e1e5afdc30088edc098490ca",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -2561,7 +2645,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "fdc375a49e0ae0fdd9ac0a3797ef04ffec17dc0e49543336b9e1e193699fca6e",
+            "exact_private_launch_sha256": "3fa2b2bb6252b9e917e2134b29b2c03ca3bac1e1740b48b3b59e9b6f148092f4",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -2597,7 +2681,7 @@
       "independent_review_sha256": null,
       "local_artifact_available": true,
       "model": "LFM2.5-24B",
-      "parent_experiment_id": "R468",
+      "parent_experiment_id": "R477",
       "results": null,
       "status": "SCREENING OFFEN"
     },
@@ -2613,7 +2697,7 @@
         "engine_version": null,
         "hardware": "Tesla V100 SXM2 16 GB",
         "model_sha256": "4afb4abcf0207a484b0d7e92c0421b74e8ce1c7a7250bb9d824b79288da68f20",
-        "parent_profile_id": "qwen36-27b-q3ks-native-coding-task1200-reviewed-sm70",
+        "parent_profile_id": "qwen36-27b-q3ks-native-parallel200-task1200-reviewed-sm70",
         "power_w": 300,
         "quantization": "Q3_K_S",
         "recorded_parent_profile": {
@@ -2693,6 +2777,7 @@
             "execution_deadline_s": 1200,
             "max_output": 4096,
             "microbatch": "128",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
             "native_template_controls": {
               "enable_thinking": false
             },
@@ -2711,13 +2796,13 @@
             "timing_scope": "TASK_PHASE_ONLY",
             "tokenizer_identity": null
           },
-          "runtime_configuration_id": "cfg-24396c98c2666260c3ff74954ab4895927a8a14520fb8c1e6f059f73b5a3bcd0",
+          "runtime_configuration_id": "cfg-22ddad19e7c5ae6c80fc0c4116156b827125813bdf4fd91f2b04dd13a56f68f1",
           "schema_version": 1,
-          "source_plan_sha256": "b80456d161225ee5a38a271d46c3feb7b2d3ebaf6796b3eb63596ff4c4a32cdf",
+          "source_plan_sha256": "e30f672384e09df13e6c64a0a9d9e55bea0e20baf702205b099cbf211f9afb11",
           "source_provenance": {
-            "first_part_collection_audit_sha256": "b8b62458b9747bde118b85ea8c4cf71786998758e7d3f552599f0f29a0292804",
-            "first_part_contract_sha256": "4e90c9c21fc75e1244506b628e04a56646321b6141f2fed50008357efc38fe3c",
-            "frozen_model_profile_sha256": "00e26fff944ddd52c53373f5183225dddaf80c427f827f0d31d9f531d520b5ef",
+            "first_part_collection_audit_sha256": "a778c6835cd770378e2f848f952ea40bee39586e7f128496c60f27c0f19bd13c",
+            "first_part_contract_sha256": "042f09a6e140c4da0fdad52553758176e77dfcf0624f044a146c025f3a3f6689",
+            "frozen_model_profile_sha256": "4e374684f8fb355a8596b7e526efe0897d9a22b2ff15ea1216f83908457883f8",
             "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
           },
           "start_parameters": {
@@ -2782,7 +2867,7 @@
               "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
               "OMP_NUM_THREADS": "6"
             },
-            "exact_private_launch_sha256": "aa8747f33964711c8d8c7a87cebeebfaffd8d716eeb041e4a2464c47139986ba",
+            "exact_private_launch_sha256": "8e7a14894889dcfab9aa8b14766246149f74bdb19c96d4c9ed158c1c269a938e",
             "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
             "redacted_argument_positions": [
               0,
@@ -2822,7 +2907,7 @@
       "independent_review_sha256": null,
       "local_artifact_available": true,
       "model": "Qwen3.6-27B",
-      "parent_experiment_id": "R469",
+      "parent_experiment_id": "R492",
       "results": null,
       "status": "SCREENING OFFEN"
     },
