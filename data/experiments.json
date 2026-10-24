@@ -19372,5 +19372,33 @@
       "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 5954.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 135,
+          "tasks": 164,
+          "wall_s": 520.769032475
+        }
+      }
+    },
+    "audit_id": "audit-543fb9745a67c9c58b9e",
+    "date": "2026-10-24T02:59:38.899509+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R465",
+    "model": "qwen35",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Qwen3.5 Q4_K_M native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    },
+    "winner_qualified": false
   }
 ]

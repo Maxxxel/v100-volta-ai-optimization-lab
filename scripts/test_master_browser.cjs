@@ -71,6 +71,19 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const qwen35Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R465'&&r.counter_energy));
+    if(qwen35Coding){
+      assert.equal(qwen35Coding.solved,135);assert.equal(qwen35Coding.tasks,164);assert.equal(qwen35Coding.official_eligible,true);
+      const row=page.locator(`.master-table tr[data-configuration-id="${qwen35Coding.runtime_configuration_id}"]`);
+      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('135/164')&&cell.includes('OFFIZIELL'));
+      assert.equal((await row.locator('td[data-column-key="requested.MTP"]').textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen35Coding.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Qwen3.5 native135/164 coding result keeps unknown MTP and separately reviewed164-task counter energy');
+    }
     const gemmaCoding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R464'&&r.counter_energy));
     if(gemmaCoding){
       assert.equal(gemmaCoding.solved,156);assert.equal(gemmaCoding.tasks,164);assert.equal(gemmaCoding.official_eligible,true);
