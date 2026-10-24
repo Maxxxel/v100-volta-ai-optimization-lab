@@ -2,6 +2,7 @@
 import copy,hashlib,html,json,math,pathlib,re
 from comparison import extract_tuning
 SCHEMA=1
+NATIVE_TOOL_CATEGORIES={'bfcl-v4-simple-python-full400':('simple_python',400),'bfcl-v4-parallel-multiple-full200':('parallel_multiple',200)}
 H=lambda x:hashlib.sha256(json.dumps(x,sort_keys=True,allow_nan=False,separators=(',',':')).encode()).hexdigest()
 def digest(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def read(p):return json.loads(pathlib.Path(p).read_text())
@@ -25,6 +26,14 @@ def verify_broker_capture(cfg,native,launch):
  kernel=cfg['engine'].get('kernel_library_file')
  if not kernel or cfg['engine']['kernel_library_sha256']!=assets.get(native['runtime']+'/'+kernel):raise ValueError('Broker kernel identity mismatch')
  return True
+def browser_register(register):
+ """Avoid duplicating non-UI tensor journals in the offline table bundle.
+
+ The full records remain in data/benchmark-register.json and their generated
+ research pages. Configuration, score, source-label and protocol data stay intact.
+ """
+ return {k:v for k,v in register.items() if k not in ('artifact_weight_reviews','same_quantizer_weight_reviews')}
+
 def definition_identity(d):
  keys=['benchmark_id','benchmark_revision','version','dataset_split','dataset_split_hash','scorer_version','required_task_count','expected_task_ids_hash','required_evaluation_settings','metric']
  return 'bench-'+H({k:d.get(k) for k in keys})
@@ -52,10 +61,11 @@ def official_gate(record,definition,proof):
  metric=definition.get('metric')
  if metric=='pass_at_1_percent':
   fraction=proof.get('official_pass_at_1')
- elif metric=='bfcl_simple_python_ast_accuracy_percent':
+ elif metric in ('bfcl_simple_python_ast_accuracy_percent','bfcl_parallel_multiple_ast_accuracy_percent'):
   # This is one complete official category, never BFCL's overall aggregation.
-  if definition.get('benchmark_id')!='bfcl-v4-simple-python-full400' or definition.get('required_task_count')!=400:return False
-  if proof.get('official_category')!='simple_python' or proof.get('category_only') is not True:return False
+  category,count=NATIVE_TOOL_CATEGORIES.get(definition.get('benchmark_id'),(None,None))
+  if category is None or metric!='bfcl_'+category+'_ast_accuracy_percent' or definition.get('required_task_count')!=count:return False
+  if proof.get('official_category')!=category or proof.get('category_only') is not True:return False
   if type(proof.get('official_correct_count')) is not int or proof['official_correct_count']!=record.get('solved'):return False
   fraction=proof.get('official_category_accuracy')
  else:return False
@@ -341,18 +351,19 @@ def reviewed_counter_measurement(source,out,ids,solved,receipt,kind='native_tool
  return {**claimed,'audit_id':aid}
 
 def native_tool_coverage(ids,planned,contract_ids,a,bench):
- if bench['required_task_count']!=400 or len(planned)!=400 or H(sorted(planned))!=bench['expected_task_ids_hash'] or contract_ids!=planned or not ids or ids!=planned[:len(ids)] or len(set(ids))!=len(ids):
+ category,count=NATIVE_TOOL_CATEGORIES.get(bench.get('benchmark_id'),(None,None))
+ if category is None or bench['required_task_count']!=count or len(planned)!=count or H(sorted(planned))!=bench['expected_task_ids_hash'] or contract_ids!=planned or not ids or ids!=planned[:len(ids)] or len(set(ids))!=len(ids):
   raise ValueError('Native tool missing or repeated tasks')
  partial=a.get('full_benchmark_score_claimed') is False and a.get('status') in ('STOPPED_USER_TASK_TIME_BUDGET','STOPPED_NATIVE_TRANSPORT_TIMEOUT')
- full=len(ids)==400 and H(sorted(ids))==bench['expected_task_ids_hash']
- if a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or (not partial and (not full or a.get('full_benchmark_score_claimed') is not True)) or (partial and (full or not 1<=len(ids)<400)):
+ full=len(ids)==count and H(sorted(ids))==bench['expected_task_ids_hash']
+ if a['collected_tasks']!=len(ids) or a['scored_tasks']!=len(ids) or (not partial and (not full or a.get('full_benchmark_score_claimed') is not True)) or (partial and (full or not 1<=len(ids)<count)):
   raise ValueError('Native tool category not complete or scope inconsistent')
  return partial
 
-def verify_native_tool_prefix(stage,out,gpu,contract,rows,count,stop_status='STOPPED_USER_TASK_TIME_BUDGET'):
+def verify_native_tool_prefix(stage,out,gpu,contract,rows,count,stop_status='STOPPED_USER_TASK_TIME_BUDGET',expected_tasks=400):
  """Validate retained deadline evidence without claiming controller success."""
  proof_path=out/'POST_STOP_CAPTURE.json';proof=read(proof_path)
- if proof.get('kind')!='POST_STOP_PARTIAL_COLLECTION_INTEGRITY_RECEIPT' or proof.get('derived_hash_manifest') is not True or proof.get('full_score_or_successful_GPU_completion_claimed') is not False or proof.get('source_controller_completion_available') is not False or proof.get('GPU_reruns')!=0 or proof.get('model_queries')!=0 or proof.get('native_tool_complete_responses')!=count or proof.get('expected_tasks')!=400:
+ if proof.get('kind')!='POST_STOP_PARTIAL_COLLECTION_INTEGRITY_RECEIPT' or proof.get('derived_hash_manifest') is not True or proof.get('full_score_or_successful_GPU_completion_claimed') is not False or proof.get('source_controller_completion_available') is not False or proof.get('GPU_reruns')!=0 or proof.get('model_queries')!=0 or proof.get('native_tool_complete_responses')!=count or proof.get('expected_tasks')!=expected_tasks:
   raise ValueError('Native tool prefix lacks explicit partial integrity review')
  if (out/'HOST_COMPLETION.json').exists() or gpu.get('partial_collection') is not True or gpu.get('execution_uid')!=65534 or read(out/'LAUNCH.json').get('uid')!=65534:
   raise ValueError('Native tool prefix cannot fabricate full execution')
@@ -374,7 +385,9 @@ def verify_native_tool_prefix(stage,out,gpu,contract,rows,count,stop_status='STO
 
 def native_tool_run(root,source,cfg,bench,receipt):
  """One native BFCL category, bound to original inputs, responses and CPU receipts."""
- if source.get('benchmark_id')!='bfcl-v4-simple-python-full400':return None
+ if source.get('benchmark_id') not in NATIVE_TOOL_CATEGORIES:return None
+ if source['benchmark_id']!=bench['benchmark_id']:raise ValueError('Native tool benchmark definition mismatch')
+ category,total=NATIVE_TOOL_CATEGORIES[bench['benchmark_id']]
  root=pathlib.Path(root);ap=pathlib.Path(source['audit_path']);ap=ap if ap.is_absolute() else root/ap
  if digest(ap)!=source['audit_sha256']:raise ValueError('Native tool audit changed')
  a=read(ap);stage=ap.parent;campaign=read(stage/'CAMPAIGN_PLAN.json');cp=stage/'CONFIGURATION_PROFILE.json'
@@ -395,16 +408,18 @@ def native_tool_run(root,source,cfg,bench,receipt):
  dataset=read(out/'TRUST_SNAPSHOT.json')['task_datasets'][bench['benchmark_id']]
  if dataset['source_question_file_sha256']!=bench['dataset_split_hash'] or dataset['source_answer_file_sha256']!=bench['reference_answers_sha256'] or dataset['source_revision']!=bench['benchmark_revision']:raise ValueError('Native tool dataset revision mismatch')
  if digest(dataset['tasks_file'])!=dataset['tasks_sha256'] or digest(dataset['tools_file'])!=dataset['tools_sha256']:raise ValueError('Native tool corpus changed')
- preparation=root/'staging/leaderboard-register/bfcl-simple-python400/PREPARATION_AUDIT.json'
+ preparation=root/('staging/leaderboard-register/bfcl-simple-python400/PREPARATION_AUDIT.json' if total==400 else 'staging/model-comparison-preparation/bfcl-parallel-multiple200/PREPARATION_AUDIT.json')
  if digest(preparation)!=bench['preparation_audit_sha256']:raise ValueError('Native tool conversion review changed')
  prepared=read(preparation)
- if dataset['tasks_sha256']!=prepared['TASKS_sha256'] or dataset['tools_sha256']!=prepared['TOOLS_sha256']:raise ValueError('Native tool unreviewed transformed corpus')
+ prepared_tasks=prepared['TASKS_sha256'] if total==400 else prepared['source_files_sha256'][str(preparation.parent/'TASKS.json')]
+ prepared_tools=prepared['TOOLS_sha256'] if total==400 else prepared['source_files_sha256'][str(preparation.parent/'TOOLS.json')]
+ if dataset['tasks_sha256']!=prepared_tasks or dataset['tools_sha256']!=prepared_tools:raise ValueError('Native tool unreviewed transformed corpus')
  for name,key in [('quality_eval_frozen.py','frozen_checker_adapter_sha256'),('BFCL_ANALYSIS_SUBSET.tar','frozen_checker_bundle_sha256')]:
   if digest(root/'staging/r281'/name)!=bench['scorer_version'][key]:raise ValueError('Native tool unreviewed checker')
  cases={x['id']:x for x in native['selected_task_inputs']['cases']};rows=[json.loads(l) for l in (out/'HTTP_RESULTS.jsonl').read_text().splitlines()];answers=[x for x in rows if x.get('kind')=='native_tool'];ids=[x['id'] for x in answers]
  planned=campaign['expected_task_ids']
  if native_tool_coverage(ids,planned,contract['parameters']['task_ids'],a,bench)!=partial:raise ValueError('Native tool partial classification differs')
- prefix_proof=verify_native_tool_prefix(stage,out,gpu,contract,rows,len(ids),a['status']) if partial else None
+ prefix_proof=verify_native_tool_prefix(stage,out,gpu,contract,rows,len(ids),a['status'],expected_tasks=total) if partial else None
  original_cases={x['id']:x for x in read(dataset['tasks_file'])['tasks']};original_tools={x['id']:x for x in read(dataset['tools_file'])['tasks']}
  for r in answers:
   case=cases[r['id']];original=original_cases[r['id']];tools=original_tools[r['id']]
@@ -445,8 +460,10 @@ def native_tool_run(root,source,cfg,bench,receipt):
 
  counter=reviewed_counter_measurement(source,out,ids,solved,receipt)
  if counter:result["counter_energy"]=counter;result["audit_ids"].append(counter["audit_id"])
+ if total==200:
+  result['status_reason']='Complete200 native parallel/multiple category with identical independent CPU replay; official admission is separate.'
  if partial:
-  result.update(status='PARTIAL',intended_tasks=400,full_benchmark_score_claimed=False,termination_kind=a['status'],status_reason=('Native HTTP response-timeout prefix; total task budget was not exhausted.' if a['status']=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' else 'Observed task-deadline prefix.')+' Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full400 qualification, model rejection or extrapolation.')
+  result.update(status='PARTIAL',intended_tasks=total,full_benchmark_score_claimed=False,termination_kind=a['status'],status_reason=('Native HTTP response-timeout prefix; total task budget was not exhausted.' if a['status']=='STOPPED_NATIVE_TRANSPORT_TIMEOUT' else 'Observed task-deadline prefix.')+' Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full'+str(total)+' qualification, model rejection or extrapolation.')
  return result
 
 def native_partial_run(root,source,cfg,bench,receipt):
@@ -983,7 +1000,7 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   attempt={'experiment_id':key.upper(),'arm_index':0,'runtime_configuration_id':cfg['runtime_configuration_id'],'model_family_id':cfg['model']['family_id'],'model_name':cfg['model']['name'],'audit_hash':first['audit_sha256'],'audit_id':receipt(ap,first['audit_sha256']),'execution_status':'INFERENCE_OBSERVED_IN_BROKER_CAMPAIGN; FULL_BENCHMARK_NOT_IMPLIED','scientific_status':'BOUNDED_NATIVE_EXECUTION_OBSERVED','lab_metrics':{},'official_eligible':False}
   if not attempt['audit_id']:raise ValueError('Broker source audit unavailable for public export')
   attempt['attempt_id']='attempt-'+H(attempt);history_attempts.append(attempt)
-  is_tools=a.get('benchmark_id')=='bfcl-v4-simple-python-full400'
+  is_tools=a.get('benchmark_id') in NATIVE_TOOL_CATEGORIES
   bench=defs[a['benchmark_id']] if is_tools else defs[reg['local_cohort_classification']['coding']['benchmark_id']]
   complete=(native_reused_tool_run(root,a,cfg,bench,receipt) if a.get('reused_task_count') else native_tool_run(root,a,cfg,bench,receipt)) if is_tools else native_complete_run(root,a,cfg,bench,receipt)
   if complete:
@@ -1071,6 +1088,7 @@ def master_catalog(register, history):
   'mbppplus-v0.2.0':('mbppplus','MBPP+'),
   'bfcl-v4-full':('bfcl','BFCL'),'bfcl-v3-full':('bfcl','BFCL'),
   'bfcl-v4-simple-python-full400':('bfcl','BFCL'),
+  'bfcl-v4-parallel-multiple-full200':('bfcl','BFCL'),
   'swe-bench-verified':('swe-bench','SWE-bench'),'swe-bench-pro':('swe-bench','SWE-bench'),
   'terminal-bench-2.1':('terminal-bench','Terminal-Bench'),
   'livecodebench':('livecodebench','LiveCodeBench'),
@@ -1262,5 +1280,5 @@ def render(register,history,comparison,docs,model_registry=None):
   write(reproduce,reproduce.read_text()+'\n## Official benchmark admission and immutable profiles\n\n`data/benchmark-register.json` pins benchmark definitions, task manifests where verified, scorer identities, primary-source receipts and separate publisher claims. `data/configuration-history.json` retains content-addressed profiles, measured groups, failed/declared attempts and explicit provenance gaps. Null fields mean **NOT MEASURED**.\n\nOfficial admission requires an independently audited full task manifest, exact dataset/scorer/configuration/audit identities and validated protocol/controls. Unsupported official metric aggregations require their own adapter. Subsets, canonical-reference exceptions and local tests remain supplemental until resolved through a separate qualification audit. Corrections append a new result/profile; original audits and earlier scores remain preserved.\n\nThe existing documentation publisher fingerprints the canonical benchmark register as well as the research matrix/reference ledger. It regenerates offline views, checks immutable history, task counts, hashes, links and public confidentiality before committing/pushing. Bounded publication retries do not block research; neither export nor GitHub Actions launches GPU jobs. Historical task exposure is disclosed, and parameter tuning belongs on development data.\n\nUse the existing export → render → unit tests → public validation → strict MkDocs sequence. Charts and profile comparisons use only bundled JSON/JavaScript/SVG; no external chart service is required. Whole-profile deltas are descriptive and do not establish the causal effect of an individual optimization.\n')
  models=list(comparison['models']);aliases={'ornith':'BMC01','bonsai':'BMC04','oxcoder':'BMC02','lfm':'BMC06','gemma4':'BMC07'};covered={aliases[x['id']] for x in models if x['id'] in aliases}
  models += [{'id':m['id'],'name':m['name'],'quantization':'NOT MEASURED'} for m in (model_registry or []) if m['id'] not in covered]
- payload={'register':register,'history':history,'models':models,'master':master_catalog(register,history)}
+ payload={'register':browser_register(register),'history':history,'models':models,'master':master_catalog(register,history)}
  write(assets/'leaderboard-data.js','window.V100Leaderboard='+json.dumps(payload,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')+';\n')

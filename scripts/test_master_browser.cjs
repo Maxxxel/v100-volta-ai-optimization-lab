@@ -103,6 +103,22 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const parallel=await page.evaluate(()=>{const d=window.V100Leaderboard,r=d.history.runs.find(r=>r.experiment_id==='R472'),m=window.V100MasterTable.build(d),simple=m.benchmarks.find(b=>b.protocol.benchmark_id==='bfcl-v4-simple-python-full400'&&b.scope==='OFFICIAL_LOCAL');return r?{id:r.runtime_configuration_id,key:d.master.run_columns[r.run_id],simpleKey:simple.key}:null;});
+    assert(parallel,'The actual R472200-task result must be present');
+    const bfclSelect=page.locator('select[data-protocol-family=bfcl]');
+    const parallelRow=page.locator(`.master-table tr[data-configuration-ids~="${parallel.id}"]`);
+    assert((await parallelRow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('Parallel Multiple'),'All-measurements view labels the exact category');
+    await page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true}).click();
+    await bfclSelect.selectOption(parallel.simpleKey);
+    assert(!(await parallelRow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('154/200'),'No fallback from selected simple-call protocol');
+    await bfclSelect.selectOption(parallel.key);
+    const parallelCell=parallelRow.locator('td[data-column-key="family:bfcl"]');
+    assert((await parallelCell.innerText()).includes('154/200'));assert((await parallelCell.innerText()).includes('77'));
+    assert.equal(await parallelCell.getByRole('link',{name:'R472',exact:true}).count(),1);
+    await parallelCell.locator('button').click();assert((await page.locator('.master-cell-dialog').innerText()).includes('bfcl-v4-parallel-multiple-full200'));
+    await page.getByRole('button',{name:'Schließen',exact:true}).click();await bfclSelect.selectOption(parallel.simpleKey);await page.getByRole('button',{name:'Filter zurücksetzen',exact:true}).click();
+    await page.getByText('Benchmarkprotokolle und Durchschnitt auswählen',{exact:true}).click();
+    report.checks.push('R472 complete154/200 parallel/multiple result uses its own selectable BFCL protocol, result-linked run, exact configuration and200-task counter scope; no cross-category fallback');
     const qwen36Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R469'&&r.counter_energy));
     assert(qwen36Coding,'Reviewed Qwen3.6 prefix must be exported');
     {

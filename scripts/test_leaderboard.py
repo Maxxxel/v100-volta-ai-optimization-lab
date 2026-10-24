@@ -118,6 +118,13 @@ class LeaderboardTests(unittest.TestCase):
   return r,d,proof
  def test_full_conformant_fixture(self):
   self.assertTrue(official_gate(*self.fixture()))
+ def test_browser_projection_does_not_duplicate_non_UI_tensor_journals_or_mutate_archives(self):
+  from leaderboard import browser_register
+  register={'definitions':[{'benchmark_id':'fixture'}],'model_label_annotations':[{'display_name':'fixture'}],'profile_label_reviews':[],'artifact_weight_reviews':[{'tensor_results':['fixture']}],'same_quantizer_weight_reviews':[{'tensor_results':['fixture']}],'candidate_research':[]}
+  before=copy.deepcopy(register);small=browser_register(register)
+  self.assertEqual(register,before)
+  for key in ('definitions','model_label_annotations','profile_label_reviews','candidate_research'):self.assertEqual(small[key],register[key])
+  self.assertNotIn('artifact_weight_reviews',small);self.assertNotIn('same_quantizer_weight_reviews',small)
  def test_subsets_exceptions_and_missing_proofs_denied(self):
   for key in ['complete_task_set','official_scorer_verified','all_canonical_controls_passed','no_task_exclusions','prompt_protocol_verified','independent_audit_verified']:
    r,d,p=self.fixture();p[key]=False;self.assertFalse(official_gate(r,d,p),key)
@@ -141,6 +148,16 @@ class LeaderboardTests(unittest.TestCase):
   return r,d,p
  def test_complete_bfcl_category_has_its_own_metric(self):
   self.assertTrue(official_gate(*self.bfcl_fixture()))
+ def test_parallel_multiple200_requires_its_own_exact_category_metric(self):
+  r,d,p=self.bfcl_fixture();ids=[f'parallel_multiple_{i}' for i in range(200)]
+  d.update(benchmark_id='bfcl-v4-parallel-multiple-full200',required_task_count=200,expected_task_ids_hash=H(sorted(ids)),metric='bfcl_parallel_multiple_ast_accuracy_percent')
+  r.update(benchmark_id=d['benchmark_id'],benchmark_identity_id=definition_identity(d),tasks=200,solved=150)
+  p.update(benchmark_identity_id=definition_identity(d),tasks=200,solved=150,task_ids=ids,official_category='parallel_multiple',official_correct_count=150)
+  self.assertTrue(official_gate(r,d,p))
+  for field,value in (('official_category','simple_python'),('category_only',False),('tasks',400),('task_ids',ids[:199])):
+   self.assertFalse(official_gate(r,d,{**p,field:value}),field)
+  wrong={**d,'metric':'bfcl_simple_python_ast_accuracy_percent'};p['benchmark_identity_id']=r['benchmark_identity_id']=definition_identity(wrong)
+  self.assertFalse(official_gate(r,wrong,p))
  def test_bfcl_subset_or_whole_leaderboard_cannot_masquerade_as_category(self):
   for key,value in [('category_only',False),('official_category','overall'),('official_correct_count',299),('official_category_accuracy',.9),('all_canonical_controls_passed',False)]:
    r,d,p=self.bfcl_fixture();p[key]=value;self.assertFalse(official_gate(r,d,p),key)

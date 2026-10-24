@@ -10,6 +10,19 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('parallel_multiple200 has a separate selectable BFCL protocol and exact original200-task costs',()=>{
+ const r=data.history.runs.find(r=>r.experiment_id==='R472');assert(r);
+ assert.equal(r.benchmark_id,'bfcl-v4-parallel-multiple-full200');assert.equal(r.tasks,200);assert.equal(r.solved,154);assert.equal(r.score_percent,77);assert.equal(r.official_eligible,true);
+ assert.equal(r.gpu_j,null);assert.equal(r.counter_energy.tasks,200);assert.equal(r.counter_energy.solved,154);
+ assert.equal(r.counter_energy.j_per_success_lower,81366.541/154);assert.equal(r.counter_energy.j_per_success_upper,81464.148/154);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(y=>y.run_id===r.run_id));assert(row);
+ const family=v.families.find(x=>x.id==='bfcl'),column=v.columns.find(x=>x.key===family.key),key=data.master.run_columns[r.run_id];assert(family.protocols.some(x=>x.key===key));
+ const other=family.protocols.find(x=>x.protocol.benchmark_id==='bfcl-v4-simple-python-full400'&&x.scope==='OFFICIAL_LOCAL');assert(other);
+ const state={protocols:new Map([[family.id,other.key]])};assert.equal(M.value(row,column,state,v.benchmarkMap),null,'No fallback between categories');
+ state.protocols.set(family.id,key);assert.equal(M.value(row,column,state,v.benchmarkMap),77);
+ assert.equal(row.values['model.quantization'],'Q4_0');assert.equal(row.values['requested.thinking'],false);assert.equal(row.values['requested.MTP'],false);
+ assert.equal(row.values['runtime.native_HTTP_timeout_policy'],'REMAINING_TASK_TIME');
+});
 test('LFM24B deadline prefix77/85 stays partial and cannot enter full164 rankings', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R468');assert(r);
   assert.equal(r.solved,77);assert.equal(r.tasks,85);assert.equal(r.status,'PARTIAL');assert.equal(r.official_eligible,false);
@@ -404,6 +417,12 @@ test('family defaults prefer qualified official protocols without any per-row fa
   assert.equal(M.value(row, c, state, model.benchmarkMap), null, 'Cross-family protocol selection fails closed');
   const officialEmpty = { ...family.protocols.find(b => b.scope === 'OFFICIAL_LOCAL'), records: 0 };
   assert.equal(M.defaultProtocol({ protocols: [historic, officialEmpty] }), officialEmpty.key);
+});
+test('equally qualified family defaults prefer broad measured coverage over arbitrary hash order',()=>{
+ const narrow={key:'a',scope:'OFFICIAL_LOCAL',records:1},broad={key:'z',scope:'OFFICIAL_LOCAL',records:10};
+ assert.equal(M.defaultProtocol({protocols:[narrow,broad]}),'z');
+ const family=model.families.find(f=>f.id==='bfcl');
+ assert.equal(model.benchmarkMap.get(M.defaultProtocol(family)).protocol.benchmark_id,'bfcl-v4-simple-python-full400');
 });
 test('a family can never be weighted twice, including exploratory averages', () => {
   const columns = new Map([['a', { family_id: 'humanevalplus', scope: 'OFFICIAL_LOCAL' }], ['b', { family_id: 'humanevalplus', scope: 'HISTORICAL' }]]);

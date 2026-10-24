@@ -11,7 +11,17 @@ class ToolPrefix(unittest.TestCase):
  def coverage(self,count=2):
   ids=['simple_python_'+str(i) for i in range(400)]
   a=dict(collected_tasks=count,scored_tasks=count,full_benchmark_score_claimed=False,status='STOPPED_USER_TASK_TIME_BUDGET')
-  return ids[:count],ids,ids.copy(),a,dict(required_task_count=400,expected_task_ids_hash=H(sorted(ids)))
+  return ids[:count],ids,ids.copy(),a,dict(benchmark_id='bfcl-v4-simple-python-full400',required_task_count=400,expected_task_ids_hash=H(sorted(ids)))
+
+ def test_parallel_multiple200_has_exact_own_full_and_partial_scope(self):
+  ids=['parallel_multiple_'+str(i) for i in range(200)]
+  bench=dict(benchmark_id='bfcl-v4-parallel-multiple-full200',required_task_count=200,expected_task_ids_hash=H(sorted(ids)))
+  full=dict(collected_tasks=200,scored_tasks=200,full_benchmark_score_claimed=True,status='FULL_NATIVE_TOOLS_OFFICIAL_API_PENDING')
+  self.assertFalse(native_tool_coverage(ids,ids,ids,full,bench))
+  partial=dict(collected_tasks=80,scored_tasks=80,full_benchmark_score_claimed=False,status='STOPPED_USER_TASK_TIME_BUDGET')
+  self.assertTrue(native_tool_coverage(ids[:80],ids,ids,partial,bench))
+  for wrong in ('bfcl-v4-simple-python-full400','bfcl-v4-full','unknown'):
+   with self.subTest(wrong=wrong),self.assertRaises(ValueError):native_tool_coverage(ids,ids,ids,full,{**bench,'benchmark_id':wrong})
 
  def test_complete_category_and_prefix_have_distinct_scopes(self):
   self.assertTrue(native_tool_coverage(*self.coverage()))

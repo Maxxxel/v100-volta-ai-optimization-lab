@@ -233,6 +233,37 @@ Model-card sources: [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B/b
 
 Model-card sources: [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md), [LiquidAI/LFM2.5-8B-A1B](https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md)
 
+## BFCL v4 Parallel Multiple — complete200 category
+
+| Field | Pinned definition |
+| --- | --- |
+| benchmark_id | bfcl-v4-parallel-multiple-full200 |
+| benchmark_revision | 6ea57973c7a6097fd7c5915698c54c17c5b1b6c8 |
+| category | native_tools |
+| dataset_split | official parallel_multiple entire category |
+| dataset_split_hash | 8863ea8433239f55c5f016154cf0830853c89f693c6ea270396a2fa121960579 |
+| existing_CPU_controls_reused | {"negative_controls": 600, "parallel_multiple_schemas": 200, "positive_controls": 200} |
+| expected_task_ids_hash | 8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59 |
+| hf_dataset_id | NOT MEASURED |
+| hf_snapshot_equivalence | NOT VERIFIED: the current HF dataset snapshot is v3; no substitute for this Git-pinned v4 category. |
+| license | Apache-2.0 |
+| local_complete_conformant_results | NOT MEASURED |
+| metric | bfcl_parallel_multiple_ast_accuracy_percent |
+| model_card_relation | BFCLv4 family mentions only; no same-category publisher result assumed. |
+| name | BFCL v4 Parallel Multiple — complete200 category |
+| official_definition_verified | True |
+| per_model_progress_scope | Model-specific coverage is tracked in experiment/campaign evidence, not a global remaining count. |
+| preparation_audit_sha256 | 2e28c35d1726e9c9b45ec343616ab10a26326bfa7c9c8bc9ed99a5b61ca0056b |
+| provider_repository | https://github.com/ShishirPatil/gorilla/tree/6ea57973c7a6097fd7c5915698c54c17c5b1b6c8/berkeley-function-call-leaderboard |
+| reference_answers_sha256 | 5ebf24f458c1f16300c05505d83d6f0a1b68b79be273a033febd0d4f840507e3 |
+| required_evaluation_settings | All200 original official parallel_multiple IDs, unchanged native function schemas and official AST category aggregation. Declared model-native template/sampler/output/context. Technical context preflight is not a quality filter. Complete category only, not full BFCL leaderboard or equivalent publisher harness. |
+| required_task_count | 200 |
+| scorer_version | {"aggregation": "correct_count / len(model_result); complete200 parallel_multiple IDs required", "frozen_checker_adapter_sha256": "a926f83c9dd9fdba5465c3c7c6a02ec31ace9206b91f06fa27f6d7f077363710", "frozen_checker_bundle_sha256": "657dbc00ab40c23a53173b758d6a25e4806a18cd64c10118148b473114042236", "native_score_wrapper_sha256": "3478606c296e65ef9088c96a7f1c79e99b49bc7016a44c77b3719d14e4dd6666", "official_aggregation_helper_sha256": "7c756592af53eb54733989aa03a3fa87854f1c20dd566f3f10a770e17d25a9d7", "official_eval_runner_sha256": "b1033684908819ccb312d4d0e2c563359d69247412f00206013b2292b0e3ce81", "official_native_format_sha256": "3703b9bb63f83581c60b8e0b82aac74c360c9ca781e99e7d4eb28b0cce2285dd", "official_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8"} |
+| status | OFFICIAL_CATEGORY_DEFINITION_VERIFIED_MODEL_RESULTS_PENDING |
+| version | v4, entire parallel_multiple category only |
+
+Model-card sources: [Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md), [LiquidAI/LFM2.5-8B-A1B](https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md)
+
 ## Verified cached model cards
 
 | Model | Revision / source SHA256 | Reported benchmark families | Architecture declared by source | Card |

@@ -229,7 +229,7 @@
     const priority = b => b.scope === 'OFFICIAL_LOCAL' ? 0 : b.scope === 'UNQUALIFIED_FULL' ? 1 : b.scope === 'HISTORICAL' ? 2 : 3;
     // Deterministic protocol choice, independent of a model's score. Never fall
     // back to a different protocol for an individual configuration.
-    return options.slice().sort((a, b) => priority(a) - priority(b) || Number(b.records > 0) - Number(a.records > 0) || a.key.localeCompare(b.key))[0]?.key || null;
+    return options.slice().sort((a, b) => priority(a) - priority(b) || (b.records || 0) - (a.records || 0) || a.key.localeCompare(b.key))[0]?.key || null;
   }
   function protocolKey(column, state) {
     if (column.kind !== 'family') return column.key;
@@ -544,7 +544,7 @@
       headerCells.forEach((th, key) => { th.removeAttribute('aria-sort'); if (key === state.sort) th.setAttribute('aria-sort', state.descending ? 'descending' : 'ascending'); });
       const withResults = model.rows.filter(r => r.runs.length).length, complete = filtered.filter(r => finite(average(r.scores, [...state.selected], state.mode === 'official', model.benchmarkMap))).length;
       counter.textContent = filtered.length + ' / ' + model.rows.length + ' gemessene Inferenzkonfigurationen · ' + model.archive.length + ' ergebnislose Profile ausgeblendet · ' + complete + ' mit vollständigem ausgewählten Durchschnitt · ' + [...state.filters.values()].filter(x => x.trim()).length + ' Parameterfilter. Fehlende Daten sind keine Nullpunkte.';
-      selectionWarning.textContent = state.mode === 'official' ? 'Alle gemessenen Voll- und Teilwerte stehen in dieser Tabelle. Ø verwendet ausschließlich die ausgewählten, offiziell qualifizierten Protokolle; PARTIAL wird nicht als Vollbenchmark gewertet.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
+      selectionWarning.textContent = state.mode === 'official' ? 'Alle gemessenen Voll- und Teilwerte stehen in dieser Tabelle. Unterschiedliche Kategorien/Protokolle sind kein gemeinsames Ranking; für einen direkten Vergleich das genaue Protokoll auswählen. Ø verwendet ausschließlich die ausgewählten, offiziell qualifizierten Protokolle; PARTIAL wird nicht als Vollbenchmark gewertet.' : 'EXPLORATIV: Der Durchschnitt kann historische oder ergänzende Protokolle enthalten und ist kein offizielles Ranking.';
       renderAnalysis(); scheduleHeader();
     }
     function renderScore(td, row, column) {
@@ -555,7 +555,8 @@
       const scope = partialEvidence ? 'PARTIAL' : { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'VOLLSTÄNDIG', PARTIAL: 'PARTIAL', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
       const line = E('span', undefined, 'master-score-line');
       line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + a.solved + '/' + a.tasks + ') · '));
-      const details = button(scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {
+      const category = { 'bfcl-v4-simple-python-full400': 'Simple Python', 'bfcl-v4-parallel-multiple-full200': 'Parallel Multiple' }[benchmark.protocol.benchmark_id];
+      const details = button((category ? category + ' · ' : '') + scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {
         dialogTitle.textContent = column.label + ' · ' + row.displayName;
         dialogValue.textContent = JSON.stringify({ mean_percent: a.score, solved: a.solved, tasks: a.tasks, n: a.n,
           min: a.min, max: a.max, sample_sd: a.sd, protocol: benchmark.protocol, definition: benchmark.definition, qualification_track: benchmark.scope,
