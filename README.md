@@ -6,7 +6,7 @@ This project is not affiliated with or endorsed by NVIDIA, Ollama, engine develo
 
 ## Evidence snapshot
 
-Matrix revision **404**, canonical assessment date **2026-10-23T20:51:24.691209+00:00**.
+Matrix revision **405**, canonical assessment date **2026-10-24T03:37:59.442245+00:00**.
 
 | Original axes | Additional techniques | Experimentally covered | Qualified factor scopes | Model challengers |
 |---|---|---|---|---|
@@ -14,7 +14,7 @@ Matrix revision **404**, canonical assessment date **2026-10-23T20:51:24.691209+
 
 
 
-These are different units: **384 sprint records**, **302 historical signed windows**, **1728 ledger events**, **60 immutable reference records**, **12 current profile champions**. None is a total count of independent GPU experiments.
+These are different units: **385 sprint records**, **302 historical signed windows**, **1729 ledger events**, **60 immutable reference records**, **12 current profile champions**. None is a total count of independent GPU experiments.
 
 ## Hardware and software
 

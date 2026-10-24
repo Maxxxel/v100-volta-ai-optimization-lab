@@ -54,6 +54,8 @@
     'runtime.context': 'Kontext', 'runtime.max_output': 'Output-Limit',
     'runtime.thinking_reasoning_requested': 'Reasoning-Parser (angefordert)', 'runtime.thinking_level': 'Thinking-Level (Rohfeld)',
     'requested.MTP': 'MTP (angefordert)', 'requested.thinking': 'Thinking (Template explizit)',
+    'model.historical_variant_label': 'Historische Profilbeschreibung (korrigiert)',
+    'model.variant_correction': 'Beleg zur Profilbeschreibung',
     'requested.thinking_level': 'Thinking-Level (explizit)', 'requested.reasoning_budget': 'Reasoning-Budget (explizit)',
     'runtime.reasoning_budget_tokens': 'Reasoning-Budget', 'runtime.batch': 'Batch', 'runtime.microbatch': 'Microbatch',
     'runtime.CPU_threads': 'CPU-Threads', 'runtime.GPU_offload': 'GPU-Offload', 'runtime.power_limit_w': 'Power-Limit W',
@@ -164,6 +166,16 @@
       }
       const familyLabel = data.register.model_family_labels?.[profile.model.family_id];
       if (familyLabel) { values['model.historical_name'] = profile.model.name; values['model.name'] = familyLabel; }
+      const corrections = (data.register.profile_label_reviews || []).flatMap(review => review.corrections.map(c => ({ ...c, audit_id: review.audit_id })))
+        .filter(c => c.runtime_configuration_id === profile.runtime_configuration_id);
+      if (corrections.length > 1) throw new Error('Ambiguous profile-description correction');
+      if (corrections.length) {
+        const c = corrections[0];
+        if (c.model_artifact_sha256 !== profile.model.artifact_sha256 || c.original_descriptive_label !== profile.model.variant || c.checkpoint_variant !== null || c.classification !== 'COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE') throw new Error('Unbound profile-description correction');
+        values['model.historical_variant_label'] = profile.model.variant;
+        values['model.variant'] = null;
+        values['model.variant_correction'] = c;
+      }
       const sourceReviews = (data.register.engine_source_reviews || []).flatMap(review => review.engines.map(engine => ({ ...engine, audit_id: review.audit_id, audit_sha256: review.audit_sha256 })));
       const source = sourceReviews.find(e => e.build_id === profile.engine.build_id && e.binary_sha256 === profile.engine.binary_sha256 && e.kernel_library_sha256 === profile.engine.kernel_library_sha256);
       if (source) {

@@ -1,9 +1,32 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
 import copy,json,pathlib,tempfile,unittest
 from validate import validation_event_matches
-from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_partial_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations
+from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_partial_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations,profile_label_annotation
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class LeaderboardTests(unittest.TestCase):
+ def label_fixture(self):
+  label='native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools'
+  cfg={'runtime_configuration_id':'cfg-'+'a'*64,'model':{'variant':label,'artifact_sha256':'b'*64,'quantization':'Q6_K'}}
+  identity={'model_sha256':'b'*64,'quantization':'Q6_K'};native={'model_sha256':'b'*64,'native_recipe':{'request_options':{'temperature':0}}}
+  entry={'runtime_configuration_id':cfg['runtime_configuration_id'],'original_descriptive_label':label,'model_artifact_sha256':'b'*64,'immutable_profile_sha256':'c'*64,'checkpoint_variant':None,'checkpoint_variant_verdict':'NOT_RECORDED','recorded_QAT':None,'original_profile_unchanged':True,'measured_scores_unchanged':True,'recorded_quantization':'Q6_K','recorded_temperature':0,'recorded_top_k':None}
+  return entry,cfg,identity,native
+ def test_copied_description_correction_keeps_original_and_unknown_variant(self):
+  args=self.label_fixture();before=copy.deepcopy(args);out=profile_label_annotation(*args)
+  self.assertEqual(args,before);self.assertIsNone(out['checkpoint_variant']);self.assertEqual(out['QAT_evidence'],'NOT_RECORDED');self.assertEqual(out['recorded_quantization'],'Q6_K');self.assertIsNone(out['recorded_top_k'])
+ def test_description_correction_rejects_identity_tuning_or_evidence_rewrites(self):
+  for mode in ('configuration','artifact','label','quantization','sampler','top-k','qat','variant','rewrite','no-defect'):
+   entry,cfg,identity,native=self.label_fixture()
+   if mode=='configuration':entry['runtime_configuration_id']='cfg-'+'d'*64
+   elif mode=='artifact':native['model_sha256']='d'*64
+   elif mode=='label':cfg['model']['variant']='valid unrelated profile'
+   elif mode=='quantization':identity['quantization']='Q4_0'
+   elif mode=='sampler':entry['recorded_temperature']=1
+   elif mode=='top-k':entry['recorded_top_k']=64
+   elif mode=='qat':entry['recorded_QAT']=False
+   elif mode=='variant':entry['checkpoint_variant']='instruct'
+   elif mode=='rewrite':entry['measured_scores_unchanged']=False
+   else:entry['recorded_temperature']=native['native_recipe']['request_options']['temperature']=1
+   with self.subTest(mode=mode),self.assertRaises(ValueError):profile_label_annotation(entry,cfg,identity,native)
  def engine_source_fixture(self):
   contract={'reference_commit':'a'*40,'upstream_commit':'b'*40,'reference_inputs_canonical_sha256':'c'*64,'local_patch_sha256':'d'*64,'remote_url':'https://github.com/ggml-org/llama.cpp.git'}
   cbytes=json.dumps(contract).encode();sha=lambda b:__import__('hashlib').sha256(b).hexdigest()

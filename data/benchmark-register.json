@@ -24718,6 +24718,60 @@
       "proof_path": "staging/r465/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "0c5d79da4d0ac0bd2d5177247b655e1ab6c28dd08d3f6d32666afae2e4e2bc86",
       "source_audit_hash": "543fb9745a67c9c58b9e407a8ec0ed831a3f087c22b2f4d8f669e2f292beae50"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r466/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "805c89ebb9259519f46f8feda30d01a5f0767497705f004d6ee83c0bcae5da6a",
+      "source_audit_hash": "bd72425d4fcd1c6575db7eeba95220a7a9e2f7dba2763f07b0ff2f310d85d103"
+    }
+  ],
+  "profile_label_reviews": [
+    {
+      "audit_id": "audit-7b0f21005f2724c22b53",
+      "audit_sha256": "7b0f21005f2724c22b53227d491cb28597268cb081709cb9f139bffa3f175f36",
+      "corrections": [
+        {
+          "QAT_evidence": "NOT_RECORDED",
+          "checkpoint_variant": null,
+          "classification": "COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE",
+          "immutable_profile_sha256": "226d7ae643abc52f5d8868d4ca6050167433964aeac02b721af6aea8401855a8",
+          "interpretation": "A copied descriptive run label is retained as historical evidence. Checkpoint variant remains unknown. Captured sampler/flags and the separately recorded artifact/quantization are authoritative; no score, model bytes, original profile or qualification changes.",
+          "model_artifact_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+          "original_descriptive_label": "native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools",
+          "recorded_quantization": "Q4_K_M",
+          "recorded_temperature": 0,
+          "recorded_top_k": null,
+          "runtime_configuration_id": "cfg-20bdb8e69d28a1aa46e3f149fa4980e2bb50b789069f209c2660f238ee7ee28f"
+        },
+        {
+          "QAT_evidence": "NOT_RECORDED",
+          "checkpoint_variant": null,
+          "classification": "COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE",
+          "immutable_profile_sha256": "8c8e70b2700f7eed82827017b4afa8d2993b470f721ced21ffee1cf4f57c0055",
+          "interpretation": "A copied descriptive run label is retained as historical evidence. Checkpoint variant remains unknown. Captured sampler/flags and the separately recorded artifact/quantization are authoritative; no score, model bytes, original profile or qualification changes.",
+          "model_artifact_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "original_descriptive_label": "native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools",
+          "recorded_quantization": "GSQ/RCO IQ3_S",
+          "recorded_temperature": 0,
+          "recorded_top_k": null,
+          "runtime_configuration_id": "cfg-77de5005a31c5b727868ad10ef6e5aecd5df4bc5d76fa542991bda1d2292e8a0"
+        },
+        {
+          "QAT_evidence": "NOT_RECORDED",
+          "checkpoint_variant": null,
+          "classification": "COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE",
+          "immutable_profile_sha256": "b09bf4e8502704370bc2e6b28a935ac5a3d6cc712ac45b94abdfd98892b40d37",
+          "interpretation": "A copied descriptive run label is retained as historical evidence. Checkpoint variant remains unknown. Captured sampler/flags and the separately recorded artifact/quantization are authoritative; no score, model bytes, original profile or qualification changes.",
+          "model_artifact_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+          "original_descriptive_label": "native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools",
+          "recorded_quantization": "Q6_K",
+          "recorded_temperature": 0,
+          "recorded_top_k": null,
+          "runtime_configuration_id": "cfg-a42dde1a672fdf86e9ee2a72737ad7f1c26d7632f62545241a092ca4d68baf61"
+        }
+      ],
+      "review_id": "captured-profile-description-20261024"
     }
   ],
   "publisher_claims": [

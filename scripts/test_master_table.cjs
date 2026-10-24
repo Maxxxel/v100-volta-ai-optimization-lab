@@ -10,6 +10,33 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../docs/assets/benchmarks/leaderboard-data.js'), 'utf8'), context);
 const data = context.window.V100Leaderboard;
 const model = M.build(data);
+test('Qwen3.8 complete-artifact native coding149/164 keeps explicit no-speculation and full task cost', () => {
+  const r=data.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy);assert(r&&r.official_eligible);
+  assert.equal(r.solved,149);assert.equal(r.tasks,164);assert.equal(r.gpu_j,null);assert.equal(r.gpu_j_per_success,null);
+  assert.equal(r.counter_energy.tasks,164);assert.equal(r.counter_energy.solved,149);
+  assert.equal(r.counter_energy.j_per_success_lower,316842.769/149);
+  assert.equal(r.counter_energy.j_per_success_upper,316944.086/149);
+  const row=model.rows.find(x=>x.id===r.runtime_configuration_id);assert(row);
+  assert.equal(row.values['model.quantization'],'GSQ/RCO IQ3_S');assert.equal(row.values['requested.thinking'],false);
+  assert.equal(row.values['requested.MTP'],false);assert.equal(row.values['runtime.max_output'],4096);
+  assert.equal(row.profile.model.artifact_sha256,'58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f');
+  assert.equal(row.runs.find(x=>x.run_id===r.run_id).task_phase_s,1111.838883905);
+});
+test('source-bound descriptive-label corrections preserve raw profiles, tuning and scores', () => {
+  const before=M.canonical(data.history), corrections=(data.register.profile_label_reviews||[]).flatMap(r=>r.corrections);
+  for(const c of corrections){
+    const row=model.rows.find(r=>r.id===c.runtime_configuration_id);assert(row);
+    assert.equal(row.profile.model.variant,c.original_descriptive_label);
+    assert.equal(row.values['model.historical_variant_label'],c.original_descriptive_label);
+    assert.equal(row.values['model.variant'],null);assert.equal(row.values['model.quantization'],c.recorded_quantization);
+    assert.equal(row.values['runtime.sampling.temperature'],c.recorded_temperature);
+  }
+  assert.equal(M.canonical(data.history),before);
+  if(corrections.length){
+    const copy=JSON.parse(JSON.stringify(data));copy.register.profile_label_reviews[0].corrections[0].model_artifact_sha256='0'.repeat(64);
+    assert.throws(()=>M.build(copy),/Unbound profile-description correction/);
+  }
+});
 test('Qwen3.5 native coding135/164 retains unknown MTP and exact task-energy denominator', () => {
   const r=data.history.runs.find(r=>r.experiment_id==='R465'&&r.counter_energy);assert(r&&r.official_eligible);
   assert.equal(r.solved,135);assert.equal(r.tasks,164);assert.equal(r.gpu_j,null);assert.equal(r.gpu_j_per_success,null);

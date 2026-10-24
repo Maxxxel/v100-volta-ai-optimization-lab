@@ -6,14 +6,14 @@ Models are compared within the same tasks using correct model-specific tokenizer
 
 | Track | Candidate | Status | Evidence | Latest recorded sprint |
 |---|---|---|---|---|
-| BMC01 | Ornith 1.5 9B | teilweise | LOKAL_GEMESSEN | R259 |
-| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | teilweise | NOT MEASURED / not recorded | R443 |
-| BMC03 | MiMo V2.6 Distill Qwen 9B | teilweise | NOT MEASURED / not recorded | R445 |
-| BMC02 | OxCoder 9B | teilweise | LOKAL_GEMESSEN | R410 |
-| BMC06 | LFM2.5 8B A1B | teilweise | LOKAL_GEMESSEN | R452 |
-| BMC07 | Gemma 4 12B IT QAT | teilweise | LOKAL_GEMESSEN | R431 |
+| BMC01 | Ornith 1.5 9B | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R457 |
+| BMC04 | Ternary Bonsai 2 27B PQ2_0/PTQ1_0 | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R455 |
+| BMC03 | MiMo V2.6 Distill Qwen 9B | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R456 |
+| BMC02 | OxCoder 9B | auf Nutzerwunsch gestoppt | HISTORICAL_PARTIAL_OWNER_STOP_NO_MODEL_REJECTION | R410 |
+| BMC06 | LFM2.5 8B A1B | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R453 |
+| BMC07 | Gemma 4 12B IT QAT | im dokumentierten Umfang gemessen | LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED | R458 |
 | BMC08 | Qwen3.6 27B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
-| BMC05 | LFM2.5 24B A2B QAD | technisch zurückgestellt | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
+| BMC05 | LFM2.5 24B A2B QAD | Quellen-/Formatprüfung vor Ausführung | SOURCE_ONLY_NO_MODEL_DOWNLOAD_OR_GPU_TEST | NOT MEASURED / not recorded |
 | BMC10 | LightOnOCR 3 4B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC09 | UI-Venus 1.5 8B / Holo2 8B | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
 | BMC11 | Qwen3.8 Flash-MTP-Derivat | offen | NOT MEASURED / not recorded | NOT MEASURED / not recorded |
@@ -189,13 +189,27 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "Ornith-Herstellerprofil: 10/12 Originalfragen semantisch, 3/12 Format; vier R256-Antworten wiederverwendet, 8 neu. 3 semantische Gewinne/2 Verluste gegen eigenes Fastprofil. Vollständiger12erDiagnosebeleg;keinModellwinner. R258Codingpilot6/8mitLängenabbruchbleibtnegativ.",
-  "current_experiment": "R259",
-  "evidence_class": "LOKAL_GEMESSEN",
+  "assessment": "Complete native BFCL simple_python400 category and explicit full/partial coding profiles are linked below. Historical profiles/negatives remain; neither whole-BFCL nor overall model qualification is claimed.",
+  "current_experiment": "R457",
+  "evidence_class": "LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED",
   "id": "BMC01",
-  "local_scope": null,
+  "local_scope": {
+    "kind": "STANDARD_BENCHMARK_PROFILE_EVIDENCE",
+    "original_profile_history_preserved": true,
+    "overall_model_qualified": false,
+    "selected_native_coding": [
+      {
+        "intended_tasks": 164,
+        "official_eligible": false,
+        "score_percent": 91.39784946236558,
+        "solved": 85,
+        "status": "PARTIAL",
+        "tasks": 93
+      }
+    ]
+  },
   "name": "Ornith 1.5 9B",
-  "next_step": "KeinweitererOrnithBudgetsweep;andereModellqualität/Agentenumfängezuerst. Herstellerprofilnichtallgemeinqualifiziert.",
+  "next_step": "Agentenqualität sowie Aufgabenlatenz, VRAM und Energie der dokumentierten Profile bewerten; bereits gültige Standardläufe und ausgeschöpfte Teilkampagnen nicht wiederholen.",
   "priority": "P0",
   "repository": "https://huggingface.co/ornith-ai/Ornith-1.5-9B",
   "source_admission": {
@@ -224,7 +238,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
       "num_key_value_heads": 4
     }
   },
-  "status": "teilweise"
+  "status": "im dokumentierten Umfang gemessen"
 }
 ```
 
@@ -232,17 +246,21 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R443 freshcoldcontrol:3/3,wall drift-0.09288224457757455,energy drift-0.2799818058737302;R442same3gain wall15.40717290229967,energy17.329221952190576;qualifiedR442scopeonly=True.",
-  "current_experiment": "R443",
-  "evidence_class": null,
+  "assessment": "Complete native BFCL simple_python400 category and explicit full/partial coding profiles are linked below. Historical profiles/negatives remain; neither whole-BFCL nor overall model qualification is claimed.",
+  "current_experiment": "R455",
+  "evidence_class": "LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED",
   "id": "BMC04",
-  "local_scope": null,
+  "local_scope": {
+    "kind": "STANDARD_BENCHMARK_PROFILE_EVIDENCE",
+    "original_profile_history_preserved": true,
+    "overall_model_qualified": false
+  },
   "name": "Ternary Bonsai 2 27B PQ2_0/PTQ1_0",
-  "next_step": "CloseBonsaiR22prefix branch at qualified8K/nativeagent18 scope; next P1MiMo native20tool pilot usingexistingweights/frozenbalancedBFCLsubset andR288nativeT.6Thinking2048 profile. PreserveR289agentpolicynegative, no newagentbudgetrepair or combinations.",
+  "next_step": "Agentenqualität sowie Aufgabenlatenz, VRAM und Energie der dokumentierten Profile bewerten; bereits gültige Standardläufe und ausgeschöpfte Teilkampagnen nicht wiederholen.",
   "priority": "P1",
   "repository": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
   "source_admission": null,
-  "status": "teilweise"
+  "status": "im dokumentierten Umfang gemessen"
 }
 ```
 
@@ -250,17 +268,30 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R445 MiMoCoding4096:HE+8/13,long0/0,wall144.392s,GPUJ/success4238.315008446952;extension=False. No164score ormodelwinner. Aktualisierte Einordnung: Dieser historische Vorab-QA-Befund ist kein vollständiger offizieller Coding-/Tool-Benchmark und schließt das Modell nicht aus dem regulären Vergleich aus.",
-  "current_experiment": "R445",
-  "evidence_class": null,
+  "assessment": "Complete native BFCL simple_python400 category and explicit full/partial coding profiles are linked below. Historical profiles/negatives remain; neither whole-BFCL nor overall model qualification is claimed.",
+  "current_experiment": "R456",
+  "evidence_class": "LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED",
   "id": "BMC03",
-  "local_scope": null,
+  "local_scope": {
+    "kind": "STANDARD_BENCHMARK_PROFILE_EVIDENCE",
+    "original_profile_history_preserved": true,
+    "overall_model_qualified": false,
+    "selected_native_coding": [
+      {
+        "official_eligible": true,
+        "score_percent": 72.5609756097561,
+        "solved": 119,
+        "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+        "tasks": 164
+      }
+    ]
+  },
   "name": "MiMo V2.6 Distill Qwen 9B",
-  "next_step": "Zuerst reguläre anerkannte Coding-/Tool-Benchmarks mit verifizierter nativer Modellkonfiguration durchführen beziehungsweise gültige Teilantworten fortsetzen. Keine Vorab-Aussortierung durch eigene QA-Fälle. Konfigurations-/Harnessfehler getrennt prüfen; keine Prompt-/Seed-/Budgetabstimmung auf Benchmarkfehler. Detailoptimierungen erst nach dem Basisvergleich.",
+  "next_step": "Agentenqualität sowie Aufgabenlatenz, VRAM und Energie der dokumentierten Profile bewerten; bereits gültige Standardläufe und ausgeschöpfte Teilkampagnen nicht wiederholen.",
   "priority": "P0",
   "repository": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
   "source_admission": null,
-  "status": "teilweise"
+  "status": "im dokumentierten Umfang gemessen"
 }
 ```
 
@@ -268,17 +299,17 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R410 OxCoder Q6 Thinking4096: Coding korrekt; HA semantisch falsch; PVE bei4096 Tokens ohne finale Antwort. Mit zwei unverändert wiederverwendeten R409-Erfolgen 3/5 beobachtete Fälle korrekt, kein vollständiger12erScore. 182.377s/45678.77GPU-J für diese5 QA-Fälle; Peak7354.5MiB. Profil nicht zugelassen; kein weiterer Budgetsweep. Aktualisierte Einordnung: Dieser historische Vorab-QA-Befund ist kein vollständiger offizieller Coding-/Tool-Benchmark und schließt das Modell nicht aus dem regulären Vergleich aus.",
+  "assessment": "Owner stopped further OxCoder diagnosis and inference while selecting an alternative checkpoint. Preserve R448 partial results and unresolved source-weight concern; no model-quality rejection or restart.",
   "current_experiment": "R410",
-  "evidence_class": "LOKAL_GEMESSEN",
+  "evidence_class": "HISTORICAL_PARTIAL_OWNER_STOP_NO_MODEL_REJECTION",
   "id": "BMC02",
   "local_scope": null,
   "name": "OxCoder 9B",
-  "next_step": "Zuerst reguläre anerkannte Coding-/Tool-Benchmarks mit verifizierter nativer Modellkonfiguration durchführen beziehungsweise gültige Teilantworten fortsetzen. Keine Vorab-Aussortierung durch eigene QA-Fälle. Konfigurations-/Harnessfehler getrennt prüfen; keine Prompt-/Seed-/Budgetabstimmung auf Benchmarkfehler. Detailoptimierungen erst nach dem Basisvergleich.",
+  "next_step": "Nur nach konkreter neuer Modellidentität beziehungsweise Anweisung fortsetzen.",
   "priority": "P0",
   "repository": "https://huggingface.co/OrionLLM/OxCoder-9B",
   "source_admission": null,
-  "status": "teilweise"
+  "status": "auf Nutzerwunsch gestoppt"
 }
 ```
 
@@ -286,20 +317,40 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "Vollständiger nativer HumanEval+164:116/164, unabhängig per offiziellem API nachbewertet,0 abweichende Urteile.902.585s reine Aufgabenzeit, eine Modellsitzung. Frühere Teilwerte bleiben erhalten. Nur Coding-Benchmark qualifiziert, kein Allround- oder Championnachweis.",
-  "current_experiment": "R452",
-  "evidence_class": "LOKAL_GEMESSEN",
+  "assessment": "Complete native BFCL simple_python400 category and explicit full/partial coding profiles are linked below. Historical profiles/negatives remain; neither whole-BFCL nor overall model qualification is claimed.",
+  "current_experiment": "R453",
+  "evidence_class": "LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED",
   "id": "BMC06",
-  "local_scope": null,
+  "local_scope": {
+    "kind": "STANDARD_BENCHMARK_PROFILE_EVIDENCE",
+    "original_profile_history_preserved": true,
+    "overall_model_qualified": false,
+    "selected_native_coding": [
+      {
+        "official_eligible": false,
+        "score_percent": 70.73170731707317,
+        "solved": 116,
+        "status": "FULL_NATIVE_CODING_OFFICIAL_API_PENDING",
+        "tasks": 164
+      },
+      {
+        "official_eligible": true,
+        "score_percent": 70.73170731707317,
+        "solved": 116,
+        "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+        "tasks": 164
+      }
+    ]
+  },
   "name": "LFM2.5 8B A1B",
-  "next_step": "Offiziellen Tool-/Agentenvergleich mit bestehenden Modellen fortsetzen; vollständige native BFCL-Kategorie bevorzugen, soweit innerhalb1200s Aufgabenzeit ausführbar. Keine Qualitäts-Vorab-Aussortierung, keine neuen OmniCoder-Einzeloptimierungen oder Kombinationen vor dem Modellvergleich.",
+  "next_step": "Agentenqualität sowie Aufgabenlatenz, VRAM und Energie der dokumentierten Profile bewerten; bereits gültige Standardläufe und ausgeschöpfte Teilkampagnen nicht wiederholen.",
   "priority": "P0",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
   "source_admission": {
     "GPU_runs": 0,
     "sha256": "a2da6db6acd28bbce0145323499402b0edeacf11e3f5aec45c2290d1b2c7677a"
   },
-  "status": "teilweise"
+  "status": "im dokumentierten Umfang gemessen"
 }
 ```
 
@@ -307,13 +358,26 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "R431 Gemma32K independentnewcases:11/12 observed(12planned),validationpassed=True;sourceextended11/12 retained;peak8526.5MiB. Capacityscope only,nooverallChampion.",
-  "current_experiment": "R431",
-  "evidence_class": "LOKAL_GEMESSEN",
+  "assessment": "Complete native BFCL simple_python400 category and explicit full/partial coding profiles are linked below. Historical profiles/negatives remain; neither whole-BFCL nor overall model qualification is claimed.",
+  "current_experiment": "R458",
+  "evidence_class": "LOKAL_GEMESSEN_SCOPED_BENCHMARKS_NOT_MODEL_WIDE_QUALIFIED",
   "id": "BMC07",
-  "local_scope": null,
+  "local_scope": {
+    "kind": "STANDARD_BENCHMARK_PROFILE_EVIDENCE",
+    "original_profile_history_preserved": true,
+    "overall_model_qualified": false,
+    "selected_native_coding": [
+      {
+        "official_eligible": true,
+        "score_percent": 95.1219512195122,
+        "solved": 156,
+        "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+        "tasks": 164
+      }
+    ]
+  },
   "name": "Gemma 4 12B IT QAT",
-  "next_step": "Close the Gemma longcontext branch at its measured scope; preserve source/validation failures. Reassess only concrete remaining model-compatible single hypotheses and fair model/engine tradeoffs; do not repeat Gemma coding/tool/agent suites or start combinations prematurely.",
+  "next_step": "Agentenqualität sowie Aufgabenlatenz, VRAM und Energie der dokumentierten Profile bewerten; bereits gültige Standardläufe und ausgeschöpfte Teilkampagnen nicht wiederholen.",
   "priority": "P1",
   "repository": "https://huggingface.co/google/gemma-4-12B-it",
   "source_admission": {
@@ -321,7 +385,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
     "sha256": "230de81437f1f93f18388351ef795cde9470b096f93f2c2226dac94d9bfbc57f",
     "weights_available": false
   },
-  "status": "teilweise"
+  "status": "im dokumentierten Umfang gemessen"
 }
 ```
 
@@ -347,13 +411,20 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
 
 ```json
 {
-  "assessment": "QAD-Chkpt unterscheidet sich von Standard-PTQ; wenige GiB Workspaces offen.",
+  "assessment": "Prior storage blocker cleared on the existing container filesystem and thin pool without configuration changes. Exact custom license fetched;24B tensor/SM70/VRAM and first-load admission still pending. No model weights downloaded or GPU result inferred.",
   "current_experiment": null,
-  "evidence_class": null,
+  "evidence_class": "SOURCE_ONLY_NO_MODEL_DOWNLOAD_OR_GPU_TEST",
   "id": "BMC05",
-  "local_scope": null,
+  "local_scope": {
+    "GPU_runs": 0,
+    "format_engine_and_VRAM_admission_pending": true,
+    "kind": "SOURCE_PRECONDITION_REVALIDATION",
+    "model_starts": 0,
+    "published_model_bytes": 13578190880,
+    "weights_downloaded": 0
+  },
   "name": "LFM2.5 24B A2B QAD",
-  "next_step": "Admit adequate dedicatedresearchstorage without deletingoriginalweights/audits or productiveconfigurationchanges; verifylicense/SM70tensorpath/VRAMbudget beforefirstload.",
+  "next_step": "Gepinnte QAD-GGUF-Identität, Engine-/Tensor-Kompatibilität und VRAM-Budget prüfen; danach verifizierten Forschungsdownload und reguläre Broker-Zulassung vorbereiten.",
   "priority": "P2",
   "repository": "https://huggingface.co/LiquidAI/LFM2.5-24B-A2B",
   "source_admission": {
@@ -361,7 +432,7 @@ YES indicates an observed stage, not a passed quality gate. Old source-admission
     "model_starts": 0,
     "sha256": "819239f28ed8c8da96d1df75df8c8aaa87eed9136680497689c983d98d5927dc"
   },
-  "status": "technisch zurückgestellt"
+  "status": "Quellen-/Formatprüfung vor Ausführung"
 }
 ```
 

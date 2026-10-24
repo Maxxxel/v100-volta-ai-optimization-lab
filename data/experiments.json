@@ -19400,5 +19400,33 @@
       "scope": "Actual same-session Qwen3.5 Q4_K_M native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12450.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 149,
+          "tasks": 164,
+          "wall_s": 1109.486180492
+        }
+      }
+    },
+    "audit_id": "audit-bd72425d4fcd1c6575db",
+    "date": "2026-10-24T03:25:16.427951+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R466",
+    "model": "qwen38",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Qwen3.8 27B GSQ/RCO IQ3_S native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    },
+    "winner_qualified": false
   }
 ]

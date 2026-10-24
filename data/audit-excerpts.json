@@ -173374,6 +173374,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12450.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 149,
+          "tasks": 164,
+          "wall_s": 1109.486180492
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bd72425d4fcd1c6575db",
+    "original_bytes": 11106,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bd72425d4fcd1c6575db7eeba95220a7a9e2f7dba2763f07b0ff2f310d85d103",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Qwen3.8 27B GSQ/RCO IQ3_S native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -250400,6 +250425,21 @@
       "new_GPU_runs": 0
     },
     "excerpt_is_not_original": true,
+    "id": "audit-7b0f21005f2724c22b53",
+    "original_bytes": 6004,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7b0f21005f2724c22b53227d491cb28597268cb081709cb9f139bffa3f175f36",
+    "statements": {
+      "interpretation": "The collector reused an unrelated descriptive Gemma run label in model.variant. Independently captured model hash, separately recorded quantization, native request sampler and explicit flags remain authoritative and unchanged. Do not infer QAT=false, MTP=false or any missing parameter from a corrected description. Original content-addressed profiles and measured results must not be rewritten. Publish a source-bound correction annotation, preserve the old label as historical evidence and treat the unrecorded checkpoint variant as unknown."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
     "id": "audit-ad26886527c71fef3b59",
     "original_bytes": 3440,
     "original_filename": "AUDIT.json",
@@ -252408,6 +252448,68 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12450.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9970f3d75788cb469468",
+    "original_bytes": 143804,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9970f3d75788cb469468e21215f40ef32d805cc392cc157eec4ff211e8c92ba9",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 149,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3193ff12d6e58b6274a9",
+    "original_bytes": 3625,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3193ff12d6e58b6274a95528e0790daed56f0c479b52461cfd0def5d9cf2c5c7",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-21f304a5ee06276a1d7f",
+    "original_bytes": 6203,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "21f304a5ee06276a1d7fd23e12630c9915bf698b0f6017f17fd22f0f7ba674a3",
+    "statements": {
+      "scope": "Exact complete164 coding-task group. Failed frozen power-integral coverage remains null. Reported-counter query timing bounds are not sensor accuracy or system/HBM-only energy. Different model profiles do not establish causal optimization benefit."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 149,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-805c89ebb9259519f46f",
+    "original_bytes": 8297,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "805c89ebb9259519f46f8feda30d01a5f0767497705f004d6ee83c0bcae5da6a",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -252545,6 +252647,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "6d41ec3dcb2e5002f5aeea586463e6029e0d12c27d0848689f10b9262bb22941",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-fb4f91e2122a635395ec",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fb4f91e2122a635395ece4476a8a4cb736e50aa810ac7aac8c14c2f8e99af838",
     "statements": {}
   },
   {

@@ -728,8 +728,42 @@ def engine_source_annotations(raw):
 def H_BYTES(raw):
  return hashlib.sha256(raw).hexdigest()
 
+def profile_label_annotation(entry,cfg,identity,native):
+ """Correct a proven copied description without changing an immutable profile."""
+ label='native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools'
+ if entry.get('runtime_configuration_id')!=cfg.get('runtime_configuration_id') or entry.get('original_descriptive_label')!=label or cfg['model'].get('variant')!=label:raise ValueError('Profile-label correction identity differs')
+ model=cfg['model'];options=native['native_recipe']['request_options']
+ if not re.fullmatch('[a-f0-9]{64}',entry.get('model_artifact_sha256','')) or any(x!=entry['model_artifact_sha256'] for x in (model.get('artifact_sha256'),identity.get('model_sha256'),native.get('model_sha256'))):raise ValueError('Profile-label model identity differs')
+ if entry.get('checkpoint_variant') is not None or entry.get('checkpoint_variant_verdict')!='NOT_RECORDED' or entry.get('recorded_QAT') is not None:raise ValueError('Correction invents checkpoint or QAT identity')
+ if entry.get('original_profile_unchanged') is not True or entry.get('measured_scores_unchanged') is not True:raise ValueError('Correction cannot rewrite evidence')
+ if entry.get('recorded_quantization')!=model.get('quantization') or identity.get('quantization')!=model.get('quantization') or entry.get('recorded_temperature')!=options.get('temperature') or entry.get('recorded_top_k')!=options.get('top_k'):raise ValueError('Profile-label correction contradicts captured settings')
+ if options.get('temperature')!=0:raise ValueError('Copied T1 description defect is not established')
+ return {'runtime_configuration_id':cfg['runtime_configuration_id'],'model_artifact_sha256':model['artifact_sha256'],'immutable_profile_sha256':entry['immutable_profile_sha256'],'original_descriptive_label':label,'checkpoint_variant':None,'classification':'COPIED_RUN_DESCRIPTION_NOT_CHECKPOINT_OR_TUNING_EVIDENCE','recorded_quantization':model['quantization'],'recorded_temperature':options['temperature'],'recorded_top_k':options.get('top_k'),'QAT_evidence':'NOT_RECORDED','interpretation':'A copied descriptive run label is retained as historical evidence. Checkpoint variant remains unknown. Captured sampler/flags and the separately recorded artifact/quantization are authoritative; no score, model bytes, original profile or qualification changes.'}
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
+ for item in reg.get('profile_label_reviews',[]):
+  ap=(root/item.pop('audit_path')).resolve()
+  if not ap.is_relative_to(root.resolve()) or digest(ap)!=item['audit_sha256']:raise ValueError('Profile-label review changed')
+  review=read(ap)
+  if review.get('kind')!='CAPTURED_PROFILE_DESCRIPTION_CORRECTION_REVIEW' or review.get('new_GPU_runs')!=0 or review.get('new_model_requests')!=0 or review.get('originals_modified') is not False:raise ValueError('Invalid profile-label review')
+  bound=review['source_files_sha256']
+  for name,h in bound.items():
+   path=pathlib.Path(name).resolve()
+   if not path.is_relative_to(root.parent.resolve()) or digest(path)!=h:raise ValueError('Profile-label original source changed')
+  corrections=[]
+  for entry in review['entries']:
+   if not re.fullmatch('R[1-9][0-9]{1,3}',entry['experiment_id']):raise ValueError('Invalid correction experiment')
+   stage=root/'staging'/entry['experiment_id'].lower();audit=read(stage/'AUDIT.json');cp=stage/'CONFIGURATION_PROFILE.json';mp=stage/'MODEL_IDENTITY.json'
+   if len(audit['parts'])!=1:raise ValueError('Ambiguous profile-label capture')
+   out=pathlib.Path(audit['parts'][0]['audit_path']).parent
+   if not out.resolve().is_relative_to(root.parent.resolve()) or digest(out/'AUDIT.json')!=audit['parts'][0]['audit_sha256']:raise ValueError('Profile-label GPU capture changed')
+   np=out/'profile.json';rp=out/'RAW_HASHES.json'
+   required=[stage/'AUDIT.json',cp,mp,np,rp]
+   if any(bound.get(str(p))!=digest(p) for p in required) or digest(cp)!=entry['immutable_profile_sha256'] or digest(cp)!=audit['runtime_configuration_profile_sha256'] or read(rp).get('profile.json')!=digest(np):raise ValueError('Unbound profile-label capture')
+   corrections.append(profile_label_annotation(entry,read(cp),read(mp),read(np)))
+  if len({c['runtime_configuration_id'] for c in corrections})!=len(corrections):raise ValueError('Duplicate label correction')
+  item.update(audit_id=receipt(ap,item['audit_sha256']),corrections=corrections)
  for item in reg.get('engine_source_reviews',[]):
   ap=(root/item.pop('audit_path')).resolve()
   if not ap.is_relative_to(root.resolve()) or digest(ap)!=item['audit_sha256']:raise ValueError('Engine source review changed')
@@ -1152,6 +1186,10 @@ def render(register,history,comparison,docs,model_registry=None):
   annotations=[e for e in history.get('configuration_evidence',[]) if e['runtime_configuration_id']==ident]
   display_name=register.get('model_family_labels',{}).get(p['model']['family_id'],p['model']['name'])
   s='# '+str(display_name)+' · '+ident[:16]+'\n\n[Back to configuration comparison](../configuration-comparison.md)\n\nProfile ID: `'+ident+'`. Null means **NOT MEASURED**, never a default setting. Hardware evidence and costs are attached to each measured run; current host settings are not retrospectively assigned to historical runs.\n\n'
+  for review in register.get('profile_label_reviews',[]):
+   for correction in review['corrections']:
+    if correction['runtime_configuration_id']==ident:
+     s+='## Profile-description correction\n\nThe original `model.variant` string below was a copied descriptive run label, not checkpoint-variant, QAT or sampler evidence. The table retains that string as **historical description** and shows the unrecorded checkpoint variant as **NICHT ERFASST**. Actual captured parameters and scores are unchanged.\n\n```json\n'+pretty(correction)+'\n```\n\n'+audit_links([review['audit_id']],'../')+'\n\n'
   for title,key in [('Model and weights','model'),('Engine and backend','engine'),('Optimizations','optimizations'),('Runtime and sampler','runtime'),('Ordered startup parameters','start_parameters')]:
    s+='## '+title+'\n\n```json\n'+pretty(p[key])+'\n```\n\n'
   for review in register.get('engine_source_reviews',[]):

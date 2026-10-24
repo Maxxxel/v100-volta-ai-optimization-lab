@@ -54,6 +54,22 @@ async function main() {
     assert((await page.locator('.master-counter').innerText()).includes(String(expected.profiles)));
     assert.equal(await page.locator('.master-pagination').count(), 0);
     assert.equal(await page.locator('.md-content table').count(),1,'Exactly one central table, including optional analysis');
+    const labelCorrections=await page.evaluate(()=>{
+      const d=window.V100Leaderboard,m=window.V100MasterTable.build(d);
+      return (d.register.profile_label_reviews||[]).flatMap(r=>r.corrections).map(c=>{
+        const row=m.rows.find(r=>r.id===c.runtime_configuration_id);
+        return {id:row.id,variant:row.values['model.variant'],original:row.profile.model.variant,historical:row.values['model.historical_variant_label']};
+      });
+    });
+    if(labelCorrections.length){
+      for(const c of labelCorrections){assert.equal(c.variant,null);assert.equal(c.original,c.historical);}
+      const profilePage=await context.newPage();
+      await profilePage.goto(new URL('configuration-profiles/'+labelCorrections[0].id+'/',base).href,{waitUntil:'networkidle'});
+      assert.equal(await profilePage.getByRole('heading',{name:/^Profile-description correction/}).count(),1);
+      assert((await profilePage.locator('.md-content').innerText()).includes('Actual captured parameters and scores are unchanged'));
+      await profilePage.close();
+      report.checks.push('copied profile descriptions have source-bound corrections; unknown variants and untouched original identities stay distinct');
+    }
     const partials = await page.evaluate(() => {
       const m=window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard));
       return m.rows.flatMap(row=>row.runs.filter(r=>r.status==='PARTIAL').map(r=>({id:row.id,solved:r.solved,tasks:r.tasks})));
@@ -71,6 +87,19 @@ async function main() {
       assert.equal(run.qualification_audit.official_category, 'simple_python');
     }
     if(toolCategories.length) report.checks.push('full native BFCL Python category appears in the same BFCL column with exact400 denominator and category-only qualification');
+    const qwen38Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R466'&&r.counter_energy));
+    if(qwen38Coding){
+      assert.equal(qwen38Coding.solved,149);assert.equal(qwen38Coding.tasks,164);assert.equal(qwen38Coding.official_eligible,true);
+      const row=page.locator(`.master-table tr[data-configuration-id="${qwen38Coding.runtime_configuration_id}"]`);
+      const cell=await row.locator('td[data-column-key="family:humanevalplus"]').textContent();assert(cell.includes('149/164')&&cell.includes('OFFIZIELL'));
+      assert((await row.locator('td[data-column-key="requested.MTP"]').textContent()).includes('Aus'));
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Energie');
+      const protocol=await page.evaluate(id=>window.V100Leaderboard.master.run_columns[id],qwen38Coding.run_id);
+      assert.notEqual((await row.locator(`td[data-column-key="metric:${protocol}:counter_energy.j_per_success_lower"]`).textContent()).trim(),'NICHT ERFASST');
+      assert.equal((await row.locator(`td[data-column-key="metric:${protocol}:gpu_j_per_success"]`).textContent()).trim(),'NICHT ERFASST');
+      await page.getByLabel('Ansicht',{exact:true}).selectOption('Kompakt');
+      report.checks.push('Qwen3.8 native149/164 coding result retains complete artifact, explicit no-speculation and164-task cost scope');
+    }
     const qwen35Coding=await page.evaluate(()=>window.V100Leaderboard.history.runs.find(r=>r.experiment_id==='R465'&&r.counter_energy));
     if(qwen35Coding){
       assert.equal(qwen35Coding.solved,135);assert.equal(qwen35Coding.tasks,164);assert.equal(qwen35Coding.official_eligible,true);
