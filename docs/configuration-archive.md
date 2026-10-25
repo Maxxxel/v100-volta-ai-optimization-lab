@@ -277,4 +277,5 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | Slopus 9B | [cfg-a928ba70765c1ef7](configuration-profiles/cfg-a928ba70765c1ef79611f3070d02eaa47f20e8f14e14ae25f1b2829b7bc944e2.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | OmniCoder Opus Distill 9B | [cfg-377170b50200a0a9](configuration-profiles/cfg-377170b50200a0a9f667e68998ed08155cb77536a9c39f1888d0b56f9f3cd0be.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Qwen3.6 27B | [cfg-22ddad19e7c5ae6c](configuration-profiles/cfg-22ddad19e7c5ae6c80fc0c4116156b827125813bdf4fd91f2b04dd13a56f68f1.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
+| Qwen3.8 27B | [cfg-a5de568e5c658767](configuration-profiles/cfg-a5de568e5c658767b28ed3b9574061177fee4798eb6577ed8fc54d57b7dbac34.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 
