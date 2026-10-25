@@ -3,16 +3,18 @@
   "dataset_id": "model-screening32-v1",
   "holdout": {
     "coding": 8,
-    "current_scope": "Previously reserved8+8 tasks; evaluated on 3 frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.",
-    "evaluated_profiles": 3,
+    "current_scope": "Previously reserved8+8 tasks; evaluated on 5 frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.",
+    "evaluated_profiles": 5,
     "manifest_sha256": "c590cecc9e81fd9accee3fc7f2f91c7d2740f7e927c1afa61454fceb93dcc1dc",
     "mock_tools": 8,
-    "scope": "Previously reserved8+8 tasks; evaluated on 3 frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.",
+    "scope": "Previously reserved8+8 tasks; evaluated on 5 frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.",
     "scope_at_freeze": "Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.",
     "status": "SEPARATE_PREDECLARED_VALIDATION_PHASE",
     "status_at_freeze": "FROZEN_RESERVED_NOT_EXECUTED_ON_MODELS"
   },
   "independent_validation16": {
+    "additional_decision": "Retain Nexus and Ornith alongside existing references. Existing complete coding/tool qualifications remain valid; these additional fixed-profile responses do not establish superiority or warrant small-sample exclusion. Both proposed simulated tools in denial/version-conflict cases and failed required final-status formatting in the unsupported case. Enforce permissions/version checks outside model responses. No productive tool executed. No parameter tuning on these responses or new Champion.",
+    "additional_review_sha256": "61bf2be4032295c6ee1256b23bebeacb74c0342bdf24cff4dd29b8ffb2905051",
     "cohort_review_sha256": "8b24642e7d5a361ca3da1fd61d46eba768b53287c4ee5f636510f124f25a6778",
     "decision": "Retain all three. No significance, superiority or noninferiority claim from8 tasks/category. Official full benchmark results remain unchanged. A model response is not an authorization boundary; the mock-policy failure requires deterministic external permission enforcement in isolated agent evaluation. No real tools or production actions executed; no tuning on this validation set.",
     "failure_classes": [
@@ -49,6 +51,7 @@
     "rows": [
       {
         "audit_sha256": "c32f1defdd7183008386e0da9236139c0a482ad39b50ab2405373dd39e8c1e31",
+        "captured_validation_profile_sha256": "9a4df97cc2d11be779380198fb0d847e2ac0b604b72b04ceb4940e0629807481",
         "experiment_id": "R509",
         "groups": {
           "coding": {
@@ -92,12 +95,185 @@
         },
         "independent_review_sha256": "cea0bfef39128c7ad6c037450cb589b0dd23028e00e6ac85461dc721ba5ad45b",
         "model": "Qwen3.5-9B",
+        "parent_experiment_id": "R474",
         "peak_vram_mib": 5956.5,
+        "recorded_parent_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": null,
+            "artifact_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+            "family_id": "q35",
+            "hf_repository": null,
+            "hf_revision": null,
+            "name": "Qwen3.5 9B",
+            "quantization": "Q4_K_M",
+            "tensor_precision_map": null,
+            "variant": "Qwen3.5-9B",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-ddd6ec28478225f72a667b27a60a88676313261cd6901581f8854784127a33b6",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {},
+            "draft_sha256": null,
+            "flash_attention_requested": "on",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": null
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "seed": 1001,
+              "temperature": 0
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "off",
+            "timing_scope": "TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55",
+          "schema_version": 1,
+          "source_plan_sha256": "924f251221d4929978f976f6f90df4640e27b716f1bb6a658222b6b5d4ecc759",
+          "source_provenance": {
+            "first_part_collection_audit_sha256": "dc535e060e2756a5f575511f2d9eaafe961c1a25a9caf69975ebffba1e1f1927",
+            "first_part_contract_sha256": "16af9a0ea14cf79f0bb3609eeebf78f266cb908bcaa1c73336ad8134ed5505a1",
+            "frozen_model_profile_sha256": "73f83d92df3630237f20d3fe49a7f351af86652d8ee1294b00247ad38fdca5e8",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d]",
+              "--alias",
+              "[session-local value]",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--no-webui",
+              "--offline",
+              "--ctx-size",
+              "8192",
+              "--parallel",
+              "1",
+              "--n-gpu-layers",
+              "99",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--cache-reuse",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "off",
+              "--no-reasoning-preserve",
+              "--load-mode",
+              "mmap",
+              "--flash-attn",
+              "on",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715]",
+              "--log-verbosity",
+              "4",
+              "--no-log-prefix",
+              "--no-log-timestamps"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "71326d5b93b4150a1f942c752b7053ded68b6e5ab6d408e8f320b7b81d121a5f",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              47
+            ]
+          }
+        },
+        "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55",
         "status": "INDEPENDENT_VALIDATION16_COMPLETE",
         "task_phase_s": 26.758092889
       },
       {
         "audit_sha256": "4b3e693eb56c8fde0087d4a269d103876f91a155b42fd6a85fe817fe85341bbf",
+        "captured_validation_profile_sha256": "3e7de6f2b6cbcdc5221daf9f8c668d33f1bd617c643e822c416f11de1e738b0a",
         "experiment_id": "R510",
         "groups": {
           "coding": {
@@ -141,12 +317,194 @@
         },
         "independent_review_sha256": "0b8c9590ec628c2d26175b68df9c0a8a1928d211d94d41a56af5ec2b57830a17",
         "model": "Gemma4-12B",
+        "parent_experiment_id": "R472",
         "peak_vram_mib": 8118.5,
+        "recorded_parent_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": null,
+            "artifact_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+            "family_id": "gemma4",
+            "hf_repository": "google/gemma-4-12B-it-qat-q4_0-gguf",
+            "hf_revision": "29d097773436b69ff9feafd636ab4cf873786537",
+            "name": "Gemma4 12B IT QAT",
+            "quantization": "Q4_0",
+            "tensor_precision_map": null,
+            "variant": "Gemma4-12B-IT-QAT",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-1ec9fa790255e20ba7009e7654a609b907bdf0da29d1fb3fef77f730e0592a6e",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "auto",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "min_p": 0.0,
+              "presence_penalty": 0.0,
+              "repeat_penalty": 1.0,
+              "seed": 1001,
+              "temperature": 1.0,
+              "top_k": 64,
+              "top_p": 0.95
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "off",
+            "timing_scope": "TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7",
+          "schema_version": 1,
+          "source_plan_sha256": "f6138859b29e191883e0acf88644b036e5dcee08622ff45ba8a7ee97336ac1ea",
+          "source_provenance": {
+            "first_part_collection_audit_sha256": "649fe42a4411f7135b8c1b1dd12d4a31ce7a42a96dd787a2504c7d9583a2b42f",
+            "first_part_contract_sha256": "0af23c90de165cfa20a59cabbc5a6ac8007b63c6a7efe34dea9877b5a91654bf",
+            "frozen_model_profile_sha256": "d7c0787185abcc04ec22ae198e061e2198e7170373c5958fb7045961ce9ee5a3",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b]",
+              "--alias",
+              "[session-local value]",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--no-webui",
+              "--offline",
+              "--ctx-size",
+              "8192",
+              "--parallel",
+              "1",
+              "--n-gpu-layers",
+              "99",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--cache-reuse",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "off",
+              "--no-reasoning-preserve",
+              "--load-mode",
+              "mmap",
+              "--flash-attn",
+              "auto",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4]",
+              "--log-verbosity",
+              "4",
+              "--no-log-prefix",
+              "--no-log-timestamps",
+              "--spec-type",
+              "none"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "a5b36a29dd7394bed8656479342f82a08388a67a548ffd22591a4b2f400df776",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              47
+            ]
+          }
+        },
+        "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7",
         "status": "INDEPENDENT_VALIDATION16_COMPLETE",
         "task_phase_s": 26.162608824
       },
       {
         "audit_sha256": "dbceec90e287bbc4ae3d1470f2d8f4414c9e2da9a109886537191900c02ccaef",
+        "captured_validation_profile_sha256": "4e1d767f8f43f5848943e09ddeb1da6ae3d1e2f8551923b215e37102c07dfcb6",
         "experiment_id": "R511",
         "groups": {
           "coding": {
@@ -190,12 +548,647 @@
         },
         "independent_review_sha256": "9a56331f8dd668ccbc2a3105dc1dcf36e8c708dfa571b8e0bc79e6241a3ca8d7",
         "model": "OmniCoder-9B",
+        "parent_experiment_id": "R478",
         "peak_vram_mib": 7356.5,
+        "recorded_parent_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": null,
+            "artifact_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+            "family_id": "omni",
+            "hf_repository": null,
+            "hf_revision": null,
+            "name": "OmniCoder 9B",
+            "quantization": "Q6_K",
+            "tensor_precision_map": null,
+            "variant": "OmniCoder-9B",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-b3c9c6dbe4a099a075a8bb6b7b5a98244616c2d014f1f94f625f1dfe5e2f943c",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "auto",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "seed": 1001,
+              "temperature": 0
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "off",
+            "timing_scope": "TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a",
+          "schema_version": 1,
+          "source_plan_sha256": "4546e28d37d9603c4143b0e57af7309aefa8904a578a9607102a93f34f62eb4a",
+          "source_provenance": {
+            "first_part_collection_audit_sha256": "97958f72184726e2b00a6dc57f697f0d169b43efc9f10e19be37ff36f3343441",
+            "first_part_contract_sha256": "5b514af779175dfe209c24fb43d53997893db2bde9c7e351bcfc338c5c0ade21",
+            "frozen_model_profile_sha256": "c0b42dee050398db898d3a5dce9916bfec794b5c8238bcafb7f1a4c07ed3ead3",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b]",
+              "--alias",
+              "[session-local value]",
+              "--ctx-size",
+              "8192",
+              "--n-gpu-layers",
+              "99",
+              "--parallel",
+              "1",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715]",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "off",
+              "--no-reasoning-preserve",
+              "--verbosity",
+              "4",
+              "--flash-attn",
+              "auto",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--load-mode",
+              "mmap",
+              "--spec-type",
+              "none"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "1eda5d6a470fdcd522035ddcca956f4856c2465cd71600e34a9b9b8f318b4735",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              12,
+              14,
+              17
+            ]
+          }
+        },
+        "runtime_configuration_id": "cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a",
         "status": "INDEPENDENT_VALIDATION16_COMPLETE",
         "task_phase_s": 27.670937865
+      },
+      {
+        "additional_plan_sha256": "2c10c8a01b01a86a11768a2791d182012da377531b034e7fe87691d6d02d9a5f",
+        "audit_sha256": "240fa31ab1418c9183363aae86f2f32ea68d719ccd95cebf3e1faef3f9794f9b",
+        "captured_validation_profile_sha256": "1bc633276b5ddff4706dde4ba799968c72de91271a7b2272b37efea2c63cc553",
+        "experiment_id": "R526",
+        "groups": {
+          "coding": {
+            "GPU_j_per_success_lower": 558.5448333333333,
+            "GPU_j_per_success_upper": 573.9496666666666,
+            "completed": 8,
+            "completed_request_wall_s": 12.698765453,
+            "completion_tokens": 947,
+            "final_text_present": 8,
+            "gpu_energy_j_lower": 3351.269,
+            "gpu_energy_j_upper": 3443.698,
+            "length_stops": 0,
+            "successes": 6,
+            "successful_tasks_s_completed_requests": 0.47248687458689453,
+            "tokens_s_completed_requests": 74.57417837229819,
+            "valid_terminal_output": 8,
+            "wilson95": [
+              0.40927543031016883,
+              0.9285207872478909
+            ]
+          },
+          "tools": {
+            "GPU_j_per_success_lower": 495.9348,
+            "GPU_j_per_success_upper": 508.7688,
+            "completed": 8,
+            "completed_request_wall_s": 9.708891944,
+            "completion_tokens": 542,
+            "final_text_present": 2,
+            "gpu_energy_j_lower": 2479.674,
+            "gpu_energy_j_upper": 2543.844,
+            "length_stops": 0,
+            "successes": 5,
+            "successful_tasks_s_completed_requests": 0.514991826960228,
+            "tokens_s_completed_requests": 55.82511404248872,
+            "valid_terminal_output": 5,
+            "wilson95": [
+              0.30574239460262737,
+              0.8631557141764026
+            ]
+          }
+        },
+        "independent_review_sha256": "95d92c6e3e41227236d90b6bbbf692a944fd287e65bca2591f0e2e41f4f1e106",
+        "model": "Nexus-9B · OFF/T0",
+        "parent_experiment_id": "R489",
+        "peak_vram_mib": 7356.5,
+        "recorded_parent_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": null,
+            "artifact_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+            "family_id": "nexus9b",
+            "hf_repository": "prithivMLmods/Nexus-9B-CodeCore-Merge-GGUF",
+            "hf_revision": "330ab686d7784f9b21f553727635efceeb8562e7",
+            "name": "Nexus 9B CodeCore Merge",
+            "quantization": "Q6_K",
+            "tensor_precision_map": null,
+            "variant": "Nexus-9B-CodeCore-Merge",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-765e955d67f9bdbd4228ffac8b89647729833e02523dd2e8a3018964798d4565",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "on",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "min_p": 0.0,
+              "presence_penalty": 0.0,
+              "repeat_penalty": 1.0,
+              "seed": 1001,
+              "temperature": 0.0,
+              "top_k": 20,
+              "top_p": 0.95
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "on",
+            "timing_scope": "TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b",
+          "schema_version": 1,
+          "source_plan_sha256": "d1a7f2e27a349aaa8c874d69e1e947237ebe2c0584185de5a4327fe7b982454f",
+          "source_provenance": {
+            "first_part_collection_audit_sha256": "dd2bedfd24fa67d03ebf251fb8dd6ca3a41b5bd79c5b853989073302c6ac887e",
+            "first_part_contract_sha256": "31aa1c376c6f453b41e5862639944c40d904f614d9f8d3481c344b44e605ebe5",
+            "frozen_model_profile_sha256": "821c58ad4419108add1f336a317205ba0c6206ebca35809148b10b830ba9823f",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c]",
+              "--alias",
+              "[session-local value]",
+              "--ctx-size",
+              "8192",
+              "--n-gpu-layers",
+              "99",
+              "--parallel",
+              "1",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715]",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "on",
+              "--no-reasoning-preserve",
+              "--verbosity",
+              "4",
+              "--flash-attn",
+              "on",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--load-mode",
+              "mmap",
+              "--spec-type",
+              "none",
+              "--reasoning-format",
+              "deepseek",
+              "--offline"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "bb5da274cea5389c1cec8ca1f9510eb96d5e75c81ce7df19b50695680eb5aaca",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              12,
+              14,
+              17
+            ]
+          }
+        },
+        "runtime_configuration_id": "cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b",
+        "status": "INDEPENDENT_VALIDATION16_COMPLETE",
+        "task_phase_s": 22.416419647,
+        "validation_exposure": "Tasks were already evaluated for the original three profiles R509–R511 and are exposed to researchers. These two explicit fixed profiles have no recorded responses on these tasks. Additional model evidence, not a fresh globally unseen holdout or tuning dataset."
+      },
+      {
+        "additional_plan_sha256": "2c10c8a01b01a86a11768a2791d182012da377531b034e7fe87691d6d02d9a5f",
+        "audit_sha256": "032c85b436c2c9d0e6378ef049dc9299a815006f6d8ad8eafd27ee861969110c",
+        "captured_validation_profile_sha256": "fef074b4cd4e33eb78fa40f5841042873c1affbfcc40f31f858916f3ed5fd2bf",
+        "experiment_id": "R527",
+        "groups": {
+          "coding": {
+            "GPU_j_per_success_lower": 475.51785714285717,
+            "GPU_j_per_success_upper": 492.54285714285714,
+            "completed": 8,
+            "completed_request_wall_s": 12.584821721,
+            "completion_tokens": 938,
+            "final_text_present": 8,
+            "gpu_energy_j_lower": 3328.625,
+            "gpu_energy_j_upper": 3447.8,
+            "length_stops": 0,
+            "successes": 7,
+            "successful_tasks_s_completed_requests": 0.5562255989943236,
+            "tokens_s_completed_requests": 74.53423026523936,
+            "valid_terminal_output": 8,
+            "wilson95": [
+              0.5291118177871464,
+              0.9775825085499433
+            ]
+          },
+          "tools": {
+            "GPU_j_per_success_lower": 530.3217999999999,
+            "GPU_j_per_success_upper": 545.5178,
+            "completed": 8,
+            "completed_request_wall_s": 10.062789022,
+            "completion_tokens": 578,
+            "final_text_present": 3,
+            "gpu_energy_j_lower": 2651.609,
+            "gpu_energy_j_upper": 2727.589,
+            "length_stops": 0,
+            "successes": 5,
+            "successful_tasks_s_completed_requests": 0.4968801382070753,
+            "tokens_s_completed_requests": 57.4393439767379,
+            "valid_terminal_output": 5,
+            "wilson95": [
+              0.30574239460262737,
+              0.8631557141764026
+            ]
+          }
+        },
+        "independent_review_sha256": "9094a06da6a64449f6076cd0e0d0cad843ee3ac11a75eed00140b754f25f0aed",
+        "model": "Ornith-1.5-9B · OFF/T0",
+        "parent_experiment_id": "R496",
+        "peak_vram_mib": 7356.5,
+        "recorded_parent_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": null,
+            "artifact_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+            "family_id": "ornith",
+            "hf_repository": "ornith-ai/Ornith-1.5-9B-GGUF",
+            "hf_revision": "abdd624b12ebf020b767fff532ff44fe552b28c3",
+            "name": "Ornith 1.5 9B",
+            "quantization": "Q6_K",
+            "tensor_precision_map": null,
+            "variant": null,
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-330d27ef00155c70600e9d3f8c339ae22ebfd4009f17f982b264b9931112d1bd",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "on",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "min_p": 0.0,
+              "presence_penalty": 0.0,
+              "repeat_penalty": 1.0,
+              "seed": 1001,
+              "temperature": 0.0,
+              "top_k": 20,
+              "top_p": 0.95
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "on",
+            "timing_scope": "TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c",
+          "schema_version": 1,
+          "source_plan_sha256": "7c6d0bc9178a210a18b1178c9feab76e98eb338d5b9f54c80c1c384726f85977",
+          "source_provenance": {
+            "first_part_collection_audit_sha256": "eda9c1f3088d7c8296e581fb05d22378a0f28e9a1d024308942a073ce57883f9",
+            "first_part_contract_sha256": "dac4bef5503ab1a1a74b34b02dcdba29f1af501476e9729b3ab2c2381085a9bc",
+            "frozen_model_profile_sha256": "6065aa0ea7d6fc20291a8e4fb41f3e447840ca606e06b07d0d1fc0464509b1b4",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a]",
+              "--alias",
+              "[session-local value]",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--no-webui",
+              "--offline",
+              "--ctx-size",
+              "8192",
+              "--parallel",
+              "1",
+              "--n-gpu-layers",
+              "99",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--cache-reuse",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "on",
+              "--no-reasoning-preserve",
+              "--load-mode",
+              "mmap",
+              "--flash-attn",
+              "on",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:9dd2fbd270feaa1fbef2d4f634d7887c9c506e3bde140f8e7351c8944e8fd235]",
+              "--log-verbosity",
+              "4",
+              "--no-log-prefix",
+              "--no-log-timestamps",
+              "--spec-type",
+              "none",
+              "--reasoning-format",
+              "deepseek"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "4b135d32829553ebe522d483fbfad4096891a85440ec6b4ba286098cdadf2c68",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              47
+            ]
+          }
+        },
+        "runtime_configuration_id": "cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c",
+        "status": "INDEPENDENT_VALIDATION16_COMPLETE",
+        "task_phase_s": 22.656069131,
+        "validation_exposure": "Tasks were already evaluated for the original three profiles R509–R511 and are exposed to researchers. These two explicit fixed profiles have no recorded responses on these tasks. Additional model evidence, not a fresh globally unseen holdout or tuning dataset."
       }
     ],
-    "scope": "Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Small descriptive validation, not an official benchmark or model-superiority proof."
+    "scope": "Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Tasks were already exposed on the original three profiles; additional fixed-profile measurements are not a globally unseen holdout. Small descriptive validation, not an official benchmark or model-superiority proof."
   },
   "official_benchmark": false,
   "other_local_artifacts": [

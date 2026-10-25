@@ -181,3 +181,35 @@ class IndependentGroupedStatistics(unittest.TestCase):
   from screening import render_native_agent_development
   obj=NativeAgentDevelopmentPublication().fixture();e={'id':'R999','model':'Mock profile','aggregate_metrics':metrics(obj),'native_agent_grouped_review':{'aggregate_metrics':{'quality':{'frozen_tasks_per_model':18,'frozen_generalization_groups':10}}}}
   html=render_native_agent_development([e]);self.assertIn('18 tasks share 10 original generalization groups',html);self.assertIn('exploratory and unadjusted',html);self.assertIn('|\n\nThe 18 tasks',html)
+
+class FixedProfileValidationIdentity(unittest.TestCase):
+ def pair(self):
+  a={'model':'m','runtime':'engine','chat_template':'template','adapter':'native-tools','assets':{'m':'a'*64,'engine':'b'*64},'native_recipe':{'argv_tail':['-c','8192'],'context':8192,'environment':{},'warmups':[],'http_timeout_policy':'REMAINING_TASK_TIME','maximum_tasks':200,'maximum_generation_requests':201,'request_options':{'temperature':0,'max_tokens':4096,'chat_template_kwargs':{'enable_thinking':False}}}}
+  b=copy.deepcopy(a);b['native_recipe'].update(maximum_tasks=16,maximum_generation_requests=17,preflight_all_inputs=True)
+  return a,b
+ def test_only_validation_collection_changes_are_permitted(self):
+  from screening import same_validation_inference
+  a,b=self.pair();self.assertTrue(same_validation_inference(b,a))
+ def test_sampler_context_kernel_template_and_timeout_drift_rejected(self):
+  from screening import same_validation_inference
+  for key,value in [('context',16384),('environment',{'FORCE_MMQ':'1'}),('http_timeout_policy','other')]:
+   a,b=self.pair();b['native_recipe'][key]=value;self.assertFalse(same_validation_inference(b,a))
+  for key,value in [('model','other'),('runtime','fork'),('chat_template','other'),('assets',{'m':'c'*64})]:
+   a,b=self.pair();b[key]=value;self.assertFalse(same_validation_inference(b,a))
+  a,b=self.pair();b['native_recipe']['request_options']['temperature']=.6;self.assertFalse(same_validation_inference(b,a))
+ def test_additional_validation_exposure_is_explicit(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text())
+  for row in data['independent_validation16']['rows']:
+   if row['model'].endswith(' · OFF/T0') and row['groups'] is not None:
+    self.assertIn('exposed',row['validation_exposure']);self.assertRegex(row['additional_plan_sha256'],r'^[a-f0-9]{64}$')
+
+class AdditionalValidationRows(unittest.TestCase):
+ def test_additional_fixed_profiles_do_not_replace_original_rows(self):
+  d=IndependentValidation().data()
+  for eid in ['R526','R527']:
+   r=copy.deepcopy(d['independent_validation16']['rows'][0]);r.update(model=eid,experiment_id=eid);d['independent_validation16']['rows'].append(r)
+  validate(d);self.assertEqual(len(d['independent_validation16']['rows']),5)
+ def test_duplicate_validation_experiments_rejected(self):
+  d=IndependentValidation().data();d['independent_validation16']['rows'].append(copy.deepcopy(d['independent_validation16']['rows'][0]))
+  with self.assertRaises(AssertionError):validate(d)

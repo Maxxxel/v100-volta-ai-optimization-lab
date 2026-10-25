@@ -12,6 +12,7 @@ async function main(){
  const args=['--disable-gpu'];if(process.env.BROWSER_NO_SANDBOX==='1')args.push('--no-sandbox');
  const browser=await chromium.launch({headless:true,args}),errors=[];
  const report={site:base,checks:[],GPU_access:false};
+ const validationExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/screening.json'),'utf8')).independent_validation16.rows.filter(r=>r.groups);
  const nativeExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/experiments.json'),'utf8')).filter(e=>e.aggregate_metrics?.native_agent18_development);
  try{
   const context=await browser.newContext({viewport:{width:1600,height:1000},acceptDownloads:true});
@@ -207,6 +208,17 @@ async function main(){
   for(const [name,tab] of [['desktop',page],['mobile',mobile]]){
    await tab.goto(new URL('pipeline-methods/#native-agent18-development-evidence',base).href,{waitUntil:'networkidle'});
    assert.equal(await tab.locator('#native-agent18-development-evidence').count(),1);
+   const validationTable=tab.getByRole('link',{name:validationExpected[0].experiment_id,exact:true}).locator('xpath=ancestor::table');
+   assert.equal(await validationTable.locator('tbody tr').count(),validationExpected.length);
+   for(const r of validationExpected){
+    const link=validationTable.getByRole('link',{name:r.experiment_id,exact:true});assert.equal(await link.count(),1);
+    const values=await link.locator('xpath=ancestor::tr/td').allTextContents();
+    assert.equal(values[0].trim(),r.model);
+    assert.equal(values[1].trim(),r.groups.coding.successes+'/'+r.groups.coding.completed);
+    assert.equal(values[2].trim(),r.groups.tools.successes+'/'+r.groups.tools.completed);
+   }
+   report.reserved_validation_profiles_verified=validationExpected.length;
+
    const content=await tab.locator('main').innerText();
    for(const text of ['13/18','258.25','5447.82–5455.78','Not Terminal-Bench'])assert(content.includes(text),text);
    assert.equal(await tab.getByRole('link',{name:'R518',exact:true}).count(),1);

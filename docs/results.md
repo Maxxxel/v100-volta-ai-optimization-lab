@@ -448,6 +448,8 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R523](experiments/R523.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Opus Distill-9B · OFF/T0 |
 | [R524](experiments/R524.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Slopus-9B · OFF/T0 |
 | [R525](experiments/R525.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Ornith-1.5-9B · OFF/T0 |
+| [R526](experiments/R526.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R527](experiments/R527.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows

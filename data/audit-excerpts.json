@@ -175590,6 +175590,36 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-240fa31ab1418c918336",
+    "original_bytes": 17303,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "240fa31ab1418c9183363aae86f2f32ea68d719ccd95cebf3e1faef3f9794f9b",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7356.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-032c85b436c2c9d0e637",
+    "original_bytes": 17293,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "032c85b436c2c9d0e6378ef049dc9299a815006f6d8ad8eafd27ee861969110c",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

@@ -28,6 +28,13 @@ def captured_screen_profile(profile,entry,package):
  leaderboard.verify_broker_capture(cfg,profile,launch);leaderboard.validate_history({'profiles':[cfg],'runs':[],'attempts':[]},{})
  return cfg
 
+def same_validation_inference(actual,parent):
+ """Only validation collection size/preflight may differ from the executed parent."""
+ if any(actual.get(k)!=parent.get(k) for k in ('assets','model','runtime','chat_template','adapter')):return False
+ ignored={'maximum_tasks','maximum_generation_requests','preflight_all_inputs'}
+ recipe=lambda p:{k:v for k,v in p['native_recipe'].items() if k not in ignored}
+ return recipe(actual)==recipe(parent)
+
 def same_native_inference(actual,screen,discipline):
  """Only the reviewed native auto/parallel tool envelope is category-specific."""
  if actual['assets']!=screen['assets']:return False
@@ -134,8 +141,17 @@ def build(root):
  output['qualification_plan_sha256']=H(base/'QUALIFICATION_SELECTION_PLAN.json')
  validation_dir=base.parent/'independent-validation16'
  if (validation_dir/'PLAN.json').exists():
-  vp=read(validation_dir/'PLAN.json');vr=[]
-  for spec in vp['profiles']:
+  vp=read(validation_dir/'PLAN.json');vr=[];specs=list(vp['profiles'])
+  extra_path=validation_dir/'ADDITIONAL_PROFILES_PLAN.json'
+  if extra_path.exists():
+   extra=read(extra_path)
+   assert extra['original_plan_sha256']==H(validation_dir/'PLAN.json')
+   assert extra['original_cohort_sha256']==H(validation_dir/'COHORT_REVIEW.json')
+   assert extra['frozen_validation_manifest_sha256']==H(base/'VALIDATION_FROZEN_MANIFEST.json')
+   assert extra['no_parameter_changes'] is True and extra['official_scores_reused_not_repeated'] is True
+   assert len({x['experiment'] for x in specs+extra['profiles']})==len(specs)+len(extra['profiles'])
+   specs+=extra['profiles']
+  for spec in specs:
    experiment=spec['experiment'];folder=root/'staging'/experiment.lower();item={'model':spec['model'],'experiment_id':experiment,'status':'NOT MEASURED','groups':None}
    if (folder/'AUDIT.json').exists() and (folder/'INDEPENDENT_REVIEW.json').exists():
     a=read(folder/'AUDIT.json');r=read(folder/'INDEPENDENT_REVIEW.json')
@@ -145,13 +161,37 @@ def build(root):
      subset=[t for t in a['scored_tasks'] if t['category']==category]
      assert len(subset)==a['groups'][category]['completed'] and sum(t['success'] for t in subset)==a['groups'][category]['successes']
     raw=Path(a['raw_root']);assert all(H(raw/name)==h for name,h in a['original_raw_files_sha256'].items())
-    actual=read(raw/'profile.json');original=next(x for x in inventory['models'] if x['model']==spec['model']);parent=read(Path(original['parent_capture'])/'profile.json')
+    actual=read(raw/'profile.json');original=next(x for x in inventory['models'] if x['model']==spec['model'].removesuffix(' · OFF/T0'))
+    parent_capture=Path(original['parent_capture'])
+    if spec in specs[len(vp['profiles']):]:
+     selection=read(folder/'PARENT_SELECTION.json');assert selection['additional_plan_sha256']==H(extra_path)
+     assert selection['model']==spec['model']
+     evidence=selection['evidence'][-1];assert evidence['experiment_id']==spec['parent_experiment']
+     assert evidence['model_sha256']==original['model_sha256']
+     parent_audit=Path(evidence['audit_path']);assert H(parent_audit)==evidence['audit_sha256']
+     qualified=Path(evidence['qualification_path']);assert H(qualified)==evidence['qualification_sha256']
+     qualification=read(qualified);assert qualification['tasks']==200 and len(set(qualification['task_ids']))==200
+     assert qualification['qualification_kind']=='FULL_OFFICIAL_BFCL_CATEGORY_LOCAL_PROTOCOL_VERIFIED'
+     assert qualification['audit_hash']==H(parent_audit)
+     audited=read(parent_audit);assert audited['measurement_valid'] and audited['GPU_execution_observed']
+     assert len(audited['parts'])==1
+     part=audited['parts'][0];gpu=Path(part['audit_path']);assert H(gpu)==part['audit_sha256']
+     parent_capture=gpu.parent
+     campaign=read(folder/'CAMPAIGN_PLAN.json');assert campaign['protocol_sha256']==H(extra_path)
+     assert a['validation_exposure']==extra['exposure']
+     item.update(additional_plan_sha256=H(extra_path),validation_exposure=extra['exposure'])
+    parent=read(parent_capture/'profile.json')
     assert (actual.get('model_sha256') or actual['assets'][actual['model']])==original['model_sha256']
-    assert actual['native_recipe']['request_options']==parent['native_recipe']['request_options']
-    assert actual['assets']==parent['assets'] and actual['native_recipe']['argv_tail']==parent['native_recipe']['argv_tail']
+    assert same_validation_inference(actual,parent),'Validation inference differs from the executed qualified parent'
+    parent_runs=[r for r in history['runs'] if r['experiment_id']==spec['parent_experiment']]
+    assert parent_runs and len({r['runtime_configuration_id'] for r in parent_runs})==1
+    parent_id=parent_runs[0]['runtime_configuration_id'];recorded=profiles[parent_id]
+    assert recorded['model']['artifact_sha256']==original['model_sha256']
+    item.update(runtime_configuration_id=parent_id,recorded_parent_profile=recorded,captured_validation_profile_sha256=H(raw/'profile.json'),parent_experiment_id=spec['parent_experiment'])
+
     item.update(status=a['status'],groups={k:project_group(g) for k,g in a['groups'].items()},audit_sha256=H(folder/'AUDIT.json'),independent_review_sha256=H(folder/'INDEPENDENT_REVIEW.json'),peak_vram_mib=a['peak_device_vram_mib'],task_phase_s=a['task_phase_s'])
    vr.append(item)
-  output['independent_validation16']={'official_benchmark':False,'scope':'Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Small descriptive validation, not an official benchmark or model-superiority proof.','plan_sha256':H(validation_dir/'PLAN.json'),'rows':vr}
+  output['independent_validation16']={'official_benchmark':False,'scope':'Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Tasks were already exposed on the original three profiles; additional fixed-profile measurements are not a globally unseen holdout. Small descriptive validation, not an official benchmark or model-superiority proof.','plan_sha256':H(validation_dir/'PLAN.json'),'rows':vr}
   if (validation_dir/'COHORT_REVIEW.json').exists():
    review=read(validation_dir/'COHORT_REVIEW.json');assert review['plan_sha256']==H(validation_dir/'PLAN.json')
    assert H(validation_dir/'COHORT_REVIEW.json')==read(root/'BENCHMARK_REFERENCES.json')['summary']['independent_validation16']['cohort_review_sha256']
@@ -160,6 +200,19 @@ def build(root):
    output['independent_validation16']['cohort_review_sha256']=H(validation_dir/'COHORT_REVIEW.json')
    output['independent_validation16']['decision']=review['decision']
    output['independent_validation16']['failure_classes']=[{'model':r['model'],'experiment_id':r['experiment_id'],'classes':[f['classification'] for f in r['failures']],'actual_tool_executions':0} for r in review['rows']]
+  additional_review=validation_dir/'ADDITIONAL_PROFILES_REVIEW.json'
+  if additional_review.exists():
+   review=read(additional_review)
+   pin=read(root/'BENCHMARK_REFERENCES.json')['summary']['independent_validation16_additional']
+   assert H(additional_review)==pin['review_sha256'] and review['additional_plan_sha256']==H(extra_path)
+   assert review['original_plan_sha256']==H(validation_dir/'PLAN.json') and review['original_cohort_sha256']==H(validation_dir/'COHORT_REVIEW.json')
+   assert review['official_benchmark'] is False and review['winner_qualified'] is False
+   assert {r['experiment_id'] for r in review['rows']}=={r['experiment'] for r in extra['profiles']}
+   for result in review['rows']:
+    projected=next(x for x in vr if x['experiment_id']==result['experiment_id'])
+    assert projected['audit_sha256']==result['audit_sha256'] and projected['independent_review_sha256']==result['independent_review_sha256']
+    for category in ('coding','tools'):assert projected['groups'][category]['successes']==result[category+'_successes']
+   output['independent_validation16'].update(additional_review_sha256=H(additional_review),additional_decision=review['decision'])
   output['holdout']['status_at_freeze']=output['holdout']['status'];output['holdout']['status']='SEPARATE_PREDECLARED_VALIDATION_PHASE'
   output['holdout']['scope_at_freeze']=output['holdout']['scope']
   exposed=sum(r['groups'] is not None for r in vr)
@@ -182,8 +235,8 @@ def validate(data):
 
  v=data.get('independent_validation16')
  if v:
-  assert v['official_benchmark'] is False and len(v['rows'])==3
-  assert len({r['experiment_id'] for r in v['rows']})==3
+  assert v['official_benchmark'] is False and len(v['rows'])>0
+  assert len({r['experiment_id'] for r in v['rows']})==len(v['rows'])
   for row in v['rows']:
    if row['groups'] is None:
     assert row['status']=='NOT MEASURED'
@@ -237,8 +290,9 @@ def render_validation(data):
  for r in v['rows']:
   g=r['groups'];score=lambda c:'NOT MEASURED' if g is None else str(g[c]['successes'])+'/'+str(g[c]['completed'])
   evidence='['+r['experiment_id']+'](experiments/'+r['experiment_id']+'.md)' if g is not None else 'NOT MEASURED'
+  if g is not None and r.get('runtime_configuration_id'):evidence+=' · [Exact inference profile](configuration-profiles/'+r['runtime_configuration_id']+'.md)'
   rows.append('| '+e(r['model'])+' | '+score('coding')+' | '+score('tools')+' | '+evidence+' |')
- return '\n## Independent native-profile validation\n\n'+v['scope']+'\n\n| Profile | Coding /8 | Mock tools /8 | Evidence |\n|---|---|---|---|\n'+'\n'.join(rows)+'\n\nFull official coding/tools qualifications were reused. No original benchmark score changed.\n'+('\nObserved: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.\n' if v.get('cohort_review_sha256') else '')
+ return '\n## Independent native-profile validation\n\n'+v['scope']+'\n\n| Profile | Coding /8 | Mock tools /8 | Evidence |\n|---|---|---|---|\n'+'\n'.join(rows)+'\n\nFull official coding/tools qualifications were reused. No original benchmark score changed.\n'+('\nOriginal three-profile cohort: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.\n' if v.get('cohort_review_sha256') else '')+('\nAdditional fixed-profile validation: '+e(v['additional_decision'])+'\n' if v.get('additional_decision') else '')
 
 
 def render_native_agent_development(experiments):

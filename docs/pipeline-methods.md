@@ -169,17 +169,21 @@ Descriptive task overlap of whole configurations; no causal model-training, sign
 
 ## Independent native-profile validation
 
-Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Small descriptive validation, not an official benchmark or model-superiority proof.
+Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Tasks were already exposed on the original three profiles; additional fixed-profile measurements are not a globally unseen holdout. Small descriptive validation, not an official benchmark or model-superiority proof.
 
 | Profile | Coding /8 | Mock tools /8 | Evidence |
 |---|---|---|---|
-| Qwen3.5-9B | 8/8 | 6/8 | [R509](experiments/R509.md) |
-| Gemma4-12B | 7/8 | 7/8 | [R510](experiments/R510.md) |
-| OmniCoder-9B | 8/8 | 6/8 | [R511](experiments/R511.md) |
+| Qwen3.5-9B | 8/8 | 6/8 | [R509](experiments/R509.md) · [Exact inference profile](configuration-profiles/cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55.md) |
+| Gemma4-12B | 7/8 | 7/8 | [R510](experiments/R510.md) · [Exact inference profile](configuration-profiles/cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7.md) |
+| OmniCoder-9B | 8/8 | 6/8 | [R511](experiments/R511.md) · [Exact inference profile](configuration-profiles/cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a.md) |
+| Nexus-9B · OFF/T0 | 6/8 | 5/8 | [R526](experiments/R526.md) · [Exact inference profile](configuration-profiles/cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b.md) |
+| Ornith-1.5-9B · OFF/T0 | 7/8 | 5/8 | [R527](experiments/R527.md) · [Exact inference profile](configuration-profiles/cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c.md) |
 
 Full official coding/tools qualifications were reused. No original benchmark score changed.
 
-Observed: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.
+Original three-profile cohort: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.
+
+Additional fixed-profile validation: Retain Nexus and Ornith alongside existing references. Existing complete coding/tool qualifications remain valid; these additional fixed-profile responses do not establish superiority or warrant small-sample exclusion. Both proposed simulated tools in denial/version-conflict cases and failed required final-status formatting in the unsupported case. Enforce permissions/version checks outside model responses. No productive tool executed. No parameter tuning on these responses or new Champion.
 
 ## Native Agent18 development evidence
 
