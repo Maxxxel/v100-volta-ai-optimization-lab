@@ -12,6 +12,7 @@ async function main(){
  const args=['--disable-gpu'];if(process.env.BROWSER_NO_SANDBOX==='1')args.push('--no-sandbox');
  const browser=await chromium.launch({headless:true,args}),errors=[];
  const report={site:base,checks:[],GPU_access:false};
+ const nativeExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/experiments.json'),'utf8')).filter(e=>e.aggregate_metrics?.native_agent18_development);
  try{
   const context=await browser.newContext({viewport:{width:1600,height:1000},acceptDownloads:true});
   async function overrides(ctx){
@@ -210,10 +211,15 @@ async function main(){
    for(const text of ['13/18','258.25','5447.82–5455.78','Not Terminal-Bench'])assert(content.includes(text),text);
    assert.equal(await tab.getByRole('link',{name:'R518',exact:true}).count(),1);
    assert(content.includes('Preflight / HTTP failures'));
-   for(const [id,score,diagnostic] of [['R519','8/18','0 / 0'],['R520','9/18','2 / 0'],['R521','14/18','0 / 0']]){
-    const link=tab.getByRole('link',{name:id,exact:true});assert.equal(await link.count(),1);
-    const row=await link.locator('xpath=ancestor::tr').innerText();assert(row.includes(score)&&row.includes(diagnostic),id);
+   const nativeTable=tab.getByRole('link',{name:'R518',exact:true}).locator('xpath=ancestor::table');
+   assert.equal(await nativeTable.locator('tbody tr').count(),nativeExpected.length);
+   for(const experiment of nativeExpected){
+    const m=experiment.aggregate_metrics.native_agent18_development;
+    const link=tab.getByRole('link',{name:experiment.id,exact:true});assert.equal(await link.count(),1);
+    const row=await link.locator('xpath=ancestor::tr').innerText();
+    for(const value of [m.solved+'/'+m.tasks,Number(m.task_phase_s).toFixed(2),String(m.technical_preflight_cases)+' / '+String(m.technical_request_errors)])assert(row.includes(value),experiment.id+': '+value);
    }
+   report.agent_development_profiles_verified=nativeExpected.length;
 
    const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+2);
    await tab.locator('#native-agent18-development-evidence').scrollIntoViewIfNeeded();

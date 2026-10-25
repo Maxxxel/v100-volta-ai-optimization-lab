@@ -346,6 +346,45 @@ def verified_native_agent_development(root, summary, receipt):
     m=metrics(a)['native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
     return m
 
+def grouped_sign_probability(differences):
+    """Independent integer-distribution verifier for paired group sign flips."""
+    counts={0:1}
+    for delta in differences:
+        assert type(delta) is int
+        if not delta:continue
+        next_counts=collections.Counter()
+        for total,count in counts.items():next_counts[total+delta]+=count;next_counts[total-delta]+=count
+        counts=dict(next_counts)
+    observed=abs(sum(differences));return sum(n for total,n in counts.items() if abs(total)>=observed)/sum(counts.values())
+
+def verify_native_grouped_review(root,document,summary):
+    root=pathlib.Path(root);audits=document['source_audit_sha256_by_experiment'];cases={};groups=None;inputs=None
+    for eid,expected in audits.items():
+        assert re.fullmatch('R[1-9][0-9]{1,3}',eid) and summary[eid.lower()]['audit_sha256']==expected
+        ap=root/'staging'/eid.lower()/'AUDIT.json';assert digest(ap)==expected;a=load(ap);assert a['measurement_valid'] and a['tasks']==18
+        raw=pathlib.Path(a['raw_root']);assert raw.resolve().is_relative_to((root.parent/'research/mcp-workspace').resolve())
+        assert digest(raw/'HTTP_RESULTS.jsonl')==a['original_raw_files_sha256']['HTTP_RESULTS.jsonl'] and digest(raw/'profile.json')==a['profile_sha256']
+        profile=load(raw/'profile.json');current=profile['selected_task_inputs']
+        if inputs is None:inputs=current;groups={e['id']:e['case']['generalization_group'] for e in current['cases']}
+        else:assert current==inputs
+        cases[eid]=[x for x in map(json.loads,(raw/'HTTP_RESULTS.jsonl').read_text().splitlines()) if x['kind']=='agent_case']
+        assert len(cases[eid])==18 and [r['id'] for r in cases[eid]]==list(groups)
+        model=document['models'][eid]
+        assert all(model[k]==v for k,v in [('audit_sha256',expected),('solved',a['solved']),('tasks',18),('task_s',a['task_phase_s']),('peak_vram_mib',a['peak_device_vram_mib']),('GPU_j_per_success_lower',a['gpu_j_per_success_lower']),('GPU_j_per_success_upper',a['gpu_j_per_success_upper'])])
+    assert document['quality']=={'frozen_tasks_per_model':18,'frozen_generalization_groups':len(set(groups.values())),'measured_model_profiles':len(cases)}
+    reference=cases['R518']
+    for eid,rows in cases.items():
+        if eid=='R518':continue
+        deltas=collections.Counter({g:0 for g in groups.values()});gained=lost=0
+        for a,b in zip(reference,rows):
+            x=a['reported_result']['task_success'];y=b['reported_result']['task_success'];assert type(x) is bool and type(y) is bool
+            assert b['reported_result']['generalization_group']==groups[b['id']]
+            deltas[groups[a['id']]]+=int(y)-int(x);gained+=not x and y;lost+=x and not y
+        expected={'tasks':18,'frozen_groups':len(deltas),'nonzero_groups':sum(bool(x) for x in deltas.values()),'case_gained':gained,'case_lost':lost,'net_success_change':gained-lost,'group_sign_flip_two_sided_p':grouped_sign_probability(list(deltas.values()))}
+        assert document['comparison'][eid]==expected
+    assert document['official_benchmark'] is False and document['winner_qualified'] is False and document['GPU_runs']==document['model_requests']==0
+    return True
+
 def factor_assignment(summary):
     """A current correction controls the tested scope; original audit stays linked."""
     valid=lambda x:isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)
@@ -452,12 +491,16 @@ def main():
         if audit and catalog[audit]['aggregate_metrics'].get('native_agent18_development'):
             experiments[ident]['aggregate_metrics']['native_agent18_development']=verified_native_agent_development(root,v,receipt)
             experiments[ident]['model']=text(load(locations[audit]).get('model'));experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
-            for kind in ('quality_review','comparison_review','output_limit_review','context_review'):
+            for kind in ('quality_review','comparison_review','output_limit_review','context_review','cohort_review'):
                 if v.get(kind+'_path'):
                     supplemental=load(pathlib.Path(v[kind+'_path']))
                     assert supplemental['experiment_id']==ident and (supplemental.get('source_audit_sha256') or supplemental.get('candidate_audit_sha256'))==v['audit_sha256']
                     sid=receipt(v[kind+'_path'],v[kind+'_sha256']);assert sid
                     experiments[ident].setdefault('related_audit_ids',[]).append(sid)
+                    if kind=='cohort_review':
+                        assert verify_native_grouped_review(root,supplemental,db['summary'])
+                        experiments[ident]['native_agent_grouped_review']={'audit_id':sid,'aggregate_metrics':catalog[sid]['aggregate_metrics']}
+
 
         if v.get('development_comparison_review'):
             experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)

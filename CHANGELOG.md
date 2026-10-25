@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-25 — R525 Ornith and eight-profile agent review
+
+- Ornith OFF/T0 completes14/18 at200.70680696 task seconds,7,356.5 MiB peak and3,896.181857142857–3,903.7762857142857 GPU J/success. Independent CPU replay agrees; no HTTP/context failures. Its original117/164 coding and170/200 tools results remain unchanged.
+- The eight native development profiles retain all outcomes, costs and audits. Nexus and Ornith each solve14/18 at lower observed case costs than the larger Qwen3.8 profile; the small exposed suite does not qualify a model-quality winner, noninferiority or a Champion.
+- The18 cases share10 pre-existing frozen generalization groups. A retrospective group-level sign-flip sensitivity analysis preserves the older case-wise p-values; an independently implemented integer-distribution verifier checks the new statistics against original replies/group metadata. These exploratory comparisons are unadjusted and are not a population-significance or safety certificate.
+- Keep a practical shortlist for independent validation. Gemma's context failures and Slopus's OFF/T0 policy/format failures require separate diagnosis. No official Agents score, original-reference edit, matrix-coverage inflation or productive adoption.
+
 ## 2026-10-25 — R523/R524 qualified derivative agent profiles
 
 - Opus Distill OFF/T0 completes12/18 at185.367928624 task seconds,7,356.5 MiB peak and4,166.331583333334–4,173.7595833333335 GPU J/success. Independent replay agrees, with no HTTP/context failures. Two paired gains and three losses against OmniCoder13/18 give fixed-set exact p=1; retain this observed quality/cost tradeoff without a Champion.

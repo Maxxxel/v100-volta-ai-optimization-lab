@@ -196,6 +196,9 @@ Previously used frozen simulated coding, automation and read workflows. **Not Te
 | [R524](experiments/R524.md) | Slopus-9B · OFF/T0 | 4/18 | 241.39 | 16556.26–16573.40 | 7356.50 | 0 / 0 |
 | [R525](experiments/R525.md) | Ornith-1.5-9B · OFF/T0 | 14/18 | 200.71 | 3896.18–3903.78 | 7356.50 | 0 / 0 |
 
+The 18 tasks share 10 original generalization groups. [Group-aware sensitivity review](experiments/R525.md) preserves the original case-wise statistics and independently verifies group-level sign flips. All p-values are exploratory and unadjusted across model comparisons; no population-superiority or independent-task claim follows.
+
+
 Quality is independently replayed from the actual retained replies in a non-root CPU jail using the original simulator and oracle. No productive tools execute. Technical context/transport failures remain separate in the linked audit; incomplete captures remain partial. Energy covers the measured case window, including failed tasks and setup between cases, excluding load/warmup and CPU/system energy. Nonstream output-token rate is not pure decode speed or TTFT. No scores are added to the official model table or its mean.
 
 Admission retains the trusted broker, immutable source/execution review, exact asset hashes, one GPU lease and all power, VRAM, temperature, ECC and throttling guards. A source hash alone grants no trust. The development runner and independent CPU replay were checked with original simulator controls before actual inference.

@@ -168,3 +168,16 @@ class NativeAgentDevelopmentPublication(unittest.TestCase):
   obj=self.fixture();obj.update(technical_preflight_cases=2,technical_request_errors=0)
   e={'id':'R999','model':'Mock profile','aggregate_metrics':metrics(obj)}
   html=render_native_agent_development([e]);self.assertIn('2 / 0',html);self.assertIn('10/18',html);self.assertIn('Preflight / HTTP failures',html)
+
+class IndependentGroupedStatistics(unittest.TestCase):
+ def test_independent_distribution_matches_group_enumeration_boundaries(self):
+  from export import grouped_sign_probability
+  self.assertEqual(grouped_sign_probability([-1]*9),2/512)
+  self.assertEqual(grouped_sign_probability([-3]*3),.25)
+  self.assertEqual(grouped_sign_probability([0,0]),1)
+  self.assertEqual(grouped_sign_probability([-1,1,0]),1)
+ def test_group_review_note_is_data_bound_and_not_official_score(self):
+  from export import metrics
+  from screening import render_native_agent_development
+  obj=NativeAgentDevelopmentPublication().fixture();e={'id':'R999','model':'Mock profile','aggregate_metrics':metrics(obj),'native_agent_grouped_review':{'aggregate_metrics':{'quality':{'frozen_tasks_per_model':18,'frozen_generalization_groups':10}}}}
+  html=render_native_agent_development([e]);self.assertIn('18 tasks share 10 original generalization groups',html);self.assertIn('exploratory and unadjusted',html);self.assertIn('|\n\nThe 18 tasks',html)
