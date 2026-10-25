@@ -25111,6 +25111,12 @@
       "proof_path": "staging/r516/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "27343ea2efe5613a4b9dc33bb27f9d9633fc34dc970a10cc1b5ef2a96db28987",
       "source_audit_hash": "518b6f38c0768b23386ee218e6c86a77d672e6631fc246ff685e53db6b50f4dd"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r517/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "6b9ee540edab617f2f7984f3c6bcfc84120e4dc96a274bd38955d6b2f9f485e3",
+      "source_audit_hash": "d995531168d22041ed7c3157c30cf3bc05afcc806c0f3b470514f812ecb59f69"
     }
   ],
   "paired_coding_reviews": [

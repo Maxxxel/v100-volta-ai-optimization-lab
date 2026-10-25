@@ -63,6 +63,11 @@ async function main(){
   assert((await qrow.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('135/164'));
   assert((await qrow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('176/200'));
   assert.equal(await page.locator(`tr[data-configuration-ids~="${qwen.id}"]`).count(),1);
+  const alt=primaryRuns.find(r=>r.exp==='R517');assert(alt);
+  const altrow=page.locator(`tr[data-configuration-ids~="${alt.id}"]`);
+  assert((await altrow.locator('td[data-column-key="family:humanevalplus"]').innerText()).includes('134/164'));
+  assert((await altrow.locator('td[data-column-key="family:bfcl"]').innerText()).includes('178/200'));
+  assert.equal(await altrow.getByRole('link',{name:'R478',exact:true}).count(),0);
   report.checks.push('identical inference captures share coding/tool rows despite collection-limit differences; run links remain attached to their exact result');
 
   assert(!primaryRuns.some(r=>['R473','R475','R460','R468','R469','R470'].includes(r.exp)),'Partials and excluded benchmarks cannot enter this table');

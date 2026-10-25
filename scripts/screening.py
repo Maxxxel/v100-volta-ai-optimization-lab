@@ -28,12 +28,25 @@ def captured_screen_profile(profile,entry,package):
  leaderboard.verify_broker_capture(cfg,profile,launch);leaderboard.validate_history({'profiles':[cfg],'runs':[],'attempts':[]},{})
  return cfg
 
+def same_native_inference(actual,screen,discipline):
+ """Only the reviewed native auto/parallel tool envelope is category-specific."""
+ if actual['assets']!=screen['assets']:return False
+ keys=('argv_tail','context','environment','http_timeout_policy','warmups')
+ if any(actual['native_recipe'].get(k)!=screen['native_recipe'].get(k) for k in keys):return False
+ observed=dict(actual['native_recipe']['request_options']);expected=dict(screen['native_recipe']['request_options'])
+ if discipline=='tools' and actual.get('adapter')=='llama-native-tools':
+  if observed.pop('tool_choice',None)!='auto' or observed.pop('parallel_tool_calls',None) is not True:return False
+  # A screening parent may itself already be a native-tools profile.
+  if 'tool_choice' in expected or 'parallel_tool_calls' in expected:
+   if expected.pop('tool_choice',None)!='auto' or expected.pop('parallel_tool_calls',None) is not True:return False
+ return observed==expected
+
 def matching_full_runs(root,history,profiles,profile,sha):
  """Link only full local runs with the same captured artifact and native options."""
  matches=[]
  for run in history['runs']:
   cfg=profiles[run['runtime_configuration_id']]
-  if not run.get('official_eligible') or cfg['model']['artifact_sha256']!=sha:continue
+  if not run.get('official_eligible') or cfg['model']['artifact_sha256']!=sha or cfg['runtime'].get('power_limit_w')!=300:continue
   audit=Path(root)/'staging'/run['experiment_id'].lower()/'AUDIT.json'
   if not audit.exists() or H(audit)!=run['audit_hash']:continue
   original=read(audit)
@@ -41,8 +54,7 @@ def matching_full_runs(root,history,profiles,profile,sha):
    path=Path(part['audit_path'])
    assert H(path)==part['audit_sha256']
    actual=read(path.parent/'profile.json')
-   keys=('argv_tail','context','environment','request_options','http_timeout_policy','warmups')
-   if actual['assets']==profile['assets'] and all(actual['native_recipe'].get(k)==profile['native_recipe'].get(k) for k in keys):
+   if same_native_inference(actual,profile,run['discipline']):
     matches.append({k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')});break
  return matches
 

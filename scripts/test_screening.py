@@ -76,9 +76,25 @@ class AdditionalArtifactScope(unittest.TestCase):
  def test_alternate_omni_is_distinct_measured_profile_not_new_finetune_proof(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text());a=next(x for x in data['rows'] if x['experiment_id']=='R515');b=next(x for x in data['rows'] if x['experiment_id']=='R497')
-  self.assertNotEqual(a['configuration']['model_sha256'],b['configuration']['model_sha256']);self.assertEqual(a['configuration']['request_options'],b['configuration']['request_options']);self.assertEqual(a['selection_status'],'VERTIEFUNG EMPFOHLEN');self.assertIn('confounded',a['source_provenance_limits']);self.assertEqual(a['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS');self.assertEqual([r['experiment_id'] for r in a['full_benchmark_runs']],['R516']);self.assertEqual(a['results']['coding']['successes'],14);self.assertEqual(a['results']['tools']['successes'],14);self.assertEqual(a['comparison_summary']['additional_peak_vram_mib'],324)
+  self.assertNotEqual(a['configuration']['model_sha256'],b['configuration']['model_sha256']);self.assertEqual(a['configuration']['request_options'],b['configuration']['request_options']);self.assertEqual(a['selection_status'],'VERTIEFUNG EMPFOHLEN');self.assertIn('confounded',a['source_provenance_limits']);self.assertEqual(a['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS');self.assertEqual({r['experiment_id'] for r in a['full_benchmark_runs']},{'R516','R517'});self.assertEqual(a['results']['coding']['successes'],14);self.assertEqual(a['results']['tools']['successes'],14);self.assertEqual(a['comparison_summary']['additional_peak_vram_mib'],324)
 
 class HtmlArtifactDetails(unittest.TestCase):
  def test_collapsed_artifact_review_is_a_real_link_not_literal_markdown(self):
   d=ScreeningTests().fixture();d['other_local_artifacts']=[{'artifact':'example.gguf','status':'DEFERRED','reason':'CPU-only review','audit_id':'audit-'+('a'*20)}]
   html=render(d);self.assertIn('<a href="../audits/audit-'+('a'*20)+'/">CPU review</a>',html);self.assertNotIn('[CPU review](',html);self.assertIn('<ul><li><strong>example.gguf</strong>',html)
+
+class CrossCategoryConfigurationLinks(unittest.TestCase):
+ def profiles(self):
+  base={'adapter':'llama-native-coding','assets':{'target':'a'*64,'engine':'b'*64},'native_recipe':{'argv_tail':['--spec-type','none'],'context':8192,'environment':{},'warmups':[],'http_timeout_policy':'REMAINING_TASK_TIME','request_options':{'temperature':0,'max_tokens':4096,'chat_template_kwargs':{'enable_thinking':False}}}}
+  tools=copy.deepcopy(base);tools['adapter']='llama-native-tools';tools['native_recipe']['request_options'].update(tool_choice='auto',parallel_tool_calls=True)
+  return base,tools
+ def test_only_reviewed_tool_envelope_may_differ(self):
+  from screening import same_native_inference
+  base,tools=self.profiles();before=copy.deepcopy((base,tools));self.assertTrue(same_native_inference(tools,base,'tools'));self.assertTrue(same_native_inference(base,base,'coding'));self.assertEqual((base,tools),before)
+ def test_artifact_engine_sampler_thinking_and_tool_mode_drift_stay_separate(self):
+  from screening import same_native_inference
+  base,tools=self.profiles()
+  for key,value in [('temperature',.6),('max_tokens',2048),('chat_template_kwargs',{'enable_thinking':True}),('tool_choice','required'),('parallel_tool_calls',False)]:
+   changed=copy.deepcopy(tools);changed['native_recipe']['request_options'][key]=value;self.assertFalse(same_native_inference(changed,base,'tools'))
+  changed=copy.deepcopy(tools);changed['assets']['engine']='c'*64;self.assertFalse(same_native_inference(changed,base,'tools'))
+  self.assertFalse(same_native_inference(tools,base,'coding'))

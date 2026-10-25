@@ -3736,7 +3736,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>SCREENING VOLLSTÄNDIG · VERTIEFUNG EMPFOHLEN</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>62.6</td><td>69.4</td><td>518.2</td><td>7,680.5</td><td><a href="../experiments/R516/">R516</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R515/">Screening R515</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>SCREENING VOLLSTÄNDIG · VERTIEFUNG EMPFOHLEN</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>62.6</td><td>69.4</td><td>518.2</td><td>7,680.5</td><td><a href="../experiments/R516/">R516</a> · <a href="../experiments/R517/">R517</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R515/">Screening R515</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;3cd7716f53c300fc23a043c0f8c939244a7033084caec34253a29d358697b403&quot;,
   &quot;comparison_audit_sha256&quot;: &quot;c60c95f9ca764628d88b2d00ff90f3ee102cd4304c60f22760545393a4a52b48&quot;,
   &quot;comparison_summary&quot;: {
@@ -3982,6 +3982,13 @@ Screening → full qualification → targeted optimization → independent confi
       &quot;experiment_id&quot;: &quot;R516&quot;,
       &quot;official_eligible&quot;: true,
       &quot;runtime_configuration_id&quot;: &quot;cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf&quot;
+    },
+    {
+      &quot;audit_hash&quot;: &quot;d995531168d22041ed7c3157c30cf3bc05afcc806c0f3b470514f812ecb59f69&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R517&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049&quot;
     }
   ],
   &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,

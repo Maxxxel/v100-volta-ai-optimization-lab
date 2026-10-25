@@ -13,7 +13,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf/"><span>Coding</span><strong>134/164</strong><b>OmniCoder-9B · bartowski Q6</b><small>Latest complete result · R516</small></a><a class="lab-result" href="configuration-profiles/cfg-18b3c3040974b775b83cb111656e53a39d7005d0e104891cc2e807e5f0eeebc0/"><span>Tools</span><strong>158/200</strong><b>Gemma4 12B IT QAT</b><small>Latest complete result · R513</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf/"><span>Coding</span><strong>134/164</strong><b>OmniCoder-9B · bartowski Q6</b><small>Latest complete result · R516</small></a><a class="lab-result" href="configuration-profiles/cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049/"><span>Tools</span><strong>178/200</strong><b>OmniCoder-9B · bartowski Q6</b><small>Latest complete result · R517</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](configuration-comparison.md).
 
@@ -29,7 +29,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **435** · 2026-10-24. 435 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **435** · 2026-10-24. 436 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](methodology.md) · [Hardware](hardware.md) · [Reproduce](reproduce.md).
 

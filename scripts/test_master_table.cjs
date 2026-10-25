@@ -947,6 +947,16 @@ test('Alternate Omni full134 coding cannot inherit canonical Omni177 tools',()=>
  const rows=M.mergeConfigurations(model.rows,model),row=rows.find(r=>r.runs.some(x=>x.experiment_id==='R516'));assert(row);
  assert.equal(row.profile.model.artifact_sha256,'a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052');
  assert(!row.runs.some(r=>r.experiment_id==='R471'||r.experiment_id==='R478'));
- assert(!row.runs.some(r=>r.discipline==='tools'));
+ assert.deepEqual(row.runs.filter(r=>r.discipline==='tools').map(r=>r.experiment_id),['R517']);
  assert.equal(run.counter_energy.solved,134);assert(run.counter_energy.j_per_success_lower>1200);assert(run.counter_energy.j_per_success_upper<1201);
+});
+
+
+test('Alternate Omni own178/200 tools join134/164 coding with exact counter costs',()=>{
+ const run=data.history.runs.find(r=>r.experiment_id==='R517');assert(run&&run.official_eligible);assert.equal(run.solved,178);assert.equal(run.tasks,200);
+ const view=M.comparisonView(M.build(data)),row=view.rows.find(r=>r.runs.some(x=>x.run_id===run.run_id));assert(row);
+ assert.deepEqual(new Set(row.runs.map(r=>r.experiment_id)),new Set(['R516','R517']));
+ assert.equal(row.profile.model.artifact_sha256,'a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052');
+ const mean=M.availableAverage(row,{allMeasured:true},view.benchmarkMap);assert.equal(mean.count,2);assert(Math.abs(mean.score-(134/164*100+89)/2)<1e-12);
+ const costs=M.performanceSummary(row,mean.keys,view.benchmarkMap);assert.equal(costs.tasks,364);assert.equal(costs.solved,312);assert.equal(run.counter_energy.j_per_success_lower,765.7736966292134);assert.equal(run.counter_energy.j_per_success_upper,766.2698932584269);
 });

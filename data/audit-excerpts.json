@@ -174395,6 +174395,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d995531168d22041ed7c",
+    "original_bytes": 4575,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d995531168d22041ed7c3157c30cf3bc05afcc806c0f3b470514f812ecb59f69",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "One native OmniCoder bartowski9B Q6_K profile, not a causal optimization A/B or publisher-equivalence claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -255012,6 +255034,53 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7680.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5c719753ecd29bc3bb6c",
+    "original_bytes": 177953,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5c719753ecd29bc3bb6c83f2a5aa89fba7f3079249ff8d8b0f89b1b2a1fe6821",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f943a53bc578d7b369fd",
+    "original_bytes": 8459,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f943a53bc578d7b369fdfe2c3a72982af491aaff43996e453371f611f6827d23",
+    "statements": {
+      "scope": "Exactly200 original native tool requests; GPU counter brackets include within-group setup, exclude loading, warmup, CPU/scoring/system energy. No TTFT, repaired power integral, independent inference repetitions or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 178,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6b9ee540edab617f2f79",
+    "original_bytes": 10300,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6b9ee540edab617f2f7984f3c6bcfc84120e4dc96a274bd38955d6b2f9f485e3",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -256323,6 +256392,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "5c6d3fb050e40b7be4bc5691e347d8c9cae7232886b0fd6219e5bbc6a55ba7cf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-e0185b47659132b3e2db",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e0185b47659132b3e2db19339d5e73551251d1e18810019c7a05d2d28a724116",
     "statements": {}
   },
   {
