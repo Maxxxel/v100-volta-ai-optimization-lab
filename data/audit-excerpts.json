@@ -176860,6 +176860,21 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 9324.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bb4019fee1fca1d7156b",
+    "original_bytes": 27270,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bb4019fee1fca1d7156b762d58e8c73585f27596030f3bd9373aabcb6e8050cf",
+    "statements": {
+      "decision": "Isolated MTP development screen against stored unchanged R515. Apply predeclared quality/time gates; not new model screening, official score or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
