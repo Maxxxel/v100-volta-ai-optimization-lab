@@ -4,6 +4,8 @@
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
+[Current Jarvis qualification shortlist](pipeline-methods.md#jarvis-qualification) · screening complete; no repeat planned.
+
 <input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">
 
 <div class="screening-wrap"><table id="screening-table"><thead><tr><th>Model</th><th>Status</th><th>Coding /16</th><th>Mock tools /16</th><th>Request time s</th><th>Output tok/s¹</th><th>GPU J/success ≥²</th><th>VRAM MiB</th><th>Existing benchmarks</th><th>Details</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>14/16 · 87.5%</td><td>67.2</td><td>69.6</td><td>593.8</td><td>7,356.5</td><td><a href="../experiments/R471/">R471</a> · <a href="../experiments/R471/">R471</a> · <a href="../experiments/R478/">R478</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R497/">Screening R497</a> · <details><summary>Profile & evidence</summary><pre>{

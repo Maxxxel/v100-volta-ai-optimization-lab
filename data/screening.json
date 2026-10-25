@@ -1202,6 +1202,375 @@
     }
   ],
   "protocol_sha256": "b42f8f216b62dce35bba1a8e1aab058c09794ee87c8b2f35ac43f80f60d270fc",
+  "qualification_phase": {
+    "candidates": [
+      {
+        "agent_development_experiment": "R518",
+        "full_benchmark_records": [
+          {
+            "audit_hash": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R471",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e",
+            "solved": 132,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R471",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e",
+            "solved": 132,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "9facd2474e8be80aa0fa2c617e617ec16cd9b11b38d2b6b2d8630435fc6edb42",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R478",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a",
+            "solved": 177,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 200
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Existing compatible MTP and HBM profiles: only matched inference confirmation after agent qualification."
+        ],
+        "profile": "OmniCoder-9B · canonical Q6_K",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": "R511",
+        "source_experiments": [
+          "R471",
+          "R478"
+        ]
+      },
+      {
+        "agent_development_experiment": null,
+        "full_benchmark_records": [
+          {
+            "audit_hash": "518b6f38c0768b23386ee218e6c86a77d672e6631fc246ff685e53db6b50f4dd",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R516",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf",
+            "solved": 134,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "d995531168d22041ed7c3157c30cf3bc05afcc806c0f3b470514f812ecb59f69",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R517",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049",
+            "solved": 178,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 200
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Agent qualification first; weight payload/quantization identity remains distinct from canonical."
+        ],
+        "profile": "OmniCoder-9B · bartowski Q6_K",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": null,
+        "source_experiments": [
+          "R516",
+          "R517"
+        ]
+      },
+      {
+        "agent_development_experiment": "R522",
+        "full_benchmark_records": [
+          {
+            "audit_hash": "ec11a07b084793cfae3bea8ddde61d1749630a1e81deff2584878e51c2f56ace",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R488",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba",
+            "solved": 130,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "1f40bec8ca698e19a514378aa84c211fe43fff5e1738da97503a1ea5e343790a",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R489",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b",
+            "solved": 178,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 200
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Preserve qualified OFF/T0; investigate formatting/permission proposals before any MTP/cache optimization."
+        ],
+        "profile": "Nexus-9B · OFF/T0",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": "R526",
+        "source_experiments": [
+          "R488",
+          "R489"
+        ]
+      },
+      {
+        "agent_development_experiment": "R525",
+        "full_benchmark_records": [
+          {
+            "audit_hash": "1789af9fe3f495e767c367a7237b1f05805b433f4ba371a77b2a901747d9ec32",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R495",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655",
+            "solved": 117,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "5c2cfcc885de4a09e78f7f8067f2b744b5b8abb9717be8e4db55a3f51854518a",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R496",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c",
+            "solved": 170,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 200
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Confirm quality and costs independently before considering compatible MTP/prefix/HBM variants."
+        ],
+        "profile": "Ornith-1.5-9B · OFF/T0",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": "R527",
+        "source_experiments": [
+          "R495",
+          "R496"
+        ]
+      },
+      {
+        "agent_development_experiment": "R521",
+        "full_benchmark_records": [
+          {
+            "audit_hash": "bd72425d4fcd1c6575db7eeba95220a7a9e2f7dba2763f07b0ff2f310d85d103",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R466",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0",
+            "solved": 149,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "8a46b0c1b28737158191c300689375caf69712fd841378c76986ef6ac966e16d",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R473",
+            "official_eligible": false,
+            "runtime_configuration_id": "cfg-8f78ed6d25af1f692013432f586b4f86710b67f7e2c3f08af4cb3989b6ca2ca5",
+            "solved": 165,
+            "status": "PARTIAL",
+            "tasks": 197
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Diagnose original incomplete tools campaign/wrapper timing first. No clock reset, score pooling or unnecessary coding repeat."
+        ],
+        "profile": "Qwen3.8-27B",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": null,
+        "source_experiments": [
+          "R466",
+          "R473"
+        ]
+      },
+      {
+        "agent_development_experiment": "R520",
+        "full_benchmark_records": [
+          {
+            "audit_hash": "a49a6cebc54822e25a330d315517e33dc419a8c076b509bf4053d2cf1d64181b",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R464",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625",
+            "solved": 156,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "7bfd00d2fcca7e4c767d6a197c3b1f9cc2bb1a146d794d2977f54d28cf21b1aa",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R472",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7",
+            "solved": 154,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 200
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Finish isolated context/transport diagnosis before performance optimization; retain already complete coding/tools results."
+        ],
+        "profile": "Gemma4-12B",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": "R510",
+        "source_experiments": [
+          "R464",
+          "R472"
+        ]
+      },
+      {
+        "agent_development_experiment": "R519",
+        "full_benchmark_records": [
+          {
+            "audit_hash": "543fb9745a67c9c58b9e407a8ec0ed831a3f087c22b2f4d8f669e2f292beae50",
+            "benchmark_id": "humanevalplus-v0.1.10",
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "discipline": "coding",
+            "experiment_id": "R465",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653",
+            "solved": 135,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 164
+          },
+          {
+            "audit_hash": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0",
+            "benchmark_id": "bfcl-v4-parallel-multiple-full200",
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "discipline": "tools",
+            "experiment_id": "R474",
+            "official_eligible": true,
+            "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55",
+            "solved": 176,
+            "status": "FULL_OFFICIAL_API_LOCAL_PROTOCOL_VERIFIED",
+            "tasks": 200
+          }
+        ],
+        "official_agents": "NOT MEASURED",
+        "optimization_after_qualification": [
+          "Keep unchanged efficient reference; no extra optimization campaign before shortlist confirmation."
+        ],
+        "profile": "Qwen3.5-9B · efficiency reference",
+        "qualification_status": "RETAIN_FOR_AGENT_QUALIFICATION",
+        "reserved_validation_experiment": "R509",
+        "source_experiments": [
+          "R465",
+          "R474"
+        ]
+      }
+    ],
+    "gemma_context": {
+      "CPU_fix_tests": 21,
+      "GPU_retry_admitted": true,
+      "corrective_result": {
+        "HTTP_errors": 0,
+        "context_preflight_errors": 0,
+        "experiment_id": "R529",
+        "identical_first_turn_prompt_hashes": 18,
+        "model_requests": 125,
+        "official_benchmark": false,
+        "peak_vram_change_mib": 136.0,
+        "reference_model_requests": 119,
+        "reference_solved": 9,
+        "solved": 9,
+        "task_phase_change_percent": 7.618261461482123,
+        "task_phase_s": 322.928532198,
+        "tasks": 18,
+        "winner_qualified": false
+      },
+      "experiment_id": "R528",
+      "model_requests": 0,
+      "quality_score": null,
+      "status": "TECHNICAL_STARTUP_FAILURE_TRANSPORT_CONTEXT_BOUND"
+    },
+    "multi_agent_plan": {
+      "GPU_concurrency": 1,
+      "arms": [
+        "Single-Agent",
+        "Planner + Worker",
+        "Planner + Worker + Reviewer"
+      ],
+      "per_arm_task_budget_s": 400,
+      "status": "NOT_EXECUTED_SOURCE_AND_BUDGET_REVIEW_REQUIRED",
+      "task_coverage": "Existing new33-case validation covers tool workflows/read reasoning. Recovery/delegation fault-injection fixtures and role-driver accounting still require CPU controls; do not claim those dimensions complete.",
+      "total_task_budget_s": 1200
+    },
+    "selection_scope": "Provisional evidence-based shortlist, not a final ranking. Keep other models/negative configurations and Qwen3.5 reference. Eight Agent18 profiles and reserved8+8 responses are development/small validation evidence, not official Terminal-Bench or sole selection criteria.",
+    "slopus_diagnosis": {
+      "actual_effect_scope_passes": 18,
+      "experiment_id": "R524",
+      "length_stopped_responses": 1,
+      "recorded_policy_violations": 10,
+      "scope": "Existing OFF/T0 profile only;10 rejected simulated policy proposals and1length-stopped response. Original complete coding/tools qualifications retained. No global model exclusion or new GPU trial."
+    },
+    "status": "JARVIS_QUALIFICATION_IN_PROGRESS_SCREENING_COMPLETE",
+    "terminal_bench": {
+      "blockers": [
+        "Reviewed local container backend and Harbor are not installed.",
+        "Task environments, evaluator dependencies and shared1200s broker route are not admitted."
+      ],
+      "evaluator_version": "0.24.0",
+      "official_complete_local_result": "NOT MEASURED",
+      "revision": "7131e4375048a0e408a8fb404b5f499d726b695b",
+      "sources": [
+        "https://hub.harborframework.com/datasets/terminal-bench/terminal-bench-2-1",
+        "https://github.com/harbor-framework/terminal-bench-2-1/blob/7131e4375048a0e408a8fb404b5f499d726b695b/README.md",
+        "https://github.com/harbor-framework/harbor/tree/6099b8cf2bfbbb3e7ff1eb2163bfc4524dbd9ba5"
+      ],
+      "status": "SOURCE_IDENTITY_VERIFIED_EXECUTION_NOT_ADMITTED",
+      "tasks": 89
+    },
+    "validation": {
+      "CPU_QA_sha256": "b4ce58609b6b18b93210142ca9cfe604d4651f377effaf8105f1a85fd6c9737c",
+      "cases": 33,
+      "forbidden_action_QA_rejected": 33,
+      "generalization_groups": 11,
+      "golden_QA_passed": 33,
+      "model_requests": 0,
+      "private_dataset_sha256": "acd45c1b43c2cebb1f9453707a76954275bf9810f2344e50e3707a654ed26b65",
+      "scope": "New fixtures within pre-existing authored validation families; family-disjoint from the frozen Agent18 development selection, not a claim of globally novel tasks or population independence. Three variants within each of11groups are correlated. Freeze before any model response. No tuning on validation responses.",
+      "status": "FROZEN_NOT_RELEASED_NO_MODEL_RESULTS",
+      "wrong_final_QA_rejected": 33
+    }
+  },
   "qualification_plan": {
     "agents": "Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.",
     "created_at_utc": "2026-10-24T21:30:19.564015+00:00",

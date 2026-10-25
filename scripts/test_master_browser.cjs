@@ -12,7 +12,8 @@ async function main(){
  const args=['--disable-gpu'];if(process.env.BROWSER_NO_SANDBOX==='1')args.push('--no-sandbox');
  const browser=await chromium.launch({headless:true,args}),errors=[];
  const report={site:base,checks:[],GPU_access:false};
- const validationExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/screening.json'),'utf8')).independent_validation16.rows.filter(r=>r.groups);
+ const screeningData=JSON.parse(await fs.readFile(path.join(__dirname,'../data/screening.json'),'utf8'));const qualificationExpected=screeningData.qualification_phase;
+ const validationExpected=screeningData.independent_validation16.rows.filter(r=>r.groups);
  const nativeExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/experiments.json'),'utf8')).filter(e=>e.aggregate_metrics?.native_agent18_development);
  try{
   const context=await browser.newContext({viewport:{width:1600,height:1000},acceptDownloads:true});
@@ -208,6 +209,17 @@ async function main(){
   for(const [name,tab] of [['desktop',page],['mobile',mobile]]){
    await tab.goto(new URL('pipeline-methods/#native-agent18-development-evidence',base).href,{waitUntil:'networkidle'});
    assert.equal(await tab.locator('#native-agent18-development-evidence').count(),1);
+   if(qualificationExpected){
+    const section=await tab.evaluate(()=>{const h=document.querySelector('#jarvis-qualification');if(!h)return null;const out=[];for(let n=h.nextElementSibling;n&&n.tagName!=='H2';n=n.nextElementSibling)out.push(n.innerText);return out.join('\n');});
+    assert(section,'Current qualification section must exist');
+    for(const c of qualificationExpected.candidates)assert(section.includes(c.profile),c.profile);
+    assert(section.includes(qualificationExpected.validation.cases+' frozen cases / '+qualificationExpected.validation.generalization_groups+' related-task groups'));
+    assert(section.includes('zero model responses'));assert(section.includes('harness checks, not model scores'));
+    assert(section.includes('failed during startup, before any task'));assert(section.includes('No local official score'));
+    assert(section.includes('1200s task allowance (400s per arm)'));
+    report.qualification_shortlist_profiles_verified=qualificationExpected.candidates.length;
+   }
+
    const validationTable=tab.getByRole('link',{name:validationExpected[0].experiment_id,exact:true}).locator('xpath=ancestor::table');
    assert.equal(await validationTable.locator('tbody tr').count(),validationExpected.length);
    for(const r of validationExpected){
@@ -227,7 +239,7 @@ async function main(){
    assert.equal(await nativeTable.locator('tbody tr').count(),nativeExpected.length);
    for(const experiment of nativeExpected){
     const m=experiment.aggregate_metrics.native_agent18_development;
-    const link=tab.getByRole('link',{name:experiment.id,exact:true});assert.equal(await link.count(),1);
+    const link=nativeTable.getByRole('link',{name:experiment.id,exact:true});assert.equal(await link.count(),1);
     const row=await link.locator('xpath=ancestor::tr').innerText();
     for(const value of [m.solved+'/'+m.tasks,Number(m.task_phase_s).toFixed(2),String(m.technical_preflight_cases)+' / '+String(m.technical_request_errors)])assert(row.includes(value),experiment.id+': '+value);
    }

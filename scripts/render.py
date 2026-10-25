@@ -414,9 +414,9 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  config.write_text(configuration)
  from screening import render as render_screening
  put('screening.md',render_screening(read('screening.json')))
- from screening import render_validation
+ from screening import render_validation,render_qualification
  methods=D/'pipeline-methods.md'
  from screening import render_native_agent_development
- methods.write_text(methods.read_text()+render_validation(read('screening.json'))+render_native_agent_development(es))
+ methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
 if __name__=='__main__':main()

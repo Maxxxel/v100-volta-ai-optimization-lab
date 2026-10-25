@@ -344,6 +344,7 @@ def verified_native_agent_development(root, summary, receipt):
     assert len(cases)==a['tasks'] and sum(c['reported_result']['task_success'] for c in cases)==a['solved']
     assert counter_energy_bounds(telemetry,cases,[c['id'] for c in cases])==a['GPU_counter']
     m=metrics(a)['native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
+    m['context_tokens']=profile['native_recipe']['context'];m['max_output_tokens']=profile['native_recipe']['request_options']['max_tokens'];m['bridge_source_sha256']=profile['native_recipe']['agent18']['transport_sha256']
     return m
 
 def grouped_sign_probability(differences):

@@ -213,3 +213,39 @@ class AdditionalValidationRows(unittest.TestCase):
  def test_duplicate_validation_experiments_rejected(self):
   d=IndependentValidation().data();d['independent_validation16']['rows'].append(copy.deepcopy(d['independent_validation16']['rows'][0]))
   with self.assertRaises(AssertionError):validate(d)
+
+class JarvisQualification(unittest.TestCase):
+ def fixture(self):
+  d=ScreeningTests().fixture();d['qualification_phase']={'status':'JARVIS_QUALIFICATION_IN_PROGRESS_SCREENING_COMPLETE','candidates':[{'profile':'Example','source_experiments':['R1'],'full_benchmark_records':[{'official_eligible':True}],'official_agents':'NOT MEASURED'}],'validation':{'status':'FROZEN_NOT_RELEASED_NO_MODEL_RESULTS','cases':33,'generalization_groups':11,'golden_QA_passed':33,'wrong_final_QA_rejected':33,'forbidden_action_QA_rejected':33,'model_requests':0},'terminal_bench':{'tasks':89,'revision':'a'*40,'evaluator_version':'0.24.0','sources':['https://example.com/source']},'gemma_context':{'experiment_id':'R528','model_requests':0,'quality_score':None,'CPU_fix_tests':21},'multi_agent_plan':{'arms':['Single-Agent','Planner + Worker','Planner + Worker + Reviewer'],'total_task_budget_s':1200,'per_arm_task_budget_s':400,'GPU_concurrency':1}}
+  return d
+ def test_cpu_controls_never_become_model_scores(self):
+  from screening import render_qualification
+  d=self.fixture();validate(d);text=render_qualification(d)
+  self.assertIn('zero model responses',text);self.assertIn('harness checks, not model scores',text);self.assertNotIn('33/33',text);self.assertIn('Official agent qualification: NOT MEASURED',text)
+ def test_no_measured_quality_for_startup_failure(self):
+  d=self.fixture();d['qualification_phase']['gemma_context']['quality_score']=0
+  with self.assertRaises(AssertionError):validate(d)
+ def test_no_budget_reset_between_roles(self):
+  d=self.fixture();d['qualification_phase']['multi_agent_plan']['per_arm_task_budget_s']=1200
+  with self.assertRaises(AssertionError):validate(d)
+ def test_no_fake_official_agents_or_model_calls(self):
+  d=self.fixture();d['qualification_phase']['candidates'][0]['official_agents']='QUALIFIED'
+  with self.assertRaises(AssertionError):validate(d)
+  d=self.fixture();d['qualification_phase']['validation']['model_requests']=1
+  with self.assertRaises(AssertionError):validate(d)
+ def test_partial_candidate_evidence_remains_partial(self):
+  from screening import render_qualification
+  d=self.fixture();d['qualification_phase']['candidates'][0]['full_benchmark_records'][0]['official_eligible']=False
+  self.assertIn('incomplete evidence remains PARTIAL',render_qualification(d))
+
+class GemmaCorrectedContextEvidence(unittest.TestCase):
+ def test_corrected_gpu_result_remains_development_and_original_failure_unknown(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1];d=json.loads((root/'data/screening.json').read_text());g=d['qualification_phase']['gemma_context'];c=g['corrective_result']
+  self.assertEqual(g['experiment_id'],'R528');self.assertIsNone(g['quality_score']);self.assertTrue(g['GPU_retry_admitted'])
+  self.assertEqual(c['experiment_id'],'R529');self.assertEqual(c['tasks'],18);self.assertEqual(c['solved'],c['reference_solved']);self.assertEqual(c['context_preflight_errors'],0);self.assertEqual(c['HTTP_errors'],0);self.assertEqual(c['identical_first_turn_prompt_hashes'],18);self.assertFalse(c['official_benchmark']);self.assertFalse(c['winner_qualified'])
+  history=json.loads((root/'data/configuration-history.json').read_text());self.assertFalse(any(r['experiment_id']=='R529' for r in history['runs']))
+ def test_actual_captured_context_and_output_are_exposed_without_changing_original(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1];es=json.loads((root/'data/experiments.json').read_text());m={e['id']:e['aggregate_metrics']['native_agent18_development'] for e in es if e.get('aggregate_metrics',{}).get('native_agent18_development')}
+  self.assertEqual(m['R520']['context_tokens'],8192);self.assertEqual(m['R529']['context_tokens'],16384);self.assertEqual(m['R520']['max_output_tokens'],m['R529']['max_output_tokens']);self.assertNotEqual(m['R520']['bridge_source_sha256'],m['R529']['bridge_source_sha256'])

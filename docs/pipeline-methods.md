@@ -167,6 +167,34 @@ Descriptive task overlap of whole configurations; no causal model-training, sign
 </details>
 <!-- paired-coding:end -->
 
+## Jarvis qualification
+
+Screening is complete. This is a provisional shortlist, **not a new ranking**. [Existing complete benchmark results](configuration-comparison.md) remain unchanged.
+
+- **OmniCoder-9B · canonical Q6_K**: [R471](experiments/R471.md), [R478](experiments/R478.md). Official agent qualification: NOT MEASURED.
+- **OmniCoder-9B · bartowski Q6_K**: [R516](experiments/R516.md), [R517](experiments/R517.md). Official agent qualification: NOT MEASURED.
+- **Nexus-9B · OFF/T0**: [R488](experiments/R488.md), [R489](experiments/R489.md). Official agent qualification: NOT MEASURED.
+- **Ornith-1.5-9B · OFF/T0**: [R495](experiments/R495.md), [R496](experiments/R496.md). Official agent qualification: NOT MEASURED.
+- **Qwen3.8-27B**: [R466](experiments/R466.md), [R473](experiments/R473.md); incomplete evidence remains PARTIAL. Official agent qualification: NOT MEASURED.
+- **Gemma4-12B**: [R464](experiments/R464.md), [R472](experiments/R472.md). Official agent qualification: NOT MEASURED.
+- **Qwen3.5-9B · efficiency reference**: [R465](experiments/R465.md), [R474](experiments/R474.md). Official agent qualification: NOT MEASURED.
+
+**Reserved agent validation:** 33 frozen cases / 11 related-task groups; zero model responses. CPU-only controls: 33 golden passes, 33 incorrect-final rejections and 33 forbidden-action rejections. Fixtures/oracles remain private and unreleased. These are harness checks, not model scores.
+
+**Terminal-Bench 2.1:** 89 tasks verified at revision `7131e4375048a0e408a8fb404b5f499d726b695b`; Harbor 0.24.0 source inspected. [Official dataset](https://hub.harborframework.com/datasets/terminal-bench/terminal-bench-2-1). No local official score; isolated container/evaluator/broker execution remains unadmitted.
+
+**Gemma context:** [R528](experiments/R528.md) failed during startup, before any task. The bridge fix passed 21 direct transport controls. This is not a negative model-quality result.
+
+Corrected GPU run [R529](experiments/R529.md): 18 cases completed, 0 context-preflight errors and 0 request errors; 9/18 solved versus 9/18 at8K. Task time changed by +7.62%, peak VRAM by +136MiB. Technical fix confirmed; no task-success gain or Champion claim.
+
+The corrected run made 125 model requests versus 119 before. The task-time difference includes those additional turns; it is not an isolated decode-speed comparison.
+
+**Slopus diagnosis:** [R524](experiments/R524.md) recorded 10 rejected simulated policy proposals and 1 length-stopped response. Complete coding/tools results remain valid; no global model exclusion.
+
+**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared 1200s task allowance (400s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.
+
+Next: source-admit the existing runner for the reserved validation, finish context/wrapper diagnostics, then select optimization candidates. Other models and all negative results remain in the archive.
+
 ## Independent native-profile validation
 
 Frozen8coding+8mock-tool reserved tasks, no parameter tuning. Tasks were already exposed on the original three profiles; additional fixed-profile measurements are not a globally unseen holdout. Small descriptive validation, not an official benchmark or model-superiority proof.
@@ -199,6 +227,7 @@ Previously used frozen simulated coding, automation and read workflows. **Not Te
 | [R523](experiments/R523.md) | Opus Distill-9B · OFF/T0 | 12/18 | 185.37 | 4166.33–4173.76 | 7356.50 | 0 / 0 |
 | [R524](experiments/R524.md) | Slopus-9B · OFF/T0 | 4/18 | 241.39 | 16556.26–16573.40 | 7356.50 | 0 / 0 |
 | [R525](experiments/R525.md) | Ornith-1.5-9B · OFF/T0 | 14/18 | 200.71 | 3896.18–3903.78 | 7356.50 | 0 / 0 |
+| [R529](experiments/R529.md) | Gemma4-12B · ctx16K bridge-v2 | 9/18 | 322.93 | 8625.59–8637.81 | 8254.50 | 0 / 0 |
 
 The 18 tasks share 10 original generalization groups. [Group-aware sensitivity review](experiments/R525.md) preserves the original case-wise statistics and independently verifies group-level sign flips. All p-values are exploratory and unadjusted across model comparisons; no population-superiority or independent-task claim follows.
 

@@ -65,6 +65,51 @@ def matching_full_runs(root,history,profiles,profile,sha):
     matches.append({k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')});break
  return matches
 
+def qualification_phase(root,history):
+ """Allowlisted current qualification evidence; never a new benchmark score."""
+ phase=read(root/'BENCHMARK_REFERENCES.json')['summary'].get('jarvis_qualification_phase')
+ if not phase:return None
+ candidates=[]
+ for c in phase['candidates']:
+  recorded=[{k:r[k] for k in ('experiment_id','discipline','benchmark_id','benchmark_identity_id','runtime_configuration_id','solved','tasks','official_eligible','status','audit_hash')} for r in history['runs'] if r['experiment_id'] in c['source_experiments']]
+  assert recorded==c['full_benchmark_records']
+  candidates.append({k:c[k] for k in ('profile','source_experiments','full_benchmark_records','agent_development_experiment','reserved_validation_experiment','qualification_status','official_agents','optimization_after_qualification')})
+ frozen=phase['frozen_agent_validation']
+ for path,key in [('plan_path','plan_sha256'),('private_dataset_path','private_dataset_sha256'),('CPU_QA_path','CPU_QA_sha256')]:assert H(frozen[path])==frozen[key]
+ qa=read(frozen['CPU_QA_path']);folder=Path(frozen['CPU_QA_path']).parent
+ receipt=folder/'jarvis-validation33-freeze.receipt.json';assert H(receipt)==qa['CPU_receipt_sha256']
+ control=read(receipt);assert control['returncode']==0 and 'Result=success\n' in control['properties'] and 'ExecMainStatus=0\n' in control['properties']
+ observed=[json.loads(l.split(' ',1)[1]) for l in (folder/'jarvis-validation33-freeze.stdout').read_text().splitlines() if l.startswith('FROZEN_VALIDATION_QA_JSON ')]
+ assert len(observed)==1 and all(qa[k]==v for k,v in observed[0].items())
+ assert qa['passed'] and qa['real_uid']!=0 and qa['model_requests']==qa['GPU_calls']==qa['production_tool_actions']==0 and not qa['models_released']
+ assert qa['cases']==qa['golden_passed']==qa['wrong_final_rejected']==qa['forbidden_action_rejected']==frozen['cases']
+ assert qa['groups']==frozen['generalization_groups'] and qa['private_dataset_file_sha256']==frozen['private_dataset_sha256']
+ assert H(folder/'generate_validation.py')==qa['generator_source_sha256']
+ assert control['input_sha256'][str(folder/'generate_validation.py')]==qa['generator_source_sha256']
+ tf=phase['terminal_bench_feasibility'];assert H(tf['path'])==tf['sha256'];tb=read(tf['path'])
+ assert tb['model_requests']==tb['GPU_runs']==0 and tb['official_scorer_admitted'] is False
+ ctx=phase['gemma_context_failure'];ap=root/'staging'/ctx['experiment_id'].lower()/'AUDIT.json';assert H(ap)==ctx['audit_sha256'];a=read(ap)
+ assert not a['measurement_valid'] and a['actual_generation_requests']==a['tasks']==0 and a['solved'] is None
+ assert H(ctx['CPU_candidate_fix_path'])==ctx['CPU_candidate_fix_sha256'];fix=read(ctx['CPU_candidate_fix_path']);assert fix['GPU_calls']==fix['model_requests']==0
+ sl=phase['slopus_diagnosis'];assert H(sl['quality_review_path'])==sl['quality_review_sha256'];sq=read(sl['quality_review_path'])
+ assert sl['recorded_policy_violations']==sq['failure_reasons']['policy_violations'] and sl['length_stopped_responses']==sq['quality']['length_stopped_responses']
+ correction=None
+ if ctx.get('corrective_experiment'):
+  ca=root/'staging'/ctx['corrective_experiment'].lower()/'AUDIT.json';assert H(ca)==ctx['corrective_audit_sha256'];actual=read(ca)
+  cr=Path(ctx['corrective_context_review_path']);assert H(cr)==ctx['corrective_context_review_sha256'];review=read(cr)
+  assert review['source_audit_sha256']==H(ca) and actual['measurement_valid'] and actual['tasks']==18
+  comparison=read(ca.parent/'COMPARISON_REVIEW.json');assert comparison['candidate_audit_sha256']==H(ca)
+  correction={'experiment_id':ctx['corrective_experiment'],'tasks':actual['tasks'],'solved':actual['solved'],'reference_solved':review['quality']['reference_solved'],'context_preflight_errors':actual['technical_preflight_cases'],'HTTP_errors':actual['technical_request_errors'],'task_phase_s':actual['task_phase_s'],'task_phase_change_percent':comparison['comparison']['task_phase_change_percent'],'peak_vram_change_mib':comparison['comparison']['peak_vram_change_mib'],'identical_first_turn_prompt_hashes':review['identical_first_turn_prompt_token_hashes'],'official_benchmark':False,'winner_qualified':False}
+  reference_path=root/'staging'/review['reference_experiment_id'].lower()/'AUDIT.json';assert H(reference_path)==review['reference_audit_sha256'];reference=read(reference_path)
+  correction.update(model_requests=actual['actual_generation_requests'],reference_model_requests=reference['actual_generation_requests'])
+ multi=phase['multi_agent_plan'];assert multi['total_task_budget_s']==1200 and multi['per_arm_task_budget_s']*len(multi['arms'])==1200 and multi['GPU_concurrency']==1
+ return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,
+  'validation':{'status':'FROZEN_NOT_RELEASED_NO_MODEL_RESULTS','cases':qa['cases'],'generalization_groups':qa['groups'],'golden_QA_passed':qa['golden_passed'],'wrong_final_QA_rejected':qa['wrong_final_rejected'],'forbidden_action_QA_rejected':qa['forbidden_action_rejected'],'model_requests':0,'CPU_QA_sha256':frozen['CPU_QA_sha256'],'private_dataset_sha256':frozen['private_dataset_sha256'],'scope':frozen['scope']},
+  'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.']},
+  'slopus_diagnosis':{k:sl[k] for k in ('experiment_id','recorded_policy_violations','length_stopped_responses','actual_effect_scope_passes','scope')},
+  'gemma_context':{'experiment_id':ctx['experiment_id'],'status':a['status'],'model_requests':0,'quality_score':None,'CPU_fix_tests':fix['tests'],'GPU_retry_admitted':ctx['new_transport_GPU_admitted'],'corrective_result':correction},
+  'multi_agent_plan':{k:multi[k] for k in ('status','arms','total_task_budget_s','per_arm_task_budget_s','GPU_concurrency','task_coverage')}}
+
 def build(root):
  root=Path(root);base=root/'staging/model-comparison-preparation/model-screening';holdout=read(base/'VALIDATION_FROZEN_MANIFEST.json')
  assert all(H(base/k)==v for k,v in holdout['files'].items())
@@ -219,6 +264,7 @@ def build(root):
   output['holdout']['evaluated_profiles']=exposed
   output['holdout']['scope']=('Previously reserved8+8 tasks; evaluated on '+str(exposed)+' frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.' if exposed else 'Reserved8+8 tasks remain unexecuted on models; no official benchmark claim.')
   output['holdout']['current_scope']=output['holdout']['scope']
+ output['qualification_phase']=qualification_phase(root,history)
  validate(output);return output
 
 def validate(data):
@@ -246,6 +292,13 @@ def validate(data):
    for g in row['groups'].values():
     assert type(g['completed']) is int and type(g['successes']) is int and 0<=g['successes']<=g['completed']<=8
     assert g['wilson95']==wilson(g['successes'],g['completed'])
+
+ q=data.get('qualification_phase')
+ if q:
+  assert q['validation']['model_requests']==0 and q['validation']['status']=='FROZEN_NOT_RELEASED_NO_MODEL_RESULTS'
+  assert q['gemma_context']['quality_score'] is None and q['gemma_context']['model_requests']==0
+  assert all(c['official_agents']=='NOT MEASURED' for c in q['candidates'])
+  m=q['multi_agent_plan'];assert m['total_task_budget_s']==1200 and m['per_arm_task_budget_s']*len(m['arms'])==1200 and m['GPU_concurrency']==1
 
 def render(data):
  from html import escape as e
@@ -279,7 +332,7 @@ def render(data):
   extras+='\n<details><summary>Conservative qualification shortlist & next decisions</summary><ul>'+''.join(extra_items)+'</ul><p>'+e(plan['agents'])+'</p></details>\n'
  if data.get('independent_validation16'):
   extras+='\n[Reserved independent validation: status and evidence](pipeline-methods.md#independent-native-profile-validation).\n'
- measured=sum(r['results'] is not None for r in data['rows']);return '# Model screening\n\n'+f'**{measured}/{len(data["rows"])} profiles measured** · 16 coding + 16 mock-tool development tasks.\n\nScreening → full qualification → targeted optimization → independent confirmation.\n\n'+'<input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">\n\n'+html+'\n\nDevelopment evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.\n\n¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.\n'+extras
+ measured=sum(r['results'] is not None for r in data['rows']);return '# Model screening\n\n'+f'**{measured}/{len(data["rows"])} profiles measured** · 16 coding + 16 mock-tool development tasks.\n\nScreening → full qualification → targeted optimization → independent confirmation.\n\n'+('[Current Jarvis qualification shortlist](pipeline-methods.md#jarvis-qualification) · screening complete; no repeat planned.\n\n' if data.get('qualification_phase') else '')+'<input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">\n\n'+html+'\n\nDevelopment evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.\n\n¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.\n'+extras
 
 
 def render_validation(data):
@@ -312,3 +365,27 @@ def render_native_agent_development(experiments):
   model=escape(str(e.get('model','NOT RECORDED'))).replace('|','\\|')
   rows.append('| ['+e['id']+'](experiments/'+e['id']+'.md) | '+model+' | '+str(m['solved'])+'/'+str(m['tasks'])+' | '+value(m.get('task_phase_s'))+' | '+energy+' | '+value(m.get('peak_device_vram_mib'))+' | '+str(m.get('technical_preflight_cases','NOT MEASURED'))+' / '+str(m.get('technical_request_errors','NOT MEASURED'))+' |')
  return '\n## Native Agent18 development evidence\n\nPreviously used frozen simulated coding, automation and read workflows. **Not Terminal-Bench, unseen validation, a production safety certificate or a Champion qualification.** Native model profiles are preserved; the required/single-tool-call envelope is explicit.\n\n| Experiment | Native model profile | Solved / completed | Task phase s | GPU J/success bounds | Peak VRAM MiB | Preflight / HTTP failures |\n|---|---|---|---|---|---|---|\n'+'\n'.join(rows)+group_note+'\n\nQuality is independently replayed from the actual retained replies in a non-root CPU jail using the original simulator and oracle. No productive tools execute. Technical context/transport failures remain separate in the linked audit; incomplete captures remain partial. Energy covers the measured case window, including failed tasks and setup between cases, excluding load/warmup and CPU/system energy. Nonstream output-token rate is not pure decode speed or TTFT. No scores are added to the official model table or its mean.\n\nAdmission retains the trusted broker, immutable source/execution review, exact asset hashes, one GPU lease and all power, VRAM, temperature, ECC and throttling guards. A source hash alone grants no trust. The development runner and independent CPU replay were checked with original simulator controls before actual inference.\n'
+
+
+def render_qualification(data):
+ from html import escape
+ q=data.get('qualification_phase')
+ if not q:return ''
+ out='\n## Jarvis qualification\n\nScreening is complete. This is a provisional shortlist, **not a new ranking**. [Existing complete benchmark results](configuration-comparison.md) remain unchanged.\n\n'
+ for c in q['candidates']:
+  refs=', '.join('['+e+'](experiments/'+e+'.md)' for e in c['source_experiments'])
+  note='; incomplete evidence remains PARTIAL' if any(not r['official_eligible'] for r in c['full_benchmark_records']) else ''
+  out+='- **'+escape(c['profile'])+'**: '+refs+note+'. Official agent qualification: NOT MEASURED.\n'
+ v=q['validation'];t=q['terminal_bench'];g=q['gemma_context'];m=q['multi_agent_plan']
+ out+='\n**Reserved agent validation:** '+str(v['cases'])+' frozen cases / '+str(v['generalization_groups'])+' related-task groups; zero model responses. CPU-only controls: '+str(v['golden_QA_passed'])+' golden passes, '+str(v['wrong_final_QA_rejected'])+' incorrect-final rejections and '+str(v['forbidden_action_QA_rejected'])+' forbidden-action rejections. Fixtures/oracles remain private and unreleased. These are harness checks, not model scores.\n'
+ out+='\n**Terminal-Bench 2.1:** '+str(t['tasks'])+' tasks verified at revision `'+t['revision']+'`; Harbor '+t['evaluator_version']+' source inspected. [Official dataset]('+t['sources'][0]+'). No local official score; isolated container/evaluator/broker execution remains unadmitted.\n'
+ out+='\n**Gemma context:** ['+g['experiment_id']+'](experiments/'+g['experiment_id']+'.md) failed during startup, before any task. The bridge fix passed '+str(g['CPU_fix_tests'])+' direct transport controls. This is not a negative model-quality result.\n'
+ if g.get('corrective_result'):
+  c=g['corrective_result'];out+='\nCorrected GPU run ['+c['experiment_id']+'](experiments/'+c['experiment_id']+'.md): '+str(c['tasks'])+' cases completed, '+str(c['context_preflight_errors'])+' context-preflight errors and '+str(c['HTTP_errors'])+' request errors; '+str(c['solved'])+'/'+str(c['tasks'])+' solved versus '+str(c['reference_solved'])+'/'+str(c['tasks'])+' at8K. Task time changed by '+format(c['task_phase_change_percent'],'+.2f')+'%, peak VRAM by '+format(c['peak_vram_change_mib'],'+.0f')+'MiB. Technical fix confirmed; no task-success gain or Champion claim.\n'
+  out+='\nThe corrected run made '+str(c['model_requests'])+' model requests versus '+str(c['reference_model_requests'])+' before. The task-time difference includes those additional turns; it is not an isolated decode-speed comparison.\n'
+ else:out+='\nNew bridge GPU execution remains unadmitted.\n'
+ if q.get('slopus_diagnosis'):
+  sl=q['slopus_diagnosis'];out+='\n**Slopus diagnosis:** ['+sl['experiment_id']+'](experiments/'+sl['experiment_id']+'.md) recorded '+str(sl['recorded_policy_violations'])+' rejected simulated policy proposals and '+str(sl['length_stopped_responses'])+' length-stopped response. Complete coding/tools results remain valid; no global model exclusion.\n'
+ out+='\n**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared '+str(m['total_task_budget_s'])+'s task allowance ('+str(m['per_arm_task_budget_s'])+'s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.\n'
+ out+='\nNext: source-admit the existing runner for the reserved validation, finish context/wrapper diagnostics, then select optimization candidates. Other models and all negative results remain in the archive.\n'
+ return out

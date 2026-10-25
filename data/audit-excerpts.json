@@ -175638,6 +175638,144 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 125,
+      "model_starts": 1,
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 322.924008538,
+          "group_window_s": 322.928038259,
+          "lower_j": 77630.288,
+          "upper_j": 77740.313
+        },
+        "actual_generation_requests": 125,
+        "case_wall_s": 322.924008538,
+        "completed_request_wall_s": 317.939031593,
+        "completion_tokens": 8674,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 8625.587555555556,
+        "gpu_j_per_success_upper": 8637.812555555554,
+        "independent_review_sha256": "9c6cd71b310daec03dd2aab0e0c4654f3fe1f5754223b0d0b6ddb6919ab608a4",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 8254.5,
+        "planned_tasks": 18,
+        "profile_sha256": "bcf1785f29943c786a9d9b2d598010accb4860c54f91167ff22b88c9a9827708",
+        "solved": 9,
+        "successful_tasks_per_s": 0.027869943664444462,
+        "task_limit_s": 1200,
+        "task_phase_s": 322.928532198,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 27.281960181295887,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 8254.5,
+      "solved": 9,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8b702533a1529ca1cec1",
+    "original_bytes": 4245,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8b702533a1529ca1cec10ae7b5e80d1e533cfe2c9b7e684c904a6188f52441ca",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9c6cd71b310daec03dd2",
+    "original_bytes": 6251,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9c6cd71b310daec03dd2aab0e0c4654f3fe1f5754223b0d0b6ddb6919ab608a4",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 15,
+        "task_scope_passes": 18,
+        "technical_preflight_cases": 0
+      },
+      "solved": 9,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d49463e4e57a24b8fb30",
+    "original_bytes": 981,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d49463e4e57a24b8fb30fddb8c8acc863e1d83f6249d96d4c9653de87ca59d29",
+    "statements": {
+      "scope": "Actual selected native profile on frozen exposed simulated development18. Preserve transport/context failures separately; not official agents, population safety, model exclusion or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 136.0,
+        "task_phase_change_percent": 7.618261461482123
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 18,
+        "candidate_solved": 9,
+        "fixed_set_exact_two_sided_p": 1,
+        "paired_gained": 0,
+        "paired_lost": 0,
+        "reference_solved": 9,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9666dec876eec4273618",
+    "original_bytes": 1316,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9666dec876eec4273618f6d6584fbd30d833cc7215aca5957055e56df2915df2",
+    "statements": {
+      "decision": "Retain and compare native profiles using actual success, task time, GPU J/success and VRAM. One pass over18 exposed tasks cannot establish superiority, noninferiority or a Champion. Original official qualifications remain unchanged; no production adoption.",
+      "scope": "One frozen Gemma context-only development comparison,8192→16384; all other recorded inference settings preserved. Stored R520 reference, no original8K rerun. Single stochastic pass does not establish population noninferiority, reproducible speedup or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "candidate_solved": 9,
+        "context_preflight_after": 0,
+        "context_preflight_before": 2,
+        "policy_gate_passes": 15,
+        "reference_solved": 9,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bdc37ce90df7d0635e02",
+    "original_bytes": 2461,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bdc37ce90df7d0635e029e0a84a1265f6a2e207fe0bb9bbceb3be9d06d8590d3",
+    "statements": {
+      "decision": "TECHNICAL_CONTEXT_FIX_CONFIRMED_NO_TASK_SUCCESS_GAIN. Keep8K profile as original reference.16K removes the measured preflight failures but does not improve success on this fixed development set; adds measured time/VRAM/energy in this single pass. No Champion or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
