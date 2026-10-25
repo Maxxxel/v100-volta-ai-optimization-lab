@@ -22212,5 +22212,83 @@
       "scope": "Same complete original164 tasks, official API/scorer and native profile except the frozen MTP head/flags. R516 is the retained stored control; R540 independently checked development latency drift. This is not a fresh official-task A/B repetition. Counter brackets cover all completed requests including failures, exclude loading/warmup/CPU/system energy, and are not calibration confidence intervals. A nonsignificant paired test is not equivalence. No test-driven parameter adjustment or automatic model rejection."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
+      "model_starts": 1,
+      "quality": {
+        "candidate_only_successes": 0,
+        "control_only_successes": 0,
+        "net_success_change": 0,
+        "paired_exact_two_sided_p_descriptive": 1.0,
+        "paired_tasks": 200,
+        "score_change_percentage_points": 0.0
+      }
+    },
+    "audit_id": "audit-1458e5e3f6dd1ffdb033",
+    "date": "2026-10-25T23:21:32.944632+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R542",
+    "model": "OmniCoder bartowski Q6 MTP3",
+    "reference_A0": null,
+    "statements": {
+      "decision": "TOOLS_OBSERVED_QUALITY_SPEED_GATE_PASSED_FRESH_CONFIRMATION_REQUIRED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "Fixed MTP3 candidate versus stored R517; one declared MTP treatment. R542 coding nonregression gate failed, preserved. No fresh causal performance confirmation or Champion claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ],
+      "scope": "Same complete original BFCL parallel_multiple200 category and official scorer; MTP3/min1 is the sole inference change. Stored control, not a fresh official-task A/B repetition or full BFCL overall. Frozen public test exposure; no tuning on official tasks. Counter bounds include failures and within-group setup, exclude loading/warmup/CPU/system energy; not sensor calibration confidence intervals. Nonsignificance is not equivalence. R541 coding quality gate remains failed; no coding/allround/production Champion."
+    },
+    "tools_mtp_comparison": {
+      "audit_id": "audit-3c900a5446a1af24e1e9",
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
+      "decision": "TOOLS_OBSERVED_QUALITY_SPEED_GATE_PASSED_FRESH_CONFIRMATION_REQUIRED",
+      "profiles": [
+        {
+          "GPU_j_per_success_lower": 765.7736966292134,
+          "GPU_j_per_success_upper": 766.2698932584269,
+          "experiment_id": "R517",
+          "peak_device_vram_mib": 7680.5,
+          "response_wall_s": 498.404268186,
+          "solved": 178,
+          "task_phase_s": 498.540679062,
+          "tasks": 200
+        },
+        {
+          "GPU_j_per_success_lower": 446.112713483146,
+          "GPU_j_per_success_upper": 446.71941573033706,
+          "experiment_id": "R542",
+          "peak_device_vram_mib": 9324.5,
+          "response_wall_s": 304.64549981,
+          "solved": 178,
+          "task_phase_s": 304.768899375,
+          "tasks": 200
+        }
+      ],
+      "quality": {
+        "candidate_only_successes": 0,
+        "control_only_successes": 0,
+        "net_success_change": 0,
+        "paired_exact_two_sided_p_descriptive": 1.0,
+        "paired_tasks": 200,
+        "score_change_percentage_points": 0.0
+      },
+      "quality_gate_passed": true,
+      "scope": "Same complete original BFCL parallel_multiple200 category and official scorer; MTP3/min1 is the sole inference change. Stored control, not a fresh official-task A/B repetition or full BFCL overall. Frozen public test exposure; no tuning on official tasks. Counter bounds include failures and within-group setup, exclude loading/warmup/CPU/system energy; not sensor calibration confidence intervals. Nonsignificance is not equivalence. R541 coding quality gate remains failed; no coding/allround/production Champion.",
+      "speed_gate_passed": true,
+      "winner_qualified": false
+    },
+    "winner_qualified": false
   }
 ]

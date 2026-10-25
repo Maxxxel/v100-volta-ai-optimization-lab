@@ -143,6 +143,20 @@ class CodingMtpGate(unittest.TestCase):
                 else:review['official_benchmark_result_valid']=False
                 with self.assertRaises(AssertionError):self.project(root,review)
 
+    def test_tools_category_stays_separate_and_has_exact200_denominator(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            root,review=self.fixture(tmp)
+            review['experiment_id']='R542';review['profiles']={('R517' if k=='R516' else 'R542'):{**v,'tasks':200} for k,v in review['profiles'].items()}
+            for eid,v in review['profiles'].items():
+                folder=root/'staging'/eid.lower();folder.mkdir(exist_ok=True)
+                (folder/'AUDIT.json').write_text(json.dumps({'collected_tasks':200,'scored_tasks':200,'solved_observed_tasks':v['solved']}))
+            path=root/'review.json';path.write_text(json.dumps(review));entry={'path':str(path),'sha256':export.digest(path)}
+            result=export.verified_coding_mtp_comparison(root,entry,lambda *a:'audit-fixture',candidate='R542')
+            self.assertEqual([p['experiment_id'] for p in result['profiles']],['R517','R542'])
+            self.assertTrue(all(p['tasks']==200 for p in result['profiles']))
+            with self.assertRaises(AssertionError):export.verified_coding_mtp_comparison(root,entry,lambda *a:'audit-fixture')
+
     def test_changed_original_provenance_rejected(self):
         import tempfile
         with tempfile.TemporaryDirectory() as tmp:

@@ -25123,6 +25123,12 @@
       "proof_path": "staging/r541/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "7b1ccc6fc2532f971efd7ceac55466eba4e99f01a8c2d527f0e986f0d47d6b1f",
       "source_audit_hash": "ed307b823d3281f51ee1f301975f6503a8ada1b185e204f772823b56d9ef9d6d"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r542/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "24b44ea5f00a6564ed0c6cb97dac3a1c053005701db555fd5ad33d13c688e517",
+      "source_audit_hash": "1458e5e3f6dd1ffdb03349161d92c60c2b5f2a2507a5112e40457261daf53ede"
     }
   ],
   "paired_coding_reviews": [

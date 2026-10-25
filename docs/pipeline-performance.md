@@ -1,12 +1,13 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-25T23:09:44.114090+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-25T23:21:47.853333+00:00. This static page is not a live monitor.**
 
-Last observed: R541 · AUDITED_RESULT_AVAILABLE.
+Last observed: R542 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
-| [R541](experiments/R541.md) | COMPLETE | 164/164 | 76.322 | 350.48 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R542](experiments/R542.md) | COMPLETE | 200/200 | 77.661 | 304.769 | 0.39 | NOT MEASURED / NOT MEASURED |
+| [R541](experiments/R541.md) | COMPLETE | 164/164 | 76.322 | 350.48 | NOT MEASURED | 101.0 / 9.0 |
 | [R540](experiments/R540.md) | COMPLETE | 64/64 | 73.986 | 117.603 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R539](experiments/R539.md) | COMPLETE | 32/32 | 77.515 | 43.946 | NOT MEASURED | 79.0 / 11.0 |
 | [R538](experiments/R538.md) | PARTIAL | 199/200 | 157.935 | NOT MEASURED | 0.396 | 98.0 / 10.0 |
@@ -88,6 +89,8 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R541 | security | COMPLETE | 11.892 |
 | R541 | commit | COMPLETE | 0.024 |
 | R541 | push | COMPLETE | 3.542 |
+| R542 | collect | COMPLETE | 3.588 |
+| R542 | integrity | COMPLETE | 0.071 |
 
 </details>
 

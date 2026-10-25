@@ -394,18 +394,19 @@ def verified_mtp_confirmation_result(root,entry,receipt):
     result['audit_id']=receipt(p,entry['sha256'])
     return result
 
-def verified_coding_mtp_comparison(root,entry,receipt):
+def verified_coding_mtp_comparison(root,entry,receipt,candidate="R541"):
+    baseline,count={"R541":("R516",164),"R542":("R517",200)}[candidate]
     root=pathlib.Path(root).resolve();path=pathlib.Path(entry['path']).resolve()
     assert path.is_relative_to(root) and digest(path)==entry['sha256']
     review=load(path)
-    assert review['experiment_id']=='R541' and review['GPU_runs_in_review']==0 and review['winner_qualified'] is False
+    assert review['experiment_id']==candidate and review['GPU_runs_in_review']==0 and review['winner_qualified'] is False
     assert review['official_benchmark_result_valid'] is True
     for name,h in review['source_files_sha256'].items():
         source=pathlib.Path(name).resolve();assert source.is_relative_to(root.parent) and digest(source)==h
     profiles=[]
-    for eid in ('R516','R541'):
+    for eid in (baseline,candidate):
         measured=review['profiles'][eid];audit=load(root/'staging'/eid.lower()/'AUDIT.json')
-        assert measured['tasks']==audit['collected_tasks']==audit['scored_tasks']==164
+        assert measured['tasks']==audit['collected_tasks']==audit['scored_tasks']==count
         assert measured['solved']==audit['solved_observed_tasks']
         profiles.append({'experiment_id':eid,**{k:measured[k] for k in ('tasks','solved','response_wall_s','task_phase_s','peak_device_vram_mib','GPU_j_per_success_lower','GPU_j_per_success_upper')}})
     return {'profiles':profiles,'quality':projection(review['quality']),'comparison':projection(review['comparison']),
@@ -721,6 +722,8 @@ def main():
             experiments[ident]['mtp_confirmation']=verified_mtp_confirmation_result(root,v['mtp_confirmation_review'],receipt)
         if v.get('coding_mtp_comparison_review'):
             experiments[ident]['coding_mtp_comparison']=verified_coding_mtp_comparison(root,v['coding_mtp_comparison_review'],receipt)
+        if v.get('tools_mtp_comparison_review'):
+            experiments[ident]['tools_mtp_comparison']=verified_coding_mtp_comparison(root,v['tools_mtp_comparison_review'],receipt,candidate='R542')
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):
             correction_id=receipt(v['audit_correction_path'],v['audit_correction_sha256'])
             if correction_id:

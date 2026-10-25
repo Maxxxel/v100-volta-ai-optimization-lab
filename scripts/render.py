@@ -252,11 +252,11 @@ All original experiments, failures, configurations and audit identities remain a
    text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
-  if e.get('coding_mtp_comparison'):
-   dev=e['coding_mtp_comparison']
-   text+='\n## Coding quality versus speed\n\n**The official benchmark score is valid. It does not qualify an optimization winner.**\n\n'
-   text+=table(['Profile','HumanEval+','Response seconds','Task seconds','Peak VRAM MiB','GPU J/success, bounds'],[[p['experiment_id'],str(p['solved'])+'/'+str(p['tasks']),round(p['response_wall_s'],3),round(p['task_phase_s'],3),p['peak_device_vram_mib'],str(round(p['GPU_j_per_success_lower'],2))+'–'+str(round(p['GPU_j_per_success_upper'],2))] for p in dev['profiles']])
-   text+='\nPredeclared coding nonregression gate: **'+('passed' if dev['quality_gate_passed'] else 'failed')+'**. '+dev['scope']+'\n\n[Paired comparison audit](../audits/'+dev['audit_id']+'.md)\n'
+  if e.get('coding_mtp_comparison') or e.get('tools_mtp_comparison'):
+   dev=e.get('coding_mtp_comparison') or e['tools_mtp_comparison'];tools=bool(e.get('tools_mtp_comparison'));label='tool' if tools else 'coding'
+   text+='\n## '+('Tool' if tools else 'Coding')+' quality versus speed\n\n**The official benchmark score is valid. It does not qualify an optimization winner.**\n\n'
+   text+=table(['Profile','BFCL parallel_multiple200' if tools else 'HumanEval+','Response seconds','Task seconds','Peak VRAM MiB','GPU J/success, bounds'],[[p['experiment_id'],str(p['solved'])+'/'+str(p['tasks']),round(p['response_wall_s'],3),round(p['task_phase_s'],3),p['peak_device_vram_mib'],str(round(p['GPU_j_per_success_lower'],2))+'–'+str(round(p['GPU_j_per_success_upper'],2))] for p in dev['profiles']])
+   text+='\nPredeclared '+label+' nonregression gate: **'+('passed' if dev['quality_gate_passed'] else 'failed')+'**. '+dev['scope']+'\n\n[Paired comparison audit](../audits/'+dev['audit_id']+'.md)\n'
   if e.get('mtp_confirmation'):
    dev=e['mtp_confirmation']
    text+='\n## Fresh controlled MTP confirmation\n\n**Development evidence. Not an official benchmark score or Champion.** Same32 tasks per arm; one task clock including both startups/warmups: '+str(round(dev['single_task_clock_s'],3))+' seconds.\n\n'
