@@ -191,6 +191,7 @@ Screening is complete. This is a provisional shortlist, **not a new ranking**. [
 | Qwen3.8-27B | 26/33 | 759.43s | 15.88 | 7992.09–7996.41 | 12454.50 | [R533](experiments/R533.md) |
 | Gemma4-12B · ctx16K | 17/33 | 444.22s | 32.40 | 6281.06–6285.84 | 8254.50 | [R534](experiments/R534.md) |
 | Qwen3.5-9B | 23/33 | 407.79s | 65.84 | 4722.50–4726.49 | 5956.50 | [R535](experiments/R535.md) |
+| OmniCoder-9B · bartowski Q6 | 28/33 | 401.67s | 56.50 | 3909.34–3913.31 | 7680.50 | [R536](experiments/R536.md) |
 
 ¹ Includes reasoning where reported; not pure decode. ² Counter-bracketed GPU energy. One pass over11 authored families does not establish population superiority. Private fixtures/oracles are not exported.
 
@@ -208,7 +209,23 @@ The corrected run made 125 model requests versus 119 before. The task-time diffe
 
 **Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared 1200s task allowance (400s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.
 
-Next: source-admit the existing runner for the reserved validation, finish context/wrapper diagnostics, then select optimization candidates. Other models and all negative results remain in the archive.
+### Decisions after native-profile validation
+
+Provisional role selection; **not a winner qualification**. Policy checks count cases with no prohibited proposal; permissions stay outside every model.
+
+<div class="screening-wrap"><table id="qualification-decisions"><thead><tr><th>Profile</th><th>Policy checks</th><th>Next decision</th><th>Evidence</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>29/33</td><td>Retain canonical native reference; compare future changes against this exact profile. No replacement from a single33-case pass.</td><td><a href="../experiments/R530/">Evidence R530</a></td></tr><tr><td>Nexus-9B · OFF/T0</td><td>29/33</td><td>25/33 at the shortest observed task time and lowest observed GPU-J/success in this cohort; policy failures remain.</td><td><a href="../experiments/R531/">Evidence R531</a></td></tr><tr><td>Ornith-1.5-9B · OFF/T0</td><td>25/33</td><td>18/33 with8 rejected-policy cases; earlier fast Agent18 result does not establish equal workflow quality. No global model rejection.</td><td><a href="../experiments/R532/">Evidence R532</a></td></tr><tr><td>Qwen3.8-27B</td><td>31/33</td><td>149/164 official coding retained;26/33 workflow successes with highest observed task time/VRAM. Tools remains165/197 PARTIAL.</td><td><a href="../experiments/R533/">Evidence R533</a></td></tr><tr><td>Gemma4-12B · ctx16K</td><td>29/33</td><td>156/164 coding retained in its original8K scope;17/33 at16K does not qualify agent behavior. Context errors are fixed; format/thought-carryover diagnosis remains.</td><td><a href="../experiments/R534/">Evidence R534</a></td></tr><tr><td>Qwen3.5-9B</td><td>26/33</td><td>23/33 with the lowest observed peakVRAM;135/164 coding and176/200 tools retained. More native policy failures than several larger profiles.</td><td><a href="../experiments/R535/">Evidence R535</a></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>29/33</td><td>28/33 is the largest observed aggregate in this small cohort;4 policy-rejected cases remain. Grouped comparison against canonical Omni is not significant (p=0.625).</td><td><a href="../experiments/R536/">Evidence R536</a></td></tr></tbody></table></div>
+
+<details><summary>Confirmation and optimization gates</summary>
+
+- Resolve Gemma native thought/template behavior using Agent18 development data only.
+- Evaluate isolated orchestration feasibility and fixed same-model/task/budget controls before any GPU execution.
+- Preserve all existing full coding/tools results; Terminal-Bench remainsNOT MEASURED until isolated environment/evaluator/broker admission.
+- Keep deterministic authorization outside the model: no profile passes every simulated policy check.
+- Select future optimization candidates after confirmation, with matched baseline and development data; do not tune on the33 validation answers.
+
+Decision review SHA256: `8d456abdb62b3a3e54efdb4f57272e20290fc34b615ac42002ee97a6e75ac059`. Other models and all negative results remain in the archive.
+
+</details>
 
 ## Independent native-profile validation
 

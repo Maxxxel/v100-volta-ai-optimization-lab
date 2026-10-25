@@ -226,6 +226,16 @@ async function main(){
       assert.equal(cells[4].trim(),r.metrics.gpu_j_per_success_lower.toFixed(2)+'–'+r.metrics.gpu_j_per_success_upper.toFixed(2));
      }
      report.agent_validation33_profiles_verified=qualificationExpected.model_validation.length;
+     if(qualificationExpected.decision_review){
+      const decisions=tab.locator('#qualification-decisions');
+      assert.equal(await decisions.locator('tbody tr').count(),qualificationExpected.decision_review.profiles.length);
+      for(const d of qualificationExpected.decision_review.profiles){
+       const row=decisions.getByRole('link',{name:'Evidence '+d.experiment_id,exact:true}).locator('xpath=ancestor::tr');
+       const cells=await row.locator('td').allTextContents();
+       assert.equal(cells[0].trim(),d.model);assert.equal(cells[1].trim(),d.policy_gate_passes+'/33');assert.equal(cells[2].trim(),d.reason);
+      }
+      report.qualification_decisions_verified=qualificationExpected.decision_review.profiles.length;
+     }
     }else{
      assert(section.includes('zero model responses'));assert(section.includes('harness checks, not model scores'));
     }

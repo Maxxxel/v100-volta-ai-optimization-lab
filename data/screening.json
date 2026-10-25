@@ -1497,6 +1497,84 @@
         ]
       }
     ],
+    "decision_review": {
+      "next_decisions": [
+        "Resolve Gemma native thought/template behavior using Agent18 development data only.",
+        "Evaluate isolated orchestration feasibility and fixed same-model/task/budget controls before any GPU execution.",
+        "Preserve all existing full coding/tools results; Terminal-Bench remainsNOT MEASURED until isolated environment/evaluator/broker admission.",
+        "Keep deterministic authorization outside the model: no profile passes every simulated policy check.",
+        "Select future optimization candidates after confirmation, with matched baseline and development data; do not tune on the33 validation answers."
+      ],
+      "official_benchmark": false,
+      "profiles": [
+        {
+          "decision": "RETAIN_AGENT_REFERENCE",
+          "experiment_id": "R530",
+          "model": "OmniCoder-9B",
+          "optimization_after_qualification": "After functional qualification: compatible MTP/prefix/HBM development A/B only.",
+          "policy_gate_passes": 29,
+          "reason": "Retain canonical native reference; compare future changes against this exact profile. No replacement from a single33-case pass.",
+          "task_scope_passes": 33
+        },
+        {
+          "decision": "PRIORITIZE_BALANCED_AGENT_CONFIRMATION",
+          "experiment_id": "R531",
+          "model": "Nexus-9B · OFF/T0",
+          "optimization_after_qualification": "After independent confirmation: targeted efficiency/MTP work, preserving native baseline.",
+          "policy_gate_passes": 29,
+          "reason": "25/33 at the shortest observed task time and lowest observed GPU-J/success in this cohort; policy failures remain.",
+          "task_scope_passes": 33
+        },
+        {
+          "decision": "RETAIN_DIAGNOSE_WORKFLOW_QUALITY",
+          "experiment_id": "R532",
+          "model": "Ornith-1.5-9B · OFF/T0",
+          "optimization_after_qualification": "Development-only workflow/policy diagnosis before performance tuning.",
+          "policy_gate_passes": 25,
+          "reason": "18/33 with8 rejected-policy cases; earlier fast Agent18 result does not establish equal workflow quality. No global model rejection.",
+          "task_scope_passes": 33
+        },
+        {
+          "decision": "RETAIN_CODING_QUALITY_SPECIALIST",
+          "experiment_id": "R533",
+          "model": "Qwen3.8-27B",
+          "optimization_after_qualification": "Resolve wrapper timing before any justified fresh full tools profile; no clock reset or coding repeat.",
+          "policy_gate_passes": 31,
+          "reason": "149/164 official coding retained;26/33 workflow successes with highest observed task time/VRAM. Tools remains165/197 PARTIAL.",
+          "task_scope_passes": 33
+        },
+        {
+          "decision": "RETAIN_CODING_SPECIALIST_DIAGNOSE_NATIVE_TOOLS",
+          "experiment_id": "R534",
+          "model": "Gemma4-12B · ctx16K",
+          "optimization_after_qualification": "Use original Agent18 development replies for CPU parser/template controls before a separate corrected profile.",
+          "policy_gate_passes": 29,
+          "reason": "156/164 coding retained in its original8K scope;17/33 at16K does not qualify agent behavior. Context errors are fixed; format/thought-carryover diagnosis remains.",
+          "task_scope_passes": 33
+        },
+        {
+          "decision": "RETAIN_LOW_VRAM_REFERENCE",
+          "experiment_id": "R535",
+          "model": "Qwen3.5-9B",
+          "optimization_after_qualification": "Keep unchanged efficiency reference; no unproven optimization campaign.",
+          "policy_gate_passes": 26,
+          "reason": "23/33 with the lowest observed peakVRAM;135/164 coding and176/200 tools retained. More native policy failures than several larger profiles.",
+          "task_scope_passes": 33
+        },
+        {
+          "decision": "PRIORITIZE_AGENT_CONFIRMATION",
+          "experiment_id": "R536",
+          "model": "OmniCoder-9B · bartowski Q6",
+          "optimization_after_qualification": "Confirm reliable workflows independently before compatible MTP/prefix/HBM development tests; no Champion claim.",
+          "policy_gate_passes": 29,
+          "reason": "28/33 is the largest observed aggregate in this small cohort;4 policy-rejected cases remain. Grouped comparison against canonical Omni is not significant (p=0.625).",
+          "task_scope_passes": 33
+        }
+      ],
+      "review_sha256": "8d456abdb62b3a3e54efdb4f57272e20290fc34b615ac42002ee97a6e75ac059",
+      "scope": "Reuses all seven complete captured33-case runs and nonroot independent reply replays; no benchmark rerun, prompt adaptation, score pooling or arbitrary overall score. Whole native profile comparison; quantization/templates/samplers may differ. No cause attributed to a single tuning knob.",
+      "winner_qualified": false
+    },
     "gemma_context": {
       "CPU_fix_tests": 21,
       "GPU_retry_admitted": true,
@@ -1817,6 +1895,57 @@
           "winner_qualified": false
         },
         "model": "Qwen3.5-9B"
+      },
+      {
+        "audit_sha256": "d5886de4d4ad939e99cf97e1811cd1ad62186a151b2ffa720deb03cad0f3e1cf",
+        "experiment_id": "R536",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 401.663127198,
+            "group_window_s": 401.670669938,
+            "lower_j": 109461.518,
+            "upper_j": 109572.691
+          },
+          "actual_generation_requests": 154,
+          "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+          "case_wall_s": 401.663127198,
+          "completed_request_wall_s": 398.735193036,
+          "completion_tokens": 22528,
+          "context_tokens": 8192,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 3909.3399285714286,
+          "gpu_j_per_success_upper": 3913.310392857143,
+          "independent_review_audit_id": "audit-912bb2eb946635e06d76",
+          "independent_review_sha256": "912bb2eb946635e06d768df096a209b57b8d62b4602e08de073cf20682a0e103",
+          "max_output_tokens": 4096,
+          "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 3,
+            "case_lost": 1,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 0.625,
+            "net_success_change": 2,
+            "nonzero_groups": 4,
+            "reference_experiment_id": "R530",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 7680.5,
+          "planned_tasks": 33,
+          "profile_sha256": "e8d6305a50fe0a2522475070c90e25dfbc373be7eba029870941c26a705d2973",
+          "solved": 28,
+          "successful_tasks_per_s": 0.0697087188338522,
+          "task_limit_s": 1200,
+          "task_phase_s": 401.671418847,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 56.49864971403728,
+          "winner_qualified": false
+        },
+        "model": "OmniCoder-9B · bartowski Q6"
       }
     ],
     "multi_agent_plan": {
@@ -1839,7 +1968,7 @@
       "recorded_policy_violations": 10,
       "scope": "Existing OFF/T0 profile only;10 rejected simulated policy proposals and1length-stopped response. Original complete coding/tools qualifications retained. No global model exclusion or new GPU trial."
     },
-    "status": "JARVIS_QUALIFICATION_IN_PROGRESS_SCREENING_COMPLETE",
+    "status": "SEVEN_NATIVE_PROFILES_VALIDATION33_COMPLETE_CONFIRMATION_PENDING",
     "terminal_bench": {
       "blockers": [
         "Reviewed local container backend and Harbor are not installed.",
@@ -1869,7 +1998,7 @@
       "wrong_final_QA_rejected": 33
     },
     "validation_execution": {
-      "experiment_id": "R530",
+      "experiment_id": "R536",
       "status": "VALIDATION33_AUDITED_COMPLETE"
     }
   },

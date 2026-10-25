@@ -65,6 +65,35 @@ def matching_full_runs(root,history,profiles,profile,sha):
     matches.append({k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')});break
  return matches
 
+def qualification_decisions(root,phase,measured):
+ """Project an audit-bound research decision, never a new benchmark result."""
+ descriptor=phase.get('decision_review')
+ if not descriptor:return None
+ path=Path(descriptor['path']);assert H(path)==descriptor['sha256'];review=read(path)
+ assert review['schema']==1 and review['official_benchmark'] is False and review['winner_qualified'] is False and review['population_ranking'] is False
+ assert review['dataset_id']=='jarvis-agent-validation-20261025-v1'
+ assert review['dataset_sha256']==phase['frozen_agent_validation']['private_dataset_sha256']
+ assert review['authored_groups']==11 and review['cases_per_profile']==33 and review['new_GPU_runs']==0
+ actual={r['experiment_id']:r for r in measured};rows=review['profiles']
+ assert len(actual)==len(measured)==review['model_profiles']==len(rows)
+ assert {r['experiment_id'] for r in rows}==set(actual)
+ projected=[]
+ for r in rows:
+  eid=r['experiment_id'];assert re.fullmatch(r'R[1-9][0-9]*',eid)
+  observed=actual[eid];m=observed['metrics']
+  assert r['model']==observed['model'] and r['audit_sha256']==observed['audit_sha256']
+  for key in ('solved','tasks','task_phase_s','peak_device_vram_mib','gpu_j_per_success_lower','gpu_j_per_success_upper'):assert r[key]==m[key]
+  folder=Path(root)/'staging'/eid.lower();quality=folder/'QUALITY_REVIEW.json';independent=folder/'INDEPENDENT_REVIEW.json'
+  assert H(quality)==r['quality_review_sha256'] and H(independent)==r['independent_review_sha256']
+  q=read(quality);i=read(independent)
+  assert q['source_audit_sha256']==r['audit_sha256'] and q['tasks']==33 and q['solved']==r['solved']
+  assert i['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and i['result']['all_scores_and_effects_reproduced'] is True
+  for key in ('policy_gate_passes','task_scope_passes'):
+   assert type(r[key]) is int and 0<=r[key]<=33 and r[key]==q['quality'][key]
+  assert r['decision'].startswith(('RETAIN_','PRIORITIZE_'))
+  projected.append({k:r[k] for k in ('experiment_id','model','decision','reason','optimization_after_qualification','policy_gate_passes','task_scope_passes')})
+ return {'review_sha256':descriptor['sha256'],'profiles':projected,'scope':review['review_scope'],'next_decisions':review['next_decisions'],'official_benchmark':False,'winner_qualified':False}
+
 def qualification_phase(root,history):
  """Allowlisted current qualification evidence; never a new benchmark score."""
  phase=read(root/'BENCHMARK_REFERENCES.json')['summary'].get('jarvis_qualification_phase')
@@ -111,7 +140,7 @@ def qualification_phase(root,history):
   metric=verified_native_agent_development(root,summary,lambda path,expected:'audit-'+expected[:20])
   model_validation.append({'experiment_id':actual['experiment_id'],'model':actual['model'],'audit_sha256':H(ap),'metrics':metric})
  multi=phase['multi_agent_plan'];assert multi['total_task_budget_s']==1200 and multi['per_arm_task_budget_s']*len(multi['arms'])==1200 and multi['GPU_concurrency']==1
- return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,'model_validation':model_validation,'validation_execution':({k:frozen['current_execution'][k] for k in ('experiment_id','status')} if frozen.get('current_execution') else None),
+ return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,'model_validation':model_validation,'decision_review':qualification_decisions(root,phase,model_validation),'validation_execution':({k:frozen['current_execution'][k] for k in ('experiment_id','status')} if frozen.get('current_execution') else None),
   'validation':{'status':'FROZEN_NOT_RELEASED_NO_MODEL_RESULTS','cases':qa['cases'],'generalization_groups':qa['groups'],'golden_QA_passed':qa['golden_passed'],'wrong_final_QA_rejected':qa['wrong_final_rejected'],'forbidden_action_QA_rejected':qa['forbidden_action_rejected'],'model_requests':0,'CPU_QA_sha256':frozen['CPU_QA_sha256'],'private_dataset_sha256':frozen['private_dataset_sha256'],'scope':frozen['scope']},
   'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.']},
   'slopus_diagnosis':{k:sl[k] for k in ('experiment_id','recorded_policy_violations','length_stopped_responses','actual_effect_scope_passes','scope')},
@@ -314,6 +343,11 @@ def validate(data):
    assert metric['official_benchmark'] is False and metric['winner_qualified'] is False
    assert metric['data_role']=='FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL'
   assert len(ids)==len(set(ids))
+  review=q.get('decision_review')
+  if review:
+   assert review['official_benchmark'] is False and review['winner_qualified'] is False
+   assert len(review['profiles'])==len(ids) and {r['experiment_id'] for r in review['profiles']}==set(ids)
+   assert re.fullmatch('[a-f0-9]{64}',review['review_sha256'])
 
 def render(data):
  from html import escape as e
@@ -417,5 +451,17 @@ def render_qualification(data):
  if q.get('slopus_diagnosis'):
   sl=q['slopus_diagnosis'];out+='\n**Slopus diagnosis:** ['+sl['experiment_id']+'](experiments/'+sl['experiment_id']+'.md) recorded '+str(sl['recorded_policy_violations'])+' rejected simulated policy proposals and '+str(sl['length_stopped_responses'])+' length-stopped response. Complete coding/tools results remain valid; no global model exclusion.\n'
  out+='\n**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared '+str(m['total_task_budget_s'])+'s task allowance ('+str(m['per_arm_task_budget_s'])+'s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.\n'
- out+='\nNext: source-admit the existing runner for the reserved validation, finish context/wrapper diagnostics, then select optimization candidates. Other models and all negative results remain in the archive.\n'
+ review=q.get('decision_review')
+ if review:
+  out+='\n### Decisions after native-profile validation\n\nProvisional role selection; **not a winner qualification**. Policy checks count cases with no prohibited proposal; permissions stay outside every model.\n\n'
+  out+='<div class="screening-wrap"><table id="qualification-decisions"><thead><tr><th>Profile</th><th>Policy checks</th><th>Next decision</th><th>Evidence</th></tr></thead><tbody>'
+  for row in review['profiles']:
+   out+='<tr><td>'+escape(row['model'])+'</td><td>'+str(row['policy_gate_passes'])+'/33</td><td>'+escape(row['reason'])+'</td><td><a href="../experiments/'+row['experiment_id']+'/">Evidence '+row['experiment_id']+'</a></td></tr>'
+  out+='</tbody></table></div>\n\n<details><summary>Confirmation and optimization gates</summary>\n\n'
+  for step in review['next_decisions']:out+='- '+escape(step)+'\n'
+  out+='\nDecision review SHA256: `'+review['review_sha256']+'`. Other models and all negative results remain in the archive.\n\n</details>\n'
+ elif results:
+  out+='\nNext: finish the remaining native-profile validation, review context/wrapper diagnostics, then select confirmation candidates. Other models and all negative results remain in the archive.\n'
+ else:
+  out+='\nNext: source-admit the existing runner for the reserved validation, finish context/wrapper diagnostics, then select optimization candidates. Other models and all negative results remain in the archive.\n'
  return out

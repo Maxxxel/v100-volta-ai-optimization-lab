@@ -21771,5 +21771,70 @@
     ],
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 401.663127198,
+          "group_window_s": 401.670669938,
+          "lower_j": 109461.518,
+          "upper_j": 109572.691
+        },
+        "actual_generation_requests": 154,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 401.663127198,
+        "completed_request_wall_s": 398.735193036,
+        "completion_tokens": 22528,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3909.3399285714286,
+        "gpu_j_per_success_upper": 3913.310392857143,
+        "independent_review_audit_id": "audit-912bb2eb946635e06d76",
+        "independent_review_sha256": "912bb2eb946635e06d768df096a209b57b8d62b4602e08de073cf20682a0e103",
+        "max_output_tokens": 4096,
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 3,
+          "case_lost": 1,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 0.625,
+          "net_success_change": 2,
+          "nonzero_groups": 4,
+          "reference_experiment_id": "R530",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 7680.5,
+        "planned_tasks": 33,
+        "profile_sha256": "e8d6305a50fe0a2522475070c90e25dfbc373be7eba029870941c26a705d2973",
+        "solved": 28,
+        "successful_tasks_per_s": 0.0697087188338522,
+        "task_limit_s": 1200,
+        "task_phase_s": 401.671418847,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 56.49864971403728,
+        "winner_qualified": false
+      },
+      "solved": 28,
+      "tasks": 33
+    },
+    "audit_id": "audit-d5886de4d4ad939e99cf",
+    "date": "2026-10-25T09:37:05.262375+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R536",
+    "model": "OmniCoder-9B · bartowski Q6",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-c0aa02c4f0b286246874",
+      "audit-7e94fc099016f8eb0251"
+    ],
+    "statements": {},
+    "winner_qualified": false
   }
 ]

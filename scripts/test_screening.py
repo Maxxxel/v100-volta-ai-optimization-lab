@@ -265,3 +265,53 @@ class AgentValidation33Presentation(unittest.TestCase):
  def test_unknown_metrics_remain_missing(self):
   from screening import render_qualification
   out=render_qualification(self.data());self.assertIn('NOT MEASURED–NOT MEASURED',out);self.assertNotIn('0.00',out)
+
+class QualificationDecisionProvenance(unittest.TestCase):
+ def fixture(self,root):
+  from screening import H
+  folder=root/'staging/r530';folder.mkdir(parents=True)
+  def write(path,value):path.write_text(json.dumps(value));return H(path)
+  quality={'source_audit_sha256':'a'*64,'tasks':33,'solved':21,'quality':{'policy_gate_passes':29,'task_scope_passes':33}}
+  qh=write(folder/'QUALITY_REVIEW.json',quality)
+  ih=write(folder/'INDEPENDENT_REVIEW.json',{'status':'INDEPENDENT_CPU_REPLAY_IDENTICAL','result':{'all_scores_and_effects_reproduced':True}})
+  metrics={'solved':21,'tasks':33,'task_phase_s':400,'peak_device_vram_mib':7000,'gpu_j_per_success_lower':4000,'gpu_j_per_success_upper':4002}
+  row={'experiment_id':'R530','model':'CPU fixture only','audit_sha256':'a'*64,**metrics,'quality_review_sha256':qh,'independent_review_sha256':ih,'policy_gate_passes':29,'task_scope_passes':33,'decision':'RETAIN_REFERENCE','reason':'More confirmation required.','optimization_after_qualification':'Only after confirmation.'}
+  review={'schema':1,'official_benchmark':False,'winner_qualified':False,'population_ranking':False,'dataset_id':'jarvis-agent-validation-20261025-v1','dataset_sha256':'b'*64,'authored_groups':11,'cases_per_profile':33,'new_GPU_runs':0,'model_profiles':1,'profiles':[row],'review_scope':'CPU unit fixture only','next_decisions':['Confirm independently.']}
+  path=root/'review.json';phase={'decision_review':{'path':str(path),'sha256':write(path,review)},'frozen_agent_validation':{'private_dataset_sha256':'b'*64}}
+  measured=[{'experiment_id':'R530','model':'CPU fixture only','audit_sha256':'a'*64,'metrics':metrics}]
+  return phase,review,measured,path
+ def test_decision_reuses_verified_results_without_claiming_official_rank(self):
+  import tempfile
+  from pathlib import Path
+  from screening import qualification_decisions
+  with tempfile.TemporaryDirectory() as directory:
+   root=Path(directory);phase,_,measured,_=self.fixture(root)
+   result=qualification_decisions(root,phase,measured)
+   self.assertEqual(result['profiles'][0]['policy_gate_passes'],29);self.assertFalse(result['official_benchmark']);self.assertFalse(result['winner_qualified'])
+   self.assertNotIn('private_dataset_sha256',result)
+ def test_rejects_score_reinterpretation_duplicate_or_missing_profile(self):
+  import tempfile
+  from pathlib import Path
+  from screening import qualification_decisions,H
+  for fault in ('score','duplicate','missing','official','policy'):
+   with self.subTest(fault=fault),tempfile.TemporaryDirectory() as directory:
+    root=Path(directory);phase,review,measured,path=self.fixture(root)
+    if fault=='score':review['profiles'][0]['solved']=22
+    elif fault=='duplicate':review['profiles']*=2;review['model_profiles']=2
+    elif fault=='missing':review['profiles']=[];review['model_profiles']=0
+    elif fault=='official':review['official_benchmark']=True
+    elif fault=='policy':review['profiles'][0]['policy_gate_passes']=33
+    path.write_text(json.dumps(review));phase['decision_review']['sha256']=H(path)
+    with self.assertRaises(AssertionError):qualification_decisions(root,phase,measured)
+ def test_mutated_evidence_fails_closed(self):
+  import tempfile
+  from pathlib import Path
+  from screening import qualification_decisions
+  with tempfile.TemporaryDirectory() as directory:
+   root=Path(directory);phase,_,measured,_=self.fixture(root)
+   (root/'staging/r530/QUALITY_REVIEW.json').write_text('{}')
+   with self.assertRaises(AssertionError):qualification_decisions(root,phase,measured)
+ def test_rendered_next_step_does_not_repeat_completed_source_admission(self):
+  from screening import render_qualification
+  d=AgentValidation33Presentation().data();d['qualification_phase']['decision_review']={'profiles':[{'model':'CPU fixture','experiment_id':'R530','policy_gate_passes':29,'reason':'Confirm independently.'}],'review_sha256':'a'*64,'next_decisions':['Keep deterministic permissions.']}
+  out=render_qualification(d);self.assertIn('29/33',out);self.assertIn('not a winner qualification',out);self.assertNotIn('Next: source-admit',out)

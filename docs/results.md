@@ -458,6 +458,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R533](experiments/R533.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B |
 | [R534](experiments/R534.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B · ctx16K |
 | [R535](experiments/R535.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-9B |
+| [R536](experiments/R536.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B · bartowski Q6 |
 
 
 ## Historical signed windows
