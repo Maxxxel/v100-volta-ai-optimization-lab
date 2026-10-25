@@ -174988,6 +174988,57 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 15,
+        "task_scope_passes": 18
+      },
+      "solved": 14,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-04bbd0a15557188b5f42",
+    "original_bytes": 813,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "04bbd0a15557188b5f424345d8dc65a17c751b33bde0667311350151a1c1cb1c",
+    "statements": {
+      "scope": "Existing explicitly selected Nexus OFF/T0 profile, not the original native ON screening configuration. Frozen exposed development18, no official agent or population safety claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "GPU_j_per_success_lower": 5011.176214285714,
+        "GPU_j_per_success_upper": 5015.319571428571,
+        "peak_vram_change_mib": 0.0,
+        "task_phase_change_percent": 0.051372503963920124
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_solved": 14,
+        "fixed_set_exact_two_sided_p": 1,
+        "paired_gained": 3,
+        "paired_lost": 2,
+        "reference_solved": 13,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-601d5a26ccac23a0e452",
+    "original_bytes": 1528,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "601d5a26ccac23a0e4520f92ce47e2c1e5e6767991ee3042b65fa394a43d47aa",
+    "statements": {
+      "decision": "Retain Nexus as a promising practical agent profile:14/18 at258.38s and5011.18–5015.32GPU J/success. One more observed success than OmniCoder at similar task time, same recorded peak VRAM. Small exposed task set and one pass do not establish model superiority, noninferiority or a Champion. Continue model-profile comparisons and independent qualification; no production change.",
+      "scope": "Whole existing Nexus OFF/T0 profile against OmniCoder native reference on identical frozen18 tasks/order/oracles. Different weights/quantization/template/sampling are not a causal optimization. Full existing coding130/164 and tools178/200 remain in their original qualified profile; no official-test repeat."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

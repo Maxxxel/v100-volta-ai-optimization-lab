@@ -20924,6 +20924,10 @@
     "id": "R522",
     "model": "Nexus-9B · OFF/T0",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-04bbd0a15557188b5f42",
+      "audit-601d5a26ccac23a0e452"
+    ],
     "statements": {},
     "winner_qualified": false
   }

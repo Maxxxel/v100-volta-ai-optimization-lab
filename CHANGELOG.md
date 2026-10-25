@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-25 — R522 Nexus fast-profile agent evidence
+
+- Reuse the already qualified Nexus OFF/T0 profile (coding130/164, tools178/200) without repeating either official benchmark. The original native ON screening remains unchanged.
+- Complete14/18 frozen development workflows at258.379192137 task seconds,7,356.5 MiB peak and5,011.176214285714–5,015.319571428571 GPU J/success. All outcomes/effects reproduce in the independent non-root CPU replay; no HTTP/preflight failure.
+- Against OmniCoder13/18, three paired gains and two losses give fixed-set exact p=1. The practical cost profile is promising; no model-superiority, noninferiority or Champion claim. One length-stopped native action remains a recorded failure, without output-budget reduction or repair.
+- A read-only parent selector requires pinned full qualification/capture/model identities before admission. Additional per-profile controls reuse the existing simulator and CPU replay; broker/runner/kernel binaries and protection limits remain unchanged.
+
 ## 2026-10-25 — R520/R521 complete native Agent18 comparison
 
 - Gemma completes9/18 at300.06852723 task seconds,8,118.5 MiB peak and8,036.579333333334–8,047.347333333334 GPU J/success. Two cases cross the explicit8K-context/4K-output reservation; retain those technical failures separately and diagnose context before judging model capability.
