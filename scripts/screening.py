@@ -149,6 +149,29 @@ def qualification_decisions(root,phase,measured,diagnostic=None):
   projected.append(item)
  return {'review_sha256':descriptor['sha256'],'profiles':projected,'scope':review['review_scope'],'next_decisions':review['next_decisions'],'official_benchmark':False,'winner_qualified':False}
 
+def orchestration_cpu_status(multi):
+ descriptor=multi.get('CPU_coordinator_QA')
+ if not descriptor:return None
+ path=Path(descriptor['path']);assert H(path)==descriptor['sha256'];q=read(path)
+ assert q['status']=='ROLE_COORDINATOR_CPU_GATES_PASS_NOT_GPU_ADMITTED' and q['passed'] is True
+ assert q['GPU_runs']==q['model_requests']==q['factor_coverage_increment']==0 and q['GPU_admitted'] is False
+ assert q['actual_engine_or_model_quality_measured'] is False and q['real_tokenizer_measured'] is False
+ receipt=Path(q['CPU_receipt_path']);assert H(receipt)==q['CPU_receipt_sha256'];r=read(receipt)
+ assert r['returncode']==0 and 'Result=success\n' in r['properties'] and 'ExecMainStatus=0\n' in r['properties']
+ assert 'PrivateDevices=yes\n' in r['properties'] and 'NoNewPrivileges=yes\n' in r['properties']
+ for file,h in q['source_files_sha256'].items():assert H(file)==h and r['input_sha256'][file]==h
+ plan_descriptor=multi['pilot_plan'];assert H(plan_descriptor['path'])==plan_descriptor['sha256']==q['plan_sha256'];plan=read(plan_descriptor['path'])
+ assert plan['task_seconds']==1200 and plan['per_arm_seconds']==400 and plan['independent_task_count']==5 and plan['case_executions']==15
+ assert plan['maximum_generation_calls_including_warmup']==q['maximum_planned_generations_with_parent_warmup']<=448
+ output=path.parent/'jarvis-role-comparison-bounded-clock.stdout';assert H(output)==q['CPU_stdout_sha256']
+ observed=[json.loads(l.split(' ',1)[1]) for l in output.read_text().splitlines() if l.startswith('ORCHESTRATION_CPU_QA_JSON ')]
+ assert len(observed)==1;actual=observed[0]
+ assert actual['passed'] and actual['real_uid']!=0 and actual['no_GPU_devices'] and actual['INET_denied']
+ assert actual['unit_tests']==q['unit_tests']==18 and actual['positive_case_executions']==q['scripted_case_executions']==15
+ assert actual['paired_unique_cases']==q['paired_unique_cases']==5 and actual['scripted_generation_callbacks']==q['scripted_generation_callbacks']==67
+ assert actual['retained_mock_replay_identical'] and actual['malicious_planner_did_not_bypass_simulator_permissions'] and actual['model_requests']==actual['GPU_runs']==0 and actual['GPU_admitted'] is False
+ return {'audit_sha256':descriptor['sha256'],'guard_tests':18,'scripted_case_executions':15,'paired_unique_cases':5,'scripted_callbacks':67,'model_results_measured':False,'GPU_admitted':False,'GPU_runs':0,'official_benchmark':False}
+
 def qualification_phase(root,history):
  """Allowlisted current qualification evidence; never a new benchmark score."""
  phase=read(root/'BENCHMARK_REFERENCES.json')['summary'].get('jarvis_qualification_phase')
@@ -201,7 +224,7 @@ def qualification_phase(root,history):
   'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.']},
   'slopus_diagnosis':{k:sl[k] for k in ('experiment_id','recorded_policy_violations','length_stopped_responses','actual_effect_scope_passes','scope')},
   'gemma_context':{'experiment_id':ctx['experiment_id'],'status':a['status'],'model_requests':0,'quality_score':None,'CPU_fix_tests':fix['tests'],'GPU_retry_admitted':ctx['new_transport_GPU_admitted'],'corrective_result':correction,'diagnostic_resolution':diagnostic},
-  'multi_agent_plan':{k:multi[k] for k in ('status','arms','total_task_budget_s','per_arm_task_budget_s','GPU_concurrency','task_coverage')}}
+  'multi_agent_plan':{**{k:multi[k] for k in ('status','arms','total_task_budget_s','per_arm_task_budget_s','GPU_concurrency','task_coverage')},'CPU_controls':orchestration_cpu_status(multi)}}
 
 def build(root):
  root=Path(root);base=root/'staging/model-comparison-preparation/model-screening';holdout=read(base/'VALIDATION_FROZEN_MANIFEST.json')
@@ -392,6 +415,10 @@ def validate(data):
   assert q['gemma_context']['quality_score'] is None and q['gemma_context']['model_requests']==0
   assert all(c['official_agents']=='NOT MEASURED' for c in q['candidates'])
   m=q['multi_agent_plan'];assert m['total_task_budget_s']==1200 and m['per_arm_task_budget_s']*len(m['arms'])==1200 and m['GPU_concurrency']==1
+  cpu=m.get('CPU_controls')
+  if cpu:
+   assert cpu['guard_tests']==18 and cpu['scripted_case_executions']==15 and cpu['paired_unique_cases']==5
+   assert cpu['model_results_measured'] is False and cpu['GPU_admitted'] is False and cpu['GPU_runs']==0 and cpu['official_benchmark'] is False
   ids=[]
   for row in q.get('model_validation',[]):
    metric=row['metrics'];ids.append(row['experiment_id'])
@@ -518,7 +545,9 @@ def render_qualification(data):
   d=g['diagnostic_resolution'];out+='\n**Scientific correction — Gemma format diagnosis:** all90 thought-marker sections in the retained development replies are empty. The earlier marker-only thought-loss hypothesis is withdrawn. '+str(d['CPU_controls'])+' model-free controls verify literal string round trips and supplied template context; no GPU variant or model-quality gain is justified. Original scores remain unchanged. [Issue and correction](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/15#issuecomment-6396277494). Resolution SHA256: `'+d['audit_sha256']+'`.\n'
  if q.get('slopus_diagnosis'):
   sl=q['slopus_diagnosis'];out+='\n**Slopus diagnosis:** ['+sl['experiment_id']+'](experiments/'+sl['experiment_id']+'.md) recorded '+str(sl['recorded_policy_violations'])+' rejected simulated policy proposals and '+str(sl['length_stopped_responses'])+' length-stopped response. Complete coding/tools results remain valid; no global model exclusion.\n'
- out+='\n**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared '+str(m['total_task_budget_s'])+'s task allowance ('+str(m['per_arm_task_budget_s'])+'s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.\n'
+ out+='\n**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared '+str(m['total_task_budget_s'])+'s task allowance ('+str(m['per_arm_task_budget_s'])+'s per arm), identical model/tasks and one GPU job. No model orchestration result is claimed. Keep deterministic permissions outside all model roles.\n'
+ if m.get('CPU_controls'):
+  cpu=m['CPU_controls'];out+='\nCPU-only coordinator QA: '+str(cpu['guard_tests'])+' guard tests and '+str(cpu['scripted_case_executions'])+' scripted case executions on '+str(cpu['paired_unique_cases'])+' paired development tasks. Mock-reply replay and external permission controls pass; **GPU source/admission review remains pending**. These are software checks, not model scores.\n'
  review=q.get('decision_review')
  if review:
   out+='\n### Decisions after native-profile validation\n\nProvisional role selection; **not a winner qualification**. Policy checks count cases with no prohibited proposal; permissions stay outside every model.\n\n'

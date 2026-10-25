@@ -345,3 +345,15 @@ class EmptyThoughtScientificCorrection(unittest.TestCase):
    root=Path(directory);phase,_,measured,_=QualificationDecisionProvenance().fixture(root)
    result=qualification_decisions(root,phase,measured,self.diagnosis());row=result['profiles'][0]
    self.assertEqual(row['original_decision_reason'],'More confirmation required.');self.assertEqual(row['reason'],'No lost reasoning demonstrated.');self.assertEqual(row['decision_amendment_sha256'],'c'*64)
+
+class OrchestrationCPUSeparation(unittest.TestCase):
+ def data(self):
+  d=JarvisQualification().fixture();d['qualification_phase']['multi_agent_plan']['CPU_controls']={'audit_sha256':'a'*64,'guard_tests':18,'scripted_case_executions':15,'paired_unique_cases':5,'scripted_callbacks':67,'model_results_measured':False,'GPU_admitted':False,'GPU_runs':0,'official_benchmark':False};return d
+ def test_scripted_role_checks_never_become_a_model_score(self):
+  from screening import render_qualification
+  d=self.data();validate(d);out=render_qualification(d)
+  self.assertIn('15 scripted case executions on 5 paired development tasks',out);self.assertIn('not model scores',out);self.assertNotIn('15/15',out)
+ def test_no_implied_GPU_admission_or_actual_model_result(self):
+  for field in ['GPU_admitted','model_results_measured','official_benchmark']:
+   d=self.data();d['qualification_phase']['multi_agent_plan']['CPU_controls'][field]=True
+   with self.subTest(field=field),self.assertRaises(AssertionError):validate(d)

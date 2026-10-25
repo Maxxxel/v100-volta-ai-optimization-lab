@@ -209,7 +209,9 @@ The corrected run made 125 model requests versus 119 before. The task-time diffe
 
 **Slopus diagnosis:** [R524](experiments/R524.md) recorded 10 rejected simulated policy proposals and 1 length-stopped response. Complete coding/tools results remain valid; no global model exclusion.
 
-**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared 1200s task allowance (400s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.
+**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared 1200s task allowance (400s per arm), identical model/tasks and one GPU job. No model orchestration result is claimed. Keep deterministic permissions outside all model roles.
+
+CPU-only coordinator QA: 18 guard tests and 15 scripted case executions on 5 paired development tasks. Mock-reply replay and external permission controls pass; **GPU source/admission review remains pending**. These are software checks, not model scores.
 
 ### Decisions after native-profile validation
 

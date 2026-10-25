@@ -1967,6 +1967,17 @@
       }
     ],
     "multi_agent_plan": {
+      "CPU_controls": {
+        "GPU_admitted": false,
+        "GPU_runs": 0,
+        "audit_sha256": "416dde24a5c3111afe257e028f7eb6f2247b4bfc7c5f219950f5321608dced09",
+        "guard_tests": 18,
+        "model_results_measured": false,
+        "official_benchmark": false,
+        "paired_unique_cases": 5,
+        "scripted_callbacks": 67,
+        "scripted_case_executions": 15
+      },
       "GPU_concurrency": 1,
       "arms": [
         "Single-Agent",
@@ -1974,8 +1985,8 @@
         "Planner + Worker + Reviewer"
       ],
       "per_arm_task_budget_s": 400,
-      "status": "NOT_EXECUTED_SOURCE_AND_BUDGET_REVIEW_REQUIRED",
-      "task_coverage": "Existing new33-case validation covers tool workflows/read reasoning. Recovery/delegation fault-injection fixtures and role-driver accounting still require CPU controls; do not claim those dimensions complete.",
+      "status": "ROLE_COORDINATOR_CPU_GATES_PASS_NOT_GPU_ADMITTED",
+      "task_coverage": "Five frozen exposed development cases,15 paired case executions across three roles.18 unit controls and original-simulator mocked replay pass. No actual model/engine/tokenizer/GPU or orchestration quality measurement; trusted worker/capture/admission extension remains pending. Reserved33 validation replies are not used for tuning.",
       "total_task_budget_s": 1200
     },
     "selection_scope": "Provisional evidence-based shortlist, not a final ranking. Keep other models/negative configurations and Qwen3.5 reference. Eight Agent18 profiles and reserved8+8 responses are development/small validation evidence, not official Terminal-Bench or sole selection criteria.",
