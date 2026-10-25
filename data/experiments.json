@@ -21706,5 +21706,70 @@
     ],
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 407.784235343,
+          "group_window_s": 407.790598942,
+          "lower_j": 108617.516,
+          "upper_j": 108709.284
+        },
+        "actual_generation_requests": 162,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 407.784235343,
+        "completed_request_wall_s": 404.673087937,
+        "completion_tokens": 26642,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 4722.500695652174,
+        "gpu_j_per_success_upper": 4726.490608695653,
+        "independent_review_audit_id": "audit-948c6ef42e61cc472372",
+        "independent_review_sha256": "948c6ef42e61cc472372c9895e70adb924d0fa1640faf5bb84989be22da9954b",
+        "max_output_tokens": 4096,
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 1,
+          "case_lost": 4,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 1.0,
+          "net_success_change": -3,
+          "nonzero_groups": 1,
+          "reference_experiment_id": "R530",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 5956.5,
+        "planned_tasks": 33,
+        "profile_sha256": "1fb2cf649f18e4f66844834912dbd17197688f08f183c3f9d4faea1a86000c91",
+        "solved": 23,
+        "successful_tasks_per_s": 0.0564014127317688,
+        "task_limit_s": 1200,
+        "task_phase_s": 407.791203908,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 65.83585811406283,
+        "winner_qualified": false
+      },
+      "solved": 23,
+      "tasks": 33
+    },
+    "audit_id": "audit-d3b5588718f9aa2d28b1",
+    "date": "2026-10-25T09:26:02.352233+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R535",
+    "model": "Qwen3.5-9B",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-e81e71ee08a695593bd9",
+      "audit-f68455862ae7a0d5c2eb"
+    ],
+    "statements": {},
+    "winner_qualified": false
   }
 ]

@@ -457,6 +457,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R532](experiments/R532.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Ornith-1.5-9B · OFF/T0 |
 | [R533](experiments/R533.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B |
 | [R534](experiments/R534.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B · ctx16K |
+| [R535](experiments/R535.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-9B |
 
 
 ## Historical signed windows
