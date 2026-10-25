@@ -203,6 +203,17 @@ async function main(){
    await tab.screenshot({path:path.join(artifacts,name+'-screening.png'),animations:'disabled',fullPage:true});
   }
   report.checks.push('separate screening preserves all measured native profiles,16+16 development scores, search/sort/details and responsive layout; official rankings remain unchanged');
+  for(const [name,tab] of [['desktop',page],['mobile',mobile]]){
+   await tab.goto(new URL('pipeline-methods/#native-agent18-development-evidence',base).href,{waitUntil:'networkidle'});
+   assert.equal(await tab.locator('#native-agent18-development-evidence').count(),1);
+   const content=await tab.locator('main').innerText();
+   for(const text of ['13/18','258.25','5447.82–5455.78','Not Terminal-Bench'])assert(content.includes(text),text);
+   assert.equal(await tab.getByRole('link',{name:'R518',exact:true}).count(),1);
+   const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+2);
+   await tab.locator('#native-agent18-development-evidence').scrollIntoViewIfNeeded();
+   await tab.screenshot({path:path.join(artifacts,name+'-agent-development.png'),animations:'disabled'});
+  }
+  report.checks.push('native Agent18 development outcomes and counter-cost bounds render on desktop/mobile with original experiment links, outside official agent rankings');
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
  process.stdout.write(JSON.stringify(report)+'\n');

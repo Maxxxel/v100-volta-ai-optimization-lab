@@ -74,6 +74,20 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
+    if obj.get('status') in ('DEVELOPMENT_AGENT18_COMPLETE','PARTIAL_TECHNICAL_REVIEW_REQUIRED') and obj.get('planned_tasks')==18:
+        assert obj.get('official_benchmark') is False and obj.get('winner_qualified') is False and obj.get('full_benchmark_score_claimed') is False
+        assert type(obj.get('tasks')) is int and type(obj.get('solved')) is int and 0<=obj['solved']<=obj['tasks']<=18 and obj.get('planned_tasks')==18
+        if obj['status']=='DEVELOPMENT_AGENT18_COMPLETE':assert obj['tasks']==18 and obj.get('measurement_valid') is True
+        keys=('tasks','solved','planned_tasks','model_starts','actual_generation_requests','technical_request_errors','technical_preflight_cases','completion_tokens','completed_request_wall_s','case_wall_s','task_phase_s','task_limit_s','peak_device_vram_mib','gpu_j_per_success_lower','gpu_j_per_success_upper','successful_tasks_per_s','tokens_s_completed_requests')
+        agent={k:obj[k] for k in keys if type(obj.get(k)) in (int,float) and math.isfinite(obj[k]) and obj[k]>=0}
+        for k in ('model_sha256','profile_sha256','independent_review_sha256'):
+            if re.fullmatch('[a-f0-9]{64}',str(obj.get(k))):agent[k]=obj[k]
+        counter=obj.get('GPU_counter') or {}
+        if counter:
+            assert counter.get('method')=='NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1'
+            agent['GPU_counter']={k:counter[k] for k in ('lower_j','upper_j','group_window_s','complete_request_s') if type(counter.get(k)) in (int,float) and math.isfinite(counter[k]) and counter[k]>=0}
+        agent.update(official_benchmark=False,winner_qualified=False,data_role='PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT')
+        result['native_agent18_development']=agent
     if obj.get('status')=='STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET' and obj.get('full_benchmark_score_claimed') is False:
         counts={k:obj.get(k) for k in ('expected_tasks','collected_tasks','scored_tasks','solved_observed_tasks')}
         if all(type(v) is int for v in counts.values()) and 0<=counts['solved_observed_tasks']<=counts['scored_tasks']<=counts['collected_tasks']<counts['expected_tasks']:
@@ -307,6 +321,31 @@ def development_result(root,entry,receipt):
             'model_sha256':native['model_sha256'],'engine_binary_sha256':native['assets'][native['runtime']+'/llama-server'],
             'context':recipe['context'],'task_limit_s':audit['task_limit_s'],
             'audit_ids':[receipt(ap,review['audit_sha256']),receipt(rp,entry['sha256'])]}
+def verified_native_agent_development(root, summary, receipt):
+    """Verify original capture and isolated replay before public development costs."""
+    root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
+    rp=pathlib.Path(summary['independent_review_path']);assert digest(rp)==summary['independent_review_sha256']==a['independent_review_sha256'];review=load(rp)
+    assert review['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and review['GPU_runs']==review['model_requests']==0
+    result=review['result'];assert result['real_evaluator_uid']!=0 and result['model_requests']==result['GPU_runs']==result['production_tool_actions']==0 and result['official_benchmark'] is False
+    assert result['scored_tasks']==a['tasks'] and result['solved']==a['solved'] and result['all_scores_and_effects_reproduced']
+    raw=pathlib.Path(a['raw_root']).resolve();assert raw.is_relative_to((root.parent/'research/mcp-workspace').resolve())
+    assert all(digest(raw/n)==h for n,h in a['original_raw_files_sha256'].items())
+    assert digest(raw/'profile.json')==a['profile_sha256'] and load(raw/'LAUNCH.json')['uid']==65534
+    profile=load(raw/'profile.json');assert profile['assets'][profile['model']]==a['model_sha256']==result['model_artifact_sha256']
+    cp=rp.parent/(a['experiment_id'].lower()+'-agent18-replay.receipt.json');stdout=cp.with_name(cp.name.replace('.receipt.json','.stdout'))
+    assert digest(cp)==review['CPU_receipt_sha256'] and digest(stdout)==review['CPU_stdout_sha256'];cpu=load(cp)
+    assert cpu['returncode']==0 and 'Result=success\n' in cpu['properties'] and 'ExecMainStatus=0\n' in cpu['properties']
+    observed=[json.loads(l.split(' ',1)[1]) for l in stdout.read_text().splitlines() if l.startswith('AGENT18_REPLAY_JSON ')];assert observed==[result]
+    if a['status']=='DEVELOPMENT_AGENT18_COMPLETE':
+        assert result['complete'] and result['cases']==18
+        completion=load(raw/'HOST_COMPLETION.json');assert completion['status']=='GPU_COMPLETE_AUDITED' and completion['audit_sha256']==digest(raw/'AUDIT.json')
+    from leaderboard import counter_energy_bounds
+    records=[json.loads(l) for l in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()];cases=[r for r in records if r['kind']=='agent_case'];telemetry=[json.loads(l) for l in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+    assert len(cases)==a['tasks'] and sum(c['reported_result']['task_success'] for c in cases)==a['solved']
+    assert counter_energy_bounds(telemetry,cases,[c['id'] for c in cases])==a['GPU_counter']
+    m=metrics(a)['native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
+    return m
+
 def factor_assignment(summary):
     """A current correction controls the tested scope; original audit stays linked."""
     valid=lambda x:isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)
@@ -410,6 +449,9 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if audit and catalog[audit]['aggregate_metrics'].get('native_agent18_development'):
+            experiments[ident]['aggregate_metrics']['native_agent18_development']=verified_native_agent_development(root,v,receipt)
+            experiments[ident]['model']=text(load(locations[audit]).get('model'));experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
         if v.get('development_comparison_review'):
             experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):

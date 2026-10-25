@@ -416,6 +416,7 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  put('screening.md',render_screening(read('screening.json')))
  from screening import render_validation
  methods=D/'pipeline-methods.md'
- methods.write_text(methods.read_text()+render_validation(read('screening.json')))
+ from screening import render_native_agent_development
+ methods.write_text(methods.read_text()+render_validation(read('screening.json'))+render_native_agent_development(es))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
 if __name__=='__main__':main()

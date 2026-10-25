@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-25 — R518 native Agent18 development reference
+
+- OmniCoder completes18 previously used simulated workflow tasks:13 solved,258.246524431 s task time,7,356.5 MiB peak VRAM and5,447.822–5,455.779076923077 GPU J/success from measured counter bounds. Ninety actual model replies; independent non-root CPU replay reproduces every task result and effect.
+- Three simulated policy-gate failures and one output-limit completion remain visible in the original evidence. No productive tools execute; these18 development cases provide no general safety certificate, official agent score or Champion.
+- Preserve the first CPU-collector permission error. Recover using hash-identical read-only copies inside a private input directory; original evidence permissions and bytes remain intact. One GPU run, no inference repeat.
+- Extend the existing reviewed broker route with a bounded native multi-turn transport, original simulator and isolated replay. Source/build identity review, fixed input/profile hashes, one lease, shared1,200-second task clock and all hardware guards remain mandatory.
+
 ## 2026-10-25 — Screening qualification links and validation exposure
 
 - Preserve all15 measured screening profiles and their original16 coding/16 mock-tool scores. Reuse existing broker runners; no new GPU benchmark.
@@ -915,5 +922,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R517 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R518 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

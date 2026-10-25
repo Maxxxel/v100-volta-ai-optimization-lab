@@ -239,3 +239,19 @@ def render_validation(data):
   evidence='['+r['experiment_id']+'](experiments/'+r['experiment_id']+'.md)' if g is not None else 'NOT MEASURED'
   rows.append('| '+e(r['model'])+' | '+score('coding')+' | '+score('tools')+' | '+evidence+' |')
  return '\n## Independent native-profile validation\n\n'+v['scope']+'\n\n| Profile | Coding /8 | Mock tools /8 | Evidence |\n|---|---|---|---|\n'+'\n'.join(rows)+'\n\nFull official coding/tools qualifications were reused. No original benchmark score changed.\n'+('\nObserved: all three profiles proposed a simulated tool call despite explicit denial in one frozen case. No tool was executed. Qwen3.5 and OmniCoder also refused an unsupported request without the required status JSON; Gemma failed one coding task. These are profile-specific observations, not population safety rates. Keep permission enforcement outside model responses.\n' if v.get('cohort_review_sha256') else '')
+
+
+def render_native_agent_development(experiments):
+ """Isolated workflow evidence, deliberately outside official agent rankings."""
+ from html import escape
+ selected=[e for e in experiments if e.get('aggregate_metrics',{}).get('native_agent18_development')]
+ if not selected:return ''
+ rows=[]
+ def value(n):return 'NOT MEASURED' if n is None else format(n,'.2f')
+ for e in selected:
+  m=e['aggregate_metrics']['native_agent18_development']
+  assert m['official_benchmark'] is False and m['winner_qualified'] is False
+  energy='NOT MEASURED' if m.get('gpu_j_per_success_lower') is None or m.get('gpu_j_per_success_upper') is None else value(m['gpu_j_per_success_lower'])+'–'+value(m['gpu_j_per_success_upper'])
+  model=escape(str(e.get('model','NOT RECORDED'))).replace('|','\\|')
+  rows.append('| ['+e['id']+'](experiments/'+e['id']+'.md) | '+model+' | '+str(m['solved'])+'/'+str(m['tasks'])+' | '+value(m.get('task_phase_s'))+' | '+energy+' | '+value(m.get('peak_device_vram_mib'))+' |')
+ return '\n## Native Agent18 development evidence\n\nPreviously used frozen simulated coding, automation and read workflows. **Not Terminal-Bench, unseen validation, a production safety certificate or a Champion qualification.** Native model profiles are preserved; the required/single-tool-call envelope is explicit.\n\n| Experiment | Native model profile | Solved / completed | Task phase s | GPU J/success bounds | Peak VRAM MiB |\n|---|---|---|---|---|---|\n'+'\n'.join(rows)+'\n\nQuality is independently replayed from the actual retained replies in a non-root CPU jail using the original simulator and oracle. No productive tools execute. Technical context/transport failures remain separate in the linked audit; incomplete captures remain partial. Energy covers the measured case window, including failed tasks and setup between cases, excluding load/warmup and CPU/system energy. Nonstream output-token rate is not pure decode speed or TTFT. No scores are added to the official model table or its mean.\n\nAdmission retains the trusted broker, immutable source/execution review, exact asset hashes, one GPU lease and all power, VRAM, temperature, ECC and throttling guards. A source hash alone grants no trust. The development runner and independent CPU replay were checked with original simulator controls before actual inference.\n'

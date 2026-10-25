@@ -134,3 +134,30 @@ class ReferenceQualificationLinks(unittest.TestCase):
   tools['native_recipe']['http_timeout_policy']='REMAINING_TASK_TIME'
   base['native_recipe']['http_timeout_policy']=None
   self.assertFalse(same_native_inference(tools,base,'tools'))
+
+class NativeAgentDevelopmentPublication(unittest.TestCase):
+ def fixture(self):
+  return {'status':'DEVELOPMENT_AGENT18_COMPLETE','measurement_valid':True,'official_benchmark':False,'winner_qualified':False,'full_benchmark_score_claimed':False,'tasks':18,'solved':10,'planned_tasks':18,'task_phase_s':123.,'model_sha256':'a'*64,'raw_root':'PRIVATE','scored_tasks':[{'private':'DO NOT EXPORT'}]}
+ def test_projection_is_development_only_and_excludes_private_cases(self):
+  from export import metrics
+  m=metrics(self.fixture())['native_agent18_development']
+  self.assertEqual(m['solved'],10);self.assertEqual(m['tasks'],18);self.assertFalse(m['official_benchmark'])
+  self.assertNotIn('PRIVATE',json.dumps(m));self.assertNotIn('DO NOT EXPORT',json.dumps(m));self.assertNotIn('gpu_j_per_success_lower',m)
+ def test_incomplete_or_official_promotion_rejected(self):
+  from export import metrics
+  for update in [{'tasks':17},{'official_benchmark':True},{'winner_qualified':True},{'solved':19}]:
+   obj=self.fixture();obj.update(update)
+   with self.assertRaises(AssertionError):metrics(obj)
+
+ def test_no_official_result_or_missing_cost_fabrication_in_agent_view(self):
+  from export import metrics
+  from screening import render_native_agent_development
+  e={'id':'R999','model':'Mock profile','aggregate_metrics':metrics(self.fixture())}
+  html=render_native_agent_development([e]);self.assertIn('10/18',html);self.assertIn('NOT MEASURED',html);self.assertIn('Not Terminal-Bench',html)
+  self.assertEqual(render_native_agent_development([]),'')
+
+ def test_agent_development_does_not_enter_official_history(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1]
+  history=json.loads((root/'data/configuration-history.json').read_text())
+  self.assertFalse(any(r.get('experiment_id')=='R518' or r.get('benchmark_id')=='frozen-agent18-native-development-v1' for r in history['runs']))
