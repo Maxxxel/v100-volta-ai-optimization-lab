@@ -1,8 +1,8 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-25T22:34:31.307400+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-25T22:41:22.047041+00:00. This static page is not a live monitor.**
 
-Last observed: R541 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
+Last observed: R541 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
@@ -52,6 +52,18 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R540 | security | COMPLETE | 11.842 |
 | R540 | push | COMPLETE | 2.836 |
 | R541 | collect | FAILED | 24.06 |
+| R541 | export | COMPLETE | 28.326 |
+| R541 | render | COMPLETE | 1.269 |
+| R541 | tests | COMPLETE | 2.722 |
+| R541 | tests | COMPLETE | 2.22 |
+| R541 | security | COMPLETE | 12.341 |
+| R541 | build | COMPLETE | 40.145 |
+| R541 | security | COMPLETE | 11.844 |
+| R541 | commit | COMPLETE | 0.037 |
+| R541 | push | COMPLETE | 3.638 |
+| R541 | collect | COMPLETE | 0.079 |
+| R541 | independent_review | COMPLETE | 23.128 |
+| R541 | integrity | COMPLETE | 1.044 |
 
 </details>
 

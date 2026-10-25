@@ -160,12 +160,96 @@
       "experiment_id": "R541",
       "phase": "collect",
       "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-25T22:34:59.851492+00:00",
+      "duration_s": 28.326486507,
+      "experiment_id": "R541",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:35:01.123285+00:00",
+      "duration_s": 1.26858669,
+      "experiment_id": "R541",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:35:03.858354+00:00",
+      "duration_s": 2.721660254,
+      "experiment_id": "R541",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:35:06.081928+00:00",
+      "duration_s": 2.220043481,
+      "experiment_id": "R541",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:35:18.431529+00:00",
+      "duration_s": 12.340762517,
+      "experiment_id": "R541",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:35:58.590862+00:00",
+      "duration_s": 40.144706496,
+      "experiment_id": "R541",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:36:10.556934+00:00",
+      "duration_s": 11.843598838,
+      "experiment_id": "R541",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:36:10.938481+00:00",
+      "duration_s": 0.036729926,
+      "experiment_id": "R541",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:36:15.398077+00:00",
+      "duration_s": 3.638134752,
+      "experiment_id": "R541",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:37:47.915732+00:00",
+      "duration_s": 0.07878498,
+      "experiment_id": "R541",
+      "phase": "collect",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:38:11.049034+00:00",
+      "duration_s": 23.128095007,
+      "experiment_id": "R541",
+      "phase": "independent_review",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T22:38:12.100172+00:00",
+      "duration_s": 1.043721412,
+      "experiment_id": "R541",
+      "phase": "integrity",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
     "experiment_id": "R541",
-    "phase": "NO_ACTIVE_GPU_CONTROL_OBSERVED"
+    "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
     {
@@ -625,7 +709,7 @@
       }
     }
   ],
-  "observed_at_utc": "2026-10-25T22:34:31.307400+00:00",
+  "observed_at_utc": "2026-10-25T22:41:22.047041+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",

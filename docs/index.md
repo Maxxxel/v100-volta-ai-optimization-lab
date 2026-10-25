@@ -13,7 +13,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf/"><span>Coding</span><strong>134/164</strong><b>OmniCoder-9B · bartowski Q6</b><small>Latest complete result · R516</small></a><a class="lab-result" href="configuration-profiles/cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049/"><span>Tools</span><strong>178/200</strong><b>OmniCoder-9B · bartowski Q6</b><small>Latest complete result · R517</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-0826b77042cf7a110898c986ab209eeed23a2c3b3e6c3f22b914fc489ff601ad/"><span>Coding</span><strong>131/164</strong><b>OmniCoder-9B bartowski Q6 · MTP3</b><small>Latest complete result · R541</small></a><a class="lab-result" href="configuration-profiles/cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049/"><span>Tools</span><strong>178/200</strong><b>OmniCoder-9B · bartowski Q6</b><small>Latest complete result · R517</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](configuration-comparison.md).
 
