@@ -1,6 +1,21 @@
 [
   {
     "aggregate_metrics": {
+      "new_GPU_runs": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a6d64223c65f59269a00",
+    "original_bytes": 3020,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a6d64223c65f59269a008a8a98252290f511b6f7c0fe79a5c87baf932ebc33e3",
+    "statements": {
+      "decision": "No distinct practical GPU-gain hypothesis for merely removing the already skipped MTP suffix from this unchanged native no-speculation profile. Keep artifact available, independently unmeasured. No speedup, memory saving or new model-quality result claimed."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "metrics": {
@@ -174334,6 +174349,21 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "c33850fc274f506ed87d214a3e9c6f02465cfd04ea82c3bb7c0b28b560d421e1",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "peak_device_vram_mib": 7680.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3cd7716f53c300fc23a0",
+    "original_bytes": 27138,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3cd7716f53c300fc23a043c0f8c939244a7033084caec34253a29d358697b403",
     "statements": {
       "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
     }

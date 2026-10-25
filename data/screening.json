@@ -199,13 +199,11 @@
   "other_local_artifacts": [
     {
       "artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf",
-      "reason": "Additional nongrafted artifact; established native baseline uses the separately identified MTP-bearing artifact with speculation disabled. No weight equivalence is assumed.",
-      "status": "SCREENING OFFEN"
-    },
-    {
-      "artifact": "Tesslate_OmniCoder-9B-Q6_K.gguf",
-      "reason": "Historical alternate quantizer artifact; main canonical Omni checkpoint selected for first baseline pass. Existing weight-integrity evidence retained; no new equality claim.",
-      "status": "SCREENING OFFEN"
+      "audit_id": "audit-a6d64223c65f59269a00",
+      "audit_sha256": "a6d64223c65f59269a008a8a98252290f511b6f7c0fe79a5c87baf932ebc33e3",
+      "experimentally_screened": false,
+      "reason": "No new GPU screen:851 common payloads are bound by verified assembly; the R502 no-speculation engine already skips15 MTP tensors and caches only64 trunk layers. Separate base-file performance is NOT MEASURED. Reopen for changed loader/weights/MTP loading or material cold-start/storage hypothesis.",
+      "status": "DEFERRED"
     }
   ],
   "protocol_sha256": "b42f8f216b62dce35bba1a8e1aab058c09794ee87c8b2f35ac43f80f60d270fc",
@@ -4003,6 +4001,297 @@
       "selection_status": "WEITERE DIAGNOSE",
       "status": "SCREENING VOLLSTÄNDIG",
       "task_phase_s": 76.76757358,
+      "timeouts": 0
+    },
+    {
+      "audit_sha256": "3cd7716f53c300fc23a043c0f8c939244a7033084caec34253a29d358697b403",
+      "comparison_audit_sha256": "c60c95f9ca764628d88b2d00ff90f3ee102cd4304c60f22760545393a4a52b48",
+      "comparison_summary": {
+        "additional_peak_vram_mib": 324.0,
+        "baseline": {
+          "coding_successes": 13,
+          "complete_request_wall_s": 67.157283623,
+          "completion_tokens": 4674,
+          "mock_tool_successes": 14,
+          "peak_device_vram_mib": 7356.5,
+          "task_phase_s": 67.175594346,
+          "tasks_per_category": 16
+        },
+        "candidate": {
+          "coding_successes": 14,
+          "complete_request_wall_s": 62.648162967,
+          "completion_tokens": 4348,
+          "mock_tool_successes": 14,
+          "peak_device_vram_mib": 7680.5,
+          "task_phase_s": 62.664775063,
+          "tasks_per_category": 16
+        }
+      },
+      "conditions": "Single native-profile session; frozen base-task order",
+      "configuration": {
+        "binary_identities": {
+          "libggml-cuda.so.0.26.0": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "llama-server": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54"
+        },
+        "context": 8192,
+        "engine": "llama.cpp native",
+        "engine_version": null,
+        "hardware": "Tesla V100 SXM2 16 GB",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "model_source": {
+          "base_repository": "Tesslate/OmniCoder-9B",
+          "base_revision": "9edd36a30fc7b95b6fd81b7ea16a73cbaf205734",
+          "hf_repository": "bartowski/Tesslate_OmniCoder-9B-GGUF",
+          "hf_revision": "f0fbc2243f49ab2dbdf91fe5930dd73e6bce767c",
+          "license": "apache-2.0",
+          "parameters_in_GGUF": 8953803264,
+          "quantizer": "bartowski"
+        },
+        "parent_profile_id": "omni-bartowski-q6-native-screening32-task1200-reviewed-sm70",
+        "power_w": 300,
+        "quantization": "Q6_K",
+        "recorded_native_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": "qwen35",
+            "artifact_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+            "family_id": "omni",
+            "hf_repository": "bartowski/Tesslate_OmniCoder-9B-GGUF",
+            "hf_revision": "f0fbc2243f49ab2dbdf91fe5930dd73e6bce767c",
+            "name": "OmniCoder-9B · bartowski Q6",
+            "parameters_in_GGUF": 8953803264,
+            "quantization": "Q6_K",
+            "tensor_precision_map": null,
+            "variant": "OmniCoder-9B · bartowski Q6",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-1b4802fd05fca260d7101aad04f04e6693e505e633c99caabd04117ebf39e34b",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "auto",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "seed": 1001,
+              "temperature": 0
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "off",
+            "timing_scope": "DEVELOPMENT_SCREEN_TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-e9e2f024338f647f3f3c71c5f468d7377f04be185bdceb1bcf4c6e5ac2a54bc3",
+          "schema_version": 1,
+          "source_plan_sha256": "b551ff90b51d15eb805c61649d8c6713284974a022ecf9d8ff411cd9f168ba01",
+          "source_provenance": {
+            "actual_launch_sha256": "061b33cb94ddebde7d0cfb507a87da81cb96ebb0cf8ef1793157f26497ce9b9a",
+            "actual_profile_sha256": "a0f758bd36c8d005fe3e149ee07373f7164ac565cdea1a52dfa9b406f8295fea",
+            "evidence_scope": "FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY",
+            "frozen_model_profile_sha256": "5b755feb0d56c735bcf1bcc202f3e50e1a452a4139d5cb1d9196068a732ab7a2",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION",
+            "model_source_package_sha256": "142bc12a54f3cc773104140541a5decdcb32a9438d4fffda68d428310a0f4fe6"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052]",
+              "--alias",
+              "[session-local value]",
+              "--ctx-size",
+              "8192",
+              "--n-gpu-layers",
+              "99",
+              "--parallel",
+              "1",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715]",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "off",
+              "--no-reasoning-preserve",
+              "--verbosity",
+              "4",
+              "--flash-attn",
+              "auto",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--load-mode",
+              "mmap",
+              "--spec-type",
+              "none"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "07a85ed4fcadbc70d2e3437a9d4e907c08425385fe74d9b553ea22a5cf86e47d",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              12,
+              14,
+              17
+            ]
+          }
+        },
+        "request_options": {
+          "cache_prompt": false,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "max_tokens": 4096,
+          "seed": 1001,
+          "temperature": 0
+        },
+        "screening_configuration_id": "screening-config-4d900edb2f0df287b0592176fc9b2e1e87c9a49dd2e1f2dcd81f72f1927e5018",
+        "task_time_policy": {
+          "cleanup_seconds": 60,
+          "startup_seconds": 180,
+          "task_seconds": 1200,
+          "wall_seconds": 1440
+        },
+        "warmup_requests": 2
+      },
+      "date": "2026-10-25T00:23:58.566844+00:00",
+      "decision": "PROMISING_ALTERNATE_ARTIFACT_PROCEED_TO_FULL_QUALIFICATION",
+      "experiment_id": "R515",
+      "full_benchmark_status": "NOT MEASURED",
+      "independent_review_sha256": "9d10929dde759251e65ee9869bb5a4c27f228ba0b3ba69b3dbbfc4ec8055605e",
+      "local_artifact_available": true,
+      "model": "OmniCoder-9B · bartowski Q6",
+      "parent_experiment_id": "R515",
+      "peak_vram_mib": 7680.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 820.0747142857143,
+          "GPU_j_per_success_upper": 951.4265714285714,
+          "completed": 16,
+          "completed_request_wall_s": 47.434242018,
+          "completion_tokens": 3587,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 11481.046,
+          "gpu_energy_j_upper": 13319.972,
+          "length_stops": 0,
+          "successes": 14,
+          "successful_tasks_s_completed_requests": 0.2951454351202109,
+          "tokens_s_completed_requests": 75.62047684115689,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.639771727342413,
+            0.9650225122567595
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 216.24792857142856,
+          "GPU_j_per_success_upper": 345.40621428571427,
+          "completed": 16,
+          "completed_request_wall_s": 15.213920949,
+          "completion_tokens": 761,
+          "final_text_present": 4,
+          "gpu_energy_j_lower": 3027.471,
+          "gpu_energy_j_upper": 4835.687,
+          "length_stops": 0,
+          "successes": 14,
+          "successful_tasks_s_completed_requests": 0.9202098556270079,
+          "tokens_s_completed_requests": 50.01997858086807,
+          "valid_terminal_output": 14,
+          "wilson95": [
+            0.639771727342413,
+            0.9650225122567595
+          ]
+        }
+      },
+      "selection_status": "VERTIEFUNG EMPFOHLEN",
+      "source_provenance_limits": "The inspected upstream model-card/config revision is not a verified exact quantization-parent weight revision. Different quantization recipes and possibly checkpoint ancestry remain confounded. This compares whole existing artifacts, not a proven fine-tune or isolated tensor-precision intervention.",
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 62.664775063,
       "timeouts": 0
     }
   ],

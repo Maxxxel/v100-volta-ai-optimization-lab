@@ -65,3 +65,15 @@ class FirstNativeModelScreen(unittest.TestCase):
   self.assertEqual(native['model']['parameters_in_GGUF'],752393024);self.assertEqual(native['runtime']['sampling']['temperature'],1.0);self.assertEqual(native['runtime']['sampling']['top_p'],1.0);self.assertEqual(native['runtime']['sampling']['top_k'],20);self.assertEqual(native['runtime']['max_output'],4096)
   self.assertEqual(r['results']['coding']['successes'],0);self.assertIsNone(r['results']['coding']['GPU_j_per_success_lower']);self.assertEqual(r['results']['tools']['successes'],7)
   self.assertFalse(any(x['experiment_id']=='R514' for x in json.loads((root/'data/configuration-history.json').read_text())['runs']))
+
+class AdditionalArtifactScope(unittest.TestCase):
+ def test_deferred_nongraft_is_cpu_review_not_another_gpu_profile(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1];d=json.loads((root/'data/screening.json').read_text());item=next(x for x in d['other_local_artifacts'] if x['artifact']=='Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf')
+  self.assertEqual(item['status'],'DEFERRED');self.assertIs(item['experimentally_screened'],False);self.assertRegex(item['audit_sha256'],r'^[0-9a-f]{64}$');self.assertTrue((root/'docs/audits'/str(item['audit_id']+'.md')).exists())
+  self.assertFalse(any(x['configuration']['model_sha256']=='64b53b64c7aa39f20a7e54bd80582fe595b1d745624ee8a72e92508c0326d810' for x in d['rows']))
+
+ def test_alternate_omni_is_distinct_measured_profile_not_new_finetune_proof(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text());a=next(x for x in data['rows'] if x['experiment_id']=='R515');b=next(x for x in data['rows'] if x['experiment_id']=='R497')
+  self.assertNotEqual(a['configuration']['model_sha256'],b['configuration']['model_sha256']);self.assertEqual(a['configuration']['request_options'],b['configuration']['request_options']);self.assertEqual(a['selection_status'],'VERTIEFUNG EMPFOHLEN');self.assertIn('confounded',a['source_provenance_limits']);self.assertEqual(a['full_benchmark_status'],'NOT MEASURED');self.assertEqual(a['results']['coding']['successes'],14);self.assertEqual(a['results']['tools']['successes'],14);self.assertEqual(a['comparison_summary']['additional_peak_vram_mib'],324)

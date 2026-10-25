@@ -365,6 +365,13 @@ def main():
         catalog[eid]['original_pin_verified']=catalog[eid].get('original_pin_verified',False) or bool(expected)
         verified[str(p)]=h
         return eid
+    # Metadata-only artifact decisions remain distinct from GPU experiments.
+    for item in db['summary'].get('model_screening_progress',{}).get('artifact_applicability_reviews',[]):
+        aid=receipt(item['audit_path'],item['audit_sha256'])
+        if not aid:raise ValueError('Artifact applicability audit missing')
+        review=load(locations[aid])
+        if item.get('GPU_runs')!=0 or review.get('new_GPU_runs')!=0 or review.get('experimentally_screened') is not False:
+            raise ValueError('CPU applicability cannot be reported as a new GPU screen')
     factors=[]; mapping={x['factor_id']:x for x in db['summary']['matrix_130_reconciliation']['axes']}
     for a in matrix['original_axes_reprioritized']+matrix['benchmark_technique_subcases']:
         c=a['accountability'];links=[]

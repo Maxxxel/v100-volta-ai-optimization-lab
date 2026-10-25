@@ -182,8 +182,8 @@ async function main(){
    const rows=tab.locator('#screening-table tbody tr');assert(await rows.count()>=13);
    const omni=rows.filter({has:tab.locator('td:first-child',{hasText:/^OmniCoder-9B$/})});
    assert.match(await omni.innerText(),/13\/16/);assert.match(await omni.innerText(),/14\/16/);
-   const all=await rows.count();await tab.locator('#screening-search').fill('OmniCoder');
-   assert.equal(await tab.locator('#screening-table tbody tr:visible').count(),1);
+   const all=await rows.count();const expectedOmni=(await rows.locator('td:first-child').allTextContents()).filter(x=>x.includes('OmniCoder')).sort();await tab.locator('#screening-search').fill('OmniCoder');
+   assert.deepEqual((await tab.locator('#screening-table tbody tr:visible td:first-child').allTextContents()).sort(),expectedOmni,'Search must retain all measured artifact profiles of the model');
    await tab.locator('#screening-search').fill('');assert.equal(await tab.locator('#screening-table tbody tr:visible').count(),all);
    await tab.locator('#screening-table thead button').first().click();
    await omni.locator('summary').click();assert.match(await omni.innerText(),/b0c1664c86338be2/);await omni.locator('summary').click();

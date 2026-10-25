@@ -14214,5 +14214,21 @@
     "kind": "UNKNOWN",
     "sequence": 1777,
     "signature": null
+  },
+  {
+    "date": "2026-10-25T00:18:24.520059+00:00",
+    "experiment_id": null,
+    "factor_id": null,
+    "kind": "CPU_SOURCE_DECISION_NOT_GPU_EXPERIMENT",
+    "sequence": 1778,
+    "signature": null
+  },
+  {
+    "date": "2026-10-25T00:23:58.566844+00:00",
+    "experiment_id": "R515",
+    "factor_id": null,
+    "kind": "UNKNOWN",
+    "sequence": 1779,
+    "signature": null
   }
 ]

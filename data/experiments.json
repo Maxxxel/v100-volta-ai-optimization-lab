@@ -20583,5 +20583,43 @@
       "decision": "WEITERE_DIAGNOSE_NO_AUTOMATIC_QUALITY_EXCLUSION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "additional_peak_vram_mib": 324.0,
+        "baseline": {
+          "coding_successes": 13,
+          "complete_request_wall_s": 67.157283623,
+          "completion_tokens": 4674,
+          "mock_tool_successes": 14,
+          "peak_device_vram_mib": 7356.5,
+          "task_phase_s": 67.175594346,
+          "tasks_per_category": 16
+        },
+        "candidate": {
+          "coding_successes": 14,
+          "complete_request_wall_s": 62.648162967,
+          "completion_tokens": 4348,
+          "mock_tool_successes": 14,
+          "peak_device_vram_mib": 7680.5,
+          "task_phase_s": 62.664775063,
+          "tasks_per_category": 16
+        }
+      }
+    },
+    "audit_id": "audit-3cd7716f53c300fc23a0",
+    "date": "2026-10-25T00:23:58.566844+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R515",
+    "model": "OmniCoder-9B · bartowski Q6",
+    "reference_A0": null,
+    "statements": {
+      "decision": "PROMISING_ALTERNATE_ARTIFACT_PROCEED_TO_FULL_QUALIFICATION"
+    },
+    "winner_qualified": false
   }
 ]

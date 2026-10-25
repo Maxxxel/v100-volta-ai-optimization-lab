@@ -1,6 +1,6 @@
 # Model screening
 
-**14/14 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**15/15 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
@@ -3735,6 +3735,296 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
+}</pre></details></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>SCREENING VOLLSTÄNDIG · VERTIEFUNG EMPFOHLEN</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>62.6</td><td>69.4</td><td>518.2</td><td>7,680.5</td><td>NOT MEASURED</td><td><a href="../experiments/R515/">Screening R515</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;3cd7716f53c300fc23a043c0f8c939244a7033084caec34253a29d358697b403&quot;,
+  &quot;comparison_audit_sha256&quot;: &quot;c60c95f9ca764628d88b2d00ff90f3ee102cd4304c60f22760545393a4a52b48&quot;,
+  &quot;comparison_summary&quot;: {
+    &quot;additional_peak_vram_mib&quot;: 324.0,
+    &quot;baseline&quot;: {
+      &quot;coding_successes&quot;: 13,
+      &quot;complete_request_wall_s&quot;: 67.157283623,
+      &quot;completion_tokens&quot;: 4674,
+      &quot;mock_tool_successes&quot;: 14,
+      &quot;peak_device_vram_mib&quot;: 7356.5,
+      &quot;task_phase_s&quot;: 67.175594346,
+      &quot;tasks_per_category&quot;: 16
+    },
+    &quot;candidate&quot;: {
+      &quot;coding_successes&quot;: 14,
+      &quot;complete_request_wall_s&quot;: 62.648162967,
+      &quot;completion_tokens&quot;: 4348,
+      &quot;mock_tool_successes&quot;: 14,
+      &quot;peak_device_vram_mib&quot;: 7680.5,
+      &quot;task_phase_s&quot;: 62.664775063,
+      &quot;tasks_per_category&quot;: 16
+    }
+  },
+  &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
+  &quot;configuration&quot;: {
+    &quot;binary_identities&quot;: {
+      &quot;libggml-cuda.so.0.26.0&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+      &quot;llama-server&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;
+    },
+    &quot;context&quot;: 8192,
+    &quot;engine&quot;: &quot;llama.cpp native&quot;,
+    &quot;engine_version&quot;: null,
+    &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
+    &quot;model_sha256&quot;: &quot;a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052&quot;,
+    &quot;model_source&quot;: {
+      &quot;base_repository&quot;: &quot;Tesslate/OmniCoder-9B&quot;,
+      &quot;base_revision&quot;: &quot;9edd36a30fc7b95b6fd81b7ea16a73cbaf205734&quot;,
+      &quot;hf_repository&quot;: &quot;bartowski/Tesslate_OmniCoder-9B-GGUF&quot;,
+      &quot;hf_revision&quot;: &quot;f0fbc2243f49ab2dbdf91fe5930dd73e6bce767c&quot;,
+      &quot;license&quot;: &quot;apache-2.0&quot;,
+      &quot;parameters_in_GGUF&quot;: 8953803264,
+      &quot;quantizer&quot;: &quot;bartowski&quot;
+    },
+    &quot;parent_profile_id&quot;: &quot;omni-bartowski-q6-native-screening32-task1200-reviewed-sm70&quot;,
+    &quot;power_w&quot;: 300,
+    &quot;quantization&quot;: &quot;Q6_K&quot;,
+    &quot;recorded_native_profile&quot;: {
+      &quot;engine&quot;: {
+        &quot;binary_sha256&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;,
+        &quot;build_id&quot;: &quot;dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4&quot;,
+        &quot;cuda_version&quot;: null,
+        &quot;driver_version&quot;: null,
+        &quot;executed_kernel_backend_path&quot;: null,
+        &quot;fork_repository&quot;: null,
+        &quot;ggml_backend_version&quot;: null,
+        &quot;git_commit&quot;: null,
+        &quot;kernel_library_file&quot;: &quot;libggml-cuda.so.0.26.0&quot;,
+        &quot;kernel_library_sha256&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+        &quot;name&quot;: &quot;llama.cpp-compatible&quot;,
+        &quot;patches&quot;: null,
+        &quot;version&quot;: null
+      },
+      &quot;evaluation_exposure&quot;: &quot;Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.&quot;,
+      &quot;incomplete_identity_run&quot;: null,
+      &quot;model&quot;: {
+        &quot;architecture&quot;: &quot;qwen35&quot;,
+        &quot;artifact_sha256&quot;: &quot;a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052&quot;,
+        &quot;family_id&quot;: &quot;omni&quot;,
+        &quot;hf_repository&quot;: &quot;bartowski/Tesslate_OmniCoder-9B-GGUF&quot;,
+        &quot;hf_revision&quot;: &quot;f0fbc2243f49ab2dbdf91fe5930dd73e6bce767c&quot;,
+        &quot;name&quot;: &quot;OmniCoder-9B \u00b7 bartowski Q6&quot;,
+        &quot;parameters_in_GGUF&quot;: 8953803264,
+        &quot;quantization&quot;: &quot;Q6_K&quot;,
+        &quot;tensor_precision_map&quot;: null,
+        &quot;variant&quot;: &quot;OmniCoder-9B \u00b7 bartowski Q6&quot;,
+        &quot;weight_transformations&quot;: {
+          &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
+          &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
+          &quot;proof&quot;: null
+        }
+      },
+      &quot;model_artifact_id&quot;: &quot;artifact-1b4802fd05fca260d7101aad04f04e6693e505e633c99caabd04117ebf39e34b&quot;,
+      &quot;optimizations&quot;: {
+        &quot;GDN_state_changes&quot;: null,
+        &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
+        &quot;KV_precision&quot;: {
+          &quot;k&quot;: &quot;f16&quot;,
+          &quot;v&quot;: &quot;f16&quot;
+        },
+        &quot;cuda_graphs&quot;: {
+          &quot;actual_capture_replay&quot;: null,
+          &quot;disable_knob&quot;: null,
+          &quot;optimization_knob&quot;: &quot;0&quot;
+        },
+        &quot;draft_head_or_model&quot;: null,
+        &quot;draft_parameters&quot;: {
+          &quot;--spec-type&quot;: &quot;none&quot;
+        },
+        &quot;draft_sha256&quot;: null,
+        &quot;flash_attention_requested&quot;: &quot;auto&quot;,
+        &quot;other_explicit_knobs&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;
+        },
+        &quot;prefix_reuse&quot;: null,
+        &quot;quantization_calibration&quot;: null,
+        &quot;speculation_type&quot;: &quot;none&quot;
+      },
+      &quot;provenance_status&quot;: &quot;KNOWN_FIELDS_ONLY; null means NOT MEASURED&quot;,
+      &quot;runtime&quot;: {
+        &quot;CPU_budget&quot;: null,
+        &quot;CPU_scoring_limit_s&quot;: 120,
+        &quot;CPU_threads&quot;: &quot;6&quot;,
+        &quot;GPU_offload&quot;: &quot;99&quot;,
+        &quot;GPU_wrapper_limit_s&quot;: 1440,
+        &quot;RAM_budget&quot;: null,
+        &quot;VRAM_budget_mib&quot;: 14336,
+        &quot;batch&quot;: &quot;2048&quot;,
+        &quot;benchmark_task_limit_s&quot;: 1200,
+        &quot;chat_template_sha256&quot;: &quot;a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715&quot;,
+        &quot;context&quot;: &quot;8192&quot;,
+        &quot;execution_deadline_s&quot;: 1200,
+        &quot;max_output&quot;: 4096,
+        &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
+        &quot;native_template_controls&quot;: {
+          &quot;enable_thinking&quot;: false
+        },
+        &quot;power_limit_w&quot;: 300,
+        &quot;sampling&quot;: {
+          &quot;seed&quot;: 1001,
+          &quot;temperature&quot;: 0
+        },
+        &quot;startup_limit_s&quot;: 180,
+        &quot;thinking_reasoning_requested&quot;: &quot;off&quot;,
+        &quot;timing_scope&quot;: &quot;DEVELOPMENT_SCREEN_TASK_PHASE_ONLY&quot;,
+        &quot;tokenizer_identity&quot;: null
+      },
+      &quot;runtime_configuration_id&quot;: &quot;cfg-e9e2f024338f647f3f3c71c5f468d7377f04be185bdceb1bcf4c6e5ac2a54bc3&quot;,
+      &quot;schema_version&quot;: 1,
+      &quot;source_plan_sha256&quot;: &quot;b551ff90b51d15eb805c61649d8c6713284974a022ecf9d8ff411cd9f168ba01&quot;,
+      &quot;source_provenance&quot;: {
+        &quot;actual_launch_sha256&quot;: &quot;061b33cb94ddebde7d0cfb507a87da81cb96ebb0cf8ef1793157f26497ce9b9a&quot;,
+        &quot;actual_profile_sha256&quot;: &quot;a0f758bd36c8d005fe3e149ee07373f7164ac565cdea1a52dfa9b406f8295fea&quot;,
+        &quot;evidence_scope&quot;: &quot;FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;5b755feb0d56c735bcf1bcc202f3e50e1a452a4139d5cb1d9196068a732ab7a2&quot;,
+        &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;,
+        &quot;model_source_package_sha256&quot;: &quot;142bc12a54f3cc773104140541a5decdcb32a9438d4fffda68d428310a0f4fe6&quot;
+      },
+      &quot;start_parameters&quot;: {
+        &quot;argv&quot;: [
+          &quot;llama-server&quot;,
+          &quot;--model&quot;,
+          &quot;[artifact:a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052]&quot;,
+          &quot;--alias&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--ctx-size&quot;,
+          &quot;8192&quot;,
+          &quot;--n-gpu-layers&quot;,
+          &quot;99&quot;,
+          &quot;--parallel&quot;,
+          &quot;1&quot;,
+          &quot;--host&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--port&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--jinja&quot;,
+          &quot;--chat-template-file&quot;,
+          &quot;[artifact:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715]&quot;,
+          &quot;--threads&quot;,
+          &quot;6&quot;,
+          &quot;--threads-batch&quot;,
+          &quot;6&quot;,
+          &quot;--batch-size&quot;,
+          &quot;2048&quot;,
+          &quot;--ubatch-size&quot;,
+          &quot;512&quot;,
+          &quot;--seed&quot;,
+          &quot;1001&quot;,
+          &quot;--ctx-checkpoints&quot;,
+          &quot;2&quot;,
+          &quot;--cache-ram&quot;,
+          &quot;0&quot;,
+          &quot;--no-cache-idle-slots&quot;,
+          &quot;--reasoning&quot;,
+          &quot;off&quot;,
+          &quot;--no-reasoning-preserve&quot;,
+          &quot;--verbosity&quot;,
+          &quot;4&quot;,
+          &quot;--flash-attn&quot;,
+          &quot;auto&quot;,
+          &quot;--cache-type-k&quot;,
+          &quot;f16&quot;,
+          &quot;--cache-type-v&quot;,
+          &quot;f16&quot;,
+          &quot;--load-mode&quot;,
+          &quot;mmap&quot;,
+          &quot;--spec-type&quot;,
+          &quot;none&quot;
+        ],
+        &quot;environment&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
+          &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
+        },
+        &quot;exact_private_launch_sha256&quot;: &quot;07a85ed4fcadbc70d2e3437a9d4e907c08425385fe74d9b553ea22a5cf86e47d&quot;,
+        &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
+        &quot;redacted_argument_positions&quot;: [
+          0,
+          2,
+          4,
+          12,
+          14,
+          17
+        ]
+      }
+    },
+    &quot;request_options&quot;: {
+      &quot;cache_prompt&quot;: false,
+      &quot;chat_template_kwargs&quot;: {
+        &quot;enable_thinking&quot;: false
+      },
+      &quot;max_tokens&quot;: 4096,
+      &quot;seed&quot;: 1001,
+      &quot;temperature&quot;: 0
+    },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-4d900edb2f0df287b0592176fc9b2e1e87c9a49dd2e1f2dcd81f72f1927e5018&quot;,
+    &quot;task_time_policy&quot;: {
+      &quot;cleanup_seconds&quot;: 60,
+      &quot;startup_seconds&quot;: 180,
+      &quot;task_seconds&quot;: 1200,
+      &quot;wall_seconds&quot;: 1440
+    },
+    &quot;warmup_requests&quot;: 2
+  },
+  &quot;date&quot;: &quot;2026-10-25T00:23:58.566844+00:00&quot;,
+  &quot;decision&quot;: &quot;PROMISING_ALTERNATE_ARTIFACT_PROCEED_TO_FULL_QUALIFICATION&quot;,
+  &quot;experiment_id&quot;: &quot;R515&quot;,
+  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;independent_review_sha256&quot;: &quot;9d10929dde759251e65ee9869bb5a4c27f228ba0b3ba69b3dbbfc4ec8055605e&quot;,
+  &quot;local_artifact_available&quot;: true,
+  &quot;model&quot;: &quot;OmniCoder-9B \u00b7 bartowski Q6&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R515&quot;,
+  &quot;peak_vram_mib&quot;: 7680.5,
+  &quot;selection_status&quot;: &quot;VERTIEFUNG EMPFOHLEN&quot;,
+  &quot;source_provenance_limits&quot;: &quot;The inspected upstream model-card/config revision is not a verified exact quantization-parent weight revision. Different quantization recipes and possibly checkpoint ancestry remain confounded. This compares whole existing artifacts, not a proven fine-tune or isolated tensor-precision intervention.&quot;,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 62.664775063,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 820.0747142857143,
+      &quot;GPU_j_per_success_upper&quot;: 951.4265714285714,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 47.434242018,
+      &quot;completion_tokens&quot;: 3587,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 11481.046,
+      &quot;gpu_energy_j_upper&quot;: 13319.972,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 14,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.2951454351202109,
+      &quot;tokens_s_completed_requests&quot;: 75.62047684115689,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.639771727342413,
+        0.9650225122567595
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 216.24792857142856,
+      &quot;GPU_j_per_success_upper&quot;: 345.40621428571427,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 15.213920949,
+      &quot;completion_tokens&quot;: 761,
+      &quot;final_text_present&quot;: 4,
+      &quot;gpu_energy_j_lower&quot;: 3027.471,
+      &quot;gpu_energy_j_upper&quot;: 4835.687,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 14,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.9202098556270079,
+      &quot;tokens_s_completed_requests&quot;: 50.01997858086807,
+      &quot;valid_terminal_output&quot;: 14,
+      &quot;wilson95&quot;: [
+        0.639771727342413,
+        0.9650225122567595
+      ]
+    }
+  }
 }</pre></details></td></tr></tbody></table></div>
 
 Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.
@@ -3742,10 +4032,9 @@ Development evidence, not an official benchmark or unseen validation set. These 
 ¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.
 
 
-<details><summary>Other local artifacts pending standalone-profile review</summary>
+<details><summary>Other local artifacts: technical disposition</summary>
 
-- **Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf** — SCREENING OFFEN: Additional nongrafted artifact; established native baseline uses the separately identified MTP-bearing artifact with speculation disabled. No weight equivalence is assumed.
-- **Tesslate_OmniCoder-9B-Q6_K.gguf** — SCREENING OFFEN: Historical alternate quantizer artifact; main canonical Omni checkpoint selected for first baseline pass. Existing weight-integrity evidence retained; no new equality claim.
+- **Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf** — DEFERRED: No new GPU screen:851 common payloads are bound by verified assembly; the R502 no-speculation engine already skips15 MTP tensors and caches only64 trunk layers. Separate base-file performance is NOT MEASURED. Reopen for changed loader/weights/MTP loading or material cold-start/storage hypothesis. [CPU review](audits/audit-a6d64223c65f59269a00.md) · GPU screen: NOT MEASURED
 
 </details>
 

@@ -40,7 +40,7 @@ def build(root):
   profile=package['profile'] if package and not entry.get('screening_results') else read(Path(entry['parent_capture'])/'profile.json');recipe=profile['native_recipe'];sha=profile.get('model_sha256') or profile['assets'][profile['model']]
   assert sha==entry['model_sha256']
   cfg={'parent_profile_id':entry['parent_profile'],'model_sha256':sha,'request_options':{k:v for k,v in recipe['request_options'].items() if k in ('chat_template_kwargs','temperature','seed','max_tokens','top_p','top_k','min_p','repeat_penalty','presence_penalty','reasoning_effort','cache_prompt')},'context':recipe['context'],'engine':'llama.cpp native','engine_version':None,'binary_identities':{Path(k).name:v for k,v in profile['assets'].items() if Path(k).name in ('llama-server','libggml-cuda.so','libggml-cuda.so.0','libggml-cuda.so.0.21.0')},'warmup_requests':len(recipe['warmups']),'task_time_policy':profile.get('task_time_policy'),'hardware':'Tesla V100 SXM2 16 GB','power_w':300}
-  matches=[r for r in history['runs'] if r['experiment_id']==entry['parent_experiment_id']]
+  matches=[] if package else [r for r in history['runs'] if r['experiment_id']==entry['parent_experiment_id']]
   if matches:
    recorded=profiles[matches[0]['runtime_configuration_id']]
    assert recorded['model']['artifact_sha256']==sha
@@ -54,6 +54,7 @@ def build(root):
   cfg['screening_configuration_id']='screening-config-'+hashlib.sha256(json.dumps(identity,sort_keys=True,separators=(',',':')).encode()).hexdigest()
   row={'model':entry['model'],'configuration':cfg,'status':entry['status'],'local_artifact_available':entry['local_artifact_available'],'parent_experiment_id':entry['parent_experiment_id'],'results':None,'audit_sha256':None,'experiment_id':None,'conditions':'Single native-profile session; frozen base-task order','decision':'No quality exclusion from16 tasks; retain for review.','independent_review_sha256':None}
   if package:row['full_benchmark_status']='NOT MEASURED';row['decision']='First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.'
+  if package and package['source_review'].get('provenance_limits'):row['source_provenance_limits']=package['source_review']['provenance_limits']
   results=entry.get('screening_results',[])
   if results:
    item=results[-1];a=read(item['audit_path']);review=read(item['independent_review_path'])
@@ -77,6 +78,9 @@ def build(root):
    row.update(status='SCREENING VOLLSTÄNDIG',experiment_id='R487',audit_sha256=H(ap),independent_review_sha256=H(rp),results={k:project_group(v) for k,v in a['matched_arms_by_category']['A'].items()},peak_vram_mib=a['peak_device_vram_mib'],date=a['at_utc'],task_phase_s=None,timeouts=0,conditions='Reused native A arm; interleaved ABC schedule. Same tasks/scorer and native sampler; timing is historical, not matched standalone performance evidence.')
   if package and results:
    source=read(root/'BENCHMARK_REFERENCES.json')['summary'][row['experiment_id'].lower()]
+   if source.get('comparison_review_path'):
+    assert H(source['comparison_review_path'])==source['comparison_review_sha256'];review=read(source['comparison_review_path']);assert review['candidate_audit_sha256']==row['audit_sha256'] and review['all32_actual_requests_identical'] is True and review['winner_qualified'] is False and review['official_benchmark'] is False
+    row.update(selection_status='VERTIEFUNG EMPFOHLEN',decision=review['decision'],comparison_audit_sha256=source['comparison_review_sha256'],comparison_summary=review['metrics'])
    if source.get('cpu_diagnosis_path'):
     assert H(source['cpu_diagnosis_path'])==source['cpu_diagnosis_sha256'];diagnosis=read(source['cpu_diagnosis_path']);assert diagnosis['source_audit_sha256']==row['audit_sha256'] and diagnosis['GPU_runs']==0
     row.update(selection_status='WEITERE DIAGNOSE',decision=diagnosis['decision'],diagnostic_audit_sha256=source['cpu_diagnosis_sha256'],diagnostic_summary=diagnosis['coding'])
@@ -85,7 +89,10 @@ def build(root):
  extras=[]
  for x in inventory.get('other_local_artifacts',[]):
   assert re.fullmatch(r'[A-Za-z0-9_.-]{1,120}\.gguf',x['artifact'])
-  extras.append({k:x[k] for k in ('artifact','status','reason')})
+  item={k:x[k] for k in ('artifact','status','reason')}
+  if x.get('audit_sha256'):
+   assert H(x['audit_path'])==x['audit_sha256'] and re.fullmatch('[a-f0-9]{64}',x['audit_sha256']);item.update(audit_sha256=x['audit_sha256'],audit_id='audit-'+x['audit_sha256'][:20],experimentally_screened=x['experimentally_screened'])
+  extras.append(item)
  output['other_local_artifacts']=extras
  plan=read(base/'QUALIFICATION_SELECTION_PLAN.json')
  output['qualification_plan']={k:plan[k] for k in ('rule','priorities','agents')}
@@ -168,7 +175,7 @@ def render(data):
   rows.append('<tr>'+''.join('<td>'+v+'</td>' for v in cells)+'<td>'+content+'</td></tr>')
  headers=['Model','Status','Coding /16','Mock tools /16','Request time s','Output tok/s¹','GPU J/success ≥²','VRAM MiB','Existing benchmarks','Details']
  html='<div class="screening-wrap"><table id="screening-table"><thead><tr>'+''.join('<th>'+e(x)+'</th>' for x in headers)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'
- extras='\n\n<details><summary>Other local artifacts pending standalone-profile review</summary>\n\n'+''.join('- **'+e(x['artifact'])+'** — '+e(x['status'])+': '+e(x['reason'])+'\n' for x in data.get('other_local_artifacts',[]))+'\n</details>\n'
+ extras='\n\n<details><summary>Other local artifacts: technical disposition</summary>\n\n'+''.join('- **'+e(x['artifact'])+'** — '+e(x['status'])+': '+e(x['reason'])+(' [CPU review](audits/'+e(x['audit_id'])+'.md) · GPU screen: NOT MEASURED' if x.get('audit_id') else '')+'\n' for x in data.get('other_local_artifacts',[]))+'\n</details>\n'
  plan=data.get('qualification_plan',{})
  if plan:
   extras+='\n<details><summary>Conservative qualification shortlist & next decisions</summary>\n\n'+''.join('- **'+e(x['priority'])+' · '+e(', '.join(x['models']))+'**: '+e(x['action'])+'\n' for x in plan['priorities'])+'\n'+e(plan['agents'])+'\n\n</details>\n'
