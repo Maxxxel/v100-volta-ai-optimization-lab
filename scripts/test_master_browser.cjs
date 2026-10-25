@@ -293,6 +293,19 @@ async function main(){
    await tab.screenshot({path:path.join(artifacts,name+'-agent-development.png'),animations:'disabled'});
   }
   report.checks.push('native Agent18 development outcomes and counter-cost bounds render on desktop/mobile with original experiment links, outside official agent rankings');
+  const pipelineExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/pipeline-performance.json'),'utf8'));
+  for(const [name,width] of [['desktop',1600],['mobile',390]]){
+   const tab=await context.newPage();await tab.setViewportSize({width,height:900});
+   await tab.goto(new URL('pipeline-performance/',base).href,{waitUntil:'networkidle'});
+   const content=await tab.locator('.md-content').innerText();
+   assert(content.includes(pipelineExpected.observed_at_utc));assert(content.includes('not a live monitor'));
+   const table=tab.locator('.md-content table').first();assert.equal(await table.locator('tbody tr').count(),pipelineExpected.experiments.length);
+   const partial=table.getByRole('link',{name:'R538',exact:true}).locator('xpath=ancestor::tr');
+   assert((await partial.innerText()).includes('PARTIAL'));assert.equal((await partial.locator('td').allTextContents())[4].trim(),'NOT MEASURED');
+   assert((await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2)),'Pipeline page overflows viewport');
+   await tab.screenshot({path:path.join(artifacts,name+'-pipeline.png'),animations:'disabled'});await tab.close();
+  }
+  report.checks.push('pipeline snapshot, preserved partial task clock and desktop/mobile layout');
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
  process.stdout.write(JSON.stringify(report)+'\n');

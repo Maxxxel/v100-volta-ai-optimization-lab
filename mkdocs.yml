@@ -71,6 +71,7 @@ nav:
   - Methods:
       - Methodology: methodology.md
       - Pipeline decision: pipeline-methods.md
+      - Pipeline performance: pipeline-performance.md
       - Hardware: hardware.md
       - Benchmark definitions: benchmark-register.md
       - Safety and admission: broker-admission.md

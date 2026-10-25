@@ -324,6 +324,37 @@ def development_result(root,entry,receipt):
             'model_sha256':native['model_sha256'],'engine_binary_sha256':native['assets'][native['runtime']+'/llama-server'],
             'context':recipe['context'],'task_limit_s':audit['task_limit_s'],
             'audit_ids':[receipt(ap,review['audit_sha256']),receipt(rp,entry['sha256'])]}
+
+def mtp_development_result(root,entry,receipt):
+    """Verified aggregate projection; no benchmark registration or screening recount."""
+    root=pathlib.Path(root).resolve();p=pathlib.Path(entry['path']).resolve()
+    assert p.is_relative_to(root) and digest(p)==entry['sha256']
+    review=load(p)
+    assert review['experiment_id']=='R539' and review['baseline_experiment_id']=='R515'
+    assert review['status']=='PROMISING_REQUIRES_FRESH_CONFIRMATION'
+    assert review['single_MTP_treatment_verified'] is True
+    assert review['winner_qualified'] is False and review['official_benchmark'] is False and review['GPU_runs_in_review']==0
+    for name,h in review['source_files_sha256'].items():
+        original=pathlib.Path(name).resolve()
+        assert original.is_relative_to(root.parent) and digest(original)==h
+    a=load(root/'staging/r515/AUDIT.json');b=load(root/'staging/r539/AUDIT.json')
+    for audit in (a,b):
+        assert audit['measurement_valid'] and audit['GPU_execution_observed']
+        assert audit['completed_requests']==audit['planned_requests']==32
+        assert not audit['official_benchmark'] and not audit['winner_qualified']
+    assert review['comparison']['baseline_task_s']==a['task_phase_s']
+    assert review['comparison']['candidate_task_s']==b['task_phase_s']
+    result={k:projection(review[k]) for k in ('comparison','quality')}
+    result.update(status=text(review['status']),scope=text(review['scope']),next_action=text(review['next_action']),
+                  official_benchmark=False,winner_qualified=False,audit_id=receipt(p,entry['sha256']))
+    result['profiles']=[{'experiment_id':eid,'task_phase_s':audit['task_phase_s'],
+                        'peak_device_vram_mib':audit['peak_device_vram_mib'],
+                        'coding_solved':audit['groups']['coding']['successes'],
+                        'tools_solved':audit['groups']['tools']['successes'],
+                        'counter_lower_j':review['GPU_counter'][eid]['lower_j'],
+                        'counter_upper_j':review['GPU_counter'][eid]['upper_j']}
+                       for eid,audit in (('R515',a),('R539',b))]
+    return result
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -628,7 +659,8 @@ def main():
 
 
         if v.get('development_comparison_review'):
-            experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
+            if ident=='R539':experiments[ident]['mtp_development_comparison']=mtp_development_result(root,v['development_comparison_review'],receipt)
+            else:experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):
             correction_id=receipt(v['audit_correction_path'],v['audit_correction_sha256'])
             if correction_id:
@@ -721,6 +753,14 @@ def main():
     for name,obj in [('snapshot.json',snapshot),('factors.json',factors),('experiments.json',sorted(experiments.values(),key=lambda x:int(x['id'][1:]))),('audit-excerpts.json',list(catalog.values())),('signed-windows.json',windows),('history.json',events),('references.json',references),('profiles.json',profiles),('models.json',challengers),('comparison.json',comparison),('benchmark-register.json',register),('configuration-history.json',configuration_history),('model-benchmarks.json',metrics({'model_comparison_progress':db['summary'].get('model_comparison_progress',{})})),('sources.json',sources),('research-subcases.json',subcases)]:write(name,obj)
     from screening import build as build_screening
     write('screening.json',build_screening(root))
+    timing_file=root.parent/'.public-sync/pipeline-status.json'
+    if timing_file.is_file():
+        from pipeline import project as project_pipeline
+        timing=load(timing_file)
+        for record in timing['experiments']:
+            assert re.fullmatch(r'R[1-9][0-9]{1,3}',record['experiment_id'])
+            assert digest(root/'staging'/record['experiment_id'].lower()/'AUDIT.json')==record['source_audit_sha256']
+        write('pipeline-performance.json',project_pipeline(timing))
     # Local-only export receipt records the original locations; never place it in the public tree.
     receiptfile=HERE.parent/'PUBLIC_EXPORT_PRIVATE_RECEIPT.json';receiptfile.write_text(json.dumps({'source_revision':matrix['revision'],'source_sha256':source_hashes,'selected_original_paths_and_hashes':verified},indent=2)+'\n');receiptfile.chmod(0o600)
     print(json.dumps(snapshot['counts'],sort_keys=True))

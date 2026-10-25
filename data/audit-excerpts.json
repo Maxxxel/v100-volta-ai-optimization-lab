@@ -176875,6 +176875,37 @@
   },
   {
     "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0,
+        "baseline_completion_tokens": 4348,
+        "baseline_peak_device_vram_mib": 7680.5,
+        "baseline_task_s": 62.664775063,
+        "candidate_completion_tokens": 4552,
+        "candidate_peak_device_vram_mib": 9324.5,
+        "candidate_task_s": 43.945548715,
+        "task_latency_reduction_percent": 29.87200756594216
+      },
+      "quality": {
+        "baseline_successes": 28,
+        "candidate_successes": 28,
+        "paired_success_gains": 0,
+        "paired_success_losses": 0,
+        "tasks": 32
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-26173d1ac7fafe78bf96",
+    "original_bytes": 4599,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "26173d1ac7fafe78bf96434ce9eb27773e53f123774257802f7d3092e05fc55d",
+    "statements": {
+      "scope": "Single candidate session versus stored R515, not contemporaneous A/B. Same frozen development tasks and verified MTP-only profile difference. Equal observed pass totals do not prove distributional quality preservation or identical tokens. Counter bounds cover contiguous complete requests including unsuccessful tasks; not confidence intervals or CPU/system energy. No synthetic decode-kernel speedup claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

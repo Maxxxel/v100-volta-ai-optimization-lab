@@ -252,6 +252,11 @@ All original experiments, failures, configurations and audit identities remain a
    text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
+  if e.get('mtp_development_comparison'):
+   dev=e['mtp_development_comparison']
+   text+='\n## MTP development comparison\n\n**Locally measured development evidence; fresh confirmation pending. No official score or Champion.**\n\n'
+   text+=table(['Profile','Coding /16','Mock tools /16','Task seconds','Peak VRAM MiB','GPU counter J, bounds'],[[p['experiment_id'],p['coding_solved'],p['tools_solved'],round(p['task_phase_s'],3),p['peak_device_vram_mib'],str(p['counter_lower_j'])+'–'+str(p['counter_upper_j'])] for p in dev['profiles']])
+   text+='\n'+dev['scope']+'\n\nNext: '+dev['next_action']+'\n\n[Comparison evidence](../audits/'+dev['audit_id']+'.md)\n'
   if e.get('development_comparison'):
    text=text.replace('\n## Available aggregate results\n\nNOT MEASURED / not recorded in this public projection.\n','')
    dev=e['development_comparison']
@@ -419,4 +424,7 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  from screening import render_native_agent_development
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
+ if (P/'data/pipeline-performance.json').is_file():
+  from pipeline import render as render_pipeline
+  put('pipeline-performance.md',render_pipeline(read('pipeline-performance.json')))
 if __name__=='__main__':main()
