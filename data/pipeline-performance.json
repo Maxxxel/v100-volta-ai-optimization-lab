@@ -349,6 +349,69 @@
       "experiment_id": "R541",
       "phase": "build",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:05:22.101104+00:00",
+      "duration_s": 26.370900453,
+      "experiment_id": "R541",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:05:23.375343+00:00",
+      "duration_s": 1.26822256,
+      "experiment_id": "R541",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:05:26.254346+00:00",
+      "duration_s": 2.871410953,
+      "experiment_id": "R541",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:05:28.427056+00:00",
+      "duration_s": 2.170199614,
+      "experiment_id": "R541",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:05:40.724553+00:00",
+      "duration_s": 12.289936559,
+      "experiment_id": "R541",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:06:20.872702+00:00",
+      "duration_s": 40.143126908,
+      "experiment_id": "R541",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:06:32.918939+00:00",
+      "duration_s": 11.891977046,
+      "experiment_id": "R541",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:06:33.385656+00:00",
+      "duration_s": 0.023588767,
+      "experiment_id": "R541",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:06:38.115504+00:00",
+      "duration_s": 3.542274022,
+      "experiment_id": "R541",
+      "phase": "push",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
@@ -814,7 +877,7 @@
       }
     }
   ],
-  "observed_at_utc": "2026-10-25T23:04:55.483772+00:00",
+  "observed_at_utc": "2026-10-25T23:09:44.114090+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",

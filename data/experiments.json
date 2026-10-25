@@ -22157,6 +22157,47 @@
       }
     },
     "audit_id": "audit-ed307b823d3281f51ee1",
+    "coding_mtp_comparison": {
+      "audit_id": "audit-c1d5e7156190348b7302",
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
+      "decision": "CODING_NONREGRESSION_GATE_FAILED_SPEED_QUALITY_TRADEOFF",
+      "profiles": [
+        {
+          "GPU_j_per_success_lower": 1200.221813432836,
+          "GPU_j_per_success_upper": 1200.9182164179103,
+          "experiment_id": "R516",
+          "peak_device_vram_mib": 7678.5,
+          "response_wall_s": 575.327315124,
+          "solved": 134,
+          "task_phase_s": 575.403766304,
+          "tasks": 164
+        },
+        {
+          "GPU_j_per_success_lower": 730.2641908396946,
+          "GPU_j_per_success_upper": 731.1251297709924,
+          "experiment_id": "R541",
+          "peak_device_vram_mib": 9322.5,
+          "response_wall_s": 350.401447844,
+          "solved": 131,
+          "task_phase_s": 350.48032471,
+          "tasks": 164
+        }
+      ],
+      "quality": {
+        "candidate_only_successes": 2,
+        "control_only_successes": 5,
+        "net_success_change": -3,
+        "paired_exact_two_sided_p_descriptive": 0.453125,
+        "paired_tasks": 164,
+        "score_change_percentage_points": -1.829268292682927
+      },
+      "quality_gate_passed": false,
+      "scope": "Same complete original164 tasks, official API/scorer and native profile except the frozen MTP head/flags. R516 is the retained stored control; R540 independently checked development latency drift. This is not a fresh official-task A/B repetition. Counter brackets cover all completed requests including failures, exclude loading/warmup/CPU/system energy, and are not calibration confidence intervals. A nonsignificant paired test is not equivalence. No test-driven parameter adjustment or automatic model rejection.",
+      "speed_gate_passed": true,
+      "winner_qualified": false
+    },
     "date": "2026-10-25T22:33:15.786530+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [

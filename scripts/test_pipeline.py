@@ -105,4 +105,50 @@ class MtpProjection(unittest.TestCase):
                     export.mtp_development_result('/synthetic', {'path': '/synthetic/review.json', 'sha256': 'a'*64}, lambda *a: None)
 
 
+class CodingMtpGate(unittest.TestCase):
+    def fixture(self, root):
+        import pathlib
+        root=pathlib.Path(root)
+        review={'experiment_id':'R541','GPU_runs_in_review':0,'winner_qualified':False,
+                'official_benchmark_result_valid':True,'source_files_sha256':{},'profiles':{},
+                'quality':{'net_success_change':-3},'comparison':{},'predeclared_quality_gate_passed':False,
+                'predeclared_speed_gate_passed':True,'decision':'CODING_NONREGRESSION_GATE_FAILED_SPEED_QUALITY_TRADEOFF','scope':'CPU fixture only.'}
+        for eid,solved in [('R516',134),('R541',131)]:
+            folder=root/'staging'/eid.lower();folder.mkdir(parents=True)
+            audit={'collected_tasks':164,'scored_tasks':164,'solved_observed_tasks':solved}
+            (folder/'AUDIT.json').write_text(json.dumps(audit))
+            review['profiles'][eid]={'tasks':164,'solved':solved,'response_wall_s':1.0,'task_phase_s':2.0,
+                'peak_device_vram_mib':3.0,'GPU_j_per_success_lower':4.0,'GPU_j_per_success_upper':5.0}
+        return root,review
+
+    def project(self,root,review):
+        path=root/'review.json';path.write_text(json.dumps(review))
+        return export.verified_coding_mtp_comparison(root,{'path':str(path),'sha256':export.digest(path)},lambda *args:'audit-fixture')
+
+    def test_valid_score_does_not_promote_failed_optimization(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            root,review=self.fixture(tmp);result=self.project(root,review)
+            self.assertEqual([p['solved'] for p in result['profiles']],[134,131])
+            self.assertFalse(result['quality_gate_passed']);self.assertTrue(result['speed_gate_passed'])
+            self.assertFalse(result['winner_qualified'])
+
+    def test_changed_score_and_unsupported_winner_rejected(self):
+        import tempfile
+        for kind in ('score','winner','unqualified'):
+            with tempfile.TemporaryDirectory() as tmp:
+                root,review=self.fixture(tmp)
+                if kind=='score':review['profiles']['R541']['solved']=134
+                elif kind=='winner':review['winner_qualified']=True
+                else:review['official_benchmark_result_valid']=False
+                with self.assertRaises(AssertionError):self.project(root,review)
+
+    def test_changed_original_provenance_rejected(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            root,review=self.fixture(tmp);original=root/'original.json';original.write_text('{}')
+            review['source_files_sha256'][str(original)]='0'*64
+            with self.assertRaises(AssertionError):self.project(root,review)
+
+
 if __name__ == '__main__': unittest.main()

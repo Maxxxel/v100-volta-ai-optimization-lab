@@ -393,6 +393,24 @@ def verified_mtp_confirmation_result(root,entry,receipt):
     result=mtp_confirmation_projection(review,audit,profile)
     result['audit_id']=receipt(p,entry['sha256'])
     return result
+
+def verified_coding_mtp_comparison(root,entry,receipt):
+    root=pathlib.Path(root).resolve();path=pathlib.Path(entry['path']).resolve()
+    assert path.is_relative_to(root) and digest(path)==entry['sha256']
+    review=load(path)
+    assert review['experiment_id']=='R541' and review['GPU_runs_in_review']==0 and review['winner_qualified'] is False
+    assert review['official_benchmark_result_valid'] is True
+    for name,h in review['source_files_sha256'].items():
+        source=pathlib.Path(name).resolve();assert source.is_relative_to(root.parent) and digest(source)==h
+    profiles=[]
+    for eid in ('R516','R541'):
+        measured=review['profiles'][eid];audit=load(root/'staging'/eid.lower()/'AUDIT.json')
+        assert measured['tasks']==audit['collected_tasks']==audit['scored_tasks']==164
+        assert measured['solved']==audit['solved_observed_tasks']
+        profiles.append({'experiment_id':eid,**{k:measured[k] for k in ('tasks','solved','response_wall_s','task_phase_s','peak_device_vram_mib','GPU_j_per_success_lower','GPU_j_per_success_upper')}})
+    return {'profiles':profiles,'quality':projection(review['quality']),'comparison':projection(review['comparison']),
+            'quality_gate_passed':review['predeclared_quality_gate_passed'],'speed_gate_passed':review['predeclared_speed_gate_passed'],
+            'decision':text(review['decision']),'scope':text(review['scope']),'winner_qualified':False,'audit_id':receipt(path,entry['sha256'])}
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -701,6 +719,8 @@ def main():
             else:experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
         if v.get('mtp_confirmation_review'):
             experiments[ident]['mtp_confirmation']=verified_mtp_confirmation_result(root,v['mtp_confirmation_review'],receipt)
+        if v.get('coding_mtp_comparison_review'):
+            experiments[ident]['coding_mtp_comparison']=verified_coding_mtp_comparison(root,v['coding_mtp_comparison_review'],receipt)
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):
             correction_id=receipt(v['audit_correction_path'],v['audit_correction_sha256'])
             if correction_id:
