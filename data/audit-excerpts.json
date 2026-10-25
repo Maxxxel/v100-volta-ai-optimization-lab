@@ -175620,6 +175620,24 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 0,
+      "model_starts": 1,
+      "peak_device_vram_mib": 8112.5,
+      "tasks": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e6b3808fa5867246e027",
+    "original_bytes": 2916,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e6b3808fa5867246e0279b96973c96a300e03fe1b063ee4c0b5996edec023309",
+    "statements": {
+      "decision": "Preserve the failed attempt. Correct and CPU-test the transport bound as separately reviewed source; no direct GPU retry, old8K rerun, fabricated quality score or automatic Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
