@@ -453,6 +453,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R528](experiments/R528.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B · ctx16K |
 | [R529](experiments/R529.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B · ctx16K bridge-v2 |
 | [R530](experiments/R530.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B |
+| [R531](experiments/R531.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus-9B · OFF/T0 |
 
 
 ## Historical signed windows

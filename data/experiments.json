@@ -21446,5 +21446,59 @@
     ],
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 319.96516894,
+          "group_window_s": 319.982760419,
+          "lower_j": 87162.708,
+          "upper_j": 87236.676
+        },
+        "actual_generation_requests": 153,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 319.96516894,
+        "completed_request_wall_s": 317.067518921,
+        "completion_tokens": 16392,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3486.50832,
+        "gpu_j_per_success_upper": 3489.4670400000005,
+        "independent_review_audit_id": "audit-f82eff2d03ff5ef1d3f1",
+        "independent_review_sha256": "f82eff2d03ff5ef1d3f1f2a75abda6e160e7e2e26018a84bf60fa0323b219370",
+        "max_output_tokens": 4096,
+        "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 33,
+        "profile_sha256": "c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d",
+        "solved": 25,
+        "successful_tasks_per_s": 0.07812905477440123,
+        "task_limit_s": 1200,
+        "task_phase_s": 319.983392506,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 51.69876768135371,
+        "winner_qualified": false
+      },
+      "solved": 25,
+      "tasks": 33
+    },
+    "audit_id": "audit-7bcbff8eac137ed8da5f",
+    "date": "2026-10-25T08:20:03.506039+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R531",
+    "model": "Nexus-9B · OFF/T0",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-7781a1dd3b6bb1d3e698",
+      "audit-e8728abab89c9dec1df3"
+    ],
+    "statements": {},
+    "winner_qualified": false
   }
 ]
