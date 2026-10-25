@@ -175039,6 +175039,351 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 98,
+      "model_starts": 1,
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 185.36404076,
+          "group_window_s": 185.367537673,
+          "lower_j": 49995.979,
+          "upper_j": 50085.115
+        },
+        "actual_generation_requests": 98,
+        "case_wall_s": 185.36404076,
+        "completed_request_wall_s": 183.546887173,
+        "completion_tokens": 8270,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 4166.331583333334,
+        "gpu_j_per_success_upper": 4173.7595833333335,
+        "independent_review_sha256": "9568119a2cfc1ad25e11c87f2c95be4e291075d2f3b03acb994981ee9218578e",
+        "model_sha256": "6a089b1b2d1fe21bbe78315a94da5b81e9dde538f9737a7f2c4a53c4eb42ae66",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 18,
+        "profile_sha256": "3983cf07962af715e34c1e2d4e78515ab02e99a4a11cefe9aff850886054ac1b",
+        "solved": 12,
+        "successful_tasks_per_s": 0.06473611745611497,
+        "task_limit_s": 1200,
+        "task_phase_s": 185.367928624,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 45.056607210152286,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 7356.5,
+      "solved": 12,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-00e0fd154c100eb426df",
+    "original_bytes": 4238,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "00e0fd154c100eb426df39e5533e7ba58e1a2a195dc3648b1fff3bff00427e13",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9568119a2cfc1ad25e11",
+    "original_bytes": 6247,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9568119a2cfc1ad25e11c87f2c95be4e291075d2f3b03acb994981ee9218578e",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 14,
+        "task_scope_passes": 18,
+        "technical_preflight_cases": 0
+      },
+      "solved": 12,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-09c78dab339787a13237",
+    "original_bytes": 831,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "09c78dab339787a13237e3e2d1010b742ef75f61023cf2553873381606230252",
+    "statements": {
+      "scope": "Actual selected native profile on frozen exposed simulated development18. Preserve transport/context failures separately; not official agents, population safety, model exclusion or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 0.0,
+        "task_phase_change_percent": -28.22055242275765
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 18,
+        "candidate_solved": 12,
+        "fixed_set_exact_two_sided_p": 1,
+        "paired_gained": 2,
+        "paired_lost": 3,
+        "reference_solved": 13,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-30caec2db8e945f6174e",
+    "original_bytes": 1120,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "30caec2db8e945f6174ed31fe2ede184a0fbc969327d42a32602d4ba03336576",
+    "statements": {
+      "decision": "Retain and compare native profiles using actual success, task time, GPU J/success and VRAM. One pass over18 exposed tasks cannot establish superiority, noninferiority or a Champion. Original official qualifications remain unchanged; no production adoption.",
+      "scope": "Whole native model-profile comparison on frozen exposed development tasks. Models, quantization, templates and native samplers may differ; no causal optimization or population-quality inference."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 97,
+      "model_starts": 1,
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 241.381688429,
+          "group_window_s": 241.385337214,
+          "lower_j": 66225.047,
+          "upper_j": 66293.595
+        },
+        "actual_generation_requests": 97,
+        "case_wall_s": 241.381688429,
+        "completed_request_wall_s": 239.51361974900001,
+        "completion_tokens": 12517,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 16556.26175,
+        "gpu_j_per_success_upper": 16573.39875,
+        "independent_review_sha256": "4665a46262db9a5e7bdf1c65cc7d4bec47db7b5c76c818b602155a35eb04201c",
+        "model_sha256": "aa4bc97efde586ce27e14fedd3fd896d78bb83b633ac8e5cd07113086b49479b",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 18,
+        "profile_sha256": "aa5fe1b240a5f9739b17c89af8d848390cdd27ed174d000514c5ad8c76efd64a",
+        "solved": 4,
+        "successful_tasks_per_s": 0.016570988257485462,
+        "task_limit_s": 1200,
+        "task_phase_s": 241.385724125,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 52.2600761205867,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 7356.5,
+      "solved": 4,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-00586fd6c8a217018471",
+    "original_bytes": 4223,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "00586fd6c8a21701847132bb02dddabc55bd7f9f6f1c48fbda7607e0bb327888",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4665a46262db9a5e7bdf",
+    "original_bytes": 6254,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4665a46262db9a5e7bdf1c65cc7d4bec47db7b5c76c818b602155a35eb04201c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 8,
+        "task_scope_passes": 18,
+        "technical_preflight_cases": 0
+      },
+      "solved": 4,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cab574393e58bce54d93",
+    "original_bytes": 1171,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cab574393e58bce54d93a9fb96e5a5133ce317a5cc202d7929d65582771c5220",
+    "statements": {
+      "scope": "Actual selected native profile on frozen exposed simulated development18. Preserve transport/context failures separately; not official agents, population safety, model exclusion or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 0.0,
+        "task_phase_change_percent": -6.528955362768107
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 18,
+        "candidate_solved": 4,
+        "fixed_set_exact_two_sided_p": 0.00390625,
+        "paired_gained": 0,
+        "paired_lost": 9,
+        "reference_solved": 13,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ebe690434a820879d91a",
+    "original_bytes": 1128,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ebe690434a820879d91a647cbfa51c87144380f8825a3835ab21d63f866818ee",
+    "statements": {
+      "decision": "Retain and compare native profiles using actual success, task time, GPU J/success and VRAM. One pass over18 exposed tasks cannot establish superiority, noninferiority or a Champion. Original official qualifications remain unchanged; no production adoption.",
+      "scope": "Whole native model-profile comparison on frozen exposed development tasks. Models, quantization, templates and native samplers may differ; no causal optimization or population-quality inference."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 101,
+      "model_starts": 1,
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 200.70284333,
+          "group_window_s": 200.706380349,
+          "lower_j": 54546.546,
+          "upper_j": 54652.868
+        },
+        "actual_generation_requests": 101,
+        "case_wall_s": 200.70284333,
+        "completed_request_wall_s": 198.766226661,
+        "completion_tokens": 9074,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 3896.181857142857,
+        "gpu_j_per_success_upper": 3903.7762857142857,
+        "independent_review_sha256": "7fed912fdf03370e907195c6dd8ad226858be1469df82dc053db72ba0ebe90f7",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 18,
+        "profile_sha256": "d51218bb70aac18e74323dcf090557dc354652a586cc9193dc26d38c94f2ba9d",
+        "solved": 14,
+        "successful_tasks_per_s": 0.06975348874335956,
+        "task_limit_s": 1200,
+        "task_phase_s": 200.70680696,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 45.65161875048269,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 7356.5,
+      "solved": 14,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-58314a0712d19850764d",
+    "original_bytes": 4235,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "58314a0712d19850764d1d82c9e8ff28d7c2dfdbe6149bd8b0a19c5a8e744ad8",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7fed912fdf03370e9071",
+    "original_bytes": 6246,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7fed912fdf03370e907195c6dd8ad226858be1469df82dc053db72ba0ebe90f7",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 16,
+        "task_scope_passes": 18,
+        "technical_preflight_cases": 0
+      },
+      "solved": 14,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d3642ad57c977b65a5df",
+    "original_bytes": 833,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d3642ad57c977b65a5df82b1f9faab3f73e98b6a6f81eb489915492952bea05e",
+    "statements": {
+      "scope": "Actual selected native profile on frozen exposed simulated development18. Preserve transport/context failures separately; not official agents, population safety, model exclusion or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 0.0,
+        "task_phase_change_percent": -22.28092618004385
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 18,
+        "candidate_solved": 14,
+        "fixed_set_exact_two_sided_p": 1,
+        "paired_gained": 4,
+        "paired_lost": 3,
+        "reference_solved": 13,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5c3906c23dea6bd79411",
+    "original_bytes": 1120,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5c3906c23dea6bd794117eb228502d520517000dcbbeac7c819d6403a54fb2fd",
+    "statements": {
+      "decision": "Retain and compare native profiles using actual success, task time, GPU J/success and VRAM. One pass over18 exposed tasks cannot establish superiority, noninferiority or a Champion. Original official qualifications remain unchanged; no production adoption.",
+      "scope": "Whole native model-profile comparison on frozen exposed development tasks. Models, quantization, templates and native samplers may differ; no causal optimization or population-quality inference."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

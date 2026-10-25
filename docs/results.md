@@ -445,6 +445,9 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R520](experiments/R520.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B |
 | [R521](experiments/R521.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B |
 | [R522](experiments/R522.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus-9B · OFF/T0 |
+| [R523](experiments/R523.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Opus Distill-9B · OFF/T0 |
+| [R524](experiments/R524.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Slopus-9B · OFF/T0 |
+| [R525](experiments/R525.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Ornith-1.5-9B · OFF/T0 |
 
 
 ## Historical signed windows

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-25 — R523/R524 qualified derivative agent profiles
+
+- Opus Distill OFF/T0 completes12/18 at185.367928624 task seconds,7,356.5 MiB peak and4,166.331583333334–4,173.7595833333335 GPU J/success. Independent replay agrees, with no HTTP/context failures. Two paired gains and three losses against OmniCoder13/18 give fixed-set exact p=1; retain this observed quality/cost tradeoff without a Champion.
+- Slopus OFF/T0 completes4/18 at241.385724125 task seconds and16,556.26175–16,573.39875 GPU J/success, with no HTTP/context failure. Ten simulated policy gates fail; one output is length-stopped. The fixed-set paired comparison has zero gains/nine losses (exact p=0.00390625). This configuration needs agent-specific diagnosis; it is not a general rejection of the model or its valid coding/tools results.
+- Reuse the original fully qualified OFF/T0 parents and frozen simulator; no official-benchmark repeats or new model/engine/kernel binaries. Read-only parent checks keep native ON screens separate. Historical Ornith coding/tools HTTP-timeout controls differ and remain explicitly recorded; its upcoming agent run preserves the executed tools parent.
+- The existing collector now writes final quality and comparison metadata after independent replay. Automatic publication waits for those pinned reviews; preserve both earlier valid Nexus publication commits rather than rewriting history. GPU policies, leases, clocks and hardware limits remain unchanged.
+
 ## 2026-10-25 — R522 Nexus fast-profile agent evidence
 
 - Reuse the already qualified Nexus OFF/T0 profile (coding130/164, tools178/200) without repeating either official benchmark. The original native ON screening remains unchanged.
@@ -962,5 +969,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R522 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R525 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

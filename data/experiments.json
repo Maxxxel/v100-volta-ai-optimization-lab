@@ -20930,5 +20930,158 @@
     ],
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 185.36404076,
+          "group_window_s": 185.367537673,
+          "lower_j": 49995.979,
+          "upper_j": 50085.115
+        },
+        "actual_generation_requests": 98,
+        "case_wall_s": 185.36404076,
+        "completed_request_wall_s": 183.546887173,
+        "completion_tokens": 8270,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 4166.331583333334,
+        "gpu_j_per_success_upper": 4173.7595833333335,
+        "independent_review_audit_id": "audit-9568119a2cfc1ad25e11",
+        "independent_review_sha256": "9568119a2cfc1ad25e11c87f2c95be4e291075d2f3b03acb994981ee9218578e",
+        "model_sha256": "6a089b1b2d1fe21bbe78315a94da5b81e9dde538f9737a7f2c4a53c4eb42ae66",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 18,
+        "profile_sha256": "3983cf07962af715e34c1e2d4e78515ab02e99a4a11cefe9aff850886054ac1b",
+        "solved": 12,
+        "successful_tasks_per_s": 0.06473611745611497,
+        "task_limit_s": 1200,
+        "task_phase_s": 185.367928624,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 45.056607210152286,
+        "winner_qualified": false
+      },
+      "solved": 12,
+      "tasks": 18
+    },
+    "audit_id": "audit-00e0fd154c100eb426df",
+    "date": "2026-10-25T04:31:41.130871+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R523",
+    "model": "Opus Distill-9B · OFF/T0",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-09c78dab339787a13237",
+      "audit-30caec2db8e945f6174e"
+    ],
+    "statements": {},
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 241.381688429,
+          "group_window_s": 241.385337214,
+          "lower_j": 66225.047,
+          "upper_j": 66293.595
+        },
+        "actual_generation_requests": 97,
+        "case_wall_s": 241.381688429,
+        "completed_request_wall_s": 239.51361974900001,
+        "completion_tokens": 12517,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 16556.26175,
+        "gpu_j_per_success_upper": 16573.39875,
+        "independent_review_audit_id": "audit-4665a46262db9a5e7bdf",
+        "independent_review_sha256": "4665a46262db9a5e7bdf1c65cc7d4bec47db7b5c76c818b602155a35eb04201c",
+        "model_sha256": "aa4bc97efde586ce27e14fedd3fd896d78bb83b633ac8e5cd07113086b49479b",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 18,
+        "profile_sha256": "aa5fe1b240a5f9739b17c89af8d848390cdd27ed174d000514c5ad8c76efd64a",
+        "solved": 4,
+        "successful_tasks_per_s": 0.016570988257485462,
+        "task_limit_s": 1200,
+        "task_phase_s": 241.385724125,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 52.2600761205867,
+        "winner_qualified": false
+      },
+      "solved": 4,
+      "tasks": 18
+    },
+    "audit_id": "audit-00586fd6c8a217018471",
+    "date": "2026-10-25T04:41:12.488570+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R524",
+    "model": "Slopus-9B · OFF/T0",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-cab574393e58bce54d93",
+      "audit-ebe690434a820879d91a"
+    ],
+    "statements": {},
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 200.70284333,
+          "group_window_s": 200.706380349,
+          "lower_j": 54546.546,
+          "upper_j": 54652.868
+        },
+        "actual_generation_requests": 101,
+        "case_wall_s": 200.70284333,
+        "completed_request_wall_s": 198.766226661,
+        "completion_tokens": 9074,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 3896.181857142857,
+        "gpu_j_per_success_upper": 3903.7762857142857,
+        "independent_review_audit_id": "audit-7fed912fdf03370e9071",
+        "independent_review_sha256": "7fed912fdf03370e907195c6dd8ad226858be1469df82dc053db72ba0ebe90f7",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 18,
+        "profile_sha256": "d51218bb70aac18e74323dcf090557dc354652a586cc9193dc26d38c94f2ba9d",
+        "solved": 14,
+        "successful_tasks_per_s": 0.06975348874335956,
+        "task_limit_s": 1200,
+        "task_phase_s": 200.70680696,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 45.65161875048269,
+        "winner_qualified": false
+      },
+      "solved": 14,
+      "tasks": 18
+    },
+    "audit_id": "audit-58314a0712d19850764d",
+    "date": "2026-10-25T04:49:11.926711+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R525",
+    "model": "Ornith-1.5-9B · OFF/T0",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d3642ad57c977b65a5df",
+      "audit-5c3906c23dea6bd79411"
+    ],
+    "statements": {},
+    "winner_qualified": false
   }
 ]

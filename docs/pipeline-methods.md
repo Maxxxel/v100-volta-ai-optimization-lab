@@ -192,6 +192,9 @@ Previously used frozen simulated coding, automation and read workflows. **Not Te
 | [R520](experiments/R520.md) | Gemma4-12B | 9/18 | 300.07 | 8036.58–8047.35 | 8118.50 | 2 / 0 |
 | [R521](experiments/R521.md) | Qwen3.8-27B | 14/18 | 476.02 | 9276.77–9283.12 | 12454.50 | 0 / 0 |
 | [R522](experiments/R522.md) | Nexus-9B · OFF/T0 | 14/18 | 258.38 | 5011.18–5015.32 | 7356.50 | 0 / 0 |
+| [R523](experiments/R523.md) | Opus Distill-9B · OFF/T0 | 12/18 | 185.37 | 4166.33–4173.76 | 7356.50 | 0 / 0 |
+| [R524](experiments/R524.md) | Slopus-9B · OFF/T0 | 4/18 | 241.39 | 16556.26–16573.40 | 7356.50 | 0 / 0 |
+| [R525](experiments/R525.md) | Ornith-1.5-9B · OFF/T0 | 14/18 | 200.71 | 3896.18–3903.78 | 7356.50 | 0 / 0 |
 
 Quality is independently replayed from the actual retained replies in a non-root CPU jail using the original simulator and oracle. No productive tools execute. Technical context/transport failures remain separate in the linked audit; incomplete captures remain partial. Energy covers the measured case window, including failed tasks and setup between cases, excluding load/warmup and CPU/system energy. Nonstream output-token rate is not pure decode speed or TTFT. No scores are added to the official model table or its mean.
 
