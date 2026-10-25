@@ -11,13 +11,33 @@ def project_group(g):
  fields=('completed','successes','final_text_present','valid_terminal_output','length_stops','completed_request_wall_s','completion_tokens','tokens_s_completed_requests','successful_tasks_s_completed_requests','GPU_j_per_success_lower','GPU_j_per_success_upper')
  result={k:g.get(k) for k in fields};result['wilson95']=wilson(g['successes'],g['completed']);counter=g.get('GPU_counter') or {};result['gpu_energy_j_lower']=counter.get('lower_j');result['gpu_energy_j_upper']=counter.get('upper_j');return result
 
+def captured_screen_profile(profile,entry,package):
+ """Project actual first-screen launch without creating any official history run."""
+ import leaderboard
+ from export import text as sanitize
+ raw=Path(entry['parent_capture']);launch=read(raw/'LAUNCH.json');identity=package['identity'];assets=dict(profile['assets']);options=profile['native_recipe']['request_options']
+ assets['/models/target.gguf']=profile['model_sha256'];assets['/engine/llama-server']=assets[profile['runtime']+'/llama-server'];assets['/harness/chat_template.jinja']=assets[profile['chat_template']]
+ for path,h in profile['assets'].items():
+  if path.startswith(profile['runtime']+'/'):assets['/engine/'+Path(path).name]=h
+ pseudo={'runtime_identities':assets,'model_profile':identity['name'],'maximum_output_tokens':options['max_tokens'],'maximum_device_vram_mib':14336,'maximum_model_seconds':1200,'power_limit_w':300}
+ metadata={'model_sha256':profile['model_sha256'],'engine_binary_sha256':assets['/engine/llama-server'],'output_cap':options['max_tokens'],'sampling':{k:v for k,v in options.items() if k in ('temperature','top_p','top_k','min_p','presence_penalty','repeat_penalty','seed')},'chat_template_kwargs':options.get('chat_template_kwargs'),'template_sha256':assets[profile['chat_template']],'power_limit_w':300}
+ cfg=leaderboard.profile(pseudo,launch,identity['family_id'],identity['name'],identity['quantization'],entry['parent_experiment_id'],H(raw/'CONTRACT.json'),sanitize,metadata,origin={'repository':identity['hf_repository'],'revision':identity['hf_revision']})
+ cfg['model'].update(architecture=identity['architecture'],parameters_in_GGUF=identity['parameters_in_GGUF']);cfg['model_artifact_id']='artifact-'+leaderboard.H(cfg['model']);cfg['engine']['build_id']=Path(profile['runtime']).parent.name
+ cfg['runtime'].update(benchmark_task_limit_s=1200,timing_scope='DEVELOPMENT_SCREEN_TASK_PHASE_ONLY',startup_limit_s=180,GPU_wrapper_limit_s=1440,CPU_scoring_limit_s=120,native_HTTP_timeout_policy=profile['native_recipe']['http_timeout_policy'])
+ cfg['source_provenance']={'kind':'BROKER_NATIVE_CAPTURED_CONFIGURATION','evidence_scope':'FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY','frozen_model_profile_sha256':leaderboard.H({k:v for k,v in profile.items() if k!='selected_task_inputs'}),'model_source_package_sha256':entry['first_model_source_review']['sha256'],'actual_profile_sha256':H(raw/'profile.json'),'actual_launch_sha256':H(raw/'LAUNCH.json')};cfg['runtime_configuration_id']='cfg-'+leaderboard.H({k:v for k,v in cfg.items() if k!='runtime_configuration_id'})
+ leaderboard.verify_broker_capture(cfg,profile,launch);leaderboard.validate_history({'profiles':[cfg],'runs':[],'attempts':[]},{})
+ return cfg
+
 def build(root):
  root=Path(root);base=root/'staging/model-comparison-preparation/model-screening';holdout=read(base/'VALIDATION_FROZEN_MANIFEST.json')
  assert all(H(base/k)==v for k,v in holdout['files'].items())
  inventory=read(base/'MODEL_INVENTORY.json');protocol=read(base/'PROTOCOL.json');rows=[]
  history=read(Path(__file__).resolve().parents[1]/'data/configuration-history.json');profiles={p['runtime_configuration_id']:p for p in history['profiles']}
  for entry in inventory['models']:
-  profile=read(Path(entry['parent_capture'])/'profile.json');recipe=profile['native_recipe'];sha=profile.get('model_sha256') or profile['assets'][profile['model']]
+  package=None
+  if entry.get('first_model_source_review'):
+   descriptor=entry['first_model_source_review'];assert H(descriptor['file'])==descriptor['sha256'];package=read(descriptor['file'])
+  profile=package['profile'] if package and not entry.get('screening_results') else read(Path(entry['parent_capture'])/'profile.json');recipe=profile['native_recipe'];sha=profile.get('model_sha256') or profile['assets'][profile['model']]
   assert sha==entry['model_sha256']
   cfg={'parent_profile_id':entry['parent_profile'],'model_sha256':sha,'request_options':{k:v for k,v in recipe['request_options'].items() if k in ('chat_template_kwargs','temperature','seed','max_tokens','top_p','top_k','min_p','repeat_penalty','presence_penalty','reasoning_effort','cache_prompt')},'context':recipe['context'],'engine':'llama.cpp native','engine_version':None,'binary_identities':{Path(k).name:v for k,v in profile['assets'].items() if Path(k).name in ('llama-server','libggml-cuda.so','libggml-cuda.so.0','libggml-cuda.so.0.21.0')},'warmup_requests':len(recipe['warmups']),'task_time_policy':profile.get('task_time_policy'),'hardware':'Tesla V100 SXM2 16 GB','power_w':300}
   matches=[r for r in history['runs'] if r['experiment_id']==entry['parent_experiment_id']]
@@ -26,9 +46,14 @@ def build(root):
    assert recorded['model']['artifact_sha256']==sha
    cfg['recorded_parent_profile']=recorded
    cfg['quantization']=recorded['model']['quantization']
-  identity={k:v for k,v in cfg.items() if k!='recorded_parent_profile'}
+  if package:
+   cfg['quantization']=package['identity']['quantization'];cfg['model_source']={k:package['identity'][k] for k in ('hf_repository','hf_revision','base_repository','base_revision','license','quantizer','parameters_in_GGUF')}
+   cfg['binary_identities'].update({Path(k).name:v for k,v in profile['assets'].items() if Path(k).name.startswith('libggml-cuda.so')})
+   if entry.get('screening_results'):cfg['recorded_native_profile']=captured_screen_profile(profile,entry,package)
+  identity={k:v for k,v in cfg.items() if k not in ('recorded_parent_profile','recorded_native_profile')}
   cfg['screening_configuration_id']='screening-config-'+hashlib.sha256(json.dumps(identity,sort_keys=True,separators=(',',':')).encode()).hexdigest()
   row={'model':entry['model'],'configuration':cfg,'status':entry['status'],'local_artifact_available':entry['local_artifact_available'],'parent_experiment_id':entry['parent_experiment_id'],'results':None,'audit_sha256':None,'experiment_id':None,'conditions':'Single native-profile session; frozen base-task order','decision':'No quality exclusion from16 tasks; retain for review.','independent_review_sha256':None}
+  if package:row['full_benchmark_status']='NOT MEASURED';row['decision']='First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.'
   results=entry.get('screening_results',[])
   if results:
    item=results[-1];a=read(item['audit_path']);review=read(item['independent_review_path'])
@@ -50,6 +75,11 @@ def build(root):
    assert r['audit_sha256']==H(ap) and not r['changed_judgments'] and a['complete_ABC_task_triples']==32
    assert all(a['matched_arms_by_category']['A'][cat]['completed']==16 for cat in ('coding','tools'))
    row.update(status='SCREENING VOLLSTÄNDIG',experiment_id='R487',audit_sha256=H(ap),independent_review_sha256=H(rp),results={k:project_group(v) for k,v in a['matched_arms_by_category']['A'].items()},peak_vram_mib=a['peak_device_vram_mib'],date=a['at_utc'],task_phase_s=None,timeouts=0,conditions='Reused native A arm; interleaved ABC schedule. Same tasks/scorer and native sampler; timing is historical, not matched standalone performance evidence.')
+  if package and results:
+   source=read(root/'BENCHMARK_REFERENCES.json')['summary'][row['experiment_id'].lower()]
+   if source.get('cpu_diagnosis_path'):
+    assert H(source['cpu_diagnosis_path'])==source['cpu_diagnosis_sha256'];diagnosis=read(source['cpu_diagnosis_path']);assert diagnosis['source_audit_sha256']==row['audit_sha256'] and diagnosis['GPU_runs']==0
+    row.update(selection_status='WEITERE DIAGNOSE',decision=diagnosis['decision'],diagnostic_audit_sha256=source['cpu_diagnosis_sha256'],diagnostic_summary=diagnosis['coding'])
   rows.append(row)
  output={'schema':1,'official_benchmark':False,'dataset_id':protocol['dataset_id'],'tasks_per_category':16,'source_tasks_sha256':protocol['source_tasks_sha256'],'source_oracles_sha256':protocol['source_oracles_sha256'],'protocol_sha256':H(base/'PROTOCOL.json'),'data_role':'DEVELOPMENT_ALREADY_USED_FOR_NEXUS_VARIANT_SELECTION','holdout':{'status':read(base/'VALIDATION_FROZEN_MANIFEST.json')['status'],'coding':8,'mock_tools':8,'manifest_sha256':H(base/'VALIDATION_FROZEN_MANIFEST.json'),'scope':'Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.'},'selection':'No automatic quality rejection. Small differences retain both candidates; technical failures require diagnosis. Reuse matching full benchmarks.','rows':rows}
  extras=[]
@@ -132,9 +162,9 @@ def render(data):
   energy=[g.get('gpu_energy_j_lower') for g in values];solved=sum(g['successes'] for g in values)
   joules=sum(energy)/solved if energy and all(x is not None for x in energy) and solved else None
   detail={k:v for k,v in row.items() if k!='results'};detail['category_results']=groups
-  cells=[e(row['model']),e(row['status']),score(groups.get('coding')) if groups else 'NOT MEASURED',score(groups.get('tools')) if groups else 'NOT MEASURED',fmt(wall),fmt(tokens/wall if tokens is not None and wall else None),fmt(joules),fmt(row.get('peak_vram_mib'))]
+  cells=[e(row['model']),e(row['status']+(' · '+row['selection_status'] if row.get('selection_status') else '')),score(groups.get('coding')) if groups else 'NOT MEASURED',score(groups.get('tools')) if groups else 'NOT MEASURED',fmt(wall),fmt(tokens/wall if tokens is not None and wall else None),fmt(joules),fmt(row.get('peak_vram_mib'))]
   content=('<a href="../experiments/'+e(row['experiment_id'])+'/">Screening '+e(row['experiment_id'])+'</a> · ' if row.get('experiment_id') else '')+'<details><summary>Profile & evidence</summary><pre>'+e(json.dumps(detail,indent=2))+'</pre></details>'
-  parent=row['parent_experiment_id'];cells.append(f'<a href="../experiments/{parent}/">{parent} archive</a> · <a href="../configuration-comparison/">Official comparison</a>')
+  parent=row['parent_experiment_id'];cells.append('NOT MEASURED' if row.get('full_benchmark_status')=='NOT MEASURED' else f'<a href="../experiments/{parent}/">{parent} archive</a> · <a href="../configuration-comparison/">Official comparison</a>')
   rows.append('<tr>'+''.join('<td>'+v+'</td>' for v in cells)+'<td>'+content+'</td></tr>')
  headers=['Model','Status','Coding /16','Mock tools /16','Request time s','Output tok/s¹','GPU J/success ≥²','VRAM MiB','Existing benchmarks','Details']
  html='<div class="screening-wrap"><table id="screening-table"><thead><tr>'+''.join('<th>'+e(x)+'</th>' for x in headers)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'

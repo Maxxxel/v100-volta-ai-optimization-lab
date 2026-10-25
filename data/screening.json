@@ -198,11 +198,6 @@
   "official_benchmark": false,
   "other_local_artifacts": [
     {
-      "artifact": "Qwen3.5-0.8B-Q8_0.gguf",
-      "reason": "Local draft/small model artifact has no registered executed standalone native screening parent. Requires existing technical/native admission, not quality exclusion.",
-      "status": "TECHNISCH BLOCKIERT"
-    },
-    {
       "artifact": "Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf",
       "reason": "Additional nongrafted artifact; established native baseline uses the separately identified MTP-bearing artifact with speculation disabled. No weight equivalence is assumed.",
       "status": "SCREENING OFFEN"
@@ -3716,6 +3711,298 @@
       },
       "status": "SCREENING VOLLSTÄNDIG",
       "task_phase_s": 452.966795712,
+      "timeouts": 0
+    },
+    {
+      "audit_sha256": "c33850fc274f506ed87d214a3e9c6f02465cfd04ea82c3bb7c0b28b560d421e1",
+      "conditions": "Single native-profile session; frozen base-task order",
+      "configuration": {
+        "binary_identities": {
+          "libggml-cuda.so.0.26.0": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "llama-server": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54"
+        },
+        "context": 8192,
+        "engine": "llama.cpp native",
+        "engine_version": null,
+        "hardware": "Tesla V100 SXM2 16 GB",
+        "model_sha256": "0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c",
+        "model_source": {
+          "base_repository": "Qwen/Qwen3.5-0.8B",
+          "base_revision": "2fc06364715b967f1860aea9cf38778875588b17",
+          "hf_repository": "unsloth/Qwen3.5-0.8B-GGUF",
+          "hf_revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0",
+          "license": "apache-2.0",
+          "parameters_in_GGUF": 752393024,
+          "quantizer": "Unsloth"
+        },
+        "parent_profile_id": "qwen35-08b-q8-native-screening32-task1200-reviewed-sm70",
+        "power_w": 300,
+        "quantization": "Q8_0",
+        "recorded_native_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": "qwen35",
+            "artifact_sha256": "0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c",
+            "family_id": "qwen35_08b",
+            "hf_repository": "unsloth/Qwen3.5-0.8B-GGUF",
+            "hf_revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0",
+            "name": "Qwen3.5-0.8B",
+            "parameters_in_GGUF": 752393024,
+            "quantization": "Q8_0",
+            "tensor_precision_map": null,
+            "variant": "Qwen3.5-0.8B",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-0d3fc86251b2e81f00ebb221eccc013a26819f1f6220fb0c6f0404763572331c",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {},
+            "draft_sha256": null,
+            "flash_attention_requested": "on",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": null
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "min_p": 0.0,
+              "presence_penalty": 2.0,
+              "repeat_penalty": 1.0,
+              "seed": 1001,
+              "temperature": 1.0,
+              "top_k": 20,
+              "top_p": 1.0
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": "off",
+            "timing_scope": "DEVELOPMENT_SCREEN_TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-e5ddc1799699bf24d07b923cfc8e7802ed0e1ff12d71abce1914d4feb4aecbb4",
+          "schema_version": 1,
+          "source_plan_sha256": "4ab87b8b5f8adad05c94d31d1ee0cef8f2521f2d827948516c71dd4d27c4fcd3",
+          "source_provenance": {
+            "actual_launch_sha256": "6a1ac65b988d3843616c95e9df012fccffd15e75a1010b161d8ff23ff6cf8380",
+            "actual_profile_sha256": "8f04e95e1a04ccac68e3b2843c8863423b6074e225e264a6208a9704efb57bd6",
+            "evidence_scope": "FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY",
+            "frozen_model_profile_sha256": "a8978b17f9a0fcc2812687aa2ab0f7050fa8bd649dde06fd998c5e325572625a",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION",
+            "model_source_package_sha256": "33ff41443a2a7d93c9a49ae8dada6699bb2b8962839f035c8ff024a9b0c022b6"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c]",
+              "--alias",
+              "[session-local value]",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--no-webui",
+              "--offline",
+              "--ctx-size",
+              "8192",
+              "--parallel",
+              "1",
+              "--n-gpu-layers",
+              "99",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--cache-reuse",
+              "0",
+              "--no-cache-idle-slots",
+              "--reasoning",
+              "off",
+              "--no-reasoning-preserve",
+              "--load-mode",
+              "mmap",
+              "--flash-attn",
+              "on",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67]",
+              "--log-verbosity",
+              "4",
+              "--no-log-prefix",
+              "--no-log-timestamps"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "a0b0b87dbbefd7c7c05f5260d2a05922142cc722b41cfedb0071dcc80bb37d94",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              47
+            ]
+          }
+        },
+        "request_options": {
+          "cache_prompt": false,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "max_tokens": 4096,
+          "min_p": 0.0,
+          "presence_penalty": 2.0,
+          "repeat_penalty": 1.0,
+          "seed": 1001,
+          "temperature": 1.0,
+          "top_k": 20,
+          "top_p": 1.0
+        },
+        "screening_configuration_id": "screening-config-291e4f2b2bd4d58552ace22af81769c1ebdaee8314bfc216baec1b408361ba79",
+        "task_time_policy": {
+          "cleanup_seconds": 60,
+          "startup_seconds": 180,
+          "task_seconds": 1200,
+          "wall_seconds": 1440
+        },
+        "warmup_requests": 2
+      },
+      "date": "2026-10-24T23:49:04.539920+00:00",
+      "decision": "WEITERE_DIAGNOSE_NO_AUTOMATIC_QUALITY_EXCLUSION",
+      "diagnostic_audit_sha256": "e567dbbbda11abd7d32325255f6a0a103ea4fdbd1059777aeee59d30f6605545",
+      "diagnostic_summary": {
+        "functional_cases_passed": 16,
+        "functional_cases_total": 69,
+        "sandbox_failure_classes": {
+          "IndentationError": 1,
+          "LOADED_BUT_FUNCTIONAL_CASE_FAILURE": 11,
+          "SyntaxError": 4
+        },
+        "task_successes": 0,
+        "tasks": 16
+      },
+      "experiment_id": "R514",
+      "full_benchmark_status": "NOT MEASURED",
+      "independent_review_sha256": "151004c63549d85a4d6f3cacb9454637c69a6de218885238cd24802ec8e20f5a",
+      "local_artifact_available": true,
+      "model": "Qwen3.5-0.8B",
+      "parent_experiment_id": "R514",
+      "peak_vram_mib": 1546.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": null,
+          "GPU_j_per_success_upper": null,
+          "completed": 16,
+          "completed_request_wall_s": 70.826671294,
+          "completion_tokens": 10843,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 7300.057,
+          "gpu_energy_j_upper": 8145.608,
+          "length_stops": 0,
+          "successes": 0,
+          "successful_tasks_s_completed_requests": 0.0,
+          "tokens_s_completed_requests": 153.09204572089715,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0,
+            0.1936076805344365
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 40.137571428571434,
+          "GPU_j_per_success_upper": 156.82171428571428,
+          "completed": 16,
+          "completed_request_wall_s": 5.922701359,
+          "completion_tokens": 699,
+          "final_text_present": 1,
+          "gpu_energy_j_lower": 280.963,
+          "gpu_energy_j_upper": 1097.752,
+          "length_stops": 0,
+          "successes": 7,
+          "successful_tasks_s_completed_requests": 1.1818931220232742,
+          "tokens_s_completed_requests": 118.02047032775268,
+          "valid_terminal_output": 7,
+          "wilson95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ]
+        }
+      },
+      "selection_status": "WEITERE DIAGNOSE",
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 76.76757358,
       "timeouts": 0
     }
   ],
