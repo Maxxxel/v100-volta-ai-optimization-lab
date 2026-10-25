@@ -98,3 +98,39 @@ class CrossCategoryConfigurationLinks(unittest.TestCase):
    changed=copy.deepcopy(tools);changed['native_recipe']['request_options'][key]=value;self.assertFalse(same_native_inference(changed,base,'tools'))
   changed=copy.deepcopy(tools);changed['assets']['engine']='c'*64;self.assertFalse(same_native_inference(changed,base,'tools'))
   self.assertFalse(same_native_inference(tools,base,'coding'))
+
+class ValidationExposure(unittest.TestCase):
+ def test_completed_validation_is_not_described_as_untouched(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1]
+  data=json.loads((root/'data/screening.json').read_text())
+  holdout=data['holdout']
+  self.assertEqual(holdout['evaluated_profiles'],sum(r['groups'] is not None for r in data['independent_validation16']['rows']))
+  self.assertGreater(holdout['evaluated_profiles'],0)
+  self.assertIn('no longer untouched',holdout['scope'])
+  self.assertIn('unexecuted',holdout['scope_at_freeze'])
+
+class ReferenceQualificationLinks(unittest.TestCase):
+ def test_existing_reference_results_link_only_matching_conditions(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1]
+  data=json.loads((root/'data/screening.json').read_text())
+  expected={'OmniCoder-9B':{'R471','R478'},'Qwen3.5-9B':{'R474'},'Gemma4-12B':{'R472'}}
+  for model,experiments in expected.items():
+   row=next(r for r in data['rows'] if r['model']==model)
+   self.assertEqual(row['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS')
+   self.assertTrue(experiments.issubset({r['experiment_id'] for r in row['full_benchmark_runs']}))
+ def test_native_thinking_screen_does_not_inherit_fast_profile_scores(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1]
+  data=json.loads((root/'data/screening.json').read_text())
+  for model,forbidden in [('Nexus-9B',{'R488','R489'}),('Opus Distill-9B',{'R490','R491'}),('Slopus-9B',{'R493','R494'}),('Ornith-1.5-9B',{'R495','R496'})]:
+   row=next(r for r in data['rows'] if r['model']==model)
+   self.assertFalse(forbidden.intersection(r['experiment_id'] for r in row['full_benchmark_runs']))
+
+ def test_different_http_deadline_policy_is_not_silently_equivalent(self):
+  from screening import same_native_inference
+  base,tools=CrossCategoryConfigurationLinks().profiles()
+  tools['native_recipe']['http_timeout_policy']='REMAINING_TASK_TIME'
+  base['native_recipe']['http_timeout_policy']=None
+  self.assertFalse(same_native_inference(tools,base,'tools'))

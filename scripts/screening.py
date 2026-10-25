@@ -114,10 +114,9 @@ def build(root):
    if source.get('cpu_diagnosis_path'):
     assert H(source['cpu_diagnosis_path'])==source['cpu_diagnosis_sha256'];diagnosis=read(source['cpu_diagnosis_path']);assert diagnosis['source_audit_sha256']==row['audit_sha256'] and diagnosis['GPU_runs']==0
     row.update(selection_status='WEITERE DIAGNOSE',decision=diagnosis['decision'],diagnostic_audit_sha256=source['cpu_diagnosis_sha256'],diagnostic_summary=diagnosis['coding'])
-  if package:
-   full=matching_full_runs(root,history,profiles,profile,sha)
-   row['full_benchmark_runs']=full
-   if full:row['full_benchmark_status']='MATCHED_FULL_LOCAL_RESULTS'
+  full=matching_full_runs(root,history,profiles,profile,sha)
+  row['full_benchmark_runs']=full
+  row['full_benchmark_status']='MATCHED_FULL_LOCAL_RESULTS' if full else 'NOT MEASURED'
   rows.append(row)
  output={'schema':1,'official_benchmark':False,'dataset_id':protocol['dataset_id'],'tasks_per_category':16,'source_tasks_sha256':protocol['source_tasks_sha256'],'source_oracles_sha256':protocol['source_oracles_sha256'],'protocol_sha256':H(base/'PROTOCOL.json'),'data_role':'DEVELOPMENT_ALREADY_USED_FOR_NEXUS_VARIANT_SELECTION','holdout':{'status':read(base/'VALIDATION_FROZEN_MANIFEST.json')['status'],'coding':8,'mock_tools':8,'manifest_sha256':H(base/'VALIDATION_FROZEN_MANIFEST.json'),'scope':'Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.'},'selection':'No automatic quality rejection. Small differences retain both candidates; technical failures require diagnosis. Reuse matching full benchmarks.','rows':rows}
  extras=[]
@@ -162,7 +161,11 @@ def build(root):
    output['independent_validation16']['decision']=review['decision']
    output['independent_validation16']['failure_classes']=[{'model':r['model'],'experiment_id':r['experiment_id'],'classes':[f['classification'] for f in r['failures']],'actual_tool_executions':0} for r in review['rows']]
   output['holdout']['status_at_freeze']=output['holdout']['status'];output['holdout']['status']='SEPARATE_PREDECLARED_VALIDATION_PHASE'
-  output['holdout']['current_scope']='The reserved8+8 tasks are now evaluated in a frozen three-profile cohort; these responses are not used to tune parameters.'
+  output['holdout']['scope_at_freeze']=output['holdout']['scope']
+  exposed=sum(r['groups'] is not None for r in vr)
+  output['holdout']['evaluated_profiles']=exposed
+  output['holdout']['scope']=('Previously reserved8+8 tasks; evaluated on '+str(exposed)+' frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.' if exposed else 'Reserved8+8 tasks remain unexecuted on models; no official benchmark claim.')
+  output['holdout']['current_scope']=output['holdout']['scope']
  validate(output);return output
 
 def validate(data):

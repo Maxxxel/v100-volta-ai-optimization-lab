@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-25 — Screening qualification links and validation exposure
+
+- Preserve all15 measured screening profiles and their original16 coding/16 mock-tool scores. Reuse existing broker runners; no new GPU benchmark.
+- Link matching complete official category results for every screening reference, checking actual model, engine and native inference options. Thinking/sampling variants cannot inherit each other’s scores.
+- Distinguish the original untouched validation freeze from its subsequent three-profile evaluation. Those responses remain separate from development scores and official rankings.
+
 ## 2026-10-24 — Nexus C complete coding/tools profile
 
 - R489 qualifies178/200 on the original BFCL v4 parallel_multiple category after independent CPU replay. Task508.655539313 s, peak7,356.5 MiB and804.2929101123596–804.8204269662921 GPU J/success across all200 completed requests.

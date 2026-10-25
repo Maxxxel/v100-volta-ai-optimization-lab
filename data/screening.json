@@ -3,10 +3,12 @@
   "dataset_id": "model-screening32-v1",
   "holdout": {
     "coding": 8,
-    "current_scope": "The reserved8+8 tasks are now evaluated in a frozen three-profile cohort; these responses are not used to tune parameters.",
+    "current_scope": "Previously reserved8+8 tasks; evaluated on 3 frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.",
+    "evaluated_profiles": 3,
     "manifest_sha256": "c590cecc9e81fd9accee3fc7f2f91c7d2740f7e927c1afa61454fceb93dcc1dc",
     "mock_tools": 8,
-    "scope": "Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.",
+    "scope": "Previously reserved8+8 tasks; evaluated on 3 frozen profiles. They are no longer untouched for these profiles. No parameter tuning or official benchmark claim.",
+    "scope_at_freeze": "Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.",
     "status": "SEPARATE_PREDECLARED_VALIDATION_PHASE",
     "status_at_freeze": "FROZEN_RESERVED_NOT_EXECUTED_ON_MODELS"
   },
@@ -464,6 +466,30 @@
       "date": "2026-10-24T20:31:13.048854+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R497",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R471",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e"
+        },
+        {
+          "audit_hash": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R471",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e"
+        },
+        {
+          "audit_hash": "9facd2474e8be80aa0fa2c617e617ec16cd9b11b38d2b6b2d8630435fc6edb42",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R478",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "10d488e719484e00ab6804d0049d0c7efc018ea690f7f82054debc8c8de4006f",
       "local_artifact_available": true,
       "model": "OmniCoder-9B",
@@ -730,6 +756,16 @@
       "date": "2026-10-24T16:22:15.043065+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R487",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "a7f63146ef37d27560d5f765ac76875bb196a335b851beeb32a24d985fbb3b6f",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R482",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-256a4259cced4012a6f1d2aca480672d7937d939e945b91ea2e5ad81269fe190"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "e5f57e953d1004cfb88939c4e5b61db3da022a8a94cef583309bd9d292261628",
       "local_artifact_available": true,
       "model": "Nexus-9B",
@@ -996,6 +1032,16 @@
       "date": "2026-10-24T20:37:43.553309+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R498",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "b0dcae0da912bdcab55d93e932040c51218876d9af67748ffbb636d48c3c44bf",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R484",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-a655247266cf1392456339334bac37e034964d6fd64d478ddae1ee3da97015bb"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "5a0316109071cfb5fbca9929e0051ca89fe91924f80fe84e77293a026980aeda",
       "local_artifact_available": true,
       "model": "Slopus-9B",
@@ -1262,6 +1308,16 @@
       "date": "2026-10-24T20:43:35.436017+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R499",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "82fa3745132d538d00df05cdb34302a999897fc9febae953809b2fd601be9691",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R486",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-1bfa20f10018719df37b9b8e2315529dade0e317da207d333bd337e551021d84"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "c01e6a4e0e53258e49d5c3dc7fe493a98afd8f921a16d983eb76530dc4e7ea47",
       "local_artifact_available": true,
       "model": "Opus Distill-9B",
@@ -1533,6 +1589,16 @@
       "date": "2026-10-24T20:54:46.305815+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R500",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "ae71481c7169f4a37b5281bc61f2b96f940172d7bd41e126468d8a16729ae6b1",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R479",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-32d4074560ff89b4f99b63a489f28db61128bc466affc9fdc34716c2a8ffccf5"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "24b20a9e63e5c5c5d77efb2b0e0039261d09c310d524e14570a20992951249ef",
       "local_artifact_available": true,
       "model": "Ornith-1.5-9B",
@@ -1788,6 +1854,16 @@
       "date": "2026-10-24T21:00:51.448625+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R501",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R474",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "7d2a537289937e394ddec616d533689fb94c88c496d72c6889e4fe87e9a5b438",
       "local_artifact_available": true,
       "model": "Qwen3.5-9B",
@@ -2048,6 +2124,8 @@
       "date": "2026-10-24T21:08:34.997295+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R502",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "de9061d3cf9d5b1542bed68e54c4f12a2b4ca69b040e255330a26a49d40a05d4",
       "local_artifact_available": true,
       "model": "Qwen3.8-27B",
@@ -2317,6 +2395,16 @@
       "date": "2026-10-24T21:12:00.666621+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R503",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "7bfd00d2fcca7e4c767d6a197c3b1f9cc2bb1a146d794d2977f54d28cf21b1aa",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R472",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "2e826b4289beb3b8fd38a91724688c55729249e3e59c557dd695ce02dfbcc66c",
       "local_artifact_available": true,
       "model": "Gemma4-12B",
@@ -2588,6 +2676,8 @@
       "date": "2026-10-24T21:16:45.099593+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R504",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "1d7c418edeba12b15e5ad7af3fde77c9fa4d083d9e04ebea8bf010d5fb25fbae",
       "local_artifact_available": true,
       "model": "MiMo-9B",
@@ -2853,6 +2943,8 @@
       "date": "2026-10-24T21:21:58.513563+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R505",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "d08c18ec7b417a8186d2524d707372c17610fc10a0da48c66c414e4b3379ecd5",
       "local_artifact_available": true,
       "model": "LFM2.5-8B",
@@ -3118,6 +3210,8 @@
       "date": "2026-10-24T21:30:52.902537+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R506",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "7b92769344562f7dcef7803b4d2ddd1bdadb886b407a2179505e2680a0cf16f7",
       "local_artifact_available": true,
       "model": "LFM2.5-24B",
@@ -3388,6 +3482,8 @@
       "date": "2026-10-24T21:38:42.195001+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R507",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "21d5129f9437d6035eac4b26ae90e594d658630c6166d6f0a47c6ed94cd57e34",
       "local_artifact_available": true,
       "model": "Qwen3.6-27B",
@@ -3662,6 +3758,8 @@
       "date": "2026-10-24T21:48:51.017314+00:00",
       "decision": "No quality exclusion from16 tasks; retain for review.",
       "experiment_id": "R508",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "5ce96cdc8da904ffc67a244d8b460d4567ffe886b6cab0f987dd76b65fc295d6",
       "local_artifact_available": true,
       "model": "Bonsai2-27B",
