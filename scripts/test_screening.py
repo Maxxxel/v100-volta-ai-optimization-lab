@@ -161,3 +161,10 @@ class NativeAgentDevelopmentPublication(unittest.TestCase):
   root=Path(__file__).resolve().parents[1]
   history=json.loads((root/'data/configuration-history.json').read_text())
   self.assertFalse(any(r.get('experiment_id')=='R518' or r.get('benchmark_id')=='frozen-agent18-native-development-v1' for r in history['runs']))
+
+ def test_agent_context_failures_are_explicit_without_changing_denominator(self):
+  from export import metrics
+  from screening import render_native_agent_development
+  obj=self.fixture();obj.update(technical_preflight_cases=2,technical_request_errors=0)
+  e={'id':'R999','model':'Mock profile','aggregate_metrics':metrics(obj)}
+  html=render_native_agent_development([e]);self.assertIn('2 / 0',html);self.assertIn('10/18',html);self.assertIn('Preflight / HTTP failures',html)

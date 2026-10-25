@@ -209,6 +209,12 @@ async function main(){
    const content=await tab.locator('main').innerText();
    for(const text of ['13/18','258.25','5447.82–5455.78','Not Terminal-Bench'])assert(content.includes(text),text);
    assert.equal(await tab.getByRole('link',{name:'R518',exact:true}).count(),1);
+   assert(content.includes('Preflight / HTTP failures'));
+   for(const [id,score,diagnostic] of [['R519','8/18','0 / 0'],['R520','9/18','2 / 0'],['R521','14/18','0 / 0']]){
+    const link=tab.getByRole('link',{name:id,exact:true});assert.equal(await link.count(),1);
+    const row=await link.locator('xpath=ancestor::tr').innerText();assert(row.includes(score)&&row.includes(diagnostic),id);
+   }
+
    const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+2);
    await tab.locator('#native-agent18-development-evidence').scrollIntoViewIfNeeded();
    await tab.screenshot({path:path.join(artifacts,name+'-agent-development.png'),animations:'disabled'});

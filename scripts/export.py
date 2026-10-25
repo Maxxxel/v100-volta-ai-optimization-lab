@@ -452,7 +452,7 @@ def main():
         if audit and catalog[audit]['aggregate_metrics'].get('native_agent18_development'):
             experiments[ident]['aggregate_metrics']['native_agent18_development']=verified_native_agent_development(root,v,receipt)
             experiments[ident]['model']=text(load(locations[audit]).get('model'));experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
-            for kind in ('quality_review','comparison_review','output_limit_review'):
+            for kind in ('quality_review','comparison_review','output_limit_review','context_review'):
                 if v.get(kind+'_path'):
                     supplemental=load(pathlib.Path(v[kind+'_path']))
                     assert supplemental['experiment_id']==ident and (supplemental.get('source_audit_sha256') or supplemental.get('candidate_audit_sha256'))==v['audit_sha256']

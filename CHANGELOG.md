@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-25 — R520/R521 complete native Agent18 comparison
+
+- Gemma completes9/18 at300.06852723 task seconds,8,118.5 MiB peak and8,036.579333333334–8,047.347333333334 GPU J/success. Two cases cross the explicit8K-context/4K-output reservation; retain those technical failures separately and diagnose context before judging model capability.
+- Qwen3.8 completes14/18 at476.023893529 task seconds,12,454.5 MiB peak and9,276.77–9,283.121642857142 GPU J/success. Relative to OmniCoder13/18, four paired gains and three losses yield a fixed-set exact p=1; no superiority or Champion claim.
+- All four profiles have independent non-root reply replay and preserved raw GPU evidence. The archive separates preflight/HTTP failures from successes and costs. Native Gemma requestsT1; the other profiles requestT0. These are whole-profile observations on exposed development tasks.
+- No official coding/tools scores, original references, Champion pointers or162-factor status changed. Official Agents remains NOT MEASURED. Prioritize justified qualification gaps and a separately admitted isolated Gemma16K-context diagnostic, without reducing output or excluding candidates from this small set.
+
 ## 2026-10-25 — R519 Qwen3.5 native Agent18 profile
 
 - Complete the same18 frozen simulated development workflows:8 solved,214.925715669 s task time,5,956.5 MiB peak and7,042.298–7,051.751 GPU J/success. Independent non-root replay reproduces all18 outcomes; no HTTP/preflight failures.
@@ -936,5 +943,13 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R519 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R520 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R521 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.

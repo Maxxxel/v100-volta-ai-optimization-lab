@@ -185,10 +185,12 @@ Observed: all three profiles proposed a simulated tool call despite explicit den
 
 Previously used frozen simulated coding, automation and read workflows. **Not Terminal-Bench, unseen validation, a production safety certificate or a Champion qualification.** Native model profiles are preserved; the required/single-tool-call envelope is explicit.
 
-| Experiment | Native model profile | Solved / completed | Task phase s | GPU J/success bounds | Peak VRAM MiB |
-|---|---|---|---|---|---|
-| [R518](experiments/R518.md) | OmniCoder-9B | 13/18 | 258.25 | 5447.82–5455.78 | 7356.50 |
-| [R519](experiments/R519.md) | Qwen3.5-9B | 8/18 | 214.93 | 7042.30–7051.75 | 5956.50 |
+| Experiment | Native model profile | Solved / completed | Task phase s | GPU J/success bounds | Peak VRAM MiB | Preflight / HTTP failures |
+|---|---|---|---|---|---|---|
+| [R518](experiments/R518.md) | OmniCoder-9B | 13/18 | 258.25 | 5447.82–5455.78 | 7356.50 | 0 / 0 |
+| [R519](experiments/R519.md) | Qwen3.5-9B | 8/18 | 214.93 | 7042.30–7051.75 | 5956.50 | 0 / 0 |
+| [R520](experiments/R520.md) | Gemma4-12B | 9/18 | 300.07 | 8036.58–8047.35 | 8118.50 | 2 / 0 |
+| [R521](experiments/R521.md) | Qwen3.8-27B | 14/18 | 476.02 | 9276.77–9283.12 | 12454.50 | 0 / 0 |
 
 Quality is independently replayed from the actual retained replies in a non-root CPU jail using the original simulator and oracle. No productive tools execute. Technical context/transport failures remain separate in the linked audit; incomplete captures remain partial. Energy covers the measured case window, including failed tasks and setup between cases, excluding load/warmup and CPU/system energy. Nonstream output-token rate is not pure decode speed or TTFT. No scores are added to the official model table or its mean.
 
