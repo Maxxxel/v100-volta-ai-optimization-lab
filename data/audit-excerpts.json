@@ -175776,6 +175776,127 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 153,
+      "model_starts": 1,
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 447.162645408,
+          "group_window_s": 447.16891621,
+          "lower_j": 123434.88,
+          "upper_j": 123633.612
+        },
+        "actual_generation_requests": 153,
+        "case_wall_s": 447.162645408,
+        "completed_request_wall_s": 444.057954097,
+        "completion_tokens": 26279,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 4747.495384615385,
+        "gpu_j_per_success_upper": 4755.138923076923,
+        "independent_review_sha256": "75c57b60d7f5a98ed8ffa4c290f759b41df66a9e19ec7e5c6188814b5471d1d9",
+        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 33,
+        "profile_sha256": "3e374052da9a572abd7feaa374e73c886129efd4ba1f201ca2fd274eefdbc086",
+        "solved": 26,
+        "successful_tasks_per_s": 0.05814347243456382,
+        "task_limit_s": 1200,
+        "task_phase_s": 447.16971504,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 59.1792124373469,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 7356.5,
+      "solved": 26,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ceccef8b6a7e6aee5c16",
+    "original_bytes": 4289,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ceccef8b6a7e6aee5c16482af4579bd58acaf3c3282e071048d0c36c4a74994b",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-75c57b60d7f5a98ed8ff",
+    "original_bytes": 10335,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "75c57b60d7f5a98ed8ffa4c290f759b41df66a9e19ec7e5c6188814b5471d1d9",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 26
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-32864b8cd9dbed81059c",
+    "original_bytes": 1254,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "32864b8cd9dbed81059c5ec13f58b4667b284253faee11c3e9cde40ccba3d31a",
+    "statements": {
+      "scope": "GPU executed captured selected_task_inputs fixtures (JSON-sorted mapping keys); scorer initialized from semantically equal archive fixtures with different insertion order. Simulated observation JSON strings then differed in key order, changing subsequent exact request bytes. Replay now initializes from the exact captured profile fixture after verifying equality with the frozen archive. No request normalization, prompt/oracle/answer/weight/score-rule changes. Original failed replay and raw GPU capture remain intact."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 29,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 26,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-38ea6119d3e526444046",
+    "original_bytes": 782,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "38ea6119d3e5264440462391df9bcf3d71f9eb5a661e1f5628e58e1765d879f2",
+    "statements": {
+      "scope": "Frozen33 new fixtures/11 authored validation families; independent from Agent18 development selection, not a population-independence claim or Terminal-Bench. No tuning on replies; all tools simulated."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 26
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-af34dc645fb63a214112",
+    "original_bytes": 668,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "af34dc645fb63a214112951267edbf5e06c4f99a08629aba01825c979ce1bda8",
+    "statements": {
+      "decision": "First actual model reference for this frozen validation protocol; no quality/performance delta yet.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

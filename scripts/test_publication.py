@@ -180,4 +180,19 @@ class PublicationSafety(unittest.TestCase):
   self.assertIsNone(e.url('https://'+'192'+'.168.42.18/private'))
   self.assertIsNone(e.url('https://user'+':secret'+'@github.com/repo'))
  def test_missing_is_not_zero(self):self.assertEqual(e.metrics({'metrics':{'ttft_s':None,'solved':0}}),{'metrics':{'solved':0}})
+class Frozen33Safety(unittest.TestCase):
+ def fixture(self):
+  return {'status':'VALIDATION33_COMPLETE','dataset_id':'jarvis-agent-validation-20261025-v1',
+          'planned_tasks':33,'tasks':33,'solved':20,'measurement_valid':True,
+          'official_benchmark':False,'winner_qualified':False,'full_benchmark_score_claimed':False,
+          'oracle':{'private':'never export'},'response':'private raw reply'}
+ def test_validation_is_separate_and_missing_costs_stay_missing(self):
+  m=e.metrics(self.fixture());self.assertNotIn('native_agent18_development',m)
+  x=m['native_validation33'];self.assertEqual(x['solved'],20);self.assertFalse(x['official_benchmark'])
+  self.assertNotIn('gpu_j_per_success_lower',x);self.assertNotIn('private',str(m));self.assertNotIn('response',str(m))
+ def test_cannot_promote_or_relabel_protocol(self):
+  for key,value in [('official_benchmark',True),('dataset_id','old18'),('tasks',32)]:
+   data=self.fixture();data[key]=value
+   with self.subTest(key=key),self.assertRaises(AssertionError):e.metrics(data)
+
 if __name__=='__main__':unittest.main()

@@ -74,10 +74,13 @@ def projection(obj, depth=0):
     return None
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
-    if obj.get('status') in ('DEVELOPMENT_AGENT18_COMPLETE','PARTIAL_TECHNICAL_REVIEW_REQUIRED') and obj.get('planned_tasks')==18:
+    validation33=obj.get('dataset_id')=='jarvis-agent-validation-20261025-v1' and obj.get('planned_tasks')==33
+    if obj.get('status')=='VALIDATION33_COMPLETE' and ('planned_tasks' in obj or 'dataset_id' in obj):assert validation33
+    agent_count=33 if validation33 else 18
+    if obj.get('status') in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE','PARTIAL_TECHNICAL_REVIEW_REQUIRED') and obj.get('planned_tasks')==agent_count:
         assert obj.get('official_benchmark') is False and obj.get('winner_qualified') is False and obj.get('full_benchmark_score_claimed') is False
-        assert type(obj.get('tasks')) is int and type(obj.get('solved')) is int and 0<=obj['solved']<=obj['tasks']<=18 and obj.get('planned_tasks')==18
-        if obj['status']=='DEVELOPMENT_AGENT18_COMPLETE':assert obj['tasks']==18 and obj.get('measurement_valid') is True
+        assert type(obj.get('tasks')) is int and type(obj.get('solved')) is int and 0<=obj['solved']<=obj['tasks']<=agent_count and obj.get('planned_tasks')==agent_count
+        if obj['status'] in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE'):assert obj['tasks']==agent_count and obj.get('measurement_valid') is True
         keys=('tasks','solved','planned_tasks','model_starts','actual_generation_requests','technical_request_errors','technical_preflight_cases','completion_tokens','completed_request_wall_s','case_wall_s','task_phase_s','task_limit_s','peak_device_vram_mib','gpu_j_per_success_lower','gpu_j_per_success_upper','successful_tasks_per_s','tokens_s_completed_requests')
         agent={k:obj[k] for k in keys if type(obj.get(k)) in (int,float) and math.isfinite(obj[k]) and obj[k]>=0}
         for k in ('model_sha256','profile_sha256','independent_review_sha256'):
@@ -86,8 +89,8 @@ def metrics(obj):
         if counter:
             assert counter.get('method')=='NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1'
             agent['GPU_counter']={k:counter[k] for k in ('lower_j','upper_j','group_window_s','complete_request_s') if type(counter.get(k)) in (int,float) and math.isfinite(counter[k]) and counter[k]>=0}
-        agent.update(official_benchmark=False,winner_qualified=False,data_role='PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT')
-        result['native_agent18_development']=agent
+        agent.update(official_benchmark=False,winner_qualified=False,data_role=('FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL' if validation33 else 'PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT'))
+        result['native_validation33' if validation33 else 'native_agent18_development']=agent
     if obj.get('status')=='STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET' and obj.get('full_benchmark_score_claimed') is False:
         counts={k:obj.get(k) for k in ('expected_tasks','collected_tasks','scored_tasks','solved_observed_tasks')}
         if all(type(v) is int for v in counts.values()) and 0<=counts['solved_observed_tasks']<=counts['scored_tasks']<=counts['collected_tasks']<counts['expected_tasks']:
@@ -332,19 +335,32 @@ def verified_native_agent_development(root, summary, receipt):
     assert all(digest(raw/n)==h for n,h in a['original_raw_files_sha256'].items())
     assert digest(raw/'profile.json')==a['profile_sha256'] and load(raw/'LAUNCH.json')['uid']==65534
     profile=load(raw/'profile.json');assert profile['assets'][profile['model']]==a['model_sha256']==result['model_artifact_sha256']
-    cp=rp.parent/(a['experiment_id'].lower()+'-agent18-replay.receipt.json');stdout=cp.with_name(cp.name.replace('.receipt.json','.stdout'))
+    cp=pathlib.Path(review.get('CPU_receipt_file',rp.parent/(a['experiment_id'].lower()+'-agent18-replay.receipt.json')))
+    assert cp.parent==rp.parent and cp.name in {a['experiment_id'].lower()+'-agent18-replay.receipt.json',a['experiment_id'].lower()+'-scorer-order-correction.receipt.json'}
+    stdout=cp.with_name(cp.name.replace('.receipt.json','.stdout'))
     assert digest(cp)==review['CPU_receipt_sha256'] and digest(stdout)==review['CPU_stdout_sha256'];cpu=load(cp)
     assert cpu['returncode']==0 and 'Result=success\n' in cpu['properties'] and 'ExecMainStatus=0\n' in cpu['properties']
     observed=[json.loads(l.split(' ',1)[1]) for l in stdout.read_text().splitlines() if l.startswith('AGENT18_REPLAY_JSON ')];assert observed==[result]
-    if a['status']=='DEVELOPMENT_AGENT18_COMPLETE':
-        assert result['complete'] and result['cases']==18
+    validation33=a.get('dataset_id')=='jarvis-agent-validation-20261025-v1'
+    if a['status'] in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE'):
+        assert result['complete'] and result['cases']==(33 if validation33 else 18)
         completion=load(raw/'HOST_COMPLETION.json');assert completion['status']=='GPU_COMPLETE_AUDITED' and completion['audit_sha256']==digest(raw/'AUDIT.json')
     from leaderboard import counter_energy_bounds
     records=[json.loads(l) for l in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()];cases=[r for r in records if r['kind']=='agent_case'];telemetry=[json.loads(l) for l in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
     assert len(cases)==a['tasks'] and sum(c['reported_result']['task_success'] for c in cases)==a['solved']
     assert counter_energy_bounds(telemetry,cases,[c['id'] for c in cases])==a['GPU_counter']
-    m=metrics(a)['native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
+    if validation33:
+        frozen=load(root/'staging/model-comparison-preparation/agent-qualification/PRIVATE_VALIDATION33.json')
+        assert digest(root/'staging/model-comparison-preparation/agent-qualification/PRIVATE_VALIDATION33.json')=='acd45c1b43c2cebb1f9453707a76954275bf9810f2344e50e3707a654ed26b65'
+        assert profile['selected_task_inputs']['dataset']==a['dataset_id'] and profile['selected_task_inputs']['cases']==frozen['cases']
+        assert [c['id'] for c in cases]==[c['id'] for c in frozen['cases']][:len(cases)]
+    m=metrics(a)['native_validation33' if validation33 else 'native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
     m['context_tokens']=profile['native_recipe']['context'];m['max_output_tokens']=profile['native_recipe']['request_options']['max_tokens'];m['bridge_source_sha256']=profile['native_recipe']['agent18']['transport_sha256']
+    if validation33 and summary.get('replay_order_correction_path'):
+        correction=pathlib.Path(summary['replay_order_correction_path']);assert digest(correction)==summary['replay_order_correction_sha256']
+        document=load(correction);assert document['kind']=='CAPTURED_FIXTURE_ORDER_CPU_REPLAY_CORRECTION' and document['GPU_reruns']==0
+        assert document['corrected_CPU_receipt_sha256']==digest(cp) and document['tasks_replayed']==a['tasks'] and document['solved']==a['solved']
+        m['evaluation_correction_audit_id']=receipt(correction,summary['replay_order_correction_sha256'])
     return m
 
 def grouped_sign_probability(differences):
@@ -489,8 +505,9 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
-        if audit and catalog[audit]['aggregate_metrics'].get('native_agent18_development'):
-            experiments[ident]['aggregate_metrics']['native_agent18_development']=verified_native_agent_development(root,v,receipt)
+        native_key='native_validation33' if catalog.get(audit,{}).get('aggregate_metrics',{}).get('native_validation33') else 'native_agent18_development'
+        if audit and catalog[audit]['aggregate_metrics'].get(native_key):
+            experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)
             experiments[ident]['model']=text(load(locations[audit]).get('model'));experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
             for kind in ('quality_review','comparison_review','output_limit_review','context_review','cohort_review'):
                 if v.get(kind+'_path'):

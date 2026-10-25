@@ -214,7 +214,21 @@ async function main(){
     assert(section,'Current qualification section must exist');
     for(const c of qualificationExpected.candidates)assert(section.includes(c.profile),c.profile);
     assert(section.includes(qualificationExpected.validation.cases+' frozen cases / '+qualificationExpected.validation.generalization_groups+' related-task groups'));
-    assert(section.includes('zero model responses'));assert(section.includes('harness checks, not model scores'));
+    if(qualificationExpected.model_validation?.length){
+     assert(!section.includes('zero model responses'));
+     assert(section.includes('not Terminal-Bench or an official Agents score'));
+     for(const r of qualificationExpected.model_validation){
+      const row=tab.getByRole('link',{name:r.experiment_id,exact:true}).locator('xpath=ancestor::tr');
+      const cells=await row.locator('td').allTextContents();
+      assert.equal(cells[0].trim(),r.model);
+      assert.equal(cells[1].trim(),r.metrics.solved+'/'+r.metrics.tasks);
+      assert.equal(cells[2].trim(),r.metrics.task_phase_s.toFixed(2)+'s');
+      assert.equal(cells[4].trim(),r.metrics.gpu_j_per_success_lower.toFixed(2)+'–'+r.metrics.gpu_j_per_success_upper.toFixed(2));
+     }
+     report.agent_validation33_profiles_verified=qualificationExpected.model_validation.length;
+    }else{
+     assert(section.includes('zero model responses'));assert(section.includes('harness checks, not model scores'));
+    }
     assert(section.includes('failed during startup, before any task'));assert(section.includes('No local official score'));
     assert(section.includes('1200s task allowance (400s per arm)'));
     report.qualification_shortlist_profiles_verified=qualificationExpected.candidates.length;

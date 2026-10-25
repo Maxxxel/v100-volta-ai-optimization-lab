@@ -102,8 +102,16 @@ def qualification_phase(root,history):
   correction={'experiment_id':ctx['corrective_experiment'],'tasks':actual['tasks'],'solved':actual['solved'],'reference_solved':review['quality']['reference_solved'],'context_preflight_errors':actual['technical_preflight_cases'],'HTTP_errors':actual['technical_request_errors'],'task_phase_s':actual['task_phase_s'],'task_phase_change_percent':comparison['comparison']['task_phase_change_percent'],'peak_vram_change_mib':comparison['comparison']['peak_vram_change_mib'],'identical_first_turn_prompt_hashes':review['identical_first_turn_prompt_token_hashes'],'official_benchmark':False,'winner_qualified':False}
   reference_path=root/'staging'/review['reference_experiment_id'].lower()/'AUDIT.json';assert H(reference_path)==review['reference_audit_sha256'];reference=read(reference_path)
   correction.update(model_requests=actual['actual_generation_requests'],reference_model_requests=reference['actual_generation_requests'])
+ model_validation=[]
+ from export import verified_native_agent_development
+ for key,summary in read(root/'BENCHMARK_REFERENCES.json')['summary'].items():
+  if not isinstance(summary,dict) or summary.get('status')!='VALIDATION33_COMPLETE':continue
+  ap=Path(summary['audit_path']);assert H(ap)==summary['audit_sha256'];actual=read(ap)
+  assert actual['dataset_id']=='jarvis-agent-validation-20261025-v1' and actual['tasks']==33 and actual['measurement_valid']
+  metric=verified_native_agent_development(root,summary,lambda path,expected:'audit-'+expected[:20])
+  model_validation.append({'experiment_id':actual['experiment_id'],'model':actual['model'],'audit_sha256':H(ap),'metrics':metric})
  multi=phase['multi_agent_plan'];assert multi['total_task_budget_s']==1200 and multi['per_arm_task_budget_s']*len(multi['arms'])==1200 and multi['GPU_concurrency']==1
- return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,
+ return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,'model_validation':model_validation,'validation_execution':({k:frozen['current_execution'][k] for k in ('experiment_id','status')} if frozen.get('current_execution') else None),
   'validation':{'status':'FROZEN_NOT_RELEASED_NO_MODEL_RESULTS','cases':qa['cases'],'generalization_groups':qa['groups'],'golden_QA_passed':qa['golden_passed'],'wrong_final_QA_rejected':qa['wrong_final_rejected'],'forbidden_action_QA_rejected':qa['forbidden_action_rejected'],'model_requests':0,'CPU_QA_sha256':frozen['CPU_QA_sha256'],'private_dataset_sha256':frozen['private_dataset_sha256'],'scope':frozen['scope']},
   'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.']},
   'slopus_diagnosis':{k:sl[k] for k in ('experiment_id','recorded_policy_violations','length_stopped_responses','actual_effect_scope_passes','scope')},
@@ -299,6 +307,13 @@ def validate(data):
   assert q['gemma_context']['quality_score'] is None and q['gemma_context']['model_requests']==0
   assert all(c['official_agents']=='NOT MEASURED' for c in q['candidates'])
   m=q['multi_agent_plan'];assert m['total_task_budget_s']==1200 and m['per_arm_task_budget_s']*len(m['arms'])==1200 and m['GPU_concurrency']==1
+  ids=[]
+  for row in q.get('model_validation',[]):
+   metric=row['metrics'];ids.append(row['experiment_id'])
+   assert metric['tasks']==metric['planned_tasks']==33 and 0<=metric['solved']<=33
+   assert metric['official_benchmark'] is False and metric['winner_qualified'] is False
+   assert metric['data_role']=='FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL'
+  assert len(ids)==len(set(ids))
 
 def render(data):
  from html import escape as e
@@ -377,7 +392,22 @@ def render_qualification(data):
   note='; incomplete evidence remains PARTIAL' if any(not r['official_eligible'] for r in c['full_benchmark_records']) else ''
   out+='- **'+escape(c['profile'])+'**: '+refs+note+'. Official agent qualification: NOT MEASURED.\n'
  v=q['validation'];t=q['terminal_bench'];g=q['gemma_context'];m=q['multi_agent_plan']
- out+='\n**Reserved agent validation:** '+str(v['cases'])+' frozen cases / '+str(v['generalization_groups'])+' related-task groups; zero model responses. CPU-only controls: '+str(v['golden_QA_passed'])+' golden passes, '+str(v['wrong_final_QA_rejected'])+' incorrect-final rejections and '+str(v['forbidden_action_QA_rejected'])+' forbidden-action rejections. Fixtures/oracles remain private and unreleased. These are harness checks, not model scores.\n'
+ results=q.get('model_validation',[])
+ if results:
+  out+='\n### Frozen agent validation\n\n33 frozen cases / 11 related-task groups; all tools simulated. Native profiles may differ. This is separate validation evidence, **not Terminal-Bench or an official Agents score**.\n\n'
+  out+='| Profile | Success | Task time | Completion tok/s¹ | GPU J/success² | Peak VRAM MiB | Evidence |\n|---|---:|---:|---:|---:|---:|---|\n'
+  for row in results:
+   metric=row['metrics'];value=lambda key:format(metric[key],'.2f') if metric.get(key) is not None else 'NOT MEASURED'
+   out+='| '+escape(row['model'])+' | '+str(metric['solved'])+'/'+str(metric['tasks'])+' | '+value('task_phase_s')+'s | '+value('tokens_s_completed_requests')+' | '+value('gpu_j_per_success_lower')+'–'+value('gpu_j_per_success_upper')+' | '+value('peak_device_vram_mib')+' | ['+row['experiment_id']+'](experiments/'+row['experiment_id']+'.md) |\n'
+  out+='\n¹ Includes reasoning where reported; not pure decode. ² Counter-bracketed GPU energy. One pass over11 authored families does not establish population superiority. Private fixtures/oracles are not exported.\n'
+  for row in results:
+   correction=row['metrics'].get('evaluation_correction_audit_id')
+   if correction:out+='\nEvaluator correction: replay preserves the exact captured fixture mapping order after checking equality with the frozen archive. Original replies and scoring rules are unchanged; no additional GPU run. [Correction evidence](audits/'+correction+'.md).\n'
+ elif q.get('validation_execution'):
+  out+='\n**Frozen agent validation:** model execution started on33cases/11groups. No audited model result yet; CPU controls remain harness evidence only.\n'
+ else:
+  out+='\n**Reserved agent validation:** '+str(v['cases'])+' frozen cases / '+str(v['generalization_groups'])+' related-task groups; zero model responses. CPU-only controls: '+str(v['golden_QA_passed'])+' golden passes, '+str(v['wrong_final_QA_rejected'])+' incorrect-final rejections and '+str(v['forbidden_action_QA_rejected'])+' forbidden-action rejections. Fixtures/oracles remain private and unreleased. These are harness checks, not model scores.\n'
+
  out+='\n**Terminal-Bench 2.1:** '+str(t['tasks'])+' tasks verified at revision `'+t['revision']+'`; Harbor '+t['evaluator_version']+' source inspected. [Official dataset]('+t['sources'][0]+'). No local official score; isolated container/evaluator/broker execution remains unadmitted.\n'
  out+='\n**Gemma context:** ['+g['experiment_id']+'](experiments/'+g['experiment_id']+'.md) failed during startup, before any task. The bridge fix passed '+str(g['CPU_fix_tests'])+' direct transport controls. This is not a negative model-quality result.\n'
  if g.get('corrective_result'):

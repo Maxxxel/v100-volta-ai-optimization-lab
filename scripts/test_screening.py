@@ -249,3 +249,19 @@ class GemmaCorrectedContextEvidence(unittest.TestCase):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];es=json.loads((root/'data/experiments.json').read_text());m={e['id']:e['aggregate_metrics']['native_agent18_development'] for e in es if e.get('aggregate_metrics',{}).get('native_agent18_development')}
   self.assertEqual(m['R520']['context_tokens'],8192);self.assertEqual(m['R529']['context_tokens'],16384);self.assertEqual(m['R520']['max_output_tokens'],m['R529']['max_output_tokens']);self.assertNotEqual(m['R520']['bridge_source_sha256'],m['R529']['bridge_source_sha256'])
+
+class AgentValidation33Presentation(unittest.TestCase):
+ def data(self):
+  d=JarvisQualification().fixture();d['qualification_phase']['model_validation']=[{'experiment_id':'R530','model':'CPU fixture only','audit_sha256':'a'*64,'metrics':{'tasks':33,'planned_tasks':33,'solved':21,'official_benchmark':False,'winner_qualified':False,'data_role':'FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL'}}];return d
+ def test_model_validation_separate_from_cpu_controls_and_official_scores(self):
+  from screening import render_qualification
+  d=self.data();validate(d);out=render_qualification(d)
+  self.assertIn('21/33',out);self.assertIn('NOT MEASURED',out);self.assertIn('not Terminal-Bench',out);self.assertNotIn('zero model responses',out)
+ def test_validation_cannot_become_official_or_duplicate(self):
+  d=self.data();d['qualification_phase']['model_validation'][0]['metrics']['official_benchmark']=True
+  with self.assertRaises(AssertionError):validate(d)
+  d=self.data();d['qualification_phase']['model_validation']*=2
+  with self.assertRaises(AssertionError):validate(d)
+ def test_unknown_metrics_remain_missing(self):
+  from screening import render_qualification
+  out=render_qualification(self.data());self.assertIn('NOT MEASURED–NOT MEASURED',out);self.assertNotIn('0.00',out)

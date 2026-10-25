@@ -179,7 +179,17 @@ Screening is complete. This is a provisional shortlist, **not a new ranking**. [
 - **Gemma4-12B**: [R464](experiments/R464.md), [R472](experiments/R472.md). Official agent qualification: NOT MEASURED.
 - **Qwen3.5-9B · efficiency reference**: [R465](experiments/R465.md), [R474](experiments/R474.md). Official agent qualification: NOT MEASURED.
 
-**Reserved agent validation:** 33 frozen cases / 11 related-task groups; zero model responses. CPU-only controls: 33 golden passes, 33 incorrect-final rejections and 33 forbidden-action rejections. Fixtures/oracles remain private and unreleased. These are harness checks, not model scores.
+### Frozen agent validation
+
+33 frozen cases / 11 related-task groups; all tools simulated. Native profiles may differ. This is separate validation evidence, **not Terminal-Bench or an official Agents score**.
+
+| Profile | Success | Task time | Completion tok/s¹ | GPU J/success² | Peak VRAM MiB | Evidence |
+|---|---:|---:|---:|---:|---:|---|
+| OmniCoder-9B | 26/33 | 447.17s | 59.18 | 4747.50–4755.14 | 7356.50 | [R530](experiments/R530.md) |
+
+¹ Includes reasoning where reported; not pure decode. ² Counter-bracketed GPU energy. One pass over11 authored families does not establish population superiority. Private fixtures/oracles are not exported.
+
+Evaluator correction: replay preserves the exact captured fixture mapping order after checking equality with the frozen archive. Original replies and scoring rules are unchanged; no additional GPU run. [Correction evidence](audits/audit-32864b8cd9dbed81059c.md).
 
 **Terminal-Bench 2.1:** 89 tasks verified at revision `7131e4375048a0e408a8fb404b5f499d726b695b`; Harbor 0.24.0 source inspected. [Official dataset](https://hub.harborframework.com/datasets/terminal-bench/terminal-bench-2-1). No local official score; isolated container/evaluator/broker execution remains unadmitted.
 
