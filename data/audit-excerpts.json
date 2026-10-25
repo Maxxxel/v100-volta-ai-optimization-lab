@@ -177052,6 +177052,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 9322.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 131,
+          "tasks": 164,
+          "wall_s": 350.401447844
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ed307b823d3281f51ee1",
+    "original_bytes": 11225,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ed307b823d3281f51ee1f301975f6503a8ada1b185e204f772823b56d9ef9d6d",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Fixed MTP3 candidate selected on development data before complete original164 qualification. Same target/engine/template/sampler/context/output as stored R516; the fixed draft/flags are the declared treatment. No further test-task tuning or automatic Champion. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -257758,6 +257783,39 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 9322.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c516d586877213767ac3",
+    "original_bytes": 143440,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c516d586877213767ac34f9895ee09a77e4cb14957ed5319af6746be2cef322f",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 131,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-454866b632c1947a5dd5",
+    "original_bytes": 3656,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "454866b632c1947a5dd51c3ce15385d38ff7fe93cbba8018b61ab836b785724e",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -257790,6 +257848,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "de4acb1d78b6a6ec052b975456574afc8d560af31dfcbce71044e5f31e4aed06",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-ced1615fbe47475d1a67",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ced1615fbe47475d1a67bae32186d73381eb28227ec1c0b7dded2479a726e2ba",
     "statements": {}
   },
   {

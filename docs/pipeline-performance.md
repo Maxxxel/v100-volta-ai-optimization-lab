@@ -1,11 +1,12 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-25T21:58:43.384551+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-25T22:34:31.307400+00:00. This static page is not a live monitor.**
 
-Last observed: R540 · AUDITED_RESULT_AVAILABLE.
+Last observed: R541 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R541](experiments/R541.md) | COMPLETE | 164/164 | 76.322 | 350.48 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R540](experiments/R540.md) | COMPLETE | 64/64 | 73.986 | 117.603 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R539](experiments/R539.md) | COMPLETE | 32/32 | 77.515 | 43.946 | NOT MEASURED | 79.0 / 11.0 |
 | [R538](experiments/R538.md) | PARTIAL | 199/200 | 157.935 | NOT MEASURED | 0.396 | 98.0 / 10.0 |
@@ -47,6 +48,10 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R540 | security | COMPLETE | 11.842 |
 | R540 | commit | COMPLETE | 0.068 |
 | R540 | push | COMPLETE | 2.887 |
+| R540 | commit | COMPLETE | 0.111 |
+| R540 | security | COMPLETE | 11.842 |
+| R540 | push | COMPLETE | 2.836 |
+| R541 | collect | FAILED | 24.06 |
 
 </details>
 
