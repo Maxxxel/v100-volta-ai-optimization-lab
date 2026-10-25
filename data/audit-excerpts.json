@@ -174481,6 +174481,155 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0,
+      "solved": 13,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0ff28195230de5089266",
+    "original_bytes": 1118,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0ff28195230de50892663e392e7b3039d2f22fc30eafe4bc70d64d04a4ebe97b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-059327fd3e88ec7503dd",
+    "original_bytes": 678,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "059327fd3e88ec7503ddd0e445f9f33b8f3e5375af35d0cdbdff5c6f522aec88",
+    "statements": {
+      "interpretation": "Original frozen evaluator rejects a truncated content-only reply under the explicit required-tool protocol. Preserved historical label is not evidence of a host/simulator code fault. No GPU rerun, output-cap change or quality repair."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 98,
+      "model_starts": 1,
+      "native_agent18_development": {
+        "GPU_counter": {
+          "complete_request_s": 214.921588519,
+          "group_window_s": 214.925335846,
+          "lower_j": 56338.384,
+          "upper_j": 56414.008
+        },
+        "actual_generation_requests": 98,
+        "case_wall_s": 214.921588519,
+        "completed_request_wall_s": 212.870082982,
+        "completion_tokens": 11948,
+        "data_role": "PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT",
+        "gpu_j_per_success_lower": 7042.298,
+        "gpu_j_per_success_upper": 7051.751,
+        "independent_review_sha256": "e8a9efe050e3b0857fea03dca98932af650599a02e1b4d2e37212daad054370b",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 5956.5,
+        "planned_tasks": 18,
+        "profile_sha256": "bb5da299c67348aa26a26bc5f292becabb3065e546fc549bb79d5fc76032f7c7",
+        "solved": 8,
+        "successful_tasks_per_s": 0.03722216289985762,
+        "task_limit_s": 1200,
+        "task_phase_s": 214.925715669,
+        "tasks": 18,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 56.1281314528839,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 5956.5,
+      "solved": 8,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2256e0b376afc37e9ba2",
+    "original_bytes": 4204,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2256e0b376afc37e9ba2365b340b24965865734b1a2510f72bc2d823dd3c59ef",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e8a9efe050e3b0857fea",
+    "original_bytes": 6252,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e8a9efe050e3b0857fea03dca98932af650599a02e1b4d2e37212daad054370b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 11,
+        "task_scope_passes": 18
+      },
+      "solved": 8,
+      "tasks": 18
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-df5935ecb309dfe81a8e",
+    "original_bytes": 844,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "df5935ecb309dfe81a8edab4637c7a98bbcd60739e92a23a05cb8d749c6afe18",
+    "statements": {
+      "scope": "Original previously used simulated development18. No general safety rate, official agent score, model exclusion or Champion. HTTP/preflight failures and output-format/length failures remain distinct."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "GPU_j_per_success_change_percent_lower": 29.079603493983107,
+        "GPU_j_per_success_change_percent_upper": 29.441655766286058,
+        "peak_vram_change_mib": -1400.0,
+        "task_phase_change_percent": -16.774982299355102
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_solved": 8,
+        "paired_candidate_gained": 1,
+        "paired_candidate_lost": 6,
+        "paired_exact_two_sided_p": 0.125,
+        "reference_solved": 13,
+        "tasks": 18
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-08a159059e6311e496bf",
+    "original_bytes": 1853,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "08a159059e6311e496bfe233559101f59c049b04a2888cc5e0d3e928fd8460a4",
+    "statements": {
+      "decision": "Retain both profiles and their complete official coding/tool qualifications. Qwen completed this development set faster with lower total energy/VRAM but fewer successful tasks and higher GPU J/success. Do not select a universal winner or reject Qwen from18 tasks; compare the other prequalified native references before further diagnosis or independent agent qualification.",
+      "limitations": [
+        "Different original models, quantizations and native templates are whole profiles, not a causal quantization or fine-tuning experiment.",
+        "One deterministic requested-seed pass over18 already exposed purpose-built tasks; exact paired p is descriptive on this fixed set, not a population superiority or safety certificate.",
+        "Light bounded CPU work was permitted; no isolated-host equivalence or independently replicated performance claim. Raw GPU telemetry and both sessions remain preserved."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

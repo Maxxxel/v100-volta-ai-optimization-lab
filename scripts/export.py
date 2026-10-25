@@ -452,6 +452,13 @@ def main():
         if audit and catalog[audit]['aggregate_metrics'].get('native_agent18_development'):
             experiments[ident]['aggregate_metrics']['native_agent18_development']=verified_native_agent_development(root,v,receipt)
             experiments[ident]['model']=text(load(locations[audit]).get('model'));experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
+            for kind in ('quality_review','comparison_review','output_limit_review'):
+                if v.get(kind+'_path'):
+                    supplemental=load(pathlib.Path(v[kind+'_path']))
+                    assert supplemental['experiment_id']==ident and (supplemental.get('source_audit_sha256') or supplemental.get('candidate_audit_sha256'))==v['audit_sha256']
+                    sid=receipt(v[kind+'_path'],v[kind+'_sha256']);assert sid
+                    experiments[ident].setdefault('related_audit_ids',[]).append(sid)
+
         if v.get('development_comparison_review'):
             experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):

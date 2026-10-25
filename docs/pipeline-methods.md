@@ -188,6 +188,7 @@ Previously used frozen simulated coding, automation and read workflows. **Not Te
 | Experiment | Native model profile | Solved / completed | Task phase s | GPU J/success bounds | Peak VRAM MiB |
 |---|---|---|---|---|---|
 | [R518](experiments/R518.md) | OmniCoder-9B | 13/18 | 258.25 | 5447.82–5455.78 | 7356.50 |
+| [R519](experiments/R519.md) | Qwen3.5-9B | 8/18 | 214.93 | 7042.30–7051.75 | 5956.50 |
 
 Quality is independently replayed from the actual retained replies in a non-root CPU jail using the original simulator and oracle. No productive tools execute. Technical context/transport failures remain separate in the linked audit; incomplete captures remain partial. Energy covers the measured case window, including failed tasks and setup between cases, excluding load/warmup and CPU/system energy. Nonstream output-token rate is not pure decode speed or TTFT. No scores are added to the official model table or its mean.
 

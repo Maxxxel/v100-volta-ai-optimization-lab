@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-25 — R519 Qwen3.5 native Agent18 profile
+
+- Complete the same18 frozen simulated development workflows:8 solved,214.925715669 s task time,5,956.5 MiB peak and7,042.298–7,051.751 GPU J/success. Independent non-root replay reproduces all18 outcomes; no HTTP/preflight failures.
+- Against R518 OmniCoder13/18: one paired gain and six losses, fixed-set exact two-sided p=0.125. Retain both candidates; this small exposed task set establishes no population winner or model exclusion. Qwen used less total time/energy and VRAM but more GPU energy per successful task.
+- Preserve11/18 simulated policy gates passed and all original failures. Different models, quantizations and native templates make this a whole-profile comparison, not a causal optimization experiment. Complete official coding/tools results and the official Agents column remain unchanged.
+
 ## 2026-10-25 — R518 native Agent18 development reference
 
 - OmniCoder completes18 previously used simulated workflow tasks:13 solved,258.246524431 s task time,7,356.5 MiB peak VRAM and5,447.822–5,455.779076923077 GPU J/success from measured counter bounds. Ninety actual model replies; independent non-root CPU replay reproduces every task result and effect.
@@ -926,5 +932,9 @@ Audited model results and benchmark visualizations updated from pinned evidence.
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
 
 ## Audited research checkpoint R518 / 4c76e5c1cfd5
+
+Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
+
+## Audited research checkpoint R519 / 4c76e5c1cfd5
 
 Audited model results and benchmark visualizations updated from pinned evidence. Task cohorts, partial screens and profile limits remain separate; original audit hashes preserve corrections and negative results.
