@@ -22049,15 +22049,88 @@
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
+      "quality": {
+        "paired_success_gains": 0,
+        "paired_success_losses": 0,
+        "paired_tasks": 32
+      }
+    },
     "audit_id": "audit-0c0dea8f708aba6bb0df",
-    "date": null,
+    "date": "2026-10-25T21:54:56.999122+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
-    "factor_ids": [],
+    "factor_ids": [
+      "S03"
+    ],
     "id": "R540",
-    "model": null,
+    "model": "OmniCoder-9B bartowski Q6 · fresh MTP A/B",
+    "mtp_confirmation": {
+      "arms": [
+        {
+          "GPU_j_per_success_lower": 583.6509642857143,
+          "GPU_j_per_success_upper": 587.3961071428572,
+          "arm": "A",
+          "arm_including_setup_s": 68.372799078,
+          "coding_successes": 14,
+          "completion_tokens": 4348,
+          "draft_accepted": null,
+          "draft_counter_responses": 0,
+          "draft_generated": null,
+          "peak_device_vram_mib": 7680.5,
+          "reported_generation_window_tokens_s": 79.13214963430865,
+          "response_wall_s": 62.701000496,
+          "successes": 28,
+          "tasks": 32,
+          "tool_successes": 14
+        },
+        {
+          "GPU_j_per_success_lower": 408.7463571428571,
+          "GPU_j_per_success_upper": 412.29578571428567,
+          "arm": "B",
+          "arm_including_setup_s": 49.223764207,
+          "coding_successes": 14,
+          "completion_tokens": 4552,
+          "draft_accepted": 3155,
+          "draft_counter_responses": 32,
+          "draft_generated": 4131,
+          "peak_device_vram_mib": 9324.5,
+          "reported_generation_window_tokens_s": 133.25401323793142,
+          "response_wall_s": 44.028368196,
+          "successes": 28,
+          "tasks": 32,
+          "tool_successes": 14
+        }
+      ],
+      "audit_id": "audit-702b0065d2de17071ae5",
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
+      "identities": {
+        "draft_sha256": "a794337c734d5536b150dbed898d7c3b406fb6f34dc65f53f5309e6fa4efb623",
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052"
+      },
+      "next_action": "Qualify the demonstrated single MTP profile on complete official coding/tools and retained quality cases against unchanged references. Do not repeat the development screen without a new hypothesis.",
+      "official_benchmark": false,
+      "quality": {
+        "paired_success_gains": 0,
+        "paired_success_losses": 0,
+        "paired_tasks": 32
+      },
+      "scope": "One fresh A then B comparison on previously exposed development data, with independently replayed judgments. Both model startups/warmups are conservatively charged to one1200s clock. Response latency and complete arm wall are distinct. Same observed task successes do not establish population noninferiority or identical token decisions. Reported generation-window throughput is not end-to-end task throughput. Counter brackets are not sensor confidence intervals; CPU/system energy excluded. No official score or Champion.",
+      "single_task_clock_s": 117.603342749,
+      "status": "FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_OFFICIAL_QUALIFICATION_PENDING",
+      "winner_qualified": false
+    },
     "reference_A0": null,
-    "statements": {},
+    "statements": {
+      "decision": "FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_OFFICIAL_QUALIFICATION_PENDING",
+      "hypothesis": "Fresh MTP3 reduces complete response latency by at least10% versus the unchanged fresh control without losing observed coding/tool successes.",
+      "scope": "One fresh A then B comparison on previously exposed development data, with independently replayed judgments. Both model startups/warmups are conservatively charged to one1200s clock. Response latency and complete arm wall are distinct. Same observed task successes do not establish population noninferiority or identical token decisions. Reported generation-window throughput is not end-to-end task throughput. Counter brackets are not sensor confidence intervals; CPU/system energy excluded. No official score or Champion."
+    },
     "winner_qualified": false
   }
 ]

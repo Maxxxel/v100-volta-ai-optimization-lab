@@ -355,6 +355,44 @@ def mtp_development_result(root,entry,receipt):
                         'counter_upper_j':review['GPU_counter'][eid]['upper_j']}
                        for eid,audit in (('R515',a),('R539',b))]
     return result
+
+def mtp_confirmation_projection(review,audit,profile):
+    """Aggregate development A/B evidence, never an official benchmark row."""
+    assert review['experiment_id']==audit['experiment_id']=='R540'
+    assert review['status']=='FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_OFFICIAL_QUALIFICATION_PENDING'
+    assert review['winner_qualified'] is False and review['official_benchmark'] is False and review['GPU_runs_in_review']==0
+    assert audit['measurement_valid'] and audit['GPU_execution_observed']
+    assert audit['completed_requests']==audit['planned_requests']==64 and audit['model_starts']==2
+    assert not audit['official_benchmark'] and not audit['winner_qualified']
+    assert review['quality']['paired_tasks']==32 and review['quality']['paired_success_losses']==0
+    assert 0<review['single_task_clock_s']<=1200 and review['task_limit_s']==1200
+    result={'status':text(review['status']),'scope':text(review['scope']),'next_action':text(review['next_action']),
+            'official_benchmark':False,'winner_qualified':False,'single_task_clock_s':review['single_task_clock_s'],
+            'comparison':projection(review['comparison']),'quality':projection(review['quality']),'arms':[]}
+    for arm in ('A','B'):
+        r=review['arms'][arm];g=audit['arms'][arm]
+        assert g['coding']['completed']==g['tools']['completed']==16
+        assert r['tasks']==32 and r['coding_successes']==g['coding']['successes'] and r['tool_successes']==g['tools']['successes']
+        assert r['successes']==r['coding_successes']+r['tool_successes']
+        assert math.isclose(r['response_wall_s'],sum(v['completed_request_wall_s'] for v in g.values()),abs_tol=1e-8)
+        keys=('coding_successes','tool_successes','tasks','successes','response_wall_s','arm_including_setup_s','peak_device_vram_mib','completion_tokens',
+              'GPU_j_per_success_lower','GPU_j_per_success_upper','reported_generation_window_tokens_s','draft_counter_responses','draft_generated','draft_accepted')
+        result['arms'].append({'arm':arm,**{k:r.get(k) for k in keys}})
+    result['identities']={'model_sha256':profile['model_sha256'],'draft_sha256':profile['native_mtp_draft']['sha256'],
+                          'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server']}
+    assert all(re.fullmatch('[a-f0-9]{64}',h) for h in result['identities'].values())
+    return result
+
+def verified_mtp_confirmation_result(root,entry,receipt):
+    root=pathlib.Path(root).resolve();p=pathlib.Path(entry['path']).resolve()
+    assert p.is_relative_to(root) and digest(p)==entry['sha256']
+    review=load(p)
+    for name,h in review['source_files_sha256'].items():
+        source=pathlib.Path(name).resolve();assert source.is_relative_to(root.parent) and digest(source)==h
+    audit=load(root/'staging/r540/AUDIT.json');profile=load(pathlib.Path(audit['raw_root'])/'profile.json')
+    result=mtp_confirmation_projection(review,audit,profile)
+    result['audit_id']=receipt(p,entry['sha256'])
+    return result
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -661,6 +699,8 @@ def main():
         if v.get('development_comparison_review'):
             if ident=='R539':experiments[ident]['mtp_development_comparison']=mtp_development_result(root,v['development_comparison_review'],receipt)
             else:experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
+        if v.get('mtp_confirmation_review'):
+            experiments[ident]['mtp_confirmation']=verified_mtp_confirmation_result(root,v['mtp_confirmation_review'],receipt)
         if isinstance(v.get('audit_correction_path'),str) and re.fullmatch('[a-f0-9]{64}',str(v.get('audit_correction_sha256',''))):
             correction_id=receipt(v['audit_correction_path'],v['audit_correction_sha256'])
             if correction_id:

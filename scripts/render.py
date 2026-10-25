@@ -252,6 +252,11 @@ All original experiments, failures, configurations and audit identities remain a
    text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
+  if e.get('mtp_confirmation'):
+   dev=e['mtp_confirmation']
+   text+='\n## Fresh controlled MTP confirmation\n\n**Development evidence. Not an official benchmark score or Champion.** Same32 tasks per arm; one task clock including both startups/warmups: '+str(round(dev['single_task_clock_s'],3))+' seconds.\n\n'
+   text+=table(['Arm','Coding /16','Mock tools /16','Response seconds','Arm incl. setup seconds','Peak VRAM MiB','Response GPU J/success, bounds'],[[p['arm'],p['coding_successes'],p['tool_successes'],round(p['response_wall_s'],3),round(p['arm_including_setup_s'],3),p['peak_device_vram_mib'],str(round(p['GPU_j_per_success_lower'],2))+'–'+str(round(p['GPU_j_per_success_upper'],2))] for p in dev['arms']])
+   text+='\n'+dev['scope']+'\n\nNext: '+dev['next_action']+'\n\n[Comparison audit](../audits/'+dev['audit_id']+'.md)\n\n<details><summary>Draft counters, identities and metrics</summary>\n\n'+pretty(dev)+'\n</details>\n'
   if e.get('mtp_development_comparison'):
    dev=e['mtp_development_comparison']
    text+='\n## MTP development comparison\n\n**Locally measured development evidence; fresh confirmation pending. No official score or Champion.**\n\n'

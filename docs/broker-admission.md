@@ -209,3 +209,10 @@ Completed-request time was **1,197.86509433s**, startup157.935108395s and peak V
 Reported NVML-counter bounds are **2,011.851–2,012.572 GPU-J per167 successes**, covering exactly199 complete requests, including32 failed answers. The unfinished200th request, loading, warmup and CPU/system energy are outside that interval. Missing power-integral energy remains unknown; counter-query bounds are not sensor-confidence intervals.
 
 **167/199 stays PARTIAL in the archive, outside the official complete200 ranking and average.** No response concatenation with R473, inferred missing-task outcome, budget increase, quality/energy improvement or Champion change. The first real control supports the timing correction in this reviewed execution, not universal qualification of every profile. Timing-review SHA256: `1364a6ae7ba6fc5e7775411119c06bb5be5370609c041056fa59ddf64485b0b5`. [R538 audit](experiments/R538.md).
+## Sequential MTP confirmation — R540
+
+R540 used one reviewed broker job, two sequential engine starts, and one shared 1,200-second clock. Both startups and warm-ups were conservatively charged to that clock; response latency and full arm time are reported separately. No concurrent GPU-heavy workers or new engine binary were introduced.
+
+Pre-start activation and daemon-entrypoint defects were corrected before any GPU execution. The broker rejected the invalid start; the original planning records and source reviews remain preserved. A new entrypoint-order regression test supplements 244 existing controls and 70 confirmation/timer controls. No historical measurement or timer was rewritten.
+
+[Fresh measured A/B result and limits](experiments/R540.md). Development confirmation does not authorize a Champion or substitute for official benchmark qualification.

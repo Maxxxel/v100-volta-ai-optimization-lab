@@ -462,7 +462,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R537](experiments/R537.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus-9B · OFF/T0 · role harness5×3 |
 | [R538](experiments/R538.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B |
 | [R539](experiments/R539.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B bartowski Q6 · MTP3 |
-| [R540](experiments/R540.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R540](experiments/R540.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B bartowski Q6 · fresh MTP A/B |
 
 
 ## Historical signed windows

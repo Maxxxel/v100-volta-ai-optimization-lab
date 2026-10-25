@@ -60,6 +60,33 @@ class TimingProjection(unittest.TestCase):
 
 
 class MtpProjection(unittest.TestCase):
+    def confirmation_fixture(self):
+        audit={'experiment_id':'R540','measurement_valid':True,'GPU_execution_observed':True,'completed_requests':64,'planned_requests':64,'model_starts':2,'official_benchmark':False,'winner_qualified':False,'arms':{}}
+        review={'experiment_id':'R540','status':'FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_OFFICIAL_QUALIFICATION_PENDING','winner_qualified':False,'official_benchmark':False,'GPU_runs_in_review':0,'quality':{'paired_tasks':32,'paired_success_losses':0},'single_task_clock_s':120,'task_limit_s':1200,'scope':'Synthetic CPU fixture only.','next_action':'Not a real benchmark.','comparison':{},'arms':{}}
+        for arm in ('A','B'):
+            audit['arms'][arm]={c:{'successes':14,'completed':16,'completed_request_wall_s':1.0} for c in ('coding','tools')}
+            review['arms'][arm]={'tasks':32,'coding_successes':14,'tool_successes':14,'successes':28,'response_wall_s':2.0}
+        profile={'model_sha256':'a'*64,'native_mtp_draft':{'sha256':'b'*64},'runtime':'engine','assets':{'engine/llama-server':'c'*64}}
+        return review,audit,profile
+
+    def test_confirmation_is_separate_from_official_scores(self):
+        review,audit,profile=self.confirmation_fixture()
+        result=export.mtp_confirmation_projection(review,audit,profile)
+        self.assertEqual([p['arm'] for p in result['arms']],['A','B'])
+        self.assertFalse(result['official_benchmark']);self.assertFalse(result['winner_qualified'])
+        self.assertNotIn('benchmark_id',result);self.assertNotIn('runtime_configuration_id',result)
+
+    def test_confirmation_rejects_partial_coverage_and_changed_metrics(self):
+        for kind in ('partial','lost','winner','time','response','subtasks'):
+            review,audit,profile=self.confirmation_fixture()
+            if kind=='partial':audit['completed_requests']=63
+            elif kind=='lost':review['quality']['paired_success_losses']=1
+            elif kind=='winner':review['winner_qualified']=True
+            elif kind=='time':review['single_task_clock_s']=1201
+            elif kind=='response':review['arms']['B']['response_wall_s']=1.0
+            else:audit['arms']['A']['coding']['completed']=15
+            with self.assertRaises(AssertionError):export.mtp_confirmation_projection(review,audit,profile)
+
     def test_changed_review_hash_rejected_before_load(self):
         with patch.object(export, 'digest', return_value='b'*64), patch.object(export, 'load') as load:
             with self.assertRaises(AssertionError):

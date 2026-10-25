@@ -176975,6 +176975,83 @@
   },
   {
     "aggregate_metrics": {
+      "arms": {
+        "A": {
+          "GPU_j_per_success_lower": 583.6509642857143,
+          "GPU_j_per_success_upper": 587.3961071428572,
+          "arm_including_setup_energy": {
+            "complete_request_s": 68.372799078,
+            "group_window_s": 68.372799078,
+            "groups": 1,
+            "included_between_request_setup_s": 0.0,
+            "lower_j": 17057.925,
+            "max_query_duration_s": 0.186473137,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 1,
+            "upper_j": 17079.733
+          },
+          "arm_including_setup_s": 68.372799078,
+          "coding_successes": 14,
+          "completion_tokens": 4348,
+          "peak_device_vram_mib": 7680.5,
+          "reported_generation_window_tokens_s": 79.13214963430865,
+          "successes": 28,
+          "tasks": 32,
+          "temperature_max_c": 61,
+          "temperature_min_c": 36,
+          "tool_successes": 14
+        },
+        "B": {
+          "GPU_j_per_success_lower": 408.7463571428571,
+          "GPU_j_per_success_upper": 412.29578571428567,
+          "arm_including_setup_energy": {
+            "complete_request_s": 49.223764207,
+            "group_window_s": 49.223764207,
+            "groups": 1,
+            "included_between_request_setup_s": 0.0,
+            "lower_j": 12022.724,
+            "max_query_duration_s": 0.186473137,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 1,
+            "upper_j": 12055.042
+          },
+          "arm_including_setup_s": 49.223764207,
+          "coding_successes": 14,
+          "completion_tokens": 4552,
+          "draft_accepted": 3155,
+          "draft_generated": 4131,
+          "peak_device_vram_mib": 9324.5,
+          "reported_generation_window_tokens_s": 133.25401323793142,
+          "successes": 28,
+          "tasks": 32,
+          "temperature_max_c": 66,
+          "temperature_min_c": 51,
+          "tool_successes": 14
+        }
+      },
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
+      "model_starts": 2,
+      "quality": {
+        "paired_success_gains": 0,
+        "paired_success_losses": 0,
+        "paired_tasks": 32
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-702b0065d2de17071ae5",
+    "original_bytes": 6962,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "702b0065d2de17071ae5d41c3d5b892a40b963e477ab97e0422bf251668efc64",
+    "statements": {
+      "scope": "One fresh A then B comparison on previously exposed development data, with independently replayed judgments. Both model startups/warmups are conservatively charged to one1200s clock. Response latency and complete arm wall are distinct. Same observed task successes do not establish population noninferiority or identical token decisions. Reported generation-window throughput is not end-to-end task throughput. Counter brackets are not sensor confidence intervals; CPU/system energy excluded. No official score or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
