@@ -3952,6 +3952,7 @@
         "tasks": 16
       },
       "experiment_id": "R514",
+      "full_benchmark_runs": [],
       "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "151004c63549d85a4d6f3cacb9454637c69a6de218885238cd24802ec8e20f5a",
       "local_artifact_available": true,
@@ -4242,7 +4243,16 @@
       "date": "2026-10-25T00:23:58.566844+00:00",
       "decision": "PROMISING_ALTERNATE_ARTIFACT_PROCEED_TO_FULL_QUALIFICATION",
       "experiment_id": "R515",
-      "full_benchmark_status": "NOT MEASURED",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "518b6f38c0768b23386ee218e6c86a77d672e6631fc246ff685e53db6b50f4dd",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R516",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "9d10929dde759251e65ee9869bb5a4c27f228ba0b3ba69b3dbbfc4ec8055605e",
       "local_artifact_available": true,
       "model": "OmniCoder-9B · bartowski Q6",

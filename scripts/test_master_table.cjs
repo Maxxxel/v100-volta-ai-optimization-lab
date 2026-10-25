@@ -941,3 +941,12 @@ test('Gemma K01 Q8-key tool qualification stays separate from F16 coding',()=>{
  assert.equal(runs[0].official_eligible,true);
  assert(!candidate.runs.some(r=>r.benchmark_id==='humanevalplus-v0.1.10'),'F16 coding must not transfer to Q8 cache');
 });
+
+test('Alternate Omni full134 coding cannot inherit canonical Omni177 tools',()=>{
+ const run=data.history.runs.find(r=>r.experiment_id==='R516');assert(run&&run.official_eligible);assert.equal(run.solved,134);assert.equal(run.tasks,164);
+ const rows=M.mergeConfigurations(model.rows,model),row=rows.find(r=>r.runs.some(x=>x.experiment_id==='R516'));assert(row);
+ assert.equal(row.profile.model.artifact_sha256,'a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052');
+ assert(!row.runs.some(r=>r.experiment_id==='R471'||r.experiment_id==='R478'));
+ assert(!row.runs.some(r=>r.discipline==='tools'));
+ assert.equal(run.counter_energy.solved,134);assert(run.counter_energy.j_per_success_lower>1200);assert(run.counter_energy.j_per_success_upper<1201);
+});

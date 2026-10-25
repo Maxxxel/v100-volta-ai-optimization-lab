@@ -182,6 +182,13 @@ async function main(){
    const rows=tab.locator('#screening-table tbody tr');assert(await rows.count()>=13);
    const omni=rows.filter({has:tab.locator('td:first-child',{hasText:/^OmniCoder-9B$/})});
    assert.match(await omni.innerText(),/13\/16/);assert.match(await omni.innerText(),/14\/16/);
+   const alternate=rows.filter({has:tab.locator('td:first-child',{hasText:'bartowski Q6'})});
+   assert.equal(await alternate.count(),1);assert.match(await alternate.innerText(),/14\/16/);
+   assert.equal(await alternate.getByRole('link',{name:'R516',exact:true}).count(),1);
+   const review=tab.getByRole('link',{name:'CPU review',exact:true,includeHidden:true});assert.equal(await review.count(),1);
+   await review.evaluate(el=>el.closest('details').open=true);
+   await review.click();await tab.waitForURL('**/audits/**');assert((await tab.locator('main').innerText()).includes('a6d64223c65f59269a00'));
+   await tab.goto(new URL('screening/',base).href,{waitUntil:'networkidle'});
    const all=await rows.count();const expectedOmni=(await rows.locator('td:first-child').allTextContents()).filter(x=>x.includes('OmniCoder')).sort();await tab.locator('#screening-search').fill('OmniCoder');
    assert.deepEqual((await tab.locator('#screening-table tbody tr:visible td:first-child').allTextContents()).sort(),expectedOmni,'Search must retain all measured artifact profiles of the model');
    await tab.locator('#screening-search').fill('');assert.equal(await tab.locator('#screening-table tbody tr:visible').count(),all);
@@ -190,7 +197,7 @@ async function main(){
    const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+2);
    await tab.screenshot({path:path.join(artifacts,name+'-screening.png'),animations:'disabled',fullPage:true});
   }
-  report.checks.push('separate screening preserves13 native profiles,16+16 development scores, search/sort/details and responsive layout; official rankings remain unchanged');
+  report.checks.push('separate screening preserves all measured native profiles,16+16 development scores, search/sort/details and responsive layout; official rankings remain unchanged');
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
  process.stdout.write(JSON.stringify(report)+'\n');

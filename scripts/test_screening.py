@@ -76,4 +76,9 @@ class AdditionalArtifactScope(unittest.TestCase):
  def test_alternate_omni_is_distinct_measured_profile_not_new_finetune_proof(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text());a=next(x for x in data['rows'] if x['experiment_id']=='R515');b=next(x for x in data['rows'] if x['experiment_id']=='R497')
-  self.assertNotEqual(a['configuration']['model_sha256'],b['configuration']['model_sha256']);self.assertEqual(a['configuration']['request_options'],b['configuration']['request_options']);self.assertEqual(a['selection_status'],'VERTIEFUNG EMPFOHLEN');self.assertIn('confounded',a['source_provenance_limits']);self.assertEqual(a['full_benchmark_status'],'NOT MEASURED');self.assertEqual(a['results']['coding']['successes'],14);self.assertEqual(a['results']['tools']['successes'],14);self.assertEqual(a['comparison_summary']['additional_peak_vram_mib'],324)
+  self.assertNotEqual(a['configuration']['model_sha256'],b['configuration']['model_sha256']);self.assertEqual(a['configuration']['request_options'],b['configuration']['request_options']);self.assertEqual(a['selection_status'],'VERTIEFUNG EMPFOHLEN');self.assertIn('confounded',a['source_provenance_limits']);self.assertEqual(a['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS');self.assertEqual([r['experiment_id'] for r in a['full_benchmark_runs']],['R516']);self.assertEqual(a['results']['coding']['successes'],14);self.assertEqual(a['results']['tools']['successes'],14);self.assertEqual(a['comparison_summary']['additional_peak_vram_mib'],324)
+
+class HtmlArtifactDetails(unittest.TestCase):
+ def test_collapsed_artifact_review_is_a_real_link_not_literal_markdown(self):
+  d=ScreeningTests().fixture();d['other_local_artifacts']=[{'artifact':'example.gguf','status':'DEFERRED','reason':'CPU-only review','audit_id':'audit-'+('a'*20)}]
+  html=render(d);self.assertIn('<a href="../audits/audit-'+('a'*20)+'/">CPU review</a>',html);self.assertNotIn('[CPU review](',html);self.assertIn('<ul><li><strong>example.gguf</strong>',html)

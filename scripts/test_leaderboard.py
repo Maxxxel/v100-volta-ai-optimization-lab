@@ -487,3 +487,19 @@ class OfflinePayloadTests(unittest.TestCase):
    with self.assertRaises(ValueError):offline_payload({'value':value},0)
 
 if __name__=='__main__':unittest.main()
+
+class FrozenSingleSessionMetadata(unittest.TestCase):
+ def test_contract_bound_alternate_spelling_and_tampering(self):
+  from leaderboard import normalized_native_part
+  with tempfile.TemporaryDirectory() as folder:
+   root=pathlib.Path(folder);contract={'id':'example-job','profile':'example-profile','parameters':{'task_ids':['task-a','task-b']}}
+   (root/'CONTRACT.json').write_text(json.dumps(contract));part={'contract_sha256':digest(root/'CONTRACT.json'),'job_id':'example-job'}
+   p={'part':1,'tasks':['task-a','task-b'],'profile':'example-profile'};campaign={'part_count':1,'profile':'example-profile'};before=copy.deepcopy(p)
+   result=normalized_native_part(p,campaign,root,part);self.assertEqual(result['id'],'example-job');self.assertEqual(result['task_ids'],p['tasks']);self.assertEqual(p,before)
+   for key,value in [('profile','other'),('tasks',p['tasks'][:-1]),('part',2)]:
+    changed={**p,key:value}
+    with self.assertRaises(ValueError):normalized_native_part(changed,campaign,root,part)
+   with self.assertRaises(ValueError):normalized_native_part(p,campaign,root,{**part,'contract_sha256':'0'*64})
+ def test_original_partition_schema_is_preserved(self):
+  from leaderboard import normalized_native_part
+  p={'index':1,'id':'original-job','task_ids':['a']};self.assertEqual(normalized_native_part(p,{},None,{}),p)

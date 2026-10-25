@@ -177,6 +177,18 @@ def native_job_id(stage,a,planned,part):
  if dict(after,id=planned['id'])!=before or after['id']!=part['job_id'] or after['parameters']['task_ids']!=planned['task_ids'] or digest(old/'CONTRACT.json')!=proof['original_contract_sha256']:raise ValueError('Native replacement altered the frozen experiment')
  return part['job_id']
 
+def normalized_native_part(planned,campaign,stage,part):
+ """Read the alternate frozen single-session metadata without rewriting originals."""
+ if {'index','id','task_ids'}<=set(planned):return dict(planned)
+ if set(planned)!={'part','tasks','profile'} or campaign['part_count']!=1 or planned['part']!=1 or planned['profile']!=campaign['profile']:
+  raise ValueError('Unknown native partition schema')
+ contract_path=pathlib.Path(stage)/'CONTRACT.json'
+ if digest(contract_path)!=part['contract_sha256']:raise ValueError('Single-session contract identity changed')
+ contract=read(contract_path)
+ if contract['profile']!=planned['profile'] or contract['parameters']['task_ids']!=planned['tasks'] or contract['id']!=part['job_id']:
+  raise ValueError('Single-session frozen partition differs from executed contract')
+ return {**planned,'index':planned['part'],'id':contract['id'],'task_ids':planned['tasks']}
+
 def native_complete_run(root,source,cfg,bench,receipt):
  """Full broker coding results only. No code execution or implicit qualification."""
  if source.get('full_benchmark_score_claimed') is not True:return None
@@ -190,6 +202,7 @@ def native_complete_run(root,source,cfg,bench,receipt):
  if cfg['source_plan_sha256']!=a['campaign_plan_sha256'] or campaign['immutable_profile_identity_sha256']!=cfg['source_provenance']['frozen_model_profile_sha256']:raise ValueError('Native configuration lineage mismatch')
  audits=[receipt(path,source['audit_sha256'])];hashes=[source['audit_sha256']];wall=0;energies=[];peaks=[];first_launch=None;first_contract=None;helper=None
  for part,score,planned in zip(a['parts'],a['scoring'],campaign['parts']):
+  planned=normalized_native_part(planned,campaign,stage,part)
   if part['part']!=planned['index'] or part['job_id']!=native_job_id(stage,a,planned,part) or part['task_ids']!=planned['task_ids']:raise ValueError('Native campaign partition changed')
   ap=pathlib.Path(part['audit_path']);sp=pathlib.Path(score['audit_path'])
   if digest(ap)!=part['audit_sha256'] or digest(sp)!=score['audit_sha256']:raise ValueError('Native child audit changed')

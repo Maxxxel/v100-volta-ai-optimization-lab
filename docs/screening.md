@@ -3685,6 +3685,7 @@ Screening → full qualification → targeted optimization → independent confi
     &quot;tasks&quot;: 16
   },
   &quot;experiment_id&quot;: &quot;R514&quot;,
+  &quot;full_benchmark_runs&quot;: [],
   &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
   &quot;independent_review_sha256&quot;: &quot;151004c63549d85a4d6f3cacb9454637c69a6de218885238cd24802ec8e20f5a&quot;,
   &quot;local_artifact_available&quot;: true,
@@ -3735,7 +3736,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>SCREENING VOLLSTÄNDIG · VERTIEFUNG EMPFOHLEN</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>62.6</td><td>69.4</td><td>518.2</td><td>7,680.5</td><td>NOT MEASURED</td><td><a href="../experiments/R515/">Screening R515</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>SCREENING VOLLSTÄNDIG · VERTIEFUNG EMPFOHLEN</td><td>14/16 · 87.5%</td><td>14/16 · 87.5%</td><td>62.6</td><td>69.4</td><td>518.2</td><td>7,680.5</td><td><a href="../experiments/R516/">R516</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R515/">Screening R515</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;3cd7716f53c300fc23a043c0f8c939244a7033084caec34253a29d358697b403&quot;,
   &quot;comparison_audit_sha256&quot;: &quot;c60c95f9ca764628d88b2d00ff90f3ee102cd4304c60f22760545393a4a52b48&quot;,
   &quot;comparison_summary&quot;: {
@@ -3974,7 +3975,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-25T00:23:58.566844+00:00&quot;,
   &quot;decision&quot;: &quot;PROMISING_ALTERNATE_ARTIFACT_PROCEED_TO_FULL_QUALIFICATION&quot;,
   &quot;experiment_id&quot;: &quot;R515&quot;,
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;518b6f38c0768b23386ee218e6c86a77d672e6631fc246ff685e53db6b50f4dd&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R516&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;9d10929dde759251e65ee9869bb5a4c27f228ba0b3ba69b3dbbfc4ec8055605e&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;OmniCoder-9B \u00b7 bartowski Q6&quot;,
@@ -4032,22 +4042,8 @@ Development evidence, not an official benchmark or unseen validation set. These 
 ¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.
 
 
-<details><summary>Other local artifacts: technical disposition</summary>
+<details><summary>Other local artifacts: technical disposition</summary><ul><li><strong>Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf</strong> — DEFERRED: No new GPU screen:851 common payloads are bound by verified assembly; the R502 no-speculation engine already skips15 MTP tensors and caches only64 trunk layers. Separate base-file performance is NOT MEASURED. Reopen for changed loader/weights/MTP loading or material cold-start/storage hypothesis. <a href="../audits/audit-a6d64223c65f59269a00/">CPU review</a> · GPU screen: NOT MEASURED</li></ul></details>
 
-- **Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf** — DEFERRED: No new GPU screen:851 common payloads are bound by verified assembly; the R502 no-speculation engine already skips15 MTP tensors and caches only64 trunk layers. Separate base-file performance is NOT MEASURED. Reopen for changed loader/weights/MTP loading or material cold-start/storage hypothesis. [CPU review](audits/audit-a6d64223c65f59269a00.md) · GPU screen: NOT MEASURED
-
-</details>
-
-<details><summary>Conservative qualification shortlist & next decisions</summary>
-
-- **P0 · OmniCoder-9B, Qwen3.5-9B, Gemma4-12B, MiMo-9B, LFM2.5-8B**: Reuse existing complete native coding/tools results; no repeated GPU benchmarks.
-- **P0 · Qwen3.8-27B**: Reuse complete native coding; inspect the incomplete tools campaign and its shared budget before any justified full200 qualification. No silent reset.
-- **P1 · Qwen3.6-27B, Bonsai2-27B**: Assess missing matched native full benchmarks after screening. Preserve partials and historical valid Bonsai coding under its original profile; no transfer of scores between configurations.
-- **P1 · Nexus-9B, Slopus-9B, Opus Distill-9B, Ornith-1.5-9B**: Retain. Existing full OFF/T0 profiles are separate valid configurations; native ON screening does not inherit their scores. Reuse them; fill native-profile gaps only with a concrete practical reason.
-- **DIAGNOSIS · LFM2.5-24B**: Retain coding/specialist candidacy. Existing complete native tools6/200 is a profile-specific negative result and must not be blindly repeated. Investigate only a concrete configuration hypothesis after qualification decisions.
-
-Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.
-
-</details>
+<details><summary>Conservative qualification shortlist & next decisions</summary><ul><li><strong>P0 · OmniCoder-9B, Qwen3.5-9B, Gemma4-12B, MiMo-9B, LFM2.5-8B</strong>: Reuse existing complete native coding/tools results; no repeated GPU benchmarks.</li><li><strong>P0 · Qwen3.8-27B</strong>: Reuse complete native coding; inspect the incomplete tools campaign and its shared budget before any justified full200 qualification. No silent reset.</li><li><strong>P1 · Qwen3.6-27B, Bonsai2-27B</strong>: Assess missing matched native full benchmarks after screening. Preserve partials and historical valid Bonsai coding under its original profile; no transfer of scores between configurations.</li><li><strong>P1 · Nexus-9B, Slopus-9B, Opus Distill-9B, Ornith-1.5-9B</strong>: Retain. Existing full OFF/T0 profiles are separate valid configurations; native ON screening does not inherit their scores. Reuse them; fill native-profile gaps only with a concrete practical reason.</li><li><strong>DIAGNOSIS · LFM2.5-24B</strong>: Retain coding/specialist candidacy. Existing complete native tools6/200 is a profile-specific negative result and must not be blindly repeated. Investigate only a concrete configuration hypothesis after qualification decisions.</li></ul><p>Terminal-Bench2.1 remains NOT MEASURED and technically unadmitted. Mock tools are not agent-trajectory qualification.</p></details>
 
 [Reserved independent validation: status and evidence](pipeline-methods.md#independent-native-profile-validation).

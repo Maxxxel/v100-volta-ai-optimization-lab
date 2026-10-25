@@ -28,6 +28,24 @@ def captured_screen_profile(profile,entry,package):
  leaderboard.verify_broker_capture(cfg,profile,launch);leaderboard.validate_history({'profiles':[cfg],'runs':[],'attempts':[]},{})
  return cfg
 
+def matching_full_runs(root,history,profiles,profile,sha):
+ """Link only full local runs with the same captured artifact and native options."""
+ matches=[]
+ for run in history['runs']:
+  cfg=profiles[run['runtime_configuration_id']]
+  if not run.get('official_eligible') or cfg['model']['artifact_sha256']!=sha:continue
+  audit=Path(root)/'staging'/run['experiment_id'].lower()/'AUDIT.json'
+  if not audit.exists() or H(audit)!=run['audit_hash']:continue
+  original=read(audit)
+  for part in original.get('parts',[]):
+   path=Path(part['audit_path'])
+   assert H(path)==part['audit_sha256']
+   actual=read(path.parent/'profile.json')
+   keys=('argv_tail','context','environment','request_options','http_timeout_policy','warmups')
+   if actual['assets']==profile['assets'] and all(actual['native_recipe'].get(k)==profile['native_recipe'].get(k) for k in keys):
+    matches.append({k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')});break
+ return matches
+
 def build(root):
  root=Path(root);base=root/'staging/model-comparison-preparation/model-screening';holdout=read(base/'VALIDATION_FROZEN_MANIFEST.json')
  assert all(H(base/k)==v for k,v in holdout['files'].items())
@@ -84,6 +102,10 @@ def build(root):
    if source.get('cpu_diagnosis_path'):
     assert H(source['cpu_diagnosis_path'])==source['cpu_diagnosis_sha256'];diagnosis=read(source['cpu_diagnosis_path']);assert diagnosis['source_audit_sha256']==row['audit_sha256'] and diagnosis['GPU_runs']==0
     row.update(selection_status='WEITERE DIAGNOSE',decision=diagnosis['decision'],diagnostic_audit_sha256=source['cpu_diagnosis_sha256'],diagnostic_summary=diagnosis['coding'])
+  if package:
+   full=matching_full_runs(root,history,profiles,profile,sha)
+   row['full_benchmark_runs']=full
+   if full:row['full_benchmark_status']='MATCHED_FULL_LOCAL_RESULTS'
   rows.append(row)
  output={'schema':1,'official_benchmark':False,'dataset_id':protocol['dataset_id'],'tasks_per_category':16,'source_tasks_sha256':protocol['source_tasks_sha256'],'source_oracles_sha256':protocol['source_oracles_sha256'],'protocol_sha256':H(base/'PROTOCOL.json'),'data_role':'DEVELOPMENT_ALREADY_USED_FOR_NEXUS_VARIANT_SELECTION','holdout':{'status':read(base/'VALIDATION_FROZEN_MANIFEST.json')['status'],'coding':8,'mock_tools':8,'manifest_sha256':H(base/'VALIDATION_FROZEN_MANIFEST.json'),'scope':'Reserved unexecuted authored tasks, not broker-admitted. No independent-population guarantee; no official benchmark claim.'},'selection':'No automatic quality rejection. Small differences retain both candidates; technical failures require diagnosis. Reuse matching full benchmarks.','rows':rows}
  extras=[]
@@ -171,14 +193,22 @@ def render(data):
   detail={k:v for k,v in row.items() if k!='results'};detail['category_results']=groups
   cells=[e(row['model']),e(row['status']+(' · '+row['selection_status'] if row.get('selection_status') else '')),score(groups.get('coding')) if groups else 'NOT MEASURED',score(groups.get('tools')) if groups else 'NOT MEASURED',fmt(wall),fmt(tokens/wall if tokens is not None and wall else None),fmt(joules),fmt(row.get('peak_vram_mib'))]
   content=('<a href="../experiments/'+e(row['experiment_id'])+'/">Screening '+e(row['experiment_id'])+'</a> · ' if row.get('experiment_id') else '')+'<details><summary>Profile & evidence</summary><pre>'+e(json.dumps(detail,indent=2))+'</pre></details>'
-  parent=row['parent_experiment_id'];cells.append('NOT MEASURED' if row.get('full_benchmark_status')=='NOT MEASURED' else f'<a href="../experiments/{parent}/">{parent} archive</a> · <a href="../configuration-comparison/">Official comparison</a>')
+  parent=row['parent_experiment_id']
+  if row.get('full_benchmark_runs'):
+   cells.append(' · '.join('<a href="../experiments/'+e(r['experiment_id'])+'/">'+e(r['experiment_id'])+'</a>' for r in row['full_benchmark_runs'])+' · <a href="../configuration-comparison/">Official comparison</a>')
+  else:cells.append('NOT MEASURED' if row.get('full_benchmark_status')=='NOT MEASURED' else f'<a href="../experiments/{parent}/">{parent} archive</a> · <a href="../configuration-comparison/">Official comparison</a>')
   rows.append('<tr>'+''.join('<td>'+v+'</td>' for v in cells)+'<td>'+content+'</td></tr>')
  headers=['Model','Status','Coding /16','Mock tools /16','Request time s','Output tok/s¹','GPU J/success ≥²','VRAM MiB','Existing benchmarks','Details']
  html='<div class="screening-wrap"><table id="screening-table"><thead><tr>'+''.join('<th>'+e(x)+'</th>' for x in headers)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'
- extras='\n\n<details><summary>Other local artifacts: technical disposition</summary>\n\n'+''.join('- **'+e(x['artifact'])+'** — '+e(x['status'])+': '+e(x['reason'])+(' [CPU review](audits/'+e(x['audit_id'])+'.md) · GPU screen: NOT MEASURED' if x.get('audit_id') else '')+'\n' for x in data.get('other_local_artifacts',[]))+'\n</details>\n'
+ extra_items=[]
+ for x in data.get('other_local_artifacts',[]):
+  link=(' <a href="../audits/'+e(x['audit_id'])+'/">CPU review</a> · GPU screen: NOT MEASURED') if x.get('audit_id') else ''
+  extra_items.append('<li><strong>'+e(x['artifact'])+'</strong> — '+e(x['status'])+': '+e(x['reason'])+link+'</li>')
+ extras='\n\n<details><summary>Other local artifacts: technical disposition</summary><ul>'+''.join(extra_items)+'</ul></details>\n'
  plan=data.get('qualification_plan',{})
  if plan:
-  extras+='\n<details><summary>Conservative qualification shortlist & next decisions</summary>\n\n'+''.join('- **'+e(x['priority'])+' · '+e(', '.join(x['models']))+'**: '+e(x['action'])+'\n' for x in plan['priorities'])+'\n'+e(plan['agents'])+'\n\n</details>\n'
+  extra_items=['<li><strong>'+e(x['priority'])+' · '+e(', '.join(x['models']))+'</strong>: '+e(x['action'])+'</li>' for x in plan['priorities']]
+  extras+='\n<details><summary>Conservative qualification shortlist & next decisions</summary><ul>'+''.join(extra_items)+'</ul><p>'+e(plan['agents'])+'</p></details>\n'
  if data.get('independent_validation16'):
   extras+='\n[Reserved independent validation: status and evidence](pipeline-methods.md#independent-native-profile-validation).\n'
  measured=sum(r['results'] is not None for r in data['rows']);return '# Model screening\n\n'+f'**{measured}/{len(data["rows"])} profiles measured** · 16 coding + 16 mock-tool development tasks.\n\nScreening → full qualification → targeted optimization → independent confirmation.\n\n'+'<input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">\n\n'+html+'\n\nDevelopment evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.\n\n¹ Completion tokens / completed-request wall time, including reasoning when reported; not pure decode speed. ² Counter-bracketed lower bound; upper bounds remain in Details. Failed completed requests count toward costs. Historical Nexus A timings used an interleaved ABC schedule. Missing values stay unknown.\n'+extras

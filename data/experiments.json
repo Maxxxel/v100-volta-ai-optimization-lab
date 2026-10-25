@@ -20621,5 +20621,33 @@
       "decision": "PROMISING_ALTERNATE_ARTIFACT_PROCEED_TO_FULL_QUALIFICATION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7678.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 134,
+          "tasks": 164,
+          "wall_s": 575.327315124
+        }
+      }
+    },
+    "audit_id": "audit-518b6f38c0768b23386e",
+    "date": "2026-10-25T00:57:34.894985+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R516",
+    "model": "OmniCoder-9B · bartowski Q6",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session OmniCoder bartowski Q6 Q6_K (bartowski) native configuration, no parameter changes, output reuse, QA pre-exclusion, causal optimization or Champion claim. Missing tasks are not zero. Frozen campaign descriptive fields retain copied canonical model/source labels; executed artifact a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052 and R515 provenance are verified by the frozen profile, root contract, captured launch and independent qualification. Original plan retained; metadata correction recorded separately."
+    },
+    "winner_qualified": false
   }
 ]
