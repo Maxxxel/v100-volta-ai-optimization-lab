@@ -195,4 +195,17 @@ class Frozen33Safety(unittest.TestCase):
    data=self.fixture();data[key]=value
    with self.subTest(key=key),self.assertRaises(AssertionError):e.metrics(data)
 
+class ValidationPairing(unittest.TestCase):
+ def rows(self,values):return [{'id':str(i),'reported_result':{'task_success':v}} for i,v in enumerate(values)]
+ def test_grouped_pairs_are_recounted_without_claiming_independent_tasks(self):
+  old=self.rows([True,False,True,False]);new=self.rows([False,True,False,False]);groups={'0':'a','1':'a','2':'b','3':'b'}
+  x=e.validation33_pairing(old,new,groups)
+  self.assertEqual((x['case_gained'],x['case_lost'],x['net_success_change']),(1,2,-1))
+  self.assertEqual(x['frozen_groups'],2);self.assertEqual(x['nonzero_groups'],1);self.assertEqual(x['group_sign_flip_two_sided_p'],1.0)
+ def test_mismatched_order_and_boolean_coercion_rejected(self):
+  old=self.rows([True,False]);new=self.rows([False,True]);groups={'0':'a','1':'b'}
+  with self.assertRaises(AssertionError):e.validation33_pairing(old,list(reversed(new)),groups)
+  new[0]['reported_result']['task_success']=1
+  with self.assertRaises(AssertionError):e.validation33_pairing(old,new,groups)
+
 if __name__=='__main__':unittest.main()

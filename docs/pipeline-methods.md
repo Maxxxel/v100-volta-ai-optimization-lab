@@ -187,6 +187,7 @@ Screening is complete. This is a provisional shortlist, **not a new ranking**. [
 |---|---:|---:|---:|---:|---:|---|
 | OmniCoder-9B | 26/33 | 447.17s | 59.18 | 4747.50–4755.14 | 7356.50 | [R530](experiments/R530.md) |
 | Nexus-9B · OFF/T0 | 25/33 | 319.98s | 51.70 | 3486.51–3489.47 | 7356.50 | [R531](experiments/R531.md) |
+| Ornith-1.5-9B · OFF/T0 | 18/33 | 328.88s | 48.65 | 4982.84–4994.09 | 7356.50 | [R532](experiments/R532.md) |
 
 ¹ Includes reasoning where reported; not pure decode. ² Counter-bracketed GPU energy. One pass over11 authored families does not establish population superiority. Private fixtures/oracles are not exported.
 

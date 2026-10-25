@@ -1588,6 +1588,17 @@
           "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
           "model_starts": 1,
           "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 3,
+            "case_lost": 4,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 1.0,
+            "net_success_change": -1,
+            "nonzero_groups": 3,
+            "reference_experiment_id": "R530",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
           "peak_device_vram_mib": 7356.5,
           "planned_tasks": 33,
           "profile_sha256": "c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d",
@@ -1602,6 +1613,57 @@
           "winner_qualified": false
         },
         "model": "Nexus-9B · OFF/T0"
+      },
+      {
+        "audit_sha256": "4c03647adbc9c238f3ec35b434245bd9e1d6c865744022fdeca6206aa64f7759",
+        "experiment_id": "R532",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 328.872629018,
+            "group_window_s": 328.882894728,
+            "lower_j": 89691.169,
+            "upper_j": 89893.56
+          },
+          "actual_generation_requests": 169,
+          "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+          "case_wall_s": 328.872629018,
+          "completed_request_wall_s": 325.398405679,
+          "completion_tokens": 15832,
+          "context_tokens": 8192,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 4982.842722222222,
+          "gpu_j_per_success_upper": 4994.086666666666,
+          "independent_review_audit_id": "audit-c24d9995da52e71c7a14",
+          "independent_review_sha256": "c24d9995da52e71c7a145ce921399feecc73cb3ba1223b154f7eafb14a1bd795",
+          "max_output_tokens": 4096,
+          "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 2,
+            "case_lost": 10,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 0.078125,
+            "net_success_change": -8,
+            "nonzero_groups": 7,
+            "reference_experiment_id": "R530",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 7356.5,
+          "planned_tasks": 33,
+          "profile_sha256": "9f3f64e7c126372c432c2a7e3ffae5770a326947d6232d0302a5070e42a95580",
+          "solved": 18,
+          "successful_tasks_per_s": 0.05473058409250804,
+          "task_limit_s": 1200,
+          "task_phase_s": 328.883754823,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 48.65420273637726,
+          "winner_qualified": false
+        },
+        "model": "Ornith-1.5-9B · OFF/T0"
       }
     ],
     "multi_agent_plan": {

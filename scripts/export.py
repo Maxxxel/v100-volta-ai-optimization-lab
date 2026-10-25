@@ -361,7 +361,35 @@ def verified_native_agent_development(root, summary, receipt):
         document=load(correction);assert document['kind']=='CAPTURED_FIXTURE_ORDER_CPU_REPLAY_CORRECTION' and document['GPU_reruns']==0
         assert document['corrected_CPU_receipt_sha256']==digest(cp) and document['tasks_replayed']==a['tasks'] and document['solved']==a['solved']
         m['evaluation_correction_audit_id']=receipt(correction,summary['replay_order_correction_sha256'])
+    if validation33 and summary.get('comparison_review_path'):
+        comparison_path=pathlib.Path(summary['comparison_review_path']);assert digest(comparison_path)==summary['comparison_review_sha256']
+        comparison=load(comparison_path);assert comparison['candidate_audit_sha256']==summary['audit_sha256']
+        reference_id=comparison.get('reference_experiment_id')
+        if reference_id is not None:
+            assert re.fullmatch(r'R[1-9][0-9]{1,3}',reference_id)
+            reference_path=root/'staging'/reference_id.lower()/'AUDIT.json';assert digest(reference_path)==comparison['reference_audit_sha256']
+            reference=load(reference_path);assert reference['measurement_valid'] and reference['dataset_id']==a['dataset_id'] and reference['tasks']==33
+            previous=pathlib.Path(reference['raw_root'])/'HTTP_RESULTS.jsonl'
+            assert digest(previous)==reference['original_raw_files_sha256']['HTTP_RESULTS.jsonl']
+            previous_cases=[row for row in map(json.loads,previous.read_text().splitlines()) if row['kind']=='agent_case']
+            groups={c['id']:c['case']['generalization_group'] for c in frozen['cases']}
+            paired=validation33_pairing(previous_cases,cases,groups)
+            assert all(comparison['quality'][k]==v for k,v in paired.items())
+            m['paired_validation']={**paired,'reference_experiment_id':reference_id,'scope':'Descriptive paired sensitivity on frozen authored families, not population superiority.'}
     return m
+
+def validation33_pairing(reference,candidate,groups):
+    """Recount pairs and verify the producer's enumeration with integer DP."""
+    ids=[c['id'] for c in reference]
+    assert ids and len(set(ids))==len(ids) and ids==[c['id'] for c in candidate] and set(ids)==set(groups)
+    differences=collections.Counter({g:0 for g in groups.values()});gained=lost=0
+    for old,new in zip(reference,candidate):
+        a=old['reported_result']['task_success'];b=new['reported_result']['task_success']
+        assert type(a) is bool and type(b) is bool
+        gained+=not a and b;lost+=a and not b;differences[groups[old['id']]]+=int(b)-int(a)
+    return {'tasks':len(ids),'frozen_groups':len(differences),'nonzero_groups':sum(v!=0 for v in differences.values()),
+            'case_gained':gained,'case_lost':lost,'net_success_change':gained-lost,
+            'group_sign_flip_two_sided_p':grouped_sign_probability(list(differences.values()))}
 
 def grouped_sign_probability(differences):
     """Independent integer-distribution verifier for paired group sign flips."""
