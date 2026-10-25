@@ -1985,7 +1985,94 @@
         "Planner + Worker + Reviewer"
       ],
       "per_arm_task_budget_s": 400,
-      "status": "ROLE_COORDINATOR_CPU_GATES_PASS_NOT_GPU_ADMITTED",
+      "results": [
+        {
+          "arms": [
+            {
+              "arm": "single",
+              "arm_wall_s": 68.799046771,
+              "complete": true,
+              "completed_cases": 5,
+              "completion_tokens_all_roles": 2775,
+              "generation_requests": 36,
+              "gpu_j_per_success_lower": 5999.809666666667,
+              "gpu_j_per_success_upper": 6035.256666666667,
+              "peak_sampled_device_vram_mib": 7356.5,
+              "planned_cases": 5,
+              "policy_gate_passes": 4,
+              "solved": 3,
+              "successful_tasks_per_s": 0.043605255316772104,
+              "task_scope_passes": 5,
+              "technical_preflight_cases": 0,
+              "technical_request_errors": 0,
+              "tokens_s_completed_requests": 40.84094385727833
+            },
+            {
+              "arm": "planner_worker",
+              "arm_wall_s": 60.292242202,
+              "complete": true,
+              "completed_cases": 5,
+              "completion_tokens_all_roles": 2997,
+              "generation_requests": 27,
+              "gpu_j_per_success_lower": 5384.809666666667,
+              "gpu_j_per_success_upper": 5426.949666666666,
+              "peak_sampled_device_vram_mib": 7356.5,
+              "planned_cases": 5,
+              "policy_gate_passes": 4,
+              "solved": 3,
+              "successful_tasks_per_s": 0.049757645269667625,
+              "task_scope_passes": 5,
+              "technical_preflight_cases": 0,
+              "technical_request_errors": 0,
+              "tokens_s_completed_requests": 50.085589341756666
+            },
+            {
+              "arm": "planner_worker_reviewer",
+              "arm_wall_s": 84.978298829,
+              "complete": true,
+              "completed_cases": 5,
+              "completion_tokens_all_roles": 4440,
+              "generation_requests": 33,
+              "gpu_j_per_success_lower": 5839.039,
+              "gpu_j_per_success_upper": 5866.0665,
+              "peak_sampled_device_vram_mib": 7356.5,
+              "planned_cases": 5,
+              "policy_gate_passes": 4,
+              "solved": 4,
+              "successful_tasks_per_s": 0.047070841086723963,
+              "task_scope_passes": 5,
+              "technical_preflight_cases": 0,
+              "technical_request_errors": 0,
+              "tokens_s_completed_requests": 52.58032391313731
+            }
+          ],
+          "case_executions": 15,
+          "correction_audit_id": "audit-b11a2cab12735b390b25",
+          "dataset_id": "jarvis-role-comparison-development5-v1",
+          "experiment_id": "R537",
+          "independent_review_audit_id": "audit-8bfeae852f1b4f0c61a1",
+          "model": "Nexus-9B · OFF/T0 · role harness5×3",
+          "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+          "official_benchmark": false,
+          "paired_changes": [
+            {
+              "candidate_arm": "planner_worker",
+              "paired_gained": 1,
+              "paired_lost": 1
+            },
+            {
+              "candidate_arm": "planner_worker_reviewer",
+              "paired_gained": 2,
+              "paired_lost": 1
+            }
+          ],
+          "paired_unique_cases": 5,
+          "quality_audit_id": "audit-e6e53264a8e713dd6efe",
+          "scope": "Five exposed development tasks paired across three fixed-order harness arms. All role costs included; no official benchmark, population ranking, independent model inference replay or Champion.",
+          "winner_qualified": false
+        }
+      ],
+      "status": "DEVELOPMENT_PILOT_COMPLETE_NOT_WINNER_QUALIFIED",
       "task_coverage": "Five frozen exposed development cases,15 paired case executions across three roles.18 unit controls and original-simulator mocked replay pass. No actual model/engine/tokenizer/GPU or orchestration quality measurement; trusted worker/capture/admission extension remains pending. Reserved33 validation replies are not used for tuning.",
       "total_task_budget_s": 1200
     },

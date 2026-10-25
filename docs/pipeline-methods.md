@@ -209,9 +209,21 @@ The corrected run made 125 model requests versus 119 before. The task-time diffe
 
 **Slopus diagnosis:** [R524](experiments/R524.md) recorded 10 rejected simulated policy proposals and 1 length-stopped response. Complete coding/tools results remain valid; no global model exclusion.
 
-**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared 1200s task allowance (400s per arm), identical model/tasks and one GPU job. No model orchestration result is claimed. Keep deterministic permissions outside all model roles.
+### Agent role comparison
 
-CPU-only coordinator QA: 18 guard tests and 15 scripted case executions on 5 paired development tasks. Mock-reply replay and external permission controls pass; **GPU source/admission review remains pending**. These are software checks, not model scores.
+Five paired **development** tasks per arm; fixed arm order. Same model, weights, native sampler and engine. All planner/reviewer costs included. **No official agent score or qualified winner.** Permissions remain outside the model.
+
+One shared 1200s task allowance (400s per arm).
+
+**R537:** Nexus-9B · OFF/T0 · role harness5×3
+
+<div id="native-role-comparison" class="screening-wrap"><table><thead><tr><th>Arm</th><th>Success</th><th>Policy checks</th><th>Arm time</th><th>Completion tok/s¹</th><th>GPU J/success²</th><th>Peak sampled VRAM MiB</th><th>Evidence</th></tr></thead><tbody><tr><td>single</td><td>3/5</td><td>4/5</td><td>68.80s</td><td>40.84</td><td>5999.81–6035.26</td><td>7356.50</td><td><a href="../experiments/R537/">R537</a></td></tr><tr><td>planner worker</td><td>3/5</td><td>4/5</td><td>60.29s</td><td>50.09</td><td>5384.81–5426.95</td><td>7356.50</td><td><a href="../experiments/R537/">R537</a></td></tr><tr><td>planner worker reviewer</td><td>4/5</td><td>4/5</td><td>84.98s</td><td>52.58</td><td>5839.04–5866.07</td><td>7356.50</td><td><a href="../experiments/R537/">R537</a></td></tr></tbody></table></div>
+
+CPU identity correction: distinguish the registered protocol-file hash from its canonical JSON-content hash. Original responses, tasks and scores were not changed; no GPU rerun. [Correction evidence](audits/audit-b11a2cab12735b390b25.md).
+
+Paired changes versus Single: planner worker +1/−1 tasks, planner worker reviewer +2/−1 tasks. Task regressions remain visible; confirmation is required.
+
+¹ All role completion tokens / completed request time, not pure decode. ² Measured counter brackets. Fifteen case executions are **five paired tasks**, not fifteen independent observations. No policy advantage is inferred from task success.
 
 ### Decisions after native-profile validation
 

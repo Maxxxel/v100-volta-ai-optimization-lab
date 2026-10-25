@@ -40,7 +40,7 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
-  - stylesheets/lab.css?v=a86370ccd29b341b
+  - stylesheets/lab.css?v=6bec85f78b04d556
 extra_javascript:
   - javascripts/screening.js?v=7af8f50daa3611bf
   - assets/benchmarks/benchmark-table-data.js

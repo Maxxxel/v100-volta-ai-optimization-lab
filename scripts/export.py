@@ -324,6 +324,79 @@ def development_result(root,entry,receipt):
             'model_sha256':native['model_sha256'],'engine_binary_sha256':native['assets'][native['runtime']+'/llama-server'],
             'context':recipe['context'],'task_limit_s':audit['task_limit_s'],
             'audit_ids':[receipt(ap,review['audit_sha256']),receipt(rp,entry['sha256'])]}
+def verified_native_role_comparison(root, summary, receipt):
+    """Public aggregate projection after original capture + isolated replay checks."""
+    root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
+    assert a['status']=='DEVELOPMENT_ROLE_COMPARISON5_COMPLETE' and a['measurement_valid'] and a['GPU_execution_observed']
+    assert a['dataset_id']=='jarvis-role-comparison-development5-v1' and a['paired_unique_cases']==5 and a['tasks']==a['case_executions']==15
+    assert a['official_benchmark'] is False and a['winner_qualified'] is False
+    rp=pathlib.Path(summary['independent_review_path']);assert digest(rp)==summary['independent_review_sha256']==a['independent_review_sha256'];review=load(rp)
+    assert review['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and review['GPU_runs']==review['model_requests']==0
+    result=review['result'];assert result['complete'] and result['scored_tasks']==15 and result['solved']==a['solved'] and result['all_scores_and_effects_reproduced'] and result['real_evaluator_uid']!=0
+    assert result['model_requests']==result['GPU_runs']==result['production_tool_actions']==0 and result['official_benchmark'] is False
+    raw=pathlib.Path(a['raw_root']).resolve();assert raw.is_relative_to((root.parent/'research/mcp-workspace').resolve())
+    assert all(digest(raw/n)==h for n,h in a['original_raw_files_sha256'].items())
+    profile=load(raw/'profile.json');assert digest(raw/'profile.json')==a['profile_sha256']
+    assert profile['assets'][profile['model']]==a['model_sha256']==result['model_artifact_sha256'] and load(raw/'LAUNCH.json')['uid']==65534
+    completion=load(raw/'HOST_COMPLETION.json');assert completion['status']=='GPU_COMPLETE_AUDITED' and completion['audit_sha256']==digest(raw/'AUDIT.json')
+    cp=pathlib.Path(review['CPU_receipt_file']);assert cp.parent==ap.parent and cp.name in {a['experiment_id'].lower()+'-protocol-file-identity-correction.receipt.json',a['experiment_id'].lower()+'-agent18-replay.receipt.json'}
+    stdout=cp.with_name(cp.name.replace('.receipt.json','.stdout'));assert digest(cp)==review['CPU_receipt_sha256'] and digest(stdout)==review['CPU_stdout_sha256']
+    cpu=load(cp);assert cpu['returncode']==0 and 'Result=success\n' in cpu['properties'] and 'ExecMainStatus=0\n' in cpu['properties'] and 'PrivateDevices=yes\n' in cpu['properties'] and 'NoNewPrivileges=yes\n' in cpu['properties']
+    assert [json.loads(l.split(' ',1)[1]) for l in stdout.read_text().splitlines() if l.startswith('AGENT18_REPLAY_JSON ')]==[result]
+    correction=ap.parent/'CPU_SCORER_PROTOCOL_IDENTITY_CORRECTION.json'
+    if correction.exists():
+        fix=load(correction)
+        assert fix['kind']=='REGISTERED_PROTOCOL_FILE_HASH_CPU_IDENTITY_CORRECTION' and fix['GPU_reruns']==0 and fix['original_replies_profiles_tasks_and_scoring_rules_changed'] is False
+        plan_path=ap.parent/'CPU_SCORER_PROTOCOL_CORRECTED_PLAN.json';plan=load(plan_path);assert fix['corrected_scorer_sha256']==review['scorer_sha256']==plan['scorer_sha256']
+        assert plan['input_sha256']['protocol.json']==fix['protocol_file_sha256']==profile['selected_task_inputs']['tools_sha256']
+    else:
+        plan_path=ap.parent/'CPU_REPLAY_PLAN.json';plan=load(plan_path);assert plan['scorer_sha256']==review['scorer_sha256'] and plan['input_sha256']['protocol.json']==profile['selected_task_inputs']['tools_sha256']
+    assert digest(plan_path)==review['replay_plan_sha256'] and result['original_input_sha256']==plan['input_sha256']
+    assert plan['input_sha256']['profile.json']==digest(raw/'profile.json') and plan['input_sha256']['responses.jsonl']==digest(raw/'HTTP_RESULTS.jsonl')
+    assert plan['scorer_sha256'] in cpu['input_sha256'].values() and all(h in cpu['input_sha256'].values() for h in plan['input_sha256'].values())
+    qp=pathlib.Path(summary['quality_review_path']);assert digest(qp)==summary['quality_review_sha256'];quality=load(qp)
+    assert quality['source_audit_sha256']==digest(ap) and quality['paired_unique_cases']==5 and quality['case_executions']==15 and quality['official_benchmark'] is quality['winner_qualified'] is False
+    records=[json.loads(l) for l in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()];telemetry=[json.loads(l) for l in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+    cases=[r for r in records if r['kind']=='orchestration_case'];windows=[dict(id=r['arm'],start_ns=r['start_ns'],end_ns=r['end_ns']) for r in records if r['kind']=='orchestration_arm']
+    assert len(cases)==15 and [x['id'] for x in windows]==['single','planner_worker','planner_worker_reviewer']
+    from leaderboard import counter_energy_bounds
+    assert [r['arm'] for r in quality['arms']]==[w['id'] for w in windows]
+    for arm,window in zip(quality['arms'],windows):
+        selected=[r for r in cases if r['arm']==arm['arm']];turns=[r for r in records if r['kind']=='agent_turn' and r['id'].startswith(arm['arm']+'--')]
+        assert arm['complete'] and len(selected)==arm['completed_cases']==arm['planned_cases']==5
+        assert sum(c['reported_result']['task_success'] for c in selected)==arm['solved']
+        assert sum(c['reported_result']['policy_gate_pass'] for c in selected)==arm['policy_gate_passes']
+        assert sum(c['reported_result']['task_scope_pass'] for c in selected)==arm['task_scope_passes']
+        assert arm['arm_wall_s']==(window['end_ns']-window['start_ns'])/1e9 and arm['generation_requests']==len(turns)
+        assert arm['completed_request_wall_s']==sum(r['e2e_s'] for r in turns)
+        tokens=[r['reply'].get('usage',{}).get('completion_tokens') for r in turns]
+        assert arm['completion_tokens_all_roles']==(sum(tokens) if tokens and all(type(v)is int and v>=0 for v in tokens) else None)
+        energy=counter_energy_bounds(telemetry,windows,[arm['arm']]);assert energy==arm['GPU_counter']
+        assert arm['gpu_j_per_success_lower']==(energy['lower_j']/arm['solved'] if arm['solved'] else None)
+        assert arm['gpu_j_per_success_upper']==(energy['upper_j']/arm['solved'] if arm['solved'] else None)
+        total=arm['completion_tokens_all_roles'];wall=arm['completed_request_wall_s']
+        assert arm['tokens_s_completed_requests']==(total/wall if total is not None and wall else None)
+        assert arm['successful_tasks_per_s']==arm['solved']/arm['arm_wall_s']
+        memory=[r['device_vram_bytes']/2**20 for r in telemetry if r.get('nvml_begin_ns',r['at_ns'])>=window['start_ns'] and r['at_ns']<=window['end_ns'] and type(r.get('device_vram_bytes')) is int]
+        assert arm['peak_sampled_device_vram_mib']==(max(memory) if memory else None)
+        assert arm['technical_request_errors']==arm['technical_preflight_cases']==0
+    comparison_path=pathlib.Path(summary['comparison_review_path']);assert digest(comparison_path)==summary['comparison_review_sha256'];comparison=load(comparison_path)
+    assert comparison['candidate_audit_sha256']==digest(ap) and comparison['official_benchmark'] is comparison['winner_qualified'] is False
+    base=[c for c in cases if c['arm']=='single'];paired=[]
+    for name in ('planner_worker','planner_worker_reviewer'):
+        candidate=[c for c in cases if c['arm']==name]
+        assert [c['source_case_id'] for c in base]==[c['source_case_id'] for c in candidate]
+        gained=sum(not a['reported_result']['task_success'] and b['reported_result']['task_success'] for a,b in zip(base,candidate))
+        lost=sum(a['reported_result']['task_success'] and not b['reported_result']['task_success'] for a,b in zip(base,candidate))
+        recorded=next(c for c in comparison['comparisons'] if c['candidate_arm']==name)
+        assert recorded['comparable'] and recorded['paired_gained']==gained and recorded['paired_lost']==lost
+        paired.append(dict(candidate_arm=name,paired_gained=gained,paired_lost=lost))
+    allowed=('arm','complete','planned_cases','completed_cases','solved','policy_gate_passes','task_scope_passes','arm_wall_s','completion_tokens_all_roles','tokens_s_completed_requests','peak_sampled_device_vram_mib','successful_tasks_per_s','gpu_j_per_success_lower','gpu_j_per_success_upper','generation_requests','technical_request_errors','technical_preflight_cases')
+    return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':5,'case_executions':15,'official_benchmark':False,'winner_qualified':False,'arms':[{k:r[k] for k in allowed} for r in quality['arms']],
+            'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'correction_audit_id':receipt(correction,digest(correction)) if correction.exists() else None,
+            'paired_changes':paired,'scope':'Five exposed development tasks paired across three fixed-order harness arms. All role costs included; no official benchmark, population ranking, independent model inference replay or Champion.'}
+
+
 def verified_native_agent_development(root, summary, receipt):
     """Verify original capture and isolated replay before public development costs."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -533,6 +606,12 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if audit and v.get('status')=='DEVELOPMENT_ROLE_COMPARISON5_COMPLETE':
+            role=verified_native_role_comparison(root,v,receipt)
+            experiments[ident]['aggregate_metrics']['native_role_comparison_development']=role
+            experiments[ident]['model']=role['model'];experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
+            catalog[audit]['aggregate_metrics']['native_role_comparison_development']=role
+            experiments[ident]['related_audit_ids']=[role[k] for k in ('quality_audit_id','independent_review_audit_id','correction_audit_id')]
         native_key='native_validation33' if catalog.get(audit,{}).get('aggregate_metrics',{}).get('native_validation33') else 'native_agent18_development'
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
             experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)

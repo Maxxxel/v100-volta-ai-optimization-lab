@@ -357,3 +357,24 @@ class OrchestrationCPUSeparation(unittest.TestCase):
   for field in ['GPU_admitted','model_results_measured','official_benchmark']:
    d=self.data();d['qualification_phase']['multi_agent_plan']['CPU_controls'][field]=True
    with self.subTest(field=field),self.assertRaises(AssertionError):validate(d)
+
+class OrchestrationMeasuredPresentation(unittest.TestCase):
+ def data(self):
+  d=OrchestrationCPUSeparation().data()
+  d['qualification_phase']['multi_agent_plan']['results']=[{'experiment_id':'R999','model':'Synthetic presentation fixture','paired_unique_cases':5,'case_executions':15,'official_benchmark':False,'winner_qualified':False,'correction_audit_id':'audit-'+'a'*20,'arms':[dict(arm=name,complete=True,completed_cases=5,planned_cases=5,solved=n,policy_gate_passes=4,arm_wall_s=10.0,tokens_s_completed_requests=None,gpu_j_per_success_lower=None,gpu_j_per_success_upper=None,peak_sampled_device_vram_mib=None) for name,n in [('single',2),('planner_worker',2),('planner_worker_reviewer',3)]]}]
+  return d
+ def test_measured_arms_never_claim_official_score_or_winner(self):
+  from screening import render_qualification
+  d=self.data();validate(d);out=render_qualification(d)
+  self.assertIn('Agent role comparison',out);self.assertIn('2/5',out);self.assertIn('3/5',out);self.assertIn('NOT MEASURED',out)
+  self.assertIn('not fifteen independent observations',out);self.assertNotIn('GPU source/admission review remains pending',out)
+ def test_cannot_promote_pilot_to_official_or_independent_15_tasks(self):
+  for k,v in [('official_benchmark',True),('winner_qualified',True),('paired_unique_cases',15)]:
+   d=self.data();d['qualification_phase']['multi_agent_plan']['results'][0][k]=v
+   with self.subTest(field=k),self.assertRaises(AssertionError):validate(d)
+ def test_missing_arm_or_duplicate_experiment_is_rejected(self):
+  import copy
+  d=self.data();d['qualification_phase']['multi_agent_plan']['results'].append(copy.deepcopy(d['qualification_phase']['multi_agent_plan']['results'][0]))
+  with self.assertRaises(AssertionError):validate(d)
+  d=self.data();d['qualification_phase']['multi_agent_plan']['results'][0]['arms'].pop()
+  with self.assertRaises(AssertionError):validate(d)

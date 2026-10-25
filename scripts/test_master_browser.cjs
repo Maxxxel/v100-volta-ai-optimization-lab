@@ -269,6 +269,25 @@ async function main(){
    }
    report.agent_development_profiles_verified=nativeExpected.length;
 
+   const roleResults=qualificationExpected?.multi_agent_plan?.results||[];
+   if(roleResults.length){
+    const table=tab.locator('#native-role-comparison');
+    assert.equal(await table.locator('tbody tr').count(),roleResults.reduce((n,r)=>n+r.arms.length,0));
+    let index=0;
+    for(const result of roleResults)for(const arm of result.arms){
+     const row=table.locator('tbody tr').nth(index++),cells=await row.locator('td').allTextContents();
+     assert(cells[0].includes(arm.arm.replaceAll('_',' ')));
+     assert.equal(cells[1].trim(),arm.solved+'/5');assert.equal(cells[2].trim(),arm.policy_gate_passes+'/5');
+     assert.equal(cells[3].trim(),arm.arm_wall_s.toFixed(2)+'s');
+     assert.equal(cells[5].trim(),arm.gpu_j_per_success_lower.toFixed(2)+'–'+arm.gpu_j_per_success_upper.toFixed(2));
+     assert.equal(await row.getByRole('link',{name:result.experiment_id,exact:true}).count(),1);
+    }
+    assert(content.includes('five paired tasks'));assert(!content.includes('GPU source/admission review remains pending'));
+    report.role_comparison_arms_verified=index;
+    await table.scrollIntoViewIfNeeded();
+    await tab.screenshot({path:path.join(artifacts,name+'-role-comparison.png'),animations:'disabled'});
+   }
+
    const bounds=await tab.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));assert(bounds.width<=bounds.viewport+2);
    await tab.locator('#native-agent18-development-evidence').scrollIntoViewIfNeeded();
    await tab.screenshot({path:path.join(artifacts,name+'-agent-development.png'),animations:'disabled'});

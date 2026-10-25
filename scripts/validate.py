@@ -7,6 +7,7 @@ DATA={'benchmark-register.json','configuration-history.json','comparison.json','
 SCRIPTS={'leaderboard.py','test_leaderboard.py','comparison.py','test_comparison.py','export.py','render.py','validate.py','test_publication.py'}
 SCRIPTS.update({'test_master_table.cjs','test_master_browser.cjs'})
 SCRIPTS.update({'test_pipeline_methods.py','test_paired_coding.py','screening.py','test_screening.py'})
+SCRIPTS.add('test_role_export.py')
 DATA.add('screening.json')
 SCRIPTS.update({'derivatives.py','test_derivatives.py','test_native_tools.py','test_native_tool_prefix.py'})
 SECRET=re.compile(r'(?i)(?:gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,}|sk-[A-Za-z0-9]{16,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(?:password|passwd|api[_-]?key|access[_-]?token|authorization)\s*[:=]\s*[\x22\x27]?[A-Za-z0-9/+_=.-]{12,})')
