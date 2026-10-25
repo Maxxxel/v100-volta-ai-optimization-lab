@@ -22135,8 +22135,19 @@
   },
   {
     "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1644.0
+      },
       "model_starts": 1,
       "peak_device_vram_mib": 9322.5,
+      "quality": {
+        "candidate_only_successes": 2,
+        "control_only_successes": 5,
+        "net_success_change": -3,
+        "paired_exact_two_sided_p_descriptive": 0.453125,
+        "paired_tasks": 164,
+        "score_change_percentage_points": -1.829268292682927
+      },
       "scopes": {
         "standard_full164": {
           "solved": 131,
@@ -22155,9 +22166,9 @@
     "model": "OmniCoder-9B bartowski Q6 · MTP3",
     "reference_A0": null,
     "statements": {
-      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "decision": "CODING_NONREGRESSION_GATE_FAILED_SPEED_QUALITY_TRADEOFF",
       "evidence_class": "LOKAL_GEMESSEN",
-      "scope": "Fixed MTP3 candidate selected on development data before complete original164 qualification. Same target/engine/template/sampler/context/output as stored R516; the fixed draft/flags are the declared treatment. No further test-task tuning or automatic Champion. Missing tasks are not zero."
+      "scope": "Same complete original164 tasks, official API/scorer and native profile except the frozen MTP head/flags. R516 is the retained stored control; R540 independently checked development latency drift. This is not a fresh official-task A/B repetition. Counter brackets cover all completed requests including failures, exclude loading/warmup/CPU/system energy, and are not calibration confidence intervals. A nonsignificant paired test is not equivalence. No test-driven parameter adjustment or automatic model rejection."
     },
     "winner_qualified": false
   }
