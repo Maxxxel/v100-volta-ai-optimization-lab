@@ -32,7 +32,7 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "49133ad91db6b5f0c00b94d9d3bcf22d24270dcfc2d6eaeeb268cad9e138de68",
+    "BENCHMARK_REFERENCES.json": "cdd7374c15367b06b3fac680212df973aeffe92c68a238256fc6fcbbd0c81fef",
     "BENCHMARK_REGISTER.json": "f60226e98b39fd7a700b4e789c50f832e5f730cb0de2f0494c3d06b104eafbe1",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",

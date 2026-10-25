@@ -315,3 +315,33 @@ class QualificationDecisionProvenance(unittest.TestCase):
   from screening import render_qualification
   d=AgentValidation33Presentation().data();d['qualification_phase']['decision_review']={'profiles':[{'model':'CPU fixture','experiment_id':'R530','policy_gate_passes':29,'reason':'Confirm independently.'}],'review_sha256':'a'*64,'next_decisions':['Keep deterministic permissions.']}
   out=render_qualification(d);self.assertIn('29/33',out);self.assertIn('not a winner qualification',out);self.assertNotIn('Next: source-admit',out)
+
+class EmptyThoughtScientificCorrection(unittest.TestCase):
+ def diagnosis(self):
+  return {'model':'CPU fixture only','applicable_profile_experiment_ids':['R530'],'audit_sha256':'c'*64,'CPU_controls':20,'parser_roundtrips':12,'template_controls':8,'empty_thought_sections':90,'nonempty_thought_sections':0,'original_scores_changed':False,'GPU_runs':0,'official_benchmark':False,'decision_summary':'No lost reasoning demonstrated.'}
+ def test_markers_are_not_evidence_of_nonempty_reasoning(self):
+  from screening import thought_section_counts
+  self.assertEqual(thought_section_counts(['<|channel>thought\n \t<channel|>','ordinary output']),{'empty':1,'nonempty':0,'unclosed':0})
+ def test_actual_content_and_literal_backslash_are_not_empty(self):
+  from screening import thought_section_counts
+  values=['<|channel>thought\ntext<channel|>',r'<|channel>thought\n<channel|>']
+  self.assertEqual(thought_section_counts(values),{'empty':0,'nonempty':2,'unclosed':0})
+ def test_missing_and_truncated_raw_content_cannot_become_empty_evidence(self):
+  from screening import thought_section_counts
+  with self.assertRaises(AssertionError):thought_section_counts([None])
+  self.assertEqual(thought_section_counts(['<|channel>thought unfinished']),{'empty':0,'nonempty':0,'unclosed':1})
+ def test_correction_remains_separate_from_existing_model_score(self):
+  from screening import render_qualification
+  d=AgentValidation33Presentation().data();d['qualification_phase']['gemma_context']['diagnostic_resolution']=self.diagnosis()
+  validate(d);text=render_qualification(d)
+  self.assertIn('hypothesis is withdrawn',text);self.assertIn('20 model-free controls',text);self.assertIn('21/33',text)
+  d['qualification_phase']['gemma_context']['diagnostic_resolution']['original_scores_changed']=True
+  with self.assertRaises(AssertionError):validate(d)
+ def test_amendment_preserves_original_decision_and_requires_source_identity(self):
+  import tempfile
+  from pathlib import Path
+  from screening import qualification_decisions
+  with tempfile.TemporaryDirectory() as directory:
+   root=Path(directory);phase,_,measured,_=QualificationDecisionProvenance().fixture(root)
+   result=qualification_decisions(root,phase,measured,self.diagnosis());row=result['profiles'][0]
+   self.assertEqual(row['original_decision_reason'],'More confirmation required.');self.assertEqual(row['reason'],'No lost reasoning demonstrated.');self.assertEqual(row['decision_amendment_sha256'],'c'*64)

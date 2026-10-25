@@ -65,7 +65,59 @@ def matching_full_runs(root,history,profiles,profile,sha):
     matches.append({k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')});break
  return matches
 
-def qualification_decisions(root,phase,measured):
+def thought_section_counts(contents):
+ """Count actual content, not control-marker presence, in retained replies."""
+ counts={'empty':0,'nonempty':0,'unclosed':0}
+ for text in contents:
+  assert isinstance(text,str),'Missing raw content cannot establish empty thoughts'
+  position=0
+  while True:
+   start=text.find('<|channel>thought',position)
+   if start<0:break
+   start+=len('<|channel>thought');end=text.find('<channel|>',start)
+   if end<0:counts['unclosed']+=1;break
+   counts['nonempty' if text[start:end].strip() else 'empty']+=1;position=end+len('<channel|>')
+ return counts
+
+def gemma_diagnostic_resolution(root,ctx,measured):
+ descriptor=ctx.get('diagnostic_resolution')
+ if not descriptor:return None
+ path=Path(descriptor['path']);assert H(path)==descriptor['sha256'];r=read(path)
+ assert r['status']=='BOUNDED_DEVELOPMENT_DIAGNOSIS_COMPLETE_NO_ENGINE_FIX_JUSTIFIED'
+ assert r['source_experiment_id']==ctx['corrective_experiment'] and r['source_audit_sha256']==ctx['corrective_audit_sha256']
+ assert r['GPU_runs']==r['model_requests']==r['factor_coverage_increment']==0 and r['original_scores_changed'] is False
+ folder=Path(root)/'staging'/r['source_experiment_id'].lower();a=read(folder/'AUDIT.json');assert H(folder/'AUDIT.json')==r['source_audit_sha256']
+ raw=Path(a['raw_root'])/'HTTP_RESULTS.jsonl';assert H(raw)==a['original_raw_files_sha256'][raw.name]
+ turns=[json.loads(l) for l in raw.read_text().splitlines() if l];turns=[t for t in turns if t['kind']=='agent_turn'];assert len(turns)==a['actual_generation_requests']
+ counts=thought_section_counts([t['reply']['__verbose'].get('content') for t in turns]);assert counts=={'empty':90,'nonempty':0,'unclosed':0}
+ assert counts['empty']==r['original_empty_thought_sections'] and counts['nonempty']==r['original_nonempty_thought_sections']
+ controls=folder/'CPU_MODEL_FREE';receipt=controls/'CPU_BASELINE_EXECUTION_RECEIPT.json';output=controls/'cpu-control-baseline.stdout'
+ assert H(receipt)==r['CPU_execution_receipt_sha256'] and H(output)==r['CPU_stdout_sha256'];record=read(receipt)
+ assert record['returncode']==0 and record['stdout_sha256']==H(output)
+ observed=[json.loads(l.split(' ',1)[1]) for l in output.read_text().splitlines() if l.startswith('GEMMA_CPU_CONTROL_JSON ')]
+ role=[json.loads(l.split(' ',1)[1]) for l in output.read_text().splitlines() if l.startswith('CPU_PROBE_RECEIPT_JSON ')]
+ assert len(observed)==len(role)==1;observed=observed[0];role=role[0]
+ assert observed['passed'] and role['passed'] and role['real_uid']==observed['real_uid']!=0
+ assert role['no_GPU_devices'] is True and role['INET_denied'] is True and role['GPU_runs']==role['model_requests']==0
+ assert len(observed['controls'])==r['model_free_CPU_controls']==20
+ parse=[c for c in observed['controls'] if c['control']=='parse'];render=[c for c in observed['controls'] if c['control']=='render']
+ assert len(parse)==12 and len(render)==8 and all(c['argument_exact'] for c in parse)
+ assert all(c['supplied_thought_rendered'] for c in render if not c['later_user_turn'])
+ source_profile=Path(a['raw_root'])/'profile.json';assert H(source_profile)==a['original_raw_files_sha256']['profile.json'];source_profile=read(source_profile)
+ def native_identity(p):
+  return {'model_sha256':p['assets'][p['model']],'template_sha256':p['assets'][p['chat_template']],
+   'runtime_assets':{Path(k).name:v for k,v in p['assets'].items() if '/runtime/' in k},
+   'recipe':{k:p['native_recipe'][k] for k in ('argv_tail','environment','request_options','context','warmups')},
+   'transport_sha256':p['native_recipe']['agent18']['transport_sha256']}
+ identity=native_identity(source_profile);applicable=[]
+ for entry in measured:
+  ap=Path(root)/'staging'/entry['experiment_id'].lower()/'AUDIT.json';assert H(ap)==entry['audit_sha256'];target=read(ap)
+  capture=Path(target['raw_root'])/'profile.json';assert H(capture)==entry['metrics']['profile_sha256']
+  if native_identity(read(capture))==identity:applicable.append(entry['experiment_id'])
+ return {'model':a['model'],'applicable_profile_experiment_ids':applicable,'audit_sha256':descriptor['sha256'],'CPU_controls':20,'parser_roundtrips':12,'template_controls':8,'empty_thought_sections':90,'nonempty_thought_sections':0,'original_scores_changed':False,'GPU_runs':0,'official_benchmark':False,
+  'decision_summary':'Coding qualification retained. CPU parser/template controls pass; all90 Agent18 thought sections were empty. No lost-reasoning or preservation-only GPU fix is justified. Original patch/final-contract failures remain.'}
+
+def qualification_decisions(root,phase,measured,diagnostic=None):
  """Project an audit-bound research decision, never a new benchmark result."""
  descriptor=phase.get('decision_review')
  if not descriptor:return None
@@ -91,7 +143,10 @@ def qualification_decisions(root,phase,measured):
   for key in ('policy_gate_passes','task_scope_passes'):
    assert type(r[key]) is int and 0<=r[key]<=33 and r[key]==q['quality'][key]
   assert r['decision'].startswith(('RETAIN_','PRIORITIZE_'))
-  projected.append({k:r[k] for k in ('experiment_id','model','decision','reason','optimization_after_qualification','policy_gate_passes','task_scope_passes')})
+  item={k:r[k] for k in ('experiment_id','model','decision','reason','optimization_after_qualification','policy_gate_passes','task_scope_passes')}
+  if diagnostic and eid in diagnostic['applicable_profile_experiment_ids']:
+   item.update(original_decision_reason=item['reason'],reason=diagnostic['decision_summary'],decision_amendment_sha256=diagnostic['audit_sha256'])
+  projected.append(item)
  return {'review_sha256':descriptor['sha256'],'profiles':projected,'scope':review['review_scope'],'next_decisions':review['next_decisions'],'official_benchmark':False,'winner_qualified':False}
 
 def qualification_phase(root,history):
@@ -140,11 +195,12 @@ def qualification_phase(root,history):
   metric=verified_native_agent_development(root,summary,lambda path,expected:'audit-'+expected[:20])
   model_validation.append({'experiment_id':actual['experiment_id'],'model':actual['model'],'audit_sha256':H(ap),'metrics':metric})
  multi=phase['multi_agent_plan'];assert multi['total_task_budget_s']==1200 and multi['per_arm_task_budget_s']*len(multi['arms'])==1200 and multi['GPU_concurrency']==1
- return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,'model_validation':model_validation,'decision_review':qualification_decisions(root,phase,model_validation),'validation_execution':({k:frozen['current_execution'][k] for k in ('experiment_id','status')} if frozen.get('current_execution') else None),
+ diagnostic=gemma_diagnostic_resolution(root,ctx,model_validation)
+ return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,'model_validation':model_validation,'decision_review':qualification_decisions(root,phase,model_validation,diagnostic),'validation_execution':({k:frozen['current_execution'][k] for k in ('experiment_id','status')} if frozen.get('current_execution') else None),
   'validation':{'status':'FROZEN_NOT_RELEASED_NO_MODEL_RESULTS','cases':qa['cases'],'generalization_groups':qa['groups'],'golden_QA_passed':qa['golden_passed'],'wrong_final_QA_rejected':qa['wrong_final_rejected'],'forbidden_action_QA_rejected':qa['forbidden_action_rejected'],'model_requests':0,'CPU_QA_sha256':frozen['CPU_QA_sha256'],'private_dataset_sha256':frozen['private_dataset_sha256'],'scope':frozen['scope']},
   'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.']},
   'slopus_diagnosis':{k:sl[k] for k in ('experiment_id','recorded_policy_violations','length_stopped_responses','actual_effect_scope_passes','scope')},
-  'gemma_context':{'experiment_id':ctx['experiment_id'],'status':a['status'],'model_requests':0,'quality_score':None,'CPU_fix_tests':fix['tests'],'GPU_retry_admitted':ctx['new_transport_GPU_admitted'],'corrective_result':correction},
+  'gemma_context':{'experiment_id':ctx['experiment_id'],'status':a['status'],'model_requests':0,'quality_score':None,'CPU_fix_tests':fix['tests'],'GPU_retry_admitted':ctx['new_transport_GPU_admitted'],'corrective_result':correction,'diagnostic_resolution':diagnostic},
   'multi_agent_plan':{k:multi[k] for k in ('status','arms','total_task_budget_s','per_arm_task_budget_s','GPU_concurrency','task_coverage')}}
 
 def build(root):
@@ -348,6 +404,16 @@ def validate(data):
    assert review['official_benchmark'] is False and review['winner_qualified'] is False
    assert len(review['profiles'])==len(ids) and {r['experiment_id'] for r in review['profiles']}==set(ids)
    assert re.fullmatch('[a-f0-9]{64}',review['review_sha256'])
+  diagnosis=q['gemma_context'].get('diagnostic_resolution')
+  if diagnosis:
+   assert diagnosis['CPU_controls']==20 and diagnosis['parser_roundtrips']==12 and diagnosis['template_controls']==8
+   assert diagnosis['empty_thought_sections']==90 and diagnosis['nonempty_thought_sections']==0
+   assert diagnosis['original_scores_changed'] is False and diagnosis['GPU_runs']==0 and diagnosis['official_benchmark'] is False
+  if review:
+   for row in review['profiles']:
+    if row.get('decision_amendment_sha256'):
+     assert diagnosis and row['experiment_id'] in diagnosis['applicable_profile_experiment_ids'] and row['decision_amendment_sha256']==diagnosis['audit_sha256']
+     assert row['reason']==diagnosis['decision_summary'] and isinstance(row['original_decision_reason'],str)
 
 def render(data):
  from html import escape as e
@@ -448,6 +514,8 @@ def render_qualification(data):
   c=g['corrective_result'];out+='\nCorrected GPU run ['+c['experiment_id']+'](experiments/'+c['experiment_id']+'.md): '+str(c['tasks'])+' cases completed, '+str(c['context_preflight_errors'])+' context-preflight errors and '+str(c['HTTP_errors'])+' request errors; '+str(c['solved'])+'/'+str(c['tasks'])+' solved versus '+str(c['reference_solved'])+'/'+str(c['tasks'])+' at8K. Task time changed by '+format(c['task_phase_change_percent'],'+.2f')+'%, peak VRAM by '+format(c['peak_vram_change_mib'],'+.0f')+'MiB. Technical fix confirmed; no task-success gain or Champion claim.\n'
   out+='\nThe corrected run made '+str(c['model_requests'])+' model requests versus '+str(c['reference_model_requests'])+' before. The task-time difference includes those additional turns; it is not an isolated decode-speed comparison.\n'
  else:out+='\nNew bridge GPU execution remains unadmitted.\n'
+ if g.get('diagnostic_resolution'):
+  d=g['diagnostic_resolution'];out+='\n**Scientific correction — Gemma format diagnosis:** all90 thought-marker sections in the retained development replies are empty. The earlier marker-only thought-loss hypothesis is withdrawn. '+str(d['CPU_controls'])+' model-free controls verify literal string round trips and supplied template context; no GPU variant or model-quality gain is justified. Original scores remain unchanged. [Issue and correction](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/15#issuecomment-6396277494). Resolution SHA256: `'+d['audit_sha256']+'`.\n'
  if q.get('slopus_diagnosis'):
   sl=q['slopus_diagnosis'];out+='\n**Slopus diagnosis:** ['+sl['experiment_id']+'](experiments/'+sl['experiment_id']+'.md) recorded '+str(sl['recorded_policy_violations'])+' rejected simulated policy proposals and '+str(sl['length_stopped_responses'])+' length-stopped response. Complete coding/tools results remain valid; no global model exclusion.\n'
  out+='\n**Orchestration:** Single-Agent, Planner + Worker, and Planner + Worker + Reviewer are planned with one shared '+str(m['total_task_budget_s'])+'s task allowance ('+str(m['per_arm_task_budget_s'])+'s per arm), identical model/tasks and one GPU job. Recovery/delegation controls remain pending; no orchestration result is claimed. Keep deterministic permissions outside all model roles.\n'

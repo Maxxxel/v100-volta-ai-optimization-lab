@@ -1545,11 +1545,13 @@
         },
         {
           "decision": "RETAIN_CODING_SPECIALIST_DIAGNOSE_NATIVE_TOOLS",
+          "decision_amendment_sha256": "da6f2382eb2eb3dbc7b899a1a0f6fa7d11018330deb7a5a1f20bbe32f724cba6",
           "experiment_id": "R534",
           "model": "Gemma4-12B · ctx16K",
           "optimization_after_qualification": "Use original Agent18 development replies for CPU parser/template controls before a separate corrected profile.",
+          "original_decision_reason": "156/164 coding retained in its original8K scope;17/33 at16K does not qualify agent behavior. Context errors are fixed; format/thought-carryover diagnosis remains.",
           "policy_gate_passes": 29,
-          "reason": "156/164 coding retained in its original8K scope;17/33 at16K does not qualify agent behavior. Context errors are fixed; format/thought-carryover diagnosis remains.",
+          "reason": "Coding qualification retained. CPU parser/template controls pass; all90 Agent18 thought sections were empty. No lost-reasoning or preservation-only GPU fix is justified. Original patch/final-contract failures remain.",
           "task_scope_passes": 33
         },
         {
@@ -1593,6 +1595,22 @@
         "task_phase_s": 322.928532198,
         "tasks": 18,
         "winner_qualified": false
+      },
+      "diagnostic_resolution": {
+        "CPU_controls": 20,
+        "GPU_runs": 0,
+        "applicable_profile_experiment_ids": [
+          "R534"
+        ],
+        "audit_sha256": "da6f2382eb2eb3dbc7b899a1a0f6fa7d11018330deb7a5a1f20bbe32f724cba6",
+        "decision_summary": "Coding qualification retained. CPU parser/template controls pass; all90 Agent18 thought sections were empty. No lost-reasoning or preservation-only GPU fix is justified. Original patch/final-contract failures remain.",
+        "empty_thought_sections": 90,
+        "model": "Gemma4-12B · ctx16K bridge-v2",
+        "nonempty_thought_sections": 0,
+        "official_benchmark": false,
+        "original_scores_changed": false,
+        "parser_roundtrips": 12,
+        "template_controls": 8
       },
       "experiment_id": "R528",
       "model_requests": 0,
