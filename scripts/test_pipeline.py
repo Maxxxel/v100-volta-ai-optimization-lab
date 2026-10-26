@@ -196,5 +196,53 @@ class QualificationDecision(unittest.TestCase):
                 else:review['profiles']['R544'][key]=value
                 with self.subTest(key=key),self.assertRaises(AssertionError):self.project(root,review)
 
+    def test_development_counts_are_verified_without_official_promotion(self):
+        import tempfile
+        for mutation in (None,'duplicate','group_score','official','incomplete'):
+            with tempfile.TemporaryDirectory() as tmp:
+                root,review=self.fixture(tmp)
+                for eid,profile in review['profiles'].items():
+                    tasks=[{'id':str(i),'success':i<28} for i in range(32)]
+                    a={'status':'OPTIMIZATION_DEVELOPMENT_COMPLETE','official_benchmark':False,'winner_qualified':False,
+                       'completed_requests':32,'planned_requests':32,'scored_tasks':tasks,
+                       'groups':{'coding':{'completed':16,'successes':14},'tools':{'completed':16,'successes':14}},
+                       'task_phase_s':100.0,'peak_device_vram_mib':8000.0}
+                    if eid=='R544':
+                        if mutation=='duplicate':tasks[-1]['id']='0'
+                        elif mutation=='group_score':a['groups']['coding']['successes']=15
+                        elif mutation=='official':a['official_benchmark']=True
+                        elif mutation=='incomplete':a['completed_requests']=31
+                    path=root/'staging'/eid.lower()/'AUDIT.json';path.write_text(json.dumps(a))
+                    review['source_files_sha256'][str(path)]=export.digest(path)
+                    profile.update(tasks=32,solved=28)
+                review['candidate_audit_sha256']=export.digest(root/'staging/r544/AUDIT.json')
+                if mutation is None:self.assertEqual(self.project(root,review)['decision'],'QUALITY_GATE_FAILED')
+                else:
+                    with self.subTest(mutation=mutation),self.assertRaises(AssertionError):self.project(root,review)
+
+
+class RoleRetrospective(unittest.TestCase):
+    def fixture(self):
+        identity={'kind':'input_identity','id':'turn-private','case_id':'private-case','source_case_id':'DO_NOT_PUBLISH','arm':'single','prompt_token_count':3}
+        turn={'kind':'agent_turn','id':'turn-private','start_ns':1100000000,'end_ns':1900000000,'reply':{'content':'DO_NOT_PUBLISH','usage':{'prompt_tokens':3,'completion_tokens':4}}}
+        case={'kind':'orchestration_case','id':'private-case','source_case_id':'DO_NOT_PUBLISH','arm':'single','start_ns':1000000000,'end_ns':2000000000,'e2e_s':1.0,'attempted_requests':1,'role_calls':{'worker':1,'planner':0,'reviewer':0},'simulator_callbacks':1,'reported_result':{'task_success':False,'policy_gate_pass':False}}
+        telemetry=[{'at_ns':i*500000000,'nvml_begin_ns':i*500000000,'gpu_energy_counter_mj':i*500} for i in range(6)]
+        return [identity,turn,case],telemetry
+    def test_measured_failure_costs_and_token_counts_are_retained_without_private_text(self):
+        records,telemetry=self.fixture();d=export.role_case_costs(records,telemetry);row=d['rows'][0]
+        self.assertEqual(row['reported_prompt_tokens'],3);self.assertEqual(row['completion_tokens'],4);self.assertFalse(row['success']);self.assertEqual(row['GPU_j_lower'],1.0);self.assertEqual(row['GPU_j_upper'],1.0)
+        self.assertNotIn('DO_NOT_PUBLISH',json.dumps(d));self.assertIn('separate preamble tokens per step',d['not_measured']);self.assertEqual(d['new_GPU_runs'],0)
+    def test_missing_usage_stays_unknown_not_zero(self):
+        records,telemetry=self.fixture();records[1]['reply']['usage'].pop('prompt_tokens')
+        row=export.role_case_costs(records,telemetry)['rows'][0];self.assertIsNone(row['reported_prompt_tokens']);self.assertEqual(row['recorded_input_token_count'],3)
+    def test_duplicate_callbacks_missing_identity_and_wrong_scope_fail_closed(self):
+        for kind in ('duplicate','identity','arm','time'):
+            records,telemetry=self.fixture()
+            if kind=='duplicate':records.append(copy.deepcopy(records[1]))
+            elif kind=='identity':records.pop(0)
+            elif kind=='arm':records[-1]['arm']='DO_NOT_PUBLISH'
+            else:records[-1]['e2e_s']=2.0
+            with self.subTest(kind=kind),self.assertRaises(AssertionError):export.role_case_costs(records,telemetry)
+
 
 if __name__ == '__main__': unittest.main()

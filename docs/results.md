@@ -467,6 +467,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R542](experiments/R542.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder bartowski Q6 MTP3 |
 | [R543](experiments/R543.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B · bartowski Q6 MTP3 |
 | [R544](experiments/R544.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4_12b_qat |
+| [R545](experiments/R545.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4 12B IT QAT Q4_0 · F16 KV · Thinking ON |
 
 
 ## Historical signed windows

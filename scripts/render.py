@@ -252,6 +252,14 @@ All original experiments, failures, configurations and audit identities remain a
    text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
+  retrospective=e.get('aggregate_metrics',{}).get('native_role_comparison_development',{}).get('retrospective')
+  if retrospective:
+   text+='\n## Retrospective harness costs\n\nExisting R537 measurements: five paired exposed development cases, not an H0/H1 ablation or official benchmark. Input tokens include recurrent history; separate preamble/reasoning costs and compaction events remain **NOT MEASURED**.\n\n'
+   text+='<details class="lab-evidence"><summary>Per-case costs: 15 executions / 5 paired cases</summary>\n<div class="screening-wrap"><table id="harness-retrospective"><thead><tr>'+''.join('<th>'+c+'</th>' for c in ['Case','Arm','Success','Policy','Calls','Input tokens','Output tokens','Seconds','GPU J, bounds','Simulator callbacks'])+'</tr></thead><tbody>'
+   for row in retrospective['rows']:
+    values=[row['case'],row['arm'],'PASS' if row['success'] else 'FAIL','PASS' if row['policy_pass'] else 'FAIL',row['model_calls'],row['reported_prompt_tokens'],row['completion_tokens'],round(row['case_seconds'],3),str(round(row['GPU_j_lower'],2))+'–'+str(round(row['GPU_j_upper'],2)),row['simulator_callbacks']]
+    text+='<tr>'+''.join('<td>'+html.escape(str(v) if v is not None else 'NOT MEASURED')+'</td>' for v in values)+'</tr>'
+   text+='</tbody></table></div>\n</details>\n\n'+retrospective['scope']+' Source identities and stable case hashes remain in the aggregate evidence above.\n'
   if e.get('qualification_review'):
    decision=e['qualification_review']
    text+='\n## Qualification decision\n\n**'+str(decision['decision'])+'**\n\n'+decision['scope']+'\n\n[Qualification evidence](../audits/'+decision['audit_id']+'.md)\n\n'+'<details class="lab-evidence"><summary>Predeclared gates and measured comparisons</summary>\n<pre><code>'+html.escape(json.dumps(decision,ensure_ascii=False,indent=2))+'</code></pre>\n</details>\n'

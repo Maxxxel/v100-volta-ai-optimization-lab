@@ -424,12 +424,50 @@ def verified_qualification_review(root,entry,receipt):
     for eid,profile in review['profiles'].items():
         assert re.fullmatch(r'R[1-9][0-9]{1,3}',eid)
         audit_path=root/'staging'/eid.lower()/'AUDIT.json';assert review['source_files_sha256'].get(str(audit_path))==digest(audit_path)
-        a=load(audit_path);assert profile['tasks']==a.get('collected_tasks',a.get('tasks')) and profile['solved']==a.get('solved_observed_tasks',a.get('solved'))
+        a=load(audit_path)
+        if a.get('status') in ('OPTIMIZATION_DEVELOPMENT_COMPLETE','SCREENING VOLLSTÄNDIG'):
+            assert a['official_benchmark'] is False and a['winner_qualified'] is False
+            assert a['completed_requests']==a['planned_requests']==len(a['scored_tasks'])
+            assert len({t['id'] for t in a['scored_tasks']})==a['completed_requests']
+            assert all(type(t['success']) is bool for t in a['scored_tasks'])
+            assert sum(g['completed'] for g in a['groups'].values())==a['completed_requests']
+            assert sum(g['successes'] for g in a['groups'].values())==sum(t['success'] for t in a['scored_tasks'])
+            assert profile['tasks']==a['completed_requests'] and profile['solved']==sum(t['success'] for t in a['scored_tasks'])
+        else:
+            assert profile['tasks']==a.get('collected_tasks',a.get('tasks')) and profile['solved']==a.get('solved_observed_tasks',a.get('solved'))
         assert profile['task_phase_s']==a['task_phase_s']
         assert profile['peak_device_vram_mib']==a.get('peak_device_vram_mib',a.get('measurement_summary',{}).get('peak_device_vram_mib'))
     return {'audit_id':receipt(path,entry['qualification_review_sha256']),'decision':text(review['decision']),
             'scope':text(review['scope']),'gates':projection(review['predeclared_gates']),
             'comparison_class':text(review.get('comparison_class')),'aggregate_metrics':metrics(review)}
+
+def role_case_costs(records,telemetry):
+    """Read-only paired R537 costs. Never export requests, answers or fixture IDs."""
+    from leaderboard import counter_energy_bounds
+    identities={r['id']:r for r in records if r.get('kind')=='input_identity'}
+    turns={r['id']:r for r in records if r.get('kind')=='agent_turn'}
+    assert len(identities)==sum(r.get('kind')=='input_identity' for r in records)
+    assert len(turns)==sum(r.get('kind')=='agent_turn' for r in records) and set(turns)==set(identities)
+    cases=[r for r in records if r.get('kind')=='orchestration_case'];assert len({c['id'] for c in cases})==len(cases);order=list(dict.fromkeys(r['source_case_id'] for r in cases));output=[]
+    def total(values):return sum(values) if values and all(type(x) is int and x>=0 for x in values) else None
+    for case in cases:
+        assert case['arm'] in ('single','planner_worker','planner_worker_reviewer') and type(case['reported_result']['task_success']) is type(case['reported_result']['policy_gate_pass']) is bool
+        assert case['e2e_s']==(case['end_ns']-case['start_ns'])/1e9
+        selected=[r for ident,r in turns.items() if identities[ident]['case_id']==case['id']]
+        assert len(selected)==case['attempted_requests'] and sum(case['role_calls'].values())==len(selected)
+        assert all(identities[r['id']]['source_case_id']==case['source_case_id'] and identities[r['id']]['arm']==case['arm'] for r in selected)
+        assert all(case['start_ns']<=r['start_ns']<r['end_ns']<=case['end_ns'] for r in selected)
+        usage=[r['reply'].get('usage',{}) for r in selected]
+        energy=counter_energy_bounds(telemetry,[case],[case['id']])
+        output.append({'case':'case-'+str(order.index(case['source_case_id'])+1).zfill(2),'source_case_sha256':hashlib.sha256(case['source_case_id'].encode()).hexdigest(),
+          'arm':case['arm'],'success':case['reported_result']['task_success'],'policy_pass':case['reported_result']['policy_gate_pass'],
+          'model_calls':len(selected),'role_calls':{k:case['role_calls'][k] for k in ('worker','planner','reviewer')},
+          'reported_prompt_tokens':total([u.get('prompt_tokens') for u in usage]),'recorded_input_token_count':total([identities[r['id']].get('prompt_token_count') for r in selected]),
+          'completion_tokens':total([u.get('completion_tokens') for u in usage]),'case_seconds':case['e2e_s'],
+          'GPU_j_lower':energy['lower_j'],'GPU_j_upper':energy['upper_j'],'simulator_callbacks':case['simulator_callbacks']})
+    return {'paired_cases':len(order),'case_executions':len(cases),'rows':output,'new_GPU_runs':0,'new_model_requests':0,
+      'not_measured':['separate preamble tokens per step','separate reasoning tokens','compaction events','streaming TTFT','reviewer error-detection accuracy'],
+      'scope':'Archived complete R537 replies only. Prompt counts include recurrent history; they do not isolate preamble cost. Five exposed paired cases, fixed arm order, not15 independent tasks or an H0/H1 ablation. Per-case energy brackets can overlap at boundaries and must not be summed as an authoritative arm total. GPU energy excludes CPU/system energy. No official benchmark, equivalence or causal harness winner.'}
 
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
@@ -501,6 +539,7 @@ def verified_native_role_comparison(root, summary, receipt):
     allowed=('arm','complete','planned_cases','completed_cases','solved','policy_gate_passes','task_scope_passes','arm_wall_s','completion_tokens_all_roles','tokens_s_completed_requests','peak_sampled_device_vram_mib','successful_tasks_per_s','gpu_j_per_success_lower','gpu_j_per_success_upper','generation_requests','technical_request_errors','technical_preflight_cases')
     return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':5,'case_executions':15,'official_benchmark':False,'winner_qualified':False,'arms':[{k:r[k] for k in allowed} for r in quality['arms']],
             'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'correction_audit_id':receipt(correction,digest(correction)) if correction.exists() else None,
+            'retrospective':{**role_case_costs(records,telemetry),'source_identities':{'coordinator_sha256':profile['native_recipe']['orchestration']['module_sha256'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'fixture_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'independent_scorer_sha256':review['scorer_sha256'],'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'source_git_commit':None}},
             'paired_changes':paired,'scope':'Five exposed development tasks paired across three fixed-order harness arms. All role costs included; no official benchmark, population ranking, independent model inference replay or Champion.'}
 
 
