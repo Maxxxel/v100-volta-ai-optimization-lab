@@ -1,6 +1,6 @@
 # Model screening
 
-**16/16 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**17/17 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
@@ -4396,6 +4396,271 @@ Screening → full qualification → targeted optimization → independent confi
       &quot;wilson95&quot;: [
         0.331785563988119,
         0.7690134759450765
+      ]
+    }
+  }
+}</pre></details></td></tr><tr><td>gpt-oss-20b</td><td>SCREENING VOLLSTÄNDIG</td><td>15/16 · 93.8%</td><td>11/16 · 68.8%</td><td>149.2</td><td>119.4</td><td>1,127.4</td><td>11,934.5</td><td>NOT MEASURED</td><td><a href="../experiments/R553/">Screening R553</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;61a32aaf587adfe87bd8487ae90ce9fbc07e34defdbeaf7d558457086dd24be1&quot;,
+  &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
+  &quot;configuration&quot;: {
+    &quot;binary_identities&quot;: {
+      &quot;libggml-cuda.so.0.26.0&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+      &quot;llama-server&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;
+    },
+    &quot;context&quot;: 8192,
+    &quot;engine&quot;: &quot;llama.cpp native&quot;,
+    &quot;engine_version&quot;: null,
+    &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
+    &quot;model_sha256&quot;: &quot;27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901&quot;,
+    &quot;model_source&quot;: {
+      &quot;base_repository&quot;: &quot;openai/gpt-oss-20b&quot;,
+      &quot;base_revision&quot;: &quot;6cee5e81ee83917806bbde320786a8fb61efebee&quot;,
+      &quot;hf_repository&quot;: &quot;ggml-org/gpt-oss-20b-GGUF&quot;,
+      &quot;hf_revision&quot;: &quot;15dcfc7e7c608c6161507211ed43c5b590801b4b&quot;,
+      &quot;license&quot;: &quot;apache-2.0&quot;,
+      &quot;parameters_in_GGUF&quot;: 20914757184,
+      &quot;quantizer&quot;: &quot;ggml-org&quot;
+    },
+    &quot;parent_profile_id&quot;: &quot;gpt-oss-20b-mxfp4-native-screening32-task1200-reviewed-sm70&quot;,
+    &quot;power_w&quot;: 300,
+    &quot;quantization&quot;: &quot;MXFP4&quot;,
+    &quot;recorded_native_profile&quot;: {
+      &quot;engine&quot;: {
+        &quot;binary_sha256&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;,
+        &quot;build_id&quot;: &quot;dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4&quot;,
+        &quot;cuda_version&quot;: null,
+        &quot;driver_version&quot;: null,
+        &quot;executed_kernel_backend_path&quot;: null,
+        &quot;fork_repository&quot;: null,
+        &quot;ggml_backend_version&quot;: null,
+        &quot;git_commit&quot;: null,
+        &quot;kernel_library_file&quot;: &quot;libggml-cuda.so.0.26.0&quot;,
+        &quot;kernel_library_sha256&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+        &quot;name&quot;: &quot;llama.cpp-compatible&quot;,
+        &quot;patches&quot;: null,
+        &quot;version&quot;: null
+      },
+      &quot;evaluation_exposure&quot;: &quot;Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.&quot;,
+      &quot;incomplete_identity_run&quot;: null,
+      &quot;model&quot;: {
+        &quot;architecture&quot;: &quot;gpt-oss&quot;,
+        &quot;artifact_sha256&quot;: &quot;27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901&quot;,
+        &quot;family_id&quot;: &quot;gpt_oss_20b&quot;,
+        &quot;hf_repository&quot;: &quot;ggml-org/gpt-oss-20b-GGUF&quot;,
+        &quot;hf_revision&quot;: &quot;15dcfc7e7c608c6161507211ed43c5b590801b4b&quot;,
+        &quot;name&quot;: &quot;gpt-oss-20b&quot;,
+        &quot;parameters_in_GGUF&quot;: 20914757184,
+        &quot;quantization&quot;: &quot;MXFP4&quot;,
+        &quot;tensor_precision_map&quot;: null,
+        &quot;variant&quot;: &quot;gpt-oss-20b&quot;,
+        &quot;weight_transformations&quot;: {
+          &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
+          &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
+          &quot;proof&quot;: null
+        }
+      },
+      &quot;model_artifact_id&quot;: &quot;artifact-c5a1bbf0bdc560fdcd257d1257ef97281119475d6a365f5207d23dc30958838f&quot;,
+      &quot;optimizations&quot;: {
+        &quot;GDN_state_changes&quot;: null,
+        &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
+        &quot;KV_precision&quot;: {
+          &quot;k&quot;: &quot;f16&quot;,
+          &quot;v&quot;: &quot;f16&quot;
+        },
+        &quot;cuda_graphs&quot;: {
+          &quot;actual_capture_replay&quot;: null,
+          &quot;disable_knob&quot;: null,
+          &quot;optimization_knob&quot;: &quot;0&quot;
+        },
+        &quot;draft_head_or_model&quot;: null,
+        &quot;draft_parameters&quot;: {
+          &quot;--spec-type&quot;: &quot;none&quot;
+        },
+        &quot;draft_sha256&quot;: null,
+        &quot;flash_attention_requested&quot;: &quot;auto&quot;,
+        &quot;other_explicit_knobs&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;
+        },
+        &quot;prefix_reuse&quot;: null,
+        &quot;quantization_calibration&quot;: null,
+        &quot;speculation_type&quot;: &quot;none&quot;
+      },
+      &quot;provenance_status&quot;: &quot;KNOWN_FIELDS_ONLY; null means NOT MEASURED&quot;,
+      &quot;runtime&quot;: {
+        &quot;CPU_budget&quot;: null,
+        &quot;CPU_scoring_limit_s&quot;: 120,
+        &quot;CPU_threads&quot;: &quot;6&quot;,
+        &quot;GPU_offload&quot;: &quot;99&quot;,
+        &quot;GPU_wrapper_limit_s&quot;: 1440,
+        &quot;RAM_budget&quot;: null,
+        &quot;VRAM_budget_mib&quot;: 14336,
+        &quot;batch&quot;: &quot;2048&quot;,
+        &quot;benchmark_task_limit_s&quot;: 1200,
+        &quot;chat_template_sha256&quot;: &quot;a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146&quot;,
+        &quot;context&quot;: &quot;8192&quot;,
+        &quot;execution_deadline_s&quot;: 1200,
+        &quot;max_output&quot;: 4096,
+        &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
+        &quot;native_template_controls&quot;: null,
+        &quot;power_limit_w&quot;: 300,
+        &quot;sampling&quot;: {
+          &quot;min_p&quot;: 0.0,
+          &quot;seed&quot;: 1001,
+          &quot;temperature&quot;: 1.0,
+          &quot;top_k&quot;: 0,
+          &quot;top_p&quot;: 1.0
+        },
+        &quot;startup_limit_s&quot;: 180,
+        &quot;thinking_reasoning_requested&quot;: null,
+        &quot;timing_scope&quot;: &quot;DEVELOPMENT_SCREEN_TASK_PHASE_ONLY&quot;,
+        &quot;tokenizer_identity&quot;: null
+      },
+      &quot;runtime_configuration_id&quot;: &quot;cfg-2b24de433d1d73d9fb8eada5478d075be38b4d90dc729968c091b0130754a74a&quot;,
+      &quot;schema_version&quot;: 1,
+      &quot;source_plan_sha256&quot;: &quot;789c4973dab2c8907f2b0132611edf117253dcfe23304ded6385a312b60120ec&quot;,
+      &quot;source_provenance&quot;: {
+        &quot;actual_launch_sha256&quot;: &quot;cf16c49c911128b4ddae01292d448d0cc5bcfb883aaa075a14b83589caac8d8e&quot;,
+        &quot;actual_profile_sha256&quot;: &quot;e0b53b6c5d087b26195a2b58ff5d3a7b5c4a6ffa2e64809e6ae16188599a9b7b&quot;,
+        &quot;evidence_scope&quot;: &quot;FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;a1ec580ccd0c4a3530788a9d80cef297a786e1d58e02454f7842ca340faeb7a4&quot;,
+        &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;,
+        &quot;model_source_package_sha256&quot;: &quot;2d9053220e19c6ace0dcc35c461427b5e76a8d3fed145d35ab661fef41f7e0eb&quot;
+      },
+      &quot;start_parameters&quot;: {
+        &quot;argv&quot;: [
+          &quot;llama-server&quot;,
+          &quot;--model&quot;,
+          &quot;[artifact:27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901]&quot;,
+          &quot;--alias&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--ctx-size&quot;,
+          &quot;8192&quot;,
+          &quot;--n-gpu-layers&quot;,
+          &quot;99&quot;,
+          &quot;--parallel&quot;,
+          &quot;1&quot;,
+          &quot;--host&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--port&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--jinja&quot;,
+          &quot;--chat-template-file&quot;,
+          &quot;[artifact:a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146]&quot;,
+          &quot;--threads&quot;,
+          &quot;6&quot;,
+          &quot;--threads-batch&quot;,
+          &quot;6&quot;,
+          &quot;--batch-size&quot;,
+          &quot;2048&quot;,
+          &quot;--ubatch-size&quot;,
+          &quot;512&quot;,
+          &quot;--seed&quot;,
+          &quot;1001&quot;,
+          &quot;--ctx-checkpoints&quot;,
+          &quot;2&quot;,
+          &quot;--cache-ram&quot;,
+          &quot;0&quot;,
+          &quot;--no-cache-idle-slots&quot;,
+          &quot;--verbosity&quot;,
+          &quot;4&quot;,
+          &quot;--flash-attn&quot;,
+          &quot;auto&quot;,
+          &quot;--cache-type-k&quot;,
+          &quot;f16&quot;,
+          &quot;--cache-type-v&quot;,
+          &quot;f16&quot;,
+          &quot;--load-mode&quot;,
+          &quot;mmap&quot;,
+          &quot;--spec-type&quot;,
+          &quot;none&quot;
+        ],
+        &quot;environment&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
+          &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
+        },
+        &quot;exact_private_launch_sha256&quot;: &quot;d5e89262c07cf69d11f379d3bf4fd1abe686e4b7631fd050afc66a330d1e211e&quot;,
+        &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
+        &quot;redacted_argument_positions&quot;: [
+          0,
+          2,
+          4,
+          12,
+          14,
+          17
+        ]
+      }
+    },
+    &quot;request_options&quot;: {
+      &quot;cache_prompt&quot;: false,
+      &quot;max_tokens&quot;: 4096,
+      &quot;min_p&quot;: 0.0,
+      &quot;seed&quot;: 1001,
+      &quot;temperature&quot;: 1.0,
+      &quot;top_k&quot;: 0,
+      &quot;top_p&quot;: 1.0
+    },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-7be9ebc4cab5e5d282fe62dff3160c4d9b8bb8003257b6889b453312964305b0&quot;,
+    &quot;task_time_policy&quot;: {
+      &quot;cleanup_seconds&quot;: 60,
+      &quot;startup_seconds&quot;: 180,
+      &quot;task_seconds&quot;: 1200,
+      &quot;wall_seconds&quot;: 1440
+    },
+    &quot;warmup_requests&quot;: 2
+  },
+  &quot;date&quot;: &quot;2026-10-26T21:36:34.059286+00:00&quot;,
+  &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
+  &quot;experiment_id&quot;: &quot;R553&quot;,
+  &quot;full_benchmark_runs&quot;: [],
+  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;independent_review_sha256&quot;: &quot;25585b1cb3f86adca9e4426f60c82a31518953f40ee49d964d1966890ac7db9e&quot;,
+  &quot;local_artifact_available&quot;: true,
+  &quot;model&quot;: &quot;gpt-oss-20b&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R553&quot;,
+  &quot;peak_vram_mib&quot;: 11934.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 149.234217539,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 1611.4779999999998,
+      &quot;GPU_j_per_success_upper&quot;: 1714.4197333333332,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 120.69507172,
+      &quot;completion_tokens&quot;: 14747,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 24172.17,
+      &quot;gpu_energy_j_upper&quot;: 25716.296,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 15,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.12428013659744483,
+      &quot;tokens_s_completed_requests&quot;: 122.18394496016792,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.7167126242970107,
+        0.9888806552353576
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 467.31045454545455,
+      &quot;GPU_j_per_success_upper&quot;: 610.9025454545455,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 28.514090262,
+      &quot;completion_tokens&quot;: 3073,
+      &quot;final_text_present&quot;: 6,
+      &quot;gpu_energy_j_lower&quot;: 5140.415,
+      &quot;gpu_energy_j_upper&quot;: 6719.928,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.38577418739041514,
+      &quot;tokens_s_completed_requests&quot;: 107.77127980461326,
+      &quot;valid_terminal_output&quot;: 11,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
       ]
     }
   }
