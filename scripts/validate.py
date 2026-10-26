@@ -21,6 +21,7 @@ def allowed(p):
  if parts[0]=='scripts':return len(parts)==2 and p.name in SCRIPTS
  if parts[:2]==('.github','workflows'):return len(parts)==3 and p.name in {'pages.yml','security.yml'}
  if parts[:2]==('.github','ISSUE_TEMPLATE'):return len(parts)==3 and p.suffix in {'.md','.yml'}
+ if s in {'docs/assets/reproduction/main-protocol.patch','docs/assets/reproduction/llama-grammar-prefill.h','docs/assets/reproduction/numeric-fixtures.patch','docs/assets/reproduction/LICENSE.llama-cpp'}:return True
  if parts[0]=='docs':return p.suffix in {'.md','.css','.js','.svg'} and all(re.fullmatch('[A-Za-z0-9_.-]+',x) for x in parts)
  return False
 def validation_event_matches(event,audit):
@@ -42,7 +43,11 @@ def content_errors(s):
    addr=ipaddress.ip_address(match)
    if not addr.is_global:issues.append('nonpublic network address')
   except ValueError:pass
- for candidate in re.findall(r'(?<![A-Za-z0-9])(?:[A-Fa-f0-9]{0,4}:){2,}[A-Fa-f0-9:]{0,39}',s):
+ for match in re.finditer(r'(?<![A-Za-z0-9])(?:[A-Fa-f0-9]{0,4}:){2,}[A-Fa-f0-9:]{0,39}',s):
+  candidate=match.group(0)
+  # BNF production operator ::= is not an unspecified IPv6 address.
+  # Keep standalone/bracketed address literals and other private IPv6 checks.
+  if candidate==chr(58)*2 and s[match.end():match.end()+1]=='=':continue
   try:
    if not ipaddress.ip_address(candidate).is_global:issues.append('nonpublic IPv6 address')
   except ValueError:pass
@@ -106,6 +111,20 @@ def validate(check_manifest=True):
  history=read('configuration-history.json');register=read('benchmark-register.json')
  validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
  for review in register.get('paired_coding_reviews',[]):validate_paired_projection(review)
+ for review in register.get('engine_source_reviews',[]):
+  package=review.get('reproduction_package')
+  if not package:continue
+  expected={'main-protocol.patch','llama-grammar-prefill.h','numeric-fixtures.patch','LICENSE.llama-cpp'}
+  if {a['name'] for a in package['source_assets']}!=expected:errors.append('Unapproved reproduction asset set')
+  if package['new_GPU_runs']!=0 or package['independent_fresh_build_executed'] is not False or package['bit_identical_rebuild_proven'] is not False or package['license']!='MIT':errors.append('Unsupported build reproduction claim')
+  for asset in package['source_assets']:
+   if asset['url']!='assets/reproduction/'+asset['name']:errors.append('Reproduction asset path differs');continue
+   file=ROOT/'docs'/asset['url']
+   if not file.is_file() or file.stat().st_size!=asset['bytes'] or hashlib.sha256(file.read_bytes()).hexdigest()!=asset['sha256']:errors.append('Reproduction source checksum mismatch')
+  matching=[e for e in review['engines'] if e['build_id']==package['build_id'] and e['binary_sha256']==package['server_sha256'] and e['kernel_library_sha256'] in package['libraries_sha256'].values() and e['source_base_commit']==package['source_base_commit']]
+  if len(matching)!=1:errors.append('Source reproduction package does not bind one reviewed engine')
+  if review.get('reproduction_audit_id') not in aids:errors.append('Missing reproduction receipt')
+
  for review in register.get('same_quantizer_weight_reviews',[]):
   if not set(review.get('evidence_audit_ids',[]))<=aids:errors.append('Same-quantizer review missing evidence')
   result=review['result'];rows=result['tensor_results']

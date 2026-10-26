@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish-schema projection. Reads canonical metadata, never copies files or logs.
+"""Publish-schema projection. Reads canonical metadata and explicitly allowlisted reviewed source-reproduction assets; never copies arbitrary files or logs.
 No source code execution, downloads, GPU requests, or source mutations.
 """
 import argparse, collections, copy, fcntl, hashlib, html, json, math, pathlib, re, sys

@@ -1,0 +1,161 @@
+diff --git a/common/sampling.cpp b/common/sampling.cpp
+index 564fa9c4d..cc509122f 100644
+--- a/common/sampling.cpp
++++ b/common/sampling.cpp
+@@ -4,6 +4,7 @@
+ #include "fit.h"
+ #include "log.h"
+ #include "reasoning-budget.h"
++#include "llama-grammar-prefill.h"
+ 
+ #include "ggml.h"
+ 
+@@ -281,6 +282,7 @@ struct common_sampler * common_sampler_init(
+ 
+     // Compute prefill tokens from the generation prompt
+     std::vector<llama_token> prefill_tokens;
++    std::string prefill_text;
+     if (!params.generation_prompt.empty()) {
+         GGML_ASSERT(vocab != nullptr);
+         auto tokens = common_tokenize(vocab, params.generation_prompt, false, true);
+@@ -292,6 +294,7 @@ struct common_sampler * common_sampler_init(
+             }
+             LOG_DBG("%s: prefill token: %d = %s\n", __func__, tokens[i], piece.c_str());
+             prefill_tokens.push_back(tokens[i]);
++            prefill_text += piece;
+         }
+     }
+ 
+@@ -300,9 +303,14 @@ struct common_sampler * common_sampler_init(
+     // Only applies to output-format and tool-call grammars; user-supplied grammars must not be prefilled.
+     if (grmr && !params.grammar_lazy && common_grammar_needs_prefill(params.grammar)) {
+         try {
+-            for (const auto & token : prefill_tokens) {
+-                llama_sampler_accept(grmr, token);
+-                LOG_DBG("%s: grammar accepted prefill token (%d)\n", __func__, token);
++            // Match the chat parser's text fallback when tokenizer pieces do not round-trip.
++            const bool text_prefilled = prefill_text != params.generation_prompt &&
++                llama_sampler_accept_grammar_prefill(grmr, params.generation_prompt.data(), params.generation_prompt.size());
++            if (!text_prefilled) {
++                for (const auto & token : prefill_tokens) {
++                    llama_sampler_accept(grmr, token);
++                    LOG_DBG("%s: grammar accepted prefill token (%d)\n", __func__, token);
++                }
+             }
+         } catch (std::exception &e) {
+             LOG_ERR("%s: error initializing grammar sampler for grammar:\n%s\n\nGeneration prompt:\n'%s'\n", __func__,
+diff --git a/src/llama-sampler.cpp b/src/llama-sampler.cpp
+index 521c5718e..88feb3877 100644
+--- a/src/llama-sampler.cpp
++++ b/src/llama-sampler.cpp
+@@ -3,6 +3,7 @@
+ #include "llama-impl.h"
+ #include "llama-vocab.h"
+ #include "llama-grammar.h"
++#include "llama-grammar-prefill.h"
+ 
+ #include "ggml-cpp.h"
+ 
+@@ -2835,6 +2836,28 @@ struct llama_sampler * llama_sampler_init_grammar(
+     return llama_sampler_init_grammar_impl(vocab, grammar_str, grammar_root, /* lazy= */ false, nullptr, 0, nullptr, 0, nullptr, 0);
+ }
+ 
++bool llama_sampler_accept_grammar_prefill(llama_sampler * sampler, const char * text, size_t size) {
++    if (!sampler || sampler->iface != &llama_sampler_grammar_i || !text) {
++        return false;
++    }
++    auto * ctx = (llama_sampler_grammar *) sampler->ctx;
++    if (!ctx->grammar || ctx->grammar->lazy) {
++        return false;
++    }
++    if (size > 65536 || std::memchr(text, '\0', size)) {
++        throw std::runtime_error("invalid grammar prefill text");
++    }
++    for (const auto & rule : ctx->grammar->rules) {
++        for (const auto & element : rule) {
++            if (element.type == LLAMA_GRETYPE_TOKEN || element.type == LLAMA_GRETYPE_TOKEN_NOT) {
++                return false;
++            }
++        }
++    }
++    llama_grammar_accept_str(*ctx->grammar, std::string(text, size));
++    return true;
++}
++
+ struct llama_sampler * llama_sampler_init_grammar_lazy(
+         const struct llama_vocab * vocab,
+                       const char * grammar_str,
+diff --git a/tests/test-sampling.cpp b/tests/test-sampling.cpp
+index 353a5a1a1..0f2f7f305 100644
+--- a/tests/test-sampling.cpp
++++ b/tests/test-sampling.cpp
+@@ -1,5 +1,6 @@
+ #include "ggml.h"
+ #include "llama.h"
++#include "llama-grammar-prefill.h"
+ 
+ #ifdef NDEBUG
+ #undef NDEBUG
+@@ -9,6 +10,7 @@
+ #include <cmath>
+ #include <cstdlib>
+ #include <string>
++#include <stdexcept>
+ #include <vector>
+ 
+ extern struct llama_sampler * llama_sampler_init_dry_testing(float dry_multiplier, float dry_base, int32_t dry_allowed_length, int32_t dry_penalty_last_n, const std::vector<std::vector<llama_token>>& seq_breakers);
+@@ -335,9 +337,54 @@ static void test_perf() {
+     BENCH(llama_sampler_init_xtc    (1.0f, 0.1f, 1, 1),       data, 32);
+ }
+ 
++static void test_grammar_text_prefill() {
++    const char * definition = "root ::= \"<|im_start|>assistant\\n\" \"DONE\"\n";
++    const std::string prefix = "<|im_start|>assistant\n";
++    auto * grammar = llama_sampler_init_grammar(nullptr, definition, "root");
++    GGML_ASSERT(grammar);
++    GGML_ASSERT(llama_sampler_accept_grammar_prefill(grammar, prefix.data(), prefix.size()));
++    GGML_ASSERT(llama_sampler_accept_grammar_prefill(grammar, "DONE", 4));
++    bool rejected = false;
++    try {
++        llama_sampler_accept_grammar_prefill(grammar, "X", 1);
++    } catch (const std::exception &) {
++        rejected = true;
++    }
++    GGML_ASSERT(rejected);
++    llama_sampler_free(grammar);
++
++    const std::vector<std::string> invalid = {
++        "<|im_start|> assistant\n", std::string(65537, 'x'), std::string("a\0b", 3)
++    };
++    for (const auto & text : invalid) {
++        grammar = llama_sampler_init_grammar(nullptr, definition, "root");
++        rejected = false;
++        try {
++            llama_sampler_accept_grammar_prefill(grammar, text.data(), text.size());
++        } catch (const std::exception &) {
++            rejected = true;
++        }
++        GGML_ASSERT(rejected);
++        llama_sampler_free(grammar);
++    }
++
++    grammar = llama_sampler_init_grammar(nullptr, "root ::= <[1]>\n", "root");
++    GGML_ASSERT(grammar);
++    GGML_ASSERT(!llama_sampler_accept_grammar_prefill(grammar, prefix.data(), prefix.size()));
++    llama_sampler_free(grammar);
++    grammar = llama_sampler_init_grammar_lazy_patterns(nullptr, definition, "root", nullptr, 0, nullptr, 0);
++    GGML_ASSERT(!llama_sampler_accept_grammar_prefill(grammar, prefix.data(), prefix.size()));
++    llama_sampler_free(grammar);
++    auto * sampler = llama_sampler_init_top_k(3);
++    GGML_ASSERT(!llama_sampler_accept_grammar_prefill(sampler, prefix.data(), prefix.size()));
++    llama_sampler_free(sampler);
++}
++
+ int main(void) {
+     ggml_time_init();
+ 
++    test_grammar_text_prefill();
++
+     test_dist_singleton_rng();
+ 
+     test_temp({0.1f, 0.2f, 0.3f, 0.4f}, {0.1f, 0.2f, 0.3f, 0.4f}, 1.0f);

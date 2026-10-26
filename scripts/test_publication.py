@@ -209,3 +209,14 @@ class ValidationPairing(unittest.TestCase):
   with self.assertRaises(AssertionError):e.validation33_pairing(old,new,groups)
 
 if __name__=='__main__':unittest.main()
+
+
+class SourceGrammarNetworkSafety(unittest.TestCase):
+ def test_BNF_operator_is_not_an_IPv6_literal(self):
+  from validate import content_errors
+  self.assertNotIn('nonpublic IPv6 address',content_errors('root ::= "DONE"; std::string text;'))
+ def test_real_private_IPv6_addresses_still_fail_in_source_or_text(self):
+  from validate import content_errors
+  z=chr(58)*2
+  for value in (z,z+'1','['+z+']','['+z+'1]','fd00'+z+'1234','fe80'+z+'1','[fe80'+z+'1%eth0]',z+'1/128'):
+   self.assertIn('nonpublic IPv6 address',content_errors('const char * address = "'+value+'";'))

@@ -338,7 +338,7 @@ async function main(){
    await tab.goto(new URL('reproduce/',base).href,{waitUntil:'networkidle'});
    const content=await tab.locator('.md-content').innerText();
    assert(content.includes('PROPOSAL ONLY'));assert(content.includes('14,336'));assert(content.includes('1,200-second TASK'));
-   assert(content.includes('not a runnable launch or broker approval'));assert(content.includes('not fully public'));
+   assert(content.includes('not a runnable launch or broker approval'));assert(content.includes('bit-identical independent rebuild'));
    assert.equal(await tab.locator('pre code').filter({hasText:'--export-profile'}).count(),1);
    const detail=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Selected exact benchmark-profile pointers'})}).first();await detail.locator('summary').first().click();
    assert.equal(await detail.locator('tbody tr').count(),9);
@@ -347,6 +347,12 @@ async function main(){
    await tab.screenshot({path:path.join(artifacts,width===390?'mobile-reproduction.png':'desktop-reproduction.png'),animations:'disabled'});await tab.close();
   }
   report.checks.push('exact profile export instructions and controlled deployment proposal preserve broker/resource boundaries on desktop/mobile');
+  const sourcePackage=JSON.parse(await fs.readFile(path.join(__dirname,'../data/benchmark-register.json'),'utf8')).engine_source_reviews.find(r=>r.reproduction_package)?.reproduction_package;
+  if(sourcePackage){
+   for(const a of sourcePackage.source_assets){const response=await context.request.get(new URL(a.url,base).href);assert.equal(response.status(),200);const bytes=await response.body();assert.equal(bytes.length,a.bytes);assert.equal(require('node:crypto').createHash('sha256').update(bytes).digest('hex'),a.sha256);}
+   report.checks.push('all four published MIT source-reproduction assets match their archived exact byte hashes');
+  }
+
   const pipelineExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/pipeline-performance.json'),'utf8'));
   for(const [name,width] of [['desktop',1600],['mobile',390]]){
    const tab=await context.newPage();await tab.setViewportSize({width,height:900});

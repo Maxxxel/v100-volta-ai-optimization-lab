@@ -568,7 +568,7 @@ class ReproductionPacketTests(unittest.TestCase):
   with self.assertRaises(ValueError):reproduction_profile(h,r,i)
  def test_asset_requirements_never_mark_model_binary_template_or_draft_as_bundled(self):
   from leaderboard import reproduction_profile
-  h,r,i=self.inputs();p=reproduction_profile(h,r,i);assets=p['required_external_assets'];self.assertEqual({a['kind'] for a in assets},{'model_weights','engine_binary','CUDA_kernel_library','chat_template'});self.assertTrue(all(a['redistributed'] is False for a in assets));self.assertFalse(p['launch_is_runnable_without_asset_mapping']);self.assertFalse(p['exact_build_recipe_fully_public'])
+  h,r,i=self.inputs();p=reproduction_profile(h,r,i);assets=p['required_external_assets'];self.assertEqual({a['kind'] for a in assets},{'model_weights','engine_binary','CUDA_kernel_library','chat_template','engine_shared_library'});self.assertTrue(all(a['redistributed'] is False for a in assets));self.assertFalse(p['launch_is_runnable_without_asset_mapping']);self.assertFalse(p['exact_build_recipe_fully_public'])
  def test_CLI_is_a_deterministic_JSON_export_without_launch(self):
   import subprocess,sys
   h,r,i=self.inputs();process=subprocess.run([sys.executable,str(ROOT/'scripts/leaderboard.py'),'--export-profile',i],check=True,capture_output=True,text=True,timeout=20)
@@ -579,3 +579,40 @@ class ReproductionPacketTests(unittest.TestCase):
   h,r,_=self.inputs();ident=next(v['runtime_configuration_id'] for v in h['runs'] if v['experiment_id']=='R542');packet=reproduction_profile(h,r,ident)
   self.assertIsNone(packet['profile']['optimizations']['draft_sha256'])
   draft=next(v for v in packet['required_external_assets'] if v['kind']=='external_draft');self.assertEqual(draft['sha256'],'33d14ecf8f046faf32be9cdd71dbee84188cbc7e143c1614bb9937dfcb1ceef2');self.assertEqual(draft['recorded_flag'],'--spec-draft-model')
+
+class EngineReproductionTests(unittest.TestCase):
+ def fixture(self):
+  import base64
+  reg=json.loads((ROOT/'data/benchmark-register.json').read_text());package=copy.deepcopy(next(r['reproduction_package'] for r in reg['engine_source_reviews'] if r.get('reproduction_package')))
+  assets={a['name']:{'bytes':a['bytes'],'sha256':a['sha256'],'base64':base64.b64encode((ROOT/'docs'/a['url']).read_bytes()).decode()} for a in package['source_assets']}
+  engine='/builds/'+package['build_id']+'/runtime/llama-server'
+  main={'engine':engine,'identities':{engine:package['server_sha256']},'libraries':{'/builds/runtime/'+k:v for k,v in package['libraries_sha256'].items()},'spec':{'O2_TEST_PATCH_SHA256':package['numeric_helper_sha256']},'source_proof':{'commit':package['source_base_commit'],'source_inputs_sha256':package['source_inputs_sha256'],'source_files':{'LICENSE':assets['LICENSE.llama-cpp']['sha256']},'compiler_jobs':package['compiler_jobs'],'cmake_flags':package['cmake_flags'],'toolchain_versions':package['toolchain_versions'],'numerical_fixture':package['numeric_fixture']}}
+  c={'reference_commit':package['source_base_commit'],'upstream_commit':package['comparison_upstream_commit_not_build_base'],'patched_source_sha256':{'pinned':package['named_patched_sources_sha256']},'local_patch_sha256':assets['main-protocol.patch']['sha256'],'local_header_sha256':assets['llama-grammar-prefill.h']['sha256'],'local_patch_b64':assets['main-protocol.patch']['base64'],'local_header_b64':assets['llama-grammar-prefill.h']['base64']}
+  meta={k:v for k,v in package.items() if k not in ('new_GPU_runs','source_assets','scope')};meta.update(license='MIT',original_readonly_reverse_patch_check=True,independent_fresh_build_executed=False,bit_identical_rebuild_proven=False,runtime_requalification_performed=False,dependency_and_build_path_variation_disclosed=True)
+  return {'kind':'PINNED_ENGINE_REPRODUCTION_INPUTS','GPU_runs':0,'source_writes':False,'assets':assets,'metadata':meta},{'main-build.json':main,'main-source-contract.json':c},package
+ def test_all_four_public_source_assets_recompute_from_bound_receipts(self):
+  from leaderboard import engine_reproduction_assets
+  d,r,p=self.fixture();actual,blobs=engine_reproduction_assets(d,r);self.assertEqual(actual,p);self.assertEqual(len(blobs),4);self.assertEqual(actual['source_base_commit'],'097cf33d9499b1eade67d51e16d7c75427e7b267');self.assertNotEqual(actual['source_base_commit'],actual['comparison_upstream_commit_not_build_base'])
+ def test_unknown_asset_corruption_or_engine_identity_rejected(self):
+  from leaderboard import engine_reproduction_assets
+  for change in ('name','bytes','hash','engine','flags','license','fresh_build'):
+   d,r,_=self.fixture()
+   if change=='name':d['assets']['unreviewed.py']=d['assets'].pop('numeric-fixtures.patch')
+   elif change=='bytes':d['assets']['main-protocol.patch']['bytes']+=1
+   elif change=='hash':d['assets']['main-protocol.patch']['sha256']='0'*64
+   elif change=='engine':d['metadata']['server_sha256']='0'*64
+   elif change=='flags':d['metadata']['cmake_flags']=[*d['metadata']['cmake_flags'],'-DGGML_CUDA_FORCE_MMQ=ON']
+   elif change=='license':d['metadata']['license']='unknown'
+   else:d['metadata']['independent_fresh_build_executed']=True
+   with self.subTest(change=change),self.assertRaises(ValueError):engine_reproduction_assets(d,r)
+ def test_source_files_are_an_explicit_export_exception_not_a_general_suffix_allowance(self):
+  from validate import allowed
+  self.assertTrue(allowed(pathlib.Path('docs/assets/reproduction/main-protocol.patch')));self.assertTrue(allowed(pathlib.Path('docs/assets/reproduction/llama-grammar-prefill.h')))
+  for p in ('docs/arbitrary.h','docs/assets/reproduction/unreviewed.patch','docs/assets/reproduction/weights.gguf'):
+   self.assertFalse(allowed(pathlib.Path(p)))
+ def test_profile_packet_exposes_only_its_matching_source_and_runtime_library_requirements(self):
+  from leaderboard import reproduction_profile
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());reg=json.loads((ROOT/'data/benchmark-register.json').read_text());i=next(r['runtime_configuration_id'] for r in h['runs'] if r['experiment_id']=='R548');p=reproduction_profile(h,reg,i)
+  self.assertTrue(p['source_patch_package_public']);self.assertFalse(p['exact_build_recipe_fully_public']);self.assertEqual(p['engine_reproduction_package']['build_id'],p['profile']['engine']['build_id'])
+  names={a['filename']:a['sha256'] for a in p['required_external_assets'] if a['kind']=='engine_shared_library'}
+  self.assertEqual(len(names)+1,len(p['engine_reproduction_package']['libraries_sha256']));self.assertTrue(all(p['engine_reproduction_package']['libraries_sha256'][n]==v for n,v in names.items()))

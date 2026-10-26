@@ -1,6 +1,6 @@
 """Versioned benchmark/configuration projection. No GPU calls or source mutations."""
 import subprocess
-import collections,copy,hashlib,html,json,math,pathlib,re
+import base64,collections,copy,hashlib,html,json,math,pathlib,re
 from comparison import extract_tuning
 SCHEMA=1
 NATIVE_TOOL_CATEGORIES={'bfcl-v4-simple-python-full400':('simple_python',400),'bfcl-v4-parallel-multiple-full200':('parallel_multiple',200)}
@@ -824,6 +824,45 @@ def same_quantizer_review(a,header,rows,plan):
  public_rows=[{k:r[k] for k in ('name','shape','type','parameters','payload_bytes','byte_identical','payload_sha256_V1','payload_sha256_V2')} for r in rows]
  return {'analysis_id':a['analysis_id'],'represented_weight_verdict':verdict,**counts,'artifacts':artifacts,'metadata_differences':header['metadata_differences'],'type_counts':header['V1_header']['type_counts'],'elapsed_s':a['elapsed_s'],'numerical_interpretation':a['numerical_interpretation'],'source_checkpoint_limit':a['source_checkpoint_limit'],'new_GPU_runs':0,'tensor_results':public_rows}
 
+def engine_reproduction_assets(document,raw):
+ """Strictly selected MIT source assets, never binaries or executable jobs."""
+ main=raw['main-build.json'];contract=raw['main-source-contract.json'];proof=main['source_proof'];meta=document['metadata']
+ if document['kind']!='PINNED_ENGINE_REPRODUCTION_INPUTS' or type(document['GPU_runs']) is not int or document['GPU_runs']!=0 or document['source_writes'] is not False:raise ValueError('Invalid reproduction receipt')
+ names={'main-protocol.patch','llama-grammar-prefill.h','numeric-fixtures.patch','LICENSE.llama-cpp'}
+ if set(document['assets'])!=names:raise ValueError('Unapproved source asset')
+ expected={'main-protocol.patch':contract['local_patch_sha256'],'llama-grammar-prefill.h':contract['local_header_sha256'],
+           'numeric-fixtures.patch':'479bd12d814663bc5caa4023e955ec94247b50bdf96fffa7b014ddba1a596585','LICENSE.llama-cpp':proof['source_files']['LICENSE']}
+ blobs={}
+ for name,record in document['assets'].items():
+  data=base64.b64decode(record['base64'],validate=True)
+  if len(data)!=record['bytes'] or len(data)>16384 or H_BYTES(data)!=record['sha256'] or record['sha256']!=expected[name]:raise ValueError('Source asset bytes/hash mismatch')
+  blobs[name]=data
+ if blobs['main-protocol.patch']!=base64.b64decode(contract['local_patch_b64']) or blobs['llama-grammar-prefill.h']!=base64.b64decode(contract['local_header_b64']):raise ValueError('Source contract differs')
+ if not blobs['LICENSE.llama-cpp'].startswith(b'MIT License\n') or b'The ggml authors' not in blobs['LICENSE.llama-cpp']:raise ValueError('Missing upstream license notice')
+ identity={'build_id':pathlib.PurePosixPath(main['engine']).parent.parent.name,'server_sha256':main['identities'][main['engine']],
+           'libraries_sha256':{pathlib.PurePosixPath(n).name:h for n,h in main['libraries'].items()},'source_repository':'https://github.com/ggml-org/llama.cpp',
+           'source_base_commit':proof['commit'],'comparison_upstream_commit_not_build_base':contract['upstream_commit'],'source_inputs_sha256':proof['source_inputs_sha256'],
+           'named_patched_sources_sha256':contract['patched_source_sha256']['pinned'],'numeric_helper_sha256':main['spec']['O2_TEST_PATCH_SHA256'],'compiler_jobs':proof['compiler_jobs']}
+ if any(meta.get(k)!=v for k,v in identity.items()):raise ValueError('Reproduction build identity differs')
+ expected_flags=[];remapped=[]
+ for flag in proof['cmake_flags']:
+  key,value=flag[2:].split('=',1)
+  if key in ('CMAKE_C_COMPILER','CMAKE_CXX_COMPILER','CMAKE_CUDA_COMPILER'):
+   value={'CMAKE_C_COMPILER':'cc','CMAKE_CXX_COMPILER':'c++','CMAKE_CUDA_COMPILER':'${CUDA_ROOT}/bin/nvcc'}[key];remapped.append(key)
+  expected_flags.append('-D'+key+'='+value)
+ versions={pathlib.PurePosixPath(n).name:next(line for line in v.splitlines() if ('release 12.8' in line if n.endswith('nvcc') else line.strip())) for n,v in proof['toolchain_versions'].items()}
+ if meta['cmake_flags']!=expected_flags or meta['remapped_compiler_paths']!=remapped or meta['toolchain_versions']!=versions:raise ValueError('Reproduction toolchain differs')
+ for k in ('independent_fresh_build_executed','bit_identical_rebuild_proven','runtime_requalification_performed'):
+  if meta.get(k) is not False:raise ValueError('Unproven new build/runtime claim')
+ if meta.get('license')!='MIT' or meta.get('original_readonly_reverse_patch_check') is not True or meta.get('dependency_and_build_path_variation_disclosed') is not True:raise ValueError('Missing source constraints')
+ fixture=meta['numeric_fixture']
+ if fixture!=proof['numerical_fixture'] or fixture['after_sha256']!=identity['named_patched_sources_sha256']['tests/test-backend-ops.cpp']:raise ValueError('Numerical fixture lineage differs')
+ public={**identity,'license':'MIT','cmake_flags':expected_flags,'remapped_compiler_paths':remapped,'toolchain_versions':versions,
+  'numeric_fixture':fixture,'new_GPU_runs':0,'independent_fresh_build_executed':False,'bit_identical_rebuild_proven':False,
+  'source_assets':[{'name':n,'url':'assets/reproduction/'+n,'bytes':len(blobs[n]),'sha256':H_BYTES(blobs[n])} for n in sorted(names)],
+  'scope':'Exact archived main-engine protocol/header/numerical-source changes and MIT notice, bound to original build receipts. Compiler executable paths are explicitly remapped. External toolchain/runtime dependencies and private task fixtures are not bundled. No build, GPU execution, admission or performance qualification is performed by this export.'}
+ return public,blobs
+
 def engine_source_annotations(raw):
  """Recover source revisions from linked build receipts, not binary-name guesses.
 
@@ -1093,6 +1132,16 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   engines=engine_source_annotations(raw)
   if engines!=a['engines']:raise ValueError('Engine source interpretation mismatch')
   item.update(audit_id=receipt(ap,item['audit_sha256']),engines=engines,raw_sources=a['raw_sources'],interpretation=a['interpretation'])
+  if item.get('reproduction_inputs_path'):
+   rp=(root/item.pop('reproduction_inputs_path')).resolve()
+   if rp.parent!=ap.parent or rp.name!='REPRODUCTION_INPUTS_20261026.json' or digest(rp)!=item['reproduction_inputs_sha256']:raise ValueError('Reproduction receipt changed')
+   package,blobs=engine_reproduction_assets(read(rp),raw)
+   from validate import SECRET,PRIVATE
+   if any(SECRET.search(b.decode()) or PRIVATE.search(b.decode()) for b in blobs.values()) or SECRET.search(json.dumps(package)) or PRIVATE.search(json.dumps(package)):raise ValueError('Unsafe reproduction export')
+   target=root.parent/'public-repository/docs/assets/reproduction';target.mkdir(parents=True,exist_ok=True)
+   for name,b in blobs.items():(target/name).write_bytes(b)
+   item['reproduction_package']=package
+   item['reproduction_audit_id']=receipt(rp,item['reproduction_inputs_sha256'])
  for item in reg.get('same_quantizer_weight_reviews',[]):
   if set(item)!={'review_id','at_utc',*(k+suffix for k in ('audit','header','tensor_results','plan','verification','rename') for suffix in ('_path','_sha256'))}:raise ValueError('Unreviewed same-quantizer export schema')
   paths={}
@@ -1632,9 +1681,15 @@ def reproduction_profile(history,register,ident):
  engines=[e for review in register.get('engine_source_reviews',[]) for e in review['engines']
           if all(e.get(k)==p['engine'].get(k) for k in ('build_id','binary_sha256','kernel_library_sha256'))]
  if len({H(e) for e in engines})>1:raise ValueError('Conflicting exact engine provenance')
+ packages=[review['reproduction_package'] for review in register.get('engine_source_reviews',[]) if engines and review.get('reproduction_package') and review['reproduction_package']['build_id']==p['engine'].get('build_id') and review['reproduction_package']['server_sha256']==p['engine'].get('binary_sha256') and review['reproduction_package']['libraries_sha256'].get(p['engine'].get('kernel_library_file'))==p['engine'].get('kernel_library_sha256')]
+ if len({H(v) for v in packages})>1:raise ValueError('Conflicting reproduction package')
+ package=copy.deepcopy(packages[0]) if packages else None
  assets=[{'kind':'model_weights','sha256':p['model']['artifact_sha256'],'repository':p['model'].get('hf_repository'),'revision':p['model'].get('hf_revision'),'redistributed':False}]
  for kind,key in [('engine_binary','binary_sha256'),('CUDA_kernel_library','kernel_library_sha256')]:
   assets.append({'kind':kind,'sha256':p['engine'].get(key),'redistributed':False})
+ if package:
+  for name,h in package['libraries_sha256'].items():
+   if h!=p['engine'].get('kernel_library_sha256'):assets.append({'kind':'engine_shared_library','filename':name,'sha256':h,'redistributed':False})
  for kind,key in [('chat_template','chat_template_sha256')]:
   assets.append({'kind':kind,'sha256':p['runtime'].get(key),'redistributed':False})
  draft=p.get('optimizations',{}).get('draft_sha256')
@@ -1649,7 +1704,7 @@ def reproduction_profile(history,register,ident):
   if not any(a['sha256']==match[1] for a in assets):assets.append({'kind':kind,'sha256':match[1],'recorded_flag':flag,'redistributed':False})
  physical={H([r['audit_hash'],r['experiment_id'],r['runtime_configuration_id']]) for r in runs}
  packet={'schema_version':1,'status':'REPRODUCTION_SPECIFICATION_NOT_DEPLOYED','profile':p,
-  'engine_source_identity':copy.deepcopy(engines[0]) if engines else None,
+  'engine_source_identity':copy.deepcopy(engines[0]) if engines else None,'engine_reproduction_package':package,'source_patch_package_public':package is not None,
   'required_external_assets':assets,'exact_profile_measurement_views':runs,
   'original_measurement_audit_count':len(physical),'measurement_view_count':len(runs),'historical_GPU_job_count':None,
   'benchmark_evidence_status':('NO_MEASURED_RESULTS' if not runs else 'HAS_FULL_OFFICIAL_CATEGORY' if any(r['official_eligible'] for r in runs) else 'HISTORICAL_OR_UNQUALIFIED_RESULTS'),
@@ -1659,7 +1714,7 @@ def reproduction_profile(history,register,ident):
   'reproduction_limits':[
    'Ordered recorded arguments and request/runtime settings are preserved, including unknown values. Requested flags are not proof of an executed kernel or cache mode.',
    'Redacted artifact/session placeholders require explicit local mapping and exact asset verification. This packet never creates a process, downloads files, installs software or submits a GPU job.',
-   'Obtain licensed weights, exact template and any external draft separately. Patch/source hashes identify retained build inputs but do not provide the patch bytes, all shared-library/compiler dependencies, or promise a bit-identical rebuild.',
+   'Obtain licensed weights, exact template and any external draft separately. Matching archived source patches and build identities are linked when an engine reproduction package is present. External toolchain/runtime dependencies and original build paths are not bundled; a bit-identical independent rebuild is not proven.',
    'Only measurements with this exact original runtime configuration ID are included. Related coding/tool configurations and audit views are not new independent generations.',
    'Reproduction requires matching benchmark/scorer/task identity and declared model-specific settings. Private development inputs are not redistributed; an external substitute is a new experiment.',
    'Research execution still requires the existing trusted broker, admission and all device/resource guards. Production deployment requires separate approval.']}

@@ -416,7 +416,7 @@ The JSON packet preserves the original immutable profile, ordered arguments, env
 ### Reproduction boundaries
 
 - Obtain weights from the recorded publisher/revision under its license; no weights are distributed here.
-- Exact template bytes, external draft artifacts and original engine dependencies must be supplied separately. Source/patch hashes identify retained inputs; patch bytes and the complete build dependency recipe are not fully public. A bit-identical independent rebuild is **not established** by this packet.
+- Exact template bytes, external draft artifacts and original engine dependencies must be supplied separately. The matched main-engine source package below supplies the archived patches and build identities; external dependencies and original build paths are not bundled. A bit-identical independent rebuild is **not established** by this packet.
 - Locally retained original launch/configuration receipts remain authoritative. Redacted public bytes are not the hash of a private original launch.
 - Full official tests require the exact registered dataset, task set, scorer and evaluation settings. Different templates, output limits, engines, quantization or sampling form another profile.
 - Private development/Agent33 inputs are not redistributed. Exact public reproduction of those suites remains incomplete. A substitute must use a new experiment identity.
@@ -458,6 +458,18 @@ Some historical runs lack complete public build recipes, uncertainty estimates o
  reproduction_history=read('configuration-history.json')
  example=next(r['runtime_configuration_id'] for r in reproduction_history['runs'] if r['experiment_id']=='R548' and r['official_eligible'])
  reproduction=reproduction.replace('@PROFILE_ID@',example)
+ for review in read('benchmark-register.json').get('engine_source_reviews',[]):
+  package=review.get('reproduction_package')
+  if not package:continue
+  reproduction+='\n## Pinned main-engine source package\n\n**Source evidence, not a new optimization or GPU qualification.** Base commit `'+package['source_base_commit']+'`; `'+package['comparison_upstream_commit_not_build_base']+'` is the separate historical comparison revision, not this build base. Original server SHA256 `'+package['server_sha256']+'`.\n\n'
+  reproduction+=table(['Exact source asset','Bytes','SHA256'],[['['+a['name']+']('+a['url']+')',a['bytes'],a['sha256']] for a in package['source_assets']])
+  reproduction+='\nUse a separate source checkout at the stated build-base commit, without model weights. Apply `main-protocol.patch`, place the supplied header at `include/llama-grammar-prefill.h`, and apply `numeric-fixtures.patch` for the recorded backend-test target. Verify the five resulting source hashes listed below before configuring. These steps are instructions for a new isolated tree; archived and productive trees must remain untouched.\n\nOriginal upstream MIT copyright/permission notice is included. The protocol/header patch changes grammar-prefill handling; the separate numerical patch defines backend-test shapes, not a newly measured speedup. All bytes are bound to archived build/source receipts. No model weights, compiled binaries or NVIDIA libraries are redistributed.\n\n'
+  reproduction+='Read-only checks match the retained patched sources. An independent fresh checkout/build and bit-identical rebuild have **not** been performed here. Compiler paths are explicitly remapped; external CUDA/system dependencies and CPU-native build conditions still matter. A rebuilt binary has a new identity and needs the existing source/build/admission review before research execution.\n\n'
+  reproduction+='??? note "Recorded toolchain, configure arguments and runtime-library identities"\n\n'
+  detail='Recorded compiler jobs: '+str(package['compiler_jobs'])+'. Configure in a separate unprivileged build directory against the pinned source; do not patch a productive or archived tree. Obtain the listed toolchain separately and map compiler paths explicitly. Build targets recorded in the original recipe: `llama-server` and `test-backend-ops`. These are reproduction instructions, not commands executed by this publication.\n\n'
+  detail+=table(['Tool','Recorded version'],list(package['toolchain_versions'].items()))+'\n```json\n'+json.dumps({'cmake_flags':package['cmake_flags'],'remapped_compiler_paths':package['remapped_compiler_paths'],'expected_runtime_libraries_sha256':package['libraries_sha256'],'patched_sources_sha256':package['named_patched_sources_sha256']},indent=2)+'\n```\n'
+  reproduction+=''.join(('    '+line if line else '')+'\n' for line in detail.splitlines())
+  reproduction+='\n[Original reproduction receipt](audits/'+review['reproduction_audit_id']+'.md). Local library/file hashes identify the measured build; they do not assert identical output from another compiler or host.\n'
  reproduction+='\n??? note \"Selected exact benchmark-profile pointers\"\n\n'
  selected_rows=[]
  for eid in ('R471','R516','R488','R464','R465','R466','R495','R542','R548'):
@@ -467,7 +479,7 @@ Some historical runs lack complete public build recipes, uncertainty estimates o
  put('reproduce.md',reproduction)
  put('publication.md','''# Public export and update policy
 
-Only projected research metadata is publishable. The exporter uses explicitly selected keys, numeric aggregate branches and public HTTPS source domains. It never copies a source file, model, log, prompt, response, system dump, authentication file or network configuration. Local audit locations remain in a private receipt outside this repository.
+Only projected research metadata is publishable. The exporter uses explicitly selected keys, numeric aggregate branches and public HTTPS source domains. One explicit source-code exception exports only four named, SHA-bound main-engine reproduction files with their original MIT notice. It never copies arbitrary source files, models, logs, prompts, responses, system dumps, authentication files or network configuration. Local audit locations remain in a private receipt outside this repository.
 
 Publication validates all 162 unique factors, original/additional counters, scientific statuses, reference pointers, evidence links, forbidden content, file paths/sizes and the byte manifest. Selected original audit hashes are checked locally before export. CI only validates the public snapshot and builds static documentation; it cannot independently access the retained originals.
 
