@@ -982,3 +982,22 @@ test('qualification decisions preserve partials outside official score cells',()
  assert(!r.runs.some(x=>x.experiment_id==='R538'));
  for(const row of v.rows.filter(r=>r.qualification))assert.equal(row.values['qualification.status'],row.qualification.classification);
 });
+
+test('Qwen27 integrated MTP full coding and tools retain independently bounded measured energy',()=>{
+ for(const [eid,tasks,solved,lo,hi] of [['R548',164,151,165215.106,165303.731],['R549',200,169,193412.377,193491.872]]){
+  const views=data.history.runs.filter(r=>r.experiment_id===eid);
+  const r=views.find(r=>r.counter_energy);assert(r&&r.official_eligible);
+  const aggregated=M.aggregate(views);assert.equal(aggregated.n,1);assert.equal(aggregated.solved,solved);assert.equal(aggregated.tasks,tasks);
+  assert(views.some(r=>!r.counter_energy),'original immutable measurement view retained');
+  assert.equal(r.tasks,tasks);assert.equal(r.solved,solved);assert.equal(r.gpu_j,null);
+  assert.equal(r.counter_energy.tasks,tasks);assert.equal(r.counter_energy.solved,solved);
+  assert.equal(r.counter_energy.lower_j,lo);assert.equal(r.counter_energy.upper_j,hi);
+  assert.equal(r.counter_energy.j_per_success_lower,lo/solved);assert.equal(r.counter_energy.j_per_success_upper,hi/solved);
+ }
+ const view=M.comparisonView(M.build(data)),row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R548'));
+ assert.deepEqual(new Set(row.runs.map(r=>r.experiment_id)),new Set(['R548','R549']));
+ const mean=M.availableAverage(row,{allMeasured:true},view.benchmarkMap),cost=M.performanceSummary(row,mean.keys,view.benchmarkMap);
+ assert.equal(mean.count,2);assert.equal(cost.tasks,364);assert.equal(cost.solved,320);
+ assert.equal(cost.energy.lower,(165215.106+193412.377)/320);
+ assert.equal(cost.energy.upper,(165303.731+193491.872)/320);
+});
