@@ -389,3 +389,35 @@ class FrozenCohortScope(unittest.TestCase):
   from screening import cohort_review_scope
   for measured,review in [([{'experiment_id':'R543'}],{'model_profiles':1,'profiles':[{'experiment_id':'R530'}]}),([{'experiment_id':'R530'}]*2,{'model_profiles':1,'profiles':[{'experiment_id':'R530'}]}),([{'experiment_id':'R530'}],{'model_profiles':2,'profiles':[{'experiment_id':'R530'}]*2})]:
    with self.assertRaises(AssertionError):cohort_review_scope(measured,review)
+
+class TerminalGate(unittest.TestCase):
+ def test_missing_gate_stays_missing(self):
+  from screening import terminal_final_gate
+  self.assertIsNone(terminal_final_gate('.',None))
+ def test_forged_gate_and_outside_source_rejected(self):
+  import tempfile,hashlib
+  from pathlib import Path
+  from screening import terminal_final_gate
+  with tempfile.TemporaryDirectory() as folder:
+   root=Path(folder);p=root/'gate.json';p.write_text('{}')
+   with self.assertRaises(AssertionError):terminal_final_gate(root,{'path':str(p),'sha256':'0'*64})
+   with self.assertRaises(AssertionError):terminal_final_gate(root/'other',{'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+
+class TerminalGateSourceBinding(unittest.TestCase):
+ def test_verified_source_only_no_go_cannot_be_promoted_or_rehashed_over_changed_source(self):
+  import tempfile,hashlib
+  from pathlib import Path
+  from screening import terminal_final_gate
+  with tempfile.TemporaryDirectory() as folder:
+   root=Path(folder);source=root/'source.txt';source.write_text('pinned source')
+   gate={'GPU_runs':0,'model_requests':0,'foreign_task_or_verifier_code_executed':False,'status':'NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE','official_complete_local_result':'NOT MEASURED','official_scorer_admitted':False,'task_count':89,'task_configurations_verified':89,'source_required_files_present':89,'task_budget_seconds':1200,'source_files_sha256':{str(source):hashlib.sha256(source.read_bytes()).hexdigest()}}
+   fields=('at_utc','Harbor_source_revision','source_task_resources','publisher_configurations','hub_content_digest','hub_digest_to_git_tree_mapping','budget_interpretation','blockers','not_hardware_exclusion','decision_scope','reopening_requirements','final_report_policy','sources')
+   gate.update({k:[] if k in ('publisher_configurations','blockers','reopening_requirements','sources') else 'source evidence' for k in fields})
+   p=root/'gate.json'
+   def seal():
+    p.write_text(json.dumps(gate));return {'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+   self.assertEqual(terminal_final_gate(root,seal())['status'],gate['status'])
+   gate['GPU_runs']=1
+   with self.assertRaises(AssertionError):terminal_final_gate(root,seal())
+   gate['GPU_runs']=0;descriptor=seal();source.write_text('changed')
+   with self.assertRaises(AssertionError):terminal_final_gate(root,descriptor)

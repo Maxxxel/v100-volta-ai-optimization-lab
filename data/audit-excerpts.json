@@ -177819,6 +177819,152 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 13600.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8cb43d1adb3d2e225c54",
+    "original_bytes": 27277,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8cb43d1adb3d2e225c548971af8200af58fdc31e2abfe208ace7f5b2f4cad03f",
+    "statements": {
+      "decision": "Isolated MTP development screen against stored unchanged R502. Apply predeclared quality/time gates; not new model screening, official score or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "GPU_j_per_success_reduction_conservative": 0.40934075896990474,
+        "additional_peak_device_vram_mib": 1146.0,
+        "task_latency_reduction": 0.3526737797991403
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_only_successes": 0,
+        "control_only_successes": 0,
+        "paired_tasks": 32
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f2a597e10a07431228c0",
+    "original_bytes": 13902,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f2a597e10a07431228c014cabf41ade1e62cc675863d9c3074185bdbd98178d5",
+    "statements": {
+      "decision": "INTEGRATED_MTP_DEVELOPMENT_GATES_PASS_INDEPENDENT_QUALIFICATION_REQUIRED",
+      "scope": "Same actual32 requests and prompt token IDs, target/artifact, engine, template, T0/seed1001, context8192/output4096, KV/batches/threads/power; only integrated MTP3 changes. Existing exposed16+16 development tasks are not an official benchmark or independent validation. B-only stored-control screening, not fresh balanced A/B or stochastic equivalence. GPU energy includes all32 answers/failures, excludes startup/warmup/CPU/system energy; counter brackets are not calibration confidence intervals. Historical R117/R118 output1024 scores remain separate; no global model exclusion or Champion."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13596.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164,
+          "wall_s": 599.302540723
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e545ee1426b3b825a7a4",
+    "original_bytes": 11486,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e545ee1426b3b825a7a46c8fed7a85bf91b982a58f47ed5ec028a69d1eb00eec",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Complete original HumanEval+164 independent qualification of current Qwen3.8 27B GSQ/RCO IQ3_S integrated MTP3 after R547 development gates. Same target, engine, native template, nonthinking/T0/seed1001/output4096/context8192, KV/cache, batches, warmups and caps as stored R466149/164; only draft-mtp/max3/min1 differs. Historical R118150/164 output1024 stays separate. Stored-control comparison, not fresh balanced performance A/B, losslessness or Champion. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1146.0
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_only_successes": 2,
+        "control_only_successes": 0,
+        "net_success_change": 2,
+        "paired_exact_two_sided_p_descriptive": 0.5,
+        "paired_tasks": 164,
+        "score_change_percentage_points": 1.2195121951219512
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-49206f86cd085822f282",
+    "original_bytes": 7803,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "49206f86cd085822f282fa3df5eb4fcf7bf4b9c3f154c8c370b49f4d6070e721",
+    "statements": {
+      "decision": "CODING_QUALITY_AND_SPEED_GATE_PASSED",
+      "scope": "Same complete original164 tasks, official API/scorer and native profile except the frozen MTP head/flags. R466 is the retained stored control. R547 preselected the candidate on exposed development tasks. Admission-only source references, preflight-all-inputs and remaining-task HTTP timeout differ; they do not alter model input/sampling. No failed request may be silently dropped. This is not a fresh official-task A/B repetition. Counter brackets cover all completed requests including failures, exclude loading/warmup/CPU/system energy, and are not calibration confidence intervals. A nonsignificant paired test is not equivalence. No test-driven parameter adjustment or automatic model rejection."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ebb7528563c75fc63407",
+    "original_bytes": 5052,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ebb7528563c75fc63407e20a19c939e3c5c63fa3f4e00633deae404bdfdfaecb",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL parallel_multiple200 of the exact current Qwen3.8 27B GSQ/RCO IQ3_S integrated MTP3 profile, preselected in R547 and independently scored151/164 in R548. The OFF profile R473165/197 and R538167/199 remains PARTIAL, not a full200 control. No full200 result exists for this MTP4K-output profile. Same existing weights, engine, native template, sampler, context/output, KV, batching and power; unchanged shared1200s TASK clock, no retries, task filtering or test-driven tuning. This fills a shortlist qualification gap, not a causal speed comparison or full BFCL overall score.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-df0565971d69f589bfe1",
+    "original_bytes": 7273,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "df0565971d69f589bfe14f091374db5d87544ee608f912cd82fd243121962b9b",
+    "statements": {
+      "decision": "FULL_TOOL_CATEGORY_QUALIFIED_STORED_CONTROL_REMAINS_PARTIAL",
+      "scope": "R549 is a complete, independently scored local BFCL parallel_multiple200 category (not full BFCL, task-tool execution or safety qualification). R538 remains167/199 PARTIAL, with no measured successful TASK_END. Its exact199 requests/input-token IDs can support only a separate matched-prefix stored-control comparison, never a complete200 control or official average. No test-set retuning, fresh timing repetition, lossless guarantee or Champion. GPU-counter ranges include failed completed requests; exclude loading/warmup/CPU/system energy and are not confidence intervals."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-67769ae3e7b19b2a93d3",
+    "original_bytes": 948,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "67769ae3e7b19b2a93d328f5691e0b7b8274f06af0837cfc18ebf97422186369",
+    "statements": {
+      "scope": "The reused campaign metadata retained the earlier M07 label. The immutable reviewed contract, actual integrated-MTP profile, hypotheses, weights, tasks, engine, sampler, limits and execution use S03. This annotation corrects classification only; no original plan, scores, raw replies, inference settings, clock, admission or factor-coverage counts are changed."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -258696,6 +258842,85 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13596.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0180c3f3b06b9cdc9c8d",
+    "original_bytes": 143691,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0180c3f3b06b9cdc9c8dc451491c1aedf0b8c65653aa3ea4c44ae8f107e0c116",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 151,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-83ba567a0146ae140c4b",
+    "original_bytes": 3653,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "83ba567a0146ae140c4be81af37113fa3c5865a4da28e9aa10e0b545f8f4f116",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 151,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-027a92f00164fcf06d9b",
+    "original_bytes": 8187,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "027a92f00164fcf06d9b4d0085377d25c387acd73abaf9eb16ff245d2d458d0a",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13602.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f3c7e2d8d7a241d1267c",
+    "original_bytes": 178327,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f3c7e2d8d7a241d1267ccd0998fad65344f30be66eca75f44012e8e48ce64ccc",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 169,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-43038817dd899adba200",
+    "original_bytes": 10312,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "43038817dd899adba200096e5a523a37c21cc5929ae9a2caef8cdf0e7112e458",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -259458,6 +259683,17 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-02e0bd4ef5dc5890ad85",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "02e0bd4ef5dc5890ad85d862afc6b4e276f7876a24e928fb2481e6eb3eb91610",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-9492fa926ebe5de799e1",
     "original_bytes": 1184,
     "original_filename": "research-metadata.json",
@@ -259556,6 +259792,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "2548f2ead96b517961275f0d876e59dee0b65e3fdf701b47301e1bbdfe62face",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f1472686254962016582",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f1472686254962016582c87ec70b6d3e7157cdd84bc931a805594a2148b16e61",
     "statements": {}
   },
   {
@@ -260121,6 +260368,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "7da6db43b996bfb67cb02d32683a6f17094dcd0810f251dc1dc6912a724a01cf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-2b584c20598d31ce1310",
+    "original_bytes": 32169,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2b584c20598d31ce1310aa4a5cad203400fc27c35e29e29cdb7fd05331c058fb",
     "statements": {}
   },
   {

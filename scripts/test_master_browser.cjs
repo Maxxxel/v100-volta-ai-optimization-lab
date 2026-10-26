@@ -34,6 +34,15 @@ async function main(){
   });
   assert.deepEqual(new Set(expected.benchmarks),new Set(['humanevalplus-v0.1.10','bfcl-v4-parallel-multiple-full200','terminal-bench-2.1']));
   assert.equal(expected.raw_extra_runs>0,true,'Additional historical data must remain preserved');
+  assert.equal(await page.locator('select[data-action=comparison-view]').inputValue(),'models');
+  const groups=await page.evaluate(()=>window.V100MasterTable.artifactGroups(window.V100MasterTable.comparisonView(window.V100MasterTable.build(window.V100Leaderboard)).rows).filter(g=>g.rows.length>1).length);
+  assert.equal(await page.locator('.master-artifact-group').count(),groups);
+  const toggle=page.locator('.master-artifact-group button').first();
+  if(await toggle.count()){await toggle.click();assert.equal(await toggle.getAttribute('aria-expanded'),'true');await page.locator('.master-artifact-group button').first().click();}
+  await page.screenshot({path:path.join(artifacts,'desktop-model-overview.png'),animations:'disabled'});
+  await page.locator('select[data-action=comparison-view]').selectOption('configurations');
+  assert.equal(await page.locator('.master-artifact-group').count(),0);
+  report.checks.push('default exact-artifact model groups expand variants without pooled scores; scientific view preserves all configuration rows');
   assert.equal(await page.locator('.master-table tbody tr').count(),expected.rows);
   async function noBlankResultRows(){
     const empty=await page.locator('.master-table tbody tr').evaluateAll(rows=>rows.filter(r=>!r.querySelector('td[data-kind="family"] .master-score-line strong')).map(r=>r.dataset.configurationId));
@@ -48,7 +57,7 @@ async function main(){
   assert.equal(await page.locator('select[data-protocol-family]').count(),3);
   assert.equal(await page.locator('.master-family-choice[data-family-id=mbppplus]').count(),0);
   const agentValues=await page.locator('td[data-column-key="family:terminal-bench"]').allTextContents();
-  assert.equal(agentValues.length,expected.rows);assert(agentValues.every(v=>v==='NICHT GEMESSEN'));
+  assert.equal(agentValues.length,expected.rows);assert(agentValues.every(v=>v.startsWith('NICHT GEMESSEN')));
   report.checks.push('exactly three fixed category benchmarks in one continuous table; original extra runs preserved outside this view; agent results missing rather than zero');
 
   const primaryRuns=await page.evaluate(()=>{
@@ -107,7 +116,7 @@ async function main(){
   const shown=await omni.locator('td[data-column-key=average]').innerText();
   const mean=Number(shown.split('%')[0].trim().replace(',','.'));
   assert(Math.abs(mean-(100*132/164+100*177/200)/2)<.011);assert(shown.includes('2/3'));
-  assert.equal(await omni.locator('td[data-column-key="family:terminal-bench"]').innerText(),'NICHT GEMESSEN');
+  assert((await omni.locator('td[data-column-key="family:terminal-bench"]').innerText()).startsWith('NICHT GEMESSEN'));
   for(const key of ['decode_tok_s','wall_per_task_s','output_tokens_per_task','energy_j_per_success','peak_vram_gib']){
    const cell=omni.locator(`td[data-column-key="summary:${key}"]`);assert(!(await cell.innerText()).includes('NICHT GEMESSEN'),key);
   }
@@ -162,6 +171,11 @@ async function main(){
 
   const phone=await browser.newContext({viewport:{width:390,height:844},isMobile:true,deviceScaleFactor:1});await overrides(phone);const mobile=await phone.newPage();mobile.on('pageerror',e=>errors.push(e.message));
   await mobile.goto(new URL('configuration-comparison/',base).href,{waitUntil:'networkidle'});await mobile.locator('.master-table tbody tr').first().waitFor();
+  assert.equal(await mobile.locator('select[data-action=comparison-view]').inputValue(),'models');
+  const controlSizes=await mobile.locator('.master-toolbar label').evaluateAll(labels=>labels.map(e=>({width:e.getBoundingClientRect().width,height:e.getBoundingClientRect().height})));
+  assert(controlSizes.every(r=>r.width>=120&&r.height<=90),'Mobile controls must retain readable labels and normal heights');
+  await mobile.screenshot({path:path.join(artifacts,'mobile-model-overview.png'),animations:'disabled'});
+  await mobile.locator('select[data-action=comparison-view]').selectOption('configurations');
   assert.equal(await mobile.locator('.master-table tbody tr').count(),expected.rows);assert.equal(await mobile.locator('th[data-column-key^="family:"]').count(),3);
   const phoneSize=await mobile.evaluate(()=>({body:document.documentElement.scrollWidth,view:innerWidth,scroll:document.querySelector('.master-scroll').scrollWidth,client:document.querySelector('.master-scroll').clientWidth}));assert(phoneSize.body<=phoneSize.view+1);assert(phoneSize.scroll>phoneSize.client);
   await mobile.locator('.master-scroll').evaluate(el=>{el.scrollLeft=el.scrollWidth;});

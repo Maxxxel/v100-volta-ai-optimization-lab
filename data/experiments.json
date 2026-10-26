@@ -22942,5 +22942,172 @@
       "decision": "FRESH_TOOL_SPECIFIC_OBSERVED_GATES_PASS_NOT_ALLROUND_CHAMPION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "GPU_j_per_success_reduction_conservative": 0.40934075896990474,
+        "additional_peak_device_vram_mib": 1146.0,
+        "task_latency_reduction": 0.3526737797991403
+      },
+      "quality": {
+        "candidate_only_successes": 0,
+        "control_only_successes": 0,
+        "paired_tasks": 32
+      }
+    },
+    "audit_id": "audit-8cb43d1adb3d2e225c54",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R547",
+    "model": "Qwen3.8 27B GSQ/RCO IQ3_S · native integrated MTP3",
+    "qualification_review": {
+      "aggregate_metrics": {
+        "comparison": {
+          "GPU_j_per_success_reduction_conservative": 0.40934075896990474,
+          "additional_peak_device_vram_mib": 1146.0,
+          "task_latency_reduction": 0.3526737797991403
+        },
+        "model_requests": 0,
+        "quality": {
+          "candidate_only_successes": 0,
+          "control_only_successes": 0,
+          "paired_tasks": 32
+        }
+      },
+      "audit_id": "audit-f2a597e10a07431228c0",
+      "comparison_class": "STORED_CONTROL_DEVELOPMENT_PROFILE_COMPARISON",
+      "decision": "INTEGRATED_MTP_DEVELOPMENT_GATES_PASS_INDEPENDENT_QUALIFICATION_REQUIRED",
+      "gates": {
+        "actual_MTP_execution": true,
+        "energy": true,
+        "length_stops": true,
+        "quality": true,
+        "task_latency": true
+      },
+      "scope": "Same actual32 requests and prompt token IDs, target/artifact, engine, template, T0/seed1001, context8192/output4096, KV/batches/threads/power; only integrated MTP3 changes. Existing exposed16+16 development tasks are not an official benchmark or independent validation. B-only stored-control screening, not fresh balanced A/B or stochastic equivalence. GPU energy includes all32 answers/failures, excludes startup/warmup/CPU/system energy; counter brackets are not calibration confidence intervals. Historical R117/R118 output1024 scores remain separate; no global model exclusion or Champion."
+    },
+    "reference_A0": null,
+    "statements": {
+      "decision": "INTEGRATED_MTP_DEVELOPMENT_GATES_PASS_INDEPENDENT_QUALIFICATION_REQUIRED"
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1146.0
+      },
+      "model_starts": 1,
+      "peak_device_vram_mib": 13596.5,
+      "quality": {
+        "candidate_only_successes": 2,
+        "control_only_successes": 0,
+        "net_success_change": 2,
+        "paired_exact_two_sided_p_descriptive": 0.5,
+        "paired_tasks": 164,
+        "score_change_percentage_points": 1.2195121951219512
+      },
+      "scopes": {
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164,
+          "wall_s": 599.302540723
+        }
+      }
+    },
+    "audit_id": "audit-e545ee1426b3b825a7a4",
+    "date": "2026-10-26T07:37:43.894300+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R548",
+    "model": "Qwen3.8 27B · integrated MTP3",
+    "qualification_review": {
+      "aggregate_metrics": {
+        "comparison": {
+          "additional_peak_device_vram_mib": 1146.0
+        },
+        "model_requests": 0,
+        "quality": {
+          "candidate_only_successes": 2,
+          "control_only_successes": 0,
+          "net_success_change": 2,
+          "paired_exact_two_sided_p_descriptive": 0.5,
+          "paired_tasks": 164,
+          "score_change_percentage_points": 1.2195121951219512
+        }
+      },
+      "audit_id": "audit-49206f86cd085822f282",
+      "comparison_class": "ISOLATED_MTP_TREATMENT_WITH_STORED_CONTROL_AND_DECLARED_EVALUATION_TRANSPORT_DIFFERENCES",
+      "decision": "CODING_QUALITY_AND_SPEED_GATE_PASSED",
+      "gates": {
+        "quality_nonregression_observed": true,
+        "task_latency_reduction_at_least10percent": true
+      },
+      "scope": "Same complete original164 tasks, official API/scorer and native profile except the frozen MTP head/flags. R466 is the retained stored control. R547 preselected the candidate on exposed development tasks. Admission-only source references, preflight-all-inputs and remaining-task HTTP timeout differ; they do not alter model input/sampling. No failed request may be silently dropped. This is not a fresh official-task A/B repetition. Counter brackets cover all completed requests including failures, exclude loading/warmup/CPU/system energy, and are not calibration confidence intervals. A nonsignificant paired test is not equivalence. No test-driven parameter adjustment or automatic model rejection."
+    },
+    "reference_A0": null,
+    "statements": {
+      "decision": "CODING_QUALITY_AND_SPEED_GATE_PASSED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Same complete original164 tasks, official API/scorer and native profile except the frozen MTP head/flags. R466 is the retained stored control. R547 preselected the candidate on exposed development tasks. Admission-only source references, preflight-all-inputs and remaining-task HTTP timeout differ; they do not alter model input/sampling. No failed request may be silently dropped. This is not a fresh official-task A/B repetition. Counter brackets cover all completed requests including failures, exclude loading/warmup/CPU/system energy, and are not calibration confidence intervals. A nonsignificant paired test is not equivalence. No test-driven parameter adjustment or automatic model rejection."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "audit_id": "audit-ebb7528563c75fc63407",
+    "date": "2026-10-26T07:56:58.991860+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R549",
+    "independent_review": {
+      "aggregate_metrics": {
+        "model_requests": 0
+      },
+      "audit_id": "audit-67769ae3e7b19b2a93d3",
+      "statements": {
+        "scope": "The reused campaign metadata retained the earlier M07 label. The immutable reviewed contract, actual integrated-MTP profile, hypotheses, weights, tasks, engine, sampler, limits and execution use S03. This annotation corrects classification only; no original plan, scores, raw replies, inference settings, clock, admission or factor-coverage counts are changed."
+      }
+    },
+    "model": "Qwen3.8 27B · integrated MTP3",
+    "qualification_review": {
+      "aggregate_metrics": {
+        "model_requests": 0
+      },
+      "audit_id": "audit-df0565971d69f589bfe1",
+      "comparison_class": "FULL_CANDIDATE200_AND_SEPARATE_MATCHED_STORED_CONTROL199_NOT_FULL200_AB",
+      "decision": "FULL_TOOL_CATEGORY_QUALIFIED_STORED_CONTROL_REMAINS_PARTIAL",
+      "gates": {
+        "complete_original200": true,
+        "independent_scorer_replay_identical": true,
+        "shared1200s_task_budget_preserved": true
+      },
+      "scope": "R549 is a complete, independently scored local BFCL parallel_multiple200 category (not full BFCL, task-tool execution or safety qualification). R538 remains167/199 PARTIAL, with no measured successful TASK_END. Its exact199 requests/input-token IDs can support only a separate matched-prefix stored-control comparison, never a complete200 control or official average. No test-set retuning, fresh timing repetition, lossless guarantee or Champion. GPU-counter ranges include failed completed requests; exclude loading/warmup/CPU/system energy and are not confidence intervals."
+    },
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-67769ae3e7b19b2a93d3"
+    ],
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL parallel_multiple200 of the exact current Qwen3.8 27B GSQ/RCO IQ3_S integrated MTP3 profile, preselected in R547 and independently scored151/164 in R548. The OFF profile R473165/197 and R538167/199 remains PARTIAL, not a full200 control. No full200 result exists for this MTP4K-output profile. Same existing weights, engine, native template, sampler, context/output, KV, batching and power; unchanged shared1200s TASK clock, no retries, task filtering or test-driven tuning. This fills a shortlist qualification gap, not a causal speed comparison or full BFCL overall score.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    },
+    "winner_qualified": false
   }
 ]

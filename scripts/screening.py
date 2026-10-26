@@ -179,6 +179,24 @@ def orchestration_cpu_status(multi):
  assert actual['retained_mock_replay_identical'] and actual['malicious_planner_did_not_bypass_simulator_permissions'] and actual['model_requests']==actual['GPU_runs']==0 and actual['GPU_admitted'] is False
  return {'audit_sha256':descriptor['sha256'],'guard_tests':18,'scripted_case_executions':15,'paired_unique_cases':5,'scripted_callbacks':67,'model_results_measured':False,'GPU_admitted':False,'GPU_runs':0,'official_benchmark':False}
 
+def terminal_final_gate(root, descriptor):
+ """Verified source-only decision; never a model result or permanent hardware exclusion."""
+ if not descriptor:return None
+ root=Path(root).resolve();path=Path(descriptor['path']).resolve()
+ assert path.is_relative_to(root) and H(path)==descriptor['sha256']
+ gate=read(path)
+ assert gate['GPU_runs']==gate['model_requests']==0 and gate['foreign_task_or_verifier_code_executed'] is False
+ assert gate['status']=='NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE'
+ assert gate['official_complete_local_result']=='NOT MEASURED' and not gate['official_scorer_admitted']
+ assert gate['task_count']==gate['task_configurations_verified']==gate['source_required_files_present']==89
+ assert gate['task_budget_seconds']==1200
+ for file,digest in gate['source_files_sha256'].items():
+  source=Path(file).resolve();assert source.is_relative_to(root) and H(source)==digest
+ return {'audit_sha256':descriptor['sha256'],**{k:gate[k] for k in (
+  'status','at_utc','task_configurations_verified','Harbor_source_revision','source_task_resources',
+  'publisher_configurations','hub_content_digest','hub_digest_to_git_tree_mapping','task_budget_seconds',
+  'budget_interpretation','blockers','not_hardware_exclusion','decision_scope','reopening_requirements','final_report_policy','sources')}}
+
 def qualification_phase(root,history):
  """Allowlisted current qualification evidence; never a new benchmark score."""
  phase=read(root/'BENCHMARK_REFERENCES.json')['summary'].get('jarvis_qualification_phase')
@@ -230,7 +248,7 @@ def qualification_phase(root,history):
  diagnostic=gemma_diagnostic_resolution(root,ctx,model_validation)
  return {'status':phase['status'],'selection_scope':phase['selection_scope'],'candidates':candidates,'model_validation':model_validation,'decision_review':qualification_decisions(root,phase,model_validation,diagnostic),'validation_execution':({k:frozen['current_execution'][k] for k in ('experiment_id','status')} if frozen.get('current_execution') else None),
   'validation':{'status':'FROZEN_NOT_RELEASED_NO_MODEL_RESULTS','cases':qa['cases'],'generalization_groups':qa['groups'],'golden_QA_passed':qa['golden_passed'],'wrong_final_QA_rejected':qa['wrong_final_rejected'],'forbidden_action_QA_rejected':qa['forbidden_action_rejected'],'model_requests':0,'CPU_QA_sha256':frozen['CPU_QA_sha256'],'private_dataset_sha256':frozen['private_dataset_sha256'],'scope':frozen['scope']},
-  'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.']},
+  'terminal_bench':{'status':tb['status'],'tasks':tb['task_count'],'revision':tb['dataset_revision'],'evaluator_version':tb['candidate_evaluator']['version'],'official_complete_local_result':'NOT MEASURED','sources':tb['sources'],'blockers':['Reviewed local container backend and Harbor are not installed.','Task environments, evaluator dependencies and shared1200s broker route are not admitted.'],'final_gate':terminal_final_gate(root,phase.get('terminal_bench_final_gate'))},
   'slopus_diagnosis':{k:sl[k] for k in ('experiment_id','recorded_policy_violations','length_stopped_responses','actual_effect_scope_passes','scope')},
   'gemma_context':{'experiment_id':ctx['experiment_id'],'status':a['status'],'model_requests':0,'quality_score':None,'CPU_fix_tests':fix['tests'],'GPU_retry_admitted':ctx['new_transport_GPU_admitted'],'corrective_result':correction,'diagnostic_resolution':diagnostic},
   'multi_agent_plan':{**{k:multi[k] for k in ('status','arms','total_task_budget_s','per_arm_task_budget_s','GPU_concurrency','task_coverage')},'CPU_controls':orchestration_cpu_status(multi),'results':role_results}}
@@ -556,6 +574,14 @@ def render_qualification(data):
   out+='\n**Reserved agent validation:** '+str(v['cases'])+' frozen cases / '+str(v['generalization_groups'])+' related-task groups; zero model responses. CPU-only controls: '+str(v['golden_QA_passed'])+' golden passes, '+str(v['wrong_final_QA_rejected'])+' incorrect-final rejections and '+str(v['forbidden_action_QA_rejected'])+' forbidden-action rejections. Fixtures/oracles remain private and unreleased. These are harness checks, not model scores.\n'
 
  out+='\n**Terminal-Bench 2.1:** '+str(t['tasks'])+' tasks verified at revision `'+t['revision']+'`; Harbor '+t['evaluator_version']+' source inspected. [Official dataset]('+t['sources'][0]+'). No local official score; isolated container/evaluator/broker execution remains unadmitted.\n'
+ if t.get('final_gate'):
+  gate=t['final_gate']
+  out+='\n**Final gate: NO-GO for the current local campaign.** Agents remains **NOT MEASURED / TECHNICALLY BLOCKED**. Continue complete coding/tools qualification and keep local agent validation separate. This is not a permanent V100 hardware exclusion.\n\n<details><summary>Terminal-Bench source review, blockers and reopening conditions</summary>\n\n'
+  out+='Decision recorded '+escape(gate['at_utc'])+'; audit SHA256 `'+gate['audit_sha256']+'`. All89 task configurations inspected; no task/verifier execution or GPU run. Published at-least-five-trials/task leaderboard settings differ from a local single pass.\n\n'
+  for reason in gate['blockers']:out+='- '+escape(reason)+'\n'
+  out+='\n'+escape(gate['not_hardware_exclusion'])+'\n\n'+escape(gate['budget_interpretation'])+'\n\nReopening requires:\n\n'
+  for reason in gate['reopening_requirements']:out+='- '+escape(reason)+'\n'
+  out+='\n'+escape(gate['hub_digest_to_git_tree_mapping'])+'\n\nSources: '+', '.join('[pinned source]('+url+')' for url in gate['sources'])+'\n\n</details>\n'
  out+='\n**Gemma context:** ['+g['experiment_id']+'](experiments/'+g['experiment_id']+'.md) failed during startup, before any task. The bridge fix passed '+str(g['CPU_fix_tests'])+' direct transport controls. This is not a negative model-quality result.\n'
  if g.get('corrective_result'):
   c=g['corrective_result'];out+='\nCorrected GPU run ['+c['experiment_id']+'](experiments/'+c['experiment_id']+'.md): '+str(c['tasks'])+' cases completed, '+str(c['context_preflight_errors'])+' context-preflight errors and '+str(c['HTTP_errors'])+' request errors; '+str(c['solved'])+'/'+str(c['tasks'])+' solved versus '+str(c['reference_solved'])+'/'+str(c['tasks'])+' at8K. Task time changed by '+format(c['task_phase_change_percent'],'+.2f')+'%, peak VRAM by '+format(c['peak_vram_change_mib'],'+.0f')+'MiB. Technical fix confirmed; no task-success gain or Champion claim.\n'

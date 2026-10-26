@@ -1,13 +1,18 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-26T00:02:31.701006+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-26T11:22:56.868182+00:00. This static page is not a live monitor.**
 
-Last observed: R544 · AUDITED_RESULT_AVAILABLE.
+Last observed: R549 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
-| [R544](experiments/R544.md) | COMPLETE | 164/164 | 90.856 | 794.734 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
-| [R543](experiments/R543.md) | COMPLETE | 33/33 | 76.467 | 291.735 | 11.483 | NOT MEASURED / NOT MEASURED |
+| [R549](experiments/R549.md) | COMPLETE | 200/200 | 125.374 | 737.137 | 0.391 | NOT MEASURED / NOT MEASURED |
+| [R548](experiments/R548.md) | COMPLETE | 164/164 | 103.223 | 599.39 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R547](experiments/R547.md) | COMPLETE | 32/32 | 169.93 | 85.771 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R546](experiments/R546.md) | COMPLETE | 400/400 | 74.774 | 818.456 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R545](experiments/R545.md) | COMPLETE | 32/32 | 59.144 | 601.23 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R544](experiments/R544.md) | COMPLETE | 164/164 | 90.856 | 794.734 | NOT MEASURED | 101.0 / 9.0 |
+| [R543](experiments/R543.md) | COMPLETE | 33/33 | 76.467 | 291.735 | 11.483 | 101.0 / 9.0 |
 | [R542](experiments/R542.md) | COMPLETE | 200/200 | 77.661 | 304.769 | 0.39 | 99.0 / 12.0 |
 | [R541](experiments/R541.md) | COMPLETE | 164/164 | 76.322 | 350.48 | NOT MEASURED | 101.0 / 9.0 |
 | [R540](experiments/R540.md) | COMPLETE | 64/64 | 73.986 | 117.603 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
@@ -99,6 +104,20 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R543 | export | FAILED | 27.424 |
 | R544 | collect | FAILED | 0.096 |
 | R543 | independent_review | COMPLETE | 5.039 |
+| R544 | security | COMPLETE | 12.028 |
+| R544 | push | COMPLETE | 3.841 |
+| R545 | collect | COMPLETE | 5.304 |
+| R545 | security | COMPLETE | 12.009 |
+| R545 | push | COMPLETE | 3.139 |
+| R546 | collect | COMPLETE | 3.343 |
+| R546 | security | COMPLETE | 11.943 |
+| R546 | push | COMPLETE | 3.037 |
+| R547 | collect | COMPLETE | 5.544 |
+| R548 | collect | COMPLETE | 49.32 |
+| R548 | independent_review | COMPLETE | 0.038 |
+| R548 | integrity | COMPLETE | 0.043 |
+| R549 | collect | COMPLETE | 2.318 |
+| R549 | integrity | COMPLETE | 0.039 |
 
 </details>
 

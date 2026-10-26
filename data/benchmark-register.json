@@ -22697,6 +22697,726 @@
       }
     }
   ],
+  "configuration_consolidation": {
+    "GPU_runs": 0,
+    "at_utc": "2026-10-26T07:29:37.213977+00:00",
+    "audit_id": "audit-2b584c20598d31ce1310",
+    "audit_sha256": "2b584c20598d31ce1310aa4a5cad203400fc27c35e29e29cdb7fd05331c058fb",
+    "counts": {
+      "coding_tools_pairs": 12,
+      "configurations": 25,
+      "model_artifacts": 14,
+      "single_category_configurations": 13,
+      "unique_complete_category_measurements": 37
+    },
+    "input_history_sha256": "94683d429f9cba2931266e97cd1cd7e91ee65a1291e302e98981c4162fb6182a",
+    "input_public_git_commit": "9f7b29613423858c2de163feb89350adcef05d1c",
+    "kind": "HASH_BOUND_CONFIGURATION_CONSOLIDATION_DECISIONS",
+    "merge_policy": "Exact existing configurationKey and captured model, engine, kernel, startup and inference evidence; unknown never means equal. Raw capture IDs, benchmark adapters and evaluation-only budgets remain individually linked. No extra merge introduced.",
+    "rows": [
+      {
+        "classification": "HISTORICAL",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "f580f3355177307d8c5bacd2070b7e2edf206d94445243c31c9241dad50e4c8d",
+        "experiments": [
+          "R217"
+        ],
+        "further_qualification": "NEIN",
+        "id": "cfg-a69d0e339eeab4501399d65d30c2b6f7846566e191a7aec7cf4299fad4ee5c90",
+        "member_ids": [
+          "cfg-a69d0e339eeab4501399d65d30c2b6f7846566e191a7aec7cf4299fad4ee5c90"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "OmniCoder 9B",
+        "model_sha256": "78af5105675a93f2909d625288a87be86ceef620985ab255f72dc028e0290e82",
+        "next_step": "Use current short-listed profiles for remaining decisions; preserve this result and original configuration.",
+        "partial_evidence": [],
+        "reason": "Retained older configuration with its exact captured conditions; newer separately identified profiles exist. Unknown historical fields do not justify merging. No automatic missing-category rerun."
+      },
+      {
+        "classification": "HISTORICAL",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "d1ae9d2d6b727dfcac88bf3114d82a360c8c0f1ea5a0c2ca23fd67a07498a709",
+        "experiments": [
+          "R254"
+        ],
+        "further_qualification": "NEIN",
+        "id": "cfg-515700b7314a68b615da95138e8bd30da9c6011ad6762cd581468394c6cc996e",
+        "member_ids": [
+          "cfg-515700b7314a68b615da95138e8bd30da9c6011ad6762cd581468394c6cc996e"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Ornith 1.5 9B",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "next_step": "Use current short-listed profiles for remaining decisions; preserve this result and original configuration.",
+        "partial_evidence": [],
+        "reason": "Retained older configuration with its exact captured conditions; newer separately identified profiles exist. Unknown historical fields do not justify merging. No automatic missing-category rerun."
+      },
+      {
+        "classification": "HISTORICAL",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "397dd66142c89c34c06bd68320182b997c3ae38f43f10b569b67f6a16aa6967c",
+        "experiments": [
+          "R255"
+        ],
+        "further_qualification": "NEIN",
+        "id": "cfg-3a4e792f68b45a2e90c5792a2115936434eefcdfec54c6e5795ea0d236d9d920",
+        "member_ids": [
+          "cfg-3a4e792f68b45a2e90c5792a2115936434eefcdfec54c6e5795ea0d236d9d920"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Qwen3.5 9B",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "next_step": "Use current short-listed profiles for remaining decisions; preserve this result and original configuration.",
+        "partial_evidence": [],
+        "reason": "Retained older configuration with its exact captured conditions; newer separately identified profiles exist. Unknown historical fields do not justify merging. No automatic missing-category rerun."
+      },
+      {
+        "classification": "HISTORICAL",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "f8e4a3ab412be7a513296808e1955b71d35976904adb5bf39ae7560b6fa72a03",
+        "experiments": [
+          "R425"
+        ],
+        "further_qualification": "NEIN",
+        "id": "cfg-0ae84c0e94364fd137d104cdd1f6a62ec72661c4520a27ddfdfce9f791574450",
+        "member_ids": [
+          "cfg-0ae84c0e94364fd137d104cdd1f6a62ec72661c4520a27ddfdfce9f791574450"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Gemma4 12B IT QAT",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "next_step": "Use current short-listed profiles for remaining decisions; preserve this result and original configuration.",
+        "partial_evidence": [],
+        "reason": "Retained older configuration with its exact captured conditions; newer separately identified profiles exist. Unknown historical fields do not justify merging. No automatic missing-category rerun."
+      },
+      {
+        "classification": "HISTORICAL",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "81422668a6ca0be9cc38678f4bbaeef24f8b97db723c804bd090e3cf7ac2e98c",
+        "experiments": [
+          "R117"
+        ],
+        "further_qualification": "NEIN",
+        "id": "cfg-06043d3a7d18c093e29a06609ddcaa375f519463c78325e89a0df1937cb66307",
+        "member_ids": [
+          "cfg-06043d3a7d18c093e29a06609ddcaa375f519463c78325e89a0df1937cb66307"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Qwen3.8 27B",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "next_step": "Use current short-listed profiles for remaining decisions; preserve this result and original configuration.",
+        "partial_evidence": [],
+        "reason": "Retained older configuration with its exact captured conditions; newer separately identified profiles exist. Unknown historical fields do not justify merging. No automatic missing-category rerun."
+      },
+      {
+        "classification": "HISTORICAL",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "5b23dbdae4793e81040e3dfa3cdcf222ac5f6938f0035b3e4d40b77c85e036fe",
+        "experiments": [
+          "R118"
+        ],
+        "further_qualification": "NEIN",
+        "id": "cfg-5722b8039c1512e61e3c28558f7983b16695457fa164e45f1d3b4d0f24839b45",
+        "member_ids": [
+          "cfg-5722b8039c1512e61e3c28558f7983b16695457fa164e45f1d3b4d0f24839b45"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Qwen3.8 27B",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "next_step": "Use current short-listed profiles for remaining decisions; preserve this result and original configuration.",
+        "partial_evidence": [],
+        "reason": "Retained older configuration with its exact captured conditions; newer separately identified profiles exist. Unknown historical fields do not justify merging. No automatic missing-category rerun."
+      },
+      {
+        "classification": "DEFERRED",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "220b1d2a31d6685d0125c47c09361c2ac5ad658d70f571a99d16ac0b3f712e0c",
+        "experiments": [
+          "R279"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-60662522098f51dfbdef42ba516ce26be4af82cf3529a4c30a1acc9c5ef264a0",
+        "member_ids": [
+          "cfg-60662522098f51dfbdef42ba516ce26be4af82cf3529a4c30a1acc9c5ef264a0"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Ternary Bonsai 2 27B",
+        "model_sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1",
+        "next_step": "Require exact model/engine/template and relevant missing-category hypothesis before requesting any new run.",
+        "partial_evidence": [],
+        "reason": "Complete historical Bonsai coding result; no complete Tools category proven for this exact captured configuration. Evidence from different Bonsai builds/shapes cannot fill the gap."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "01139eb82461f405f000f89b1b5dabd87dd3582db82f300bd5ced584bf336778",
+        "experiments": [
+          "R452",
+          "R476"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+        "member_ids": [
+          "cfg-bf94708017e31716c460eed85be81ce58b6a502ac82268cb793930118de990ae",
+          "cfg-3336324962cd5565abc86e4a6440d7b5a982511204e848fe30f92f1d524f0813"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "LFM2.5 8B A1B",
+        "model_sha256": "7ccf57a2d410d8822d1560a1ca10c8318f3e15d6a8f6d42d1903d58e80ea20a6",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "e0359fae00f31994050954cb1d8293a45dcebaa6b6c16313100883b31af6a00e",
+        "experiments": [
+          "R454",
+          "R480"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-6fee55e4cd29ef463b21160ec81c870ad503865bd3fa368fefb0b64d6c8b830e",
+        "member_ids": [
+          "cfg-6fee55e4cd29ef463b21160ec81c870ad503865bd3fa368fefb0b64d6c8b830e",
+          "cfg-146fc8bdf55eefbb6d995e664f5c6ef1f86c8b8d5c5a2f4093859df6decc9a17"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "MiMo V2.6 Distill Qwen 9B",
+        "model_sha256": "de6dae10334e088876358ef9f574835bb3b401ea2ecf5d6a9473f37894df6b73",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "a993905b2769676002e17bda9862971529977b4330231f0f1e09dff33fa4931a",
+        "experiments": [
+          "R464",
+          "R472"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625",
+        "member_ids": [
+          "cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625",
+          "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "Gemma4 12B IT QAT",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "86e1093cbca158b3c9514f14a4a99561e14ecbc4c0168cb8bad65848654c8698",
+        "experiments": [
+          "R465",
+          "R474"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653",
+        "member_ids": [
+          "cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653",
+          "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "Qwen3.5 9B",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "PARTIAL_TIME_LIMIT",
+        "complete_categories": [
+          "coding"
+        ],
+        "configuration_key_sha256": "636873ea9d0504d361f5123e84521daacdb24a721018611ae3e9383b0d92f657",
+        "experiments": [
+          "R466"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0",
+        "member_ids": [
+          "cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0"
+        ],
+        "missing_categories": [
+          "tools",
+          "agents"
+        ],
+        "model": "Qwen3.8 27B",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "next_step": "Prefer already complete relevant variants; require new feasibility evidence within the unchanged1200s TASK cap before a new run.",
+        "partial_evidence": [
+          {
+            "audit_hash": "8a46b0c1b28737158191c300689375caf69712fd841378c76986ef6ac966e16d",
+            "experiment_id": "R473",
+            "intended_tasks": 200,
+            "runtime_configuration_id": "cfg-8f78ed6d25af1f692013432f586b4f86710b67f7e2c3f08af4cb3989b6ca2ca5",
+            "solved": 165,
+            "status": "PARTIAL",
+            "status_reason": "Protected GPU wrapper timeout; no full task-budget exhaustion is claimed. Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full200 qualification, model rejection or extrapolation.",
+            "tasks": 197
+          },
+          {
+            "audit_hash": "967675b12636b578ecd8285dbf9a982b32eb1491dd587d46168d8ebdb2548458",
+            "experiment_id": "R538",
+            "intended_tasks": 200,
+            "runtime_configuration_id": "cfg-a5de568e5c658767b28ed3b9574061177fee4798eb6577ed8fc54d57b7dbac34",
+            "solved": 167,
+            "status": "PARTIAL",
+            "status_reason": "Observed task-deadline prefix. Identical independent CPU scoring. Unattempted and incomplete tasks remain unknown; no full200 qualification, model rejection or extrapolation.",
+            "tasks": 199
+          }
+        ],
+        "reason": "The missing category has only a preserved budget-limited prefix in a proven matching inference configuration. It cannot contribute to the official mean."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "31397c5296f06c832a51c6938a7378baca73a93dc03e113af5a6e277fa311640",
+        "experiments": [
+          "R471",
+          "R478"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e",
+        "member_ids": [
+          "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e",
+          "cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "OmniCoder 9B",
+        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "PARTIAL_TIME_LIMIT",
+        "complete_categories": [
+          "tools"
+        ],
+        "configuration_key_sha256": "c1f936349d72186f4190dcd2d843281063767082fb34608541ee23ec456cb1d4",
+        "experiments": [
+          "R477"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-7afa9f9f465d059ff54d9b6fef6762dded717f96ac2772dd651304a689955bd3",
+        "member_ids": [
+          "cfg-7afa9f9f465d059ff54d9b6fef6762dded717f96ac2772dd651304a689955bd3"
+        ],
+        "missing_categories": [
+          "coding",
+          "agents"
+        ],
+        "model": "LFM2.5 24B A2B",
+        "model_sha256": "d1c03f73ecaf61017d70419eec9e5dc0b05d50ae26c23d522829b934fbabf8a5",
+        "next_step": "Reuse the recorded CPU diagnosis; no blind retry or unsupported model exclusion.",
+        "partial_evidence": [
+          {
+            "audit_hash": "4b21aae587a8232b7737bc0c74bf6fc9e11ceb2678ddc353ee2ce2c780a4b1a0",
+            "experiment_id": "R468",
+            "intended_tasks": 164,
+            "runtime_configuration_id": "cfg-a300301b48f44db40a601e616cb8ee7337a28054480f50650ce8d32e85116146",
+            "solved": 77,
+            "status": "PARTIAL",
+            "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+            "tasks": 85
+          }
+        ],
+        "reason": "Coding R468 stopped after85/164 tasks; Tools R477 completed6/200. Low complete Tools score is not a technical failure or partial score. Diagnose native arguments/format before considering additional qualification."
+      },
+      {
+        "classification": "PARTIAL_TIME_LIMIT",
+        "complete_categories": [
+          "tools"
+        ],
+        "configuration_key_sha256": "50194f4758da50e4e3d37216b2c3cf61ac601708e82c9bea0f4472acf69911db",
+        "experiments": [
+          "R479"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-32d4074560ff89b4f99b63a489f28db61128bc466affc9fdc34716c2a8ffccf5",
+        "member_ids": [
+          "cfg-32d4074560ff89b4f99b63a489f28db61128bc466affc9fdc34716c2a8ffccf5"
+        ],
+        "missing_categories": [
+          "coding",
+          "agents"
+        ],
+        "model": "Ornith 1.5 9B",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "next_step": "Prefer already complete relevant variants; require new feasibility evidence within the unchanged1200s TASK cap before a new run.",
+        "partial_evidence": [
+          {
+            "audit_hash": "1aa2ab1ca317950c6e99400d02a68f9603d9bc9c6d37697182e79830f151b337",
+            "experiment_id": "R460",
+            "intended_tasks": 164,
+            "runtime_configuration_id": "cfg-778b1c65d424100439c788dda26282cda50550adcc9a59d5b72c1abf1216d745",
+            "solved": 85,
+            "status": "PARTIAL",
+            "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+            "tasks": 93
+          }
+        ],
+        "reason": "The missing category has only a preserved budget-limited prefix in a proven matching inference configuration. It cannot contribute to the official mean."
+      },
+      {
+        "classification": "PARTIAL_TIME_LIMIT",
+        "complete_categories": [
+          "tools"
+        ],
+        "configuration_key_sha256": "ebd5889cb9256c44d776f9649e2caf0033c22d16999e4a23fed78fd793d051e2",
+        "experiments": [
+          "R482"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-256a4259cced4012a6f1d2aca480672d7937d939e945b91ea2e5ad81269fe190",
+        "member_ids": [
+          "cfg-256a4259cced4012a6f1d2aca480672d7937d939e945b91ea2e5ad81269fe190"
+        ],
+        "missing_categories": [
+          "coding",
+          "agents"
+        ],
+        "model": "Nexus 9B CodeCore Merge",
+        "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+        "next_step": "Prefer already complete relevant variants; require new feasibility evidence within the unchanged1200s TASK cap before a new run.",
+        "partial_evidence": [
+          {
+            "audit_hash": "61e11347ae46dd203c8895aa45bc6a8d944c9506cedc5c39b4453d5daeaf550b",
+            "experiment_id": "R481",
+            "intended_tasks": 164,
+            "runtime_configuration_id": "cfg-fa7673bc9bbe2719ab75ce63cc4f67d61bb1e6e4cffe230533194c4d02467853",
+            "solved": 71,
+            "status": "PARTIAL",
+            "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+            "tasks": 81
+          }
+        ],
+        "reason": "The missing category has only a preserved budget-limited prefix in a proven matching inference configuration. It cannot contribute to the official mean."
+      },
+      {
+        "classification": "PARTIAL_TIME_LIMIT",
+        "complete_categories": [
+          "tools"
+        ],
+        "configuration_key_sha256": "b0070bc8b7a22e994d50b746af662500597d0e133f640441612f7e18ec619e87",
+        "experiments": [
+          "R484"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-a655247266cf1392456339334bac37e034964d6fd64d478ddae1ee3da97015bb",
+        "member_ids": [
+          "cfg-a655247266cf1392456339334bac37e034964d6fd64d478ddae1ee3da97015bb"
+        ],
+        "missing_categories": [
+          "coding",
+          "agents"
+        ],
+        "model": "Slopus 9B",
+        "model_sha256": "aa4bc97efde586ce27e14fedd3fd896d78bb83b633ac8e5cd07113086b49479b",
+        "next_step": "Prefer already complete relevant variants; require new feasibility evidence within the unchanged1200s TASK cap before a new run.",
+        "partial_evidence": [
+          {
+            "audit_hash": "9c2f4c5771203d660dd390257172f5598c3e0f1dcc275977c7af997b17d9124b",
+            "experiment_id": "R483",
+            "intended_tasks": 164,
+            "runtime_configuration_id": "cfg-a928ba70765c1ef79611f3070d02eaa47f20e8f14e14ae25f1b2829b7bc944e2",
+            "solved": 87,
+            "status": "PARTIAL",
+            "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+            "tasks": 132
+          }
+        ],
+        "reason": "The missing category has only a preserved budget-limited prefix in a proven matching inference configuration. It cannot contribute to the official mean."
+      },
+      {
+        "classification": "PARTIAL_TIME_LIMIT",
+        "complete_categories": [
+          "tools"
+        ],
+        "configuration_key_sha256": "8e1bbfcaf948e6ce4edfcc08cfe427c7732e4f8c12cd0c47154056d21daf7cff",
+        "experiments": [
+          "R486"
+        ],
+        "further_qualification": "SPÄTER",
+        "id": "cfg-1bfa20f10018719df37b9b8e2315529dade0e317da207d333bd337e551021d84",
+        "member_ids": [
+          "cfg-1bfa20f10018719df37b9b8e2315529dade0e317da207d333bd337e551021d84"
+        ],
+        "missing_categories": [
+          "coding",
+          "agents"
+        ],
+        "model": "OmniCoder Opus Distill 9B",
+        "model_sha256": "6a089b1b2d1fe21bbe78315a94da5b81e9dde538f9737a7f2c4a53c4eb42ae66",
+        "next_step": "Prefer already complete relevant variants; require new feasibility evidence within the unchanged1200s TASK cap before a new run.",
+        "partial_evidence": [
+          {
+            "audit_hash": "b40db967f1999cba914410beafdc9190640abb003649734d6eed3fd927370694",
+            "experiment_id": "R485",
+            "intended_tasks": 164,
+            "runtime_configuration_id": "cfg-377170b50200a0a9f667e68998ed08155cb77536a9c39f1888d0b56f9f3cd0be",
+            "solved": 106,
+            "status": "PARTIAL",
+            "status_reason": "Actual scored task subset under the captured configuration; remaining tasks are unmeasured, never zero.",
+            "tasks": 132
+          }
+        ],
+        "reason": "The missing category has only a preserved budget-limited prefix in a proven matching inference configuration. It cannot contribute to the official mean."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "a63144dbb1bccccaea216c15697c44a024ec45e0d8d4400abfc562cc342a832d",
+        "experiments": [
+          "R488",
+          "R489"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba",
+        "member_ids": [
+          "cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba",
+          "cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "Nexus 9B CodeCore Merge",
+        "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "fdb5708ab1086f12dff955b621b3cfeef7e1df8fbd7ce6d8ceab1629f686496a",
+        "experiments": [
+          "R490",
+          "R491"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-f13e4e7609cb14c796219e155df1c036e56bbc0457fc2fb9295ee5c6c6442770",
+        "member_ids": [
+          "cfg-f13e4e7609cb14c796219e155df1c036e56bbc0457fc2fb9295ee5c6c6442770",
+          "cfg-ff8aa24790daeddd0ca54e128d2f683cb96028060882da81ea694929fb5d3a0b"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "OmniCoder Opus Distill 9B",
+        "model_sha256": "6a089b1b2d1fe21bbe78315a94da5b81e9dde538f9737a7f2c4a53c4eb42ae66",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "94c99af12b5e4087f07b773b7c60824b93d06b8c988f1bebd99901291fe1d25c",
+        "experiments": [
+          "R493",
+          "R494"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-c55eca0a22e298680cf6a73c62c0f7732aaa8ee23ab8d2f0682fda8a312d3db7",
+        "member_ids": [
+          "cfg-c55eca0a22e298680cf6a73c62c0f7732aaa8ee23ab8d2f0682fda8a312d3db7",
+          "cfg-6a43bed2525188d98f0a37b4c8e3ffb92b1c742ac3d70d304d9de0754fabb77b"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "Slopus 9B",
+        "model_sha256": "aa4bc97efde586ce27e14fedd3fd896d78bb83b633ac8e5cd07113086b49479b",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "aee3daa82fbbfcf32a068db9ec23d186be4826330dbed2f7d5276f334426751a",
+        "experiments": [
+          "R495",
+          "R496"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655",
+        "member_ids": [
+          "cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655",
+          "cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "Ornith 1.5 9B",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "tools",
+          "coding"
+        ],
+        "configuration_key_sha256": "9336377409555c7557baf149e3dc62de735df89a3a305a3d14af838d4c6c8949",
+        "experiments": [
+          "R513",
+          "R544"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-18b3c3040974b775b83cb111656e53a39d7005d0e104891cc2e807e5f0eeebc0",
+        "member_ids": [
+          "cfg-18b3c3040974b775b83cb111656e53a39d7005d0e104891cc2e807e5f0eeebc0",
+          "cfg-a54433c02b7a695ccd9e9ca3c60a5342d47818f909647a2c3b3fa615590fd91c"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "Gemma4 12B IT QAT",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "0ce842547c8834258947b746271e81e36086c71c8ec73a9fcac72863db1f578e",
+        "experiments": [
+          "R516",
+          "R517"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf",
+        "member_ids": [
+          "cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf",
+          "cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "OmniCoder 9B",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      },
+      {
+        "classification": "QUALIFIED_2_OF_3",
+        "complete_categories": [
+          "coding",
+          "tools"
+        ],
+        "configuration_key_sha256": "18cfea2ee86ee32fd194e41e12632367e136e2927dcdee925d4f0941b8c19aa3",
+        "experiments": [
+          "R541",
+          "R542"
+        ],
+        "further_qualification": "TECHNISCH BLOCKIERT",
+        "id": "cfg-0826b77042cf7a110898c986ab209eeed23a2c3b3e6c3f22b914fc489ff601ad",
+        "member_ids": [
+          "cfg-0826b77042cf7a110898c986ab209eeed23a2c3b3e6c3f22b914fc489ff601ad",
+          "cfg-624ae7774142d9d42df292f10804a8b704b695ebfd094ad7d9494e641a6edf97"
+        ],
+        "missing_categories": [
+          "agents"
+        ],
+        "model": "OmniCoder 9B",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "next_step": "Retain category evidence; use separate local agent validation. Reopen official Agents only after the documented execution gate.",
+        "partial_evidence": [],
+        "reason": "Coding and Tools complete in the same proven inference configuration. Official Agents is not measured: isolated Terminal-Bench execution is not admitted."
+      }
+    ],
+    "scores_changed": false
+  },
   "definition_history": [
     {
       "benchmark_id": "humanevalplus-v0.1.10",
@@ -25135,6 +25855,18 @@
       "proof_path": "staging/r544/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
       "proof_sha256": "5da692bf721240740ff5a0868c0e44c09d0f329625469727a762f4d683ab47e2",
       "source_audit_hash": "d13bc85d40e17f340c3722e8deece59fcdf08b9df9a196f74de791cda0aa2639"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r548/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "027a92f00164fcf06d9b4d0085377d25c387acd73abaf9eb16ff245d2d458d0a",
+      "source_audit_hash": "e545ee1426b3b825a7a46c8fed7a85bf91b982a58f47ed5ec028a69d1eb00eec"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r549/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "43038817dd899adba200096e5a523a37c21cc5929ae9a2caef8cdf0e7112e458",
+      "source_audit_hash": "ebb7528563c75fc63407e20a19c939e3c5c63fa3f4e00633deae404bdfdfaecb"
     }
   ],
   "paired_coding_reviews": [

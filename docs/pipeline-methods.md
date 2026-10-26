@@ -200,6 +200,36 @@ Evaluator correction: replay preserves the exact captured fixture mapping order 
 
 **Terminal-Bench 2.1:** 89 tasks verified at revision `7131e4375048a0e408a8fb404b5f499d726b695b`; Harbor 0.24.0 source inspected. [Official dataset](https://hub.harborframework.com/datasets/terminal-bench/terminal-bench-2-1). No local official score; isolated container/evaluator/broker execution remains unadmitted.
 
+**Final gate: NO-GO for the current local campaign.** Agents remains **NOT MEASURED / TECHNICALLY BLOCKED**. Continue complete coding/tools qualification and keep local agent validation separate. This is not a permanent V100 hardware exclusion.
+
+<details><summary>Terminal-Bench source review, blockers and reopening conditions</summary>
+
+Decision recorded 2026-10-26T07:08:00.571913+00:00; audit SHA256 `e66fcbebf0412baf338b21b36e0b6af9364a488ddce2681d409ff3fe36552709`. All89 task configurations inspected; no task/verifier execution or GPU run. Published at-least-five-trials/task leaderboard settings differ from a local single pass.
+
+- No installed/reviewed local Harbor or container backend; no isolated task environment/verifier reproduction.
+- Current broker admits fixed inference/development adapters, not arbitrary official shell-task execution or a Harbor agent-to-model gateway.
+- No admitted aggregate1200s TASK clock across interactive tool/agent/verifier phases; no trial/retry budget reset is permitted.
+- All89 task specs reference mutable image tags; exact image digests, sizes and runtime dependencies have not been resolved/admitted.
+- Harbor Hub content digest has not been independently mapped to the pinned Git-source task set. Static2.0 registry is not a2.1 substitute.
+
+All89 specs request zero task GPUs; this alone does not exclude SM70. Requested per-task CPUs1–4 and RAM2–8GiB are source requirements, not measured runtime use. API-base support exists in inspected Harbor source; the isolated local gateway remains unimplemented/unadmitted.
+
+Allowance arithmetic, not measured task duration or a lower bound. Declared per-task timeouts are maxima, not runtime estimates. No demonstrated full89-task completion within the local aggregate cap. A local single89-task evaluation and published at-least-five-trials/task leaderboard protocol are distinct.
+
+Reopening requires:
+
+- Admit one isolated local container backend with read-only inputs, ephemeral task state and no productive mounts/sockets/secrets.
+- Pin image manifests/dependencies and prove verifier behavior in a separately approved CPU-only sandbox.
+- Bind Hub dataset content to the exact89 task/evaluator identities and choose a pinned agent harness/model gateway.
+- Review/test one shared1200s task clock, single-GPU scheduling, failure retention and no automatic retries.
+- Predeclare local one-pass versus at-least-five-trials leaderboard scope and demonstrate feasibility without changing official tasks/scoring.
+
+NOT VERIFIED; old Harbor static registry contains terminal-bench2.0, which must not be substituted for2.1. Hub lookup is a separate source path.
+
+Sources: [pinned source](https://github.com/harbor-framework/terminal-bench-2-1/tree/7131e4375048a0e408a8fb404b5f499d726b695b), [pinned source](https://hub.harborframework.com/datasets/terminal-bench/terminal-bench-2-1), [pinned source](https://github.com/harbor-framework/harbor/tree/6099b8cf2bfbbb3e7ff1eb2163bfc4524dbd9ba5)
+
+</details>
+
 **Gemma context:** [R528](experiments/R528.md) failed during startup, before any task. The bridge fix passed 21 direct transport controls. This is not a negative model-quality result.
 
 Corrected GPU run [R529](experiments/R529.md): 18 cases completed, 0 context-preflight errors and 0 request errors; 9/18 solved versus 9/18 at8K. Task time changed by +7.62%, peak VRAM by +136MiB. Technical fix confirmed; no task-success gain or Champion claim.

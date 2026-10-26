@@ -962,3 +962,23 @@ test('Alternate Omni own178/200 tools join134/164 coding with exact counter cost
  const mean=M.availableAverage(row,{allMeasured:true},view.benchmarkMap);assert.equal(mean.count,2);assert(Math.abs(mean.score-(134/164*100+89)/2)<1e-12);
  const costs=M.performanceSummary(row,mean.keys,view.benchmarkMap);assert.equal(costs.tasks,364);assert.equal(costs.solved,312);assert.equal(run.counter_energy.j_per_success_lower,765.7736966292134);assert.equal(run.counter_energy.j_per_success_upper,766.2698932584269);
 });
+
+test('exact-artifact groups preserve every independent configuration and never pool scores',()=>{
+ const v=M.comparisonView(M.build(data)),before=M.canonical(data.history),groups=M.artifactGroups(v.rows);
+ assert.equal(groups.flatMap(g=>g.rows).length,v.rows.length);
+ assert.equal(new Set(groups.flatMap(g=>g.rows.map(r=>r.id))).size,v.rows.length);
+ for(const g of groups){assert(g.rows.every(r=>r.values['model.artifact_sha256']===g.key));assert(!Object.hasOwn(g,'score'));assert(!Object.hasOwn(g,'average'));}
+ const q=groups.find(g=>g.rows.some(r=>r.runs.some(x=>x.experiment_id==='R117')));assert(q.rows.some(r=>r.runs.some(x=>x.experiment_id==='R118')));
+ assert.equal(M.canonical(data.history),before);
+});
+test('unknown artifact identity cannot merge configurations by display name',()=>{
+ const rows=[{id:'a',displayName:'same',values:{}},{id:'b',displayName:'same',values:{}}];
+ assert.equal(M.artifactGroups(rows).length,2);
+});
+test('qualification decisions preserve partials outside official score cells',()=>{
+ const v=M.comparisonView(M.build(data));if(!data.register.configuration_consolidation)return;
+ const r=v.rows.find(r=>r.runs.some(x=>x.experiment_id==='R466'));assert.equal(r.qualification.classification,'PARTIAL_TIME_LIMIT');
+ assert(r.qualification.partial_evidence.some(e=>e.experiment_id==='R538'&&e.tasks===199&&e.solved===167));
+ assert(!r.runs.some(x=>x.experiment_id==='R538'));
+ for(const row of v.rows.filter(r=>r.qualification))assert.equal(row.values['qualification.status'],row.qualification.classification);
+});

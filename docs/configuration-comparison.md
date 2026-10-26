@@ -18,25 +18,25 @@ Task budget: **1,200 seconds total**, shared across parts; startup and wrapper l
 
 Model names and file names are not proof of architecture, parameter count, QAT, SVD, original weights or the executed kernel. Requested flags and verified execution remain separate fields. Engine versions are never substituted with build hashes. Newly discovered fields automatically become selectable; historical fields are supplemented only through hash-bound evidence annotations; immutable profiles and results are never rewritten. Historical server logs reporting `build 0 (unknown)` cannot establish an upstream release or Git commit. Build IDs, executable hashes and CUDA-library hashes remain separate identities.
 
-- Recorded field: model.hf_revision · Profiles with a value: 29 · Profiles without a value: 8
-- Recorded field: model.hf_repository · Profiles with a value: 29 · Profiles without a value: 8
-- Recorded field: model.parameter_count · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: model.qat · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: model.svd · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: model.architecture · Profiles with a value: 36 · Profiles without a value: 1
-- Recorded field: engine.version · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: engine.git_commit · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: engine.fork_repository · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: engine.cuda_version · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: engine.driver_version · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: engine.executed_kernel_backend_path · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: runtime.thinking_level · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: runtime.reasoning_budget_tokens · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: optimizations.speculation_effective · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: optimizations.flash_attention_effective · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: optimizations.cuda_graphs.actual_capture_replay · Profiles with a value: 0 · Profiles without a value: 37
-- Recorded field: engine.source_base_commit · Profiles with a value: 37 · Profiles without a value: 0
-- Recorded field: engine.source_version_label · Profiles with a value: 37 · Profiles without a value: 0
+- Recorded field: model.hf_revision · Profiles with a value: 31 · Profiles without a value: 8
+- Recorded field: model.hf_repository · Profiles with a value: 31 · Profiles without a value: 8
+- Recorded field: model.parameter_count · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: model.qat · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: model.svd · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: model.architecture · Profiles with a value: 38 · Profiles without a value: 1
+- Recorded field: engine.version · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: engine.git_commit · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: engine.fork_repository · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: engine.cuda_version · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: engine.driver_version · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: engine.executed_kernel_backend_path · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: runtime.thinking_level · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: runtime.reasoning_budget_tokens · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: optimizations.speculation_effective · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: optimizations.flash_attention_effective · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: optimizations.cuda_graphs.actual_capture_replay · Profiles with a value: 0 · Profiles without a value: 39
+- Recorded field: engine.source_base_commit · Profiles with a value: 39 · Profiles without a value: 0
+- Recorded field: engine.source_version_label · Profiles with a value: 39 · Profiles without a value: 0
 
 Coverage counts above refer to capture profiles measured on the three selected category benchmarks before identical inference configurations are joined. Original captures and other benchmarks remain archived. A capture ID, audit hash or descriptive run label is not an inference parameter. Only broker-captured profiles with matching model bytes, engine/kernel builds, full ordered launch flags, inference runtime, optimization and observed sampling settings are joined. Evaluation-only HTTP, startup, scoring and collection time limits do not create a new inference configuration; their original per-run identities and limits remain available. Tool-choice adapter settings remain attached to their benchmark evidence; conflicting tool settings remain separate. Unknown identities never establish equivalence. **Engine-Version / Quellstand** shows a recorded release when available, otherwise the independently linked source-base commit plus local patch variant. A source revision is not an invented upstream release tag. Matching requires the build, server SHA256 and CUDA-library SHA256; shared executable bytes alone cannot establish identical kernels. Source receipts and patch lineage are linked in each profile; unknown historical release tags stay unknown. OmniCoder V1/V2 naming is unified as **OmniCoder 9B** in the display while immutable original labels and separate measured configurations are preserved. Additional column-picker fields expose pinned observed sampler/template controls and per-benchmark timing/energy provenance. TTFT remains unrecorded for non-streaming replies; prompt evaluation time is not TTFT. GPU J/output token includes prefill energy in the same case window.
 
@@ -58,5 +58,15 @@ Run `python -m unittest discover -s scripts` and `node --test scripts/test_maste
 
 Filters accept substrings, `=value`, `!=value`, numeric comparisons such as `>=80`, and `?` for unknown. The CSV always includes immutable configuration IDs, all filtered rows, the currently visible columns and the exact identities of displayed family protocols and the per-row protocols actually included in the available-results mean, with its coverage and policy. Long field values can be inspected directly in a table dialog without leaving the page.
 
+
+</details>
+
+<details><summary>Configuration audit and qualification gaps</summary>
+
+Snapshot: 25 inference configurations / 14 exact model artifacts / 37 distinct complete category measurements. 12 Coding/Tools pairs and 13 single-category configurations. Later qualified profiles may increase the live counts.
+
+The default model overview groups exact artifact hashes only. Expand variants for separate scores; displayed group ranges are not pooled scores or selected winners. The scientific view, filters and CSV retain every measured configuration. Missing-result cells link to their decision, partial evidence and next prerequisite. No additional inference configurations were merged by this review.
+
+[audit-2b584c20598d31ce1310](audits/audit-2b584c20598d31ce1310.md) · Frozen input history SHA256 `94683d429f9cba2931266e97cd1cd7e91ee65a1291e302e98981c4162fb6182a`.
 
 </details>

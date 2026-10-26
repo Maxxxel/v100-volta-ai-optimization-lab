@@ -1,4 +1,5 @@
 """Versioned benchmark/configuration projection. No GPU calls or source mutations."""
+import subprocess
 import collections,copy,hashlib,html,json,math,pathlib,re
 from comparison import extract_tuning
 SCHEMA=1
@@ -1191,6 +1192,24 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
  result['configuration_evidence']=frozen_merge(prior.get('configuration_evidence',[]),ce,'evidence_id')
  result['measurement_evidence']=frozen_merge(prior.get('measurement_evidence',[]),me,'evidence_id')
  validate_history(result,defs)
+ consolidation=db['summary'].get('configuration_consolidation')
+ if consolidation:
+  cp=pathlib.Path(consolidation['path'])
+  if not cp.resolve().is_relative_to(root.resolve()) or digest(cp)!=consolidation['sha256']:raise ValueError('Configuration consolidation identity changed')
+  review=read(cp)
+  if review['GPU_runs']!=0 or review['scores_changed'] is not False:raise ValueError('Consolidation is not a CPU-only assessment')
+  if not re.fullmatch('[a-f0-9]{40}',review['input_public_git_commit']):raise ValueError('Invalid consolidation snapshot revision')
+  frozen=subprocess.check_output(['git','show',review['input_public_git_commit']+':data/configuration-history.json'],cwd=root.parent/'public-repository',timeout=15)
+  if H_BYTES(frozen)!=review['input_history_sha256']:raise ValueError('Consolidation history snapshot changed')
+  profiles_by_id={p['runtime_configuration_id']:p for p in result['profiles']}
+  allowed={'QUALIFIED_2_OF_3','HISTORICAL','PARTIAL_TIME_LIMIT','TECHNICALLY_BLOCKED','DEFERRED','MISSING_PRIORITY'}
+  for row in review['rows']:
+   if row['classification'] not in allowed:raise ValueError('Unknown qualification-gap decision')
+   for ident in row['member_ids']:
+    if profiles_by_id[ident]['model']['artifact_sha256']!=row['model_sha256']:raise ValueError('Consolidation model identity differs')
+   for ev in row['partial_evidence']:
+    if not any(all(run.get(k)==ev[k] for k in ('runtime_configuration_id','audit_hash','experiment_id','tasks','solved','status')) for run in result['runs']):raise ValueError('Unverified partial evidence in consolidation')
+  reg['configuration_consolidation']={**review,'audit_id':receipt(cp,consolidation['sha256']),'audit_sha256':consolidation['sha256']}
  for item in reg.get('candidate_research',[]):
   from derivatives import collect as collect_derivatives
   public=collect_derivatives(root,item,result,receipt)
@@ -1462,6 +1481,10 @@ def render(register,history,comparison,docs,model_registry=None):
  details=page.partition('## Data coverage and missing fields')[2]
  details=re.sub(r'(?m)^\|[^\n]*\n(?:\|[^\n]*\n?)+',prose_table,details)
  page='# Model benchmarks\n\nCoding, tools and agents on one V100. Complete, locally qualified results only; click a score for its configuration and audit.\n\n<div id="all-measured-results" aria-live="polite"></div>\n\n<details><summary>Reading the comparison</summary>\n\nHumanEval+164 · BFCL parallel_multiple200 (category only) · Terminal-Bench2.1 (not yet measured). Missing values are not zero. **Ø Benchmarks** averages available complete category percentages for the same configuration, with coverage n/3; it is not an official overall benchmark. Different coverage or protocols do not establish model superiority.\n\nTask budget: **1,200 seconds total**, shared across parts; startup and wrapper limits are separate. Historical/partial results remain in the [archive](configuration-archive.md).\n\n</details>\n\n<details><summary>Scientific provenance and reproduction</summary>\n\n'+details+'\n</details>\n'
+ if register.get('configuration_consolidation'):
+  review=register['configuration_consolidation'];counts=review['counts']
+  note='\n<details><summary>Configuration audit and qualification gaps</summary>\n\nSnapshot: '+str(counts['configurations'])+' inference configurations / '+str(counts['model_artifacts'])+' exact model artifacts / '+str(counts['unique_complete_category_measurements'])+' distinct complete category measurements. '+str(counts['coding_tools_pairs'])+' Coding/Tools pairs and '+str(counts['single_category_configurations'])+' single-category configurations. Later qualified profiles may increase the live counts.\n\nThe default model overview groups exact artifact hashes only. Expand variants for separate scores; displayed group ranges are not pooled scores or selected winners. The scientific view, filters and CSV retain every measured configuration. Missing-result cells link to their decision, partial evidence and next prerequisite. No additional inference configurations were merged by this review.\n\n'+audit_links([review['audit_id']])+' · Frozen input history SHA256 `'+review['input_history_sha256']+'`.\n\n</details>\n'
+  page+=note
  write(docs/'configuration-comparison.md',page)
  archive='# Configuration archive\n\nPlans, configuration attempts and profiles without benchmark result records are preserved here, separately from the [measured-result master table](configuration-comparison.md). Execution evidence does not imply a scored benchmark or qualification.\n\n<div id="configuration-history"></div>\n\n## Profiles without benchmark result records\n\n'
  archive+=table(['Model','Immutable profile','Evidence'],[[p['model']['name'],'['+p['runtime_configuration_id'][:20]+'](configuration-profiles/'+p['runtime_configuration_id']+'.md)','No benchmark result in history.runs; inspect archived attempt evidence'] for p in history['profiles'] if p['runtime_configuration_id'] not in measured_ids])
