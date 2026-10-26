@@ -1,6 +1,6 @@
 # Model screening
 
-**21/21 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**21/22 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
@@ -787,7 +787,7 @@ Screening → full qualification → targeted optimization → independent confi
   ],
   &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;5a0316109071cfb5fbca9929e0051ca89fe91924f80fe84e77293a026980aeda&quot;,
-  &quot;local_artifact_available&quot;: true,
+  &quot;local_artifact_available&quot;: false,
   &quot;model&quot;: &quot;Slopus-9B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R483&quot;,
   &quot;peak_vram_mib&quot;: 7356.5,
@@ -1062,7 +1062,7 @@ Screening → full qualification → targeted optimization → independent confi
   ],
   &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;c01e6a4e0e53258e49d5c3dc7fe493a98afd8f921a16d983eb76530dc4e7ea47&quot;,
-  &quot;local_artifact_available&quot;: true,
+  &quot;local_artifact_available&quot;: false,
   &quot;model&quot;: &quot;Opus Distill-9B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R485&quot;,
   &quot;peak_vram_mib&quot;: 7356.5,
@@ -5715,6 +5715,59 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
+}</pre></details></td></tr><tr><td>GLM-4.7-Flash</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: null,
+  &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
+  &quot;configuration&quot;: {
+    &quot;binary_identities&quot;: {
+      &quot;libggml-cuda.so.0.26.0&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+      &quot;llama-server&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;
+    },
+    &quot;context&quot;: 8192,
+    &quot;engine&quot;: &quot;llama.cpp native&quot;,
+    &quot;engine_version&quot;: null,
+    &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
+    &quot;model_sha256&quot;: &quot;21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91&quot;,
+    &quot;model_source&quot;: {
+      &quot;base_repository&quot;: &quot;zai-org/GLM-4.7-Flash&quot;,
+      &quot;base_revision&quot;: &quot;7dd20894a642a0aa287e9827cb1a1f7f91386b67&quot;,
+      &quot;hf_repository&quot;: &quot;unsloth/GLM-4.7-Flash-GGUF&quot;,
+      &quot;hf_revision&quot;: &quot;0d32489ecb9db6d2a4fc93bd27ef01519f95474d&quot;,
+      &quot;license&quot;: &quot;mit&quot;,
+      &quot;parameters_in_GGUF&quot;: 29943393920,
+      &quot;quantizer&quot;: &quot;unsloth&quot;
+    },
+    &quot;parent_profile_id&quot;: &quot;mistral-small32-24b-q3km-native-screening32-task1200-reviewed-sm70&quot;,
+    &quot;power_w&quot;: 300,
+    &quot;quantization&quot;: &quot;Q3_K_S&quot;,
+    &quot;request_options&quot;: {
+      &quot;cache_prompt&quot;: false,
+      &quot;max_tokens&quot;: 4096,
+      &quot;min_p&quot;: 0.0,
+      &quot;seed&quot;: 1001,
+      &quot;temperature&quot;: 1.0,
+      &quot;top_k&quot;: 0,
+      &quot;top_p&quot;: 0.95
+    },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-52fd4cc37b1e13dce9ca1d645356a666123a219c7562ec795ac50e1cbec89577&quot;,
+    &quot;task_time_policy&quot;: {
+      &quot;cleanup_seconds&quot;: 60,
+      &quot;startup_seconds&quot;: 180,
+      &quot;task_seconds&quot;: 1200,
+      &quot;wall_seconds&quot;: 1440
+    },
+    &quot;warmup_requests&quot;: 2
+  },
+  &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
+  &quot;experiment_id&quot;: null,
+  &quot;full_benchmark_runs&quot;: [],
+  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;independent_review_sha256&quot;: null,
+  &quot;local_artifact_available&quot;: true,
+  &quot;model&quot;: &quot;GLM-4.7-Flash&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R557&quot;,
+  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
+  &quot;category_results&quot;: null
 }</pre></details></td></tr></tbody></table></div>
 
 Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.

@@ -1119,6 +1119,90 @@
       "experiment_id": "R556",
       "phase": "push",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:40:08.467129+00:00",
+      "duration_s": 35.545850225,
+      "experiment_id": "R557",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:40:09.839675+00:00",
+      "duration_s": 1.368940356,
+      "experiment_id": "R557",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:40:14.570097+00:00",
+      "duration_s": 4.725949017,
+      "experiment_id": "R557",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:40:17.305637+00:00",
+      "duration_s": 2.721829345,
+      "experiment_id": "R557",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:40:30.150447+00:00",
+      "duration_s": 12.840506426,
+      "experiment_id": "R557",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:41:11.253176+00:00",
+      "duration_s": 41.097626365,
+      "experiment_id": "R557",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:41:23.668072+00:00",
+      "duration_s": 12.28951181,
+      "experiment_id": "R557",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:41:24.100942+00:00",
+      "duration_s": 0.061755759,
+      "experiment_id": "R557",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:41:28.029520+00:00",
+      "duration_s": 3.110785656,
+      "experiment_id": "R557",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:48:43.207383+00:00",
+      "duration_s": 36.336645845,
+      "experiment_id": "R557",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:48:44.628649+00:00",
+      "duration_s": 1.418695132,
+      "experiment_id": "R557",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:48:49.408295+00:00",
+      "duration_s": 4.774907326,
+      "experiment_id": "R557",
+      "phase": "tests",
+      "status": "FAILED"
     }
   ],
   "capacity_only_wait_s": null,
@@ -2192,7 +2276,7 @@
       }
     }
   ],
-  "observed_at_utc": "2026-10-26T22:39:32.701645+00:00",
+  "observed_at_utc": "2026-10-26T22:54:05.145100+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",

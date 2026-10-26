@@ -3689,7 +3689,7 @@
       ],
       "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "5a0316109071cfb5fbca9929e0051ca89fe91924f80fe84e77293a026980aeda",
-      "local_artifact_available": true,
+      "local_artifact_available": false,
       "model": "Slopus-9B",
       "parent_experiment_id": "R483",
       "peak_vram_mib": 7356.5,
@@ -3965,7 +3965,7 @@
       ],
       "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "c01e6a4e0e53258e49d5c3dc7fe493a98afd8f921a16d983eb76530dc4e7ea47",
-      "local_artifact_available": true,
+      "local_artifact_available": false,
       "model": "Opus Distill-9B",
       "parent_experiment_id": "R485",
       "peak_vram_mib": 7356.5,
@@ -8635,6 +8635,60 @@
       "status": "SCREENING VOLLSTÄNDIG",
       "task_phase_s": 294.996003737,
       "timeouts": 0
+    },
+    {
+      "audit_sha256": null,
+      "conditions": "Single native-profile session; frozen base-task order",
+      "configuration": {
+        "binary_identities": {
+          "libggml-cuda.so.0.26.0": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "llama-server": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54"
+        },
+        "context": 8192,
+        "engine": "llama.cpp native",
+        "engine_version": null,
+        "hardware": "Tesla V100 SXM2 16 GB",
+        "model_sha256": "21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91",
+        "model_source": {
+          "base_repository": "zai-org/GLM-4.7-Flash",
+          "base_revision": "7dd20894a642a0aa287e9827cb1a1f7f91386b67",
+          "hf_repository": "unsloth/GLM-4.7-Flash-GGUF",
+          "hf_revision": "0d32489ecb9db6d2a4fc93bd27ef01519f95474d",
+          "license": "mit",
+          "parameters_in_GGUF": 29943393920,
+          "quantizer": "unsloth"
+        },
+        "parent_profile_id": "mistral-small32-24b-q3km-native-screening32-task1200-reviewed-sm70",
+        "power_w": 300,
+        "quantization": "Q3_K_S",
+        "request_options": {
+          "cache_prompt": false,
+          "max_tokens": 4096,
+          "min_p": 0.0,
+          "seed": 1001,
+          "temperature": 1.0,
+          "top_k": 0,
+          "top_p": 0.95
+        },
+        "screening_configuration_id": "screening-config-52fd4cc37b1e13dce9ca1d645356a666123a219c7562ec795ac50e1cbec89577",
+        "task_time_policy": {
+          "cleanup_seconds": 60,
+          "startup_seconds": 180,
+          "task_seconds": 1200,
+          "wall_seconds": 1440
+        },
+        "warmup_requests": 2
+      },
+      "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
+      "experiment_id": null,
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
+      "independent_review_sha256": null,
+      "local_artifact_available": true,
+      "model": "GLM-4.7-Flash",
+      "parent_experiment_id": "R557",
+      "results": null,
+      "status": "SCREENING OFFEN"
     }
   ],
   "schema": 1,
