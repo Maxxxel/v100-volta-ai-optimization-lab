@@ -23188,5 +23188,93 @@
       "scope": "Same target, engine, native template, sampler and all inference controls except fixed MTP3/min1. Previously exposed33 simulated fixtures/11 authored families; correlated, not Terminal-Bench or population safety. Stored R533 control, no fresh paired performance replication. Its unused legacy18-task archive mount is absent from the candidate; both use the identical configured33-task archive and simulator. One extra failed policy check is not excused by faster generation. R548 coding result151/164 versus149/164 and R549 tools169/200 remain separate category evidence. No agent/coding/allround Champion or production change."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "additional_peak_device_vram_mib": 1146.0,
+        "conservative_GPU_J_per_success_reduction_percent": 37.93929213809526
+      },
+      "quality": {
+        "paired_success_gains": 0,
+        "paired_success_losses": 0,
+        "paired_tasks": 32
+      }
+    },
+    "audit_id": "audit-cd45f8533590fc3983c8",
+    "date": "2026-10-26T12:29:05.722171+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R551",
+    "model": "Qwen3.8 27B GSQ/RCO IQ3_S · fresh integrated MTP A/B",
+    "mtp_confirmation": {
+      "arms": [
+        {
+          "GPU_j_per_success_lower": 1247.1690344827587,
+          "GPU_j_per_success_upper": 1250.56,
+          "arm": "A",
+          "arm_including_setup_s": 153.454412156,
+          "coding_successes": 16,
+          "completion_tokens": 3649,
+          "draft_accepted": null,
+          "draft_counter_responses": 0,
+          "draft_generated": null,
+          "peak_device_vram_mib": 12454.5,
+          "reported_generation_window_tokens_s": 35.53711906136661,
+          "response_wall_s": 132.218619165,
+          "successes": 29,
+          "tasks": 32,
+          "tool_successes": 13
+        },
+        {
+          "GPU_j_per_success_lower": 771.1170344827586,
+          "GPU_j_per_success_upper": 774.0019310344828,
+          "arm": "B",
+          "arm_including_setup_s": 106.032974775,
+          "coding_successes": 16,
+          "completion_tokens": 3698,
+          "draft_accepted": 2629,
+          "draft_counter_responses": 32,
+          "draft_generated": 3135,
+          "peak_device_vram_mib": 13600.5,
+          "reported_generation_window_tokens_s": 72.20654915743958,
+          "response_wall_s": 85.368669487,
+          "successes": 29,
+          "tasks": 32,
+          "tool_successes": 13
+        }
+      ],
+      "audit_id": "audit-f9320dd9bec8420ae433",
+      "comparison": {
+        "additional_peak_device_vram_mib": 1146.0,
+        "conservative_GPU_J_per_success_reduction_percent": 37.93929213809526
+      },
+      "draft_binding_kind": "INTEGRATED_TARGET_HEAD_NO_SEPARATE_DRAFT_FILE",
+      "identities": {
+        "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+        "integrated_head_target_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f"
+      },
+      "next_action": "Reuse complete R548151/164 and R549169/200 plus local R55026/33/31 policy. Finalize scope-bounded shortlist and Pareto recommendation; do not repeat full qualifications or tuning on these tasks. No automatic production deployment or global Champion.",
+      "official_benchmark": false,
+      "quality": {
+        "paired_success_gains": 0,
+        "paired_success_losses": 0,
+        "paired_tasks": 32
+      },
+      "scope": "One fresh A then B comparison on previously exposed development data, with independently replayed judgments. Both model startups/warmups are conservatively charged to one1200s clock. Response latency and complete arm wall are distinct. Same observed task successes do not establish population noninferiority or identical token decisions. Reported generation-window throughput is not end-to-end task throughput. Counter brackets are not sensor confidence intervals; CPU/system energy excluded. No official score or Champion.",
+      "single_task_clock_s": 259.514640373,
+      "status": "FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_EXISTING_QUALIFICATIONS_REUSED",
+      "winner_qualified": false
+    },
+    "reference_A0": null,
+    "statements": {
+      "decision": "FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_EXISTING_QUALIFICATIONS_REUSED",
+      "hypothesis": "With unchanged current Qwen3.8 27B GSQ/RCO IQ3_S profiles, integrated MTP3 retains every development-category success and reduces complete32-case request latency and GPU J/success by at least10% relative to a fresh OFF control.",
+      "scope": "One fresh A then B comparison on previously exposed development data, with independently replayed judgments. Both model startups/warmups are conservatively charged to one1200s clock. Response latency and complete arm wall are distinct. Same observed task successes do not establish population noninferiority or identical token decisions. Reported generation-window throughput is not end-to-end task throughput. Counter brackets are not sensor confidence intervals; CPU/system energy excluded. No official score or Champion."
+    },
+    "winner_qualified": false
   }
 ]

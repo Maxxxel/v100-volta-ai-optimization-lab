@@ -358,13 +358,24 @@ def mtp_development_result(root,entry,receipt):
 
 def mtp_confirmation_projection(review,audit,profile):
     """Aggregate development A/B evidence, never an official benchmark row."""
-    assert review['experiment_id']==audit['experiment_id']=='R540'
-    assert review['status']=='FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_OFFICIAL_QUALIFICATION_PENDING'
+    ident=review['experiment_id'];assert ident==audit['experiment_id'] and ident in ('R540','R551')
+    positive_status=('FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_OFFICIAL_QUALIFICATION_PENDING' if ident=='R540'
+                     else 'FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_EXISTING_QUALIFICATIONS_REUSED')
+    assert review['status'] in (positive_status,'FRESH_AB_DEVELOPMENT_GATE_NOT_MET')
+    passed=review['status']==positive_status
+    if 'development_gate_passed' in review:assert type(review['development_gate_passed']) is bool and review['development_gate_passed']==passed
     assert review['winner_qualified'] is False and review['official_benchmark'] is False and review['GPU_runs_in_review']==0
     assert audit['measurement_valid'] and audit['GPU_execution_observed']
     assert audit['completed_requests']==audit['planned_requests']==64 and audit['model_starts']==2
     assert not audit['official_benchmark'] and not audit['winner_qualified']
-    assert review['quality']['paired_tasks']==32 and review['quality']['paired_success_losses']==0
+    assert review['quality']['paired_tasks']==32 and type(review['quality']['paired_success_losses']) is int and 0<=review['quality']['paired_success_losses']<=32
+    if passed:assert review['quality']['paired_success_losses']==0
+    if isinstance(audit.get('scored_tasks'),list):
+        cases={r['id']:r['success'] for r in audit['scored_tasks']}
+        assert len(cases)==64 and all(type(v) is bool for v in cases.values())
+        ids=[k[:-3] for k in cases if k.endswith('--A')];assert len(ids)==32
+        assert all(k+'--B' in cases for k in ids)
+        assert sum(cases[k+'--A'] and not cases[k+'--B'] for k in ids)==review['quality']['paired_success_losses']
     assert 0<review['single_task_clock_s']<=1200 and review['task_limit_s']==1200
     result={'status':text(review['status']),'scope':text(review['scope']),'next_action':text(review['next_action']),
             'official_benchmark':False,'winner_qualified':False,'single_task_clock_s':review['single_task_clock_s'],
@@ -378,8 +389,20 @@ def mtp_confirmation_projection(review,audit,profile):
         keys=('coding_successes','tool_successes','tasks','successes','response_wall_s','arm_including_setup_s','peak_device_vram_mib','completion_tokens',
               'GPU_j_per_success_lower','GPU_j_per_success_upper','reported_generation_window_tokens_s','draft_counter_responses','draft_generated','draft_accepted')
         result['arms'].append({'arm':arm,**{k:r.get(k) for k in keys}})
-    result['identities']={'model_sha256':profile['model_sha256'],'draft_sha256':profile['native_mtp_draft']['sha256'],
-                          'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server']}
+    result['identities']={'model_sha256':profile['model_sha256'],
+                         'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server']}
+    if 'native_mtp_integrated' in profile:
+        assert ident=='R551' and 'native_mtp_draft' not in profile
+        assert profile['native_mtp_integrated']=={'version':'QWEN38_INTEGRATED_TARGET_MTP_V1','model_sha256':'58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f','draft_max':3,'draft_min':1}
+        assert profile['model_sha256']==profile['native_mtp_integrated']['model_sha256']
+        assert result['identities']['engine_binary_sha256']=='08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54'
+        counters=review['arms']['B'];assert type(counters.get('draft_generated')) is int and counters['draft_generated']>0
+        assert type(counters.get('draft_accepted')) is int and 0<=counters['draft_accepted']<=counters['draft_generated']
+        result['identities']['integrated_head_target_sha256']=profile['model_sha256']
+        result['draft_binding_kind']='INTEGRATED_TARGET_HEAD_NO_SEPARATE_DRAFT_FILE'
+    else:
+        assert ident=='R540'
+        result['identities']['draft_sha256']=profile['native_mtp_draft']['sha256']
     assert all(re.fullmatch('[a-f0-9]{64}',h) for h in result['identities'].values())
     return result
 
@@ -389,7 +412,8 @@ def verified_mtp_confirmation_result(root,entry,receipt):
     review=load(p)
     for name,h in review['source_files_sha256'].items():
         source=pathlib.Path(name).resolve();assert source.is_relative_to(root.parent) and digest(source)==h
-    audit=load(root/'staging/r540/AUDIT.json');profile=load(pathlib.Path(audit['raw_root'])/'profile.json')
+    ident=review['experiment_id'];assert ident in ('R540','R551')
+    audit=load(root/'staging'/ident.lower()/'AUDIT.json');profile=load(pathlib.Path(audit['raw_root'])/'profile.json')
     result=mtp_confirmation_projection(review,audit,profile)
     result['audit_id']=receipt(p,entry['sha256'])
     return result

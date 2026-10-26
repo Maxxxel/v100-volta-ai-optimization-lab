@@ -245,4 +245,34 @@ class RoleRetrospective(unittest.TestCase):
             with self.subTest(kind=kind),self.assertRaises(AssertionError):export.role_case_costs(records,telemetry)
 
 
+
+class IntegratedMtpConfirmation(MtpProjection):
+    def integrated_fixture(self):
+        review,audit,profile=self.confirmation_fixture()
+        review['experiment_id']=audit['experiment_id']='R551'
+        review.update(status='FRESH_AB_DEVELOPMENT_SPEED_CONFIRMED_EXISTING_QUALIFICATIONS_REUSED',development_gate_passed=True)
+        profile.pop('native_mtp_draft');profile['model_sha256']='58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f'
+        profile['assets']['engine/llama-server']='08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54'
+        profile['native_mtp_integrated']={'version':'QWEN38_INTEGRATED_TARGET_MTP_V1','model_sha256':profile['model_sha256'],'draft_max':3,'draft_min':1}
+        review['arms']['B'].update(draft_generated=100,draft_accepted=90,draft_counter_responses=32)
+        return review,audit,profile
+    def test_integrated_head_has_no_fictional_separate_draft_hash(self):
+        r,a,p=self.integrated_fixture();out=export.mtp_confirmation_projection(r,a,p)
+        self.assertNotIn('draft_sha256',out['identities']);self.assertEqual(out['identities']['integrated_head_target_sha256'],p['model_sha256']);self.assertFalse(out['official_benchmark']);self.assertFalse(out['winner_qualified'])
+    def test_negative_quality_result_remains_publishable_without_promotion(self):
+        r,a,p=self.integrated_fixture();r.update(status='FRESH_AB_DEVELOPMENT_GATE_NOT_MET',development_gate_passed=False)
+        r['quality'].update(paired_success_losses=1,paired_success_gains=1)
+        a['scored_tasks']=[{'id':'case'+str(i)+'--'+arm,'success':(i%16<14 if arm=='A' else (i%16<14 and i!=0) or i==14)} for arm in ('A','B') for i in range(32)]
+        out=export.mtp_confirmation_projection(r,a,p);self.assertEqual(out['quality']['paired_success_losses'],1);self.assertFalse(out['winner_qualified'])
+    def test_wrong_target_engine_unexecuted_or_mixed_binding_rejected(self):
+        for mode in ('model','engine','mixed','draft_count','accepted'):
+            r,a,p=self.integrated_fixture()
+            if mode=='model':p['model_sha256']='0'*64
+            elif mode=='engine':p['assets']['engine/llama-server']='0'*64
+            elif mode=='mixed':p['native_mtp_draft']={'sha256':'a'*64}
+            elif mode=='accepted':r['arms']['B']['draft_accepted']=101
+            else:r['arms']['B']['draft_generated']=0
+            with self.subTest(mode=mode),self.assertRaises(AssertionError):export.mtp_confirmation_projection(r,a,p)
+
+
 if __name__ == '__main__': unittest.main()

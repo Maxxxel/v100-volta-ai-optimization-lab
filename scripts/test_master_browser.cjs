@@ -320,11 +320,12 @@ async function main(){
    await tab.screenshot({path:path.join(artifacts,name+'-pipeline.png'),animations:'disabled'});await tab.close();
   }
   report.checks.push('pipeline snapshot, preserved partial task clock and desktop/mobile layout');
-  const mtpExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/experiments.json'),'utf8')).find(e=>e.id==='R540')?.mtp_confirmation;
-  if(mtpExpected){
+  const mtpConfirmations=JSON.parse(await fs.readFile(path.join(__dirname,'../data/experiments.json'),'utf8')).filter(e=>e.mtp_confirmation);
+  for(const experiment of mtpConfirmations){
+   const mtpExpected=experiment.mtp_confirmation;
    for(const width of [1600,390]){
     const tab=await context.newPage();await tab.setViewportSize({width,height:900});
-    await tab.goto(new URL('experiments/R540/',base).href,{waitUntil:'networkidle'});
+    await tab.goto(new URL('experiments/'+experiment.id+'/',base).href,{waitUntil:'networkidle'});
     const table=tab.getByRole('columnheader',{name:'Response seconds',exact:true}).locator('xpath=ancestor::table');
     assert.equal(await table.locator('tbody tr').count(),2);
     for(let i=0;i<2;i++){
@@ -334,7 +335,7 @@ async function main(){
     assert((await tab.locator('.md-content').innerText()).includes('Not an official benchmark score or Champion'));
     assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await tab.close();
    }
-   report.checks.push('fresh MTP A/B development response metrics and setup costs remain distinct on desktop/mobile');
+   report.checks.push(experiment.id+': fresh MTP A/B development response metrics and setup costs remain distinct on desktop/mobile');
   }
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
