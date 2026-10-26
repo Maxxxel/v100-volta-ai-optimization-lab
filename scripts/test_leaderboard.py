@@ -1,5 +1,6 @@
 """Scientific admission and immutable-history regression controls (CPU only)."""
-import copy,json,pathlib,tempfile,unittest
+import copy,json,pathlib,tempfile,unittest,hashlib
+import leaderboard as l
 from validate import validation_event_matches
 from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_partial_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations,profile_label_annotation
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -673,13 +674,53 @@ class FinalEvidenceProjectionTests(unittest.TestCase):
     with self.subTest(change=change),self.assertRaises(ValueError):final_evidence_projection(root,{'path':str(path),'sha256':digest(path)},lambda p,h:'audit-'+h[:20])
 
 class FinalSnapshotTests(unittest.TestCase):
- def page(self):
+ def page(self,released=True):
   from render import final_snapshot_page
   data=lambda n:json.loads((ROOT/'data'/n).read_text())
-  reg=data('benchmark-register.json');exps=data('experiments.json');profiles=data('profiles.json');refs={r['id']:r for r in data('references.json')};counts=data('snapshot.json')['counts'];pipeline=data('pipeline-performance.json');before=H([reg,exps,profiles,refs,counts,pipeline]);page=final_snapshot_page(reg,exps,profiles,refs,counts,pipeline);self.assertEqual(before,H([reg,exps,profiles,refs,counts,pipeline]));return page,reg
+  reg=data('benchmark-register.json');exps=data('experiments.json');profiles=data('profiles.json');refs={r['id']:r for r in data('references.json')};counts=data('snapshot.json')['counts'];pipeline=data('pipeline-performance.json');reg=reg if released else {k:v for k,v in reg.items() if k!='final_research_gate'};before=H([reg,exps,profiles,refs,counts,pipeline]);page=final_snapshot_page(reg,exps,profiles,refs,counts,pipeline);self.assertEqual(before,H([reg,exps,profiles,refs,counts,pipeline]));return page,reg
  def test_pre_freeze_status_and_limits_cannot_be_misread_as_final_release(self):
-  page,_=self.page();self.assertIn('Pre-freeze draft',page);self.assertIn('freeze audit is still pending',page);self.assertIn('NOT MEASURED / TECHNICALLY BLOCKED',page);self.assertIn('no production change',page);self.assertIn('PARTIAL',page);self.assertIn('not an official overall score',page)
+  page,_=self.page(False);self.assertIn('Pre-freeze draft',page);self.assertIn('freeze audit is still pending',page);self.assertIn('NOT MEASURED / TECHNICALLY BLOCKED',page);self.assertIn('no production change',page);self.assertIn('PARTIAL',page);self.assertIn('not an official overall score',page)
+ def test_reviewed_release_uses_actual_cutoff_without_future_execution_claims(self):
+  page,r=self.page();self.assertIn('final_research_gate',r);self.assertIn('Reviewed research decision',page);self.assertIn('available ahead of the deadline',page);self.assertIn('not a claimed31-October execution',page);self.assertNotIn('freeze audit is still pending',page);self.assertIn('No official agent result',page)
  def test_measured_counts_and_negative_evidence_survive_summary(self):
   page,r=self.page();self.assertIn(format(r['final_evidence_review']['sample_count'],','),page);self.assertIn('131/164 versus 134/164',page);self.assertIn('151/164 versus 156/164',page);self.assertIn('35.43%',page);self.assertIn('37.94%',page);self.assertIn('41.10%',page);self.assertIn('LOKAL GEMESSEN',page);self.assertIn('EXTERN BELEGT',page);self.assertIn('NICHT VERIFIZIERT',page)
  def test_only_one_master_benchmark_table_and_legacy_energy_scopes_remain_separate(self):
   page,_=self.page();self.assertIn('single model/configuration comparison',page);self.assertIn('175-W',page);self.assertIn('no universal decode gain',page);self.assertIn('not added together',page);self.assertIn('maximum_process_vram_mib',page);self.assertIn('14,336',page)
+
+class FinalResearchGateTests(unittest.TestCase):
+ def fixture(self,root):
+  folder=root/'staging/model-comparison-preparation/agent-qualification';folder.mkdir(parents=True)
+  code=folder/'final_mission_gate.py';code.write_text('# synthetic CPU receipt fixture\n')
+  history={};register={k:{} for k in ('definitions','official_qualifications','role_comparison','final_evidence_review','engine_source_reviews')};sources={}
+  for i in range(30):
+   p=root/('evidence-'+str(i)+'.json');p.write_text('{}');sources[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
+  a={'kind':'FINAL_RESEARCH_MISSION_EVIDENCE_GATE','status':'EVIDENCE_RELEASE_READY','scientific_snapshot_sha256':l.research_release_snapshot(history,register),'requirements':[{'section':i,'scope':'Synthetic test scope','status':'SATISFIED_WITH_DECLARED_LIMITS'} for i in range(1,11)],'deliverables':['best-of-v100-2026.md','configuration-comparison.md','configurations.md','reproduce.md','pipeline-methods.md','benchmark-register.md','questions.md'],'GPU_runs':0,'model_requests':0,'production_approved':False,'universal_winner':False,'official_agents':'NOT MEASURED','terminal_bench_decision':'NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE','source_files_sha256':sources,'review_code_sha256':hashlib.sha256(code.read_bytes()).hexdigest(),'at_utc':'2026-10-26T20:00:00Z','limits':['Synthetic fixture; no measured research result.']}
+  path=folder/'FINAL_MISSION_GATE_20261026.json';path.write_text(json.dumps(a));return a,path,history,register
+ def project(self,root,path,history,register):return l.final_research_gate(root,{'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()},history,register,lambda p,h:'audit-'+h[:20])
+ def test_original_evidence_is_private_and_declared_limits_survive(self):
+  import tempfile
+  with tempfile.TemporaryDirectory() as td:
+   root=pathlib.Path(td);a,path,h,r=self.fixture(root);out=self.project(root,path,h,r)
+   self.assertEqual(out['original_evidence_files_verified'],30);self.assertEqual(len(out['requirements']),10)
+   self.assertFalse(out['production_approved']);self.assertNotIn(str(root),json.dumps(out));self.assertNotIn('source_files_sha256',out)
+ def test_tampered_claims_missing_sections_and_changed_scientific_inputs_fail_closed(self):
+  import tempfile
+  for mutation in ('production','agents','scope','missing','bool','deliverables'):
+   with self.subTest(mutation=mutation),tempfile.TemporaryDirectory() as td:
+    root=pathlib.Path(td);a,path,h,r=self.fixture(root)
+    if mutation=='production':a['production_approved']=True
+    elif mutation=='agents':a['official_agents']='QUALIFIED'
+    elif mutation=='scope':h['new_measurement']=True
+    elif mutation=='missing':a['requirements'].pop()
+    elif mutation=='bool':a['GPU_runs']=False
+    elif mutation=='deliverables':a['deliverables'][0]='missing.md'
+    path.write_text(json.dumps(a))
+    with self.assertRaises(ValueError):self.project(root,path,h,r)
+ def test_original_source_or_review_code_changes_fail_closed(self):
+  import tempfile
+  for code in (False,True):
+   with self.subTest(code=code),tempfile.TemporaryDirectory() as td:
+    root=pathlib.Path(td);a,path,h,r=self.fixture(root)
+    target=path.parent/'final_mission_gate.py' if code else pathlib.Path(next(iter(a['source_files_sha256'])))
+    target.write_text('changed')
+    with self.assertRaises(ValueError):self.project(root,path,h,r)

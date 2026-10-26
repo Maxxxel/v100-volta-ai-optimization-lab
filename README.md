@@ -9,7 +9,7 @@
 
 ## Research pipeline
 
-[Best-of-V100 evidence snapshot](docs/best-of-v100-2026.md) · [Screening](docs/screening.md) → [Official qualification](docs/configuration-comparison.md) → [Targeted optimization](docs/configurations.md). Development screens stay outside official scores.
+[Best-of-V100 research decision](docs/best-of-v100-2026.md) · [Screening](docs/screening.md) → [Official qualification](docs/configuration-comparison.md) → [Targeted optimization](docs/configurations.md). Development screens stay outside official scores.
 
 ## Model comparison
 

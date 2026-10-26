@@ -1125,6 +1125,28 @@ def final_evidence_projection(root,entry,receipt):
   'guard_reference_sha256':a['guard_reference_sha256'],'hardware_function_sha256':a['hardware_function_sha256'],'GPU_runs':0,'model_requests':0,'continuous_uptime_qualified':False,
   'scope':'Original sampled capture observations and source integrity, including startup/load/idle. Not a new GPU test, statistical independence, between-sample fault exclusion, constant-clock or continuous production-stability qualification.'}
 
+def research_release_snapshot(history,register):
+ """Scientific inputs, excluding the gate itself and publication bookkeeping."""
+ return H({'history':history,**{k:register[k] for k in ('definitions','official_qualifications','role_comparison','final_evidence_review','engine_source_reviews')}})
+
+def final_research_gate(root,entry,history,register,receipt):
+ root=pathlib.Path(root).resolve();path=pathlib.Path(entry['path']).resolve()
+ if path.parent!=root/'staging/model-comparison-preparation/agent-qualification' or path.name!='FINAL_MISSION_GATE_20261026.json' or digest(path)!=entry['sha256']:raise ValueError('Final mission gate identity differs')
+ a=read(path)
+ if a.get('kind')!='FINAL_RESEARCH_MISSION_EVIDENCE_GATE' or a.get('status')!='EVIDENCE_RELEASE_READY' or any(type(a.get(k)) is not int or a[k]!=0 for k in ('GPU_runs','model_requests')) or a.get('production_approved') is not False or a.get('universal_winner') is not False:raise ValueError('Unproven final release claim')
+ if a.get('scientific_snapshot_sha256')!=research_release_snapshot(history,register):raise ValueError('Final release scientific inputs changed; a new reviewed release is required')
+ requirements=a.get('requirements',[])
+ if [r.get('section') for r in requirements]!=list(range(1,11)) or any(type(r.get('section')) is not int or r.get('status')!='SATISFIED_WITH_DECLARED_LIMITS' for r in requirements):raise ValueError('Incomplete final mission requirements')
+ if a.get('deliverables')!=['best-of-v100-2026.md','configuration-comparison.md','configurations.md','reproduce.md','pipeline-methods.md','benchmark-register.md','questions.md'] or a.get('official_agents')!='NOT MEASURED' or a.get('terminal_bench_decision')!='NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE':raise ValueError('Missing final deliverables or agent boundary')
+ sources=a.get('source_files_sha256',{})
+ if not sources or len(sources)<30:raise ValueError('Missing final original evidence')
+ for name,h in sources.items():
+  p=pathlib.Path(name).resolve()
+  if not p.is_relative_to(root.parent) or digest(p)!=h:raise ValueError('Final mission source changed')
+ code=path.parent/'final_mission_gate.py'
+ if digest(code)!=a.get('review_code_sha256'):raise ValueError('Final mission review code changed')
+ return {k:a[k] for k in ('at_utc','status','scientific_snapshot_sha256','requirements','deliverables','official_agents','terminal_bench_decision','GPU_runs','model_requests','production_approved','universal_winner','limits')}|{'audit_id':receipt(path,entry['sha256']),'audit_sha256':entry['sha256'],'original_evidence_files_verified':len(sources)}
+
 def role_comparison(history,experiments):
  """Recompute scoped decisions from immutable public evidence; no inference."""
  profiles={p['runtime_configuration_id']:p for p in history['profiles']}
@@ -1432,6 +1454,7 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   item.pop('audit_path');item.update(public)
  if db['summary'].get('final_evidence_review'):reg['final_evidence_review']=final_evidence_projection(root,db['summary']['final_evidence_review'],receipt)
  reg['role_comparison']=role_comparison(result,experiments)
+ if db['summary'].get('final_research_gate'):reg['final_research_gate']=final_research_gate(root,db['summary']['final_research_gate'],result,reg,receipt)
  return reg,result
 
 def validate_history(data,defs):

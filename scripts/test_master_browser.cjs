@@ -369,11 +369,14 @@ async function main(){
    for(const width of [1600,390]){
     const tab=await context.newPage();await tab.setViewportSize({width,height:900});
     await tab.goto(new URL('best-of-v100-2026/',base).href,{waitUntil:'networkidle'});
-    const text=await tab.locator('.md-content').innerText();assert(text.includes('Pre-freeze draft'));assert(text.includes('freeze audit is still pending'));assert(text.includes('NOT MEASURED / TECHNICALLY BLOCKED'));assert(text.includes(expected.sample_count.toLocaleString('en-US')));assert(text.includes('LOKAL GEMESSEN'));assert(text.includes('NICHT VERIFIZIERT'));
+    const text=await tab.locator('.md-content').innerText();const released=!!roleExpected&&!!JSON.parse(await fs.readFile(path.join(__dirname,'../data/benchmark-register.json'),'utf8')).final_research_gate;
+    if(released){assert(text.includes('Reviewed research decision'));assert(text.includes('available ahead of the deadline'));assert(!text.includes('freeze audit is still pending'));assert(text.includes('not a claimed31-October execution'));
+     const checklist=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Completion scope and retained limits'})}).first();await checklist.locator('summary').first().click();assert.equal(await checklist.locator('tbody tr').count(),10);}
+    else{assert(text.includes('Pre-freeze draft'));assert(text.includes('freeze audit is still pending'));}assert(text.includes('NOT MEASURED / TECHNICALLY BLOCKED'));assert(text.includes(expected.sample_count.toLocaleString('en-US')));assert(text.includes('LOKAL GEMESSEN'));assert(text.includes('NICHT VERIFIZIERT'));
     const detail=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Original capture-level hardware evidence'})}).first();await detail.locator('summary').first().click();assert.equal(await detail.locator('tbody tr').count(),expected.capture_count);
     assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Final snapshot overflows viewport');await tab.screenshot({path:path.join(artifacts,width===390?'mobile-final-snapshot.png':'desktop-final-snapshot.png'),animations:'disabled'});await tab.close();
    }
-   report.checks.push('pre-freeze recommendation snapshot separates local measurements, missing official agents and original bounded hardware evidence');
+   report.checks.push('dated research decision preserves release gates, local measurements, missing official agents and bounded hardware evidence');
   }
   const issueExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/research-issues.json'),'utf8'));
   for(const width of [1600,390]){

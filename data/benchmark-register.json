@@ -27649,6 +27649,87 @@
     "sampled_guard_violations": 0,
     "scope": "Original sampled capture observations and source integrity, including startup/load/idle. Not a new GPU test, statistical independence, between-sample fault exclusion, constant-clock or continuous production-stability qualification."
   },
+  "final_research_gate": {
+    "GPU_runs": 0,
+    "at_utc": "2026-10-26T19:19:03.396003+00:00",
+    "audit_id": "audit-e61c02f95beb7809761e",
+    "audit_sha256": "e61c02f95beb7809761e8ebfa7ed83c872e259b5e8adead96b11f2ce2b11c355",
+    "deliverables": [
+      "best-of-v100-2026.md",
+      "configuration-comparison.md",
+      "configurations.md",
+      "reproduce.md",
+      "pipeline-methods.md",
+      "benchmark-register.md",
+      "questions.md"
+    ],
+    "limits": [
+      "Evidence cutoff is the actual26 October review, not a backdated31 October execution.",
+      "No official agent score, general model superiority, production approval, continuous uptime or independent bit-identical rebuild is established.",
+      "Private Agent33 inputs remain private; source and exact configuration reproduction boundaries stay explicit.",
+      "Role recommendations may be provisional scientifically even when the requested decision package is complete."
+    ],
+    "model_requests": 0,
+    "official_agents": "NOT MEASURED",
+    "original_evidence_files_verified": 730,
+    "production_approved": false,
+    "requirements": [
+      {
+        "scope": "Inherited inventories and unchanged history",
+        "section": 1,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Terminal-Bench eight-part source/admission NO-GO",
+        "section": 2,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Exact-profile role comparison, costs and uncertainty",
+        "section": 3,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Positive and negative optimization gates",
+        "section": 4,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Bounded existing hypotheses; no new broad campaign",
+        "section": 5,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Separated timing and unknown cloud wait",
+        "section": 6,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Official/development/confirmation UI, CSV and mobile",
+        "section": 7,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Existing issue research dispositions and November backlog",
+        "section": 8,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Seven deliverables available ahead of deadline",
+        "section": 9,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      },
+      {
+        "scope": "Original task/memory/hardware limits and simulated tools",
+        "section": 10,
+        "status": "SATISFIED_WITH_DECLARED_LIMITS"
+      }
+    ],
+    "scientific_snapshot_sha256": "5f105271700c275dd5b963ad47d4efa275b13af501ce3b88d98d40256e8f46d2",
+    "status": "EVIDENCE_RELEASE_READY",
+    "terminal_bench_decision": "NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE",
+    "universal_winner": false
+  },
   "generation_policy": "Publisher claims are separate; official eligibility requires full exact task/scorer/protocol conformance. No visualization GPU runs.",
   "local_cohort_classification": {
     "coding": {

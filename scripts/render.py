@@ -153,8 +153,12 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
  score=lambda p:str(p['solved'])+'/'+str(p['tasks'])
  link=lambda eid:'['+eid+'](experiments/'+eid+'.md)'
  bart_c=point('coding','R516');bart_t=point('tools','R517');bart_a=agent('R536');gemma=point('coding','R464');q_c=point('coding','R548');q_t=point('tools','R549');q_a=agent('R550')
- text='# Best-of-V100 2026 — evidence snapshot\n\n'
- text+='**Pre-freeze draft · evidence through R551 · review '+review['at_utc'][:10]+'. Final research freeze:31 October 2026.** No universal winner, production deployment or official 3/3 result is established.\n\n'
+ release=register.get('final_research_gate')
+ text=('# Best-of-V100 2026 — research decision' if release else '# Best-of-V100 2026 — evidence snapshot')+'\n\n'
+ if release:
+  text+='**Reviewed research decision · evidence through R551 · actual review '+release['at_utc'][:10]+' · deadline31 October 2026.** The decision package is available ahead of the deadline. No future execution date, universal winner, production deployment or official 3/3 result is claimed.\n\n'
+ else:
+  text+='**Pre-freeze draft · evidence through R551 · review '+review['at_utc'][:10]+'. Final research freeze:31 October 2026.** No universal winner, production deployment or official 3/3 result is established.\n\n'
  text+='## Current decision\n\n'
  text+='- **Jarvis sandbox baseline: OmniCoder bartowski Q6, MTP OFF.** Coding '+score(bart_c)+', tools '+score(bart_t)+'; separately measured local Agent33 '+score(bart_a)+' with '+str(bart_a['policy_gate_passes'])+'/33 policy passes. Retain for isolated integration, not a safety certificate or general model-superiority claim. '+link('R516')+' · '+link('R517')+' · '+link('R536')+'\n'
  text+='- **Coding quality: Gemma4 nonthinking QAT profile.** '+score(gemma)+' is the highest observed coding score among the core profiles. Its tools and local agent results do not support the same allround recommendation. '+link('R464')+' · '+link('R472')+' · '+link('R534')+'\n'
@@ -198,12 +202,19 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
  text+='## Reproduction and release status\n\n[Export exact configuration packets and inspect the original main-engine source assets](reproduce.md). The controlled deployment proposal keeps the existing broker, one heavy GPU job, 1,200-second total TASK budget and 14,336-MiB device-memory guard. Original weights, production services and safety rules remain protected. **Proposal only: no production change or release approval is implied.** Independent source rebuilds and other forks retain their documented boundaries.\n\n'
  text+='The earlier console value 15,600 comes from the historical R118 `maximum_process_vram_mib` field, not the current broker device allowance. The active device guard remains 14,336 MiB; neither historical values nor present limits were rewritten. '+link('R118')+'\n\n'
  if issues:
-  text+='Open GitHub snapshot: **'+str(sum(x.get('github_state')=='OPEN' for x in issues))+' open / '+str(sum(x.get('github_state')=='CLOSED' for x in issues))+' closed**. #10/#11 remain finalization work; #13 has completed parser checks but an unresolved causal explanation. #2/#3/#4/#8 retain technical source/model gates; #16/#17 remain November research. [All dispositions and evidence](questions.md). Workflow closure is not experimental qualification.\n\n'
+  progress='#10/#11 retain broader issue histories; the current mission decision package has been reviewed with declared limits' if release else '#10/#11 remain finalization work'
+  text+='Open GitHub snapshot: **'+str(sum(x.get('github_state')=='OPEN' for x in issues))+' open / '+str(sum(x.get('github_state')=='CLOSED' for x in issues))+' closed**. '+progress+'; #13 has completed parser checks but an unresolved causal explanation. #2/#3/#4/#8 retain technical source/model gates; #16/#17 remain November research. [All dispositions and evidence](questions.md). Workflow closure is not experimental qualification.\n\n'
  text+='## November priorities\n\n1. Official agent evaluator/container/gateway admission and a defensible full Terminal-Bench protocol/budget decision.\n2. Independent agent/security validation and measured recovery/switch/routing costs before widening Jarvis permissions or orchestration.\n3. Scope-limited architecture/engine candidates from [issue16](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16) and minimal-versus-complex harness ablations from [issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17). No new broad pre-freeze GPU campaign.\n4. Remaining concrete matrix subcases or source/reproduction gaps only when their prerequisites and expected practical information gain justify a new isolated experiment.\n\n'
  hold=pipeline.get('publication_lock_observation',{}).get('observed_hold_window_s');events=pipeline.get('verified_capacity_events')
  text+='## Pipeline and freeze readiness\n\nMeasured publication-lock hold: '+str(hold)+' s (corrected). Verified capacity events: '+str(events)+'. Capacity-only wait remains **NOT MEASURED**; clock gaps are not relabeled GPU idle or cloud wait. [Original timing evidence](pipeline-performance.md).\n\n'
  text+='Research map: 130 original axes + 32 techniques; '+str(counts['experimentally_covered'])+' experimentally covered, '+str(counts['scientific_status']['QUALIFIED'])+' scoped qualified factors. Reviewed factors, GPU captures, category qualifications and reference pointers are different inventories. No 100% experimental-coverage claim.\n\n'
- text+='This snapshot prepares the seven freeze deliverables: role decisions; the existing complete comparison; positive/negative optimization evidence; exact configuration/source material; explicit gaps; release status; and a prioritized backlog. **Final 31-October freeze audit is still pending.** Any new result must append audited evidence and preserve this snapshot’s provenance; dates do not authorize weaker gates or budget resets.\n'
+ if release:
+  text+='The seven requested deliverables are available: role decisions; the complete comparison; positive/negative optimization evidence; exact configuration/source material; explicit gaps; safety/production status; and the November backlog. The original mission sections were reviewed against '+str(release['original_evidence_files_verified'])+' retained evidence files, with no new inference or rescoring. [Final mission gate](audits/'+release['audit_id']+'.md). The evidence cut-off is the actual26-October review, not a claimed31-October execution.\n\n'
+  text+='??? note "Completion scope and retained limits"\n\n'
+  text+=''.join(('    '+line if line else '')+'\n' for line in table(['Mission section','Reviewed scope','Decision'],[[r['section'],r['scope'],r['status']] for r in release['requirements']]).splitlines())
+  text+='\nScientific recommendations remain role-specific and bounded by the declared protocols. No official agent result, production approval, continuous uptime or independent bit-identical rebuild is established. Future measurements require a new audited release; original results and this release’s provenance remain preserved.\n'
+ else:
+  text+='This snapshot prepares the seven freeze deliverables: role decisions; the existing complete comparison; positive/negative optimization evidence; exact configuration/source material; explicit gaps; release status; and a prioritized backlog. **Final 31-October freeze audit is still pending.** Any new result must append audited evidence and preserve this snapshot’s provenance; dates do not authorize weaker gates or budget resets.\n'
  return text
 
 def main():
@@ -230,7 +241,7 @@ def main():
 
 ## Research pipeline
 
-[Best-of-V100 evidence snapshot](best-of-v100-2026.md) · [Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
+[Best-of-V100 research decision](best-of-v100-2026.md) · [Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
 
 ## Model comparison
 

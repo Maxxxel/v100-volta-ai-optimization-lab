@@ -260722,5 +260722,25 @@
     "statements": {
       "scope": "Read-only integrity and sampled guard observations for selected complete core coding/tool profiles, local Agent33 profiles and fresh R546/R551 confirmations. Existing scorer qualifications are reused, not new scoring or model generations. Whole retained capture windows include idle/startup/load; no between-sample event exclusion, fixed-clock claim or long-duration production safety qualification."
     }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e61c02f95beb7809761e",
+    "original_bytes": 149857,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e61c02f95beb7809761e8ebfa7ed83c872e259b5e8adead96b11f2ce2b11c355",
+    "statements": {
+      "limits": [
+        "Evidence cutoff is the actual26 October review, not a backdated31 October execution.",
+        "No official agent score, general model superiority, production approval, continuous uptime or independent bit-identical rebuild is established.",
+        "Private Agent33 inputs remain private; source and exact configuration reproduction boundaries stay explicit.",
+        "Role recommendations may be provisional scientifically even when the requested decision package is complete."
+      ]
+    }
   }
 ]
