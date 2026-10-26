@@ -928,7 +928,7 @@ test('Ornith OFF/T0 full170/200 joins117/164 coding, preserves unknown checkpoin
  const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.count,2);assert.equal(mean.total,3);assert(Math.abs(mean.score-(117/164*100+85)/2)<1e-12);const cost=M.performanceSummary(row,mean.keys,v.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,287);assert.equal(cost.peak_vram_gib,7356.5/1024);
 });
 
-test('Gemma K01 Q8-key tool qualification stays separate from F16 coding',()=>{
+test('Gemma Q8-key joins its own151 coding and158 tools without borrowing F16 coding',()=>{
  const rows=M.mergeConfigurations(model.rows,model);
  const candidate=rows.find(r=>r.runs.some(x=>x.experiment_id==='R513'));
  const baseline=rows.find(r=>r.runs.some(x=>x.experiment_id==='R472'));
@@ -939,7 +939,9 @@ test('Gemma K01 Q8-key tool qualification stays separate from F16 coding',()=>{
  const runs=candidate.runs.filter(r=>r.experiment_id==='R513');
  assert.equal(runs.length,1);assert.equal(runs[0].tasks,200);assert.equal(runs[0].solved,158);
  assert.equal(runs[0].official_eligible,true);
- assert(!candidate.runs.some(r=>r.benchmark_id==='humanevalplus-v0.1.10'),'F16 coding must not transfer to Q8 cache');
+ const coding=candidate.runs.filter(r=>r.benchmark_id==='humanevalplus-v0.1.10');
+ assert(coding.length>0);assert(coding.every(r=>r.experiment_id==='R544'&&r.solved===151&&r.tasks===164));assert(coding.some(r=>r.official_eligible));
+ assert(!candidate.runs.some(r=>r.experiment_id==='R464'),'F16 coding must not transfer to Q8 cache');
 });
 
 test('Alternate Omni full134 coding cannot inherit canonical Omni177 tools',()=>{

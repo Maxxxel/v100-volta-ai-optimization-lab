@@ -1506,6 +1506,9 @@
         "Select future optimization candidates after confirmation, with matched baseline and development data; do not tune on the33 validation answers."
       ],
       "official_benchmark": false,
+      "outside_review_scope": [
+        "R543"
+      ],
       "profiles": [
         {
           "decision": "RETAIN_AGENT_REFERENCE",
@@ -1964,6 +1967,57 @@
           "winner_qualified": false
         },
         "model": "OmniCoder-9B · bartowski Q6"
+      },
+      {
+        "audit_sha256": "d715b95502520aa5e6cf2c1ffa55ea5ff722abb38e13e4c60f1bea8e16422af2",
+        "experiment_id": "R543",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 291.728150251,
+            "group_window_s": 291.734395308,
+            "lower_j": 75400.738,
+            "upper_j": 75522.995
+          },
+          "actual_generation_requests": 155,
+          "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+          "case_wall_s": 291.728150251,
+          "completed_request_wall_s": 288.815645275,
+          "completion_tokens": 22092,
+          "context_tokens": 8192,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 2792.619925925926,
+          "gpu_j_per_success_upper": 2797.147962962963,
+          "independent_review_audit_id": "audit-f1735c86c60a2810f5f1",
+          "independent_review_sha256": "f1735c86c60a2810f5f1975f64b7f8d76de984b3318c84b4f8c2e456e22988b9",
+          "max_output_tokens": 4096,
+          "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 0,
+            "case_lost": 1,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 1.0,
+            "net_success_change": -1,
+            "nonzero_groups": 1,
+            "reference_experiment_id": "R536",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 9324.5,
+          "planned_tasks": 33,
+          "profile_sha256": "68d5f334a6ccc09f9fec1b7d4822e32ce151619d6cbef69de1094dc622d70fcc",
+          "solved": 27,
+          "successful_tasks_per_s": 0.09254973750741685,
+          "task_limit_s": 1200,
+          "task_phase_s": 291.735025157,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 76.49170106060141,
+          "winner_qualified": false
+        },
+        "model": "OmniCoder-9B · bartowski Q6 MTP3"
       }
     ],
     "multi_agent_plan": {

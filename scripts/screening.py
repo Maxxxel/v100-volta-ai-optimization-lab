@@ -117,6 +117,15 @@ def gemma_diagnostic_resolution(root,ctx,measured):
  return {'model':a['model'],'applicable_profile_experiment_ids':applicable,'audit_sha256':descriptor['sha256'],'CPU_controls':20,'parser_roundtrips':12,'template_controls':8,'empty_thought_sections':90,'nonempty_thought_sections':0,'original_scores_changed':False,'GPU_runs':0,'official_benchmark':False,
   'decision_summary':'Coding qualification retained. CPU parser/template controls pass; all90 Agent18 thought sections were empty. No lost-reasoning or preservation-only GPU fix is justified. Original patch/final-contract failures remain.'}
 
+def cohort_review_scope(measured,review):
+ """A frozen cohort decision never silently covers later measured variants."""
+ actual={r['experiment_id']:r for r in measured};rows=review['profiles']
+ assert len(actual)==len(measured)
+ ids={r['experiment_id'] for r in rows}
+ assert type(review['model_profiles']) is int and 1<=review['model_profiles']==len(rows)==len(ids)
+ assert ids<=set(actual)
+ return actual,sorted(set(actual)-ids)
+
 def qualification_decisions(root,phase,measured,diagnostic=None):
  """Project an audit-bound research decision, never a new benchmark result."""
  descriptor=phase.get('decision_review')
@@ -126,9 +135,7 @@ def qualification_decisions(root,phase,measured,diagnostic=None):
  assert review['dataset_id']=='jarvis-agent-validation-20261025-v1'
  assert review['dataset_sha256']==phase['frozen_agent_validation']['private_dataset_sha256']
  assert review['authored_groups']==11 and review['cases_per_profile']==33 and review['new_GPU_runs']==0
- actual={r['experiment_id']:r for r in measured};rows=review['profiles']
- assert len(actual)==len(measured)==review['model_profiles']==len(rows)
- assert {r['experiment_id'] for r in rows}==set(actual)
+ actual,outside_review_scope=cohort_review_scope(measured,review);rows=review['profiles']
  projected=[]
  for r in rows:
   eid=r['experiment_id'];assert re.fullmatch(r'R[1-9][0-9]*',eid)
@@ -147,7 +154,7 @@ def qualification_decisions(root,phase,measured,diagnostic=None):
   if diagnostic and eid in diagnostic['applicable_profile_experiment_ids']:
    item.update(original_decision_reason=item['reason'],reason=diagnostic['decision_summary'],decision_amendment_sha256=diagnostic['audit_sha256'])
   projected.append(item)
- return {'review_sha256':descriptor['sha256'],'profiles':projected,'scope':review['review_scope'],'next_decisions':review['next_decisions'],'official_benchmark':False,'winner_qualified':False}
+ return {'review_sha256':descriptor['sha256'],'profiles':projected,'outside_review_scope':outside_review_scope,'scope':review['review_scope'],'next_decisions':review['next_decisions'],'official_benchmark':False,'winner_qualified':False}
 
 def orchestration_cpu_status(multi):
  descriptor=multi.get('CPU_coordinator_QA')
@@ -440,7 +447,9 @@ def validate(data):
   review=q.get('decision_review')
   if review:
    assert review['official_benchmark'] is False and review['winner_qualified'] is False
-   assert len(review['profiles'])==len(ids) and {r['experiment_id'] for r in review['profiles']}==set(ids)
+   reviewed_ids=[r['experiment_id'] for r in review['profiles']]
+   assert len(reviewed_ids)==len(set(reviewed_ids)) and set(reviewed_ids)<=set(ids)
+   assert set(review.get('outside_review_scope',[]))==set(ids)-set(reviewed_ids)
    assert re.fullmatch('[a-f0-9]{64}',review['review_sha256'])
   diagnosis=q['gemma_context'].get('diagnostic_resolution')
   if diagnosis:
@@ -582,7 +591,10 @@ def render_qualification(data):
   out+='<div class="screening-wrap"><table id="qualification-decisions"><thead><tr><th>Profile</th><th>Policy checks</th><th>Next decision</th><th>Evidence</th></tr></thead><tbody>'
   for row in review['profiles']:
    out+='<tr><td>'+escape(row['model'])+'</td><td>'+str(row['policy_gate_passes'])+'/33</td><td>'+escape(row['reason'])+'</td><td><a href="../experiments/'+row['experiment_id']+'/">Evidence '+row['experiment_id']+'</a></td></tr>'
-  out+='</tbody></table></div>\n\n<details><summary>Confirmation and optimization gates</summary>\n\n'
+  out+='</tbody></table></div>\n'
+  if review.get('outside_review_scope'):
+   out+='\nLater measured variants have separate experiment decisions and do not inherit this frozen shortlist review: '+', '.join('<a href="../experiments/'+eid+'/">'+eid+'</a>' for eid in review['outside_review_scope'])+'.\n'
+  out+='\n<details><summary>Confirmation and optimization gates</summary>\n\n'
   for step in review['next_decisions']:out+='- '+escape(step)+'\n'
   out+='\nDecision review SHA256: `'+review['review_sha256']+'`. Other models and all negative results remain in the archive.\n\n</details>\n'
  elif results:

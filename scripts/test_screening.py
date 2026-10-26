@@ -378,3 +378,14 @@ class OrchestrationMeasuredPresentation(unittest.TestCase):
   with self.assertRaises(AssertionError):validate(d)
   d=self.data();d['qualification_phase']['multi_agent_plan']['results'][0]['arms'].pop()
   with self.assertRaises(AssertionError):validate(d)
+
+
+class FrozenCohortScope(unittest.TestCase):
+ def test_new_measured_variant_does_not_rewrite_old_shortlist(self):
+  from screening import cohort_review_scope
+  a,outside=cohort_review_scope([{'experiment_id':'R530'},{'experiment_id':'R543'}],{'model_profiles':1,'profiles':[{'experiment_id':'R530'}]})
+  self.assertEqual(outside,['R543']);self.assertEqual(set(a),{'R530','R543'})
+ def test_missing_reviewed_profile_and_duplicate_rows_rejected(self):
+  from screening import cohort_review_scope
+  for measured,review in [([{'experiment_id':'R543'}],{'model_profiles':1,'profiles':[{'experiment_id':'R530'}]}),([{'experiment_id':'R530'}]*2,{'model_profiles':1,'profiles':[{'experiment_id':'R530'}]}),([{'experiment_id':'R530'}],{'model_profiles':2,'profiles':[{'experiment_id':'R530'}]*2})]:
+   with self.assertRaises(AssertionError):cohort_review_scope(measured,review)

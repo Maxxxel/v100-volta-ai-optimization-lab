@@ -41,7 +41,7 @@ def offline_payload(payload, minimum_bytes=2900000):
  counts=collections.Counter(m.group(0) for m in token.finditer(raw))
  pool=sorted(t for t,n in counts.items() if n>1 and len(t)>=32)
  if not pool:return plain
- prefix='__V100_POOL_0__'
+ prefix='~v0:'
  while prefix in raw:prefix+='X'
  indexes={t:i for i,t in enumerate(pool)}
  packed=token.sub(lambda m:json.dumps(prefix+str(indexes[m.group(0)])) if m.group(0) in indexes else m.group(0),raw)

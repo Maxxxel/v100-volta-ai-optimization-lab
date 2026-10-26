@@ -479,7 +479,7 @@ class OfflinePayloadTests(unittest.TestCase):
   self.assertEqual(source,offline_payload(data,0))
  def test_reserved_sentinel_lookalike_is_original_data(self):
   from leaderboard import offline_payload
-  data={'sentinel':'__V100_POOL_0__42','repeated':['long existing artifact identity '+('a'*128)]*100}
+  data={'sentinel':'__V100_POOL_0__42 and ~v0:42 and ~v0:X42','repeated':['long existing artifact identity '+('a'*128)]*100}
   source=offline_payload(data,0);self.assertEqual(self.decode(source),data)
  def test_nonfinite_numbers_are_rejected_before_publication(self):
   from leaderboard import offline_payload

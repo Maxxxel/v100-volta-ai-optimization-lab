@@ -165,4 +165,36 @@ class CodingMtpGate(unittest.TestCase):
             with self.assertRaises(AssertionError):self.project(root,review)
 
 
+class QualificationDecision(unittest.TestCase):
+    def fixture(self,tmp):
+        import pathlib
+        root=pathlib.Path(tmp);profiles={};sources={}
+        for eid,solved in [('R464',156),('R544',150)]:
+            path=root/'staging'/eid.lower()/'AUDIT.json';path.parent.mkdir(parents=True)
+            a={'collected_tasks':164,'solved_observed_tasks':solved,'task_phase_s':100.0,'peak_device_vram_mib':8000.0};path.write_text(json.dumps(a));sources[str(path)]=export.digest(path)
+            profiles[eid]={'tasks':164,'solved':solved,'task_phase_s':100.0,'peak_device_vram_mib':8000.0}
+        review={'experiment_id':'R544','candidate_audit_sha256':sources[str(root/'staging/r544/AUDIT.json')],
+            'winner_qualified':False,'GPU_runs':0,'model_requests':0,'source_files_sha256':sources,'profiles':profiles,
+            'decision':'QUALITY_GATE_FAILED','scope':'CPU fixture only, execution policies differ.',
+            'predeclared_gates':{'quality':False},'comparison_class':'STORED_CONTROL_PROFILE_COMPARISON'}
+        return root,review
+    def project(self,root,review):
+        path=root/'staging/r544/REVIEW.json';path.write_text(json.dumps(review))
+        return export.verified_qualification_review(root,{'experiment_id':'R544','audit_sha256':export.digest(root/'staging/r544/AUDIT.json'),'qualification_review_path':str(path),'qualification_review_sha256':export.digest(path)},lambda *a:'audit-fixture')
+    def test_failure_and_profile_comparison_are_preserved(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            root,review=self.fixture(tmp);result=self.project(root,review)
+            self.assertEqual(result['decision'],'QUALITY_GATE_FAILED');self.assertFalse(result['gates']['quality']);self.assertEqual(result['comparison_class'],'STORED_CONTROL_PROFILE_COMPARISON')
+    def test_forged_score_resource_time_and_champion_rejected(self):
+        import tempfile
+        for key,value in [('solved',156),('tasks',200),('task_phase_s',1.0),('peak_device_vram_mib',1.0),('winner',True),('audit','0'*64)]:
+            with tempfile.TemporaryDirectory() as tmp:
+                root,review=self.fixture(tmp)
+                if key=='winner':review['winner_qualified']=value
+                elif key=='audit':review['candidate_audit_sha256']=value
+                else:review['profiles']['R544'][key]=value
+                with self.subTest(key=key),self.assertRaises(AssertionError):self.project(root,review)
+
+
 if __name__ == '__main__': unittest.main()

@@ -412,6 +412,25 @@ def verified_coding_mtp_comparison(root,entry,receipt,candidate="R541"):
     return {'profiles':profiles,'quality':projection(review['quality']),'comparison':projection(review['comparison']),
             'quality_gate_passed':review['predeclared_quality_gate_passed'],'speed_gate_passed':review['predeclared_speed_gate_passed'],
             'decision':text(review['decision']),'scope':text(review['scope']),'winner_qualified':False,'audit_id':receipt(path,entry['sha256'])}
+def verified_qualification_review(root,entry,receipt):
+    root=pathlib.Path(root).resolve();path=pathlib.Path(entry['qualification_review_path']).resolve()
+    assert path.is_relative_to(root/'staging') and digest(path)==entry['qualification_review_sha256']
+    review=load(path);assert review['experiment_id']==entry['experiment_id']
+    assert (review.get('candidate_audit_sha256') or review.get('source_audit_sha256'))==entry['audit_sha256']
+    assert review['winner_qualified'] is False and review['GPU_runs']==0 and review['model_requests']==0
+    assert review['source_files_sha256']
+    for name,h in review['source_files_sha256'].items():
+        source=pathlib.Path(name).resolve();assert source.is_relative_to(root.parent) and digest(source)==h
+    for eid,profile in review['profiles'].items():
+        assert re.fullmatch(r'R[1-9][0-9]{1,3}',eid)
+        audit_path=root/'staging'/eid.lower()/'AUDIT.json';assert review['source_files_sha256'].get(str(audit_path))==digest(audit_path)
+        a=load(audit_path);assert profile['tasks']==a.get('collected_tasks',a.get('tasks')) and profile['solved']==a.get('solved_observed_tasks',a.get('solved'))
+        assert profile['task_phase_s']==a['task_phase_s']
+        assert profile['peak_device_vram_mib']==a.get('peak_device_vram_mib',a.get('measurement_summary',{}).get('peak_device_vram_mib'))
+    return {'audit_id':receipt(path,entry['qualification_review_sha256']),'decision':text(review['decision']),
+            'scope':text(review['scope']),'gates':projection(review['predeclared_gates']),
+            'comparison_class':text(review.get('comparison_class')),'aggregate_metrics':metrics(review)}
+
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -720,6 +739,8 @@ def main():
             else:experiments[ident]['development_comparison']=development_result(root,v['development_comparison_review'],receipt)
         if v.get('mtp_confirmation_review'):
             experiments[ident]['mtp_confirmation']=verified_mtp_confirmation_result(root,v['mtp_confirmation_review'],receipt)
+        if v.get('qualification_review_path'):
+            experiments[ident]['qualification_review']=verified_qualification_review(root,{**v,'experiment_id':ident},receipt)
         if v.get('coding_mtp_comparison_review'):
             experiments[ident]['coding_mtp_comparison']=verified_coding_mtp_comparison(root,v['coding_mtp_comparison_review'],receipt)
         if v.get('tools_mtp_comparison_review'):

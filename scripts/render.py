@@ -252,6 +252,9 @@ All original experiments, failures, configurations and audit identities remain a
    text+='\n## Registered benchmark results\n\nThese are immutable historical measurement/admission views, not additional GPU runs. Partial denominators are not extrapolated to full benchmarks; missing costs stay unknown.\n\n'+table(['Benchmark / protocol identity','Status','Solved / evaluated','Configuration','Audit'],[[r['benchmark_id']+' / '+r['benchmark_identity_id'],r['status'],str(r['solved'])+'/'+str(r['tasks']),f"[Exact profile](../configuration-profiles/{r['runtime_configuration_id']}.md)",', '.join(f"[Proof](../audits/{aid}.md)" for aid in r['audit_ids'])] for r in measured])
   if e.get('independent_review'):
    review=e['independent_review'];text+='\n## Independent review and scope correction\n\n'+pretty(review.get('statements',{}))+'\n\n[Independent review audit excerpt](../audits/'+review['audit_id']+'.md)\n'
+  if e.get('qualification_review'):
+   decision=e['qualification_review']
+   text+='\n## Qualification decision\n\n**'+str(decision['decision'])+'**\n\n'+decision['scope']+'\n\n[Qualification evidence](../audits/'+decision['audit_id']+'.md)\n\n'+'<details class="lab-evidence"><summary>Predeclared gates and measured comparisons</summary>\n<pre><code>'+html.escape(json.dumps(decision,ensure_ascii=False,indent=2))+'</code></pre>\n</details>\n'
   if e.get('coding_mtp_comparison') or e.get('tools_mtp_comparison'):
    dev=e.get('coding_mtp_comparison') or e['tools_mtp_comparison'];tools=bool(e.get('tools_mtp_comparison'));label='tool' if tools else 'coding'
    text+='\n## '+('Tool' if tools else 'Coding')+' quality versus speed\n\n**The official benchmark score is valid. It does not qualify an optimization winner.**\n\n'

@@ -22290,5 +22290,152 @@
       "winner_qualified": false
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "extra_peak_VRAM_MiB": 1644.0,
+        "task_latency_reduction_percent": 27.36973270479961
+      },
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 291.728150251,
+          "group_window_s": 291.734395308,
+          "lower_j": 75400.738,
+          "upper_j": 75522.995
+        },
+        "actual_generation_requests": 155,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 291.728150251,
+        "completed_request_wall_s": 288.815645275,
+        "completion_tokens": 22092,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 2792.619925925926,
+        "gpu_j_per_success_upper": 2797.147962962963,
+        "independent_review_audit_id": "audit-f1735c86c60a2810f5f1",
+        "independent_review_sha256": "f1735c86c60a2810f5f1975f64b7f8d76de984b3318c84b4f8c2e456e22988b9",
+        "max_output_tokens": 4096,
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 0,
+          "case_lost": 1,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 1.0,
+          "net_success_change": -1,
+          "nonzero_groups": 1,
+          "reference_experiment_id": "R536",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 9324.5,
+        "planned_tasks": 33,
+        "profile_sha256": "68d5f334a6ccc09f9fec1b7d4822e32ce151619d6cbef69de1094dc622d70fcc",
+        "solved": 27,
+        "successful_tasks_per_s": 0.09254973750741685,
+        "task_limit_s": 1200,
+        "task_phase_s": 291.735025157,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 76.49170106060141,
+        "winner_qualified": false
+      },
+      "quality": {
+        "paired_policy_losses": 1,
+        "paired_success_losses": 1,
+        "policy_gate_passes": 28,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 27,
+      "tasks": 33
+    },
+    "audit_id": "audit-d715b95502520aa5e6cf",
+    "date": "2026-10-25T23:38:43.855708+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R543",
+    "model": "OmniCoder-9B · bartowski Q6 MTP3",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-dc974a7b46746dca2748",
+      "audit-63fab4c65f83a299f5a1"
+    ],
+    "statements": {
+      "decision": "MTP_AGENT_NONREGRESSION_AND_POLICY_GATES_FAILED",
+      "scope": "Same target, engine, native template, sampler and all inference controls except fixed MTP3/min1. Previously exposed33 simulated fixtures/11 authored families; correlated, not Terminal-Bench or population safety. Stored R536 control, no fresh paired performance replication. One extra failed policy check is not excused by faster generation. R541 coding gate also failed. No agent/coding/allround Champion or production change."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "VRAM_saved_MiB": 132.0,
+        "additional_peak_device_vram_mib": -132.0,
+        "task_latency_change_percent": 4.949367168584207
+      },
+      "model_starts": 1,
+      "peak_device_vram_mib": 7986.5,
+      "quality": {
+        "candidate_only_successes": 0,
+        "control_only_successes": 5,
+        "net_success_change": -5,
+        "paired_exact_two_sided_p_descriptive": 0.0625,
+        "paired_tasks": 164,
+        "score_change_percentage_points": -3.048780487804878
+      },
+      "scopes": {
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164,
+          "wall_s": 794.64060039
+        }
+      }
+    },
+    "audit_id": "audit-d13bc85d40e17f340c37",
+    "date": "2026-10-26T00:00:01.547533+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R544",
+    "model": "gemma4_12b_qat",
+    "qualification_review": {
+      "aggregate_metrics": {
+        "comparison": {
+          "VRAM_saved_MiB": 132.0,
+          "additional_peak_device_vram_mib": -132.0,
+          "task_latency_change_percent": 4.949367168584207
+        },
+        "model_requests": 0,
+        "quality": {
+          "candidate_only_successes": 0,
+          "control_only_successes": 5,
+          "net_success_change": -5,
+          "paired_exact_two_sided_p_descriptive": 0.0625,
+          "paired_tasks": 164,
+          "score_change_percentage_points": -3.048780487804878
+        }
+      },
+      "audit_id": "audit-0a97d0768df9050660a8",
+      "comparison_class": "STORED_CONTROL_PROFILE_COMPARISON",
+      "decision": "GEMMA_Q8_KEY_CODING_QUALITY_GATE_FAILED",
+      "gates": {
+        "memory": true,
+        "quality": false,
+        "task_latency": true
+      },
+      "scope": "Complete original164 tasks, same weights, engine, native template and T1/seed1001 sampling. Intended engine change: K-cache F16 to Q8_0, V remains F16. Controller preflight/HTTP-timeout policy also differs and is reported explicitly; stored-control configuration comparison, not a clean causal kernel/cache gain or fresh A/B repetition. Single stochastic seed is not equivalence. GPU-counter bounds include all failures, exclude load/warmup/CPU/system energy, and are not calibration confidence intervals. No task-driven tuning, model exclusion or Champion."
+    },
+    "reference_A0": null,
+    "statements": {
+      "decision": "GEMMA_Q8_KEY_CODING_QUALITY_GATE_FAILED",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Complete original164 tasks, same weights, engine, native template and T1/seed1001 sampling. Intended engine change: K-cache F16 to Q8_0, V remains F16. Controller preflight/HTTP-timeout policy also differs and is reported explicitly; stored-control configuration comparison, not a clean causal kernel/cache gain or fresh A/B repetition. Single stochastic seed is not equivalence. GPU-counter bounds include all failures, exclude load/warmup/CPU/system energy, and are not calibration confidence intervals. No task-driven tuning, model exclusion or Champion."
+    },
+    "winner_qualified": false
   }
 ]

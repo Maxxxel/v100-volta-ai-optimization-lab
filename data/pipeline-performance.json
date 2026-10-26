@@ -426,12 +426,54 @@
       "experiment_id": "R542",
       "phase": "integrity",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:25:52.774863+00:00",
+      "duration_s": 11.891796818,
+      "experiment_id": "R542",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:25:55.243421+00:00",
+      "duration_s": 1.446762934,
+      "experiment_id": "R542",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-25T23:35:41.710056+00:00",
+      "duration_s": 0.398895875,
+      "experiment_id": "R543",
+      "phase": "collect",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-25T23:41:34.246757+00:00",
+      "duration_s": 27.424460738,
+      "experiment_id": "R543",
+      "phase": "export",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-25T23:57:01.925222+00:00",
+      "duration_s": 0.096225613,
+      "experiment_id": "R544",
+      "phase": "collect",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-25T23:57:15.845249+00:00",
+      "duration_s": 5.039209613,
+      "experiment_id": "R543",
+      "phase": "independent_review",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R542",
-    "phase": "NO_ACTIVE_GPU_CONTROL_OBSERVED"
+    "experiment_id": "R544",
+    "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
     {
@@ -891,8 +933,8 @@
       }
     },
     {
-      "CI_build_s": null,
-      "CI_deploy_s": null,
+      "CI_build_s": 99.0,
+      "CI_deploy_s": 12.0,
       "audit_sha256": "1458e5e3f6dd1ffdb03349161d92c60c2b5f2a2507a5112e40457261daf53ede",
       "durations": {
         "CPU_scoring_outer_wall_s": 0.5212649879977107,
@@ -927,9 +969,85 @@
         "task_begin_at_utc": "2026-10-25T23:16:17.967656+00:00",
         "task_end_at_utc": "2026-10-25T23:21:22.736556+00:00"
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "d715b95502520aa5e6cf2c1ffa55ea5ff722abb38e13e4c60f1bea8e16422af2",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": 11.483265,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 288.815645275,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 76.46665703,
+        "task_phase_s": 291.735025157,
+        "warmup_requests_s": 1.246041692
+      },
+      "experiment_id": "R543",
+      "quality": {
+        "completed": 33,
+        "planned": 33,
+        "solved": 27
+      },
+      "resources": {
+        "counter_lower_j": 75400.738,
+        "counter_upper_j": 75522.995,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 9324.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-25T23:38:43.855708+00:00",
+        "initial_at_utc": "2026-10-25T23:29:22.396758+00:00",
+        "task_begin_at_utc": "2026-10-25T23:30:38.863415+00:00",
+        "task_end_at_utc": "2026-10-25T23:35:30.598440+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "d13bc85d40e17f340c3722e8deece59fcdf08b9df9a196f74de791cda0aa2639",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 794.64060039,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 90.856456755,
+        "task_phase_s": 794.73384639,
+        "warmup_requests_s": 2.547769594
+      },
+      "experiment_id": "R544",
+      "quality": {
+        "completed": 164,
+        "planned": 164,
+        "solved": 151
+      },
+      "resources": {
+        "counter_lower_j": 190136.092,
+        "counter_upper_j": 190238.133,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 7986.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-26T00:00:01.547533+00:00",
+        "initial_at_utc": "2026-10-25T23:42:07.650767+00:00",
+        "task_begin_at_utc": "2026-10-25T23:43:38.507224+00:00",
+        "task_end_at_utc": "2026-10-25T23:56:53.241070+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-25T23:21:47.853333+00:00",
+  "observed_at_utc": "2026-10-26T00:02:31.701006+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",
