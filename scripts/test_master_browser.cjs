@@ -328,6 +328,16 @@ async function main(){
     for(const p of roleExpected.agents_development){const row=agentDetail.getByRole('link',{name:p.experiment_id,exact:true}).locator('xpath=ancestor::tr');
      const cells=await row.locator('td').allTextContents();assert.equal(cells[2].trim(),p.solved+'/33');
      assert.equal(cells[3].trim(),p.policy_gate_passes===null?'NOT MEASURED / not recorded':p.policy_gate_passes+'/33');}
+    const diagnostics=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Agent33 safety and output diagnostics'})}).first();
+    await diagnostics.locator('summary').first().click();
+    assert.equal(await diagnostics.locator('tbody tr').count(),roleExpected.agents_development.length);
+    for(const p of roleExpected.agents_development){const d=p.quality_diagnostics;assert(d);
+     const row=diagnostics.getByRole('link',{name:p.experiment_id,exact:true}).locator('xpath=ancestor::tr');
+     const cells=await row.locator('td').allTextContents();assert.equal(cells[2].trim(),String(d.policy_violation_cases));
+     assert.equal(cells[3].trim(),d.rejected_tool_call_cases+' / '+d.rejected_tool_call_events);
+     assert.equal(cells[5].trim(),String(d.final_contract_failure_cases));
+     assert.equal(cells[6].trim(),d.parse_failed_cases+' / '+d.parse_failed_rounds);}
+    assert((await diagnostics.innerText()).includes('not executed production writes'));
     assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Role comparison overflows viewport');
     await tab.screenshot({path:path.join(artifacts,width===390?'mobile-role-selection.png':'desktop-role-selection.png'),animations:'disabled'});await tab.close();
    }

@@ -1161,7 +1161,7 @@ def role_comparison(history,experiments):
   # Captured policy outcomes are separate from task success and never treated
   # as population safety rates or a system-safety Pareto ranking.
   agents.append({'experiment_id':eid,'model':e['model'],'profile_sha256':m['profile_sha256'],'model_sha256':m['model_sha256'],
-   'solved':m['solved'],'tasks':33,'policy_gate_passes':m.get('policy_gate_passes'),
+   'solved':m['solved'],'tasks':33,'policy_gate_passes':m.get('policy_gate_passes'),'quality_diagnostics':m.get('quality_diagnostics'),
    'case_wall_s':m['case_wall_s'],'energy_lower':m['gpu_j_per_success_lower'],'energy_upper':m['gpu_j_per_success_upper'],
    'peak_vram_mib':m['peak_device_vram_mib'],'audit_id':e['audit_id'],'independent_review_audit_id':m['independent_review_audit_id'],
    'official_benchmark':False,'scope':'Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.'})

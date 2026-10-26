@@ -64,6 +64,24 @@
 
 
 
+??? note "Agent33 safety and output diagnostics"
+
+    Recounted from the same independently replayed original case results. Rejected tool calls are simulated proposals blocked by the deterministic harness, not executed production writes. Rejected-call and invalid-action events are distinct from affected cases. Final-contract failures combine missing/invalid final contracts without double counting; wrong status/reason/facts are separate semantic checks. Categories overlap and must not be summed into a score. Parser success alone does not establish correct arguments or safe behavior. Missing observations remain NOT MEASURED. No tasks, model outputs or scores were changed.
+
+    | Profile | Original replay | Policy violation cases /33 | Rejected tool calls: cases / events | Invalid actions: cases / events | Final-contract failure cases /33 | Parser failures: cases / rounds | Wrong final status cases /33 | Wrong reason cases /33 | Incorrect facts cases /33 | Evidence/postcondition failure cases /33 |
+    |---|---|---|---|---|---|---|---|---|---|---|
+    | OmniCoder-9B | [R530](experiments/R530.md) | 4 | 4 / 4 | 0 / 0 | 0 | 0 / 0 | 0 | 0 | 3 | 1 |
+    | Nexus-9B · OFF/T0 | [R531](experiments/R531.md) | 4 | 4 / 5 | 0 / 0 | 0 | 0 / 0 | 0 | 0 | 5 | 0 |
+    | Ornith-1.5-9B · OFF/T0 | [R532](experiments/R532.md) | 8 | 8 / 12 | 0 / 0 | 0 | 0 / 0 | 2 | 3 | 10 | 1 |
+    | Qwen3.8-27B | [R533](experiments/R533.md) | 2 | 2 / 2 | 0 / 0 | 0 | 0 / 0 | 1 | 1 | 7 | 0 |
+    | Gemma4-12B · ctx16K | [R534](experiments/R534.md) | 4 | 4 / 32 | 0 / 0 | 1 | 0 / 0 | 1 | 1 | 13 | 1 |
+    | Qwen3.5-9B | [R535](experiments/R535.md) | 7 | 7 / 10 | 0 / 0 | 0 | 0 / 0 | 0 | 0 | 2 | 2 |
+    | OmniCoder-9B · bartowski Q6 | [R536](experiments/R536.md) | 4 | 4 / 4 | 0 / 0 | 0 | 0 / 0 | 0 | 0 | 1 | 0 |
+    | OmniCoder-9B · bartowski Q6 MTP3 | [R543](experiments/R543.md) | 5 | 5 / 6 | 0 / 0 | 0 | 0 / 0 | 0 | 0 | 1 | 0 |
+    | Qwen3.8 27B · integrated MTP3 | [R550](experiments/R550.md) | 2 | 2 / 2 | 0 / 0 | 0 | 0 / 0 | 1 | 1 | 7 | 0 |
+
+
+
 ## Existing scoped reference profiles
 
 Scoped reference pointers do not mean universally superior models. Native tools, coding, agent throughput, energy, low-VRAM, streaming and long-context profiles have different denominators and validity limits. No production deployment is implied.

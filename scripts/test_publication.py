@@ -228,3 +228,33 @@ class IssueFreezeRegistry(unittest.TestCase):
   self.assertEqual(len(ids),len(set(ids)));self.assertTrue(set(range(1,18))<=set(ids));self.assertTrue(all(x['github_state'] in ('OPEN','CLOSED') and x['github_checked_at_utc'] and x['next_action'] for x in rows))
   by_id={int(x['url'].rsplit('/',1)[-1]):x for x in rows};self.assertEqual(by_id[13]['status'],'DEFERRED_DISTINCT_PROFILE_HYPOTHESIS_REQUIRED');self.assertIn('unproven',by_id[13]['next_action']);self.assertEqual(len(by_id[13]['evidence_sha256']),2)
   for n in (16,17):self.assertEqual(by_id[n]['freeze_priority'],'P2_NOVEMBER_BACKLOG')
+
+class AgentQualityDiagnostics(unittest.TestCase):
+ def cases(self):
+  return [{'reported_result':{'failure_reasons':[],'policy_violations':0,'rejected_calls':0,'invalid_actions':0,'round_metrics':[{'parse_failed':False}]}} for _ in range(33)]
+ def test_case_counts_do_not_confuse_repeated_rejections_with_independent_cases(self):
+  c=self.cases();r=c[0]['reported_result'];r.update(policy_violations=20,rejected_calls=20,failure_reasons=['policy_violations','rejected_tool_calls','missing_valid_final','invalid_final_contract'])
+  d=e.agent_quality_diagnostics(c)
+  self.assertEqual(d['policy_violation_cases'],1);self.assertEqual(d['policy_violation_events'],20)
+  self.assertEqual(d['rejected_tool_call_cases'],1);self.assertEqual(d['rejected_tool_call_events'],20)
+  self.assertEqual(d['final_contract_failure_cases'],1)
+ def test_semantic_errors_are_separate_from_parser_and_contract_errors(self):
+  c=self.cases();c[0]['reported_result']['failure_reasons']=['wrong_final_status','wrong_reason_code','incorrect_facts','required_evidence_missing:PRIVATE_TOOL_IDENTIFIER','evidence_order_failed:PRIVATE_TOOL_IDENTIFIER']
+  d=e.agent_quality_diagnostics(c)
+  self.assertEqual(d['wrong_final_status_cases'],1);self.assertEqual(d['wrong_reason_code_cases'],1)
+  self.assertEqual(d['incorrect_facts_cases'],1);self.assertEqual(d['evidence_or_postcondition_failure_cases'],1)
+  self.assertEqual(d['parse_failed_rounds'],0);self.assertEqual(d['final_contract_failure_cases'],0)
+  self.assertNotIn('PRIVATE_TOOL_IDENTIFIER',str(d))
+ def test_missing_or_noninteger_event_counts_are_unknown(self):
+  for value in (None,False,-1,1.5):
+   c=self.cases();c[0]['reported_result']['rejected_calls']=value
+   d=e.agent_quality_diagnostics(c)
+   self.assertIsNone(d['rejected_tool_call_cases']);self.assertIsNone(d['rejected_tool_call_events'])
+  c=self.cases();c[0]['reported_result'].pop('round_metrics')
+  d=e.agent_quality_diagnostics(c);self.assertIsNone(d['parse_failed_cases']);self.assertIsNone(d['parse_failed_rounds'])
+ def test_parser_failures_distinguish_case_and_round_denominators(self):
+  c=self.cases();c[0]['reported_result']['round_metrics']=[{'parse_failed':True},{'parse_failed':True}]
+  d=e.agent_quality_diagnostics(c);self.assertEqual(d['parse_failed_cases'],1);self.assertEqual(d['parse_failed_rounds'],2)
+ def test_rendering_preserves_unknowns_and_original_evidence(self):
+  render=module('render');raw=render.agent_diagnostics_table([{'model':'test model','experiment_id':'R536','quality_diagnostics':None}])
+  self.assertIn('experiments/R536.md',raw);self.assertIn('NOT MEASURED / not recorded',raw)

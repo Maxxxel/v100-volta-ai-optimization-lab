@@ -10,6 +10,18 @@ def put(n,s):
 def pretty(x):return '```json\n'+json.dumps(x,ensure_ascii=False,indent=2)+'\n```\n'
 def esc(x):return str(x if x is not None else 'NOT MEASURED / not recorded').replace('|','\\|').replace('\n',' ')
 def table(headers,rows):return '| '+' | '.join(headers)+' |\n|'+'|'.join(['---']*len(headers))+'|\n'+''.join('| '+' | '.join(esc(x) for x in row)+' |\n' for row in rows)+'\n'
+def agent_diagnostics_table(agents):
+ rows=[]
+ def pair(d,first,second):
+  return (str(d[first])+' / '+str(d[second])) if d.get(first) is not None and d.get(second) is not None else None
+ for v in agents:
+  d=v.get('quality_diagnostics') or {}
+  rows.append([v['model'],'['+v['experiment_id']+'](experiments/'+v['experiment_id']+'.md)',
+   d.get('policy_violation_cases'),pair(d,'rejected_tool_call_cases','rejected_tool_call_events'),
+   pair(d,'invalid_action_cases','invalid_action_events'),d.get('final_contract_failure_cases'),
+   pair(d,'parse_failed_cases','parse_failed_rounds'),d.get('wrong_final_status_cases'),d.get('wrong_reason_code_cases'),
+   d.get('incorrect_facts_cases'),d.get('evidence_or_postcondition_failure_cases')])
+ return table(['Profile','Original replay','Policy violation cases /33','Rejected tool calls: cases / events','Invalid actions: cases / events','Final-contract failure cases /33','Parser failures: cases / rounds','Wrong final status cases /33','Wrong reason cases /33','Incorrect facts cases /33','Evidence/postcondition failure cases /33'],rows)
 THEORY={
 'R01':'Generation threads control host-side scheduling and CPU work. With full GPU offload, extra threads need not increase decode speed; CPU contention can increase latency.',
 'R02':'Batch-processing threads govern host work during prompt evaluation. Their benefit depends on a demonstrated host bottleneck, not GPU thread-block occupancy.',
@@ -175,6 +187,9 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
  text+=''.join(('    '+line if line else '')+'\n' for line in table(['Original experiment','Samples','Observed status','Temperature range °C','Peak device VRAM MiB','Guard violations'],rows).splitlines())
  text+='\n## Limits that remain explicit\n\n'
  text+='- **Terminal-Bench2.1: NOT MEASURED / TECHNICALLY BLOCKED.** The archived 89-task source gate is NO-GO for this local freeze campaign; reviewed container/evaluator/gateway admission and official-protocol execution are missing. No short test substitutes for it. [Gate and prerequisites](pipeline-methods.md).\n'
+ diagnostics=agent('R534').get('quality_diagnostics')
+ if diagnostics:
+  text+='- **Agent safety versus format:** Gemma Agent33 has '+str(diagnostics['policy_violation_cases'])+' policy-violation cases and '+str(diagnostics['rejected_tool_call_events'])+' rejected tool-call events, with '+str(diagnostics['final_contract_failure_cases'])+' case failing the final-output contract. Repeated blocked calls are not independent failed cases or production writes. [Separate per-profile policy, parser, contract and semantic counts](configurations.md) retain the original replay and scores; zero recorded parser failures is not proof of valid arguments or safe decisions. '+link('R534')+'\n'
  text+='- **External evidence / EXTERN BELEGT:** published model cards, papers, source implementations and community measurements remain [source evidence](benchmark-register.md), never local score replacements or proof of a speedup cause.\n'
  text+='- **Unverified / NICHT VERIFIZIERT:** unattended production stability; global model superiority; automatic multi-model routing/switch costs; a heavier multi-agent harness; independently rebuilt binary equivalence; and exact public reproduction of private Agent33 inputs. R537 has only five paired role cases. '+link('R537')+'\n'
  text+='- Model-specific native templates, context/output, sampler, quantization, engine and harness settings remain part of every result. The shared HumanEval/32 canonical-reference anomaly is retained and disclosed; all 164 official tasks remain. These are declared local protocols, not publisher-protocol reproductions.\n'
@@ -384,6 +399,8 @@ All original experiments, failures, configurations and audit identities remain a
    if category['missing_complete_experiments']:intro+='Incomplete/missing qualified runs in selected scope: '+', '.join(category['missing_complete_experiments'])+'. No score imputed.\n'
   intro+='\n</details>\n\n<details><summary>Separate local Agent33 evidence</summary>\n\n33 authored cases in11 families; not Terminal-Bench, a population safety rate or an unseen holdout for later tuning. No joint official mean. Policy counts are independently replayed simulated case outcomes, not population safety guarantees. Missing counts remain NOT MEASURED; original security audits remain linked. Different model templates, context limits and request counts are disclosed per profile.\n\n'
   intro+=table(['Profile','Evidence','Solved /33','Policy passes /33','Case wall s','GPU J/success bounds','Peak VRAM MiB'],[[v['model'],'['+v['experiment_id']+'](experiments/'+v['experiment_id']+'.md)',str(v['solved'])+'/33',str(v['policy_gate_passes'])+'/33' if v['policy_gate_passes'] is not None else None,round(v['case_wall_s'],3),f"{v['energy_lower']:.2f}–{v['energy_upper']:.2f}",v['peak_vram_mib']] for v in roles['agents_development']])
+  intro+='\n</details>\n\n<details><summary>Agent33 safety and output diagnostics</summary>\n\nRecounted from the same independently replayed original case results. Rejected tool calls are simulated proposals blocked by the deterministic harness, not executed production writes. Rejected-call and invalid-action events are distinct from affected cases. Final-contract failures combine missing/invalid final contracts without double counting; wrong status/reason/facts are separate semantic checks. Categories overlap and must not be summed into a score. Parser success alone does not establish correct arguments or safe behavior. Missing observations remain NOT MEASURED. No tasks, model outputs or scores were changed.\n\n'
+  intro+=agent_diagnostics_table(roles['agents_development'])
   intro+='\n</details>\n\n## Existing scoped reference profiles\n\n'
   intro=re.sub(r'(?s)<details><summary>(.*?)</summary>\n\n(.*?)\n</details>',lambda m:'??? note \"'+m.group(1)+'\"\n\n'+''.join(('    '+line if line else '')+'\n' for line in m.group(2).splitlines()),intro)
   text=text.replace('# Qualified configurations\n\n','# Qualified configurations\n\n'+intro,1)

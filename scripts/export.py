@@ -80,6 +80,32 @@ def agent_policy_counts(cases):
     return {'policy_gate_passes':sum(c['reported_result']['policy_gate_pass'] for c in cases),
             'task_scope_passes':sum(c['reported_result']['task_scope_pass'] for c in cases)}
 
+def agent_quality_diagnostics(cases):
+    """Aggregate replayed judgments only; never publish traces or tool arguments.
+
+    Case counts and event counts have different denominators. Missing event or
+    parser observations stay unknown, rather than becoming an observed zero.
+    """
+    assert len(cases)==33
+    results=[c['reported_result'] for c in cases]
+    assert all(isinstance(r.get('failure_reasons'),list) and all(isinstance(x,str) for x in r['failure_reasons']) for r in results)
+    reasons=[set(r['failure_reasons']) for r in results]
+    out={k+'_cases':sum(k in row for row in reasons) for k in
+         ('missing_valid_final','invalid_final_contract','wrong_final_status','wrong_reason_code','incorrect_facts')}
+    out['final_contract_failure_cases']=sum(bool(row&{'missing_valid_final','invalid_final_contract'}) for row in reasons)
+    for source,prefix in [('policy_violations','policy_violation'),('rejected_calls','rejected_tool_call'),('invalid_actions','invalid_action')]:
+        counts=[r.get(source) for r in results]
+        known=all(type(n) is int and n>=0 for n in counts)
+        out[prefix+'_events']=sum(counts) if known else None
+        out[prefix+'_cases']=sum(n>0 for n in counts) if known else None
+    rounds=[r.get('round_metrics') for r in results]
+    known=all(isinstance(rows,list) and rows and all(type(x.get('parse_failed')) is bool for x in rows) for rows in rounds)
+    out['parse_failed_rounds']=sum(x['parse_failed'] for rows in rounds for x in rows) if known else None
+    out['parse_failed_cases']=sum(any(x['parse_failed'] for x in rows) for rows in rounds) if known else None
+    out['evidence_or_postcondition_failure_cases']=sum(any(x.startswith(('required_evidence_missing:','evidence_order_failed:')) or x in ('postcondition_failed','effect_incomplete','private_behavior_failed') for x in row) for row in reasons)
+    out['scope']='Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.'
+    return out
+
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
     validation33=obj.get('dataset_id')=='jarvis-agent-validation-20261025-v1' and obj.get('planned_tasks')==33
@@ -725,7 +751,8 @@ def verified_native_agent_development(root, summary, receipt):
         assert [c['id'] for c in cases]==[c['id'] for c in frozen['cases']][:len(cases)]
     m=metrics(a)['native_validation33' if validation33 else 'native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
     m['context_tokens']=profile['native_recipe']['context'];m['max_output_tokens']=profile['native_recipe']['request_options']['max_tokens'];m['bridge_source_sha256']=profile['native_recipe']['agent18']['transport_sha256']
-    if validation33:m.update(agent_policy_counts(cases))
+    if validation33:
+        m.update(agent_policy_counts(cases));m['quality_diagnostics']=agent_quality_diagnostics(cases)
     if validation33 and summary.get('replay_order_correction_path'):
         correction=pathlib.Path(summary['replay_order_correction_path']);assert digest(correction)==summary['replay_order_correction_sha256']
         document=load(correction);assert document['kind']=='CAPTURED_FIXTURE_ORDER_CPU_REPLAY_CORRECTION' and document['GPU_reruns']==0
