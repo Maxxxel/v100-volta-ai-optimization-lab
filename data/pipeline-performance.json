@@ -979,11 +979,88 @@
       "experiment_id": "R553",
       "phase": "push",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:47:09.208968+00:00",
+      "duration_s": 35.092426158,
+      "experiment_id": "R554",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:47:10.631209+00:00",
+      "duration_s": 1.419100418,
+      "experiment_id": "R554",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:47:15.383018+00:00",
+      "duration_s": 4.725929584,
+      "experiment_id": "R554",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:47:18.160927+00:00",
+      "duration_s": 2.772791533,
+      "experiment_id": "R554",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:47:30.956587+00:00",
+      "duration_s": 12.791081532,
+      "experiment_id": "R554",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:48:12.962611+00:00",
+      "duration_s": 42.000722761,
+      "experiment_id": "R554",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:48:25.484473+00:00",
+      "duration_s": 12.390893566,
+      "experiment_id": "R554",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:48:25.816967+00:00",
+      "duration_s": 0.036880492,
+      "experiment_id": "R554",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:48:29.861702+00:00",
+      "duration_s": 3.237167595,
+      "experiment_id": "R554",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:08:54.978273+00:00",
+      "duration_s": 12.293647616,
+      "experiment_id": "R555",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T22:08:58.817599+00:00",
+      "duration_s": 3.084271348,
+      "experiment_id": "R555",
+      "phase": "push",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R554",
+    "experiment_id": "R556",
     "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
@@ -1936,9 +2013,85 @@
         "task_begin_at_utc": "2026-10-26T21:45:22.565907+00:00",
         "task_end_at_utc": "2026-10-26T21:45:56.205284+00:00"
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "701163dc62d5fc6a02e9ff5a39fe063d95e2505e8e230ed131758953b49d5c58",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 71.987443428,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 98.496656811,
+        "task_phase_s": 72.004129515,
+        "warmup_requests_s": 2.666340822
+      },
+      "experiment_id": "R555",
+      "quality": {
+        "completed": 32,
+        "planned": 32,
+        "solved": 20
+      },
+      "resources": {
+        "counter_lower_j": null,
+        "counter_upper_j": null,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 13792.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-26T21:59:30.395271+00:00",
+        "initial_at_utc": "2026-10-26T21:56:26.168368+00:00",
+        "task_begin_at_utc": "2026-10-26T21:58:04.665025+00:00",
+        "task_end_at_utc": "2026-10-26T21:59:16.669154+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "5b7734361d1120822199865eceb6ab03b701ffbc9916205d803fd74072ebbc81",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 83.624962476,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 126.111926364,
+        "task_phase_s": 83.644184774,
+        "warmup_requests_s": 4.198792954
+      },
+      "experiment_id": "R556",
+      "quality": {
+        "completed": 32,
+        "planned": 32,
+        "solved": 22
+      },
+      "resources": {
+        "counter_lower_j": null,
+        "counter_upper_j": null,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 13156.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-26T22:14:41.890697+00:00",
+        "initial_at_utc": "2026-10-26T22:11:00.548390+00:00",
+        "task_begin_at_utc": "2026-10-26T22:13:06.660317+00:00",
+        "task_end_at_utc": "2026-10-26T22:14:30.304501+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-26T21:46:33.892852+00:00",
+  "observed_at_utc": "2026-10-26T22:17:13.370267+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",
