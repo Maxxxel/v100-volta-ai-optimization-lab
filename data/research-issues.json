@@ -42,7 +42,7 @@
   {
     "status": "CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE",
     "subcase": "R340-S05",
-    "title": "Audit: Alle DEFERRED-Optimierungen \u00fcberpr\u00fcfen und technisch sinnvolle Ans\u00e4tze reaktivieren",
+    "title": "Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5",
     "github_state": "CLOSED",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
@@ -92,7 +92,7 @@
   {
     "status": "CURRENT_MISSION_GATE_REVIEWED_WITH_DECLARED_LIMITS",
     "subcase": "FINAL-GATE",
-    "title": "Final Research Gate: Qwen3.5 \u2192 OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschlie\u00dfen",
+    "title": "Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
@@ -162,18 +162,19 @@
   {
     "subcase": "NOVEMBER-MODEL-FAMILIES",
     "status": "ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING",
-    "title": "Research: non-Qwen/Gemma models \u226430B for V100 SM70 \u2014 GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
+    "title": "Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
     "freeze_priority": "P0_NEW_MODEL_COMPARISON",
-    "next_action": "Continue the owner-authorized eight-family screening and qualification campaign using the latest audit-backed Screening table. Preserve named GLM/Nemotron exceptions,14336MiB/1200s guards and explicit transport identities. No result inherited from an engine witness; no small-sample quality rejection.",
-    "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH"
+    "next_action": "Seven requested families have complete independently replayed32-task development screens (R552–R558); these are not official benchmark results. Prioritize unchanged-profile gpt-oss20B, Ministral3-8B and Devstral Small2 full qualification through ordinary admission. Nemotron source/header SSM and96 template-render checks are complete, but its18.12GB artifact is blocked by10.02GB available disk; no download or GPU run. Qwen Q4 is a protected R122 Golden Baseline and was not deleted. Keep all remaining candidates and original references; no small-sample quality rejection, guard changes or automatic retries.",
+    "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
+    "technical_gate": "NEMOTRON_STORAGE_BLOCKED_NOT_ARCHITECTURE_REJECTED"
   },
   {
     "subcase": "NOVEMBER-HARNESS",
     "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
-    "title": "Research: minimal vs complex coding-agent harness \u2014 quality, tokens, latency and GPU-J/success",
+    "title": "Research: minimal vs complex coding-agent harness — quality, tokens, latency and GPU-J/success",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
@@ -190,7 +191,7 @@
   {
     "subcase": "LEAN-HARNESS",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18",
-    "title": "Research: Lean Jarvis harness \u2014 Caveman, mini-SWE-agent, context compaction A/B before final V100 tuning",
+    "title": "Research: Lean Jarvis harness — Caveman, mini-SWE-agent, context compaction A/B before final V100 tuning",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
     "source_issue_updated_at_utc": "2026-10-26T21:51:17Z",

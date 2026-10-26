@@ -1,6 +1,6 @@
 # Model screening
 
-**21/22 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**22/22 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
@@ -5715,8 +5715,8 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>GLM-4.7-Flash</td><td>SCREENING OFFEN</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><details><summary>Profile & evidence</summary><pre>{
-  &quot;audit_sha256&quot;: null,
+}</pre></details></td></tr><tr><td>GLM-4.7-Flash</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>10/16 · 62.5%</td><td>620.8</td><td>66.7</td><td>4,991.4</td><td>13,714.5</td><td>NOT MEASURED</td><td><a href="../experiments/R558/">Screening R558</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;2add8e36ebf07a352ee0b258d8e26a46579ea8e9ac4a84766d95def536c79782&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
     &quot;binary_identities&quot;: {
@@ -5737,9 +5737,178 @@ Screening → full qualification → targeted optimization → independent confi
       &quot;parameters_in_GGUF&quot;: 29943393920,
       &quot;quantizer&quot;: &quot;unsloth&quot;
     },
-    &quot;parent_profile_id&quot;: &quot;mistral-small32-24b-q3km-native-screening32-task1200-reviewed-sm70&quot;,
+    &quot;parent_profile_id&quot;: &quot;glm47-flash-q3ks-native-screening32-task1200-reviewed-sm70&quot;,
     &quot;power_w&quot;: 300,
     &quot;quantization&quot;: &quot;Q3_K_S&quot;,
+    &quot;recorded_native_profile&quot;: {
+      &quot;engine&quot;: {
+        &quot;binary_sha256&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;,
+        &quot;build_id&quot;: &quot;dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4&quot;,
+        &quot;cuda_version&quot;: null,
+        &quot;driver_version&quot;: null,
+        &quot;executed_kernel_backend_path&quot;: null,
+        &quot;fork_repository&quot;: null,
+        &quot;ggml_backend_version&quot;: null,
+        &quot;git_commit&quot;: null,
+        &quot;kernel_library_file&quot;: &quot;libggml-cuda.so.0.26.0&quot;,
+        &quot;kernel_library_sha256&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+        &quot;name&quot;: &quot;llama.cpp-compatible&quot;,
+        &quot;patches&quot;: null,
+        &quot;version&quot;: null
+      },
+      &quot;evaluation_exposure&quot;: &quot;Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.&quot;,
+      &quot;incomplete_identity_run&quot;: null,
+      &quot;model&quot;: {
+        &quot;architecture&quot;: &quot;deepseek2&quot;,
+        &quot;artifact_sha256&quot;: &quot;21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91&quot;,
+        &quot;family_id&quot;: &quot;glm47_flash&quot;,
+        &quot;hf_repository&quot;: &quot;unsloth/GLM-4.7-Flash-GGUF&quot;,
+        &quot;hf_revision&quot;: &quot;0d32489ecb9db6d2a4fc93bd27ef01519f95474d&quot;,
+        &quot;name&quot;: &quot;GLM-4.7-Flash&quot;,
+        &quot;parameters_in_GGUF&quot;: 29943393920,
+        &quot;quantization&quot;: &quot;Q3_K_S&quot;,
+        &quot;tensor_precision_map&quot;: null,
+        &quot;variant&quot;: &quot;GLM-4.7-Flash&quot;,
+        &quot;weight_transformations&quot;: {
+          &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
+          &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
+          &quot;proof&quot;: null
+        }
+      },
+      &quot;model_artifact_id&quot;: &quot;artifact-1cf4dfb5f2a251e89d84cf560cd79e005341b107ad55f026d93110046f2deeac&quot;,
+      &quot;optimizations&quot;: {
+        &quot;GDN_state_changes&quot;: null,
+        &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
+        &quot;KV_precision&quot;: {
+          &quot;k&quot;: &quot;f16&quot;,
+          &quot;v&quot;: &quot;f16&quot;
+        },
+        &quot;cuda_graphs&quot;: {
+          &quot;actual_capture_replay&quot;: null,
+          &quot;disable_knob&quot;: null,
+          &quot;optimization_knob&quot;: &quot;0&quot;
+        },
+        &quot;draft_head_or_model&quot;: null,
+        &quot;draft_parameters&quot;: {
+          &quot;--spec-type&quot;: &quot;none&quot;
+        },
+        &quot;draft_sha256&quot;: null,
+        &quot;flash_attention_requested&quot;: &quot;auto&quot;,
+        &quot;other_explicit_knobs&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;
+        },
+        &quot;prefix_reuse&quot;: null,
+        &quot;quantization_calibration&quot;: null,
+        &quot;speculation_type&quot;: &quot;none&quot;
+      },
+      &quot;provenance_status&quot;: &quot;KNOWN_FIELDS_ONLY; null means NOT MEASURED&quot;,
+      &quot;runtime&quot;: {
+        &quot;CPU_budget&quot;: null,
+        &quot;CPU_scoring_limit_s&quot;: 120,
+        &quot;CPU_threads&quot;: &quot;6&quot;,
+        &quot;GPU_offload&quot;: &quot;99&quot;,
+        &quot;GPU_wrapper_limit_s&quot;: 1440,
+        &quot;RAM_budget&quot;: null,
+        &quot;VRAM_budget_mib&quot;: 14336,
+        &quot;batch&quot;: &quot;2048&quot;,
+        &quot;benchmark_task_limit_s&quot;: 1200,
+        &quot;chat_template_sha256&quot;: &quot;d63ad536c3c81880043e22ec7fd08db42b4d8fb7c89c7138bc562bfa25281375&quot;,
+        &quot;context&quot;: &quot;8192&quot;,
+        &quot;execution_deadline_s&quot;: 1200,
+        &quot;max_output&quot;: 4096,
+        &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
+        &quot;native_template_controls&quot;: null,
+        &quot;power_limit_w&quot;: 300,
+        &quot;sampling&quot;: {
+          &quot;min_p&quot;: 0.0,
+          &quot;seed&quot;: 1001,
+          &quot;temperature&quot;: 1.0,
+          &quot;top_k&quot;: 0,
+          &quot;top_p&quot;: 0.95
+        },
+        &quot;startup_limit_s&quot;: 180,
+        &quot;thinking_reasoning_requested&quot;: null,
+        &quot;timing_scope&quot;: &quot;DEVELOPMENT_SCREEN_TASK_PHASE_ONLY&quot;,
+        &quot;tokenizer_identity&quot;: null
+      },
+      &quot;runtime_configuration_id&quot;: &quot;cfg-7b72589750b549f7a24aed7abe3404817fccbeab7c8b4d0eb12289951a6c67b2&quot;,
+      &quot;schema_version&quot;: 1,
+      &quot;source_plan_sha256&quot;: &quot;a3e754519c81e487e39f133c0cb87c6ebcfe628d6ed22c8c59b3fd3850e79b74&quot;,
+      &quot;source_provenance&quot;: {
+        &quot;actual_launch_sha256&quot;: &quot;ba9993ac83cf488b61815ce2a790ed28a789c2e84dddf3c60fe1f6bdcfa3e2cc&quot;,
+        &quot;actual_profile_sha256&quot;: &quot;211b7900097420a6cfb3e2e8e4bee02d5c91c8ce8213c6f9a7006daec71bbf34&quot;,
+        &quot;evidence_scope&quot;: &quot;FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;6522861bc27c8f8b7d3fec0766c9e907f1d9aa9912973f1eb969fb33bc4e3d47&quot;,
+        &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;,
+        &quot;model_source_package_sha256&quot;: &quot;09542e6794743a87111127c7187acbf822c133fc194ff5973d02c770a6789a58&quot;
+      },
+      &quot;start_parameters&quot;: {
+        &quot;argv&quot;: [
+          &quot;llama-server&quot;,
+          &quot;--model&quot;,
+          &quot;[artifact:21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91]&quot;,
+          &quot;--alias&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--ctx-size&quot;,
+          &quot;8192&quot;,
+          &quot;--n-gpu-layers&quot;,
+          &quot;99&quot;,
+          &quot;--parallel&quot;,
+          &quot;1&quot;,
+          &quot;--host&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--port&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--jinja&quot;,
+          &quot;--chat-template-file&quot;,
+          &quot;[artifact:d63ad536c3c81880043e22ec7fd08db42b4d8fb7c89c7138bc562bfa25281375]&quot;,
+          &quot;--threads&quot;,
+          &quot;6&quot;,
+          &quot;--threads-batch&quot;,
+          &quot;6&quot;,
+          &quot;--batch-size&quot;,
+          &quot;2048&quot;,
+          &quot;--ubatch-size&quot;,
+          &quot;512&quot;,
+          &quot;--seed&quot;,
+          &quot;1001&quot;,
+          &quot;--ctx-checkpoints&quot;,
+          &quot;2&quot;,
+          &quot;--cache-ram&quot;,
+          &quot;0&quot;,
+          &quot;--no-cache-idle-slots&quot;,
+          &quot;--verbosity&quot;,
+          &quot;4&quot;,
+          &quot;--flash-attn&quot;,
+          &quot;auto&quot;,
+          &quot;--cache-type-k&quot;,
+          &quot;f16&quot;,
+          &quot;--cache-type-v&quot;,
+          &quot;f16&quot;,
+          &quot;--load-mode&quot;,
+          &quot;mmap&quot;,
+          &quot;--spec-type&quot;,
+          &quot;none&quot;
+        ],
+        &quot;environment&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
+          &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
+        },
+        &quot;exact_private_launch_sha256&quot;: &quot;2639e4c339c0ae3e1f9896937c02fbfecd84261640f8b73cf855573016eb7a3c&quot;,
+        &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
+        &quot;redacted_argument_positions&quot;: [
+          0,
+          2,
+          4,
+          12,
+          14,
+          17
+        ]
+      }
+    },
     &quot;request_options&quot;: {
       &quot;cache_prompt&quot;: false,
       &quot;max_tokens&quot;: 4096,
@@ -5749,7 +5918,7 @@ Screening → full qualification → targeted optimization → independent confi
       &quot;top_k&quot;: 0,
       &quot;top_p&quot;: 0.95
     },
-    &quot;screening_configuration_id&quot;: &quot;screening-config-52fd4cc37b1e13dce9ca1d645356a666123a219c7562ec795ac50e1cbec89577&quot;,
+    &quot;screening_configuration_id&quot;: &quot;screening-config-96b061e584e9aaf12af158e8ec75d11c0c1e786e6a769bb3ee11ea1026ca651f&quot;,
     &quot;task_time_policy&quot;: {
       &quot;cleanup_seconds&quot;: 60,
       &quot;startup_seconds&quot;: 180,
@@ -5758,16 +5927,59 @@ Screening → full qualification → targeted optimization → independent confi
     },
     &quot;warmup_requests&quot;: 2
   },
+  &quot;date&quot;: &quot;2026-10-26T23:06:36.735447+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
-  &quot;experiment_id&quot;: null,
+  &quot;experiment_id&quot;: &quot;R558&quot;,
   &quot;full_benchmark_runs&quot;: [],
   &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
-  &quot;independent_review_sha256&quot;: null,
+  &quot;independent_review_sha256&quot;: &quot;0a9bb4677c49fefedd7ca98a87d5ea1fa13692cfd6ab26978c28ccd6c2188052&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;GLM-4.7-Flash&quot;,
-  &quot;parent_experiment_id&quot;: &quot;R557&quot;,
-  &quot;status&quot;: &quot;SCREENING OFFEN&quot;,
-  &quot;category_results&quot;: null
+  &quot;parent_experiment_id&quot;: &quot;R558&quot;,
+  &quot;peak_vram_mib&quot;: 13714.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 620.832805947,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 8675.236,
+      &quot;GPU_j_per_success_upper&quot;: 8794.539,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 561.97379463,
+      &quot;completion_tokens&quot;: 38026,
+      &quot;final_text_present&quot;: 14,
+      &quot;gpu_energy_j_lower&quot;: 95427.596,
+      &quot;gpu_energy_j_upper&quot;: 96739.929,
+      &quot;length_stops&quot;: 4,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.019573866442015024,
+      &quot;tokens_s_completed_requests&quot;: 67.66507684764211,
+      &quot;valid_terminal_output&quot;: 14,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 939.1033,
+      &quot;GPU_j_per_success_upper&quot;: 1070.2552,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 58.820986925999996,
+      &quot;completion_tokens&quot;: 3410,
+      &quot;final_text_present&quot;: 14,
+      &quot;gpu_energy_j_lower&quot;: 9391.033,
+      &quot;gpu_energy_j_upper&quot;: 10702.552,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 10,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.17000734810146154,
+      &quot;tokens_s_completed_requests&quot;: 57.97250570259839,
+      &quot;valid_terminal_output&quot;: 10,
+      &quot;wilson95&quot;: [
+        0.38641040545502714,
+        0.8151876744113636
+      ]
+    }
+  }
 }</pre></details></td></tr></tbody></table></div>
 
 Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.
