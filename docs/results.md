@@ -472,6 +472,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R547](experiments/R547.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B GSQ/RCO IQ3_S · native integrated MTP3 |
 | [R548](experiments/R548.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B · integrated MTP3 |
 | [R549](experiments/R549.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B · integrated MTP3 |
+| [R550](experiments/R550.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B · integrated MTP3 |
 
 
 ## Historical signed windows

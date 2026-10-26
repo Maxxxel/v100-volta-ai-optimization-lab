@@ -1,11 +1,12 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-26T11:22:56.868182+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-26T11:45:57.795690+00:00. This static page is not a live monitor.**
 
-Last observed: R549 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
+Last observed: R550 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R550](experiments/R550.md) | COMPLETE | 33/33 | 117.701 | 621.917 | 11.61 | NOT MEASURED / NOT MEASURED |
 | [R549](experiments/R549.md) | COMPLETE | 200/200 | 125.374 | 737.137 | 0.391 | NOT MEASURED / NOT MEASURED |
 | [R548](experiments/R548.md) | COMPLETE | 164/164 | 103.223 | 599.39 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R547](experiments/R547.md) | COMPLETE | 32/32 | 169.93 | 85.771 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
@@ -118,6 +119,10 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R548 | integrity | COMPLETE | 0.043 |
 | R549 | collect | COMPLETE | 2.318 |
 | R549 | integrity | COMPLETE | 0.039 |
+| R549 | security | COMPLETE | 12.094 |
+| R549 | push | COMPLETE | 4.241 |
+| R550 | collect | COMPLETE | 2.762 |
+| R550 | independent_review | COMPLETE | 1.2 |
 
 </details>
 

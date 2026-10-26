@@ -193,6 +193,7 @@ Screening is complete. This is a provisional shortlist, **not a new ranking**. [
 | Qwen3.5-9B | 23/33 | 407.79s | 65.84 | 4722.50–4726.49 | 5956.50 | [R535](experiments/R535.md) |
 | OmniCoder-9B · bartowski Q6 | 28/33 | 401.67s | 56.50 | 3909.34–3913.31 | 7680.50 | [R536](experiments/R536.md) |
 | OmniCoder-9B · bartowski Q6 MTP3 | 27/33 | 291.74s | 76.49 | 2792.62–2797.15 | 9324.50 | [R543](experiments/R543.md) |
+| Qwen3.8 27B · integrated MTP3 | 26/33 | 621.92s | 19.40 | 6186.63–6191.19 | 13602.50 | [R550](experiments/R550.md) |
 
 ¹ Includes reasoning where reported; not pure decode. ² Counter-bracketed GPU energy. One pass over11 authored families does not establish population superiority. Private fixtures/oracles are not exported.
 
@@ -262,7 +263,7 @@ Provisional role selection; **not a winner qualification**. Policy checks count 
 
 <div class="screening-wrap"><table id="qualification-decisions"><thead><tr><th>Profile</th><th>Policy checks</th><th>Next decision</th><th>Evidence</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>29/33</td><td>Retain canonical native reference; compare future changes against this exact profile. No replacement from a single33-case pass.</td><td><a href="../experiments/R530/">Evidence R530</a></td></tr><tr><td>Nexus-9B · OFF/T0</td><td>29/33</td><td>25/33 at the shortest observed task time and lowest observed GPU-J/success in this cohort; policy failures remain.</td><td><a href="../experiments/R531/">Evidence R531</a></td></tr><tr><td>Ornith-1.5-9B · OFF/T0</td><td>25/33</td><td>18/33 with8 rejected-policy cases; earlier fast Agent18 result does not establish equal workflow quality. No global model rejection.</td><td><a href="../experiments/R532/">Evidence R532</a></td></tr><tr><td>Qwen3.8-27B</td><td>31/33</td><td>149/164 official coding retained;26/33 workflow successes with highest observed task time/VRAM. Tools remains165/197 PARTIAL.</td><td><a href="../experiments/R533/">Evidence R533</a></td></tr><tr><td>Gemma4-12B · ctx16K</td><td>29/33</td><td>Coding qualification retained. CPU parser/template controls pass; all90 Agent18 thought sections were empty. No lost-reasoning or preservation-only GPU fix is justified. Original patch/final-contract failures remain.</td><td><a href="../experiments/R534/">Evidence R534</a></td></tr><tr><td>Qwen3.5-9B</td><td>26/33</td><td>23/33 with the lowest observed peakVRAM;135/164 coding and176/200 tools retained. More native policy failures than several larger profiles.</td><td><a href="../experiments/R535/">Evidence R535</a></td></tr><tr><td>OmniCoder-9B · bartowski Q6</td><td>29/33</td><td>28/33 is the largest observed aggregate in this small cohort;4 policy-rejected cases remain. Grouped comparison against canonical Omni is not significant (p=0.625).</td><td><a href="../experiments/R536/">Evidence R536</a></td></tr></tbody></table></div>
 
-Later measured variants have separate experiment decisions and do not inherit this frozen shortlist review: <a href="../experiments/R543/">R543</a>.
+Later measured variants have separate experiment decisions and do not inherit this frozen shortlist review: <a href="../experiments/R543/">R543</a>, <a href="../experiments/R550/">R550</a>.
 
 <details><summary>Confirmation and optimization gates</summary>
 

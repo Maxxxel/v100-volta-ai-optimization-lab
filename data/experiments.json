@@ -23109,5 +23109,84 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "extra_peak_VRAM_MiB": 1148.0,
+        "task_latency_reduction_percent": 18.107530256778116
+      },
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 621.909300401,
+          "group_window_s": 621.915563594,
+          "lower_j": 160852.32,
+          "upper_j": 160971.049
+        },
+        "actual_generation_requests": 150,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 621.909300401,
+        "completed_request_wall_s": 618.783053323,
+        "completion_tokens": 12002,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 6186.627692307693,
+        "gpu_j_per_success_upper": 6191.194192307692,
+        "independent_review_audit_id": "audit-a1e9b6bbe9cebd7d6b76",
+        "independent_review_sha256": "a1e9b6bbe9cebd7d6b76e170c7e013dc4be05c2e2bc338b7b9a3ee1877a83ae7",
+        "max_output_tokens": 4096,
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 0,
+          "case_lost": 0,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 1.0,
+          "net_success_change": 0,
+          "nonzero_groups": 0,
+          "reference_experiment_id": "R533",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 13602.5,
+        "planned_tasks": 33,
+        "profile_sha256": "9375beae629172c20f57204d935419fa59a1c5db04fdb71dd3b585857e9e33ea",
+        "solved": 26,
+        "successful_tasks_per_s": 0.041806241266150956,
+        "task_limit_s": 1200,
+        "task_phase_s": 621.916709385,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 19.396135585075644,
+        "winner_qualified": false
+      },
+      "quality": {
+        "paired_policy_losses": 0,
+        "paired_success_losses": 0,
+        "policy_gate_passes": 31,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 26,
+      "tasks": 33
+    },
+    "audit_id": "audit-0f489117c2432c6b2838",
+    "date": "2026-10-26T11:44:16.842650+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R550",
+    "model": "Qwen3.8 27B · integrated MTP3",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-58d693df3cb4880f78bc",
+      "audit-f0192c29a891fd55c114"
+    ],
+    "statements": {
+      "decision": "MTP_AGENT_OBSERVED_GATES_PASS_CONFIRMATION_REQUIRED",
+      "scope": "Same target, engine, native template, sampler and all inference controls except fixed MTP3/min1. Previously exposed33 simulated fixtures/11 authored families; correlated, not Terminal-Bench or population safety. Stored R533 control, no fresh paired performance replication. Its unused legacy18-task archive mount is absent from the candidate; both use the identical configured33-task archive and simulator. One extra failed policy check is not excused by faster generation. R548 coding result151/164 versus149/164 and R549 tools169/200 remain separate category evidence. No agent/coding/allround Champion or production change."
+    },
+    "winner_qualified": false
   }
 ]
