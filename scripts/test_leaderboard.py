@@ -691,7 +691,7 @@ class FinalResearchGateTests(unittest.TestCase):
  def fixture(self,root):
   folder=root/'staging/model-comparison-preparation/agent-qualification';folder.mkdir(parents=True)
   code=folder/'final_mission_gate.py';code.write_text('# synthetic CPU receipt fixture\n')
-  history={};register={k:{} for k in ('definitions','official_qualifications','role_comparison','final_evidence_review','engine_source_reviews')};sources={}
+  history={'profiles':[],'runs':[],'attempts':[],'provenance_gaps':[]};register={k:{} for k in ('definitions','official_qualifications','role_comparison','final_evidence_review','engine_source_reviews')};sources={}
   for i in range(30):
    p=root/('evidence-'+str(i)+'.json');p.write_text('{}');sources[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
   a={'kind':'FINAL_RESEARCH_MISSION_EVIDENCE_GATE','status':'EVIDENCE_RELEASE_READY','scientific_snapshot_sha256':l.research_release_snapshot(history,register),'requirements':[{'section':i,'scope':'Synthetic test scope','status':'SATISFIED_WITH_DECLARED_LIMITS'} for i in range(1,11)],'deliverables':['best-of-v100-2026.md','configuration-comparison.md','configurations.md','reproduce.md','pipeline-methods.md','benchmark-register.md','questions.md'],'GPU_runs':0,'model_requests':0,'production_approved':False,'universal_winner':False,'official_agents':'NOT MEASURED','terminal_bench_decision':'NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE','source_files_sha256':sources,'review_code_sha256':hashlib.sha256(code.read_bytes()).hexdigest(),'at_utc':'2026-10-26T20:00:00Z','limits':['Synthetic fixture; no measured research result.']}
@@ -724,3 +724,24 @@ class FinalResearchGateTests(unittest.TestCase):
     target=path.parent/'final_mission_gate.py' if code else pathlib.Path(next(iter(a['source_files_sha256'])))
     target.write_text('changed')
     with self.assertRaises(ValueError):self.project(root,path,h,r)
+ def test_new_append_only_records_do_not_block_publication_or_inherit_old_gate(self):
+  from unittest.mock import patch
+  with tempfile.TemporaryDirectory() as td:
+   root=pathlib.Path(td);a,path,h,r=self.fixture(root);old=copy.deepcopy(h)
+   a['verified_public_commit_before_release']='a'*40;path.write_text(json.dumps(a));h['profiles'].append({'id':'new synthetic profile'})
+   with patch('subprocess.check_output',side_effect=[json.dumps(old).encode(),json.dumps(r).encode()]):out=self.project(root,path,h,r)
+   self.assertFalse(out['current_scientific_inputs_match']);self.assertTrue(out['new_results_need_separate_review']);self.assertEqual(out['scientific_snapshot_sha256'],a['scientific_snapshot_sha256'])
+ def test_new_run_does_not_hide_changed_or_removed_original_measurements(self):
+  from unittest.mock import patch
+  for changed in (False,True):
+   with self.subTest(changed=changed),tempfile.TemporaryDirectory() as td:
+    root=pathlib.Path(td);a,path,h,r=self.fixture(root);old=copy.deepcopy(h);old['runs']=[{'id':'original','solved':1}]
+    a.update(verified_public_commit_before_release='a'*40,scientific_snapshot_sha256=l.research_release_snapshot(old,r));path.write_text(json.dumps(a))
+    h['runs']=[{'id':'new','solved':1}]+([{'id':'original','solved':0}] if changed else [])
+    with patch('subprocess.check_output',side_effect=[json.dumps(old).encode(),json.dumps(r).encode()]):
+     with self.assertRaises(ValueError):self.project(root,path,h,r)
+ def test_real_release_matches_current_inputs_or_explicitly_marks_later_records(self):
+  register=json.loads((ROOT/'data/benchmark-register.json').read_text());history=json.loads((ROOT/'data/configuration-history.json').read_text());gate=register['final_research_gate'];actual=l.research_release_snapshot(history,register)
+  if gate.get('current_scientific_inputs_match',True):self.assertEqual(actual,gate['scientific_snapshot_sha256'])
+  else:
+   self.assertNotEqual(actual,gate['scientific_snapshot_sha256']);self.assertTrue(gate['new_results_need_separate_review']);self.assertRegex(gate['frozen_public_input_commit'],'^[a-f0-9]{40}$')

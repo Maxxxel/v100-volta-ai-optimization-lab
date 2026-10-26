@@ -27654,6 +27654,7 @@
     "at_utc": "2026-10-26T19:19:03.396003+00:00",
     "audit_id": "audit-e61c02f95beb7809761e",
     "audit_sha256": "e61c02f95beb7809761e8ebfa7ed83c872e259b5e8adead96b11f2ce2b11c355",
+    "current_scientific_inputs_match": true,
     "deliverables": [
       "best-of-v100-2026.md",
       "configuration-comparison.md",
@@ -27663,6 +27664,7 @@
       "benchmark-register.md",
       "questions.md"
     ],
+    "frozen_public_input_commit": "1c32a79230b4f15f029b90b6df8c17f4998417d7",
     "limits": [
       "Evidence cutoff is the actual26 October review, not a backdated31 October execution.",
       "No official agent score, general model superiority, production approval, continuous uptime or independent bit-identical rebuild is established.",
@@ -27670,6 +27672,7 @@
       "Role recommendations may be provisional scientifically even when the requested decision package is complete."
     ],
     "model_requests": 0,
+    "new_results_need_separate_review": false,
     "official_agents": "NOT MEASURED",
     "original_evidence_files_verified": 730,
     "production_approved": false,

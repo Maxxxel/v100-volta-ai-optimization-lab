@@ -1134,7 +1134,28 @@ def final_research_gate(root,entry,history,register,receipt):
  if path.parent!=root/'staging/model-comparison-preparation/agent-qualification' or path.name!='FINAL_MISSION_GATE_20261026.json' or digest(path)!=entry['sha256']:raise ValueError('Final mission gate identity differs')
  a=read(path)
  if a.get('kind')!='FINAL_RESEARCH_MISSION_EVIDENCE_GATE' or a.get('status')!='EVIDENCE_RELEASE_READY' or any(type(a.get(k)) is not int or a[k]!=0 for k in ('GPU_runs','model_requests')) or a.get('production_approved') is not False or a.get('universal_winner') is not False:raise ValueError('Unproven final release claim')
- if a.get('scientific_snapshot_sha256')!=research_release_snapshot(history,register):raise ValueError('Final release scientific inputs changed; a new reviewed release is required')
+ current_match=a.get('scientific_snapshot_sha256')==research_release_snapshot(history,register)
+ if not current_match:
+  # New measured profiles must not block the documentation pipeline. Verify
+  # the original release's retained Git inputs, then allow append-only history.
+  # Changed/deleted original records still fail closed; no gate is inherited
+  # by a newly appended configuration or benchmark.
+  import subprocess
+  commit=a.get('verified_public_commit_before_release','')
+  if not re.fullmatch('[a-f0-9]{40}',commit):raise ValueError('Missing frozen release input commit')
+  frozen=[]
+  for filename in ('configuration-history.json','benchmark-register.json'):
+   raw=subprocess.check_output(['git','show',commit+':data/'+filename],cwd=root.parent/'public-repository',timeout=15)
+   if len(raw)>3*1024**2:raise ValueError('Oversized frozen scientific inputs')
+   frozen.append(json.loads(raw))
+  old,old_register=frozen
+  if research_release_snapshot(old,old_register)!=a['scientific_snapshot_sha256'] or old==history or set(old)!=set(history):raise ValueError('Final release scientific inputs changed without an append-only history')
+  for key,value in old.items():
+   new=history[key]
+   if key in ('attempts','provenance_gaps'):continue  # Plan/gap annotations may resolve; measured records may not.
+   if isinstance(value,list):
+    if not isinstance(new,list) or not {H(v) for v in value}.issubset({H(v) for v in new}):raise ValueError('Original release history was changed or removed')
+   elif new!=value:raise ValueError('Original release history schema changed')
  requirements=a.get('requirements',[])
  if [r.get('section') for r in requirements]!=list(range(1,11)) or any(type(r.get('section')) is not int or r.get('status')!='SATISFIED_WITH_DECLARED_LIMITS' for r in requirements):raise ValueError('Incomplete final mission requirements')
  if a.get('deliverables')!=['best-of-v100-2026.md','configuration-comparison.md','configurations.md','reproduce.md','pipeline-methods.md','benchmark-register.md','questions.md'] or a.get('official_agents')!='NOT MEASURED' or a.get('terminal_bench_decision')!='NO_GO_CURRENT_LOCAL_CAMPAIGN_UNDER_FINAL_FREEZE':raise ValueError('Missing final deliverables or agent boundary')
@@ -1145,7 +1166,7 @@ def final_research_gate(root,entry,history,register,receipt):
   if not p.is_relative_to(root.parent) or digest(p)!=h:raise ValueError('Final mission source changed')
  code=path.parent/'final_mission_gate.py'
  if digest(code)!=a.get('review_code_sha256'):raise ValueError('Final mission review code changed')
- return {k:a[k] for k in ('at_utc','status','scientific_snapshot_sha256','requirements','deliverables','official_agents','terminal_bench_decision','GPU_runs','model_requests','production_approved','universal_winner','limits')}|{'audit_id':receipt(path,entry['sha256']),'audit_sha256':entry['sha256'],'original_evidence_files_verified':len(sources)}
+ return {k:a[k] for k in ('at_utc','status','scientific_snapshot_sha256','requirements','deliverables','official_agents','terminal_bench_decision','GPU_runs','model_requests','production_approved','universal_winner','limits')}|{'audit_id':receipt(path,entry['sha256']),'audit_sha256':entry['sha256'],'original_evidence_files_verified':len(sources),'current_scientific_inputs_match':current_match,'new_results_need_separate_review':not current_match,'frozen_public_input_commit':a.get('verified_public_commit_before_release')}
 
 def role_comparison(history,experiments):
  """Recompute scoped decisions from immutable public evidence; no inference."""
