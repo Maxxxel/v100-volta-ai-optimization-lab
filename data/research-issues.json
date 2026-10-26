@@ -179,14 +179,15 @@
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
     "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
-    "next_action": "Read-only R537 all-role token/call reconciliation is complete and statistically inconclusive. Finish source/methods and local harness review jointly with #18, then preregister a matched ablation; no extra GPU admission.",
+    "next_action": "R537 token/call reconciliation is complete and inconclusive. Pinned mini-SWE source review confirms append-only trajectories, delegated action execution and pre-query wall-clock limits; these do not replace broker deadlines or policy enforcement. Preregister matched development/holdout prose ablation; no extra GPU admission.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
     "source_issue_updated_at_utc": "2026-10-26T11:40:36Z",
     "source_issue_body_sha256": "40c1b0e8d900fbd8bdd829a1e382d67da585c79db970390d05d0ca4cd17405a0",
     "cpu_evidence_sha256": "bf187f637c26a3b71740977d3f7862dc07c3bde54438e77a409a4eb6f3159ac6",
     "evidence_urls": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17#issuecomment-6428910994"
-    ]
+    ],
+    "source_review_sha256": "2ee18873e664c49d193951c8358fcb9c558483da384974da4a2be054068fbee3"
   },
   {
     "subcase": "LEAN-HARNESS",
@@ -198,10 +199,11 @@
     "source_issue_body_sha256": "4b8e283a7930b7f7ee7573b56a2fe32980e9f47080b47f3e7f69749e9584a552",
     "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
     "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
-    "next_action": "Pinned Caveman3+ source declares Apache-2.0; earlier binaries retain their original terms. Local API compatibility, lossless compression and quality/safety gates remain unverified. Reuse #17; no integration or new GPU ablation is admitted. Any later GPU ablation requires separate admission.",
+    "next_action": "Pinned current Caveman3+ is Apache2; older release terms remain distinct. Prose compression is model-assisted rewriting, not proven lossless; documented gateway recovery does not establish local API compatibility. No proxy, MCP or compressor installed. Reuse #17; any later GPU ablation requires separate admission.",
     "evidence_urls": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18#issuecomment-6428911369",
       "https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/LICENSING.md"
-    ]
+    ],
+    "source_review_sha256": "2ee18873e664c49d193951c8358fcb9c558483da384974da4a2be054068fbee3"
   }
 ]

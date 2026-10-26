@@ -228,3 +228,9 @@ CPU evidence:244 foundation controls,70 existing MTP/timer controls,16 new compl
 Broker source SHA256: `c6b3745ad2c219db90bf2e23ac03040ab1b8e21500be7b0d69950b34056677a0`. Adapter SHA256: `fb6a825848298e24f02c5ed8004f3d9398723d5c3664fbc562b1748c65d689df`. Old profiles, clock histories, reference objects, the original matrix and signed queue were preserved. Unknown code or a self-generated hash alone still grants no execution privilege.
 
 The confirmation concerns the native-tool profile only. Earlier coding and agent-policy regressions remain binding; it cannot establish an allround MTP Champion or authorize production deployment. The measured result is linked from the experiment archive after auditing.
+
+## Completed screening to full coding qualification
+
+A verified native32-task screening capture can now seed its first complete HumanEval+164 run. The broker checks the exact ordered32 task identities, dataset, source profile, generation count and actual unprivileged GPU evidence. Partial, reordered or renamed captures fail closed. Weights, engine, template, warmups and sampling must remain identical; only tool-dispatch options are removed for coding.
+
+Before activation, **244 existing regression controls and12 targeted controls passed**, with no GPU calls. Atomic activation preserved all existing profiles,310 historical clock files and the original matrix/queue hashes. The single1,200-second TASK budget and all hardware guards remain unchanged. This is an admission correction, not a benchmark result or a performance improvement.
