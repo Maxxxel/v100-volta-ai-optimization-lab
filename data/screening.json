@@ -7054,6 +7054,266 @@
       "status": "SCREENING VOLLSTÄNDIG",
       "task_phase_s": 62.664775063,
       "timeouts": 0
+    },
+    {
+      "audit_sha256": "0727b3219022724c5926db58337c36ce98d1a44e73ebbf1742f8a3ec9728d928",
+      "conditions": "Single native-profile session; frozen base-task order",
+      "configuration": {
+        "binary_identities": {
+          "libggml-cuda.so.0.26.0": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "llama-server": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54"
+        },
+        "context": 8192,
+        "engine": "llama.cpp native",
+        "engine_version": null,
+        "hardware": "Tesla V100 SXM2 16 GB",
+        "model_sha256": "f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000",
+        "model_source": {
+          "base_repository": "mistralai/Ministral-3-14B-Instruct-2512",
+          "base_revision": "29439f81c2be264d8d393273f99e7db9c0961120",
+          "hf_repository": "mistralai/Ministral-3-14B-Instruct-2512-GGUF",
+          "hf_revision": "74fac473c43357d7fb2671713608183cc72496d0",
+          "license": "apache-2.0",
+          "parameters_in_GGUF": 13506073600,
+          "quantizer": "mistralai"
+        },
+        "parent_profile_id": "ministral3-14b-instruct-q5km-native-screening32-task1200-reviewed-sm70",
+        "power_w": 300,
+        "quantization": "Q5_K_M",
+        "recorded_native_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": "mistral3",
+            "artifact_sha256": "f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000",
+            "family_id": "ministral3_14b",
+            "hf_repository": "mistralai/Ministral-3-14B-Instruct-2512-GGUF",
+            "hf_revision": "74fac473c43357d7fb2671713608183cc72496d0",
+            "name": "Ministral-3-14B-Instruct-2512",
+            "parameters_in_GGUF": 13506073600,
+            "quantization": "Q5_K_M",
+            "tensor_precision_map": null,
+            "variant": "Ministral-3-14B-Instruct-2512",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-5b10e1392554e863d5388135a4c31616c93bc504b637ecdce3bd44d13b4e4475",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "auto",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "6cc0f8c0cfbafcfd8b146d60e947a1b2511ace4db907b0a73f6a474d04bdca9b",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": null,
+            "power_limit_w": 300,
+            "sampling": {
+              "seed": 1001,
+              "temperature": 0
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": null,
+            "timing_scope": "DEVELOPMENT_SCREEN_TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-2e50f43337cb3d364e5043c8981f54dd572817a681199f0475443170250875d3",
+          "schema_version": 1,
+          "source_plan_sha256": "d63eb9b24ce6e6b591b5b3d4c2ee90485c7b66d80041460cd35a4b95782517bd",
+          "source_provenance": {
+            "actual_launch_sha256": "95dfa3c9a3d7ce0d308ec4486264bf721b21374255977047ef22cce26699b401",
+            "actual_profile_sha256": "f97a39fa2db1d7ef399448973fc5fd819535119e437b5097145406346bdfbb5c",
+            "evidence_scope": "FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY",
+            "frozen_model_profile_sha256": "239fe4040540cb2f5cf62e8870321a62ccbb495bdc13b9fbe08b47c014f03b62",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION",
+            "model_source_package_sha256": "9bfe7d70ac76920e4e963d79357ba734c25cf0db5dd0d7a5c32b6b03c0f5dfeb"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000]",
+              "--alias",
+              "[session-local value]",
+              "--ctx-size",
+              "8192",
+              "--n-gpu-layers",
+              "99",
+              "--parallel",
+              "1",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:6cc0f8c0cfbafcfd8b146d60e947a1b2511ace4db907b0a73f6a474d04bdca9b]",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--no-cache-idle-slots",
+              "--verbosity",
+              "4",
+              "--flash-attn",
+              "auto",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--load-mode",
+              "mmap",
+              "--spec-type",
+              "none"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "39452ae5abdcc955a7a6fcde2c09cce5ec92c3438ee0c11a82d28fb69df458d7",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              12,
+              14,
+              17
+            ]
+          }
+        },
+        "request_options": {
+          "cache_prompt": false,
+          "max_tokens": 4096,
+          "seed": 1001,
+          "temperature": 0
+        },
+        "screening_configuration_id": "screening-config-8c9591cad6eec1ca04bec9707a46954cbdeb463adc95209d44c64e90505ebacf",
+        "task_time_policy": {
+          "cleanup_seconds": 60,
+          "startup_seconds": 180,
+          "task_seconds": 1200,
+          "wall_seconds": 1440
+        },
+        "warmup_requests": 2
+      },
+      "date": "2026-10-26T21:01:01.149911+00:00",
+      "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
+      "experiment_id": "R552",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
+      "independent_review_sha256": "7c6fb2c22d7a16acfcdfba85bbb5b94f4e21248fc45303965d21ecc45fb49478",
+      "local_artifact_available": true,
+      "model": "Ministral-3-14B-Instruct-2512",
+      "parent_experiment_id": "R552",
+      "peak_vram_mib": 10950.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 571.0773636363637,
+          "GPU_j_per_success_upper": 760.8093636363636,
+          "completed": 16,
+          "completed_request_wall_s": 25.697165944,
+          "completion_tokens": 1535,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 6281.851,
+          "gpu_energy_j_upper": 8368.903,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.42806276863259995,
+          "tokens_s_completed_requests": 59.734213622821905,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 217.72455555555555,
+          "GPU_j_per_success_upper": 447.018,
+          "completed": 16,
+          "completed_request_wall_s": 11.037618547,
+          "completion_tokens": 417,
+          "final_text_present": 7,
+          "gpu_energy_j_lower": 1959.521,
+          "gpu_energy_j_upper": 4023.162,
+          "length_stops": 0,
+          "successes": 9,
+          "successful_tasks_s_completed_requests": 0.8153932808672918,
+          "tokens_s_completed_requests": 37.77988868018452,
+          "valid_terminal_output": 9,
+          "wilson95": [
+            0.331785563988119,
+            0.7690134759450765
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 36.75011769,
+      "timeouts": 0
     }
   ],
   "schema": 1,

@@ -161,13 +161,14 @@
   },
   {
     "subcase": "NOVEMBER-MODEL-FAMILIES",
-    "status": "DEFERRED_NOVEMBER_RESEARCH",
+    "status": "ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING",
     "title": "Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
-    "freeze_priority": "P2_NOVEMBER_BACKLOG",
-    "next_action": "Complete model architecture/format/SM70/memory gates before new admission; no new broad pre-freeze GPU campaign."
+    "freeze_priority": "P0_NEW_MODEL_COMPARISON",
+    "next_action": "R552 Ministral14B Q5 completed32 tasks with independent replay: coding11/16, tools9/16,36.75s TASK,10950.5MiB peak. Continue the other seven candidates; GLM31.22B/Nemotron31.58B have named owner exceptions only.14336MiB/1200s guards remain. Development evidence is not an official score or a small-sample rejection.",
+    "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH"
   },
   {
     "subcase": "NOVEMBER-HARNESS",

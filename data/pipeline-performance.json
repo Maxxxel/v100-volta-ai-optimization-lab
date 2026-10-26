@@ -734,11 +734,158 @@
       "experiment_id": "R551",
       "phase": "independent_review",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T12:35:09.828020+00:00",
+      "duration_s": 12.093253459,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T12:35:13.913122+00:00",
+      "duration_s": 3.033069372,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T16:27:54.171387+00:00",
+      "duration_s": 12.142142836,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T16:27:59.021456+00:00",
+      "duration_s": 3.99314167,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T16:55:35.648809+00:00",
+      "duration_s": 12.094853055,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T16:55:39.468330+00:00",
+      "duration_s": 2.88381706,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T17:21:27.065928+00:00",
+      "duration_s": 12.143165278,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T17:21:30.257072+00:00",
+      "duration_s": 2.131552895,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T17:54:28.169266+00:00",
+      "duration_s": 12.143552761,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T17:54:33.074821+00:00",
+      "duration_s": 3.994699894,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T18:55:14.959450+00:00",
+      "duration_s": 12.244205944,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T18:55:19.250028+00:00",
+      "duration_s": 3.53865554,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T19:06:45.312823+00:00",
+      "duration_s": 13.506682614,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T19:06:49.629774+00:00",
+      "duration_s": 3.184828317,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T19:28:00.306412+00:00",
+      "duration_s": 12.192075314,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T19:28:04.872569+00:00",
+      "duration_s": 3.637549993,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T19:35:14.511609+00:00",
+      "duration_s": 12.193842064,
+      "experiment_id": "R551",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T19:35:18.180552+00:00",
+      "duration_s": 2.733350384,
+      "experiment_id": "R551",
+      "phase": "push",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:01:28.742806+00:00",
+      "duration_s": 31.081628767,
+      "experiment_id": "R551",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:01:30.115502+00:00",
+      "duration_s": 1.368602726,
+      "experiment_id": "R551",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T21:01:34.796110+00:00",
+      "duration_s": 4.675246691,
+      "experiment_id": "R551",
+      "phase": "tests",
+      "status": "FAILED"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R551",
+    "experiment_id": "R552",
     "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
@@ -1451,8 +1598,8 @@
         "solved": 151
       },
       "resources": {
-        "counter_lower_j": null,
-        "counter_upper_j": null,
+        "counter_lower_j": 165215.106,
+        "counter_upper_j": 165303.731,
         "integral_gpu_j": null,
         "peak_vram_mib": 13596.5
       },
@@ -1489,8 +1636,8 @@
         "solved": 169
       },
       "resources": {
-        "counter_lower_j": null,
-        "counter_upper_j": null,
+        "counter_lower_j": 193412.377,
+        "counter_upper_j": 193491.872,
         "integral_gpu_j": null,
         "peak_vram_mib": 13602.5
       },
@@ -1577,9 +1724,47 @@
         "task_begin_at_utc": "2026-10-26T12:24:27.938266+00:00",
         "task_end_at_utc": "2026-10-26T12:28:47.452906+00:00"
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "0727b3219022724c5926db58337c36ce98d1a44e73ebbf1742f8a3ec9728d928",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 36.734784491,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 74.150285473,
+        "task_phase_s": 36.75011769,
+        "warmup_requests_s": 2.3819714679999997
+      },
+      "experiment_id": "R552",
+      "quality": {
+        "completed": 32,
+        "planned": 32,
+        "solved": 20
+      },
+      "resources": {
+        "counter_lower_j": null,
+        "counter_upper_j": null,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 10950.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-26T21:01:01.149911+00:00",
+        "initial_at_utc": "2026-10-26T20:58:59.289757+00:00",
+        "task_begin_at_utc": "2026-10-26T21:00:13.440042+00:00",
+        "task_end_at_utc": "2026-10-26T21:00:50.190160+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-26T12:32:05.069288+00:00",
+  "observed_at_utc": "2026-10-26T21:06:41.588716+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",

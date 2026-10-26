@@ -23456,5 +23456,17 @@
       "scope": "One fresh A then B comparison on previously exposed development data, with independently replayed judgments. Both model startups/warmups are conservatively charged to one1200s clock. Response latency and complete arm wall are distinct. Same observed task successes do not establish population noninferiority or identical token decisions. Reported generation-window throughput is not end-to-end task throughput. Counter brackets are not sensor confidence intervals; CPU/system energy excluded. No official score or Champion."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-0727b3219022724c5926",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R552",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]

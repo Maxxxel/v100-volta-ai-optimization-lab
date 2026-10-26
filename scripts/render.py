@@ -232,6 +232,8 @@ def main():
   else:score='Not measured';name='Evaluator admission pending';target='configuration-comparison/';note='No local score claimed'
   cards.append(f'<a class="lab-result" href="{target}"><span>{label}</span><strong>{score}</strong><b>{html.escape(name)}</b><small>{note}</small></a>')
  status_html=''.join('<span><strong>'+str(counts['scientific_status'].get(k,0))+'</strong> '+label+'</span>' for k,label in [('QUALIFIED','Qualified'),('TESTED_NEGATIVE','Negative'),('PARTIAL','Partial'),('OPEN','Open'),('DEFERRED','Deferred'),('NOT_APPLICABLE','Not applicable')])
+ issue16_active=any(x.get('status')=='ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING' for x in read('research-issues.json'))
+ phase_notice='**Current phase: new model-family screening.** The previous Best-of-V100 decision is a reference baseline. Jarvis integration is deferred while [issue16 candidates](questions.md) pass the existing [screening protocol](screening.md).' if issue16_active else ''
  overview=f'''# V100 Volta AI Optimization Lab
 
 <p class="lab-eyebrow">Independent research · NVIDIA Volta / SM70</p>
@@ -242,6 +244,8 @@ def main():
 <div class="lab-kpis"><div><strong>162</strong><span>Research factors</span><small>130 original + 32 techniques</small></div><div><strong>{counts['experimentally_covered']}</strong><span>Experimentally covered</span><small>Factors, not GPU run count</small></div><div><strong>{counts['scientific_status']['QUALIFIED']}</strong><span>Qualified factor scopes</span><small>Workload-specific evidence</small></div><div><strong>16 GB</strong><span>HBM2 on one V100</span><small>One GPU benchmark at a time</small></div></div>
 
 ## Research pipeline
+
+{phase_notice}
 
 [Best-of-V100 research decision](best-of-v100-2026.md) · [Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
 
