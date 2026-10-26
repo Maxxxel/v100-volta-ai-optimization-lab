@@ -225,9 +225,12 @@ class IssueFreezeRegistry(unittest.TestCase):
  def test_registry_keeps_workflow_and_scientific_disposition_separate(self):
   import json,pathlib
   rows=json.loads((pathlib.Path(__file__).resolve().parents[1]/'data/research-issues.json').read_text());ids=[int(x['url'].rsplit('/',1)[-1]) for x in rows]
-  self.assertEqual(len(ids),len(set(ids)));self.assertTrue(set(range(1,18))<=set(ids));self.assertTrue(all(x['github_state'] in ('OPEN','CLOSED') and x['github_checked_at_utc'] and x['next_action'] for x in rows))
+  self.assertEqual(len(ids),len(set(ids)));self.assertTrue(set(range(1,19))<=set(ids));self.assertTrue(all(x['github_state'] in ('OPEN','CLOSED') and x['github_checked_at_utc'] and x['next_action'] for x in rows))
   by_id={int(x['url'].rsplit('/',1)[-1]):x for x in rows};self.assertEqual(by_id[13]['status'],'DEFERRED_DISTINCT_PROFILE_HYPOTHESIS_REQUIRED');self.assertIn('unproven',by_id[13]['next_action']);self.assertEqual(len(by_id[13]['evidence_sha256']),2)
-  self.assertEqual(by_id[17]['freeze_priority'],'P2_NOVEMBER_BACKLOG')
+  self.assertEqual(by_id[17]['freeze_priority'],'P1_CPU_HARNESS_REVIEW_BEFORE_TUNING')
+  self.assertEqual(by_id[18]['status'],'CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION')
+  self.assertIn('separate admission',by_id[18]['next_action'])
+  self.assertEqual(len(by_id[18]['source_issue_body_sha256']),64)
   self.assertEqual(by_id[16]['freeze_priority'],'P0_NEW_MODEL_COMPARISON')
   self.assertEqual(by_id[16]['status'],'ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING')
 

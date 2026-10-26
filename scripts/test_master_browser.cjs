@@ -201,7 +201,12 @@ async function main(){
   report.checks.push('desktop/mobile overview exposes evidence-backed KPIs and three category cards without overflow; archive routes work and structured experiment evidence is collapsed, not deleted');
   for(const [name,tab] of [['desktop',page],['mobile',mobile]]){
    await tab.goto(new URL('screening/',base).href,{waitUntil:'networkidle'});
-   const rows=tab.locator('#screening-table tbody tr');assert(await rows.count()>=13);
+   const rows=tab.locator('#screening-table tbody tr');assert.equal(await rows.count(),screeningData.rows.length);
+   for(const expected of screeningData.rows.filter(r=>r.configuration.tool_transport)){
+    const adapted=rows.filter({hasText:expected.configuration.screening_configuration_id});assert.equal(await adapted.count(),1);
+    assert.equal(await adapted.locator('small[title*="no native tool-training claim"]').count(),1);
+    assert.match(await adapted.innerText(),/tool bridge/);
+   }
    const omni=rows.filter({has:tab.locator('td:first-child',{hasText:/^OmniCoder-9B$/})});
    assert.match(await omni.innerText(),/13\/16/);assert.match(await omni.innerText(),/14\/16/);
    const alternate=rows.filter({has:tab.locator('td:first-child',{hasText:'bartowski Q6'})});

@@ -273,12 +273,16 @@ def build(root):
    cfg['quantization']=recorded['model']['quantization']
   if package:
    cfg['quantization']=package['identity']['quantization'];cfg['model_source']={k:package['identity'][k] for k in ('hf_repository','hf_revision','base_repository','base_revision','license','quantizer','parameters_in_GGUF')}
+   if package['identity'].get('tool_transport'):
+    cfg.update({k:package['identity'][k] for k in ('tool_transport','native_template_sha256','runtime_template_sha256')})
    cfg['binary_identities'].update({Path(k).name:v for k,v in profile['assets'].items() if Path(k).name.startswith('libggml-cuda.so')})
    if entry.get('screening_results'):cfg['recorded_native_profile']=captured_screen_profile(profile,entry,package)
   identity={k:v for k,v in cfg.items() if k not in ('recorded_parent_profile','recorded_native_profile')}
   cfg['screening_configuration_id']='screening-config-'+hashlib.sha256(json.dumps(identity,sort_keys=True,separators=(',',':')).encode()).hexdigest()
   row={'model':entry['model'],'configuration':cfg,'status':entry['status'],'local_artifact_available':entry['local_artifact_available'],'parent_experiment_id':entry['parent_experiment_id'],'results':None,'audit_sha256':None,'experiment_id':None,'conditions':'Single native-profile session; frozen base-task order','decision':'No quality exclusion from16 tasks; retain for review.','independent_review_sha256':None}
   if package:row['full_benchmark_status']='NOT MEASURED';row['decision']='First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.'
+  if cfg.get('tool_transport'):
+   row['conditions']+='; explicit generic tool-wire adapter, not native tool-training evidence'
   if package and package['source_review'].get('provenance_limits'):row['source_provenance_limits']=package['source_review']['provenance_limits']
   results=entry.get('screening_results',[])
   if results:
@@ -498,6 +502,7 @@ def render(data):
   if row.get('full_benchmark_runs'):
    cells.append(' · '.join('<a href="../experiments/'+e(r['experiment_id'])+'/">'+e(r['experiment_id'])+'</a>' for r in row['full_benchmark_runs'])+' · <a href="../configuration-comparison/">Official comparison</a>')
   else:cells.append('NOT MEASURED' if row.get('full_benchmark_status')=='NOT MEASURED' else f'<a href="../experiments/{parent}/">{parent} archive</a> · <a href="../configuration-comparison/">Official comparison</a>')
+  if row['configuration'].get('tool_transport'):cells[0]+=' <small title="Explicit generic tool-wire adapter; no native tool-training claim">· tool bridge</small>'
   rows.append('<tr>'+''.join('<td>'+v+'</td>' for v in cells)+'<td>'+content+'</td></tr>')
  headers=['Model','Status','Coding /16','Mock tools /16','Request time s','Output tok/s¹','GPU J/success ≥²','VRAM MiB','Existing benchmarks','Details']
  html='<div class="screening-wrap"><table id="screening-table"><thead><tr>'+''.join('<th>'+e(x)+'</th>' for x in headers)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'

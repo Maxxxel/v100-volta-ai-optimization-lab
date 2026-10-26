@@ -42,7 +42,7 @@
   {
     "status": "CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE",
     "subcase": "R340-S05",
-    "title": "Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren",
+    "title": "Audit: Alle DEFERRED-Optimierungen \u00fcberpr\u00fcfen und technisch sinnvolle Ans\u00e4tze reaktivieren",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5",
     "github_state": "CLOSED",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
@@ -92,7 +92,7 @@
   {
     "status": "CURRENT_MISSION_GATE_REVIEWED_WITH_DECLARED_LIMITS",
     "subcase": "FINAL-GATE",
-    "title": "Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen",
+    "title": "Final Research Gate: Qwen3.5 \u2192 OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschlie\u00dfen",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
@@ -162,22 +162,37 @@
   {
     "subcase": "NOVEMBER-MODEL-FAMILIES",
     "status": "ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING",
-    "title": "Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
+    "title": "Research: non-Qwen/Gemma models \u226430B for V100 SM70 \u2014 GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
     "freeze_priority": "P0_NEW_MODEL_COMPARISON",
-    "next_action": "R552 Ministral14B Q5 completed32 tasks with independent replay: coding11/16, tools9/16,36.75s TASK,10950.5MiB peak. Continue the other seven candidates; GLM31.22B/Nemotron31.58B have named owner exceptions only.14336MiB/1200s guards remain. Development evidence is not an official score or a small-sample rejection.",
+    "next_action": "Four of eight requested families have completed independently replayed32-task screening: Ministral14B, gpt-oss20B, Ministral8B and Phi4. Phi4 uses an explicit generic tool-wire adapter, not a native tool-training claim. Devstral Small2 is the next single pinned artifact. Continue the remaining families before qualification selection; named GLM/Nemotron exceptions do not alter14336MiB/1200s guards. No official score or small-sample rejection.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH"
   },
   {
     "subcase": "NOVEMBER-HARNESS",
-    "status": "DEFERRED_NOVEMBER_RESEARCH",
-    "title": "Research: minimal vs complex coding-agent harness — quality, tokens, latency and GPU-J/success",
+    "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
+    "title": "Research: minimal vs complex coding-agent harness \u2014 quality, tokens, latency and GPU-J/success",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17",
     "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
-    "freeze_priority": "P2_NOVEMBER_BACKLOG",
-    "next_action": "Single-Agent remains baseline; R537 five paired cases are inconclusive. Use independent tasks and matched end-to-end budgets for later harness ablations."
+    "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
+    "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
+    "next_action": "Shared with #18: reuse R537/Agent18/Agent33 traces, inspect pinned paper and harness sources; report missing telemetry and paired uncertainty. No duplicate benchmark or new GPU approval.",
+    "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
+    "source_issue_updated_at_utc": "2026-10-26T11:40:36Z",
+    "source_issue_body_sha256": "40c1b0e8d900fbd8bdd829a1e382d67da585c79db970390d05d0ca4cd17405a0"
+  },
+  {
+    "subcase": "LEAN-HARNESS",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18",
+    "title": "Research: Lean Jarvis harness \u2014 Caveman, mini-SWE-agent, context compaction A/B before final V100 tuning",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
+    "source_issue_updated_at_utc": "2026-10-26T21:51:17Z",
+    "source_issue_body_sha256": "4b8e283a7930b7f7ee7573b56a2fe32980e9f47080b47f3e7f69749e9584a552",
+    "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
+    "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
+    "next_action": "Extends #17: review Caveman/mini-SWE versions and licenses, then preregister isolated quality/safety gates. Keep eight-family screening/qualification first; separate admission before any harness A/B or final inference tuning."
   }
 ]

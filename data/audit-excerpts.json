@@ -178282,6 +178282,21 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 13792.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-701163dc62d5fc6a02e9",
+    "original_bytes": 27581,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "701163dc62d5fc6a02e9ff5a39fe063d95e2505e8e230ed131758953b49d5c58",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

@@ -21,6 +21,10 @@ class ScreeningTests(unittest.TestCase):
   s=render(self.fixture());self.assertNotIn('pagination',s);self.assertNotIn('Overall score',s);self.assertIn('not an official benchmark',s);self.assertIn('Details',s)
  def test_wilson_extremes(self):
   self.assertEqual(wilson(0,0),None);self.assertEqual(wilson(0,16)[0],0);self.assertEqual(wilson(16,16)[1],1)
+ def test_explicit_transport_is_visible_without_claiming_native_tool_training(self):
+  d=self.fixture();d['rows'][0]['configuration']['tool_transport']='EXPLICIT_GENERIC_XML_JSON_BRIDGE_PHI_ROLE_DELIMITERS_NOT_NATIVE_TRAINING'
+  page=render(d);self.assertIn('tool bridge</small>',page);self.assertIn('no native tool-training claim',page)
+  self.assertNotIn('tool bridge</small>',render(self.fixture()))
 
 class PublishedSeparation(unittest.TestCase):
  def test_screening_never_enters_official_runs(self):

@@ -5325,7 +5325,7 @@
       "full_benchmark_runs": [],
       "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "1d7c418edeba12b15e5ad7af3fde77c9fa4d083d9e04ebea8bf010d5fb25fbae",
-      "local_artifact_available": true,
+      "local_artifact_available": false,
       "model": "MiMo-9B",
       "parent_experiment_id": "R480",
       "peak_vram_mib": 9188.5,
@@ -6131,7 +6131,7 @@
       "full_benchmark_runs": [],
       "full_benchmark_status": "NOT MEASURED",
       "independent_review_sha256": "21d5129f9437d6035eac4b26ae90e594d658630c6166d6f0a47c6ed94cd57e34",
-      "local_artifact_available": true,
+      "local_artifact_available": false,
       "model": "Qwen3.6-27B",
       "parent_experiment_id": "R492",
       "peak_vram_mib": 12766.5,
@@ -7839,6 +7839,269 @@
       },
       "status": "SCREENING VOLLSTÄNDIG",
       "task_phase_s": 33.639376769,
+      "timeouts": 0
+    },
+    {
+      "audit_sha256": "701163dc62d5fc6a02e9ff5a39fe063d95e2505e8e230ed131758953b49d5c58",
+      "conditions": "Single native-profile session; frozen base-task order; explicit generic tool-wire adapter, not native tool-training evidence",
+      "configuration": {
+        "binary_identities": {
+          "libggml-cuda.so.0.26.0": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "llama-server": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54"
+        },
+        "context": 8192,
+        "engine": "llama.cpp native",
+        "engine_version": null,
+        "hardware": "Tesla V100 SXM2 16 GB",
+        "model_sha256": "537248da5492a9a34b1d811307c6b9226d9539a81653aa9bb0d7ec6104169320",
+        "model_source": {
+          "base_repository": "microsoft/phi-4",
+          "base_revision": "2db69c1c3e91a05d2c64a3185acfbaf36f744e25",
+          "hf_repository": "bartowski/phi-4-GGUF",
+          "hf_revision": "19cd65f97c2f1712a81c506611d3f9c94b16a1e1",
+          "license": "mit",
+          "parameters_in_GGUF": 14659507200,
+          "quantizer": "bartowski"
+        },
+        "native_template_sha256": "fe4120415a3858b873955c92ce3a103a95bc97c2cb00b72e62659aaf0f891ee5",
+        "parent_profile_id": "phi4-q6-toolbridge-screening32-task1200-reviewed-sm70",
+        "power_w": 300,
+        "quantization": "Q6_K",
+        "recorded_native_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": "phi3",
+            "artifact_sha256": "537248da5492a9a34b1d811307c6b9226d9539a81653aa9bb0d7ec6104169320",
+            "family_id": "phi4",
+            "hf_repository": "bartowski/phi-4-GGUF",
+            "hf_revision": "19cd65f97c2f1712a81c506611d3f9c94b16a1e1",
+            "name": "Phi-4",
+            "parameters_in_GGUF": 14659507200,
+            "quantization": "Q6_K",
+            "tensor_precision_map": null,
+            "variant": "Phi-4",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-6712cd1f2ac9b7b5b79709b54e60efc642ee9fec6075e09e4de84b2a0ef00da1",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "auto",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "4e5e30f37831a4c1a458d1bdc90199d66ed862684f605875ba9b3ed3bb88d895",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": null,
+            "power_limit_w": 300,
+            "sampling": {
+              "seed": 1001,
+              "temperature": 0
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": null,
+            "timing_scope": "DEVELOPMENT_SCREEN_TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-6c502e1d89dc38cec5a6404aafdb6576f6035ac506883562177d10544525484d",
+          "schema_version": 1,
+          "source_plan_sha256": "65c391aeb1cc04e44d8353895f2980d0e237afee927542f9ea3c225f1b0194a4",
+          "source_provenance": {
+            "actual_launch_sha256": "5e2fa6d1f512a157a1d3a7b686bb627c8cb6b9eff0c619045dbfd5952c168f0a",
+            "actual_profile_sha256": "1398ad784538c12704e226a5119ef5568ab7921abc32ea72dddf7d4de4cc446b",
+            "evidence_scope": "FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY",
+            "frozen_model_profile_sha256": "275ea4c66c0c85e743384ba255e413a0f4b784f27d6e2c281a8136467b3ab046",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION",
+            "model_source_package_sha256": "c4ee540f75666fd9db4092a3e3a84db5493bdd9c413cbec366bc35a456036770"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:537248da5492a9a34b1d811307c6b9226d9539a81653aa9bb0d7ec6104169320]",
+              "--alias",
+              "[session-local value]",
+              "--ctx-size",
+              "8192",
+              "--n-gpu-layers",
+              "99",
+              "--parallel",
+              "1",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:4e5e30f37831a4c1a458d1bdc90199d66ed862684f605875ba9b3ed3bb88d895]",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--no-cache-idle-slots",
+              "--verbosity",
+              "4",
+              "--flash-attn",
+              "auto",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--load-mode",
+              "mmap",
+              "--spec-type",
+              "none"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "2bd3f264b976c5a62d00135426838df880bd6794ecdf1a5b7745b836f6ea5825",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              12,
+              14,
+              17
+            ]
+          }
+        },
+        "request_options": {
+          "cache_prompt": false,
+          "max_tokens": 4096,
+          "seed": 1001,
+          "temperature": 0
+        },
+        "runtime_template_sha256": "4e5e30f37831a4c1a458d1bdc90199d66ed862684f605875ba9b3ed3bb88d895",
+        "screening_configuration_id": "screening-config-b9547b5be700e0762b1fae802fa5410d2c8177feda00f7318e7369be72715c79",
+        "task_time_policy": {
+          "cleanup_seconds": 60,
+          "startup_seconds": 180,
+          "task_seconds": 1200,
+          "wall_seconds": 1440
+        },
+        "tool_transport": "EXPLICIT_GENERIC_XML_JSON_BRIDGE_PHI_ROLE_DELIMITERS_NOT_NATIVE_TRAINING",
+        "warmup_requests": 2
+      },
+      "date": "2026-10-26T21:59:30.395271+00:00",
+      "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
+      "experiment_id": "R555",
+      "full_benchmark_runs": [],
+      "full_benchmark_status": "NOT MEASURED",
+      "independent_review_sha256": "198e92eea5e081373228b0ad47482ee93b4da944ee8237d7d88ee5c4f54e72fd",
+      "local_artifact_available": true,
+      "model": "Phi-4",
+      "parent_experiment_id": "R555",
+      "peak_vram_mib": 13792.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 1121.010909090909,
+          "GPU_j_per_success_upper": 1311.6644545454544,
+          "completed": 16,
+          "completed_request_wall_s": 45.808151238,
+          "completion_tokens": 2427,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 12331.12,
+          "gpu_energy_j_upper": 14428.309,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.240131935097066,
+          "tokens_s_completed_requests": 52.98183695277993,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 696.0805555555556,
+          "GPU_j_per_success_upper": 927.8326666666667,
+          "completed": 16,
+          "completed_request_wall_s": 26.17929219,
+          "completion_tokens": 1096,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 6264.725,
+          "gpu_energy_j_upper": 8350.494,
+          "length_stops": 0,
+          "successes": 9,
+          "successful_tasks_s_completed_requests": 0.3437831678061117,
+          "tokens_s_completed_requests": 41.86515021283316,
+          "valid_terminal_output": 9,
+          "wilson95": [
+            0.331785563988119,
+            0.7690134759450765
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 72.004129515,
       "timeouts": 0
     }
   ],
