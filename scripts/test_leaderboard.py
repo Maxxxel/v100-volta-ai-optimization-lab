@@ -536,3 +536,46 @@ class RoleComparisonTests(unittest.TestCase):
   from leaderboard import role_comparison
   h=json.loads((ROOT/'data/configuration-history.json').read_text());e=json.loads((ROOT/'data/experiments.json').read_text());r=next(r for r in h['runs'] if r['experiment_id']=='R548');bad=copy.deepcopy(r);bad['solved']-=1;h['runs'].append(bad)
   with self.assertRaises(ValueError):role_comparison(h,e)
+
+class ReproductionPacketTests(unittest.TestCase):
+ def inputs(self):
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());r=json.loads((ROOT/'data/benchmark-register.json').read_text());ident=next(x['runtime_configuration_id'] for x in h['runs'] if x['experiment_id']=='R548');return h,r,ident
+ def test_exact_profile_unknowns_and_source_identities_preserved_without_mutation(self):
+  from leaderboard import reproduction_profile
+  h,r,i=self.inputs();old=copy.deepcopy(h);p=reproduction_profile(h,r,i)
+  self.assertEqual(h,old);self.assertEqual(p['profile'],next(x for x in h['profiles'] if x['runtime_configuration_id']==i));self.assertEqual(p,reproduction_profile(h,r,i))
+  self.assertIsNone(p['profile']['engine']['version']);self.assertIsNone(p['engine_source_identity']['release_version']);self.assertEqual(p['engine_source_identity']['source_base_commit'],'097cf33d9499b1eade67d51e16d7c75427e7b267')
+  self.assertEqual(p['packet_content_sha256'],H({k:v for k,v in p.items() if k!='packet_content_sha256'}));self.assertFalse(p['export_grants_execution_authority']);self.assertEqual(p['GPU_jobs_started'],0)
+ def test_no_qualification_borrowed_from_a_related_inference_profile(self):
+  from leaderboard import reproduction_profile
+  h,r,i=self.inputs();p=reproduction_profile(h,r,i)
+  self.assertEqual({v['experiment_id'] for v in p['exact_profile_measurement_views']},{'R548'});self.assertEqual(p['original_measurement_audit_count'],1);self.assertEqual(p['measurement_view_count'],2);self.assertIsNone(p['historical_GPU_job_count']);self.assertEqual(p['benchmark_evidence_status'],'HAS_FULL_OFFICIAL_CATEGORY')
+  self.assertTrue(all(v['runtime_configuration_id']==i for v in p['exact_profile_measurement_views']))
+ def test_engine_provenance_requires_binary_and_CUDA_library_and_build(self):
+  from leaderboard import reproduction_profile
+  h,r,i=self.inputs();p=reproduction_profile(h,r,i);self.assertEqual(p['engine_source_identity']['kernel_library_sha256'],p['profile']['engine']['kernel_library_sha256'])
+  r=copy.deepcopy(r)
+  for review in r['engine_source_reviews']:
+   for e in review['engines']:
+    if e['build_id']==p['profile']['engine']['build_id']:e['kernel_library_sha256']='0'*64
+  self.assertIsNone(reproduction_profile(h,r,i)['engine_source_identity'])
+ def test_bad_or_unknown_ID_and_modified_original_profile_fail_closed(self):
+  from leaderboard import reproduction_profile
+  h,r,i=self.inputs()
+  for ident in ('../profile','cfg-'+'0'*64):
+   with self.assertRaises(ValueError):reproduction_profile(h,r,ident)
+  h=copy.deepcopy(h);next(p for p in h['profiles'] if p['runtime_configuration_id']==i)['runtime']['max_output']=123
+  with self.assertRaises(ValueError):reproduction_profile(h,r,i)
+ def test_asset_requirements_never_mark_model_binary_template_or_draft_as_bundled(self):
+  from leaderboard import reproduction_profile
+  h,r,i=self.inputs();p=reproduction_profile(h,r,i);assets=p['required_external_assets'];self.assertEqual({a['kind'] for a in assets},{'model_weights','engine_binary','CUDA_kernel_library','chat_template'});self.assertTrue(all(a['redistributed'] is False for a in assets));self.assertFalse(p['launch_is_runnable_without_asset_mapping']);self.assertFalse(p['exact_build_recipe_fully_public'])
+ def test_CLI_is_a_deterministic_JSON_export_without_launch(self):
+  import subprocess,sys
+  h,r,i=self.inputs();process=subprocess.run([sys.executable,str(ROOT/'scripts/leaderboard.py'),'--export-profile',i],check=True,capture_output=True,text=True,timeout=20)
+  p=json.loads(process.stdout);self.assertEqual(p['profile']['runtime_configuration_id'],i);self.assertEqual(p['GPU_jobs_started'],0);self.assertFalse(p['production_changes_performed'])
+
+ def test_external_MTP_head_is_required_by_captured_argv_even_if_normalized_field_unknown(self):
+  from leaderboard import reproduction_profile
+  h,r,_=self.inputs();ident=next(v['runtime_configuration_id'] for v in h['runs'] if v['experiment_id']=='R542');packet=reproduction_profile(h,r,ident)
+  self.assertIsNone(packet['profile']['optimizations']['draft_sha256'])
+  draft=next(v for v in packet['required_external_assets'] if v['kind']=='external_draft');self.assertEqual(draft['sha256'],'33d14ecf8f046faf32be9cdd71dbee84188cbc7e143c1614bb9937dfcb1ceef2');self.assertEqual(draft['recorded_flag'],'--spec-draft-model')

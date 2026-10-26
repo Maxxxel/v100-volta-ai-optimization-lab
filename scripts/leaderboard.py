@@ -1620,3 +1620,58 @@ def render(register,history,comparison,docs,model_registry=None):
  models += [{'id':m['id'],'name':m['name'],'quantization':'NOT MEASURED'} for m in (model_registry or []) if m['id'] not in covered]
  payload={'register':browser_register(register),'history':history,'models':models,'master':master_catalog(register,history)}
  write(assets/'leaderboard-data.js',offline_payload(payload))
+
+
+def reproduction_profile(history,register,ident):
+ """Exact public profile packet, not an executable plan or broker approval."""
+ if not re.fullmatch(r'cfg-[a-f0-9]{64}',ident):raise ValueError('Invalid immutable profile ID')
+ validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
+ selected=[p for p in history['profiles'] if p['runtime_configuration_id']==ident]
+ if len(selected)!=1:raise ValueError('Unknown immutable profile ID')
+ p=copy.deepcopy(selected[0]);runs=[copy.deepcopy(r) for r in history['runs'] if r['runtime_configuration_id']==ident]
+ engines=[e for review in register.get('engine_source_reviews',[]) for e in review['engines']
+          if all(e.get(k)==p['engine'].get(k) for k in ('build_id','binary_sha256','kernel_library_sha256'))]
+ if len({H(e) for e in engines})>1:raise ValueError('Conflicting exact engine provenance')
+ assets=[{'kind':'model_weights','sha256':p['model']['artifact_sha256'],'repository':p['model'].get('hf_repository'),'revision':p['model'].get('hf_revision'),'redistributed':False}]
+ for kind,key in [('engine_binary','binary_sha256'),('CUDA_kernel_library','kernel_library_sha256')]:
+  assets.append({'kind':kind,'sha256':p['engine'].get(key),'redistributed':False})
+ for kind,key in [('chat_template','chat_template_sha256')]:
+  assets.append({'kind':kind,'sha256':p['runtime'].get(key),'redistributed':False})
+ draft=p.get('optimizations',{}).get('draft_sha256')
+ if draft:assets.append({'kind':'external_draft','sha256':draft,'redistributed':False})
+ argv=p.get('start_parameters',{}).get('argv',[])
+ for index,arg in enumerate(argv):
+  match=re.fullmatch(r'\[artifact:([a-f0-9]{64})\]',str(arg))
+  if not match:continue
+  flag=argv[index-1] if index else None
+  kind='external_draft' if flag in ('--spec-draft-model','--model-draft','-md') else 'recorded_launch_asset'
+  if kind=='external_draft' and draft is not None and draft!=match[1]:raise ValueError('Draft metadata differs from recorded launch artifact')
+  if not any(a['sha256']==match[1] for a in assets):assets.append({'kind':kind,'sha256':match[1],'recorded_flag':flag,'redistributed':False})
+ physical={H([r['audit_hash'],r['experiment_id'],r['runtime_configuration_id']]) for r in runs}
+ packet={'schema_version':1,'status':'REPRODUCTION_SPECIFICATION_NOT_DEPLOYED','profile':p,
+  'engine_source_identity':copy.deepcopy(engines[0]) if engines else None,
+  'required_external_assets':assets,'exact_profile_measurement_views':runs,
+  'original_measurement_audit_count':len(physical),'measurement_view_count':len(runs),'historical_GPU_job_count':None,
+  'benchmark_evidence_status':('NO_MEASURED_RESULTS' if not runs else 'HAS_FULL_OFFICIAL_CATEGORY' if any(r['official_eligible'] for r in runs) else 'HISTORICAL_OR_UNQUALIFIED_RESULTS'),
+  'source_history_content_sha256':H(history),'source_register_content_sha256':H(register),
+  'launch_is_runnable_without_asset_mapping':False,'exact_build_recipe_fully_public':False,'export_grants_execution_authority':False,
+  'GPU_jobs_started':0,'production_changes_performed':False,
+  'reproduction_limits':[
+   'Ordered recorded arguments and request/runtime settings are preserved, including unknown values. Requested flags are not proof of an executed kernel or cache mode.',
+   'Redacted artifact/session placeholders require explicit local mapping and exact asset verification. This packet never creates a process, downloads files, installs software or submits a GPU job.',
+   'Obtain licensed weights, exact template and any external draft separately. Patch/source hashes identify retained build inputs but do not provide the patch bytes, all shared-library/compiler dependencies, or promise a bit-identical rebuild.',
+   'Only measurements with this exact original runtime configuration ID are included. Related coding/tool configurations and audit views are not new independent generations.',
+   'Reproduction requires matching benchmark/scorer/task identity and declared model-specific settings. Private development inputs are not redistributed; an external substitute is a new experiment.',
+   'Research execution still requires the existing trusted broker, admission and all device/resource guards. Production deployment requires separate approval.']}
+ packet['packet_content_sha256']=H(packet)
+ return packet
+
+
+if __name__=='__main__':
+ import argparse,sys
+ parser=argparse.ArgumentParser(description='Export one immutable public configuration as JSON. No GPU, network, execution or admission.')
+ parser.add_argument('--export-profile',required=True,metavar='cfg-SHA256')
+ args=parser.parse_args();base=pathlib.Path(__file__).resolve().parents[1]
+ try:packet=reproduction_profile(read(base/'data/configuration-history.json'),read(base/'data/benchmark-register.json'),args.export_profile)
+ except (ValueError,KeyError,AssertionError) as error:parser.error(str(error))
+ json.dump(packet,sys.stdout,indent=2,ensure_ascii=False,allow_nan=False);sys.stdout.write('\n')

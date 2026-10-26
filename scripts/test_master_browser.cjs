@@ -333,6 +333,20 @@ async function main(){
    }
    report.checks.push('role-specific observed Pareto evidence preserves exact profiles, costs, development-agent separation and mobile layout');
   }
+  for(const width of [1600,390]){
+   const tab=await context.newPage();await tab.setViewportSize({width,height:900});
+   await tab.goto(new URL('reproduce/',base).href,{waitUntil:'networkidle'});
+   const content=await tab.locator('.md-content').innerText();
+   assert(content.includes('PROPOSAL ONLY'));assert(content.includes('14,336'));assert(content.includes('1,200-second TASK'));
+   assert(content.includes('not a runnable launch or broker approval'));assert(content.includes('not fully public'));
+   assert.equal(await tab.locator('pre code').filter({hasText:'--export-profile'}).count(),1);
+   const detail=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Selected exact benchmark-profile pointers'})}).first();await detail.locator('summary').first().click();
+   assert.equal(await detail.locator('tbody tr').count(),9);
+   for(const a of await detail.locator('a[href*="configuration-profiles"]').all())assert(/cfg-[a-f0-9]{64}/.test(await a.getAttribute('href')));
+   assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Reproduction proposal overflows viewport');
+   await tab.screenshot({path:path.join(artifacts,width===390?'mobile-reproduction.png':'desktop-reproduction.png'),animations:'disabled'});await tab.close();
+  }
+  report.checks.push('exact profile export instructions and controlled deployment proposal preserve broker/resource boundaries on desktop/mobile');
   const pipelineExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/pipeline-performance.json'),'utf8'));
   for(const [name,width] of [['desktop',1600],['mobile',390]]){
    const tab=await context.newPage();await tab.setViewportSize({width,height:900});
