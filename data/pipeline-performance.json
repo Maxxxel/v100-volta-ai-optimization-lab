@@ -594,6 +594,69 @@
       "experiment_id": "R550",
       "phase": "independent_review",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:46:27.673800+00:00",
+      "duration_s": 29.630599219,
+      "experiment_id": "R550",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:46:28.993940+00:00",
+      "duration_s": 1.317727526,
+      "experiment_id": "R550",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:46:31.883037+00:00",
+      "duration_s": 2.87192431,
+      "experiment_id": "R550",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:46:34.359075+00:00",
+      "duration_s": 2.471011085,
+      "experiment_id": "R550",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:46:46.861924+00:00",
+      "duration_s": 12.499817741,
+      "experiment_id": "R550",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:47:27.662658+00:00",
+      "duration_s": 40.795609512,
+      "experiment_id": "R550",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:47:39.879770+00:00",
+      "duration_s": 12.092273984,
+      "experiment_id": "R550",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:47:40.242873+00:00",
+      "duration_s": 0.048550303,
+      "experiment_id": "R550",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-26T11:47:44.113639+00:00",
+      "duration_s": 3.084625737,
+      "experiment_id": "R550",
+      "phase": "push",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
@@ -1401,7 +1464,7 @@
       }
     }
   ],
-  "observed_at_utc": "2026-10-26T11:45:57.795690+00:00",
+  "observed_at_utc": "2026-10-26T11:48:35.317463+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",
