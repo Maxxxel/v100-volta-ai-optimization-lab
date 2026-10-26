@@ -216,3 +216,15 @@ R540 used one reviewed broker job, two sequential engine starts, and one shared 
 Pre-start activation and daemon-entrypoint defects were corrected before any GPU execution. The broker rejected the invalid start; the original planning records and source reviews remain preserved. A new entrypoint-order regression test supplements 244 existing controls and 70 confirmation/timer controls. No historical measurement or timer was rewritten.
 
 [Fresh measured A/B result and limits](experiments/R540.md). Development confirmation does not authorize a Champion or substitute for official benchmark qualification.
+
+## Sequential full-category tool confirmation — R546
+
+The reviewed sequential controller also admits one fixed native-tool confirmation: original BFCL `parallel_multiple200` inputs in each of two arms, MTP OFF then the previously executed Q6-draft/max3/min1 profile. This is **two200-task replications, not a new400-task benchmark**. No sampler, template, weight, engine, cache, hardware limit or official scorer is changed.
+
+One exact broker contract owns the shared1,200s deadline, including both engine startups, warmups and input preflight. The second arm receives the same absolute deadline. Failure retains the first arm and any completed second-arm responses; no automatic GPU retry or budget reset is allowed. The original controller body is reused with closed protocol bindings, and CPU simulation verifies engine cleanup before the next start.
+
+CPU evidence:244 foundation controls,70 existing MTP/timer controls,16 new complete-category controls and three migration/rollback controls. These are overlapping software-test scopes, not333 independent GPU trials. The unchanged official scorer and independent CPU replay also reproduced the archived178/200 result for both derived arm views. Original response bytes remain untouched; only the declared arm suffix is removed in hashed CPU input views.
+
+Broker source SHA256: `c6b3745ad2c219db90bf2e23ac03040ab1b8e21500be7b0d69950b34056677a0`. Adapter SHA256: `fb6a825848298e24f02c5ed8004f3d9398723d5c3664fbc562b1748c65d689df`. Old profiles, clock histories, reference objects, the original matrix and signed queue were preserved. Unknown code or a self-generated hash alone still grants no execution privilege.
+
+The confirmation concerns the native-tool profile only. Earlier coding and agent-policy regressions remain binding; it cannot establish an allround MTP Champion or authorize production deployment. The measured result is linked from the experiment archive after auditing.

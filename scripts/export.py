@@ -2,7 +2,7 @@
 """Publish-schema projection. Reads canonical metadata, never copies files or logs.
 No source code execution, downloads, GPU requests, or source mutations.
 """
-import argparse, collections, fcntl, hashlib, html, json, math, pathlib, re, sys
+import argparse, collections, copy, fcntl, hashlib, html, json, math, pathlib, re, sys
 from urllib.parse import urlsplit, urlunsplit
 HERE = pathlib.Path(__file__).resolve().parents[1]
 STATUS = {'QUALIFIED','TESTED_NEGATIVE','PARTIAL','OPEN','DEFERRED','NOT_APPLICABLE'}
@@ -469,6 +469,124 @@ def role_case_costs(records,telemetry):
       'not_measured':['separate preamble tokens per step','separate reasoning tokens','compaction events','streaming TTFT','reviewer error-detection accuracy'],
       'scope':'Archived complete R537 replies only. Prompt counts include recurrent history; they do not isolate preamble cost. Five exposed paired cases, fixed arm order, not15 independent tasks or an H0/H1 ablation. Per-case energy brackets can overlap at boundaries and must not be summed as an authoritative arm total. GPU energy excludes CPU/system energy. No official benchmark, equivalence or causal harness winner.'}
 
+def verified_native_tools_confirmation(root,entry,receipt):
+    """Independent public projection of two full/partial200 arms; no pooled score."""
+    from leaderboard import counter_energy_bounds
+    root=pathlib.Path(root).resolve();ap=pathlib.Path(entry['audit_path']).resolve()
+    assert ap==root/'staging/r546/AUDIT.json' and digest(ap)==entry['audit_sha256']
+    a=load(ap);assert a['experiment_id']=='R546' and a['measurement_valid'] and a['GPU_execution_observed']
+    assert a['official_benchmark'] is False and a['winner_qualified'] is False and a['full_benchmark_score_claimed'] is False
+    assert a['status'] in ('FRESH_TOOLS_AB400_COMPLETE','PARTIAL')
+    raw=pathlib.Path(a['raw_root']).resolve();assert raw.is_relative_to(root.parent/'research/mcp-workspace')
+    assert all(digest(raw/n)==h for n,h in a['original_raw_files_sha256'].items())
+    p=load(raw/'profile.json');contract=load(raw/'CONTRACT.json');plan=load(ap.parent/'CAMPAIGN_PLAN.json')
+    assert digest(ap.parent/'CAMPAIGN_PLAN.json')==a['campaign_plan_sha256']
+    assert digest(ap.parent/'PREDECLARED_PLAN.json')==a['predeclared_plan_sha256']
+    assert contract['id']=='r546-native-mtp-tools-confirmation400' and contract['runtime_seconds']==1200
+    assert p['native_recipe']['mtp_tools_confirmation']=={'version':'MTP_TOOLS_AB400_V1','arms':['A','B'],'base_requests_per_arm':200,'model_starts':2,'total_task_seconds':1200,'includes_model_setup':True}
+    base_ids=['parallel_multiple_'+str(i) for i in range(200)]
+    assert contract['parameters']=={'dataset':'omni-native-mtp-tools-confirmation400-v1','task_ids':[v+'--'+arm for arm in ('A','B') for v in base_ids]}
+    rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()]
+    telemetry=[json.loads(line) for line in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+    official_descriptor=load(raw/'TRUST_SNAPSHOT.json')['task_datasets']['bfcl-v4-parallel-multiple-full200']
+    official_task_file=pathlib.Path(official_descriptor['tasks_file']).resolve()
+    assert official_task_file.is_relative_to(root) or (official_task_file.name=='TASKS.json' and official_task_file.parent.name=='bfcl-parallel-multiple200' and official_task_file.parent.parent.name=='task_datasets')
+    assert digest(official_task_file)==official_descriptor['tasks_sha256']
+    answers=[v for v in rows if v.get('kind')=='native_tool'];assert [v['id'] for v in answers]==contract['parameters']['task_ids'][:len(answers)]
+    launch=load(raw/'LAUNCH.json') if (raw/'LAUNCH.json').exists() else {}
+    arm_windows=launch.get('arms',[])
+    assert len({v['arm'] for v in arm_windows})==len(arm_windows)
+    if a['status']=='FRESH_TOOLS_AB400_COMPLETE':
+        assert launch.get('single_shared_task_clock') is True and launch.get('model_setup_charged_to_task_budget') is True
+        assert [v['arm'] for v in arm_windows]==['A','B'] and arm_windows[0]['end_ns']<=arm_windows[1]['start_ns']
+    result={'status':text(a['status']),'decision':text(a['decision']),'scope':text(a['data_scope']),
+            'official_benchmark':False,'winner_qualified':False,'shared_task_phase_s':a['task_phase_s'],
+            'shared_task_limit_s':1200,'setup_in_shared_budget':True,'comparison':projection(a['comparison']),
+            'gates':projection(a['predeclared_gates']),'arms':[],'identities':{'model_sha256':p['model_sha256'],
+            'draft_sha256':p['native_mtp_draft']['sha256'],'engine_binary_sha256':p['assets'][p['runtime']+'/llama-server']}}
+    for arm in ('A','B'):
+        selected=[v for v in answers if v['id'].endswith('--'+arm)];stored=a['profiles'][arm]
+        assert stored['tasks']==len(selected)
+        if not selected:
+            assert stored['solved'] is None
+            result['arms'].append({'arm':arm,'tasks':0,'solved':None,'status':'NOT MEASURED'});continue
+        ids=[v['id'][:-3] for v in selected];assert ids==base_ids[:len(selected)]
+        derived=ap.parent/arm/'RESPONSES.jsonl';mapped=[json.loads(l) for l in derived.read_text().splitlines()]
+        scoring_plan=load(ap.parent/arm/'SCORING_PLAN.json');original_plan=load(root/'staging/r542/SCORING_PLAN.json')
+        assert scoring_plan['case_ids']==ids and scoring_plan['responses_sha256']==digest(derived) and scoring_plan['task_manifest_sha256']==official_descriptor['tasks_sha256']
+        for key in ('worker_sha256','official_utils_sha256','task_manifest_sha256','source_revision'):
+            assert scoring_plan[key]==original_plan[key]
+        assert digest(ap.parent/'score_native.py')==scoring_plan['worker_sha256']=='3478606c296e65ef9088c96a7f1c79e99b49bc7016a44c77b3719d14e4dd6666'
+        assert digest(ap.parent/'OFFICIAL_BFCL_UTILS.txt')==scoring_plan['official_utils_sha256']=='3703b9bb63f83581c60b8e0b82aac74c360c9ca781e99e7d4eb28b0cce2285dd'
+        expected=[]
+        for v in selected:
+            row=copy.deepcopy(v);row['id']=v['id'][:-3];expected.append(row)
+        assert mapped==expected,'CPU input view must only remove the closed arm suffix'
+        parsed=[]
+        for suffix in ('score','replay'):
+            label='r546-'+arm.lower()+'-'+suffix;rp=ap.parent/arm/(label+'.receipt.json');execution=load(rp)
+            assert execution['returncode']==0 and 'Result=success' in execution['properties']
+            for name,h in execution['input_sha256'].items():
+                path=pathlib.Path(name).resolve();assert (path.is_relative_to(root) or path==official_task_file) and digest(path)==h
+            out=ap.parent/arm/(label+'.stdout');parsed.append([json.loads(l) for l in out.read_text().splitlines()])
+            assert any(v['receipt_path']==str(rp) and v['receipt_sha256']==digest(rp) and v['stdout_sha256']==digest(out) for v in a['scoring_receipts'])
+        assert parsed[0]==parsed[1]
+        summary=parsed[0][-1];scored=[v for v in parsed[0] if 'id' in v]
+        assert [v['id'] for v in scored]==ids and summary['tasks']==len(selected)
+        assert summary['model_requests']==summary['tool_executions']==0 and summary['official_revision']==scoring_plan['source_revision']
+        assert stored['solved']==summary['official_AST_solved']==sum(v['official_AST_success'] for v in scored)
+        for key in ('practical_solved','protocol_valid'):assert stored[key]==summary[key]
+        assert stored['complete_final_answers']==summary['complete']
+        energy=counter_energy_bounds(telemetry,selected,[v['id'] for v in selected]);assert energy==stored['GPU_counter']
+        for side in ('lower','upper'):
+            assert stored['GPU_j_per_success_'+side]==(energy[side+'_j']/stored['solved'] if stored['solved'] else None)
+        wall=sum(v['e2e_s'] for v in selected);tokens=sum(v['reply']['usage']['completion_tokens'] for v in selected)
+        assert wall==stored['response_wall_s'] and tokens==stored['completion_tokens']
+        def measured_total(key):
+            values=[v['reply'].get('timings',{}).get(key) for v in selected]
+            return sum(values) if values and all(type(v) in (int,float) and math.isfinite(v) and v>=0 for v in values) else None
+        engine_timings={key:measured_total(key) for key in ('prompt_n','prompt_ms','predicted_n','predicted_ms','draft_n','draft_n_accepted')}
+        for name,tokens_key,ms_key in [('prefill','prompt_n','prompt_ms'),('decode','predicted_n','predicted_ms')]:
+            engine_timings[name+'_reported_tok_s']=1000*engine_timings[tokens_key]/engine_timings[ms_key] if engine_timings[tokens_key] is not None and engine_timings[ms_key] is not None and engine_timings[ms_key]>0 else None
+        engine_timings['scope']='Sum of recorded engine token counts divided by summed engine milliseconds, not HTTP throughput or streaming TTFT. Missing counters remain unknown.'
+        observed_window=next((v for v in arm_windows if v['arm']==arm),None);hardware={}
+        if observed_window:
+            import statistics
+            argv=observed_window['launch']['argv'];expected_spec='none' if arm=='A' else 'draft-mtp'
+            assert argv[argv.index('--spec-type')+1]==expected_spec
+            assert observed_window['launch']['native_request_options']==p['native_recipe']['request_options']
+            start,end=observed_window['start_ns'],observed_window['end_ns']
+            assert start<=selected[0]['start_ns']<selected[-1]['end_ns']<=end
+            observed=[v for v in telemetry if start<=v['at_ns']<=end]
+            hardware={'arm_including_setup_s':(end-start)/1e9,
+                'peak_device_vram_mib':max(v['device_vram_bytes'] for v in observed)/2**20 if observed and all('device_vram_bytes' in v for v in observed) else None,
+                'SM_clock_median_MHz':statistics.median(v['sm_clock_mhz'] for v in observed) if observed and all('sm_clock_mhz' in v for v in observed) else None,
+                'memory_clock_MHz':sorted({v['mem_clock_mhz'] for v in observed}) if observed and all('mem_clock_mhz' in v for v in observed) else None,
+                'max_temperature_C':max(v['temperature_c'] for v in observed) if observed and all('temperature_c' in v for v in observed) else None}
+        result['arms'].append({'arm':arm,'engine_timings':engine_timings,'hardware_window':hardware,'MTP':'OFF' if arm=='A' else 'Q6 draft / max3 min1','tasks':len(selected),
+                'solved':stored['solved'],'practical_solved':stored['practical_solved'],'protocol_valid':stored['protocol_valid'],
+                'response_wall_s':wall,'completion_tokens':tokens,'GPU_counter_lower_j':energy['lower_j'],'GPU_counter_upper_j':energy['upper_j'],
+                'GPU_j_per_success_lower':stored['GPU_j_per_success_lower'],'GPU_j_per_success_upper':stored['GPU_j_per_success_upper'],
+                'original_scorer_replay_identical':True})
+    if a['status']=='FRESH_TOOLS_AB400_COMPLETE':
+        assert len(answers)==400 and all(v['tasks']==200 for v in result['arms']) and 0<a['task_phase_s']<=1200
+        host=load(raw/'HOST_COMPLETION.json');gpu=load(raw/'AUDIT.json')
+        assert host['status']=='GPU_COMPLETE_AUDITED' and host['audit_sha256']==digest(raw/'AUDIT.json') and gpu['one_shared_task_clock']
+        x,y=a['profiles']['A'],a['profiles']['B'];g=load(ap.parent/'PREDECLARED_PLAN.json')['predeclared_gates']
+        assert a['comparison']['response_latency_reduction']==1-y['response_wall_s']/x['response_wall_s']
+        assert a['comparison']['GPU_j_per_success_reduction_conservative']==1-y['GPU_j_per_success_upper']/x['GPU_j_per_success_lower']
+        expected_gates={'quality':y['solved']>=x['solved'] and y['solved']>=g['candidate_successes_minimum'],
+            'protocol':y['protocol_valid']>=x['protocol_valid'],
+            'latency':a['comparison']['response_latency_reduction']>=g['minimum_response_latency_reduction'],
+            'energy':a['comparison']['GPU_j_per_success_reduction_conservative']>=g['minimum_GPU_j_per_success_reduction'],'all400':True}
+        assert a['predeclared_gates']==expected_gates
+        expected_decision='FRESH_TOOL_SPECIFIC_OBSERVED_GATES_PASS_NOT_ALLROUND_CHAMPION' if all(expected_gates.values()) else 'FRESH_TOOL_SPECIFIC_CONFIRMATION_GATE_FAILED'
+        assert a['decision']==expected_decision
+    else:
+        assert a['decision']=='PARTIAL_NO_PROMOTION_NO_RETRY' and not a['predeclared_gates'] and not a['comparison']
+    result['audit_id']=receipt(ap,entry['audit_sha256'])
+    return result
+
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -752,6 +870,10 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if audit and ident=='R546' and v.get('status') in ('FRESH_TOOLS_AB400_COMPLETE','PARTIAL'):
+            confirmed=verified_native_tools_confirmation(root,v,receipt)
+            experiments[ident]['aggregate_metrics']['native_tools_confirmation']=confirmed
+            catalog[audit]['aggregate_metrics']['native_tools_confirmation']=confirmed
         if audit and v.get('status')=='DEVELOPMENT_ROLE_COMPARISON5_COMPLETE':
             role=verified_native_role_comparison(root,v,receipt)
             experiments[ident]['aggregate_metrics']['native_role_comparison_development']=role
