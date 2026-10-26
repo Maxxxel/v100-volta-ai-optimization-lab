@@ -971,6 +971,87 @@ def paired_coding_review(root,entry,receipt):
  validate_paired_projection(projection)
  return projection
 
+# Scope-frozen core profiles plus already measured optimization variants. This
+# list selects evidence, not a new GPU campaign or test-driven tuning policy.
+ROLE_EXPERIMENTS = {
+ 'coding': ('R471','R516','R488','R464','R465','R466','R495','R541','R544','R548'),
+ 'tools': ('R478','R517','R489','R472','R474','R496','R513','R542','R549'),
+ 'agents_development': ('R530','R531','R532','R533','R534','R535','R536','R543','R550'),
+}
+
+def observed_pareto(points):
+ """Descriptive frontier; counter bounds are not confidence intervals."""
+ def valid(p):
+  return all(type(p.get(k)) in (int,float) and math.isfinite(p[k]) and p[k]>=0
+             for k in ('score_percent','seconds_per_task','energy_lower','energy_upper','peak_vram_mib')) and p['energy_lower']<=p['energy_upper']
+ def dominates(a,b):
+  # Same exact benchmark, scorer/task set and cost method only. A lower bound
+  # must not be silently treated as an upper bound or a point estimate.
+  if a['comparison_key']!=b['comparison_key'] or not valid(a) or not valid(b):return False
+  weak=(a['score_percent']>=b['score_percent'] and a['seconds_per_task']<=b['seconds_per_task'] and
+        a['energy_upper']<=b['energy_lower'] and a['peak_vram_mib']<=b['peak_vram_mib'])
+  strict=(a['score_percent']>b['score_percent'] or a['seconds_per_task']<b['seconds_per_task'] or
+          a['energy_upper']<b['energy_lower'] or a['peak_vram_mib']<b['peak_vram_mib'])
+  return weak and strict
+ result=[]
+ for p in points:
+  q=dict(p);q['dominated_by']=[a['experiment_id'] for a in points if a is not p and dominates(a,p)]
+  q['pareto_status']='NOT_ASSESSABLE_MISSING_METRICS' if not valid(p) else 'OBSERVED_DOMINATED' if q['dominated_by'] else 'OBSERVED_FRONTIER'
+  result.append(q)
+ return result
+
+def role_comparison(history,experiments):
+ """Recompute scoped decisions from immutable public evidence; no inference."""
+ profiles={p['runtime_configuration_id']:p for p in history['profiles']}
+ result={'schema_version':1,'official_agents':'NOT MEASURED','winner_qualified':False,
+         'method':'Observed quality maximized; request wall/task, GPU-counter J/success and peak VRAM minimized. Conservative energy dominance requires candidate upper <= comparator lower. Descriptive whole-profile comparison, not population superiority, causal optimization, a safety certificate or production approval. Counter brackets describe query timing, not statistical uncertainty. No pooling across categories or inference profiles.',
+         'selection':ROLE_EXPERIMENTS,'categories':{}}
+ for role in ('coding','tools'):
+  points=[];missing=[]
+  for eid in ROLE_EXPERIMENTS[role]:
+   views=[r for r in history['runs'] if r['experiment_id']==eid and r['official_eligible'] and r['discipline']==role]
+   if not views:missing.append(eid);continue
+   identity=lambda r:(r['audit_hash'],r['runtime_configuration_id'],r['benchmark_identity_id'],r['dataset_split_hash'],r['evaluated_task_set_hash'],H(r['scorer_version']))
+   if len({identity(r) for r in views})!=1 or len({(r['solved'],r['tasks'],r['score_percent'],r['wall_s'],r['peak_vram_mib']) for r in views})!=1:raise ValueError('Role review has conflicting physical measurement views')
+   counters=[r['counter_energy'] for r in views if r.get('counter_energy')]
+   if len({H(c) for c in counters})>1:raise ValueError('Role review counter supplements conflict')
+   r=views[0];p=profiles[r['runtime_configuration_id']];counter=counters[0] if counters else {}
+   expected=164 if role=='coding' else 200
+   if r['tasks']!=expected or r['benchmark_id']!=('humanevalplus-v0.1.10' if role=='coding' else 'bfcl-v4-parallel-multiple-full200'):raise ValueError('Role review benchmark scope differs')
+   bounds=(counter.get('j_per_success_lower'),counter.get('j_per_success_upper'))
+   key=H([r['benchmark_identity_id'],r['dataset_split_hash'],r['evaluated_task_set_hash'],r['scorer_version'],counter.get('method')])
+   points.append({'experiment_id':eid,'runtime_configuration_id':r['runtime_configuration_id'],'model':p['model']['name'],
+    'model_sha256':p['model']['artifact_sha256'],'engine_binary_sha256':p['engine']['binary_sha256'],
+    'audit_ids':sorted({a for v in views for a in v.get('audit_ids',[])}),'audit_hash':r['audit_hash'],
+    'measurement_view_ids':[v['run_id'] for v in views],'physical_measurements':1,
+    'benchmark_identity_id':r['benchmark_identity_id'],'comparison_key':key,'tasks':r['tasks'],'solved':r['solved'],
+    'score_percent':r['score_percent'],'seconds_per_task':r['wall_s']/r['tasks'] if r['wall_s'] is not None else None,
+    'energy_lower':bounds[0],'energy_upper':bounds[1],'energy_method':counter.get('method'),'peak_vram_mib':r['peak_vram_mib']})
+  result['categories'][role]={'points':observed_pareto(points),'missing_complete_experiments':missing}
+ agents=[];by_id={e['id']:e for e in experiments}
+ for eid in ROLE_EXPERIMENTS['agents_development']:
+  e=by_id.get(eid,{});m=e.get('aggregate_metrics',{}).get('native_validation33')
+  if not m:continue
+  if m['tasks']!=33 or m['planned_tasks']!=33 or m['official_benchmark'] or m['winner_qualified'] or not m.get('independent_review_audit_id'):raise ValueError('Invalid local agent evidence')
+  # Captured policy outcomes are separate from task success and never treated
+  # as population safety rates or a system-safety Pareto ranking.
+  agents.append({'experiment_id':eid,'model':e['model'],'profile_sha256':m['profile_sha256'],'model_sha256':m['model_sha256'],
+   'solved':m['solved'],'tasks':33,'policy_gate_passes':m.get('policy_gate_passes'),
+   'case_wall_s':m['case_wall_s'],'energy_lower':m['gpu_j_per_success_lower'],'energy_upper':m['gpu_j_per_success_upper'],
+   'peak_vram_mib':m['peak_device_vram_mib'],'audit_id':e['audit_id'],'independent_review_audit_id':m['independent_review_audit_id'],
+   'official_benchmark':False,'scope':'Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.'})
+ result['agents_development']=agents
+ result['decisions']=[
+  {'role':'Coding quality','profile':'Gemma4 12B QAT, existing nonthinking F16-key profile','evidence':['R464','R472','R534'], 'decision':'Retain for coding:156/164 is the highest observed core-profile coding score. Weaker local agent outcomes and tools154/200 prevent an allround recommendation. Do not adopt rejected Q8-key or Thinking variants.'},
+  {'role':'Native tools','profile':'OmniCoder bartowski Q6 + MTP3','evidence':['R542','R546','R541','R543'], 'decision':'Retain as a tool-specific option:178/200, independently confirmed faster and lower GPU J/success. Coding and agent quality gates failed; do not transfer the tool recommendation to those roles.'},
+  {'role':'Balanced small-model baseline','profile':'OmniCoder bartowski Q6, MTP OFF','evidence':['R516','R517','R536'], 'decision':'Retain for Jarvis validation: complete coding/tools and28/33 local agent successes. This small exposed suite and nonzero policy failures do not establish model superiority or safe production use.'},
+  {'role':'Efficient comparison','profile':'Qwen3.5 9B native baseline','evidence':['R465','R474','R535'], 'decision':'Retain the measured low-VRAM comparison; do not replace independent quality evaluation with raw token speed.'},
+  {'role':'Larger coding/agent alternative','profile':'Qwen3.8 27B integrated MTP3','evidence':['R548','R549','R550','R551'], 'decision':'Retain:151/164 coding,169/200 tools and26/33 local agent successes. Fresh development controls confirm lower latency/energy at additional VRAM. No full200 OFF control, lossless-token proof or global Champion.'},
+  {'role':'Additional retained alternatives','profile':'Nexus OFF/T0; Ornith OFF/T0; canonical OmniCoder','evidence':['R488','R489','R531','R495','R496','R532','R471','R478','R530'], 'decision':'Retain separate profiles and tradeoffs. Small quality differences are not automatic exclusions. No new broad optimization campaign or duplicate full benchmarks is justified by this descriptive assessment.'}]
+ known={r['experiment_id'] for r in history['runs']}|set(by_id)
+ result['decisions']=[d for d in result['decisions'] if all(e in known for e in d['evidence'])]
+ return result
+
 def build(root,db,comparison,experiments,receipt,sanitize,previous):
  root=pathlib.Path(root);reg=read(root/'BENCHMARK_REGISTER.json');profiles=[];runs=[];defs={d['benchmark_id']:d for d in reg['definitions']}
  reg['pipeline_method_reviews']=[pipeline_method_review(root,e,receipt) for e in reg.get('pipeline_method_reviews',[])]
@@ -1214,6 +1295,7 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   from derivatives import collect as collect_derivatives
   public=collect_derivatives(root,item,result,receipt)
   item.pop('audit_path');item.update(public)
+ reg['role_comparison']=role_comparison(result,experiments)
  return reg,result
 
 def validate_history(data,defs):

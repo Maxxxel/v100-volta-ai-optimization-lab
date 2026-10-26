@@ -503,3 +503,36 @@ class FrozenSingleSessionMetadata(unittest.TestCase):
  def test_original_partition_schema_is_preserved(self):
   from leaderboard import normalized_native_part
   p={'index':1,'id':'original-job','task_ids':['a']};self.assertEqual(normalized_native_part(p,{},None,{}),p)
+
+class RoleComparisonTests(unittest.TestCase):
+ def points(self):
+  return [dict(experiment_id='A',comparison_key='same',score_percent=80,seconds_per_task=2,energy_lower=10,energy_upper=11,peak_vram_mib=5000),dict(experiment_id='B',comparison_key='same',score_percent=79,seconds_per_task=3,energy_lower=12,energy_upper=13,peak_vram_mib=6000)]
+ def test_observed_dominance_requires_all_four_axes(self):
+  from leaderboard import observed_pareto
+  a,b=observed_pareto(self.points());self.assertEqual(a['pareto_status'],'OBSERVED_FRONTIER');self.assertEqual(b['dominated_by'],['A'])
+  p=self.points();p[1]['peak_vram_mib']=4000;self.assertTrue(all(not r['dominated_by'] for r in observed_pareto(p)))
+ def test_overlapping_energy_bounds_cannot_prove_dominance(self):
+  from leaderboard import observed_pareto
+  p=self.points();p[1]['energy_lower']=10.5;self.assertTrue(all(not r['dominated_by'] for r in observed_pareto(p)))
+ def test_missing_nonfinite_boolean_and_incompatible_protocol_are_not_dominated(self):
+  from leaderboard import observed_pareto
+  for value in (None,float('nan'),float('inf'),True,-1):
+   p=self.points();p[1]['energy_lower']=value;r=observed_pareto(p);self.assertEqual(r[1]['pareto_status'],'NOT_ASSESSABLE_MISSING_METRICS');self.assertEqual(r[1]['dominated_by'],[])
+  p=self.points();p[1]['comparison_key']='different';self.assertTrue(all(not r['dominated_by'] for r in observed_pareto(p)))
+ def test_equal_points_are_both_frontier_without_best_selection(self):
+  from leaderboard import observed_pareto
+  p=self.points();p[1]={**p[0],'experiment_id':'B'};self.assertTrue(all(r['pareto_status']=='OBSERVED_FRONTIER' for r in observed_pareto(p)))
+ def test_actual_cost_views_count_once_and_official_agents_stay_missing(self):
+  from leaderboard import role_comparison
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());e=json.loads((ROOT/'data/experiments.json').read_text());before=copy.deepcopy(h);r=role_comparison(h,e)
+  self.assertEqual(h,before);self.assertFalse(r['winner_qualified']);self.assertEqual(r['official_agents'],'NOT MEASURED')
+  published=json.loads((ROOT/'data/benchmark-register.json').read_text())['role_comparison'];self.assertEqual(H(r),H(published))
+  for kind in ('coding','tools'):
+   points=r['categories'][kind]['points'];self.assertEqual(len(points),len({p['experiment_id'] for p in points}));self.assertTrue(all(p['physical_measurements']==1 for p in points))
+  q=next(p for p in r['categories']['coding']['points'] if p['experiment_id']=='R548');self.assertEqual(q['solved'],151);self.assertEqual(q['energy_upper'],165303.731/151)
+  self.assertTrue(all(v['official_benchmark'] is False and v['tasks']==33 for v in r['agents_development']))
+  self.assertNotIn('R538',[p['experiment_id'] for p in r['categories']['tools']['points']])
+ def test_changed_physical_view_score_fails_closed(self):
+  from leaderboard import role_comparison
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());e=json.loads((ROOT/'data/experiments.json').read_text());r=next(r for r in h['runs'] if r['experiment_id']=='R548');bad=copy.deepcopy(r);bad['solved']-=1;h['runs'].append(bad)
+  with self.assertRaises(ValueError):role_comparison(h,e)

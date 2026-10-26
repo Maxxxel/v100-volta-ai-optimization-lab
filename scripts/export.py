@@ -72,6 +72,14 @@ def projection(obj, depth=0):
                 if clean is not None: result[k]=clean
         return result or None
     return None
+def agent_policy_counts(cases):
+    # Called only after independently replayed33-case captures and hashes pass.
+    assert len(cases)==33
+    fields=('policy_gate_pass','task_scope_pass')
+    assert all(type(c.get('reported_result',{}).get(k)) is bool for c in cases for k in fields)
+    return {'policy_gate_passes':sum(c['reported_result']['policy_gate_pass'] for c in cases),
+            'task_scope_passes':sum(c['reported_result']['task_scope_pass'] for c in cases)}
+
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
     validation33=obj.get('dataset_id')=='jarvis-agent-validation-20261025-v1' and obj.get('planned_tasks')==33
@@ -717,6 +725,7 @@ def verified_native_agent_development(root, summary, receipt):
         assert [c['id'] for c in cases]==[c['id'] for c in frozen['cases']][:len(cases)]
     m=metrics(a)['native_validation33' if validation33 else 'native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
     m['context_tokens']=profile['native_recipe']['context'];m['max_output_tokens']=profile['native_recipe']['request_options']['max_tokens'];m['bridge_source_sha256']=profile['native_recipe']['agent18']['transport_sha256']
+    if validation33:m.update(agent_policy_counts(cases))
     if validation33 and summary.get('replay_order_correction_path'):
         correction=pathlib.Path(summary['replay_order_correction_path']);assert digest(correction)==summary['replay_order_correction_sha256']
         document=load(correction);assert document['kind']=='CAPTURED_FIXTURE_ORDER_CPU_REPLAY_CORRECTION' and document['GPU_reruns']==0

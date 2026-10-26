@@ -1,6 +1,72 @@
 # Qualified configurations
 
-Ten profile pointers do not mean ten universally superior models. Native tools, coding, agent throughput, energy, low-VRAM, streaming and long-context profiles have different denominators and validity limits. No production deployment is implied.
+## Jarvis role selection — provisional
+
+**Locally measured, role-specific recommendations; no overall Champion or production deployment.** Official Agents: **NOT MEASURED**. Complete coding/tools scores remain in the [master table](configuration-comparison.md); local Agent33 stays separate.
+
+- **Coding quality — Gemma4 12B QAT, existing nonthinking F16-key profile**: Retain for coding:156/164 is the highest observed core-profile coding score. Weaker local agent outcomes and tools154/200 prevent an allround recommendation. Do not adopt rejected Q8-key or Thinking variants. [R464](experiments/R464.md), [R472](experiments/R472.md), [R534](experiments/R534.md)
+- **Native tools — OmniCoder bartowski Q6 + MTP3**: Retain as a tool-specific option:178/200, independently confirmed faster and lower GPU J/success. Coding and agent quality gates failed; do not transfer the tool recommendation to those roles. [R542](experiments/R542.md), [R546](experiments/R546.md), [R541](experiments/R541.md), [R543](experiments/R543.md)
+- **Balanced small-model baseline — OmniCoder bartowski Q6, MTP OFF**: Retain for Jarvis validation: complete coding/tools and28/33 local agent successes. This small exposed suite and nonzero policy failures do not establish model superiority or safe production use. [R516](experiments/R516.md), [R517](experiments/R517.md), [R536](experiments/R536.md)
+- **Efficient comparison — Qwen3.5 9B native baseline**: Retain the measured low-VRAM comparison; do not replace independent quality evaluation with raw token speed. [R465](experiments/R465.md), [R474](experiments/R474.md), [R535](experiments/R535.md)
+- **Larger coding/agent alternative — Qwen3.8 27B integrated MTP3**: Retain:151/164 coding,169/200 tools and26/33 local agent successes. Fresh development controls confirm lower latency/energy at additional VRAM. No full200 OFF control, lossless-token proof or global Champion. [R548](experiments/R548.md), [R549](experiments/R549.md), [R550](experiments/R550.md), [R551](experiments/R551.md)
+- **Additional retained alternatives — Nexus OFF/T0; Ornith OFF/T0; canonical OmniCoder**: Retain separate profiles and tradeoffs. Small quality differences are not automatic exclusions. No new broad optimization campaign or duplicate full benchmarks is justified by this descriptive assessment. [R488](experiments/R488.md), [R489](experiments/R489.md), [R531](experiments/R531.md), [R495](experiments/R495.md), [R496](experiments/R496.md), [R532](experiments/R532.md), [R471](experiments/R471.md), [R478](experiments/R478.md), [R530](experiments/R530.md)
+
+??? note "Observed Pareto tradeoffs: coding and tools"
+
+    Observed quality maximized; request wall/task, GPU-counter J/success and peak VRAM minimized. Conservative energy dominance requires candidate upper <= comparator lower. Descriptive whole-profile comparison, not population superiority, causal optimization, a safety certificate or production approval. Counter brackets describe query timing, not statistical uncertainty. No pooling across categories or inference profiles. Missing metrics prevent dominance assessment. A frontier is relative to this scope-frozen core shortlist and its already measured variants, not every possible model or configuration. **Frontier membership is not an optimization-quality pass.** R541 and R544 remain rejected for their predeclared coding-quality gates even if their cost tradeoffs appear on this frontier.
+
+    ### Coding
+
+    | Exact profile | Evidence | Solved | Response s/task | GPU J/success bounds | Peak VRAM MiB | Observed status | Dominated by |
+    |---|---|---|---|---|---|---|---|
+    | [OmniCoder 9B](configuration-profiles/cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e.md) | [R471](experiments/R471.md) | 132/164 | 3.0 | 1064.26–1065.04 | 7354.5 | OBSERVED_FRONTIER | — |
+    | [OmniCoder-9B · bartowski Q6](configuration-profiles/cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf.md) | [R516](experiments/R516.md) | 134/164 | 3.508 | 1200.22–1200.92 | 7678.5 | OBSERVED_DOMINATED | R465 |
+    | [Nexus 9B CodeCore Merge](configuration-profiles/cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba.md) | [R488](experiments/R488.md) | 130/164 | 2.811 | 1008.89–1009.31 | 7354.5 | OBSERVED_FRONTIER | — |
+    | [Gemma4 12B IT QAT](configuration-profiles/cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625.md) | [R464](experiments/R464.md) | 156/164 | 4.602 | 1203.10–1203.68 | 8118.5 | OBSERVED_FRONTIER | — |
+    | [Qwen3.5 9B](configuration-profiles/cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653.md) | [R465](experiments/R465.md) | 135/164 | 3.175 | 1056.26–1056.80 | 5954.5 | OBSERVED_FRONTIER | — |
+    | [Qwen3.8 27B](configuration-profiles/cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0.md) | [R466](experiments/R466.md) | 149/164 | 6.765 | 2126.46–2127.14 | 12450.5 | OBSERVED_DOMINATED | R464, R544 |
+    | [Ornith 1.5 9B](configuration-profiles/cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655.md) | [R495](experiments/R495.md) | 117/164 | 2.793 | 1118.53–1119.47 | 7354.5 | OBSERVED_FRONTIER | — |
+    | [OmniCoder-9B bartowski Q6 · MTP3](configuration-profiles/cfg-0826b77042cf7a110898c986ab209eeed23a2c3b3e6c3f22b914fc489ff601ad.md) | [R541](experiments/R541.md) | 131/164 | 2.137 | 730.26–731.13 | 9322.5 | OBSERVED_FRONTIER | — |
+    | [Gemma4 12B IT QAT](configuration-profiles/cfg-a54433c02b7a695ccd9e9ca3c60a5342d47818f909647a2c3b3fa615590fd91c.md) | [R544](experiments/R544.md) | 151/164 | 4.845 | 1259.18–1259.86 | 7986.5 | OBSERVED_FRONTIER | — |
+    | [Qwen3.8 27B · integrated MTP3](configuration-profiles/cfg-a4e9c9254a524b23fdc69375ec9877659abc32781e5119545b2accd73aedbc09.md) | [R548](experiments/R548.md) | 151/164 | 3.654 | 1094.14–1094.73 | 13596.5 | OBSERVED_FRONTIER | — |
+
+    ### Tools
+
+    | Exact profile | Evidence | Solved | Response s/task | GPU J/success bounds | Peak VRAM MiB | Observed status | Dominated by |
+    |---|---|---|---|---|---|---|---|
+    | [OmniCoder 9B](configuration-profiles/cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a.md) | [R478](experiments/R478.md) | 177/200 | 2.513 | 797.79–798.37 | 7356.5 | OBSERVED_FRONTIER | — |
+    | [OmniCoder-9B · bartowski Q6](configuration-profiles/cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049.md) | [R517](experiments/R517.md) | 178/200 | 2.492 | 765.77–766.27 | 7680.5 | OBSERVED_FRONTIER | — |
+    | [Nexus 9B CodeCore Merge](configuration-profiles/cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b.md) | [R489](experiments/R489.md) | 178/200 | 2.543 | 804.29–804.82 | 7356.5 | OBSERVED_FRONTIER | — |
+    | [Gemma4 12B IT QAT](configuration-profiles/cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7.md) | [R472](experiments/R472.md) | 154/200 | 1.668 | 528.35–528.99 | 8118.5 | OBSERVED_FRONTIER | — |
+    | [Qwen3.5 9B](configuration-profiles/cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55.md) | [R474](experiments/R474.md) | 176/200 | 2.313 | 702.49–702.95 | 5956.5 | OBSERVED_FRONTIER | — |
+    | [Ornith 1.5 9B](configuration-profiles/cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c.md) | [R496](experiments/R496.md) | 170/200 | 2.618 | 865.72–866.42 | 7356.5 | OBSERVED_DOMINATED | R478, R489, R474 |
+    | [Gemma4 12B IT QAT](configuration-profiles/cfg-18b3c3040974b775b83cb111656e53a39d7005d0e104891cc2e807e5f0eeebc0.md) | [R513](experiments/R513.md) | 158/200 | 1.772 | 530.06–530.56 | 7986.5 | OBSERVED_FRONTIER | — |
+    | [OmniCoder-9B bartowski Q6 · MTP3](configuration-profiles/cfg-624ae7774142d9d42df292f10804a8b704b695ebfd094ad7d9494e641a6edf97.md) | [R542](experiments/R542.md) | 178/200 | 1.523 | 446.11–446.72 | 9324.5 | OBSERVED_FRONTIER | — |
+    | [Qwen3.8 27B · integrated MTP3](configuration-profiles/cfg-8cd6433abaeb5e09d17a8b974cd6d3fe69ef3954760daeda19447b24d6b1a91a.md) | [R549](experiments/R549.md) | 169/200 | 3.685 | 1144.45–1144.92 | 13602.5 | OBSERVED_DOMINATED | R478, R517, R489, R474, R496, R542 |
+
+
+
+??? note "Separate local Agent33 evidence"
+
+    33 authored cases in11 families; not Terminal-Bench, a population safety rate or an unseen holdout for later tuning. No joint official mean. Policy counts are independently replayed simulated case outcomes, not population safety guarantees. Missing counts remain NOT MEASURED; original security audits remain linked. Different model templates, context limits and request counts are disclosed per profile.
+
+    | Profile | Evidence | Solved /33 | Policy passes /33 | Case wall s | GPU J/success bounds | Peak VRAM MiB |
+    |---|---|---|---|---|---|---|
+    | OmniCoder-9B | [R530](experiments/R530.md) | 26/33 | 29/33 | 447.163 | 4747.50–4755.14 | 7356.5 |
+    | Nexus-9B · OFF/T0 | [R531](experiments/R531.md) | 25/33 | 29/33 | 319.965 | 3486.51–3489.47 | 7356.5 |
+    | Ornith-1.5-9B · OFF/T0 | [R532](experiments/R532.md) | 18/33 | 25/33 | 328.873 | 4982.84–4994.09 | 7356.5 |
+    | Qwen3.8-27B | [R533](experiments/R533.md) | 26/33 | 31/33 | 759.405 | 7992.09–7996.41 | 12454.5 |
+    | Gemma4-12B · ctx16K | [R534](experiments/R534.md) | 17/33 | 29/33 | 444.208 | 6281.06–6285.84 | 8254.5 |
+    | Qwen3.5-9B | [R535](experiments/R535.md) | 23/33 | 26/33 | 407.784 | 4722.50–4726.49 | 5956.5 |
+    | OmniCoder-9B · bartowski Q6 | [R536](experiments/R536.md) | 28/33 | 29/33 | 401.663 | 3909.34–3913.31 | 7680.5 |
+    | OmniCoder-9B · bartowski Q6 MTP3 | [R543](experiments/R543.md) | 27/33 | 28/33 | 291.728 | 2792.62–2797.15 | 9324.5 |
+    | Qwen3.8 27B · integrated MTP3 | [R550](experiments/R550.md) | 26/33 | 31/33 | 621.909 | 6186.63–6191.19 | 13602.5 |
+
+
+
+## Existing scoped reference profiles
+
+Scoped reference pointers do not mean universally superior models. Native tools, coding, agent throughput, energy, low-VRAM, streaming and long-context profiles have different denominators and validity limits. No production deployment is implied.
 
 | Profile | Measurement sprint | Qualification scope |
 |---|---|---|

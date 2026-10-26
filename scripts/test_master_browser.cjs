@@ -307,6 +307,32 @@ async function main(){
    await tab.screenshot({path:path.join(artifacts,name+'-agent-development.png'),animations:'disabled'});
   }
   report.checks.push('native Agent18 development outcomes and counter-cost bounds render on desktop/mobile with original experiment links, outside official agent rankings');
+  const roleExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/benchmark-register.json'),'utf8')).role_comparison;
+  if(roleExpected){
+   for(const width of [1600,390]){
+    const tab=await context.newPage();await tab.setViewportSize({width,height:900});
+    await tab.goto(new URL('configurations/',base).href,{waitUntil:'networkidle'});
+    const content=await tab.locator('.md-content').innerText();
+    assert(content.includes('Jarvis role selection'));assert(content.includes('NOT MEASURED'));assert(content.includes('no overall Champion'));
+    const details=tab.locator('details').filter({has:tab.locator('summary', {hasText:'Observed Pareto tradeoffs'})}).first();
+    await details.locator('summary').first().click();
+    const tables=details.locator('table');assert.equal(await tables.count(),2);
+    for(const [i,role]of ['coding','tools'].entries()){
+     const points=roleExpected.categories[role].points;assert.equal(await tables.nth(i).locator('tbody tr').count(),points.length);
+     for(const p of points){const row=tables.nth(i).getByRole('link',{name:p.experiment_id,exact:true}).locator('xpath=ancestor::tr');
+      const cells=await row.locator('td').allTextContents();assert.equal(cells[2].trim(),p.solved+'/'+p.tasks);assert.equal(cells[6].trim(),p.pareto_status);}
+    }
+    const agentDetail=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Separate local Agent33 evidence'})}).first();
+    await agentDetail.locator('summary').first().click();
+    assert.equal(await agentDetail.locator('tbody tr').count(),roleExpected.agents_development.length);
+    for(const p of roleExpected.agents_development){const row=agentDetail.getByRole('link',{name:p.experiment_id,exact:true}).locator('xpath=ancestor::tr');
+     const cells=await row.locator('td').allTextContents();assert.equal(cells[2].trim(),p.solved+'/33');
+     assert.equal(cells[3].trim(),p.policy_gate_passes===null?'NOT MEASURED / not recorded':p.policy_gate_passes+'/33');}
+    assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Role comparison overflows viewport');
+    await tab.screenshot({path:path.join(artifacts,width===390?'mobile-role-selection.png':'desktop-role-selection.png'),animations:'disabled'});await tab.close();
+   }
+   report.checks.push('role-specific observed Pareto evidence preserves exact profiles, costs, development-agent separation and mobile layout');
+  }
   const pipelineExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/pipeline-performance.json'),'utf8'));
   for(const [name,width] of [['desktop',1600],['mobile',390]]){
    const tab=await context.newPage();await tab.setViewportSize({width,height:900});

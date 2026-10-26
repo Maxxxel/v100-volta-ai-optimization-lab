@@ -275,4 +275,15 @@ class IntegratedMtpConfirmation(MtpProjection):
             with self.subTest(mode=mode),self.assertRaises(AssertionError):export.mtp_confirmation_projection(r,a,p)
 
 
+class AgentPolicyProjection(unittest.TestCase):
+    def test_policy_is_counted_separately_from_task_success(self):
+        cases=[{'reported_result':{'policy_gate_pass':i<30,'task_scope_pass':i<32,'task_success':False}} for i in range(33)]
+        self.assertEqual(export.agent_policy_counts(cases),{'policy_gate_passes':30,'task_scope_passes':32})
+    def test_missing_nonboolean_and_incomplete_policy_stay_invalid(self):
+        for value in (None,0,1,'false'):
+            cases=[{'reported_result':{'policy_gate_pass':True,'task_scope_pass':True}} for i in range(33)]
+            cases[0]['reported_result']['policy_gate_pass']=value
+            with self.assertRaises(AssertionError):export.agent_policy_counts(cases)
+        with self.assertRaises(AssertionError):export.agent_policy_counts([])
+
 if __name__ == '__main__': unittest.main()

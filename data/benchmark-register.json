@@ -29453,6 +29453,866 @@
       "source_url": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/5dd22602c2e9f6a097b1de4c4efe0658b605015c/README.md"
     }
   ],
+  "role_comparison": {
+    "agents_development": [
+      {
+        "audit_id": "audit-ceccef8b6a7e6aee5c16",
+        "case_wall_s": 447.162645408,
+        "energy_lower": 4747.495384615385,
+        "energy_upper": 4755.138923076923,
+        "experiment_id": "R530",
+        "independent_review_audit_id": "audit-75c57b60d7f5a98ed8ff",
+        "model": "OmniCoder-9B",
+        "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+        "official_benchmark": false,
+        "peak_vram_mib": 7356.5,
+        "policy_gate_passes": 29,
+        "profile_sha256": "3e374052da9a572abd7feaa374e73c886129efd4ba1f201ca2fd274eefdbc086",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 26,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-7bcbff8eac137ed8da5f",
+        "case_wall_s": 319.96516894,
+        "energy_lower": 3486.50832,
+        "energy_upper": 3489.4670400000005,
+        "experiment_id": "R531",
+        "independent_review_audit_id": "audit-f82eff2d03ff5ef1d3f1",
+        "model": "Nexus-9B · OFF/T0",
+        "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+        "official_benchmark": false,
+        "peak_vram_mib": 7356.5,
+        "policy_gate_passes": 29,
+        "profile_sha256": "c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 25,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-4c03647adbc9c238f3ec",
+        "case_wall_s": 328.872629018,
+        "energy_lower": 4982.842722222222,
+        "energy_upper": 4994.086666666666,
+        "experiment_id": "R532",
+        "independent_review_audit_id": "audit-c24d9995da52e71c7a14",
+        "model": "Ornith-1.5-9B · OFF/T0",
+        "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+        "official_benchmark": false,
+        "peak_vram_mib": 7356.5,
+        "policy_gate_passes": 25,
+        "profile_sha256": "9f3f64e7c126372c432c2a7e3ffae5770a326947d6232d0302a5070e42a95580",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 18,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-62ea0f2bd1b4d865b9e5",
+        "case_wall_s": 759.405443822,
+        "energy_lower": 7992.089230769231,
+        "energy_upper": 7996.406269230769,
+        "experiment_id": "R533",
+        "independent_review_audit_id": "audit-b376f2b28b360d26a9ab",
+        "model": "Qwen3.8-27B",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_benchmark": false,
+        "peak_vram_mib": 12454.5,
+        "policy_gate_passes": 31,
+        "profile_sha256": "855da15db648fbac7e74db7153dd2d0cc12a1e46bc6191705ceeb9ad27fc7c61",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 26,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-64b3d7585d0fc016342f",
+        "case_wall_s": 444.208019206,
+        "energy_lower": 6281.055117647059,
+        "energy_upper": 6285.836588235294,
+        "experiment_id": "R534",
+        "independent_review_audit_id": "audit-1ba20d5b0b4e51d7472a",
+        "model": "Gemma4-12B · ctx16K",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "official_benchmark": false,
+        "peak_vram_mib": 8254.5,
+        "policy_gate_passes": 29,
+        "profile_sha256": "14997608a38676edc25f8470f7c72ea33a44223425e4c0d4efc28a54c716dd3c",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 17,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-d3b5588718f9aa2d28b1",
+        "case_wall_s": 407.784235343,
+        "energy_lower": 4722.500695652174,
+        "energy_upper": 4726.490608695653,
+        "experiment_id": "R535",
+        "independent_review_audit_id": "audit-948c6ef42e61cc472372",
+        "model": "Qwen3.5-9B",
+        "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+        "official_benchmark": false,
+        "peak_vram_mib": 5956.5,
+        "policy_gate_passes": 26,
+        "profile_sha256": "1fb2cf649f18e4f66844834912dbd17197688f08f183c3f9d4faea1a86000c91",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 23,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-d5886de4d4ad939e99cf",
+        "case_wall_s": 401.663127198,
+        "energy_lower": 3909.3399285714286,
+        "energy_upper": 3913.310392857143,
+        "experiment_id": "R536",
+        "independent_review_audit_id": "audit-912bb2eb946635e06d76",
+        "model": "OmniCoder-9B · bartowski Q6",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "official_benchmark": false,
+        "peak_vram_mib": 7680.5,
+        "policy_gate_passes": 29,
+        "profile_sha256": "e8d6305a50fe0a2522475070c90e25dfbc373be7eba029870941c26a705d2973",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 28,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-d715b95502520aa5e6cf",
+        "case_wall_s": 291.728150251,
+        "energy_lower": 2792.619925925926,
+        "energy_upper": 2797.147962962963,
+        "experiment_id": "R543",
+        "independent_review_audit_id": "audit-f1735c86c60a2810f5f1",
+        "model": "OmniCoder-9B · bartowski Q6 MTP3",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "official_benchmark": false,
+        "peak_vram_mib": 9324.5,
+        "policy_gate_passes": 28,
+        "profile_sha256": "68d5f334a6ccc09f9fec1b7d4822e32ce151619d6cbef69de1094dc622d70fcc",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 27,
+        "tasks": 33
+      },
+      {
+        "audit_id": "audit-0f489117c2432c6b2838",
+        "case_wall_s": 621.909300401,
+        "energy_lower": 6186.627692307693,
+        "energy_upper": 6191.194192307692,
+        "experiment_id": "R550",
+        "independent_review_audit_id": "audit-a1e9b6bbe9cebd7d6b76",
+        "model": "Qwen3.8 27B · integrated MTP3",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "official_benchmark": false,
+        "peak_vram_mib": 13602.5,
+        "policy_gate_passes": 31,
+        "profile_sha256": "9375beae629172c20f57204d935419fa59a1c5db04fdb71dd3b585857e9e33ea",
+        "scope": "Frozen authored33 cases/11 families; local development evidence, not Terminal-Bench or population safety.",
+        "solved": 26,
+        "tasks": 33
+      }
+    ],
+    "categories": {
+      "coding": {
+        "missing_complete_experiments": [],
+        "points": [
+          {
+            "audit_hash": "0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958",
+            "audit_ids": [
+              "audit-02ebe4d13abe33b2b2db",
+              "audit-0725b527fc77fa0b1bc3",
+              "audit-0ff7da6021c2e2dcdcae",
+              "audit-34f4d8b5047955f594d1"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1064.2646666666665,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1065.035196969697,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R471",
+            "measurement_view_ids": [
+              "run-f7956c00acd8ab6f356df9b4a3949c0cdeec6753708d3d155bf4e700d20e9587",
+              "run-6297fa708e3655e8b836881d9fa779bc075e4407a64989e895e3d2709e31ff2d"
+            ],
+            "model": "OmniCoder 9B",
+            "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7354.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e",
+            "score_percent": 80.48780487804878,
+            "seconds_per_task": 3.0003930608902443,
+            "solved": 132,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "518b6f38c0768b23386ee218e6c86a77d672e6631fc246ff685e53db6b50f4dd",
+            "audit_ids": [
+              "audit-3fb3c4fead751335e978",
+              "audit-518b6f38c0768b23386e",
+              "audit-bf68b077de5d5177b9ba",
+              "audit-de364a1596149115c3c6"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [
+              "R465"
+            ],
+            "energy_lower": 1200.221813432836,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1200.9182164179103,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R516",
+            "measurement_view_ids": [
+              "run-454ea14ea4a4b33d622e57e599003542095d2d2fea8c581d6a07323c846d2da7"
+            ],
+            "model": "OmniCoder-9B · bartowski Q6",
+            "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+            "pareto_status": "OBSERVED_DOMINATED",
+            "peak_vram_mib": 7678.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf",
+            "score_percent": 81.70731707317073,
+            "seconds_per_task": 3.5080933849024394,
+            "solved": 134,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "ec11a07b084793cfae3bea8ddde61d1749630a1e81deff2584878e51c2f56ace",
+            "audit_ids": [
+              "audit-72595d1cfa8245c61284",
+              "audit-a071df05188b185d455a",
+              "audit-ba949abf5ec97fefd62e",
+              "audit-ec11a07b084793cfae3b"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1008.8885461538462,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1009.3141307692308,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R488",
+            "measurement_view_ids": [
+              "run-1ca7010e0bf5cac3309622b36642cb6c1b6cc6fb6bacdaefd1924110f3d83cc9"
+            ],
+            "model": "Nexus 9B CodeCore Merge",
+            "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7354.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba",
+            "score_percent": 79.26829268292683,
+            "seconds_per_task": 2.810546330213415,
+            "solved": 130,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "a49a6cebc54822e25a330d315517e33dc419a8c076b509bf4053d2cf1d64181b",
+            "audit_ids": [
+              "audit-303f5af22c2561933d15",
+              "audit-71780cfa6af74ae0b820",
+              "audit-7798bb4f44a3895311ff",
+              "audit-a49a6cebc54822e25a33"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1203.1023653846155,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1203.6756602564103,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R464",
+            "measurement_view_ids": [
+              "run-58f807ca1762084ba8e17d17439bd1955e1a1b66582626d0a766cd50b203e3a0"
+            ],
+            "model": "Gemma4 12B IT QAT",
+            "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 8118.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625",
+            "score_percent": 95.1219512195122,
+            "seconds_per_task": 4.602059310957317,
+            "solved": 156,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "543fb9745a67c9c58b9e407a8ec0ed831a3f087c22b2f4d8f669e2f292beae50",
+            "audit_ids": [
+              "audit-10e9ed5a431b26a819d1",
+              "audit-4eb1556e145765cd4424",
+              "audit-543fb9745a67c9c58b9e",
+              "audit-5fe92317183a3c1794a5"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1056.255651851852,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1056.799962962963,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R465",
+            "measurement_view_ids": [
+              "run-9aecb4bc734e6896ad89504dc8736221fec530c0b53bbaf08d725bce34ef8840"
+            ],
+            "model": "Qwen3.5 9B",
+            "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 5954.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653",
+            "score_percent": 82.3170731707317,
+            "seconds_per_task": 3.1754209297256097,
+            "solved": 135,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "bd72425d4fcd1c6575db7eeba95220a7a9e2f7dba2763f07b0ff2f310d85d103",
+            "audit_ids": [
+              "audit-21f304a5ee06276a1d7f",
+              "audit-3193ff12d6e58b6274a9",
+              "audit-9970f3d75788cb469468",
+              "audit-bd72425d4fcd1c6575db"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [
+              "R464",
+              "R544"
+            ],
+            "energy_lower": 2126.4615369127514,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 2127.1415167785235,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R466",
+            "measurement_view_ids": [
+              "run-c9b6bb6a8f6b1800870ae94f8c047ba3199ec1499fe776aca5e85fecb1a19d50"
+            ],
+            "model": "Qwen3.8 27B",
+            "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+            "pareto_status": "OBSERVED_DOMINATED",
+            "peak_vram_mib": 12450.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-1bc9cefba6ba7b1aed15ea85f4d7bd445c08f43fd9328a4f727dbd9276051cb0",
+            "score_percent": 90.85365853658537,
+            "seconds_per_task": 6.765159637146341,
+            "solved": 149,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "1789af9fe3f495e767c367a7237b1f05805b433f4ba371a77b2a901747d9ec32",
+            "audit_ids": [
+              "audit-1789af9fe3f495e767c3",
+              "audit-17c923c1bee6d2bc0f79",
+              "audit-3dfc1fb73d9d4c64947d",
+              "audit-60520d509b71c5f8cddc"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1118.5281709401709,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1119.4724017094018,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R495",
+            "measurement_view_ids": [
+              "run-62bd861ab851586d68bee599b4351937ac86e0294bb1ecb7e27808cff68c7708"
+            ],
+            "model": "Ornith 1.5 9B",
+            "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7354.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-45342fe50cda5030ead55e6e8fd149cf626f59305256cd7abd1470fa695ce655",
+            "score_percent": 71.34146341463415,
+            "seconds_per_task": 2.7926783490609757,
+            "solved": 117,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "ed307b823d3281f51ee1f301975f6503a8ada1b185e204f772823b56d9ef9d6d",
+            "audit_ids": [
+              "audit-454866b632c1947a5dd5",
+              "audit-a0746c934fa88961d619",
+              "audit-c516d586877213767ac3",
+              "audit-ed307b823d3281f51ee1"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 730.2641908396946,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 731.1251297709924,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R541",
+            "measurement_view_ids": [
+              "run-38c062b065b9b44adf3da2e92733d9af940c146c971ef6f40e4c4e77395bfa8e",
+              "run-5df4045be1478472bc9c478319cc1332f87425a64505b867e3c9f7c69a40173c"
+            ],
+            "model": "OmniCoder-9B bartowski Q6 · MTP3",
+            "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 9322.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-0826b77042cf7a110898c986ab209eeed23a2c3b3e6c3f22b914fc489ff601ad",
+            "score_percent": 79.8780487804878,
+            "seconds_per_task": 2.1365941941707316,
+            "solved": 131,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "d13bc85d40e17f340c3722e8deece59fcdf08b9df9a196f74de791cda0aa2639",
+            "audit_ids": [
+              "audit-734cf296cf5161c3d4fe",
+              "audit-810bce06e2fde341b8ff",
+              "audit-907ae236acdd5ed9b1d0",
+              "audit-d13bc85d40e17f340c37"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1259.179417218543,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1259.8551854304635,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R544",
+            "measurement_view_ids": [
+              "run-408517fa651ae2176c5b54f736b4c8351e74f5d9e75fc50d78149df000d9696f"
+            ],
+            "model": "Gemma4 12B IT QAT",
+            "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7986.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-a54433c02b7a695ccd9e9ca3c60a5342d47818f909647a2c3b3fa615590fd91c",
+            "score_percent": 92.07317073170732,
+            "seconds_per_task": 4.8453695145731706,
+            "solved": 151,
+            "tasks": 164
+          },
+          {
+            "audit_hash": "e545ee1426b3b825a7a46c8fed7a85bf91b982a58f47ed5ec028a69d1eb00eec",
+            "audit_ids": [
+              "audit-0180c3f3b06b9cdc9c8d",
+              "audit-83ba567a0146ae140c4b",
+              "audit-b235e2bfd8d93a3cb437",
+              "audit-e545ee1426b3b825a7a4"
+            ],
+            "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+            "comparison_key": "69df2e87ef18c2ea68470838878e270d805a134a406c7fc888da3dff59edbcfd",
+            "dominated_by": [],
+            "energy_lower": 1094.139774834437,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1094.7266953642384,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R548",
+            "measurement_view_ids": [
+              "run-fb1cac7621e82166ea6d1cbd067b5e7cf1aa0bb88d6e12c18bb14eb8c7b28c42",
+              "run-38a2da51c1abab32c89b6f62cf31383034ab25dc27b731ea9fbb13c70ee5bdff"
+            ],
+            "model": "Qwen3.8 27B · integrated MTP3",
+            "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 13596.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-a4e9c9254a524b23fdc69375ec9877659abc32781e5119545b2accd73aedbc09",
+            "score_percent": 92.07317073170732,
+            "seconds_per_task": 3.654283784896341,
+            "solved": 151,
+            "tasks": 164
+          }
+        ]
+      },
+      "tools": {
+        "missing_complete_experiments": [],
+        "points": [
+          {
+            "audit_hash": "9facd2474e8be80aa0fa2c617e617ec16cd9b11b38d2b6b2d8630435fc6edb42",
+            "audit_ids": [
+              "audit-72026d4c9d9d5743c5c2",
+              "audit-97958f72184726e2b00a",
+              "audit-9facd2474e8be80aa0fa"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 797.7892655367232,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 798.3731581920904,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R478",
+            "measurement_view_ids": [
+              "run-a37dc40f4c0146efb8165e3f3a4cf0fc7631eb3dd65ababce86446e6614d1ae6"
+            ],
+            "model": "OmniCoder 9B",
+            "model_sha256": "b0c1664c86338be24090a45d8b86bd106ba755d004f8746d99ee5ad69258fc3b",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7356.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-21e92fd73d60a2aea4381051b00148063e4e562f95a71a0c1c558ea7b511cb1a",
+            "score_percent": 88.5,
+            "seconds_per_task": 2.512720217395,
+            "solved": 177,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "d995531168d22041ed7c3157c30cf3bc05afcc806c0f3b470514f812ecb59f69",
+            "audit_ids": [
+              "audit-5c719753ecd29bc3bb6c",
+              "audit-d995531168d22041ed7c",
+              "audit-f943a53bc578d7b369fd"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 765.7736966292134,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 766.2698932584269,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R517",
+            "measurement_view_ids": [
+              "run-97470c6099608d73022cbdf493cc225ed505705a734e4f398e38691f2c79564f"
+            ],
+            "model": "OmniCoder-9B · bartowski Q6",
+            "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7680.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049",
+            "score_percent": 89.0,
+            "seconds_per_task": 2.49202134093,
+            "solved": 178,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "1f40bec8ca698e19a514378aa84c211fe43fff5e1738da97503a1ea5e343790a",
+            "audit_ids": [
+              "audit-1f40bec8ca698e19a514",
+              "audit-59ae713ea17a93d2020b",
+              "audit-dd2bedfd24fa67d03ebf"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 804.2929101123596,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 804.8204269662921,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R489",
+            "measurement_view_ids": [
+              "run-e9cc90226193c93a5c9b8281df2e4a18f87a7019088f25c25f05466674892242"
+            ],
+            "model": "Nexus 9B CodeCore Merge",
+            "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7356.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b",
+            "score_percent": 89.0,
+            "seconds_per_task": 2.542665756505,
+            "solved": 178,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "7bfd00d2fcca7e4c767d6a197c3b1f9cc2bb1a146d794d2977f54d28cf21b1aa",
+            "audit_ids": [
+              "audit-5d89d1fc80a66f264718",
+              "audit-649fe42a4411f7135b8c",
+              "audit-7bfd00d2fcca7e4c767d"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 528.3541623376623,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 528.987974025974,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R472",
+            "measurement_view_ids": [
+              "run-11a7c2a4395319bc48ef00c1649a71e0b7b904a120c6a9375665bdd8ebe6080a"
+            ],
+            "model": "Gemma4 12B IT QAT",
+            "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 8118.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7",
+            "score_percent": 77.0,
+            "seconds_per_task": 1.668380480855,
+            "solved": 154,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0",
+            "audit_ids": [
+              "audit-89329075d5e77e4cc223",
+              "audit-dc535e060e2756a5f575",
+              "audit-f75c96e3356efdcb857d"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 702.4942954545454,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 702.9514715909091,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R474",
+            "measurement_view_ids": [
+              "run-56a28abf9f29173a56fb4bfe350664f613fc4839068162d92cdc1a8ecf39b84e"
+            ],
+            "model": "Qwen3.5 9B",
+            "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 5956.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55",
+            "score_percent": 88.0,
+            "seconds_per_task": 2.313056915535,
+            "solved": 176,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "5c2cfcc885de4a09e78f7f8067f2b744b5b8abb9717be8e4db55a3f51854518a",
+            "audit_ids": [
+              "audit-460512a8cac655691391",
+              "audit-5c2cfcc885de4a09e78f",
+              "audit-eda9c1f3088d7c8296e5"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [
+              "R478",
+              "R489",
+              "R474"
+            ],
+            "energy_lower": 865.7229470588236,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 866.4175647058823,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R496",
+            "measurement_view_ids": [
+              "run-9766a1a7d94903695b4f7bf0260bd8195b87baad093640fc53a5223ba4aeaedf"
+            ],
+            "model": "Ornith 1.5 9B",
+            "model_sha256": "b6f76e74f86245b3caee014b797c10dca931c4dfdaabfb134eab655f81e4154a",
+            "pareto_status": "OBSERVED_DOMINATED",
+            "peak_vram_mib": 7356.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-13b1445d3933a9d3782b6fa406707d0326ae263338b8c3a82f51c4e33656967c",
+            "score_percent": 85.0,
+            "seconds_per_task": 2.618411495245,
+            "solved": 170,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "bba2d068363f59d27bc0b24e0da0c3334038c24906d17fa0f319c30d061e499f",
+            "audit_ids": [
+              "audit-09292dac141b79f74182",
+              "audit-bba2d068363f59d27bc0",
+              "audit-d878b59fb40a232b5705"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 530.062493670886,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 530.5599810126582,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R513",
+            "measurement_view_ids": [
+              "run-79d4571c944b2db611c05e27a90c4954e2733daca999a862869ab7879a03b968"
+            ],
+            "model": "Gemma4 12B IT QAT",
+            "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 7986.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-18b3c3040974b775b83cb111656e53a39d7005d0e104891cc2e807e5f0eeebc0",
+            "score_percent": 79.0,
+            "seconds_per_task": 1.7721784424200002,
+            "solved": 158,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "1458e5e3f6dd1ffdb03349161d92c60c2b5f2a2507a5112e40457261daf53ede",
+            "audit_ids": [
+              "audit-1458e5e3f6dd1ffdb033",
+              "audit-377dfe5f4d94f2de76af",
+              "audit-680e928ca175d3e589e4"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [],
+            "energy_lower": 446.112713483146,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 446.71941573033706,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R542",
+            "measurement_view_ids": [
+              "run-9ca49b4e6dfc27423b282bef1875dbad9cc4f7f43e61ee6fef5848cf61113acf"
+            ],
+            "model": "OmniCoder-9B bartowski Q6 · MTP3",
+            "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+            "pareto_status": "OBSERVED_FRONTIER",
+            "peak_vram_mib": 9324.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-624ae7774142d9d42df292f10804a8b704b695ebfd094ad7d9494e641a6edf97",
+            "score_percent": 89.0,
+            "seconds_per_task": 1.5232274990499999,
+            "solved": 178,
+            "tasks": 200
+          },
+          {
+            "audit_hash": "ebb7528563c75fc63407e20a19c939e3c5c63fa3f4e00633deae404bdfdfaecb",
+            "audit_ids": [
+              "audit-4f0cbf0f5e0e10f037c5",
+              "audit-ebb7528563c75fc63407",
+              "audit-f3c7e2d8d7a241d1267c"
+            ],
+            "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+            "comparison_key": "4fe6a1734fa407d2ca905be5f486b5f514c0f165b582fda7d61f678cc89516a4",
+            "dominated_by": [
+              "R478",
+              "R517",
+              "R489",
+              "R474",
+              "R496",
+              "R542"
+            ],
+            "energy_lower": 1144.4519349112427,
+            "energy_method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+            "energy_upper": 1144.9223195266272,
+            "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "experiment_id": "R549",
+            "measurement_view_ids": [
+              "run-e78c094f39436b58c8aedead91af1b5a75e4b87bfa9f92258c812f659b7ed3b5",
+              "run-efa498c8c1a73d4760132880eb343da595f79dd7b36013152e7a589d4bf26fd8"
+            ],
+            "model": "Qwen3.8 27B · integrated MTP3",
+            "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+            "pareto_status": "OBSERVED_DOMINATED",
+            "peak_vram_mib": 13602.5,
+            "physical_measurements": 1,
+            "runtime_configuration_id": "cfg-8cd6433abaeb5e09d17a8b974cd6d3fe69ef3954760daeda19447b24d6b1a91a",
+            "score_percent": 84.5,
+            "seconds_per_task": 3.685053274055,
+            "solved": 169,
+            "tasks": 200
+          }
+        ]
+      }
+    },
+    "decisions": [
+      {
+        "decision": "Retain for coding:156/164 is the highest observed core-profile coding score. Weaker local agent outcomes and tools154/200 prevent an allround recommendation. Do not adopt rejected Q8-key or Thinking variants.",
+        "evidence": [
+          "R464",
+          "R472",
+          "R534"
+        ],
+        "profile": "Gemma4 12B QAT, existing nonthinking F16-key profile",
+        "role": "Coding quality"
+      },
+      {
+        "decision": "Retain as a tool-specific option:178/200, independently confirmed faster and lower GPU J/success. Coding and agent quality gates failed; do not transfer the tool recommendation to those roles.",
+        "evidence": [
+          "R542",
+          "R546",
+          "R541",
+          "R543"
+        ],
+        "profile": "OmniCoder bartowski Q6 + MTP3",
+        "role": "Native tools"
+      },
+      {
+        "decision": "Retain for Jarvis validation: complete coding/tools and28/33 local agent successes. This small exposed suite and nonzero policy failures do not establish model superiority or safe production use.",
+        "evidence": [
+          "R516",
+          "R517",
+          "R536"
+        ],
+        "profile": "OmniCoder bartowski Q6, MTP OFF",
+        "role": "Balanced small-model baseline"
+      },
+      {
+        "decision": "Retain the measured low-VRAM comparison; do not replace independent quality evaluation with raw token speed.",
+        "evidence": [
+          "R465",
+          "R474",
+          "R535"
+        ],
+        "profile": "Qwen3.5 9B native baseline",
+        "role": "Efficient comparison"
+      },
+      {
+        "decision": "Retain:151/164 coding,169/200 tools and26/33 local agent successes. Fresh development controls confirm lower latency/energy at additional VRAM. No full200 OFF control, lossless-token proof or global Champion.",
+        "evidence": [
+          "R548",
+          "R549",
+          "R550",
+          "R551"
+        ],
+        "profile": "Qwen3.8 27B integrated MTP3",
+        "role": "Larger coding/agent alternative"
+      },
+      {
+        "decision": "Retain separate profiles and tradeoffs. Small quality differences are not automatic exclusions. No new broad optimization campaign or duplicate full benchmarks is justified by this descriptive assessment.",
+        "evidence": [
+          "R488",
+          "R489",
+          "R531",
+          "R495",
+          "R496",
+          "R532",
+          "R471",
+          "R478",
+          "R530"
+        ],
+        "profile": "Nexus OFF/T0; Ornith OFF/T0; canonical OmniCoder",
+        "role": "Additional retained alternatives"
+      }
+    ],
+    "method": "Observed quality maximized; request wall/task, GPU-counter J/success and peak VRAM minimized. Conservative energy dominance requires candidate upper <= comparator lower. Descriptive whole-profile comparison, not population superiority, causal optimization, a safety certificate or production approval. Counter brackets describe query timing, not statistical uncertainty. No pooling across categories or inference profiles.",
+    "official_agents": "NOT MEASURED",
+    "schema_version": 1,
+    "selection": {
+      "agents_development": [
+        "R530",
+        "R531",
+        "R532",
+        "R533",
+        "R534",
+        "R535",
+        "R536",
+        "R543",
+        "R550"
+      ],
+      "coding": [
+        "R471",
+        "R516",
+        "R488",
+        "R464",
+        "R465",
+        "R466",
+        "R495",
+        "R541",
+        "R544",
+        "R548"
+      ],
+      "tools": [
+        "R478",
+        "R517",
+        "R489",
+        "R472",
+        "R474",
+        "R496",
+        "R513",
+        "R542",
+        "R549"
+      ]
+    },
+    "winner_qualified": false
+  },
   "same_quantizer_weight_reviews": [
     {
       "at_utc": "2026-10-23T17:16:48.493005+00:00",

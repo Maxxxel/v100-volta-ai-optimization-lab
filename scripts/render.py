@@ -308,7 +308,26 @@ All original experiments, failures, configurations and audit identities remain a
  for profile in profiles:
   if not profile['C']:continue
   a=refs[profile['C']];cr.append([f"[{profile['id']}](#profile-{profile['C'][:12]})",a['experiment_id'],a['qualification']])
- text='# Qualified configurations\n\nTen profile pointers do not mean ten universally superior models. Native tools, coding, agent throughput, energy, low-VRAM, streaming and long-context profiles have different denominators and validity limits. No production deployment is implied.\n\n'+table(['Profile','Measurement sprint','Qualification scope'],cr)
+ text='# Qualified configurations\n\nScoped reference pointers do not mean universally superior models. Native tools, coding, agent throughput, energy, low-VRAM, streaming and long-context profiles have different denominators and validity limits. No production deployment is implied.\n\n'+table(['Profile','Measurement sprint','Qualification scope'],cr)
+ roles=read('benchmark-register.json').get('role_comparison')
+ if roles:
+  intro='## Jarvis role selection — provisional\n\n**Locally measured, role-specific recommendations; no overall Champion or production deployment.** Official Agents: **NOT MEASURED**. Complete coding/tools scores remain in the [master table](configuration-comparison.md); local Agent33 stays separate.\n\n'
+  for d in roles['decisions']:
+   intro+='- **'+d['role']+' — '+esc(d['profile'])+'**: '+esc(d['decision'])+' '+', '.join('['+e+'](experiments/'+e+'.md)' for e in d['evidence'])+'\n'
+  intro+='\n<details><summary>Observed Pareto tradeoffs: coding and tools</summary>\n\n'+roles['method']+' Missing metrics prevent dominance assessment. A frontier is relative to this scope-frozen core shortlist and its already measured variants, not every possible model or configuration. **Frontier membership is not an optimization-quality pass.** R541 and R544 remain rejected for their predeclared coding-quality gates even if their cost tradeoffs appear on this frontier.\n\n'
+  for kind,category in roles['categories'].items():
+   rows=[]
+   for v in category['points']:
+    energy='NOT MEASURED' if v['energy_lower'] is None else f"{v['energy_lower']:.2f}–{v['energy_upper']:.2f}"
+    profile='['+esc(v['model'])+'](configuration-profiles/'+v['runtime_configuration_id']+'.md)'
+    rows.append([profile,'['+v['experiment_id']+'](experiments/'+v['experiment_id']+'.md)',str(v['solved'])+'/'+str(v['tasks']),round(v['seconds_per_task'],3) if v['seconds_per_task'] is not None else None,energy,v['peak_vram_mib'],v['pareto_status'],', '.join(v['dominated_by']) or '—'])
+   intro+='### '+kind.title()+'\n\n'+table(['Exact profile','Evidence','Solved','Response s/task','GPU J/success bounds','Peak VRAM MiB','Observed status','Dominated by'],rows)
+   if category['missing_complete_experiments']:intro+='Incomplete/missing qualified runs in selected scope: '+', '.join(category['missing_complete_experiments'])+'. No score imputed.\n'
+  intro+='\n</details>\n\n<details><summary>Separate local Agent33 evidence</summary>\n\n33 authored cases in11 families; not Terminal-Bench, a population safety rate or an unseen holdout for later tuning. No joint official mean. Policy counts are independently replayed simulated case outcomes, not population safety guarantees. Missing counts remain NOT MEASURED; original security audits remain linked. Different model templates, context limits and request counts are disclosed per profile.\n\n'
+  intro+=table(['Profile','Evidence','Solved /33','Policy passes /33','Case wall s','GPU J/success bounds','Peak VRAM MiB'],[[v['model'],'['+v['experiment_id']+'](experiments/'+v['experiment_id']+'.md)',str(v['solved'])+'/33',str(v['policy_gate_passes'])+'/33' if v['policy_gate_passes'] is not None else None,round(v['case_wall_s'],3),f"{v['energy_lower']:.2f}–{v['energy_upper']:.2f}",v['peak_vram_mib']] for v in roles['agents_development']])
+  intro+='\n</details>\n\n## Existing scoped reference profiles\n\n'
+  intro=re.sub(r'(?s)<details><summary>(.*?)</summary>\n\n(.*?)\n</details>',lambda m:'??? note \"'+m.group(1)+'\"\n\n'+''.join(('    '+line if line else '')+'\n' for line in m.group(2).splitlines()),intro)
+  text=text.replace('# Qualified configurations\n\n','# Qualified configurations\n\n'+intro,1)
  for x in profiles:
   if not x['C']:continue
   a=refs[x['C']];text+='\n## Profile '+x['C'][:12]+'\n\n`'+x['id']+'`\n\nA0: `'+x['A0']+'`\n\nC: `'+x['C']+'`\n\n'+pretty(a)+'\n'
