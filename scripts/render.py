@@ -132,6 +132,65 @@ def rationale(f):
   if linked:base+=' Related mechanisms: '+'; '.join(THEORY[x] for x in linked[:2] if x in THEORY)
  return base
 
+def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issues=None):
+ review=register.get('final_evidence_review');roles=register.get('role_comparison')
+ if not review or not roles:return None
+ es={e['id']:e for e in experiments}
+ point=lambda kind,eid:next(p for p in roles['categories'][kind]['points'] if p['experiment_id']==eid)
+ agent=lambda eid:next(p for p in roles['agents_development'] if p['experiment_id']==eid)
+ score=lambda p:str(p['solved'])+'/'+str(p['tasks'])
+ link=lambda eid:'['+eid+'](experiments/'+eid+'.md)'
+ bart_c=point('coding','R516');bart_t=point('tools','R517');bart_a=agent('R536');gemma=point('coding','R464');q_c=point('coding','R548');q_t=point('tools','R549');q_a=agent('R550')
+ text='# Best-of-V100 2026 — evidence snapshot\n\n'
+ text+='**Pre-freeze draft · evidence through R551 · review '+review['at_utc'][:10]+'. Final research freeze:31 October 2026.** No universal winner, production deployment or official 3/3 result is established.\n\n'
+ text+='## Current decision\n\n'
+ text+='- **Jarvis sandbox baseline: OmniCoder bartowski Q6, MTP OFF.** Coding '+score(bart_c)+', tools '+score(bart_t)+'; separately measured local Agent33 '+score(bart_a)+' with '+str(bart_a['policy_gate_passes'])+'/33 policy passes. Retain for isolated integration, not a safety certificate or general model-superiority claim. '+link('R516')+' · '+link('R517')+' · '+link('R536')+'\n'
+ text+='- **Coding quality: Gemma4 nonthinking QAT profile.** '+score(gemma)+' is the highest observed coding score among the core profiles. Its tools and local agent results do not support the same allround recommendation. '+link('R464')+' · '+link('R472')+' · '+link('R534')+'\n'
+ text+='- **Native-tool efficiency: OmniCoder bartowski Q6 + MTP3.** Retain only the tested tool scope. Its coding and Agent33 regressions remain disqualifying for those roles. '+link('R542')+' · '+link('R546')+' · '+link('R541')+' · '+link('R543')+'\n'
+ text+='- **Larger alternative: Qwen3.8 27B integrated MTP3.** Coding '+score(q_c)+', tools '+score(q_t)+' and separate local agents '+score(q_a)+' / policy '+str(q_a['policy_gate_passes'])+'/33. Higher VRAM and per-task costs remain material. '+link('R548')+' · '+link('R549')+' · '+link('R550')+'\n'
+ text+='- **Retain Qwen3.5, Nexus, canonical OmniCoder and Ornith** as documented quality/resource alternatives. Small differences on authored tasks do not justify automatic exclusion.\n\n'
+ text+='The [single model/configuration comparison](configuration-comparison.md) contains complete locally qualified HumanEval+164 and BFCL parallel_multiple200 results, actual cost fields, exact parameters and audit links. Its user-defined arithmetic mean uses only available complete categories of the same verified inference configuration and shows coverage n/3. It is not an official overall score. The [role/Pareto detail](configurations.md) keeps configuration tradeoffs and local Agent33 evidence separate.\n\n'
+ text+='## Measured optimization decisions\n\n**LOCAL MEASURED / LOKAL GEMESSEN**, within each linked scope:\n\n'
+ arms=es['R546']['aggregate_metrics']['native_tools_confirmation']['arms'];aa,bb=arms
+ reduction=100*(1-bb['response_wall_s']/aa['response_wall_s']);energy=100*es['R546']['aggregate_metrics']['native_tools_confirmation']['comparison']['GPU_j_per_success_reduction_conservative']
+ text+='- **Tool MTP:** fresh matched full-category control retains '+str(aa['solved'])+'/'+str(aa['tasks'])+' on both arms; response wall falls '+f'{reduction:.2f}'+'%, conservative GPU J/success '+f'{energy:.2f}'+'%. This is confirmation of existing measurements, not another independent leaderboard score. '+link('R546')+'\n'
+ fresh=es['R551']['mtp_confirmation'];c={**fresh['comparison'],'response_latency_reduction_percent':100*(1-fresh['arms'][1]['response_wall_s']/fresh['arms'][0]['response_wall_s'])}
+ text+='- **Qwen27 integrated MTP:** fresh development control retains 16/16 coding and 13/16 mock tools in both arms, with '+f"{c['response_latency_reduction_percent']:.2f}"+'% lower response wall and '+f"{c['conservative_GPU_J_per_success_reduction_percent']:.2f}"+'% conservative GPU J/success reduction, at +'+str(int(c['additional_peak_device_vram_mib']))+' MiB peak VRAM. Exposed development data, not a new official score, lossless-token proof or population noninferiority. '+link('R551')+'\n'
+ historical=[p for p in profiles if p.get('C') and refs[p['C']]['experiment_id']=='R90' and refs[p['C']]['aggregate_metrics'].get('metrics',{}).get('prefill2048',{}).get('unit')=='seconds']
+ if len(historical)==1:
+  p=historical[0];base=refs[p['A0']]['aggregate_metrics']['metrics'];cand=refs[p['C']]['aggregate_metrics']['metrics'];d=[100*(1-cand[k]['median']/base[k]['median']) for k in ('prefill2048','prefill4096')]
+  text+='- **Historical HBM07:** fixed 2K/4K prefill token-event TTFT medians improve '+f'{d[0]:.2f}'+'% / '+f'{d[1]:.2f}'+'% against the matched stored A0. Higher VRAM and the exact historical engine/workload limits remain; no universal decode gain. '+link('R90')+'\n'
+ text+='- **Historical prefix and energy/context profiles:** retain prefix reuse only for reused-prefix workloads, the independently qualified 32K profile, and the 175-W low-VRAM natural-SSE profile in their own scopes. They are not automatically transferable to current native-chat/MTP captures. '+link('R80')+' · '+link('R221')+' · '+link('R113')+'\n'
+ text+='- **Negative evidence retained:** Omni MTP coding 131/164 versus 134/164 and Agent33 loss; Gemma Q8-key coding 151/164 versus 156/164; Gemma Thinking development tool regression and much higher costs. No synthetic-speed exception overrides these quality gates. '+link('R541')+' · '+link('R543')+' · '+link('R544')+' · '+link('R545')+'\n\n'
+ text+='These gains are not added together. Existing scoped reference/Champion profiles remain in the [reference archive](configurations.md); no new combination or universal Champion is inferred here.\n\n'
+ text+='## Integrity and bounded stability\n\n'
+ text+=str(review['experiment_count'])+' original experiments / '+str(review['capture_count'])+' capture windows were source-hash checked and recomputed from retained telemetry against the original guard limits: **'+format(review['sample_count'],',')+' retained samples**, **'+str(review['sampled_guard_violations'])+' observed guard violations**, **'+str(review['incomplete_captures'])+' captures with missing required telemetry**. All selected original contracts address the same device. No new inference or scoring was performed. [Review audit](audits/'+review['audit_id']+'.md).\n\n'
+ sessions=[s for r in review['rows'] for s in r['sessions']];temps=[s['temperature_range_c'][1] for s in sessions if s['temperature_range_c']];gaps=[s['max_sample_gap_s'] for s in sessions if s['max_sample_gap_s'] is not None]
+ text+='Maximum observed temperature: '+str(max(temps))+' °C; largest recorded sample gap: '+f'{max(gaps):.6f}'+' s. Temperature is telemetry, not a 42-°C start criterion. Uncorrected ECC, thermal/VRAM/power-setting limits, hardware-throttle mask, compute mode and concurrent-process observations are separate checks. Idle and software-power-cap bits are not treated as hardware faults. **Corrected ECC and continuous 24-hour stability: NOT MEASURED.** Windows include startup/idle/load; faults between samples cannot be ruled out.\n\n'
+ text+='Historical R90/R113 bounded soaks retain their original 440-request/220-cycle evidence and zero reported process-VRAM growth, in their original profile scopes. Shared audit views are not independent new repetitions. '+link('R90')+' · '+link('R113')+'\n\n'
+ text+='??? note "Original capture-level hardware evidence"\n\n'
+ rows=[]
+ for row in review['rows']:
+  for s in row['sessions']:rows.append([link(row['experiment_id']),s['sample_count'],s['status'],s['temperature_range_c'],s['peak_vram_mib'],s['sampled_guard_violations']])
+ text+=''.join(('    '+line if line else '')+'\n' for line in table(['Original experiment','Samples','Observed status','Temperature range °C','Peak device VRAM MiB','Guard violations'],rows).splitlines())
+ text+='\n## Limits that remain explicit\n\n'
+ text+='- **Terminal-Bench2.1: NOT MEASURED / TECHNICALLY BLOCKED.** The archived 89-task source gate is NO-GO for this local freeze campaign; reviewed container/evaluator/gateway admission and official-protocol execution are missing. No short test substitutes for it. [Gate and prerequisites](pipeline-methods.md).\n'
+ text+='- **External evidence / EXTERN BELEGT:** published model cards, papers, source implementations and community measurements remain [source evidence](benchmark-register.md), never local score replacements or proof of a speedup cause.\n'
+ text+='- **Unverified / NICHT VERIFIZIERT:** unattended production stability; global model superiority; automatic multi-model routing/switch costs; a heavier multi-agent harness; independently rebuilt binary equivalence; and exact public reproduction of private Agent33 inputs. R537 has only five paired role cases. '+link('R537')+'\n'
+ text+='- Model-specific native templates, context/output, sampler, quantization, engine and harness settings remain part of every result. The shared HumanEval/32 canonical-reference anomaly is retained and disclosed; all 164 official tasks remain. These are declared local protocols, not publisher-protocol reproductions.\n'
+ text+='- GPU counter energy covers declared request groups, including failures, not CPU/system energy. Counter brackets reflect query timing, not calibration confidence. Server generation timing is not TTFT; unavailable TTFT, prefill/decode or hardware values are not extrapolated.\n'
+ text+='- R538 remains 167/199 PARTIAL at its original task limit. Historical budget conditions and old audits remain unchanged. No qualification is inferred from a build, CPU test, source release or experiment number.\n\n'
+ text+='## Reproduction and release status\n\n[Export exact configuration packets and inspect the original main-engine source assets](reproduce.md). The controlled deployment proposal keeps the existing broker, one heavy GPU job, 1,200-second total TASK budget and 14,336-MiB device-memory guard. Original weights, production services and safety rules remain protected. **Proposal only: no production change or release approval is implied.** Independent source rebuilds and other forks retain their documented boundaries.\n\n'
+ text+='The earlier console value 15,600 comes from the historical R118 `maximum_process_vram_mib` field, not the current broker device allowance. The active device guard remains 14,336 MiB; neither historical values nor present limits were rewritten. '+link('R118')+'\n\n'
+ if issues:
+  text+='Open GitHub snapshot: **'+str(sum(x.get('github_state')=='OPEN' for x in issues))+' open / '+str(sum(x.get('github_state')=='CLOSED' for x in issues))+' closed**. #10/#11 remain finalization work; #13 has completed parser checks but an unresolved causal explanation. #2/#3/#4/#8 retain technical source/model gates; #16/#17 remain November research. [All dispositions and evidence](questions.md). Workflow closure is not experimental qualification.\n\n'
+ text+='## November priorities\n\n1. Official agent evaluator/container/gateway admission and a defensible full Terminal-Bench protocol/budget decision.\n2. Independent agent/security validation and measured recovery/switch/routing costs before widening Jarvis permissions or orchestration.\n3. Scope-limited architecture/engine candidates from [issue16](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16) and minimal-versus-complex harness ablations from [issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17). No new broad pre-freeze GPU campaign.\n4. Remaining concrete matrix subcases or source/reproduction gaps only when their prerequisites and expected practical information gain justify a new isolated experiment.\n\n'
+ hold=pipeline.get('publication_lock_observation',{}).get('observed_hold_window_s');events=pipeline.get('verified_capacity_events')
+ text+='## Pipeline and freeze readiness\n\nMeasured publication-lock hold: '+str(hold)+' s (corrected). Verified capacity events: '+str(events)+'. Capacity-only wait remains **NOT MEASURED**; clock gaps are not relabeled GPU idle or cloud wait. [Original timing evidence](pipeline-performance.md).\n\n'
+ text+='Research map: 130 original axes + 32 techniques; '+str(counts['experimentally_covered'])+' experimentally covered, '+str(counts['scientific_status']['QUALIFIED'])+' scoped qualified factors. Reviewed factors, GPU captures, category qualifications and reference pointers are different inventories. No 100% experimental-coverage claim.\n\n'
+ text+='This snapshot prepares the seven freeze deliverables: role decisions; the existing complete comparison; positive/negative optimization evidence; exact configuration/source material; explicit gaps; release status; and a prioritized backlog. **Final 31-October freeze audit is still pending.** Any new result must append audited evidence and preserve this snapshot’s provenance; dates do not authorize weaker gates or budget resets.\n'
+ return text
+
 def main():
  s=read('snapshot.json');fs=read('factors.json');es=read('experiments.json');audits={x['id']:x for x in read('audit-excerpts.json')};profiles=read('profiles.json');refs={x['id']:x for x in read('references.json')};models=read('models.json');counts=s['counts']
  history=read('configuration-history.json');register=read('benchmark-register.json')
@@ -156,7 +215,7 @@ def main():
 
 ## Research pipeline
 
-[Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
+[Best-of-V100 evidence snapshot](best-of-v100-2026.md) · [Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
 
 ## Model comparison
 
@@ -332,6 +391,8 @@ All original experiments, failures, configurations and audit identities remain a
   if not x['C']:continue
   a=refs[x['C']];text+='\n## Profile '+x['C'][:12]+'\n\n`'+x['id']+'`\n\nA0: `'+x['A0']+'`\n\nC: `'+x['C']+'`\n\n'+pretty(a)+'\n'
  put('configurations.md',text)
+ final_page=final_snapshot_page(read('benchmark-register.json'),es,profiles,refs,counts,read('pipeline-performance.json'),read('research-issues.json'))
+ if final_page:put('best-of-v100-2026.md',final_page)
  put('rejected.md','# Rejected optimizations and limits\n\nNegative results are retained. PARTIAL factors can contain rejected variants alongside valid narrower results. These are not equivalent to globally rejected factors.\n\n'+table(['Factor','Scope','Decision'],[[f"[{f['id']}](factors/{f['id']}.md)",f['status'],f['decision']] for f in fs if f['status'] in {'TESTED_NEGATIVE','PARTIAL'}])+'''\n## Interpretation corrections
 
 - C11 forced unfused versus forced fused is not an improvement over the existing stock fused dispatch.
@@ -386,7 +447,16 @@ The data-pattern HBM2 power paper studies separately instrumented memory. Board-
 
 See the [pinned source registry](sources.md) and [factor details](matrix.md). Published benchmarks, proven implementations and causal hypotheses are reported separately.
 ''')
- proposals=read('research-subcases.json');issue_registry=read('research-issues.json');put('questions.md','# Open questions & research proposals\n\nThese are hypotheses or admission plans, never claimed local improvements. They extend existing axes and do not increase the factor count. GPU execution remains behind the single-factor and safety gates.\n\n'+table(['Subcase','Public research issue','Status'],[[x['subcase'],'['+x['title']+']('+x['url']+')',x['status']] for x in issue_registry])+''.join('\n## '+x['id']+'\n\n'+pretty(x) for x in proposals))
+ proposals=read('research-subcases.json');issue_registry=read('research-issues.json')
+ open_issues=[x for x in issue_registry if x.get('github_state')=='OPEN'];closed_issues=[x for x in issue_registry if x.get('github_state')=='CLOSED']
+ def issue_rows(items):
+  return [[x['subcase'],'['+x['title']+']('+x['url']+')',x['status'],x.get('freeze_priority'),x.get('next_action','')+' '+', '.join('[evidence]('+u+')' for u in x.get('evidence_urls',[]))] for x in items]
+ questions='# Open questions & research proposals\n\nGitHub snapshot: '+max(x.get('github_checked_at_utc','') for x in issue_registry)+'. **'+str(len(open_issues))+' open / '+str(len(closed_issues))+' closed**. This is not a live issue monitor. Workflow closure, scientific disposition and optimization qualification are separate.\n\nCurrent P0: final research/model decision (#10/#11). Source/kernel gates stay conditional; LFM24 parser checks do not explain its weak task result or justify an automatic retry. New-family/harness campaigns remain in the November backlog. No factor count or GPU coverage is increased by this registry.\n\n'
+ questions+=table(['Subcase','Open GitHub issue','Research disposition','Freeze priority','Next step / evidence'],issue_rows(open_issues))
+ questions+='\n??? note "Closed scoped workflow records — not additional qualified optimizations"\n\n'
+ questions+=''.join(('    '+line if line else '')+'\n' for line in table(['Subcase','Closed GitHub issue','Recorded scope','Priority','Evidence / boundary'],issue_rows(closed_issues)).splitlines())
+ questions+='\n## Retained research proposals\n\nHypotheses and admission prerequisites remain distinct from measured gains. Existing safety and single-factor gates still apply.\n'+''.join('\n## '+x['id']+'\n\n'+pretty(x) for x in proposals)
+ put('questions.md',questions)
  put('roadmap.md',f'''# Changelog & roadmap
 
 Snapshot revision **{s['matrix_revision']}**; latest canonical assessment **{s['source_date']}**.

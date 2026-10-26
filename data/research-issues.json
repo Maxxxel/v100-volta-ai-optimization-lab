@@ -3,60 +3,178 @@
     "status": "CLOSED_SCOPED_TECHNICAL_DEFERRAL",
     "subcase": "R340-S01",
     "title": "Research: targeted SM70 resource/traffic profiling for a distinct kernel patch",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
   },
   {
     "status": "OPEN_MODEL_AND_MEMORY_ADMISSION_GATE",
     "subcase": "R340-S03",
     "title": "Research: admit one SM70 vLLM source lane only after model and memory gates",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NOVEMBER_TECHNICAL_GATE",
+    "next_action": "Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis."
   },
   {
     "status": "OPEN_MODEL_ARTIFACT_AND_KERNEL_GATE",
     "subcase": "R340-S06",
     "title": "Research: evaluate block-FP8 W8A16 fused dequantization on SM70",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NOVEMBER_TECHNICAL_GATE",
+    "next_action": "Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis."
   },
   {
     "status": "OPEN_MODEL_ENGINE_DEPENDENT_AFTER_SOURCE_REVIEW",
     "subcase": "R340-S07",
     "title": "Research: flash-attention V100 page/stride and causal-mask correctness",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NOVEMBER_TECHNICAL_GATE",
+    "next_action": "Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis."
   },
   {
     "status": "CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE",
     "subcase": "R340-S05",
     "title": "Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
   },
   {
     "status": "CLOSED_NEGATIVE_HEAD_FREE_POLICY_SCREEN",
     "subcase": "BMT27",
     "title": "Research: head-free confidence calibration for frozen Omni after probability-acquisition gate",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
   },
   {
     "status": "CLOSED_SCOPED_TECHNICAL_DEFERRAL",
     "subcase": "GIST-V02",
     "title": "Research: one SM70 kernel L1/shared carveout admission, separate from conversion cache",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/7"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/7",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
   },
   {
     "status": "OPEN_PARTIAL_ROPE_GDN_ADAPTER_PENDING",
     "subcase": "HBM10",
     "title": "HBM10: validate unweighted NUQ calibration and a partial-RoPE cache adapter",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/8"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/8",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NOVEMBER_TECHNICAL_GATE",
+    "next_action": "Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis."
   },
   {
     "status": "CLOSED_NEGATIVE_Q04_DEVELOPMENT_GATE",
     "subcase": "Q04",
     "title": "Q04: validate native MLP AWQ scaling after forward calibration",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/9"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/9",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
   },
   {
     "status": "OPEN_FINAL_RESEARCH_GATE",
     "subcase": "FINAL-GATE",
     "title": "Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen",
-    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10"
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P0_FINALIZE_EXISTING_EVIDENCE",
+    "next_action": "Finish the evidence-based role recommendation and final freeze review; preserve missing official Agents and all qualified/partial history. No broad new campaign."
+  },
+  {
+    "subcase": "MODEL-QUALIFICATION",
+    "status": "OPEN",
+    "title": "Model comparison: complete standard benchmarks before rejection or tuning",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/11",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P0_FINALIZE_EXISTING_EVIDENCE",
+    "next_action": "Finish the evidence-based role recommendation and final freeze review; preserve missing official Agents and all qualified/partial history. No broad new campaign."
+  },
+  {
+    "subcase": "OXCODER-DIAGNOSIS",
+    "status": "CLOSED_GITHUB_SCOPED_OUTCOME",
+    "title": "OxCoder R448: Diagnose von 104 leeren Codeantworten und 2:18 h Inferenzzeit",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/12",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
+  },
+  {
+    "subcase": "LFM24-PARSER",
+    "status": "DEFERRED_DISTINCT_PROFILE_HYPOTHESIS_REQUIRED",
+    "title": "Investigate LFM24 one-call behavior on complete complex-tool benchmark",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NO_JUSTIFIED_RERUN",
+    "next_action": "Cardinality and argument preservation checks are complete: no observed parser loss. The cause of6/200 remains unproven. Resume only for a distinct source-backed template/harness discrepancy; do not rerun merely to set parallel_tool_calls.",
+    "evidence_sha256": {
+      "RAW_NATIVE_TOOL_CARDINALITY_REVIEW.json": "ebc8f194bcba06628b5e4500eb123419b82da809f6ad1f2fd4c342d239915a06",
+      "RAW_NATIVE_TOOL_ARGUMENT_PRESERVATION.json": "514cbae944633aab02a469b6a08f580156adf5307d11820b7130b9d91bdba144"
+    },
+    "evidence_urls": [
+      "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13#issuecomment-6395922011",
+      "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13#issuecomment-6398582411"
+    ]
+  },
+  {
+    "subcase": "TASK-WRAPPER-TIMING",
+    "status": "CLOSED_GITHUB_SCOPED_OUTCOME",
+    "title": "Benchmark timing: review outer wrapper ending before native task allowance",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/14",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
+  },
+  {
+    "subcase": "GEMMA-AGENT-FORMAT",
+    "status": "CLOSED_GITHUB_SCOPED_OUTCOME",
+    "title": "Gemma Agent18: diagnose tool and final-format failures after the 16K context fix",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/15",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "ARCHIVED_SCOPED_OUTCOME",
+    "next_action": "Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue."
+  },
+  {
+    "subcase": "NOVEMBER-MODEL-FAMILIES",
+    "status": "DEFERRED_NOVEMBER_RESEARCH",
+    "title": "Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NOVEMBER_BACKLOG",
+    "next_action": "Complete model architecture/format/SM70/memory gates before new admission; no new broad pre-freeze GPU campaign."
+  },
+  {
+    "subcase": "NOVEMBER-HARNESS",
+    "status": "DEFERRED_NOVEMBER_RESEARCH",
+    "title": "Research: minimal vs complex coding-agent harness — quality, tokens, latency and GPU-J/success",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "freeze_priority": "P2_NOVEMBER_BACKLOG",
+    "next_action": "Single-Agent remains baseline; R537 five paired cases are inconclusive. Use independent tasks and matched end-to-end budgets for later harness ablations."
   }
 ]

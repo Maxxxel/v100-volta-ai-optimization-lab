@@ -1018,6 +1018,44 @@ ROLE_EXPERIMENTS = {
  'agents_development': ('R530','R531','R532','R533','R534','R535','R536','R543','R550'),
 }
 
+def sampled_hardware_stability(samples,contract):
+ """Describe retained samples under original guard limits; not uptime proof."""
+ limits={k:contract[k] for k in ('power_w','temperature_c','vram_mib')}
+ if any(type(v) not in (int,float) or not math.isfinite(v) or v<=0 for v in limits.values()):raise ValueError('Missing original hardware limits')
+ fields=('temperature_c','device_vram_bytes','ecc_uncorrected','clock_throttle_event_mask','power_limit_w','compute_mode','processes','at_ns')
+ missing={k:0 for k in fields};counts={k:0 for k in ('temperature','VRAM','uncorrected_ECC','hardware_throttling','power_limit_setting','compute_mode','multiple_processes')};violations=0
+ values={k:[] for k in ('temperature_c','device_vram_bytes','power_w','sm_clock_mhz','mem_clock_mhz','power_limit_w')};masks={};timestamps=[]
+ for row in samples:
+  known={k:(isinstance(row.get(k),list) if k=='processes' else type(row.get(k)) in (int,float) and math.isfinite(row[k]) and row[k]>=0) for k in fields}
+  for k in ('ecc_uncorrected','clock_throttle_event_mask','compute_mode','at_ns'):known[k]=type(row.get(k)) is int and row[k]>=0
+  for k in fields:missing[k]+=not known[k]
+  for k in values:
+   v=row.get(k)
+   if type(v) in (int,float) and math.isfinite(v) and v>=0:values[k].append(v)
+  hit={
+   'temperature':known['temperature_c'] and row['temperature_c']>=limits['temperature_c'],
+   'VRAM':known['device_vram_bytes'] and row['device_vram_bytes']>limits['vram_mib']*2**20,
+   'uncorrected_ECC':known['ecc_uncorrected'] and row['ecc_uncorrected']!=0,
+   'hardware_throttling':known['clock_throttle_event_mask'] and bool(row['clock_throttle_event_mask']&0xe8),
+   'power_limit_setting':known['power_limit_w'] and row['power_limit_w']!=limits['power_w'],
+   'compute_mode':known['compute_mode'] and row['compute_mode']!=0,
+   'multiple_processes':known['processes'] and len(row['processes'])>1}
+  for k,v in hit.items():counts[k]+=bool(v)
+  violations+=any(hit.values())
+  if known['clock_throttle_event_mask']:
+   m=str(row['clock_throttle_event_mask']);masks[m]=masks.get(m,0)+1
+  if known['at_ns']:timestamps.append(row['at_ns'])
+ if any(b<=a for a,b in zip(timestamps,timestamps[1:])):raise ValueError('Nonmonotonic telemetry clock')
+ span=lambda k:[min(values[k]),max(values[k])] if values[k] else None
+ result={'sample_count':len(samples),'original_limits':limits,'missing_samples_by_field':missing,'sampled_guard_violations':violations,'violations_by_condition':counts,
+  'status':'OBSERVED_GUARD_VIOLATIONS' if violations else 'INSUFFICIENT_TELEMETRY' if not samples or any(missing.values()) else 'OBSERVED_WITHIN_RECORDED_LIMITS',
+  'temperature_range_c':span('temperature_c'),'peak_vram_mib':max(values['device_vram_bytes'])/2**20 if values['device_vram_bytes'] else None,
+  'power_draw_range_w':span('power_w'),'observed_power_limit_range_w':span('power_limit_w'),'sm_clock_range_mhz':span('sm_clock_mhz'),'memory_clock_range_mhz':span('mem_clock_mhz'),
+  'observed_throttle_masks':masks,'hardware_fault_mask':232,'max_sample_gap_s':max((b-a)/1e9 for a,b in zip(timestamps,timestamps[1:])) if len(timestamps)>1 and not missing['at_ns'] else None,
+  'corrected_ECC':'NOT MEASURED','continuous_uptime_qualified':False,
+  'scope':'Whole retained capture window, including startup/idle/load where present. Original guard comparisons are descriptive observations, not new enforcement. Power-draw transients are not power-limit-setting failures; idle/software-power-cap bits are separate from the recorded hardware fault mask. Missing data stay unknown. Sampling cannot rule out events between samples or prove unattended/24-hour stability.'}
+ return result
+
 def observed_pareto(points):
  """Descriptive frontier; counter bounds are not confidence intervals."""
  def valid(p):
@@ -1038,6 +1076,54 @@ def observed_pareto(points):
   q['pareto_status']='NOT_ASSESSABLE_MISSING_METRICS' if not valid(p) else 'OBSERVED_DOMINATED' if q['dominated_by'] else 'OBSERVED_FRONTIER'
   result.append(q)
  return result
+
+def final_evidence_projection(root,entry,receipt):
+ """Recheck frozen review against original telemetry; expose aggregates only."""
+ import inspect
+ root=pathlib.Path(root).resolve();path=pathlib.Path(entry['path']).resolve();stage=root/'staging/model-comparison-preparation/agent-qualification'
+ if path.parent!=stage or not re.fullmatch(r'FINAL_EVIDENCE_REVIEW_[0-9]{8}\.json',path.name) or digest(path)!=entry['sha256']:raise ValueError('Final evidence receipt identity differs')
+ a=read(path);selected=sum((list(ROLE_EXPERIMENTS[k]) for k in ('coding','tools','agents_development')),[])+['R546','R551']
+ if a['kind']!='FINAL_ORIGINAL_CAPTURE_STABILITY_REVIEW' or a['selected_experiments']!=selected or a['experiment_count']!=len(selected) or len(a['rows'])!=len(selected):raise ValueError('Final evidence scope differs')
+ if any(a[k]!=0 for k in ('GPU_runs','model_requests')) or any(a[k] is not False for k in ('scores_changed','original_sources_modified','continuous_uptime_qualified')):raise ValueError('Unsupported final review claim')
+ if a['hardware_function_sha256']!=hashlib.sha256(inspect.getsource(sampled_hardware_stability).encode()).hexdigest() or digest(stage/'final_evidence_review.py')!=a['review_code_sha256']:raise ValueError('Final review method changed')
+ sources=a['source_files_sha256']
+ guard_refs=[(n,h) for n,h in sources.items() if not pathlib.Path(n).resolve().is_relative_to(root.parent)]
+ if len(guard_refs)!=1 or pathlib.Path(guard_refs[0][0]).name!='fixed_runner.py' or guard_refs[0][1]!=a['guard_reference_sha256'] or not re.fullmatch('[a-f0-9]{64}',a['guard_reference_sha256']):raise ValueError('Historical guard reference differs')
+ for n,h in sources.items():
+  # The privileged guard hash is archival provenance, not a live-code or
+  # admission check. Only immutable local capture sources are reread here.
+  if n==guard_refs[0][0]:continue
+  p=pathlib.Path(n).resolve()
+  if not p.is_relative_to(root.parent) or digest(p)!=h:raise ValueError('Final original evidence changed')
+ out=[];devices=set()
+ for row,eid in zip(a['rows'],selected):
+  ap=root/'staging'/eid.lower()/'AUDIT.json'
+  if row['experiment_id']!=eid or digest(ap)!=row['original_audit_sha256'] or sources.get(str(ap))!=row['original_audit_sha256']:raise ValueError('Final original audit differs')
+  original=read(ap)
+  if original.get('measurement_valid') is not True or original.get('GPU_execution_observed') is not True:raise ValueError('Original GPU measurement not valid')
+  expected_captures=([pathlib.Path(original['raw_root'])] if original.get('raw_root') else [pathlib.Path(p['audit_path']).parent for p in original['parts']])
+  if len(row['sessions'])!=len(expected_captures):raise ValueError('Original capture omitted')
+  sessions=[]
+  for session,capture in zip(row['sessions'],expected_captures):
+   telemetry=[pathlib.Path(n) for n,h in sources.items() if pathlib.Path(n).name=='GPU_TELEMETRY.jsonl' and h==session['telemetry_sha256'] and pathlib.Path(n).parent.resolve()==capture.resolve()]
+   if len(telemetry)!=1:raise ValueError('Ambiguous retained telemetry')
+   tp=telemetry[0];cp=tp.parent/'CONTRACT.json'
+   if tp.parent.resolve()!=capture.resolve():raise ValueError('Wrong original capture window')
+   if digest(cp)!=session['contract_sha256'] or sources.get(str(cp))!=session['contract_sha256']:raise ValueError('Original guard contract differs')
+   contract=read(cp);devices.add(contract['gpu_uuid'])
+   if contract['id']!=session['trial_id']:raise ValueError('Original trial identity differs')
+   samples=[json.loads(line) for line in tp.read_text().splitlines()];observed=sampled_hardware_stability(samples,contract)
+   if any(session.get(k)!=v for k,v in observed.items()):raise ValueError('Sampled stability result differs')
+   sessions.append({**observed,'telemetry_sha256':session['telemetry_sha256'],'contract_sha256':session['contract_sha256']})
+  if len(sessions)!=row['capture_count']:raise ValueError('Capture count differs')
+  out.append({'experiment_id':eid,'original_audit_sha256':row['original_audit_sha256'],'audit_id':receipt(ap,row['original_audit_sha256']),'sessions':sessions})
+ if len(devices)!=1 or a['same_device_in_original_contracts'] is not True:raise ValueError('Contract device mismatch')
+ if sum(len(r['sessions']) for r in out)!=a['capture_count']:raise ValueError('Final capture count differs')
+ return {'audit_id':receipt(path,entry['sha256']),'audit_sha256':entry['sha256'],'at_utc':a['at_utc'],'rows':out,'experiment_count':len(out),'capture_count':a['capture_count'],
+  'sample_count':sum(s['sample_count'] for r in out for s in r['sessions']),'sampled_guard_violations':sum(s['sampled_guard_violations'] for r in out for s in r['sessions']),
+  'incomplete_captures':sum(s['status']=='INSUFFICIENT_TELEMETRY' for r in out for s in r['sessions']),'same_device_in_original_contracts':True,
+  'guard_reference_sha256':a['guard_reference_sha256'],'hardware_function_sha256':a['hardware_function_sha256'],'GPU_runs':0,'model_requests':0,'continuous_uptime_qualified':False,
+  'scope':'Original sampled capture observations and source integrity, including startup/load/idle. Not a new GPU test, statistical independence, between-sample fault exclusion, constant-clock or continuous production-stability qualification.'}
 
 def role_comparison(history,experiments):
  """Recompute scoped decisions from immutable public evidence; no inference."""
@@ -1344,6 +1430,7 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   from derivatives import collect as collect_derivatives
   public=collect_derivatives(root,item,result,receipt)
   item.pop('audit_path');item.update(public)
+ if db['summary'].get('final_evidence_review'):reg['final_evidence_review']=final_evidence_projection(root,db['summary']['final_evidence_review'],receipt)
  reg['role_comparison']=role_comparison(result,experiments)
  return reg,result
 

@@ -260707,5 +260707,20 @@
     "original_publicly_available": false,
     "original_sha256": "23843ba489791be555fbdbab2ce9997cfc4917ab91108b08869c59be1126b5e3",
     "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-277c863a5ea57869dc11",
+    "original_bytes": 157930,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "277c863a5ea57869dc11b7634994e75e6f6099cdf5bac1eda169a9b45db56105",
+    "statements": {
+      "scope": "Read-only integrity and sampled guard observations for selected complete core coding/tool profiles, local Agent33 profiles and fresh R546/R551 confirmations. Existing scorer qualifications are reused, not new scoring or model generations. Whole retained capture windows include idle/startup/load; no between-sample event exclusion, fixed-clock claim or long-duration production safety qualification."
+    }
   }
 ]

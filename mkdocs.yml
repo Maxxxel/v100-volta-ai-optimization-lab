@@ -45,13 +45,14 @@ extra_javascript:
   - javascripts/screening.js?v=7af8f50daa3611bf
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=34131ddd5df0d232
+  - assets/benchmarks/leaderboard-data.js?v=191debec8009b9e2
   - javascripts/master-table.js?v=e6e5749dbcb9feaf
   - javascripts/leaderboard.js?v=697620605486078d
 extra:
   generator: false
 nav:
   - Overview: index.md
+  - Best-of V100: best-of-v100-2026.md
   - Screening: screening.md
   - Benchmarks: configuration-comparison.md
   - Research archive:

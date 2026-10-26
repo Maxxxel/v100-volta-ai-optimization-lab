@@ -220,3 +220,11 @@ class SourceGrammarNetworkSafety(unittest.TestCase):
   z=chr(58)*2
   for value in (z,z+'1','['+z+']','['+z+'1]','fd00'+z+'1234','fe80'+z+'1','[fe80'+z+'1%eth0]',z+'1/128'):
    self.assertIn('nonpublic IPv6 address',content_errors('const char * address = "'+value+'";'))
+
+class IssueFreezeRegistry(unittest.TestCase):
+ def test_registry_keeps_workflow_and_scientific_disposition_separate(self):
+  import json,pathlib
+  rows=json.loads((pathlib.Path(__file__).resolve().parents[1]/'data/research-issues.json').read_text());ids=[int(x['url'].rsplit('/',1)[-1]) for x in rows]
+  self.assertEqual(len(ids),len(set(ids)));self.assertTrue(set(range(1,18))<=set(ids));self.assertTrue(all(x['github_state'] in ('OPEN','CLOSED') and x['github_checked_at_utc'] and x['next_action'] for x in rows))
+  by_id={int(x['url'].rsplit('/',1)[-1]):x for x in rows};self.assertEqual(by_id[13]['status'],'DEFERRED_DISTINCT_PROFILE_HYPOTHESIS_REQUIRED');self.assertIn('unproven',by_id[13]['next_action']);self.assertEqual(len(by_id[13]['evidence_sha256']),2)
+  for n in (16,17):self.assertEqual(by_id[n]['freeze_priority'],'P2_NOVEMBER_BACKLOG')

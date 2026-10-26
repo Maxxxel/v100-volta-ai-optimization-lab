@@ -353,6 +353,26 @@ async function main(){
    report.checks.push('all four published MIT source-reproduction assets match their archived exact byte hashes');
   }
 
+  const finalRegister=JSON.parse(await fs.readFile(path.join(__dirname,'../data/benchmark-register.json'),'utf8'));
+  if(finalRegister.final_evidence_review){
+   const expected=finalRegister.final_evidence_review;
+   for(const width of [1600,390]){
+    const tab=await context.newPage();await tab.setViewportSize({width,height:900});
+    await tab.goto(new URL('best-of-v100-2026/',base).href,{waitUntil:'networkidle'});
+    const text=await tab.locator('.md-content').innerText();assert(text.includes('Pre-freeze draft'));assert(text.includes('freeze audit is still pending'));assert(text.includes('NOT MEASURED / TECHNICALLY BLOCKED'));assert(text.includes(expected.sample_count.toLocaleString('en-US')));assert(text.includes('LOKAL GEMESSEN'));assert(text.includes('NICHT VERIFIZIERT'));
+    const detail=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Original capture-level hardware evidence'})}).first();await detail.locator('summary').first().click();assert.equal(await detail.locator('tbody tr').count(),expected.capture_count);
+    assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Final snapshot overflows viewport');await tab.screenshot({path:path.join(artifacts,width===390?'mobile-final-snapshot.png':'desktop-final-snapshot.png'),animations:'disabled'});await tab.close();
+   }
+   report.checks.push('pre-freeze recommendation snapshot separates local measurements, missing official agents and original bounded hardware evidence');
+  }
+  const issueExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/research-issues.json'),'utf8'));
+  for(const width of [1600,390]){
+   const tab=await context.newPage();await tab.setViewportSize({width,height:900});await tab.goto(new URL('questions/',base).href,{waitUntil:'networkidle'});
+   const table=tab.locator('.md-content table').first();assert.equal(await table.locator('tbody tr').count(),issueExpected.filter(x=>x.github_state==='OPEN').length);
+   const closed=tab.locator('details').filter({has:tab.locator('summary',{hasText:'Closed scoped workflow records'})}).first();await closed.locator('summary').first().click();assert.equal(await closed.locator('tbody tr').count(),issueExpected.filter(x=>x.github_state==='CLOSED').length);
+   assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Issue registry overflows viewport');await tab.close();
+  }
+  report.checks.push('current issue snapshot preserves open/closed workflow states, scientific dispositions and mobile access');
   const pipelineExpected=JSON.parse(await fs.readFile(path.join(__dirname,'../data/pipeline-performance.json'),'utf8'));
   for(const [name,width] of [['desktop',1600],['mobile',390]]){
    const tab=await context.newPage();await tab.setViewportSize({width,height:900});

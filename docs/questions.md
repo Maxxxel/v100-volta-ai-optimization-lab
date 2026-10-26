@@ -1,20 +1,39 @@
 # Open questions & research proposals
 
-These are hypotheses or admission plans, never claimed local improvements. They extend existing axes and do not increase the factor count. GPU execution remains behind the single-factor and safety gates.
+GitHub snapshot: 2026-10-26T18:41:39.997857+00:00. **9 open / 8 closed**. This is not a live issue monitor. Workflow closure, scientific disposition and optimization qualification are separate.
 
-| Subcase | Public research issue | Status |
-|---|---|---|
-| R340-S01 | [Research: targeted SM70 resource/traffic profiling for a distinct kernel patch](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1) | CLOSED_SCOPED_TECHNICAL_DEFERRAL |
-| R340-S03 | [Research: admit one SM70 vLLM source lane only after model and memory gates](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2) | OPEN_MODEL_AND_MEMORY_ADMISSION_GATE |
-| R340-S06 | [Research: evaluate block-FP8 W8A16 fused dequantization on SM70](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3) | OPEN_MODEL_ARTIFACT_AND_KERNEL_GATE |
-| R340-S07 | [Research: flash-attention V100 page/stride and causal-mask correctness](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4) | OPEN_MODEL_ENGINE_DEPENDENT_AFTER_SOURCE_REVIEW |
-| R340-S05 | [Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5) | CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE |
-| BMT27 | [Research: head-free confidence calibration for frozen Omni after probability-acquisition gate](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6) | CLOSED_NEGATIVE_HEAD_FREE_POLICY_SCREEN |
-| GIST-V02 | [Research: one SM70 kernel L1/shared carveout admission, separate from conversion cache](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/7) | CLOSED_SCOPED_TECHNICAL_DEFERRAL |
-| HBM10 | [HBM10: validate unweighted NUQ calibration and a partial-RoPE cache adapter](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/8) | OPEN_PARTIAL_ROPE_GDN_ADAPTER_PENDING |
-| Q04 | [Q04: validate native MLP AWQ scaling after forward calibration](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/9) | CLOSED_NEGATIVE_Q04_DEVELOPMENT_GATE |
-| FINAL-GATE | [Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10) | OPEN_FINAL_RESEARCH_GATE |
+Current P0: final research/model decision (#10/#11). Source/kernel gates stay conditional; LFM24 parser checks do not explain its weak task result or justify an automatic retry. New-family/harness campaigns remain in the November backlog. No factor count or GPU coverage is increased by this registry.
 
+| Subcase | Open GitHub issue | Research disposition | Freeze priority | Next step / evidence |
+|---|---|---|---|---|
+| R340-S03 | [Research: admit one SM70 vLLM source lane only after model and memory gates](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/2) | OPEN_MODEL_AND_MEMORY_ADMISSION_GATE | P2_NOVEMBER_TECHNICAL_GATE | Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis.  |
+| R340-S06 | [Research: evaluate block-FP8 W8A16 fused dequantization on SM70](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/3) | OPEN_MODEL_ARTIFACT_AND_KERNEL_GATE | P2_NOVEMBER_TECHNICAL_GATE | Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis.  |
+| R340-S07 | [Research: flash-attention V100 page/stride and causal-mask correctness](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/4) | OPEN_MODEL_ENGINE_DEPENDENT_AFTER_SOURCE_REVIEW | P2_NOVEMBER_TECHNICAL_GATE | Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis.  |
+| HBM10 | [HBM10: validate unweighted NUQ calibration and a partial-RoPE cache adapter](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/8) | OPEN_PARTIAL_ROPE_GDN_ADAPTER_PENDING | P2_NOVEMBER_TECHNICAL_GATE | Preserve the documented source/model/engine prerequisite and original evidence. No large new engine/kernel/adapter branch before the final freeze; reopen execution only with a distinct feasible isolated hypothesis.  |
+| FINAL-GATE | [Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10) | OPEN_FINAL_RESEARCH_GATE | P0_FINALIZE_EXISTING_EVIDENCE | Finish the evidence-based role recommendation and final freeze review; preserve missing official Agents and all qualified/partial history. No broad new campaign.  |
+| MODEL-QUALIFICATION | [Model comparison: complete standard benchmarks before rejection or tuning](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/11) | OPEN | P0_FINALIZE_EXISTING_EVIDENCE | Finish the evidence-based role recommendation and final freeze review; preserve missing official Agents and all qualified/partial history. No broad new campaign.  |
+| LFM24-PARSER | [Investigate LFM24 one-call behavior on complete complex-tool benchmark](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13) | DEFERRED_DISTINCT_PROFILE_HYPOTHESIS_REQUIRED | P2_NO_JUSTIFIED_RERUN | Cardinality and argument preservation checks are complete: no observed parser loss. The cause of6/200 remains unproven. Resume only for a distinct source-backed template/harness discrepancy; do not rerun merely to set parallel_tool_calls. [evidence](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13#issuecomment-6395922011), [evidence](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13#issuecomment-6398582411) |
+| NOVEMBER-MODEL-FAMILIES | [Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16) | DEFERRED_NOVEMBER_RESEARCH | P2_NOVEMBER_BACKLOG | Complete model architecture/format/SM70/memory gates before new admission; no new broad pre-freeze GPU campaign.  |
+| NOVEMBER-HARNESS | [Research: minimal vs complex coding-agent harness — quality, tokens, latency and GPU-J/success](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) | DEFERRED_NOVEMBER_RESEARCH | P2_NOVEMBER_BACKLOG | Single-Agent remains baseline; R537 five paired cases are inconclusive. Use independent tasks and matched end-to-end budgets for later harness ablations.  |
+
+
+??? note "Closed scoped workflow records — not additional qualified optimizations"
+
+    | Subcase | Closed GitHub issue | Recorded scope | Priority | Evidence / boundary |
+    |---|---|---|---|---|
+    | R340-S01 | [Research: targeted SM70 resource/traffic profiling for a distinct kernel patch](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/1) | CLOSED_SCOPED_TECHNICAL_DEFERRAL | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | R340-S05 | [Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5) | CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | BMT27 | [Research: head-free confidence calibration for frozen Omni after probability-acquisition gate](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/6) | CLOSED_NEGATIVE_HEAD_FREE_POLICY_SCREEN | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | GIST-V02 | [Research: one SM70 kernel L1/shared carveout admission, separate from conversion cache](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/7) | CLOSED_SCOPED_TECHNICAL_DEFERRAL | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | Q04 | [Q04: validate native MLP AWQ scaling after forward calibration](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/9) | CLOSED_NEGATIVE_Q04_DEVELOPMENT_GATE | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | OXCODER-DIAGNOSIS | [OxCoder R448: Diagnose von 104 leeren Codeantworten und 2:18 h Inferenzzeit](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/12) | CLOSED_GITHUB_SCOPED_OUTCOME | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | TASK-WRAPPER-TIMING | [Benchmark timing: review outer wrapper ending before native task allowance](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/14) | CLOSED_GITHUB_SCOPED_OUTCOME | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+    | GEMMA-AGENT-FORMAT | [Gemma Agent18: diagnose tool and final-format failures after the 16K context fix](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/15) | CLOSED_GITHUB_SCOPED_OUTCOME | ARCHIVED_SCOPED_OUTCOME | Preserve closure evidence and original measurements. Workflow closure is not a model/optimization qualification; see the linked original issue.  |
+
+
+## Retained research proposals
+
+Hypotheses and admission prerequisites remain distinct from measured gains. Existing safety and single-factor gates still apply.
 
 ## R340-S01
 

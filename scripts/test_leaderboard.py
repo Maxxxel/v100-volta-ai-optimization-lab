@@ -616,3 +616,70 @@ class EngineReproductionTests(unittest.TestCase):
   self.assertTrue(p['source_patch_package_public']);self.assertFalse(p['exact_build_recipe_fully_public']);self.assertEqual(p['engine_reproduction_package']['build_id'],p['profile']['engine']['build_id'])
   names={a['filename']:a['sha256'] for a in p['required_external_assets'] if a['kind']=='engine_shared_library'}
   self.assertEqual(len(names)+1,len(p['engine_reproduction_package']['libraries_sha256']));self.assertTrue(all(p['engine_reproduction_package']['libraries_sha256'][n]==v for n,v in names.items()))
+
+class SampledStabilityTests(unittest.TestCase):
+ def row(self):return dict(at_ns=1,temperature_c=50,device_vram_bytes=100*2**20,ecc_uncorrected=0,clock_throttle_event_mask=4,power_limit_w=300,compute_mode=0,processes=[],power_w=301,sm_clock_mhz=135,mem_clock_mhz=877)
+ def limits(self):return dict(power_w=300,temperature_c=90,vram_mib=14336)
+ def test_observed_limits_do_not_confuse_power_draw_with_power_setting(self):
+  from leaderboard import sampled_hardware_stability
+  r=sampled_hardware_stability([self.row()],self.limits());self.assertEqual(r['status'],'OBSERVED_WITHIN_RECORDED_LIMITS');self.assertEqual(r['sampled_guard_violations'],0);self.assertEqual(r['power_draw_range_w'],[301,301]);self.assertFalse(r['continuous_uptime_qualified'])
+ def test_original_guard_boundaries_and_union_of_violations(self):
+  from leaderboard import sampled_hardware_stability
+  for key,value in [('temperature_c',90),('device_vram_bytes',14336*2**20+1),('ecc_uncorrected',1),('clock_throttle_event_mask',8),('power_limit_w',175),('compute_mode',1),('processes',[{},{}])]:
+   row=self.row();row[key]=value;r=sampled_hardware_stability([row],self.limits());self.assertEqual(r['status'],'OBSERVED_GUARD_VIOLATIONS');self.assertEqual(r['sampled_guard_violations'],1)
+ def test_missing_or_boolean_ECC_never_becomes_zero(self):
+  from leaderboard import sampled_hardware_stability
+  for value in (None,False,float('nan')):
+   row=self.row();row['ecc_uncorrected']=value;r=sampled_hardware_stability([row],self.limits());self.assertEqual(r['status'],'INSUFFICIENT_TELEMETRY');self.assertEqual(r['missing_samples_by_field']['ecc_uncorrected'],1)
+  self.assertEqual(sampled_hardware_stability([],self.limits())['status'],'INSUFFICIENT_TELEMETRY')
+ def test_clock_gap_is_observed_not_inferred_GPU_busy_or_uptime(self):
+  from leaderboard import sampled_hardware_stability
+  a=self.row();b={**a,'at_ns':2_000_000_001};r=sampled_hardware_stability([a,b],self.limits());self.assertEqual(r['max_sample_gap_s'],2)
+  with self.assertRaises(ValueError):sampled_hardware_stability([a,a],self.limits())
+
+class FinalEvidenceProjectionTests(unittest.TestCase):
+ def build_fixture(self,base):
+  import hashlib,inspect
+  from leaderboard import ROLE_EXPERIMENTS,sampled_hardware_stability
+  root=base/'source';stage=root/'staging/model-comparison-preparation/agent-qualification';stage.mkdir(parents=True)
+  save=lambda p,d:(p.parent.mkdir(parents=True,exist_ok=True),p.write_text(json.dumps(d)),p)[2]
+  method=stage/'final_evidence_review.py';method.write_text('# synthetic CPU fixture, never executed\n')
+  ids=sum((list(ROLE_EXPERIMENTS[k]) for k in ('coding','tools','agents_development')),[])+['R546','R551'];sources={'/trusted-guard/fixed_runner.py':'f'*64};rows=[]
+  for eid in ids:
+   out=root/'captures'/eid;contract={'id':eid.lower()+'-synthetic','gpu_uuid':'synthetic-device','power_w':300,'temperature_c':90,'vram_mib':14336};cp=save(out/'CONTRACT.json',contract)
+   samples=[dict(at_ns=1,temperature_c=50,device_vram_bytes=100,ecc_uncorrected=0,clock_throttle_event_mask=4,power_limit_w=300,compute_mode=0,processes=[])]
+   tp=out/'GPU_TELEMETRY.jsonl';tp.write_text(json.dumps(samples[0])+'\n');ap=save(root/'staging'/eid.lower()/'AUDIT.json',{'measurement_valid':True,'GPU_execution_observed':True,'raw_root':str(out)})
+   for path in (cp,tp,ap):sources[str(path)]=digest(path)
+   row=sampled_hardware_stability(samples,contract);row.update(trial_id=contract['id'],telemetry_sha256=digest(tp),contract_sha256=digest(cp))
+   rows.append({'experiment_id':eid,'original_audit_sha256':digest(ap),'capture_count':1,'sessions':[row]})
+  a={'kind':'FINAL_ORIGINAL_CAPTURE_STABILITY_REVIEW','selected_experiments':ids,'experiment_count':30,'capture_count':30,'rows':rows,'source_files_sha256':sources,'guard_reference_sha256':'f'*64,'hardware_function_sha256':hashlib.sha256(inspect.getsource(sampled_hardware_stability).encode()).hexdigest(),'review_code_sha256':digest(method),'GPU_runs':0,'model_requests':0,'scores_changed':False,'original_sources_modified':False,'continuous_uptime_qualified':False,'same_device_in_original_contracts':True,'at_utc':'2026-10-26T00:00:00Z'}
+  path=save(stage/'FINAL_EVIDENCE_REVIEW_20261026.json',a);return root,path,a
+ def test_original_samples_recompute_without_exposing_private_paths_or_device_identity(self):
+  from leaderboard import final_evidence_projection
+  with tempfile.TemporaryDirectory() as tmp:
+   root,path,a=self.build_fixture(pathlib.Path(tmp));r=final_evidence_projection(root,{'path':str(path),'sha256':digest(path)},lambda p,h:'audit-'+h[:20]);self.assertEqual(r['sample_count'],30);self.assertEqual(r['sampled_guard_violations'],0);self.assertFalse(r['continuous_uptime_qualified']);self.assertNotIn(tmp,json.dumps(r));self.assertNotIn('synthetic-device',json.dumps(r));self.assertNotIn('source_files_sha256',r)
+ def test_dropped_capture_changed_statistics_or_method_cannot_pass(self):
+  from leaderboard import final_evidence_projection
+  for change in ('capture','statistic','method','hash','device'):
+   with tempfile.TemporaryDirectory() as tmp:
+    root,path,a=self.build_fixture(pathlib.Path(tmp))
+    if change=='capture':a['rows'][0]['sessions']=[];a['rows'][0]['capture_count']=0;a['capture_count']=29
+    elif change=='statistic':a['rows'][0]['sessions'][0]['sample_count']=2
+    elif change=='method':a['hardware_function_sha256']='0'*64
+    elif change=='hash':a['source_files_sha256'][str(root/'captures/R471/CONTRACT.json')]='0'*64
+    else:
+     cp=root/'captures/R471/CONTRACT.json';c=json.loads(cp.read_text());c['gpu_uuid']='different-synthetic-device';cp.write_text(json.dumps(c));a['source_files_sha256'][str(cp)]=digest(cp);a['rows'][0]['sessions'][0]['contract_sha256']=digest(cp)
+    path.write_text(json.dumps(a))
+    with self.subTest(change=change),self.assertRaises(ValueError):final_evidence_projection(root,{'path':str(path),'sha256':digest(path)},lambda p,h:'audit-'+h[:20])
+
+class FinalSnapshotTests(unittest.TestCase):
+ def page(self):
+  from render import final_snapshot_page
+  data=lambda n:json.loads((ROOT/'data'/n).read_text())
+  reg=data('benchmark-register.json');exps=data('experiments.json');profiles=data('profiles.json');refs={r['id']:r for r in data('references.json')};counts=data('snapshot.json')['counts'];pipeline=data('pipeline-performance.json');before=H([reg,exps,profiles,refs,counts,pipeline]);page=final_snapshot_page(reg,exps,profiles,refs,counts,pipeline);self.assertEqual(before,H([reg,exps,profiles,refs,counts,pipeline]));return page,reg
+ def test_pre_freeze_status_and_limits_cannot_be_misread_as_final_release(self):
+  page,_=self.page();self.assertIn('Pre-freeze draft',page);self.assertIn('freeze audit is still pending',page);self.assertIn('NOT MEASURED / TECHNICALLY BLOCKED',page);self.assertIn('no production change',page);self.assertIn('PARTIAL',page);self.assertIn('not an official overall score',page)
+ def test_measured_counts_and_negative_evidence_survive_summary(self):
+  page,r=self.page();self.assertIn(format(r['final_evidence_review']['sample_count'],','),page);self.assertIn('131/164 versus 134/164',page);self.assertIn('151/164 versus 156/164',page);self.assertIn('35.43%',page);self.assertIn('37.94%',page);self.assertIn('41.10%',page);self.assertIn('LOKAL GEMESSEN',page);self.assertIn('EXTERN BELEGT',page);self.assertIn('NICHT VERIFIZIERT',page)
+ def test_only_one_master_benchmark_table_and_legacy_energy_scopes_remain_separate(self):
+  page,_=self.page();self.assertIn('single model/configuration comparison',page);self.assertIn('175-W',page);self.assertIn('no universal decode gain',page);self.assertIn('not added together',page);self.assertIn('maximum_process_vram_mib',page);self.assertIn('14,336',page)
