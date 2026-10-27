@@ -178813,6 +178813,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-097649d798613c027fa3",
+    "original_bytes": 4955,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "097649d798613c027fa350edc5f0e9642878505353122d315802c4a5db2b0b87",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged Mistral Small3.2 24B Q3_K_M after R557 development screening and R568 official129/164 coding qualification. Preserve weights, native template, engine, sampling, context8192/output4096, cache/batches and hardware limits. Restore only the native auto/parallel tool-dispatch envelope removed for coding. One shared1200s TASK phase, startup180s, no retry, retuning, full-BFCL overall score or Champion claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -260198,6 +260220,21 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6ec6d1391b94afff933c",
+    "original_bytes": 8346,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6ec6d1391b94afff933c4fe67ab5a11238deb17ef66cb2fb6dfd1eb2ce6897a2",
+    "statements": {
+      "scope": "Existing reported cumulative GPU-counter bounds across the complete200-task group, including failed tasks and between-request setup. No power interpolation, system energy or calibration confidence claim; zero successes leave J/success undefined."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "solved": 0,
       "tasks": 200
     },
@@ -260208,6 +260245,53 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "c3c10b4791f879debf74f82c2d0fa0da5ec4ee9e90b4db8d0c57d92c0f236ba1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13156.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-aa21d31e0d11a6f7a9d7",
+    "original_bytes": 178589,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "aa21d31e0d11a6f7a9d78595b22aaebc45b8dc0c5351c96443b535d5c74dd9eb",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-81bada22519be03d8375",
+    "original_bytes": 8413,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "81bada22519be03d83758af8c6be1dede946ad3c755c42c2d4ea6a25dcd06fe5",
+    "statements": {
+      "scope": "Existing reported cumulative GPU-counter bounds across the complete200-task group, including failed tasks and between-request setup. No power interpolation, system energy or calibration confidence claim; zero successes leave J/success undefined."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 147,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-da1f0ff6fd83bf93b202",
+    "original_bytes": 10188,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "da1f0ff6fd83bf93b202528a4c6bb7ec185487e9bf82fa540af105f7dc5c0d3a",
     "statements": {}
   },
   {
@@ -261305,6 +261389,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "3d99e7a91460b3531685092a11966f3b275d32b5648169da1e7abacf0d3537f8",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-3de0ab01084bd8fc9366",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3de0ab01084bd8fc9366eabca46c27abeddb02b3df480803117786113ff13459",
     "statements": {}
   },
   {

@@ -144,7 +144,7 @@ class ReferenceQualificationLinks(unittest.TestCase):
  def test_new_family_screens_link_corrected_official_views_without_duplicate_audits(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text())
-  expected={'R553':{'R570'},'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'},'R557':{'R568'}}
+  expected={'R553':{'R570'},'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'},'R557':{'R568','R571'}}
   for screen,experiments in expected.items():
    row=next(r for r in data['rows'] if r['experiment_id']==screen)
    self.assertEqual(row['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS')
@@ -521,3 +521,26 @@ class NewFamilyEvidence(unittest.TestCase):
   r=new_family_evidence(s,h,[agent]);self.assertEqual(r['agent_profiles'][0]['profile_sha256'],'different-agent-profile');self.assertEqual(len(r['models'][0]['qualified_runs']),1)
   agent['aggregate_metrics']['native_validation33']['official_benchmark']=True
   with self.assertRaises(AssertionError):new_family_evidence(s,h,[agent])
+
+class UnscoredQualificationProjection(unittest.TestCase):
+ def test_failed_attempt_preserves_unknown_quality_and_source_identity(self):
+  import tempfile
+  from screening import unscored_qualification_attempts
+  with tempfile.TemporaryDirectory() as d:
+   a,seal=TechnicalBlockerProjection().fixture(d);a['full_benchmark_score_claimed']=False
+   def entry():
+    e=seal();desc=e.pop('technical_blocker_audit');e['qualification_attempts']=[{'experiment_id':a['experiment_id'],'audit_path':desc['path'],'audit_sha256':desc['sha256']}];return e
+   e=entry();v=unscored_qualification_attempts(e);self.assertIsNone(v[0]['quality_score']);self.assertEqual(v[0]['scored_tasks'],0);self.assertNotIn('raw_root',v[0]);e['model_sha256']='b'*64
+   with self.assertRaises(AssertionError):unscored_qualification_attempts(e)
+   a['scored_tasks']=1
+   with self.assertRaises(AssertionError):unscored_qualification_attempts(entry())
+  self.assertEqual(unscored_qualification_attempts({}),[])
+ def test_partials_are_visible_separately_and_never_replace_full_scores(self):
+  from render import new_family_evidence,new_family_section
+  s,h=NewFamilyEvidence().fixture();partial=copy.deepcopy(h['runs'][0]);partial.update(experiment_id='R569',runtime_configuration_id='cfg-b',official_eligible=False,status='PARTIAL',tasks=32,solved=3,intended_tasks=200,termination_kind='TASK_LIMIT');h['runs'].extend([partial,copy.deepcopy(partial)]);profile=copy.deepcopy(h['profiles'][0]);profile['runtime_configuration_id']='cfg-b';h['profiles'].append(profile)
+  r=new_family_evidence(s,h,[]);self.assertEqual(len(r['models'][0]['partial_runs']),1);self.assertEqual(r['models'][0]['qualified_runs'][0]['solved'],134);page=new_family_section(s,h,[]);self.assertIn('3/32 observed; 200 planned',page);self.assertIn('134/164',page);self.assertIn('No automatic retry',page)
+
+class ZeroSuccessEnergy(unittest.TestCase):
+ def test_measured_energy_with_zero_successes_has_no_invented_ratio(self):
+  from render import new_family_section
+  s,h=NewFamilyEvidence().fixture();r=h['runs'][0];r['solved']=0;r['counter_energy']={'tasks':164,'solved':0,'lower_j':10.,'upper_j':11.,'j_per_success_lower':None,'j_per_success_upper':None};text=new_family_section(s,h,[]);self.assertIn('0/164',text);self.assertIn('10.0–11.0',text);self.assertIn('UNDEFINED (0 successes)',text);self.assertNotIn('None–None',text)

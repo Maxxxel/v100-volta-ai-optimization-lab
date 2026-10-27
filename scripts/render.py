@@ -165,7 +165,12 @@ def new_family_evidence(screening,history,experiments):
    point={k:r[k] for k in ('experiment_id','runtime_configuration_id','benchmark_identity_id','benchmark_id','solved','tasks','wall_s','peak_vram_mib','audit_hash')}
    point['counter_energy']=counter
    if point not in points:points.append(point)
-  result.append({'model':row['model'],'model_sha256':sha,'quantization':row['configuration'].get('quantization'),'screening_experiment':row.get('experiment_id'),'screening_results':row.get('results'),'status':row['status'],'local_artifact_available':row['local_artifact_available'],'technical_blocker':row.get('technical_blocker'),'qualified_runs':points})
+  partials=[]
+  for r in history['runs']:
+   if r.get('status')!='PARTIAL' or profiles[r['runtime_configuration_id']]['model']['artifact_sha256']!=sha:continue
+   p={k:r.get(k) for k in ('experiment_id','runtime_configuration_id','benchmark_id','solved','tasks','intended_tasks','termination_kind','audit_hash')}
+   if p not in partials:partials.append(p)
+  result.append({'model':row['model'],'model_sha256':sha,'quantization':row['configuration'].get('quantization'),'screening_experiment':row.get('experiment_id'),'screening_results':row.get('results'),'status':row['status'],'local_artifact_available':row['local_artifact_available'],'technical_blocker':row.get('technical_blocker'),'qualified_runs':points,'partial_runs':partials,'unscored_attempts':row.get('unscored_qualification_attempts',[])})
  agents=[]
  for exp in experiments:
   a=exp.get('aggregate_metrics',{}).get('native_validation33')
@@ -184,8 +189,9 @@ def new_family_section(screening,history,experiments):
   for r in row['qualified_runs']:
    name='Coding' if r['benchmark_id']=='humanevalplus-v0.1.10' else 'Tools' if r['benchmark_id']=='bfcl-v4-parallel-multiple-full200' else r['benchmark_id']
    scores.setdefault(name,[]).append(str(r['solved'])+'/'+str(r['tasks'])+' '+link(r['experiment_id']))
-   counter=r['counter_energy'];energy=(str(round(counter['j_per_success_lower'],1))+'–'+str(round(counter['j_per_success_upper'],1))) if counter else 'NOT MEASURED'
-   costs.append([row['model'],name,link(r['experiment_id']),round(r['wall_s'],3) if r['wall_s'] is not None else None,energy,r['peak_vram_mib'],'[Exact profile](configuration-profiles/'+r['runtime_configuration_id']+'.md)'])
+   counter=r['counter_energy'];energy=(str(round(counter['j_per_success_lower'],1))+'–'+str(round(counter['j_per_success_upper'],1))) if counter and counter.get('j_per_success_lower') is not None and counter.get('j_per_success_upper') is not None else 'UNDEFINED (0 successes)' if counter and r['solved']==0 else 'NOT MEASURED'
+   total_energy=(str(round(counter['lower_j'],1))+'–'+str(round(counter['upper_j'],1))) if counter else 'NOT MEASURED'
+   costs.append([row['model'],name,link(r['experiment_id']),round(r['wall_s'],3) if r['wall_s'] is not None else None,total_energy,energy,r['peak_vram_mib'],'[Exact profile](configuration-profiles/'+r['runtime_configuration_id']+'.md)'])
   status=row['status']
   if row['technical_blocker']:status+=' · '+row['technical_blocker']['decision']+' '+link(row['technical_blocker']['experiment_id'])
   if row['local_artifact_available'] is False:status+=' · weight cache evicted; results retained'
@@ -194,8 +200,16 @@ def new_family_section(screening,history,experiments):
  text+='The regular total-parameter gate is30B. GLM4.7Flash and Nemotron3Nano have explicit owner-approved parameter-count exceptions; memory, runtime and hardware guards are unchanged.\n\n'
  text+=table(['Model','Quant','Dev coding /16','Dev mock tools /16','HumanEval+164 qualified','BFCL parallel200 qualified','Disposition'],rows)
  text+='??? note "Qualified-run resource measurements and exact profiles"\n\n'
- text+=''.join('    '+line+'\n' if line else '\n' for line in table(['Model','Category','Run','Response wall s','GPU J/success bounds','Peak VRAM MiB','Configuration'],costs).splitlines())
+ text+=''.join('    '+line+'\n' if line else '\n' for line in table(['Model','Category','Run','Response wall s','GPU J bounds','GPU J/success bounds','Peak VRAM MiB','Configuration'],costs).splitlines())
  text+='\nResponse wall excludes startup/warmup/CPU scoring; counter-energy groups include failed tasks and between-request setup. Bounds describe query timing, not confidence intervals or system energy. Different task coverage, output behavior and profiles prevent a causal speed ranking.\n\n'
+ gaps=[]
+ for row in review['models']:
+  for p in row['partial_runs']:gaps.append([row['model'],link(p['experiment_id']),'PARTIAL',str(p['solved'])+'/'+str(p['tasks'])+' observed; '+str(p['intended_tasks'])+' planned',p['termination_kind']])
+  for p in row['unscored_attempts']:gaps.append([row['model'],link(p['experiment_id']),'NOT MEASURED','No scorable benchmark result',p['decision']])
+ if gaps:
+  text+='??? note "Partial results and technical qualification gaps — separate recorded profiles"\n\n'
+  text+=''.join('    '+line+'\n' if line else '\n' for line in table(['Model','Run','Status','Observed evidence','Limit / next diagnosis'],gaps).splitlines())
+  text+='\nThese records do not enter complete-category scores. Incomplete tasks are unknown; technical failures do not measure zero quality. No automatic retry or cross-profile score transfer.\n\n'
  if review['agent_profiles']:
   text+='### Separate authored Agent33 profiles\n\nThese are independently replayed internal validation profiles, not Terminal-Bench or official ranking inputs. They are listed separately; shared weights alone do not prove identical inference settings.\n\n'
   text+=table(['Run','Verified success','Policy passes','TASK s','GPU J/success bounds','Peak VRAM MiB','Profile SHA256'],[[link(a['experiment_id']),str(a['solved'])+'/33',str(a['policy_gate_passes'])+'/33',a['task_phase_s'],str(a['gpu_j_per_success_lower'])+'–'+str(a['gpu_j_per_success_upper']),a['peak_device_vram_mib'],a['profile_sha256']] for a in review['agent_profiles']])

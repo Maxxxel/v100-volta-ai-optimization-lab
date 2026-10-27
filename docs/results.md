@@ -493,6 +493,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R568](experiments/R568.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Mistral-Small-3.2-24B-Instruct-2506 |
 | [R569](experiments/R569.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Phi-4 |
 | [R570](experiments/R570.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | gpt-oss-20b |
+| [R571](experiments/R571.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Mistral-Small-3.2-24B-Instruct-2506 |
 
 
 ## Historical signed windows

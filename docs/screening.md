@@ -4625,6 +4625,17 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
   &quot;task_phase_s&quot;: 149.234217539,
   &quot;timeouts&quot;: 0,
+  &quot;unscored_qualification_attempts&quot;: [
+    {
+      &quot;audit_sha256&quot;: &quot;66bc7969f5667fb8e1077ab5efdfa471f1c2f95e736a8a1e428e35d892b88914&quot;,
+      &quot;decision&quot;: &quot;ENGINE_NATIVE_HARMONY_PARSE_ERROR_NO_CODING_SCORE&quot;,
+      &quot;experiment_id&quot;: &quot;R559&quot;,
+      &quot;quality_score&quot;: null,
+      &quot;scope&quot;: &quot;Technical failure of this recorded profile; no measured benchmark quality or general model rejection.&quot;,
+      &quot;scored_tasks&quot;: 0,
+      &quot;status&quot;: &quot;FAILED&quot;
+    }
+  ],
   &quot;category_results&quot;: {
     &quot;coding&quot;: {
       &quot;GPU_j_per_success_lower&quot;: 1611.4779999999998,
@@ -5489,7 +5500,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Mistral-Small-3.2-24B-Instruct-2506</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>8/16 · 50.0%</td><td>295.0</td><td>35.9</td><td>4,123.8</td><td>13,156.5</td><td><a href="../experiments/R568/">R568</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R557/">Screening R557</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Mistral-Small-3.2-24B-Instruct-2506</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>8/16 · 50.0%</td><td>295.0</td><td>35.9</td><td>4,123.8</td><td>13,156.5</td><td><a href="../experiments/R568/">R568</a> · <a href="../experiments/R571/">R571</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R557/">Screening R557</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;fd5cfc0d48187afae9dae6e9ed3664b3fdd8e4153c587829da9441f0f98193de&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -5711,6 +5722,13 @@ Screening → full qualification → targeted optimization → independent confi
       &quot;experiment_id&quot;: &quot;R568&quot;,
       &quot;official_eligible&quot;: true,
       &quot;runtime_configuration_id&quot;: &quot;cfg-91266709a25761b79681b9b63c07bd0e68ec3efc4ac098aad81c6478e7b28416&quot;
+    },
+    {
+      &quot;audit_hash&quot;: &quot;097649d798613c027fa350edc5f0e9642878505353122d315802c4a5db2b0b87&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R571&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-bb440458a3f41af5278bc00d64d09340b3c75a978eece3b72717df713c8906e6&quot;
     }
   ],
   &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,

@@ -284,6 +284,18 @@ def technical_blocker(entry):
   'peak_vram_mib':audit.get('peak_device_vram_mib'),
   'scope':'Audited failed startup, not a quality rejection or proof of hardware incompatibility. No new GPU run.'}
 
+def unscored_qualification_attempts(entry):
+ """Hash-bound failed attempts are evidence, never zero-quality results."""
+ result=[]
+ for item in entry.get('qualification_attempts',[]):
+  assert H(item['audit_path'])==item['audit_sha256']
+  a=read(item['audit_path']);assert a['experiment_id']==item['experiment_id'] and a['model']==entry['model']
+  assert a['measurement_valid'] is False and a['scored_tasks']==0 and a['solved_observed_tasks'] is None and a['full_benchmark_score_claimed'] is False
+  p=Path(a['raw_root'])/'profile.json';assert H(p)==a['raw_files_sha256']['profile.json'];profile=read(p)
+  assert (profile.get('model_sha256') or profile['assets'][profile['model']])==entry['model_sha256']
+  result.append({'experiment_id':a['experiment_id'],'audit_sha256':item['audit_sha256'],'status':a['status'],'decision':a['decision'],'scored_tasks':0,'quality_score':None,'scope':'Technical failure of this recorded profile; no measured benchmark quality or general model rejection.'})
+ return result
+
 def build(root):
  root=Path(root);base=root/'staging/model-comparison-preparation/model-screening';holdout=read(base/'VALIDATION_FROZEN_MANIFEST.json')
  assert all(H(base/k)==v for k,v in holdout['files'].items())
@@ -314,6 +326,8 @@ def build(root):
   if package:row['full_benchmark_status']='NOT MEASURED';row['decision']='First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.'
   blocker=technical_blocker(entry)
   if blocker:row.update(technical_blocker=blocker,decision=blocker['decision']+'; no task inference or quality measured. Review the recorded startup prerequisites and authorization before another attempt.')
+  attempts=unscored_qualification_attempts(entry)
+  if attempts:row['unscored_qualification_attempts']=attempts
   if cfg.get('tool_transport'):
    row['conditions']+='; explicit generic tool-wire adapter, not native tool-training evidence'
   if package and package['source_review'].get('provenance_limits'):row['source_provenance_limits']=package['source_review']['provenance_limits']

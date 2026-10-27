@@ -7724,7 +7724,18 @@
       },
       "status": "SCREENING VOLLSTÄNDIG",
       "task_phase_s": 149.234217539,
-      "timeouts": 0
+      "timeouts": 0,
+      "unscored_qualification_attempts": [
+        {
+          "audit_sha256": "66bc7969f5667fb8e1077ab5efdfa471f1c2f95e736a8a1e428e35d892b88914",
+          "decision": "ENGINE_NATIVE_HARMONY_PARSE_ERROR_NO_CODING_SCORE",
+          "experiment_id": "R559",
+          "quality_score": null,
+          "scope": "Technical failure of this recorded profile; no measured benchmark quality or general model rejection.",
+          "scored_tasks": 0,
+          "status": "FAILED"
+        }
+      ]
     },
     {
       "audit_sha256": "17e2267cff8b807c9dc3d7c3973a52143683f4426366b679ef5910cfa733c277",
@@ -8775,6 +8786,13 @@
           "experiment_id": "R568",
           "official_eligible": true,
           "runtime_configuration_id": "cfg-91266709a25761b79681b9b63c07bd0e68ec3efc4ac098aad81c6478e7b28416"
+        },
+        {
+          "audit_hash": "097649d798613c027fa350edc5f0e9642878505353122d315802c4a5db2b0b87",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R571",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-bb440458a3f41af5278bc00d64d09340b3c75a978eece3b72717df713c8906e6"
         }
       ],
       "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",

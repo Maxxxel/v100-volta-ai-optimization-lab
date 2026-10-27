@@ -1045,3 +1045,10 @@ test('gpt-oss complete parallel200 zero is measured, not missing or a borrowed c
  const score=M.aggregate(runs);assert.equal(score.score,0);assert.equal(score.solved,0);assert.equal(score.tasks,200);assert.equal(score.n,1);
  const view=M.comparisonView(M.build(data));const row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R570'));assert(row);assert(!row.runs.some(x=>x.experiment_id==='R559'));
 });
+
+test('Mistral Small3.2 complete coding and tools pair only their exact native configuration',()=>{
+ for(const [eid,tasks,solved] of [['R568',164,129],['R571',200,147]]){
+  const runs=data.history.runs.filter(r=>r.experiment_id===eid);assert(runs.length);const score=M.aggregate(runs);assert.equal(score.n,1);assert.equal(score.tasks,tasks);assert.equal(score.solved,solved);assert(runs.every(r=>r.official_eligible));const counter=runs.find(r=>r.counter_energy);assert(counter);assert.equal(counter.counter_energy.solved,solved);assert.equal(counter.counter_energy.tasks,tasks);
+ }
+ const view=M.comparisonView(M.build(data)),row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R571'));assert(row);assert.deepEqual(new Set(row.runs.map(r=>r.experiment_id)),new Set(['R568','R571']));const mean=M.availableAverage(row,{allMeasured:true},view.benchmarkMap);assert.equal(mean.count,2);const cost=M.performanceSummary(row,mean.keys,view.benchmarkMap);assert.equal(cost.tasks,364);assert.equal(cost.solved,276);
+});

@@ -28320,6 +28320,12 @@
       "proof_path": "staging/r570/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "c3c10b4791f879debf74f82c2d0fa0da5ec4ee9e90b4db8d0c57d92c0f236ba1",
       "source_audit_hash": "4e3fba34b20ac6743ff9d900bceeaa222bc6234d817c86e030bc800cdd2fd28f"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r571/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "da1f0ff6fd83bf93b202528a4c6bb7ec185487e9bf82fa540af105f7dc5c0d3a",
+      "source_audit_hash": "097649d798613c027fa350edc5f0e9642878505353122d315802c4a5db2b0b87"
     }
   ],
   "paired_coding_reviews": [
