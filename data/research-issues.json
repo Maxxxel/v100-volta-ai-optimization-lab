@@ -161,15 +161,188 @@
   },
   {
     "subcase": "NOVEMBER-MODEL-FAMILIES",
-    "status": "ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING",
+    "status": "EIGHT_FAMILY_COMPARISON_COMPLETE_WITH_EXPLICIT_GATES",
     "title": "Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16",
-    "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-27T03:41:52.918902+00:00",
     "freeze_priority": "P0_NEW_MODEL_COMPARISON",
-    "next_action": "Seven complete frozen32 screens (R552–R558). Full coding: Ministral8 R560 128/164, Devstral R561 122/164, Phi4 R566 134/164. Full tools: Devstral R563 175/200, Ministral8 R564 153/200. Devstral internal Agent33 R565 22/33; Ministral internal Agent33 R567: 17/33. Mistral Small3.2 coding R568: 129/164, complete and qualified. Phi4 tools R569 is in progress. A mixed-screening-to-tools broker extension passed288 CPU controls but is not activated; any later gpt-oss tool run needs its separate regular admission. Then evidence-based selection and updated Best-of-V100 review. R559 parser and R562 startup 180s blocks remain technical, not quality exclusions. Preserve references and guards; no automatic retries.",
+    "next_action": "R552–R572 reviewed:7 complete frozen32 screens,8 full official-category qualifications,3 complete internal Agent33 profiles. R572 gpt-oss18/33, policy21/33. Retain the balanced reference; no new allround replacement qualified. Nemotron startup and derivative/format gates remain explicit; no automatic retry or new campaign.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
-    "technical_gate": "NEMOTRON_STARTUP180_BEFORE_TASKS_NOT_QUALITY_REJECTED"
+    "technical_gate": "NEMOTRON_STARTUP180_BEFORE_TASKS_NOT_QUALITY_REJECTED",
+    "source_issue_updated_at_utc": "2026-10-27T03:41:51Z",
+    "source_issue_body_sha256": "499a1dd6a022ab1b21a676fc80a0227648bee73b1699c04683f2a3ba66341ff9",
+    "completion_review_sha256": "a6cd139b4eda5e1c464f94d56f8f176eb2096814185539f213526db2d22f36a3",
+    "candidate_decisions": [
+      {
+        "model": "Ministral-3-14B-Instruct-2512",
+        "decision": "DEFER",
+        "reason": "Frozen32 measured; further full qualification deferred while the verified weight cache is evicted. Restore only after storage and information-gain review; no quality exclusion from16 tasks.",
+        "model_sha256": "f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000",
+        "hf_repository": "mistralai/Ministral-3-14B-Instruct-2512-GGUF",
+        "hf_revision": "74fac473c43357d7fb2671713608183cc72496d0",
+        "license": "apache-2.0"
+      },
+      {
+        "model": "gpt-oss-20b",
+        "decision": "ADMIT",
+        "reason": "Measured native MXFP4 software path on SM70. Full parallel200 score0/200 and sequential Agent33 are distinct. Coding remains blocked by the recorded final-header parser mismatch; no general model rejection.",
+        "model_sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901",
+        "hf_repository": "ggml-org/gpt-oss-20b-GGUF",
+        "hf_revision": "15dcfc7e7c608c6161507211ed43c5b590801b4b",
+        "license": "apache-2.0"
+      },
+      {
+        "model": "Ministral-3-8B-Instruct-2512",
+        "decision": "ADMIT",
+        "reason": "Complete coding/tools and authored Agent33 measured. Lower response times trade off lower observed quality and higher VRAM than the retained balanced reference; no allround promotion.",
+        "model_sha256": "bd0ca58473b64618df4d08c1410cc25c910ca84e647833ebaf099e0fc0523b45",
+        "hf_repository": "mistralai/Ministral-3-8B-Instruct-2512-GGUF",
+        "hf_revision": "0102285ad796bd99af90f58de616092e5630e970",
+        "license": "apache-2.0"
+      },
+      {
+        "model": "Phi-4",
+        "decision": "ADMIT",
+        "reason": "Coding fully measured. Generic tool bridge has only a3/32 partial tool prefix; diagnose that profile before more agent/tuning work. No native tool-training claim.",
+        "model_sha256": "537248da5492a9a34b1d811307c6b9226d9539a81653aa9bb0d7ec6104169320",
+        "hf_repository": "bartowski/phi-4-GGUF",
+        "hf_revision": "19cd65f97c2f1712a81c506611d3f9c94b16a1e1",
+        "license": "mit"
+      },
+      {
+        "model": "Devstral-Small-2-24B-Instruct-2512",
+        "decision": "ADMIT",
+        "reason": "Complete coding/tools and authored Agent33 measured. Retain as a documented alternative; no quality/resource evidence justifies replacing the current balanced reference.",
+        "model_sha256": "b46c271d20e9268f94a52cb865374de9ba59c75d7466bf6bd6a240763282af22",
+        "hf_repository": "bartowski/mistralai_Devstral-Small-2-24B-Instruct-2512-GGUF",
+        "hf_revision": "027695770ae1de77c2f6fb19f8e1ba9d65fcd15d",
+        "license": "apache-2.0"
+      },
+      {
+        "model": "Mistral-Small-3.2-24B-Instruct-2506",
+        "decision": "ADMIT",
+        "reason": "Complete coding129/164 and tools147/200 measured. Additional Agent33 is deferred in this round because this profile is slower and has fewer observed coding/tool successes than the retained reference; agent quality remains unknown, not rejected.",
+        "model_sha256": "c7e0e32590ebe0bddb0c1bf5e2b119453d594fa1ff26b0d74dd296b037829ba9",
+        "hf_repository": "bartowski/mistralai_Mistral-Small-3.2-24B-Instruct-2506-GGUF",
+        "hf_revision": "b3592d09be469bedab6be51f577824b3b6b76ba1",
+        "license": "apache-2.0"
+      },
+      {
+        "model": "GLM-4.7-Flash",
+        "decision": "ADMIT",
+        "reason": "Owner-approved total-parameter exception; frozen32 measured. Long native reasoning and four coding length stops are development evidence, not an official quality score. Further full qualification/tuning requires a concrete economical profile hypothesis.",
+        "model_sha256": "21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91",
+        "hf_repository": "unsloth/GLM-4.7-Flash-GGUF",
+        "hf_revision": "0d32489ecb9db6d2a4fc93bd27ef01519f95474d",
+        "license": "mit"
+      },
+      {
+        "model": "Nemotron-3-Nano-30B-A3B",
+        "decision": "TECHNICALLY BLOCKED",
+        "reason": "Owner-approved total-parameter exception. R562 reached the unchanged180-second startup bound before task inference; allocation observed, quality unknown. A longer startup attempt requires separate explicit authorization, not an automatic retry.",
+        "model_sha256": "86b62cc37c27109c915880ee4617ebb5d75ccf82872302b8d2e22c2a7725d954",
+        "hf_repository": "unsloth/Nemotron-3-Nano-30B-A3B-GGUF",
+        "hf_revision": "9ad8b366c308f931b2a96b9306f0b41aef9cd405",
+        "license": "NVIDIA Nemotron Open Model License"
+      }
+    ],
+    "evidence_urls": [
+      "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16#issuecomment-6432341321"
+    ],
+    "source_addendum_review": {
+      "at_utc": "2026-10-27T03:31:50.955131+00:00",
+      "GPU_runs": 0,
+      "model_weight_payload_downloaded_bytes": 0,
+      "metadata_source_sha256": "74495431d59274010ab8af93a99d370acc6fcf6ae28c6e7afe172ada8bb3b5d3",
+      "external_source_sha256": "bf1c634dbe3db24850b4c48b414f704ed768cc31fef9be8cd5ff63d8de8fa013",
+      "mixtral_triage_sha256": "0c33cff715cdde2b894f1866d95915d8b292f23822803046c3fb8393afb7b3cb",
+      "mixtral": {
+        "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+        "revision": "eba92302a2861cdc0098cc54bc9f17cb2c47eb61",
+        "source_url": "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/tree/eba92302a2861cdc0098cc54bc9f17cb2c47eb61",
+        "total_parameters": 46702792704,
+        "decision": "NOT_APPLICABLE_TO_30B_TOTAL_POLICY",
+        "ideal_4bit_weight_bytes": 23351396352.0,
+        "guarded_device_bytes": 15032385536,
+        "reason": "About46.7B total stored parameters; active MoE FLOPs do not reduce resident weights. Even ideal4-bit payload exceeds guarded HBM before KV/workspaces. Extreme low-bit/offload quality and throughput are NOT MEASURED, not declared impossible. No cap exception or GPU run. This is the older2023 Mixtral lineage, not a direct vendor-score comparison with current local models."
+      },
+      "derivatives": [
+        {
+          "model": "fesalfayed/gpt-oss-20b-hermes_agent-tool-finetune_gguf",
+          "revision": "89fe06699c91c2b6fb37879b975435d0a5f923a0",
+          "source_url": "https://huggingface.co/fesalfayed/gpt-oss-20b-hermes_agent-tool-finetune_gguf/tree/89fe06699c91c2b6fb37879b975435d0a5f923a0",
+          "license": "apache-2.0",
+          "local_result": "NOT MEASURED",
+          "weight_delta_verified": false,
+          "decision": "DEFER",
+          "reason": "Publisher claims merged LoRA-SFT; trained-weight delta and benchmark benefit are not independently verified. Q4 file alone exceeds the device guard. Q3 needs header/template/lineage and measured workspace review; do not copy approximate card sizes.",
+          "next_step": "Keep the official measured reference. No derivative download or GPU admission until format, identity, storage and memory gates pass.",
+          "Q3_file_bytes": 12916149760,
+          "Q3_published_sha256": "e9e33160e0fa9cbb9c6b21f230bb44702305cc32d6669e97d354649ca2be18d1",
+          "Q4_file_bytes": 15805135360,
+          "Q4_published_sha256": "e7827781cc95655615d97fa824ffd5373d86915ae6c2fb0d144a3b78476a361d",
+          "nominal_F16_KV_bytes_at_8192": 402653184,
+          "Q3_bytes_remaining_before_workspace": 1713582592,
+          "memory_status": "FILE_PLUS_NOMINAL_KV_ARITHMETIC_NOT_LOAD_QUALIFICATION",
+          "training_evidence": "Publisher LoRA-SFT recipe; card metadata also says base_model_relation=quantized. Not a tensor-difference or quality proof."
+        },
+        {
+          "model": "yasserrmd/gpt-oss-coder-20b",
+          "revision": "6bd1ed23a7de0598955213ed6e78c8c08f83cb40",
+          "source_url": "https://huggingface.co/yasserrmd/gpt-oss-coder-20b/tree/6bd1ed23a7de0598955213ed6e78c8c08f83cb40",
+          "license": "apache-2.0",
+          "local_result": "NOT MEASURED",
+          "weight_delta_verified": false,
+          "decision": "UNVERIFIED",
+          "reason": "Coding SFT is a publisher claim without a reported official benchmark. This revision lists no GGUF; packed U8/BF16 tensor metadata and missing quantization_config need loader/conversion review. The API serialized-value count is not an architectural parameter census.",
+          "next_step": "Resolve checkpoint format, parent revision and a reproducible SM70-compatible artifact before considering a download or screen.",
+          "published_serialized_value_count": 11956805184
+        },
+        {
+          "model": "openai/gpt-oss-safeguard-20b",
+          "revision": "8a11e17b25c973a24099d4016bf2e17dd7ec1574",
+          "source_url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/tree/8a11e17b25c973a24099d4016bf2e17dd7ec1574",
+          "license": "apache-2.0",
+          "local_result": "NOT MEASURED",
+          "weight_delta_verified": false,
+          "decision": "NOT_APPLICABLE_AS_ALLROUNDER",
+          "reason": "Official policy-conditioned safety classifier, not a general coding/agent successor. No local classification result or runtime/memory qualification for this artifact.",
+          "next_step": "Only a separate labelled policy-classification study could justify it. Deterministic external tool authorization must remain authoritative."
+        }
+      ],
+      "external_reports": [
+        {
+          "source_url": "https://github.com/ggml-org/llama.cpp/discussions/15396",
+          "source_body_sha256": "759d47a44f77f5c03e9c9d43fd7cfe784f4cf50708a7b9d2e47967fcb39f0b2e",
+          "gpu": "Tesla V100-PCIE-16GB",
+          "reported_engine": "llama.cpp build6129, commit228f724",
+          "test": "llama-bench tg128; FA1, batch4096, microbatch4096",
+          "decode_tokens_s": 117.71,
+          "reported_spread_tokens_s": 0.3,
+          "model_sha256": null,
+          "status": "EXTERNAL_PRIMARY_REPORT_NOT_LOCAL_MEASUREMENT"
+        },
+        {
+          "source_url": "https://github.com/christopherrobertbrooks-tech/volta-gpt-oss/tree/6da76b63164e773df17774e06f28df9d1cb15186",
+          "source_commit": "6da76b63164e773df17774e06f28df9d1cb15186",
+          "gpu": "Tesla V100-PCIE-32GB",
+          "reported_engine": "llama.cpp build11096, commitc550d2f60, CUDA12.9.86",
+          "test": "llama-bench tg128; FA1, five repetitions; default and4096/2048 batching",
+          "decode_tokens_s": [
+            144.34,
+            143.24
+          ],
+          "reported_spread_tokens_s": [
+            0.32,
+            0.46
+          ],
+          "model_sha256": null,
+          "status": "EXTERNAL_COMMUNITY_REPORT_NOT_LOCAL_MEASUREMENT"
+        }
+      ],
+      "scope": "Source-only addendum. Publisher training claims and synthetic external decode reports do not enter local highscore/model means. Exact external model hashes, quality and GPU energy are not established. Software MXFP4 support is not native Volta FP4 arithmetic."
+    }
   },
   {
     "subcase": "NOVEMBER-HARNESS",

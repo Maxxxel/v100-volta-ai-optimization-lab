@@ -544,3 +544,35 @@ class ZeroSuccessEnergy(unittest.TestCase):
  def test_measured_energy_with_zero_successes_has_no_invented_ratio(self):
   from render import new_family_section
   s,h=NewFamilyEvidence().fixture();r=h['runs'][0];r['solved']=0;r['counter_energy']={'tasks':164,'solved':0,'lower_j':10.,'upper_j':11.,'j_per_success_lower':None,'j_per_success_upper':None};text=new_family_section(s,h,[]);self.assertIn('0/164',text);self.assertIn('10.0–11.0',text);self.assertIn('UNDEFINED (0 successes)',text);self.assertNotIn('None–None',text)
+
+class ComparisonDecision(unittest.TestCase):
+ def fixture(self):
+  s,h=NewFamilyEvidence().fixture();c=h['runs'][0];c['solved']=129;c['wall_s']=425.
+  tool=copy.deepcopy(c);tool.update(experiment_id='R571',benchmark_id='bfcl-v4-parallel-multiple-full200',benchmark_identity_id='bench-tools',tasks=200,solved=147,wall_s=344.);h['runs'].append(tool);s['rows'][0]['full_benchmark_runs'].append({k:tool[k] for k in ('experiment_id','runtime_configuration_id','benchmark_identity_id','audit_hash')})
+  for source,eid,solved,wall in [(c,'R516',134,575.),(tool,'R517',178,498.)]:
+   ref=copy.deepcopy(source);ref.update(experiment_id=eid,runtime_configuration_id='cfg-reference',solved=solved,wall_s=wall);h['runs'].append(ref)
+  return s,h
+ def test_whole_profile_tradeoff_does_not_claim_quality_preserving_speedup(self):
+  from render import new_family_section
+  s,h=self.fixture();text=new_family_section(s,h,[]);self.assertIn('1 new native profiles',text);self.assertIn('no new allround replacement is qualified',text);self.assertIn('Lower observed response time',text);self.assertIn('not a quality-preserving optimization or causal speedup',text)
+  h['runs'][0]['solved']=134;text=new_family_section(s,h,[]);self.assertNotIn('All these completed new coding/tool pairs have fewer',text)
+ def test_different_exact_protocol_cannot_support_reference_comparison(self):
+  from render import new_family_section
+  s,h=self.fixture();next(r for r in h['runs'] if r['experiment_id']=='R517')['benchmark_identity_id']='different-protocol';self.assertNotIn('Updated comparison decision',new_family_section(s,h,[]))
+
+class Issue16SourceAddendum(unittest.TestCase):
+ def fixture(self):
+  from pathlib import Path
+  issues=json.loads((Path(__file__).resolve().parents[1]/'data/research-issues.json').read_text());return next(x for x in issues if x['url'].endswith('/issues/16'))
+ def test_current_issue_state_uses_the_real_url_identity_and_all_eight_dispositions(self):
+  issue=self.fixture();self.assertEqual(len(issue['candidate_decisions']),8);self.assertEqual(len({r['model_sha256'] for r in issue['candidate_decisions']}),8);self.assertIn('R572',issue['next_action']);self.assertNotIn('R569 is in progress',issue['next_action']);self.assertIn('COMPLETE',issue['status'])
+ def test_external_sources_and_derivatives_are_not_local_benchmark_results(self):
+  from render import issue16_source_section
+  r=self.fixture()['source_addendum_review'];page=issue16_source_section(r);self.assertIn('NOT MEASURED',page);self.assertIn('excluded from local rankings',page);self.assertIn(str(r['derivatives'][0]['Q3_file_bytes']),page);self.assertIn('not measured resident VRAM or admission',page)
+  for key in ('GPU_runs','model_weight_payload_downloaded_bytes'):
+   bad=copy.deepcopy(r);bad[key]=1
+   with self.assertRaises(AssertionError):issue16_source_section(bad)
+  bad=copy.deepcopy(r);bad['derivatives'][0]['local_result']='100%'
+  with self.assertRaises(AssertionError):issue16_source_section(bad)
+  bad=copy.deepcopy(r);bad['mixtral']['guarded_device_bytes']+=1
+  with self.assertRaises(AssertionError):issue16_source_section(bad)

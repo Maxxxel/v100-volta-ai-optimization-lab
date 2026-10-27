@@ -10,6 +10,29 @@ def put(n,s):
 def pretty(x):return '```json\n'+json.dumps(x,ensure_ascii=False,indent=2)+'\n```\n'
 def esc(x):return str(x if x is not None else 'NOT MEASURED / not recorded').replace('|','\\|').replace('\n',' ')
 def table(headers,rows):return '| '+' | '.join(headers)+' |\n|'+'|'.join(['---']*len(headers))+'|\n'+''.join('| '+' | '.join(esc(x) for x in row)+' |\n' for row in rows)+'\n'
+def issue16_source_section(review):
+ assert review['GPU_runs']==review['model_weight_payload_downloaded_bytes']==0
+ mix=review['mixtral'];assert mix['total_parameters']>30_000_000_000 and mix['guarded_device_bytes']==14336*1024**2 and mix['ideal_4bit_weight_bytes']==mix['total_parameters']/2
+ rows=[]
+ for r in review['derivatives']:
+  assert r['local_result']=='NOT MEASURED' and r['weight_delta_verified'] is False
+  if 'Q3_file_bytes' in r:
+   assert r['Q4_file_bytes']>mix['guarded_device_bytes'] and r['Q3_bytes_remaining_before_workspace']==mix['guarded_device_bytes']-r['Q3_file_bytes']-r['nominal_F16_KV_bytes_at_8192']
+  rows.append(['['+r['model']+']('+r['source_url']+')',r['revision'],r['decision'],r['reason'],r['next_step']])
+ text=''
+ text+='**No derivative GPU run or weight-payload download.** Local quality for these source-only leads: **NOT MEASURED**. Publisher training claims are not independently verified weight deltas or local benchmark results.\n\n'
+ text+='['+mix['model']+']('+mix['source_url']+'): **'+mix['decision']+'** — '+mix['reason']+'\n\n'
+ text+=table(['Source-pinned candidate','Revision','Decision','Evidence / limit','Reopen condition'],rows)
+ hermes=next(r for r in review['derivatives'] if 'Q3_file_bytes' in r)
+ text+='Hermes exact published file sizes: Q3_K_M '+str(hermes['Q3_file_bytes'])+'B; Q4_K_M '+str(hermes['Q4_file_bytes'])+'B. Q3 plus nominal8K F16 KV leaves '+str(hermes['Q3_bytes_remaining_before_workspace'])+'B before workspace and other allocations; this is arithmetic, **not measured resident VRAM or admission**. Published artifact checksums remain metadata, not local payload verification.\n\n'
+ external=[]
+ for r in review['external_reports']:
+  assert r['status'].startswith('EXTERNAL_') and r['model_sha256'] is None
+  external.append(['[Primary report]('+r['source_url']+')',r['gpu'],r['reported_engine'],r['test'],r['decode_tokens_s'],r['reported_spread_tokens_s']])
+ text+='### External synthetic decode evidence — excluded from local rankings\n\n'+table(['Source','Reported GPU','Reported engine','Workload','Decode tok/s','Reported spread'],external)
+ text+=review['scope']+' Exact external weight revisions, power limits, quality and energy are not established; neither report is a matched SXM2 experiment.\n\n'
+ text+='Metadata snapshot SHA256: `'+review['metadata_source_sha256']+'`; external primary-source snapshot: `'+review['external_source_sha256']+'`; original Mixtral triage: `'+review['mixtral_triage_sha256']+'`.\n'
+ return '\n??? note "Issue16 source-only addendum · Mixtral, GPT-OSS derivatives and external Volta reports"\n\n'+''.join(('    '+line if line else '')+'\n' for line in text.splitlines())+'\n'
 def agent_diagnostics_table(agents):
  rows=[]
  def pair(d,first,second):
@@ -199,6 +222,24 @@ def new_family_section(screening,history,experiments):
  text='## New-family evidence — current extension\n\nAll eight requested candidates remain visible. Development16+16 results are not official scores; complete categories below use exact verified profile/audit links. Missing categories are not zero, and small screening differences do not exclude a model.\n\n'
  text+='The regular total-parameter gate is30B. GLM4.7Flash and Nemotron3Nano have explicit owner-approved parameter-count exceptions; memory, runtime and hardware guards are unchanged.\n\n'
  text+=table(['Model','Quant','Dev coding /16','Dev mock tools /16','HumanEval+164 qualified','BFCL parallel200 qualified','Disposition'],rows)
+ references={}
+ for eid,bid in [('R516','humanevalplus-v0.1.10'),('R517','bfcl-v4-parallel-multiple-full200')]:
+  matches=[r for r in history['runs'] if r['experiment_id']==eid and r['benchmark_id']==bid and r.get('official_eligible') is True]
+  if matches:
+   assert len({json.dumps({k:r[k] for k in ('runtime_configuration_id','benchmark_identity_id','solved','tasks','wall_s')},sort_keys=True) for r in matches})==1
+   references[bid]=matches[0]
+ if len(references)==2:
+  comparable=[]
+  for row in review['models']:
+   points={bid:[p for p in row['qualified_runs'] if p['benchmark_id']==bid and p['benchmark_identity_id']==ref['benchmark_identity_id']] for bid,ref in references.items()}
+   if all(len(v)==1 for v in points.values()):comparable.append((row,[v[0] for v in points.values()]))
+  if comparable:
+   text+='### Updated comparison decision\n\nThe unchanged OmniCoder bartowski Q6, MTP OFF reference has '+str(references['humanevalplus-v0.1.10']['solved'])+'/164 coding '+link('R516')+' and '+str(references['bfcl-v4-parallel-multiple-full200']['solved'])+'/200 tools '+link('R517')+'. '+str(len(comparable))+' new native profiles have complete results on both exact benchmark definitions.\n\n'
+   if all(all(p['solved']<references[p['benchmark_id']]['solved'] for p in points) for row,points in comparable):
+    text+='All these completed new coding/tool pairs have fewer observed successes in both categories. **Retain the established balanced reference; no new allround replacement is qualified.** This is a finite-benchmark comparison, not a population-superiority proof or permanent model exclusion.\n\n'
+   faster=[row['model'] for row,points in comparable if all(p['wall_s'] is not None and references[p['benchmark_id']]['wall_s'] is not None and p['wall_s']<references[p['benchmark_id']]['wall_s'] for p in points)]
+   if faster:text+='Lower observed response time on both categories: **'+', '.join(faster)+'**. Read the exact success counts and resource costs together: this is a whole-profile quality/latency tradeoff, not a quality-preserving optimization or causal speedup.\n\n'
+   text+='Coding-only, tool-only, blocked and screening-only candidates remain under review in their measured scopes. A failed interface or small development score is not grounds for a general model rejection. Agent33 and policy behavior remain separate evidence below; official Terminal-Bench remains NOT MEASURED.\n\n'
  text+='??? note "Qualified-run resource measurements and exact profiles"\n\n'
  text+=''.join('    '+line+'\n' if line else '\n' for line in table(['Model','Category','Run','Response wall s','GPU J bounds','GPU J/success bounds','Peak VRAM MiB','Configuration'],costs).splitlines())
  text+='\nResponse wall excludes startup/warmup/CPU scoring; counter-energy groups include failed tasks and between-request setup. Bounds describe query timing, not confidence intervals or system energy. Different task coverage, output behavior and profiles prevent a causal speed ranking.\n\n'
@@ -213,7 +254,9 @@ def new_family_section(screening,history,experiments):
  if review['agent_profiles']:
   text+='### Separate authored Agent33 profiles\n\nThese are independently replayed internal validation profiles, not Terminal-Bench or official ranking inputs. They are listed separately; shared weights alone do not prove identical inference settings.\n\n'
   text+=table(['Run','Verified success','Policy passes','TASK s','GPU J/success bounds','Peak VRAM MiB','Profile SHA256'],[[link(a['experiment_id']),str(a['solved'])+'/33',str(a['policy_gate_passes'])+'/33',a['task_phase_s'],str(a['gpu_j_per_success_lower'])+'–'+str(a['gpu_j_per_success_upper']),a['peak_device_vram_mib'],a['profile_sha256']] for a in review['agent_profiles']])
- text+='The core decision below is a **dated baseline**, not a completed review of these additional families. Further qualification is retained in the [screening and qualification view](screening.md); Jarvis deployment remains deferred.\n\n'
+  reference=next((e.get('aggregate_metrics',{}).get('native_validation33') for e in experiments if e['id']=='R536'),None)
+  if reference and all(a['solved']<reference['solved'] for a in review['agent_profiles']):text+='Every measured new agent profile has fewer observed successes on this authored set than the retained '+str(reference['solved'])+'/33 reference '+link('R536')+'. Grouped samples are small and exposed: this is not population inferiority, equivalence or safety certification. Tool authorization stays deterministic outside the model.\n\n'
+ text+='The original core gate below remains a **dated baseline**; the current family comparison extends its evidence without rewriting its provenance or reference profiles. Further gates are retained in the [screening and qualification view](screening.md); Jarvis deployment remains deferred.\n\n'
  return text
 
 def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issues=None,screening=None,history=None):
@@ -232,6 +275,8 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
  else:
   text+='**Pre-freeze draft · evidence through R551 · review '+review['at_utc'][:10]+'. Final research freeze:31 October 2026.** No universal winner, production deployment or official 3/3 result is established.\n\n'
  if screening is not None and history is not None:text+=new_family_section(screening,history,experiments)
+ scoped=next((x for x in issues or [] if x.get('completion_review_sha256')),None)
+ if scoped:text+='**Eight-family review completed with explicit scope limits.** Source/decision review SHA256: `'+scoped['completion_review_sha256']+'`. [Candidate dispositions and source-only addendum](questions.md). This is not qualification of deferred profiles, a new universal Champion or production approval.\n\n'
  text+='## Dated core decision — evidence through R551\n\n'
  text+='- **Jarvis sandbox baseline: OmniCoder bartowski Q6, MTP OFF.** Coding '+score(bart_c)+', tools '+score(bart_t)+'; separately measured local Agent33 '+score(bart_a)+' with '+str(bart_a['policy_gate_passes'])+'/33 policy passes. Retain for isolated integration, not a safety certificate or general model-superiority claim. '+link('R516')+' · '+link('R517')+' · '+link('R536')+'\n'
  text+='- **Coding quality: Gemma4 nonthinking QAT profile.** '+score(gemma)+' is the highest observed coding score among the core profiles. Its tools and local agent results do not support the same allround recommendation. '+link('R464')+' · '+link('R472')+' · '+link('R534')+'\n'
@@ -277,7 +322,8 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
  if issues:
   progress='#10/#11 retain broader issue histories; the current mission decision package has been reviewed with declared limits' if release else '#10/#11 remain finalization work'
   text+='Open GitHub snapshot: **'+str(sum(x.get('github_state')=='OPEN' for x in issues))+' open / '+str(sum(x.get('github_state')=='CLOSED' for x in issues))+' closed**. '+progress+'; #13 has completed parser checks but an unresolved causal explanation. #2/#3/#4/#8 retain technical source/model gates. Issue16 new-family qualification is active; issues17/18 begin with retained evidence and CPU analysis, not automatic GPU authorization. [All dispositions and evidence](questions.md). Workflow closure is not experimental qualification.\n\n'
- text+='## Remaining research priorities\n\n1. Complete the current admitted new-family comparisons and append a new evidence review; preserve this core baseline and all negative/partial results.\n2. Official agent evaluator/container/gateway admission and a defensible full Terminal-Bench protocol/budget decision.\n3. Independent agent/security validation and measured recovery/switch/routing costs before widening Jarvis permissions or orchestration. Minimal-versus-complex harness work remains separately admitted; current CPU evidence does not establish a general winner.\n4. Remaining concrete matrix subcases or source/reproduction gaps only when their prerequisites and expected practical information gain justify a new isolated experiment.\n\n'
+ first_priority='Preserve the completed eight-family comparison and its explicit gates; no automatic new model or optimization campaign.' if scoped and scoped.get('status')=='EIGHT_FAMILY_COMPARISON_COMPLETE_WITH_EXPLICIT_GATES' else 'Complete the current admitted new-family comparisons and append a new evidence review; preserve this core baseline and all negative/partial results.'
+ text+='## Remaining research priorities\n\n1. '+first_priority+'\n2. Official agent evaluator/container/gateway admission and a defensible full Terminal-Bench protocol/budget decision.\n3. Independent agent/security validation and measured recovery/switch/routing costs before widening Jarvis permissions or orchestration. Minimal-versus-complex harness work remains separately admitted; current CPU evidence does not establish a general winner.\n4. Remaining concrete matrix subcases or source/reproduction gaps only when their prerequisites and expected practical information gain justify a new isolated experiment.\n\n'
  hold=pipeline.get('publication_lock_observation',{}).get('observed_hold_window_s');events=pipeline.get('verified_capacity_events')
  text+='## Pipeline and freeze readiness\n\nMeasured publication-lock hold: '+str(hold)+' s (corrected). Verified capacity events: '+str(events)+'. Capacity-only wait remains **NOT MEASURED**; clock gaps are not relabeled GPU idle or cloud wait. [Original timing evidence](pipeline-performance.md).\n\n'
  text+='Research map: 130 original axes + 32 techniques; '+str(counts['experimentally_covered'])+' experimentally covered, '+str(counts['scientific_status']['QUALIFIED'])+' scoped qualified factors. Reviewed factors, GPU captures, category qualifications and reference pointers are different inventories. No 100% experimental-coverage claim.\n\n'
@@ -561,6 +607,13 @@ See the [pinned source registry](sources.md) and [factor details](matrix.md). Pu
  priority='Current P0: owner-authorized new-family model qualification (#16); the dated Best-of-V100 decision remains a baseline.' if issue16_active else 'Current P0: final research/model decision (#10/#11).'
  questions='# Open questions & research proposals\n\nGitHub snapshot: '+max(x.get('github_checked_at_utc','') for x in issue_registry)+'. **'+str(len(open_issues))+' open / '+str(len(closed_issues))+' closed**. This is not a live issue monitor. Workflow closure, scientific disposition and optimization qualification are separate.\n\n'+priority+' Source/kernel gates remain conditional. Harness CPU reviews (#17/#18) do not authorize new GPU ablations. No factor count or GPU coverage is increased by this registry.\n\n'
  questions+=table(['Subcase','Open GitHub issue','Research disposition','Freeze priority','Next step / evidence'],issue_rows(open_issues))
+ for issue in issue_registry:
+  if issue.get('candidate_decisions'):
+   questions+='\n??? note "Eight-family technical dispositions · measured scope and next gate"\n\n'
+   matrix=table(['Candidate / pinned artifact source','Disposition','Measured scope / reopen condition','License'],[['['+r['model']+'](https://huggingface.co/'+r['hf_repository']+'/tree/'+r['hf_revision']+')',r['decision'],r['reason'],r['license']] for r in issue['candidate_decisions']])
+   questions+=''.join(('    '+line if line else '')+'\n' for line in matrix.splitlines())
+   questions+='\nADMIT identifies reviewed execution scope, not an allround Champion. DEFER and technical blocks do not measure zero quality. Completion review SHA256: `'+issue['completion_review_sha256']+'`.\n\n'
+  if issue.get('source_addendum_review'):questions+=issue16_source_section(issue['source_addendum_review'])
  prefix_review=next((x for x in issue_registry if x.get('prefix_recurrence')),None)
  if prefix_review:
   recurrence=prefix_review['prefix_recurrence']

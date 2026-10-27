@@ -9,7 +9,7 @@
 
 ## Research pipeline
 
-**Current phase: new model-family screening.** The previous Best-of-V100 decision is a reference baseline. Jarvis integration is deferred while [issue16 candidates](docs/questions.md) pass the existing [screening protocol](docs/screening.md).
+
 
 [Best-of-V100 research decision](docs/best-of-v100-2026.md) · [Screening](docs/screening.md) → [Official qualification](docs/configuration-comparison.md) → [Targeted optimization](docs/configurations.md). Development screens stay outside official scores.
 
@@ -31,7 +31,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **435** · 2026-10-24. 490 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **435** · 2026-10-24. 491 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](docs/methodology.md) · [Hardware](docs/hardware.md) · [Reproduce](docs/reproduce.md).
 

@@ -23993,5 +23993,90 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 481.951442416,
+          "group_window_s": 481.95792992,
+          "lower_j": 104996.236,
+          "upper_j": 105094.107
+        },
+        "actual_generation_requests": 168,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 481.951442416,
+        "completed_request_wall_s": 474.26327528,
+        "completion_tokens": 41986,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 5833.124222222223,
+        "gpu_j_per_success_upper": 5838.5615,
+        "independent_review_audit_id": "audit-c9525f05269347a75d66",
+        "independent_review_sha256": "c9525f05269347a75d66a911e64205b685b1163d1d923cb64960d7172c34f0ce",
+        "max_output_tokens": 4096,
+        "model_sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 1,
+          "case_lost": 11,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 0.125,
+          "net_success_change": -10,
+          "nonzero_groups": 4,
+          "reference_experiment_id": "R536",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 11942.5,
+        "planned_tasks": 33,
+        "policy_gate_passes": 21,
+        "profile_sha256": "f6babe5223b3803e9aa5c1aa4070abfed2fbb72d874fa70d6a327a8c22303de7",
+        "quality_diagnostics": {
+          "evidence_or_postcondition_failure_cases": 5,
+          "final_contract_failure_cases": 0,
+          "incorrect_facts_cases": 5,
+          "invalid_action_cases": 0,
+          "invalid_action_events": 0,
+          "invalid_final_contract_cases": 0,
+          "missing_valid_final_cases": 0,
+          "parse_failed_cases": 0,
+          "parse_failed_rounds": 0,
+          "policy_violation_cases": 12,
+          "policy_violation_events": 15,
+          "rejected_tool_call_cases": 12,
+          "rejected_tool_call_events": 15,
+          "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+          "wrong_final_status_cases": 2,
+          "wrong_reason_code_cases": 2
+        },
+        "solved": 18,
+        "successful_tasks_per_s": 0.03734709292502269,
+        "task_limit_s": 1200,
+        "task_phase_s": 481.965223803,
+        "task_scope_passes": 33,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 88.52888719922898,
+        "winner_qualified": false
+      },
+      "solved": 18,
+      "tasks": 33
+    },
+    "audit_id": "audit-a3013b8dd00c88d12abe",
+    "date": "2026-10-27T03:08:15.394045+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R572",
+    "model": "gpt-oss-20b",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a5edb85493326498a05b",
+      "audit-fcadd705b67b9a2360eb"
+    ],
+    "statements": {},
+    "winner_qualified": false
   }
 ]

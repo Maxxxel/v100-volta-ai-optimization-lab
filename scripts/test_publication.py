@@ -232,7 +232,10 @@ class IssueFreezeRegistry(unittest.TestCase):
   self.assertIn('separate admission',by_id[18]['next_action'])
   self.assertEqual(len(by_id[18]['source_issue_body_sha256']),64)
   self.assertEqual(by_id[16]['freeze_priority'],'P0_NEW_MODEL_COMPARISON')
-  self.assertEqual(by_id[16]['status'],'ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING')
+  self.assertEqual(by_id[16]['status'],'EIGHT_FAMILY_COMPARISON_COMPLETE_WITH_EXPLICIT_GATES')
+  self.assertEqual(len(by_id[16]['completion_review_sha256']),64)
+  self.assertEqual(len(by_id[16]['candidate_decisions']),8)
+  self.assertEqual(sum(x['decision']=='TECHNICALLY BLOCKED' for x in by_id[16]['candidate_decisions']),1)
 
 class AgentQualityDiagnostics(unittest.TestCase):
  def cases(self):
