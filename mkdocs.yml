@@ -53,6 +53,7 @@ extra:
 nav:
   - Overview: index.md
   - Best-of V100: best-of-v100-2026.md
+  - Candidate qualification: final-qualification.md
   - Screening: screening.md
   - Benchmarks: configuration-comparison.md
   - Research archive:

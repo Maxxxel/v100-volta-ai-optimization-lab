@@ -1,11 +1,14 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T08:38:28.685349+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T09:45:22.019201+00:00. This static page is not a live monitor.**
 
-Last observed: R580 · AUDITED_RESULT_AVAILABLE.
+Last observed: R585 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R585](experiments/R585.md) | COMPLETE | 164/164 | 21.772 | 346.901 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R584](experiments/R584.md) | COMPLETE | 200/200 | 22.271 | 474.893 | 0.396 | NOT MEASURED / NOT MEASURED |
+| [R583](experiments/R583.md) | COMPLETE | 164/164 | 96.575 | 897.069 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R581](experiments/R581.md) | COMPLETE | 200/200 | 116.142 | 444.066 | 0.386 | NOT MEASURED / NOT MEASURED |
 | [R580](experiments/R580.md) | COMPLETE | 33/33 | 104.039 | 342.339 | 1.426 | NOT MEASURED / NOT MEASURED |
 | [R578](experiments/R578.md) | COMPLETE | 164/164 | 134.029 | 689.385 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
@@ -362,6 +365,19 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R580 | tests | COMPLETE | 3.274 |
 | R580 | security | COMPLETE | 12.39 |
 | R580 | build | FAILED | 10.287 |
+| R580 | export | COMPLETE | 40.85 |
+| R580 | render | COMPLETE | 1.518 |
+| R580 | tests | COMPLETE | 5.326 |
+| R580 | tests | COMPLETE | 3.173 |
+| R580 | security | COMPLETE | 12.541 |
+| R580 | build | FAILED | 10.637 |
+| R583 | collect | FAILED | 0.164 |
+| R583 | collect | FAILED | 37.719 |
+| R584 | collect | COMPLETE | 2.31 |
+| R584 | integrity | COMPLETE | 0.034 |
+| R585 | collect | COMPLETE | 25.151 |
+| R585 | independent_review | COMPLETE | 0.034 |
+| R585 | integrity | COMPLETE | 0.035 |
 
 </details>
 

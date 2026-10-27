@@ -338,6 +338,63 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
   text+='This snapshot prepares the seven freeze deliverables: role decisions; the existing complete comparison; positive/negative optimization evidence; exact configuration/source material; explicit gaps; release status; and a prioritized backlog. **Final 31-October freeze audit is still pending.** Any new result must append audited evidence and preserve this snapshot’s provenance; dates do not authorize weaker gates or budget resets.\n'
  return text
 
+def final_qualification_review(screening,history,experiments):
+ """Artifact inventory and exact-run frontier; never pool configurations or infer missing scores."""
+ from leaderboard import role_comparison
+ notes={
+ 'R497':('REVIEWED','Canonical OmniCoder remains an alternative; compare R471/R478/R530 with the separately quantized bartowski artifact. Shared family names are not weight identity.'),
+ 'R487':('REVIEWED','Nexus native OFF/T0 has complete coding/tools and separate Agent33. Retain as an efficiency candidate; the original Thinking profile is separate.'),
+ 'R498':('DEFERRED','Slopus OFF has full coding/tools; Nexus OFF has better observed scores, latency and energy in both categories at the same peak-memory class. Additional agent qualification is deferred for current selection, not inferred agent inferiority.'),
+ 'R499':('DEFERRED','Opus Distill OFF has full coding/tools; the Qwen3.5 reference has better observed scores and lower latency, energy and VRAM in both categories. Unmeasured agent capability is unknown; further work requires a concrete specialist hypothesis.'),
+ 'R500':('REVIEWED','Ornith OFF/T0 has complete categories and Agent33; retain the observed latency/quality tradeoff without transferring scores from its earlier Thinking profile.'),
+ 'R501':('REVIEWED','Qwen3.5 remains the lower-memory comparison with complete coding/tools and Agent33; not excluded by parameter count or screening.'),
+ 'R502':('REVIEWED','Qwen3.8 MTP3 has full coding/tools and Agent33 as a separately captured profile. Earlier OFF BFCL partials do not become full results. Higher memory and task cost are material.'),
+ 'R503':('REVIEWED','Gemma nonthinking QAT has complete 8K coding/tools. Agent33 at16K is a different context profile and cannot fill the missing 8K agent cell. Retain coding-specialist evidence; no population safety claim.'),
+ 'R504':('DEFERRED','MiMo has full coding/tools. Lower-memory alternatives have stronger observed category quality and lower task cost. Missing Agent33 is unknown; restoring an evicted cache is not justified without an additional role-specific hypothesis.'),
+ 'R505':('DEFERRED','LFM8 has complete coding/tools but lower observed success than the efficient references in both categories. No inference about unmeasured agent quality; further qualification is deferred for this selection.'),
+ 'R506':('DEFERRED','LFM24 has a full6/200 parallel-tool result. Archived source/response analysis found214 calls, not a parser loss of extra calls. Coding remains NOT MEASURED; defer additional qualification for the current parallel-tool Jarvis role, not a coding incapability claim.'),
+ 'R507':('DEFERRED','Qwen3.6 BFCL R492 is137/157 PARTIAL, not a full200 score. The original budget and negative/partial evidence remain intact; no identical retry or restoration of an evicted artifact without a new justified hypothesis.'),
+ 'R508':('DEFERRED','Bonsai historical coding151/164 used2519.7547 seconds and is outside the current1200-second TASK envelope. Parallel tools R475 is145/171 partial. Simple400 is a different category. No transfer or automatic budget extension.'),
+ 'R514':('REVIEWED','Qwen0.8 now has full17/164 coding and79/200 tools. The low memory footprint is measured; weak16-case development scores were not used as a hard exclusion. Agent33 is NOT MEASURED.'),
+ 'R515':('REVIEWED','OmniCoder bartowski Q6 MTP OFF has full coding/tools and separately measured Agent33. MTP3 tool efficiency does not erase its coding/agent quality regressions.'),
+ 'R552':('REVIEWED','Ministral14 has full135/164 coding,163/200 tools and16/33 Agent33. Evaluate response-time/resource tradeoffs without claiming a general quality-preserving speedup.'),
+ 'R553':('DEFERRED_TOOLS','gpt-oss parser-compatible R583 coding150/164 is a separate build from R570 tools0/200. CPU/source diagnosis retains the singleton parallel-call grammar limitation. Final-code extraction was fixed; parallel tools were not. No score transfer or identical200-task retry.'),
+ 'R554':('REVIEWED','Ministral8 has full128/164 coding,153/200 tools and17/33 Agent33; all results retained. Compare lower task cost against measured quality and policy failures.'),
+ 'R555':('DEFERRED_TOOLS','Phi4 full coding134/164 retained. R569 tools3/32 is partial:1163.880 seconds response wall,12 length stops and raw repeated calls. CPU raw/structured review matches all32 replies; a new justified bridge/profile is needed before another full attempt.'),
+ 'R556':('REVIEWED','Devstral24 has full122/164 coding,175/200 tools and22/33 Agent33. Larger memory/task cost must buy role-specific quality; no general model rejection.'),
+ 'R557':('REVIEWED','Mistral Small3.2 has full129/164 coding and147/200 tools. The evicted weight cache does not invalidate results or establish a quality failure. Agent33 is NOT MEASURED.'),
+ 'R558':('REVIEWED_WITH_LIMIT','GLM default Thinking has full168/200 tools but coding36/44 partial after wrapper stop. R578/R581 nonthinking is separate; no profile merging or automatic repeat. Further default-profile coding is deferred under the current budget.'),
+ 'R577':('REVIEWED_WITH_LIMIT','GLM native nonthinking has full109/164 coding and154/200 tools. R581 includes recorded background relocation; observed resource costs are not a clean causal efficiency gain. Agent33 is NOT MEASURED.'),
+ None:('TECHNICALLY_BLOCKED','Nemotron R562 reached the180-second startup gate before any task. No OOM was proven. The proposed startup extension is not authorized; keep the current guard and do not retry.')}
+ profiles={p['runtime_configuration_id']:p for p in history['profiles']};rows=[]
+ for item in screening['rows']:
+  eid=item.get('experiment_id')
+  if eid not in notes:raise ValueError('Candidate has no explicit qualification disposition')
+  if eid is None and item['model']!='Nemotron-3-Nano-30B-A3B':raise ValueError('Unidentified candidate cannot inherit the Nemotron startup decision')
+  status,reason=notes[eid];sha=item['configuration']['model_sha256'];seen=set();links=[]
+  for r in history['runs']:
+   if not r.get('official_eligible') or r['benchmark_id'] not in {'humanevalplus-v0.1.10','bfcl-v4-parallel-multiple-full200'}:continue
+   if profiles[r['runtime_configuration_id']]['model']['artifact_sha256']!=sha:continue
+   key=(r['experiment_id'],r['runtime_configuration_id'],r['benchmark_identity_id'])
+   if key in seen:continue
+   seen.add(key);links.append('['+r['experiment_id']+': '+str(r['solved'])+'/'+str(r['tasks'])+'](configuration-profiles/'+r['runtime_configuration_id']+'.md)')
+  reason=re.sub(r'\bR[1-9][0-9]{1,3}\b',lambda m:'['+m[0]+'](experiments/'+m[0]+'.md)',reason)
+  rows.append([item['model'],sha[:12],status,'; '.join(links) or 'NOT MEASURED',reason])
+ text='# Final model qualification — candidate review\n\n**Evidence through R585; Top-3 selection pending.** No production approval, exhaustive tuning campaign or new GPU run. Every inventory profile is shown; artifact-associated results below link to their exact original configurations and must not be pooled into one score. Duplicate GLM artifacts represent different Thinking profiles.\n\n'
+ text+=table(['Inventory profile','Weight SHA256 prefix','Disposition','Complete official evidence — exact profiles','Decision / remaining limit'],rows)
+ selection={'coding':[],'tools':[],'agents_development':[]}
+ for role,bid in [('coding','humanevalplus-v0.1.10'),('tools','bfcl-v4-parallel-multiple-full200')]:
+  selection[role]=sorted({r['experiment_id'] for r in history['runs'] if r.get('official_eligible') and r['benchmark_id']==bid},key=lambda e:int(e[1:]))
+ selection['agents_development']=[e['id'] for e in experiments if e.get('aggregate_metrics',{}).get('native_validation33')]
+ review=role_comparison(history,experiments,selection)
+ text+='\n## All-qualified-profile comparison\n\n'+review['method']+' Historical runs outside the current TASK envelope remain historical evidence, not a newly feasible baseline. Throughput is not inferred from task wall time. Missing metrics remain unknown.\n\n'
+ for category,group in review['categories'].items():
+  text+='### '+category.title()+'\n\n'
+  text+=table(['Exact run/profile','Success','Response s/task','GPU J/success bounds','Peak MiB','Observed frontier','Dominated by'],[[ '['+r['experiment_id']+' — '+r['model']+'](configuration-profiles/'+r['runtime_configuration_id']+'.md)',str(r['solved'])+'/'+str(r['tasks']),r['seconds_per_task'],str(r['energy_lower'])+'–'+str(r['energy_upper']) if r['energy_lower'] is not None else 'NOT MEASURED',r['peak_vram_mib'],r['pareto_status'],', '.join(r['dominated_by']) or '—'] for r in group['points']])
+ text+='\n## Agent and safety limits\n\n'+str(len(review['agents_development']))+' authored Agent33 profiles are preserved separately in [qualified configurations](configurations.md). They are not Terminal-Bench, population safety rates or independent repetitions of33 unrelated tasks. Policy failures prohibit a production-safety claim. Official Terminal-Bench remains technically blocked by its retained execution-prerequisite gate.\n\n'
+ text+='## Handoff\n\nFinalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.\n'
+ return text
+
 def main():
  s=read('snapshot.json');fs=read('factors.json');es=read('experiments.json');audits={x['id']:x for x in read('audit-excerpts.json')};profiles=read('profiles.json');refs={x['id']:x for x in read('references.json')};models=read('models.json');counts=s['counts']
  history=read('configuration-history.json');register=read('benchmark-register.json')
@@ -755,6 +812,7 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods=D/'pipeline-methods.md'
  from screening import render_native_agent_development
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
+ put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():
   from pipeline import render as render_pipeline

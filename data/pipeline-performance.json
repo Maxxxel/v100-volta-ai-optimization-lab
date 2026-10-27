@@ -2057,11 +2057,102 @@
       "experiment_id": "R580",
       "phase": "build",
       "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-27T08:39:09.820580+00:00",
+      "duration_s": 40.849715016,
+      "experiment_id": "R580",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T08:39:11.342512+00:00",
+      "duration_s": 1.518164586,
+      "experiment_id": "R580",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T08:39:16.671692+00:00",
+      "duration_s": 5.325902939,
+      "experiment_id": "R580",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T08:39:19.847119+00:00",
+      "duration_s": 3.173153075,
+      "experiment_id": "R580",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T08:39:32.390674+00:00",
+      "duration_s": 12.540750803,
+      "experiment_id": "R580",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T08:39:43.029990+00:00",
+      "duration_s": 10.636901395,
+      "experiment_id": "R580",
+      "phase": "build",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-27T08:55:51.237365+00:00",
+      "duration_s": 0.164291682,
+      "experiment_id": "R583",
+      "phase": "collect",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-27T08:59:34.135325+00:00",
+      "duration_s": 37.719303856,
+      "experiment_id": "R583",
+      "phase": "collect",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-27T09:18:42.983744+00:00",
+      "duration_s": 2.310081407,
+      "experiment_id": "R584",
+      "phase": "collect",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T09:18:43.029886+00:00",
+      "duration_s": 0.033814143,
+      "experiment_id": "R584",
+      "phase": "integrity",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T09:27:47.164489+00:00",
+      "duration_s": 25.151040196,
+      "experiment_id": "R585",
+      "phase": "collect",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T09:27:47.205070+00:00",
+      "duration_s": 0.03366869,
+      "experiment_id": "R585",
+      "phase": "independent_review",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T09:27:47.245538+00:00",
+      "duration_s": 0.035264766,
+      "experiment_id": "R585",
+      "phase": "integrity",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R580",
+    "experiment_id": "R585",
     "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
@@ -4002,9 +4093,123 @@
         "task_begin_at_utc": "2026-10-27T08:05:05.233545+00:00",
         "task_end_at_utc": "2026-10-27T08:12:29.299531+00:00"
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "5cd5c0b7312baba2f8febc669c73de7697c04e89e235edc915a722bb7d673133",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 896.981990407,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 96.575283921,
+        "task_phase_s": 897.06933088,
+        "warmup_requests_s": 1.184441064
+      },
+      "experiment_id": "R583",
+      "quality": {
+        "completed": 164,
+        "planned": 164,
+        "solved": 149
+      },
+      "resources": {
+        "counter_lower_j": 196853.718,
+        "counter_upper_j": 196938.037,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 11942.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T08:59:14.203254+00:00",
+        "initial_at_utc": "2026-10-27T08:39:07.577917+00:00",
+        "task_begin_at_utc": "2026-10-27T08:40:44.153201+00:00",
+        "task_end_at_utc": "2026-10-27T08:55:41.222532+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "46412c0eb72be7324825e9be91d7fb5e111982cdedddddaa54699ea1f9eb6f7f",
+      "durations": {
+        "CPU_scoring_outer_wall_s": 0.5224108421243727,
+        "CPU_unit_execution_sum_s": 0.39552299999999996,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 474.766063391,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 22.270743376,
+        "task_phase_s": 474.892760246,
+        "warmup_requests_s": 0.684124682
+      },
+      "experiment_id": "R584",
+      "quality": {
+        "completed": 200,
+        "planned": 200,
+        "solved": 79
+      },
+      "resources": {
+        "counter_lower_j": 56917.533,
+        "counter_upper_j": 56974.952,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 1546.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T09:18:41.391622+00:00",
+        "initial_at_utc": "2026-10-27T09:10:14.152703+00:00",
+        "task_begin_at_utc": "2026-10-27T09:10:36.423446+00:00",
+        "task_end_at_utc": "2026-10-27T09:18:31.316207+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "373adb54812049b27b447755eb59113a87166d355d42b9fabadc3d2df399f066",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 346.820486051,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 21.771601023,
+        "task_phase_s": 346.900801281,
+        "warmup_requests_s": 0.69398316
+      },
+      "experiment_id": "R585",
+      "quality": {
+        "completed": 164,
+        "planned": 164,
+        "solved": 17
+      },
+      "resources": {
+        "counter_lower_j": 40984.765,
+        "counter_upper_j": 41030.426,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 1544.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T09:27:34.136868+00:00",
+        "initial_at_utc": "2026-10-27T09:21:02.936936+00:00",
+        "task_begin_at_utc": "2026-10-27T09:21:24.708536+00:00",
+        "task_end_at_utc": "2026-10-27T09:27:11.609338+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-27T08:38:28.685349+00:00",
+  "observed_at_utc": "2026-10-27T09:45:22.019201+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",

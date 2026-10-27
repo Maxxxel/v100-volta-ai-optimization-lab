@@ -3,6 +3,29 @@ import copy,unittest
 from unittest.mock import patch
 import export
 
+class FinalCandidateReview(unittest.TestCase):
+ def inputs(self):
+  import json,pathlib
+  p=pathlib.Path(__file__).resolve().parents[1]/'data'
+  return [json.loads((p/n).read_text()) for n in ('screening.json','configuration-history.json','experiments.json')]
+ def test_every_inventory_profile_and_exact_qualified_run_remains_visible(self):
+  from render import final_qualification_review
+  s,h,e=self.inputs();before=copy.deepcopy((s,h,e));page=final_qualification_review(s,h,e)
+  for row in s['rows']:self.assertIn(row['model'],page);self.assertIn(row['configuration']['model_sha256'][:12],page)
+  for run in h['runs']:
+   if run.get('official_eligible') and run['benchmark_id'] in {'humanevalplus-v0.1.10','bfcl-v4-parallel-multiple-full200'}:
+    self.assertIn(run['runtime_configuration_id'],page);self.assertIn(run['experiment_id'],page)
+  self.assertEqual((s,h,e),before)
+ def test_new_unknown_candidate_requires_explicit_review(self):
+  from render import final_qualification_review
+  s,h,e=self.inputs();s['rows'][0]['experiment_id']='R999'
+  with self.assertRaises(ValueError):final_qualification_review(s,h,e)
+ def test_no_profile_transfer_or_implicit_new_GPU_authority(self):
+  from render import final_qualification_review
+  page=final_qualification_review(*self.inputs())
+  for phrase in ['Top-3 selection pending','coding150/164 is a separate build','16K is a different context profile','startup extension is not authorized','not Terminal-Bench','separately admitted harness experiments']:
+   self.assertIn(phrase,page)
+
 class RolePublicGates(unittest.TestCase):
  def setUp(self):
   self.summary=dict(audit_path='/synthetic/staging/r999/AUDIT.json',audit_sha256='a'*64)
