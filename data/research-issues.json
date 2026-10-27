@@ -42,7 +42,7 @@
   {
     "status": "CLOSED_DEFERRED_REASSESSMENT_AUDIT_COMPLETE",
     "subcase": "R340-S05",
-    "title": "Audit: Alle DEFERRED-Optimierungen überprüfen und technisch sinnvolle Ansätze reaktivieren",
+    "title": "Audit: Alle DEFERRED-Optimierungen \u00fcberpr\u00fcfen und technisch sinnvolle Ans\u00e4tze reaktivieren",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/5",
     "github_state": "CLOSED",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
@@ -92,7 +92,7 @@
   {
     "status": "CURRENT_MISSION_GATE_REVIEWED_WITH_DECLARED_LIMITS",
     "subcase": "FINAL-GATE",
-    "title": "Final Research Gate: Qwen3.5 → OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschließen",
+    "title": "Final Research Gate: Qwen3.5 \u2192 OmniCoder2 Transfer, neue Optimierungen und Forschungsfragen abschlie\u00dfen",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/10",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
@@ -162,24 +162,24 @@
   {
     "subcase": "NOVEMBER-MODEL-FAMILIES",
     "status": "ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING",
-    "title": "Research: non-Qwen/Gemma models ≤30B for V100 SM70 — GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
+    "title": "Research: non-Qwen/Gemma models \u226430B for V100 SM70 \u2014 GLM, gpt-oss, Mistral, Nemotron; Mixtral reassessment",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/16",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
     "freeze_priority": "P0_NEW_MODEL_COMPARISON",
-    "next_action": "R552–R558: seven complete development screens. R559 gpt-oss coding stopped on native output parsing, without a quality score. Ministral8 official API128/164 is independently confirmed; append-only score admission remains pending after legacy scorer MemoryError. Devstral R561 is queued. Nemotron R562 reached the180s startup limit before tasks; storage is resolved. Preserve all references; no unauthorized retry, guard increase or small-sample rejection.",
+    "next_action": "R552\u2013R558: seven complete development screens. R559 gpt-oss coding stopped on native output parsing, without a quality score. Ministral8 official API128/164 is independently confirmed; append-only score admission remains pending after legacy scorer MemoryError. Devstral R561 is queued. Nemotron R562 reached the180s startup limit before tasks; storage is resolved. Preserve all references; no unauthorized retry, guard increase or small-sample rejection.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
     "technical_gate": "NEMOTRON_STARTUP180_BEFORE_TASKS_NOT_QUALITY_REJECTED"
   },
   {
     "subcase": "NOVEMBER-HARNESS",
     "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
-    "title": "Research: minimal vs complex coding-agent harness — quality, tokens, latency and GPU-J/success",
+    "title": "Research: minimal vs complex coding-agent harness \u2014 quality, tokens, latency and GPU-J/success",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
     "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
-    "next_action": "R537 token/call reconciliation is complete and inconclusive. Pinned mini-SWE source review confirms append-only trajectories, delegated action execution and pre-query wall-clock limits; these do not replace broker deadlines or policy enforcement. Preregister matched development/holdout prose ablation; no extra GPU admission.",
+    "next_action": "R537 token/call reconciliation is complete and inconclusive. Pinned mini-SWE source review confirms append-only trajectories, delegated action execution and pre-query wall-clock limits; these do not replace broker deadlines or policy enforcement. Preregister matched development/holdout prose ablation; no extra GPU admission. R537 exact-token recurrence is archived below; any state-correct caching/preamble ablation remains a separate hypothesis and GPU admission. No savings measured.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
     "source_issue_updated_at_utc": "2026-10-26T11:40:36Z",
     "source_issue_body_sha256": "40c1b0e8d900fbd8bdd829a1e382d67da585c79db970390d05d0ca4cd17405a0",
@@ -187,23 +187,81 @@
     "evidence_urls": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17#issuecomment-6428910994"
     ],
-    "source_review_sha256": "2ee18873e664c49d193951c8358fcb9c558483da384974da4a2be054068fbee3"
+    "source_review_sha256": "2ee18873e664c49d193951c8358fcb9c558483da384974da4a2be054068fbee3",
+    "prefix_recurrence_audit_sha256": "49b2dd94734d96c0c1d1b73b1a2605e8d7dcf8261abb338f25b198b75cf29bda",
+    "prefix_recurrence": {
+      "source_experiment": "R537",
+      "requests": 96,
+      "paired_cases": 5,
+      "arms": {
+        "single": {
+          "requests": 36,
+          "input_tokens": 84763,
+          "repeated_within_case_prefix_tokens_after_first": 48287
+        },
+        "planner_worker": {
+          "requests": 27,
+          "input_tokens": 51167,
+          "repeated_within_case_prefix_tokens_after_first": 28560
+        },
+        "planner_worker_reviewer": {
+          "requests": 33,
+          "input_tokens": 66888,
+          "repeated_within_case_prefix_tokens_after_first": 29955
+        }
+      },
+      "analysis_code_sha256": "88d7fcb0d6fe1ced3f2b66c7caf3e6776fc3e6f66198c494320e7913242c09a3",
+      "GPU_runs": 0,
+      "model_requests": 0,
+      "preamble_only_tokens": null,
+      "measured_speedup": null,
+      "measured_energy_saving": null
+    }
   },
   {
     "subcase": "LEAN-HARNESS",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18",
-    "title": "Research: Lean Jarvis harness — Caveman, mini-SWE-agent, context compaction A/B before final V100 tuning",
+    "title": "Research: Lean Jarvis harness \u2014 Caveman, mini-SWE-agent, context compaction A/B before final V100 tuning",
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
     "source_issue_updated_at_utc": "2026-10-26T21:51:17Z",
     "source_issue_body_sha256": "4b8e283a7930b7f7ee7573b56a2fe32980e9f47080b47f3e7f69749e9584a552",
     "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
     "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
-    "next_action": "Pinned current Caveman3+ is Apache2; older release terms remain distinct. Prose compression is model-assisted rewriting, not proven lossless; documented gateway recovery does not establish local API compatibility. No proxy, MCP or compressor installed. Reuse #17; any later GPU ablation requires separate admission.",
+    "next_action": "Pinned current Caveman3+ is Apache2; older release terms remain distinct. Prose compression is model-assisted rewriting, not proven lossless; documented gateway recovery does not establish local API compatibility. No proxy, MCP or compressor installed. Reuse #17; any later GPU ablation requires separate admission. R537 exact-token recurrence is archived below; any state-correct caching/preamble ablation remains a separate hypothesis and GPU admission. No savings measured.",
     "evidence_urls": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18#issuecomment-6428911369",
       "https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/LICENSING.md"
     ],
-    "source_review_sha256": "2ee18873e664c49d193951c8358fcb9c558483da384974da4a2be054068fbee3"
+    "source_review_sha256": "2ee18873e664c49d193951c8358fcb9c558483da384974da4a2be054068fbee3",
+    "prefix_recurrence_audit_sha256": "49b2dd94734d96c0c1d1b73b1a2605e8d7dcf8261abb338f25b198b75cf29bda",
+    "prefix_recurrence": {
+      "source_experiment": "R537",
+      "requests": 96,
+      "paired_cases": 5,
+      "arms": {
+        "single": {
+          "requests": 36,
+          "input_tokens": 84763,
+          "repeated_within_case_prefix_tokens_after_first": 48287
+        },
+        "planner_worker": {
+          "requests": 27,
+          "input_tokens": 51167,
+          "repeated_within_case_prefix_tokens_after_first": 28560
+        },
+        "planner_worker_reviewer": {
+          "requests": 33,
+          "input_tokens": 66888,
+          "repeated_within_case_prefix_tokens_after_first": 29955
+        }
+      },
+      "analysis_code_sha256": "88d7fcb0d6fe1ced3f2b66c7caf3e6776fc3e6f66198c494320e7913242c09a3",
+      "GPU_runs": 0,
+      "model_requests": 0,
+      "preamble_only_tokens": null,
+      "measured_speedup": null,
+      "measured_energy_saving": null
+    }
   }
 ]
