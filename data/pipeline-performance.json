@@ -2498,11 +2498,74 @@
       "experiment_id": "R587",
       "phase": "push",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:20:22.484071+00:00",
+      "duration_s": 39.597515886,
+      "experiment_id": "R588",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:20:24.106512+00:00",
+      "duration_s": 1.619199174,
+      "experiment_id": "R588",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:20:30.832832+00:00",
+      "duration_s": 6.679668841,
+      "experiment_id": "R588",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:20:34.061732+00:00",
+      "duration_s": 3.223090341,
+      "experiment_id": "R588",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:20:46.605903+00:00",
+      "duration_s": 12.539532176,
+      "experiment_id": "R588",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:21:29.861056+00:00",
+      "duration_s": 43.250026165,
+      "experiment_id": "R588",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:21:42.226971+00:00",
+      "duration_s": 12.246268232,
+      "experiment_id": "R588",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:21:42.431318+00:00",
+      "duration_s": 0.018003925,
+      "experiment_id": "R588",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T14:21:45.531607+00:00",
+      "duration_s": 2.132159617,
+      "experiment_id": "R588",
+      "phase": "push",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R588",
+    "experiment_id": "R591",
     "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
@@ -4671,9 +4734,123 @@
         "task_begin_at_utc": "2026-10-27T13:39:51.298116+00:00",
         "task_end_at_utc": "2026-10-27T13:47:11.954147+00:00"
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "b407e9f62be2c168afe1d87d1adbbccc9550302810f7c8d28622cfcdc7810637",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": 1.372631,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 385.372548112,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 65.375827333,
+        "task_phase_s": 388.217217445,
+        "warmup_requests_s": 1.974800002
+      },
+      "experiment_id": "R589",
+      "quality": {
+        "completed": 33,
+        "planned": 33,
+        "solved": 27
+      },
+      "resources": {
+        "counter_lower_j": 106026.409,
+        "counter_upper_j": 106151.596,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 7680.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T14:42:00.861725+00:00",
+        "initial_at_utc": "2026-10-27T14:34:14.664438+00:00",
+        "task_begin_at_utc": "2026-10-27T14:35:20.040265+00:00",
+        "task_end_at_utc": "2026-10-27T14:41:48.257482+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "7c77da6bbe7a684c79bed84375b88a9cddb678a059672b7f121d18eb4477865f",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": 1.394742,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 322.917743307,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 97.657096813,
+        "task_phase_s": 325.981656485,
+        "warmup_requests_s": 2.010098283
+      },
+      "experiment_id": "R590",
+      "quality": {
+        "completed": 33,
+        "planned": 33,
+        "solved": 26
+      },
+      "resources": {
+        "counter_lower_j": 89590.976,
+        "counter_upper_j": 89695.507,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 7356.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T14:50:48.307458+00:00",
+        "initial_at_utc": "2026-10-27T14:43:35.099821+00:00",
+        "task_begin_at_utc": "2026-10-27T14:45:12.756917+00:00",
+        "task_end_at_utc": "2026-10-27T14:50:38.738574+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "f016d3f316b37e625eb6c9d7334d7b27a546af9b2f94a1e84eeea9afb2a5cb80",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": 1.500098,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 416.411589664,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 60.374219739,
+        "task_phase_s": 422.327075021,
+        "warmup_requests_s": 2.21449921
+      },
+      "experiment_id": "R591",
+      "quality": {
+        "completed": 33,
+        "planned": 33,
+        "solved": 17
+      },
+      "resources": {
+        "counter_lower_j": 102438.67,
+        "counter_upper_j": 102529.41,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 8118.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T15:00:59.173293+00:00",
+        "initial_at_utc": "2026-10-27T14:52:43.691411+00:00",
+        "task_begin_at_utc": "2026-10-27T14:53:44.065630+00:00",
+        "task_end_at_utc": "2026-10-27T15:00:46.392705+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-27T14:19:42.598615+00:00",
+  "observed_at_utc": "2026-10-27T15:37:31.585677+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",
