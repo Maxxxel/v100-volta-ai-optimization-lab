@@ -469,7 +469,7 @@ Source-authentic pinned Caveman query-aware codec; **CPU only**, no model/networ
 | Jarvis-shaped · repo, diff, mock state, recurring context | 4 | 215,831 | 67,724 | 36,989 | 45.38% | 4/4 cases · 2/4 exact original recovery |
 | No-op control | 1 | 78,000 | 45,185 | 45,185 | 0.00% | 1/1 cases · 1/1 pass-through |
 
-All emitted recoveries matched the original bytes. The exact-anchor oracle is a fidelity screen, not full semantic or agent-quality evaluation. Whole-session savings, model interpretation, task success, E2E latency, GPU energy and VRAM remain **NOT MEASURED**. Two Jarvis-shaped cases passed through unchanged. This does not qualify an agent or authorize a GPU run. Upstream source `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; archive SHA256 `73d93ead989462f5e7d274359d7191d649520b9d387337901069031d18692fba`. [Case-level records and hashes](../data/caveman-large-output-cpu.json); [reproduction runner](../scripts/caveman_shape_study.py).
+All emitted recoveries matched the original bytes. The exact-anchor oracle is a fidelity screen, not full semantic or agent-quality evaluation. Whole-session savings, model interpretation, task success, E2E latency, GPU energy and VRAM remain **NOT MEASURED**. Two Jarvis-shaped cases passed through unchanged. This does not qualify an agent or authorize a GPU run. Upstream source `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; archive SHA256 `73d93ead989462f5e7d274359d7191d649520b9d387337901069031d18692fba`. [Case-level records and hashes](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/caveman-large-output-cpu.json); [reproduction runner](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/scripts/caveman_shape_study.py).
 
 ## Next gate
 
