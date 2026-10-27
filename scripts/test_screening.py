@@ -65,7 +65,7 @@ class FirstNativeModelScreen(unittest.TestCase):
  def test_published_first_screen_identity_sampling_and_scope(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text());r=next(x for x in data['rows'] if x['experiment_id']=='R514');cfg=r['configuration'];native=cfg['recorded_native_profile']
-  self.assertEqual(r['full_benchmark_status'],'NOT MEASURED');self.assertEqual(r['selection_status'],'WEITERE DIAGNOSE');self.assertEqual(cfg['quantization'],'Q8_0');self.assertEqual(cfg['model_sha256'],'0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c')
+  self.assertEqual(r['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS');self.assertEqual({x['experiment_id'] for x in r['full_benchmark_runs']},{'R584','R585'});self.assertEqual(r['selection_status'],'WEITERE DIAGNOSE');self.assertEqual(cfg['quantization'],'Q8_0');self.assertEqual(cfg['model_sha256'],'0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c')
   self.assertEqual(native['model']['parameters_in_GGUF'],752393024);self.assertEqual(native['runtime']['sampling']['temperature'],1.0);self.assertEqual(native['runtime']['sampling']['top_p'],1.0);self.assertEqual(native['runtime']['sampling']['top_k'],20);self.assertEqual(native['runtime']['max_output'],4096)
   self.assertEqual(r['results']['coding']['successes'],0);self.assertIsNone(r['results']['coding']['GPU_j_per_success_lower']);self.assertEqual(r['results']['tools']['successes'],7)
   self.assertFalse(any(x['experiment_id']=='R514' for x in json.loads((root/'data/configuration-history.json').read_text())['runs']))

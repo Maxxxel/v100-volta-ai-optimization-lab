@@ -7,7 +7,7 @@ DATA={'benchmark-register.json','configuration-history.json','comparison.json','
 SCRIPTS={'leaderboard.py','test_leaderboard.py','comparison.py','test_comparison.py','export.py','render.py','validate.py','test_publication.py'}
 SCRIPTS.update({'test_master_table.cjs','test_master_browser.cjs'})
 SCRIPTS.update({'test_pipeline_methods.py','test_paired_coding.py','screening.py','test_screening.py'})
-SCRIPTS.update({'test_role_export.py','test_tools_confirmation.py'})
+SCRIPTS.update({'test_role_export.py','test_tools_confirmation.py','test_scoring_view_counter.py'})
 SCRIPTS.update({'pipeline.py','test_pipeline.py'})
 SCRIPTS.update({'harness_prefix.py','test_harness_prefix.py'})
 DATA.add('pipeline-performance.json')

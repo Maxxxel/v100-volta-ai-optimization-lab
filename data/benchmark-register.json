@@ -28344,6 +28344,36 @@
       "proof_path": "staging/r576/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "d7ba437353208247755b95578b670bc22e4c26879744c23f7d0b0a50612f417b",
       "source_audit_hash": "602a8325feb1d3a61fb1839cf29a76f43db018d948508792635abaac19f7bc76"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r578/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "1b7cfd740a14517b6e7e13b289bfbfc971f57f774296e298ab7a8916a23bffdb",
+      "source_audit_hash": "d132db4b09bc108c0dc8d3f3c4bf2e27f383baea3e08f61aa81f91282249b0c4"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r581/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "3b754d8e519de8d23537ec64ef63b24e0beef9227ec9a9da302644e2a2b6dc2b",
+      "source_audit_hash": "3a99d6efdc6ed7c9d0d466df999e4c03733caf11ef3fdadc8c5e8a95109f0f4d"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r583/official-api-reconciliation/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "32fd85b0252547401715ffe4c6a0a35fecdfc18eaf2523ac01e3cd7d5b29fc05",
+      "source_audit_hash": "53ee4a743ff659c2dd5cceaee0928f0fe15387eef5784bc47cb87c18b29d12da"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r584/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "9ba0b42febe96d9acf77bb33a878608e8e3627de7c1ae67ed6d081764fb63767",
+      "source_audit_hash": "46412c0eb72be7324825e9be91d7fb5e111982cdedddddaa54699ea1f9eb6f7f"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r585/official-api-replay/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "af523b527d787bf95ba55e5688aacea87aafc53aed2852e30c7e1e6cbbefcacb",
+      "source_audit_hash": "373adb54812049b27b447755eb59113a87166d355d42b9fabadc3d2df399f066"
     }
   ],
   "paired_coding_reviews": [

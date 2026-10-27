@@ -179052,6 +179052,258 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 13714.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-458db1157faf628a99b0",
+    "original_bytes": 27438,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "458db1157faf628a99b0f5e4949f2d2dd77a110b8b097d5d5182739fc09840a8",
+    "statements": {
+      "decision": "Continue candidate review; no small-sample quality exclusion or Champion. Reuse full benchmarks of matching native profile."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13714.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 109,
+          "tasks": 164,
+          "wall_s": 689.298471784
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d132db4b09bc108c0dc8",
+    "original_bytes": 11324,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d132db4b09bc108c0dc8d3f3c4bf2e27f383baea3e08f61aa81f91282249b0c4",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R577 GLM-4.7-Flash · native nonthinking Q3_K_S native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3a99d6efdc6ed7c9d0d4",
+    "original_bytes": 4876,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3a99d6efdc6ed7c9d0d466df999e4c03733caf11ef3fdadc8c5e8a95109f0f4d",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R577 GLM-4.7-Flash · native nonthinking Q3_K_S native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 159,
+      "model_starts": 1,
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 342.331593961,
+          "group_window_s": 342.337771129,
+          "lower_j": 95612.92,
+          "upper_j": 95701.7
+        },
+        "actual_generation_requests": 159,
+        "case_wall_s": 342.331593961,
+        "completed_request_wall_s": 338.983113707,
+        "completion_tokens": 12410,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 5975.8075,
+        "gpu_j_per_success_upper": 5981.35625,
+        "independent_review_sha256": "1c013e58b7c7cace10c64e68914d66ca963337ba6ca80d5858127dac5fba85db",
+        "model_sha256": "f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 10950.5,
+        "planned_tasks": 33,
+        "profile_sha256": "bf0f50d2a8fbec26204591aec07981156264e6b3385044b8a4e749f272a28297",
+        "solved": 16,
+        "successful_tasks_per_s": 0.04673733278483231,
+        "task_limit_s": 1200,
+        "task_phase_s": 342.338748205,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 36.60949321129483,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 10950.5,
+      "solved": 16,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bd204f19ea0fb6cd614c",
+    "original_bytes": 4291,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bd204f19ea0fb6cd614cc18ac4bc64dc692382f13fc05e0062821b64a8e55c7f",
+    "statements": {
+      "decision": "Native reference measurement only. Compare other prequalified profiles on this same frozen development protocol; no small-sample model exclusion, causal optimization, official agent score or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1c013e58b7c7cace10c6",
+    "original_bytes": 10334,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1c013e58b7c7cace10c64e68914d66ca963337ba6ca80d5858127dac5fba85db",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 25,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 16,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6c78531e93deabb4e15b",
+    "original_bytes": 704,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6c78531e93deabb4e15bfcdbec47041e1dc036c5c28fd908e1b6b60d40e93da3",
+    "statements": {
+      "scope": "Frozen33 new fixtures/11 authored validation families; independent from Agent18 development selection, not a population-independence claim or Terminal-Bench. No tuning on replies; all tools simulated."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 3270.0,
+        "task_phase_change_percent": -14.77144448373119
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 16,
+        "case_gained": 3,
+        "case_lost": 15,
+        "frozen_groups": 11,
+        "group_sign_flip_two_sided_p": 0.09375,
+        "net_success_change": -12,
+        "nonzero_groups": 9,
+        "reference_solved": 28,
+        "tasks": 33
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d1266620cf129759dfed",
+    "original_bytes": 1147,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d1266620cf129759dfedea01f3be0381ac16bbcfa4b301fc5c9430b0e830dadc",
+    "statements": {
+      "decision": "Frozen validation profile comparison with grouped sensitivity; retain task outcomes and costs. One33-case pass is not a population ranking, causal optimization or Champion qualification.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 11942.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 149,
+          "tasks": 164,
+          "wall_s": 896.981990407
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5cd5c0b7312baba2f8fe",
+    "original_bytes": 11412,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5cd5c0b7312baba2f8febc669c73de7697c04e89e235edc915a722bb7d673133",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of existing gpt-oss20B MXFP4 with the separately CPU-built and GPU-admitted final-code parser compatibility library. Same R553 native template, sampler, weights and4096-output/8192-context; engine build is a separate configuration. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-46412c0eb72be7324825",
+    "original_bytes": 4782,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "46412c0eb72be7324825e9be91d7fb5e111982cdedddddaa54699ea1f9eb6f7f",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R514 Qwen3.5-0.8B Q8_0 native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 1544.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 17,
+          "tasks": 164,
+          "wall_s": 346.820486051
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-373adb54812049b27b44",
+    "original_bytes": 11238,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "373adb54812049b27b447755eb59113a87166d355d42b9fabadc3d2df399f066",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R514 Qwen3.5-0.8B Q8_0 native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -260640,6 +260892,21 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-592cd0bf276b063f8e66",
+    "original_bytes": 8340,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "592cd0bf276b063f8e661d305770b93880d8d1773df7d548c67039e6d94503ae",
+    "statements": {
+      "scope": "All200 original native-tool request intervals including failed answers. Warmups excluded before selection; startup/CPU/system energy excluded. Original audit and missing power integral unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "solved": 163,
       "tasks": 200
     },
@@ -260650,6 +260917,301 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "d7ba437353208247755b95578b670bc22e4c26879744c23f7d0b0a50612f417b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13714.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-aa6df692344568099846",
+    "original_bytes": 143717,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "aa6df6923445680998468940151e6bb2a3d19b35816939da5b2f1af95cec5d24",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 109,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0ea5258aa5c882a75f24",
+    "original_bytes": 3658,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0ea5258aa5c882a75f24b667aa54319593ce3f60c4283b3e29b75963bb2883ab",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a2a6fc44807d37267dc0",
+    "original_bytes": 5953,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a2a6fc44807d37267dc039634c3df1857de3cc967412a6f815c74df039fb53e5",
+    "statements": {
+      "scope": "NVML counter brackets for all164 original request intervals, including failed answers. Excludes startup/CPU/system energy. Original audit and its missing power integral remain unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 109,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1b7cfd740a14517b6e7e",
+    "original_bytes": 7998,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1b7cfd740a14517b6e7e13b289bfbfc971f57f774296e298ab7a8916a23bffdb",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13716.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5361b300044c20a24e5b",
+    "original_bytes": 178214,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5361b300044c20a24e5bab92462dcc6bc0781519a40cd36a57cf792d1c02eaaa",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-76842d408907c79258b4",
+    "original_bytes": 8664,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "76842d408907c79258b4b7af83cec86f6d8b0727082c6acd942fc8d04362b45b",
+    "statements": {
+      "scope": "All200 original native-tool request intervals including failed answers. Warmups excluded before selection; startup/CPU/system energy excluded. Original audit and missing power integral unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 154,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3b754d8e519de8d23537",
+    "original_bytes": 10098,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3b754d8e519de8d23537ec64ef63b24e0beef9227ec9a9da302644e2a2b6dc2b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 11942.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7563ab84a726e7b7875a",
+    "original_bytes": 143817,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7563ab84a726e7b7875ad56bf3479817e7880e22401b8bd682d81e7071021abc",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 149,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8061356bca2653ab5856",
+    "original_bytes": 3664,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8061356bca2653ab58567d0205d07e7b88bab7bfbd1e3bc29eb0c414f8720b68",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "solved": 150,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-53ee4a743ff659c2dd5c",
+    "original_bytes": 3062,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "53ee4a743ff659c2dd5cceaee0928f0fe15387eef5784bc47cb87c18b29d12da",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ef6fc6a96277f528321b",
+    "original_bytes": 6377,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ef6fc6a96277f528321bc12be254c757f65747d55638db61e255fca05efc56ff",
+    "statements": {
+      "scope": "Energy of all164 original request intervals, failures included. Denominator150 independently agreed by two pinned official API CPU evaluations. Original preliminary149 audit remains unchanged. Startup/CPU/system energy excluded."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 150,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-32fd85b0252547401715",
+    "original_bytes": 8284,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "32fd85b0252547401715ffe4c6a0a35fecdfc18eaf2523ac01e3cd7d5b29fc05",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 1546.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1917265e275ffad03eda",
+    "original_bytes": 178015,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1917265e275ffad03edac2cfde7e2df6534527180c8d097327e59271fb2b98bd",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7f0e41fb1b4e698c11f2",
+    "original_bytes": 8266,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7f0e41fb1b4e698c11f2a3d08fdbda042021db007afd26a759cc00190cb691ca",
+    "statements": {
+      "scope": "All200 original native-tool intervals including failures; no startup/CPU/system energy. Original audit and missing power integral unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 79,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9ba0b42febe96d9acf77",
+    "original_bytes": 10067,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9ba0b42febe96d9acf77bb33a878608e8e3627de7c1ae67ed6d081764fb63767",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 1544.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6532492cff801471d63a",
+    "original_bytes": 143476,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6532492cff801471d63a7b429488e66ef2392ca3603f62d2b266cc0aec79bfa5",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 17,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-62804f43f273de803dc2",
+    "original_bytes": 3630,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "62804f43f273de803dc293181e75b8598d2f185d5470dfee62a8a7dd85916431",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-61f1047cbe434ea25ced",
+    "original_bytes": 5831,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "61f1047cbe434ea25ced878df7ff1d46c73d4cfa78409038feb634f262ecd0ad",
+    "statements": {
+      "scope": "All164 original coding request intervals including failures. No startup/CPU/system energy; original audit unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 17,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-af523b527d787bf95ba5",
+    "original_bytes": 7968,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "af523b527d787bf95ba55e5688aacea87aafc53aed2852e30c7e1e6cbbefcacb",
     "statements": {}
   },
   {
@@ -261046,6 +261608,17 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-45a4ecd3321afcfa7464",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "45a4ecd3321afcfa74648080c2331a21f369f9015c024eb2b2f121c40ec20779",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-3de468fe73193dd6faa1",
     "original_bytes": 894323,
     "original_filename": "research-metadata.json",
@@ -261111,6 +261684,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "9aa2b393c059282f31a633ce415d31879db15d5f8bb2ee226a19e8f352840b51",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-d905ec6c4063c53b991a",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d905ec6c4063c53b991a28ead50eacba863804d8eba00f5deaf39953fa294b71",
     "statements": {}
   },
   {
@@ -261437,6 +262021,17 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-f54091ecbac0602aa09e",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f54091ecbac0602aa09ea0beae7378f51c6c2f5283d87e2bba0b4db8576766a0",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-a98a3e6f154255bd8887",
     "original_bytes": 1353,
     "original_filename": "research-metadata.json",
@@ -261487,6 +262082,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "9492fa926ebe5de799e1b3490fb3d2aa62a6258b50b653996fede37beb380c34",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-591ed84f62a0a3183db9",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "591ed84f62a0a3183db97391af19ff1f31a9a7016a31ca4c1dfafd1e9b48d166",
     "statements": {}
   },
   {
@@ -262024,6 +262630,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "11fe0611173134b78e6ef38f9321d6dcd3a1703d180ef6374fed005f4a2ec723",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f3a7e3a5ae9f6f519e28",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f3a7e3a5ae9f6f519e28a2491edaca1dba8e2b317b037ac4f8fb362dcb240fe0",
     "statements": {}
   },
   {

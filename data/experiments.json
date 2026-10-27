@@ -24189,5 +24189,236 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-458db1157faf628a99b0",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R577",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13714.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 109,
+          "tasks": 164,
+          "wall_s": 689.298471784
+        }
+      }
+    },
+    "audit_id": "audit-d132db4b09bc108c0dc8",
+    "date": "2026-10-27T07:57:29.168832+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R578",
+    "model": "GLM-4.7-Flash · native nonthinking",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R577 GLM-4.7-Flash · native nonthinking Q3_K_S native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 342.331593961,
+          "group_window_s": 342.337771129,
+          "lower_j": 95612.92,
+          "upper_j": 95701.7
+        },
+        "actual_generation_requests": 159,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 342.331593961,
+        "completed_request_wall_s": 338.983113707,
+        "completion_tokens": 12410,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 5975.8075,
+        "gpu_j_per_success_upper": 5981.35625,
+        "independent_review_audit_id": "audit-1c013e58b7c7cace10c6",
+        "independent_review_sha256": "1c013e58b7c7cace10c64e68914d66ca963337ba6ca80d5858127dac5fba85db",
+        "max_output_tokens": 4096,
+        "model_sha256": "f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 3,
+          "case_lost": 15,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 0.09375,
+          "net_success_change": -12,
+          "nonzero_groups": 9,
+          "reference_experiment_id": "R536",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 10950.5,
+        "planned_tasks": 33,
+        "policy_gate_passes": 25,
+        "profile_sha256": "bf0f50d2a8fbec26204591aec07981156264e6b3385044b8a4e749f272a28297",
+        "quality_diagnostics": {
+          "evidence_or_postcondition_failure_cases": 0,
+          "final_contract_failure_cases": 0,
+          "incorrect_facts_cases": 9,
+          "invalid_action_cases": 0,
+          "invalid_action_events": 0,
+          "invalid_final_contract_cases": 0,
+          "missing_valid_final_cases": 0,
+          "parse_failed_cases": 0,
+          "parse_failed_rounds": 0,
+          "policy_violation_cases": 8,
+          "policy_violation_events": 11,
+          "rejected_tool_call_cases": 8,
+          "rejected_tool_call_events": 11,
+          "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+          "wrong_final_status_cases": 0,
+          "wrong_reason_code_cases": 0
+        },
+        "solved": 16,
+        "successful_tasks_per_s": 0.04673733278483231,
+        "task_limit_s": 1200,
+        "task_phase_s": 342.338748205,
+        "task_scope_passes": 33,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 36.60949321129483,
+        "winner_qualified": false
+      },
+      "solved": 16,
+      "tasks": 33
+    },
+    "audit_id": "audit-bd204f19ea0fb6cd614c",
+    "date": "2026-10-27T08:27:07.482349+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R580",
+    "model": "Ministral-3-14B-Instruct-2512",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6c78531e93deabb4e15b",
+      "audit-d1266620cf129759dfed"
+    ],
+    "statements": {},
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "audit_id": "audit-3a99d6efdc6ed7c9d0d4",
+    "date": "2026-10-27T08:12:38.441586+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R581",
+    "model": "GLM-4.7-Flash · native nonthinking",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R577 GLM-4.7-Flash · native nonthinking Q3_K_S native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 11942.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 149,
+          "tasks": 164,
+          "wall_s": 896.981990407
+        }
+      }
+    },
+    "audit_id": "audit-5cd5c0b7312baba2f8fe",
+    "date": "2026-10-27T08:59:14.203254+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R583",
+    "model": "gpt-oss-20b · parser compatibility build",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of existing gpt-oss20B MXFP4 with the separately CPU-built and GPU-admitted final-code parser compatibility library. Same R553 native template, sampler, weights and4096-output/8192-context; engine build is a separate configuration. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "audit_id": "audit-46412c0eb72be7324825",
+    "date": "2026-10-27T09:18:41.391622+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R584",
+    "model": "Qwen3.5-0.8B",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R514 Qwen3.5-0.8B Q8_0 native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 1544.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 17,
+          "tasks": 164,
+          "wall_s": 346.820486051
+        }
+      }
+    },
+    "audit_id": "audit-373adb54812049b27b44",
+    "date": "2026-10-27T09:27:34.136868+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R585",
+    "model": "Qwen3.5-0.8B",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R514 Qwen3.5-0.8B Q8_0 native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    },
+    "winner_qualified": false
   }
 ]

@@ -499,6 +499,13 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R574](experiments/R574.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | GLM-4.7-Flash |
 | [R575](experiments/R575.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-14B-Instruct-2512 |
 | [R576](experiments/R576.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-14B-Instruct-2512 |
+| [R577](experiments/R577.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R578](experiments/R578.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | GLM-4.7-Flash · native nonthinking |
+| [R580](experiments/R580.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-14B-Instruct-2512 |
+| [R581](experiments/R581.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | GLM-4.7-Flash · native nonthinking |
+| [R583](experiments/R583.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | gpt-oss-20b · parser compatibility build |
+| [R584](experiments/R584.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-0.8B |
+| [R585](experiments/R585.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-0.8B |
 
 
 ## Historical signed windows

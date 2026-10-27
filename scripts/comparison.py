@@ -43,6 +43,10 @@ def extract_tuning(plan,launch,identities):
     build_id=parent.parent.name if parent and parent.name=='runtime' else None
     kernels=[(k,v) for k,v in identities.items() if 'libggml-cuda.so' in k and (not parent or pathlib.PurePosixPath(k).parent==parent)]
     kernel=next(((k,v) for k,v in kernels if k==plan.get('cuda_library')),kernels[0] if len(kernels)==1 else (None,None))
+    # Frozen SONAME/version aliases can be separate files with identical bytes.
+    # Preserve ambiguity for different/unverified hashes; never infer a backend.
+    if kernel==(None,None) and kernels and len({v for _,v in kernels})==1 and re.fullmatch('[0-9a-f]{64}',str(kernels[0][1])):
+        kernel=min(kernels,key=lambda item:(pathlib.PurePosixPath(item[0]).name!='libggml-cuda.so.0',len(item[0]),item[0]))
     flags={k:flag(k) for k in ['--ctx-size','--batch-size','--ubatch-size','--threads','--parallel','--n-gpu-layers','--cache-type-k','--cache-type-v','--flash-attn','--reasoning','--spec-type','--spec-draft-n-max','--spec-draft-n-min','--cache-reuse','--ctx-checkpoints'] if flag(k) is not None}
     allowed_env={k:str(v) for k,v in env.items() if k in ['GGML_CUDA_GRAPH_OPT','GGML_CUDA_DISABLE_GRAPHS','GGML_CUDA_O2_WEIGHT_CACHE_MIB','GGML_CUDA_FORCE_MMQ','GGML_CUDA_FORCE_CUBLAS'] and re.fullmatch('[A-Za-z0-9_.+-]{1,40}',str(v))}
     declared=plan.get('model_profile')

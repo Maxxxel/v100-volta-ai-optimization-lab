@@ -60,4 +60,20 @@ class ComparisonTests(unittest.TestCase):
   self.assertEqual(tuning['runtime_flags']['--spec-type'],'none')
   self.assertEqual(tuning['executed_model_sha256'],'a'*64)
   self.assertNotIn('PRIVATE_PATH',str(tuning));self.assertNotIn('/weights/',str(tuning))
+class KernelAliasTests(unittest.TestCase):
+ def project(self,identities,plan=None):
+  from comparison import extract_tuning
+  return extract_tuning(plan or {},{'argv':['/engine/llama-server']},identities)
+ def test_identical_aliases_keep_exact_hash(self):
+  d=self.project({'/engine/libggml-cuda.so.0':'a'*64,'/engine/libggml-cuda.so.0.26.0':'a'*64})
+  self.assertEqual(d['kernel_library'],'libggml-cuda.so.0');self.assertEqual(d['kernel_library_sha256'],'a'*64)
+ def test_conflicting_alias_hashes_remain_unknown(self):
+  d=self.project({'/engine/libggml-cuda.so.0':'a'*64,'/engine/libggml-cuda.so.0.26.0':'b'*64});self.assertIsNone(d['kernel_library']);self.assertIsNone(d['kernel_library_sha256'])
+ def test_missing_or_invalid_hash_is_not_identity(self):
+  for value in [None,'unknown','a'*63]:
+   d=self.project({'/engine/libggml-cuda.so.0':value,'/engine/libggml-cuda.so.0.26.0':value});self.assertIsNone(d['kernel_library'])
+ def test_historical_single_and_explicit_choice_unchanged(self):
+  d=self.project({'/engine/libggml-cuda.so.0.26.0':'a'*64});self.assertEqual(d['kernel_library'],'libggml-cuda.so.0.26.0')
+  d=self.project({'/engine/libggml-cuda.so.0':'a'*64,'/engine/libggml-cuda.so.0.26.0':'a'*64},{'cuda_library':'/engine/libggml-cuda.so.0.26.0'});self.assertEqual(d['kernel_library'],'libggml-cuda.so.0.26.0')
+
 if __name__=='__main__':unittest.main()

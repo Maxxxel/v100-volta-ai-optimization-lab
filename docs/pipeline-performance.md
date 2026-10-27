@@ -1,11 +1,15 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T07:31:05.794066+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T08:38:28.685349+00:00. This static page is not a live monitor.**
 
-Last observed: R576 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
+Last observed: R580 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R581](experiments/R581.md) | COMPLETE | 200/200 | 116.142 | 444.066 | 0.386 | NOT MEASURED / NOT MEASURED |
+| [R580](experiments/R580.md) | COMPLETE | 33/33 | 104.039 | 342.339 | 1.426 | NOT MEASURED / NOT MEASURED |
+| [R578](experiments/R578.md) | COMPLETE | 164/164 | 134.029 | 689.385 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R577](experiments/R577.md) | COMPLETE | 32/32 | 170.114 | 64.653 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R576](experiments/R576.md) | COMPLETE | 200/200 | 75.964 | 395.914 | 0.403 | NOT MEASURED / NOT MEASURED |
 | [R575](experiments/R575.md) | COMPLETE | 164/164 | 84.398 | 530.935 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R574](experiments/R574.md) | COMPLETE | 200/200 | 114.562 | 1038.386 | 0.402 | NOT MEASURED / NOT MEASURED |
@@ -325,6 +329,39 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R575 | integrity | COMPLETE | 0.035 |
 | R576 | collect | COMPLETE | 463.149 |
 | R576 | integrity | COMPLETE | 0.036 |
+| R576 | export | COMPLETE | 36.495 |
+| R576 | render | COMPLETE | 1.519 |
+| R576 | tests | COMPLETE | 5.076 |
+| R576 | tests | COMPLETE | 3.022 |
+| R576 | security | COMPLETE | 12.69 |
+| R576 | build | COMPLETE | 43.009 |
+| R576 | security | COMPLETE | 12.34 |
+| R576 | commit | COMPLETE | 0.021 |
+| R576 | push | COMPLETE | 3.838 |
+| R578 | collect | COMPLETE | 33.042 |
+| R578 | independent_review | COMPLETE | 0.033 |
+| R578 | integrity | COMPLETE | 0.036 |
+| R578 | export | COMPLETE | 41.995 |
+| R578 | render | COMPLETE | 1.677 |
+| R578 | tests | COMPLETE | 5.329 |
+| R578 | tests | COMPLETE | 3.277 |
+| R578 | security | COMPLETE | 13.349 |
+| R578 | build | COMPLETE | 43.201 |
+| R581 | collect | COMPLETE | 2.385 |
+| R581 | integrity | COMPLETE | 0.039 |
+| R581 | export | COMPLETE | 42.215 |
+| R581 | render | COMPLETE | 1.67 |
+| R581 | tests | COMPLETE | 5.227 |
+| R581 | tests | COMPLETE | 3.274 |
+| R581 | security | COMPLETE | 12.29 |
+| R581 | build | FAILED | 10.138 |
+| R580 | collect | COMPLETE | 2.722 |
+| R580 | export | COMPLETE | 43.725 |
+| R580 | render | COMPLETE | 1.572 |
+| R580 | tests | COMPLETE | 5.227 |
+| R580 | tests | COMPLETE | 3.274 |
+| R580 | security | COMPLETE | 12.39 |
+| R580 | build | FAILED | 10.287 |
 
 </details>
 

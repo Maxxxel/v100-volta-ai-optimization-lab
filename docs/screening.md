@@ -1,6 +1,6 @@
 # Model screening
 
-**22/23 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**23/24 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
@@ -3535,7 +3535,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Qwen3.5-0.8B</td><td>SCREENING VOLLSTÄNDIG · WEITERE DIAGNOSE</td><td>0/16 · 0.0%</td><td>7/16 · 43.8%</td><td>76.7</td><td>150.4</td><td>1,083.0</td><td>1,546.5</td><td>NOT MEASURED</td><td><a href="../experiments/R514/">Screening R514</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Qwen3.5-0.8B</td><td>SCREENING VOLLSTÄNDIG · WEITERE DIAGNOSE</td><td>0/16 · 0.0%</td><td>7/16 · 43.8%</td><td>76.7</td><td>150.4</td><td>1,083.0</td><td>1,546.5</td><td><a href="../experiments/R584/">R584</a> · <a href="../experiments/R585/">R585</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R514/">Screening R514</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;c33850fc274f506ed87d214a3e9c6f02465cfd04ea82c3bb7c0b28b560d421e1&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -3776,8 +3776,23 @@ Screening → full qualification → targeted optimization → independent confi
     &quot;tasks&quot;: 16
   },
   &quot;experiment_id&quot;: &quot;R514&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;46412c0eb72be7324825e9be91d7fb5e111982cdedddddaa54699ea1f9eb6f7f&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R584&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-bf342cf0c82599f597854631d5a966963f80eee7c85a05ee0d2b69e4d91e7c15&quot;
+    },
+    {
+      &quot;audit_hash&quot;: &quot;373adb54812049b27b447755eb59113a87166d355d42b9fabadc3d2df399f066&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R585&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-3ba6be2510c3ae429ea93b13373010a1ff233d72b36d5c1b40ad0472efb6f5ff&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;151004c63549d85a4d6f3cacb9454637c69a6de218885238cd24802ec8e20f5a&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Qwen3.5-0.8B&quot;,
@@ -6133,6 +6148,291 @@ Screening → full qualification → targeted optimization → independent confi
     &quot;status&quot;: &quot;FAILED&quot;
   },
   &quot;category_results&quot;: null
+}</pre></details></td></tr><tr><td>GLM-4.7-Flash · native nonthinking</td><td>SCREENING VOLLSTÄNDIG</td><td>9/16 · 56.2%</td><td>11/16 · 68.8%</td><td>64.6</td><td>55.8</td><td>447.1</td><td>13,714.5</td><td><a href="../experiments/R578/">R578</a> · <a href="../experiments/R581/">R581</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R577/">Screening R577</a> · <details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: &quot;458db1157faf628a99b0f5e4949f2d2dd77a110b8b097d5d5182739fc09840a8&quot;,
+  &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
+  &quot;configuration&quot;: {
+    &quot;binary_identities&quot;: {
+      &quot;libggml-cuda.so.0.26.0&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+      &quot;llama-server&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;
+    },
+    &quot;context&quot;: 8192,
+    &quot;engine&quot;: &quot;llama.cpp native&quot;,
+    &quot;engine_version&quot;: null,
+    &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
+    &quot;model_sha256&quot;: &quot;21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91&quot;,
+    &quot;model_source&quot;: {
+      &quot;base_repository&quot;: &quot;zai-org/GLM-4.7-Flash&quot;,
+      &quot;base_revision&quot;: &quot;7dd20894a642a0aa287e9827cb1a1f7f91386b67&quot;,
+      &quot;hf_repository&quot;: &quot;unsloth/GLM-4.7-Flash-GGUF&quot;,
+      &quot;hf_revision&quot;: &quot;0d32489ecb9db6d2a4fc93bd27ef01519f95474d&quot;,
+      &quot;license&quot;: &quot;mit&quot;,
+      &quot;parameters_in_GGUF&quot;: 29943393920,
+      &quot;quantizer&quot;: &quot;unsloth&quot;
+    },
+    &quot;parent_profile_id&quot;: &quot;glm47-flash-q3ks-nonthinking-screening32-task1200-reviewed-sm70&quot;,
+    &quot;power_w&quot;: 300,
+    &quot;quantization&quot;: &quot;Q3_K_S&quot;,
+    &quot;recorded_native_profile&quot;: {
+      &quot;engine&quot;: {
+        &quot;binary_sha256&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;,
+        &quot;build_id&quot;: &quot;dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4&quot;,
+        &quot;cuda_version&quot;: null,
+        &quot;driver_version&quot;: null,
+        &quot;executed_kernel_backend_path&quot;: null,
+        &quot;fork_repository&quot;: null,
+        &quot;ggml_backend_version&quot;: null,
+        &quot;git_commit&quot;: null,
+        &quot;kernel_library_file&quot;: &quot;libggml-cuda.so.0.26.0&quot;,
+        &quot;kernel_library_sha256&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+        &quot;name&quot;: &quot;llama.cpp-compatible&quot;,
+        &quot;patches&quot;: null,
+        &quot;version&quot;: null
+      },
+      &quot;evaluation_exposure&quot;: &quot;Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.&quot;,
+      &quot;incomplete_identity_run&quot;: null,
+      &quot;model&quot;: {
+        &quot;architecture&quot;: &quot;deepseek2&quot;,
+        &quot;artifact_sha256&quot;: &quot;21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91&quot;,
+        &quot;family_id&quot;: &quot;glm47_flash&quot;,
+        &quot;hf_repository&quot;: &quot;unsloth/GLM-4.7-Flash-GGUF&quot;,
+        &quot;hf_revision&quot;: &quot;0d32489ecb9db6d2a4fc93bd27ef01519f95474d&quot;,
+        &quot;name&quot;: &quot;GLM-4.7-Flash \u00b7 native nonthinking&quot;,
+        &quot;parameters_in_GGUF&quot;: 29943393920,
+        &quot;quantization&quot;: &quot;Q3_K_S&quot;,
+        &quot;tensor_precision_map&quot;: null,
+        &quot;variant&quot;: &quot;GLM-4.7-Flash \u00b7 native nonthinking&quot;,
+        &quot;weight_transformations&quot;: {
+          &quot;caution&quot;: &quot;Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.&quot;,
+          &quot;description&quot;: &quot;SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED&quot;,
+          &quot;proof&quot;: null
+        }
+      },
+      &quot;model_artifact_id&quot;: &quot;artifact-5e69f5b8c20475910ae5459f1207a5abd57ee50372c7068e46c111aa5cb400f3&quot;,
+      &quot;optimizations&quot;: {
+        &quot;GDN_state_changes&quot;: null,
+        &quot;HBM_conversion_weight_cache_limit_mib&quot;: &quot;0&quot;,
+        &quot;KV_precision&quot;: {
+          &quot;k&quot;: &quot;f16&quot;,
+          &quot;v&quot;: &quot;f16&quot;
+        },
+        &quot;cuda_graphs&quot;: {
+          &quot;actual_capture_replay&quot;: null,
+          &quot;disable_knob&quot;: null,
+          &quot;optimization_knob&quot;: &quot;0&quot;
+        },
+        &quot;draft_head_or_model&quot;: null,
+        &quot;draft_parameters&quot;: {
+          &quot;--spec-type&quot;: &quot;none&quot;
+        },
+        &quot;draft_sha256&quot;: null,
+        &quot;flash_attention_requested&quot;: &quot;auto&quot;,
+        &quot;other_explicit_knobs&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;
+        },
+        &quot;prefix_reuse&quot;: null,
+        &quot;quantization_calibration&quot;: null,
+        &quot;speculation_type&quot;: &quot;none&quot;
+      },
+      &quot;provenance_status&quot;: &quot;KNOWN_FIELDS_ONLY; null means NOT MEASURED&quot;,
+      &quot;runtime&quot;: {
+        &quot;CPU_budget&quot;: null,
+        &quot;CPU_scoring_limit_s&quot;: 120,
+        &quot;CPU_threads&quot;: &quot;6&quot;,
+        &quot;GPU_offload&quot;: &quot;99&quot;,
+        &quot;GPU_wrapper_limit_s&quot;: 1440,
+        &quot;RAM_budget&quot;: null,
+        &quot;VRAM_budget_mib&quot;: 14336,
+        &quot;batch&quot;: &quot;2048&quot;,
+        &quot;benchmark_task_limit_s&quot;: 1200,
+        &quot;chat_template_sha256&quot;: &quot;d63ad536c3c81880043e22ec7fd08db42b4d8fb7c89c7138bc562bfa25281375&quot;,
+        &quot;context&quot;: &quot;8192&quot;,
+        &quot;execution_deadline_s&quot;: 1200,
+        &quot;max_output&quot;: 4096,
+        &quot;microbatch&quot;: &quot;512&quot;,
+        &quot;native_HTTP_timeout_policy&quot;: &quot;REMAINING_TASK_TIME&quot;,
+        &quot;native_template_controls&quot;: {
+          &quot;enable_thinking&quot;: false
+        },
+        &quot;power_limit_w&quot;: 300,
+        &quot;sampling&quot;: {
+          &quot;min_p&quot;: 0.0,
+          &quot;seed&quot;: 1001,
+          &quot;temperature&quot;: 1.0,
+          &quot;top_k&quot;: 0,
+          &quot;top_p&quot;: 0.95
+        },
+        &quot;startup_limit_s&quot;: 180,
+        &quot;thinking_reasoning_requested&quot;: null,
+        &quot;timing_scope&quot;: &quot;DEVELOPMENT_SCREEN_TASK_PHASE_ONLY&quot;,
+        &quot;tokenizer_identity&quot;: null
+      },
+      &quot;runtime_configuration_id&quot;: &quot;cfg-cd94351837030f8a97c7a0370a4b667b26bebea5e112375b35d10686a45f7b3e&quot;,
+      &quot;schema_version&quot;: 1,
+      &quot;source_plan_sha256&quot;: &quot;837d911cc693ba16ff1d12f3826a338edc1ec148c939396d63e1f359f0bed833&quot;,
+      &quot;source_provenance&quot;: {
+        &quot;actual_launch_sha256&quot;: &quot;4021a3ec7271522f933684e2d8ed25381569b04df48a7d783a988235751a14c3&quot;,
+        &quot;actual_profile_sha256&quot;: &quot;6400201ef0e48bdd19e24b2bfd0527d6b5267c1c4e1579adfe904f898ec19392&quot;,
+        &quot;evidence_scope&quot;: &quot;FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY&quot;,
+        &quot;frozen_model_profile_sha256&quot;: &quot;20603385d7545c1b60f3cd6065c93e54e0de5ed1ab8dc02149535cfe68ce8ad2&quot;,
+        &quot;kind&quot;: &quot;BROKER_NATIVE_CAPTURED_CONFIGURATION&quot;,
+        &quot;model_source_package_sha256&quot;: &quot;a1017db5d8217441a10911f612507ef38f53a344972da80bc2a92e5442a134a9&quot;
+      },
+      &quot;start_parameters&quot;: {
+        &quot;argv&quot;: [
+          &quot;llama-server&quot;,
+          &quot;--model&quot;,
+          &quot;[artifact:21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91]&quot;,
+          &quot;--alias&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--ctx-size&quot;,
+          &quot;8192&quot;,
+          &quot;--n-gpu-layers&quot;,
+          &quot;99&quot;,
+          &quot;--parallel&quot;,
+          &quot;1&quot;,
+          &quot;--host&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--port&quot;,
+          &quot;[session-local value]&quot;,
+          &quot;--jinja&quot;,
+          &quot;--chat-template-file&quot;,
+          &quot;[artifact:d63ad536c3c81880043e22ec7fd08db42b4d8fb7c89c7138bc562bfa25281375]&quot;,
+          &quot;--threads&quot;,
+          &quot;6&quot;,
+          &quot;--threads-batch&quot;,
+          &quot;6&quot;,
+          &quot;--batch-size&quot;,
+          &quot;2048&quot;,
+          &quot;--ubatch-size&quot;,
+          &quot;512&quot;,
+          &quot;--seed&quot;,
+          &quot;1001&quot;,
+          &quot;--ctx-checkpoints&quot;,
+          &quot;2&quot;,
+          &quot;--cache-ram&quot;,
+          &quot;0&quot;,
+          &quot;--no-cache-idle-slots&quot;,
+          &quot;--verbosity&quot;,
+          &quot;4&quot;,
+          &quot;--flash-attn&quot;,
+          &quot;auto&quot;,
+          &quot;--cache-type-k&quot;,
+          &quot;f16&quot;,
+          &quot;--cache-type-v&quot;,
+          &quot;f16&quot;,
+          &quot;--load-mode&quot;,
+          &quot;mmap&quot;,
+          &quot;--spec-type&quot;,
+          &quot;none&quot;
+        ],
+        &quot;environment&quot;: {
+          &quot;GGML_CUDA_GRAPH_OPT&quot;: &quot;0&quot;,
+          &quot;GGML_CUDA_O2_WEIGHT_CACHE_MIB&quot;: &quot;0&quot;,
+          &quot;OMP_NUM_THREADS&quot;: &quot;6&quot;
+        },
+        &quot;exact_private_launch_sha256&quot;: &quot;ba8d0cd99cbcac6bb2db81806c99fd7170895e16171c5f6e8769b500132668d9&quot;,
+        &quot;note&quot;: &quot;All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.&quot;,
+        &quot;redacted_argument_positions&quot;: [
+          0,
+          2,
+          4,
+          12,
+          14,
+          17
+        ]
+      }
+    },
+    &quot;request_options&quot;: {
+      &quot;cache_prompt&quot;: false,
+      &quot;chat_template_kwargs&quot;: {
+        &quot;enable_thinking&quot;: false
+      },
+      &quot;max_tokens&quot;: 4096,
+      &quot;min_p&quot;: 0.0,
+      &quot;seed&quot;: 1001,
+      &quot;temperature&quot;: 1.0,
+      &quot;top_k&quot;: 0,
+      &quot;top_p&quot;: 0.95
+    },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-5139273bb9e9659170e7168eee32812e134f031d29bef570b924c03284510ce7&quot;,
+    &quot;task_time_policy&quot;: {
+      &quot;cleanup_seconds&quot;: 60,
+      &quot;startup_seconds&quot;: 180,
+      &quot;task_seconds&quot;: 1200,
+      &quot;wall_seconds&quot;: 1440
+    },
+    &quot;warmup_requests&quot;: 2
+  },
+  &quot;date&quot;: &quot;2026-10-27T07:40:30.485494+00:00&quot;,
+  &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
+  &quot;experiment_id&quot;: &quot;R577&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;d132db4b09bc108c0dc8d3f3c4bf2e27f383baea3e08f61aa81f91282249b0c4&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R578&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-8f9efeee3717fccd85e0288d693fa88b2fed7121d5bdb6838fb06729251dbc2d&quot;
+    },
+    {
+      &quot;audit_hash&quot;: &quot;3a99d6efdc6ed7c9d0d466df999e4c03733caf11ef3fdadc8c5e8a95109f0f4d&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R581&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-4db95308dca9a5d352b24e9389a692183d5ec34c966a99dbd0b8fa955054f02b&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
+  &quot;independent_review_sha256&quot;: &quot;653741661f95751fcdd28c2cf81f43390d17db0677d92983b3392b44f11e4ae6&quot;,
+  &quot;local_artifact_available&quot;: true,
+  &quot;model&quot;: &quot;GLM-4.7-Flash \u00b7 native nonthinking&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R577&quot;,
+  &quot;peak_vram_mib&quot;: 13714.5,
+  &quot;status&quot;: &quot;SCREENING VOLLST\u00c4NDIG&quot;,
+  &quot;task_phase_s&quot;: 64.652915375,
+  &quot;timeouts&quot;: 0,
+  &quot;category_results&quot;: {
+    &quot;coding&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 721.0362222222222,
+      &quot;GPU_j_per_success_upper&quot;: 862.4075555555555,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 45.853742473000004,
+      &quot;completion_tokens&quot;: 2964,
+      &quot;final_text_present&quot;: 16,
+      &quot;gpu_energy_j_lower&quot;: 6489.326,
+      &quot;gpu_energy_j_upper&quot;: 7761.668,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 9,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.1962762364554967,
+      &quot;tokens_s_completed_requests&quot;: 64.64030720601023,
+      &quot;valid_terminal_output&quot;: 16,
+      &quot;wilson95&quot;: [
+        0.331785563988119,
+        0.7690134759450765
+      ]
+    },
+    &quot;tools&quot;: {
+      &quot;GPU_j_per_success_lower&quot;: 222.9668181818182,
+      &quot;GPU_j_per_success_upper&quot;: 337.50718181818183,
+      &quot;completed&quot;: 16,
+      &quot;completed_request_wall_s&quot;: 18.778087584,
+      &quot;completion_tokens&quot;: 642,
+      &quot;final_text_present&quot;: 14,
+      &quot;gpu_energy_j_lower&quot;: 2452.635,
+      &quot;gpu_energy_j_upper&quot;: 3712.579,
+      &quot;length_stops&quot;: 0,
+      &quot;successes&quot;: 11,
+      &quot;successful_tasks_s_completed_requests&quot;: 0.5857891518927958,
+      &quot;tokens_s_completed_requests&quot;: 34.188785046834084,
+      &quot;valid_terminal_output&quot;: 11,
+      &quot;wilson95&quot;: [
+        0.44404355834740666,
+        0.8583535614521796
+      ]
+    }
+  }
 }</pre></details></td></tr></tbody></table></div>
 
 Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.

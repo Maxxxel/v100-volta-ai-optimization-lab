@@ -157,6 +157,21 @@ def official_scoring_view(root,original,entry,receipt):
   status='OFFICIAL_SCORER_VIEW_ADMISSION_PENDING',status_reason='Two identical official API evaluations of the same archived answers; original preliminary score retained.',
   scoring_view_of_run_id=original['run_id'],same_GPU_measurement=True,additional_GPU_runs=0,
   warning=original['warning']+' '+review['disclosure'])
+ return scoring_view_counter(root,original,result,review,receipt)
+
+def scoring_view_counter(root,original,result,review,receipt):
+ """Optional cost receipt normalized to the verified official score, not the preliminary count."""
+ descriptor=review.get('energy_counter_review')
+ if not descriptor:return result
+ root=pathlib.Path(root).resolve();path=(root/descriptor['path']).resolve()
+ if not path.is_relative_to(root) or digest(path)!=descriptor['sha256']:raise ValueError('Scoring-view counter receipt changed')
+ ap=root/'staging'/original['experiment_id'].lower()/'AUDIT.json'
+ if digest(ap)!=original['audit_hash']:raise ValueError('Scoring-view original audit changed')
+ a=read(ap)
+ if a.get('experiment_id')!=original['experiment_id'] or a.get('collected_tasks')!=164 or len(a.get('parts',[]))!=1:raise ValueError('Scoring-view counter requires one original full164 capture')
+ part=a['parts'][0];out=pathlib.Path(part['audit_path']).parent;ids=part['task_ids']
+ counter=reviewed_counter_measurement({'energy_counter_review':{'path':str(path),'sha256':descriptor['sha256']}},out,ids,result['solved'],receipt,kind='coding')
+ result=copy.deepcopy(result);result['counter_energy']=counter;result['audit_ids'].append(counter['audit_id'])
  return result
 
 def frozen_merge(previous,incoming,key):

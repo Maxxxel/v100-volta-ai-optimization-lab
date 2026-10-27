@@ -590,7 +590,8 @@ test('OmniCoder historical V2 labels collapse to one display family without losi
 });
 test('engine source labels require the exact recorded server, CUDA library and build tuple', () => {
   const view = M.comparisonView(M.build(data)), column = view.columns.find(c => c.key === 'engine.version');
-  assert(view.rows.every(r => typeof M.value(r, column, {}, view.benchmarkMap) === 'string'));
+  assert(view.rows.every(r => { const v=M.value(r, column, {}, view.benchmarkMap); return typeof v === 'string' || (v === null && !r.values['engine.source_evidence']); }));
+  const corrected=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R583'));assert(corrected);assert.equal(M.value(corrected,column,{},view.benchmarkMap),null,'New build must not borrow the source label of another binary tuple');
   assert(view.rows.every(r => r.profile.engine.version === null), 'No synthetic upstream release written into immutable profiles');
   const copy = JSON.parse(JSON.stringify(data)), review = copy.register.engine_source_reviews?.[0]; assert(review);
   review.engines.forEach(e => { e.kernel_library_sha256 = '0'.repeat(64); });

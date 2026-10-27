@@ -1511,7 +1511,8 @@
         "R550",
         "R565",
         "R567",
-        "R572"
+        "R572",
+        "R580"
       ],
       "profiles": [
         {
@@ -2466,6 +2467,77 @@
           "winner_qualified": false
         },
         "model": "gpt-oss-20b"
+      },
+      {
+        "audit_sha256": "bd204f19ea0fb6cd614cc18ac4bc64dc692382f13fc05e0062821b64a8e55c7f",
+        "experiment_id": "R580",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 342.331593961,
+            "group_window_s": 342.337771129,
+            "lower_j": 95612.92,
+            "upper_j": 95701.7
+          },
+          "actual_generation_requests": 159,
+          "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+          "case_wall_s": 342.331593961,
+          "completed_request_wall_s": 338.983113707,
+          "completion_tokens": 12410,
+          "context_tokens": 8192,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 5975.8075,
+          "gpu_j_per_success_upper": 5981.35625,
+          "independent_review_audit_id": "audit-1c013e58b7c7cace10c6",
+          "independent_review_sha256": "1c013e58b7c7cace10c64e68914d66ca963337ba6ca80d5858127dac5fba85db",
+          "max_output_tokens": 4096,
+          "model_sha256": "f16fef77021df0d4c22e69140a2038478370492f51867b6237699918ae711000",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 3,
+            "case_lost": 15,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 0.09375,
+            "net_success_change": -12,
+            "nonzero_groups": 9,
+            "reference_experiment_id": "R536",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 10950.5,
+          "planned_tasks": 33,
+          "policy_gate_passes": 25,
+          "profile_sha256": "bf0f50d2a8fbec26204591aec07981156264e6b3385044b8a4e749f272a28297",
+          "quality_diagnostics": {
+            "evidence_or_postcondition_failure_cases": 0,
+            "final_contract_failure_cases": 0,
+            "incorrect_facts_cases": 9,
+            "invalid_action_cases": 0,
+            "invalid_action_events": 0,
+            "invalid_final_contract_cases": 0,
+            "missing_valid_final_cases": 0,
+            "parse_failed_cases": 0,
+            "parse_failed_rounds": 0,
+            "policy_violation_cases": 8,
+            "policy_violation_events": 11,
+            "rejected_tool_call_cases": 8,
+            "rejected_tool_call_events": 11,
+            "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+            "wrong_final_status_cases": 0,
+            "wrong_reason_code_cases": 0
+          },
+          "solved": 16,
+          "successful_tasks_per_s": 0.04673733278483231,
+          "task_limit_s": 1200,
+          "task_phase_s": 342.338748205,
+          "task_scope_passes": 33,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 36.60949321129483,
+          "winner_qualified": false
+        },
+        "model": "Ministral-3-14B-Instruct-2512"
       }
     ],
     "multi_agent_plan": {
@@ -6905,8 +6977,23 @@
         "tasks": 16
       },
       "experiment_id": "R514",
-      "full_benchmark_runs": [],
-      "full_benchmark_status": "NOT MEASURED",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "46412c0eb72be7324825e9be91d7fb5e111982cdedddddaa54699ea1f9eb6f7f",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R584",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-bf342cf0c82599f597854631d5a966963f80eee7c85a05ee0d2b69e4d91e7c15"
+        },
+        {
+          "audit_hash": "373adb54812049b27b447755eb59113a87166d355d42b9fabadc3d2df399f066",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R585",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-3ba6be2510c3ae429ea93b13373010a1ff233d72b36d5c1b40ad0472efb6f5ff"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "151004c63549d85a4d6f3cacb9454637c69a6de218885238cd24802ec8e20f5a",
       "local_artifact_available": true,
       "model": "Qwen3.5-0.8B",
@@ -9271,6 +9358,292 @@
         "scope": "Audited failed startup, not a quality rejection or proof of hardware incompatibility. No new GPU run.",
         "status": "FAILED"
       }
+    },
+    {
+      "audit_sha256": "458db1157faf628a99b0f5e4949f2d2dd77a110b8b097d5d5182739fc09840a8",
+      "conditions": "Single native-profile session; frozen base-task order",
+      "configuration": {
+        "binary_identities": {
+          "libggml-cuda.so.0.26.0": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+          "llama-server": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54"
+        },
+        "context": 8192,
+        "engine": "llama.cpp native",
+        "engine_version": null,
+        "hardware": "Tesla V100 SXM2 16 GB",
+        "model_sha256": "21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91",
+        "model_source": {
+          "base_repository": "zai-org/GLM-4.7-Flash",
+          "base_revision": "7dd20894a642a0aa287e9827cb1a1f7f91386b67",
+          "hf_repository": "unsloth/GLM-4.7-Flash-GGUF",
+          "hf_revision": "0d32489ecb9db6d2a4fc93bd27ef01519f95474d",
+          "license": "mit",
+          "parameters_in_GGUF": 29943393920,
+          "quantizer": "unsloth"
+        },
+        "parent_profile_id": "glm47-flash-q3ks-nonthinking-screening32-task1200-reviewed-sm70",
+        "power_w": 300,
+        "quantization": "Q3_K_S",
+        "recorded_native_profile": {
+          "engine": {
+            "binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+            "build_id": "dded13c80bc8e7d01a43ac6745d06bb22d7a15a3f5fba68729c536286e5066d4",
+            "cuda_version": null,
+            "driver_version": null,
+            "executed_kernel_backend_path": null,
+            "fork_repository": null,
+            "ggml_backend_version": null,
+            "git_commit": null,
+            "kernel_library_file": "libggml-cuda.so.0.26.0",
+            "kernel_library_sha256": "f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5",
+            "name": "llama.cpp-compatible",
+            "patches": null,
+            "version": null
+          },
+          "evaluation_exposure": "Historical development suites were reused; no unseen holdout or absence of overfitting is claimed.",
+          "incomplete_identity_run": null,
+          "model": {
+            "architecture": "deepseek2",
+            "artifact_sha256": "21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91",
+            "family_id": "glm47_flash",
+            "hf_repository": "unsloth/GLM-4.7-Flash-GGUF",
+            "hf_revision": "0d32489ecb9db6d2a4fc93bd27ef01519f95474d",
+            "name": "GLM-4.7-Flash · native nonthinking",
+            "parameters_in_GGUF": 29943393920,
+            "quantization": "Q3_K_S",
+            "tensor_precision_map": null,
+            "variant": "GLM-4.7-Flash · native nonthinking",
+            "weight_transformations": {
+              "caution": "Artifact naming is not tensor-level transformation proof; unknown provenance is not original/base weights.",
+              "description": "SOURCE_GGUF_NO_LOCAL_WEIGHT_TRANSFORM_ESTABLISHED",
+              "proof": null
+            }
+          },
+          "model_artifact_id": "artifact-5e69f5b8c20475910ae5459f1207a5abd57ee50372c7068e46c111aa5cb400f3",
+          "optimizations": {
+            "GDN_state_changes": null,
+            "HBM_conversion_weight_cache_limit_mib": "0",
+            "KV_precision": {
+              "k": "f16",
+              "v": "f16"
+            },
+            "cuda_graphs": {
+              "actual_capture_replay": null,
+              "disable_knob": null,
+              "optimization_knob": "0"
+            },
+            "draft_head_or_model": null,
+            "draft_parameters": {
+              "--spec-type": "none"
+            },
+            "draft_sha256": null,
+            "flash_attention_requested": "auto",
+            "other_explicit_knobs": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0"
+            },
+            "prefix_reuse": null,
+            "quantization_calibration": null,
+            "speculation_type": "none"
+          },
+          "provenance_status": "KNOWN_FIELDS_ONLY; null means NOT MEASURED",
+          "runtime": {
+            "CPU_budget": null,
+            "CPU_scoring_limit_s": 120,
+            "CPU_threads": "6",
+            "GPU_offload": "99",
+            "GPU_wrapper_limit_s": 1440,
+            "RAM_budget": null,
+            "VRAM_budget_mib": 14336,
+            "batch": "2048",
+            "benchmark_task_limit_s": 1200,
+            "chat_template_sha256": "d63ad536c3c81880043e22ec7fd08db42b4d8fb7c89c7138bc562bfa25281375",
+            "context": "8192",
+            "execution_deadline_s": 1200,
+            "max_output": 4096,
+            "microbatch": "512",
+            "native_HTTP_timeout_policy": "REMAINING_TASK_TIME",
+            "native_template_controls": {
+              "enable_thinking": false
+            },
+            "power_limit_w": 300,
+            "sampling": {
+              "min_p": 0.0,
+              "seed": 1001,
+              "temperature": 1.0,
+              "top_k": 0,
+              "top_p": 0.95
+            },
+            "startup_limit_s": 180,
+            "thinking_reasoning_requested": null,
+            "timing_scope": "DEVELOPMENT_SCREEN_TASK_PHASE_ONLY",
+            "tokenizer_identity": null
+          },
+          "runtime_configuration_id": "cfg-cd94351837030f8a97c7a0370a4b667b26bebea5e112375b35d10686a45f7b3e",
+          "schema_version": 1,
+          "source_plan_sha256": "837d911cc693ba16ff1d12f3826a338edc1ec148c939396d63e1f359f0bed833",
+          "source_provenance": {
+            "actual_launch_sha256": "4021a3ec7271522f933684e2d8ed25381569b04df48a7d783a988235751a14c3",
+            "actual_profile_sha256": "6400201ef0e48bdd19e24b2bfd0527d6b5267c1c4e1579adfe904f898ec19392",
+            "evidence_scope": "FIRST_SOURCE_REVIEWED_DEVELOPMENT_SCREEN_ONLY",
+            "frozen_model_profile_sha256": "20603385d7545c1b60f3cd6065c93e54e0de5ed1ab8dc02149535cfe68ce8ad2",
+            "kind": "BROKER_NATIVE_CAPTURED_CONFIGURATION",
+            "model_source_package_sha256": "a1017db5d8217441a10911f612507ef38f53a344972da80bc2a92e5442a134a9"
+          },
+          "start_parameters": {
+            "argv": [
+              "llama-server",
+              "--model",
+              "[artifact:21d16834f428215926466ce44862fccbd3337008b49ea4ac2f58abdd8ddd1e91]",
+              "--alias",
+              "[session-local value]",
+              "--ctx-size",
+              "8192",
+              "--n-gpu-layers",
+              "99",
+              "--parallel",
+              "1",
+              "--host",
+              "[session-local value]",
+              "--port",
+              "[session-local value]",
+              "--jinja",
+              "--chat-template-file",
+              "[artifact:d63ad536c3c81880043e22ec7fd08db42b4d8fb7c89c7138bc562bfa25281375]",
+              "--threads",
+              "6",
+              "--threads-batch",
+              "6",
+              "--batch-size",
+              "2048",
+              "--ubatch-size",
+              "512",
+              "--seed",
+              "1001",
+              "--ctx-checkpoints",
+              "2",
+              "--cache-ram",
+              "0",
+              "--no-cache-idle-slots",
+              "--verbosity",
+              "4",
+              "--flash-attn",
+              "auto",
+              "--cache-type-k",
+              "f16",
+              "--cache-type-v",
+              "f16",
+              "--load-mode",
+              "mmap",
+              "--spec-type",
+              "none"
+            ],
+            "environment": {
+              "GGML_CUDA_GRAPH_OPT": "0",
+              "GGML_CUDA_O2_WEIGHT_CACHE_MIB": "0",
+              "OMP_NUM_THREADS": "6"
+            },
+            "exact_private_launch_sha256": "ba8d0cd99cbcac6bb2db81806c99fd7170895e16171c5f6e8769b500132668d9",
+            "note": "All ordered start flags retained. Private paths/addresses are redacted; their exact originals remain bound by the private launch hash.",
+            "redacted_argument_positions": [
+              0,
+              2,
+              4,
+              12,
+              14,
+              17
+            ]
+          }
+        },
+        "request_options": {
+          "cache_prompt": false,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "max_tokens": 4096,
+          "min_p": 0.0,
+          "seed": 1001,
+          "temperature": 1.0,
+          "top_k": 0,
+          "top_p": 0.95
+        },
+        "screening_configuration_id": "screening-config-5139273bb9e9659170e7168eee32812e134f031d29bef570b924c03284510ce7",
+        "task_time_policy": {
+          "cleanup_seconds": 60,
+          "startup_seconds": 180,
+          "task_seconds": 1200,
+          "wall_seconds": 1440
+        },
+        "warmup_requests": 2
+      },
+      "date": "2026-10-27T07:40:30.485494+00:00",
+      "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
+      "experiment_id": "R577",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "d132db4b09bc108c0dc8d3f3c4bf2e27f383baea3e08f61aa81f91282249b0c4",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R578",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-8f9efeee3717fccd85e0288d693fa88b2fed7121d5bdb6838fb06729251dbc2d"
+        },
+        {
+          "audit_hash": "3a99d6efdc6ed7c9d0d466df999e4c03733caf11ef3fdadc8c5e8a95109f0f4d",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R581",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-4db95308dca9a5d352b24e9389a692183d5ec34c966a99dbd0b8fa955054f02b"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
+      "independent_review_sha256": "653741661f95751fcdd28c2cf81f43390d17db0677d92983b3392b44f11e4ae6",
+      "local_artifact_available": true,
+      "model": "GLM-4.7-Flash · native nonthinking",
+      "parent_experiment_id": "R577",
+      "peak_vram_mib": 13714.5,
+      "results": {
+        "coding": {
+          "GPU_j_per_success_lower": 721.0362222222222,
+          "GPU_j_per_success_upper": 862.4075555555555,
+          "completed": 16,
+          "completed_request_wall_s": 45.853742473000004,
+          "completion_tokens": 2964,
+          "final_text_present": 16,
+          "gpu_energy_j_lower": 6489.326,
+          "gpu_energy_j_upper": 7761.668,
+          "length_stops": 0,
+          "successes": 9,
+          "successful_tasks_s_completed_requests": 0.1962762364554967,
+          "tokens_s_completed_requests": 64.64030720601023,
+          "valid_terminal_output": 16,
+          "wilson95": [
+            0.331785563988119,
+            0.7690134759450765
+          ]
+        },
+        "tools": {
+          "GPU_j_per_success_lower": 222.9668181818182,
+          "GPU_j_per_success_upper": 337.50718181818183,
+          "completed": 16,
+          "completed_request_wall_s": 18.778087584,
+          "completion_tokens": 642,
+          "final_text_present": 14,
+          "gpu_energy_j_lower": 2452.635,
+          "gpu_energy_j_upper": 3712.579,
+          "length_stops": 0,
+          "successes": 11,
+          "successful_tasks_s_completed_requests": 0.5857891518927958,
+          "tokens_s_completed_requests": 34.188785046834084,
+          "valid_terminal_output": 11,
+          "wilson95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ]
+        }
+      },
+      "status": "SCREENING VOLLSTÄNDIG",
+      "task_phase_s": 64.652915375,
+      "timeouts": 0
     }
   ],
   "schema": 1,
