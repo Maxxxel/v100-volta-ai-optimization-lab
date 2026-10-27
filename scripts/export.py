@@ -108,13 +108,14 @@ def agent_quality_diagnostics(cases):
 
 def metrics(obj):
     result={k:projection(v) for k,v in obj.items() if k in METRIC_ROOTS and projection(v) is not None}
-    validation33=obj.get('dataset_id')=='jarvis-agent-validation-20261025-v1' and obj.get('planned_tasks')==33
-    if obj.get('status')=='VALIDATION33_COMPLETE' and ('planned_tasks' in obj or 'dataset_id' in obj):assert validation33
+    reserved=obj.get('dataset_id')=='jarvis-lean-holdout-20261027-v1' and obj.get('planned_tasks')==33
+    validation33=(obj.get('dataset_id')=='jarvis-agent-validation-20261025-v1' or reserved) and obj.get('planned_tasks')==33
+    if obj.get('status') in ('VALIDATION33_COMPLETE','LEAN_RESERVED_VALIDATION33_COMPLETE') and ('planned_tasks' in obj or 'dataset_id' in obj):assert validation33
     agent_count=33 if validation33 else 18
-    if obj.get('status') in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE','PARTIAL_TECHNICAL_REVIEW_REQUIRED') and obj.get('planned_tasks')==agent_count:
+    if obj.get('status') in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE','LEAN_RESERVED_VALIDATION33_COMPLETE','PARTIAL_TECHNICAL_REVIEW_REQUIRED') and obj.get('planned_tasks')==agent_count:
         assert obj.get('official_benchmark') is False and obj.get('winner_qualified') is False and obj.get('full_benchmark_score_claimed') is False
         assert type(obj.get('tasks')) is int and type(obj.get('solved')) is int and 0<=obj['solved']<=obj['tasks']<=agent_count and obj.get('planned_tasks')==agent_count
-        if obj['status'] in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE'):assert obj['tasks']==agent_count and obj.get('measurement_valid') is True
+        if obj['status'] in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE','LEAN_RESERVED_VALIDATION33_COMPLETE'):assert obj['tasks']==agent_count and obj.get('measurement_valid') is True
         keys=('tasks','solved','planned_tasks','model_starts','actual_generation_requests','technical_request_errors','technical_preflight_cases','completion_tokens','completed_request_wall_s','case_wall_s','task_phase_s','task_limit_s','peak_device_vram_mib','gpu_j_per_success_lower','gpu_j_per_success_upper','successful_tasks_per_s','tokens_s_completed_requests')
         agent={k:obj[k] for k in keys if type(obj.get(k)) in (int,float) and math.isfinite(obj[k]) and obj[k]>=0}
         for k in ('model_sha256','profile_sha256','independent_review_sha256'):
@@ -123,8 +124,8 @@ def metrics(obj):
         if counter:
             assert counter.get('method')=='NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1'
             agent['GPU_counter']={k:counter[k] for k in ('lower_j','upper_j','group_window_s','complete_request_s') if type(counter.get(k)) in (int,float) and math.isfinite(counter[k]) and counter[k]>=0}
-        agent.update(official_benchmark=False,winner_qualified=False,data_role=('FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL' if validation33 else 'PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT'))
-        result['native_validation33' if validation33 else 'native_agent18_development']=agent
+        agent.update(official_benchmark=False,winner_qualified=False,data_role=('RESERVED33_MODEL_UNSEEN_FIXTURES_CORRELATED_FAMILIES_NOT_OFFICIAL' if reserved else 'FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL' if validation33 else 'PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT'))
+        result['native_lean_reserved_validation33' if reserved else 'native_validation33' if validation33 else 'native_agent18_development']=agent
     event_recovery=(obj.get('status')=='PARTIAL_WRAPPER_STOP_EVENT_RESPONSES_CPU_REPLAYED'
                     and obj.get('independent_CPU_judgements_identical') is True)
     if (obj.get('status')=='STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET' or event_recovery) and obj.get('full_benchmark_score_claimed') is False:
@@ -835,6 +836,45 @@ def verified_native_role_comparison(root, summary, receipt):
             'paired_changes':paired,'scope':'Five exposed development tasks paired across three fixed-order harness arms. All role costs included; no official benchmark, population ranking, independent model inference replay or Champion.'}
 
 
+def project_lean_research(root):
+    """Allowlisted decision/source review; CPU reviews never become GPU results."""
+    base=pathlib.Path(root)/'staging/model-comparison-preparation/agent-qualification';p=base/'LEAN_HARNESS_PLAN.json'
+    if not p.exists():return None
+    plan=load(p);techniques=[{k:text(row.get(k)) for k in ('technique','status','priority','evidence','scope','next')} for row in plan['technique_review']]
+    sources=[]
+    for section,folder,identity in [('paper_implementation_followup','what-does-a-harness-buy','ANALYSIS_SOURCE_IDENTITIES.json'),('caveman_engine_followup','caveman','ENGINE_SOURCE_IDENTITIES.json')]:
+        item=plan.get(section)
+        if not item:continue
+        identities=load(base/'harness-issues-sources'/folder/identity)
+        for record in identities:
+            src=base/'harness-issues-sources'/folder/record['path'];assert digest(src)==record['sha256'] and record['executed'] is False and record['commit']==item['commit']
+            payload=src.read_bytes();assert hashlib.sha1(b'blob '+str(len(payload)).encode()+b'\0'+payload).hexdigest()==record['git_blob_sha1']
+        sources.append({'repository':url(item['repository']),'commit':item['commit'],'status':text(item['status']),'license':text(item.get('license')),'mechanisms':[text(v) for v in item['verified_mechanisms']],'scope':text(item.get('scope') or item.get('decision')),'files':[{'file':r['path'],'sha256':r['sha256'],'git_blob_sha1':r['git_blob_sha1']} for r in identities]})
+    scopes=[]
+    for name in ('LEAN_SCREENING32_APPLICABILITY_REVIEW.json','LEAN_EXACT_DUPLICATE_CONTEXT_VERIFICATION.json','LEAN_STRUCTURAL_JSON_FEASIBILITY.json'):
+        f=base/name;row=load(f);assert row.get('GPU_runs',row.get('GPU_calls'))==0 and row.get('new_model_requests',row.get('model_requests')) in (None,0)
+        scopes.append({'review_sha256':digest(f),'review_name':name,'scope':text(row['scope']),'GPU_runs':0,'model_requests':row.get('new_model_requests',row.get('model_requests')),'counts':projection(row.get('counts',{})),'profiles':[{'experiment_id':r['experiment_id'],'counts':projection(r['counts'])} for r in row.get('profiles',[])]})
+    reference=None;pointer=load(pathlib.Path(root)/'BENCHMARK_REFERENCES.json').get('lean_harness_reference')
+    if pointer:
+        refpath=pathlib.Path(pointer['file']);assert digest(refpath)==pointer['sha256'];ref=load(refpath)
+        assert ref['id']==pointer['id'] and all(row['optimized_harness_qualified'] is False for row in ref['profiles'])
+        profiles=[]
+        for row in ref['profiles']:
+            audit=pathlib.Path(root)/'staging'/row['experiment_id'].lower()/'AUDIT.json';assert digest(audit)==row['audit_sha256'] and load(audit)['profile_sha256']==row['captured_profile_sha256']
+            runtime=row['runtime_configuration'];request=runtime['request_options'];allowed={'cache_prompt','chat_template_kwargs','max_tokens','min_p','model','parallel_tool_calls','tool_choice','presence_penalty','repeat_penalty','return_tokens','seed','stream','temperature','top_k','top_p','verbose'}
+            assert set(request)<=allowed
+            profiles.append({'experiment_id':row['experiment_id'],'model':text(row['model']),'model_sha256':row['model_sha256'],'captured_profile_sha256':row['captured_profile_sha256'],'audit_sha256':row['audit_sha256'],'context_tokens':runtime['context'],'request_options':request,'engine_binary_sha256':runtime['engine_binary_sha256'],'template_sha256':runtime['template_sha256'],'transport_sha256':runtime['transport_sha256'],'optimized_harness_qualified':False})
+        reference={'id':ref['id'],'status':ref['status'],'reference_sha256':digest(refpath),'source_files_sha256':ref['source_files_sha256'],'profiles':profiles,'budgets':ref['budgets'],'limits':[text(v) for v in ref['limits']],'next_goal_boundary':text(ref['next_goal_boundary'])}
+    return {'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+
+def reserved_validation_work(records):
+    """Count actual retained response usage; missing instrumentation stays null."""
+    turns=[r for r in records if r['kind']=='agent_turn'];cases=[r for r in records if r['kind']=='agent_case']
+    def measured_sum(values):return sum(values) if values and all(type(v)is int and v>=0 for v in values) else None
+    inputs=measured_sum([r['reply'].get('usage',{}).get('prompt_tokens') for r in turns]);outputs=measured_sum([r['reply'].get('usage',{}).get('completion_tokens') for r in turns])
+    work={'input_tokens':inputs,'output_tokens':outputs,'reasoning_tokens':measured_sum([r['reply'].get('usage',{}).get('completion_tokens_details',{}).get('reasoning_tokens') for r in turns]),'input_output_tokens':inputs+outputs if inputs is not None and outputs is not None else None,'completed_model_calls':len(turns),'policy_violations':measured_sum([c['reported_result'].get('policy_violations') for c in cases]),'rejected_calls':measured_sum([c['reported_result'].get('rejected_calls') for c in cases]),'tool_calls':measured_sum([c['reported_result'].get('total_tool_calls') for c in cases])}
+    return {'measured_work':work}
+
 def verified_native_agent_development(root, summary, receipt):
     """Verify original capture and isolated replay before public development costs."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -852,8 +892,9 @@ def verified_native_agent_development(root, summary, receipt):
     assert digest(cp)==review['CPU_receipt_sha256'] and digest(stdout)==review['CPU_stdout_sha256'];cpu=load(cp)
     assert cpu['returncode']==0 and 'Result=success\n' in cpu['properties'] and 'ExecMainStatus=0\n' in cpu['properties']
     observed=[json.loads(l.split(' ',1)[1]) for l in stdout.read_text().splitlines() if l.startswith('AGENT18_REPLAY_JSON ')];assert observed==[result]
-    validation33=a.get('dataset_id')=='jarvis-agent-validation-20261025-v1'
-    if a['status'] in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE'):
+    reserved=a.get('dataset_id')=='jarvis-lean-holdout-20261027-v1'
+    validation33=a.get('dataset_id')=='jarvis-agent-validation-20261025-v1' or reserved
+    if a['status'] in ('DEVELOPMENT_AGENT18_COMPLETE','VALIDATION33_COMPLETE','LEAN_RESERVED_VALIDATION33_COMPLETE'):
         assert result['complete'] and result['cases']==(33 if validation33 else 18)
         completion=load(raw/'HOST_COMPLETION.json');assert completion['status']=='GPU_COMPLETE_AUDITED' and completion['audit_sha256']==digest(raw/'AUDIT.json')
     from leaderboard import counter_energy_bounds
@@ -861,14 +902,51 @@ def verified_native_agent_development(root, summary, receipt):
     assert len(cases)==a['tasks'] and sum(c['reported_result']['task_success'] for c in cases)==a['solved']
     assert counter_energy_bounds(telemetry,cases,[c['id'] for c in cases])==a['GPU_counter']
     if validation33:
-        frozen=load(root/'staging/model-comparison-preparation/agent-qualification/PRIVATE_VALIDATION33.json')
-        assert digest(root/'staging/model-comparison-preparation/agent-qualification/PRIVATE_VALIDATION33.json')=='acd45c1b43c2cebb1f9453707a76954275bf9810f2344e50e3707a654ed26b65'
+        frozen_path=root/'staging/model-comparison-preparation/agent-qualification'/('LEAN_HOLDOUT_TASKS.json' if reserved else 'PRIVATE_VALIDATION33.json')
+        assert digest(frozen_path)==('c25de56c9629584ea22f0aae2b07ad81fadc09ff0b6205eb58c72bb305c96122' if reserved else 'acd45c1b43c2cebb1f9453707a76954275bf9810f2344e50e3707a654ed26b65')
+        frozen=load(frozen_path)
         assert profile['selected_task_inputs']['dataset']==a['dataset_id'] and profile['selected_task_inputs']['cases']==frozen['cases']
         assert [c['id'] for c in cases]==[c['id'] for c in frozen['cases']][:len(cases)]
-    m=metrics(a)['native_validation33' if validation33 else 'native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
+    m=metrics(a)['native_lean_reserved_validation33' if reserved else 'native_validation33' if validation33 else 'native_agent18_development'];m['independent_review_audit_id']=receipt(rp,summary['independent_review_sha256'])
     m['context_tokens']=profile['native_recipe']['context'];m['max_output_tokens']=profile['native_recipe']['request_options']['max_tokens'];m['bridge_source_sha256']=profile['native_recipe']['agent18']['transport_sha256']
     if validation33:
-        m.update(agent_policy_counts(cases));m['quality_diagnostics']=agent_quality_diagnostics(cases)
+        if len(cases)==33:
+            m.update(agent_policy_counts(cases));m['quality_diagnostics']=agent_quality_diagnostics(cases)
+        elif reserved:
+            assert all(type(c['reported_result'].get(k)) is bool for c in cases for k in ('policy_gate_pass','task_scope_pass'))
+            m.update(policy_gate_passes=sum(c['reported_result']['policy_gate_pass'] for c in cases),task_scope_passes=sum(c['reported_result']['task_scope_pass'] for c in cases))
+        else:raise AssertionError('Historical validation projection requires original complete33 capture')
+    if reserved:
+        plan=load(ap.parent/'CAMPAIGN_PLAN.json');assert digest(ap.parent/'CAMPAIGN_PLAN.json')==a['campaign_plan_sha256']
+        assert plan['independent_holdout'] is True and plan['family_independent'] is False and plan['no_retuning_on_reserved_replies'] is True
+        assert plan['holdout_plan_sha256']=='627675b304d7252b6e8136606dd83cb798559bfa7b544a40ac05b65c2987792a'
+        assert digest(root/'staging/model-comparison-preparation/agent-qualification/LEAN_HOLDOUT_PLAN.json')==plan['holdout_plan_sha256']
+        execution=load(pathlib.Path(profile['execution_review']['file']));assert digest(pathlib.Path(profile['execution_review']['file']))==profile['execution_review']['sha256']
+        parent_path=pathlib.Path(execution['parent_model_snapshot_file']);parent=load(parent_path);assert digest(parent_path)==execution['parent_model_snapshot_sha256']
+        pins={'a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052':'e8d6305a50fe0a2522475070c90e25dfbc373be7eba029870941c26a705d2973','b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c':'c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d','93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b':'40c9726c13614e7eb6a87a794e65c528bcddf5e32bef6bede930bb1ebc2bfb16'}
+        assert a['model_sha256'] in pins and digest(parent_path)==pins[a['model_sha256']]
+        assert profile['native_recipe']['context']==8192 and profile['native_recipe']['agent18']['archive_sha256']=='1db8fe157575f6c69d169a9218a39702e6f900ea3717aa4072425199b080bed7'
+        def native_identity(p):
+            p=copy.deepcopy(p)
+            for k in ('selected_task_inputs','review','execution_review','adapter','task_datasets','assets'):p.pop(k,None)
+            for k in ('agent18','maximum_tasks','maximum_generation_requests','maximum_runtime_seconds','http_timeout_policy','preflight_all_inputs'):p['native_recipe'].pop(k,None)
+            return p
+        assert native_identity(profile)==native_identity(parent)
+        m.update(reserved_validation_work(records),complete_capture=a['measurement_valid'] and a['tasks']==33,complete_inference=a['measurement_valid'] and a['tasks']==33 and a['technical_request_errors']==a['technical_preflight_cases']==0,family_independent=False,model_fixtures_unseen_at_freeze=True,optimization_winner=False,profile_sha256=a['profile_sha256'],parent_profile_sha256=digest(parent_path),model_sha256=a['model_sha256'],scorer_sha256=review['scorer_sha256'],dataset_id=a['dataset_id'])
+        domain_by_id={c['id']:c['task']['domain'] for c in frozen['cases']};domain_results={}
+        for c in cases:
+            domain=domain_by_id[c['id']];assert domain in ('code','ha','pve','poke','pal','astra');counts=domain_results.setdefault(domain,{'cases':0,'solved':0,'policy_gate_passes':0,'policy_violation_events':0})
+            counts['cases']+=1;counts['solved']+=c['reported_result']['task_success'];counts['policy_gate_passes']+=c['reported_result']['policy_gate_pass'];counts['policy_violation_events']+=c['reported_result']['policy_violations']
+        limits=[]
+        for row in records:
+            if row['kind']!='agent_preflight_error':continue
+            assert row['reason'] in ('CONTEXT_BUDGET','TOKENIZER_FORMAT','API_PREFLIGHT_ERROR')
+            ids=row.get('prompt_token_ids');count=len(ids) if isinstance(ids,list) and all(type(t)is int and t>=0 for t in ids) else None;maximum=row['request'].get('max_tokens')
+            if row['reason']=='CONTEXT_BUDGET':assert count is not None and type(maximum)is int and count+maximum>profile['native_recipe']['context']
+            limits.append({'domain':domain_by_id[row['case_id']],'turn':row['turn'],'reason':row['reason'],'prompt_tokens':count,'max_output_tokens':maximum,'context_tokens':profile['native_recipe']['context']})
+        m['domain_results']=domain_results;m['preflight_limits']=limits
+        qpath=ap.parent/'QUALITY_REVIEW.json';q=load(qpath);assert q['source_audit_sha256']==digest(ap) and q['measured_work']==m['measured_work']
+        m['quality_audit_id']=receipt(qpath,digest(qpath));m['implementation']={'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'template_sha256':profile['assets'][profile['chat_template']],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None}
     if validation33 and summary.get('replay_order_correction_path'):
         correction=pathlib.Path(summary['replay_order_correction_path']);assert digest(correction)==summary['replay_order_correction_sha256']
         document=load(correction);assert document['kind']=='CAPTURED_FIXTURE_ORDER_CPU_REPLAY_CORRECTION' and document['GPU_reruns']==0
@@ -1062,7 +1140,7 @@ def main():
             experiments[ident]['aggregate_metrics'][key]=lean
             catalog[audit]['aggregate_metrics'][key]=lean
             experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id','correction_audit_id') if lean.get(k)]
-        native_key='native_validation33' if catalog.get(audit,{}).get('aggregate_metrics',{}).get('native_validation33') else 'native_agent18_development'
+        native_key=next((key for key in ('native_lean_reserved_validation33','native_validation33','native_agent18_development') if catalog.get(audit,{}).get('aggregate_metrics',{}).get(key)), 'native_agent18_development')
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
             experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)
             experiments[ident]['model']=text(load(locations[audit]).get('model'));experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
@@ -1177,6 +1255,7 @@ def main():
     previous_file=HERE/'data/configuration-history.json'
     register,configuration_history=build_leaderboard(root,db,comparison,list(experiments.values()),receipt,text,load(previous_file) if previous_file.exists() else None)
     snapshot={'schema':1,'matrix_revision':matrix['revision'],'source_sha256':source_hashes,'source_date':matrix.get('updated_at_utc') or matrix['factor_accountability_summary']['at_utc'],'counts':{'original_factors':130,'additional_factors':32,'factors':len(factors),'model_challengers':len(challengers),'assessed_factors':len(factors),'experimentally_covered':sum(x['experimentally_covered'] for x in factors),'omnicoder2_experimentally_covered':sum(x['omnicoder2_experimentally_covered'] for x in factors),'scientific_status':dict(collections.Counter(x['status'] for x in factors)),'sprint_records':len(experiments),'signed_windows':len(windows),'ledger_events':len(events),'reference_records':len(references),'qualified_profile_pointers':sum(bool(x['C']) for x in profiles)},'limitations':['An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.','GPU intervention count: NOT MEASURED AS ONE COMPARABLE TOTAL. Component processes, model sessions and requests remain separate in each original audit.','A redacted excerpt cannot reproduce the original SHA256. That SHA binds the retained original; exported bytes have their own manifest.','Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.','No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites.']}
+    snapshot['lean_harness_review']=project_lean_research(root)
     assert snapshot['counts']['factors']==162 and len(challengers)==11
     for name,obj in [('snapshot.json',snapshot),('factors.json',factors),('experiments.json',sorted(experiments.values(),key=lambda x:int(x['id'][1:]))),('audit-excerpts.json',list(catalog.values())),('signed-windows.json',windows),('history.json',events),('references.json',references),('profiles.json',profiles),('models.json',challengers),('comparison.json',comparison),('benchmark-register.json',register),('configuration-history.json',configuration_history),('model-benchmarks.json',metrics({'model_comparison_progress':db['summary'].get('model_comparison_progress',{})})),('sources.json',sources),('research-subcases.json',subcases)]:write(name,obj)
     from screening import build as build_screening

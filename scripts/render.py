@@ -439,8 +439,33 @@ def render_final_selection(frozen,history):
  text+='\n'.join('- '+v for v in frozen['remaining_limits'])+'\n'
  return text
 
-def lean_harness_report(experiments):
- text='# Lean Jarvis harness\n\nControlled harness experiments; frozen model baselines remain unchanged. These exposed development tasks are **not official benchmarks or independent holdout validation**. All tools are offline simulators; policy violations count rejected proposals, not production actions.\n\n'
+def reserved_harness_report(experiments):
+ rows=[(e,e.get('aggregate_metrics',{}).get('native_lean_reserved_validation33')) for e in experiments]
+ rows=[(e,r) for e,r in rows if r]
+ if not rows:return ''
+ fmt=lambda v,n=2:'NOT MEASURED' if v is None else format(v,'.'+str(n)+'f')
+ value=lambda v:'NOT MEASURED' if v is None else str(v)
+ text='## Reserved-fixture validation · retained minimal harness\n\n**33 reserved cases ·11 correlated authored families.** Each model retains its frozen8K profile. **Not an official leaderboard** or causal model/harness comparison; no population-equivalence claim.\n\n'
+ data=[]
+ for e,r in rows:
+  assert r['dataset_id']=='jarvis-lean-holdout-20261027-v1' and r['official_benchmark'] is False and r['winner_qualified'] is False
+  w=r['measured_work'];data.append(['['+e['id']+' · '+e['model']+'](experiments/'+e['id']+'.md)',str(r['solved'])+'/'+str(r['tasks']),str(r['tasks'])+'/'+str(r['planned_tasks'])+(' complete' if r.get('complete_capture') else ' PARTIAL'),str(r['policy_gate_passes'])+'/'+str(r['tasks']),value(w['input_tokens'])+' / '+value(w['output_tokens']),w['completed_model_calls'],fmt(r.get('case_wall_s')),fmt(r.get('gpu_j_per_success_lower'))+'–'+fmt(r.get('gpu_j_per_success_upper')),r.get('peak_device_vram_mib'),value(r.get('technical_preflight_cases'))+' / '+value(r.get('technical_request_errors'))])
+ text+=table(['Frozen profile','Solved / observed','Case capture','Policy passes','Reported input / output tokens','Completed model calls','Task wall s','GPU J / success bounds','Peak MiB','Preflight / request errors'],data)
+ text+='Policy failures are rejected proposals, not executed production actions. Failed cases remain in time/energy totals and available token usage. Token counts cover completed-response usage; unknown usage from failed requests is never estimated. Reasoning tokens: **NOT MEASURED** where response instrumentation is absent. NVML bounds are counter-query brackets, not statistical confidence intervals; model loading, warm-up and host CPU energy are excluded. Complete case capture does not mean every case reached inference: preflight failures are shown separately. No population-equivalence or optimized-harness adoption claim.\n\n'
+ for e,r in rows:
+  text+='<details markdown="1"><summary>'+e['id']+' · frozen configuration and evidence</summary>\n\n'
+  text+='Context / output: '+str(r['context_tokens'])+' / '+str(r['max_output_tokens'])+' tokens. Captured cases: '+str(r['tasks'])+'/'+str(r['planned_tasks'])+'. Independent nonroot CPU replay verified retained replies and simulated effects.\n\n'
+  for label,key in [('Model SHA256','model_sha256'),('Captured profile SHA256','profile_sha256'),('Frozen parent profile SHA256','parent_profile_sha256'),('Scorer SHA256','scorer_sha256')]:text+=label+': `'+r[key]+'`\n\n'
+  for limit in r.get('preflight_limits',[]):text+='Context preflight: '+limit['reason']+' · '+str(limit['prompt_tokens'])+' observed prompt tokens + '+str(limit['max_output_tokens'])+' reserved output > '+str(limit['context_tokens'])+' frozen context (turn '+str(limit['turn'])+'). No context/output change or answer repair.\n\n'
+  text+='Dataset: `'+r['dataset_id']+'`. Engine binary SHA256: `'+r['implementation']['engine_binary_sha256']+'`; template SHA256: `'+r['implementation']['template_sha256']+'`. Engine release version: **NOT RECORDED**; hashes are not version numbers. [Frozen sampling, thinking and model settings](final-selection.md).\n\n[Audit and original-capture hashes](experiments/'+e['id']+'.md).\n\n</details>\n\n'
+ return text
+
+def lean_harness_report(experiments,research=None):
+ text='# Lean Jarvis harness\n\nMeasured harness trials and reserved validation. Frozen models and external tool permissions remain unchanged; all tools are offline simulators.\n\n'
+ text+='**Keep the original minimal single-agent loop.** No tested rewrite qualified. No production deployment.\n\n'
+ text+='<details markdown="1"><summary>Original architecture and candidate change point</summary>\n\nRejected candidates inserted a pure request rewrite before the frozen model. The selected reference uses no rewrite or additional agent role.\n\n```mermaid\nflowchart LR\n  B[Domain-scoped native request] --> M[Frozen local model]\n  M --> P[Deterministic external permission check]\n  P -->|allowed| T[Isolated tool simulator]\n  P -->|denied| H[Retained outcome and full history]\n  T --> H\n  H --> B\n```\n\n</details>\n\n'
+ text+=reserved_harness_report(experiments)
+ text+='## Controlled development ablations\n\nThese exposed development cases are **not official benchmarks or independent holdout validation**.\n\n'
  rows=[(e,(e.get('aggregate_metrics',{}).get('native_lean_harness_ablation') or e.get('aggregate_metrics',{}).get('native_lean_harness_screen'))) for e in experiments]
  for e,r in rows:
   if not r:continue
@@ -457,18 +482,30 @@ def lean_harness_report(experiments):
    data.append([('reference · R587 stored' if screen and a['arm']=='reference' else a['arm']),str(a['solved'])+'/33',a['policy_violations'],a['total_tokens_reported'],fmt(a['case_wall_s']),fmt(a['GPU_j_per_success_lower'],2)+'–'+fmt(a['GPU_j_per_success_upper'],2),a['peak_sampled_device_vram_mib'],a['model_calls_attempted']])
   text+=table(['Arm','Solved','Policy violations','Input + output tokens','Task wall s','GPU J / success bounds','Peak MiB','Model calls'],data)
   c=r['comparison'];text+=('Case-matched historical-control outcomes: ' if screen else 'Paired outcomes: ')+str(c['paired_gained'])+' gained, '+str(c['paired_lost'])+' lost; '+str(c['new_policy_failure_cases'])+' new policy-failure cases. Token reduction '+fmt(c['token_reduction_percent'],2)+'%; task-wall reduction '+fmt(c['latency_reduction_percent'],2)+'%. These differences **do not qualify the candidate**.\n\n'
+  text+='<details markdown="1"><summary>Measurement limits, hashes and exact source</summary>\n\n'
   text+='Reasoning tokens: **NOT MEASURED**. GPU-energy intervals bracket cumulative NVML counter readings, not confidence intervals or calibration error. Failed tasks remain in cost numerators; model loading, warm-up and host CPU energy excluded. No population-equivalence claim.\n\n'
   text+='Transformation CPU seconds (including preservation/audit): '+', '.join(a['arm']+' '+fmt(a['transform_cpu_s'],6) for a in display_arms)+'. Current run TASK phase: '+format(r['task_phase_s'],'.3f')+'s /1200s. Independent isolated CPU replay reproduced all'+str(r['case_executions'])+' outcomes without model inference.\n\n'
   if r.get('correction_audit_id'):text+='CPU postprocessing required a byte-identical readable plan binding and restored permissions on empty sandbox mountpoints. Failed CPU receipts remain preserved; no GPU rerun or scoring-rule change. [Correction evidence](audits/'+r['correction_audit_id']+'.md).\n\n'
   if r.get('implementation'):text+='Captured implementation: transform SHA256 `'+r['implementation']['transform_module_sha256']+'`; engine binary SHA256 `'+r['implementation']['engine_binary_sha256']+'`. Transport and simulator identities are retained in the [public experiment data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/experiments.json). Source commit for the local transform: **not recorded at execution**; binary hashes are not version numbers. [Frozen model settings](final-selection.md).\n\n'
   if r.get('transform_source'):text+='[Exact measured request-transform source]('+r['transform_source']['file']+') · MIT; file SHA256 matches the captured module. Private fixtures and privileged runner code are not included.\n\n'
   text+='[Experiment and audit hashes](experiments/'+r['experiment_id']+'.md). Model SHA256: `'+r['model_sha256']+'`; captured profile SHA256: `'+r['profile_sha256']+'`; scorer SHA256: `'+r['scorer_sha256']+'`.\n\n'
- text+='## Next gate\n\nRetain the original reference. Evaluate other isolated, source-reviewed harness changes before combinations or transfer. Reserve fresh fixtures for independent confirmation; no optimized harness has been adopted.\n\n[Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)\n'
+  text+='</details>\n\n'
+ if research:
+  text+='## Technique decisions\n\n**Retain the measured minimal reference.** No tested alternative passed both quality/policy and efficiency gates. Technical reviews and deferred ideas are not GPU qualifications.\n\n<details markdown="1"><summary>Technique coverage, exclusions and source methods</summary>\n\n'
+  text+=table(['Approach','Decision / scope'],[[r['technique'],r['status']+' — '+(r.get('evidence') or '')] for r in research['techniques']])
+  text+='CPU checks reused160 prior one-shot requests: no tool-result history for JSON compression and no matching effect-tool pre-action trigger. The existing compact-system module rejects their distinct preambles; this is not a general rejection of new prompt hypotheses. Exact duplicate-read reuse found no eligible payload after state/error barriers across484 reference requests. These are applicability findings, not token or speedup measurements.\n\n'
+  text+='The pinned Caveman default JSON-elision route found no eligible long array in the reviewed Omni reference histories (all136 arrays have1–4 elements). TOON encoding remains deferred: ordered-field eligibility, native-token benefit and model interpretation are not locally qualified. No full proxy installed.\n\n'
+  for source in research['source_reviews']:
+   text+='['+source['repository'].split('/')[-1]+' · pinned source]('+source['repository']+'/tree/'+source['commit']+') · `'+source['commit']+'`. '+source['status']+'. '+(source.get('scope') or '')+'\n\n'
+  if research.get('frozen_reference'):
+   ref=research['frozen_reference'];text+='Frozen next-goal reference: `'+ref['id']+'` · SHA256 `'+ref['reference_sha256']+'`. '+ref['next_goal_boundary']+'\n\n'
+  text+='Original source-plan SHA256: `'+research['canonical_plan_sha256']+'`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).\n\n</details>\n\n'
+ text+='## Next gate\n\nRetain the original minimal reference: none of the tested alternatives passed the quality/policy and efficiency gates. No rejected components are combined. Reserved validation and model-specific technical limits are reported separately; no optimized harness has been adopted.\n\n[Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)\n'
  return text
 
 def main():
  s=read('snapshot.json');fs=read('factors.json');es=read('experiments.json');audits={x['id']:x for x in read('audit-excerpts.json')};profiles=read('profiles.json');refs={x['id']:x for x in read('references.json')};models=read('models.json');counts=s['counts']
- put('lean-harness.md',lean_harness_report(es))
+ put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')
  categories=[('Coding','humanevalplus-v0.1.10',164),('Tools','bfcl-v4-parallel-multiple-full200',200),('Agents','terminal-bench-2.1',89)]
  cards=[]

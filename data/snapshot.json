@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1850,
+    "ledger_events": 1853,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,402 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 505
+    "sprint_records": 508
+  },
+  "lean_harness_review": {
+    "CPU_applicability": [
+      {
+        "GPU_runs": 0,
+        "counts": null,
+        "model_requests": 0,
+        "profiles": [
+          {
+            "counts": {
+              "JSON_candidate_byte_equivalent_requests": 96,
+              "captured_requests": 96,
+              "offered_native_functions": 186,
+              "preaction_no_effect_tool_trigger": 96,
+              "system_candidate_unsupported_original_preamble": 96
+            },
+            "experiment_id": "R487"
+          },
+          {
+            "counts": {
+              "JSON_candidate_byte_equivalent_requests": 32,
+              "captured_requests": 32,
+              "offered_native_functions": 62,
+              "preaction_no_effect_tool_trigger": 32,
+              "system_candidate_unsupported_original_preamble": 32
+            },
+            "experiment_id": "R503"
+          },
+          {
+            "counts": {
+              "JSON_candidate_byte_equivalent_requests": 32,
+              "captured_requests": 32,
+              "offered_native_functions": 62,
+              "preaction_no_effect_tool_trigger": 32,
+              "system_candidate_unsupported_original_preamble": 32
+            },
+            "experiment_id": "R515"
+          }
+        ],
+        "review_name": "LEAN_SCREENING32_APPLICABILITY_REVIEW.json",
+        "review_sha256": "d9c4a806dbcbc9a4362d40b1df8ec96392c6321d7d05fa1f3b8c1b2c91414bce",
+        "scope": "R487 includes96 prior Nexus A/B/C requests; R503 andR515 include32 screening requests each. These are prior one-shot coding/mock-tool development protocols, not new GPU trials or an identical frozen3 comparison. JSON-history compression is exactly no-op; preaction trigger has no offered effect tools; existing system-prose candidate does not support their distinct original preambles. A separate meaningful prompt hypothesis would require its own protocol/admission. Do not repeat byte-identical requests solely for harness coverage."
+      },
+      {
+        "GPU_runs": 0,
+        "counts": null,
+        "model_requests": null,
+        "profiles": [
+          {
+            "counts": {
+              "requests": 154,
+              "state_or_failure_barriers": 42
+            },
+            "experiment_id": "R536"
+          },
+          {
+            "counts": {
+              "requests": 153,
+              "state_or_failure_barriers": 33
+            },
+            "experiment_id": "R531"
+          },
+          {
+            "counts": {
+              "requests": 177,
+              "state_or_failure_barriers": 307
+            },
+            "experiment_id": "R534"
+          }
+        ],
+        "review_name": "LEAN_EXACT_DUPLICATE_CONTEXT_VERIFICATION.json",
+        "review_sha256": "830c41bb7a09b2c0d56e1565b8c41492cbfd503673588d0a3971c122544c06b8",
+        "scope": "Exact identical function/argument/output with no intervening non-read, denied or failed observation. No inference, no token/energy saving claim. Does not exclude semantic compaction or other workloads."
+      },
+      {
+        "GPU_runs": 0,
+        "counts": {
+          "JSON_arrays_in_repeated_histories": 136,
+          "uniform_flat_object_arrays_at_least2": 66
+        },
+        "model_requests": 0,
+        "profiles": [],
+        "review_name": "LEAN_STRUCTURAL_JSON_FEASIBILITY.json",
+        "review_sha256": "f856e1aafa32863a599d9e4a4e8265a0c7e40bc65fc5d2436cb07e84c656b643",
+        "scope": "Repeated captured request histories, not unique actions or a measured token/latency saving. Upstream JSON elision defaults arrayThreshold8; TOON requires separately reviewed roundtrip and model interpretation. Protected scalar strings/code/numbers are not modified."
+      }
+    ],
+    "canonical_plan_sha256": "c8c96ae988af2529dd75110cf1d15484f575e642a725c23d4d1217a101771eb9",
+    "frozen_reference": {
+      "budgets": {
+        "TASK_total_seconds": 1200,
+        "case_seconds": 180,
+        "cleanup_seconds": 60,
+        "max_VRAM_mib": 14336,
+        "parallel_GPU_heavy_jobs": 1,
+        "startup_seconds": 180,
+        "turns_per_case": 24,
+        "wall_seconds": 1440
+      },
+      "id": "jarvis-minimal-harness-reference-20261027-v1",
+      "limits": [
+        "One authored33-fixture pass per model,11 correlated families; no population superiority or equivalence.",
+        "Reasoning-token split not measured; no inference from Thinking labels or character counts.",
+        "Gemma frozen8K has2 observed context-preflight failures; do not substitute its historical16K profile or classify every failure as context-related.",
+        "No qualified components justify a combination or optimized-harness transfer in this round.",
+        "TOON, lossy semantic summaries and uninstalled full proxies have no local performance qualification."
+      ],
+      "next_goal_boundary": "Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.",
+      "profiles": [
+        {
+          "audit_sha256": "b407e9f62be2c168afe1d87d1adbbccc9550302810f7c8d28622cfcdc7810637",
+          "captured_profile_sha256": "0c085932e8c46a93de995c5feeb1d7c3e65bcdea0f3b9451ab32ff68cb3230b0",
+          "context_tokens": 8192,
+          "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+          "experiment_id": "R589",
+          "model": "OmniCoder bartowski Q6",
+          "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+          "optimized_harness_qualified": false,
+          "request_options": {
+            "cache_prompt": false,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            },
+            "max_tokens": 4096,
+            "model": "admission",
+            "parallel_tool_calls": true,
+            "return_tokens": true,
+            "seed": 1001,
+            "stream": false,
+            "temperature": 0,
+            "tool_choice": "auto",
+            "verbose": true
+          },
+          "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+          "transport_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d"
+        },
+        {
+          "audit_sha256": "7c77da6bbe7a684c79bed84375b88a9cddb678a059672b7f121d18eb4477865f",
+          "captured_profile_sha256": "3144679752edaa4216723252fdb3b572bac6c91c578becabdcdcca60253363f6",
+          "context_tokens": 8192,
+          "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+          "experiment_id": "R590",
+          "model": "Nexus Q6 OFF/T0",
+          "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+          "optimized_harness_qualified": false,
+          "request_options": {
+            "cache_prompt": false,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            },
+            "max_tokens": 4096,
+            "min_p": 0.0,
+            "model": "admission",
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "repeat_penalty": 1.0,
+            "return_tokens": true,
+            "seed": 1001,
+            "stream": false,
+            "temperature": 0.0,
+            "tool_choice": "auto",
+            "top_k": 20,
+            "top_p": 0.95,
+            "verbose": true
+          },
+          "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+          "transport_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d"
+        },
+        {
+          "audit_sha256": "f016d3f316b37e625eb6c9d7334d7b27a546af9b2f94a1e84eeea9afb2a5cb80",
+          "captured_profile_sha256": "f1c3f2a04ed4969edab5052c0e775591c9a883fde6f31e38fb8471c70e6058e0",
+          "context_tokens": 8192,
+          "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+          "experiment_id": "R591",
+          "model": "Gemma4 QAT Q4_0 frozen8K",
+          "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "optimized_harness_qualified": false,
+          "request_options": {
+            "cache_prompt": false,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            },
+            "max_tokens": 4096,
+            "min_p": 0.0,
+            "model": "admission",
+            "parallel_tool_calls": true,
+            "presence_penalty": 0.0,
+            "repeat_penalty": 1.0,
+            "return_tokens": true,
+            "seed": 1001,
+            "stream": false,
+            "temperature": 1.0,
+            "tool_choice": "auto",
+            "top_k": 64,
+            "top_p": 0.95,
+            "verbose": true
+          },
+          "template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+          "transport_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d"
+        }
+      ],
+      "reference_sha256": "a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b",
+      "source_files_sha256": {
+        "v100e2e/native_tools.py": "eea20f028fefe25999dd13b51b1fb73b9526a1f8c4a1db502156cbd3974d9f23",
+        "v100e2e/read_runtime.py": "7a7014e87d7bcb45eec06c23f419011e3ea5ebd32ffba59e89f63fcbd05319d1",
+        "v100e2e/restrictive_policy.py": "cdcf5282774dd1cd782b8009e03efd1d41e5df82744e07ca84b6312ef7c9c66d",
+        "v100e2e/workflow_adapter.py": "3d452f50b16e83cb5893834be35856aa5a428dcb64ad65d49f476807fce0e1ff",
+        "v100e2e/workflow_runtime.py": "d5f1d80b589d05711a6b4df2175d0ce84f13e5170f5329718b78c0a8a8ba019e"
+      },
+      "status": "FROZEN_REFERENCE_RETAINED_NO_QUALIFIED_OPTIMIZED_ALTERNATIVE"
+    },
+    "limits": "Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.",
+    "new_factor_coverage": 0,
+    "official_benchmark": false,
+    "recommendation": "RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE",
+    "schema": 1,
+    "source_reviews": [
+      {
+        "commit": "ae47f036733b86de26c036b0008cf41851211c8d",
+        "files": [
+          {
+            "file": "analysis/fig5_ctx_growth.py",
+            "git_blob_sha1": "a648e684b3ac69f80e31475558f11fc83e0651e9",
+            "sha256": "8a02717689bac1a843b3225d98dbf7f00befa1992019dfce02ed94792f2e3094"
+          },
+          {
+            "file": "analysis/b38_paired.py",
+            "git_blob_sha1": "f98e9bf191b21b53159c44d963b834ced8ba9072",
+            "sha256": "8028a6efde64a286f726109634cf6be6ed9f9e23eca24e2e8bd55f1bec9c15de"
+          },
+          {
+            "file": "analysis/replicability.py",
+            "git_blob_sha1": "21a0698fc2f2d58e0430aec170466188658b56bf",
+            "sha256": "e23b0277273fcae1d4ab5f5dd162b8a3687b09460a15d624f696f9f99b888b16"
+          },
+          {
+            "file": "analysis/tab_a4_budget.py",
+            "git_blob_sha1": "0d72fe175d607315a693cb49b4ff6edc22b8de58",
+            "sha256": "289c6b4916b44903649f98b3c37c1c14bb391f9f04f959c154fff7a12452781b"
+          },
+          {
+            "file": "analysis/thinking_budget.py",
+            "git_blob_sha1": "29b02dbc3f196bd7a3ad8b0fa20499b67722674d",
+            "sha256": "c2cf492f380c2d010b22e6751a9739ab240dc3cd0dd02a554988e9e659bca93b"
+          }
+        ],
+        "license": "MIT (pinned authors code repository)",
+        "mechanisms": [
+          "b38_paired.py predeclares intention-to-treat vs post-randomization trigger contrasts; multiple attempts on one task are not independent pairs. Agent-phase duration excludes setup/verifier. Efficiency intervals use log ratios with t(n-1), conditional on positive observed values.",
+          "replicability.py groups repeated harness/model events by task and flips all events in a task together;20000 permutations with fixed seed. Local11 authored fixture families remain correlated, so no population equivalence is inferred.",
+          "fig5_ctx_growth.py separates carried history/steps from preamble and uses pre-compaction series. Some absent reasoning counts are replaced by zero or chars/4 approximations; those conventions are NOT imported into local measured-token records.",
+          "tab_a4_budget.py separates first-user task text, preamble, observations, tool arguments and compaction events; some reconstruction uses character counts. Local repeated-prefix counts do not become isolated measured preamble token savings.",
+          "thinking_budget.py requires an actual tokenizer identity and preserved reasoning text for a recovered split; serialized tool arguments are approximate. Local reasoning-token telemetry remains NOT MEASURED without that evidence."
+        ],
+        "repository": "https://github.com/YangzeLiu/what-does-a-harness-buy",
+        "scope": "Original analysis source mechanisms verified at pinned Git blobs; scripts not executed, full publisher replication not claimed. Provider-priced costs are not V100 GPU-J.",
+        "status": "TARGETED_SOURCE_METHOD_REVIEW_NOT_EXECUTED_OR_FULLY_REPRODUCED"
+      },
+      {
+        "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+        "files": [
+          {
+            "file": "go.mod",
+            "git_blob_sha1": "2703adb23d8e1aca6847f65d45774e715b42e877",
+            "sha256": "4e1c077feddef3ff29d4688e05bdd1a3c3f401c1a925b88ffe90e1b806f4985b"
+          },
+          {
+            "file": "proxy/internal/gateway/compression_query.go",
+            "git_blob_sha1": "11298aa223e5ecb5eaae216e49df45e6cf858b31",
+            "sha256": "b3ff4ad105c80393551a0e3b09e8ff61ee64c9fe1942438db29c6e999fbb8f16"
+          },
+          {
+            "file": "engine/compressors/json_strategy.go",
+            "git_blob_sha1": "bd280b5ad0a0141daf035112c5c4c5fe6a34174f",
+            "sha256": "6d22921ec95b77bcd71b561c3b1c6dc375d07880fa660033ced7576ac5ecbb65"
+          },
+          {
+            "file": "engine/compressors/toon_eligible.go",
+            "git_blob_sha1": "b4515d64450902334094c57aaa7af4dfafe9fbb3",
+            "sha256": "7e81d81cefd427afb2cfa537634a1b6f4d39acfa4b29938ae8ba84f414612876"
+          },
+          {
+            "file": "engine/compressors/toon_encode.go",
+            "git_blob_sha1": "825e63f5bb67dcef8a8c517631162f9442706d86",
+            "sha256": "b976581179a7715d19bbb318c90628b2974517f0934a613fd0b64b81063d2ea6"
+          },
+          {
+            "file": "engine/compressors/json.go",
+            "git_blob_sha1": "f9b4e88f21489fed31f99eac71c4361650a21706",
+            "sha256": "4a4a96a6e73c624064d9bdc06bd2b076c5ba1f0a6803febcbdbf7110ef5ff2e5"
+          }
+        ],
+        "license": "Apache-2.0 at this3+ revision; historical MIT/BSL releases distinct",
+        "mechanisms": [
+          "go.mod declaresGo1.26.10 and dependency families including tokenizer, tree-sitter, browser, database and compression modules. Full proxy dependency/runtime validation is not performed.",
+          "compression_query.go handles OpenAI-compatible messages/responses using bounded latest-human-text retrieval. This is source-level format support, not demonstrated local llama.cpp gateway compatibility.",
+          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1–4, so this specific default elision has no eligible array.",
+          "json_strategy.go compares TOON vs lossy elision using a token counter; its LosslessToModel label is an upstream assertion, not a local quality guarantee. A generic/default token counter must not replace our native model tokenizer.",
+          "toon_encode.go supports a bounded scalar/array/object subset, preserves number lexemes and rejects duplicate object keys in its JSON reader. Tabular encoding additionally requires identical ordered scalar fields. Source checks do not establish model interpretation or tool/state quality."
+        ],
+        "repository": "https://github.com/JuliusBrussee/caveman",
+        "scope": "Do not install a full gateway for zero-op default elision. TOON remains P2:66 potential uniform flat arrays in repeated R536 histories, but ordered-field eligibility, native-token gain, roundtrip/security contracts and model interpretation are unqualified. Long table-heavy workloads or a bounded approved codec could justify a later isolated development experiment; do not claim all compaction impossible.",
+        "status": "TARGETED_SOURCE_REVIEW_NO_INSTALL_OR_EXECUTION"
+      }
+    ],
+    "techniques": [
+      {
+        "evidence": "R586 independently replayed66 executions/33 exposed cases: reference28/33 vscompact25/33;policy violations4vs6;tokens-2.54%,task wall-13.67%. Reject observed quality/policy regression; no winner, frozen references unchanged.",
+        "next": null,
+        "priority": "P0",
+        "scope": null,
+        "status": "R586_TESTED_NEGATIVE_NO_ADOPTION",
+        "technique": "Static instruction compression / Caveman style"
+      },
+      {
+        "evidence": "R587 complete66 executions/33 pairs; independent replay identical. Reference28/33 vscompact26/33; policy violations4vs6; total tokens301561vs301598; task wall402.138vs407.192s. Lexical semantic preservation did not preserve model behavior. Reject; no transfer/promotion justified for this candidate.",
+        "next": null,
+        "priority": "P0",
+        "scope": "Agent33 trajectories with tool-result history. One-shot16+16 requests have no prior tool outputs on the initial request; no automatic benefit assumed.",
+        "status": "R587_TESTED_NEGATIVE_NO_ADOPTION",
+        "technique": "Lossless tool-result JSON whitespace"
+      },
+      {
+        "evidence": "Existing simulator uses one native tool action per turn, external permissions and bounded task/turn clocks. Retain its loop instead of importing an extra environment/orchestrator; upstream unbounded defaults/provider monetary budgets do not replace local guards.",
+        "next": null,
+        "priority": "P0",
+        "scope": null,
+        "status": "REFERENCE_ALREADY_SEQUENTIAL",
+        "technique": "Minimal sequential loop / mini-SWE-agent patterns"
+      },
+      {
+        "evidence": "Four workflow overrides carry object scope, read-before-write, source-hash, preview and authorization semantics. Existing loop already exposes only the task domain. No validated redundant schema field identified; meaning-preserving rewrites need their own native-template token and policy contracts. R586 generic prose compression already regressed; this does not prove every schema rewrite ineffective.",
+        "next": null,
+        "priority": "P1",
+        "scope": null,
+        "status": "DEFERRED_SEMANTIC_REWRITE_REQUIRES_NEW_CONTRACT_AND_HYPOTHESIS",
+        "technique": "Tool-schema descriptions"
+      },
+      {
+        "evidence": "Reference fake_function_schemas offers the task domain only; tasks access files/state through bounded read/search calls. This is already measured reference behavior, not a newly attributed speedup. Retrospectives found no eligible duplicate reads without a state/error barrier. More aggressive evidence removal/retrieval needs a new contract and workload-specific hypothesis.",
+        "next": null,
+        "priority": "P1",
+        "scope": null,
+        "status": "REFERENCE_DOMAIN_SCOPING_RETAINED_NO_NEW_RETRIEVAL_WINNER",
+        "technique": "Selective retrieval / tool exposure"
+      },
+      {
+        "evidence": "CPU trace crosscheck: Omni154/Nexus153/Gemma177 requests contain319/302/407 eligible successful read observations, but zero identical function+argument+result duplicates without intervening mutation/error/denial barriers. Duplicate outputs ignoring barriers:9/0/243. Thus the predicate is nonempty and exact-read reuse offers no observed payload to remove in these traces. No GPU or token/energy gain claim; semantic compaction and other workloads remain unqualified.",
+        "next": "Retain authoritative state. Any semantic compactor needs a separate provenance/state/security contract and evidence of removable history; do not run a zero-op variant or claim it repairs Gemma8K.",
+        "priority": "P1",
+        "scope": null,
+        "status": "EXACT_DUPLICATE_REUSE_DEFERRED_NO_ELIGIBLE_PAYLOAD_SEMANTIC_COMPACTION_UNQUALIFIED",
+        "technique": "Adaptive history compaction"
+      },
+      {
+        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18–4159.66 vscontrol3924.56–4014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
+        "next": null,
+        "priority": "P1",
+        "scope": null,
+        "status": "R588_SCREEN_COMPLETE_NOT_QUALIFIED",
+        "technique": "Conditional reviewer / verification"
+      },
+      {
+        "evidence": "Final3 Thinking/sampling/output settings remain frozen. R588 tested an isolated conditional pre-action verification reminder without extra roles/calls; it added cost and a new policy-failure case. No unmeasured dynamic reasoning-budget benefit is claimed.",
+        "next": null,
+        "priority": "P2",
+        "scope": null,
+        "status": "FROZEN_BASE_CONTROLS_RETAINED_CONDITIONAL_CHECKLIST_NEGATIVE",
+        "technique": "Adaptive reasoning"
+      },
+      {
+        "evidence": "R586 retained reference33 cases: no adjacent identical tool call + identical failed output repeated in final request histories. Assistant tool-call commentary is already empty. No measured savings or universal no-retry claim; preserve recovery and post-write verification.",
+        "next": null,
+        "priority": "P1",
+        "scope": null,
+        "status": "REFERENCE_RETROSPECTIVE_NO_ADJACENT_IDENTICAL_FAILURE_LOOP",
+        "technique": "Redundant-call / retry control"
+      },
+      {
+        "evidence": "R586/R587 failed observed quality/policy gates; R588 failed case-level policy gate and efficiency. Combining these rejected components is not scientifically justified. Existing pre-goal inference profiles remain unchanged.",
+        "next": null,
+        "priority": "P1",
+        "scope": null,
+        "status": "NOT_APPLICABLE_NO_QUALIFIED_COMPONENTS_IN_THIS_ROUND",
+        "technique": "Compatible combinations"
+      },
+      {
+        "evidence": "Do not change cache_prompt=false, engine, template, MTP or quantization during harness isolation. Existing earlier inference results remain valid in their qualified scopes.",
+        "next": null,
+        "priority": "P3_THIS_GOAL",
+        "scope": null,
+        "status": "SUBSEQUENT_INFERENCE_GOAL_ONLY",
+        "technique": "Engine prefix/KV caching, MTP, kernels and weight precision"
+      }
+    ]
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -32,11 +427,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "703ad8c3d112f5a13ead692e2d65c5cce807a858051845045031b1a70fda8177",
+    "BENCHMARK_REFERENCES.json": "ee6ba17f6664197a2c11c69741a078b978da17774239e252d7fde9b6b566a1da",
     "BENCHMARK_REGISTER.json": "7a1e2de9cfb98444a778ebe9c5b5ddd15b98ffc43c95c4001bf0a316ac0e929b",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "47e16ab6b7cc3426c03e927f54100ddbf9b6cb5964ca2a9483adefbffbd0866f",
+    "O2_EXPERIMENTS.jsonl": "acbf3f80aec20fb67c556155259235291391d6037edac0217559b688f9464b61",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

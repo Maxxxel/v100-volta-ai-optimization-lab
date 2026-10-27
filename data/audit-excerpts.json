@@ -178399,22 +178399,6 @@
   {
     "aggregate_metrics": {
       "model_starts": 1,
-      "peak_device_vram_mib": 12496.5
-    },
-    "excerpt_is_not_original": true,
-    "id": "audit-81837386f89742d84204",
-    "original_bytes": 2635,
-    "original_filename": "AUDIT.json",
-    "original_pin_verified": true,
-    "original_publicly_available": false,
-    "original_sha256": "81837386f89742d8420461bf1d81fe91cad5a8acccc3034d08f89ad8d83e24b7",
-    "statements": {
-      "decision": "TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS"
-    }
-  },
-  {
-    "aggregate_metrics": {
-      "model_starts": 1,
       "peak_device_vram_mib": 13148.5,
       "scopes": {
         "standard_full164": {
@@ -178435,6 +178419,22 @@
       "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
       "evidence_class": "LOKAL_GEMESSEN",
       "scope": "Full original164 HumanEval+ qualification of unchanged R556 Devstral Small2 24B Q3_K_M native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12496.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-81837386f89742d84204",
+    "original_bytes": 2635,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "81837386f89742d8420461bf1d81fe91cad5a8acccc3034d08f89ad8d83e24b7",
+    "statements": {
+      "decision": "TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS"
     }
   },
   {
@@ -179092,28 +179092,6 @@
   },
   {
     "aggregate_metrics": {
-      "model_starts": 1
-    },
-    "excerpt_is_not_original": true,
-    "id": "audit-3a99d6efdc6ed7c9d0d4",
-    "original_bytes": 4876,
-    "original_filename": "AUDIT.json",
-    "original_pin_verified": true,
-    "original_publicly_available": false,
-    "original_sha256": "3a99d6efdc6ed7c9d0d466df999e4c03733caf11ef3fdadc8c5e8a95109f0f4d",
-    "statements": {
-      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
-      "evidence_class": "LOKAL_GEMESSEN",
-      "limits": [
-        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
-        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
-        "First full BFCL v4 parallel_multiple200 category of unchanged R577 GLM-4.7-Flash · native nonthinking Q3_K_S native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
-        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
-      ]
-    }
-  },
-  {
-    "aggregate_metrics": {
       "actual_generation_requests": 159,
       "model_starts": 1,
       "native_validation33": {
@@ -179228,6 +179206,28 @@
     "statements": {
       "decision": "Frozen validation profile comparison with grouped sensitivity; retain task outcomes and costs. One33-case pass is not a population ranking, causal optimization or Champion qualification.",
       "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3a99d6efdc6ed7c9d0d4",
+    "original_bytes": 4876,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3a99d6efdc6ed7c9d0d466df999e4c03733caf11ef3fdadc8c5e8a95109f0f4d",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R577 GLM-4.7-Flash · native nonthinking Q3_K_S native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
     }
   },
   {
@@ -179972,6 +179972,348 @@
     "statements": {
       "decision": "REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION",
       "scope": "Historical-control screening deltas only; no causal speedup, equivalence, Champion or production adoption. Missing metrics stay unknown."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 150,
+      "model_starts": 1,
+      "native_lean_reserved_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 388.210492825,
+          "group_window_s": 388.216583589,
+          "lower_j": 106026.409,
+          "upper_j": 106151.596
+        },
+        "actual_generation_requests": 150,
+        "case_wall_s": 388.210492825,
+        "completed_request_wall_s": 385.372548112,
+        "completion_tokens": 21797,
+        "data_role": "RESERVED33_MODEL_UNSEEN_FIXTURES_CORRELATED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3926.904037037037,
+        "gpu_j_per_success_upper": 3931.540592592593,
+        "independent_review_sha256": "6ffcbcff354ae485a7a0ff41ffaecdb31b3e1435317d5c17e3752204fb41766f",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7680.5,
+        "planned_tasks": 33,
+        "profile_sha256": "0c085932e8c46a93de995c5feeb1d7c3e65bcdea0f3b9451ab32ff68cb3230b0",
+        "solved": 27,
+        "successful_tasks_per_s": 0.06954869281093948,
+        "task_limit_s": 1200,
+        "task_phase_s": 388.217217445,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 56.560852885829284,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 7680.5,
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b407e9f62be2c168afe1",
+    "original_bytes": 4222,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b407e9f62be2c168afe1d87d1adbbccc9550302810f7c8d28622cfcdc7810637",
+    "statements": {
+      "decision": "Independent reserved-fixture assessment of retained frozen minimal reference. No efficiency improvement or causal optimization claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6ffcbcff354ae485a7a0",
+    "original_bytes": 10305,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6ffcbcff354ae485a7a0ff41ffaecdb31b3e1435317d5c17e3752204fb41766f",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 30,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e9437dde584e8011a93f",
+    "original_bytes": 1156,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e9437dde584e8011a93f4115258469fdfe190aaf7cea29721f1d5d284e37a375",
+    "statements": {
+      "scope": "Reserved model-unseen fixtures from11 existing authored families. Frozen minimal reference only; no tuned variant, official benchmark, population independence or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 27
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0f16bd237ef3ad7c7644",
+    "original_bytes": 668,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0f16bd237ef3ad7c764494af097de49041d54c2856f5370047c707ed0397c7e9",
+    "statements": {
+      "decision": "First actual model reference for this frozen validation protocol; no quality/performance delta yet.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 152,
+      "model_starts": 1,
+      "native_lean_reserved_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 325.974895406,
+          "group_window_s": 325.981084817,
+          "lower_j": 89590.976,
+          "upper_j": 89695.507
+        },
+        "actual_generation_requests": 152,
+        "case_wall_s": 325.974895406,
+        "completed_request_wall_s": 322.917743307,
+        "completion_tokens": 16741,
+        "data_role": "RESERVED33_MODEL_UNSEEN_FIXTURES_CORRELATED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3445.806769230769,
+        "gpu_j_per_success_upper": 3449.8271923076923,
+        "independent_review_sha256": "52de703494386ae336f2a3fd3eeae4e98ecb2b7622a3124450e457c0c6eccac3",
+        "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 7356.5,
+        "planned_tasks": 33,
+        "profile_sha256": "3144679752edaa4216723252fdb3b572bac6c91c578becabdcdcca60253363f6",
+        "solved": 26,
+        "successful_tasks_per_s": 0.07975908914738701,
+        "task_limit_s": 1200,
+        "task_phase_s": 325.981656485,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 51.842923924078775,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 7356.5,
+      "solved": 26,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7c77da6bbe7a684c79be",
+    "original_bytes": 4214,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7c77da6bbe7a684c79bed84375b88a9cddb678a059672b7f121d18eb4477865f",
+    "statements": {
+      "decision": "Independent reserved-fixture assessment of retained frozen minimal reference. No efficiency improvement or causal optimization claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-52de703494386ae336f2",
+    "original_bytes": 10305,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "52de703494386ae336f2a3fd3eeae4e98ecb2b7622a3124450e457c0c6eccac3",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 30,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 26,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8c566b287212cca3b943",
+    "original_bytes": 937,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8c566b287212cca3b94313486cb7a90fe894523bdef477275fd19d42cbe7479e",
+    "statements": {
+      "scope": "Reserved model-unseen fixtures from11 existing authored families. Frozen minimal reference only; no tuned variant, official benchmark, population independence or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": -324.0,
+        "task_phase_change_percent": -16.03111818934645
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 26,
+        "case_gained": 3,
+        "case_lost": 4,
+        "frozen_groups": 11,
+        "group_sign_flip_two_sided_p": 1.0,
+        "net_success_change": -1,
+        "nonzero_groups": 4,
+        "reference_solved": 27,
+        "tasks": 33
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a882fbd08377f86df0ae",
+    "original_bytes": 1141,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a882fbd08377f86df0ae9bc203162df8c599e2d376760cdf827d2c27ac2bc447",
+    "statements": {
+      "decision": "Frozen validation profile comparison with grouped sensitivity; retain task outcomes and costs. One33-case pass is not a population ranking, causal optimization or Champion qualification.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 176,
+      "model_starts": 1,
+      "native_lean_reserved_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 422.319702593,
+          "group_window_s": 422.326378546,
+          "lower_j": 102438.67,
+          "upper_j": 102529.41
+        },
+        "actual_generation_requests": 176,
+        "case_wall_s": 422.319702593,
+        "completed_request_wall_s": 416.411589664,
+        "completion_tokens": 13111,
+        "data_role": "RESERVED33_MODEL_UNSEEN_FIXTURES_CORRELATED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 6025.804117647059,
+        "gpu_j_per_success_upper": 6031.141764705882,
+        "independent_review_sha256": "d5567bcc0f347155e31f6c4c83b8402b63076c1cbea3ba363bace314f8fc917f",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 8118.5,
+        "planned_tasks": 33,
+        "profile_sha256": "f1c3f2a04ed4969edab5052c0e775591c9a883fde6f31e38fb8471c70e6058e0",
+        "solved": 17,
+        "successful_tasks_per_s": 0.040253161602662305,
+        "task_limit_s": 1200,
+        "task_phase_s": 422.327075021,
+        "tasks": 33,
+        "technical_preflight_cases": 2,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 31.485675051886012,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 8118.5,
+      "solved": 17,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f016d3f316b37e625eb6",
+    "original_bytes": 4223,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f016d3f316b37e625eb6c9d7334d7b27a546af9b2f94a1e84eeea9afb2a5cb80",
+    "statements": {
+      "decision": "Independent reserved-fixture assessment of retained frozen minimal reference. No efficiency improvement or causal optimization claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d5567bcc0f347155e31f",
+    "original_bytes": 10314,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d5567bcc0f347155e31f6c4c83b8402b63076c1cbea3ba363bace314f8fc917f",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 27,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 2
+      },
+      "solved": 17,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-29a1d619a35017b46bee",
+    "original_bytes": 1182,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "29a1d619a35017b46beec3abe0ebeadf00654e9b8436e36413ba05b90d1a9590",
+    "statements": {
+      "scope": "Reserved model-unseen fixtures from11 existing authored families. Frozen minimal reference only; no tuned variant, official benchmark, population independence or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 438.0,
+        "task_phase_change_percent": 8.786281505104142
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 17,
+        "case_gained": 4,
+        "case_lost": 14,
+        "frozen_groups": 11,
+        "group_sign_flip_two_sided_p": 0.140625,
+        "net_success_change": -10,
+        "nonzero_groups": 8,
+        "reference_solved": 27,
+        "tasks": 33
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-23dd843c6145a41485cd",
+    "original_bytes": 1146,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "23dd843c6145a41485cd134a90f744b3016551ab1ed25ec180e679485198d166",
+    "statements": {
+      "decision": "Frozen validation profile comparison with grouped sensitivity; retain task outcomes and costs. One33-case pass is not a population ranking, causal optimization or Champion qualification.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
     }
   },
   {

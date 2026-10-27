@@ -96,6 +96,12 @@
     "scope": "Champion only in this exact profile; no automatic production deployment."
   },
   {
+    "A0": "8b766bc1cf10ef40fa4c3879f4114c84743ce137b4a5315015527d5403ceeb21",
+    "C": null,
+    "id": "omni-bart-q6-native-agent33-original-request-reference-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
     "A0": "71373b106b5b4d5fe9284437c90553378d601878d5ae8534ef355d98bf14959a",
     "C": null,
     "id": "omni-q6-prism9a9394-sm70-native32k-f16-v1",
@@ -285,12 +291,6 @@
     "A0": "b22af5c446e7db98fabcab1b285f45f54dc6e260864d2119e777319c57c40e29",
     "C": null,
     "id": "sm70-f16-d256-gqa4-fa-weightedv-seeded-sixcases-v1",
-    "scope": "Champion only in this exact profile; no automatic production deployment."
-  },
-  {
-    "A0": "8b766bc1cf10ef40fa4c3879f4114c84743ce137b4a5315015527d5403ceeb21",
-    "C": null,
-    "id": "omni-bart-q6-native-agent33-original-request-reference-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]

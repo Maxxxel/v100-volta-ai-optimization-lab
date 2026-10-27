@@ -421,6 +421,27 @@ async function main(){
    }
    report.checks.push(experiment.id+': fresh MTP A/B development response metrics and setup costs remain distinct on desktop/mobile');
   }
+  const leanExperiments=JSON.parse(await fs.readFile(path.join(__dirname,'../data/experiments.json'),'utf8'));
+  const reservedLean=leanExperiments.filter(e=>e.aggregate_metrics?.native_lean_reserved_validation33);
+  const transforms=leanExperiments.map(e=>e.aggregate_metrics?.native_lean_harness_ablation||e.aggregate_metrics?.native_lean_harness_screen).filter(e=>e?.transform_source);
+  for(const width of [1600,390]){
+   const tab=await context.newPage();await tab.setViewportSize({width,height:900});await tab.goto(new URL('lean-harness/',base).href,{waitUntil:'networkidle'});
+   assert.equal(await tab.locator('article table').first().locator('tbody tr').count(),reservedLean.length);
+   for(const e of reservedLean){
+    const r=e.aggregate_metrics.native_lean_reserved_validation33;
+    const details=tab.locator('details').filter({has:tab.locator('summary',{hasText:e.id+' · frozen configuration and evidence'})});
+    await details.locator('summary').click();const text=await details.innerText();assert(text.includes(r.profile_sha256));
+    for(const limit of r.preflight_limits)assert(text.includes(String(limit.prompt_tokens)+' observed prompt tokens + '+String(limit.max_output_tokens)+' reserved output > '+String(limit.context_tokens)));
+   }
+   for(const r of transforms){
+    const link=tab.locator('a[href$="'+r.transform_source.file+'"]');assert.equal(await link.count(),1,'Exact source must render as an HTML link inside collapsed evidence');
+    const response=await tab.request.get(new URL(await link.getAttribute('href'),tab.url()).href);assert(response.ok());
+    assert.equal(require('node:crypto').createHash('sha256').update(await response.body()).digest('hex'),r.implementation.transform_module_sha256);
+   }
+   assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Lean report overflows viewport');
+   await tab.screenshot({path:path.join(artifacts,'lean-'+width+'.png'),animations:'disabled'});await tab.close();
+  }
+  report.checks.push('reserved lean reference rows stay separate from official scores; clickable collapsed evidence, actual context limits and exact transform downloads work on desktop/mobile');
   assert.deepEqual(errors,[]);report.console_errors=errors;report.passed=true;
  }finally{await browser.close();await fs.writeFile(path.join(artifacts,'browser-report.json'),JSON.stringify(report,null,2)+'\n');}
  process.stdout.write(JSON.stringify(report)+'\n');
