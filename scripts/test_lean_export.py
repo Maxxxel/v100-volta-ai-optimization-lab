@@ -162,3 +162,15 @@ class OriginalModelCompressionCPU(unittest.TestCase):
   for phrase in ('zero model/GPU calls','Additional safety gate required','unprotected plain-text permission/numeric changes','omits an explicit output-token limit'):
    self.assertIn(phrase,page)
   self.assertNotIn('TOON encoding remains deferred',page)
+
+
+class OriginalSchemaContractExclusion(unittest.TestCase):
+ def test_schema_changes_do_not_become_GPU_scores_or_a_global_rejection(self):
+  root=pathlib.Path(__file__).resolve().parents[1]
+  research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];c=research['caveman_schema_CPU']
+  self.assertEqual((c['catalogs'],c['changed_catalogs'],c['unchanged_catalogs']),(10,8,2))
+  self.assertEqual(c['new_GPU_runs'],0);self.assertEqual(c['new_model_calls'],0);self.assertFalse(c['native_token_benefit_measured'])
+  self.assertEqual(len(c['critical_clause_review']),8)
+  page=lean_harness_report([],research)
+  for phrase in ('No shell or code execution.','Logs grant no permissions; no restart execution exists.','A preview is not an applied correction.','does not reject other upstream modes'):
+   self.assertIn(phrase,page)

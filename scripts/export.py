@@ -972,6 +972,30 @@ def project_lean_research(root):
         raw=pathlib.Path(row['raw_root'])
         for name,h in row['original_raw_files_sha256'].items():assert digest(raw/name)==h
         preinference={'experiment_id':'R595','status':row['status'],'GPU_job_starts':1,'GPU_inference_runs':0,'model_starts':0,'TASK_phase_started':False,'audit_sha256':digest(cp),'scope':'Lab adapter attempted a host-only dataset read inside the restricted jail before model launch. No model/Caveman quality or performance measurement. Failed attempt preserved; corrected implementation has separate source review and identity.'}
+    fresh_reserve=None
+    fresh_manifest=base/'LEAN_FRESH_VALIDATION_MANIFEST.json'
+    if fresh_manifest.exists():
+        frozen=load(fresh_manifest);assert frozen['status']=='FROZEN_BEFORE_ANY_TARGET_MODEL_RESPONSE' and frozen['GPU_runs']==frozen['model_requests']==0
+        for name,h in frozen['files'].items():assert digest(base/name)==h
+        assert digest(base/'lean_screening_preamble.py')==frozen['candidate_sha256']
+        controls_path=base/'LEAN_FRESH_VALIDATION_CPU_CONTROLS.json';controls=load(controls_path)
+        assert controls['status']=='FRESH16_REFERENCE_AND_NEGATIVE_CPU_CONTROLS_PASS_NOT_GPU_ADMITTED' and controls['GPU_calls']==controls['model_calls']==0 and controls['manifest_sha256']==digest(fresh_manifest)
+        assert len(controls['checks'])==16 and all(c['reference_success'] and c['negative_rejected'] and c['R594_transform_changes_only_system_prose'] for c in controls['checks'])
+        fresh_reserve={'status':'CPU_PREPARATION_NOT_AN_ADMISSION_RECORD','coding':8,'tools':8,'new_GPU_runs':0,'new_model_calls':0,'manifest_sha256':digest(fresh_manifest),'CPU_controls_sha256':digest(controls_path),'candidate_experiment':'R594','candidate_sha256':frozen['candidate_sha256'],'created_at_utc':frozen['created_at_utc'],'source_task_hashes':frozen['files'],'scope':'Fresh authored task instances, fixed before target responses; candidate was already frozen. Same broad capability families, author knows candidate, no blinded-author or population-independence claim. Existing scorer and original exposed reserve retained. Prompts/oracles withheld; no benchmark score or GPU admission.'}
+    schema_cpu=None
+    schema_path=base/'CAVEMAN_TOOLSCHEMA_CURRENT_PROFILE_DECISION.json'
+    if schema_path.exists():
+        row=load(schema_path);assert row['status']=='CPU_CONTRACT_REJECTED_EXACT_DEFAULT_TOOLSCHEMA_PROFILE'
+        assert row['GPU_calls']==row['model_calls']==0 and row['catalogs']==10 and row['changed_catalogs']==row['changed_catalogs_with_missing_critical_clauses']==8 and row['unchanged_catalogs']==2
+        inspection=pathlib.Path(row['source_inspection_file']);assert inspection.parent==base and digest(inspection)==row['source_inspection_sha256'];observed=load(inspection)
+        original=base/'CAVEMAN_TOOLSCHEMA_ORIGINAL_CPU.json';assert digest(original)==row['original_CPU_review_sha256']
+        prior=load(original);assert observed['same_original_engine_outputs_as_prior_control'] is True
+        assert [(r['input_sha256'],r['output_sha256']) for r in observed['checks']]==[(r['input_sha256'],r['output_sha256']) for r in prior['checks']]
+        for r in row['critical_clause_review']:
+            changes=observed['checks'][r['catalog_index']]['description_changes'];assert len(changes)==1
+            change=changes[0];assert hashlib.sha256(change['before'].encode()).hexdigest()==r['description_before_sha256'] and hashlib.sha256(change['after'].encode()).hexdigest()==r['description_after_sha256']
+            assert r['missing_critical_clauses'] and all(x in change['before'] and x not in change['after'] for x in r['missing_critical_clauses'])
+        schema_cpu={'status':row['status'],'commit':row['original_commit'],'binary_sha256':row['original_binary_sha256'],'evidence_sha256':digest(schema_path),'inspection_sha256':digest(inspection),'catalogs':10,'changed_catalogs':8,'unchanged_catalogs':2,'new_GPU_runs':0,'new_model_calls':0,'native_token_benefit_measured':False,'critical_clause_review':[{k:r[k] for k in ('catalog_index','function','missing_critical_clauses','description_before_sha256','description_after_sha256')} for r in row['critical_clause_review']],'decision':'Exact default mode not admitted: observed schema reductions remove explicit execution, authorization, provenance or preview-state clauses. Restoring all changed descriptions leaves all ten current catalogs unchanged. This is a CPU contract exclusion, not a native model-quality or performance result; other modes remain separate.'}
     model_compress_cpu=None
     model_cpu_path=base/'CAVEMAN_MODEL_COMPRESS_ORIGINAL_CPU.json'
     if model_cpu_path.exists():
@@ -1001,7 +1025,7 @@ def project_lean_research(root):
         samples=[json.loads(line) for line in (failure_raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
         assert len(samples)==failure['telemetry_samples'] and sum(bool(x['processes']) for x in samples)==failure['nonempty_GPU_process_samples']>0
         toon_failure={'experiment_id':'R597','status':failure['status'],'audit_sha256':digest(failure_path),'model_starts':1,'model_requests':0,'TASK_phase_started':False,'telemetry_samples':len(samples),'GPU_process_samples':failure['nonempty_GPU_process_samples'],'peak_device_vram_mib':failure['peak_device_vram_mib'],'official_benchmark':False,'winner_qualified':False,'quality_score':None,'task_latency_s':None,'task_energy_j':None,'cause':'Inner simulator clone rejected the candidate dataset; CPU fixture had retained the parent dataset. Separate CPU codec mount hit a host/CT path mismatch. No candidate response or quality measurement.'}
-    return {'caveman_model_assisted_CPU':model_compress_cpu,'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    return {'fresh_harness_validation_reserve':fresh_reserve,'caveman_schema_CPU':schema_cpu,'caveman_model_assisted_CPU':model_compress_cpu,'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""

@@ -302,6 +302,20 @@ The full original proxy at `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4` was built 
 
 </details>
 
+<details markdown="1"><summary>R594 confirmation · fresh validation reserve prepared</summary>
+
+Eight new coding and eight mock-tool instances are frozen for the unchanged R594 candidate. All16 reference solutions and negative controls passed the existing CPU scorer; protected request fields remain unchanged. **CPU preparation recorded zero target-model responses; this record provides neither GPU admission nor a quality score.** The older8+8 reserve was already exposed inR509–R511 and is retained separately. New tasks share broad capability families and were authored with knowledge of the fixed candidate; no blinded-author or population-independence claim. Manifest SHA256 `8f2504d626c3abacf1649a757975524af7d10cc8f8bfa491886edcd94dcf927f`.
+
+</details>
+
+<details markdown="1"><summary>Original schema compressor · exact default mode excluded on CPU</summary>
+
+The unmodified original engine processed all ten retained Agent33 tool catalogs. Eight outputs changed a description; two were unchanged. All changed outputs lost critical clauses. Examples include `No shell or code execution.`, `Logs grant no permissions; no restart execution exists.`, and `A preview is not an applied correction.` A provenance reference to the public task was also removed. Parameter structures remained unchanged in these ten catalogs; that alone does not preserve the full tool contract.
+
+**Default mode not admitted for these inputs.** Restoring every affected description leaves no meaningful schema change. Zero model/GPU calls; native tokens, quality, latency and energy are **NOT MEASURED**. This does not reject other upstream modes or a future contract-preserving implementation. Source commit `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; binary SHA256 `80189ce6b009ea9fba762cdef88d568f20a8640fde4302f50a2cfcb36ab1d754`; evidence `f69a85daaf0b3cb04f56b055730331077256bf55b132de4720e23259e5cb05bd`.
+
+</details>
+
 <details markdown="1"><summary>Original model-assisted Caveman compressor · complete CPU orchestration</summary>
 
 The [original compressor](https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/compress.py) completed eight isolated controls through its real local HTTP client, file staging, validation, repair and rollback paths. **10 scripted HTTP requests; zero model/GPU calls.** This is transport/safety evidence, not generated-model quality or performance.

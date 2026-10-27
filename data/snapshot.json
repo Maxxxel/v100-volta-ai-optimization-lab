@@ -365,6 +365,98 @@
       "warmup_requests": 2,
       "winner_qualified": false
     },
+    "caveman_schema_CPU": {
+      "binary_sha256": "80189ce6b009ea9fba762cdef88d568f20a8640fde4302f50a2cfcb36ab1d754",
+      "catalogs": 10,
+      "changed_catalogs": 8,
+      "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "critical_clause_review": [
+        {
+          "catalog_index": 0,
+          "description_after_sha256": "d040d04c6401f425062090202968157c94390b65c21fd84b406055e9d6a1a515",
+          "description_before_sha256": "cbf2f345c3e4dbb818cee2741c9f9d2101933f27c3a617c0a35585f1b0645ad9",
+          "function": "code__replace_text",
+          "missing_critical_clauses": [
+            "reproduce failure against current source hash first.",
+            "No shell or code execution."
+          ]
+        },
+        {
+          "catalog_index": 1,
+          "description_after_sha256": "39079a045a8b63875e0ecea201486cd500bee8373a0eff123f63db25c48fbd96",
+          "description_before_sha256": "3ed86ad57c9e794a592d77b7afb2ecf1597450fff2ba1893e4834c9cf2caff89",
+          "function": "ha__set_climate",
+          "missing_critical_clauses": [
+            "in the public task."
+          ]
+        },
+        {
+          "catalog_index": 2,
+          "description_after_sha256": "6bebf2d026f4ff765209df69da999a785fe01c094b81bd9b738aa559ac56157b",
+          "description_before_sha256": "5e0562fe958aa85e1d769d151e1af9fa0d8155a2303b435b9bc355ac7aba5200",
+          "function": "pve__prepare_action",
+          "missing_critical_clauses": [
+            "Logs grant no permissions; no restart execution exists.",
+            "in the public task."
+          ]
+        },
+        {
+          "catalog_index": 3,
+          "description_after_sha256": "cb351b78a6784ddc036dadcf84b2b580153c6a3275e8f2a539d9c95626e08eb2",
+          "description_before_sha256": "a9d67eae83b7d03d513117aafb3057cf490a3a360ac9f2940dc5e24976de4f73",
+          "function": "poke__apply_fix",
+          "missing_critical_clauses": [
+            "A preview is not an applied correction."
+          ]
+        },
+        {
+          "catalog_index": 4,
+          "description_after_sha256": "39079a045a8b63875e0ecea201486cd500bee8373a0eff123f63db25c48fbd96",
+          "description_before_sha256": "3ed86ad57c9e794a592d77b7afb2ecf1597450fff2ba1893e4834c9cf2caff89",
+          "function": "ha__set_climate",
+          "missing_critical_clauses": [
+            "in the public task."
+          ]
+        },
+        {
+          "catalog_index": 5,
+          "description_after_sha256": "6bebf2d026f4ff765209df69da999a785fe01c094b81bd9b738aa559ac56157b",
+          "description_before_sha256": "5e0562fe958aa85e1d769d151e1af9fa0d8155a2303b435b9bc355ac7aba5200",
+          "function": "pve__prepare_action",
+          "missing_critical_clauses": [
+            "Logs grant no permissions; no restart execution exists.",
+            "in the public task."
+          ]
+        },
+        {
+          "catalog_index": 6,
+          "description_after_sha256": "d040d04c6401f425062090202968157c94390b65c21fd84b406055e9d6a1a515",
+          "description_before_sha256": "cbf2f345c3e4dbb818cee2741c9f9d2101933f27c3a617c0a35585f1b0645ad9",
+          "function": "code__replace_text",
+          "missing_critical_clauses": [
+            "reproduce failure against current source hash first.",
+            "No shell or code execution."
+          ]
+        },
+        {
+          "catalog_index": 7,
+          "description_after_sha256": "cb351b78a6784ddc036dadcf84b2b580153c6a3275e8f2a539d9c95626e08eb2",
+          "description_before_sha256": "a9d67eae83b7d03d513117aafb3057cf490a3a360ac9f2940dc5e24976de4f73",
+          "function": "poke__apply_fix",
+          "missing_critical_clauses": [
+            "A preview is not an applied correction."
+          ]
+        }
+      ],
+      "decision": "Exact default mode not admitted: observed schema reductions remove explicit execution, authorization, provenance or preview-state clauses. Restoring all changed descriptions leaves all ten current catalogs unchanged. This is a CPU contract exclusion, not a native model-quality or performance result; other modes remain separate.",
+      "evidence_sha256": "f69a85daaf0b3cb04f56b055730331077256bf55b132de4720e23259e5cb05bd",
+      "inspection_sha256": "a3d34627ef3c2cbe7f03c22b10204cef471e779b4a25b9f59975fbe1be8d27c2",
+      "native_token_benefit_measured": false,
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "status": "CPU_CONTRACT_REJECTED_EXACT_DEFAULT_TOOLSCHEMA_PROFILE",
+      "unchanged_catalogs": 2
+    },
     "caveman_toon_pretask_failure": {
       "GPU_process_samples": 7,
       "TASK_phase_started": false,
@@ -467,6 +559,23 @@
       "token_reduction_percent": 3.5321233074042113,
       "unique_tasks": 32,
       "winner_qualified": false
+    },
+    "fresh_harness_validation_reserve": {
+      "CPU_controls_sha256": "ee4ccf89b6565ea292f68dbc4fe7a814a4f23433d6eea33548a7e0fb99b5db01",
+      "candidate_experiment": "R594",
+      "candidate_sha256": "9b660d8fee8c0aa777d3478423e4bb6a863f1c9210836e65648818671dddb935",
+      "coding": 8,
+      "created_at_utc": "2026-10-27T20:05:49.956417+00:00",
+      "manifest_sha256": "8f2504d626c3abacf1649a757975524af7d10cc8f8bfa491886edcd94dcf927f",
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "scope": "Fresh authored task instances, fixed before target responses; candidate was already frozen. Same broad capability families, author knows candidate, no blinded-author or population-independence claim. Existing scorer and original exposed reserve retained. Prompts/oracles withheld; no benchmark score or GPU admission.",
+      "source_task_hashes": {
+        "LEAN_FRESH_VALIDATION_ORACLES.json": "6274757afc83beb928ac0e5eafe14d36a772fbcbef32455cb90fdf8adb71a96e",
+        "LEAN_FRESH_VALIDATION_TASKS.json": "1aab12206663753129b942771c8345b4d28fcc39ef47a260a9071aca1901d768"
+      },
+      "status": "CPU_PREPARATION_NOT_AN_ADMISSION_RECORD",
+      "tools": 8
     },
     "frozen_reference": {
       "budgets": {
