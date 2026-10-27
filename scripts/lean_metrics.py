@@ -88,7 +88,7 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=ARMS):
 
 def screen_reviews(audit,records,audit_sha,telemetry,counter_bounds,reference_quality,reference_records,reference_audit_sha,reference_quality_sha):
     """Pure case-matched screen; caller verifies immutable reference provenance."""
-    arm='upstream-node-shrink-v1' if audit['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1' else 'upstream-tool-toon-v1' if audit['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else 'preaction-checklist-v1'
+    arm='original-mini-swe-native-v1' if audit['dataset_id']=='jarvis-original-miniswe-native-screen33-v1' else 'upstream-node-shrink-v1' if audit['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1' else 'upstream-tool-toon-v1' if audit['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else 'preaction-checklist-v1'
     quality,comparison=reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=(arm,))
     assert reference_quality['experiment_id']=='R587' and reference_quality['source_audit_sha256']==reference_audit_sha
     assert reference_quality['official_benchmark'] is reference_quality['winner_qualified'] is False

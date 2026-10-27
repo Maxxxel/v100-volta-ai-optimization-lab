@@ -656,7 +656,7 @@ def verified_native_tools_confirmation(root,entry,receipt):
 def verified_native_lean_harness(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
-    protocols={'jarvis-original-caveman-node-shrink-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-node-shrink-v1',)),'jarvis-original-caveman-toon-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-tool-toon-v1',)),'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
+    protocols={'jarvis-original-caveman-node-shrink-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-node-shrink-v1',)),'jarvis-original-caveman-toon-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-tool-toon-v1',)),'jarvis-original-miniswe-native-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('original-mini-swe-native-v1',)),'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
     assert a['dataset_id'] in protocols
     status,count,paired,arms=protocols[a['dataset_id']];screen=count==33
     assert a['status']==status and a['measurement_valid'] and a['GPU_execution_observed']
@@ -705,6 +705,10 @@ def verified_native_lean_harness(root, summary, receipt):
             for k in ('selected_task_inputs','execution_review','review','task_datasets'):value.pop(k,None)
             added=value['native_recipe']['harness_ablation']['module_assets']
             for k in added:value['assets'].pop(k)
+            runtime_asset=value['native_recipe']['harness_ablation'].get('runtime_asset')
+            if runtime_asset:
+                assert runtime_asset['sha256']=='4b65354f98e563f0a3d6a2c21a5d5671eaac5a5ebac357fc58702904c6f544f4'
+                assert value['assets'].pop(runtime_asset['path'])==runtime_asset['sha256']
             codec=value['native_recipe']['harness_ablation'].get('codec_asset')
             if codec:
                 assert codec['sha256']=='80189ce6b009ea9fba762cdef88d568f20a8640fde4302f50a2cfcb36ab1d754' and value['assets'][codec['path']]==codec['sha256']
@@ -862,9 +866,9 @@ def verified_native_role_comparison(root, summary, receipt):
             'paired_changes':paired,'scope':'Five exposed development tasks paired across three fixed-order harness arms. All role costs included; no official benchmark, population ranking, independent model inference replay or Champion.'}
 
 
-def project_lean_research(root):
+def project_lean_research(root,receipt):
     """Allowlisted decision/source review; CPU reviews never become GPU results."""
-    base=pathlib.Path(root)/'staging/model-comparison-preparation/agent-qualification';p=base/'LEAN_HARNESS_PLAN.json'
+    root=pathlib.Path(root);db=load(root/'BENCHMARK_REFERENCES.json');base=root/'staging/model-comparison-preparation/agent-qualification';p=base/'LEAN_HARNESS_PLAN.json'
     if not p.exists():return None
     plan=load(p);techniques=[{k:text(row.get(k)) for k in ('technique','status','priority','evidence','scope','next')} for row in plan['technique_review']]
     sources=[]
@@ -939,6 +943,19 @@ def project_lean_research(root):
         assert digest(base/'mini_swe_native_bridge.py')==row['bridge_sha256'] and digest(base/'MINISWE_NATIVE_REFERENCE_PARITY_INPUT_HASHES.json')==row['input_manifest_sha256'] and digest(base/'MINISWE_NATIVE_REFERENCE_PARITY_CPU.log')==row['log_sha256']
         manifest=load(base/'MINISWE_NATIVE_REFERENCE_PARITY_INPUT_HASHES.json');original=base/'harness-issues-sources/mini-swe-agent/src/minisweagent/agents/default.py';assert digest(original)==manifest['shared_files']['source/minisweagent/agents/default.py']
         mini={'status':row['disposition'],'commit':row['upstream_commit'],'package_version':row['upstream_version'],'runtime':row['runtime'],'reference_cases':33,'archived_callbacks':154,'boundary_controls':row['boundary_controls'],'new_GPU_runs':0,'new_model_calls':0,'source_sha256':digest(original),'bridge_sha256':row['bridge_sha256'],'evidence_sha256':digest(cp),'baseline_CPU_seconds':row['baseline_CPU']['cpu_ns']/1e9,'controller_CPU_seconds':row['candidate_CPU']['cpu_ns']/1e9,'bootstrap_CPU_seconds':row['core_initialization_CPU']['cpu_ns']/1e9,'scope':'Original complete DefaultAgent and native context controller, unchanged frozen policy/world/scorer;33 archived R536 cases,154 requests and effects reproduced. Scripted reply replay only, not new model quality. Stock upstream shell/provider prompts are not evaluated. Fixed-order CPU timings are descriptive; no token/call reduction or GPU performance claim.'}
+    mini_gpu=None;mini_summary=db['summary'].get('r601')
+    if mini_summary:
+        mini_gpu=verified_native_lean_harness(root,mini_summary,receipt)
+        assert mini_gpu['experiment_id']=='R601' and mini_gpu['dataset_id']=='jarvis-original-miniswe-native-screen33-v1'
+        assert mini_gpu['case_executions']==33 and mini_gpu['paired_unique_cases']==0
+        audit=load(pathlib.Path(mini_summary['audit_path']));quality=load(pathlib.Path(mini_summary['quality_review_path']))
+        assert audit['factor']=='M07' and audit['native_core']=='minisweagent.agents.default'
+        assert audit['controller_setup']['upstream_version']=='2.4.6' and audit['controller_setup']['archive_sha256']=='4b65354f98e563f0a3d6a2c21a5d5671eaac5a5ebac357fc58702904c6f544f4'
+        assert len(quality['arms'])==1 and quality['arms'][0]['arm']=='original-mini-swe-native-v1'
+        stored_reference_metrics=mini_gpu['stored_reference']['metrics']
+        candidate=mini_gpu['arms'][0]
+        assert candidate['solved']==stored_reference_metrics['solved'] and candidate['input_tokens_reported']==stored_reference_metrics['input_tokens_reported'] and candidate['completion_tokens_reported']==stored_reference_metrics['completion_tokens_reported']
+        mini_gpu.update(upstream_version=audit['controller_setup']['upstream_version'],upstream_commit='04d809ceab9df28f9adaed044884180159172930',controller_archive_sha256=audit['controller_setup']['archive_sha256'],reference={'experiment_id':'R587','arm':'reference','solved':stored_reference_metrics['solved'],'policy_gate_passes':stored_reference_metrics['policy_gate_passes'],'input_tokens':stored_reference_metrics['input_tokens_reported'],'completion_tokens':stored_reference_metrics['completion_tokens_reported'],'model_calls':stored_reference_metrics['model_calls_attempted'],'case_wall_s':stored_reference_metrics['case_wall_s'],'GPU_j_per_success_lower':stored_reference_metrics['GPU_j_per_success_lower'],'GPU_j_per_success_upper':stored_reference_metrics['GPU_j_per_success_upper']},candidate={'solved':candidate['solved'],'policy_gate_passes':candidate['policy_gate_passes'],'input_tokens':candidate['input_tokens_reported'],'completion_tokens':candidate['completion_tokens_reported'],'model_calls':candidate['model_calls_attempted'],'case_wall_s':candidate['case_wall_s'],'GPU_j_per_success_lower':candidate['GPU_j_per_success_lower'],'GPU_j_per_success_upper':candidate['GPU_j_per_success_upper'],'controller_parent_CPU_s':audit['controller_parent_CPU_s'],'peak_device_vram_mib':audit['peak_device_vram_mib']},scope='R601 is a B-only exposed33 development screen compared with the stored R587 original arm, not a fresh contemporaneous A/B or holdout. Original mini-SWE DefaultAgent owns the controller; frozen native model, prompts/backend, permission simulator and scorer remain. The measured token and call counts are unchanged; no practical efficiency benefit, causal claim or qualification. Candidate upper GPU-J/success bound is 0.0054% below the historical reference lower bound, a negligible non-paired counter delta.')
     proxy=None;cp=base/'CAVEMAN_ORIGINAL_PROXY_RECORD_CPU.json'
     if cp.exists():
         row=load(cp);assert row['status']=='CPU_VERIFIED_ORIGINAL_PROXY_RECORD_SYNTHETIC_ONLY'
@@ -1079,7 +1096,7 @@ def project_lean_research(root):
         samples=[json.loads(line) for line in (failure_raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
         assert len(samples)==failure['telemetry_samples'] and sum(bool(x['processes']) for x in samples)==failure['nonempty_GPU_process_samples']>0
         toon_failure={'experiment_id':'R597','status':failure['status'],'audit_sha256':digest(failure_path),'model_starts':1,'model_requests':0,'TASK_phase_started':False,'telemetry_samples':len(samples),'GPU_process_samples':failure['nonempty_GPU_process_samples'],'peak_device_vram_mib':failure['peak_device_vram_mib'],'official_benchmark':False,'winner_qualified':False,'quality_score':None,'task_latency_s':None,'task_energy_j':None,'cause':'Inner simulator clone rejected the candidate dataset; CPU fixture had retained the parent dataset. Separate CPU codec mount hit a host/CT path mismatch. No candidate response or quality measurement.'}
-    return {'caveman_proxy_compress_CPU':proxy_compress_cpu,'fresh_harness_validation_GPU':fresh_result,'fresh_harness_validation_reserve':fresh_reserve,'caveman_schema_CPU':schema_cpu,'caveman_model_assisted_CPU':model_compress_cpu,'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    return {'caveman_proxy_compress_CPU':proxy_compress_cpu,'fresh_harness_validation_GPU':fresh_result,'fresh_harness_validation_reserve':fresh_reserve,'caveman_schema_CPU':schema_cpu,'caveman_model_assisted_CPU':model_compress_cpu,'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'mini_swe_native_GPU':mini_gpu,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""
@@ -1356,6 +1373,9 @@ def main():
             if lean['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1':
                 metadata=load(locations[audit]);assert metadata['factor']=='A03' and metadata['factor_coverage_increment']==0
                 experiments[ident].update(model=lean['model'],date=text(metadata['at_utc']),factor_ids=['A03'])
+            elif lean['dataset_id']=='jarvis-original-miniswe-native-screen33-v1':
+                metadata=load(locations[audit]);assert metadata['factor']=='M07' and metadata['factor_coverage_increment']==0
+                experiments[ident].update(model=lean['model'],date=text(metadata['at_utc']),factor_ids=['M07'])
             experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id','correction_audit_id') if lean.get(k)]
         native_key=next((key for key in ('native_lean_reserved_validation33','native_validation33','native_agent18_development') if catalog.get(audit,{}).get('aggregate_metrics',{}).get(key)), 'native_agent18_development')
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
@@ -1472,7 +1492,7 @@ def main():
     previous_file=HERE/'data/configuration-history.json'
     register,configuration_history=build_leaderboard(root,db,comparison,list(experiments.values()),receipt,text,load(previous_file) if previous_file.exists() else None)
     snapshot={'schema':1,'matrix_revision':matrix['revision'],'source_sha256':source_hashes,'source_date':matrix.get('updated_at_utc') or matrix['factor_accountability_summary']['at_utc'],'counts':{'original_factors':130,'additional_factors':32,'factors':len(factors),'model_challengers':len(challengers),'assessed_factors':len(factors),'experimentally_covered':sum(x['experimentally_covered'] for x in factors),'omnicoder2_experimentally_covered':sum(x['omnicoder2_experimentally_covered'] for x in factors),'scientific_status':dict(collections.Counter(x['status'] for x in factors)),'sprint_records':len(experiments),'signed_windows':len(windows),'ledger_events':len(events),'reference_records':len(references),'qualified_profile_pointers':sum(bool(x['C']) for x in profiles)},'limitations':['An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.','GPU intervention count: NOT MEASURED AS ONE COMPARABLE TOTAL. Component processes, model sessions and requests remain separate in each original audit.','A redacted excerpt cannot reproduce the original SHA256. That SHA binds the retained original; exported bytes have their own manifest.','Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.','No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites.']}
-    snapshot['lean_harness_review']=project_lean_research(root)
+    snapshot['lean_harness_review']=project_lean_research(root,receipt)
     assert snapshot['counts']['factors']==162 and len(challengers)==11
     for name,obj in [('snapshot.json',snapshot),('factors.json',factors),('experiments.json',sorted(experiments.values(),key=lambda x:int(x['id'][1:]))),('audit-excerpts.json',list(catalog.values())),('signed-windows.json',windows),('history.json',events),('references.json',references),('profiles.json',profiles),('models.json',challengers),('comparison.json',comparison),('benchmark-register.json',register),('configuration-history.json',configuration_history),('model-benchmarks.json',metrics({'model_comparison_progress':db['summary'].get('model_comparison_progress',{})})),('sources.json',sources),('research-subcases.json',subcases)]:write(name,obj)
     from screening import build as build_screening

@@ -119,6 +119,25 @@ class FreshBalancedConfirmation(unittest.TestCase):
   page=lean_harness_report([],research)
   for phrase in ('Zero new GPU/model calls','not a stock-shell/provider benchmark','No new token/call saving or GPU-efficiency claim'):self.assertIn(phrase,page)
 
+class MiniSweNativeGPUResult(unittest.TestCase):
+ def test_r601_is_screen_only_and_not_a_qualified_gain(self):
+  import json
+  root=pathlib.Path(__file__).resolve().parents[1]
+  research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review']
+  r=research['mini_swe_native_GPU']
+  self.assertEqual(r['experiment_id'],'R601');self.assertEqual(r['dataset_id'],'jarvis-original-miniswe-native-screen33-v1')
+  self.assertEqual(r['candidate']['solved'],r['reference']['solved'])
+  self.assertEqual(r['candidate']['input_tokens'],r['reference']['input_tokens'])
+  self.assertEqual(r['candidate']['completion_tokens'],r['reference']['completion_tokens'])
+  self.assertEqual(r['candidate']['model_calls'],r['reference']['model_calls'])
+  self.assertFalse(r['comparison']['fresh_contemporaneous_control']);self.assertFalse(r['winner_qualified']);self.assertFalse(r['official_benchmark'])
+  self.assertIn('no efficiency benefit',r['scope'])
+  page=(root/'docs/lean-harness.md').read_text()
+  self.assertIn('original mini-SWE DefaultAgent',page);self.assertIn('0.174% slower',page)
+  self.assertIn('[R601 audit](experiments/R601.md)',page)
+  run=next(r for r in json.loads((root/'data/experiments.json').read_text()) if r['id']=='R601')
+  self.assertEqual(run['date'],'2026-10-27T21:59:13.389588+00:00');self.assertEqual(run['factor_ids'],['M07'])
+
 class OriginalProxyRecordCompatibility(unittest.TestCase):
  def test_actual_native_record_is_not_a_compression_or_official_winner(self):
   root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];r=research['caveman_proxy_record_GPU']

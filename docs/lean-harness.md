@@ -231,6 +231,31 @@ Captured implementation: transform SHA256 `23239654f8ebf8ef5493f2ac267c508559778
 
 </details>
 
+## R601 · original mini-SWE DefaultAgent · B-only screen
+
+**Screen: no practical gain; no promotion or follow-up confirmation justified for this exact profile.** Original tools, inference profile and scoring retained; the pinned upstream DefaultAgent controls the frozen native model/backend and permission simulator; no stock shell/provider path. Current run:33 candidate cases; stored original-request control fromR587. **No new A0 run and no fresh paired GPU comparison.**
+
+| Arm | Solved | Policy violations | Input + output tokens | Task wall s | GPU J / success bounds | Peak MiB | Model calls |
+|---|---|---|---|---|---|---|---|
+| reference · R587 stored | 28/33 | 4 | 301561 | 402.138 | 3924.56–4014.95 | 7680.5 | 154 |
+| original-mini-swe-native-v1 | 28/33 | 4 | 301561 | 402.838 | 3918.08–3924.34 | 7680.5 | 154 |
+
+Stored-reference screen: R587 original arm and R601 candidate both solved28/33, passed29/33 policy gates, used279033 input +22528 output tokens and154 calls. R601 took402.838s vs402.138s; the candidate was0.174% slower. Its conservative GPU-energy delta is only0.0054% (counter bounds separated by0.213 J/success), against a historical, non-paired reference; **no practical gain**. These exposed cases are not fresh paired evidence or a holdout. Upstream mini-SWE-agent `2.4.6` · commit `04d809ceab9df28f9adaed044884180159172930`; 2.800s measured parent-controller CPU, added to the single candidate capture. [R601 audit](experiments/R601.md).
+
+Case-matched historical-control outcomes: 0 gained, 0 lost; 0 new policy-failure cases. Token reduction 0.00%; task-wall reduction -0.17%. These differences **do not qualify the candidate**.
+
+<details markdown="1"><summary>Measurement limits, hashes and exact source</summary>
+
+Reasoning tokens: **NOT MEASURED**. GPU-energy intervals bracket cumulative NVML counter readings, not confidence intervals or calibration error. Failed tasks remain in cost numerators; model loading, warm-up and host CPU energy excluded. No population-equivalence claim.
+
+Transformation CPU seconds (including preservation/audit): reference 0.063391, original-mini-swe-native-v1 0.145706. Current run TASK phase: 402.848s /1200s. Independent isolated CPU replay reproduced all33 outcomes without model inference.
+
+Captured implementation: transform SHA256 `3a3a38fc0fbe6546b89a3e72948a03d6fd49b37164f0a634f7e911e040d53950`; engine binary SHA256 `08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54`. Transport and simulator identities are retained in the [public experiment data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/experiments.json). Source commit for the local transform: **not recorded at execution**; binary hashes are not version numbers. [Frozen model settings](final-selection.md).
+
+[Experiment and audit hashes](experiments/R601.md). Model SHA256: `a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052`; captured profile SHA256: `5a428e6d63f898b5dd8b86f07fc73a408c53f78d4dd1edd8ce456a227115263a`; scorer SHA256: `5b13a22337107a5a7821dedf05ab7ff546ecae77c62ebb346b9e0c6e2a8c555d`.
+
+</details>
+
 ## Frozen16 +16 development screen · R592
 
 **Promising screen; not a qualified gain.** local preamble rewrite. Stored R515 control: Coding 14/16, Tools 14/16; candidate: Coding 14/16, Tools 14/16.
@@ -435,6 +460,6 @@ Original source-plan SHA256: `f182bd9fdaebeded0b75ac6549cb621bc14c6f8b17a2360efc
 
 ## Next gate
 
-Retain the original minimal reference: none of the tested alternatives passed the quality/policy and efficiency gates. No rejected components are combined. Reserved validation and model-specific technical limits are reported separately; no optimized harness has been adopted.
+R601 tested the pinned mini-SWE DefaultAgent on frozen OmniCoder: 28/33 solved, identical tokens/calls/policy counts to stored R587, 0.174% slower and only0.0054% lower conservative GPU J/success versus the historical reference. No practical benefit; no fresh confirmation. **No harness candidate is qualified, so combinations and optimized cross-model transfer are not justified.** R589–R591 remain the separate frozen-harness Omni/Gemma/Nexus validation records. Retain the minimal reference; reopen only for a distinct, contract-safe method with a concrete removable-cost hypothesis.
 
 [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)
