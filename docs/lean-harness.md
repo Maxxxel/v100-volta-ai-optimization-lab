@@ -171,9 +171,32 @@ Captured implementation: transform SHA256 `fc3ef20a6720d2ccbe46699b03b68227f9bb5
 
 </details>
 
+## Frozen16 +16 development screen · R592
+
+**Promising screen; not a qualified gain.** Coding14/16 and tools14/16 on both profiles, with no changed task judgments. R515 is a stored historical control.
+
+| Profile | Input tokens | Completion tokens | TASK seconds | GPU J/success interval | Peak MiB |
+|---|---|---|---|---|---|
+| R515 original | 13007 | 4348 | 62.665 | 581.900–584.677 | 7680.500 |
+| R592 compact preamble | 12751 | 3991 | 58.430 | 542.090–545.648 | 7680.500 |
+
+Reported total tokens −3.532%; TASK latency including captured rewrite −6.749%; conservative GPU J/success −6.230%. A fresh controlled comparison and unseen confirmation are required before promotion. [R592 audit](experiments/R592.md).
+
+<details markdown="1"><summary>Scope and source hashes</summary>
+
+Exposed frozen16coding+16mocktool development; stored R515 control, one R592 B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded. Reasoning: NOT MEASURED. Captured transform CPU 0.005s; wall 0.005s. This is a local prose rewrite, not upstream Caveman. Comparison SHA256 `4d086a5aa654adef1de48bb6d32b5daec56a7696b59ce6200b4e4121e353df36`.
+
+</details>
+
+<details markdown="1"><summary>Actual upstream Caveman validator · CPU contracts</summary>
+
+Nine isolated synthetic fixtures exercised the [pinned original validator](https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/validate.py). It rejected the tested fenced-code, inline-code and heading changes. Four altered plain-prose number, negation, authority and status fixtures were accepted. This tests the validator, not generated compressor output: zero model/GPU calls and no performance conclusion. Integration requires additional deterministic protection of critical fields. Upstream Caveman remains under evaluation. Evidence SHA256 `bd95b26ab126041942504e4dbb9e00a49c0f556df655878d9f397421913a45fa`.
+
+</details>
+
 ## Technique decisions
 
-**Retain the measured minimal reference.** No tested alternative passed both quality/policy and efficiency gates. Technical reviews and deferred ideas are not GPU qualifications.
+**Retain the measured minimal reference.** No alternative has independently qualified against the quality/policy and efficiency gates. Technical reviews and deferred ideas are not GPU qualifications.
 
 <details markdown="1"><summary>Technique coverage, exclusions and source methods</summary>
 
@@ -201,7 +224,7 @@ The pinned Caveman default JSON-elision route found no eligible long array in th
 
 Frozen next-goal reference: `jarvis-minimal-harness-reference-20261027-v1` · SHA256 `a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b`. Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.
 
-Original source-plan SHA256: `c8c96ae988af2529dd75110cf1d15484f575e642a725c23d4d1217a101771eb9`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
+Original source-plan SHA256: `8452485508c8dcadb2036ecc52c4b16c3a16639605aeedb256d2f1a6a58ea9ee`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
 
 </details>
 

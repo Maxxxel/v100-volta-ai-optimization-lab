@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1853,
+    "ledger_events": 1854,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 508
+    "sprint_records": 509
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -107,7 +107,7 @@
         "scope": "Repeated captured request histories, not unique actions or a measured token/latency saving. Upstream JSON elision defaults arrayThreshold8; TOON requires separately reviewed roundtrip and model interpretation. Protected scalar strings/code/numbers are not modified."
       }
     ],
-    "canonical_plan_sha256": "c8c96ae988af2529dd75110cf1d15484f575e642a725c23d4d1217a101771eb9",
+    "canonical_plan_sha256": "8452485508c8dcadb2036ecc52c4b16c3a16639605aeedb256d2f1a6a58ea9ee",
     "frozen_reference": {
       "budgets": {
         "TASK_total_seconds": 1200,
@@ -236,6 +236,65 @@
     "official_benchmark": false,
     "recommendation": "RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE",
     "schema": 1,
+    "screening32": {
+      "audit_sha256": {
+        "R515": "3cd7716f53c300fc23a043c0f8c939244a7033084caec34253a29d358697b403",
+        "R592": "6794b3273126be52da9a7609d2792a65ee99a53b366e7298e4894c031cd39643"
+      },
+      "candidate": {
+        "GPU_j_per_success_lower": 542.09025,
+        "GPU_j_per_success_upper": 545.6478214285714,
+        "completion_tokens": 3991,
+        "input_tokens": 12751,
+        "model_calls_completed": 32,
+        "peak_device_vram_mib": 7680.5,
+        "reasoning_tokens": null,
+        "response_wall_s": 58.412516229,
+        "successes": 28,
+        "task_wall_s": 58.430259863,
+        "total_tokens": 16742
+      },
+      "captured_host_transform_wall_s": 0.005266156,
+      "categories": {
+        "coding": {
+          "candidate_successes": 14,
+          "gained": 0,
+          "lost": 0,
+          "reference_successes": 14
+        },
+        "tools": {
+          "candidate_successes": 14,
+          "gained": 0,
+          "lost": 0,
+          "reference_successes": 14
+        }
+      },
+      "comparison_sha256": "4d086a5aa654adef1de48bb6d32b5daec56a7696b59ce6200b4e4121e353df36",
+      "conservative_GPU_j_per_success_reduction_percent": 6.230036164753749,
+      "decision": "PROMISING_REQUIRES_FRESH_AB_AND_UNSEEN_CONFIRMATION",
+      "experiment_id": "R592",
+      "fresh_contemporaneous_control": false,
+      "official_benchmark": false,
+      "reference": {
+        "GPU_j_per_success_lower": 581.9004285714285,
+        "GPU_j_per_success_upper": 584.6772857142857,
+        "completion_tokens": 4348,
+        "input_tokens": 13007,
+        "model_calls_completed": 32,
+        "peak_device_vram_mib": 7680.5,
+        "reasoning_tokens": null,
+        "response_wall_s": 62.648162967,
+        "successes": 28,
+        "task_wall_s": 62.664775063,
+        "total_tokens": 17355
+      },
+      "reference_experiment_id": "R515",
+      "scope": "Exposed frozen16coding+16mocktool development; stored R515 control, one R592 B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded.",
+      "task_latency_reduction_including_captured_transform_percent": 6.749005385797879,
+      "token_reduction_percent": 3.5321233074042113,
+      "transform_cpu_s": 0.005215661,
+      "winner_qualified": false
+    },
     "source_reviews": [
       {
         "commit": "ae47f036733b86de26c036b0008cf41851211c8d",
@@ -310,13 +369,33 @@
             "file": "engine/compressors/json.go",
             "git_blob_sha1": "f9b4e88f21489fed31f99eac71c4361650a21706",
             "sha256": "4a4a96a6e73c624064d9bdc06bd2b076c5ba1f0a6803febcbdbf7110ef5ff2e5"
+          },
+          {
+            "file": "skills/caveman-compress/scripts/compress.py",
+            "git_blob_sha1": "e34a975d4aed33d0871260bd0d4563e5603743f6",
+            "sha256": "c150739658059f532262e1e1fd428e6e862de1b464ac8474a4d5e02b076fd70e"
+          },
+          {
+            "file": "skills/caveman-compress/scripts/validate.py",
+            "git_blob_sha1": "53eba1e265ebacec2ff4c88a7b2cbfb07ff9dcbe",
+            "sha256": "c80a080825b2f65da13704e605892fd29f4b635e84f3b136b4702d0a03ed1eea"
+          },
+          {
+            "file": "skills/caveman-compress/scripts/cli.py",
+            "git_blob_sha1": "330410bc6abd63df65afdcdc338ce101b27efffa",
+            "sha256": "da00e6e790232ff470761ab88749f42f753b42630c9b46360e3c56166c5355e9"
+          },
+          {
+            "file": "skills/caveman-compress/scripts/detect.py",
+            "git_blob_sha1": "b7da1fa8528bf0c8dfad98fcb82c5eae52596794",
+            "sha256": "8dbdce1df5b6ccb049cd2c84b16f3409ac5551abb9fbc07ddd1616393b78b8f5"
           }
         ],
         "license": "Apache-2.0 at this3+ revision; historical MIT/BSL releases distinct",
         "mechanisms": [
           "go.mod declaresGo1.26.10 and dependency families including tokenizer, tree-sitter, browser, database and compression modules. Full proxy dependency/runtime validation is not performed.",
           "compression_query.go handles OpenAI-compatible messages/responses using bounded latest-human-text retrieval. This is source-level format support, not demonstrated local llama.cpp gateway compatibility.",
-          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1–4, so this specific default elision has no eligible array.",
+          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1\u20134, so this specific default elision has no eligible array.",
           "json_strategy.go compares TOON vs lossy elision using a token counter; its LosslessToModel label is an upstream assertion, not a local quality guarantee. A generic/default token counter must not replace our native model tokenizer.",
           "toon_encode.go supports a bounded scalar/array/object subset, preserves number lexemes and rejects duplicate object keys in its JSON reader. Tabular encoding additionally requires identical ordered scalar fields. Source checks do not establish model interpretation or tool/state quality."
         ],
@@ -375,7 +454,7 @@
         "technique": "Adaptive history compaction"
       },
       {
-        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18–4159.66 vscontrol3924.56–4014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
+        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18\u20134159.66 vscontrol3924.56\u20134014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
         "next": null,
         "priority": "P1",
         "scope": null,
@@ -414,7 +493,55 @@
         "status": "SUBSEQUENT_INFERENCE_GOAL_ONLY",
         "technique": "Engine prefix/KV caching, MTP, kernels and weight precision"
       }
-    ]
+    ],
+    "upstream_validator_CPU": {
+      "GPU_calls": 0,
+      "cases": [
+        {
+          "case": "identity",
+          "validator_accepts": true
+        },
+        {
+          "case": "preserve_payload",
+          "validator_accepts": true
+        },
+        {
+          "case": "code_change",
+          "validator_accepts": false
+        },
+        {
+          "case": "inline_change",
+          "validator_accepts": false
+        },
+        {
+          "case": "heading_change",
+          "validator_accepts": false
+        },
+        {
+          "case": "plain_number",
+          "validator_accepts": true
+        },
+        {
+          "case": "plain_negation",
+          "validator_accepts": true
+        },
+        {
+          "case": "plain_authority",
+          "validator_accepts": true
+        },
+        {
+          "case": "plain_status",
+          "validator_accepts": true
+        }
+      ],
+      "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "evidence_sha256": "bd95b26ab126041942504e4dbb9e00a49c0f556df655878d9f397421913a45fa",
+      "model_calls": 0,
+      "scope": "Actual pinned upstream validator in an unprivileged private-network/private-device CPU sandbox. Synthetic fixtures only; compressor/provider not invoked. Structural checks are not semantic or authorization preservation proof.",
+      "source_sha256": "c80a080825b2f65da13704e605892fd29f4b635e84f3b136b4702d0a03ed1eea",
+      "source_url": "https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/validate.py",
+      "status": "CPU_VERIFIED_STRUCTURAL_CHECKS_ONLY"
+    }
   },
   "limitations": [
     "An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.",
@@ -427,11 +554,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "ee6ba17f6664197a2c11c69741a078b978da17774239e252d7fde9b6b566a1da",
+    "BENCHMARK_REFERENCES.json": "c0afb350a5e71ca7be4937f88dc3c475ff99765a63aa6835875bd915d70b6fea",
     "BENCHMARK_REGISTER.json": "7a1e2de9cfb98444a778ebe9c5b5ddd15b98ffc43c95c4001bf0a316ac0e929b",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "acbf3f80aec20fb67c556155259235291391d6037edac0217559b688f9464b61",
+    "O2_EXPERIMENTS.jsonl": "a8f0fb357fc77dfcfab61e69b3f6065c65b034fd2f8e0e1eb6153a04e07fb178",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

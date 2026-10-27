@@ -512,6 +512,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R589](experiments/R589.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder bartowski Q6 |
 | [R590](experiments/R590.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus Q6 OFF/T0 |
 | [R591](experiments/R591.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4 QAT Q4_0 frozen8K |
+| [R592](experiments/R592.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows

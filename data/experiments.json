@@ -25242,5 +25242,19 @@
     ],
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-6794b3273126be52da9a",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R592",
+    "model": null,
+    "reference_A0": null,
+    "statements": {
+      "decision": "PROMISING_REQUIRES_FRESH_AB_AND_UNSEEN_CONFIRMATION"
+    },
+    "winner_qualified": false
   }
 ]

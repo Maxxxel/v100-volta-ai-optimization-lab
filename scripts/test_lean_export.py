@@ -74,3 +74,19 @@ class HistoricalScreenPublication(unittest.TestCase):
    system=module.KNOWN_SYSTEMS[1] if hasattr(module,'KNOWN_SYSTEMS') else module.ORIGINAL+module.REQUIRED if hasattr(module,'ORIGINAL') else 'unmodified system'
    body={'messages':[{'role':'system','content':system},{'role':'user','content':'Read the synthetic task'}],'tools':[],'temperature':0};before=copy.deepcopy(body)
    self.assertEqual(module.transform(body,'reference')[0],body);self.assertEqual(body,before)
+
+class Frozen32ScreenReport(unittest.TestCase):
+ def test_promising_screen_keeps_official_and_confirmation_boundaries(self):
+  root=pathlib.Path(__file__).resolve().parents[1]
+  research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review']
+  r=research.get('screening32')
+  if r is None:self.skipTest('No audited32-screen in this publication snapshot')
+  before=copy.deepcopy(research);page=lean_harness_report([],research)
+  for phrase in ('14/16','R515','R592','not a qualified gain','fresh controlled comparison','not upstream Caveman'):
+   self.assertIn(phrase,page)
+  self.assertFalse(r['official_benchmark']);self.assertFalse(r['winner_qualified']);self.assertFalse(r['fresh_contemporaneous_control']);self.assertEqual(research,before)
+ def test_original_validator_contracts_are_not_compressor_or_GPU_evidence(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];cpu=research.get('upstream_validator_CPU')
+  if cpu is None:self.skipTest('No original-validator CPU evidence in this snapshot')
+  self.assertEqual(cpu['GPU_calls'],0);self.assertEqual(cpu['model_calls'],0);self.assertEqual(len(cpu['cases']),9)
+  page=lean_harness_report([],research);self.assertIn('not generated compressor output',page);self.assertIn('remains under evaluation',page)
