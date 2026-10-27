@@ -972,6 +972,24 @@ def project_lean_research(root):
         raw=pathlib.Path(row['raw_root'])
         for name,h in row['original_raw_files_sha256'].items():assert digest(raw/name)==h
         preinference={'experiment_id':'R595','status':row['status'],'GPU_job_starts':1,'GPU_inference_runs':0,'model_starts':0,'TASK_phase_started':False,'audit_sha256':digest(cp),'scope':'Lab adapter attempted a host-only dataset read inside the restricted jail before model launch. No model/Caveman quality or performance measurement. Failed attempt preserved; corrected implementation has separate source review and identity.'}
+    model_compress_cpu=None
+    model_cpu_path=base/'CAVEMAN_MODEL_COMPRESS_ORIGINAL_CPU.json'
+    if model_cpu_path.exists():
+        row=load(model_cpu_path)
+        assert row['status']=='ORIGINAL_MODEL_COMPRESSION_ORCHESTRATOR_CPU_PROTOCOL_VERIFIED_ADDITIONAL_SAFETY_GATE_REQUIRED'
+        assert row['GPU_calls']==row['model_calls']==0 and row['uid']==65534 and row['synthetic_HTTP_calls']==10 and len(row['checks'])==8
+        assert all(r['passed'] is True for r in row['checks']) and sum(r['synthetic_HTTP_calls'] for r in row['checks'])==10
+        assert row['upstream_validator_accepts_unprotected_permission_and_numeric_changes'] is True and row['protected_block_roundtrip'] is True and row['upstream_request_has_explicit_output_limit'] is False
+        for name,h in row['evidence_sha256'].items():assert digest(base/name)==h
+        log=load(base/'CAVEMAN_MODEL_COMPRESS_ORIGINAL_CPU.log')
+        for key in ('checks','source_sha256','GPU_calls','model_calls','synthetic_HTTP_calls','uid'):assert log[key]==row[key]
+        source_index={r['path']:r for r in load(base/'harness-issues-sources/caveman/ENGINE_SOURCE_IDENTITIES.json')}
+        for name in ('compress.py','detect.py','validate.py'):
+            record=source_index['skills/caveman-compress/scripts/'+name]
+            assert record['commit']==row['commit'] and record['sha256']==row['source_sha256'][name]
+        census=row['frozen_Agent33_payload_census'];a=load(pathlib.Path(root)/'staging/r536/AUDIT.json')
+        assert census['responses_sha256']==a['original_raw_files_sha256']['HTTP_RESULTS.jsonl']
+        model_compress_cpu={'status':row['status'],'commit':row['commit'],'evidence_sha256':digest(model_cpu_path),'source_sha256':row['source_sha256'],'checks':[{k:r[k] for k in ('check','passed','synthetic_HTTP_calls','compression_accepted')} for r in row['checks']],'synthetic_HTTP_calls':10,'new_GPU_runs':0,'new_model_calls':0,'source_url':'https://github.com/JuliusBrussee/caveman/blob/'+row['commit']+'/skills/caveman-compress/scripts/compress.py','critical_unprotected_changes_accepted':True,'protected_blocks_preserved':True,'explicit_provider_output_bound':False,'scope':'Actual original file orchestration and local HTTP transport, scripted synthetic replies only. No model quality, GPU efficiency or admission. Structural validation is insufficient for critical prose; explicit local output/runtime bounds and full call accounting remain required.','frozen_payload_census':{k:census[k] for k in ('source_experiment','responses_sha256','tool_history_occurrences','unique_tool_contents','unique_content_formats','tool_description_occurrences','unique_tool_descriptions','maximum_description_characters')}}
     toon_failure=None
     failure_path=pathlib.Path(root)/'staging/r597/AUDIT.json'
     if failure_path.exists():
@@ -983,7 +1001,7 @@ def project_lean_research(root):
         samples=[json.loads(line) for line in (failure_raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
         assert len(samples)==failure['telemetry_samples'] and sum(bool(x['processes']) for x in samples)==failure['nonempty_GPU_process_samples']>0
         toon_failure={'experiment_id':'R597','status':failure['status'],'audit_sha256':digest(failure_path),'model_starts':1,'model_requests':0,'TASK_phase_started':False,'telemetry_samples':len(samples),'GPU_process_samples':failure['nonempty_GPU_process_samples'],'peak_device_vram_mib':failure['peak_device_vram_mib'],'official_benchmark':False,'winner_qualified':False,'quality_score':None,'task_latency_s':None,'task_energy_j':None,'cause':'Inner simulator clone rejected the candidate dataset; CPU fixture had retained the parent dataset. Separate CPU codec mount hit a host/CT path mismatch. No candidate response or quality measurement.'}
-    return {'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    return {'caveman_model_assisted_CPU':model_compress_cpu,'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""

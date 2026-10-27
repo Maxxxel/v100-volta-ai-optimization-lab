@@ -108,6 +108,87 @@
       }
     ],
     "canonical_plan_sha256": "f182bd9fdaebeded0b75ac6549cb621bc14c6f8b17a2360efcc249f750d82427",
+    "caveman_model_assisted_CPU": {
+      "checks": [
+        {
+          "check": "protected-roundtrip",
+          "compression_accepted": true,
+          "passed": true,
+          "synthetic_HTTP_calls": 1
+        },
+        {
+          "check": "marker-mutation",
+          "compression_accepted": false,
+          "passed": true,
+          "synthetic_HTTP_calls": 1
+        },
+        {
+          "check": "truncated-response",
+          "compression_accepted": false,
+          "passed": true,
+          "synthetic_HTTP_calls": 1
+        },
+        {
+          "check": "expansion-refused",
+          "compression_accepted": false,
+          "passed": true,
+          "synthetic_HTTP_calls": 1
+        },
+        {
+          "check": "validation-repair",
+          "compression_accepted": true,
+          "passed": true,
+          "synthetic_HTTP_calls": 2
+        },
+        {
+          "check": "validation-exhaustion",
+          "compression_accepted": false,
+          "passed": true,
+          "synthetic_HTTP_calls": 2
+        },
+        {
+          "check": "provider-failure",
+          "compression_accepted": false,
+          "passed": true,
+          "synthetic_HTTP_calls": 1
+        },
+        {
+          "check": "unprotected-prose-validation-gap",
+          "compression_accepted": true,
+          "passed": true,
+          "synthetic_HTTP_calls": 1
+        }
+      ],
+      "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "critical_unprotected_changes_accepted": true,
+      "evidence_sha256": "ac51cd39eb78287a4dbff629ed3b8e72dd8d76a3830c706f622c8ffb92b9b7f2",
+      "explicit_provider_output_bound": false,
+      "frozen_payload_census": {
+        "maximum_description_characters": 206,
+        "responses_sha256": "ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5",
+        "source_experiment": "R536",
+        "tool_description_occurrences": 757,
+        "tool_history_occurrences": 361,
+        "unique_content_formats": {
+          "JSON": 117
+        },
+        "unique_tool_contents": 117,
+        "unique_tool_descriptions": 20
+      },
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "protected_blocks_preserved": true,
+      "scope": "Actual original file orchestration and local HTTP transport, scripted synthetic replies only. No model quality, GPU efficiency or admission. Structural validation is insufficient for critical prose; explicit local output/runtime bounds and full call accounting remain required.",
+      "source_sha256": {
+        "__init__.py": "429c3e1c5cc5b9705f28d77f303c728304ae68693913ad3d5ce9b5a44c8ee40f",
+        "compress.py": "c150739658059f532262e1e1fd428e6e862de1b464ac8474a4d5e02b076fd70e",
+        "detect.py": "8dbdce1df5b6ccb049cd2c84b16f3409ac5551abb9fbc07ddd1616393b78b8f5",
+        "validate.py": "c80a080825b2f65da13704e605892fd29f4b635e84f3b136b4702d0a03ed1eea"
+      },
+      "source_url": "https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/compress.py",
+      "status": "ORIGINAL_MODEL_COMPRESSION_ORCHESTRATOR_CPU_PROTOCOL_VERIFIED_ADDITIONAL_SAFETY_GATE_REQUIRED",
+      "synthetic_HTTP_calls": 10
+    },
     "caveman_original_toon_CPU": {
       "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
       "critical_data_contracts": {

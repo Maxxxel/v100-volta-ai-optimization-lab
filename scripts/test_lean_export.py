@@ -147,3 +147,18 @@ class OriginalProxyRecordCompatibility(unittest.TestCase):
   before=copy.deepcopy(research);page=lean_harness_report([],research)
   for phrase in ('Original Caveman proxy','record-mode CPU compatibility','Six synthetic contracts passed','Zero new GPU/model calls','Harmony, compression and GPU efficiency remain unqualified'):self.assertIn(phrase,page)
   self.assertEqual(research,before)
+
+
+class OriginalModelCompressionCPU(unittest.TestCase):
+ def test_scripted_full_orchestration_is_not_native_quality_or_admission(self):
+  root=pathlib.Path(__file__).resolve().parents[1]
+  research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review']
+  c=research['caveman_model_assisted_CPU']
+  self.assertEqual(c['new_GPU_runs'],0);self.assertEqual(c['new_model_calls'],0)
+  self.assertEqual(c['synthetic_HTTP_calls'],10);self.assertEqual(len(c['checks']),8)
+  self.assertTrue(c['critical_unprotected_changes_accepted']);self.assertTrue(c['protected_blocks_preserved']);self.assertFalse(c['explicit_provider_output_bound'])
+  gap=next(r for r in c['checks'] if r['check']=='unprotected-prose-validation-gap');self.assertTrue(gap['compression_accepted'])
+  page=lean_harness_report([],research)
+  for phrase in ('zero model/GPU calls','Additional safety gate required','unprotected plain-text permission/numeric changes','omits an explicit output-token limit'):
+   self.assertIn(phrase,page)
+  self.assertNotIn('TOON encoding remains deferred',page)

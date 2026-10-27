@@ -302,6 +302,27 @@ The full original proxy at `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4` was built 
 
 </details>
 
+<details markdown="1"><summary>Original model-assisted Caveman compressor · complete CPU orchestration</summary>
+
+The [original compressor](https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/compress.py) completed eight isolated controls through its real local HTTP client, file staging, validation, repair and rollback paths. **10 scripted HTTP requests; zero model/GPU calls.** This is transport/safety evidence, not generated-model quality or performance.
+
+| Control | Observed behavior |
+|---|---|
+| protected-roundtrip | Candidate accepted · 1 synthetic requests |
+| marker-mutation | Original retained · 1 synthetic requests |
+| truncated-response | Original retained · 1 synthetic requests |
+| expansion-refused | Original retained · 1 synthetic requests |
+| validation-repair | Candidate accepted · 2 synthetic requests |
+| validation-exhaustion | Original retained · 2 synthetic requests |
+| provider-failure | Original retained · 1 synthetic requests |
+| unprotected-prose-validation-gap | Candidate accepted · 1 synthetic requests |
+
+**Additional safety gate required:** unprotected plain-text permission/numeric changes were accepted by the structural validator. Protected `nocompress` blocks remained exact. The original local API client omits an explicit output-token limit. Future native admission must bound every compressor/repair call and preserve critical content deterministically. No remote provider is used.
+
+Existing Agent33 observations: 361 tool-history occurrences, 117 unique outputs, all JSON; 20 unique descriptions (maximum 206 characters). This census does not prove token savings or general inapplicability. Evidence SHA256 `ac51cd39eb78287a4dbff629ed3b8e72dd8d76a3830c706f622c8ffb92b9b7f2`.
+
+</details>
+
 <details markdown="1"><summary>Actual upstream Caveman validator · CPU contracts</summary>
 
 Nine isolated synthetic fixtures exercised the [pinned original validator](https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/validate.py). It rejected the tested fenced-code, inline-code and heading changes. Four altered plain-prose number, negation, authority and status fixtures were accepted. This tests the validator, not generated compressor output: zero model/GPU calls and no performance conclusion. Integration requires additional deterministic protection of critical fields. Upstream Caveman remains under evaluation. Evidence SHA256 `bd95b26ab126041942504e4dbb9e00a49c0f556df655878d9f397421913a45fa`.
@@ -330,7 +351,7 @@ Nine isolated synthetic fixtures exercised the [pinned original validator](https
 
 CPU checks reused160 prior one-shot requests: no tool-result history for JSON compression and no matching effect-tool pre-action trigger. The existing compact-system module rejects their distinct preambles; this is not a general rejection of new prompt hypotheses. Exact duplicate-read reuse found no eligible payload after state/error barriers across484 reference requests. These are applicability findings, not token or speedup measurements.
 
-The pinned Caveman default JSON-elision route found no eligible long array in the reviewed Omni reference histories (all136 arrays have1–4 elements). TOON encoding remains deferred: ordered-field eligibility, native-token benefit and model interpretation are not locally qualified. No full proxy installed.
+The pinned default JSON-elision route found no eligible long array in the reviewed Omni histories (all136 arrays have1–4 elements). Original TOON was subsequently measured in R598 and rejected in that exact profile; original full proxy record-mode compatibility was measured in R596. Neither result qualifies compression or rejects every upstream mode.
 
 [what-does-a-harness-buy · pinned source](https://github.com/YangzeLiu/what-does-a-harness-buy/tree/ae47f036733b86de26c036b0008cf41851211c8d) · `ae47f036733b86de26c036b0008cf41851211c8d`. TARGETED_SOURCE_METHOD_REVIEW_NOT_EXECUTED_OR_FULLY_REPRODUCED. Original analysis source mechanisms verified at pinned Git blobs; scripts not executed, full publisher replication not claimed. Provider-priced costs are not V100 GPU-J.
 
