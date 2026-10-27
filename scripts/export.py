@@ -125,10 +125,17 @@ def metrics(obj):
             agent['GPU_counter']={k:counter[k] for k in ('lower_j','upper_j','group_window_s','complete_request_s') if type(counter.get(k)) in (int,float) and math.isfinite(counter[k]) and counter[k]>=0}
         agent.update(official_benchmark=False,winner_qualified=False,data_role=('FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL' if validation33 else 'PREVIOUSLY_USED_DEVELOPMENT18_NOT_TERMINAL_BENCH_NOT_HOLDOUT'))
         result['native_validation33' if validation33 else 'native_agent18_development']=agent
-    if obj.get('status')=='STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET' and obj.get('full_benchmark_score_claimed') is False:
+    event_recovery=(obj.get('status')=='PARTIAL_WRAPPER_STOP_EVENT_RESPONSES_CPU_REPLAYED'
+                    and obj.get('independent_CPU_judgements_identical') is True)
+    if (obj.get('status')=='STOPPED_USER_WHOLE_BENCHMARK_TIME_BUDGET' or event_recovery) and obj.get('full_benchmark_score_claimed') is False:
         counts={k:obj.get(k) for k in ('expected_tasks','collected_tasks','scored_tasks','solved_observed_tasks')}
         if all(type(v) is int for v in counts.values()) and 0<=counts['solved_observed_tasks']<=counts['scored_tasks']<=counts['collected_tasks']<counts['expected_tasks']:
             evidence={**counts,'full_benchmark_score_claimed':False,'scope':'BUDGET_LIMITED_PARTIAL_TASK_SET; NOT_A_FULL_OFFICIAL_SCORE'}
+            if event_recovery:
+                evidence.update(scope='TECHNICAL_WRAPPER_STOP_EVENT_RECOVERY; NOT_A_FULL_OFFICIAL_SCORE',
+                                independent_CPU_judgements_identical=True,
+                                original_HTTP_and_input_token_capture_missing=True,
+                                whole_task_energy_j=None,completed_task_phase_s=None)
             measured=obj.get('prefix_measurement') or obj.get('measurement_summary') or {}
             for original,public in [('case_inference_wall_s','request_interval_wall_s'),('case_gpu_energy_j','request_interval_gross_GPU_j'),('collected_task_inference_wall_s','request_interval_wall_s'),('collected_task_GPU_energy_j','request_interval_gross_GPU_j')]:
                 v=measured.get(original)

@@ -24081,7 +24081,20 @@
   },
   {
     "aggregate_metrics": {
-      "model_starts": 1
+      "model_starts": 1,
+      "partial_benchmark_evidence": {
+        "collected_tasks": 44,
+        "completed_task_phase_s": null,
+        "expected_tasks": 164,
+        "full_benchmark_score_claimed": false,
+        "independent_CPU_judgements_identical": true,
+        "original_HTTP_and_input_token_capture_missing": true,
+        "request_interval_wall_s": 1184.894187591,
+        "scope": "TECHNICAL_WRAPPER_STOP_EVENT_RECOVERY; NOT_A_FULL_OFFICIAL_SCORE",
+        "scored_tasks": 44,
+        "solved_observed_tasks": 36,
+        "whole_task_energy_j": null
+      }
     },
     "audit_id": "audit-41a8ee1243e73f96fbfa",
     "date": "2026-10-27T06:21:15.390788+00:00",
@@ -24096,6 +24109,59 @@
       "decision": "PARTIAL_TECHNICAL_WRAPPER_STOP_NOT_MODEL_REJECTION",
       "evidence_class": "LOKAL_GEMESSEN",
       "scope": "CPU-scored original responses from privileged TASK_EVENT stream after technical outer-wrapper timeout. No fabricated original HTTP/launch/token-proof files, no full official score, no missing-task interpolation or model-quality rejection. Whole-task energy and exact completed TASK duration remain NOT MEASURED."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "audit_id": "audit-d68ff6f2d825024dde4c",
+    "date": "2026-10-27T06:55:07.771043+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R574",
+    "model": "GLM-4.7-Flash",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R558 GLM-4.7-Flash Q3_K_S native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 10948.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 135,
+          "tasks": 164,
+          "wall_s": 530.844694893
+        }
+      }
+    },
+    "audit_id": "audit-b3c10beebc5bc04afd4f",
+    "date": "2026-10-27T07:11:43.243748+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "M07"
+    ],
+    "id": "R575",
+    "model": "Ministral-3-14B-Instruct-2512",
+    "reference_A0": null,
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R552 Ministral-3-14B-Instruct-2512 Q5_K_M native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
     },
     "winner_qualified": false
   }

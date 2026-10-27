@@ -106,13 +106,14 @@
     "title": "Model comparison: complete standard benchmarks before rejection or tuning",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/11",
     "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-27T06:25:17.955022+00:00",
+    "github_checked_at_utc": "2026-10-27T07:16:10.854412+00:00",
     "freeze_priority": "P0_OUTSTANDING_QUALIFICATION",
-    "next_action": "Final Top3 remains open. R573 GLM coding:36/44 observed, PARTIAL after outer-wrapper stop; two CPU evaluations agree, no full164 score or retry. Existing absolute timer path revalidated with34 current CPU controls for the first GLM tools run. Restore the pinned Ministral14 cache before missing full suites. gpt-oss CPU parser reproduction confirms final-header and single-call limitations; one-line header compatibility fix passes synthetic CPU controls but has no new engine/GPU admission. Phi4 repeats need a targeted bridge/termination fix. Preserve all original results; no exhaustive optimization or Issue18 harness campaign.",
+    "next_action": "Final Top3 remains open. R575 Ministral14 coding135/164 qualified; first full tools qualification is prepared. R574 GLM tools168/200 qualified; original thinking coding R57336/44 remains PARTIAL after a technical wrapper stop. No missing-task extrapolation. gpt-oss header compatibility fix is CPU-confirmed, not GPU-admitted; native parallel-call limitation is separately reproduced. Phi4 raw-call comparison confirms generation repetition; original3/32 stays partial. Existing Nemotron startup and official Terminal-Bench gates remain. No exhaustive optimization or Issue18 harness campaign.",
     "previous_scientific_status": "OPEN",
     "evidence_urls": [
       "https://maxxxel.github.io/v100-volta-ai-optimization-lab/experiments/R573/",
-      "https://maxxxel.github.io/v100-volta-ai-optimization-lab/best-of-v100-2026/"
+      "https://maxxxel.github.io/v100-volta-ai-optimization-lab/experiments/R574/",
+      "https://maxxxel.github.io/v100-volta-ai-optimization-lab/experiments/R575/"
     ]
   },
   {

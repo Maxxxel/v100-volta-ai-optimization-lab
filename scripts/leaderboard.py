@@ -1223,15 +1223,21 @@ def final_research_gate(root,entry,history,register,receipt):
  if digest(code)!=a.get('review_code_sha256'):raise ValueError('Final mission review code changed')
  return {k:a[k] for k in ('at_utc','status','scientific_snapshot_sha256','requirements','deliverables','official_agents','terminal_bench_decision','GPU_runs','model_requests','production_approved','universal_winner','limits')}|{'audit_id':receipt(path,entry['sha256']),'audit_sha256':entry['sha256'],'original_evidence_files_verified':len(sources),'current_scientific_inputs_match':current_match,'new_results_need_separate_review':not current_match,'frozen_public_input_commit':a.get('verified_public_commit_before_release')}
 
-def role_comparison(history,experiments):
+def role_comparison(history,experiments,selection=None):
  """Recompute scoped decisions from immutable public evidence; no inference."""
+ core_review=selection is None
+ selection=ROLE_EXPERIMENTS if core_review else selection
+ if not isinstance(selection,dict) or set(selection)!={'coding','tools','agents_development'} or any(
+  not isinstance(ids,(list,tuple)) or
+  any(not isinstance(eid,str) or not re.fullmatch(r'R[1-9][0-9]{1,3}',eid) for eid in ids) or len(ids)!=len(set(ids))
+  for ids in selection.values()):raise ValueError('Explicit unique experiment selection required')
  profiles={p['runtime_configuration_id']:p for p in history['profiles']}
  result={'schema_version':1,'official_agents':'NOT MEASURED','winner_qualified':False,
          'method':'Observed quality maximized; request wall/task, GPU-counter J/success and peak VRAM minimized. Conservative energy dominance requires candidate upper <= comparator lower. Descriptive whole-profile comparison, not population superiority, causal optimization, a safety certificate or production approval. Counter brackets describe query timing, not statistical uncertainty. No pooling across categories or inference profiles.',
-         'selection':ROLE_EXPERIMENTS,'categories':{}}
+         'selection':selection,'categories':{}}
  for role in ('coding','tools'):
   points=[];missing=[]
-  for eid in ROLE_EXPERIMENTS[role]:
+  for eid in selection[role]:
    views=[r for r in history['runs'] if r['experiment_id']==eid and r['official_eligible'] and r['discipline']==role]
    if not views:missing.append(eid);continue
    identity=lambda r:(r['audit_hash'],r['runtime_configuration_id'],r['benchmark_identity_id'],r['dataset_split_hash'],r['evaluated_task_set_hash'],H(r['scorer_version']))
@@ -1252,7 +1258,7 @@ def role_comparison(history,experiments):
     'energy_lower':bounds[0],'energy_upper':bounds[1],'energy_method':counter.get('method'),'peak_vram_mib':r['peak_vram_mib']})
   result['categories'][role]={'points':observed_pareto(points),'missing_complete_experiments':missing}
  agents=[];by_id={e['id']:e for e in experiments}
- for eid in ROLE_EXPERIMENTS['agents_development']:
+ for eid in selection['agents_development']:
   e=by_id.get(eid,{});m=e.get('aggregate_metrics',{}).get('native_validation33')
   if not m:continue
   if m['tasks']!=33 or m['planned_tasks']!=33 or m['official_benchmark'] or m['winner_qualified'] or not m.get('independent_review_audit_id'):raise ValueError('Invalid local agent evidence')
@@ -1273,6 +1279,9 @@ def role_comparison(history,experiments):
   {'role':'Additional retained alternatives','profile':'Nexus OFF/T0; Ornith OFF/T0; canonical OmniCoder','evidence':['R488','R489','R531','R495','R496','R532','R471','R478','R530'], 'decision':'Retain separate profiles and tradeoffs. Small quality differences are not automatic exclusions. No new broad optimization campaign or duplicate full benchmarks is justified by this descriptive assessment.'}]
  known={r['experiment_id'] for r in history['runs']}|set(by_id)
  result['decisions']=[d for d in result['decisions'] if all(e in known for e in d['evidence'])]
+ if not core_review:
+  result['decisions']=[]  # New cohort selection must not inherit dated core winners.
+  result['missing_agent_experiments']=[eid for eid in selection['agents_development'] if eid not in {a['experiment_id'] for a in agents}]
  return result
 
 def build(root,db,comparison,experiments,receipt,sanitize,previous):

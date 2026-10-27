@@ -178953,7 +178953,20 @@
   },
   {
     "aggregate_metrics": {
-      "model_starts": 1
+      "model_starts": 1,
+      "partial_benchmark_evidence": {
+        "collected_tasks": 44,
+        "completed_task_phase_s": null,
+        "expected_tasks": 164,
+        "full_benchmark_score_claimed": false,
+        "independent_CPU_judgements_identical": true,
+        "original_HTTP_and_input_token_capture_missing": true,
+        "request_interval_wall_s": 1184.894187591,
+        "scope": "TECHNICAL_WRAPPER_STOP_EVENT_RECOVERY; NOT_A_FULL_OFFICIAL_SCORE",
+        "scored_tasks": 44,
+        "solved_observed_tasks": 36,
+        "whole_task_energy_j": null
+      }
     },
     "excerpt_is_not_original": true,
     "id": "audit-41a8ee1243e73f96fbfa",
@@ -178966,6 +178979,53 @@
       "decision": "PARTIAL_TECHNICAL_WRAPPER_STOP_NOT_MODEL_REJECTION",
       "evidence_class": "LOKAL_GEMESSEN",
       "scope": "CPU-scored original responses from privileged TASK_EVENT stream after technical outer-wrapper timeout. No fabricated original HTTP/launch/token-proof files, no full official score, no missing-task interpolation or model-quality rejection. Whole-task energy and exact completed TASK duration remain NOT MEASURED."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d68ff6f2d825024dde4c",
+    "original_bytes": 4790,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d68ff6f2d825024dde4c54a8c05e65e7a1a98dcd21a80a00d6bbf774eee12cfe",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged R558 GLM-4.7-Flash Q3_K_S native profile. Preserve executed native template, Thinking, sampling, context8192/output4096, weights, engine, cache, batches and hardware guards. Whole-profile qualification; no optimization, automatic retry or Champion. One shared1200s TASK phase, startup180s.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 10948.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 135,
+          "tasks": 164,
+          "wall_s": 530.844694893
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b3c10beebc5bc04afd4f",
+    "original_bytes": 11287,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b3c10beebc5bc04afd4f8cc81e4ed1798c5bf7f73d541a5b4d101ade72023260",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R552 Ministral-3-14B-Instruct-2512 Q5_K_M native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
     }
   },
   {
@@ -260430,6 +260490,115 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13716.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d9785d63f2b201f8ae10",
+    "original_bytes": 178276,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d9785d63f2b201f8ae1081aa86cf3ffdc921e28f4183d42065ec407f1c1f608d",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e4ec23028c58a6695f7d",
+    "original_bytes": 8377,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e4ec23028c58a6695f7d2cecdaced1aa436a87fcdc91a0ef2cf97a94f4127edd",
+    "statements": {
+      "scope": "Hardware-counter timing brackets over all200 request intervals, including failed answers. No startup/CPU/system energy, statistical confidence interval or causal optimization claim; original audit and missing power integral remain unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 168,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e8db2aaaa470124b01cf",
+    "original_bytes": 10070,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e8db2aaaa470124b01cf86d3437110cb0228a3c3c71597f7fad56a887ea1b4ac",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 10948.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-467ab04c8189449e95e1",
+    "original_bytes": 143655,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "467ab04c8189449e95e1879e76c5848a87fb7aa7efd395521e35cfa378336ad6",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 135,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-46b9c08a8b4bd6e8a4bd",
+    "original_bytes": 3648,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "46b9c08a8b4bd6e8a4bd111949755238dad759983f266cea61b01dfc1ce348d5",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9cf0781941aca005cbad",
+    "original_bytes": 5921,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9cf0781941aca005cbadab24f73ed56f2e506cd1383c8b6bbe41883f3d3e3667",
+    "statements": {
+      "scope": "NVML counter brackets for all164 original request intervals, including failed answers. Excludes startup/CPU/system energy. Original audit and its missing power integral remain unchanged."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 135,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4823e3da93d7bc875b78",
+    "original_bytes": 7985,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4823e3da93d7bc875b78654b02bf7e0115349c07b39521782524819dffc31be9",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -261315,6 +261484,17 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-3445736042f8404217af",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3445736042f8404217aff0554077bf140630116f7b7cce4291a564878bdeadbe",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-14d7db5fe24964b9112b",
     "original_bytes": 1353,
     "original_filename": "research-metadata.json",
@@ -261906,6 +262086,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "5c6d3fb050e40b7be4bc5691e347d8c9cae7232886b0fd6219e5bbc6a55ba7cf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-7514d15dbb4b8a12f870",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7514d15dbb4b8a12f870930e70ae3b77333c5b461e69df1439564a27fa307e88",
     "statements": {}
   },
   {

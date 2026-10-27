@@ -15,7 +15,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-91266709a25761b79681b9b63c07bd0e68ec3efc4ac098aad81c6478e7b28416/"><span>Coding</span><strong>129/164</strong><b>Mistral-Small-3.2-24B-Instruct-2506</b><small>Latest complete result · R568</small></a><a class="lab-result" href="configuration-profiles/cfg-bb440458a3f41af5278bc00d64d09340b3c75a978eece3b72717df713c8906e6/"><span>Tools</span><strong>147/200</strong><b>Mistral-Small-3.2-24B-Instruct-2506</b><small>Latest complete result · R571</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="configuration-profiles/cfg-ee3bb53965a3c29d8ad9ee42fdc77360bdde5295c02fbc0ce1c29cbb7e56c57b/"><span>Coding</span><strong>135/164</strong><b>Ministral-3-14B-Instruct-2512</b><small>Latest complete result · R575</small></a><a class="lab-result" href="configuration-profiles/cfg-9def619a67b02ec81dadb5ad2e8b0caebe936d6e91e92c90907b87a383fc1cde/"><span>Tools</span><strong>168/200</strong><b>GLM-4.7-Flash</b><small>Latest complete result · R574</small></a><a class="lab-result" href="configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](configuration-comparison.md).
 
@@ -31,7 +31,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **435** · 2026-10-24. 492 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **435** · 2026-10-24. 494 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](methodology.md) · [Hardware](hardware.md) · [Reproduce](reproduce.md).
 

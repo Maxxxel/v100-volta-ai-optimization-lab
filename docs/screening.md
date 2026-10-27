@@ -4133,7 +4133,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Ministral-3-14B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>9/16 · 56.2%</td><td>36.7</td><td>53.1</td><td>412.1</td><td>10,950.5</td><td>NOT MEASURED</td><td><a href="../experiments/R552/">Screening R552</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Ministral-3-14B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>9/16 · 56.2%</td><td>36.7</td><td>53.1</td><td>412.1</td><td>10,950.5</td><td><a href="../experiments/R575/">R575</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R552/">Screening R552</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;0727b3219022724c5926db58337c36ce98d1a44e73ebbf1742f8a3ec9728d928&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -4342,10 +4342,18 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T21:01:01.149911+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R552&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;b3c10beebc5bc04afd4f8cc81e4ed1798c5bf7f73d541a5b4d101ade72023260&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R575&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-ee3bb53965a3c29d8ad9ee42fdc77360bdde5295c02fbc0ce1c29cbb7e56c57b&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;7c6fb2c22d7a16acfcdfba85bbb5b94f4e21248fc45303965d21ecc45fb49478&quot;,
-  &quot;local_artifact_available&quot;: false,
+  &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Ministral-3-14B-Instruct-2512&quot;,
   &quot;parent_experiment_id&quot;: &quot;R552&quot;,
   &quot;peak_vram_mib&quot;: 10950.5,
@@ -5780,7 +5788,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>GLM-4.7-Flash</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>10/16 · 62.5%</td><td>620.8</td><td>66.7</td><td>4,991.4</td><td>13,714.5</td><td>NOT MEASURED</td><td><a href="../experiments/R558/">Screening R558</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>GLM-4.7-Flash</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>10/16 · 62.5%</td><td>620.8</td><td>66.7</td><td>4,991.4</td><td>13,714.5</td><td><a href="../experiments/R574/">R574</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R558/">Screening R558</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;2add8e36ebf07a352ee0b258d8e26a46579ea8e9ac4a84766d95def536c79782&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -5995,8 +6003,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T23:06:36.735447+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R558&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;d68ff6f2d825024dde4c54a8c05e65e7a1a98dcd21a80a00d6bbf774eee12cfe&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R574&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-9def619a67b02ec81dadb5ad2e8b0caebe936d6e91e92c90907b87a383fc1cde&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;0a9bb4677c49fefedd7ca98a87d5ea1fa13692cfd6ab26978c28ccd6c2188052&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;GLM-4.7-Flash&quot;,

@@ -550,6 +550,20 @@ class FrozenSingleSessionMetadata(unittest.TestCase):
   p={'index':1,'id':'original-job','task_ids':['a']};self.assertEqual(normalized_native_part(p,{},None,{}),p)
 
 class RoleComparisonTests(unittest.TestCase):
+ def test_explicit_new_cohort_preserves_missing_and_zero_scores_without_dated_winners(self):
+  from leaderboard import role_comparison
+  h=json.loads((ROOT/'data/configuration-history.json').read_text());e=json.loads((ROOT/'data/experiments.json').read_text());before=copy.deepcopy(h)
+  selected={'coding':['R561','R559'],'tools':['R563','R569','R570'],'agents_development':['R565','R572','R573']}
+  r=role_comparison(h,e,selected)
+  self.assertEqual(h,before);self.assertEqual(r['selection'],selected);self.assertEqual(r['decisions'],[]);self.assertFalse(r['winner_qualified'])
+  self.assertEqual(r['categories']['coding']['missing_complete_experiments'],['R559']);self.assertEqual(r['categories']['tools']['missing_complete_experiments'],['R569'])
+  p=next(v for v in r['categories']['tools']['points'] if v['experiment_id']=='R570');self.assertEqual(p['solved'],0);self.assertEqual(p['tasks'],200);self.assertIsNone(p['energy_upper'])
+  self.assertEqual({v['experiment_id']:v['solved'] for v in r['agents_development']},{'R565':22,'R572':18});self.assertEqual(r['missing_agent_experiments'],['R573'])
+ def test_explicit_cohort_rejects_duplicate_unknown_or_unstructured_selection(self):
+  from leaderboard import role_comparison
+  base={'coding':[],'tools':[],'agents_development':[]}
+  for bad in [[],{},dict(base,tools=['R563','R563']),dict(base,coding=['all']),dict(base,coding=[{}])]:
+   with self.subTest(bad=bad),self.assertRaises(ValueError):role_comparison({'profiles':[],'runs':[]},[],bad)
  def points(self):
   return [dict(experiment_id='A',comparison_key='same',score_percent=80,seconds_per_task=2,energy_lower=10,energy_upper=11,peak_vram_mib=5000),dict(experiment_id='B',comparison_key='same',score_percent=79,seconds_per_task=3,energy_lower=12,energy_upper=13,peak_vram_mib=6000)]
  def test_observed_dominance_requires_all_four_axes(self):

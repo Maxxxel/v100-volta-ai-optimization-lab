@@ -7473,10 +7473,18 @@
       "date": "2026-10-26T21:01:01.149911+00:00",
       "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
       "experiment_id": "R552",
-      "full_benchmark_runs": [],
-      "full_benchmark_status": "NOT MEASURED",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "b3c10beebc5bc04afd4f8cc81e4ed1798c5bf7f73d541a5b4d101ade72023260",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R575",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-ee3bb53965a3c29d8ad9ee42fdc77360bdde5295c02fbc0ce1c29cbb7e56c57b"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "7c6fb2c22d7a16acfcdfba85bbb5b94f4e21248fc45303965d21ecc45fb49478",
-      "local_artifact_available": false,
+      "local_artifact_available": true,
       "model": "Ministral-3-14B-Instruct-2512",
       "parent_experiment_id": "R552",
       "peak_vram_mib": 10950.5,
@@ -9132,8 +9140,16 @@
       "date": "2026-10-26T23:06:36.735447+00:00",
       "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
       "experiment_id": "R558",
-      "full_benchmark_runs": [],
-      "full_benchmark_status": "NOT MEASURED",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "d68ff6f2d825024dde4c54a8c05e65e7a1a98dcd21a80a00d6bbf774eee12cfe",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R574",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-9def619a67b02ec81dadb5ad2e8b0caebe936d6e91e92c90907b87a383fc1cde"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "0a9bb4677c49fefedd7ca98a87d5ea1fa13692cfd6ab26978c28ccd6c2188052",
       "local_artifact_available": true,
       "model": "GLM-4.7-Flash",
