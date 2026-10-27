@@ -23805,5 +23805,90 @@
       "scope": "Full original164 HumanEval+ qualification of unchanged R555 Phi-4 Q6_K native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 240.907587102,
+          "group_window_s": 240.913908844,
+          "lower_j": 60206.035,
+          "upper_j": 60295.425
+        },
+        "actual_generation_requests": 164,
+        "bridge_source_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d",
+        "case_wall_s": 240.907587102,
+        "completed_request_wall_s": 237.356305693,
+        "completion_tokens": 10978,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3541.5314705882356,
+        "gpu_j_per_success_upper": 3546.7897058823532,
+        "independent_review_audit_id": "audit-5b4621f84d33859d5eac",
+        "independent_review_sha256": "5b4621f84d33859d5eacd5193e19f9e8508e8f8eebd9c96cbcb5dea439df6e54",
+        "max_output_tokens": 4096,
+        "model_sha256": "bd0ca58473b64618df4d08c1410cc25c910ca84e647833ebaf099e0fc0523b45",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 2,
+          "case_lost": 13,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 0.09375,
+          "net_success_change": -11,
+          "nonzero_groups": 8,
+          "reference_experiment_id": "R536",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 10014.5,
+        "planned_tasks": 33,
+        "policy_gate_passes": 21,
+        "profile_sha256": "681b488985ea19e575d8e6461dbc8b7bd64b7c04e8484fe06c2def393f3eda49",
+        "quality_diagnostics": {
+          "evidence_or_postcondition_failure_cases": 4,
+          "final_contract_failure_cases": 0,
+          "incorrect_facts_cases": 9,
+          "invalid_action_cases": 0,
+          "invalid_action_events": 0,
+          "invalid_final_contract_cases": 0,
+          "missing_valid_final_cases": 0,
+          "parse_failed_cases": 0,
+          "parse_failed_rounds": 0,
+          "policy_violation_cases": 12,
+          "policy_violation_events": 23,
+          "rejected_tool_call_cases": 12,
+          "rejected_tool_call_events": 23,
+          "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+          "wrong_final_status_cases": 3,
+          "wrong_reason_code_cases": 3
+        },
+        "solved": 17,
+        "successful_tasks_per_s": 0.07056432385815439,
+        "task_limit_s": 1200,
+        "task_phase_s": 240.914942148,
+        "task_scope_passes": 33,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 46.25114116074548,
+        "winner_qualified": false
+      },
+      "solved": 17,
+      "tasks": 33
+    },
+    "audit_id": "audit-e4c0fc4046b4743c7ebc",
+    "date": "2026-10-27T01:19:33.651432+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R567",
+    "model": "Ministral-3-8B-Instruct-2512",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-452af6847b29e8d910bd",
+      "audit-aa52fc9b594e511e9a77"
+    ],
+    "statements": {},
+    "winner_qualified": false
   }
 ]

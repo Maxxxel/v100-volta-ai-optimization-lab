@@ -8,7 +8,7 @@ Screening → full qualification → targeted optimization → independent confi
 
 <input id="screening-search" type="search" placeholder="Filter models or status" aria-label="Filter screening models">
 
-<div class="screening-wrap"><table id="screening-table"><thead><tr><th>Model</th><th>Status</th><th>Coding /16</th><th>Mock tools /16</th><th>Request time s</th><th>Output tok/s¹</th><th>GPU J/success ≥²</th><th>VRAM MiB</th><th>Existing benchmarks</th><th>Details</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>14/16 · 87.5%</td><td>67.2</td><td>69.6</td><td>593.8</td><td>7,356.5</td><td><a href="../experiments/R471/">R471</a> · <a href="../experiments/R471/">R471</a> · <a href="../experiments/R478/">R478</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R497/">Screening R497</a> · <details><summary>Profile & evidence</summary><pre>{
+<div class="screening-wrap"><table id="screening-table"><thead><tr><th>Model</th><th>Status</th><th>Coding /16</th><th>Mock tools /16</th><th>Request time s</th><th>Output tok/s¹</th><th>GPU J/success ≥²</th><th>VRAM MiB</th><th>Existing benchmarks</th><th>Details</th></tr></thead><tbody><tr><td>OmniCoder-9B</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>14/16 · 87.5%</td><td>67.2</td><td>69.6</td><td>593.8</td><td>7,356.5</td><td><a href="../experiments/R471/">R471</a> · <a href="../experiments/R478/">R478</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R497/">Screening R497</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;29208867310ffb6d01c8051d11831d1b464074f17a0dca03460c8e08c67d303c&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -213,13 +213,6 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;decision&quot;: &quot;No quality exclusion from16 tasks; retain for review.&quot;,
   &quot;experiment_id&quot;: &quot;R497&quot;,
   &quot;full_benchmark_runs&quot;: [
-    {
-      &quot;audit_hash&quot;: &quot;0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958&quot;,
-      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
-      &quot;experiment_id&quot;: &quot;R471&quot;,
-      &quot;official_eligible&quot;: true,
-      &quot;runtime_configuration_id&quot;: &quot;cfg-26d5b175a8e379f00193da2b2de4bce97c7d89fdc2bacf55b6971d71cb22f28e&quot;
-    },
     {
       &quot;audit_hash&quot;: &quot;0725b527fc77fa0b1bc3129d4f9b0b1a9c290df3b375236659c864b6fde90958&quot;,
       &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
@@ -4664,7 +4657,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Ministral-3-8B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>10/16 · 62.5%</td><td>33.6</td><td>63.3</td><td>253.3</td><td>10,014.5</td><td><a href="../experiments/R564/">R564</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R554/">Screening R554</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Ministral-3-8B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>10/16 · 62.5%</td><td>33.6</td><td>63.3</td><td>253.3</td><td>10,014.5</td><td><a href="../experiments/R560/">R560</a> · <a href="../experiments/R564/">R564</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R554/">Screening R554</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;17e2267cff8b807c9dc3d7c3973a52143683f4426366b679ef5910cfa733c277&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -4875,6 +4868,13 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;experiment_id&quot;: &quot;R554&quot;,
   &quot;full_benchmark_runs&quot;: [
     {
+      &quot;audit_hash&quot;: &quot;01eaca349138ef7240ea329d436e804199076a06146bb0c2a07d14165d7edd65&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R560&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-92734cfdedb369098e421a37a3aff7c190e81601aa6817e0e10fc40ccbca5fd7&quot;
+    },
+    {
       &quot;audit_hash&quot;: &quot;4d22f666c8ef08dfb171a3df041d481d35aeaa8016713fabfc2eafa2fbdcdde8&quot;,
       &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
       &quot;experiment_id&quot;: &quot;R564&quot;,
@@ -4931,7 +4931,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Phi-4 <small title="Explicit generic tool-wire adapter; no native tool-training claim">· tool bridge</small></td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>9/16 · 56.2%</td><td>72.0</td><td>48.9</td><td>929.8</td><td>13,792.5</td><td>NOT MEASURED</td><td><a href="../experiments/R555/">Screening R555</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Phi-4 <small title="Explicit generic tool-wire adapter; no native tool-training claim">· tool bridge</small></td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>9/16 · 56.2%</td><td>72.0</td><td>48.9</td><td>929.8</td><td>13,792.5</td><td><a href="../experiments/R566/">R566</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R555/">Screening R555</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;701163dc62d5fc6a02e9ff5a39fe063d95e2505e8e230ed131758953b49d5c58&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order; explicit generic tool-wire adapter, not native tool-training evidence&quot;,
   &quot;configuration&quot;: {
@@ -5143,8 +5143,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T21:59:30.395271+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R555&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;813e4947beb30af829fed701006345654adbfa41c01ac7b3fb1ee4a6d40e0d23&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R566&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-c85a9faa617a518470bba80fecc7654a4780d61116c2201f7f8bfd4958359018&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;198e92eea5e081373228b0ad47482ee93b4da944ee8237d7d88ee5c4f54e72fd&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Phi-4&quot;,
@@ -5193,7 +5201,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Devstral-Small-2-24B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>83.6</td><td>31.7</td><td>968.2</td><td>13,156.5</td><td><a href="../experiments/R563/">R563</a> · <a href="../experiments/R563/">R563</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R556/">Screening R556</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Devstral-Small-2-24B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>83.6</td><td>31.7</td><td>968.2</td><td>13,156.5</td><td><a href="../experiments/R561/">R561</a> · <a href="../experiments/R563/">R563</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R556/">Screening R556</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;5b7734361d1120822199865eceb6ab03b701ffbc9916205d803fd74072ebbc81&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -5410,11 +5418,11 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;experiment_id&quot;: &quot;R556&quot;,
   &quot;full_benchmark_runs&quot;: [
     {
-      &quot;audit_hash&quot;: &quot;ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25&quot;,
-      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
-      &quot;experiment_id&quot;: &quot;R563&quot;,
+      &quot;audit_hash&quot;: &quot;cfc55970bdb39de19a82023241a23cd871dba0395d143c9f7cf4fd7d8b778cca&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R561&quot;,
       &quot;official_eligible&quot;: true,
-      &quot;runtime_configuration_id&quot;: &quot;cfg-5d59e62efe5c500f8a34ca6578b6731d2a869f7214627437e9b4e065b3c9cddd&quot;
+      &quot;runtime_configuration_id&quot;: &quot;cfg-44fdbcd34ff0eb1bee1ffb091926cdbc2b93162c28b536092a687fa99b90c558&quot;
     },
     {
       &quot;audit_hash&quot;: &quot;ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25&quot;,

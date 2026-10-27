@@ -95,6 +95,32 @@ class CrossCategoryConfigurationLinks(unittest.TestCase):
  def test_only_reviewed_tool_envelope_may_differ(self):
   from screening import same_native_inference
   base,tools=self.profiles();before=copy.deepcopy((base,tools));self.assertTrue(same_native_inference(tools,base,'tools'));self.assertTrue(same_native_inference(base,base,'coding'));self.assertEqual((base,tools),before)
+ def test_mixed_screen_links_full_coding_only_with_the_exact_tool_envelope(self):
+  from screening import same_native_inference
+  base,screen=self.profiles();screen['adapter']='llama-native-coding';before=copy.deepcopy((base,screen))
+  self.assertTrue(same_native_inference(base,screen,'coding'));self.assertEqual((base,screen),before)
+  for key,value in [('tool_choice','required'),('parallel_tool_calls',False),('temperature',.5)]:
+   wrong=copy.deepcopy(screen);wrong['native_recipe']['request_options'][key]=value
+   self.assertFalse(same_native_inference(base,wrong,'coding'))
+ def test_scoring_view_links_original_capture_once_and_rejects_identity_drift(self):
+  import tempfile
+  from pathlib import Path
+  from screening import matching_full_runs,H
+  with tempfile.TemporaryDirectory() as directory:
+   root=Path(directory);stage=root/'staging/r1';stage.mkdir(parents=True);raw=root/'raw';raw.mkdir()
+   actual,screen=self.profiles();screen['adapter']='llama-native-coding'
+   (raw/'profile.json').write_text(json.dumps(actual));(raw/'AUDIT.json').write_text('{}')
+   audit=stage/'AUDIT.json';audit.write_text(json.dumps({'parts':[{'audit_path':str(raw/'AUDIT.json'),'audit_sha256':H(raw/'AUDIT.json')}]}))
+   base={'run_id':'old','experiment_id':'R1','runtime_configuration_id':'cfg','model_artifact_id':'artifact','audit_hash':H(audit),'official_eligible':False,'benchmark_identity_id':'bench','discipline':'coding'}
+   view={**base,'run_id':'new','audit_hash':'c'*64,'official_eligible':True,'scoring_view_of_run_id':'old','same_GPU_measurement':True,'additional_GPU_runs':0}
+   view['qualification_audit']={'original_preliminary_audit_sha256':base['audit_hash'],'audit_hash':view['audit_hash'],'scoring_view_of_run_id':'old','same_GPU_measurement':True,'additional_GPU_runs':0}
+   profiles={'cfg':{'model':{'artifact_sha256':'a'*64},'runtime':{'power_limit_w':300}}}
+   history={'runs':[base,view,{**view,'run_id':'counter-view'}]}
+   self.assertEqual(len(matching_full_runs(root,history,profiles,screen,'a'*64)),1)
+   for field,value in [('runtime_configuration_id','other'),('model_artifact_id','other'),('additional_GPU_runs',False),('dataset_split_hash','other')]:
+    bad=copy.deepcopy(view);bad[field]=value
+    if field=='runtime_configuration_id':profiles['other']=copy.deepcopy(profiles['cfg'])
+    with self.assertRaises(ValueError):matching_full_runs(root,{'runs':[base,bad]},profiles,screen,'a'*64)
  def test_artifact_engine_sampler_thinking_and_tool_mode_drift_stay_separate(self):
   from screening import same_native_inference
   base,tools=self.profiles()
@@ -115,6 +141,16 @@ class ValidationExposure(unittest.TestCase):
   self.assertIn('unexecuted',holdout['scope_at_freeze'])
 
 class ReferenceQualificationLinks(unittest.TestCase):
+ def test_new_family_screens_link_corrected_official_views_without_duplicate_audits(self):
+  from pathlib import Path
+  root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text())
+  expected={'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'}}
+  for screen,experiments in expected.items():
+   row=next(r for r in data['rows'] if r['experiment_id']==screen)
+   self.assertEqual(row['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS')
+   self.assertTrue(experiments.issubset({r['experiment_id'] for r in row['full_benchmark_runs']}))
+   identities=[(r['experiment_id'],r['benchmark_identity_id'],r['runtime_configuration_id'],r['audit_hash']) for r in row['full_benchmark_runs']]
+   self.assertEqual(len(identities),len(set(identities)))
  def test_existing_reference_results_link_only_matching_conditions(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1]

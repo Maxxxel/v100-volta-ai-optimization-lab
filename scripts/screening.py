@@ -41,11 +41,15 @@ def same_native_inference(actual,screen,discipline):
  keys=('argv_tail','context','environment','http_timeout_policy','warmups')
  if any(actual['native_recipe'].get(k)!=screen['native_recipe'].get(k) for k in keys):return False
  observed=dict(actual['native_recipe']['request_options']);expected=dict(screen['native_recipe']['request_options'])
- if discipline=='tools' and actual.get('adapter')=='llama-native-tools':
+ if discipline=='coding' and actual.get('adapter')=='llama-native-coding':
+  if 'tool_choice' in observed or 'parallel_tool_calls' in observed:return False
+ elif discipline=='tools' and actual.get('adapter')=='llama-native-tools':
   if observed.pop('tool_choice',None)!='auto' or observed.pop('parallel_tool_calls',None) is not True:return False
-  # A screening parent may itself already be a native-tools profile.
-  if 'tool_choice' in expected or 'parallel_tool_calls' in expected:
-   if expected.pop('tool_choice',None)!='auto' or expected.pop('parallel_tool_calls',None) is not True:return False
+ else:return False
+ # Mixed32 screens retain the native auto/parallel tool envelope. Full coding
+ # removes it, full tools restores it; no other inference difference is allowed.
+ if 'tool_choice' in expected or 'parallel_tool_calls' in expected:
+  if expected.pop('tool_choice',None)!='auto' or expected.pop('parallel_tool_calls',None) is not True:return False
  return observed==expected
 
 def matching_full_runs(root,history,profiles,profile,sha):
@@ -55,14 +59,22 @@ def matching_full_runs(root,history,profiles,profile,sha):
   cfg=profiles[run['runtime_configuration_id']]
   if not run.get('official_eligible') or cfg['model']['artifact_sha256']!=sha or cfg['runtime'].get('power_limit_w')!=300:continue
   audit=Path(root)/'staging'/run['experiment_id'].lower()/'AUDIT.json'
-  if not audit.exists() or H(audit)!=run['audit_hash']:continue
+  source_hash=run['audit_hash']
+  if run.get('scoring_view_of_run_id'):
+   base=next((r for r in history['runs'] if r['run_id']==run['scoring_view_of_run_id']),None);proof=run.get('qualification_audit') or {}
+   if not base or any(base.get(k)!=run.get(k) for k in ('experiment_id','runtime_configuration_id','model_artifact_id','benchmark_id','benchmark_identity_id','dataset_split_hash','evaluated_task_set_hash')) or run.get('same_GPU_measurement') is not True or type(run.get('additional_GPU_runs')) is not int or run['additional_GPU_runs']!=0 or proof.get('same_GPU_measurement') is not True or proof.get('additional_GPU_runs')!=0 or proof.get('original_preliminary_audit_sha256')!=base['audit_hash'] or proof.get('audit_hash')!=run['audit_hash'] or proof.get('scoring_view_of_run_id')!=base['run_id']:
+    raise ValueError('Official scorer view lacks exact original inference identity')
+   source_hash=base['audit_hash']
+  if not audit.exists() or H(audit)!=source_hash:continue
   original=read(audit)
   for part in original.get('parts',[]):
    path=Path(part['audit_path'])
    assert H(path)==part['audit_sha256']
    actual=read(path.parent/'profile.json')
    if same_native_inference(actual,profile,run['discipline']):
-    matches.append({k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')});break
+    match={k:run[k] for k in ('experiment_id','benchmark_identity_id','runtime_configuration_id','audit_hash','official_eligible')}
+    if match not in matches:matches.append(match)
+    break
  return matches
 
 def thought_section_counts(contents):

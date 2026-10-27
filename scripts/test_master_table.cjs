@@ -841,7 +841,9 @@ test('Phi4 complete134 coding retains its Q6 artifact and cannot borrow screenin
  assert.equal(p.model.artifact_sha256,'537248da5492a9a34b1d811307c6b9226d9539a81653aa9bb0d7ec6104169320');
  assert.equal(p.model.quantization,'Q6_K');assert.equal(p.runtime.sampling.temperature,0);assert.equal(p.runtime.sampling.seed,1001);assert.equal(p.runtime.max_output,4096);
  const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(x=>x.run_id===r.run_id));assert(row);
- const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);assert.equal(mean.count,1);assert.equal(mean.total,3);
+ const coding=[...v.benchmarkMap.values()].find(b=>b.definition?.benchmark_id===r.benchmark_id&&b.scope==='OFFICIAL_LOCAL');assert(coding);
+ const mean=M.availableAverage(row,{allMeasured:true,visible:new Set(['family:'+coding.family_id])},v.benchmarkMap);assert.equal(mean.count,1);assert.equal(mean.total,1);
+ assert(!row.runs.some(x=>x.experiment_id==='R555'));
  assert(Math.abs(mean.score-100*134/164)<1e-9);assert.equal(M.performanceSummary(row,mean.keys,v.benchmarkMap).tasks,164);
  assert.equal(r.counter_energy.solved,134);assert.equal(r.counter_energy.j_per_success_lower,r.counter_energy.lower_j/134);
 });
