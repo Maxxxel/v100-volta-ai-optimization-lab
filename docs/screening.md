@@ -5733,7 +5733,7 @@ Screening → full qualification → targeted optimization → independent confi
   ],
   &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;2d0c8328e3b2bd263fb4677d7b0d9423adf573631829e5387010318fdcd83e3e&quot;,
-  &quot;local_artifact_available&quot;: true,
+  &quot;local_artifact_available&quot;: false,
   &quot;model&quot;: &quot;Mistral-Small-3.2-24B-Instruct-2506&quot;,
   &quot;parent_experiment_id&quot;: &quot;R557&quot;,
   &quot;peak_vram_mib&quot;: 13156.5,

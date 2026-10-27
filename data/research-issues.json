@@ -102,14 +102,18 @@
   },
   {
     "subcase": "MODEL-QUALIFICATION",
-    "status": "CURRENT_MISSION_GATE_REVIEWED_WITH_DECLARED_LIMITS",
+    "status": "FINAL_TOP3_QUALIFICATION_ACTIVE_WITH_UNRESOLVED_CANDIDATES",
     "title": "Model comparison: complete standard benchmarks before rejection or tuning",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/11",
     "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
-    "freeze_priority": "P1_EVIDENCE_MAINTENANCE",
-    "next_action": "Preserve the reviewed role decision, missing official Agents, negative results and partial history. Maintain scientific corrections and separately scoped future research; broader unchecked issue items are not automatically qualified or closed.",
-    "previous_scientific_status": "OPEN"
+    "github_checked_at_utc": "2026-10-27T06:25:17.955022+00:00",
+    "freeze_priority": "P0_OUTSTANDING_QUALIFICATION",
+    "next_action": "Final Top3 remains open. R573 GLM coding:36/44 observed, PARTIAL after outer-wrapper stop; two CPU evaluations agree, no full164 score or retry. Existing absolute timer path revalidated with34 current CPU controls for the first GLM tools run. Restore the pinned Ministral14 cache before missing full suites. gpt-oss CPU parser reproduction confirms final-header and single-call limitations; one-line header compatibility fix passes synthetic CPU controls but has no new engine/GPU admission. Phi4 repeats need a targeted bridge/termination fix. Preserve all original results; no exhaustive optimization or Issue18 harness campaign.",
+    "previous_scientific_status": "OPEN",
+    "evidence_urls": [
+      "https://maxxxel.github.io/v100-volta-ai-optimization-lab/experiments/R573/",
+      "https://maxxxel.github.io/v100-volta-ai-optimization-lab/best-of-v100-2026/"
+    ]
   },
   {
     "subcase": "OXCODER-DIAGNOSIS",

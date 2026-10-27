@@ -8869,7 +8869,7 @@
       ],
       "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "2d0c8328e3b2bd263fb4677d7b0d9423adf573631829e5387010318fdcd83e3e",
-      "local_artifact_available": true,
+      "local_artifact_available": false,
       "model": "Mistral-Small-3.2-24B-Instruct-2506",
       "parent_experiment_id": "R557",
       "peak_vram_mib": 13156.5,
