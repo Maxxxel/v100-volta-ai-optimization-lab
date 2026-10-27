@@ -178744,6 +178744,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13156.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 129,
+          "tasks": 164,
+          "wall_s": 1021.420446433
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d0ab5c2847f920712181",
+    "original_bytes": 11298,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d0ab5c2847f920712181a94fd7bdd9931a932d3aeb08a036ed9d2e5909817310",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R557 Mistral Small3.2 24B Q3_K_M native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -260021,6 +260046,68 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13156.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4231191122cb4ceeed7a",
+    "original_bytes": 143856,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4231191122cb4ceeed7a6f50f737cf62705c934154b98fe17f86040d66cfc8fa",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 129,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e79d2fa24bacbe3b6b2f",
+    "original_bytes": 3654,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e79d2fa24bacbe3b6b2f0e4bf5eabb72561fd81fea4dc76b537b18857cfa4aa1",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0a8b311dce1a0d7dd859",
+    "original_bytes": 6014,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0a8b311dce1a0d7dd8592b8ac662a82b63731049af33940c9a62693754ebbfb0",
+    "statements": {
+      "scope": "Reported NVML cumulative counter query brackets for the original full164 request group, including failures/setup. No interpolation, extra GPU run, statistical confidence claim or replacement of missing power integral. Excludes loading/warmup/CPU/system energy."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 129,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-f58b71561ef593cfb849",
+    "original_bytes": 7979,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f58b71561ef593cfb84905163f0df3a872247e89cfbd28a79787992ee58a2d11",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -260833,6 +260920,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "9492fa926ebe5de799e1b3490fb3d2aa62a6258b50b653996fede37beb380c34",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-3fbfefa5c964bdd13599",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3fbfefa5c964bdd135990ee533920dcfb016ee0e58b86a46e62ad2a56a80a3d9",
     "statements": {}
   },
   {

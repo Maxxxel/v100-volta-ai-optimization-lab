@@ -8760,8 +8760,16 @@
       "date": "2026-10-26T22:37:03.359281+00:00",
       "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
       "experiment_id": "R557",
-      "full_benchmark_runs": [],
-      "full_benchmark_status": "NOT MEASURED",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "d0ab5c2847f920712181a94fd7bdd9931a932d3aeb08a036ed9d2e5909817310",
+          "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+          "experiment_id": "R568",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-91266709a25761b79681b9b63c07bd0e68ec3efc4ac098aad81c6478e7b28416"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "2d0c8328e3b2bd263fb4677d7b0d9423adf573631829e5387010318fdcd83e3e",
       "local_artifact_available": true,
       "model": "Mistral-Small-3.2-24B-Instruct-2506",

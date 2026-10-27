@@ -144,7 +144,7 @@ class ReferenceQualificationLinks(unittest.TestCase):
  def test_new_family_screens_link_corrected_official_views_without_duplicate_audits(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text())
-  expected={'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'}}
+  expected={'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'},'R557':{'R568'}}
   for screen,experiments in expected.items():
    row=next(r for r in data['rows'] if r['experiment_id']==screen)
    self.assertEqual(row['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS')

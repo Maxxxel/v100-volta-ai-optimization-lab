@@ -72,7 +72,8 @@ def validate(check_manifest=True):
  if sum(p.stat().st_size for p in files())>64*1024**2:errors.append('Public metadata tree exceeds 64 MiB budget')
  for p in files():
   rel=str(p.relative_to(ROOT))
-  limit=12*1024**2 if rel=='data/audit-excerpts.json' else 3*1024**2
+  # Append-only archival JSON grows independently of the bounded browser bundle.
+  limit=12*1024**2 if rel in {'data/audit-excerpts.json','data/configuration-history.json'} else 3*1024**2
   if p.stat().st_size>limit:errors.append(rel+': exceeds per-file export limit')
   try:s=p.read_text()
   except UnicodeError:errors.append(rel+': non-text file');continue

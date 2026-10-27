@@ -5481,7 +5481,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Mistral-Small-3.2-24B-Instruct-2506</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>8/16 · 50.0%</td><td>295.0</td><td>35.9</td><td>4,123.8</td><td>13,156.5</td><td>NOT MEASURED</td><td><a href="../experiments/R557/">Screening R557</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Mistral-Small-3.2-24B-Instruct-2506</td><td>SCREENING VOLLSTÄNDIG</td><td>12/16 · 75.0%</td><td>8/16 · 50.0%</td><td>295.0</td><td>35.9</td><td>4,123.8</td><td>13,156.5</td><td><a href="../experiments/R568/">R568</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R557/">Screening R557</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;fd5cfc0d48187afae9dae6e9ed3664b3fdd8e4153c587829da9441f0f98193de&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -5696,8 +5696,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T22:37:03.359281+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R557&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;d0ab5c2847f920712181a94fd7bdd9931a932d3aeb08a036ed9d2e5909817310&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c&quot;,
+      &quot;experiment_id&quot;: &quot;R568&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-91266709a25761b79681b9b63c07bd0e68ec3efc4ac098aad81c6478e7b28416&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;2d0c8328e3b2bd263fb4677d7b0d9423adf573631829e5387010318fdcd83e3e&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Mistral-Small-3.2-24B-Instruct-2506&quot;,

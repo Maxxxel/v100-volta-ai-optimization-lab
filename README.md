@@ -15,7 +15,7 @@
 
 ## Model comparison
 
-<div class="lab-results"><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-c85a9faa617a518470bba80fecc7654a4780d61116c2201f7f8bfd4958359018/"><span>Coding</span><strong>134/164</strong><b>Phi-4</b><small>Latest complete result · R566</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-8937544e4bc4a7dc2a75b731020d4edf4231f7a7ce0e284c4317ad4f72be5468/"><span>Tools</span><strong>153/200</strong><b>Ministral-3-8B-Instruct-2512</b><small>Latest complete result · R564</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
+<div class="lab-results"><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-91266709a25761b79681b9b63c07bd0e68ec3efc4ac098aad81c6478e7b28416/"><span>Coding</span><strong>129/164</strong><b>Mistral-Small-3.2-24B-Instruct-2506</b><small>Latest complete result · R568</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-profiles/cfg-8937544e4bc4a7dc2a75b731020d4edf4231f7a7ce0e284c4317ad4f72be5468/"><span>Tools</span><strong>153/200</strong><b>Ministral-3-8B-Instruct-2512</b><small>Latest complete result · R564</small></a><a class="lab-result" href="https://maxxxel.github.io/v100-volta-ai-optimization-lab/configuration-comparison/"><span>Agents</span><strong>Not measured</strong><b>Evaluator admission pending</b><small>No local score claimed</small></a></div>
 
 Latest complete category measurements, not a ranking. [All configurations, costs and audits](docs/configuration-comparison.md).
 
@@ -31,7 +31,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **435** · 2026-10-24. 486 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **435** · 2026-10-24. 487 sprint records, 60 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](docs/methodology.md) · [Hardware](docs/hardware.md) · [Reproduce](docs/reproduce.md).
 

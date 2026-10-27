@@ -167,7 +167,7 @@
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
     "freeze_priority": "P0_NEW_MODEL_COMPARISON",
-    "next_action": "Seven complete frozen32 screens (R552\u2013R558). Full coding: Ministral8 R560 128/164, Devstral R561 122/164, Phi4 R566 134/164. Full tools: Devstral R563 175/200, Ministral8 R564 153/200. Devstral internal Agent33 R565 22/33; Ministral internal Agent33 R567: 17/33. Mistral Small3.2 coding R568 is in progress; Phi4 tools R569 prepared. Then evidence-based selection and updated Best-of-V100 review. R559 parser and R562 startup 180s blocks remain technical, not quality exclusions. Preserve references and guards; no automatic retries.",
+    "next_action": "Seven complete frozen32 screens (R552\u2013R558). Full coding: Ministral8 R560 128/164, Devstral R561 122/164, Phi4 R566 134/164. Full tools: Devstral R563 175/200, Ministral8 R564 153/200. Devstral internal Agent33 R565 22/33; Ministral internal Agent33 R567: 17/33. Mistral Small3.2 coding R568: 129/164, complete and qualified. Phi4 tools R569 is in progress. A mixed-screening-to-tools broker extension passed288 CPU controls but is not activated; any later gpt-oss tool run needs its separate regular admission. Then evidence-based selection and updated Best-of-V100 review. R559 parser and R562 startup 180s blocks remain technical, not quality exclusions. Preserve references and guards; no automatic retries.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
     "technical_gate": "NEMOTRON_STARTUP180_BEFORE_TASKS_NOT_QUALITY_REJECTED"
   },
