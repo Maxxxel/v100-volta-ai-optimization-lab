@@ -17,6 +17,15 @@ class TimingProjection(unittest.TestCase):
                                  'durations': {'task_phase_s': None, 'startup_total_s': 157.9, 'private': 'DO_NOT_PUBLISH'},
                                  'resources': {}, 'timestamps': {}, 'publication': {}, '_clock': {'private': 123}}]}
 
+    def test_failed_without_scored_answers_keeps_unknown_quality(self):
+        data=self.fixture();row=data['experiments'][0]
+        row.update(result_status='FAILED',quality={'completed':0,'planned':32,'solved':None})
+        result=pipeline.project(data);self.assertEqual(result['experiments'][0]['status'],'FAILED')
+        self.assertIsNone(result['experiments'][0]['quality']['solved'])
+        self.assertIn('0/32',pipeline.render(result))
+        row['result_status']='PARTIAL'
+        with self.assertRaises(AssertionError):pipeline.project(data)
+
     def test_partial_and_missing_end_never_become_complete_or_zero(self):
         result = pipeline.project(self.fixture())
         row = result['experiments'][0]

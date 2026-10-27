@@ -178342,6 +178342,63 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 11934.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-66bc7969f5667fb8e107",
+    "original_bytes": 2585,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "66bc7969f5667fb8e1077ab5efdfa471f1c2f95e736a8a1e428e35d892b88914",
+    "statements": {
+      "decision": "ENGINE_NATIVE_HARMONY_PARSE_ERROR_NO_CODING_SCORE"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 10014.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 127,
+          "tasks": 164,
+          "wall_s": 424.60821177
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b2dc6ddc2f7fb92c750e",
+    "original_bytes": 11274,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b2dc6ddc2f7fb92c750ef4c99cfd9beb4aa214ec7a9d492bf4a30b4de2f46091",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R554 Ministral3-8B Instruct Q8_0 native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 12496.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-81837386f89742d84204",
+    "original_bytes": 2635,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "81837386f89742d8420461bf1d81fe91cad5a8acccc3034d08f89ad8d83e24b7",
+    "statements": {
+      "decision": "TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -259339,6 +259396,39 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 10014.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-55996c3595ed0241c34b",
+    "original_bytes": 143592,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "55996c3595ed0241c34bd3e69fee2ea3136f73d3e335abf0b6dcaedad9fc7140",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 127,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-99dfbe73db14a2750b81",
+    "original_bytes": 3647,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "99dfbe73db14a2750b815bbb77ba03cbb0b32373e7ad12b4d10086b636aaa54a",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -260118,6 +260208,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "9492fa926ebe5de799e1b3490fb3d2aa62a6258b50b653996fede37beb380c34",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-d8ad25045e9c0671887a",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d8ad25045e9c0671887a46555032b58b92cfb8e75cb8eb33733abf53bee5a4e5",
     "statements": {}
   },
   {

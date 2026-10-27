@@ -31,10 +31,14 @@ def project(source):
         assert re.fullmatch(r'R[1-9][0-9]{1,3}', ident)
         assert re.fullmatch('[a-f0-9]{64}', entry['source_audit_sha256'])
         q = entry['quality']
-        assert all(type(q[k]) is int for k in ('completed', 'planned', 'solved'))
-        assert 0 <= q['solved'] <= q['completed'] <= q['planned']
+        failed = entry.get('result_status') == 'FAILED' and q['completed'] == 0 and q['solved'] is None
+        if failed:
+            assert type(q['completed']) is int and type(q['planned']) is int and q['planned'] > 0
+        else:
+            assert all(type(q[k]) is int for k in ('completed', 'planned', 'solved'))
+            assert 0 <= q['solved'] <= q['completed'] <= q['planned']
         record = {'experiment_id': ident, 'audit_sha256': entry['source_audit_sha256'],
-                  'status': 'COMPLETE' if q['completed'] == q['planned'] else 'PARTIAL',
+                  'status': 'FAILED' if failed else 'COMPLETE' if q['completed'] == q['planned'] else 'PARTIAL',
                   'quality': {k: q[k] for k in ('completed', 'planned', 'solved')},
                   'durations': {k: number(entry['durations'].get(k)) for k in DURATIONS},
                   'resources': {k: number(entry['resources'].get(k)) for k in RESOURCES},

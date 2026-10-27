@@ -167,9 +167,9 @@
     "github_state": "OPEN",
     "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
     "freeze_priority": "P0_NEW_MODEL_COMPARISON",
-    "next_action": "Seven requested families have complete independently replayed32-task development screens (R552–R558); these are not official benchmark results. Prioritize unchanged-profile gpt-oss20B, Ministral3-8B and Devstral Small2 full qualification through ordinary admission. Nemotron source/header SSM and96 template-render checks are complete, but its18.12GB artifact is blocked by10.02GB available disk; no download or GPU run. Qwen Q4 is a protected R122 Golden Baseline and was not deleted. Keep all remaining candidates and original references; no small-sample quality rejection, guard changes or automatic retries.",
+    "next_action": "R552–R558: seven complete development screens. R559 gpt-oss coding stopped on native output parsing, without a quality score. Ministral8 official API128/164 is independently confirmed; append-only score admission remains pending after legacy scorer MemoryError. Devstral R561 is queued. Nemotron R562 reached the180s startup limit before tasks; storage is resolved. Preserve all references; no unauthorized retry, guard increase or small-sample rejection.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
-    "technical_gate": "NEMOTRON_STORAGE_BLOCKED_NOT_ARCHITECTURE_REJECTED"
+    "technical_gate": "NEMOTRON_STARTUP180_BEFORE_TASKS_NOT_QUALITY_REJECTED"
   },
   {
     "subcase": "NOVEMBER-HARNESS",

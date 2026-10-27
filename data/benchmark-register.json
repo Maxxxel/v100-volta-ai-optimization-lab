@@ -27654,7 +27654,7 @@
     "at_utc": "2026-10-26T19:19:03.396003+00:00",
     "audit_id": "audit-e61c02f95beb7809761e",
     "audit_sha256": "e61c02f95beb7809761e8ebfa7ed83c872e259b5e8adead96b11f2ce2b11c355",
-    "current_scientific_inputs_match": true,
+    "current_scientific_inputs_match": false,
     "deliverables": [
       "best-of-v100-2026.md",
       "configuration-comparison.md",
@@ -27672,7 +27672,7 @@
       "Role recommendations may be provisional scientifically even when the requested decision package is complete."
     ],
     "model_requests": 0,
-    "new_results_need_separate_review": false,
+    "new_results_need_separate_review": true,
     "official_agents": "NOT MEASURED",
     "original_evidence_files_verified": 730,
     "production_approved": false,

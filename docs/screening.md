@@ -1,6 +1,6 @@
 # Model screening
 
-**22/22 profiles measured** · 16 coding + 16 mock-tool development tasks.
+**22/23 profiles measured** · 16 coding + 16 mock-tool development tasks.
 
 Screening → full qualification → targeted optimization → independent confirmation.
 
@@ -2683,7 +2683,7 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;full_benchmark_runs&quot;: [],
   &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
   &quot;independent_review_sha256&quot;: &quot;d08c18ec7b417a8186d2524d707372c17610fc10a0da48c66c414e4b3379ecd5&quot;,
-  &quot;local_artifact_available&quot;: true,
+  &quot;local_artifact_available&quot;: false,
   &quot;model&quot;: &quot;LFM2.5-8B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R476&quot;,
   &quot;peak_vram_mib&quot;: 7448.5,
@@ -4352,7 +4352,7 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;full_benchmark_runs&quot;: [],
   &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
   &quot;independent_review_sha256&quot;: &quot;7c6fb2c22d7a16acfcdfba85bbb5b94f4e21248fc45303965d21ecc45fb49478&quot;,
-  &quot;local_artifact_available&quot;: true,
+  &quot;local_artifact_available&quot;: false,
   &quot;model&quot;: &quot;Ministral-3-14B-Instruct-2512&quot;,
   &quot;parent_experiment_id&quot;: &quot;R552&quot;,
   &quot;peak_vram_mib&quot;: 10950.5,
@@ -5980,6 +5980,59 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
+}</pre></details></td></tr><tr><td>Nemotron-3-Nano-30B-A3B</td><td>TECHNISCH BLOCKIERT</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><details><summary>Profile & evidence</summary><pre>{
+  &quot;audit_sha256&quot;: null,
+  &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
+  &quot;configuration&quot;: {
+    &quot;binary_identities&quot;: {
+      &quot;libggml-cuda.so.0.26.0&quot;: &quot;f76ecefe4dff5bb7bacf5721159b607f008d7f23b0fc848134637b6673b0e1f5&quot;,
+      &quot;llama-server&quot;: &quot;08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54&quot;
+    },
+    &quot;context&quot;: 8192,
+    &quot;engine&quot;: &quot;llama.cpp native&quot;,
+    &quot;engine_version&quot;: null,
+    &quot;hardware&quot;: &quot;Tesla V100 SXM2 16 GB&quot;,
+    &quot;model_sha256&quot;: &quot;86b62cc37c27109c915880ee4617ebb5d75ccf82872302b8d2e22c2a7725d954&quot;,
+    &quot;model_source&quot;: {
+      &quot;base_repository&quot;: &quot;nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16&quot;,
+      &quot;base_revision&quot;: &quot;bf77c3174f68ad409e1c2aa60daeb46e32d1c606&quot;,
+      &quot;hf_repository&quot;: &quot;unsloth/Nemotron-3-Nano-30B-A3B-GGUF&quot;,
+      &quot;hf_revision&quot;: &quot;9ad8b366c308f931b2a96b9306f0b41aef9cd405&quot;,
+      &quot;license&quot;: &quot;NVIDIA Nemotron Open Model License&quot;,
+      &quot;parameters_in_GGUF&quot;: 31577940288,
+      &quot;quantizer&quot;: &quot;unsloth&quot;
+    },
+    &quot;parent_profile_id&quot;: &quot;ministral3-8b-native-coding-task1200-reviewed-sm70&quot;,
+    &quot;power_w&quot;: 300,
+    &quot;quantization&quot;: &quot;Q3_K_S&quot;,
+    &quot;request_options&quot;: {
+      &quot;cache_prompt&quot;: false,
+      &quot;max_tokens&quot;: 4096,
+      &quot;min_p&quot;: 0.0,
+      &quot;seed&quot;: 1001,
+      &quot;temperature&quot;: 1.0,
+      &quot;top_k&quot;: 0,
+      &quot;top_p&quot;: 1.0
+    },
+    &quot;screening_configuration_id&quot;: &quot;screening-config-c8221cea29189a7be04e8e7d137fac06e25f7519b7922f9316408537a3e3f0c8&quot;,
+    &quot;task_time_policy&quot;: {
+      &quot;cleanup_seconds&quot;: 60,
+      &quot;startup_seconds&quot;: 180,
+      &quot;task_seconds&quot;: 1200,
+      &quot;wall_seconds&quot;: 1440
+    },
+    &quot;warmup_requests&quot;: 2
+  },
+  &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
+  &quot;experiment_id&quot;: null,
+  &quot;full_benchmark_runs&quot;: [],
+  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;independent_review_sha256&quot;: null,
+  &quot;local_artifact_available&quot;: true,
+  &quot;model&quot;: &quot;Nemotron-3-Nano-30B-A3B&quot;,
+  &quot;parent_experiment_id&quot;: &quot;R560&quot;,
+  &quot;status&quot;: &quot;TECHNISCH BLOCKIERT&quot;,
+  &quot;category_results&quot;: null
 }</pre></details></td></tr></tbody></table></div>
 
 Development evidence, not an official benchmark or unseen validation set. These tasks were previously used for Nexus A/B/C tuning. No automatic exclusion from small score differences. Wilson intervals, native sampling, hashes, missing answers and audit references are in **Details**. Native templates and settings remain unchanged. Reserved8+8 validation status and evidence are recorded separately in the methods archive.
