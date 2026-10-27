@@ -120,6 +120,17 @@ class FreshBalancedConfirmation(unittest.TestCase):
   for phrase in ('Zero new GPU/model calls','not a stock-shell/provider benchmark','No new token/call saving or GPU-efficiency claim'):self.assertIn(phrase,page)
 
 class OriginalProxyRecordCompatibility(unittest.TestCase):
+ def test_actual_native_record_is_not_a_compression_or_official_winner(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];r=research['caveman_proxy_record_GPU']
+  self.assertEqual(r['experiment_id'],'R596');self.assertEqual(r['requests'],64);self.assertEqual(r['unique_tasks'],32);self.assertEqual(r['model_starts'],1)
+  self.assertTrue(r['native_requests_preserved']);self.assertTrue(r['observed_task_judgments_unchanged']);self.assertFalse(r['compression_enabled']);self.assertFalse(r['winner_qualified']);self.assertFalse(r['official_benchmark'])
+  self.assertEqual(r['arms']['A']['total_tokens'],r['arms']['B']['total_tokens']);self.assertIsNone(r['arms']['A']['task_wall_s']);self.assertIsNone(r['engine_release_version']);self.assertEqual(r['warmup_requests'],2)
+  page=lean_harness_report([],research)
+  for phrase in ('Original Caveman record','Pass-through control, no compression or qualified optimization','Run-wide peak VRAM','Shared warmup','No compressor, unseen validation'):self.assertIn(phrase,page)
+ def test_preinference_failure_has_no_model_or_quality_result(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];r=research['caveman_preinference_failure']
+  self.assertEqual(r['GPU_job_starts'],1);self.assertEqual(r['GPU_inference_runs'],0);self.assertEqual(r['model_starts'],0);self.assertFalse(r['TASK_phase_started'])
+  page=lean_harness_report([],research);self.assertIn('not a Caveman/model quality result',page)
  def test_original_TOON_tests_remain_CPU_structural_evidence(self):
   root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];r=research['caveman_original_toon_CPU']
   self.assertEqual(len(r['tests_passed']),9);self.assertFalse(r['fuzz_campaign_executed']);self.assertEqual(r['new_GPU_runs'],0);self.assertEqual(r['new_model_calls'],0)

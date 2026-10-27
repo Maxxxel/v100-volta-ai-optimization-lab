@@ -946,7 +946,27 @@ def project_lean_research(root):
             assert digest(base/'caveman_toon_critical_cpu_test.go')==c['test_source_sha256'] and digest(base/'CAVEMAN_TOON_CRITICAL_CPU.log')==c['log_sha256']
             textlog=(base/'CAVEMAN_TOON_CRITICAL_CPU.log').read_text();assert 'actual transformed fixtures=10/10; ambiguous/invalid inputs rejected=3' in textlog
             toon['critical_data_contracts']={'roundtrip_cases':c['roundtrip_cases'],'actually_transformed':10,'invalid_rejected':3,'evidence_sha256':digest(critical_path),'test_source_sha256':c['test_source_sha256']}
-    return {'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    proxy_gpu=None;cp=pathlib.Path(root)/'staging/r596/HARNESS_COMPARISON.json'
+    if cp.exists():
+        row=load(cp);audit=load(cp.with_name('AUDIT.json'));raw=pathlib.Path(audit['raw_root'])
+        assert digest(cp.with_name('AUDIT.json'))==row['audit_sha256'] and digest(cp.with_name('INDEPENDENT_REVIEW.json'))==row['independent_review_sha256']
+        assert audit['status']=='CAVEMAN_RECORD_AB64_DEVELOPMENT_COMPLETE' and row['experiment_id']=='R596' and row['request_preservation_checks']==64
+        assert row['winner_qualified'] is row['official_benchmark'] is row['compression_enabled'] is False and row['native_requests_preserved']is True
+        for name,h in row['raw_files_sha256'].items():assert digest(raw/name)==h
+        for name,h in row['source_sha256'].items():assert digest(pathlib.Path(name))==h
+        assert digest(cp.with_name('COMPILATION_CPU_REVIEW.json'))==row['compilation_review_sha256']
+        keys=('experiment_id','decision','categories','token_reduction_percent','request_latency_reduction_percent','GPU_j_per_success_reduction_bounds_percent','energy_saving_confirmed_by_counter_bounds','shared_TASK_phase_s','observed_task_judgments_unchanged','native_requests_preserved','compression_enabled','model_sha256','context','proxy_binary_sha256','proxy_commit','warmup_requests','warmup_input_tokens','warmup_completion_tokens','warmup_request_E2E_s','native_non_TASK_before_cleanup_s','scope')
+        fields=('successes','total_tokens','input_tokens','completion_tokens','reasoning_tokens','response_wall_s','task_wall_s','GPU_j_per_success_lower','GPU_j_per_success_upper')
+        proxy_gpu={k:row[k]for k in keys};profile=load(raw/'profile.json')
+        proxy_gpu.update(arms={arm:{k:value[k]for k in fields}for arm,value in row['arms'].items()},at_utc=audit['at_utc'],audit_sha256=row['audit_sha256'],comparison_sha256=digest(cp),profile_sha256=row['captured_profile_sha256'],winner_qualified=False,official_benchmark=False,requests=64,unique_tasks=32,model_starts=1,run_peak_vram_mib=audit['peak_device_vram_mib'],request_options={k:profile['native_recipe']['request_options'].get(k)for k in ('max_tokens','temperature','seed','chat_template_kwargs')},engine_release_version=None,engine_binary_sha256=profile['assets'].get(profile['runtime']+'/llama-server'))
+    preinference=None;cp=pathlib.Path(root)/'staging/r595/AUDIT.json'
+    if cp.exists():
+        row=load(cp);assert row['status']=='BLOCKED_BEFORE_MODEL_START_NO_TASK_PHASE' and row['measurement_valid']is row['GPU_execution_observed']is False
+        assert row['GPU_inference_runs']==row['model_starts']==0 and row['TASK_phase_started']is False and row['winner_qualified']is False
+        raw=pathlib.Path(row['raw_root'])
+        for name,h in row['original_raw_files_sha256'].items():assert digest(raw/name)==h
+        preinference={'experiment_id':'R595','status':row['status'],'GPU_job_starts':1,'GPU_inference_runs':0,'model_starts':0,'TASK_phase_started':False,'audit_sha256':digest(cp),'scope':'Lab adapter attempted a host-only dataset read inside the restricted jail before model launch. No model/Caveman quality or performance measurement. Failed attempt preserved; corrected implementation has separate source review and identity.'}
+    return {'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""

@@ -228,6 +228,27 @@ Original version 2.4.6 at `04d809ceab9df28f9adaed044884180159172930`, native Pyt
 
 </details>
 
+## Original Caveman record · native V100 comparison
+
+Native compatibility confirmed on exposed development tasks. Pass-through control, no compression or qualified optimization. [R596 audit](experiments/R596.md).
+
+| Arm | Coding | Tools | Reported tokens | Request E2E seconds | GPU J/success interval |
+|---|---|---|---|---|---|
+| A · direct | 14/16 | 14/16 | 17355 | 62.713 | 557.759–631.684 |
+| B · record proxy | 14/16 | 14/16 | 17355 | 62.768 | 567.015–636.501 |
+
+<details markdown="1"><summary>Record-mode profile and measurement limits</summary>
+
+32 exposed tasks,64 balanced requests, one unchanged resident model. Shared TASK 125.517s /1200s; per-arm full TASK time not assigned. Run-wide peak VRAM 7680.500 MiB. Counter intervals are timing brackets, not confidence intervals. Reasoning tokens: NOT MEASURED. Date 2026-10-27T18:37:27.531795+00:00. Model SHA256 `a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052`; original proxy commit `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; binary `1c77f78b68ea4e37994860210f69f64a604c755d240770f424d4aafd1438cebd`; profile `d3600f4942271f872e10c0ca8195ca32723ef0beeafb4f9bfe80ea61ac75792a`; comparison `1576f0db79302e1c063485ef1e23d6c6ee236d1782776299c3be39522b5319c8`. Engine release: NOT RECORDED; binary `08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54`; [frozen native model/build](final-selection.md). Context 8192; output 4096; temperature 0; seed 1001. Shared warmup: 2 requests, 536 native input tokens and 129 output tokens, 1.977s request E2E; never divided by arm. Remaining native non-TASK time is not assigned to task latency. No compressor, unseen validation, population-equivalence or cross-model qualification.
+
+</details>
+
+<details markdown="1"><summary>R595 · preserved lab integration failure</summary>
+
+One broker job attempt; zero model/GPU inference runs and no TASK phase. The lab adapter incorrectly read a host-only dataset path inside the restricted jail before model launch. This is not a Caveman/model quality result. [Original failure audit](experiments/R595.md), SHA256 `0a813cc428491ec4090707e38453dad5dd08c0318b625c3c565aa40698ebde6f`.
+
+</details>
+
 <details markdown="1"><summary>Original Caveman proxy · record-mode CPU compatibility</summary>
 
 The full original proxy at `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4` was built without source patches (CGO disabled) and executed unprivileged without external network or GPU devices. Six synthetic contracts passed: plain completion, tool arguments/schema, SSE streaming, upstream error, unauthorized request and unknown mount. Four forwarded request/response fixtures remained byte-identical; denied requests did not reach the fixture server. **Zero new GPU/model calls.** This verifies this local API fixture only; native engine, Harmony, compression and GPU efficiency remain unqualified. Binary SHA256 `1c77f78b68ea4e37994860210f69f64a604c755d240770f424d4aafd1438cebd`; evidence `4e429805d34c5a09604425c9583450081d37b9cf92cbded31a0908a7a94f8c62`.
@@ -282,7 +303,7 @@ The pinned Caveman default JSON-elision route found no eligible long array in th
 
 Frozen next-goal reference: `jarvis-minimal-harness-reference-20261027-v1` · SHA256 `a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b`. Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.
 
-Original source-plan SHA256: `32322bed8a98e9942af19b1c674be39a408692abf066fcfddba2ca3c574fe341`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
+Original source-plan SHA256: `f182bd9fdaebeded0b75ac6549cb621bc14c6f8b17a2360efcc249f750d82427`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
 
 </details>
 

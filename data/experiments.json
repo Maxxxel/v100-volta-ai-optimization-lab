@@ -25284,5 +25284,31 @@
       "decision": "CONFIRMED_DEVELOPMENT_LATENCY_CANDIDATE_REQUIRES_UNSEEN_VALIDATION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-0a813cc428491ec40907",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R595",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-6d98535bfa89bd28b411",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R596",
+    "model": null,
+    "reference_A0": null,
+    "statements": {
+      "decision": "NATIVE_RECORD_COMPATIBILITY_CONFIRMED_EXPOSED_DEVELOPMENT_ONLY"
+    },
+    "winner_qualified": false
   }
 ]
