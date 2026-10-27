@@ -1,11 +1,12 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T01:43:55.604355+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T02:10:45.656787+00:00. This static page is not a live monitor.**
 
-Last observed: R568 · AUDITED_RESULT_AVAILABLE.
+Last observed: R569 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R569](experiments/R569.md) | PARTIAL | 32/200 | 159.953 | NOT MEASURED | 0.318 | NOT MEASURED / NOT MEASURED |
 | [R568](experiments/R568.md) | COMPLETE | 164/164 | 146.569 | 1021.531 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R567](experiments/R567.md) | COMPLETE | 33/33 | 97.888 | 240.915 | 1.445 | NOT MEASURED / NOT MEASURED |
 | [R566](experiments/R566.md) | COMPLETE | 164/164 | 154.96 | 729.567 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
@@ -272,6 +273,13 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R568 | collect | COMPLETE | 66.029 |
 | R568 | independent_review | COMPLETE | 0.035 |
 | R568 | integrity | COMPLETE | 0.036 |
+| R568 | export | COMPLETE | 36.293 |
+| R568 | render | COMPLETE | 1.419 |
+| R568 | tests | COMPLETE | 4.826 |
+| R568 | tests | COMPLETE | 2.773 |
+| R568 | security | COMPLETE | 12.49 |
+| R568 | build | COMPLETE | 42.304 |
+| R569 | collect | FAILED | 0.092 |
 
 </details>
 

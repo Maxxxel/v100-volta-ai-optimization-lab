@@ -178769,6 +178769,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4ae0c1508396b260940f",
+    "original_bytes": 4908,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4ae0c1508396b260940f0913a89fb6c993fe86d9e027f97cb228c95858c4e982",
+    "statements": {
+      "decision": "PARTIAL_OBSERVED_PREFIX_NOT_MODEL_REJECTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category of unchanged Phi4 Q6_K after R555 development screening and R566 official134/164 coding qualification. Preserve model/weights, engine, native delimiters and the explicitly reviewed R555 tool-wire bridge, sampling, context8192/output4096, cache/batches and hardware limits. Restore only the native auto/parallel tool-dispatch envelope removed for coding. The bridge is a harness configuration, not evidence of native tool training or a causal optimization. One shared1200s TASK phase, startup180s, no retry, retuning, full-BFCL overall score or Champion claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -260108,6 +260130,33 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13786.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-276aa7921b7713ea51bf",
+    "original_bytes": 29184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "276aa7921b7713ea51bfd2d19026f3570ee11ea7d6b7e623e9da984c137f9c30",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-42b2c18f5cb37441b1b0",
+    "original_bytes": 1996,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "42b2c18f5cb37441b1b0bb72455e3077824a1d952403241ade12c142cf5c770d",
+    "statements": {
+      "scope": "Append-only post-stop integrity for the completed prefix. No original controller attestation, clock reset, successful completion or new inference is fabricated."
+    }
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -260898,6 +260947,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "5509cc96b8b11d48447bf6ef51eb418ff680be9a48f0993249b2ab3108b5e15a",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-964630e98bdadf689340",
+    "original_bytes": 1184,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "964630e98bdadf6893404d3be84400d11330cb765c08749414bd5f47ec21455c",
     "statements": {}
   },
   {

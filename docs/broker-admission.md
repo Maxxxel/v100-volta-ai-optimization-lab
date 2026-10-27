@@ -234,3 +234,9 @@ The confirmation concerns the native-tool profile only. Earlier coding and agent
 A verified native32-task screening capture can now seed its first complete HumanEval+164 run. The broker checks the exact ordered32 task identities, dataset, source profile, generation count and actual unprivileged GPU evidence. Partial, reordered or renamed captures fail closed. Weights, engine, template, warmups and sampling must remain identical; only tool-dispatch options are removed for coding.
 
 Before activation, **244 existing regression controls and12 targeted controls passed**, with no GPU calls. Atomic activation preserved all existing profiles,310 historical clock files and the original matrix/queue hashes. The single1,200-second TASK budget and all hardware guards remain unchanged. This is an admission correction, not a benchmark result or a performance improvement.
+
+## Completed mixed screening to full tool qualification
+
+The exact complete32-task mixed coding/tool capture may seed its first unchanged-model BFCL parallel_multiple200 run. The trusted broker verifies ordered task identities, source profile, unprivileged execution, native tool envelope and generation counts; partial or altered captures are rejected. No new engine, kernel or executable gains trust from a hash alone.
+
+**288 CPU controls passed** (244 existing,12 coding-transition and32 tool-transition controls; overlapping software scopes, not GPU trials). Atomic activation preserved existing profiles,339 historical clock files and the original matrix/queue. Hardware guards, the1,200-second shared TASK budget and startup/wrapper limits are unchanged. Broker SHA256: `bbdb81506c6357014d21178068244fae259639235428fa736475a19d7bb46650`. This admission change makes no performance or quality claim.
