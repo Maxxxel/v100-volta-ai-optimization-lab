@@ -626,7 +626,7 @@
         "mechanisms": [
           "go.mod declaresGo1.26.10 and dependency families including tokenizer, tree-sitter, browser, database and compression modules. Full proxy dependency/runtime validation is not performed.",
           "compression_query.go handles OpenAI-compatible messages/responses using bounded latest-human-text retrieval. This is source-level format support, not demonstrated local llama.cpp gateway compatibility.",
-          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1\u20134, so this specific default elision has no eligible array.",
+          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1–4, so this specific default elision has no eligible array.",
           "json_strategy.go compares TOON vs lossy elision using a token counter; its LosslessToModel label is an upstream assertion, not a local quality guarantee. A generic/default token counter must not replace our native model tokenizer.",
           "toon_encode.go supports a bounded scalar/array/object subset, preserves number lexemes and rejects duplicate object keys in its JSON reader. Tabular encoding additionally requires identical ordered scalar fields. Source checks do not establish model interpretation or tool/state quality."
         ],
@@ -685,7 +685,7 @@
         "technique": "Adaptive history compaction"
       },
       {
-        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18\u20134159.66 vscontrol3924.56\u20134014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
+        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18–4159.66 vscontrol3924.56–4014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
         "next": null,
         "priority": "P1",
         "scope": null,
