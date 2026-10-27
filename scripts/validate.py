@@ -24,6 +24,7 @@ def allowed(p):
  if parts[:2]==('.github','workflows'):return len(parts)==3 and p.name in {'pages.yml','security.yml'}
  if parts[:2]==('.github','ISSUE_TEMPLATE'):return len(parts)==3 and p.suffix in {'.md','.yml'}
  if s in {'docs/assets/reproduction/main-protocol.patch','docs/assets/reproduction/llama-grammar-prefill.h','docs/assets/reproduction/numeric-fixtures.patch','docs/assets/reproduction/LICENSE.llama-cpp'}:return True
+ if s in {'docs/assets/harness/system-prose.py','docs/assets/harness/tool-json.py','docs/assets/harness/preaction-checklist.py'}:return True
  if parts[0]=='docs':return p.suffix in {'.md','.css','.js','.svg'} and all(re.fullmatch('[A-Za-z0-9_.-]+',x) for x in parts)
  return False
 def validation_event_matches(event,audit):
@@ -50,6 +51,8 @@ def content_errors(s):
   # BNF production operator ::= is not an unspecified IPv6 address.
   # Keep standalone/bracketed address literals and other private IPv6 checks.
   if candidate==chr(58)*2 and s[match.end():match.end()+1]=='=':continue
+  # A negative Python slice step cannot be an IPv6 address component.
+  if candidate==chr(58)*2 and match.start()>0 and s[match.start()-1]=='[' and re.match(r'-[0-9]+\]',s[match.end():]):continue
   try:
    if not ipaddress.ip_address(candidate).is_global:issues.append('nonpublic IPv6 address')
   except ValueError:pass

@@ -655,12 +655,15 @@ def verified_native_tools_confirmation(root,entry,receipt):
 def verified_native_lean_harness(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
-    assert a['status']=='LEAN_HARNESS_DEVELOPMENT66_COMPLETE' and a['measurement_valid'] and a['GPU_execution_observed']
-    assert a['dataset_id'] in ('jarvis-lean-system-ablation33-v1','jarvis-lean-tool-json-ablation33-v1') and a['paired_unique_cases']==33 and a['tasks']==a['case_executions']==66
+    protocols={'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
+    assert a['dataset_id'] in protocols
+    status,count,paired,arms=protocols[a['dataset_id']];screen=count==33
+    assert a['status']==status and a['measurement_valid'] and a['GPU_execution_observed']
+    assert a['paired_unique_cases']==paired and a['tasks']==a['case_executions']==count
     assert a['official_benchmark'] is False and a['winner_qualified'] is False
     rp=pathlib.Path(summary['independent_review_path']);assert digest(rp)==summary['independent_review_sha256']==a['independent_review_sha256'];review=load(rp)
     assert review['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and review['GPU_runs']==review['model_requests']==0
-    result=review['result'];assert result['complete'] and result['scored_tasks']==66 and result['solved']==a['solved'] and result['all_scores_and_effects_reproduced'] and result['real_evaluator_uid']!=0
+    result=review['result'];assert result['complete'] and result['scored_tasks']==count and result['solved']==a['solved'] and result['all_scores_and_effects_reproduced'] and result['real_evaluator_uid']!=0
     assert result['model_requests']==result['GPU_runs']==result['production_tool_actions']==0 and result['official_benchmark'] is False
     raw=pathlib.Path(a['raw_root']).resolve();assert raw.is_relative_to((root.parent/'research/mcp-workspace').resolve())
     assert all(digest(raw/n)==h for n,h in a['original_raw_files_sha256'].items())
@@ -690,19 +693,72 @@ def verified_native_lean_harness(root, summary, receipt):
     telemetry=[json.loads(l) for l in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
     from leaderboard import counter_energy_bounds
     from lean_metrics import reviews
-    arms=('reference','compact-tool-json-v1') if a['dataset_id']=='jarvis-lean-tool-json-ablation33-v1' else ('reference','compact-system-v1')
-    derived_quality,derived_comparison=reviews(a,records,digest(ap),telemetry,counter_energy_bounds,arms=arms)
+    if screen:
+        ref_summary=load(root/'BENCHMARK_REFERENCES.json')['summary']['r587']
+        ref_public=verified_native_lean_harness(root,ref_summary,receipt)
+        assert ref_public['experiment_id']=='R587' and ref_public['model_sha256']==a['model_sha256']
+        ref_audit=load(pathlib.Path(ref_summary['audit_path']));ref_raw=pathlib.Path(ref_audit['raw_root'])
+        ref_profile=load(ref_raw/'profile.json')
+        def inference_base(value):
+            value=json.loads(json.dumps(value))
+            for k in ('selected_task_inputs','execution_review','review','task_datasets'):value.pop(k,None)
+            added=value['native_recipe']['harness_ablation']['module_assets']
+            for k in added:value['assets'].pop(k)
+            value['native_recipe'].pop('harness_ablation');value['native_recipe'].pop('maximum_tasks')
+            return json.dumps(value,sort_keys=True,separators=(',',':'))
+        assert inference_base(profile)==inference_base(ref_profile)
+        def original_cases(value,arm):
+            rows=[]
+            for c in value['selected_task_inputs']['cases']:
+                if c['harness_arm']!=arm:continue
+                c=json.loads(json.dumps(c));c['id']=c.pop('source_case_id');c.pop('harness_arm');rows.append(c)
+            return json.dumps(rows,sort_keys=True,separators=(',',':'))
+        assert original_cases(profile,arms[0])==original_cases(ref_profile,'reference')
+        ref_quality=load(pathlib.Path(ref_summary['quality_review_path']))
+        ref_records=[json.loads(l) for l in (ref_raw/'HTTP_RESULTS.jsonl').read_text().splitlines()]
+        from lean_metrics import screen_reviews
+        derived_quality,derived_comparison=screen_reviews(a,records,digest(ap),telemetry,counter_energy_bounds,ref_quality,ref_records,ref_summary['audit_sha256'],ref_summary['quality_review_sha256'])
+        reference_data={'experiment_id':'R587','arm':'reference','audit_sha256':ref_summary['audit_sha256'],'quality_sha256':ref_summary['quality_review_sha256'],'metrics':next(r for r in ref_public['arms'] if r['arm']=='reference'),'new_GPU_runs':0,'fresh_contemporaneous_control':False}
+    else:derived_quality,derived_comparison=reviews(a,records,digest(ap),telemetry,counter_energy_bounds,arms=arms)
     assert derived_quality==quality and derived_comparison==comparison
-    assert len({r['id'] for r in records if r['kind']=='agent_case'})==66
+    assert len({r['id'] for r in records if r['kind']=='agent_case'})==count
     assert a['task_phase_s']<=a['task_limit_s']==1200 and a['model_starts']==1
     assert a['technical_request_errors']==a['technical_preflight_cases']==0
     # Explicit numeric allowlist: no prompts, entities, host paths or arbitrary metadata.
     allowed=('arm','completed_cases','planned_cases','complete','solved','policy_gate_passes','case_wall_s','response_wall_s','model_calls_attempted','request_errors','input_tokens_attempted','input_tokens_reported','completion_tokens_reported','reasoning_tokens_reported','total_tokens_reported','transform_cpu_s','transform_wall_s','tool_calls','policy_violations','rejected_calls','invalid_actions','peak_sampled_device_vram_mib','GPU_j_per_success_lower','GPU_j_per_success_upper','successful_tasks_per_s')
     changes=('decision','paired_gained','paired_lost','new_policy_failure_cases','token_reduction_percent','latency_reduction_percent','conservative_energy_per_success_reduction_percent','observed_quality_and_policy_gate')
-    return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':33,'case_executions':66,'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
+    return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':paired,'case_executions':count,'screen_only':screen,**({'stored_reference':reference_data} if screen else {}),'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
             'arms':[{k:r[k] for k in allowed} for r in quality['arms']], 'comparison':{k:comparison[k] for k in changes},
             'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'comparison_audit_id':receipt(xp,summary['comparison_review_sha256']),
             'correction_audit_id':receipt(permission_fix,digest(permission_fix)) if permission_fix.exists() else None,'implementation':{'transform_module_sha256':next(iter(profile['native_recipe']['harness_ablation']['module_assets'].values())),'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None},'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
+
+
+def export_harness_sources(root,db,experiments):
+    """Three exact lab-owned pure transforms only; never privileged runner code."""
+    from validate import content_errors
+    names={'R586':'system-prose.py','R587':'tool-json.py','R588':'preaction-checklist.py'}
+    for eid,name in names.items():
+        row=experiments.get(eid,{})
+        metrics=row.get('aggregate_metrics',{})
+        result=metrics.get('native_lean_harness_ablation') or metrics.get('native_lean_harness_screen')
+        if not result:continue
+        summary=db['summary'][eid.lower()];audit=load(pathlib.Path(summary['audit_path']))
+        profile=load(pathlib.Path(audit['raw_root'])/'profile.json')
+        review_path=pathlib.Path(profile['execution_review']['file'])
+        assert digest(review_path)==profile['execution_review']['sha256'];review=load(review_path)
+        proof_path=pathlib.Path(review['lean_source_review_file'])
+        assert digest(proof_path)==review['lean_source_review_sha256'];proof=load(proof_path)
+        expected=result['implementation']['transform_module_sha256']
+        choices=[x for x in proof['source_records'] if x['sha256']==expected and pathlib.Path(x['file']).suffix=='.py']
+        assert choices,'Measured transform source not retained'
+        source=pathlib.Path(choices[0]['file']);assert digest(source)==expected
+        blob=source.read_bytes();assert not content_errors(blob.decode('utf-8'))
+        import ast
+        ast.parse(blob.decode('utf-8'))
+        target=HERE/'docs/assets/harness'/name;target.parent.mkdir(parents=True,exist_ok=True)
+        if target.exists():assert target.read_bytes()==blob,'Never overwrite historical transform source'
+        else:target.write_bytes(blob);target.chmod(0o644)
+        result['transform_source']={'file':'assets/harness/'+name,'sha256':expected,'license':'MIT','source_audit_id':row['audit_id'],'scope':'Exact lab-owned request transform; private task fixtures, responses, models and privileged execution code are excluded.'}
 
 
 def verified_native_role_comparison(root, summary, receipt):
@@ -1000,10 +1056,11 @@ def main():
             experiments[ident]['model']=role['model'];experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
             catalog[audit]['aggregate_metrics']['native_role_comparison_development']=role
             experiments[ident]['related_audit_ids']=[role[k] for k in ('quality_audit_id','independent_review_audit_id','correction_audit_id')]
-        if audit and v.get('status')=='LEAN_HARNESS_DEVELOPMENT66_COMPLETE':
+        if audit and v.get('status') in ('LEAN_HARNESS_DEVELOPMENT66_COMPLETE','LEAN_HARNESS_SCREEN33_COMPLETE'):
             lean=verified_native_lean_harness(root,v,receipt)
-            experiments[ident]['aggregate_metrics']['native_lean_harness_ablation']=lean
-            catalog[audit]['aggregate_metrics']['native_lean_harness_ablation']=lean
+            key='native_lean_harness_screen' if lean['screen_only'] else 'native_lean_harness_ablation'
+            experiments[ident]['aggregate_metrics'][key]=lean
+            catalog[audit]['aggregate_metrics'][key]=lean
             experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id','correction_audit_id') if lean.get(k)]
         native_key='native_validation33' if catalog.get(audit,{}).get('aggregate_metrics',{}).get('native_validation33') else 'native_agent18_development'
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
@@ -1113,6 +1170,7 @@ def main():
     subcases=[]
     for x in matrix.get('research_source_integration_20261021',{}).get('subcases',[]):
         subcases.append({k:text(x.get(k)) for k in ['id','title','classification','priority_band','mechanism','prerequisites','test_design','risks','decision','next_action','expected_knowledge_gain','local_test_status']} | {'axes':x['linked_original_axes'],'sources':x['source_ids'],'counts_as_factor':False})
+    export_harness_sources(root,db,experiments)
     from comparison import build as build_comparison
     comparison=build_comparison(root,db,matrix,receipt)
     from leaderboard import build as build_leaderboard

@@ -66,6 +66,10 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=ARMS):
     comparison={'experiment_id':audit['experiment_id'],'candidate_audit_sha256':audit_sha,
                 'official_benchmark':False,'winner_qualified':False,'GPU_runs':0,'model_requests':0,
                 'comparable':all(r['complete'] for r in reports),'decision':'INCOMPLETE_NO_PROMOTION'}
+    if len(arms)==1:
+        quality.update(paired_unique_cases=0,source_unique_cases=33,scope='B-only33 exposed development cases. Stored original-request control is a separate historical measurement, not a fresh paired run or official benchmark. Failed tasks remain in costs; no population equivalence or adoption.')
+        comparison.update(comparable=False,decision='SCREEN_REQUIRES_VERIFIED_STORED_REFERENCE')
+        return quality,comparison
     if comparison['comparable']:
         left,right=parsed[arms[0]],parsed[arms[1]]
         if [r['source_id'] for r in left]!=[r['source_id'] for r in right]:raise ValueError('Paired task order differs')
@@ -80,4 +84,31 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=ARMS):
         safety=before['policy_violations'] is not None and after['policy_violations'] is not None and after['policy_violations']<=before['policy_violations'] and comparison['new_policy_failure_cases']==0
         comparison['observed_quality_and_policy_gate']=after['solved']>=before['solved'] and safety
         comparison['decision']='DEVELOPMENT_ONLY_REQUIRES_INDEPENDENT_CONFIRMATION' if comparison['observed_quality_and_policy_gate'] else 'REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION'
+    return quality,comparison
+
+def screen_reviews(audit,records,audit_sha,telemetry,counter_bounds,reference_quality,reference_records,reference_audit_sha,reference_quality_sha):
+    """Pure case-matched screen; caller verifies immutable reference provenance."""
+    arm='preaction-checklist-v1'
+    quality,comparison=reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=(arm,))
+    assert reference_quality['experiment_id']=='R587' and reference_quality['source_audit_sha256']==reference_audit_sha
+    assert reference_quality['official_benchmark'] is reference_quality['winner_qualified'] is False
+    baseline=next(r for r in reference_quality['arms'] if r['arm']=='reference')
+    before=[r for r in reference_records if r['kind']=='agent_case' and r['id'].startswith('reference--')]
+    after=[r for r in records if r['kind']=='agent_case']
+    assert baseline['complete'] and len(before)==33 and len({r['id'] for r in before})==33
+    assert sum(r['reported_result']['task_success'] for r in before)==baseline['solved']
+    assert sum(r['reported_result']['policy_gate_pass'] for r in before)==baseline['policy_gate_passes']
+    assert sum(r['e2e_s'] for r in before)==baseline['case_wall_s']
+    source=lambda r:r['id'].split('--',1)[1]
+    assert [source(r) for r in after]==[source(r) for r in before[:len(after)]]
+    comparison.update(reference_experiment_id='R587',reference_arm='reference',reference_audit_sha256=reference_audit_sha,reference_quality_sha256=reference_quality_sha,fresh_contemporaneous_control=False,paired_GPU_execution=False,comparable=quality['arms'][0]['complete'],decision='INCOMPLETE_SCREEN_NO_PROMOTION')
+    if not comparison['comparable']:return quality,comparison
+    candidate=quality['arms'][0]
+    comparison.update(case_matched=33,paired_gained=sum(not a['reported_result']['task_success'] and b['reported_result']['task_success'] for a,b in zip(before,after)),paired_lost=sum(a['reported_result']['task_success'] and not b['reported_result']['task_success'] for a,b in zip(before,after)),new_policy_failure_cases=sum(a['reported_result']['policy_gate_pass'] and not b['reported_result']['policy_gate_pass'] for a,b in zip(before,after)))
+    def reduction(old,new):return 100*(1-new/old) if old and new is not None else None
+    comparison.update(token_reduction_percent=reduction(baseline['total_tokens_reported'],candidate['total_tokens_reported']),latency_reduction_percent=reduction(baseline['case_wall_s'],candidate['case_wall_s']),conservative_energy_per_success_reduction_percent=reduction(baseline['GPU_j_per_success_lower'],candidate['GPU_j_per_success_upper']))
+    gate=candidate['solved']>=baseline['solved'] and candidate['policy_violations'] is not None and candidate['policy_violations']<=baseline['policy_violations'] and comparison['new_policy_failure_cases']==0
+    comparison['observed_quality_and_policy_gate']=gate
+    comparison['decision']='SCREEN_ONLY_REQUIRES_FRESH_CONTROL_AND_HOLDOUT' if gate else 'REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION'
+    comparison['scope']='Historical-control screening deltas only; no causal speedup, equivalence, Champion or production adoption. Missing metrics stay unknown.'
     return quality,comparison

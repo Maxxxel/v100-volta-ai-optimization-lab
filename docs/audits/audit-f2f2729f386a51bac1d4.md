@@ -1,0 +1,139 @@
+# Public audit excerpt
+
+Original SHA256: `f2f2729f386a51bac1d4139260bcbd8e7962a4442235d2c081bec8ead4ee6070`
+
+Original file: `AUDIT.json`; 4237 bytes. The original is retained privately and is not distributed. This allowlisted excerpt is **not byte-identical** and cannot independently verify its originating SHA.
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
+```json
+{
+  "decision": "Screen only; fresh control and independent validation required before any promotion.",
+  "evidence_class": "LOKAL_GEMESSEN"
+}
+```
+
+</details>
+
+## Selected aggregate measurements
+
+<details class="lab-evidence"><summary>Structured evidence</summary>
+
+```json
+{
+  "actual_generation_requests": 152,
+  "model_starts": 1,
+  "native_lean_harness_screen": {
+    "arms": [
+      {
+        "GPU_j_per_success_lower": 4155.182068965517,
+        "GPU_j_per_success_upper": 4159.656379310345,
+        "arm": "preaction-checklist-v1",
+        "case_wall_s": 440.64737346100003,
+        "complete": true,
+        "completed_cases": 33,
+        "completion_tokens_reported": 25400,
+        "input_tokens_attempted": 281627,
+        "input_tokens_reported": 281627,
+        "invalid_actions": 0,
+        "model_calls_attempted": 152,
+        "peak_sampled_device_vram_mib": 7680.5,
+        "planned_cases": 33,
+        "policy_gate_passes": 30,
+        "policy_violations": 3,
+        "reasoning_tokens_reported": null,
+        "rejected_calls": 3,
+        "request_errors": 0,
+        "response_wall_s": 437.683250621,
+        "solved": 29,
+        "successful_tasks_per_s": 0.06581226111079197,
+        "tool_calls": 119,
+        "total_tokens_reported": 307027,
+        "transform_cpu_s": 0.053447857,
+        "transform_wall_s": 0.053062578
+      }
+    ],
+    "case_executions": 33,
+    "comparison": {
+      "conservative_energy_per_success_reduction_percent": -5.990519381058945,
+      "decision": "REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION",
+      "latency_reduction_percent": -9.576150654934867,
+      "new_policy_failure_cases": 1,
+      "observed_quality_and_policy_gate": false,
+      "paired_gained": 2,
+      "paired_lost": 1,
+      "token_reduction_percent": -1.8125686013775066
+    },
+    "comparison_audit_id": "audit-eeff13695501d4f9d2f6",
+    "correction_audit_id": null,
+    "dataset_id": "jarvis-lean-preaction-screen33-v1",
+    "experiment_id": "R588",
+    "implementation": {
+      "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "simulator_archive_sha256": "be731f9a8f289cbcaedc502189a723ee09c7b0de187904de9f30945ffe6c86da",
+      "source_commit": null,
+      "transform_module_sha256": "fc3ef20a6720d2ccbe46699b03b68227f9bb529ab80139b9841a92dd8879bc82",
+      "transport_sha256": "e602e12551aa5dba13f55ca58a9709e30d32a6eb6029f1fd90ba8637ad60406d"
+    },
+    "independent_review_audit_id": "audit-4acd1d927ec02033c16b",
+    "model": "OmniCoder bartowski Q6 · pre-action B-only33",
+    "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+    "official_benchmark": false,
+    "paired_unique_cases": 0,
+    "profile_sha256": "0dfe64ea9a3cbd15a78b355a0074eb93233a03e3182c11b8cd6fd459add754fd",
+    "quality_audit_id": "audit-9ab3c8bd5d60a4734500",
+    "scope": "B-only33 exposed development cases. Stored original-request control is a separate historical measurement, not a fresh paired run or official benchmark. Failed tasks remain in costs; no population equivalence or adoption.",
+    "scorer_sha256": "5d4fa912716b65abfb6644f9468fe4646b500440db751ba3d98237c48781d26c",
+    "screen_only": true,
+    "stored_reference": {
+      "arm": "reference",
+      "audit_sha256": "4cf83094ee818935f1bc82ef4013f7c74fec8d9ad93cf00f47afba643959ba4a",
+      "experiment_id": "R587",
+      "fresh_contemporaneous_control": false,
+      "metrics": {
+        "GPU_j_per_success_lower": 3924.5551428571425,
+        "GPU_j_per_success_upper": 4014.947464285714,
+        "arm": "reference",
+        "case_wall_s": 402.138029879,
+        "complete": true,
+        "completed_cases": 33,
+        "completion_tokens_reported": 22528,
+        "input_tokens_attempted": 279033,
+        "input_tokens_reported": 279033,
+        "invalid_actions": 0,
+        "model_calls_attempted": 154,
+        "peak_sampled_device_vram_mib": 7680.5,
+        "planned_cases": 33,
+        "policy_gate_passes": 29,
+        "policy_violations": 4,
+        "reasoning_tokens_reported": null,
+        "rejected_calls": 4,
+        "request_errors": 0,
+        "response_wall_s": 398.870619721,
+        "solved": 28,
+        "successful_tasks_per_s": 0.06962783402610534,
+        "tool_calls": 121,
+        "total_tokens_reported": 301561,
+        "transform_cpu_s": 0.063391149,
+        "transform_wall_s": 0.062968829
+      },
+      "new_GPU_runs": 0,
+      "quality_sha256": "83922ba905007692993cc1c82af2002091f98e00044d7c05e4ef15adb1c4fe3d"
+    },
+    "task_phase_s": 440.656030873,
+    "transform_source": {
+      "file": "assets/harness/preaction-checklist.py",
+      "license": "MIT",
+      "scope": "Exact lab-owned request transform; private task fixtures, responses, models and privileged execution code are excluded.",
+      "sha256": "fc3ef20a6720d2ccbe46699b03b68227f9bb529ab80139b9841a92dd8879bc82",
+      "source_audit_id": "audit-f2f2729f386a51bac1d4"
+    },
+    "winner_qualified": false
+  },
+  "peak_device_vram_mib": 7680.5,
+  "solved": 29,
+  "tasks": 33
+}
+```
+
+</details>

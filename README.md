@@ -31,7 +31,7 @@ Reviewed, experimentally covered and qualified are separate stages. [Matrix and 
 
 <details><summary>Snapshot and methodology</summary>
 
-Revision **435** · 2026-10-24. 504 sprint records, 61 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
+Revision **435** · 2026-10-24. 505 sprint records, 61 immutable references and 12 scoped Champion pointers are separate inventories, not a count of independent GPU runs.
 
 Benchmark task phase: **1,200 seconds total**, shared across all parts. Startup, wrapper and CPU evaluation limits are separate. Historical measurements retain their original conditions. [Methods](docs/methodology.md) · [Hardware](docs/hardware.md) · [Reproduce](docs/reproduce.md).
 

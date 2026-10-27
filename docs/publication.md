@@ -1,6 +1,6 @@
 # Public export and update policy
 
-Only projected research metadata is publishable. The exporter uses explicitly selected keys, numeric aggregate branches and public HTTPS source domains. One explicit source-code exception exports only four named, SHA-bound main-engine reproduction files with their original MIT notice. It never copies arbitrary source files, models, logs, prompts, responses, system dumps, authentication files or network configuration. Local audit locations remain in a private receipt outside this repository.
+Only projected research metadata is publishable. The exporter uses explicitly selected keys, numeric aggregate branches and public HTTPS source domains. Explicit source-code exceptions export four named, SHA-bound main-engine reproduction files with their original MIT notice and three exact lab-owned pure request transforms under the project MIT license. These contain no private fixtures, model outputs or privileged runners. It never copies arbitrary source files, models, logs, prompts, responses, system dumps, authentication files or network configuration. Local audit locations remain in a private receipt outside this repository.
 
 Publication validates all 162 unique factors, original/additional counters, scientific statuses, reference pointers, evidence links, forbidden content, file paths/sizes and the byte manifest. Selected original audit hashes are checked locally before export. CI only validates the public snapshot and builds static documentation; it cannot independently access the retained originals.
 

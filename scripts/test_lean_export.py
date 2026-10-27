@@ -32,3 +32,45 @@ class LeanProtocolIdentity(unittest.TestCase):
   from lean_metrics import reviews
   case={'kind':'agent_case','id':'compact-tool-json-v1--case','reported_result':{'all_tools_simulated':True,'production_tools_connected':False,'task_scope_pass':True}}
   with self.assertRaises(ValueError):reviews({'experiment_id':'CPU'},[case],'a'*64,[],lambda *_:None)
+
+
+class TransformPublication(unittest.TestCase):
+ def test_reverse_slice_syntax_is_not_an_address(self):
+  from validate import content_errors
+  colon=chr(58)*2
+  self.assertEqual(content_errors('ARMS['+colon+'-1]'),[])
+ def test_actual_private_ipv6_addresses_remain_blocked(self):
+  from validate import content_errors
+  colon=chr(58)*2
+  for literal in ('['+colon+']','['+colon+'1]'):
+   self.assertIn('nonpublic IPv6 address',content_errors(literal))
+ def test_only_named_pure_transform_assets_are_allowlisted(self):
+  from validate import allowed
+  self.assertTrue(allowed(pathlib.Path('docs/assets/harness/preaction-checklist.py')))
+  self.assertFalse(allowed(pathlib.Path('docs/assets/harness/unreviewed.py')))
+ def test_published_sources_match_captured_module_identity(self):
+  import hashlib
+  root=pathlib.Path(__file__).resolve().parents[1];rows=json.loads((root/'data/experiments.json').read_text());count=0
+  for row in rows:
+   r=row.get('aggregate_metrics',{}).get('native_lean_harness_ablation') or row.get('aggregate_metrics',{}).get('native_lean_harness_screen')
+   if r and r.get('transform_source'):
+    item=r['transform_source'];self.assertEqual(hashlib.sha256((root/'docs'/item['file']).read_bytes()).hexdigest(),r['implementation']['transform_module_sha256']);self.assertEqual(item['license'],'MIT');count+=1
+  self.assertEqual(count,3)
+
+class HistoricalScreenPublication(unittest.TestCase):
+ def records(self):
+  root=pathlib.Path(__file__).resolve().parents[1];return root,json.loads((root/'data/experiments.json').read_text())
+ def test_real_screen_uses_one_new_arm_and_a_separate_stored_control(self):
+  _,rows=self.records();r=next(x for x in rows if x['id']=='R588')['aggregate_metrics']['native_lean_harness_screen'];self.assertTrue(r['screen_only']);self.assertEqual(r['case_executions'],33);self.assertEqual(r['paired_unique_cases'],0);self.assertEqual(len(r['arms']),1);self.assertEqual(r['arms'][0]['solved'],29);self.assertEqual(r['stored_reference']['metrics']['solved'],28);self.assertEqual(r['stored_reference']['new_GPU_runs'],0);self.assertFalse(r['stored_reference']['fresh_contemporaneous_control']);self.assertFalse(r['winner_qualified']);self.assertFalse(r['official_benchmark'])
+ def test_screen_render_does_not_claim_fresh_balanced_execution(self):
+  _,rows=self.records();row=next(x for x in rows if x['id']=='R588');page=lean_harness_report([row]);self.assertIn('B-only screen',page);self.assertIn('reference · R587 stored',page);self.assertIn('No new A0 run',page);self.assertIn('reproduced all33 outcomes',page);self.assertNotIn('alternating AB/BA',page)
+ def test_exact_published_transforms_keep_reference_requests_unchanged(self):
+  import importlib.util
+  root,rows=self.records()
+  for row in rows:
+   r=row.get('aggregate_metrics',{}).get('native_lean_harness_ablation') or row.get('aggregate_metrics',{}).get('native_lean_harness_screen')
+   if not r or not r.get('transform_source'):continue
+   spec=importlib.util.spec_from_file_location('public_transform_'+row['id'],root/'docs'/r['transform_source']['file']);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+   system=module.KNOWN_SYSTEMS[1] if hasattr(module,'KNOWN_SYSTEMS') else module.ORIGINAL+module.REQUIRED if hasattr(module,'ORIGINAL') else 'unmodified system'
+   body={'messages':[{'role':'system','content':system},{'role':'user','content':'Read the synthetic task'}],'tools':[],'temperature':0};before=copy.deepcopy(body)
+   self.assertEqual(module.transform(body,'reference')[0],body);self.assertEqual(body,before)

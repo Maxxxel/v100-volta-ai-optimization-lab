@@ -441,23 +441,27 @@ def render_final_selection(frozen,history):
 
 def lean_harness_report(experiments):
  text='# Lean Jarvis harness\n\nControlled harness experiments; frozen model baselines remain unchanged. These exposed development tasks are **not official benchmarks or independent holdout validation**. All tools are offline simulators; policy violations count rejected proposals, not production actions.\n\n'
- rows=[(e,e.get('aggregate_metrics',{}).get('native_lean_harness_ablation')) for e in experiments]
+ rows=[(e,(e.get('aggregate_metrics',{}).get('native_lean_harness_ablation') or e.get('aggregate_metrics',{}).get('native_lean_harness_screen'))) for e in experiments]
  for e,r in rows:
   if not r:continue
   assert not r['official_benchmark'] and not r['winner_qualified']
+  screen=r.get('screen_only',False)
   tool_json=r['dataset_id']=='jarvis-lean-tool-json-ablation33-v1'
-  text+='## '+r['experiment_id']+(' · compact tool-result JSON' if tool_json else ' · compact system instructions')+'\n\n'
+  display_arms=([r['stored_reference']['metrics']] if screen else [])+r['arms']
+  fmt=lambda v,n=3:'NOT MEASURED' if v is None else format(v,'.'+str(n)+'f')
+  text+='## '+r['experiment_id']+(' · pre-action checklist · B-only screen' if screen else ' · compact tool-result JSON' if tool_json else ' · compact system instructions')+'\n\n'
   decision=r['comparison']['decision']
-  text+=('**Decision: rejected — observed quality and policy regression.**' if decision=='REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION' else '**Development result only — no promotion; independent confirmation required.**')+' Original tools, inference profile and scoring retained; '+('only insignificant JSON whitespace outside tool-result strings changed.' if tool_json else 'only reviewed system prose changed.')+' One model start, alternating AB/BA across33 paired cases /11 correlated task families.\n\n'
+  text+=('**Decision: rejected — preregistered quality/policy gate failed.**' if decision=='REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION' else '**Development result only — no promotion; independent confirmation required.**')+' Original tools, inference profile and scoring retained; '+('a fixed checklist is added at public pre-action checkpoints.' if screen else 'only insignificant JSON whitespace outside tool-result strings changed.' if tool_json else 'only reviewed system prose changed.')+(' Current run:33 candidate cases; stored original-request control fromR587. **No new A0 run and no fresh paired GPU comparison.**' if screen else ' One model start, alternating AB/BA across33 paired cases /11 correlated task families.')+'\n\n'
   data=[]
-  for a in r['arms']:
-   data.append([a['arm'],str(a['solved'])+'/33',a['policy_violations'],a['total_tokens_reported'],round(a['case_wall_s'],3),str(round(a['GPU_j_per_success_lower'],2))+'–'+str(round(a['GPU_j_per_success_upper'],2)),a['peak_sampled_device_vram_mib'],a['model_calls_attempted']])
+  for a in display_arms:
+   data.append([('reference · R587 stored' if screen and a['arm']=='reference' else a['arm']),str(a['solved'])+'/33',a['policy_violations'],a['total_tokens_reported'],fmt(a['case_wall_s']),fmt(a['GPU_j_per_success_lower'],2)+'–'+fmt(a['GPU_j_per_success_upper'],2),a['peak_sampled_device_vram_mib'],a['model_calls_attempted']])
   text+=table(['Arm','Solved','Policy violations','Input + output tokens','Task wall s','GPU J / success bounds','Peak MiB','Model calls'],data)
-  c=r['comparison'];text+='Paired outcomes: '+str(c['paired_gained'])+' gained, '+str(c['paired_lost'])+' lost; '+str(c['new_policy_failure_cases'])+' new policy-failure cases. Token reduction '+format(c['token_reduction_percent'],'.2f')+'%; task-wall reduction '+format(c['latency_reduction_percent'],'.2f')+'%. These differences **do not qualify the candidate**.\n\n'
+  c=r['comparison'];text+=('Case-matched historical-control outcomes: ' if screen else 'Paired outcomes: ')+str(c['paired_gained'])+' gained, '+str(c['paired_lost'])+' lost; '+str(c['new_policy_failure_cases'])+' new policy-failure cases. Token reduction '+fmt(c['token_reduction_percent'],2)+'%; task-wall reduction '+fmt(c['latency_reduction_percent'],2)+'%. These differences **do not qualify the candidate**.\n\n'
   text+='Reasoning tokens: **NOT MEASURED**. GPU-energy intervals bracket cumulative NVML counter readings, not confidence intervals or calibration error. Failed tasks remain in cost numerators; model loading, warm-up and host CPU energy excluded. No population-equivalence claim.\n\n'
-  text+='Transformation CPU seconds (including preservation/audit): '+', '.join(a['arm']+' '+format(a['transform_cpu_s'],'.6f') for a in r['arms'])+'. Shared TASK phase: '+format(r['task_phase_s'],'.3f')+'s /1200s. Independent isolated CPU replay reproduced all66 outcomes without model inference.\n\n'
+  text+='Transformation CPU seconds (including preservation/audit): '+', '.join(a['arm']+' '+fmt(a['transform_cpu_s'],6) for a in display_arms)+'. Current run TASK phase: '+format(r['task_phase_s'],'.3f')+'s /1200s. Independent isolated CPU replay reproduced all'+str(r['case_executions'])+' outcomes without model inference.\n\n'
   if r.get('correction_audit_id'):text+='CPU postprocessing required a byte-identical readable plan binding and restored permissions on empty sandbox mountpoints. Failed CPU receipts remain preserved; no GPU rerun or scoring-rule change. [Correction evidence](audits/'+r['correction_audit_id']+'.md).\n\n'
   if r.get('implementation'):text+='Captured implementation: transform SHA256 `'+r['implementation']['transform_module_sha256']+'`; engine binary SHA256 `'+r['implementation']['engine_binary_sha256']+'`. Transport and simulator identities are retained in the [public experiment data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/experiments.json). Source commit for the local transform: **not recorded at execution**; binary hashes are not version numbers. [Frozen model settings](final-selection.md).\n\n'
+  if r.get('transform_source'):text+='[Exact measured request-transform source]('+r['transform_source']['file']+') · MIT; file SHA256 matches the captured module. Private fixtures and privileged runner code are not included.\n\n'
   text+='[Experiment and audit hashes](experiments/'+r['experiment_id']+'.md). Model SHA256: `'+r['model_sha256']+'`; captured profile SHA256: `'+r['profile_sha256']+'`; scorer SHA256: `'+r['scorer_sha256']+'`.\n\n'
  text+='## Next gate\n\nRetain the original reference. Evaluate other isolated, source-reviewed harness changes before combinations or transfer. Reserve fresh fixtures for independent confirmation; no optimized harness has been adopted.\n\n[Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)\n'
  return text
@@ -842,7 +846,7 @@ Some historical runs lack complete public build recipes, uncertainty estimates o
  put('reproduce.md',reproduction)
  put('publication.md','''# Public export and update policy
 
-Only projected research metadata is publishable. The exporter uses explicitly selected keys, numeric aggregate branches and public HTTPS source domains. One explicit source-code exception exports only four named, SHA-bound main-engine reproduction files with their original MIT notice. It never copies arbitrary source files, models, logs, prompts, responses, system dumps, authentication files or network configuration. Local audit locations remain in a private receipt outside this repository.
+Only projected research metadata is publishable. The exporter uses explicitly selected keys, numeric aggregate branches and public HTTPS source domains. Explicit source-code exceptions export four named, SHA-bound main-engine reproduction files with their original MIT notice and three exact lab-owned pure request transforms under the project MIT license. These contain no private fixtures, model outputs or privileged runners. It never copies arbitrary source files, models, logs, prompts, responses, system dumps, authentication files or network configuration. Local audit locations remain in a private receipt outside this repository.
 
 Publication validates all 162 unique factors, original/additional counters, scientific statuses, reference pointers, evidence links, forbidden content, file paths/sizes and the byte manifest. Selected original audit hashes are checked locally before export. CI only validates the public snapshot and builds static documentation; it cannot independently access the retained originals.
 
