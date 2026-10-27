@@ -652,6 +652,50 @@ def verified_native_tools_confirmation(root,entry,receipt):
     result['audit_id']=receipt(ap,entry['audit_sha256'])
     return result
 
+def verified_native_lean_harness(root, summary, receipt):
+    """Public aggregate projection after original capture + isolated replay checks."""
+    root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
+    assert a['status']=='LEAN_HARNESS_DEVELOPMENT66_COMPLETE' and a['measurement_valid'] and a['GPU_execution_observed']
+    assert a['dataset_id']=='jarvis-lean-system-ablation33-v1' and a['paired_unique_cases']==33 and a['tasks']==a['case_executions']==66
+    assert a['official_benchmark'] is False and a['winner_qualified'] is False
+    rp=pathlib.Path(summary['independent_review_path']);assert digest(rp)==summary['independent_review_sha256']==a['independent_review_sha256'];review=load(rp)
+    assert review['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and review['GPU_runs']==review['model_requests']==0
+    result=review['result'];assert result['complete'] and result['scored_tasks']==66 and result['solved']==a['solved'] and result['all_scores_and_effects_reproduced'] and result['real_evaluator_uid']!=0
+    assert result['model_requests']==result['GPU_runs']==result['production_tool_actions']==0 and result['official_benchmark'] is False
+    raw=pathlib.Path(a['raw_root']).resolve();assert raw.is_relative_to((root.parent/'research/mcp-workspace').resolve())
+    assert all(digest(raw/n)==h for n,h in a['original_raw_files_sha256'].items())
+    profile=load(raw/'profile.json');assert digest(raw/'profile.json')==a['profile_sha256']
+    assert profile['assets'][profile['model']]==a['model_sha256']==result['model_artifact_sha256'] and load(raw/'LAUNCH.json')['uid']==65534
+    completion=load(raw/'HOST_COMPLETION.json');assert completion['status']=='GPU_COMPLETE_AUDITED' and completion['audit_sha256']==digest(raw/'AUDIT.json')
+    cp=pathlib.Path(review['CPU_receipt_file']);assert cp.parent==ap.parent and cp.name in {a['experiment_id'].lower()+'-protocol-file-identity-correction.receipt.json',a['experiment_id'].lower()+'-agent18-replay.receipt.json'}
+    stdout=cp.with_name(cp.name.replace('.receipt.json','.stdout'));assert digest(cp)==review['CPU_receipt_sha256'] and digest(stdout)==review['CPU_stdout_sha256']
+    cpu=load(cp);assert cpu['returncode']==0 and 'Result=success\n' in cpu['properties'] and 'ExecMainStatus=0\n' in cpu['properties'] and 'PrivateDevices=yes\n' in cpu['properties'] and 'NoNewPrivileges=yes\n' in cpu['properties']
+    assert [json.loads(l.split(' ',1)[1]) for l in stdout.read_text().splitlines() if l.startswith('AGENT18_REPLAY_JSON ')]==[result]
+    plan_path=ap.parent/'CPU_REPLAY_PLAN.json';plan=load(plan_path)
+    assert plan['scorer_sha256']==review['scorer_sha256']
+    assert digest(plan_path)==review['replay_plan_sha256'] and result['original_input_sha256']==plan['input_sha256']
+    assert plan['input_sha256']['profile.json']==digest(raw/'profile.json') and plan['input_sha256']['responses.jsonl']==digest(raw/'HTTP_RESULTS.jsonl')
+    assert plan['scorer_sha256'] in cpu['input_sha256'].values() and all(h in cpu['input_sha256'].values() for h in plan['input_sha256'].values())
+    qp=pathlib.Path(summary['quality_review_path']);assert digest(qp)==summary['quality_review_sha256'];quality=load(qp)
+    xp=pathlib.Path(summary['comparison_review_path']);assert digest(xp)==summary['comparison_review_sha256'];comparison=load(xp)
+    records=[json.loads(l) for l in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()]
+    telemetry=[json.loads(l) for l in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+    from leaderboard import counter_energy_bounds
+    from lean_metrics import reviews
+    derived_quality,derived_comparison=reviews(a,records,digest(ap),telemetry,counter_energy_bounds)
+    assert derived_quality==quality and derived_comparison==comparison
+    assert len({r['id'] for r in records if r['kind']=='agent_case'})==66
+    assert a['task_phase_s']<=a['task_limit_s']==1200 and a['model_starts']==1
+    assert a['technical_request_errors']==a['technical_preflight_cases']==0
+    # Explicit numeric allowlist: no prompts, entities, host paths or arbitrary metadata.
+    allowed=('arm','completed_cases','planned_cases','complete','solved','policy_gate_passes','case_wall_s','response_wall_s','model_calls_attempted','request_errors','input_tokens_attempted','input_tokens_reported','completion_tokens_reported','reasoning_tokens_reported','total_tokens_reported','transform_cpu_s','transform_wall_s','tool_calls','policy_violations','rejected_calls','invalid_actions','peak_sampled_device_vram_mib','GPU_j_per_success_lower','GPU_j_per_success_upper','successful_tasks_per_s')
+    changes=('decision','paired_gained','paired_lost','new_policy_failure_cases','token_reduction_percent','latency_reduction_percent','conservative_energy_per_success_reduction_percent','observed_quality_and_policy_gate')
+    return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':33,'case_executions':66,'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
+            'arms':[{k:r[k] for k in allowed} for r in quality['arms']], 'comparison':{k:comparison[k] for k in changes},
+            'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'comparison_audit_id':receipt(xp,summary['comparison_review_sha256']),
+            'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
+
+
 def verified_native_role_comparison(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
@@ -947,6 +991,11 @@ def main():
             experiments[ident]['model']=role['model'];experiments[ident]['date']=text(load(locations[audit]).get('at_utc'))
             catalog[audit]['aggregate_metrics']['native_role_comparison_development']=role
             experiments[ident]['related_audit_ids']=[role[k] for k in ('quality_audit_id','independent_review_audit_id','correction_audit_id')]
+        if audit and v.get('status')=='LEAN_HARNESS_DEVELOPMENT66_COMPLETE':
+            lean=verified_native_lean_harness(root,v,receipt)
+            experiments[ident]['aggregate_metrics']['native_lean_harness_ablation']=lean
+            catalog[audit]['aggregate_metrics']['native_lean_harness_ablation']=lean
+            experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id')]
         native_key='native_validation33' if catalog.get(audit,{}).get('aggregate_metrics',{}).get('native_validation33') else 'native_agent18_development'
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
             experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)

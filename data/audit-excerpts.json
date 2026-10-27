@@ -179306,6 +179306,89 @@
     "aggregate_metrics": {
       "actual_generation_requests": 309,
       "model_starts": 1,
+      "native_lean_harness_ablation": {
+        "arms": [
+          {
+            "GPU_j_per_success_lower": 3892.5895714285716,
+            "GPU_j_per_success_upper": 3981.903142857143,
+            "arm": "reference",
+            "case_wall_s": 402.025093551,
+            "complete": true,
+            "completed_cases": 33,
+            "completion_tokens_reported": 22528,
+            "input_tokens_attempted": 279033,
+            "input_tokens_reported": 279033,
+            "invalid_actions": 0,
+            "model_calls_attempted": 154,
+            "peak_sampled_device_vram_mib": 7680.5,
+            "planned_cases": 33,
+            "policy_gate_passes": 29,
+            "policy_violations": 4,
+            "reasoning_tokens_reported": null,
+            "rejected_calls": 4,
+            "request_errors": 0,
+            "response_wall_s": 398.746666072,
+            "solved": 28,
+            "successful_tasks_per_s": 0.06964739378003026,
+            "tool_calls": 121,
+            "total_tokens_reported": 301561,
+            "transform_cpu_s": 0.078495341,
+            "transform_wall_s": 0.078096506
+          },
+          {
+            "GPU_j_per_success_lower": 3759.1308799999997,
+            "GPU_j_per_success_upper": 3858.12096,
+            "arm": "compact-system-v1",
+            "case_wall_s": 347.055191695,
+            "complete": true,
+            "completed_cases": 33,
+            "completion_tokens_reported": 18338,
+            "input_tokens_attempted": 275559,
+            "input_tokens_reported": 275559,
+            "invalid_actions": 0,
+            "model_calls_attempted": 155,
+            "peak_sampled_device_vram_mib": 7680.5,
+            "planned_cases": 33,
+            "policy_gate_passes": 27,
+            "policy_violations": 6,
+            "reasoning_tokens_reported": null,
+            "rejected_calls": 6,
+            "request_errors": 0,
+            "response_wall_s": 343.670405186,
+            "solved": 25,
+            "successful_tasks_per_s": 0.07203465211945473,
+            "tool_calls": 122,
+            "total_tokens_reported": 293897,
+            "transform_cpu_s": 0.07884436,
+            "transform_wall_s": 0.078420387
+          }
+        ],
+        "case_executions": 66,
+        "comparison": {
+          "conservative_energy_per_success_reduction_percent": 0.885493083616351,
+          "decision": "REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION",
+          "latency_reduction_percent": 13.673251430765877,
+          "new_policy_failure_cases": 3,
+          "observed_quality_and_policy_gate": false,
+          "paired_gained": 1,
+          "paired_lost": 4,
+          "token_reduction_percent": 2.5414426931864575
+        },
+        "comparison_audit_id": "audit-328d344c6ec758cbec2f",
+        "dataset_id": "jarvis-lean-system-ablation33-v1",
+        "experiment_id": "R586",
+        "independent_review_audit_id": "audit-8c54963e200ff5a43ee3",
+        "model": "OmniCoder bartowski Q6 · system-prose A/B",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "official_benchmark": false,
+        "paired_unique_cases": 33,
+        "profile_sha256": "213872c0f5259b8fa4b2966a9dfab0513622e8444994a0a0bcaa9b9ed7f9d681",
+        "quality_audit_id": "audit-6493332fd77f17628310",
+        "scope": "Exposed authored33 cases/11 correlated families, alternating AB/BA. Reasoning tokens are not inferred; completion tokens include reasoning when the API does. Transformation CPU and wall time include audit/preservation work. Failed tasks remain in cost numerators. Not a new model benchmark or population equivalence test.",
+        "scorer_sha256": "0f878d4627a4468f7c8102f73318c31fbff010fa01c52565252d87c731f3cd7b",
+        "task_phase_s": 749.094946134,
+        "winner_qualified": false
+      },
       "peak_device_vram_mib": 7680.5,
       "solved": 53,
       "tasks": 66
@@ -179320,6 +179403,115 @@
     "statements": {
       "decision": "Separate harness development comparison; independent confirmation required before adoption.",
       "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "arms": [
+        {
+          "GPU_counter": {
+            "complete_request_s": 402.025093551,
+            "group_window_s": 402.028545609,
+            "groups": 17,
+            "included_between_request_setup_s": 0.003452058,
+            "lower_j": 108992.508,
+            "max_query_duration_s": 0.049500141,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 33,
+            "upper_j": 111493.288
+          },
+          "GPU_j_per_success_lower": 3892.5895714285716,
+          "GPU_j_per_success_upper": 3981.903142857143,
+          "case_wall_s": 402.025093551,
+          "complete": true,
+          "completed_cases": 33,
+          "completion_tokens_reported": 22528,
+          "invalid_actions": 0,
+          "model_calls_attempted": 154,
+          "peak_sampled_device_vram_mib": 7680.5,
+          "planned_cases": 33,
+          "policy_gate_passes": 29,
+          "policy_violations": 4,
+          "rejected_calls": 4,
+          "solved": 28,
+          "successful_tasks_per_s": 0.06964739378003026,
+          "tool_calls": 121,
+          "total_tokens_reported": 301561,
+          "transform_cpu_s": 0.078495341,
+          "transform_wall_s": 0.078096506
+        },
+        {
+          "GPU_counter": {
+            "complete_request_s": 347.055191695,
+            "group_window_s": 347.058773523,
+            "groups": 17,
+            "included_between_request_setup_s": 0.003581828,
+            "lower_j": 93978.272,
+            "max_query_duration_s": 0.049500141,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 33,
+            "upper_j": 96453.024
+          },
+          "GPU_j_per_success_lower": 3759.1308799999997,
+          "GPU_j_per_success_upper": 3858.12096,
+          "case_wall_s": 347.055191695,
+          "complete": true,
+          "completed_cases": 33,
+          "completion_tokens_reported": 18338,
+          "invalid_actions": 0,
+          "model_calls_attempted": 155,
+          "peak_sampled_device_vram_mib": 7680.5,
+          "planned_cases": 33,
+          "policy_gate_passes": 27,
+          "policy_violations": 6,
+          "rejected_calls": 6,
+          "solved": 25,
+          "successful_tasks_per_s": 0.07203465211945473,
+          "tool_calls": 122,
+          "total_tokens_reported": 293897,
+          "transform_cpu_s": 0.07884436,
+          "transform_wall_s": 0.078420387
+        }
+      ],
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-6493332fd77f17628310",
+    "original_bytes": 4009,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6493332fd77f176283101a0ff7b180ed463880a7b5d134b2947d3b9686f25909",
+    "statements": {
+      "scope": "Exposed authored33 cases/11 correlated families, alternating AB/BA. Reasoning tokens are not inferred; completion tokens include reasoning when the API does. Transformation CPU and wall time include audit/preservation work. Failed tasks remain in cost numerators. Not a new model benchmark or population equivalence test."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8c54963e200ff5a43ee3",
+    "original_bytes": 19604,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8c54963e200ff5a43ee351082d6ba846bde3080978802305d5ad5e034cd001b3",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-328d344c6ec758cbec2f",
+    "original_bytes": 604,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "328d344c6ec758cbec2f45c12de22271918f47fdc00a06b3ad9cec2f3845ab0e",
+    "statements": {
+      "decision": "REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION"
     }
   },
   {

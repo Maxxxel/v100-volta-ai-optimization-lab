@@ -439,8 +439,28 @@ def render_final_selection(frozen,history):
  text+='\n'.join('- '+v for v in frozen['remaining_limits'])+'\n'
  return text
 
+def lean_harness_report(experiments):
+ text='# Lean Jarvis harness\n\nControlled harness experiments; frozen model baselines remain unchanged. These exposed development tasks are **not official benchmarks or independent holdout validation**.\n\n'
+ rows=[(e,e.get('aggregate_metrics',{}).get('native_lean_harness_ablation')) for e in experiments]
+ for e,r in rows:
+  if not r:continue
+  assert not r['official_benchmark'] and not r['winner_qualified']
+  text+='## '+r['experiment_id']+' · compact system instructions\n\n'
+  text+='**Decision: rejected — observed quality and policy regression.** Original tools, inference profile and scoring retained; only reviewed system prose changed. One model start, alternating AB/BA across33 paired cases /11 correlated task families.\n\n'
+  data=[]
+  for a in r['arms']:
+   data.append([a['arm'],str(a['solved'])+'/33',a['policy_violations'],a['total_tokens_reported'],round(a['case_wall_s'],3),str(round(a['GPU_j_per_success_lower'],2))+'–'+str(round(a['GPU_j_per_success_upper'],2)),a['peak_sampled_device_vram_mib'],a['model_calls_attempted']])
+  text+=table(['Arm','Solved','Policy violations','Input + output tokens','Task wall s','GPU J / success bounds','Peak MiB','Model calls'],data)
+  c=r['comparison'];text+='Paired outcomes: '+str(c['paired_gained'])+' gained, '+str(c['paired_lost'])+' lost; '+str(c['new_policy_failure_cases'])+' new policy-failure cases. Token reduction '+format(c['token_reduction_percent'],'.2f')+'%; task-wall reduction '+format(c['latency_reduction_percent'],'.2f')+'%. These savings **do not qualify the candidate**.\n\n'
+  text+='Reasoning tokens: **NOT MEASURED**. GPU-energy intervals bracket cumulative NVML counter readings, not confidence intervals or calibration error. Failed tasks remain in cost numerators; model loading, warm-up and host CPU energy excluded. No population-equivalence claim.\n\n'
+  text+='Transformation CPU seconds (including preservation/audit): '+', '.join(a['arm']+' '+format(a['transform_cpu_s'],'.6f') for a in r['arms'])+'. Shared TASK phase: '+format(r['task_phase_s'],'.3f')+'s /1200s. Independent isolated CPU replay reproduced all66 outcomes without model inference.\n\n'
+  text+='[Experiment and audit hashes](experiments/'+r['experiment_id']+'.md). Model SHA256: `'+r['model_sha256']+'`; captured profile SHA256: `'+r['profile_sha256']+'`; scorer SHA256: `'+r['scorer_sha256']+'`.\n\n'
+ text+='## Next gate\n\nRetain the original reference. Evaluate other isolated, source-reviewed harness changes before combinations or transfer. Reserve fresh fixtures for independent confirmation; no optimized harness has been adopted.\n\n[Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)\n'
+ return text
+
 def main():
  s=read('snapshot.json');fs=read('factors.json');es=read('experiments.json');audits={x['id']:x for x in read('audit-excerpts.json')};profiles=read('profiles.json');refs={x['id']:x for x in read('references.json')};models=read('models.json');counts=s['counts']
+ put('lean-harness.md',lean_harness_report(es))
  history=read('configuration-history.json');register=read('benchmark-register.json')
  categories=[('Coding','humanevalplus-v0.1.10',164),('Tools','bfcl-v4-parallel-multiple-full200',200),('Agents','terminal-bench-2.1',89)]
  cards=[]
