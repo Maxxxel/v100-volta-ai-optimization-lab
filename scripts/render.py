@@ -579,7 +579,22 @@ def lean_harness_report(experiments,research=None):
   if research.get('frozen_reference'):
    ref=research['frozen_reference'];text+='Frozen next-goal reference: `'+ref['id']+'` · SHA256 `'+ref['reference_sha256']+'`. '+ref['next_goal_boundary']+'\n\n'
   text+='Original source-plan SHA256: `'+research['canonical_plan_sha256']+'`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).\n\n</details>\n\n'
- text+='## Next gate\n\nR601 tested the pinned mini-SWE DefaultAgent on frozen OmniCoder: 28/33 solved, identical tokens/calls/policy counts to stored R587, 0.174% slower and only0.0054% lower conservative GPU J/success versus the historical reference. No practical benefit; no fresh confirmation. **No harness candidate is qualified, so combinations and optimized cross-model transfer are not justified.** R589–R591 remain the separate frozen-harness Omni/Gemma/Nexus validation records. Retain the minimal reference; reopen only for a distinct, contract-safe method with a concrete removable-cost hypothesis.\n\n[Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)\n'
+ if (P/'data/caveman-large-output-cpu.json').exists():
+  study=read('caveman-large-output-cpu.json'); grouped={}
+  for row in study['cases']:
+   g=grouped.setdefault(row['scope'],{'cases':0,'bytes':0,'before':0,'after':0,'oracle':0,'recovered':0,'passthrough':0})
+   g['cases']+=1;g['bytes']+=row['input_bytes'];g['before']+=row['tokens_before'];g['after']+=row['tokens_after'];g['oracle']+=int(row['oracle_pass']);g['recovered']+=int(row['exact_original_recovery_verified']);g['passthrough']+=int(row['actual_passthrough'])
+  labels={'CaveBench-inspired':'CaveBench-inspired · six file formats','CaveBench-inspired-size-sweep':'Same formats · within-format size sweep','Jarvis-shaped':'Jarvis-shaped · repo, diff, mock state, recurring context','negative-control':'No-op control'}
+  order=['CaveBench-inspired','CaveBench-inspired-size-sweep','Jarvis-shaped','negative-control'];rows=[]
+  for key in order:
+   if key not in grouped:continue
+   g=grouped[key];delta=100*(g['before']-g['after'])/g['before'] if g['before'] else 0
+   recovery=f"{g['recovered']}/{g['cases']} exact original recovery" if g['recovered'] else f"{g['passthrough']}/{g['cases']} pass-through"
+   rows.append([labels[key],g['cases'],f"{g['bytes']:,}",f"{g['before']:,}",f"{g['after']:,}",f"{delta:.2f}%",f"{g['oracle']}/{g['cases']} cases · {recovery}"])
+  text+='## Issue18 follow-up · large-output CPU study\n\nSource-authentic pinned Caveman query-aware codec; **CPU only**, no model/network/GPU. Independent CaveBench-inspired fixtures, not an exact reproduction: upstream raw fixtures/harness are unavailable. Token counts use Caveman’s local `o200k_base` estimate.\n\n'
+  text+=table(['Scope','Cases','Input bytes','Input tokens','Output tokens','Payload reduction','Fidelity / recovery'],rows)
+  text+='All emitted recoveries matched the original bytes. The exact-anchor oracle is a fidelity screen, not full semantic or agent-quality evaluation. Whole-session savings, model interpretation, task success, E2E latency, GPU energy and VRAM remain **NOT MEASURED**. Two Jarvis-shaped cases passed through unchanged. This does not qualify an agent or authorize a GPU run. Upstream source `'+study['upstream_commit']+'`; archive SHA256 `'+study['source_archive_sha256']+'`. [Case-level records and hashes](../data/caveman-large-output-cpu.json); [reproduction runner](../scripts/caveman_shape_study.py).\n\n'
+ text+='## Next gate\n\nR601 tested the pinned mini-SWE DefaultAgent on frozen OmniCoder: 28/33 solved, identical tokens/calls/policy counts to stored R587, 0.174% slower and only0.0054% lower conservative GPU J/success versus the historical reference. No practical harness benefit was established. The new file-level CPU study demonstrates high compression for selected synthetic outputs, but does not qualify a Jarvis harness. **No harness candidate is qualified; retain the minimal reference. No GPU admission is provided by Issue18’s CPU study.** R589–R591 remain the separate frozen-harness Omni/Gemma/Nexus validation records.\n\n[Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)\n'
  return text
 
 def main():

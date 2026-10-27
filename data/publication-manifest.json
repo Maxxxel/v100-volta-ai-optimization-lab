@@ -16,6 +16,7 @@
   "SECURITY.md": "3ee1d2b2360430066002ad0446e391933c23eb38e9ef52b5fa4848a979b1581b",
   "data/audit-excerpts.json": "5603d4e5dceb0674da7a57d2235441910f730784ad24f3b49f88dd3e13b071f8",
   "data/benchmark-register.json": "6047b98a4d16d2a0b69be3f8287855a9e63dc3a0eaa90d0fe9bd6ca4dfe23f80",
+  "data/caveman-large-output-cpu.json": "eabd8b87b7fd9092f1c45a414d5794aa0204ba1d8cb1538741855a3212c2a388",
   "data/comparison.json": "775b9edabbe2160766b7bb51fdb0b0ed271e147c31f336f017dfc69929608118",
   "data/configuration-history.json": "f658fdcde27a77c4aec2521bca35a8934646dca2563c1775aabd33a5f552354b",
   "data/experiments.json": "938d6a983edb93a206fbaad1946a28ee704b0e82af475da60a58a61aad4725f0",
@@ -2617,7 +2618,7 @@
   "docs/javascripts/leaderboard.js": "697620605486078db0b65e3f75a7433e10d9857d6b174db03683b5cb600dd622",
   "docs/javascripts/master-table.js": "e6e5749dbcb9feaf79d6445a8b866eb21e652aa41ec597b47cddd2eec0974c9e",
   "docs/javascripts/screening.js": "7af8f50daa3611bf717dd3d600de8833f54fb997452dbc47cf6a044889641db0",
-  "docs/lean-harness.md": "953a636029a5c275dfd142208beb51f67033a24c09176ae37630ba9c4bb83306",
+  "docs/lean-harness.md": "7c2c387957ccaf77e0a39e94a2cb69ae765c7cf6b11d08801e2abe3de790f476",
   "docs/local-benchmarks.md": "db73cfe6fe065d403f9a84d4ad7d12747627fd2cf2dbfd485f18f33e90d323b0",
   "docs/matrix.md": "cc49b9200499f47cc6004af67de97e05600f0abc298df765d9ebdb25dbdeb0ca",
   "docs/methodology.md": "5652fb890ddcd55d842fa686ecb8321230591a0588adee70a4a90c95da130bda",
@@ -2642,6 +2643,7 @@
   "docs/weight-integrity.md": "c22b19e3628725a4dcfc335b6b7c680fc0d4f37863e8498a08cbd6454d525a4a",
   "mkdocs.yml": "cd9099b13fd8b52b46fae89d786458ad63232445df771e9da3e1b0ffd37fbe74",
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
+  "scripts/caveman_shape_study.py": "63882e8bed1abb4bdfa6c5a25abdc3d380a1480c4f438049d03331633fc751ef",
   "scripts/comparison.py": "b057d1293c1024724e9b97906af29881d79764d822c49211f3850bb24efb1078",
   "scripts/derivatives.py": "36e8176c7387c4ba94cbb9de7a01732465843fe80de7af402907eeec38582a5d",
   "scripts/export.py": "b9f978e9d0fb440ad7ad642a36a3dcf3ce2f813cbc47a532c9a160b999196fab",
@@ -2649,8 +2651,9 @@
   "scripts/leaderboard.py": "09e9e16bf440017a90f55c6ce383c601bdfdc06ee77f6da834af2804bc2d97d2",
   "scripts/lean_metrics.py": "b56258dd69aa3893b0e1e6564d2ce2531e9f8a9824e34d9ad16192de0841633a",
   "scripts/pipeline.py": "733a213d08319c3feedd87eef40b49a6048ad04d53a68a131ebc329dac34c5c3",
-  "scripts/render.py": "b7a288ce21fb83f3f1b895cfa6b3f82149fa64432ca43abc3077f0c24b5c94a5",
+  "scripts/render.py": "48f7ac477a4a6c58e7e7f7ae6e2f59139f9af0157b34c97409b1234b5f2edfcc",
   "scripts/screening.py": "68950987dfdb70b7d35ac17bfc2629e04366eba1f481fbc9145b55127c52f68d",
+  "scripts/test_caveman_shape_study.py": "df5fb538b62301fe78eafe6606cc2a980518630ba4570fb502e6416b029d41dd",
   "scripts/test_comparison.py": "22376439a238244a2f616a7125ef9b9136cd65b1b78b771c51c56bf2472425d2",
   "scripts/test_derivatives.py": "b31cedef55e972f249eb8448a459d3c0fed619d45563f580accf3d05edea7acd",
   "scripts/test_harness_prefix.py": "2adc651f8f0cbc2a34c3d3f6adf9876c637edaa3fde5de0ece6522ad0495e820",
@@ -2670,5 +2673,5 @@
   "scripts/test_screening.py": "23f493c09450afc3d5c49e31234eab71e1aa5fc3782ce1465f9e58097a202b13",
   "scripts/test_tools_confirmation.py": "97eca269088b9b1b08637c956598a86aeba103fe27eef7b5f912984fa7eb6756",
   "scripts/test_toon_metrics.py": "57ad3dbb3afb93809d10bf534ab1fea167c5bba7c229905b09f8426bf47e00a9",
-  "scripts/validate.py": "7dd7404a5e06144691227f09e4978e4e2a07c2e7a3879dc1bb0ff7e170106bf0"
+  "scripts/validate.py": "32550be6f74352a9ec5c2c1e1c81e35f00a9cf5b2d08f0c7f4ef8c0d794e0d8b"
 }

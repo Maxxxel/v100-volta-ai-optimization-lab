@@ -458,8 +458,21 @@ Original source-plan SHA256: `f182bd9fdaebeded0b75ac6549cb621bc14c6f8b17a2360efc
 
 </details>
 
+## Issue18 follow-up · large-output CPU study
+
+Source-authentic pinned Caveman query-aware codec; **CPU only**, no model/network/GPU. Independent CaveBench-inspired fixtures, not an exact reproduction: upstream raw fixtures/harness are unavailable. Token counts use Caveman’s local `o200k_base` estimate.
+
+| Scope | Cases | Input bytes | Input tokens | Output tokens | Payload reduction | Fidelity / recovery |
+|---|---|---|---|---|---|---|
+| CaveBench-inspired · six file formats | 6 | 439,593 | 143,454 | 14,551 | 89.86% | 6/6 cases · 6/6 exact original recovery |
+| Same formats · within-format size sweep | 12 | 1,539,177 | 492,190 | 43,816 | 91.10% | 12/12 cases · 12/12 exact original recovery |
+| Jarvis-shaped · repo, diff, mock state, recurring context | 4 | 215,831 | 67,724 | 36,989 | 45.38% | 4/4 cases · 2/4 exact original recovery |
+| No-op control | 1 | 78,000 | 45,185 | 45,185 | 0.00% | 1/1 cases · 1/1 pass-through |
+
+All emitted recoveries matched the original bytes. The exact-anchor oracle is a fidelity screen, not full semantic or agent-quality evaluation. Whole-session savings, model interpretation, task success, E2E latency, GPU energy and VRAM remain **NOT MEASURED**. Two Jarvis-shaped cases passed through unchanged. This does not qualify an agent or authorize a GPU run. Upstream source `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; archive SHA256 `73d93ead989462f5e7d274359d7191d649520b9d387337901069031d18692fba`. [Case-level records and hashes](../data/caveman-large-output-cpu.json); [reproduction runner](../scripts/caveman_shape_study.py).
+
 ## Next gate
 
-R601 tested the pinned mini-SWE DefaultAgent on frozen OmniCoder: 28/33 solved, identical tokens/calls/policy counts to stored R587, 0.174% slower and only0.0054% lower conservative GPU J/success versus the historical reference. No practical benefit; no fresh confirmation. **No harness candidate is qualified, so combinations and optimized cross-model transfer are not justified.** R589–R591 remain the separate frozen-harness Omni/Gemma/Nexus validation records. Retain the minimal reference; reopen only for a distinct, contract-safe method with a concrete removable-cost hypothesis.
+R601 tested the pinned mini-SWE DefaultAgent on frozen OmniCoder: 28/33 solved, identical tokens/calls/policy counts to stored R587, 0.174% slower and only0.0054% lower conservative GPU J/success versus the historical reference. No practical harness benefit was established. The new file-level CPU study demonstrates high compression for selected synthetic outputs, but does not qualify a Jarvis harness. **No harness candidate is qualified; retain the minimal reference. No GPU admission is provided by Issue18’s CPU study.** R589–R591 remain the separate frozen-harness Omni/Gemma/Nexus validation records.
 
 [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) · [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18)
