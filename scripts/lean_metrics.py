@@ -88,7 +88,7 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=ARMS):
 
 def screen_reviews(audit,records,audit_sha,telemetry,counter_bounds,reference_quality,reference_records,reference_audit_sha,reference_quality_sha):
     """Pure case-matched screen; caller verifies immutable reference provenance."""
-    arm='upstream-tool-toon-v1' if audit['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else 'preaction-checklist-v1'
+    arm='upstream-node-shrink-v1' if audit['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1' else 'upstream-tool-toon-v1' if audit['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else 'preaction-checklist-v1'
     quality,comparison=reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=(arm,))
     assert reference_quality['experiment_id']=='R587' and reference_quality['source_audit_sha256']==reference_audit_sha
     assert reference_quality['official_benchmark'] is reference_quality['winner_qualified'] is False
@@ -124,4 +124,14 @@ def original_toon_overhead(records):
     for name,key in [('codec_wall_s','codec_wall_ns'),('codec_parent_CPU_s','codec_parent_cpu_ns'),('codec_children_CPU_s','codec_children_cpu_ns')]:
         value=measured_sum(item.get(key) for item in items)
         result[name]=value/1e9 if value is not None else None
+    return result
+
+
+def original_node_shrink_overhead(records):
+    """Actual Node subprocess receipts; no native-token or energy inference."""
+    receipts=[r for c in records if c.get('kind')=='agent_case'for r in c.get('harness_rewrite_receipts',[])]
+    changed=[r for r in receipts if r.get('status')=='REVIEWED_ORIGINAL_NODE_TRANSFORM']
+    result={'request_transforms':len(receipts),'catalog_visits':len(changed),'unknown_catalog_requests':sum(r.get('status')=='UNKNOWN_CATALOG_UNCHANGED'for r in receipts),'host_CPU_energy_j':None}
+    for name,key in [('codec_wall_s','codec_wall_ns'),('codec_parent_CPU_s','codec_parent_cpu_ns'),('codec_children_CPU_s','codec_children_cpu_ns')]:
+        value=measured_sum(r.get(key)for r in changed);result[name]=value/1e9 if value is not None else None
     return result

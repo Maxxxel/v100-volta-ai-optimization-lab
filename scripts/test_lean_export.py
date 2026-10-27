@@ -55,7 +55,7 @@ class TransformPublication(unittest.TestCase):
    r=row.get('aggregate_metrics',{}).get('native_lean_harness_ablation') or row.get('aggregate_metrics',{}).get('native_lean_harness_screen')
    if r and r.get('transform_source'):
     item=r['transform_source'];self.assertEqual(hashlib.sha256((root/'docs'/item['file']).read_bytes()).hexdigest(),r['implementation']['transform_module_sha256']);self.assertEqual(item['license'],'MIT');count+=1
-  self.assertEqual(count,4)
+  self.assertEqual(count,4+int(any(row['id']=='R600' and row.get('aggregate_metrics',{}).get('native_lean_harness_screen',{}).get('transform_source')is not None for row in rows)))
 
 class HistoricalScreenPublication(unittest.TestCase):
  def records(self):
@@ -187,3 +187,24 @@ class FreshPreambleValidationGPU(unittest.TestCase):
   before=copy.deepcopy(research);page=lean_harness_report([],research)
   for phrase in ('R599','tied overall15/16 totals hide a category regression','candidate-aware authorship','Energy saving not confirmed','now exposed'):self.assertIn(phrase,page)
   self.assertNotIn('unseen validation pending',page);self.assertEqual(research,before)
+
+
+class OriginalNodeShrinkProjection(unittest.TestCase):
+ def test_measured_subprocess_costs_do_not_become_energy_or_quality(self):
+  from lean_metrics import original_node_shrink_overhead
+  records=[{'kind':'agent_case','harness_rewrite_receipts':[{'status':'REVIEWED_ORIGINAL_NODE_TRANSFORM','codec_wall_ns':3000000,'codec_parent_cpu_ns':1000000,'codec_children_cpu_ns':2000000},{'status':'UNKNOWN_CATALOG_UNCHANGED'}]}]
+  before=copy.deepcopy(records);x=original_node_shrink_overhead(records)
+  self.assertEqual(x['catalog_visits'],1);self.assertEqual(x['unknown_catalog_requests'],1);self.assertEqual(x['codec_wall_s'],.003);self.assertEqual(x['codec_children_CPU_s'],.002);self.assertIsNone(x['host_CPU_energy_j']);self.assertEqual(records,before)
+ def test_empty_codec_measurements_remain_unknown(self):
+  from lean_metrics import original_node_shrink_overhead
+  x=original_node_shrink_overhead([]);self.assertIsNone(x['codec_wall_s']);self.assertEqual(x['request_transforms'],0)
+
+class OriginalNodeShrinkMeasuredEvidence(unittest.TestCase):
+ def test_actual_native_rejection_and_costs_stay_scoped(self):
+  root=pathlib.Path(__file__).resolve().parents[1];rows=json.loads((root/'data/experiments.json').read_text());row=next(r for r in rows if r['id']=='R600');r=row['aggregate_metrics']['native_lean_harness_screen']
+  self.assertEqual(r['arms'][0]['solved'],26);self.assertEqual(r['stored_reference']['metrics']['solved'],28);self.assertEqual(r['arms'][0]['policy_violations'],6);self.assertEqual(r['comparison']['new_policy_failure_cases'],2)
+  self.assertEqual(r['comparison']['decision'],'REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION');self.assertFalse(r['winner_qualified']);self.assertFalse(r['official_benchmark']);self.assertFalse(r['stored_reference']['fresh_contemporaneous_control'])
+  self.assertEqual(r['codec_overhead']['catalog_visits'],155);self.assertEqual(r['codec_overhead']['unknown_catalog_requests'],0);self.assertIsNone(r['codec_overhead']['host_CPU_energy_j']);self.assertEqual(r['upstream_Node_source']['node_version'],'24.22.0')
+  page=lean_harness_report([row]);self.assertIn('original Caveman Node shrink',page);self.assertIn('distinct from the rejected Go toolschema default',page);self.assertIn('no fresh paired GPU comparison',page);self.assertIn('do not add twice',page)
+  self.assertEqual(len(r['upstream_Node_source']['artifacts']),3)
+  wrapper=r['request_wrapper_source'];self.assertEqual(wrapper['license'],'MIT');self.assertEqual(__import__('hashlib').sha256((root/'docs'/wrapper['file']).read_bytes()).hexdigest(),wrapper['sha256'])

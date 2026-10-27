@@ -656,7 +656,7 @@ def verified_native_tools_confirmation(root,entry,receipt):
 def verified_native_lean_harness(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
-    protocols={'jarvis-original-caveman-toon-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-tool-toon-v1',)),'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
+    protocols={'jarvis-original-caveman-node-shrink-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-node-shrink-v1',)),'jarvis-original-caveman-toon-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-tool-toon-v1',)),'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
     assert a['dataset_id'] in protocols
     status,count,paired,arms=protocols[a['dataset_id']];screen=count==33
     assert a['status']==status and a['measurement_valid'] and a['GPU_execution_observed']
@@ -709,6 +709,13 @@ def verified_native_lean_harness(root, summary, receipt):
             if codec:
                 assert codec['sha256']=='80189ce6b009ea9fba762cdef88d568f20a8640fde4302f50a2cfcb36ab1d754' and value['assets'][codec['path']]==codec['sha256']
                 value['assets'].pop(codec['path'])
+            codecs=value['native_recipe']['harness_ablation'].get('codec_assets')
+            if codecs:
+                assert a['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1' and len(codecs)==3
+                expected={'/harness/caveman-node':'67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c','/harness/caveman-shrink.cjs':'87b89523c9466f7634b2f70dbaaa483648756e927127a4d11ba95f64003fde7f','/harness/caveman-shrink-request.cjs':'cb547fe1f29b5e3d7d6ef1e9b658c07d03519ae2c27c3050a74e9d6c489038b8'}
+                assert {c['sandbox_path']:c['sha256']for c in codecs}==expected
+                for c in codecs:
+                    assert value['assets'].pop(c['path'])==c['sha256']
             value['native_recipe'].pop('harness_ablation');value['native_recipe'].pop('maximum_tasks')
             return json.dumps(value,sort_keys=True,separators=(',',':'))
         assert inference_base(profile)==inference_base(ref_profile)
@@ -734,16 +741,19 @@ def verified_native_lean_harness(root, summary, receipt):
     changes=('decision','paired_gained','paired_lost','new_policy_failure_cases','token_reduction_percent','latency_reduction_percent','conservative_energy_per_success_reduction_percent','observed_quality_and_policy_gate')
     from lean_metrics import original_toon_overhead
     codec_overhead=original_toon_overhead(records) if a['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else None
+    if a['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1':
+        from lean_metrics import original_node_shrink_overhead
+        codec_overhead=original_node_shrink_overhead(records)
     return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':paired,'case_executions':count,'screen_only':screen,**({'codec_overhead':codec_overhead} if codec_overhead is not None else {}),**({'stored_reference':reference_data} if screen else {}),'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
             'arms':[{k:r[k] for k in allowed} for r in quality['arms']], 'comparison':{k:comparison[k] for k in changes},
             'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'comparison_audit_id':receipt(xp,summary['comparison_review_sha256']),
-            'correction_audit_id':receipt(permission_fix,digest(permission_fix)) if permission_fix.exists() else None,'implementation':{'transform_module_sha256':next(iter(profile['native_recipe']['harness_ablation']['module_assets'].values())),'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None,**({'upstream_repository':'https://github.com/JuliusBrussee/caveman','upstream_commit':'9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4','codec_binary_sha256':profile['native_recipe']['harness_ablation']['codec_asset']['sha256']} if a['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else {})},'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
+            'correction_audit_id':receipt(permission_fix,digest(permission_fix)) if permission_fix.exists() else None,'implementation':{'transform_module_sha256':next(iter(profile['native_recipe']['harness_ablation']['module_assets'].values())),'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None,**({'upstream_repository':'https://github.com/JuliusBrussee/caveman','upstream_commit':'9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4','codec_binary_sha256':profile['native_recipe']['harness_ablation']['codec_asset']['sha256']} if a['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else {})},'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],**({'upstream_Node_source':{'repository':'https://github.com/JuliusBrussee/caveman','commit':'9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4','license':'Apache-2.0','node_version':'24.22.0','artifacts':[{"name":pathlib.PurePosixPath(c['sandbox_path']).name,"sha256":c['sha256']}for c in profile['native_recipe']['harness_ablation']['codec_assets']]}}if a['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1'else{}),'scope':quality['scope']}
 
 
 def export_harness_sources(root,db,experiments):
     """Explicit lab-owned request adapters only; never privileged broker/runner code."""
     from validate import content_errors
-    names={'R586':'system-prose.py','R587':'tool-json.py','R588':'preaction-checklist.py','R598':'original-toon-adapter.py'}
+    names={'R586':'system-prose.py','R587':'tool-json.py','R588':'preaction-checklist.py','R598':'original-toon-adapter.py','R600':'original-node-shrink-adapter.py'}
     for eid,name in names.items():
         row=experiments.get(eid,{})
         metrics=row.get('aggregate_metrics',{})
@@ -766,6 +776,16 @@ def export_harness_sources(root,db,experiments):
         if target.exists():assert target.read_bytes()==blob,'Never overwrite historical transform source'
         else:target.write_bytes(blob);target.chmod(0o644)
         result['transform_source']={'file':'assets/harness/'+name,'sha256':expected,'license':'MIT','source_audit_id':row['audit_id'],'scope':'Exact lab-owned request transform; private task fixtures, responses, models and privileged execution code are excluded.'}
+        if eid=='R600':
+            wrapper_sha=next(c['sha256']for c in profile['native_recipe']['harness_ablation']['codec_assets']if c['sandbox_path']=='/harness/caveman-shrink-request.cjs')
+            choices=[x for x in proof['source_records']if x['sha256']==wrapper_sha and pathlib.Path(x['file']).suffix=='.cjs']
+            assert choices,'Original GPU request-wrapper source missing'
+            wrapper=pathlib.Path(choices[0]['file']);blob=wrapper.read_bytes();assert digest(wrapper)==wrapper_sha and not content_errors(blob.decode())
+            dest=HERE/'docs/assets/harness/original-node-shrink-request.cjs'
+            if dest.exists():assert dest.read_bytes()==blob
+            else:dest.write_bytes(blob)
+            result['request_wrapper_source']={'file':'assets/harness/original-node-shrink-request.cjs','sha256':wrapper_sha,'license':'MIT'}
+
 
 
 def verified_native_role_comparison(root, summary, receipt):
@@ -1314,6 +1334,9 @@ def main():
             key='native_lean_harness_screen' if lean['screen_only'] else 'native_lean_harness_ablation'
             experiments[ident]['aggregate_metrics'][key]=lean
             catalog[audit]['aggregate_metrics'][key]=lean
+            if lean['dataset_id']=='jarvis-original-caveman-node-shrink-screen33-v1':
+                metadata=load(locations[audit]);assert metadata['factor']=='A03' and metadata['factor_coverage_increment']==0
+                experiments[ident].update(model=lean['model'],date=text(metadata['at_utc']),factor_ids=['A03'])
             experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id','correction_audit_id') if lean.get(k)]
         native_key=next((key for key in ('native_lean_reserved_validation33','native_validation33','native_agent18_development') if catalog.get(audit,{}).get('aggregate_metrics',{}).get(key)), 'native_agent18_development')
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):

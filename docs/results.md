@@ -520,6 +520,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R597](experiments/R597.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R598](experiments/R598.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R599](experiments/R599.md) | A03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B · bartowski Q6 |
+| [R600](experiments/R600.md) | A03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder bartowski Q6 · original Node shrink B-only33 |
 
 
 ## Historical signed windows

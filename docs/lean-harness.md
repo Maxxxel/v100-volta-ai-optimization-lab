@@ -202,6 +202,35 @@ Warm-up separately: 2 calls, 536 input / 129 output tokens, 1.966683s response w
 
 </details>
 
+## R600 · original Caveman Node shrink · B-only screen
+
+**Decision: rejected — preregistered quality/policy gate failed.** Original tools, inference profile and scoring retained; only tool descriptions in the exact ten reviewed catalogs change through the original Node compressor; messages, tool arguments, typed schemas and authoritative results remain unchanged, and unknown catalogs pass through unchanged. Current run:33 candidate cases; stored original-request control fromR587. **No new A0 run and no fresh paired GPU comparison.**
+
+| Arm | Solved | Policy violations | Input + output tokens | Task wall s | GPU J / success bounds | Peak MiB | Model calls |
+|---|---|---|---|---|---|---|---|
+| reference · R587 stored | 28/33 | 4 | 301561 | 402.138 | 3924.56–4014.95 | 7680.5 | 154 |
+| upstream-node-shrink-v1 | 26/33 | 6 | 302821 | 418.846 | 4369.21–4374.57 | 7680.5 | 155 |
+
+[Exact request wrapper](assets/harness/original-node-shrink-request.cjs).
+
+Original Node codec: 155 catalog transformations; 4.484s codec invocation wall, 0.079s parent CPU, 4.526s child CPU. Already included in task wall; do not add twice. Host CPU energy: NOT MEASURED. Source `JuliusBrussee/caveman@9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`, Apache-2.0; Node24.22.0. This is distinct from the rejected Go toolschema default.
+
+Case-matched historical-control outcomes: 0 gained, 2 lost; 2 new policy-failure cases. Token reduction -0.42%; task-wall reduction -4.15%. These differences **do not qualify the candidate**.
+
+<details markdown="1"><summary>Measurement limits, hashes and exact source</summary>
+
+Reasoning tokens: **NOT MEASURED**. GPU-energy intervals bracket cumulative NVML counter readings, not confidence intervals or calibration error. Failed tasks remain in cost numerators; model loading, warm-up and host CPU energy excluded. No population-equivalence claim.
+
+Transformation CPU seconds (including preservation/audit): reference 0.063391, upstream-node-shrink-v1 0.181020. Current run TASK phase: 418.855s /1200s. Independent isolated CPU replay reproduced all33 outcomes without model inference.
+
+Captured implementation: transform SHA256 `23239654f8ebf8ef5493f2ac267c5085597788e374f7df7d8243659ab571bab5`; engine binary SHA256 `08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54`. Transport and simulator identities are retained in the [public experiment data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/experiments.json). Source commit for the local transform: **not recorded at execution**; binary hashes are not version numbers. [Frozen model settings](final-selection.md).
+
+[Exact measured request-transform source](assets/harness/original-node-shrink-adapter.py) · MIT; file SHA256 matches the captured module. Private fixtures and privileged runner code are not included.
+
+[Experiment and audit hashes](experiments/R600.md). Model SHA256: `a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052`; captured profile SHA256: `b39505ffe08c8c742f9521aeadb87270dc33482324b27a0194e3d28ba97ca09e`; scorer SHA256: `40f34ec50d64fd46cccac52f8ef66d4a1aed0d253dde3829933b4a1e4553ccb6`.
+
+</details>
+
 ## Frozen16 +16 development screen · R592
 
 **Promising screen; not a qualified gain.** local preamble rewrite. Stored R515 control: Coding 14/16, Tools 14/16; candidate: Coding 14/16, Tools 14/16.
