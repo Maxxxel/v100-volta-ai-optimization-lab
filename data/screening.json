@@ -7480,6 +7480,13 @@
           "experiment_id": "R575",
           "official_eligible": true,
           "runtime_configuration_id": "cfg-ee3bb53965a3c29d8ad9ee42fdc77360bdde5295c02fbc0ce1c29cbb7e56c57b"
+        },
+        {
+          "audit_hash": "602a8325feb1d3a61fb1839cf29a76f43db018d948508792635abaac19f7bc76",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R576",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-e4f52486acf37cee43b06327cda09a1440f1fc71531fddb243619feebc95837a"
         }
       ],
       "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",

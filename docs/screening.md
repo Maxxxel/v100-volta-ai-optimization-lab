@@ -4133,7 +4133,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Ministral-3-14B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>9/16 · 56.2%</td><td>36.7</td><td>53.1</td><td>412.1</td><td>10,950.5</td><td><a href="../experiments/R575/">R575</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R552/">Screening R552</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Ministral-3-14B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>9/16 · 56.2%</td><td>36.7</td><td>53.1</td><td>412.1</td><td>10,950.5</td><td><a href="../experiments/R575/">R575</a> · <a href="../experiments/R576/">R576</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R552/">Screening R552</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;0727b3219022724c5926db58337c36ce98d1a44e73ebbf1742f8a3ec9728d928&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -4349,6 +4349,13 @@ Screening → full qualification → targeted optimization → independent confi
       &quot;experiment_id&quot;: &quot;R575&quot;,
       &quot;official_eligible&quot;: true,
       &quot;runtime_configuration_id&quot;: &quot;cfg-ee3bb53965a3c29d8ad9ee42fdc77360bdde5295c02fbc0ce1c29cbb7e56c57b&quot;
+    },
+    {
+      &quot;audit_hash&quot;: &quot;602a8325feb1d3a61fb1839cf29a76f43db018d948508792635abaac19f7bc76&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R576&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-e4f52486acf37cee43b06327cda09a1440f1fc71531fddb243619feebc95837a&quot;
     }
   ],
   &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,

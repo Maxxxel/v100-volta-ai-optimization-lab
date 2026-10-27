@@ -498,6 +498,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R573](experiments/R573.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | GLM-4.7-Flash |
 | [R574](experiments/R574.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | GLM-4.7-Flash |
 | [R575](experiments/R575.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-14B-Instruct-2512 |
+| [R576](experiments/R576.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-14B-Instruct-2512 |
 
 
 ## Historical signed windows

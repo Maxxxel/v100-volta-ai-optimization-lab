@@ -1,11 +1,14 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T06:28:21.936725+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T07:31:05.794066+00:00. This static page is not a live monitor.**
 
-Last observed: R573 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
+Last observed: R576 · NO_ACTIVE_GPU_CONTROL_OBSERVED.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R576](experiments/R576.md) | COMPLETE | 200/200 | 75.964 | 395.914 | 0.403 | NOT MEASURED / NOT MEASURED |
+| [R575](experiments/R575.md) | COMPLETE | 164/164 | 84.398 | 530.935 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R574](experiments/R574.md) | COMPLETE | 200/200 | 114.562 | 1038.386 | 0.402 | NOT MEASURED / NOT MEASURED |
 | [R573](experiments/R573.md) | PARTIAL | 44/164 | 166.889 | NOT MEASURED | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R572](experiments/R572.md) | COMPLETE | 33/33 | 152.931 | 481.965 | 1.47 | NOT MEASURED / NOT MEASURED |
 | [R571](experiments/R571.md) | COMPLETE | 200/200 | 98.986 | 1155.044 | 0.411 | NOT MEASURED / NOT MEASURED |
@@ -305,6 +308,23 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R572 | commit | COMPLETE | 0.021 |
 | R572 | push | COMPLETE | 1.832 |
 | R573 | collect | FAILED | 0.083 |
+| R573 | export | COMPLETE | 34.94 |
+| R573 | render | COMPLETE | 1.469 |
+| R573 | tests | COMPLETE | 4.976 |
+| R573 | tests | COMPLETE | 3.072 |
+| R573 | security | COMPLETE | 12.842 |
+| R573 | build | COMPLETE | 42.348 |
+| R573 | security | COMPLETE | 12.29 |
+| R573 | commit | COMPLETE | 0.018 |
+| R573 | push | COMPLETE | 3.54 |
+| R574 | collect | FAILED | 1.262 |
+| R574 | collect | COMPLETE | 0.076 |
+| R574 | integrity | COMPLETE | 0.033 |
+| R575 | collect | COMPLETE | 36.973 |
+| R575 | independent_review | COMPLETE | 0.033 |
+| R575 | integrity | COMPLETE | 0.035 |
+| R576 | collect | COMPLETE | 463.149 |
+| R576 | integrity | COMPLETE | 0.036 |
 
 </details>
 
