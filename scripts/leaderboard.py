@@ -106,6 +106,59 @@ def official_gate(record,definition,proof):
  if definition.get('expected_task_ids_hash') and H(sorted(ids))!=definition['expected_task_ids_hash']:return False
  return True
 
+def official_scoring_view(root,original,entry,receipt):
+ """Append a corrected scorer view of ONE archived inference, never a rerun.
+
+ Both official API replays must agree on every code answer and judgment. The
+ original preliminary run remains immutable and the normal official gate still
+ applies separately to the returned view.
+ """
+ root=pathlib.Path(root).resolve()
+ def pinned(item):
+  p=(root/item['path']).resolve()
+  if not p.is_relative_to(root) or digest(p)!=item['sha256']:raise ValueError('Scoring view source changed')
+  return p
+ path=pinned(entry);review=read(path)
+ if review.get('kind')!='APPEND_ONLY_OFFICIAL_SCORER_VIEW' or review.get('GPU_runs')!=0 or review.get('model_requests')!=0:raise ValueError('Invalid scoring view kind')
+ for key in ('experiment_id','runtime_configuration_id','model_artifact_id','benchmark_identity_id'):
+  if review.get(key)!=original.get(key):raise ValueError('Scoring view configuration mismatch')
+ if review.get('original_audit_hash')!=original['audit_hash'] or original.get('official_eligible') or original.get('tasks')!=164:raise ValueError('Scoring view original mismatch')
+ records=review.get('replays',[])
+ if len(records)!=2:raise ValueError('Two independent scoring replays required')
+ if any(len({r[k]['path'] for r in records})!=2 for k in ('stdout','receipt')):raise ValueError('Scoring view duplicated replay evidence')
+ if review.get('diagnosis'):pinned(review['diagnosis'])
+ observed=[];plans=[]
+ for record in records:
+  plan=read(pinned(record['plan']));plans.append(plan)
+  if plan['source_campaign_audit_sha256']!=original['audit_hash']:raise ValueError('Scoring view answer source mismatch')
+  samples=pinned(record['samples'])
+  if digest(samples)!=plan['inputs']['archived_samples.jsonl']:raise ValueError('Scoring view samples changed')
+  stdout=pinned(record['stdout']);execution=read(pinned(record['receipt']))
+  if execution['returncode']!=0 or 'ExecMainStatus=0' not in execution['properties'] or 'Result=success' not in execution['properties'] or execution['elapsed_s']>=120:raise ValueError('Scoring view sandbox failed')
+  rows=[json.loads(line[len('OFFICIAL_REPLAY_JSON '):]) for line in stdout.read_text().splitlines() if line.startswith('OFFICIAL_REPLAY_JSON ')]
+  if len(rows)!=1:raise ValueError('Scoring view final report missing')
+  report=rows[0];expected=plan['task_ids'];results=report['eval']
+  if len(expected)!=164 or len(set(expected))!=164 or set(results)!=set(expected):raise ValueError('Scoring view task set mismatch')
+  if H(sorted(expected))!=review.get('expected_task_ids_hash') or review.get('original_workload_sha256')!=original['evaluated_task_set_hash']:raise ValueError('Scoring view task identity mismatch')
+  answers=[json.loads(line) for line in samples.read_text().splitlines()]
+  if len(answers)!=164 or len({x['task_id'] for x in answers})!=164:raise ValueError('Scoring view duplicate answers')
+  for answer in answers:
+   scored=results[answer['task_id']]
+   if len(scored)!=1 or scored[0]['task_id']!=answer['task_id'] or scored[0]['solution']!=answer['code']:raise ValueError('Scoring view generated answer changed')
+  observed.append({k:report[k] for k in ('hash','eval','pass_at_k','execution_adapter')})
+ if plans[0]!=plans[1] or observed[0]!=observed[1]:raise ValueError('Scoring view replays disagree')
+ solved=sum(r[0]['base_status']=='pass' and r[0]['plus_status']=='pass' for r in observed[0]['eval'].values())
+ if type(review.get('solved')) is not int or solved!=review['solved'] or not math.isclose(observed[0]['pass_at_k']['plus']['pass@1'],solved/164,abs_tol=1e-12):raise ValueError('Scoring view score mismatch')
+ ident=receipt(path,entry['sha256'])
+ if not ident:raise ValueError('Scoring view public audit unavailable')
+ result=copy.deepcopy(original);result.pop('run_id',None)
+ result.update(audit_hash=entry['sha256'],audit_ids=original['audit_ids']+[ident],source_audit_hashes=original['source_audit_hashes']+[entry['sha256']],solved=solved,score_percent=100*solved/164,
+  gpu_j_per_success=original['gpu_j']/solved if original.get('gpu_j') is not None and solved else None,
+  status='OFFICIAL_SCORER_VIEW_ADMISSION_PENDING',status_reason='Two identical official API evaluations of the same archived answers; original preliminary score retained.',
+  scoring_view_of_run_id=original['run_id'],same_GPU_measurement=True,additional_GPU_runs=0,
+  warning=original['warning']+' '+review['disclosure'])
+ return result
+
 def frozen_merge(previous,incoming,key):
  result={x[key]:copy.deepcopy(x) for x in previous}
  for x in incoming:
@@ -1444,6 +1497,9 @@ def build(root,db,comparison,experiments,receipt,sanitize,previous):
   if complete:
    if complete.get('full_benchmark_score_claimed') is not False:qualify(complete,bench)
    complete['run_id']='run-'+H(complete);runs.append(complete)
+   if a.get('official_scoring_view'):
+    view=official_scoring_view(root,complete,a['official_scoring_view'],receipt)
+    qualify(view,bench);view['run_id']='run-'+H(view);runs.append(view)
   partial=None if is_tools else native_partial_run(root,a,cfg,bench,receipt)
   if partial:
    partial['run_id']='run-'+H(partial);runs.append(partial)

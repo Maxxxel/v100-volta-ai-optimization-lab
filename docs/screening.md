@@ -5185,7 +5185,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Devstral-Small-2-24B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>83.6</td><td>31.7</td><td>968.2</td><td>13,156.5</td><td>NOT MEASURED</td><td><a href="../experiments/R556/">Screening R556</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Devstral-Small-2-24B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>83.6</td><td>31.7</td><td>968.2</td><td>13,156.5</td><td><a href="../experiments/R563/">R563</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R556/">Screening R556</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;5b7734361d1120822199865eceb6ab03b701ffbc9916205d803fd74072ebbc81&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -5400,8 +5400,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T22:14:41.890697+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R556&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R563&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-5d59e62efe5c500f8a34ca6578b6731d2a869f7214627437e9b4e065b3c9cddd&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;0d37ef77668531300b31cc6bf83c59c8da3bab69a3b728d9109a5b504b9f1256&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Devstral-Small-2-24B-Instruct-2512&quot;,

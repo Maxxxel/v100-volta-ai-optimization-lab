@@ -4,6 +4,44 @@ import leaderboard as l
 from validate import validation_event_matches
 from leaderboard import H,definition_identity,official_gate,frozen_merge,validate_history,pair_delta,profile,render,verify_broker_capture,native_coverage,native_complete_run,native_partial_run,native_job_id,master_catalog,digest,configuration_evidence,weight_integrity_review,same_quantizer_review,engine_source_annotations,profile_label_annotation
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+class OfficialScoringViewTests(unittest.TestCase):
+ def fixture(self,root):
+  def save(name,data,raw=False):
+   p=root/name;p.write_text(data if raw else json.dumps(data));return {'path':name,'sha256':l.digest(p)}
+  ids=['HumanEval/'+str(i) for i in range(164)]
+  original={'experiment_id':'R999','runtime_configuration_id':'cfg-x','model_artifact_id':'artifact-x','benchmark_identity_id':'bench-x','audit_hash':'a'*64,'official_eligible':False,'tasks':164,'solved':127,'score_percent':100*127/164,'evaluated_task_set_hash':'b'*64,'run_id':'run-original','audit_ids':['audit-original'],'source_audit_hashes':['a'*64],'gpu_j':1000,'warning':'Original retained.'}
+  samples='\n'.join(json.dumps({'task_id':i,'code':'pass'}) for i in ids)
+  report={'hash':'dataset-hash','eval':{i:[{'task_id':i,'solution':'pass','base_status':'pass','plus_status':'pass' if n<128 else 'fail'}] for n,i in enumerate(ids)},'pass_at_k':{'plus':{'pass@1':128/164}},'execution_adapter':'official'}
+  plan={'source_campaign_audit_sha256':original['audit_hash'],'inputs':{'archived_samples.jsonl':hashlib.sha256(samples.encode()).hexdigest()},'task_ids':ids}
+  receipt={'returncode':0,'properties':'ExecMainStatus=0\nResult=success','elapsed_s':1}
+  records=[]
+  for n in range(2):
+   records.append({'plan':save(f'plan{n}.json',plan),'samples':save(f'samples{n}.jsonl',samples,True),'stdout':save(f'output{n}', 'OFFICIAL_REPLAY_JSON '+json.dumps(report),True),'receipt':save(f'receipt{n}.json',receipt)})
+  review={k:original[k] for k in ('experiment_id','runtime_configuration_id','model_artifact_id','benchmark_identity_id')}
+  review.update(kind='APPEND_ONLY_OFFICIAL_SCORER_VIEW',GPU_runs=0,model_requests=0,original_audit_hash=original['audit_hash'],original_workload_sha256=original['evaluated_task_set_hash'],expected_task_ids_hash=H(sorted(ids)),solved=128,replays=records,disclosure='Two CPU replays, one GPU measurement.')
+  entry=save('view.json',review)
+  return original,review,entry,save
+ def test_view_preserves_original_measurement_and_never_self_qualifies(self):
+  with tempfile.TemporaryDirectory() as folder:
+   root=pathlib.Path(folder);original,review,entry,save=self.fixture(root);before=copy.deepcopy(original)
+   result=l.official_scoring_view(root,original,entry,lambda p,h:'audit-'+h[:20])
+   self.assertEqual(original,before);self.assertEqual(result['solved'],128);self.assertFalse(result['official_eligible'])
+   self.assertEqual(result['scoring_view_of_run_id'],'run-original');self.assertTrue(result['same_GPU_measurement']);self.assertEqual(result['additional_GPU_runs'],0)
+   result['run_id']='run-'+H(result)
+   merged=frozen_merge([original],[result],'run_id');self.assertEqual(len(merged),2);self.assertEqual(merged[0],before)
+ def test_wrong_identity_score_source_or_disagreeing_replay_fails_closed(self):
+  for change in ('identity','score','source','disagree','duplicate_replay','missing_audit'):
+   with self.subTest(change=change),tempfile.TemporaryDirectory() as folder:
+    root=pathlib.Path(folder);original,review,entry,save=self.fixture(root)
+    if change=='identity':review['runtime_configuration_id']='another'
+    if change=='score':review['solved']=129
+    if change=='source':(root/'output0').write_text('modified')
+    if change=='duplicate_replay':review['replays'][1]=copy.deepcopy(review['replays'][0])
+    if change=='disagree':
+     d=json.loads((root/'output1').read_text().split(' ',1)[1]);d['eval']['HumanEval/0'][0]['plus_status']='fail';review['replays'][1]['stdout']=save('output1','OFFICIAL_REPLAY_JSON '+json.dumps(d),True)
+    entry=save('view.json',review)
+    with self.assertRaises(ValueError):l.official_scoring_view(root,original,entry,lambda p,h:None if change=='missing_audit' else 'audit-ok')
+
 class LeaderboardTests(unittest.TestCase):
  def label_fixture(self):
   label='native_Q4_0_QAT_T1.0_K64_output4096_nonthinking_noMTP_single_session_native_tools'

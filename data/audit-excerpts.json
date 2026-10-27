@@ -178439,6 +178439,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ebb0c6bb659d776fdba4",
+    "original_bytes": 4973,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category for the unchanged Devstral Small2 24B Q3_K_M native profile screened in R556 and independently qualified122/164 coding in R561. Preserve weights, engine, template, sampling, context8192, output4096, caches, batches and hardware limits; add only native auto parallel tool-dispatch envelope. One shared1200s TASK phase, startup180s, no retries or parameter tuning. Whole-profile qualification, not causal optimization, full-BFCL overall score or Champion.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -259516,6 +259538,38 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13156.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-bf4e089427f2d810a609",
+    "original_bytes": 178343,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "bf4e089427f2d810a6098d60de2e3f655e303d61f45f6cf8c4497d161d282c01",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 175,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5b06c32cab2302f569d7",
+    "original_bytes": 10221,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5b06c32cab2302f569d7ea58e17fea233e64c06fd0e16d22aea7a0bb582937bf",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -260045,6 +260099,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "e3aa1c1ac1baa68150742ee803207038e9914e51176fcb98127e298f0c77146c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-1cc3b632095e75e20cb9",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1cc3b632095e75e20cb9916a65e7aa6839787b9a151aedf376ecdd810c75f95b",
     "statements": {}
   },
   {
