@@ -90,3 +90,14 @@ class Frozen32ScreenReport(unittest.TestCase):
   if cpu is None:self.skipTest('No original-validator CPU evidence in this snapshot')
   self.assertEqual(cpu['GPU_calls'],0);self.assertEqual(cpu['model_calls'],0);self.assertEqual(len(cpu['cases']),9)
   page=lean_harness_report([],research);self.assertIn('not generated compressor output',page);self.assertIn('remains under evaluation',page)
+
+class OriginalSkillRejection(unittest.TestCase):
+ def test_actual_skill_failure_is_retained_without_rejecting_other_components(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review']
+  rows={r['experiment_id']:r for r in research.get('screening32_runs',[])}
+  if 'R593' not in rows:self.skipTest('Original-skill GPU result absent from this snapshot')
+  result=rows['R593'];self.assertEqual(result['categories']['coding']['candidate_successes'],2);self.assertEqual(result['categories']['tools']['candidate_successes'],6)
+  self.assertEqual(result['categories']['coding']['lost'],12);self.assertEqual(result['categories']['tools']['lost'],8);self.assertFalse(result['winner_qualified']);self.assertFalse(result['official_benchmark'])
+  page=lean_harness_report([],research)
+  for phrase in ('Rejected exact profile','Coding 2/16','Tools 6/16','not its model-assisted compressor or proxy','only to this exact tested profile'):self.assertIn(phrase,page)
+  self.assertIn('+196.531%',page)

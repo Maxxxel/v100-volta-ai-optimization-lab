@@ -869,11 +869,13 @@ def project_lean_research(root):
             assert set(request)<=allowed
             profiles.append({'experiment_id':row['experiment_id'],'model':text(row['model']),'model_sha256':row['model_sha256'],'captured_profile_sha256':row['captured_profile_sha256'],'audit_sha256':row['audit_sha256'],'context_tokens':runtime['context'],'request_options':request,'engine_binary_sha256':runtime['engine_binary_sha256'],'template_sha256':runtime['template_sha256'],'transport_sha256':runtime['transport_sha256'],'optimized_harness_qualified':False})
         reference={'id':ref['id'],'status':ref['status'],'reference_sha256':digest(refpath),'source_files_sha256':ref['source_files_sha256'],'profiles':profiles,'budgets':ref['budgets'],'limits':[text(v) for v in ref['limits']],'next_goal_boundary':text(ref['next_goal_boundary'])}
-    screening=None;f=pathlib.Path(root)/'staging/r592/HARNESS_COMPARISON.json'
-    if f.exists():
+    screening_rows=[]
+    for current_experiment in ('R592','R593'):
+        f=pathlib.Path(root)/'staging'/current_experiment.lower()/'HARNESS_COMPARISON.json'
+        if not f.exists():continue
         comparison=load(f);assert comparison['official_benchmark'] is comparison['winner_qualified'] is False and comparison['request_preservation_checks']==32
         for original in comparison['source_records']:
-            experiment=original['experiment_id'];assert experiment in ('R515','R592')
+            experiment=original['experiment_id'];assert experiment in ('R515',current_experiment)
             audit=pathlib.Path(root)/'staging'/experiment.lower()/'AUDIT.json';assert digest(audit)==original['audit_sha256']
             replay=audit.with_name('INDEPENDENT_REVIEW.json');assert digest(replay)==original['independent_review_sha256']
             raw=pathlib.Path(load(audit)['raw_root'])
@@ -881,12 +883,15 @@ def project_lean_research(root):
         for file,h in comparison['source_sha256'].items():assert digest(pathlib.Path(file))==h
         fields=('input_tokens','completion_tokens','reasoning_tokens','total_tokens','model_calls_completed','response_wall_s','task_wall_s','peak_device_vram_mib','successes','GPU_j_per_success_lower','GPU_j_per_success_upper')
         screening={key:comparison[key] for key in ('experiment_id','reference_experiment_id','decision','categories','token_reduction_percent','task_latency_reduction_including_captured_transform_percent','conservative_GPU_j_per_success_reduction_percent','captured_host_transform_wall_s','transform_cpu_s','fresh_contemporaneous_control','official_benchmark','winner_qualified')}
-        screening.update(comparison_sha256=digest(f),reference={k:comparison['reference'][k]for k in fields},candidate={k:comparison['candidate'][k]for k in fields},audit_sha256={x['experiment_id']:x['audit_sha256']for x in comparison['source_records']},scope='Exposed frozen16coding+16mocktool development; stored R515 control, one R592 B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded.')
+        screening.update(comparison_sha256=digest(f),reference={k:comparison['reference'][k]for k in fields},candidate={k:comparison['candidate'][k]for k in fields},audit_sha256={x['experiment_id']:x['audit_sha256']for x in comparison['source_records']},scope='Exposed frozen16coding+16mocktool development; stored R515 control, one candidate B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded.')
+        screening['candidate_kind']='actual pinned upstream style skill' if current_experiment=='R593' else 'local preamble rewrite'
+        screening_rows.append(screening)
+    screening=next((r for r in screening_rows if r['experiment_id']=='R592'),None)
     upstream_cpu=None;cp=base/'CAVEMAN_UPSTREAM_VALIDATOR_CPU_CONTRACTS.json'
     if cp.exists():
         row=load(cp);assert row['uid']!=0 and row['GPU_calls']==row['model_calls']==0
         upstream_cpu={'status':'CPU_VERIFIED_STRUCTURAL_CHECKS_ONLY','commit':row['upstream_commit'],'source_url':url(row['source_url']),'source_sha256':row['source_sha256'],'evidence_sha256':digest(cp),'GPU_calls':0,'model_calls':0,'cases':[{'case':r['case'],'validator_accepts':r['validator_accepts']}for r in row['cases']],'scope':'Actual pinned upstream validator in an unprivileged private-network/private-device CPU sandbox. Synthetic fixtures only; compressor/provider not invoked. Structural checks are not semantic or authorization preservation proof.'}
-    return {'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    return {'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""

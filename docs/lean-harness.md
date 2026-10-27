@@ -173,18 +173,35 @@ Captured implementation: transform SHA256 `fc3ef20a6720d2ccbe46699b03b68227f9bb5
 
 ## Frozen16 +16 development screen · R592
 
-**Promising screen; not a qualified gain.** Coding14/16 and tools14/16 on both profiles, with no changed task judgments. R515 is a stored historical control.
+**Promising screen; not a qualified gain.** local preamble rewrite. Stored R515 control: Coding 14/16, Tools 14/16; candidate: Coding 14/16, Tools 14/16.
 
 | Profile | Input tokens | Completion tokens | TASK seconds | GPU J/success interval | Peak MiB |
 |---|---|---|---|---|---|
 | R515 original | 13007 | 4348 | 62.665 | 581.900–584.677 | 7680.500 |
-| R592 compact preamble | 12751 | 3991 | 58.430 | 542.090–545.648 | 7680.500 |
+| R592 candidate | 12751 | 3991 | 58.430 | 542.090–545.648 | 7680.500 |
 
-Reported total tokens −3.532%; TASK latency including captured rewrite −6.749%; conservative GPU J/success −6.230%. A fresh controlled comparison and unseen confirmation are required before promotion. [R592 audit](experiments/R592.md).
+Changes versus stored control: total tokens -3.532%; TASK latency including captured rewrite -6.749%; conservative GPU J/success -6.230%. A fresh controlled comparison and unseen confirmation are required before any promotion. [Audit](experiments/R592.md).
 
 <details markdown="1"><summary>Scope and source hashes</summary>
 
-Exposed frozen16coding+16mocktool development; stored R515 control, one R592 B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded. Reasoning: NOT MEASURED. Captured transform CPU 0.005s; wall 0.005s. This is a local prose rewrite, not upstream Caveman. Comparison SHA256 `4d086a5aa654adef1de48bb6d32b5daec56a7696b59ce6200b4e4121e353df36`.
+Exposed frozen16coding+16mocktool development; stored R515 control, one candidate B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded. Reasoning: NOT MEASURED. Captured transform CPU 0.005s; wall 0.005s. This is a local prose rewrite, not upstream Caveman. Comparison SHA256 `4d086a5aa654adef1de48bb6d32b5daec56a7696b59ce6200b4e4121e353df36`.
+
+</details>
+
+## Frozen16 +16 development screen · R593
+
+**Rejected exact profile; not a qualified gain.** actual pinned upstream style skill. Stored R515 control: Coding 14/16, Tools 14/16; candidate: Coding 2/16, Tools 6/16.
+
+| Profile | Input tokens | Completion tokens | TASK seconds | GPU J/success interval | Peak MiB |
+|---|---|---|---|---|---|
+| R515 original | 13007 | 4348 | 62.665 | 581.900–584.677 | 7680.500 |
+| R593 candidate | 49071 | 2392 | 50.997 | 1648.474–1660.266 | 7680.500 |
+
+Changes versus stored control: total tokens +196.531%; TASK latency including captured rewrite -18.612%; conservative GPU J/success +185.318%. A fresh controlled comparison and unseen confirmation are required before any promotion. [Audit](experiments/R593.md).
+
+<details markdown="1"><summary>Scope and source hashes</summary>
+
+Exposed frozen16coding+16mocktool development; stored R515 control, one candidate B run. No fresh A/B or qualified improvement. Input+completion totals; reasoning not separately reported. Failed tasks included in energy numerator; load/warmup and CPU energy excluded. Reasoning: NOT MEASURED. Captured transform CPU 0.005s; wall 0.005s. This uses the original pinned Caveman instruction skill, not its model-assisted compressor or proxy. Rejection applies only to this exact tested profile. Comparison SHA256 `1e4dd8f79d2b6c654759ec2a6ea2b947676f5c075b218f229f56a1ab1c127d27`.
 
 </details>
 
@@ -224,7 +241,7 @@ The pinned Caveman default JSON-elision route found no eligible long array in th
 
 Frozen next-goal reference: `jarvis-minimal-harness-reference-20261027-v1` · SHA256 `a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b`. Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.
 
-Original source-plan SHA256: `8452485508c8dcadb2036ecc52c4b16c3a16639605aeedb256d2f1a6a58ea9ee`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
+Original source-plan SHA256: `e673d0f8870eb0af4c69b0f81623b7ffdde2d28631c940c5b03f1c111c8d3c3a`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
 
 </details>
 

@@ -25256,5 +25256,19 @@
       "decision": "PROMISING_REQUIRES_FRESH_AB_AND_UNSEEN_CONFIRMATION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-6865989700e62a3f4a18",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R593",
+    "model": null,
+    "reference_A0": null,
+    "statements": {
+      "decision": "REJECT_OBSERVED_CATEGORY_OR_TOOL_CASE_REGRESSION"
+    },
+    "winner_qualified": false
   }
 ]
