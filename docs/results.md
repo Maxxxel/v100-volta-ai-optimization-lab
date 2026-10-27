@@ -519,6 +519,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R596](experiments/R596.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R597](experiments/R597.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R598](experiments/R598.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R599](experiments/R599.md) | A03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B · bartowski Q6 |
 
 
 ## Historical signed windows

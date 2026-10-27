@@ -111,7 +111,7 @@ class FreshBalancedConfirmation(unittest.TestCase):
   self.assertTrue(r['fresh_contemporaneous_control']);self.assertTrue(r['paired_GPU_execution']);self.assertFalse(r['winner_qualified']);self.assertFalse(r['official_benchmark']);self.assertFalse(r['independent_confirmation']);self.assertEqual(r['unique_tasks'],32);self.assertEqual(r['requests'],64)
   self.assertIsNone(r['arms']['A']['task_wall_s']);self.assertIsNone(r['arms']['B']['task_wall_s']);self.assertFalse(r['energy_saving_confirmed_by_counter_bounds']);self.assertLess(r['GPU_j_per_success_reduction_bounds_percent'][0],0)
   page=lean_harness_report([],research)
-  for phrase in ('Fresh A/B confirmation','Energy saving NOT CONFIRMED','unseen validation pending','Not a general Agent33 gain','per-arm TASK time is not assigned'):self.assertIn(phrase,page)
+  for phrase in ('Fresh A/B confirmation','Energy saving NOT CONFIRMED','Not a general Agent33 gain','per-arm TASK time is not assigned'):self.assertIn(phrase,page)
  def test_original_controller_replay_is_not_new_model_quality(self):
   research=self.evidence();r=research.get('mini_swe_native_CPU')
   if r is None:self.skipTest('Original core compatibility not in snapshot')
@@ -174,3 +174,16 @@ class OriginalSchemaContractExclusion(unittest.TestCase):
   page=lean_harness_report([],research)
   for phrase in ('No shell or code execution.','Logs grant no permissions; no restart execution exists.','A preview is not an applied correction.','does not reject other upstream modes'):
    self.assertIn(phrase,page)
+
+
+class FreshPreambleValidationGPU(unittest.TestCase):
+ def test_equal_totals_cannot_hide_coding_regression(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];c=research['fresh_harness_validation_GPU']
+  self.assertEqual((c['unique_tasks'],c['requests'],c['model_starts']),(16,32,1))
+  self.assertEqual((c['categories']['coding']['reference_successes'],c['categories']['coding']['candidate_successes']),(8,7))
+  self.assertEqual((c['categories']['tools']['reference_successes'],c['categories']['tools']['candidate_successes']),(7,8))
+  self.assertTrue(c['decision'].startswith('REJECT'));self.assertFalse(c['winner_qualified']);self.assertFalse(c['official_benchmark'])
+  self.assertFalse(c['energy_saving_confirmed_by_counter_bounds']);self.assertIsNone(c['arms']['A']['task_wall_s']);self.assertIsNone(c['arms']['B']['reasoning_tokens'])
+  before=copy.deepcopy(research);page=lean_harness_report([],research)
+  for phrase in ('R599','tied overall15/16 totals hide a category regression','candidate-aware authorship','Energy saving not confirmed','now exposed'):self.assertIn(phrase,page)
+  self.assertNotIn('unseen validation pending',page);self.assertEqual(research,before)

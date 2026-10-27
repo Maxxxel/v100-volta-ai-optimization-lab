@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1859,
+    "ledger_events": 1860,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 515
+    "sprint_records": 516
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -558,6 +558,76 @@
       "shared_unallocated_TASK_overhead_s": 0.03423546899999508,
       "token_reduction_percent": 3.5321233074042113,
       "unique_tasks": 32,
+      "winner_qualified": false
+    },
+    "fresh_harness_validation_GPU": {
+      "GPU_j_per_success_reduction_bounds_percent": [
+        -7.06299583948562,
+        22.261458715195015
+      ],
+      "arms": {
+        "A": {
+          "GPU_j_per_success_lower": 406.2638666666666,
+          "GPU_j_per_success_upper": 477.0124666666667,
+          "completed": 16,
+          "completion_tokens": 1707,
+          "input_tokens": 6703,
+          "model_calls_completed": 16,
+          "peak_device_vram_mib": 7680.5,
+          "reasoning_tokens": null,
+          "response_wall_s": 25.470922573,
+          "successes": 15,
+          "task_wall_s": null,
+          "total_tokens": 8410
+        },
+        "B": {
+          "GPU_j_per_success_lower": 370.8225333333333,
+          "GPU_j_per_success_upper": 434.95826666666665,
+          "completed": 16,
+          "completion_tokens": 1519,
+          "input_tokens": 6575,
+          "model_calls_completed": 16,
+          "peak_device_vram_mib": 7680.5,
+          "reasoning_tokens": null,
+          "response_wall_s": 23.012726418,
+          "successes": 15,
+          "task_wall_s": null,
+          "total_tokens": 8094
+        }
+      },
+      "at_utc": "2026-10-27T20:38:23.202398+00:00",
+      "audit_sha256": "5f6d11cb9c91abb81ebf0bf74f0e490aef96e856667718033b83c888df1969f0",
+      "categories": {
+        "coding": {
+          "candidate_successes": 7,
+          "gained": 0,
+          "lost": 1,
+          "reference_successes": 8
+        },
+        "tools": {
+          "candidate_successes": 8,
+          "gained": 1,
+          "lost": 0,
+          "reference_successes": 7
+        }
+      },
+      "comparison_sha256": "a6e580cfa367fef88df9f15b1262ec9ef20f35ff827e66e14336895ea98e74cd",
+      "context": 8192,
+      "decision": "REJECT_OBSERVED_QUALITY_OR_TOOL_CASE_REGRESSION",
+      "energy_saving_confirmed_by_counter_bounds": false,
+      "experiment_id": "R599",
+      "independent_review_sha256": "c5c1620ecda784559b15d20459893ff93f6b6f21e8c8106cd2635e1694eb0de6",
+      "manifest_sha256": "8f2504d626c3abacf1649a757975524af7d10cc8f8bfa491886edcd94dcf927f",
+      "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+      "model_starts": 1,
+      "official_benchmark": false,
+      "request_latency_reduction_percent": 9.650989860908165,
+      "requests": 32,
+      "scope": "New8 coding+8 mock-tool instances,32 balanced requests; candidate-aware authorship, no blinded or population-independence claim. One unchanged resident model. Per-arm latency sums request intervals, not full TASK time. GPU-energy intervals are query-timing bounds, not confidence intervals. No official benchmark or adoption.",
+      "shared_TASK_phase_s": 48.500408027,
+      "shared_unallocated_TASK_overhead_s": 0.01675903599999984,
+      "token_reduction_percent": 3.757431629013075,
+      "unique_tasks": 16,
       "winner_qualified": false
     },
     "fresh_harness_validation_reserve": {
@@ -1168,11 +1238,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "5559b2f461e9c80723945910cb8e7ffd564cd59c400a59307fdd1af924628a9a",
+    "BENCHMARK_REFERENCES.json": "f7b133ad60ea296a5bc8838f0e8a3853f5bc88676b683bf043cdbc11c016b0d3",
     "BENCHMARK_REGISTER.json": "7a1e2de9cfb98444a778ebe9c5b5ddd15b98ffc43c95c4001bf0a316ac0e929b",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "764ce1e8cacf61de93933099935754dda89fe4fc5d782fd0bf529d687f4a975e",
+    "O2_EXPERIMENTS.jsonl": "9090c380b975db9a59e9bc95daef9f9ea3c9d6be10fb4a0dc5d9c0ba5a806aec",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

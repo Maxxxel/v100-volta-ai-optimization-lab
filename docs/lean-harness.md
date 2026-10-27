@@ -238,7 +238,7 @@ Exposed frozen16coding+16mocktool development; stored R515 control, one candidat
 
 ## Fresh A/B confirmation · R594
 
-**Development-only latency advantage; unseen validation pending.** 32 unique exposed tasks, 64 requests, 1 resident model. A: Coding 14/16, Tools 14/16; B: Coding 14/16, Tools 14/16; no changed task judgments.
+**Historical development candidate; subsequent R599 fresh validation rejected adoption.** 32 unique exposed tasks, 64 requests, 1 resident model. A: Coding 14/16, Tools 14/16; B: Coding 14/16, Tools 14/16; no changed task judgments.
 
 | Arm | Reported tokens | Request E2E seconds | GPU J/success interval |
 |---|---|---|---|
@@ -299,6 +299,23 @@ The full original proxy at `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4` was built 
 <details markdown="1"><summary>TOON · critical-data CPU controls</summary>
 
 10 synthetic fixtures actually encoded and decoded with unchanged critical values; 3 ambiguous/invalid inputs rejected. Permissions, commands, numeric lexemes, provenance, errors and ordered data covered. This is structural preservation, not proof of LLM understanding. Evidence `78aa32d0f8e3c033b381913325e406953de8b1aa86152ba09c601b0a25e56dce`.
+
+</details>
+
+## R599 · fresh preamble validation: rejected
+
+The unchanged R594 candidate lost one coding case. Retain the minimal reference; the tied overall15/16 totals hide a category regression. [R599 audit](experiments/R599.md).
+
+| Arm | Coding | Tools | Input + output tokens | Request E2E seconds | GPU J/success bounds |
+|---|---|---|---|---|---|
+| A · original | 8/8 | 7/8 | 8410 | 25.471 | 406.264–477.012 |
+| B · short preamble | 7/8 | 8/8 | 8094 | 23.013 | 370.823–434.958 |
+
+Tokens −3.757%; request E2E −9.651%. **Energy saving not confirmed. No adoption.**
+
+<details markdown="1"><summary>Fresh-case design, timing and evidence</summary>
+
+New8 coding+8 mock-tool instances,32 balanced requests; candidate-aware authorship, no blinded or population-independence claim. One unchanged resident model. Per-arm latency sums request intervals, not full TASK time. GPU-energy intervals are query-timing bounds, not confidence intervals. No official benchmark or adoption. Shared TASK 48.500s /1200s; peak VRAM 7680.500 MiB. Reasoning tokens and per-arm full TASK time: NOT MEASURED. All32 responses independently replayed. Audit SHA256 `5f6d11cb9c91abb81ebf0bf74f0e490aef96e856667718033b83c888df1969f0`; comparison SHA256 `a6e580cfa367fef88df9f15b1262ec9ef20f35ff827e66e14336895ea98e74cd`. These cases are now exposed and must not be reused as unseen validation.
 
 </details>
 
