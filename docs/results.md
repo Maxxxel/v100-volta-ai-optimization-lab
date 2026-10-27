@@ -486,6 +486,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R561](experiments/R561.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Devstral-Small-2-24B-Instruct-2512 |
 | [R562](experiments/R562.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nemotron-3-Nano-30B-A3B |
 | [R563](experiments/R563.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Devstral-Small-2-24B-Instruct-2512 |
+| [R564](experiments/R564.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-8B-Instruct-2512 |
 
 
 ## Historical signed windows

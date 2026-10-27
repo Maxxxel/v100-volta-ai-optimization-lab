@@ -811,6 +811,29 @@ test('Slopus tools146/200 retains complete category qualification, exact counter
 });
 
 
+test('R560 official scorer view preserves preliminary127 and one actual inference identity',()=>{
+ const original=data.history.runs.find(r=>r.experiment_id==='R560'&&r.solved===127);
+ const corrected=data.history.runs.find(r=>r.experiment_id==='R560'&&r.scoring_view_of_run_id===original.run_id);
+ assert(original&&!original.official_eligible);assert(corrected&&corrected.official_eligible);
+ assert.equal(corrected.solved,128);assert.equal(corrected.tasks,164);assert.equal(corrected.same_GPU_measurement,true);assert.equal(corrected.additional_GPU_runs,0);
+ assert.equal(corrected.runtime_configuration_id,original.runtime_configuration_id);assert.equal(corrected.model_artifact_id,original.model_artifact_id);
+ const v=M.comparisonView(M.build(data)),row=v.rows.find(x=>x.runs.some(r=>r.run_id===corrected.run_id));assert(row);
+ const mean=M.availableAverage(row,{allMeasured:true},v.benchmarkMap);
+ assert.equal(mean.count,2);assert.equal(mean.total,3);assert(Math.abs(mean.score-(100*128/164+100*153/200)/2)<1e-9);
+ assert.equal(M.performanceSummary(row,mean.keys,v.benchmarkMap).tasks,364);
+});
+
+test('Devstral and Ministral counter bounds retain all tasks without replacing missing integrals',()=>{
+ for(const [experiment,solved] of [['R563',175],['R564',153]]){
+  const r=data.history.runs.find(r=>r.experiment_id===experiment&&r.counter_energy);assert(r&&r.official_eligible);
+  assert.equal(r.tasks,200);assert.equal(r.solved,solved);assert.equal(r.gpu_j,null);
+  assert.equal(r.counter_energy.solved,solved);assert.equal(r.counter_energy.tasks,200);
+  assert.equal(r.counter_energy.j_per_success_lower,r.counter_energy.lower_j/solved);
+  assert.equal(r.counter_energy.j_per_success_upper,r.counter_energy.upper_j/solved);
+  assert(r.counter_energy.upper_j>=r.counter_energy.lower_j);
+ }
+});
+
 test('offline browser bundle retains exact canonical history and every public UI-register value',()=>{
  const history=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/configuration-history.json'),'utf8'));
  const register=JSON.parse(fs.readFileSync(path.join(__dirname,'../data/benchmark-register.json'),'utf8'));

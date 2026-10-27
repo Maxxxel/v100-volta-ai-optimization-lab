@@ -28290,6 +28290,18 @@
       "proof_path": "staging/r563/OFFICIAL_CATEGORY_QUALIFICATION.json",
       "proof_sha256": "5b06c32cab2302f569d7ea58e17fea233e64c06fd0e16d22aea7a0bb582937bf",
       "source_audit_hash": "ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25"
+    },
+    {
+      "evaluated_task_set_hash": "cc7377147a38ea139e77745d18fcc35c267dd192d4b99c89d8a4e653ef4d39d5",
+      "proof_path": "staging/r560/official-api-reconciliation/OFFICIAL_API_QUALIFICATION.json",
+      "proof_sha256": "0a167640b299bb4c6ba4258d67f8abc64f6c3dff198d99f47c03782558869f86",
+      "source_audit_hash": "01eaca349138ef7240ea329d436e804199076a06146bb0c2a07d14165d7edd65"
+    },
+    {
+      "evaluated_task_set_hash": "8bf603cd74927e071664bcd4594c0738616480c9da7c0e86999d112a9646da59",
+      "proof_path": "staging/r564/OFFICIAL_CATEGORY_QUALIFICATION.json",
+      "proof_sha256": "1b6d8369146e38110962d44502ee84aa98056ec6af9d8dbfce093f697b140a19",
+      "source_audit_hash": "4d22f666c8ef08dfb171a3df041d481d35aeaa8016713fabfc2eafa2fbdcdde8"
     }
   ],
   "paired_coding_reviews": [

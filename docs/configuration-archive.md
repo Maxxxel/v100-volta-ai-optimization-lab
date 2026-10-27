@@ -278,5 +278,4 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | OmniCoder Opus Distill 9B | [cfg-377170b50200a0a9](configuration-profiles/cfg-377170b50200a0a9f667e68998ed08155cb77536a9c39f1888d0b56f9f3cd0be.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Qwen3.6 27B | [cfg-22ddad19e7c5ae6c](configuration-profiles/cfg-22ddad19e7c5ae6c80fc0c4116156b827125813bdf4fd91f2b04dd13a56f68f1.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 | Qwen3.8 27B | [cfg-a5de568e5c658767](configuration-profiles/cfg-a5de568e5c658767b28ed3b9574061177fee4798eb6577ed8fc54d57b7dbac34.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
-| Ministral-3-8B-Instruct-2512 | [cfg-92734cfdedb36909](configuration-profiles/cfg-92734cfdedb369098e421a37a3aff7c190e81601aa6817e0e10fc40ccbca5fd7.md) | Measured only outside the three selected category benchmarks; original scores and audits retained |
 

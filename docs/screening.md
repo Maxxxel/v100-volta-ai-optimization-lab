@@ -4664,7 +4664,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Ministral-3-8B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>10/16 · 62.5%</td><td>33.6</td><td>63.3</td><td>253.3</td><td>10,014.5</td><td>NOT MEASURED</td><td><a href="../experiments/R554/">Screening R554</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Ministral-3-8B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>13/16 · 81.2%</td><td>10/16 · 62.5%</td><td>33.6</td><td>63.3</td><td>253.3</td><td>10,014.5</td><td><a href="../experiments/R564/">R564</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R554/">Screening R554</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;17e2267cff8b807c9dc3d7c3973a52143683f4426366b679ef5910cfa733c277&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -4873,8 +4873,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T21:46:10.011396+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R554&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;4d22f666c8ef08dfb171a3df041d481d35aeaa8016713fabfc2eafa2fbdcdde8&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R564&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-8937544e4bc4a7dc2a75b731020d4edf4231f7a7ce0e284c4317ad4f72be5468&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;0aae0f7784ca06be3c7b2d37deceb90d415401e20fb6a680ddb29c53a0e82747&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;Ministral-3-8B-Instruct-2512&quot;,
@@ -5185,7 +5193,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Devstral-Small-2-24B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>83.6</td><td>31.7</td><td>968.2</td><td>13,156.5</td><td><a href="../experiments/R563/">R563</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R556/">Screening R556</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Devstral-Small-2-24B-Instruct-2512</td><td>SCREENING VOLLSTÄNDIG</td><td>11/16 · 68.8%</td><td>11/16 · 68.8%</td><td>83.6</td><td>31.7</td><td>968.2</td><td>13,156.5</td><td><a href="../experiments/R563/">R563</a> · <a href="../experiments/R563/">R563</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R556/">Screening R556</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;5b7734361d1120822199865eceb6ab03b701ffbc9916205d803fd74072ebbc81&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -5401,6 +5409,13 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R556&quot;,
   &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R563&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-5d59e62efe5c500f8a34ca6578b6731d2a869f7214627437e9b4e065b3c9cddd&quot;
+    },
     {
       &quot;audit_hash&quot;: &quot;ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25&quot;,
       &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,

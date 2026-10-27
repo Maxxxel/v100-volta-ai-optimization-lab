@@ -178461,6 +178461,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4d22f666c8ef08dfb171",
+    "original_bytes": 5117,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4d22f666c8ef08dfb171a3df041d481d35aeaa8016713fabfc2eafa2fbdcdde8",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category for the unchanged Ministral3-8B-Instruct-2512 Q8_0 profile screened in R554. R560 completed164 coding responses; its preliminary127 and official API128 twice remain explicitly reconciled pending score-view admission. This tools qualification uses the valid original GPU capture, not a claim of completed coding admission. Preserve weights, engine, native template, T0.15/p1/k0/min0, context8192/output4096, caches, batches and hardware limits; add only native auto parallel tool-dispatch. One1200s TASK phase, startup180s, no retries or tuning; no full-BFCL overall, causal optimization or Champion claim.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -259492,6 +259514,35 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0,
+      "solved": 128,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-01eaca349138ef7240ea",
+    "original_bytes": 2927,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "01eaca349138ef7240ea329d436e804199076a06146bb0c2a07d14165d7edd65",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 128,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0a167640b299bb4c6ba4",
+    "original_bytes": 8327,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0a167640b299bb4c6ba4258d67f8abc64f6c3dff198d99f47c03782558869f86",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "model_starts": 1,
       "peak_device_vram_mib": 13148.5
     },
@@ -259522,6 +259573,21 @@
     "original_publicly_available": false,
     "original_sha256": "cc387c4f5d7efb04980ef5057d7e3b9599265bdd5e6996eb2322751da07a3a02",
     "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-355ee871b6a083762f23",
+    "original_bytes": 6071,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "355ee871b6a083762f23b8fe32df22ec404fadf5989289e98a0dac4c86fb92f8",
+    "statements": {
+      "scope": "Existing reviewed NVML cumulative-counter bounds over the complete request group, including failed tasks and intervening setup. Excludes loading, warmups, CPU/system energy. No interpolation, additional GPU test, replacement of the unavailable power integral, confidence interval or causal cross-model efficiency claim."
+    }
   },
   {
     "aggregate_metrics": {
@@ -259557,6 +259623,21 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-05de536492cca46d9b03",
+    "original_bytes": 8460,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "05de536492cca46d9b03ef10680175becd390a13eacb4f351605e89b151336e8",
+    "statements": {
+      "scope": "Existing reviewed NVML cumulative-counter bounds over the complete request group, including failed tasks and intervening setup. Excludes loading, warmups, CPU/system energy. No interpolation, additional GPU test, replacement of the unavailable power integral, confidence interval or causal cross-model efficiency claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "solved": 175,
       "tasks": 200
     },
@@ -259567,6 +259648,53 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "5b06c32cab2302f569d7ea58e17fea233e64c06fd0e16d22aea7a0bb582937bf",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 10016.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-de6ca10661ade5a2b769",
+    "original_bytes": 178219,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "de6ca10661ade5a2b76946edf38e5650fa93298f552cca5dad8bbaee75ad30b3",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3e2bb0e50d2f5a028bf9",
+    "original_bytes": 8414,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3e2bb0e50d2f5a028bf96a17e5ec40e6a3a8b8d5728e7abbd23465b1ea7ab38f",
+    "statements": {
+      "scope": "Existing NVML cumulative-counter bounds over all completed requests including failures and inter-request setup. No interpolation or replacement of unavailable power integral. Loading/warmups/CPU/system energy excluded; not confidence intervals or causal cross-model efficiency."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 153,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1b6d8369146e38110962",
+    "original_bytes": 10376,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1b6d8369146e38110962d44502ee84aa98056ec6af9d8dbfce093f697b140a19",
     "statements": {}
   },
   {
@@ -260338,6 +260466,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "abc15a00787fd8808e63f606f0991b9d8fad411eace57eb6b80ac1fa2483c908",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-a98a3e6f154255bd8887",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a98a3e6f154255bd88876f14248b79bf4550e1e862a650c8be874677d531bb10",
     "statements": {}
   },
   {
