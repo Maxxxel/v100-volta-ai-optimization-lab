@@ -178383,6 +178383,21 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-dcac3128b693df8ad89c",
+    "original_bytes": 3044,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "dcac3128b693df8ad89c8a4d9d617823c39db28a48ba99c0ea961b6d5b9008a7",
+    "statements": {
+      "decision": "Preserve every original127/128 report. Admit a separate, explicitly reconciled official128 score view only after provenance/qualifier/export checks; do not silently overwrite preliminary audit or weaken existing qualification gates."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "model_starts": 1,
       "peak_device_vram_mib": 12496.5
     },
@@ -178395,6 +178410,31 @@
     "original_sha256": "81837386f89742d8420461bf1d81fe91cad5a8acccc3034d08f89ad8d83e24b7",
     "statements": {
       "decision": "TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13148.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 122,
+          "tasks": 164,
+          "wall_s": 916.422667932
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cfc55970bdb39de19a82",
+    "original_bytes": 11293,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cfc55970bdb39de19a82023241a23cd871dba0395d143c9f7cf4fd7d8b778cca",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R556 Devstral Small2 24B Q3_K_M native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
     }
   },
   {
@@ -259429,6 +259469,53 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13148.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-70ad9e4f0b2c26591893",
+    "original_bytes": 143827,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "70ad9e4f0b2c26591893295c72aea38ba47ba0a7597c2719c77a12e18154c36c",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 122,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cc387c4f5d7efb04980e",
+    "original_bytes": 3653,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cc387c4f5d7efb04980ef5057d7e3b9599265bdd5e6996eb2322751da07a3a02",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 122,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1aa6002217d343038adf",
+    "original_bytes": 7978,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1aa6002217d343038adfca7a794d4ac9b21721e31ca38a3ec0263a5e3693f66a",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -259828,6 +259915,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "3de468fe73193dd6faa10bf982d9b022be06f1018d587b50399e03f1a88efd55",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-313c59edea3aff70ecbf",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "313c59edea3aff70ecbf96375e5ed3f9ee40ce6269be66acd01992a29bcc49cb",
     "statements": {}
   },
   {

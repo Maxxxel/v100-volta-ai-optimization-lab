@@ -483,6 +483,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R558](experiments/R558.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R559](experiments/R559.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | gpt-oss-20b |
 | [R560](experiments/R560.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Ministral-3-8B-Instruct-2512 |
+| [R561](experiments/R561.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Devstral-Small-2-24B-Instruct-2512 |
 | [R562](experiments/R562.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nemotron-3-Nano-30B-A3B |
 
 

@@ -1,12 +1,13 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-26T23:56:58.897863+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T00:16:43.360028+00:00. This static page is not a live monitor.**
 
-Last observed: R561 · GPU_CONTROL_ACTIVE.
+Last observed: R561 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
 | [R562](experiments/R562.md) | FAILED | 0/32 | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R561](experiments/R561.md) | COMPLETE | 164/164 | 117.596 | 916.541 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R560](experiments/R560.md) | COMPLETE | 164/164 | 109.266 | 424.707 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R559](experiments/R559.md) | FAILED | 0/164 | 148.338 | NOT MEASURED | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R558](experiments/R558.md) | COMPLETE | 32/32 | 145.753 | 620.833 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
@@ -243,6 +244,9 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R560 | collect | FAILED | 64.798 |
 | R560 | export | FAILED | 36.793 |
 | R560 | export | FAILED | 32.333 |
+| R561 | collect | COMPLETE | 39.836 |
+| R561 | independent_review | COMPLETE | 0.034 |
+| R561 | integrity | COMPLETE | 0.035 |
 
 </details>
 

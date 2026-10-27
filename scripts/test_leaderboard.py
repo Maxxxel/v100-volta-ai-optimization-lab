@@ -482,6 +482,12 @@ class OfflinePayloadTests(unittest.TestCase):
   from leaderboard import offline_payload
   data={'sentinel':'__V100_POOL_0__42 and ~v0:42 and ~v0:X42','repeated':['long existing artifact identity '+('a'*128)]*100}
   source=offline_payload(data,0);self.assertEqual(self.decode(source),data)
+ def test_repeated_medium_field_names_are_losslessly_interned(self):
+  from leaderboard import offline_payload
+  data={'rows':[{'runtime_configuration':None,'measurement_status':'NOT MEASURED'} for _ in range(100)]}
+  source=offline_payload(data,0)
+  self.assertEqual(self.decode(source),data)
+  self.assertLess(len(source),len(offline_payload(data,10**9)))
  def test_nonfinite_numbers_are_rejected_before_publication(self):
   from leaderboard import offline_payload
   for value in [float('nan'),float('inf'),-float('inf')]:

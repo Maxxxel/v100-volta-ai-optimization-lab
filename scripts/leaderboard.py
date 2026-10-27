@@ -40,7 +40,9 @@ def offline_payload(payload, minimum_bytes=2900000):
  if len(plain.encode())<minimum_bytes:return plain
  token=re.compile(r'"(?:\\.|[^"\\])*"')
  counts=collections.Counter(m.group(0) for m in token.finditer(raw))
- pool=sorted(t for t,n in counts.items() if n>1 and len(t)>=32)
+ # Repeated medium-sized field names also dominate growing histories. Intern
+ # only tokens whose conservative reference/pool cost is below duplication.
+ pool=sorted(t for t,n in counts.items() if len(t)>=16 and (n-1)*len(t)>n*16+8)
  if not pool:return plain
  prefix='~v0:'
  while prefix in raw:prefix+='X'
