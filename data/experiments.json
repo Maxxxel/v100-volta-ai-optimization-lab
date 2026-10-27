@@ -24420,5 +24420,20 @@
       "scope": "Full original164 HumanEval+ qualification of unchanged R514 Qwen3.5-0.8B Q8_0 native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 53,
+      "tasks": 66
+    },
+    "audit_id": "audit-8179bfd4929577c089fc",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R586",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]
