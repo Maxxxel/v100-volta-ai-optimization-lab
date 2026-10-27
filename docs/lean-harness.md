@@ -205,6 +205,29 @@ Exposed frozen16coding+16mocktool development; stored R515 control, one candidat
 
 </details>
 
+## Fresh A/B confirmation · R594
+
+**Development-only latency advantage; unseen validation pending.** 32 unique exposed tasks, 64 requests, 1 resident model. A: Coding 14/16, Tools 14/16; B: Coding 14/16, Tools 14/16; no changed task judgments.
+
+| Arm | Reported tokens | Request E2E seconds | GPU J/success interval |
+|---|---|---|---|
+| A · original | 17355 | 62.727 | 561.028–636.104 |
+| B · compact | 16742 | 58.113 | 508.632–581.846 |
+
+Compact instruction variant: -7.355% summed request latency, -3.532% input+completion tokens. **Energy saving NOT CONFIRMED**: counter timing brackets overlap. Shared TASK 120.874s /1200s; per-arm TASK time is not assigned. [R594 audit](experiments/R594.md).
+
+<details markdown="1"><summary>Fresh-control profile, timing scope and hashes</summary>
+
+Exposed16coding+16mock-tool development; one fresh balanced A/B, same frozen Omni model/engine/native template. Per-arm latency sums request E2E intervals; joint TASK/startup/compilation are not divided. Counter brackets are not confidence intervals. Not a general Agent33 gain or official score; unseen confirmation still required. Reasoning tokens: NOT MEASURED. Native context 8192; requested output 4096; temperature 0; seed 1001. Date 2026-10-27T17:28:42.179420+00:00. Model SHA256 `a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052`; profile `55ed8246abe30e84ff5ba0a04c64826d28cdc3fd1b4ade5ff1d2acaaad7e2dd8`; comparison `59847ba57c16da2ff7e9ef5880f401a14a5ff5effbd26e4fe24ebcf03ecbb98f`. Engine release version: NOT RECORDED; [frozen model/build reference](final-selection.md).
+
+</details>
+
+<details markdown="1"><summary>Original mini-SWE core · native CPU compatibility</summary>
+
+Original version 2.4.6 at `04d809ceab9df28f9adaed044884180159172930`, native Python 3.12.3: 33 archived reference cases and 154 request callbacks reproduced, with 3 additional malformed-action/error/turn-limit controls. **Zero new GPU/model calls.** Original DefaultAgent manages native history; the frozen policy, simulator and scorer remain unchanged. This is not a stock-shell/provider benchmark. Single fixed-order CPU replay: reference 0.639s, controller 1.553s; bootstrap 0.396s. No new token/call saving or GPU-efficiency claim. Evidence SHA256 `a2d20064e82c66383d23031f95c1a3fa02dc3c98d6842c2d6c05b0b489064525`.
+
+</details>
+
 <details markdown="1"><summary>Actual upstream Caveman validator · CPU contracts</summary>
 
 Nine isolated synthetic fixtures exercised the [pinned original validator](https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/validate.py). It rejected the tested fenced-code, inline-code and heading changes. Four altered plain-prose number, negation, authority and status fixtures were accepted. This tests the validator, not generated compressor output: zero model/GPU calls and no performance conclusion. Integration requires additional deterministic protection of critical fields. Upstream Caveman remains under evaluation. Evidence SHA256 `bd95b26ab126041942504e4dbb9e00a49c0f556df655878d9f397421913a45fa`.
@@ -241,7 +264,7 @@ The pinned Caveman default JSON-elision route found no eligible long array in th
 
 Frozen next-goal reference: `jarvis-minimal-harness-reference-20261027-v1` · SHA256 `a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b`. Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.
 
-Original source-plan SHA256: `1b982200cce06356c34949b4a4cde959123bc776769747f129bbb8e2d629fceb`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
+Original source-plan SHA256: `7b5ba3f38aa8eb04e641ced59b7f258321d932221f8c47ee7f45a1df2bf839dd`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
 
 </details>
 

@@ -25280,7 +25280,9 @@
     "id": "R594",
     "model": null,
     "reference_A0": null,
-    "statements": {},
+    "statements": {
+      "decision": "CONFIRMED_DEVELOPMENT_LATENCY_CANDIDATE_REQUIRES_UNSEEN_VALIDATION"
+    },
     "winner_qualified": false
   }
 ]

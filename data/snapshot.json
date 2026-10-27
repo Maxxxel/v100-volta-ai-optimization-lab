@@ -107,7 +107,93 @@
         "scope": "Repeated captured request histories, not unique actions or a measured token/latency saving. Upstream JSON elision defaults arrayThreshold8; TOON requires separately reviewed roundtrip and model interpretation. Protected scalar strings/code/numbers are not modified."
       }
     ],
-    "canonical_plan_sha256": "1b982200cce06356c34949b4a4cde959123bc776769747f129bbb8e2d629fceb",
+    "canonical_plan_sha256": "7b5ba3f38aa8eb04e641ced59b7f258321d932221f8c47ee7f45a1df2bf839dd",
+    "confirmation64": {
+      "GPU_j_per_success_reduction_bounds_percent": [
+        -3.7107549661268946,
+        20.039535314081625
+      ],
+      "arms": {
+        "A": {
+          "GPU_j_per_success_lower": 561.0275357142857,
+          "GPU_j_per_success_upper": 636.104,
+          "completed": 32,
+          "completion_tokens": 4348,
+          "input_tokens": 13007,
+          "model_calls_completed": 32,
+          "peak_device_vram_mib": 7680.5,
+          "reasoning_tokens": null,
+          "response_wall_s": 62.726997997,
+          "successes": 28,
+          "task_wall_s": null,
+          "total_tokens": 17355
+        },
+        "B": {
+          "GPU_j_per_success_lower": 508.6317142857143,
+          "GPU_j_per_success_upper": 581.8458928571429,
+          "completed": 32,
+          "completion_tokens": 3991,
+          "input_tokens": 12751,
+          "model_calls_completed": 32,
+          "peak_device_vram_mib": 7680.5,
+          "reasoning_tokens": null,
+          "response_wall_s": 58.113169227,
+          "successes": 28,
+          "task_wall_s": null,
+          "total_tokens": 16742
+        }
+      },
+      "at_utc": "2026-10-27T17:28:42.179420+00:00",
+      "audit_sha256": "42ee9099f72f7b3df9cd8a6297b5f6f3028b1193c8c8eeaf5ebda52d9c78c49c",
+      "candidate_arm": "B",
+      "categories": {
+        "coding": {
+          "candidate_successes": 14,
+          "gained": 0,
+          "lost": 0,
+          "reference_successes": 14
+        },
+        "tools": {
+          "candidate_successes": 14,
+          "gained": 0,
+          "lost": 0,
+          "reference_successes": 14
+        }
+      },
+      "comparison_sha256": "59847ba57c16da2ff7e9ef5880f401a14a5ff5effbd26e4fe24ebcf03ecbb98f",
+      "compilation_cpu_ns": 10149655,
+      "compilation_wall_ns": 10149540,
+      "context": 8192,
+      "decision": "CONFIRMED_DEVELOPMENT_LATENCY_CANDIDATE_REQUIRES_UNSEEN_VALIDATION",
+      "energy_saving_confirmed_by_counter_bounds": false,
+      "engine_binary_sha256": "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "engine_release_version": null,
+      "experiment_id": "R594",
+      "fresh_contemporaneous_control": true,
+      "independent_confirmation": false,
+      "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+      "model_starts": 1,
+      "official_benchmark": false,
+      "paired_GPU_execution": true,
+      "profile_sha256": "55ed8246abe30e84ff5ba0a04c64826d28cdc3fd1b4ade5ff1d2acaaad7e2dd8",
+      "reference_arm": "A",
+      "request_latency_reduction_percent": 7.35541141347249,
+      "request_options": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "max_tokens": 4096,
+        "seed": 1001,
+        "temperature": 0
+      },
+      "requests": 64,
+      "scope": "Exposed16coding+16mock-tool development; one fresh balanced A/B, same frozen Omni model/engine/native template. Per-arm latency sums request E2E intervals; joint TASK/startup/compilation are not divided. Counter brackets are not confidence intervals. Not a general Agent33 gain or official score; unseen confirmation still required.",
+      "shared_TASK_phase_s": 120.874402693,
+      "shared_unallocated_TASK_overhead_s": 0.03423546899999508,
+      "token_reduction_percent": 3.5321233074042113,
+      "unique_tasks": 32,
+      "winner_qualified": false
+    },
     "frozen_reference": {
       "budgets": {
         "TASK_total_seconds": 1200,
@@ -232,6 +318,28 @@
       "status": "FROZEN_REFERENCE_RETAINED_NO_QUALIFIED_OPTIMIZED_ALTERNATIVE"
     },
     "limits": "Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.",
+    "mini_swe_native_CPU": {
+      "archived_callbacks": 154,
+      "baseline_CPU_seconds": 0.638964628,
+      "bootstrap_CPU_seconds": 0.395945724,
+      "boundary_controls": [
+        "invalid_action",
+        "transport_error",
+        "expanded_turn_cap_rejected_before_execution"
+      ],
+      "bridge_sha256": "b4bbf0021a5fad7b4c1c100780fd3f876684c64dbe01d1dd480fb995012f8994",
+      "commit": "04d809ceab9df28f9adaed044884180159172930",
+      "controller_CPU_seconds": 1.552790436,
+      "evidence_sha256": "a2d20064e82c66383d23031f95c1a3fa02dc3c98d6842c2d6c05b0b489064525",
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "package_version": "2.4.6",
+      "reference_cases": 33,
+      "runtime": "3.12.3",
+      "scope": "Original complete DefaultAgent and native context controller, unchanged frozen policy/world/scorer;33 archived R536 cases,154 requests and effects reproduced. Scripted reply replay only, not new model quality. Stock upstream shell/provider prompts are not evaluated. Fixed-order CPU timings are descriptive; no token/call reduction or GPU performance claim.",
+      "source_sha256": "e8ef8aa365942d739c2ec5cb0879f60f377d2dc2de8ec670aaedf3bafb45a4c2",
+      "status": "CPU_VERIFIED_NATIVE_INTEROPERABILITY_NOT_GPU_QUALIFIED"
+    },
     "new_factor_coverage": 0,
     "official_benchmark": false,
     "recommendation": "RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE",
@@ -518,7 +626,7 @@
         "mechanisms": [
           "go.mod declaresGo1.26.10 and dependency families including tokenizer, tree-sitter, browser, database and compression modules. Full proxy dependency/runtime validation is not performed.",
           "compression_query.go handles OpenAI-compatible messages/responses using bounded latest-human-text retrieval. This is source-level format support, not demonstrated local llama.cpp gateway compatibility.",
-          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1–4, so this specific default elision has no eligible array.",
+          "json.go default threshold8 declines when no array was collapsed; no-array elision does not claim whitespace/reordering savings. R536 retained reference histories have136 arrays, all length1\u20134, so this specific default elision has no eligible array.",
           "json_strategy.go compares TOON vs lossy elision using a token counter; its LosslessToModel label is an upstream assertion, not a local quality guarantee. A generic/default token counter must not replace our native model tokenizer.",
           "toon_encode.go supports a bounded scalar/array/object subset, preserves number lexemes and rejects duplicate object keys in its JSON reader. Tabular encoding additionally requires identical ordered scalar fields. Source checks do not establish model interpretation or tool/state quality."
         ],
@@ -577,7 +685,7 @@
         "technique": "Adaptive history compaction"
       },
       {
-        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18–4159.66 vscontrol3924.56–4014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
+        "evidence": "B-only33 vsstored R587 control:29vs28 solved;3vs4 violations overall, but2 gained/1 lost and1 new policy-failure case. Input+output307027vs301561; task wall440.647vs402.138s; candidateGPU J/success4155.18\u20134159.66 vscontrol3924.56\u20134014.95. No fresh paired run, no adoption; preregistered case-level gate failed and no efficiency gain.",
         "next": null,
         "priority": "P1",
         "scope": null,
@@ -677,7 +785,7 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "f3959a029f59f62d81f4f10d4422f5c8416d393505983f14261f0f05004f649a",
+    "BENCHMARK_REFERENCES.json": "fdf53c6d65f568f2ecb5d3fd653be63fc794115c84864209e82910e751007501",
     "BENCHMARK_REGISTER.json": "7a1e2de9cfb98444a778ebe9c5b5ddd15b98ffc43c95c4001bf0a316ac0e929b",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",

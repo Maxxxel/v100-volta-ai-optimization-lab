@@ -101,3 +101,20 @@ class OriginalSkillRejection(unittest.TestCase):
   page=lean_harness_report([],research)
   for phrase in ('Rejected exact profile','Coding 2/16','Tools 6/16','not its model-assisted compressor or proxy','only to this exact tested profile'):self.assertIn(phrase,page)
   self.assertIn('+196.531%',page)
+
+class FreshBalancedConfirmation(unittest.TestCase):
+ def evidence(self):
+  root=pathlib.Path(__file__).resolve().parents[1];return json.loads((root/'data/snapshot.json').read_text())['lean_harness_review']
+ def test_fresh_evidence_does_not_become_a_winner_or_energy_claim(self):
+  research=self.evidence();r=research.get('confirmation64')
+  if r is None:self.skipTest('Fresh64 data not in this snapshot')
+  self.assertTrue(r['fresh_contemporaneous_control']);self.assertTrue(r['paired_GPU_execution']);self.assertFalse(r['winner_qualified']);self.assertFalse(r['official_benchmark']);self.assertFalse(r['independent_confirmation']);self.assertEqual(r['unique_tasks'],32);self.assertEqual(r['requests'],64)
+  self.assertIsNone(r['arms']['A']['task_wall_s']);self.assertIsNone(r['arms']['B']['task_wall_s']);self.assertFalse(r['energy_saving_confirmed_by_counter_bounds']);self.assertLess(r['GPU_j_per_success_reduction_bounds_percent'][0],0)
+  page=lean_harness_report([],research)
+  for phrase in ('Fresh A/B confirmation','Energy saving NOT CONFIRMED','unseen validation pending','Not a general Agent33 gain','per-arm TASK time is not assigned'):self.assertIn(phrase,page)
+ def test_original_controller_replay_is_not_new_model_quality(self):
+  research=self.evidence();r=research.get('mini_swe_native_CPU')
+  if r is None:self.skipTest('Original core compatibility not in snapshot')
+  self.assertEqual(r['new_GPU_runs'],0);self.assertEqual(r['new_model_calls'],0);self.assertEqual(r['reference_cases'],33);self.assertEqual(r['archived_callbacks'],154)
+  page=lean_harness_report([],research)
+  for phrase in ('Zero new GPU/model calls','not a stock-shell/provider benchmark','No new token/call saving or GPU-efficiency claim'):self.assertIn(phrase,page)
