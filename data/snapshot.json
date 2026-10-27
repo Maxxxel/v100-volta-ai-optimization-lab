@@ -107,7 +107,7 @@
         "scope": "Repeated captured request histories, not unique actions or a measured token/latency saving. Upstream JSON elision defaults arrayThreshold8; TOON requires separately reviewed roundtrip and model interpretation. Protected scalar strings/code/numbers are not modified."
       }
     ],
-    "canonical_plan_sha256": "e673d0f8870eb0af4c69b0f81623b7ffdde2d28631c940c5b03f1c111c8d3c3a",
+    "canonical_plan_sha256": "84b9752d55bc8b45e4a0b09b2ccaa61aeabe45e625614290e74417d96cd07007",
     "frozen_reference": {
       "budgets": {
         "TASK_total_seconds": 1200,
