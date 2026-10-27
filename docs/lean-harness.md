@@ -331,6 +331,16 @@ The full original proxy at `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4` was built 
 
 </details>
 
+<details markdown="1"><summary>Original proxy compress · recovery/accounting gate</summary>
+
+Original `compress` mode forwarded **154/154 archived requests byte-identically** in the default local fixture. An isolated synthetic API-key-header control changed all154 tool catalogs, adding `caveman_retrieve`, but changed **zero model messages**. The429 control forwarded twice: modified request, then original-byte retry. Unauthorized traffic remained blocked. These are CPU protocol observations, **zero new model/GPU calls**, not compression scores or a benchmark.
+
+**Deferred for the frozen profile:** the extra recovery tool and backend retries need an explicit harness contract and complete actual-generation accounting. Do not repeat pass-through on the GPU as a compression optimization. This does not reject other eligible workloads or configurations.
+
+Reopen after: demonstrated useful message compression, reviewed deterministic read-only recovery, every upstream call bounded by the existing TASK/request limits, and exact broker admission. No production credentials or policies changed. Source `JuliusBrussee/caveman@9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; evidence SHA256 `c447bb05ccd668c13284edf3424f1ba9631c053e175dd6e1602abc90c33fa9c4`.
+
+</details>
+
 ## R599 · fresh preamble validation: rejected
 
 The unchanged R594 candidate lost one coding case. Retain the minimal reference; the tied overall15/16 totals hide a category regression. [R599 audit](experiments/R599.md).

@@ -208,3 +208,13 @@ class OriginalNodeShrinkMeasuredEvidence(unittest.TestCase):
   page=lean_harness_report([row]);self.assertIn('original Caveman Node shrink',page);self.assertIn('distinct from the rejected Go toolschema default',page);self.assertIn('no fresh paired GPU comparison',page);self.assertIn('do not add twice',page)
   self.assertEqual(len(r['upstream_Node_source']['artifacts']),3)
   wrapper=r['request_wrapper_source'];self.assertEqual(wrapper['license'],'MIT');self.assertEqual(__import__('hashlib').sha256((root/'docs'/wrapper['file']).read_bytes()).hexdigest(),wrapper['sha256'])
+
+
+class OriginalProxyCompressionPolicyGate(unittest.TestCase):
+ def test_cpu_contract_change_never_becomes_a_compression_score(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];c=research['caveman_proxy_compress_CPU']
+  self.assertEqual((c['archived_request_count'],c['base_byte_identical'],c['policy_changed_catalogs'],c['policy_changed_messages']),(154,154,154,0));self.assertEqual(c['429_forwarded_attempts'],2);self.assertEqual(c['unauthorized_forwarded'],0)
+  self.assertEqual(c['new_GPU_runs'],0);self.assertEqual(c['new_model_calls'],0);self.assertFalse(c['native_quality_measured']);self.assertFalse(c['native_token_benefit_measured'])
+  before=copy.deepcopy(research);page=lean_harness_report([],research)
+  for text in ('recovery/accounting gate','154/154 archived requests byte-identically','zero model messages','modified request, then original-byte retry','Deferred for the frozen profile','does not reject other eligible workloads'):self.assertIn(text,page)
+  self.assertEqual(research,before)

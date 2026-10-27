@@ -238,6 +238,32 @@
       "scope": "Lab adapter attempted a host-only dataset read inside the restricted jail before model launch. No model/Caveman quality or performance measurement. Failed attempt preserved; corrected implementation has separate source review and identity.",
       "status": "BLOCKED_BEFORE_MODEL_START_NO_TASK_PHASE"
     },
+    "caveman_proxy_compress_CPU": {
+      "429_forwarded_attempts": 2,
+      "added_tool": "caveman_retrieve",
+      "archived_request_count": 154,
+      "base_byte_identical": 154,
+      "base_control_sha256": "046120087dc1f874ef3970dc5fd08bce3a4dac918f9ac0cbdae305c0268980b5",
+      "binary_sha256": "1c77f78b68ea4e37994860210f69f64a604c755d240770f424d4aafd1438cebd",
+      "conditions_for_reopening": [
+        "Demonstrate a meaningful eligible message transformation on an appropriate frozen workload, beyond adding a recovery tool.",
+        "Review deterministic read-only recovery handling and its tool schema as an explicit new harness profile; retain original frozen profile.",
+        "Count and bound every actual backend generation, including recovery and original-byte fallback retries, within the existing1200s TASK and approved ceilings.",
+        "Repeat source/protocol/safety gates and seek normal broker admission for the exact new profile; no production credential/policy changes."
+      ],
+      "evidence_sha256": "c447bb05ccd668c13284edf3424f1ba9631c053e175dd6e1602abc90c33fa9c4",
+      "native_quality_measured": false,
+      "native_token_benefit_measured": false,
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "policy_changed_catalogs": 154,
+      "policy_changed_messages": 0,
+      "policy_control_sha256": "0fe56458b24247369a58409a4967049243948f82c63656c987f4a6db7ef518fc",
+      "scope": "Same154 archived native request bodies, original upstream binary, isolated CPU-only synthetic HTTP endpoints. A synthetic API-key header is the single classification control, not a production credential or policy change. No MCP service. Default mode passes through; recovery path adds a tool and can retry. No native model-quality, token, latency or energy result; no broad engine/model incompatibility claim.",
+      "status": "DEFERRED_EXACT_FROZEN_PROFILE_RECOVERY_AND_UPSTREAM_ACCOUNTING_REQUIRED",
+      "unauthorized_forwarded": 0,
+      "upstream_commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4"
+    },
     "caveman_proxy_record_CPU": {
       "at_utc": "2026-10-27T17:54:47.554511+00:00",
       "binary_sha256": "1c77f78b68ea4e37994860210f69f64a604c755d240770f424d4aafd1438cebd",
