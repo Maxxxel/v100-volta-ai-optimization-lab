@@ -1,6 +1,6 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T11:59:40.864865+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T12:17:12.998631+00:00. This static page is not a live monitor.**
 
 Last observed: R586 · AUDITED_RESULT_AVAILABLE.
 
@@ -393,6 +393,15 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R585 | security | COMPLETE | 12.444 |
 | R585 | commit | COMPLETE | 0.019 |
 | R585 | push | COMPLETE | 2.081 |
+| R586 | export | COMPLETE | 40.304 |
+| R586 | render | COMPLETE | 1.569 |
+| R586 | tests | COMPLETE | 6.68 |
+| R586 | tests | COMPLETE | 3.172 |
+| R586 | security | COMPLETE | 12.44 |
+| R586 | build | COMPLETE | 42.299 |
+| R586 | security | COMPLETE | 12.192 |
+| R586 | commit | COMPLETE | 0.018 |
+| R586 | push | COMPLETE | 3.839 |
 
 </details>
 

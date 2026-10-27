@@ -2246,6 +2246,69 @@
       "experiment_id": "R585",
       "phase": "push",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:00:21.478022+00:00",
+      "duration_s": 40.304435609,
+      "experiment_id": "R586",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:00:23.050049+00:00",
+      "duration_s": 1.568977133,
+      "experiment_id": "R586",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:00:29.734327+00:00",
+      "duration_s": 6.679757789,
+      "experiment_id": "R586",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:00:32.911661+00:00",
+      "duration_s": 3.172250318,
+      "experiment_id": "R586",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:00:45.354917+00:00",
+      "duration_s": 12.440045068,
+      "experiment_id": "R586",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:01:27.660298+00:00",
+      "duration_s": 42.298669585,
+      "experiment_id": "R586",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:01:39.978325+00:00",
+      "duration_s": 12.191718214,
+      "experiment_id": "R586",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:01:40.285049+00:00",
+      "duration_s": 0.017803921,
+      "experiment_id": "R586",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:01:44.982628+00:00",
+      "duration_s": 3.838823721,
+      "experiment_id": "R586",
+      "phase": "push",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
@@ -4345,7 +4408,7 @@
       }
     }
   ],
-  "observed_at_utc": "2026-10-27T11:59:40.864865+00:00",
+  "observed_at_utc": "2026-10-27T12:17:12.998631+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",
