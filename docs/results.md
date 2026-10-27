@@ -507,6 +507,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R584](experiments/R584.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-0.8B |
 | [R585](experiments/R585.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-0.8B |
 | [R586](experiments/R586.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R587](experiments/R587.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows

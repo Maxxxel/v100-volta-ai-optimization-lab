@@ -7,12 +7,12 @@ def measured_sum(values):
     values=list(values)
     return sum(values) if values and all(type(v) in (int,float) and math.isfinite(v) and v>=0 for v in values) else None
 
-def reviews(audit,records,audit_sha,telemetry,counter_bounds):
+def reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=ARMS):
     cases=[r for r in records if r['kind']=='agent_case']
     turns=[r for r in records if r['kind']=='agent_turn']
     errors=[r for r in records if r['kind']=='agent_error']
     identities=[r for r in records if r['kind']=='input_identity']
-    parsed={arm:[] for arm in ARMS}
+    parsed={arm:[] for arm in arms}
     for case in cases:
         arm,source_id=case['id'].split('--',1)
         if arm not in parsed or any(x['source_id']==source_id for x in parsed[arm]):raise ValueError('Unknown/repeated paired case')
@@ -20,7 +20,7 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds):
         if result.get('all_tools_simulated') is not True or result.get('production_tools_connected') is not False or result.get('task_scope_pass') is not True:raise ValueError('Simulation boundary failed')
         parsed[arm].append({'source_id':source_id,'case':case})
     reports=[]
-    for arm in ARMS:
+    for arm in arms:
         selected=parsed[arm];ids={x['case']['id'] for x in selected}
         belongs=lambda r:any(r['id'].startswith(i+'--turn') for i in ids)
         responses=[r for r in turns if belongs(r)];failed=[r for r in errors if belongs(r)]
@@ -67,7 +67,7 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds):
                 'official_benchmark':False,'winner_qualified':False,'GPU_runs':0,'model_requests':0,
                 'comparable':all(r['complete'] for r in reports),'decision':'INCOMPLETE_NO_PROMOTION'}
     if comparison['comparable']:
-        left,right=parsed[ARMS[0]],parsed[ARMS[1]]
+        left,right=parsed[arms[0]],parsed[arms[1]]
         if [r['source_id'] for r in left]!=[r['source_id'] for r in right]:raise ValueError('Paired task order differs')
         before,after=reports
         comparison.update(paired_gained=sum(not a['case']['reported_result']['task_success'] and b['case']['reported_result']['task_success'] for a,b in zip(left,right)),

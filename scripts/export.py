@@ -656,7 +656,7 @@ def verified_native_lean_harness(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
     assert a['status']=='LEAN_HARNESS_DEVELOPMENT66_COMPLETE' and a['measurement_valid'] and a['GPU_execution_observed']
-    assert a['dataset_id']=='jarvis-lean-system-ablation33-v1' and a['paired_unique_cases']==33 and a['tasks']==a['case_executions']==66
+    assert a['dataset_id'] in ('jarvis-lean-system-ablation33-v1','jarvis-lean-tool-json-ablation33-v1') and a['paired_unique_cases']==33 and a['tasks']==a['case_executions']==66
     assert a['official_benchmark'] is False and a['winner_qualified'] is False
     rp=pathlib.Path(summary['independent_review_path']);assert digest(rp)==summary['independent_review_sha256']==a['independent_review_sha256'];review=load(rp)
     assert review['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and review['GPU_runs']==review['model_requests']==0
@@ -667,10 +667,18 @@ def verified_native_lean_harness(root, summary, receipt):
     profile=load(raw/'profile.json');assert digest(raw/'profile.json')==a['profile_sha256']
     assert profile['assets'][profile['model']]==a['model_sha256']==result['model_artifact_sha256'] and load(raw/'LAUNCH.json')['uid']==65534
     completion=load(raw/'HOST_COMPLETION.json');assert completion['status']=='GPU_COMPLETE_AUDITED' and completion['audit_sha256']==digest(raw/'AUDIT.json')
-    cp=pathlib.Path(review['CPU_receipt_file']);assert cp.parent==ap.parent and cp.name in {a['experiment_id'].lower()+'-protocol-file-identity-correction.receipt.json',a['experiment_id'].lower()+'-agent18-replay.receipt.json'}
+    cp=pathlib.Path(review['CPU_receipt_file']);assert cp.parent==ap.parent and cp.name in {a['experiment_id'].lower()+'-protocol-file-identity-correction.receipt.json',a['experiment_id'].lower()+'-agent18-replay.receipt.json',a['experiment_id'].lower()+'-agent18-replay-permissions.receipt.json'}
     stdout=cp.with_name(cp.name.replace('.receipt.json','.stdout'));assert digest(cp)==review['CPU_receipt_sha256'] and digest(stdout)==review['CPU_stdout_sha256']
     cpu=load(cp);assert cpu['returncode']==0 and 'Result=success\n' in cpu['properties'] and 'ExecMainStatus=0\n' in cpu['properties'] and 'PrivateDevices=yes\n' in cpu['properties'] and 'NoNewPrivileges=yes\n' in cpu['properties']
     assert [json.loads(l.split(' ',1)[1]) for l in stdout.read_text().splitlines() if l.startswith('AGENT18_REPLAY_JSON ')]==[result]
+    permission_fix=ap.parent/'CPU_REPLAY_PERMISSION_CORRECTION.json'
+    if cp.name.endswith('-permissions.receipt.json'):
+        fix=load(permission_fix)
+        assert fix['kind']=='CPU_JAIL_MOUNTPOINT_PERMISSION_CORRECTION' and fix['GPU_reruns']==0 and fix['original_responses_or_scoring_changed'] is False
+        assert fix['original_replay_plan_sha256']==digest(ap.parent/'CPU_REPLAY_PLAN.json')
+        failed=ap.parent/(a['experiment_id'].lower()+'-agent18-replay.receipt.json')
+        assert digest(failed)==fix['failed_CPU_receipt_sha256']
+        assert 'ExecMainStatus=200\n' in load(failed)['properties']
     plan_path=ap.parent/'CPU_REPLAY_PLAN.json';plan=load(plan_path)
     assert plan['scorer_sha256']==review['scorer_sha256']
     assert digest(plan_path)==review['replay_plan_sha256'] and result['original_input_sha256']==plan['input_sha256']
@@ -682,7 +690,8 @@ def verified_native_lean_harness(root, summary, receipt):
     telemetry=[json.loads(l) for l in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
     from leaderboard import counter_energy_bounds
     from lean_metrics import reviews
-    derived_quality,derived_comparison=reviews(a,records,digest(ap),telemetry,counter_energy_bounds)
+    arms=('reference','compact-tool-json-v1') if a['dataset_id']=='jarvis-lean-tool-json-ablation33-v1' else ('reference','compact-system-v1')
+    derived_quality,derived_comparison=reviews(a,records,digest(ap),telemetry,counter_energy_bounds,arms=arms)
     assert derived_quality==quality and derived_comparison==comparison
     assert len({r['id'] for r in records if r['kind']=='agent_case'})==66
     assert a['task_phase_s']<=a['task_limit_s']==1200 and a['model_starts']==1
@@ -693,7 +702,7 @@ def verified_native_lean_harness(root, summary, receipt):
     return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':33,'case_executions':66,'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
             'arms':[{k:r[k] for k in allowed} for r in quality['arms']], 'comparison':{k:comparison[k] for k in changes},
             'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'comparison_audit_id':receipt(xp,summary['comparison_review_sha256']),
-            'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
+            'correction_audit_id':receipt(permission_fix,digest(permission_fix)) if permission_fix.exists() else None,'implementation':{'transform_module_sha256':next(iter(profile['native_recipe']['harness_ablation']['module_assets'].values())),'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None},'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
 
 
 def verified_native_role_comparison(root, summary, receipt):
@@ -995,7 +1004,7 @@ def main():
             lean=verified_native_lean_harness(root,v,receipt)
             experiments[ident]['aggregate_metrics']['native_lean_harness_ablation']=lean
             catalog[audit]['aggregate_metrics']['native_lean_harness_ablation']=lean
-            experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id')]
+            experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id','correction_audit_id') if lean.get(k)]
         native_key='native_validation33' if catalog.get(audit,{}).get('aggregate_metrics',{}).get('native_validation33') else 'native_agent18_development'
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
             experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)
