@@ -9,7 +9,7 @@
 
 ## Research pipeline
 
-
+**Model selection frozen through R585:** [OmniCoder allround · Gemma coding · Nexus worker](final-selection.md). [All candidate decisions](final-qualification.md). Next: separately scoped lean-harness research (#17/#18); no production deployment or exhaustive inference-tuning campaign.
 
 [Best-of-V100 research decision](best-of-v100-2026.md) · [Screening](screening.md) → [Official qualification](configuration-comparison.md) → [Targeted optimization](configurations.md). Development screens stay outside official scores.
 

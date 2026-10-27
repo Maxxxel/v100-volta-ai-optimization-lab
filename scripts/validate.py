@@ -12,6 +12,7 @@ SCRIPTS.update({'pipeline.py','test_pipeline.py'})
 SCRIPTS.update({'harness_prefix.py','test_harness_prefix.py'})
 DATA.add('pipeline-performance.json')
 DATA.add('screening.json')
+DATA.add('frozen-baselines.json')
 SCRIPTS.update({'derivatives.py','test_derivatives.py','test_native_tools.py','test_native_tool_prefix.py'})
 SECRET=re.compile(r'(?i)(?:gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,}|sk-[A-Za-z0-9]{16,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(?:password|passwd|api[_-]?key|access[_-]?token|authorization)\s*[:=]\s*[\x22\x27]?[A-Za-z0-9/+_=.-]{12,})')
 PRIVATE=re.compile(r'(?i)(?:\bGPU-[a-f0-9-]{16,}|\b[a-z0-9-]+\.(?:lan|local|internal)\b|\b(?:sensor|switch|light|climate|automation|person|device_tracker|input_boolean)\.[a-z0-9_]+|\b(?:pve|proxmox)-[a-z0-9-]+\b|(?:/opt|/root|/home|/run|/var)/(?!\[)[A-Za-z0-9_.-]+/)')
@@ -112,6 +113,9 @@ def validate(check_manifest=True):
  validate_screening(read('screening.json'))
  history=read('configuration-history.json');register=read('benchmark-register.json')
  validate_history(history,{d['benchmark_id']:d for d in register['definitions']})
+ if (ROOT/'data/frozen-baselines.json').exists():
+  from leaderboard import validate_final_baselines
+  validate_final_baselines(read('frozen-baselines.json'),history)
  for review in register.get('paired_coding_reviews',[]):validate_paired_projection(review)
  for review in register.get('engine_source_reviews',[]):
   package=review.get('reproduction_package')

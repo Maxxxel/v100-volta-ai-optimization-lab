@@ -270,6 +270,7 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
  bart_c=point('coding','R516');bart_t=point('tools','R517');bart_a=agent('R536');gemma=point('coding','R464');q_c=point('coding','R548');q_t=point('tools','R549');q_a=agent('R550')
  release=register.get('final_research_gate')
  text=('# Best-of-V100 2026 — research decision' if release else '# Best-of-V100 2026 — evidence snapshot')+'\n\n'
+ if (P/'data/frozen-baselines.json').exists():text+='**Newer decision:** [Three frozen Jarvis baselines — evidence through R585](final-selection.md). This page retains the dated earlier decision and its original scope.\n\n'
  if release:
   text+='**Reviewed research decision · evidence through R551 · actual review '+release['at_utc'][:10]+' · deadline31 October 2026.** The decision package is available ahead of the deadline. No future execution date, universal winner, production deployment or official 3/3 result is claimed.\n\n'
  else:
@@ -338,7 +339,7 @@ def final_snapshot_page(register,experiments,profiles,refs,counts,pipeline,issue
   text+='This snapshot prepares the seven freeze deliverables: role decisions; the existing complete comparison; positive/negative optimization evidence; exact configuration/source material; explicit gaps; release status; and a prioritized backlog. **Final 31-October freeze audit is still pending.** Any new result must append audited evidence and preserve this snapshot’s provenance; dates do not authorize weaker gates or budget resets.\n'
  return text
 
-def final_qualification_review(screening,history,experiments):
+def final_qualification_review(screening,history,experiments,frozen=None):
  """Artifact inventory and exact-run frontier; never pool configurations or infer missing scores."""
  from leaderboard import role_comparison
  notes={
@@ -380,7 +381,8 @@ def final_qualification_review(screening,history,experiments):
    seen.add(key);links.append('['+r['experiment_id']+': '+str(r['solved'])+'/'+str(r['tasks'])+'](configuration-profiles/'+r['runtime_configuration_id']+'.md)')
   reason=re.sub(r'\bR[1-9][0-9]{1,3}\b',lambda m:'['+m[0]+'](experiments/'+m[0]+'.md)',reason)
   rows.append([item['model'],sha[:12],status,'; '.join(links) or 'NOT MEASURED',reason])
- text='# Final model qualification — candidate review\n\n**Evidence through R585; Top-3 selection pending.** No production approval, exhaustive tuning campaign or new GPU run. Every inventory profile is shown; artifact-associated results below link to their exact original configurations and must not be pooled into one score. Duplicate GLM artifacts represent different Thinking profiles.\n\n'
+ stage='Top-3 selection frozen; see [selected baselines](final-selection.md).' if frozen else 'Top-3 selection pending.'
+ text='# Final model qualification — candidate review\n\n**Evidence through R585; '+stage+'** No production approval, exhaustive tuning campaign or new GPU run. Every inventory profile is shown; artifact-associated results below link to their exact original configurations and must not be pooled into one score. Duplicate GLM artifacts represent different Thinking profiles.\n\n'
  text+=table(['Inventory profile','Weight SHA256 prefix','Disposition','Complete official evidence — exact profiles','Decision / remaining limit'],rows)
  selection={'coding':[],'tools':[],'agents_development':[]}
  for role,bid in [('coding','humanevalplus-v0.1.10'),('tools','bfcl-v4-parallel-multiple-full200')]:
@@ -392,7 +394,49 @@ def final_qualification_review(screening,history,experiments):
   text+='### '+category.title()+'\n\n'
   text+=table(['Exact run/profile','Success','Response s/task','GPU J/success bounds','Peak MiB','Observed frontier','Dominated by'],[[ '['+r['experiment_id']+' — '+r['model']+'](configuration-profiles/'+r['runtime_configuration_id']+'.md)',str(r['solved'])+'/'+str(r['tasks']),r['seconds_per_task'],str(r['energy_lower'])+'–'+str(r['energy_upper']) if r['energy_lower'] is not None else 'NOT MEASURED',r['peak_vram_mib'],r['pareto_status'],', '.join(r['dominated_by']) or '—'] for r in group['points']])
  text+='\n## Agent and safety limits\n\n'+str(len(review['agents_development']))+' authored Agent33 profiles are preserved separately in [qualified configurations](configurations.md). They are not Terminal-Bench, population safety rates or independent repetitions of33 unrelated tasks. Policy failures prohibit a production-safety claim. Official Terminal-Bench remains technically blocked by its retained execution-prerequisite gate.\n\n'
- text+='## Handoff\n\nFinalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.\n'
+ text+='## Handoff\n\n'+('The three exact baseline packets are frozen in the [selection report](final-selection.md). ' if frozen else 'Finalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. ')+'Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.\n'
+ return text
+
+def render_final_selection(frozen,history):
+ from leaderboard import validate_final_baselines
+ validate_final_baselines(frozen,history)
+ text='# Jarvis — three frozen model baselines\n\n**Dated research selection through R585; not production approval or a universal model ranking.** Three concrete configurations are retained for the next controlled harness phase. Official Agent benchmarks remain NOT MEASURED.\n\n'
+ text+=frozen['selection_method']+'\n\n'
+ rows=[]
+ for s in frozen['selected']:
+  p=s['baseline_packet']['profile'];c,t=s['benchmark_captures'];a=s['authored_agent_context'];m=a['result']
+  mean=(100*c['solved']/c['tasks']+100*t['solved']/t['tasks'])/2
+  rows.append(['['+p['model']['name']+'](configuration-profiles/'+s['baseline_runtime_configuration_id']+'.md)',s['role'],str(c['solved'])+'/'+str(c['tasks']),str(t['solved'])+'/'+str(t['tasks']),f'{mean:.2f}% ·2/3',str(m['solved'])+'/33; policy '+str(m['policy_gate_passes'])+'/33 ['+a['experiment_id']+'](experiments/'+a['experiment_id']+'.md)' if m else 'NOT MEASURED at selected8K'])
+ text+=table(['Frozen model/configuration','Intended role','HumanEval+164','BFCL parallel200','User mean / official coverage','Separate authored Agent33'],rows)
+ text+='The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.\n\n'
+ for s in frozen['selected']:
+  text+='## '+s['role']+'\n\n'+s['rationale']+'\n\n'
+  p=s['baseline_packet']['profile'];text+='Frozen runtime ID: `'+s['baseline_runtime_configuration_id']+'`. Weight SHA256: `'+p['model']['artifact_sha256']+'`.\n\n'
+  text+=table(['Category','Original capture','Exact profile'],[[r['experiment_id'],'['+r['experiment_id']+'](experiments/'+r['experiment_id']+'.md)','['+r['runtime_configuration_id'][:16]+'…](configuration-profiles/'+r['runtime_configuration_id']+'.md)'] for r in s['benchmark_captures']])
+  text+='Requested/native controls are preserved verbatim in the packet. In Nexus, the engine reasoning flag is recorded ON while native `enable_thinking=false` selects the OFF template; neither field is silently rewritten. Cache/graph flags are requests, not proof of executed kernels. Unknown metadata stays unknown.\n\n' if s['selection_id']=='efficient-worker' else ''
+ text+='## Why the alternatives were not selected\n\nThese are role/resource decisions for this dated selection, not permanent bans. All exact runs, including losing variants, remain in the [candidate matrix and complete Pareto comparison](final-qualification.md).\n\n'
+ alternatives=[
+  ['Canonical OmniCoder','The bartowski artifact has134 vs132 coding,178 vs177 tools and28 vs26 authored agent successes. Canonical remains a lower-cost alternative; this is not a causal quantizer comparison.'],
+  ['Qwen3.5 9B','Strong lower-VRAM alternative:135 coding,176 tools,23 local agents. Retained for resource-sensitive use; three role slots favor Omni for observed agent/tool outcomes and Nexus for worker latency/tool count. No global dominance claimed.'],
+  ['Qwen3.8 27B','MTP3 has151 coding,169 tools and26 agents/policy31. Gemma has higher observed coding, Omni has higher tool/agent counts, and the27B profile uses substantially more VRAM. Its better observed policy count is retained, not called a proven safety advantage.'],
+  ['Ornith1.5','Fast measured responses remain useful;117 coding,170 tools and18 agents are below the selected worker counts130/178/25. Tiny latency differences do not prove a population speed ranking.'],
+  ['Slopus / Opus Distill','Complete OFF coding/tools remain archived. See the explicit observed category-quality/resource tradeoffs and deferred agent questions in the candidate matrix; screening was not the exclusion basis.'],
+  ['MiMo / LFM8','Full categories are retained. Their observed quality/resource tradeoffs do not improve the selected role set; unmeasured Agent33 capabilities remain unknown.'],
+  ['LFM24 / Qwen3.6 / Bonsai','Current parallel-tool result6/200, budget-limited partial suites, historical over-budget coding or missing applicable qualifications prevent replacing the measured role baselines. Exact technical reasons and reopening conditions remain in the candidate matrix.'],
+  ['Qwen0.8','Full17/164 and79/200 confirm the low-memory/quality tradeoff. Lowest memory alone does not meet the selected coding/agent roles; no rejection from its small development screen.'],
+  ['Ministral14 / Ministral8','Full categories and authored agents measured:135/163/16 and128/153/17. Useful low task-time/energy alternatives, but weaker observed tool/agent outcomes than the balanced profile. No quality-preserving speedup is inferred.'],
+  ['Devstral24 / Mistral Small3.2','Full122/175 and129/147 coding/tools respectively; Devstral22/33 local agents. Current resource/quality tradeoffs do not improve the three roles. Missing Mistral agent quality remains unknown.'],
+  ['GLM Flash','Default-thinking tools168/200, coding partial; native-off109/164 and154/200 is separate. High memory and the documented R581 resource confound limit an efficiency claim; no retry or profile pooling.'],
+  ['Phi4','Coding134/164 is valid; current tool bridge produced repetition, length stops and3/32 partial within the task budget. Defer until a justified bridge/profile fix; no general model incapability claim.'],
+  ['gpt-oss20B','Parser-fixed150/164 coding is retained. Gemma has better observed coding, time, energy and memory on the compatible full protocol. Parallel-tool grammar remains limited; old0/200 and new coding have different builds.'],
+  ['Nemotron3 Nano','Startup180 gate was reached before tasks; no authorized extension, no proven OOM or quality score. Technically blocked rather than quality-rejected.'],
+  ['Other quantizations, MTP and engine variants','Every exact profile remains visible. Tool-scoped OmniMTP3 wins do not erase its coding/agent regression gates; GemmaQ8-key coding regression is retained. Historical or partial variants cannot borrow missing categories from another build or context.'],
+  ['Source-only derivatives / OxCoder','The pinned Issue16 feasibility/source review remains linked in open questions. No verified local advantage or unreviewed download is promoted. OxCoder stays stopped by owner instruction after weight-identity concerns; that is not a measured model-quality rejection.']]
+ text+=table(['Alternative','Decision / scope'],alternatives)
+ text+='## Architecture and handoff to Issues17/18\n\n'+frozen['architecture_decision']+'\n\n'
+ text+='Begin with retained traces and CPU contract tests from [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17), then the separately admitted lean-harness comparisons in [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18). Keep these frozen model baselines untouched; each harness or inference change gets its own profile and evidence. No exhaustive engine/MTP/quantization/kernel campaign is started by this selection.\n\n'
+ text+='## Frozen data and limits\n\n[Download the three frozen baseline packets](https://raw.githubusercontent.com/Maxxxel/v100-volta-ai-optimization-lab/main/data/frozen-baselines.json). They contain ordered redacted launch arguments, environment, native sampling/template controls, model/build/library hashes and original benchmark references. They grant no execution authority; asset mapping and the existing broker are mandatory.\n\nSelection SHA256: `'+frozen['selection_content_sha256']+'`; frozen at `'+frozen['frozen_at_utc']+'`. New measurements append history and must not regenerate this dated freeze.\n\n'
+ text+='\n'.join('- '+v for v in frozen['remaining_limits'])+'\n'
  return text
 
 def main():
@@ -410,6 +454,7 @@ def main():
  status_html=''.join('<span><strong>'+str(counts['scientific_status'].get(k,0))+'</strong> '+label+'</span>' for k,label in [('QUALIFIED','Qualified'),('TESTED_NEGATIVE','Negative'),('PARTIAL','Partial'),('OPEN','Open'),('DEFERRED','Deferred'),('NOT_APPLICABLE','Not applicable')])
  issue16_active=any(x.get('status')=='ACTIVE_OWNER_AUTHORIZED_NEW_FAMILY_SCREENING' for x in read('research-issues.json'))
  phase_notice='**Current phase: new model-family screening.** The previous Best-of-V100 decision is a reference baseline. Jarvis integration is deferred while [issue16 candidates](questions.md) pass the existing [screening protocol](screening.md).' if issue16_active else ''
+ if (P/'data/frozen-baselines.json').exists():phase_notice='**Model selection frozen through R585:** [OmniCoder allround · Gemma coding · Nexus worker](final-selection.md). [All candidate decisions](final-qualification.md). Next: separately scoped lean-harness research (#17/#18); no production deployment or exhaustive inference-tuning campaign.'
  overview=f'''# V100 Volta AI Optimization Lab
 
 <p class="lab-eyebrow">Independent research · NVIDIA Volta / SM70</p>
@@ -812,7 +857,9 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods=D/'pipeline-methods.md'
  from screening import render_native_agent_development
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
- put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es))
+ frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
+ put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
+ if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json')))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():
   from pipeline import render as render_pipeline

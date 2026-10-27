@@ -1,6 +1,6 @@
 # Final model qualification — candidate review
 
-**Evidence through R585; Top-3 selection pending.** No production approval, exhaustive tuning campaign or new GPU run. Every inventory profile is shown; artifact-associated results below link to their exact original configurations and must not be pooled into one score. Duplicate GLM artifacts represent different Thinking profiles.
+**Evidence through R585; Top-3 selection frozen; see [selected baselines](final-selection.md).** No production approval, exhaustive tuning campaign or new GPU run. Every inventory profile is shown; artifact-associated results below link to their exact original configurations and must not be pooled into one score. Duplicate GLM artifacts represent different Thinking profiles.
 
 | Inventory profile | Weight SHA256 prefix | Disposition | Complete official evidence — exact profiles | Decision / remaining limit |
 |---|---|---|---|---|
@@ -106,4 +106,4 @@ Observed quality maximized; request wall/task, GPU-counter J/success and peak VR
 
 ## Handoff
 
-Finalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.
+The three exact baseline packets are frozen in the [selection report](final-selection.md). Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.

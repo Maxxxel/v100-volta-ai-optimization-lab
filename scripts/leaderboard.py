@@ -1935,6 +1935,58 @@ def reproduction_profile(history,register,ident):
  return packet
 
 
+def freeze_final_baselines(history,register,experiments,at_utc):
+ """One dated, non-executable selection snapshot. Never regenerates historical measurements."""
+ choices=[
+  ('balanced-jarvis','R516','R517','R536','Balanced Jarvis sandbox baseline',
+   'OmniCoder bartowski Q6, MTP OFF combines134/164 coding,178/200 parallel tools and the separate28/33 authored agent result. Against Nexus it buys four more coding cases and three more local agent cases at greater cost; against Qwen3.5 it trades one coding case and more memory for two tool cases and five local agent cases. These finite differences are not population superiority or a safety certificate.'),
+  ('coding-specialist','R464','R472',None,'Coding-quality specialist',
+   'Gemma4 nonthinking QAT8K has156/164 coding, the highest observed full coding count in this cohort, and154/200 tools. The separate16K Agent33 result is not assigned to this8K baseline. Coding work still requires external tests; tool/agent use is not its selected role.'),
+  ('efficient-worker','R488','R489','R531','Fast coding/tool worker',
+   'Nexus native Thinking disabled by template, temperature0 has130/164 coding and178/200 tools, with separate25/33 authored agents. Lower observed coding latency/energy than the balanced profile and stronger observed task quality than Ornith justify the worker role. Qwen3.5 remains a meaningful lower-memory alternative with135/164 coding and176/200 tools; Nexus is selected for its tool count, observed task latency and local-agent evidence, not universal Pareto dominance.')]
+ by_profile={p['runtime_configuration_id']:p for p in history['profiles']};by_exp={e['id']:e for e in experiments};selected=[]
+ for key,code,tools,agent,role,rationale in choices:
+  refs=[];ps=[]
+  for eid,bid in [(code,'humanevalplus-v0.1.10'),(tools,'bfcl-v4-parallel-multiple-full200')]:
+   views=[r for r in history['runs'] if r['experiment_id']==eid and r.get('official_eligible') and r['benchmark_id']==bid]
+   if not views or len({H({k:r[k] for k in ('runtime_configuration_id','solved','tasks','audit_hash','benchmark_identity_id')}) for r in views})!=1:raise ValueError('Selected baseline has missing or conflicting full evidence')
+   r=views[0];p=by_profile[r['runtime_configuration_id']];ps.append(p)
+   refs.append({'experiment_id':eid,'runtime_configuration_id':r['runtime_configuration_id'],'solved':r['solved'],'tasks':r['tasks'],'official_eligible':True,'run_ids':[v['run_id'] for v in views],'run_content_sha256':{v['run_id']:H(v) for v in views}})
+  def inference_identity(p):
+   runtime=copy.deepcopy(p['runtime']);runtime.pop('native_HTTP_timeout_policy',None)
+   return {'model_sha256':p['model']['artifact_sha256'],'engine':p['engine'],'runtime':runtime,'optimizations':p['optimizations'],'argv':p['start_parameters']['argv'],'environment':p['start_parameters']['environment']}
+  if inference_identity(ps[0])!=inference_identity(ps[1]):raise ValueError('Coding/tool captures differ in recorded inference settings')
+  if ps[0]['optimizations']['speculation_type']!='none' or str(ps[0]['runtime']['context'])!='8192':raise ValueError('Unexpected selected baseline')
+  a=by_exp[agent]['aggregate_metrics']['native_validation33'] if agent else None
+  if a and (a['model_sha256']!=ps[0]['model']['artifact_sha256'] or a['context_tokens']!=8192 or a['official_benchmark']):raise ValueError('Agent context/artifact differs from selected scope')
+  packet=reproduction_profile(history,register,ps[0]['runtime_configuration_id'])
+  selected.append({'selection_id':key,'role':role,'rationale':rationale,'baseline_runtime_configuration_id':ps[0]['runtime_configuration_id'],
+   'inference_identity_sha256':H(inference_identity(ps[0])),'benchmark_captures':refs,
+   'capture_scope':'Coding and tools retain separate immutable capture IDs. Recorded inference fields, ordered arguments and environment agree; only HTTP timeout bookkeeping is normalized. No raw launch hash or original ID is merged.',
+   'baseline_packet':packet,'authored_agent_context':{'experiment_id':agent,'official_benchmark':False,'result':copy.deepcopy(a),'status':'SEPARATE_AUTHORED_PROFILE_NOT_OFFICIAL_AGENTS' if a else 'NOT MEASURED_AT_SELECTED_8K_CONTEXT'},
+   'original_profile_content_sha256':H(ps[0]),'production_approved':False})
+ result={'schema_version':1,'status':'FROZEN_MODEL_SELECTION_NOT_PRODUCTION_APPROVAL','frozen_at_utc':at_utc,'evidence_through':'R585','selected':selected,
+  'selection_method':'Role-complementary judgment using complete official coding/tools plus separately scoped authored agent, policy and resource observations. Not a statistically unique global ranking. No missing category is zero; no screening-only quality exclusion.',
+  'architecture_decision':'Use the balanced single-model sandbox baseline first. The two specialists are measured alternatives for controlled routing/harness evaluation. Multi-model routing gains, cold-switch overhead and system-wide energy benefits are NOT MEASURED; do not claim routing superiority.',
+  'remaining_limits':['Official Terminal-Bench remains technically blocked; no selected profile has3/3 official category coverage.','Agent33 contains33 authored correlated cases/11 families and observed policy failures, not a safety certificate. External deterministic authorization and sandboxing remain mandatory.','Selected Gemma8K has no Agent33 measurement at that exact context; its16K result remains adjacent evidence only.','Unknown historical tokenizer, model revision, exact engine version or actual kernel-dispatch fields remain unknown; hashes and source receipts do not manufacture missing measurements.','No continuous-uptime, production-stability, independent bit-identical rebuild or multimodel-routing qualification is asserted.'],
+  'handoff':{'issues':[17,18],'order':['Retained-trace and CPU-only harness review','Separately admitted isolated harness development tests','Independent harness confirmation without retuning on exposed validation','Only then targeted inference-factor optimization and full qualification'],'GPU_execution_authorized_by_this_snapshot':False},'new_GPU_runs':0}
+ result['selection_content_sha256']=H(result)
+ return result
+
+def validate_final_baselines(frozen,history):
+ content=copy.deepcopy(frozen);claim=content.pop('selection_content_sha256',None)
+ if claim!=H(content) or len(frozen['selected'])!=3 or len({s['baseline_runtime_configuration_id'] for s in frozen['selected']})!=3:raise ValueError('Invalid frozen selection identity')
+ profiles={p['runtime_configuration_id']:p for p in history['profiles']};runs={r['run_id']:r for r in history['runs']}
+ for entry in frozen['selected']:
+  profile=profiles[entry['baseline_runtime_configuration_id']]
+  if H(profile)!=entry['original_profile_content_sha256'] or entry['baseline_packet']['profile']!=profile:raise ValueError('Frozen original profile changed')
+  packet=copy.deepcopy(entry['baseline_packet']);packet_hash=packet.pop('packet_content_sha256',None)
+  if packet_hash!=H(packet):raise ValueError('Frozen reproduction packet changed')
+  for ref in entry['benchmark_captures']:
+   for rid,digest in ref['run_content_sha256'].items():
+    if rid not in runs or H(runs[rid])!=digest:raise ValueError('Frozen benchmark evidence changed')
+ return True
+
 if __name__=='__main__':
  import argparse,sys
  parser=argparse.ArgumentParser(description='Export one immutable public configuration as JSON. No GPU, network, execution or admission.')
