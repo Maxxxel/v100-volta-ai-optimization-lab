@@ -1378,11 +1378,88 @@
       "experiment_id": "R561",
       "phase": "integrity",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T00:17:18.222344+00:00",
+      "duration_s": 34.63992623,
+      "experiment_id": "R561",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T00:17:19.644529+00:00",
+      "duration_s": 1.418627917,
+      "experiment_id": "R561",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T00:17:24.386910+00:00",
+      "duration_s": 4.725914508,
+      "experiment_id": "R561",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T00:17:27.025831+00:00",
+      "duration_s": 2.622320327,
+      "experiment_id": "R561",
+      "phase": "tests",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-27T00:29:42.246604+00:00",
+      "duration_s": 1.25757167,
+      "experiment_id": "R563",
+      "phase": "collect",
+      "status": "FAILED"
+    },
+    {
+      "at_utc": "2026-10-27T00:39:05.791011+00:00",
+      "duration_s": 2.302595854,
+      "experiment_id": "R564",
+      "phase": "collect",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T00:39:05.869227+00:00",
+      "duration_s": 0.033638205,
+      "experiment_id": "R564",
+      "phase": "integrity",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T00:51:51.257851+00:00",
+      "duration_s": 2.706840708,
+      "experiment_id": "R565",
+      "phase": "collect",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T01:10:24.400566+00:00",
+      "duration_s": 45.790768776,
+      "experiment_id": "R566",
+      "phase": "collect",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T01:10:24.447946+00:00",
+      "duration_s": 0.033464839,
+      "experiment_id": "R566",
+      "phase": "independent_review",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T01:10:24.488331+00:00",
+      "duration_s": 0.035241227,
+      "experiment_id": "R566",
+      "phase": "integrity",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R561",
+    "experiment_id": "R566",
     "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
@@ -2589,8 +2666,8 @@
         "solved": 122
       },
       "resources": {
-        "counter_lower_j": null,
-        "counter_upper_j": null,
+        "counter_lower_j": 262110.61,
+        "counter_upper_j": 262206.268,
         "integral_gpu_j": null,
         "peak_vram_mib": 13148.5
       },
@@ -2639,9 +2716,161 @@
         "task_begin_at_utc": null,
         "task_end_at_utc": null
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "ebb0c6bb659d776fdba43dd0dbba19335aea1bf0f7c6ec6af5ac98c4d01f7a25",
+      "durations": {
+        "CPU_scoring_outer_wall_s": 0.5179137189406902,
+        "CPU_unit_execution_sum_s": 0.377286,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 573.825220003,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 88.752881785,
+        "task_phase_s": 573.936682258,
+        "warmup_requests_s": 3.9027616910000003
+      },
+      "experiment_id": "R563",
+      "quality": {
+        "completed": 200,
+        "planned": 200,
+        "solved": 175
+      },
+      "resources": {
+        "counter_lower_j": 162366.141,
+        "counter_upper_j": 162462.087,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 13156.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T00:29:41.685096+00:00",
+        "initial_at_utc": "2026-10-27T00:18:27.489451+00:00",
+        "task_begin_at_utc": "2026-10-27T00:19:56.242332+00:00",
+        "task_end_at_utc": "2026-10-27T00:29:30.179015+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "4d22f666c8ef08dfb171a3df041d481d35aeaa8016713fabfc2eafa2fbdcdde8",
+      "durations": {
+        "CPU_scoring_outer_wall_s": 0.5238247378729284,
+        "CPU_unit_execution_sum_s": 0.40895000000000004,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 344.015103943,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 106.400187699,
+        "task_phase_s": 344.162113272,
+        "warmup_requests_s": 2.141013758
+      },
+      "experiment_id": "R564",
+      "quality": {
+        "completed": 200,
+        "planned": 200,
+        "solved": 153
+      },
+      "resources": {
+        "counter_lower_j": 85122.93,
+        "counter_upper_j": 85215.046,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 10016.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T00:39:04.220392+00:00",
+        "initial_at_utc": "2026-10-27T00:31:25.676288+00:00",
+        "task_begin_at_utc": "2026-10-27T00:33:12.076475+00:00",
+        "task_end_at_utc": "2026-10-27T00:38:56.238589+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "0219bdf40dbb26dc1c01fd63303a355b5472500a24e7d24a9cbc82371301d4b1",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": 11.484541,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 459.859949208,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 119.488656707,
+        "task_phase_s": 463.076386107,
+        "warmup_requests_s": 4.230436685
+      },
+      "experiment_id": "R565",
+      "quality": {
+        "completed": 33,
+        "planned": 33,
+        "solved": 22
+      },
+      "resources": {
+        "counter_lower_j": 129151.77,
+        "counter_upper_j": 129261.453,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 13156.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T00:51:50.325512+00:00",
+        "initial_at_utc": "2026-10-27T00:41:59.018447+00:00",
+        "task_begin_at_utc": "2026-10-27T00:43:58.507103+00:00",
+        "task_end_at_utc": "2026-10-27T00:51:41.583489+00:00"
+      }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "813e4947beb30af829fed701006345654adbfa41c01ac7b3fb1ee4a6d40e0d23",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": null,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 729.478504894,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 154.959994937,
+        "task_phase_s": 729.567003064,
+        "warmup_requests_s": 2.9714050949999997
+      },
+      "experiment_id": "R566",
+      "quality": {
+        "completed": 164,
+        "planned": 164,
+        "solved": 134
+      },
+      "resources": {
+        "counter_lower_j": 211677.234,
+        "counter_upper_j": 211798.618,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 13786.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T01:10:01.078565+00:00",
+        "initial_at_utc": "2026-10-27T00:54:45.032805+00:00",
+        "task_begin_at_utc": "2026-10-27T00:57:19.992800+00:00",
+        "task_end_at_utc": "2026-10-27T01:09:29.559803+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-27T00:16:43.360028+00:00",
+  "observed_at_utc": "2026-10-27T01:12:56.706512+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",

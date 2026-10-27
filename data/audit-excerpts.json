@@ -178601,6 +178601,31 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13786.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 134,
+          "tasks": 164,
+          "wall_s": 729.478504894
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-813e4947beb30af829fe",
+    "original_bytes": 11224,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "813e4947beb30af829fed701006345654adbfa41c01ac7b3fb1ee4a6d40e0d23",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full original164 HumanEval+ qualification of unchanged R555 Phi-4 Q6_K native profile. Exact executed template, sampler, engine and4096-output/8192-context retained. Whole-profile comparison, no causal optimization or Champion claim. Shared HumanEval/32 canonical-reference anomaly disclosed; all164 tasks retained."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -259816,6 +259841,68 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 13786.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b66bc945fcfb9287f5e0",
+    "original_bytes": 143765,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b66bc945fcfb9287f5e0af070d6757ea117e3beeef4b90c72eb6267122b11a20",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 134,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5085ab4ed34d46a126b3",
+    "original_bytes": 3624,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5085ab4ed34d46a126b3d63dc9fb6e46e480d60947bfbd0b057d28dca745f00c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ff3ca583031f3342d3f8",
+    "original_bytes": 5995,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ff3ca583031f3342d3f8675af73b02688453c18cb4c069488d6a8431c8b34970",
+    "statements": {
+      "scope": "Existing NVML cumulative-counter query brackets over all164 coding requests including failures and intervening setup. No interpolation; unavailable power integral remains unavailable. Loading/warmups/CPU/system energy excluded. Not confidence intervals or causal cross-profile comparison."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 134,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-02a1f552b9d4f414ad2c",
+    "original_bytes": 7962,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "02a1f552b9d4f414ad2c1cf13407ff39d5a03a39abcb3aaacb08e0bfbe81c7c2",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -261154,6 +261241,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "7f9fae48a0e6685769c49352f84a369a969e744cd65a4ea9567ac3b654ca65e6",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-80783f8d718162b0f504",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "80783f8d718162b0f504a4c47851f435e546c1912d60e71befc59395d8a81723",
     "statements": {}
   },
   {

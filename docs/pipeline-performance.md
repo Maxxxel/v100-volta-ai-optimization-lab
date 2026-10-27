@@ -1,11 +1,15 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T00:16:43.360028+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T01:12:56.706512+00:00. This static page is not a live monitor.**
 
-Last observed: R561 · AUDITED_RESULT_AVAILABLE.
+Last observed: R566 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R566](experiments/R566.md) | COMPLETE | 164/164 | 154.96 | 729.567 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
+| [R565](experiments/R565.md) | COMPLETE | 33/33 | 119.489 | 463.076 | 11.485 | NOT MEASURED / NOT MEASURED |
+| [R564](experiments/R564.md) | COMPLETE | 200/200 | 106.4 | 344.162 | 0.409 | NOT MEASURED / NOT MEASURED |
+| [R563](experiments/R563.md) | COMPLETE | 200/200 | 88.753 | 573.937 | 0.377 | NOT MEASURED / NOT MEASURED |
 | [R562](experiments/R562.md) | FAILED | 0/32 | NOT MEASURED | NOT MEASURED | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R561](experiments/R561.md) | COMPLETE | 164/164 | 117.596 | 916.541 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R560](experiments/R560.md) | COMPLETE | 164/164 | 109.266 | 424.707 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
@@ -247,6 +251,17 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R561 | collect | COMPLETE | 39.836 |
 | R561 | independent_review | COMPLETE | 0.034 |
 | R561 | integrity | COMPLETE | 0.035 |
+| R561 | export | COMPLETE | 34.64 |
+| R561 | render | COMPLETE | 1.419 |
+| R561 | tests | COMPLETE | 4.726 |
+| R561 | tests | FAILED | 2.622 |
+| R563 | collect | FAILED | 1.258 |
+| R564 | collect | COMPLETE | 2.303 |
+| R564 | integrity | COMPLETE | 0.034 |
+| R565 | collect | COMPLETE | 2.707 |
+| R566 | collect | COMPLETE | 45.791 |
+| R566 | independent_review | COMPLETE | 0.033 |
+| R566 | integrity | COMPLETE | 0.035 |
 
 </details>
 
