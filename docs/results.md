@@ -514,6 +514,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R591](experiments/R591.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4 QAT Q4_0 frozen8K |
 | [R592](experiments/R592.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R593](experiments/R593.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R594](experiments/R594.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows

@@ -1,11 +1,12 @@
 # Pipeline Performance
 
-**Verified snapshot: 2026-10-27T16:47:24.264710+00:00. This static page is not a live monitor.**
+**Verified snapshot: 2026-10-27T17:30:00.070670+00:00. This static page is not a live monitor.**
 
-Last observed: R593 · AUDITED_RESULT_AVAILABLE.
+Last observed: R594 · AUDITED_RESULT_AVAILABLE.
 
 | Experiment | Status | Tasks completed / planned | Startup s | Task s | CPU unit s | CI build / deploy s |
 |---|---|---|---|---|---|---|
+| [R594](experiments/R594.md) | COMPLETE | 64/64 | 63.719 | 120.874 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R593](experiments/R593.md) | COMPLETE | 32/32 | 64.012 | 50.997 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R592](experiments/R592.md) | COMPLETE | 32/32 | 101.298 | 58.43 | NOT MEASURED | NOT MEASURED / NOT MEASURED |
 | [R591](experiments/R591.md) | COMPLETE | 33/33 | 60.374 | 422.327 | 1.5 | NOT MEASURED / NOT MEASURED |
@@ -463,6 +464,15 @@ Automation reuses the existing collector and publication timer: isolated CPU sco
 | R592 | security | COMPLETE | 12.29 |
 | R592 | commit | COMPLETE | 0.01 |
 | R592 | push | COMPLETE | 2.232 |
+| R593 | export | COMPLETE | 38.997 |
+| R593 | render | COMPLETE | 1.569 |
+| R593 | tests | COMPLETE | 6.63 |
+| R593 | tests | COMPLETE | 3.228 |
+| R593 | security | COMPLETE | 12.54 |
+| R593 | build | COMPLETE | 42.951 |
+| R593 | security | COMPLETE | 12.292 |
+| R593 | commit | COMPLETE | 0.018 |
+| R593 | push | COMPLETE | 2.132 |
 
 </details>
 

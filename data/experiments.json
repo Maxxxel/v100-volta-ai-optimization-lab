@@ -25270,5 +25270,17 @@
       "decision": "REJECT_OBSERVED_CATEGORY_OR_TOOL_CASE_REGRESSION"
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-42ee9099f72f7b3df9cd",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R594",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]

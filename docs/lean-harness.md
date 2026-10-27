@@ -241,7 +241,7 @@ The pinned Caveman default JSON-elision route found no eligible long array in th
 
 Frozen next-goal reference: `jarvis-minimal-harness-reference-20261027-v1` · SHA256 `a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b`. Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.
 
-Original source-plan SHA256: `84b9752d55bc8b45e4a0b09b2ccaa61aeabe45e625614290e74417d96cd07007`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
+Original source-plan SHA256: `1b982200cce06356c34949b4a4cde959123bc776769747f129bbb8e2d629fceb`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
 
 </details>
 
