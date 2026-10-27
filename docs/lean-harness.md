@@ -228,6 +228,24 @@ Original version 2.4.6 at `04d809ceab9df28f9adaed044884180159172930`, native Pyt
 
 </details>
 
+<details markdown="1"><summary>Original Caveman proxy · record-mode CPU compatibility</summary>
+
+The full original proxy at `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4` was built without source patches (CGO disabled) and executed unprivileged without external network or GPU devices. Six synthetic contracts passed: plain completion, tool arguments/schema, SSE streaming, upstream error, unauthorized request and unknown mount. Four forwarded request/response fixtures remained byte-identical; denied requests did not reach the fixture server. **Zero new GPU/model calls.** This verifies this local API fixture only; native engine, Harmony, compression and GPU efficiency remain unqualified. Binary SHA256 `1c77f78b68ea4e37994860210f69f64a604c755d240770f424d4aafd1438cebd`; evidence `4e429805d34c5a09604425c9583450081d37b9cf92cbded31a0908a7a94f8c62`.
+
+</details>
+
+<details markdown="1"><summary>Original Caveman TOON · upstream CPU tests</summary>
+
+9 original tests passed: structural roundtrip, duplicate-key rejection, quoted strings, numeric lexical forms, deterministic encoding and unsupported-shape fallback. No fuzz campaign, model/GPU calls or local token-saving claim. Model interpretation and GPU efficiency remain unqualified. Evidence SHA256 `1e1f21440b6b7f9b6f52cb15b7488173a402fcfa1f8ba5294e89b78ddf88dae5`.
+
+</details>
+
+<details markdown="1"><summary>TOON · critical-data CPU controls</summary>
+
+10 synthetic fixtures actually encoded and decoded with unchanged critical values; 3 ambiguous/invalid inputs rejected. Permissions, commands, numeric lexemes, provenance, errors and ordered data covered. This is structural preservation, not proof of LLM understanding. Evidence `78aa32d0f8e3c033b381913325e406953de8b1aa86152ba09c601b0a25e56dce`.
+
+</details>
+
 <details markdown="1"><summary>Actual upstream Caveman validator · CPU contracts</summary>
 
 Nine isolated synthetic fixtures exercised the [pinned original validator](https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/skills/caveman-compress/scripts/validate.py). It rejected the tested fenced-code, inline-code and heading changes. Four altered plain-prose number, negation, authority and status fixtures were accepted. This tests the validator, not generated compressor output: zero model/GPU calls and no performance conclusion. Integration requires additional deterministic protection of critical fields. Upstream Caveman remains under evaluation. Evidence SHA256 `bd95b26ab126041942504e4dbb9e00a49c0f556df655878d9f397421913a45fa`.
@@ -264,7 +282,7 @@ The pinned Caveman default JSON-elision route found no eligible long array in th
 
 Frozen next-goal reference: `jarvis-minimal-harness-reference-20261027-v1` · SHA256 `a05002ad3e90660ad69047f81310276c1ffa0c10e59e72c635e2204802ada57b`. Inference tuning must keep this harness fixed, use development data for parameter selection, and independently verify any finalist. Reserved fixtures are now exposed; do not retune on them or continue to call future runs unseen.
 
-Original source-plan SHA256: `7b5ba3f38aa8eb04e641ced59b7f258321d932221f8c47ee7f45a1df2bf839dd`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
+Original source-plan SHA256: `32322bed8a98e9942af19b1c674be39a408692abf066fcfddba2ca3c574fe341`. Complete reviewed source identities and scoped decisions: [public snapshot](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/snapshot.json).
 
 </details>
 

@@ -107,7 +107,90 @@
         "scope": "Repeated captured request histories, not unique actions or a measured token/latency saving. Upstream JSON elision defaults arrayThreshold8; TOON requires separately reviewed roundtrip and model interpretation. Protected scalar strings/code/numbers are not modified."
       }
     ],
-    "canonical_plan_sha256": "7b5ba3f38aa8eb04e641ced59b7f258321d932221f8c47ee7f45a1df2bf839dd",
+    "canonical_plan_sha256": "32322bed8a98e9942af19b1c674be39a408692abf066fcfddba2ca3c574fe341",
+    "caveman_original_toon_CPU": {
+      "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "critical_data_contracts": {
+        "actually_transformed": 10,
+        "evidence_sha256": "78aa32d0f8e3c033b381913325e406953de8b1aa86152ba09c601b0a25e56dce",
+        "invalid_rejected": 3,
+        "roundtrip_cases": [
+          "permission",
+          "integer_precision",
+          "numeric_lexemes",
+          "commands",
+          "error_and_recovery",
+          "provenance",
+          "ordered_rows",
+          "empty_null_boolean",
+          "quoted_unicode",
+          "long_authoritative_output"
+        ],
+        "test_source_sha256": "03687c98c6fad342177b90e6f78bd0a91d108a6d50d5e300a6b5ad8bf8e0bc8a"
+      },
+      "evidence_sha256": "1e1f21440b6b7f9b6f52cb15b7488173a402fcfa1f8ba5294e89b78ddf88dae5",
+      "fuzz_campaign_executed": false,
+      "log_sha256": "8129823d2f2275e5dc26f4149324429d8313756a0601d8f1548905d9bbb1d299",
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "scope": "Nine unmodified upstream TOON tests in an offline unprivileged CPU sandbox. Structural roundtrip only; no model interpretation, compression-quality, token or GPU-efficiency qualification.",
+      "status": "CPU_VERIFIED_ORIGINAL_TOON_UPSTREAM_TESTS_ONLY",
+      "tests_passed": [
+        "TestDecodeTOONFailsClosedOnImpossibleCountsAndDuplicateKeys",
+        "TestParseJSONTOONRejectsDuplicateKeys",
+        "TestTOONCompressorTabularArrayRoundTrips",
+        "TestTOONCompressorUnsupportedShapesPassThrough",
+        "TestTOONStringsNeedingQuotesRoundTrip",
+        "TestTOONNumbersPreserveLexicalForm",
+        "TestTOONDeterministic",
+        "TestTOONSortsNonTabularObjectKeys",
+        "TestTOONRootScalarAndScalarArrayRoundTrip"
+      ]
+    },
+    "caveman_proxy_record_CPU": {
+      "at_utc": "2026-10-27T17:54:47.554511+00:00",
+      "binary_sha256": "1c77f78b68ea4e37994860210f69f64a604c755d240770f424d4aafd1438cebd",
+      "checks": [
+        {
+          "case": "plain",
+          "status": 200,
+          "upstream_calls": 1
+        },
+        {
+          "case": "tools",
+          "status": 200,
+          "upstream_calls": 1
+        },
+        {
+          "case": "stream",
+          "status": 200,
+          "upstream_calls": 1
+        },
+        {
+          "case": "error",
+          "status": 429,
+          "upstream_calls": 1
+        },
+        {
+          "case": "unauthorized",
+          "status": 401,
+          "upstream_calls": 0
+        },
+        {
+          "case": "unknown_mount",
+          "status": 404,
+          "upstream_calls": 0
+        }
+      ],
+      "commit": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "driver_sha256": "28a5889cb52b3a28ed62b19b795ba6ccd531555ad34a8e080d301011504d19a3",
+      "evidence_sha256": "4e429805d34c5a09604425c9583450081d37b9cf92cbded31a0908a7a94f8c62",
+      "new_GPU_runs": 0,
+      "new_model_calls": 0,
+      "scope": "Full original upstream proxy, CGO disabled, unprivileged offline CPU sandbox. Synthetic local OpenAI-compatible endpoint only. Four forwarded request/response fixtures preserved byte-for-byte; unauthorized and unknown routes denied without forwarding. No native engine, Harmony/provider completeness, compression quality, token savings or GPU performance qualification.",
+      "status": "CPU_VERIFIED_ORIGINAL_PROXY_RECORD_SYNTHETIC_ONLY",
+      "upstream_source_files_verified": 1796
+    },
     "confirmation64": {
       "GPU_j_per_success_reduction_bounds_percent": [
         -3.7107549661268946,

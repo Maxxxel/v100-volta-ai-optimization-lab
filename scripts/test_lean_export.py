@@ -118,3 +118,21 @@ class FreshBalancedConfirmation(unittest.TestCase):
   self.assertEqual(r['new_GPU_runs'],0);self.assertEqual(r['new_model_calls'],0);self.assertEqual(r['reference_cases'],33);self.assertEqual(r['archived_callbacks'],154)
   page=lean_harness_report([],research)
   for phrase in ('Zero new GPU/model calls','not a stock-shell/provider benchmark','No new token/call saving or GPU-efficiency claim'):self.assertIn(phrase,page)
+
+class OriginalProxyRecordCompatibility(unittest.TestCase):
+ def test_original_TOON_tests_remain_CPU_structural_evidence(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];r=research['caveman_original_toon_CPU']
+  self.assertEqual(len(r['tests_passed']),9);self.assertFalse(r['fuzz_campaign_executed']);self.assertEqual(r['new_GPU_runs'],0);self.assertEqual(r['new_model_calls'],0)
+  self.assertEqual(r['critical_data_contracts']['actually_transformed'],10);self.assertEqual(r['critical_data_contracts']['invalid_rejected'],3)
+  page=lean_harness_report([],research)
+  for phrase in ('Original Caveman TOON','9 original tests passed','No fuzz campaign','Model interpretation and GPU efficiency remain unqualified'):self.assertIn(phrase,page)
+ def test_original_proxy_CPU_does_not_become_model_or_compression_evidence(self):
+  root=pathlib.Path(__file__).resolve().parents[1];research=json.loads((root/'data/snapshot.json').read_text())['lean_harness_review'];r=research.get('caveman_proxy_record_CPU')
+  self.assertIsNotNone(r)
+  self.assertEqual(r['new_GPU_runs'],0);self.assertEqual(r['new_model_calls'],0)
+  checks={x['case']:x for x in r['checks']};self.assertEqual(len(checks),6)
+  self.assertEqual(checks['unauthorized']['status'],401);self.assertEqual(checks['unknown_mount']['status'],404)
+  self.assertEqual(checks['unauthorized']['upstream_calls'],0);self.assertEqual(checks['error']['upstream_calls'],1)
+  before=copy.deepcopy(research);page=lean_harness_report([],research)
+  for phrase in ('Original Caveman proxy','record-mode CPU compatibility','Six synthetic contracts passed','Zero new GPU/model calls','Harmony, compression and GPU efficiency remain unqualified'):self.assertIn(phrase,page)
+  self.assertEqual(research,before)

@@ -913,7 +913,40 @@ def project_lean_research(root):
         assert digest(base/'mini_swe_native_bridge.py')==row['bridge_sha256'] and digest(base/'MINISWE_NATIVE_REFERENCE_PARITY_INPUT_HASHES.json')==row['input_manifest_sha256'] and digest(base/'MINISWE_NATIVE_REFERENCE_PARITY_CPU.log')==row['log_sha256']
         manifest=load(base/'MINISWE_NATIVE_REFERENCE_PARITY_INPUT_HASHES.json');original=base/'harness-issues-sources/mini-swe-agent/src/minisweagent/agents/default.py';assert digest(original)==manifest['shared_files']['source/minisweagent/agents/default.py']
         mini={'status':row['disposition'],'commit':row['upstream_commit'],'package_version':row['upstream_version'],'runtime':row['runtime'],'reference_cases':33,'archived_callbacks':154,'boundary_controls':row['boundary_controls'],'new_GPU_runs':0,'new_model_calls':0,'source_sha256':digest(original),'bridge_sha256':row['bridge_sha256'],'evidence_sha256':digest(cp),'baseline_CPU_seconds':row['baseline_CPU']['cpu_ns']/1e9,'controller_CPU_seconds':row['candidate_CPU']['cpu_ns']/1e9,'bootstrap_CPU_seconds':row['core_initialization_CPU']['cpu_ns']/1e9,'scope':'Original complete DefaultAgent and native context controller, unchanged frozen policy/world/scorer;33 archived R536 cases,154 requests and effects reproduced. Scripted reply replay only, not new model quality. Stock upstream shell/provider prompts are not evaluated. Fixed-order CPU timings are descriptive; no token/call reduction or GPU performance claim.'}
-    return {'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    proxy=None;cp=base/'CAVEMAN_ORIGINAL_PROXY_RECORD_CPU.json'
+    if cp.exists():
+        row=load(cp);assert row['status']=='CPU_VERIFIED_ORIGINAL_PROXY_RECORD_SYNTHETIC_ONLY'
+        assert row['uid']==65534 and row['GPU_calls']==row['model_calls']==row['external_provider_calls']==0
+        assert row['full_original_proxy'] is True and row['winner_qualified'] is row['official_benchmark'] is False
+        for name,h in row['evidence_sha256'].items():assert pathlib.Path(name).name==name and digest(base/name)==h
+        assert digest(base/'caveman_proxy_record_cpu.py')==row['source_sha256']
+        checks={r['case']:r for r in row['checks']};assert set(checks)=={'plain','tools','stream','error','unauthorized','unknown_mount'}
+        for name in ('plain','tools','stream','error'):assert checks[name]['request_bytes_identical'] is checks[name]['response_bytes_identical'] is True and checks[name]['upstream_calls']==1
+        assert checks['unauthorized']['status']==401 and checks['unknown_mount']['status']==404
+        assert checks['unauthorized']['upstream_calls']==checks['unknown_mount']['upstream_calls']==0
+        review=row['source_build_review'];assert row['binary_sha256']==review['binary_sha256'] and row['source_sha256']==review['driver_sha256']
+        proxy={'status':row['status'],'commit':row['upstream_commit'],'binary_sha256':row['binary_sha256'],'driver_sha256':row['source_sha256'],'evidence_sha256':digest(cp),'upstream_source_files_verified':row['upstream_source_files_verified'],'checks':[{k:r[k]for k in ('case','status','upstream_calls')}for r in row['checks']],'new_GPU_runs':0,'new_model_calls':0,'at_utc':row['at_utc'],'scope':'Full original upstream proxy, CGO disabled, unprivileged offline CPU sandbox. Synthetic local OpenAI-compatible endpoint only. Four forwarded request/response fixtures preserved byte-for-byte; unauthorized and unknown routes denied without forwarding. No native engine, Harmony/provider completeness, compression quality, token savings or GPU performance qualification.'}
+    toon=None;cp=base/'CAVEMAN_ORIGINAL_TOON_CPU_TESTS.json'
+    if cp.exists():
+        row=load(cp);assert row['status']=='CPU_VERIFIED_ORIGINAL_TOON_UPSTREAM_TESTS_ONLY' and row['GPU_calls']==row['model_calls']==0
+        assert row['fuzz_campaign_executed'] is row['CGO_enabled'] is False and len(set(row['tests_passed']))==9
+        log=base/'CAVEMAN_ORIGINAL_TOON_CPU_TESTS.log';assert digest(log)==row['log_sha256']
+        events=[]
+        for line in log.read_text().splitlines():
+            try:events.append(json.loads(line))
+            except ValueError:pass
+        assert not any(r.get('Action')=='fail' for r in events)
+        assert [r['Test']for r in events if r.get('Action')=='pass' and r.get('Test')]==row['tests_passed']
+        for name,h in row['source_sha256'].items():assert digest(base/'harness-issues-sources/caveman'/name)==h
+        toon={'status':row['status'],'commit':row['commit'],'tests_passed':row['tests_passed'],'evidence_sha256':digest(cp),'log_sha256':row['log_sha256'],'new_GPU_runs':0,'new_model_calls':0,'fuzz_campaign_executed':False,'scope':'Nine unmodified upstream TOON tests in an offline unprivileged CPU sandbox. Structural roundtrip only; no model interpretation, compression-quality, token or GPU-efficiency qualification.'}
+        critical_path=base/'CAVEMAN_TOON_CRITICAL_CPU.json'
+        if critical_path.exists():
+            c=load(critical_path);assert c['commit']==row['commit'] and c['original_core_source_sha256']==row['source_sha256']
+            assert c['GPU_calls']==c['model_calls']==0 and c['actually_transformed']==len(c['roundtrip_cases'])==10 and c['ambiguous_invalid_inputs_rejected']==3
+            assert digest(base/'caveman_toon_critical_cpu_test.go')==c['test_source_sha256'] and digest(base/'CAVEMAN_TOON_CRITICAL_CPU.log')==c['log_sha256']
+            textlog=(base/'CAVEMAN_TOON_CRITICAL_CPU.log').read_text();assert 'actual transformed fixtures=10/10; ambiguous/invalid inputs rejected=3' in textlog
+            toon['critical_data_contracts']={'roundtrip_cases':c['roundtrip_cases'],'actually_transformed':10,'invalid_rejected':3,'evidence_sha256':digest(critical_path),'test_source_sha256':c['test_source_sha256']}
+    return {'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""
