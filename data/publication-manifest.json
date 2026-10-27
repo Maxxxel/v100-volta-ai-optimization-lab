@@ -2655,7 +2655,7 @@
   "scripts/test_derivatives.py": "b31cedef55e972f249eb8448a459d3c0fed619d45563f580accf3d05edea7acd",
   "scripts/test_harness_prefix.py": "2adc651f8f0cbc2a34c3d3f6adf9876c637edaa3fde5de0ece6522ad0495e820",
   "scripts/test_leaderboard.py": "cedf123b79574faf73987ed483121d8c16c5ee5c18c5f1177d80bc948a043f56",
-  "scripts/test_lean_export.py": "80d46186892fa1d306dec3f2b1003185eb12fd6eb0235c5bbe21637b3de65ad2",
+  "scripts/test_lean_export.py": "ed245cdc0346ac2b57b0d99d3bc6f9c9e4517acdfa1bb23f3aceb3b237993560",
   "scripts/test_master_browser.cjs": "a7b797ceb548c76ec8ee1f02e9c9ced1f97e61062d37d3da6dd9fd0b666e5548",
   "scripts/test_master_table.cjs": "1604454fc0a7e68f7b292a626d1c1cd4bf262b40c047f162de0c0d52dd88eb0f",
   "scripts/test_native_tool_prefix.py": "ce3011877f03ada82cb62dacdd26a585a01ba353ccf65517bba5da63e666e880",
