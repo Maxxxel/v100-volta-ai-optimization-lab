@@ -2309,11 +2309,74 @@
       "experiment_id": "R586",
       "phase": "push",
       "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:17:51.530285+00:00",
+      "duration_s": 38.244772888,
+      "experiment_id": "R586",
+      "phase": "export",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:17:53.102183+00:00",
+      "duration_s": 1.568706355,
+      "experiment_id": "R586",
+      "phase": "render",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:17:59.737360+00:00",
+      "duration_s": 6.62966123,
+      "experiment_id": "R586",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:18:02.966142+00:00",
+      "duration_s": 3.222271754,
+      "experiment_id": "R586",
+      "phase": "tests",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:18:15.508782+00:00",
+      "duration_s": 12.53971737,
+      "experiment_id": "R586",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:18:58.062916+00:00",
+      "duration_s": 42.549081898,
+      "experiment_id": "R586",
+      "phase": "build",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:19:10.431947+00:00",
+      "duration_s": 12.240381956,
+      "experiment_id": "R586",
+      "phase": "security",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:19:10.646838+00:00",
+      "duration_s": 0.031319264,
+      "experiment_id": "R586",
+      "phase": "commit",
+      "status": "COMPLETE"
+    },
+    {
+      "at_utc": "2026-10-27T12:19:13.381363+00:00",
+      "duration_s": 1.980054273,
+      "experiment_id": "R586",
+      "phase": "push",
+      "status": "COMPLETE"
     }
   ],
   "capacity_only_wait_s": null,
   "current": {
-    "experiment_id": "R586",
+    "experiment_id": "R587",
     "phase": "AUDITED_RESULT_AVAILABLE"
   },
   "experiments": [
@@ -4406,9 +4469,47 @@
         "task_begin_at_utc": "2026-10-27T11:46:15.666396+00:00",
         "task_end_at_utc": "2026-10-27T11:58:44.761342+00:00"
       }
+    },
+    {
+      "CI_build_s": null,
+      "CI_deploy_s": null,
+      "audit_sha256": "4cf83094ee818935f1bc82ef4013f7c74fec8d9ad93cf00f47afba643959ba4a",
+      "durations": {
+        "CPU_scoring_outer_wall_s": null,
+        "CPU_unit_execution_sum_s": 2.300217,
+        "GPU_busy_s": null,
+        "broker_admission_s": null,
+        "cloud_wait_s": null,
+        "completed_request_s": 802.608449568,
+        "model_load_only_s": null,
+        "preparation_s": null,
+        "security_integrity_s": null,
+        "startup_total_s": 64.143790828,
+        "task_phase_s": 809.344486288,
+        "warmup_requests_s": 1.918785249
+      },
+      "experiment_id": "R587",
+      "quality": {
+        "completed": 66,
+        "planned": 66,
+        "solved": 54
+      },
+      "resources": {
+        "counter_lower_j": 223411.841,
+        "counter_upper_j": 223542.199,
+        "integral_gpu_j": null,
+        "peak_vram_mib": 7680.5
+      },
+      "status": "COMPLETE",
+      "timestamps": {
+        "audit_at_utc": "2026-10-27T12:47:47.205855+00:00",
+        "initial_at_utc": "2026-10-27T12:29:43.923558+00:00",
+        "task_begin_at_utc": "2026-10-27T12:30:48.067348+00:00",
+        "task_end_at_utc": "2026-10-27T12:44:17.411834+00:00"
+      }
     }
   ],
-  "observed_at_utc": "2026-10-27T12:17:12.998631+00:00",
+  "observed_at_utc": "2026-10-27T12:59:49.268559+00:00",
   "publication_lock_observation": {
     "observed_hold_window_s": 6373.85,
     "release_at_utc": "2026-10-25T15:55:06.465000+00:00",
