@@ -517,6 +517,8 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R594](experiments/R594.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R595](experiments/R595.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R596](experiments/R596.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R597](experiments/R597.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R598](experiments/R598.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows

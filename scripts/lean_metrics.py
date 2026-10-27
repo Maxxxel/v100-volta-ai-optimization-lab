@@ -88,7 +88,7 @@ def reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=ARMS):
 
 def screen_reviews(audit,records,audit_sha,telemetry,counter_bounds,reference_quality,reference_records,reference_audit_sha,reference_quality_sha):
     """Pure case-matched screen; caller verifies immutable reference provenance."""
-    arm='preaction-checklist-v1'
+    arm='upstream-tool-toon-v1' if audit['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else 'preaction-checklist-v1'
     quality,comparison=reviews(audit,records,audit_sha,telemetry,counter_bounds,arms=(arm,))
     assert reference_quality['experiment_id']=='R587' and reference_quality['source_audit_sha256']==reference_audit_sha
     assert reference_quality['official_benchmark'] is reference_quality['winner_qualified'] is False
@@ -112,3 +112,16 @@ def screen_reviews(audit,records,audit_sha,telemetry,counter_bounds,reference_qu
     comparison['decision']='SCREEN_ONLY_REQUIRES_FRESH_CONTROL_AND_HOLDOUT' if gate else 'REJECT_OBSERVED_QUALITY_OR_POLICY_REGRESSION'
     comparison['scope']='Historical-control screening deltas only; no causal speedup, equivalence, Champion or production adoption. Missing metrics stay unknown.'
     return quality,comparison
+
+
+def original_toon_overhead(records):
+    """Measured subprocess costs only; parent and child CPU remain distinct."""
+    receipts=[r for c in records if c.get('kind')=='agent_case' for r in c.get('harness_rewrite_receipts',[])]
+    items=[item for r in receipts for item in r.get('tool_results',[])]
+    result={'request_transforms':len(receipts),'tool_result_visits':len(items),'host_CPU_energy_j':None}
+    warmups=[r for r in records if r.get('kind')=='warmup']
+    result.update(warmup_model_calls=len(warmups),warmup_input_tokens=measured_sum(r['reply'].get('tokens_evaluated') for r in warmups),warmup_output_tokens=measured_sum(r['reply'].get('tokens_predicted') for r in warmups),warmup_response_wall_s=measured_sum(r.get('e2e_s') for r in warmups),completed_task_model_calls=sum(r.get('kind')=='agent_turn' for r in records))
+    for name,key in [('codec_wall_s','codec_wall_ns'),('codec_parent_CPU_s','codec_parent_cpu_ns'),('codec_children_CPU_s','codec_children_cpu_ns')]:
+        value=measured_sum(item.get(key) for item in items)
+        result[name]=value/1e9 if value is not None else None
+    return result

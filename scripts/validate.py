@@ -9,7 +9,7 @@ SCRIPTS.update({'test_master_table.cjs','test_master_browser.cjs'})
 SCRIPTS.update({'test_pipeline_methods.py','test_paired_coding.py','screening.py','test_screening.py'})
 SCRIPTS.update({'test_role_export.py','test_tools_confirmation.py','test_scoring_view_counter.py'})
 SCRIPTS.update({'pipeline.py','test_pipeline.py'})
-SCRIPTS.update({'harness_prefix.py','test_harness_prefix.py','lean_metrics.py','test_lean_export.py','test_reserved_harness.py'})
+SCRIPTS.update({'harness_prefix.py','test_harness_prefix.py','lean_metrics.py','test_toon_metrics.py','test_lean_export.py','test_reserved_harness.py'})
 DATA.add('pipeline-performance.json')
 DATA.add('screening.json')
 DATA.add('frozen-baselines.json')
@@ -24,7 +24,7 @@ def allowed(p):
  if parts[:2]==('.github','workflows'):return len(parts)==3 and p.name in {'pages.yml','security.yml'}
  if parts[:2]==('.github','ISSUE_TEMPLATE'):return len(parts)==3 and p.suffix in {'.md','.yml'}
  if s in {'docs/assets/reproduction/main-protocol.patch','docs/assets/reproduction/llama-grammar-prefill.h','docs/assets/reproduction/numeric-fixtures.patch','docs/assets/reproduction/LICENSE.llama-cpp'}:return True
- if s in {'docs/assets/harness/system-prose.py','docs/assets/harness/tool-json.py','docs/assets/harness/preaction-checklist.py'}:return True
+ if s in {'docs/assets/harness/system-prose.py','docs/assets/harness/tool-json.py','docs/assets/harness/preaction-checklist.py','docs/assets/harness/original-toon-adapter.py'}:return True
  if parts[0]=='docs':return p.suffix in {'.md','.css','.js','.svg'} and all(re.fullmatch('[A-Za-z0-9_.-]+',x) for x in parts)
  return False
 def validation_event_matches(event,audit):

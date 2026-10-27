@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1857,
+    "ledger_events": 1859,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 513
+    "sprint_records": 515
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -282,6 +282,23 @@
       "warmup_input_tokens": 536,
       "warmup_request_E2E_s": 1.976901772,
       "warmup_requests": 2,
+      "winner_qualified": false
+    },
+    "caveman_toon_pretask_failure": {
+      "GPU_process_samples": 7,
+      "TASK_phase_started": false,
+      "audit_sha256": "c875dc77c5d4ef861ec59f3e273ee9b6529e795f69f3686d030d2f60a0c0a1a5",
+      "cause": "Inner simulator clone rejected the candidate dataset; CPU fixture had retained the parent dataset. Separate CPU codec mount hit a host/CT path mismatch. No candidate response or quality measurement.",
+      "experiment_id": "R597",
+      "model_requests": 0,
+      "model_starts": 1,
+      "official_benchmark": false,
+      "peak_device_vram_mib": 7558.5,
+      "quality_score": null,
+      "status": "FAILED_AFTER_MODEL_LOAD_BEFORE_TASK_NO_REQUESTS",
+      "task_energy_j": null,
+      "task_latency_s": null,
+      "telemetry_samples": 61,
       "winner_qualified": false
     },
     "confirmation64": {
@@ -961,11 +978,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "47e01200bf7a56b8f79754538fac8c76e184f5ba950757b48498d5eb5966db39",
+    "BENCHMARK_REFERENCES.json": "5559b2f461e9c80723945910cb8e7ffd564cd59c400a59307fdd1af924628a9a",
     "BENCHMARK_REGISTER.json": "7a1e2de9cfb98444a778ebe9c5b5ddd15b98ffc43c95c4001bf0a316ac0e929b",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "4ddd4625fae903a8cf29e1236631e7d423193afad8cc136b409d143bedc28960",
+    "O2_EXPERIMENTS.jsonl": "764ce1e8cacf61de93933099935754dda89fe4fc5d782fd0bf529d687f4a975e",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

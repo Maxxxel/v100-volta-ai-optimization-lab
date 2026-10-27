@@ -55,7 +55,7 @@ class TransformPublication(unittest.TestCase):
    r=row.get('aggregate_metrics',{}).get('native_lean_harness_ablation') or row.get('aggregate_metrics',{}).get('native_lean_harness_screen')
    if r and r.get('transform_source'):
     item=r['transform_source'];self.assertEqual(hashlib.sha256((root/'docs'/item['file']).read_bytes()).hexdigest(),r['implementation']['transform_module_sha256']);self.assertEqual(item['license'],'MIT');count+=1
-  self.assertEqual(count,3)
+  self.assertEqual(count,4)
 
 class HistoricalScreenPublication(unittest.TestCase):
  def records(self):

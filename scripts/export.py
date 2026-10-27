@@ -656,7 +656,7 @@ def verified_native_tools_confirmation(root,entry,receipt):
 def verified_native_lean_harness(root, summary, receipt):
     """Public aggregate projection after original capture + isolated replay checks."""
     root=pathlib.Path(root);ap=pathlib.Path(summary['audit_path']);assert digest(ap)==summary['audit_sha256'];a=load(ap)
-    protocols={'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
+    protocols={'jarvis-original-caveman-toon-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('upstream-tool-toon-v1',)),'jarvis-lean-system-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-system-v1')),'jarvis-lean-tool-json-ablation33-v1':('LEAN_HARNESS_DEVELOPMENT66_COMPLETE',66,33,('reference','compact-tool-json-v1')),'jarvis-lean-preaction-screen33-v1':('LEAN_HARNESS_SCREEN33_COMPLETE',33,0,('preaction-checklist-v1',))}
     assert a['dataset_id'] in protocols
     status,count,paired,arms=protocols[a['dataset_id']];screen=count==33
     assert a['status']==status and a['measurement_valid'] and a['GPU_execution_observed']
@@ -705,6 +705,10 @@ def verified_native_lean_harness(root, summary, receipt):
             for k in ('selected_task_inputs','execution_review','review','task_datasets'):value.pop(k,None)
             added=value['native_recipe']['harness_ablation']['module_assets']
             for k in added:value['assets'].pop(k)
+            codec=value['native_recipe']['harness_ablation'].get('codec_asset')
+            if codec:
+                assert codec['sha256']=='80189ce6b009ea9fba762cdef88d568f20a8640fde4302f50a2cfcb36ab1d754' and value['assets'][codec['path']]==codec['sha256']
+                value['assets'].pop(codec['path'])
             value['native_recipe'].pop('harness_ablation');value['native_recipe'].pop('maximum_tasks')
             return json.dumps(value,sort_keys=True,separators=(',',':'))
         assert inference_base(profile)==inference_base(ref_profile)
@@ -728,16 +732,18 @@ def verified_native_lean_harness(root, summary, receipt):
     # Explicit numeric allowlist: no prompts, entities, host paths or arbitrary metadata.
     allowed=('arm','completed_cases','planned_cases','complete','solved','policy_gate_passes','case_wall_s','response_wall_s','model_calls_attempted','request_errors','input_tokens_attempted','input_tokens_reported','completion_tokens_reported','reasoning_tokens_reported','total_tokens_reported','transform_cpu_s','transform_wall_s','tool_calls','policy_violations','rejected_calls','invalid_actions','peak_sampled_device_vram_mib','GPU_j_per_success_lower','GPU_j_per_success_upper','successful_tasks_per_s')
     changes=('decision','paired_gained','paired_lost','new_policy_failure_cases','token_reduction_percent','latency_reduction_percent','conservative_energy_per_success_reduction_percent','observed_quality_and_policy_gate')
-    return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':paired,'case_executions':count,'screen_only':screen,**({'stored_reference':reference_data} if screen else {}),'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
+    from lean_metrics import original_toon_overhead
+    codec_overhead=original_toon_overhead(records) if a['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else None
+    return {'experiment_id':a['experiment_id'],'model':text(a['model']),'model_sha256':a['model_sha256'],'dataset_id':a['dataset_id'],'paired_unique_cases':paired,'case_executions':count,'screen_only':screen,**({'codec_overhead':codec_overhead} if codec_overhead is not None else {}),**({'stored_reference':reference_data} if screen else {}),'official_benchmark':False,'winner_qualified':False,'task_phase_s':a['task_phase_s'],
             'arms':[{k:r[k] for k in allowed} for r in quality['arms']], 'comparison':{k:comparison[k] for k in changes},
             'quality_audit_id':receipt(qp,summary['quality_review_sha256']),'independent_review_audit_id':receipt(rp,summary['independent_review_sha256']),'comparison_audit_id':receipt(xp,summary['comparison_review_sha256']),
-            'correction_audit_id':receipt(permission_fix,digest(permission_fix)) if permission_fix.exists() else None,'implementation':{'transform_module_sha256':next(iter(profile['native_recipe']['harness_ablation']['module_assets'].values())),'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None},'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
+            'correction_audit_id':receipt(permission_fix,digest(permission_fix)) if permission_fix.exists() else None,'implementation':{'transform_module_sha256':next(iter(profile['native_recipe']['harness_ablation']['module_assets'].values())),'engine_binary_sha256':profile['assets'][profile['runtime']+'/llama-server'],'transport_sha256':profile['native_recipe']['agent18']['transport_sha256'],'simulator_archive_sha256':profile['native_recipe']['agent18']['archive_sha256'],'source_commit':None,**({'upstream_repository':'https://github.com/JuliusBrussee/caveman','upstream_commit':'9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4','codec_binary_sha256':profile['native_recipe']['harness_ablation']['codec_asset']['sha256']} if a['dataset_id']=='jarvis-original-caveman-toon-screen33-v1' else {})},'profile_sha256':a['profile_sha256'],'scorer_sha256':review['scorer_sha256'],'scope':quality['scope']}
 
 
 def export_harness_sources(root,db,experiments):
-    """Three exact lab-owned pure transforms only; never privileged runner code."""
+    """Explicit lab-owned request adapters only; never privileged broker/runner code."""
     from validate import content_errors
-    names={'R586':'system-prose.py','R587':'tool-json.py','R588':'preaction-checklist.py'}
+    names={'R586':'system-prose.py','R587':'tool-json.py','R588':'preaction-checklist.py','R598':'original-toon-adapter.py'}
     for eid,name in names.items():
         row=experiments.get(eid,{})
         metrics=row.get('aggregate_metrics',{})
@@ -966,7 +972,18 @@ def project_lean_research(root):
         raw=pathlib.Path(row['raw_root'])
         for name,h in row['original_raw_files_sha256'].items():assert digest(raw/name)==h
         preinference={'experiment_id':'R595','status':row['status'],'GPU_job_starts':1,'GPU_inference_runs':0,'model_starts':0,'TASK_phase_started':False,'audit_sha256':digest(cp),'scope':'Lab adapter attempted a host-only dataset read inside the restricted jail before model launch. No model/Caveman quality or performance measurement. Failed attempt preserved; corrected implementation has separate source review and identity.'}
-    return {'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
+    toon_failure=None
+    failure_path=pathlib.Path(root)/'staging/r597/AUDIT.json'
+    if failure_path.exists():
+        failure=load(failure_path);assert failure['status']=='FAILED_AFTER_MODEL_LOAD_BEFORE_TASK_NO_REQUESTS'
+        assert failure['measurement_valid'] is False and failure['TASK_phase_started'] is False and failure['generation_requests']==failure['completed_requests']==0 and failure['model_starts']==1
+        failure_raw=pathlib.Path(failure['raw_root']);assert failure_raw.resolve().is_relative_to((pathlib.Path(root).parent/'research/mcp-workspace').resolve())
+        assert all(digest(failure_raw/n)==h for n,h in failure['original_raw_files_sha256'].items())
+        assert (failure_raw/'HTTP_RESULTS.jsonl').stat().st_size==0
+        samples=[json.loads(line) for line in (failure_raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+        assert len(samples)==failure['telemetry_samples'] and sum(bool(x['processes']) for x in samples)==failure['nonempty_GPU_process_samples']>0
+        toon_failure={'experiment_id':'R597','status':failure['status'],'audit_sha256':digest(failure_path),'model_starts':1,'model_requests':0,'TASK_phase_started':False,'telemetry_samples':len(samples),'GPU_process_samples':failure['nonempty_GPU_process_samples'],'peak_device_vram_mib':failure['peak_device_vram_mib'],'official_benchmark':False,'winner_qualified':False,'quality_score':None,'task_latency_s':None,'task_energy_j':None,'cause':'Inner simulator clone rejected the candidate dataset; CPU fixture had retained the parent dataset. Separate CPU codec mount hit a host/CT path mismatch. No candidate response or quality measurement.'}
+    return {'caveman_toon_pretask_failure':toon_failure,'caveman_preinference_failure':preinference,'caveman_proxy_record_GPU':proxy_gpu,'caveman_original_toon_CPU':toon,'caveman_proxy_record_CPU':proxy,'confirmation64':confirmation,'mini_swe_native_CPU':mini,'screening32_runs':screening_rows,'upstream_validator_CPU':upstream_cpu,'screening32':screening,'schema':1,'frozen_reference':reference,'canonical_plan_sha256':digest(p),'recommendation':'RETAIN_MEASURED_MINIMAL_REFERENCE_NO_QUALIFIED_ALTERNATIVE','official_benchmark':False,'new_factor_coverage':0,'techniques':techniques,'source_reviews':sources,'CPU_applicability':scopes,'limits':'Scoped tested alternatives and bounded technical reviews, not an exhaustive proof of globally optimal harness behavior. Deferred codecs/proxies have no local performance qualification.'}
 
 def reserved_validation_work(records):
     """Count actual retained response usage; missing instrumentation stays null."""

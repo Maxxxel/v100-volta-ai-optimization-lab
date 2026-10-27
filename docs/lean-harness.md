@@ -171,6 +171,37 @@ Captured implementation: transform SHA256 `fc3ef20a6720d2ccbe46699b03b68227f9bb5
 
 </details>
 
+## R598 · original Caveman TOON · B-only screen
+
+**Decision: rejected — preregistered quality/policy gate failed.** Original tools, inference profile and scoring retained; only tool-result representation changes through the original upstream stateless TOON codec, after exact structured roundtrip validation; unsupported outputs remain original. Current run:33 candidate cases; stored original-request control fromR587. **No new A0 run and no fresh paired GPU comparison.**
+
+| Arm | Solved | Policy violations | Input + output tokens | Task wall s | GPU J / success bounds | Peak MiB | Model calls |
+|---|---|---|---|---|---|---|---|
+| reference · R587 stored | 28/33 | 4 | 301561 | 402.138 | 3924.56–4014.95 | 7680.5 | 154 |
+| upstream-tool-toon-v1 | 26/33 | 4 | 290661 | 391.541 | 4083.03–4089.49 | 7688.5 | 151 |
+
+Case-matched historical-control outcomes: 1 gained, 3 lost; 1 new policy-failure cases. Token reduction 3.61%; task-wall reduction 2.64%. These differences **do not qualify the candidate**.
+
+<details markdown="1"><summary>Measurement limits, hashes and exact source</summary>
+
+Reasoning tokens: **NOT MEASURED**. GPU-energy intervals bracket cumulative NVML counter readings, not confidence intervals or calibration error. Failed tasks remain in cost numerators; model loading, warm-up and host CPU energy excluded. No population-equivalence claim.
+
+Transformation CPU seconds (including preservation/audit): reference 0.063391, upstream-tool-toon-v1 0.317740. Current run TASK phase: 391.550s /1200s. Independent isolated CPU replay reproduced all33 outcomes without model inference.
+
+Captured implementation: transform SHA256 `c9a39349e84e94996ef12d8ab2c6b7833b11658fe9f37c99bda9d105df9e32a0`; engine binary SHA256 `08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54`. Transport and simulator identities are retained in the [public experiment data](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/blob/main/data/experiments.json). Source commit for the local transform: **not recorded at execution**; binary hashes are not version numbers. [Frozen model settings](final-selection.md).
+
+Original upstream commit `9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4`; codec SHA256 `80189ce6b009ea9fba762cdef88d568f20a8640fde4302f50a2cfcb36ab1d754`. Codec subprocess overhead is included in task wall time. Parent-only transformation CPU excludes child codec CPU; host CPU energy is **NOT MEASURED**. No byte-to-token estimates.
+
+Measured codec subprocess wall 2.305084s; parent CPU 0.171911s; child CPU 2.318493s across 336 tool-result visits. These component timings are already inside task wall; do not add them again.
+
+Warm-up separately: 2 calls, 536 input / 129 output tokens, 1.966683s response wall. Warm-up is outside TASK; no allocation to the reused historical reference.
+
+[Exact measured request-transform source](assets/harness/original-toon-adapter.py) · MIT; file SHA256 matches the captured module. Private fixtures and privileged runner code are not included.
+
+[Experiment and audit hashes](experiments/R598.md). Model SHA256: `a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052`; captured profile SHA256: `20b28ea71a8fb690a6950d51795a288d5804f9d0c1f9f0dc4ae590fa51dabc62`; scorer SHA256: `a1e8352762347f269123c203022990a860b735414ee0b3949ae41a2d126515e1`.
+
+</details>
+
 ## Frozen16 +16 development screen · R592
 
 **Promising screen; not a qualified gain.** local preamble rewrite. Stored R515 control: Coding 14/16, Tools 14/16; candidate: Coding 14/16, Tools 14/16.
@@ -227,6 +258,10 @@ Exposed16coding+16mock-tool development; one fresh balanced A/B, same frozen Omn
 Original version 2.4.6 at `04d809ceab9df28f9adaed044884180159172930`, native Python 3.12.3: 33 archived reference cases and 154 request callbacks reproduced, with 3 additional malformed-action/error/turn-limit controls. **Zero new GPU/model calls.** Original DefaultAgent manages native history; the frozen policy, simulator and scorer remain unchanged. This is not a stock-shell/provider benchmark. Single fixed-order CPU replay: reference 0.639s, controller 1.553s; bootstrap 0.396s. No new token/call saving or GPU-efficiency claim. Evidence SHA256 `a2d20064e82c66383d23031f95c1a3fa02dc3c98d6842c2d6c05b0b489064525`.
 
 </details>
+
+## Original TOON integration · R597 failed before tasks
+
+Model loaded; **0 requests, no TASK phase**. Inner simulator rejected the candidate dataset ID; a separate CPU codec binding also used a CT path on the host. Lab integration defects, **no TOON quality or efficiency result**. Original failure retained; no retry of this job. Peak observed device memory 7558.5MiB during loading. [Audit](experiments/R597.md), SHA256 `c875dc77c5d4ef861ec59f3e273ee9b6529e795f69f3686d030d2f60a0c0a1a5`.
 
 ## Original Caveman record · native V100 comparison
 
