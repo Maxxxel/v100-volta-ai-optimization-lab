@@ -286,5 +286,11 @@
     "C": null,
     "id": "sm70-f16-d256-gqa4-fa-weightedv-seeded-sixcases-v1",
     "scope": "Champion only in this exact profile; no automatic production deployment."
+  },
+  {
+    "A0": "8b766bc1cf10ef40fa4c3879f4114c84743ce137b4a5315015527d5403ceeb21",
+    "C": null,
+    "id": "omni-bart-q6-native-agent33-original-request-reference-v1",
+    "scope": "Champion only in this exact profile; no automatic production deployment."
   }
 ]

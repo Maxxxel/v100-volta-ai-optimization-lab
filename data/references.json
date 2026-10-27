@@ -10580,5 +10580,54 @@
     "profile": "omnicoder2-q6k-sm70-cuda128-bfcl-balanced100-native-v1",
     "qualification": "R174_SCREEN_R182_CURRENT_ORIGINAL_R183_INDEPENDENT_NATIVE_TOOLS_AND_FINAL_SCOPED_REVIEW_PASSED",
     "winner_qualified": true
+  },
+  {
+    "aggregate_metrics": {
+      "metrics": {
+        "completion_tokens": 22528,
+        "gpu_energy_j_lower": 109887.544,
+        "gpu_energy_j_upper": 112418.529,
+        "gpu_j_per_success_lower": 3924.5551428571425,
+        "gpu_j_per_success_upper": 4014.947464285714,
+        "peak_device_vram_mib": 7680.5,
+        "policy_violations": 4,
+        "solved": 28,
+        "tasks": 33,
+        "total_tokens": 301561,
+        "wall_s": 402.138029879
+      }
+    },
+    "experiment_id": "R587",
+    "id": "8b766bc1cf10ef40fa4c3879f4114c84743ce137b4a5315015527d5403ceeb21",
+    "identity": {
+      "cache": "Measured resident single-model session after warmup; cache_prompt=false; OS file cache uncontrolled.",
+      "context": 8192,
+      "inference_flags": {},
+      "kernel_switches": {},
+      "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+      "power_limit_w": 300,
+      "quantization": "Q6_K",
+      "request_numeric_settings": null,
+      "workload_description": null
+    },
+    "identity_completeness": "PUBLIC_SUBSET; original hash binds full private record",
+    "identity_hashes": [
+      "08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54",
+      "24f5a234f5413c155b1c764804cb1ba5dc7087924cc7b7e6de2a56b542cf396a",
+      "63a576878e81b3dbc59cd83b59ca36e16164cd008f6b67a62719cd0d359f80dd",
+      "8366b4693b2c5990fc86cc7bf20c908f760e85c0e3c8a07fcfae32ac04738df4",
+      "a44040c1553f322dd3e8f00881352871cd7e243e5cbe829d4dc9c83ec6501d4e",
+      "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+      "acd45c1b43c2cebb1f9453707a76954275bf9810f2344e50e3707a654ed26b65",
+      "b75d892abc3763779d7de5ec8e65ab14a8d5b4e7b44e7729ca1e2dd7b0b10446",
+      "babab9140af91073c74319860045adc64b525ee97514834b18cf187081bf8145",
+      "be731f9a8f289cbcaedc502189a723ee09c7b0de187904de9f30945ffe6c86da"
+    ],
+    "kind": "A0",
+    "limits": [],
+    "model": "OmniCoder bartowski Q6",
+    "profile": "omni-bart-q6-native-agent33-original-request-reference-v1",
+    "qualification": "Independently replayed original-request reference arm,33 exposed development cases/11 correlated families. Calibration/reference only, not official Agent qualification or production Champion. Existing measurement reused; no new GPU run.",
+    "winner_qualified": false
   }
 ]
