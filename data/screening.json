@@ -7667,8 +7667,16 @@
       "date": "2026-10-26T21:36:34.059286+00:00",
       "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
       "experiment_id": "R553",
-      "full_benchmark_runs": [],
-      "full_benchmark_status": "NOT MEASURED",
+      "full_benchmark_runs": [
+        {
+          "audit_hash": "4e3fba34b20ac6743ff9d900bceeaa222bc6234d817c86e030bc800cdd2fd28f",
+          "benchmark_identity_id": "bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe",
+          "experiment_id": "R570",
+          "official_eligible": true,
+          "runtime_configuration_id": "cfg-5cc2911fe046c2753ba866e9bd641dcf184f5f3d0f20310a423cabc2a808a98d"
+        }
+      ],
+      "full_benchmark_status": "MATCHED_FULL_LOCAL_RESULTS",
       "independent_review_sha256": "25585b1cb3f86adca9e4426f60c82a31518953f40ee49d964d1966890ac7db9e",
       "local_artifact_available": true,
       "model": "gpt-oss-20b",
@@ -9128,7 +9136,7 @@
         },
         "warmup_requests": 2
       },
-      "decision": "First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.",
+      "decision": "TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS; no task inference or quality measured. Review the recorded startup prerequisites and authorization before another attempt.",
       "experiment_id": null,
       "full_benchmark_runs": [],
       "full_benchmark_status": "NOT MEASURED",
@@ -9137,7 +9145,19 @@
       "model": "Nemotron-3-Nano-30B-A3B",
       "parent_experiment_id": "R560",
       "results": null,
-      "status": "TECHNISCH BLOCKIERT"
+      "status": "TECHNISCH BLOCKIERT",
+      "technical_blocker": {
+        "GPU_inference_task_execution_observed": false,
+        "GPU_model_allocation_observed": true,
+        "audit_sha256": "81837386f89742d8420461bf1d81fe91cad5a8acccc3034d08f89ad8d83e24b7",
+        "completed_requests": 0,
+        "decision": "TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS",
+        "experiment_id": "R562",
+        "peak_vram_mib": 12496.5,
+        "quality_score": null,
+        "scope": "Audited failed startup, not a quality rejection or proof of hardware incompatibility. No new GPU run.",
+        "status": "FAILED"
+      }
     }
   ],
   "schema": 1,

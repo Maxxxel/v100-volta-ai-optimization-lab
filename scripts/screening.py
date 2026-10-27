@@ -265,6 +265,25 @@ def qualification_phase(root,history):
   'gemma_context':{'experiment_id':ctx['experiment_id'],'status':a['status'],'model_requests':0,'quality_score':None,'CPU_fix_tests':fix['tests'],'GPU_retry_admitted':ctx['new_transport_GPU_admitted'],'corrective_result':correction,'diagnostic_resolution':diagnostic},
   'multi_agent_plan':{**{k:multi[k] for k in ('status','arms','total_task_budget_s','per_arm_task_budget_s','GPU_concurrency','task_coverage')},'CPU_controls':orchestration_cpu_status(multi),'results':role_results}}
 
+def technical_blocker(entry):
+ """Expose a hash-bound failed attempt without manufacturing a screening score."""
+ descriptor=entry.get('technical_blocker_audit')
+ if descriptor is None:return None
+ assert H(descriptor['path'])==descriptor['sha256']
+ audit=read(descriptor['path'])
+ assert audit['model']==entry['model'] and audit['measurement_valid'] is False
+ assert audit['never_task_started'] is True and audit['GPU_inference_task_execution_observed'] is False
+ assert audit['completed_requests']==audit['scored_tasks']==0 and audit['solved_observed_tasks'] is None
+ profile_path=Path(audit['raw_root'])/'profile.json'
+ assert H(profile_path)==audit['raw_files_sha256']['profile.json']
+ profile=read(profile_path)
+ assert (profile.get('model_sha256') or profile['assets'][profile['model']])==entry['model_sha256']
+ return {'experiment_id':audit['experiment_id'],'audit_sha256':descriptor['sha256'],
+  'status':audit['status'],'decision':audit['decision'],'GPU_model_allocation_observed':audit['GPU_model_allocation_observed'],
+  'GPU_inference_task_execution_observed':False,'completed_requests':0,'quality_score':None,
+  'peak_vram_mib':audit.get('peak_device_vram_mib'),
+  'scope':'Audited failed startup, not a quality rejection or proof of hardware incompatibility. No new GPU run.'}
+
 def build(root):
  root=Path(root);base=root/'staging/model-comparison-preparation/model-screening';holdout=read(base/'VALIDATION_FROZEN_MANIFEST.json')
  assert all(H(base/k)==v for k,v in holdout['files'].items())
@@ -293,6 +312,8 @@ def build(root):
   cfg['screening_configuration_id']='screening-config-'+hashlib.sha256(json.dumps(identity,sort_keys=True,separators=(',',':')).encode()).hexdigest()
   row={'model':entry['model'],'configuration':cfg,'status':entry['status'],'local_artifact_available':entry['local_artifact_available'],'parent_experiment_id':entry['parent_experiment_id'],'results':None,'audit_sha256':None,'experiment_id':None,'conditions':'Single native-profile session; frozen base-task order','decision':'No quality exclusion from16 tasks; retain for review.','independent_review_sha256':None}
   if package:row['full_benchmark_status']='NOT MEASURED';row['decision']='First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.'
+  blocker=technical_blocker(entry)
+  if blocker:row.update(technical_blocker=blocker,decision=blocker['decision']+'; no task inference or quality measured. Review the recorded startup prerequisites and authorization before another attempt.')
   if cfg.get('tool_transport'):
    row['conditions']+='; explicit generic tool-wire adapter, not native tool-training evidence'
   if package and package['source_review'].get('provenance_limits'):row['source_provenance_limits']=package['source_review']['provenance_limits']
@@ -510,6 +531,8 @@ def render(data):
   detail={k:v for k,v in row.items() if k!='results'};detail['category_results']=groups
   cells=[e(row['model']),e(row['status']+(' · '+row['selection_status'] if row.get('selection_status') else '')),score(groups.get('coding')) if groups else 'NOT MEASURED',score(groups.get('tools')) if groups else 'NOT MEASURED',fmt(wall),fmt(tokens/wall if tokens is not None and wall else None),fmt(joules),fmt(row.get('peak_vram_mib'))]
   content=('<a href="../experiments/'+e(row['experiment_id'])+'/">Screening '+e(row['experiment_id'])+'</a> · ' if row.get('experiment_id') else '')+'<details><summary>Profile & evidence</summary><pre>'+e(json.dumps(detail,indent=2))+'</pre></details>'
+  if row.get('technical_blocker'):
+   block=row['technical_blocker'];content='<a href="../experiments/'+e(block['experiment_id'])+'/">'+e(block['experiment_id'])+' startup audit</a> · '+e(block['decision'])+' · '+content
   parent=row['parent_experiment_id']
   if row.get('full_benchmark_runs'):
    cells.append(' · '.join('<a href="../experiments/'+e(r['experiment_id'])+'/">'+e(r['experiment_id'])+'</a>' for r in row['full_benchmark_runs'])+' · <a href="../configuration-comparison/">Official comparison</a>')

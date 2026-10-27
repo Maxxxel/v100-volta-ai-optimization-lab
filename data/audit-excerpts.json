@@ -178791,6 +178791,28 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4e3fba34b20ac6743ff9",
+    "original_bytes": 5132,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4e3fba34b20ac6743ff9d900bceeaa222bc6234d817c86e030bc800cdd2fd28f",
+    "statements": {
+      "decision": "FULL200_CATEGORY_COLLECTED_AND_OFFICIAL_AST_REPLAYED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "limits": [
+        "Full parallel_multiple200 category only, not BFCL overall. Official AST and practical protocol remain distinct.",
+        "Nonstream complete-HTTP request windows for GPU energy and wall time; loading/warmup/CPU/system energy excluded; no TTFT measurement.",
+        "First full BFCL v4 parallel_multiple200 category for unchanged gpt-oss20B MXFP4 native profile independently screened32/32 in R553. R559 coding stopped on an invalid parsed final header and has no coding quality score; this is a different, first tool-category qualification, not a coding retry or parser fix. Preserve exact weights, engine, Harmony template, native medium reasoning, T1/p1/k0/min0, context8192/output4096, cache/batches and hardware limits. MXFP4 uses existing software paths on SM70, not native FP4 compute. One shared1200s TASK phase, startup180s, no retry, retuning, full-BFCL overall or Champion claim. Requires separately reviewed complete-mixed32 parent admission; cannot run on the old broker.",
+        "Category-aware source-reviewed scorer wrapper conservatively prints full_category_claimed=false; independent qualification requires all200 unique original IDs and unchanged original question/tool source identities."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -260157,6 +260179,38 @@
     }
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 11942.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-49b2a9a3ab66705f25d7",
+    "original_bytes": 178254,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "49b2a9a3ab66705f25d78344fe1ebe97c00190f4d24faf3fba4d3c4ff7f28a96",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 0,
+      "tasks": 200
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c3c10b4791f879debf74",
+    "original_bytes": 10432,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c3c10b4791f879debf74f82c2d0fa0da5ec4ee9e90b4db8d0c57d92c0f236ba1",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -260686,6 +260740,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "e3aa1c1ac1baa68150742ee803207038e9914e51176fcb98127e298f0c77146c",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-2f3f2a3a8c9a0366236a",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2f3f2a3a8c9a0366236a80fb3ab770011958599c80fa5bd721c6997aa5905235",
     "statements": {}
   },
   {

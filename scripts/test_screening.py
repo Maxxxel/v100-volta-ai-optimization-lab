@@ -144,7 +144,7 @@ class ReferenceQualificationLinks(unittest.TestCase):
  def test_new_family_screens_link_corrected_official_views_without_duplicate_audits(self):
   from pathlib import Path
   root=Path(__file__).resolve().parents[1];data=json.loads((root/'data/screening.json').read_text())
-  expected={'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'},'R557':{'R568'}}
+  expected={'R553':{'R570'},'R554':{'R560','R564'},'R555':{'R566'},'R556':{'R561','R563'},'R557':{'R568'}}
   for screen,experiments in expected.items():
    row=next(r for r in data['rows'] if r['experiment_id']==screen)
    self.assertEqual(row['full_benchmark_status'],'MATCHED_FULL_LOCAL_RESULTS')
@@ -461,3 +461,63 @@ class TerminalGateSourceBinding(unittest.TestCase):
    with self.assertRaises(AssertionError):terminal_final_gate(root,seal())
    gate['GPU_runs']=0;descriptor=seal();source.write_text('changed')
    with self.assertRaises(AssertionError):terminal_final_gate(root,descriptor)
+
+class TechnicalBlockerProjection(unittest.TestCase):
+ def fixture(self, root):
+  import pathlib,hashlib
+  raw=pathlib.Path(root);profile=raw/'profile.json';profile.write_text(json.dumps({'model_sha256':'a'*64}))
+  audit=raw/'audit.json';a={'experiment_id':'R562','model':'Example','measurement_valid':False,'never_task_started':True,'GPU_inference_task_execution_observed':False,'GPU_model_allocation_observed':True,'completed_requests':0,'scored_tasks':0,'solved_observed_tasks':None,'raw_root':str(raw),'raw_files_sha256':{'profile.json':hashlib.sha256(profile.read_bytes()).hexdigest()},'status':'FAILED','decision':'TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS','peak_device_vram_mib':12496.5}
+  def seal():
+   audit.write_text(json.dumps(a));return {'model':'Example','model_sha256':'a'*64,'technical_blocker_audit':{'path':str(audit),'sha256':hashlib.sha256(audit.read_bytes()).hexdigest()}}
+  return a,seal
+ def test_startup_allocation_is_not_quality_or_inference(self):
+  import tempfile
+  from screening import technical_blocker
+  with tempfile.TemporaryDirectory() as d:
+   a,seal=self.fixture(d);v=technical_blocker(seal());self.assertEqual(v['experiment_id'],'R562');self.assertIsNone(v['quality_score']);self.assertFalse(v['GPU_inference_task_execution_observed']);self.assertTrue(v['GPU_model_allocation_observed']);self.assertNotIn('raw_root',v)
+  self.assertIsNone(technical_blocker({}))
+ def test_wrong_audit_identity_or_actual_inference_rejected(self):
+  import tempfile
+  from screening import technical_blocker
+  with tempfile.TemporaryDirectory() as d:
+   a,seal=self.fixture(d)
+   for key,value in [('model','Different'),('GPU_inference_task_execution_observed',True),('never_task_started',False),('scored_tasks',1),('solved_observed_tasks',0)]:
+    original=a[key];a[key]=value
+    with self.assertRaises(AssertionError):technical_blocker(seal())
+    a[key]=original
+   entry=seal();entry['model_sha256']='b'*64
+   with self.assertRaises(AssertionError):technical_blocker(entry)
+   entry=seal();entry['technical_blocker_audit']['sha256']='0'*64
+   with self.assertRaises(AssertionError):technical_blocker(entry)
+ def test_blocked_link_visible_without_official_or_screening_score(self):
+  f=ScreeningTests().fixture();row=f['rows'][0];row['results']=None;row['status']='TECHNISCH BLOCKIERT';row['technical_blocker']={'experiment_id':'R562','decision':'TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS'}
+  page=render(f);self.assertIn('R562 startup audit',page);self.assertIn('NOT MEASURED',page)
+
+class NewFamilyEvidence(unittest.TestCase):
+ def fixture(self):
+  row={'model':'Phi-4','configuration':{'model_sha256':'a'*64,'quantization':'Q6_K'},'status':'SCREENING VOLLSTÄNDIG','local_artifact_available':True,'results':None,'full_benchmark_runs':[{'experiment_id':'R566','runtime_configuration_id':'cfg-a','benchmark_identity_id':'bench-a','audit_hash':'hash-a'}]}
+  run={'experiment_id':'R566','runtime_configuration_id':'cfg-a','benchmark_identity_id':'bench-a','audit_hash':'hash-a','official_eligible':True,'full_benchmark_score_claimed':True,'benchmark_id':'humanevalplus-v0.1.10','benchmark_revision':{'commit':'exact'},'dataset_split_hash':'split','scorer_version':'scorer','model_artifact_id':'artifact-a','solved':134,'tasks':164,'wall_s':700.,'peak_vram_mib':13000.}
+  profile={'runtime_configuration_id':'cfg-a','model_artifact_id':'artifact-a','model':{'artifact_sha256':'a'*64}}
+  return {'rows':[row]},{'runs':[run],'profiles':[profile]}
+ def test_exact_qualification_and_energy_alias_are_one_measurement(self):
+  from render import new_family_evidence
+  s,h=self.fixture();alias=copy.deepcopy(h['runs'][0]);alias['counter_energy']={'tasks':164,'solved':134,'j_per_success_lower':10.,'j_per_success_upper':11.};h['runs'].append(alias)
+  r=new_family_evidence(s,h,[]);points=r['models'][0]['qualified_runs'];self.assertEqual(len(points),1);self.assertEqual(points[0]['counter_energy'],alias['counter_energy']);self.assertIsNone(r['models'][0]['screening_results'])
+ def test_wrong_identity_historical_or_conflicting_score_cannot_transfer(self):
+  from render import new_family_evidence
+  for key,value in [('audit_hash','other'),('runtime_configuration_id','other'),('benchmark_identity_id','other'),('official_eligible',False),('full_benchmark_score_claimed',False),('tasks',32)]:
+   s,h=self.fixture();h['runs'][0][key]=value
+   with self.assertRaises(AssertionError):new_family_evidence(s,h,[])
+  s,h=self.fixture();h['profiles'][0]['model']['artifact_sha256']='b'*64
+  with self.assertRaises(AssertionError):new_family_evidence(s,h,[])
+  s,h=self.fixture();alias=copy.deepcopy(h['runs'][0]);alias['solved']=135;h['runs'].append(alias)
+  with self.assertRaises(AssertionError):new_family_evidence(s,h,[])
+ def test_unlinked_missing_scores_are_not_borrowed_by_model_name(self):
+  from render import new_family_evidence,new_family_section
+  s,h=self.fixture();s['rows'][0]['full_benchmark_runs']=[];r=new_family_evidence(s,h,[]);self.assertEqual(r['models'][0]['qualified_runs'],[]);text=new_family_section(s,h,[]);self.assertIn('NOT MEASURED',text);self.assertNotIn('134/164',text);self.assertIn('dated baseline',text)
+ def test_authored_agents_are_separate_profiles_not_official_scores(self):
+  from render import new_family_evidence
+  s,h=self.fixture();agent={'id':'R567','aggregate_metrics':{'native_validation33':{'model_sha256':'a'*64,'official_benchmark':False,'tasks':33,'planned_tasks':33,'profile_sha256':'different-agent-profile','solved':17}}}
+  r=new_family_evidence(s,h,[agent]);self.assertEqual(r['agent_profiles'][0]['profile_sha256'],'different-agent-profile');self.assertEqual(len(r['models'][0]['qualified_runs']),1)
+  agent['aggregate_metrics']['native_validation33']['official_benchmark']=True
+  with self.assertRaises(AssertionError):new_family_evidence(s,h,[agent])

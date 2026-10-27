@@ -1038,3 +1038,10 @@ test('Qwen27 integrated MTP full coding and tools retain independently bounded m
  assert.equal(cost.energy.lower,(165215.106+193412.377)/320);
  assert.equal(cost.energy.upper,(165303.731+193491.872)/320);
 });
+
+test('gpt-oss complete parallel200 zero is measured, not missing or a borrowed coding result',()=>{
+ const runs=data.history.runs.filter(r=>r.experiment_id==='R570');assert(runs.length);
+ for(const r of runs){assert.equal(r.tasks,200);assert.equal(r.solved,0);assert.equal(r.score_percent,0);assert.equal(r.official_eligible,true);assert.equal(r.gpu_j_per_success,null);}
+ const score=M.aggregate(runs);assert.equal(score.score,0);assert.equal(score.solved,0);assert.equal(score.tasks,200);assert.equal(score.n,1);
+ const view=M.comparisonView(M.build(data));const row=view.rows.find(r=>r.runs.some(x=>x.experiment_id==='R570'));assert(row);assert(!row.runs.some(x=>x.experiment_id==='R559'));
+});

@@ -4392,7 +4392,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>gpt-oss-20b</td><td>SCREENING VOLLSTÄNDIG</td><td>15/16 · 93.8%</td><td>11/16 · 68.8%</td><td>149.2</td><td>119.4</td><td>1,127.4</td><td>11,934.5</td><td>NOT MEASURED</td><td><a href="../experiments/R553/">Screening R553</a> · <details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>gpt-oss-20b</td><td>SCREENING VOLLSTÄNDIG</td><td>15/16 · 93.8%</td><td>11/16 · 68.8%</td><td>149.2</td><td>119.4</td><td>1,127.4</td><td>11,934.5</td><td><a href="../experiments/R570/">R570</a> · <a href="../configuration-comparison/">Official comparison</a></td><td><a href="../experiments/R553/">Screening R553</a> · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: &quot;61a32aaf587adfe87bd8487ae90ce9fbc07e34defdbeaf7d558457086dd24be1&quot;,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -4607,8 +4607,16 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;date&quot;: &quot;2026-10-26T21:36:34.059286+00:00&quot;,
   &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
   &quot;experiment_id&quot;: &quot;R553&quot;,
-  &quot;full_benchmark_runs&quot;: [],
-  &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
+  &quot;full_benchmark_runs&quot;: [
+    {
+      &quot;audit_hash&quot;: &quot;4e3fba34b20ac6743ff9d900bceeaa222bc6234d817c86e030bc800cdd2fd28f&quot;,
+      &quot;benchmark_identity_id&quot;: &quot;bench-5d4b86368f32863a23b3a9a2c99c8077c3e5d9b9731a76b1d6db15573d6c6fbe&quot;,
+      &quot;experiment_id&quot;: &quot;R570&quot;,
+      &quot;official_eligible&quot;: true,
+      &quot;runtime_configuration_id&quot;: &quot;cfg-5cc2911fe046c2753ba866e9bd641dcf184f5f3d0f20310a423cabc2a808a98d&quot;
+    }
+  ],
+  &quot;full_benchmark_status&quot;: &quot;MATCHED_FULL_LOCAL_RESULTS&quot;,
   &quot;independent_review_sha256&quot;: &quot;25585b1cb3f86adca9e4426f60c82a31518953f40ee49d964d1966890ac7db9e&quot;,
   &quot;local_artifact_available&quot;: true,
   &quot;model&quot;: &quot;gpt-oss-20b&quot;,
@@ -6019,7 +6027,7 @@ Screening → full qualification → targeted optimization → independent confi
       ]
     }
   }
-}</pre></details></td></tr><tr><td>Nemotron-3-Nano-30B-A3B</td><td>TECHNISCH BLOCKIERT</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><details><summary>Profile & evidence</summary><pre>{
+}</pre></details></td></tr><tr><td>Nemotron-3-Nano-30B-A3B</td><td>TECHNISCH BLOCKIERT</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td>NOT MEASURED</td><td><a href="../experiments/R562/">R562 startup audit</a> · TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS · <details><summary>Profile & evidence</summary><pre>{
   &quot;audit_sha256&quot;: null,
   &quot;conditions&quot;: &quot;Single native-profile session; frozen base-task order&quot;,
   &quot;configuration&quot;: {
@@ -6062,7 +6070,7 @@ Screening → full qualification → targeted optimization → independent confi
     },
     &quot;warmup_requests&quot;: 2
   },
-  &quot;decision&quot;: &quot;First native source-reviewed screening only. No full result inherited from the engine reference; retain without small-sample quality rejection.&quot;,
+  &quot;decision&quot;: &quot;TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS; no task inference or quality measured. Review the recorded startup prerequisites and authorization before another attempt.&quot;,
   &quot;experiment_id&quot;: null,
   &quot;full_benchmark_runs&quot;: [],
   &quot;full_benchmark_status&quot;: &quot;NOT MEASURED&quot;,
@@ -6071,6 +6079,18 @@ Screening → full qualification → targeted optimization → independent confi
   &quot;model&quot;: &quot;Nemotron-3-Nano-30B-A3B&quot;,
   &quot;parent_experiment_id&quot;: &quot;R560&quot;,
   &quot;status&quot;: &quot;TECHNISCH BLOCKIERT&quot;,
+  &quot;technical_blocker&quot;: {
+    &quot;GPU_inference_task_execution_observed&quot;: false,
+    &quot;GPU_model_allocation_observed&quot;: true,
+    &quot;audit_sha256&quot;: &quot;81837386f89742d8420461bf1d81fe91cad5a8acccc3034d08f89ad8d83e24b7&quot;,
+    &quot;completed_requests&quot;: 0,
+    &quot;decision&quot;: &quot;TECHNICALLY_BLOCKED_STARTUP180_BEFORE_TASKS&quot;,
+    &quot;experiment_id&quot;: &quot;R562&quot;,
+    &quot;peak_vram_mib&quot;: 12496.5,
+    &quot;quality_score&quot;: null,
+    &quot;scope&quot;: &quot;Audited failed startup, not a quality rejection or proof of hardware incompatibility. No new GPU run.&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;
+  },
   &quot;category_results&quot;: null
 }</pre></details></td></tr></tbody></table></div>
 
