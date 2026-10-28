@@ -25924,5 +25924,41 @@
       "scope": "32 exposed development tasks versus historical R503. No official benchmark, causal speed claim, or champion promotion. Separate measured GPU counter bounds exclude startup."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "counter_gpu_j_per_success_lower_A": 588.8036071428571,
+        "counter_gpu_j_per_success_lower_B": 488.39841379310343,
+        "counter_gpu_j_per_success_upper_A": 592.1840357142856,
+        "counter_gpu_j_per_success_upper_B": 491.88803448275866,
+        "peak_device_vram_mib_A": 8128.5,
+        "peak_device_vram_mib_B": 7988.5,
+        "request_wall_reduction_percent": 8.910076972923896,
+        "request_wall_s_A": 70.076521931,
+        "request_wall_s_B": 63.832649887,
+        "vram_reduction_mib": 140.0
+      },
+      "quality": {
+        "candidate_successes": 29,
+        "paired_regressions": 0,
+        "reference_successes": 28,
+        "tasks": 32
+      }
+    },
+    "audit_id": "audit-9d1dc993ad4fb9fafdb8",
+    "date": "2026-10-28T22:45:09.697321+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "K02"
+    ],
+    "id": "R606",
+    "model": "Gemma4 12B QAT Q4",
+    "reference_A0": null,
+    "statements": {
+      "decision": "Promising paired development comparison; independent holdout and full quality qualification remain necessary.",
+      "scope": "Fresh sequential B/A on 32 exposed development tasks per arm; unbalanced order, no independent holdout or official benchmark."
+    },
+    "winner_qualified": false
   }
 ]
