@@ -8089,7 +8089,8 @@
       "R380",
       "R381",
       "R512",
-      "R513"
+      "R513",
+      "R610"
     ],
     "experimentally_covered": true,
     "id": "K01",
@@ -8489,7 +8490,8 @@
       "R381",
       "R605",
       "R606",
-      "R607"
+      "R607",
+      "R608"
     ],
     "experimentally_covered": true,
     "id": "K02",

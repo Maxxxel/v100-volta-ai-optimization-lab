@@ -25997,5 +25997,105 @@
       "scope": "Historical control; pre-exposed validation tasks; 16 cases cannot establish noninferiority or an official benchmark. Energy bounds exclude load and warmup and are not full-system energy."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "candidate_completion_tokens": 53663,
+        "candidate_peak_vram_mib": 7976.5,
+        "candidate_request_wall_s": 829.979110849,
+        "candidate_successes": 147,
+        "counter_gpu_j_per_success_lower_candidate": 1371.0412312925168,
+        "counter_gpu_j_per_success_lower_reference": 1203.1023653846155,
+        "counter_gpu_j_per_success_upper_candidate": 1371.658068027211,
+        "counter_gpu_j_per_success_upper_reference": 1203.6756602564103,
+        "paired_gains": 0,
+        "paired_losses": 9,
+        "reference_completion_tokens": 51322,
+        "reference_peak_vram_mib": 8118.5,
+        "reference_request_wall_s": 754.737726997,
+        "reference_successes": 156,
+        "tasks": 164
+      },
+      "model_starts": 1,
+      "peak_device_vram_mib": 7976.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 147,
+          "tasks": 164,
+          "wall_s": 829.979110849
+        }
+      }
+    },
+    "audit_id": "audit-29c7848fd89a7c45e467",
+    "date": "2026-10-28T23:15:50.679837+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "K02"
+    ],
+    "id": "R608",
+    "model": "gemma4_12b_qat",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-13857323ff434bebfe7e",
+      "audit-fe60caec40cd524ebbff",
+      "audit-a49a6cebc54822e25a33"
+    ],
+    "statements": {
+      "decision": "HISTORICAL_CODING_REGRESSION_NO_PROMOTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full local HumanEval+164: q8 147/164 versus historical f16 156/164 with nine paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. GPU energy counter bounds exclude startup."
+    },
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "candidate_completion_tokens": 50219,
+        "candidate_peak_vram_mib": 7986.5,
+        "candidate_request_wall_s": 793.868207806,
+        "candidate_successes": 151,
+        "counter_gpu_j_per_success_lower_candidate": 1263.797105960265,
+        "counter_gpu_j_per_success_lower_reference": 1203.1023653846155,
+        "counter_gpu_j_per_success_upper_candidate": 1264.436298013245,
+        "counter_gpu_j_per_success_upper_reference": 1203.6756602564103,
+        "paired_gains": 0,
+        "paired_losses": 5,
+        "reference_completion_tokens": 51322,
+        "reference_peak_vram_mib": 8118.5,
+        "reference_request_wall_s": 754.737726997,
+        "reference_successes": 156,
+        "tasks": 164
+      },
+      "model_starts": 1,
+      "peak_device_vram_mib": 7986.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164,
+          "wall_s": 793.868207806
+        }
+      }
+    },
+    "audit_id": "audit-2c9b46a83abaf5980e1d",
+    "date": "2026-10-28T23:33:22.961539+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "K01"
+    ],
+    "id": "R610",
+    "model": "gemma4_12b_qat",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-780d243c88416199c35a",
+      "audit-cd915cbc07839219d92d",
+      "audit-a49a6cebc54822e25a33"
+    ],
+    "statements": {
+      "decision": "HISTORICAL_CODING_REGRESSION_NO_PROMOTION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup."
+    },
+    "winner_qualified": false
   }
 ]

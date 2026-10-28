@@ -181585,6 +181585,194 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7976.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 147,
+          "tasks": 164,
+          "wall_s": 829.979110849
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-29c7848fd89a7c45e467",
+    "original_bytes": 11091,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "29c7848fd89a7c45e4673d792fa291d4b5772ce50538ed4f16ebff340dd1ffad",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, q8_0 value cache, no output reuse, QA pre-exclusion, causal speedup or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-13857323ff434bebfe7e",
+    "original_bytes": 901,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "13857323ff434bebfe7e0ee3fd4dac9cc3e573dc40c06ba7a23d013f60160365",
+    "statements": {
+      "scope": "Single historical control; score differences cannot establish population noninferiority or causal speed benefit. No tasks beyond the observed prefix inferred. Independent official replay and safety/stability remain separate."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "arms": {
+        "candidate": {
+          "completion_tokens": 53663,
+          "counter_bounds": {
+            "complete_request_s": 829.979110849,
+            "group_window_s": 830.633435905,
+            "groups": 1,
+            "included_between_request_setup_s": 0.654325056,
+            "lower_j": 201543.061,
+            "max_query_duration_s": 0.010865767,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 164,
+            "upper_j": 201633.736
+          },
+          "gpu_j_per_success_lower": 1371.0412312925168,
+          "gpu_j_per_success_upper": 1371.658068027211,
+          "raw_hashes_sha256": "cee77d783075e5ba832f1641ebc0418e1e5cd97031561a91e68e6ac1e2affa02",
+          "requests_sha256": "82c50bb9c01e4c37c05be666140ae626e1a29b1f6fbeb4a15c7f6f0929a00be4",
+          "successes": 147,
+          "telemetry_sha256": "3068049c0640239977e1ca0433de0cb2f128d0febb8077b553ca37d7c1ad0610"
+        },
+        "reference": {
+          "completion_tokens": 51322,
+          "counter_bounds": {
+            "complete_request_s": 754.737726997,
+            "group_window_s": 757.154237101,
+            "groups": 1,
+            "included_between_request_setup_s": 2.416510104,
+            "lower_j": 187683.969,
+            "max_query_duration_s": 0.031467005,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 164,
+            "upper_j": 187773.403
+          },
+          "gpu_j_per_success_lower": 1203.1023653846155,
+          "gpu_j_per_success_upper": 1203.6756602564103,
+          "raw_hashes_sha256": "3d99e7a91460b3531685092a11966f3b275d32b5648169da1e7abacf0d3537f8",
+          "requests_sha256": "34d988e4fc43c5118daa759d8330f84c33a44e5f7f3ea9e36c2244c69eee2005",
+          "successes": 156,
+          "telemetry_sha256": "d8705c6da6754cd16094cbdf2b2b5f33078b0be6bf31ce756c235dca71e5d10c"
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-fe60caec40cd524ebbff",
+    "original_bytes": 3173,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "fe60caec40cd524ebbff4496c065eadd999b9a346f4da4b520682a468861328a",
+    "statements": {
+      "scope": "GPU energy counter bounds over selected tasks only; excludes model startup, warmup, CPU and full system. Historical control and differing outputs prevent causal energy attribution."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7986.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164,
+          "wall_s": 793.868207806
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2c9b46a83abaf5980e1d",
+    "original_bytes": 11095,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2c9b46a83abaf5980e1d05db6cbeff79b5f2c5aa14805365c09292c091ac9c65",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, q8_0 key cache, no output reuse, QA pre-exclusion, causal speedup or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-780d243c88416199c35a",
+    "original_bytes": 819,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "780d243c88416199c35a5a4c9a40626e0fc2e4d50901f37ec5e27891c911dbc7",
+    "statements": {
+      "scope": "Single historical control; score differences cannot establish population noninferiority or causal speed benefit. No tasks beyond the observed prefix inferred. Independent official replay and safety/stability remain separate."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "arms": {
+        "candidate": {
+          "completion_tokens": 50219,
+          "counter_bounds": {
+            "complete_request_s": 793.868207806,
+            "group_window_s": 794.513761191,
+            "groups": 1,
+            "included_between_request_setup_s": 0.645553385,
+            "lower_j": 190833.363,
+            "max_query_duration_s": 0.014808149,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 164,
+            "upper_j": 190929.881
+          },
+          "gpu_j_per_success_lower": 1263.797105960265,
+          "gpu_j_per_success_upper": 1264.436298013245,
+          "raw_hashes_sha256": "6a95f048aab32da03212463bb6a3208222481116adef368267dd4b3afd66e2be",
+          "requests_sha256": "b3e44044a7ad8054142d7cba0966dceef5bfc12adfd5109e4e6399ac8969f663",
+          "successes": 151,
+          "telemetry_sha256": "368b78aebc518c5847b50d13c14f7e576ea7711caf3b2d3ccdae9b2bc60f3167"
+        },
+        "reference": {
+          "completion_tokens": 51322,
+          "counter_bounds": {
+            "complete_request_s": 754.737726997,
+            "group_window_s": 757.154237101,
+            "groups": 1,
+            "included_between_request_setup_s": 2.416510104,
+            "lower_j": 187683.969,
+            "max_query_duration_s": 0.031467005,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 164,
+            "upper_j": 187773.403
+          },
+          "gpu_j_per_success_lower": 1203.1023653846155,
+          "gpu_j_per_success_upper": 1203.6756602564103,
+          "raw_hashes_sha256": "3d99e7a91460b3531685092a11966f3b275d32b5648169da1e7abacf0d3537f8",
+          "requests_sha256": "34d988e4fc43c5118daa759d8330f84c33a44e5f7f3ea9e36c2244c69eee2005",
+          "successes": 156,
+          "telemetry_sha256": "d8705c6da6754cd16094cbdf2b2b5f33078b0be6bf31ce756c235dca71e5d10c"
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-cd915cbc07839219d92d",
+    "original_bytes": 3149,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cd915cbc07839219d92d4c408207e17a78829d4e7256a7fc1221c7b062f74f5c",
+    "statements": {
+      "scope": "GPU counter bounds over selected tasks only; excludes startup, warmup and CPU. Historical control and differing outputs prevent causal energy attribution."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -263496,6 +263684,130 @@
     "statements": {}
   },
   {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7976.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4c5742ac871cc20ecec0",
+    "original_bytes": 143535,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4c5742ac871cc20ecec03be2451f82bb3f7622fbab25333fda935d77105afb1a",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 147,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c96d0933d6115c470caf",
+    "original_bytes": 3633,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c96d0933d6115c470caff9e893dc273341ae9b990bbc970734ba2a7e84e7fda6",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-192906c252e72fb87089",
+    "original_bytes": 5042,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "192906c252e72fb87089eafda15777ad15049b96121e4f89ddcf3e71cc9a04c4",
+    "statements": {
+      "scope": "GPU energy counter bounds over selected tasks only; excludes model startup, warmup, CPU and full system. Historical control and differing outputs prevent causal energy attribution."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 147,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-381b3e49c0cd0609485b",
+    "original_bytes": 8275,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "381b3e49c0cd0609485b23be59bbf32742e914d3d56dc75dc6f7361580b0e80a",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7986.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-74cbe8844c1ab48fa6d6",
+    "original_bytes": 143587,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "74cbe8844c1ab48fa6d61915827020f91a1d16f5de1579f8e1c366cc2078ea99",
+    "statements": {
+      "limits": [
+        "Native benchmark answers collected under fixed declared recipe; official coding/AST and practical protocol quality require separate isolated CPU scoring. No Champion promotion."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "new_GPU_runs": 0,
+      "solved": 151,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3ccf207df48262a59739",
+    "original_bytes": 3633,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3ccf207df48262a597398db184b52806c92b5ae2f1c43d6960724091b78ea225",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-06aa75e7ef697a613dec",
+    "original_bytes": 5021,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "06aa75e7ef697a613dec70a090c174dc68538ac25248a5218459d31025cf6fe7",
+    "statements": {
+      "scope": "GPU counter bounds over selected tasks only; excludes startup, warmup and CPU. Historical control and differing outputs prevent causal energy attribution."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 151,
+      "tasks": 164
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8cbd1782cc309a7a454a",
+    "original_bytes": 8271,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8cbd1782cc309a7a454a19c240109c50b36888d64613c9cf770b6818c74401e5",
+    "statements": {}
+  },
+  {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
     "id": "audit-8c20cddbcc71524da391",
@@ -264425,6 +264737,17 @@
   {
     "aggregate_metrics": {},
     "excerpt_is_not_original": true,
+    "id": "audit-6a95f048aab32da03212",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "6a95f048aab32da03212463bb6a3208222481116adef368267dd4b3afd66e2be",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
     "id": "audit-3445736042f8404217af",
     "original_bytes": 1353,
     "original_filename": "research-metadata.json",
@@ -264955,6 +265278,17 @@
     "original_pin_verified": true,
     "original_publicly_available": false,
     "original_sha256": "80783f8d718162b0f504a4c47851f435e546c1912d60e71befc59395d8a81723",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-cee77d783075e5ba832f",
+    "original_bytes": 1353,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "cee77d783075e5ba832f1641ebc0418e1e5cd97031561a91e68e6ac1e2affa02",
     "statements": {}
   },
   {

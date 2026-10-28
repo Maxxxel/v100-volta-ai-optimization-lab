@@ -46,7 +46,7 @@ extra_javascript:
   - javascripts/screening.js?v=7af8f50daa3611bf
   - assets/benchmarks/benchmark-table-data.js
   - javascripts/benchmark-tables.js
-  - assets/benchmarks/leaderboard-data.js?v=6ca3b8b8843fab6e
+  - assets/benchmarks/leaderboard-data.js?v=0c36a851cdcb4c31
   - javascripts/master-table.js?v=e6e5749dbcb9feaf
   - javascripts/leaderboard.js?v=697620605486078d
 extra:

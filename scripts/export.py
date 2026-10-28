@@ -1355,6 +1355,27 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if ident in ('R608','R610') and v.get('comparison_review_path'):
+            paired=receipt(v['comparison_review_path'],v['comparison_review_sha256']); energy_id=receipt(v['paired_energy_counter_review']['path'],v['paired_energy_counter_review']['sha256']); ref_id=receipt(root/'staging/r464/AUDIT.json')
+            if not audit or not paired or not energy_id or not ref_id:raise ValueError('R608 comparison evidence missing')
+            paired_data=load(locations[paired]); energy=load(locations[energy_id]); candidate=load(locations[audit]); reference=load(locations[ref_id]); comparison=v['comparison']
+            if paired_data['candidate_audit_sha256']!=digest(locations[audit]) or paired_data['reference_audit_sha256']!=digest(locations[ref_id]) or energy['candidate_audit_sha256']!=digest(locations[audit]) or energy['reference_audit_sha256']!=digest(locations[ref_id]):raise ValueError('R608 source audit differs')
+            verdicts=[]
+            for source,trial in ((reference,'r464'),(candidate,ident.lower())):
+                judge=root/'staging'/trial/'scoring/part01'/(trial+'-judge-part01.stdout')
+                if digest(judge)!=source['scoring'][0]['judge_stdout_sha256']:raise ValueError('R608 judge source differs')
+                rows=[json.loads(line) for line in judge.read_text().splitlines()];verdicts.append({x['task_id']:x['checks']['base']['status']==x['checks']['plus']['status']=='pass' for x in rows})
+            left,right=verdicts
+            if len(left)!=164 or left.keys()!=right.keys() or paired_data['paired_losses']!=[k for k in right if left[k] and not right[k]] or paired_data['paired_gains']!=[k for k in right if not left[k] and right[k]] or comparison['paired_losses']!=len(paired_data['paired_losses']) or comparison['paired_gains']!=len(paired_data['paired_gains']):raise ValueError('R608 paired task outcomes differ')
+            from leaderboard import counter_energy_bounds
+            for arm,source in (('reference',reference),('candidate',candidate)):
+                row=energy['arms'][arm];manifest=pathlib.Path(row['raw_hashes_path']);raw=load(manifest);folder=manifest.parent
+                if digest(manifest)!=row['raw_hashes_sha256']:raise ValueError('R608 raw manifest differs')
+                for name,key in (('GPU_TELEMETRY.jsonl','telemetry_sha256'),('HTTP_RESULTS.jsonl','requests_sha256')):
+                    if digest(folder/name)!=row[key] or raw.get(name)!=row[key]:raise ValueError('R608 counter input differs')
+                telemetry=[json.loads(line) for line in (folder/'GPU_TELEMETRY.jsonl').read_text().splitlines()];requests=[x for x in (json.loads(line) for line in (folder/'HTTP_RESULTS.jsonl').read_text().splitlines()) if x.get('kind')=='coding'];bounds=counter_energy_bounds(telemetry,requests,[x['id'] for x in requests]);solved=source['solved_observed_tasks']
+                if len(requests)!=164 or row['counter_bounds']!=bounds or row['successes']!=solved or comparison['counter_gpu_j_per_success_lower_'+arm]!=bounds['lower_j']/solved or comparison['counter_gpu_j_per_success_upper_'+arm]!=bounds['upper_j']/solved or comparison[arm+'_completion_tokens']!=sum(x['reply']['usage']['completion_tokens'] for x in requests):raise ValueError('R608 counter projection differs')
+            experiments[ident]['related_audit_ids']=[paired,energy_id,ref_id]
         if ident=='R607' and v.get('comparison_review_path'):
             review_id=receipt(v['comparison_review_path'],v['comparison_review_sha256'])
             reference_id=receipt(root/'staging/r510/AUDIT.json')

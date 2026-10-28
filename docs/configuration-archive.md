@@ -228,6 +228,8 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | mimo_v26_distill_qwen9b_q8 | [cfg-0a43559e1f529ff4](configuration-profiles/cfg-0a43559e1f529ff409d11fd8d62af2f96bfa10b76f566cd334271a2efe7b0f89.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 | mimo_v26_distill_qwen9b_q8 | [cfg-ec18b02969962246](configuration-profiles/cfg-ec18b02969962246d98530a67e8e70414c377ddd661da5609566befb74d05d87.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 | bonsai2_27b_pq2 | [cfg-e9de151384c39d90](configuration-profiles/cfg-e9de151384c39d90b6131f812f5e5374ae9fc92c5e42b575381b34aae8a15a04.md) | No benchmark result in history.runs; inspect archived attempt evidence |
+| gemma4_12b_qat | [cfg-ced7336810107eed](configuration-profiles/cfg-ced7336810107eed2dd787773e19488ab8d61c8dbc3e679d5e96b62518604da0.md) | No benchmark result in history.runs; inspect archived attempt evidence |
+| gemma4_12b_qat | [cfg-fd11ebeae2318f2a](configuration-profiles/cfg-fd11ebeae2318f2ab6865462baec92c3936abc9e9a31cab64a1813cfbcc90cd8.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 
 
 ## Other measured benchmark profiles — preserved outside the category comparison
