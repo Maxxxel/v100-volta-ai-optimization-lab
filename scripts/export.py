@@ -1355,6 +1355,33 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if audit and ident in ('R603','R604') and v.get('energy_counter_review'):
+            entry=v['energy_counter_review'];review_id=receipt(entry['path'],entry['sha256'])
+            if not review_id:raise ValueError('Energy counter review missing')
+            energy=load(locations[review_id]);original=load(locations[audit]);evidence_hashes=set(original['refs'].values())
+            if energy.get('experiment_id')!=ident or energy.get('status')!='INDEPENDENT_GPU_COUNTER_BOUNDS_CPU_REPLAY' or energy.get('winner_qualified') is not False or energy.get('source_audit_sha256') not in evidence_hashes or energy.get('raw_hashes_sha256') not in evidence_hashes or energy.get('quality_sha256') not in evidence_hashes:
+                raise ValueError('Energy counter provenance differs')
+            from leaderboard import counter_energy_bounds
+            hash_paths=[pathlib.Path(path) for path,h in original['refs'].items() if h==energy['raw_hashes_sha256']]
+            if len(hash_paths)!=1 or digest(hash_paths[0])!=energy['raw_hashes_sha256']:raise ValueError('Energy raw hashes changed')
+            raw=hash_paths[0].parent;raw_hashes=load(hash_paths[0])
+            for name,key in (('GPU_TELEMETRY.jsonl','telemetry_sha256'),('HTTP_RESULTS.jsonl','requests_sha256')):
+                if digest(raw/name)!=energy[key] or raw_hashes.get(name)!=energy[key]:raise ValueError('Energy source changed')
+            telemetry=[json.loads(line) for line in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()]
+            requests=[row for row in (json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()) if row.get('kind') in ('coding','native_tool')]
+            for arm,data in energy['arms'].items():
+                comparison=v['comparison']
+                selected=[row['id'] for row in requests if ident=='R604' or row['id'].endswith('--'+arm)]
+                bounds=counter_energy_bounds(telemetry,requests,selected)
+                solved=original['quality']['candidate_successes'] if ident=='R604' else sum(v['successes'] for v in original['quality'][arm].values())
+                if bounds!=data['counter_bounds'] or data['successful_tasks']!=solved or solved<=0 or data['gpu_joules_per_success_lower']!=bounds['lower_j']/solved or data['gpu_joules_per_success_upper']!=bounds['upper_j']/solved or comparison.get('counter_gpu_j_per_success_lower_'+arm)!=data['gpu_joules_per_success_lower'] or comparison.get('counter_gpu_j_per_success_upper_'+arm)!=data['gpu_joules_per_success_upper']:
+                    raise ValueError('Energy counter projection differs')
+            if ident=='R604':
+                reference=energy['historical_control']
+                original_control=load(root/'staging/r487/AUDIT.json')['all_completed_arms']['C']
+                if digest(root/'staging/r487/AUDIT.json')!=load(root/'staging/r604/PLAN.json')['control_audit_sha256'] or reference['counter_bounds']!=original_control['GPU_counter'] or reference['successful_tasks']!=original_control['successes'] or reference['gpu_joules_per_success_lower']!=reference['counter_bounds']['lower_j']/reference['successful_tasks'] or reference['gpu_joules_per_success_upper']!=reference['counter_bounds']['upper_j']/reference['successful_tasks'] or v['comparison'].get('counter_gpu_j_per_success_lower_reference')!=reference['gpu_joules_per_success_lower'] or v['comparison'].get('counter_gpu_j_per_success_upper_reference')!=reference['gpu_joules_per_success_upper']:
+                    raise ValueError('Historical energy reference differs')
+            experiments[ident]['related_audit_ids']=[review_id]
         if audit and ident=='R546' and v.get('status') in ('FRESH_TOOLS_AB400_COMPLETE','PARTIAL'):
             confirmed=verified_native_tools_confirmation(root,v,receipt)
             experiments[ident]['aggregate_metrics']['native_tools_confirmation']=confirmed

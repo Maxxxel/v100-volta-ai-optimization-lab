@@ -181314,6 +181314,59 @@
   },
   {
     "aggregate_metrics": {
+      "arms": {
+        "A": {
+          "counter_bounds": {
+            "complete_request_s": 62.677305446,
+            "group_window_s": 62.693647962,
+            "groups": 1,
+            "included_between_request_setup_s": 0.016342516,
+            "lower_j": 16453.702,
+            "max_query_duration_s": 0.038575331,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 32,
+            "upper_j": 16544.32
+          },
+          "gpu_joules_per_success_lower": 587.6322142857143,
+          "gpu_joules_per_success_upper": 590.8685714285714,
+          "successful_tasks": 28
+        },
+        "B": {
+          "counter_bounds": {
+            "complete_request_s": 62.317039901,
+            "group_window_s": 62.333354265,
+            "groups": 1,
+            "included_between_request_setup_s": 0.016314364,
+            "lower_j": 16829.591,
+            "max_query_duration_s": 0.038575331,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 32,
+            "upper_j": 16935.006
+          },
+          "gpu_joules_per_success_lower": 601.0568214285714,
+          "gpu_joules_per_success_upper": 604.8216428571429,
+          "successful_tasks": 28
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ad232e7c14a43375192c",
+    "original_bytes": 2890,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ad232e7c14a43375192c4fa49b1fc45f7f74721f8965dee9ccedcd12e0686d27",
+    "statements": {
+      "limitations": [
+        "Cumulative gross GPU energy counter bounds, not trapezoidal per-request integration or CPU/system energy.",
+        "Bounds include between-request setup within each contiguous group; exclude startup and warmups.",
+        "Bounds do not account for undocumented sensor calibration error.",
+        "Original audits and their missing-integration labels remain unchanged."
+      ]
+    }
+  },
+  {
+    "aggregate_metrics": {
       "comparison": {
         "candidate_peak_device_vram_mib": 7356.5,
         "candidate_request_wall_s": 53.044350133,
@@ -181342,6 +181395,43 @@
         "Development set is exposed; no general quality, state correctness or champion qualification."
       ],
       "scope": "32 exposed development tasks; same requests and prompt tokens as historical interleaved R487 C; not a fresh control or official benchmark."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "arms": {
+        "candidate": {
+          "counter_bounds": {
+            "complete_request_s": 53.044350133,
+            "group_window_s": 53.064117618,
+            "groups": 1,
+            "included_between_request_setup_s": 0.019767485,
+            "lower_j": 13836.744,
+            "max_query_duration_s": 0.059150962,
+            "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+            "tasks": 32,
+            "upper_j": 13902.789
+          },
+          "gpu_joules_per_success_lower": 576.5310000000001,
+          "gpu_joules_per_success_upper": 579.282875,
+          "successful_tasks": 24
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-57e9b9618f53ca180fe4",
+    "original_bytes": 2981,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "57e9b9618f53ca180fe489dc4d826e5acc2254e50e9a5550f3867cffb5856e18",
+    "statements": {
+      "limitations": [
+        "Cumulative gross GPU energy counter bounds, not trapezoidal per-request integration or CPU/system energy.",
+        "Bounds include between-request setup within each contiguous group; exclude startup and warmups.",
+        "Bounds do not account for undocumented sensor calibration error.",
+        "Original audits and their missing-integration labels remain unchanged."
+      ]
     }
   },
   {

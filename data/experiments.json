@@ -25817,6 +25817,10 @@
   {
     "aggregate_metrics": {
       "comparison": {
+        "counter_gpu_j_per_success_lower_A": 587.6322142857143,
+        "counter_gpu_j_per_success_lower_B": 601.0568214285714,
+        "counter_gpu_j_per_success_upper_A": 590.8685714285714,
+        "counter_gpu_j_per_success_upper_B": 604.8216428571429,
         "peak_device_vram_mib_A": 7680.5,
         "peak_device_vram_mib_B": 11776.5,
         "request_wall_reduction_percent": 0.5747942455988087,
@@ -25836,9 +25840,12 @@
     "id": "R603",
     "model": "OmniCoder 9B bartowski Q6_K",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-ad232e7c14a43375192c"
+    ],
     "statements": {
       "decision": "No practical latency benefit in a single exposed development screen; 4 GiB added peak VRAM. No champion promotion.",
-      "scope": "Two sequential matched 32-task development arms; not an official benchmark or long-context qualification. Energy comparison NOT MEASURED because one control task lacked complete telemetry."
+      "scope": "Two sequential matched 32-task development arms; not an official benchmark or long-context qualification. Per-task power integration is incomplete; separately verified GPU counter bounds include between-request setup."
     },
     "winner_qualified": false
   },
@@ -25848,6 +25855,10 @@
         "candidate_peak_device_vram_mib": 7356.5,
         "candidate_request_wall_s": 53.044350133,
         "candidate_wall_change_percent": 2.9590096551447287,
+        "counter_gpu_j_per_success_lower_candidate": 576.5310000000001,
+        "counter_gpu_j_per_success_lower_reference": 527.8284166666666,
+        "counter_gpu_j_per_success_upper_candidate": 579.282875,
+        "counter_gpu_j_per_success_upper_reference": 682.8068333333334,
         "historical_request_wall_s": 51.519872142
       },
       "quality": {
@@ -25866,9 +25877,12 @@
     "id": "R604",
     "model": "Nexus 9B Q6_K",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-57e9b9618f53ca180fe4"
+    ],
     "statements": {
       "decision": "No practical benefit observed in an exposed development screen against a historical interleaved reference; no champion promotion.",
-      "scope": "32 development tasks, no contemporaneous control or official benchmark. GPU energy comparison NOT MEASURED due to incomplete task telemetry."
+      "scope": "32 development tasks, no contemporaneous control or official benchmark. Per-task power integration is incomplete; separate GPU counter bounds include between-request setup."
     },
     "winner_qualified": false
   }
