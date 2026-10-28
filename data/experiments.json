@@ -25813,5 +25813,33 @@
       ]
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_device_vram_mib_A": 7680.5,
+        "peak_device_vram_mib_B": 11776.5,
+        "request_wall_reduction_percent": 0.5747942455988087,
+        "request_wall_s_A": 62.677305446,
+        "request_wall_s_B": 62.317039901,
+        "successes_A": 28,
+        "successes_B": 28,
+        "tasks_per_arm": 32
+      }
+    },
+    "audit_id": "audit-b0ed3041a49e7751c28a",
+    "date": "2026-10-28T22:04:30.035588+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "HBM07"
+    ],
+    "id": "R603",
+    "model": "OmniCoder 9B bartowski Q6_K",
+    "reference_A0": null,
+    "statements": {
+      "decision": "No practical latency benefit in a single exposed development screen; 4 GiB added peak VRAM. No champion promotion.",
+      "scope": "Two sequential matched 32-task development arms; not an official benchmark or long-context qualification. Energy comparison NOT MEASURED because one control task lacked complete telemetry."
+    },
+    "winner_qualified": false
   }
 ]

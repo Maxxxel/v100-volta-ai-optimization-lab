@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 519
+    "sprint_records": 520
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -1391,7 +1391,7 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "e9ed65a0ad35b956be0bd35a176db98066c9a542b087ea0c91cb2746c9dfeae0",
+    "BENCHMARK_REFERENCES.json": "4410d5c4108f26b38c1b936141ffc3b5d96c0b313d230a84c43d6aef9c87a554",
     "BENCHMARK_REGISTER.json": "7a1e2de9cfb98444a778ebe9c5b5ddd15b98ffc43c95c4001bf0a316ac0e929b",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
