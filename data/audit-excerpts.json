@@ -102814,6 +102814,44 @@
   },
   {
     "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7986.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 151,
+          "tasks": 164,
+          "wall_s": 793.868207806
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-2c9b46a83abaf5980e1d",
+    "original_bytes": 11095,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "2c9b46a83abaf5980e1d05db6cbeff79b5f2c5aa14805365c09292c091ac9c65",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, q8_0 key cache, no output reuse, QA pre-exclusion, causal speedup or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-780d243c88416199c35a",
+    "original_bytes": 819,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "780d243c88416199c35a5a4c9a40626e0fc2e4d50901f37ec5e27891c911dbc7",
+    "statements": {
+      "scope": "Single historical control; score differences cannot establish population noninferiority or causal speed benefit. No tasks beyond the observed prefix inferred. Independent official replay and safety/stability remain separate."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
@@ -103956,6 +103994,44 @@
         "Original12qualityonly;32Kfixtureissynthetic,no longdocumentsemantic/coding/agentqualification",
         "GPUboardenergyapprox,notwhole-systemenergy"
       ]
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_starts": 1,
+      "peak_device_vram_mib": 7976.5,
+      "scopes": {
+        "standard_full164": {
+          "solved": 147,
+          "tasks": 164,
+          "wall_s": 829.979110849
+        }
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-29c7848fd89a7c45e467",
+    "original_bytes": 11091,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "29c7848fd89a7c45e4673d792fa291d4b5772ce50538ed4f16ebff340dd1ffad",
+    "statements": {
+      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, q8_0 value cache, no output reuse, QA pre-exclusion, causal speedup or Champion claim. Missing tasks are not zero."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-13857323ff434bebfe7e",
+    "original_bytes": 901,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "13857323ff434bebfe7e0ee3fd4dac9cc3e573dc40c06ba7a23d013f60160365",
+    "statements": {
+      "scope": "Single historical control; score differences cannot establish population noninferiority or causal speed benefit. No tasks beyond the observed prefix inferred. Independent official replay and safety/stability remain separate."
     }
   },
   {
@@ -181585,44 +181661,6 @@
   },
   {
     "aggregate_metrics": {
-      "model_starts": 1,
-      "peak_device_vram_mib": 7976.5,
-      "scopes": {
-        "standard_full164": {
-          "solved": 147,
-          "tasks": 164,
-          "wall_s": 829.979110849
-        }
-      }
-    },
-    "excerpt_is_not_original": true,
-    "id": "audit-29c7848fd89a7c45e467",
-    "original_bytes": 11091,
-    "original_filename": "AUDIT.json",
-    "original_pin_verified": true,
-    "original_publicly_available": false,
-    "original_sha256": "29c7848fd89a7c45e4673d792fa291d4b5772ce50538ed4f16ebff340dd1ffad",
-    "statements": {
-      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
-      "evidence_class": "LOKAL_GEMESSEN",
-      "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, q8_0 value cache, no output reuse, QA pre-exclusion, causal speedup or Champion claim. Missing tasks are not zero."
-    }
-  },
-  {
-    "aggregate_metrics": {},
-    "excerpt_is_not_original": true,
-    "id": "audit-13857323ff434bebfe7e",
-    "original_bytes": 901,
-    "original_filename": "research-metadata.json",
-    "original_pin_verified": true,
-    "original_publicly_available": false,
-    "original_sha256": "13857323ff434bebfe7e0ee3fd4dac9cc3e573dc40c06ba7a23d013f60160365",
-    "statements": {
-      "scope": "Single historical control; score differences cannot establish population noninferiority or causal speed benefit. No tasks beyond the observed prefix inferred. Independent official replay and safety/stability remain separate."
-    }
-  },
-  {
-    "aggregate_metrics": {
       "arms": {
         "candidate": {
           "completion_tokens": 53663,
@@ -181675,44 +181713,6 @@
     "original_sha256": "fe60caec40cd524ebbff4496c065eadd999b9a346f4da4b520682a468861328a",
     "statements": {
       "scope": "GPU energy counter bounds over selected tasks only; excludes model startup, warmup, CPU and full system. Historical control and differing outputs prevent causal energy attribution."
-    }
-  },
-  {
-    "aggregate_metrics": {
-      "model_starts": 1,
-      "peak_device_vram_mib": 7986.5,
-      "scopes": {
-        "standard_full164": {
-          "solved": 151,
-          "tasks": 164,
-          "wall_s": 793.868207806
-        }
-      }
-    },
-    "excerpt_is_not_original": true,
-    "id": "audit-2c9b46a83abaf5980e1d",
-    "original_bytes": 11095,
-    "original_filename": "AUDIT.json",
-    "original_pin_verified": true,
-    "original_publicly_available": false,
-    "original_sha256": "2c9b46a83abaf5980e1d05db6cbeff79b5f2c5aa14805365c09292c091ac9c65",
-    "statements": {
-      "decision": "FULL164_COLLECTED_AND_SCORED_NO_CHAMPION",
-      "evidence_class": "LOKAL_GEMESSEN",
-      "scope": "Actual same-session Gemma4 QAT Q4_0 native configuration, q8_0 key cache, no output reuse, QA pre-exclusion, causal speedup or Champion claim. Missing tasks are not zero."
-    }
-  },
-  {
-    "aggregate_metrics": {},
-    "excerpt_is_not_original": true,
-    "id": "audit-780d243c88416199c35a",
-    "original_bytes": 819,
-    "original_filename": "research-metadata.json",
-    "original_pin_verified": true,
-    "original_publicly_available": false,
-    "original_sha256": "780d243c88416199c35a5a4c9a40626e0fc2e4d50901f37ec5e27891c911dbc7",
-    "statements": {
-      "scope": "Single historical control; score differences cannot establish population noninferiority or causal speed benefit. No tasks beyond the observed prefix inferred. Independent official replay and safety/stability remain separate."
     }
   },
   {

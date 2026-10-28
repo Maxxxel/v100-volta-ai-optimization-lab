@@ -8096,6 +8096,25 @@
     "id": "K01",
     "kind": "original",
     "linked_original_axes": [],
+    "model_specific_findings": [
+      {
+        "candidate_successes": 151,
+        "evidence_ids": [
+          "audit-2c9b46a83abaf5980e1d",
+          "audit-780d243c88416199c35a"
+        ],
+        "model": "Gemma4 12B IT QAT Q4_0",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "paired_gains": 0,
+        "paired_losses": 5,
+        "reference_successes": 156,
+        "reopen": "Fresh balanced seed-controlled comparison or distinct long-context need with adequate quality and stability gates.",
+        "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup.",
+        "status": "TESTED_NEGATIVE",
+        "tasks": 164,
+        "variant": "q8_0 key cache, other cache f16"
+      }
+    ],
     "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [
@@ -8497,6 +8516,25 @@
     "id": "K02",
     "kind": "original",
     "linked_original_axes": [],
+    "model_specific_findings": [
+      {
+        "candidate_successes": 147,
+        "evidence_ids": [
+          "audit-29c7848fd89a7c45e467",
+          "audit-13857323ff434bebfe7e"
+        ],
+        "model": "Gemma4 12B IT QAT Q4_0",
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "paired_gains": 0,
+        "paired_losses": 9,
+        "reference_successes": 156,
+        "reopen": "Fresh balanced seed-controlled comparison or distinct long-context need with adequate quality and stability gates.",
+        "scope": "Full local HumanEval+164: q8 147/164 versus historical f16 156/164 with nine paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. GPU energy counter bounds exclude startup.",
+        "status": "TESTED_NEGATIVE",
+        "tasks": 164,
+        "variant": "q8_0 value cache, other cache f16"
+      }
+    ],
     "next_action": "R381 ist vorläufig gesichert. Weitere Feinqualifikation erst nach Breitenprüfung der offenen Original-/Benchmark-Einzelvarianten; keine Variantenfamilie vertiefen, bevor deren praktischer Rang geklärt ist.",
     "omnicoder2_experimentally_covered": true,
     "per_model_original_coverage": [

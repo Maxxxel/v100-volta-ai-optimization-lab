@@ -694,6 +694,11 @@ Native broker campaigns use their frozen data contracts and captured launch/prof
   if f['variants']:
    details+='\n'+table(['Original variant','Signed historical state','Reviewed scoped status','Hardware coverage in this variant'],[[v['value'],', '.join(v['historical_signed_states']),v['scope_status'] or 'See linked original evidence',v['experimental_coverage'] if v['experimental_coverage'] is not None else 'Not separately reconciled'] for v in f['variants']])
   details+='\n### Recorded model-specific variant coverage\n\n'+pretty(f.get('per_model_original_coverage',[]))+'\nHistorical states and window signatures are evidence links, not qualification of every model/variant.\n'
+  if f.get('model_specific_findings'):
+   details+='\n### Model-specific findings\n\n'
+   for x in f['model_specific_findings']:
+    finding_refs=' · '.join(f'[{eid}](../audits/{eid}.md)' for eid in x['evidence_ids'])
+    details+=f"**{x['model']} — {x['variant']}** · {x['status']}  \nHumanEval+: {x['candidate_successes']}/{x['tasks']} versus {x['reference_successes']}/{x['tasks']}; {x['paired_losses']} losses, {x['paired_gains']} gains. {finding_refs}\n\n{x['scope']}\n\nReopen: {x['reopen']}\n\n"
   details+='\n## Available results\n\nValues, baseline/candidate comparisons, model/engine identity and limits are in the linked audit excerpts and profile records. Missing measurements are **NOT MEASURED**. Existing native screens are not HumanEval, BFCL or full-agent qualifications.\n\n'
   for v in f['variants']:
    if v.get('aggregate_metrics'):details+='\n### Variant '+v['value']+'\n\n'+pretty(v['aggregate_metrics'])
