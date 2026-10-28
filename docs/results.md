@@ -522,6 +522,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R599](experiments/R599.md) | A03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B · bartowski Q6 |
 | [R600](experiments/R600.md) | A03 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder bartowski Q6 · original Node shrink B-only33 |
 | [R601](experiments/R601.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder bartowski Q6 · original mini-SWE native B-only33 |
+| [R602](experiments/R602.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-9B Q4_K_M + external Qwen3.5 MTP Q6_K |
 
 
 ## Historical signed windows
