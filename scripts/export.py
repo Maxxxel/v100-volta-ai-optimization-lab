@@ -1355,6 +1355,15 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if ident=='R607' and v.get('comparison_review_path'):
+            review_id=receipt(v['comparison_review_path'],v['comparison_review_sha256'])
+            reference_id=receipt(root/'staging/r510/AUDIT.json')
+            if not audit or not review_id or not reference_id:raise ValueError('R607 paired provenance missing')
+            review=load(locations[review_id]); reference=load(locations[reference_id]); candidate=load(locations[audit])
+            if review['reference_audit_sha256']!=digest(locations[reference_id]) or review['candidate_audit_sha256']!=digest(locations[audit]):raise ValueError('R607 audit hashes differ')
+            a={x['id']:x['success'] for x in reference['scored_tasks']};b={x['id']:x['success'] for x in candidate['scored_tasks']}
+            if a.keys()!=b.keys() or len(a)!=16 or review['paired_losses']!=[k for k in a if a[k] and not b[k]] or review['paired_gains']!=[k for k in a if not a[k] and b[k]] or review['reference_successes']!=sum(a.values()) or review['candidate_successes']!=sum(b.values()):raise ValueError('R607 paired scores differ')
+            experiments[ident]['related_audit_ids']=[review_id,reference_id]
         if ident=='R606' and v.get('token_review'):
             t=v['token_review']; review_id=receipt(t['path'],t['sha256'])
             if not audit or not review_id:raise ValueError('R606 token provenance missing')

@@ -527,6 +527,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R604](experiments/R604.md) | S01 | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus 9B Q6_K |
 | [R605](experiments/R605.md) | K02 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4 12B QAT Q4 |
 | [R606](experiments/R606.md) | K02 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4 12B QAT Q4 |
+| [R607](experiments/R607.md) | K02 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4 12B QAT Q4 |
 
 
 ## Historical signed windows
