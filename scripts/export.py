@@ -1355,7 +1355,7 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
-        if audit and ident in ('R603','R604') and v.get('energy_counter_review'):
+        if audit and ident in ('R603','R604','R605') and v.get('energy_counter_review'):
             entry=v['energy_counter_review'];review_id=receipt(entry['path'],entry['sha256'])
             if not review_id:raise ValueError('Energy counter review missing')
             energy=load(locations[review_id]);original=load(locations[audit]);evidence_hashes=set(original['refs'].values())
@@ -1371,9 +1371,9 @@ def main():
             requests=[row for row in (json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()) if row.get('kind') in ('coding','native_tool')]
             for arm,data in energy['arms'].items():
                 comparison=v['comparison']
-                selected=[row['id'] for row in requests if ident=='R604' or row['id'].endswith('--'+arm)]
+                selected=[row['id'] for row in requests if ident in ('R604','R605') or row['id'].endswith('--'+arm)]
                 bounds=counter_energy_bounds(telemetry,requests,selected)
-                solved=original['quality']['candidate_successes'] if ident=='R604' else sum(v['successes'] for v in original['quality'][arm].values())
+                solved=original['quality']['candidate_successes'] if ident in ('R604','R605') else sum(v['successes'] for v in original['quality'][arm].values())
                 if bounds!=data['counter_bounds'] or data['successful_tasks']!=solved or solved<=0 or data['gpu_joules_per_success_lower']!=bounds['lower_j']/solved or data['gpu_joules_per_success_upper']!=bounds['upper_j']/solved or comparison.get('counter_gpu_j_per_success_lower_'+arm)!=data['gpu_joules_per_success_lower'] or comparison.get('counter_gpu_j_per_success_upper_'+arm)!=data['gpu_joules_per_success_upper']:
                     raise ValueError('Energy counter projection differs')
             if ident=='R604':
@@ -1381,6 +1381,13 @@ def main():
                 original_control=load(root/'staging/r487/AUDIT.json')['all_completed_arms']['C']
                 if digest(root/'staging/r487/AUDIT.json')!=load(root/'staging/r604/PLAN.json')['control_audit_sha256'] or reference['counter_bounds']!=original_control['GPU_counter'] or reference['successful_tasks']!=original_control['successes'] or reference['gpu_joules_per_success_lower']!=reference['counter_bounds']['lower_j']/reference['successful_tasks'] or reference['gpu_joules_per_success_upper']!=reference['counter_bounds']['upper_j']/reference['successful_tasks'] or v['comparison'].get('counter_gpu_j_per_success_lower_reference')!=reference['gpu_joules_per_success_lower'] or v['comparison'].get('counter_gpu_j_per_success_upper_reference')!=reference['gpu_joules_per_success_upper']:
                     raise ValueError('Historical energy reference differs')
+            if ident=='R605':
+                reference=energy['historical_control'];baseline=root/'staging/r503/AUDIT.json';record=load(baseline)
+                solved=sum(record['groups'][name]['successes'] for name in ('coding','tools'))
+                lower=sum(record['groups'][name]['GPU_counter']['lower_j'] for name in ('coding','tools'))/solved
+                upper=sum(record['groups'][name]['GPU_counter']['upper_j'] for name in ('coding','tools'))/solved
+                if digest(baseline)!=load(root/'staging/r605/PLAN.json')['reference_audit_sha256'] or reference['audit_sha256']!=digest(baseline) or reference['successful_tasks']!=solved or reference['gpu_joules_per_success_lower']!=lower or reference['gpu_joules_per_success_upper']!=upper or v['comparison'].get('counter_gpu_j_per_success_lower_reference')!=lower or v['comparison'].get('counter_gpu_j_per_success_upper_reference')!=upper:
+                    raise ValueError('Historical Gemma energy reference differs')
             experiments[ident]['related_audit_ids']=[review_id]
         if audit and ident=='R546' and v.get('status') in ('FRESH_TOOLS_AB400_COMPLETE','PARTIAL'):
             confirmed=verified_native_tools_confirmation(root,v,receipt)

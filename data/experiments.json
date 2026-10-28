@@ -25885,5 +25885,44 @@
       "scope": "32 development tasks, no contemporaneous control or official benchmark. Per-task power integration is incomplete; separate GPU counter bounds include between-request setup."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "candidate_peak_device_vram_mib": 7988.5,
+        "candidate_request_wall_s": 63.821076642,
+        "counter_gpu_j_per_success_lower_candidate": 486.935,
+        "counter_gpu_j_per_success_lower_reference": 522.4176785714286,
+        "counter_gpu_j_per_success_upper_candidate": 489.7474137931034,
+        "counter_gpu_j_per_success_upper_reference": 642.50975,
+        "historical_peak_device_vram_mib": 8128.5,
+        "historical_request_wall_s": 70.104030589,
+        "request_wall_reduction_percent": 8.96232911889927,
+        "vram_reduction_mib": 140.0
+      },
+      "quality": {
+        "candidate_successes": 29,
+        "paired_regressions": 0,
+        "reference_successes": 28,
+        "tasks": 32
+      }
+    },
+    "audit_id": "audit-91a1126056ecf9175e25",
+    "date": "2026-10-28T22:35:03.688153+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "K02"
+    ],
+    "id": "R605",
+    "model": "Gemma4 12B QAT Q4",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-a779e6b74b81313c07da"
+    ],
+    "statements": {
+      "decision": "Promising development screen; fresh matched controls and full quality qualification required. Mixed KV vector kernel not compiled, f16 conversion fallback observed.",
+      "scope": "32 exposed development tasks versus historical R503. No official benchmark, causal speed claim, or champion promotion. Separate measured GPU counter bounds exclude startup."
+    },
+    "winner_qualified": false
   }
 ]
