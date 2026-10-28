@@ -25841,5 +25841,35 @@
       "scope": "Two sequential matched 32-task development arms; not an official benchmark or long-context qualification. Energy comparison NOT MEASURED because one control task lacked complete telemetry."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "candidate_peak_device_vram_mib": 7356.5,
+        "candidate_request_wall_s": 53.044350133,
+        "candidate_wall_change_percent": 2.9590096551447287,
+        "historical_request_wall_s": 51.519872142
+      },
+      "quality": {
+        "candidate_successes": 24,
+        "paired_regressions": 0,
+        "reference_successes": 24,
+        "tasks": 32
+      }
+    },
+    "audit_id": "audit-62917fd0c87d7d8ee623",
+    "date": "2026-10-28T22:18:58.945190+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S01"
+    ],
+    "id": "R604",
+    "model": "Nexus 9B Q6_K",
+    "reference_A0": null,
+    "statements": {
+      "decision": "No practical benefit observed in an exposed development screen against a historical interleaved reference; no champion promotion.",
+      "scope": "32 development tasks, no contemporaneous control or official benchmark. GPU energy comparison NOT MEASURED due to incomplete task telemetry."
+    },
+    "winner_qualified": false
   }
 ]
