@@ -136,6 +136,7 @@ Separate benchmark qualification audits:
 | Experiment / arm | Execution evidence | Scientific decision | Original audit |
 | --- | --- | --- | --- |
 | R610 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | HISTORICAL_CODING_REGRESSION_NO_PROMOTION | [audit-2c9b46a83abaf5980e1d](../audits/audit-2c9b46a83abaf5980e1d.md) |
+| R610 / 0 | INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED | UNNECESSARY_REPEAT_OF_R544_HISTORICAL_CODING_REGRESSION_NO_PROMOTION | [audit-2c9b46a83abaf5980e1d](../audits/audit-2c9b46a83abaf5980e1d.md) |
 
 ## Immutable full profile and measurements
 
@@ -184,6 +185,47 @@ Separate benchmark qualification audits:
       "official_eligible": false,
       "runtime_configuration_id": "cfg-fd11ebeae2318f2ab6865462baec92c3936abc9e9a31cab64a1813cfbcc90cd8",
       "scientific_status": "HISTORICAL_CODING_REGRESSION_NO_PROMOTION"
+    },
+    {
+      "arm_index": 0,
+      "attempt_id": "attempt-d41be6084265e760a69739db526405978de7855ba5d2493b74ea62440b16ba2a",
+      "audit_hash": "2c9b46a83abaf5980e1d05db6cbeff79b5f2c5aa14805365c09292c091ac9c65",
+      "audit_id": "audit-2c9b46a83abaf5980e1d",
+      "execution_status": "INFERENCE_OBSERVED_IN_EXPERIMENT; PER_ARM_QUALIFICATION_NOT_IMPLIED",
+      "experiment_id": "R610",
+      "lab_metrics": {
+        "comparison": {
+          "candidate_completion_tokens": 50219,
+          "candidate_peak_vram_mib": 7986.5,
+          "candidate_request_wall_s": 793.868207806,
+          "candidate_successes": 151,
+          "counter_gpu_j_per_success_lower_candidate": 1263.797105960265,
+          "counter_gpu_j_per_success_lower_reference": 1203.1023653846155,
+          "counter_gpu_j_per_success_upper_candidate": 1264.436298013245,
+          "counter_gpu_j_per_success_upper_reference": 1203.6756602564103,
+          "paired_gains": 0,
+          "paired_losses": 5,
+          "reference_completion_tokens": 51322,
+          "reference_peak_vram_mib": 8118.5,
+          "reference_request_wall_s": 754.737726997,
+          "reference_successes": 156,
+          "tasks": 164
+        },
+        "model_starts": 1,
+        "peak_device_vram_mib": 7986.5,
+        "scopes": {
+          "standard_full164": {
+            "solved": 151,
+            "tasks": 164,
+            "wall_s": 793.868207806
+          }
+        }
+      },
+      "model_family_id": "gemma4_12b_qat",
+      "model_name": "gemma4_12b_qat",
+      "official_eligible": false,
+      "runtime_configuration_id": "cfg-fd11ebeae2318f2ab6865462baec92c3936abc9e9a31cab64a1813cfbcc90cd8",
+      "scientific_status": "UNNECESSARY_REPEAT_OF_R544_HISTORICAL_CODING_REGRESSION_NO_PROMOTION"
     }
   ],
   "profile": {

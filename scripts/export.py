@@ -1388,6 +1388,19 @@ def main():
                 telemetry=[json.loads(line) for line in (folder/'GPU_TELEMETRY.jsonl').read_text().splitlines()];requests=[x for x in (json.loads(line) for line in (folder/'HTTP_RESULTS.jsonl').read_text().splitlines()) if x.get('kind')=='coding'];bounds=counter_energy_bounds(telemetry,requests,[x['id'] for x in requests]);solved=source['solved_observed_tasks']
                 if len(requests)!=164 or row['counter_bounds']!=bounds or row['successes']!=solved or comparison['counter_gpu_j_per_success_lower_'+arm]!=bounds['lower_j']/solved or comparison['counter_gpu_j_per_success_upper_'+arm]!=bounds['upper_j']/solved or comparison[arm+'_completion_tokens']!=sum(x['reply']['usage']['completion_tokens'] for x in requests):raise ValueError('R608 counter projection differs')
             experiments[ident]['related_audit_ids']=[paired,energy_id,ref_id]
+            if ident=='R610' and v.get('duplicate_review'):
+                item=v['duplicate_review'];duplicate_id=receipt(item['path'],item['sha256'])
+                if not duplicate_id:raise ValueError('R610 duplicate review missing')
+                duplicate=load(locations[duplicate_id]);original=root/'staging/r544/AUDIT.json'
+                if duplicate.get('kind')!='DUPLICATE_PREVIOUSLY_VALID_BENCHMARK_TRANSPARENT_CORRECTION' or digest(original)!=duplicate['sources']['r544']['audit_sha256'] or digest(locations[audit])!=duplicate['sources']['r610']['audit_sha256']:raise ValueError('R610 duplicate review provenance differs')
+                captures=[]
+                for trial in ('r544','r610'):
+                    audit_source=load(original if trial=='r544' else locations[audit]);folder=pathlib.Path(audit_source['parts'][0]['audit_path']).parent;raw=folder/'HTTP_RESULTS.jsonl';pins=folder/'RAW_HASHES.json'
+                    if digest(raw)!=duplicate['sources'][trial]['response_sha256'] or digest(pins)!=duplicate['sources'][trial]['raw_hashes_sha256'] or load(pins)['HTTP_RESULTS.jsonl']!=digest(raw):raise ValueError('R610 repeat raw evidence differs')
+                    captures.append({r['id']:r for r in (json.loads(line) for line in raw.read_text().splitlines()) if r.get('kind')=='coding'})
+                x,y=captures
+                if len(x)!=164 or x.keys()!=y.keys() or any(x[k]['request_sha256']!=y[k]['request_sha256'] or x[k]['reply']['choices']!=y[k]['reply']['choices'] or x[k]['reply']['usage']!=y[k]['reply']['usage'] for k in x):raise ValueError('R610 repeat results differ')
+                experiments[ident]['related_audit_ids'].append(duplicate_id)
         if ident=='R607' and v.get('comparison_review_path'):
             review_id=receipt(v['comparison_review_path'],v['comparison_review_sha256'])
             reference_id=receipt(root/'staging/r510/AUDIT.json')

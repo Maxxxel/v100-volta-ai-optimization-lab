@@ -26089,12 +26089,13 @@
     "related_audit_ids": [
       "audit-780d243c88416199c35a",
       "audit-cd915cbc07839219d92d",
-      "audit-a49a6cebc54822e25a33"
+      "audit-a49a6cebc54822e25a33",
+      "audit-b0c0897d031d12bc25d6"
     ],
     "statements": {
-      "decision": "HISTORICAL_CODING_REGRESSION_NO_PROMOTION",
+      "decision": "UNNECESSARY_REPEAT_OF_R544_HISTORICAL_CODING_REGRESSION_NO_PROMOTION",
       "evidence_class": "LOKAL_GEMESSEN",
-      "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup."
+      "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup. R610 unnecessarily repeats the already completed matching R544, with identical seed and outputs; this is not a new independent-seed result."
     },
     "winner_qualified": false
   }

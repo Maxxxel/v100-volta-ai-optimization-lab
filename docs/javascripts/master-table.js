@@ -126,6 +126,12 @@
       min: Math.min(...scores), max: Math.max(...scores),
       sd: scores.length > 1 ? Math.sqrt(scores.reduce((n, x) => n + (x - score) ** 2, 0) / (scores.length - 1)) : null };
   }
+  function resultCountLabel(a) {
+    if (!a?.records?.length) return null;
+    const first=a.records[0];
+    return a.records.every(r => r.solved===first.solved && r.tasks===first.tasks)
+      ? first.solved+'/'+first.tasks : 'Ergebnisse je Lauf';
+  }
   function average(scores, selected, official = true, columns = new Map()) {
     if (!selected.length) return null;
     const families = selected.map(key => columns.get(key)?.aggregation_family_id || columns.get(key)?.family_id || key);
@@ -499,7 +505,7 @@
     });
     return { top, measuredConfigurations: ranked.length, coverage };
   }
-  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView, configurationKey, mergeConfigurations, performanceSummary, availableAverage, artifactGroups };
+  const API = { UNKNOWN, canonical, flatten, parameters, aggregate, resultCountLabel, average, build, value, matches, compare, csv, analysis, protocols, defaultProtocol, protocolKey, resolvedScore, comparisonView, configurationKey, mergeConfigurations, performanceSummary, availableAverage, artifactGroups };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.V100MasterTable = API;
   if (typeof document === 'undefined') return;
@@ -730,11 +736,12 @@
       const partialEvidence = a.records.some(r => r.status === 'PARTIAL' || Number.isInteger(benchmark.definition.required_task_count) && r.tasks < benchmark.definition.required_task_count);
       const scope = partialEvidence ? 'PARTIAL' : { OFFICIAL_LOCAL: 'OFFIZIELL', HISTORICAL: 'HISTORISCH', UNQUALIFIED_FULL: 'VOLLSTÄNDIG', PARTIAL: 'PARTIAL', LOCAL_SUPPLEMENTAL: 'LOKAL' }[benchmark.scope];
       const line = E('span', undefined, 'master-score-line');
-      line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + a.solved + '/' + a.tasks + ') · '));
+      const taskCount = resultCountLabel(a);
+      line.append(E('strong', number(a.score) + ' %'), document.createTextNode(' (' + taskCount + ') · '));
       const category = { 'bfcl-v4-simple-python-full400': 'Simple Python', 'bfcl-v4-parallel-multiple-full200': 'Parallel Multiple' }[benchmark.protocol.benchmark_id];
       const details = button((category ? category + ' · ' : '') + scope + (a.n > 1 ? ' · n=' + a.n : '') + ' ⓘ', () => {
         dialogTitle.textContent = column.label + ' · ' + row.displayName;
-        dialogValue.textContent = JSON.stringify({ mean_percent: a.score, solved: a.solved, tasks: a.tasks, n: a.n,
+        dialogValue.textContent = JSON.stringify({ mean_percent: a.score, completed_task_instances: a.tasks, successful_task_instances: a.solved, n: a.n,
           min: a.min, max: a.max, sample_sd: a.sd, protocol: benchmark.protocol, definition: benchmark.definition, qualification_track: benchmark.scope,
           model_sha256: row.profile.model.artifact_sha256, runtime_configuration_id: a.records[0].runtime_configuration_id, source_runtime_configuration_ids: row.memberIds,
           engine_version: row.values['engine.version'] ?? null, build_id: row.values['engine.build_id'] ?? null,

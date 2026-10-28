@@ -978,7 +978,10 @@ test('Gemma Q8-key joins its own151 coding and158 tools without borrowing F16 co
  assert.equal(runs.length,1);assert.equal(runs[0].tasks,200);assert.equal(runs[0].solved,158);
  assert.equal(runs[0].official_eligible,true);
  const coding=candidate.runs.filter(r=>r.benchmark_id==='humanevalplus-v0.1.10');
- assert(coding.length>0);assert(coding.every(r=>r.experiment_id==='R544'&&r.solved===151&&r.tasks===164));assert(coding.some(r=>r.official_eligible));
+ assert.deepEqual(new Set(coding.map(r=>r.experiment_id)),new Set(['R544','R610']));
+ assert(coding.every(r=>r.solved===151&&r.tasks===164&&r.official_eligible));
+ const repeated=M.aggregate(coding);assert.equal(repeated.n,2);assert.equal(M.resultCountLabel(repeated),'151/164');
+ assert.equal(M.resultCountLabel({records:[{solved:151,tasks:164},{solved:150,tasks:164}]}),'Ergebnisse je Lauf');
  assert(!candidate.runs.some(r=>r.experiment_id==='R464'),'F16 coding must not transfer to Q8 cache');
 });
 

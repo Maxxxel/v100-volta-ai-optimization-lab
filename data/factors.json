@@ -8109,7 +8109,7 @@
         "paired_losses": 5,
         "reference_successes": 156,
         "reopen": "Fresh balanced seed-controlled comparison or distinct long-context need with adequate quality and stability gates.",
-        "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup.",
+        "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup. R610 unnecessarily repeats the already completed matching R544, with identical seed and outputs; this is not a new independent-seed result.",
         "status": "TESTED_NEGATIVE",
         "tasks": 164,
         "variant": "q8_0 key cache, other cache f16"
