@@ -2682,7 +2682,7 @@
   "docs/supplemental-comparison.md": "b1bb7657341f8f0ecb447858a00a5e72bcc835308359308044db61edb8473e13",
   "docs/weight-integrity-same-quantizer.md": "82c609c8ed15f1b03772f4fce3d1a9ea9f5dd0b1235ad19e98379f30c256a22d",
   "docs/weight-integrity.md": "c22b19e3628725a4dcfc335b6b7c680fc0d4f37863e8498a08cbd6454d525a4a",
-  "mkdocs.yml": "f7205548816e199f43f88a89b38eafb1d7dd06ad350457b7e80a4e66437faaa6",
+  "mkdocs.yml": "17a8b3368eb0695662fbd2d2a1b02eeb7e3daedeef29b2c7142230a16515a3ae",
   "requirements-docs.txt": "c92714ef20368a5ff409a4f35ab07041858a3b60ac51c74a4e0df247929535d2",
   "scripts/caveman_shape_study.py": "63882e8bed1abb4bdfa6c5a25abdc3d380a1480c4f438049d03331633fc751ef",
   "scripts/comparison.py": "b057d1293c1024724e9b97906af29881d79764d822c49211f3850bb24efb1078",
