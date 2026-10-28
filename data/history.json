@@ -14894,5 +14894,29 @@
     "kind": "UNKNOWN",
     "sequence": 1862,
     "signature": null
+  },
+  {
+    "date": "2026-10-28T00:19:39Z",
+    "experiment_id": "R602",
+    "factor_id": null,
+    "kind": "CPU_MODEL_TRANSFER_PREFLIGHT_COMPLETE",
+    "sequence": 1863,
+    "signature": null
+  },
+  {
+    "date": "2026-10-28T00:39:07Z",
+    "experiment_id": "R602",
+    "factor_id": null,
+    "kind": "UNKNOWN",
+    "sequence": 1864,
+    "signature": null
+  },
+  {
+    "date": "2026-10-28T00:46:08Z",
+    "experiment_id": "R602",
+    "factor_id": "S03",
+    "kind": "GPU_ATTEMPT_FAILED_BEFORE_TASK",
+    "sequence": 1865,
+    "signature": null
   }
 ]

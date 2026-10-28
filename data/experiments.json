@@ -25769,5 +25769,30 @@
     ],
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 0,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7352.5
+    },
+    "audit_id": "audit-06b28f03c5bb2cd05845",
+    "date": "2026-10-28T00:39:07Z",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R602",
+    "model": "Qwen3.5-9B Q4_K_M + external Qwen3.5 MTP Q6_K",
+    "reference_A0": null,
+    "statements": {
+      "decision": "PARTIAL technical startup failure before task phase; no quality, speed, or task-energy result. Exact worker cause not determined; do not retry the one-shot contract.",
+      "limitations": [
+        "Target and draft loaded on CUDA; task phase did not start.",
+        "Lease energy includes load and teardown and is not task energy.",
+        "No task requests or completed tasks."
+      ]
+    },
+    "winner_qualified": false
   }
 ]
