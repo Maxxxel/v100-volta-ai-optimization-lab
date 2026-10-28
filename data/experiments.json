@@ -25928,6 +25928,8 @@
   {
     "aggregate_metrics": {
       "comparison": {
+        "completion_tokens_A": 4401,
+        "completion_tokens_B": 3779,
         "counter_gpu_j_per_success_lower_A": 588.8036071428571,
         "counter_gpu_j_per_success_lower_B": 488.39841379310343,
         "counter_gpu_j_per_success_upper_A": 592.1840357142856,
@@ -25955,9 +25957,12 @@
     "id": "R606",
     "model": "Gemma4 12B QAT Q4",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-da7b88c2dbe4eb0cd7e2"
+    ],
     "statements": {
       "decision": "Promising paired development comparison; independent holdout and full quality qualification remain necessary.",
-      "scope": "Fresh sequential B/A on 32 exposed development tasks per arm; unbalanced order, no independent holdout or official benchmark."
+      "scope": "Fresh sequential B/A on 32 exposed development tasks per arm; unbalanced order, no independent holdout or official benchmark. Candidate generated 3779 vs 4401 completion tokens; task wall difference does not prove kernel speedup."
     },
     "winner_qualified": false
   }

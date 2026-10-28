@@ -1355,6 +1355,18 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if ident=='R606' and v.get('token_review'):
+            t=v['token_review']; review_id=receipt(t['path'],t['sha256'])
+            if not audit or not review_id:raise ValueError('R606 token provenance missing')
+            review=load(locations[review_id]); original=load(locations[audit]); paths=[pathlib.Path(p) for p,h in original['refs'].items() if h==review['raw_hashes_sha256']]
+            if len(paths)!=1 or digest(paths[0])!=review['raw_hashes_sha256']:raise ValueError('R606 raw manifest changed')
+            source=paths[0].parent/'HTTP_RESULTS.jsonl'; raw=load(paths[0])
+            if digest(source)!=review['source_raw_sha256'] or raw.get('HTTP_RESULTS.jsonl')!=review['source_raw_sha256']:raise ValueError('R606 requests changed')
+            rows=[json.loads(line) for line in source.read_text().splitlines()]
+            for arm in ('A','B'):
+                selected=[r for r in rows if r.get('kind') in ('coding','native_tool') and r['id'].endswith('--'+arm)]
+                if len(selected)!=32 or sum(r['reply']['usage']['completion_tokens'] for r in selected)!=review['groups'][arm]['completion_tokens'] or v['comparison']['completion_tokens_'+arm]!=review['groups'][arm]['completion_tokens']:raise ValueError('R606 token count differs')
+            experiments[ident]['related_audit_ids']=[review_id]
         if audit and ident in ('R603','R604','R605') and v.get('energy_counter_review'):
             entry=v['energy_counter_review'];review_id=receipt(entry['path'],entry['sha256'])
             if not review_id:raise ValueError('Energy counter review missing')
