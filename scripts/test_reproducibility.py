@@ -1,10 +1,20 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def write(p,value):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value,sort_keys=True))
+class RuntimeIdentity(unittest.TestCase):
+ def test_only_review_and_lease_may_differ(self):
+  a={'model':'hash','native_recipe':{'seed':1001},'review':'old','execution_review':'old'}
+  b={**a,'review':'new','execution_review':'new'}
+  x={'argv':['engine','--ctx-size','16384'],'environment':{'O2_GPU_BUILD_LEASE':'old','OMP_NUM_THREADS':'4'}}
+  y={**x,'environment':{**x['environment'],'O2_GPU_BUILD_LEASE':'new'}}
+  verify_aa_runtime_identity([a,b],[x,y])
+  with self.assertRaises(AssertionError):verify_aa_runtime_identity([a,{**b,'native_recipe':{'seed':1002}}],[x,y])
+  with self.assertRaises(AssertionError):verify_aa_runtime_identity([a,b],[x,{**y,'argv':['other-engine']}])
+  with self.assertRaises(AssertionError):verify_aa_runtime_identity([a,b],[x,{**y,'environment':{**y['environment'],'OMP_NUM_THREADS':'8'}}])
 class HistoricalComparison(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.profiles={};self.raw={}

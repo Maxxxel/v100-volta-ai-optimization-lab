@@ -828,6 +828,14 @@ def r631_native_aa(root):
               'R631_audit_sha256':runs['R631']['audit_sha256'],'R631_capture_sha256':runs['R631']['capture_sha256'],
               'R631_admission_sha256':digest(stage/'BROKER_ADMISSION.json'),'R631_result_sha256':digest(result_path)}}
 
+def verify_aa_runtime_identity(profiles,launches):
+ """Exclude only administrative review and per-run lease identifiers."""
+ def profile(p):return {k:v for k,v in p.items() if k not in ('review','execution_review')}
+ def launch(p):
+  p=dict(p);p['environment']={k:v for k,v in p['environment'].items() if k!='O2_GPU_BUILD_LEASE'};return p
+ assert profile(profiles[0])==profile(profiles[1])
+ assert launch(launches[0])==launch(launches[1])
+
 def r633_native_aa(root):
  """Verify the Gemma R534/R633 A/A pair without exporting private traces."""
  from leaderboard import counter_energy_bounds
@@ -842,13 +850,14 @@ def r633_native_aa(root):
  assert replay['cases']==33 and replay['solved']==17 and replay['all_scores_and_effects_reproduced'] is True and replay['GPU_runs']==replay['model_requests']==0 and replay['real_evaluator_uid']!=0
  raw0=Path(json.loads((root/'staging/r534/AUDIT.json').read_text())['raw_root'])
  raw1=root.parent/'research/mcp-workspace/r633-native-validation33/host-20261029T215000Z'
- captures={};metrics={}
+ captures={};metrics={};profiles=[];launches=[]
  for ident,raw in (('R534',raw0),('R633',raw1)):
   pins=json.loads((raw/'RAW_HASHES.json').read_text());audit=json.loads((raw/'AUDIT.json').read_text())
   for name in ('AUDIT.json','HTTP_RESULTS.jsonl','GPU_TELEMETRY.jsonl','profile.json','LAUNCH.json'):assert digest(raw/name)==pins[name]
   assert pins['AUDIT.json']==result['audit_sha256'][ident] and pins['HTTP_RESULTS.jsonl']==result['raw_capture_sha256'][ident]
   assert audit['measurement_valid'] is True and audit['GPU_execution_observed'] is True
   profile=json.loads((raw/'profile.json').read_text());options=profile['native_recipe']['request_options']
+  profiles.append(profile);launches.append(json.loads((raw/'LAUNCH.json').read_text()))
   assert profile['model_sha256']=='93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b' and options['seed']==1001 and options['temperature']==1.0 and options['cache_prompt'] is False
   rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if line];index={kind:{x['id']:x for x in rows if x.get('kind')==kind} for kind in ('agent_case','agent_turn','input_identity')}
   assert len(index['agent_case'])==33 and len(index['agent_turn'])==len(index['input_identity'])==177
@@ -860,6 +869,7 @@ def r633_native_aa(root):
   assert record['uncorrected_ecc_observed']==any(z.get('ecc_uncorrected',0)>0 for z in telemetry)
   assert record['throttle_masks']==sorted({z['clock_throttle_event_mask'] for z in telemetry if z.get('clock_throttle_event_mask') is not None})
   captures[ident]=index;metrics[ident]=record
+ verify_aa_runtime_identity(profiles,launches)
  a,b=captures['R534'],captures['R633'];assert all(a[k].keys()==b[k].keys() for k in a)
  for key in a['agent_turn']:
   assert a['input_identity'][key]['prompt_token_ids']==b['input_identity'][key]['prompt_token_ids']
