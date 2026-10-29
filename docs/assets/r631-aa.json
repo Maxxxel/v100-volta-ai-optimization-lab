@@ -1,0 +1,108 @@
+{
+  "baseline": {
+    "audit_sha256": "fc856a19b65377ec96c861e97812ed84801a3a9bc908262a882a0fdf63b86e12",
+    "capture_sha256": "982925508cc69aac82a82cf3ca92eec62fea24654a7537ee29caa116dfde244d",
+    "experiment_id": "R531",
+    "policy_pass": 29,
+    "profile_sha256": "c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d",
+    "solved": 25,
+    "tasks": 33,
+    "telemetry_sha256": "1038941a81aaa5858c027f74389503b070a4eab406f8edeffc7dd4c3d722f6bd"
+  },
+  "candidate": {
+    "audit_sha256": "35b5ccc8057f043b64f6dd1de2f77b40528c21a92e01aa740b89f35a7c2ca89a",
+    "capture_sha256": "962180aff5a406998cbe1cf9f8323e31b3b96abbc213592827f7a87c529da831",
+    "experiment_id": "R631",
+    "policy_pass": 29,
+    "profile_sha256": "d732ab9fc3915eabd2fc267932ab9506ef3afb498af6ecaf0af907028b805215",
+    "solved": 25,
+    "tasks": 33,
+    "telemetry_sha256": "09de0c0d2c7ba3535e64a048431ec2bfe399fff0ebab4689292fad1ec7c15b40"
+  },
+  "cpu_replay": {
+    "cases": 33,
+    "gpu_runs": 0,
+    "model_requests": 0,
+    "receipt_sha256": "a6da916e5a94b6b3ceaac677b212358ea5aecc4ad0a252698ecc6f2db8225940",
+    "scorer_sha256": "92e123a86cd8624f0ba68ca6d0ffcb5bd641f5565b55377f52f31e73835d22af",
+    "solved": 25,
+    "status": "PASS"
+  },
+  "evidence": {
+    "R531_audit_sha256": "fc856a19b65377ec96c861e97812ed84801a3a9bc908262a882a0fdf63b86e12",
+    "R531_capture_sha256": "982925508cc69aac82a82cf3ca92eec62fea24654a7537ee29caa116dfde244d",
+    "R631_admission_sha256": "13df8147c12537d787472dda4b9b727b468ed6d83bf5c96e22fdc95da819a2fc",
+    "R631_audit_sha256": "35b5ccc8057f043b64f6dd1de2f77b40528c21a92e01aa740b89f35a7c2ca89a",
+    "R631_capture_sha256": "962180aff5a406998cbe1cf9f8323e31b3b96abbc213592827f7a87c529da831",
+    "R631_result_sha256": "38e5b0b06e22b8645d991da108450c2dff10aa7648d698e5a8cdc2ed24e16ecd"
+  },
+  "identical_generated_token_sequences": 153,
+  "identical_prompt_token_sequences": 153,
+  "identical_task_outcomes": 33,
+  "identical_visible_replies": 153,
+  "interpretation": "One matched pair showed no observed task, policy, prompt-token or generated-token divergence. It does not prove global determinism or equivalence. Timing and aggregate energy are descriptive only; no winner or Champion change.",
+  "limits": "Exposed internal validation set, not holdout or official benchmark. Per-case energy is unavailable for R631 (0/33); whole-task-phase NVML board-counter bounds are not per-task energy and exclude CPU/system energy. R614/R621 cache-associated cause remains unresolved.",
+  "metrics": {
+    "R531": {
+      "decode_tps": 78.89937337955935,
+      "e2e_median_s": 10.231241653,
+      "energy_complete_case_count": 16,
+      "energy_task_phase_j": {
+        "interpolated": 87201.21134270099,
+        "lower": 87162.708,
+        "method": "NVML cumulative GPU board energy counter; raw monotonic counter bounded by samples bracketing broker TASK_BEGIN/TASK_END; interpolation only midpoint; task-phase aggregate, not per-task.",
+        "upper": 87236.676
+      },
+      "joules_per_success": {
+        "lower": 3486.50832,
+        "midpoint": 3488.0484537080397,
+        "upper": 3489.4670400000005
+      },
+      "peak_vram_mib": 7356.5,
+      "prefill_tps": 2532.0629769271673,
+      "task_wall_s": 319.983392506,
+      "telemetry": {
+        "configured_power_limit_w": 300.0,
+        "max_sampled_power_w": 302.67,
+        "max_temperature_c": 74,
+        "throttle_masks": [
+          0,
+          1,
+          4
+        ],
+        "uncorrected_ecc_any": false
+      }
+    },
+    "R631": {
+      "decode_tps": 78.7581958107866,
+      "e2e_median_s": 10.272382546,
+      "energy_complete_case_count": 0,
+      "energy_task_phase_j": {
+        "interpolated": 87596.3616365127,
+        "lower": 87524.843,
+        "method": "NVML cumulative GPU board energy counter; raw monotonic counter bounded by samples bracketing broker TASK_BEGIN/TASK_END; interpolation only midpoint; task-phase aggregate, not per-task.",
+        "upper": 87631.716
+      },
+      "joules_per_success": {
+        "lower": 3500.99372,
+        "midpoint": 3503.854465460508,
+        "upper": 3505.2686400000002
+      },
+      "peak_vram_mib": 7356.5,
+      "prefill_tps": 2523.573939165222,
+      "task_wall_s": 320.859687076,
+      "telemetry": {
+        "configured_power_limit_w": 300.0,
+        "max_sampled_power_w": 304.971,
+        "max_temperature_c": 75,
+        "throttle_masks": [
+          0,
+          1,
+          4
+        ],
+        "uncorrected_ecc_any": false
+      }
+    }
+  },
+  "status": "A_A_REPRODUCED_ON_EXPOSED_FROZEN33"
+}

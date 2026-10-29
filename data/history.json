@@ -15118,5 +15118,13 @@
     "kind": "STORAGE_LOCATION_AND_RETAINED_ARTIFACT_RECHECK",
     "sequence": 1890,
     "signature": null
+  },
+  {
+    "date": "2026-10-29T18:32:23.735534Z",
+    "experiment_id": "R631",
+    "factor_id": null,
+    "kind": "SAME_PROFILE_AA_REPEATABILITY_RESULT",
+    "sequence": 1891,
+    "signature": null
   }
 ]

@@ -241,3 +241,16 @@ R630 repeated the unchanged OmniCoder bartowski Q6 profile on the same exposed 3
 The cumulative NVML counter is monotonic and brackets the full task phase; the per-case power integral remains incomplete because sample gaps exceed its 0.25 s validity limit. Counter ranges overlap. One A/A pair establishes neither a speed nor an energy winner. These are whole-phase GPU-board values, not CPU/system or isolated per-task energy. This is not an official benchmark, unseen holdout, or Champion qualification. Original prompts and task contents are not published.
 
 Audit SHA-256: R536 `c43fcc568c66cf86604b715ef6d094774cbf13888890daad0fae27711173b391` · R630 `4e20c6da6fe47fbceba2a448ca4ee65e296a7c307bbf132a6b71f458bfbdd5b2`. Raw capture SHA-256: R536 `ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5` · R630 `3a2fc8e6f74dfb6585a87e2b7edaf4260ad066027cc1e6b2c5cc811acffa2599`. Counter addendum SHA-256: `e9e20f6c79d05cbfc56b3a3ee89554345e18a45e797dbec53c338892ca966437`.
+
+## Same-profile A/A repeatability · R531 / R631
+
+R631 repeated the unchanged Nexus Q6_K, thinking-off, T=0 profile on the same exposed 33-task validation set as R531. Independent CPU replay reproduced all task outcomes and effects. Prompt-token sequences and generated-token sequences matched **153/153**; task outcomes matched **33/33**. This is one A/A pair, not a determinism proof or model qualification.
+
+| Run | Solved | Policy gates | Task phase s | Prefill tok/s | Decode tok/s | Whole-phase GPU energy bounds J | GPU J / success bounds | Peak VRAM MiB | Per-case energy coverage |
+|---|---|---|---|---|---|---|---|---|---|
+| R531 | 25/33 | 29/33 | 319.983 | 2,532.1 | 78.90 | 87,162.7–87,236.7 | 3,486.5–3,489.5 | 7,356.5 | 16/33 |
+| R631 | 25/33 | 29/33 | 320.860 | 2,523.6 | 78.76 | 87,524.8–87,631.7 | 3,501.0–3,505.3 | 7,356.5 | 0/33 |
+
+Energy bounds come from the cumulative NVML GPU-board counter bracketing the task phase. R631 per-case energy is **NOT MEASURED (0/33)** because telemetry sampling gaps invalidated case-level integration. Aggregate task-phase energy is not CPU/system or per-task energy. Differences are descriptive; no performance winner or Champion change. The earlier R614/R621 cache-associated cause remains unresolved.
+
+Audit SHA-256: R531 `fc856a19b65377ec96c861e97812ed84801a3a9bc908262a882a0fdf63b86e12` · R631 `35b5ccc8057f043b64f6dd1de2f77b40528c21a92e01aa740b89f35a7c2ca89a`. Raw capture SHA-256: R531 `982925508cc69aac82a82cf3ca92eec62fea24654a7537ee29caa116dfde244d` · R631 `962180aff5a406998cbe1cf9f8323e31b3b96abbc213592827f7a87c529da831`. CPU replay receipt SHA-256: `a6da916e5a94b6b3ceaac677b212358ea5aecc4ad0a252698ecc6f2db8225940`.

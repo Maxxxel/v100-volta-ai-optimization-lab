@@ -862,6 +862,24 @@ def main():
    ev=r630['evidence']
    page+=f"Audit SHA-256: R536 `{ev['R536_audit_sha256']}` · R630 `{ev['R630_audit_sha256']}`. Raw capture SHA-256: R536 `{ev['R536_capture_sha256']}` · R630 `{ev['R630_capture_sha256']}`. Counter addendum SHA-256: `{ev['counter_addendum_sha256']}`.\n"
    put('assets/r630-aa.json',json.dumps(r630,ensure_ascii=False,indent=2))
+  r631=repro.get('r631_native_aa')
+  if r631:
+   rows=[]
+   for key in ('baseline','candidate'):
+    run=r631[key];met=r631['metrics'][run['experiment_id']]
+    energy=met['energy_task_phase_j'];jps=met['joules_per_success']
+    rows.append([run['experiment_id'],f"{run['solved']}/{run['tasks']}",f"{run['policy_pass']}/{run['tasks']}",
+      f"{met['task_wall_s']:.3f}",f"{met['prefill_tps']:,.1f}",f"{met['decode_tps']:.2f}",
+      f"{energy['lower']:,.1f}–{energy['upper']:,.1f}",f"{jps['lower']:,.1f}–{jps['upper']:,.1f}",
+      f"{met['peak_vram_mib']:,.1f}",f"{met['energy_complete_case_count']}/33"])
+   page+='\n## Same-profile A/A repeatability · R531 / R631\n\n'
+   page+='R631 repeated the unchanged Nexus Q6_K, thinking-off, T=0 profile on the same exposed 33-task validation set as R531. Independent CPU replay reproduced all task outcomes and effects. '
+   page+=f"Prompt-token sequences and generated-token sequences matched **{r631['identical_prompt_token_sequences']}/153**; task outcomes matched **{r631['identical_task_outcomes']}/33**. This is one A/A pair, not a determinism proof or model qualification.\n\n"
+   page+=table(['Run','Solved','Policy gates','Task phase s','Prefill tok/s','Decode tok/s','Whole-phase GPU energy bounds J','GPU J / success bounds','Peak VRAM MiB','Per-case energy coverage'],rows)
+   page+='Energy bounds come from the cumulative NVML GPU-board counter bracketing the task phase. R631 per-case energy is **NOT MEASURED (0/33)** because telemetry sampling gaps invalidated case-level integration. Aggregate task-phase energy is not CPU/system or per-task energy. Differences are descriptive; no performance winner or Champion change. The earlier R614/R621 cache-associated cause remains unresolved.\n\n'
+   ev=r631['evidence']
+   page+=f"Audit SHA-256: R531 `{ev['R531_audit_sha256']}` · R631 `{ev['R631_audit_sha256']}`. Raw capture SHA-256: R531 `{ev['R531_capture_sha256']}` · R631 `{ev['R631_capture_sha256']}`. CPU replay receipt SHA-256: `{r631['cpu_replay']['receipt_sha256']}`.\n"
+   put('assets/r631-aa.json',json.dumps(r631,ensure_ascii=False,indent=2))
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')

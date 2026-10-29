@@ -1,31 +1,36 @@
 {
-  "status": "A_A_REPRODUCED_ON_EXPOSED_FROZEN33",
   "baseline": {
-    "experiment_id": "R536",
     "audit_sha256": "c43fcc568c66cf86604b715ef6d094774cbf13888890daad0fae27711173b391",
-    "raw_capture_sha256": "ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5",
-    "tasks": 33,
-    "solved": 28,
+    "experiment_id": "R536",
+    "peak_vram_mib": 7680.5,
     "policy_gate_pass": 29,
-    "task_scope_pass": 33,
+    "raw_capture_sha256": "ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5",
+    "solved": 28,
     "task_phase_s": 401.663127198,
-    "peak_vram_mib": 7680.5
+    "task_scope_pass": 33,
+    "tasks": 33
   },
   "candidate": {
-    "experiment_id": "R630",
     "audit_sha256": "4e20c6da6fe47fbceba2a448ca4ee65e296a7c307bbf132a6b71f458bfbdd5b2",
-    "raw_capture_sha256": "3a2fc8e6f74dfb6585a87e2b7edaf4260ad066027cc1e6b2c5cc811acffa2599",
-    "tasks": 33,
-    "solved": 28,
+    "experiment_id": "R630",
+    "peak_vram_mib": 7680.5,
     "policy_gate_pass": 29,
-    "task_scope_pass": 33,
+    "raw_capture_sha256": "3a2fc8e6f74dfb6585a87e2b7edaf4260ad066027cc1e6b2c5cc811acffa2599",
+    "solved": 28,
     "task_phase_s": 401.310538789,
-    "peak_vram_mib": 7680.5
+    "task_scope_pass": 33,
+    "tasks": 33
   },
-  "identical_prompts": 154,
-  "identical_requests": 154,
-  "identical_generated_token_sequences": 154,
-  "identical_task_outcomes": 33,
+  "energy_bounds_overlap": true,
+  "energy_scope": "Whole task-phase GPU-board counter bounds; per-case power integration incomplete; excludes CPU/system energy.",
+  "evidence": {
+    "CPU_replay_sha256": "4940c1fbd4b6e3a1f73c09b6d7787fc4cffcacf6c121304497871f1892d9d137",
+    "R536_audit_sha256": "c43fcc568c66cf86604b715ef6d094774cbf13888890daad0fae27711173b391",
+    "R536_capture_sha256": "ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5",
+    "R630_audit_sha256": "4e20c6da6fe47fbceba2a448ca4ee65e296a7c307bbf132a6b71f458bfbdd5b2",
+    "R630_capture_sha256": "3a2fc8e6f74dfb6585a87e2b7edaf4260ad066027cc1e6b2c5cc811acffa2599",
+    "counter_addendum_sha256": "e9e20f6c79d05cbfc56b3a3ee89554345e18a45e797dbec53c338892ca966437"
+  },
   "gpu_energy_counter_bounds_j": {
     "R536": {
       "lower": 109461.518,
@@ -46,15 +51,10 @@
       "upper": 3912.4847142857143
     }
   },
-  "energy_bounds_overlap": true,
-  "energy_scope": "Whole task-phase GPU-board counter bounds; per-case power integration incomplete; excludes CPU/system energy.",
+  "identical_generated_token_sequences": 154,
+  "identical_prompts": 154,
+  "identical_requests": 154,
+  "identical_task_outcomes": 33,
   "limits": "Same exposed validation tasks, not an unseen holdout or official benchmark. One A/A pair only; no speed or energy winner, no Champion qualification.",
-  "evidence": {
-    "R536_audit_sha256": "c43fcc568c66cf86604b715ef6d094774cbf13888890daad0fae27711173b391",
-    "R536_capture_sha256": "ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5",
-    "R630_audit_sha256": "4e20c6da6fe47fbceba2a448ca4ee65e296a7c307bbf132a6b71f458bfbdd5b2",
-    "R630_capture_sha256": "3a2fc8e6f74dfb6585a87e2b7edaf4260ad066027cc1e6b2c5cc811acffa2599",
-    "counter_addendum_sha256": "e9e20f6c79d05cbfc56b3a3ee89554345e18a45e797dbec53c338892ca966437",
-    "CPU_replay_sha256": "4940c1fbd4b6e3a1f73c09b6d7787fc4cffcacf6c121304497871f1892d9d137"
-  }
+  "status": "A_A_REPRODUCED_ON_EXPOSED_FROZEN33"
 }
