@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1872,
+    "ledger_events": 1873,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 529
+    "sprint_records": 530
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -1391,11 +1391,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "9ff5a972621e999589848194b1963266c21ee224ef82c5b2dd40dab64b9d5e87",
+    "BENCHMARK_REFERENCES.json": "2871f22c29e6b948a136f666a014fd5f2d3710cc0d4f89f33ece67a390ebb4c3",
     "BENCHMARK_REGISTER.json": "7441a8b0528d16230548c9b1b2f8ace0624d846d486fa2f9050eab76a494bdd3",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "591f1555257ae6d94678f11588b5c1ba95391dd7375fd8d5dc1ee0f0552cb1b4",
+    "O2_EXPERIMENTS.jsonl": "e43ba73f177a194f554d5e730214eafcca0cb9d2616aebab6337933ca974448a",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

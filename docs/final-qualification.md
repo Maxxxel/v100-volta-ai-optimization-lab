@@ -104,7 +104,7 @@ Observed quality maximized; request wall/task, GPU-counter J/success and peak VR
 
 ## Agent and safety limits
 
-14 authored Agent33 profiles are preserved separately in [qualified configurations](configurations.md). They are not Terminal-Bench, population safety rates or independent repetitions of33 unrelated tasks. Policy failures prohibit a production-safety claim. Official Terminal-Bench remains technically blocked by its retained execution-prerequisite gate.
+15 authored Agent33 profiles are preserved separately in [qualified configurations](configurations.md). They are not Terminal-Bench, population safety rates or independent repetitions of33 unrelated tasks. Policy failures prohibit a production-safety claim. Official Terminal-Bench remains technically blocked by its retained execution-prerequisite gate.
 
 ## Handoff
 

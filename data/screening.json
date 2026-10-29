@@ -1513,7 +1513,8 @@
         "R567",
         "R572",
         "R580",
-        "R612"
+        "R612",
+        "R614"
       ],
       "profiles": [
         {
@@ -2610,6 +2611,77 @@
           "winner_qualified": false
         },
         "model": "Gemma4-12B QAT Q4_0 · microbatch 256"
+      },
+      {
+        "audit_sha256": "e76c97be395f0fdb6db48dfda46c31ab68d8f4768c615de51c022602f7799ff7",
+        "experiment_id": "R614",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 255.4077487,
+            "group_window_s": 255.414031315,
+            "lower_j": 69685.207,
+            "upper_j": 69786.33
+          },
+          "actual_generation_requests": 155,
+          "bridge_source_sha256": "ed0b9e93cebb9831d534debd6af0e3814f1712de9312ed142b81e879008e83a9",
+          "case_wall_s": 255.4077487,
+          "completed_request_wall_s": 252.520821249,
+          "completion_tokens": 16777,
+          "context_tokens": 8192,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 2787.4082799999996,
+          "gpu_j_per_success_upper": 2791.4532,
+          "independent_review_audit_id": "audit-78da387757a03b2e06d0",
+          "independent_review_sha256": "78da387757a03b2e06d0e25b3f7422955c79c1e2f5a8f21a95276fa27c8c30ef",
+          "max_output_tokens": 4096,
+          "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 0,
+            "case_lost": 0,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 1.0,
+            "net_success_change": 0,
+            "nonzero_groups": 0,
+            "reference_experiment_id": "R531",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 7356.5,
+          "planned_tasks": 33,
+          "policy_gate_passes": 28,
+          "profile_sha256": "a3b7a0326b01cddb4727ae7afd83a289d187f2b592e4c0cf3b2bd5f59307e3ab",
+          "quality_diagnostics": {
+            "evidence_or_postcondition_failure_cases": 0,
+            "final_contract_failure_cases": 0,
+            "incorrect_facts_cases": 5,
+            "invalid_action_cases": 0,
+            "invalid_action_events": 0,
+            "invalid_final_contract_cases": 0,
+            "missing_valid_final_cases": 0,
+            "parse_failed_cases": 0,
+            "parse_failed_rounds": 0,
+            "policy_violation_cases": 5,
+            "policy_violation_events": 6,
+            "rejected_tool_call_cases": 5,
+            "rejected_tool_call_events": 6,
+            "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+            "wrong_final_status_cases": 0,
+            "wrong_reason_code_cases": 0
+          },
+          "solved": 25,
+          "successful_tasks_per_s": 0.0978800526900063,
+          "task_limit_s": 1200,
+          "task_phase_s": 255.414656132,
+          "task_scope_passes": 33,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 66.4380858458278,
+          "winner_qualified": false
+        },
+        "model": "Nexus-9B Q6 · prompt cache enabled"
       }
     ],
     "multi_agent_plan": {
