@@ -2207,6 +2207,59 @@
       "status": "COMPLETE_INDEPENDENT_CPU_REPLAYED_NOT_QUALIFICATION",
       "winner_qualified": false
     },
+    "r635_native_aa": {
+      "audit_sha256": {
+        "R618": "3f718e7c2211b4c8721893ffa93aa3836601b31a9925a5640f28dac400634aaa",
+        "R635": "dda8a6a4ca873831fc8dcc6c2b16759fcc57fe5cce831f76a3d26e823c8e6a2a"
+      },
+      "cpu_replay_sha256": "9ea822807c8d1f74842529f2524678fd7d713ada47c2e26e153548e9b6535c6f",
+      "energy_scope": "NVML cumulative GPU-board counter brackets the first-to-last case window and includes between-case idle. Per-case integrals incomplete; excludes CPU/system energy and startup.",
+      "metrics": {
+        "R618": {
+          "case_window_s": 625.02548034,
+          "energy_complete_cases": 0,
+          "gpu_case_window_j_bounds": [
+            162024.757,
+            162132.541
+          ],
+          "gpu_j_per_success_bounds": [
+            6000.916925925926,
+            6004.908925925926
+          ],
+          "peak_vram_mib": 13602.5
+        },
+        "R635": {
+          "case_window_s": 624.283877522,
+          "energy_complete_cases": 0,
+          "gpu_case_window_j_bounds": [
+            161460.336,
+            161598.329
+          ],
+          "gpu_j_per_success_bounds": [
+            5980.012444444445,
+            5985.123296296296
+          ],
+          "peak_vram_mib": 13602.5
+        }
+      },
+      "paired_outcomes": {
+        "policy_gate_pass_both_fail": 2,
+        "policy_gate_pass_both_pass": 31,
+        "policy_gate_pass_gained": 0,
+        "policy_gate_pass_lost": 0,
+        "task_success_both_fail": 6,
+        "task_success_both_pass": 27,
+        "task_success_gained": 0,
+        "task_success_lost": 0
+      },
+      "result_sha256": "b14622b672e15454ea9eff66090e3a604c0ee012197f34bafcb9874f78c782a6",
+      "scope": "One A/A pair with 33 previously exposed correlated cases, 150 matching responses and same profile. No independent holdout, equivalence, broad determinism or champion claim.",
+      "status": "GPU_COMPLETE_INDEPENDENT_CPU_REPLAYED",
+      "turn_comparison": {
+        "identical_output_tokens": 150
+      },
+      "winner_qualified": false
+    },
     "scope": "Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.",
     "seed_execution_path": {
       "engine_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267",

@@ -275,3 +275,16 @@ R633 repeated the Gemma 4 QAT profile at temperature 1.0 and seed 1001 on the sa
 Energy bounds are cumulative GPU-board counter brackets from the first case start to the last case end, including time between cases; startup and CPU/system energy are excluded. Per-case energy coverage is incomplete. A single pair of exposed correlated cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The cache candidate remains unqualified.
 
 Audit SHA-256: R534 `38904a4aac691bd22747808c81e38ab9030c893a17723b073bacab29acdd9038` · R633 `e8d9b89292bd433016bcba571492b072ccf09c2800f50f9c426c1486cdee6ebb`. [Aggregate results and hashes](assets/r633-aa.json).
+
+## Same-profile A/A repeatability · R618 / R635
+
+R635 repeated the Qwen3.8 integrated-MTP profile on the same 33 previously exposed internal cases. Independent isolated CPU replay reproduced all case scores and effects. All 150 matched request bodies, input-token sequences and generated-token sequences matched; all 33 task and policy outcomes matched.
+
+| Run | Solved | Policy gates | Case window s | GPU energy bounds J | GPU J / success bounds | Peak VRAM MiB | Per-case energy coverage |
+|---|---|---|---|---|---|---|---|
+| R618 | 27/33 | 31/33 | 625.025 | 162,024.8–162,132.5 | 6,000.9–6,004.9 | 13,602.5 | 0/33 |
+| R635 | 27/33 | 31/33 | 624.284 | 161,460.3–161,598.3 | 5,980.0–5,985.1 | 13,602.5 | 0/33 |
+
+GPU-board energy bounds bracket the first-to-last case window, including time between cases; startup and CPU/system energy are excluded. Per-case integration is incomplete. One A/A pair of correlated exposed cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The separate MTP ON/OFF comparison remains unqualified.
+
+Audit SHA-256: R618 `3f718e7c2211b4c8721893ffa93aa3836601b31a9925a5640f28dac400634aaa` · R635 `dda8a6a4ca873831fc8dcc6c2b16759fcc57fe5cce831f76a3d26e823c8e6a2a`. [Aggregate results and hashes](assets/r635-aa.json).

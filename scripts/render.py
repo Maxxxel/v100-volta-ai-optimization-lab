@@ -911,6 +911,18 @@ def main():
    page+='Energy bounds are cumulative GPU-board counter brackets from the first case start to the last case end, including time between cases; startup and CPU/system energy are excluded. Per-case energy coverage is incomplete. A single pair of exposed correlated cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The cache candidate remains unqualified.\n\n'
    page+=f"Audit SHA-256: R534 `{r633['audit_sha256']['R534']}` · R633 `{r633['audit_sha256']['R633']}`. [Aggregate results and hashes](assets/r633-aa.json).\n"
    put('assets/r633-aa.json',json.dumps(r633,ensure_ascii=False,indent=2))
+  r635=repro.get('r635_native_aa')
+  if r635:
+   rows=[]
+   for ident in ('R618','R635'):
+    m=r635['metrics'][ident];e=m['gpu_case_window_j_bounds'];j=m['gpu_j_per_success_bounds']
+    rows.append([ident,'27/33','31/33',f"{m['case_window_s']:.3f}",f"{e[0]:,.1f}–{e[1]:,.1f}",f"{j[0]:,.1f}–{j[1]:,.1f}",f"{m['peak_vram_mib']:,.1f}",f"{m['energy_complete_cases']}/33"])
+   page+='\n## Same-profile A/A repeatability · R618 / R635\n\n'
+   page+='R635 repeated the Qwen3.8 integrated-MTP profile on the same 33 previously exposed internal cases. Independent isolated CPU replay reproduced all case scores and effects. All 150 matched request bodies, input-token sequences and generated-token sequences matched; all 33 task and policy outcomes matched.\n\n'
+   page+=table(['Run','Solved','Policy gates','Case window s','GPU energy bounds J','GPU J / success bounds','Peak VRAM MiB','Per-case energy coverage'],rows)
+   page+='GPU-board energy bounds bracket the first-to-last case window, including time between cases; startup and CPU/system energy are excluded. Per-case integration is incomplete. One A/A pair of correlated exposed cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The separate MTP ON/OFF comparison remains unqualified.\n\n'
+   page+=f"Audit SHA-256: R618 `{r635['audit_sha256']['R618']}` · R635 `{r635['audit_sha256']['R635']}`. [Aggregate results and hashes](assets/r635-aa.json).\n"
+   put('assets/r635-aa.json',json.dumps(r635,ensure_ascii=False,indent=2))
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')

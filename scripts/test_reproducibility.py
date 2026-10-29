@@ -1,6 +1,6 @@
-import hashlib,json,tempfile,unittest
+import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -15,6 +15,15 @@ class RuntimeIdentity(unittest.TestCase):
   with self.assertRaises(AssertionError):verify_aa_runtime_identity([a,{**b,'native_recipe':{'seed':1002}}],[x,y])
   with self.assertRaises(AssertionError):verify_aa_runtime_identity([a,b],[x,{**y,'argv':['other-engine']}])
   with self.assertRaises(AssertionError):verify_aa_runtime_identity([a,b],[x,{**y,'environment':{**y['environment'],'OMP_NUM_THREADS':'8'}}])
+ def test_qwen_aa_rejects_changed_tokens_and_policy(self):
+  cases={str(i):{'reported_result':{'task_success':i<27,'policy_gate_pass':i<31}} for i in range(33)}
+  turns={str(i):{'request':{'seed':1001},'reply':{'__verbose':{'tokens':[i]}}} for i in range(150)}
+  inputs={str(i):{'prompt_token_ids':[i]} for i in range(150)}
+  a={'agent_case':cases,'agent_turn':turns,'input_identity':inputs};b=copy.deepcopy(a);validate_r635_pair(a,b)
+  b['agent_turn']['0']['reply']['__verbose']['tokens']=[99]
+  with self.assertRaises(AssertionError):validate_r635_pair(a,b)
+  b=copy.deepcopy(a);b['agent_case']['0']['reported_result']['policy_gate_pass']=False
+  with self.assertRaises(AssertionError):validate_r635_pair(a,b)
 class HistoricalComparison(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.profiles={};self.raw={}
