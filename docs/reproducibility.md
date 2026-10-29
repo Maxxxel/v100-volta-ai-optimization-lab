@@ -35,6 +35,17 @@ Source review SHA-256: `319375870744b2c6a3d35ab109e8ad3ba2e81b1af0b60ca444a665c7
 
 Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.
 
+## Gemma prefix-cache A/A and A/B pilot
+
+| Fixed request | No-cache A/A across sessions | Cache-on variants different | Cache hits | First difference, zero-based |
+|---|---|---|---|---|
+| 1 | YES | 0 | 2 | NONE |
+| 2 | YES | 0 | 4 | NONE |
+| 3 | YES | 0 | 4 | NONE |
+| 4 | YES | 4 | 4 | 7 |
+
+[R624](experiments/R624.md) tests four exposed requests from the R617 policy-loss case. Cache-hit token divergence was reproduced on the fourth request with a stable no-cache baseline. Whole-task causality, internal state and general equivalence remain unproven; the R617 failed safety gate remains in force.
+
 ## Qwen3.8 integrated MTP A/A pilot
 
 | Fixed request | Within-session repeats equal | Across-session equal |

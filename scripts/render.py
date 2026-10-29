@@ -615,6 +615,11 @@ def main():
    for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
     v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
    page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  gemma_cache=next((e for e in es if e['id']=='R624'),None)
+  if gemma_cache and gemma_cache.get('aggregate_metrics',{}).get('repeatability_pilot'):
+   p=gemma_cache['aggregate_metrics']['repeatability_pilot'];rows=p['turns']
+   page+='\n## Gemma prefix-cache A/A and A/B pilot\n\n'+table(['Fixed request','No-cache A/A across sessions','Cache-on variants different','Cache hits','First difference, zero-based'],[[x['turn'],'YES' if x['no_cache_equal_across_sessions'] else 'NO',x['cache_variants_differ_from_baseline'],x['cache_hit_turns'],x['first_difference_position_zero_based'] if x['first_difference_position_zero_based'] is not None else 'NONE'] for x in rows])
+   page+='[R624](experiments/R624.md) tests four exposed requests from the R617 policy-loss case. Cache-hit token divergence was reproduced on the fourth request with a stable no-cache baseline. Whole-task causality, internal state and general equivalence remain unproven; the R617 failed safety gate remains in force.\n'
   qwen_pilot=next((e for e in es if e['id']=='R623'),None)
   if qwen_pilot and qwen_pilot.get('aggregate_metrics',{}).get('mtp_repeatability_pilot'):
    p=qwen_pilot['aggregate_metrics']['mtp_repeatability_pilot'];rows=p['turns']

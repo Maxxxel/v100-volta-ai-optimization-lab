@@ -27576,5 +27576,79 @@
       "repeatability_limits": "Three exposed fixed requests, integrated MTP enabled, same runtime and two adjacent sessions. Repeats are correlated; no population-quality, causal MTP or safety equivalence claim. Logits and numerical margins NOT MEASURED."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "repeatability_pilot": {
+        "energy_counter": {
+          "complete_request_s": 50.040623812,
+          "group_window_s": 55.545183301,
+          "groups": 1,
+          "included_between_request_setup_s": 5.504559489,
+          "lower_j": 11624.335,
+          "max_query_duration_s": 0.167835179,
+          "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+          "tasks": 32,
+          "upper_j": 11744.217
+        },
+        "peak_device_vram_mib": 8254.5,
+        "task_phase_s": 61.892269597,
+        "turns": [
+          {
+            "cache_hit_turns": 2,
+            "cache_variants_differ_from_baseline": 0,
+            "first_difference_position_zero_based": null,
+            "no_cache_all_four_equal": true,
+            "no_cache_equal_across_sessions": true,
+            "turn": 1
+          },
+          {
+            "cache_hit_turns": 4,
+            "cache_variants_differ_from_baseline": 0,
+            "first_difference_position_zero_based": null,
+            "no_cache_all_four_equal": true,
+            "no_cache_equal_across_sessions": true,
+            "turn": 2
+          },
+          {
+            "cache_hit_turns": 4,
+            "cache_variants_differ_from_baseline": 0,
+            "first_difference_position_zero_based": null,
+            "no_cache_all_four_equal": true,
+            "no_cache_equal_across_sessions": true,
+            "turn": 3
+          },
+          {
+            "cache_hit_turns": 4,
+            "cache_variants_differ_from_baseline": 4,
+            "first_difference_position_zero_based": 7,
+            "no_cache_all_four_equal": true,
+            "no_cache_equal_across_sessions": true,
+            "turn": 4
+          }
+        ]
+      }
+    },
+    "audit_id": "audit-92a457134a42fd344cbf",
+    "date": "2026-10-29T08:36:38.129609+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R624",
+    "model": "Gemma 4 12B QAT Q4",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-6f9cee206818d0c53be6",
+      "audit-9d7031231beba60dd688",
+      "audit-64b3d7585d0fc016342f",
+      "audit-9ba01e7c0be3b578b5c0"
+    ],
+    "statements": {
+      "decision": "No-cache A/A stable across two sessions on four matched requests. For request four, all four cache-hit outputs diverge at positions 7 or 93 with the original seed and temperature. Whole-task policy causation remains unproven; R617 remains not qualified.",
+      "repeatability_decision": "No-cache A/A stable across two sessions on four matched requests. For request four, all four cache-hit outputs diverge at positions 7 or 93 with the original seed and temperature. Whole-task policy causation remains unproven; R617 remains not qualified.",
+      "repeatability_limits": "Four fixed previously exposed requests, no tool execution, one runtime and two adjacent sessions. Identical no-cache outputs are scoped to these requests; no statistical equivalence or whole-task policy causality. Logits and numerical margins NOT MEASURED. Cache and slot state differ by design; implementation-level cause unverified."
+    },
+    "winner_qualified": false
   }
 ]
