@@ -1502,6 +1502,13 @@
     "cache_state_source_path": {
       "GPU_runs": 0,
       "causal_disposition": "OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED",
+      "external_issue": {
+        "claim": "FULL-only memory backends always fall back because the checkpoint restore path is not consulted when pos_min == -1.",
+        "local_applicability": "NOT_ESTABLISHED; pinned source explicitly selects checkpoint state for FULL-only rollback and contains an explicit pos_min == -1 abort guard. R614/R616 logs contain checkpoint-restore events, so the issue’s blanket permanent-disablement claim does not describe every request in these runs.",
+        "remaining_limit": "The restore/fallback events are not mapped to each divergent request; this does not identify why a specific checkpoint was unavailable or explain token/policy divergence.",
+        "status": "CLOSED_NOT_PLANNED",
+        "url": "https://github.com/ggml-org/llama.cpp/issues/22940"
+      },
       "kind": "PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION",
       "limits": "Aggregate log counts are not mapped to the differing task/request. No logits, per-layer state, or kernel trace was captured. Source describes intended checkpoint/fallback handling; it does not prove the selected path was correct for each divergent response, nor prove GDN corruption or policy-failure causality.",
       "model_requests": 0,
@@ -1546,7 +1553,9 @@
         "checkpoint_speculative_state": 2587,
         "checkpoint_target_state": 2584,
         "common_prefix": 3600,
+        "full_only_checkpoint_path": 3360,
         "full_prompt_fallback": 3781,
+        "pos_min_empty_guard": 3692,
         "prefix_chunk_reuse": 3653,
         "recurrent_state_rewind_limit": 2596
       }

@@ -74,6 +74,8 @@ def cache_state_source_path(root):
   'recurrent_state_rewind_limit':'a recurrent state cannot be rewound',
   'checkpoint_restore':'it->load_tgt(ctx_tgt, slot.id, LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY)',
   'checkpoint_restore_draft':'it->load_dft(ctx_dft, slot.id, LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY)',
+  'full_only_checkpoint_path':'ctx_tgt_seq_rm_type == COMMON_CONTEXT_SEQ_RM_TYPE_FULL;',
+  'pos_min_empty_guard':'if (pos_min == -1) {',
   'full_prompt_fallback':'forcing full prompt re-processing due to lack of cache data',
  }
  source_lines={key:next((i for i,line in enumerate(lines,1) if token in line),None) for key,token in needles.items()}
@@ -96,6 +98,13 @@ def cache_state_source_path(root):
   }
  return {
   'kind':'PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION','source_commit':commit,'source_file_sha256':expected,'source_lines':source_lines,'runs':runs,
+  'external_issue':{
+   'url':'https://github.com/ggml-org/llama.cpp/issues/22940',
+   'status':'CLOSED_NOT_PLANNED',
+   'claim':'FULL-only memory backends always fall back because the checkpoint restore path is not consulted when pos_min == -1.',
+   'local_applicability':'NOT_ESTABLISHED; pinned source explicitly selects checkpoint state for FULL-only rollback and contains an explicit pos_min == -1 abort guard. R614/R616 logs contain checkpoint-restore events, so the issue’s blanket permanent-disablement claim does not describe every request in these runs.',
+   'remaining_limit':'The restore/fallback events are not mapped to each divergent request; this does not identify why a specific checkpoint was unavailable or explain token/policy divergence.'
+  },
   'source_interpretation':[
    'The request-level cache_prompt path finds a matching prompt prefix; the server can reuse cached chunks.',
    'Context checkpoints save target state (and the source also saves draft/speculative state); the source comment says recurrent state cannot be rewound from only the final state.',

@@ -174,7 +174,11 @@ The pinned [`server-context.cpp` source](https://github.com/ggml-org/llama.cpp/b
 | Recurrent-state rewind limitation | [line 2596](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L2596) |
 | Target checkpoint restore | [line 3760](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3760) |
 | Draft checkpoint restore | [line 3761](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3761) |
+| FULL-only checkpoint path | [line 3360](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3360) |
+| pos_min == -1 guard | [line 3692](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3692) |
 | Full-prompt fallback | [line 3781](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3781) |
+
+The upstream [issue #22940](https://github.com/ggml-org/llama.cpp/issues/22940) claims FULL-only memory permanently disables prompt-cache restore when `pos_min == -1`; it was closed as not planned. That blanket claim is **not established for our pinned build**: source has a FULL-only checkpoint path and an explicit `pos_min == -1` abort guard, while R614/R616 logs record 57/40 checkpoint restores. This does not map restore/fallback events to the divergent requests or explain their token differences.
 
 The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.
 
