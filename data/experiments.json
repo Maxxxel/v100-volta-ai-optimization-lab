@@ -27075,7 +27075,14 @@
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "cpu_tokenizer_replay": {
+        "GPU_runs": 0,
+        "identical": 3,
+        "model_requests": 0,
+        "turns": 3
+      }
+    },
     "audit_id": "audit-b66bd55c00315ceaf6ba",
     "date": "2026-10-29T06:43:52.624330+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
@@ -27085,8 +27092,13 @@
     "id": "R619",
     "model": "OmniCoder 9B bartowski Q6",
     "reference_A0": null,
+    "related_audit_ids": [
+      "audit-3bae0bb26929b661e402",
+      "audit-289dc8ba07bda451a2cf"
+    ],
     "statements": {
-      "decision": "Prompt-token preflight mismatch stopped experiment before model generation. Cause unproven; no quality or performance result."
+      "decision": "Prompt-token preflight mismatch stopped experiment before model generation. Cause unproven; no quality or performance result.",
+      "tokenizer_scope": "CPU vocabulary-only replay of archived rendered prompts with pinned library; the failed fresh preflight was not captured, so its mismatch cause remains undetermined."
     },
     "winner_qualified": false
   }

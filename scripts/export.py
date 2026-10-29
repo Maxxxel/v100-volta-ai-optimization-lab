@@ -1391,6 +1391,20 @@ def main():
             experiments[ident]['related_audit_ids']=[review_id,reference_id]
             experiments[ident]['aggregate_metrics']['abba_diagnostic']=projection({'turns':measured['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':measured['energy_counter'],'historical_vs_fresh_no_cache':review['historical_vs_fresh_no_cache']})
             experiments[ident]['statements']['diagnosis_scope']=text(review['scope'])
+        if ident=='R619' and v.get('cpu_tokenizer_review'):
+            item=v['cpu_tokenizer_review'];rid=receipt(item['path'],item['sha256']);cid=receipt(item['receipt_path'],item['receipt_sha256']);review=load(locations[rid]) if rid else {};proof=load(locations[cid]) if cid else {};private=pathlib.Path(item['private_output_path'])
+            if not rid or not cid or digest(private)!=item['private_output_sha256'] or proof.get('private_output_sha256')!=digest(private) or proof.get('review_sha256')!=digest(locations[rid]) or proof.get('gpu_calls')!=0 or proof.get('model_generations')!=0:raise ValueError('R619 CPU tokenizer evidence missing')
+            raw=load(private);turns=raw.get('turns',[])
+            if len(turns)!=3 or len(review.get('turns',[]))!=3 or review.get('reference_audit_sha256')!=digest(root/'staging/r536/AUDIT.json') or review.get('candidate_audit_sha256')!=digest(root/'staging/r616/AUDIT.json'):raise ValueError('R619 tokenizer provenance mismatch')
+            for row,record in zip(turns,review['turns']):
+                actual=row['token_ids'];expected=row['expected_token_ids'];prefix=0
+                for x,y in zip(actual,expected):
+                    if x!=y:break
+                    prefix+=1
+                if record['turn']!=row['turn'] or record['cpu_tokenizer_tokens']!=len(actual) or record['expected_prompt_tokens']!=len(expected) or record['identical']!=(actual==expected) or record['common_prefix_tokens']!=prefix:raise ValueError('R619 tokenizer result mismatch')
+            experiments[ident].setdefault('related_audit_ids',[]).extend([rid,cid])
+            experiments[ident]['aggregate_metrics']['cpu_tokenizer_replay']={'turns':len(turns),'identical':sum(x['token_ids']==x['expected_token_ids'] for x in turns),'GPU_runs':0,'model_requests':0}
+            experiments[ident]['statements']['tokenizer_scope']='CPU vocabulary-only replay of archived rendered prompts with pinned library; the failed fresh preflight was not captured, so its mismatch cause remains undetermined.'
         if ident=='R618' and v.get('cross_model_review'):
             item=v['cross_model_review'];review_id=receipt(item['path'],item['sha256']);review=load(locations[review_id]) if review_id else {};candidate=load(locations[audit]) if audit else {};related=[review_id] if review_id else []
             if not audit or review.get('winner_qualified') is not False or review.get('GPU_runs')!=0:raise ValueError('R618 comparison evidence missing')
