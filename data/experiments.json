@@ -26574,5 +26574,143 @@
       "scope": "Four fixed previously exposed requests, one balanced ABBA session, no tool execution."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 328.411291892,
+          "group_window_s": 328.41752111,
+          "lower_j": 89455.538,
+          "upper_j": 89571.448
+        },
+        "actual_generation_requests": 156,
+        "bridge_source_sha256": "ed0b9e93cebb9831d534debd6af0e3814f1712de9312ed142b81e879008e83a9",
+        "case_wall_s": 328.411291892,
+        "completed_request_wall_s": 325.223491509,
+        "completion_tokens": 22309,
+        "context_tokens": 8192,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3313.168074074074,
+        "gpu_j_per_success_upper": 3317.4610370370374,
+        "independent_review_audit_id": "audit-4214de99a81deaa159aa",
+        "independent_review_sha256": "4214de99a81deaa159aa5e0187983214bce5802a0d35e0a5cacb758c4648f5d4",
+        "max_output_tokens": 4096,
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 0,
+          "case_lost": 1,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 1.0,
+          "net_success_change": -1,
+          "nonzero_groups": 1,
+          "reference_experiment_id": "R536",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 7680.5,
+        "planned_tasks": 33,
+        "policy_gate_passes": 28,
+        "profile_sha256": "97a1b9721bdf72b17981471c556dfe249520f471d8c740b5c9f65bc29c612370",
+        "quality_diagnostics": {
+          "evidence_or_postcondition_failure_cases": 0,
+          "final_contract_failure_cases": 0,
+          "incorrect_facts_cases": 1,
+          "invalid_action_cases": 0,
+          "invalid_action_events": 0,
+          "invalid_final_contract_cases": 0,
+          "missing_valid_final_cases": 0,
+          "parse_failed_cases": 0,
+          "parse_failed_rounds": 0,
+          "policy_violation_cases": 5,
+          "policy_violation_events": 6,
+          "rejected_tool_call_cases": 5,
+          "rejected_tool_call_events": 6,
+          "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+          "wrong_final_status_cases": 0,
+          "wrong_reason_code_cases": 0
+        },
+        "solved": 27,
+        "successful_tasks_per_s": 0.0822121643925871,
+        "task_limit_s": 1200,
+        "task_phase_s": 328.418552163,
+        "task_scope_passes": 33,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 68.59590583843983,
+        "winner_qualified": false
+      },
+      "single_factor_comparison": {
+        "candidate_cache": {
+          "cache_hit_turns": 123,
+          "cached_tokens": 220846,
+          "completion_tokens": 22309,
+          "turns": 156
+        },
+        "candidate_case_wall_s": 328.411291892,
+        "candidate_gpu_j_lower": 89455.538,
+        "candidate_gpu_j_upper": 89571.448,
+        "candidate_peak_vram_mib": 7680.5,
+        "case_wall_reduction_percent": 18.23713215026842,
+        "quality": {
+          "policy_gate_pass": {
+            "candidate_passed": 28,
+            "gained": 0,
+            "lost": 1,
+            "reference_passed": 29
+          },
+          "task_scope_pass": {
+            "candidate_passed": 33,
+            "gained": 0,
+            "lost": 0,
+            "reference_passed": 33
+          },
+          "task_success": {
+            "candidate_passed": 27,
+            "gained": 0,
+            "lost": 1,
+            "reference_passed": 28
+          }
+        },
+        "reference_cache": {
+          "cache_hit_turns": 0,
+          "cached_tokens": 0,
+          "completion_tokens": 22528,
+          "turns": 154
+        },
+        "reference_case_wall_s": 401.663127198,
+        "reference_gpu_j_lower": 109461.518,
+        "reference_gpu_j_upper": 109572.691,
+        "reference_peak_vram_mib": 7680.5,
+        "tasks": 33
+      },
+      "solved": 27,
+      "tasks": 33
+    },
+    "audit_id": "audit-9ba34885e6fdc7944134",
+    "date": "2026-10-29T01:55:42.984797+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R616",
+    "model": "OmniCoder-9B bartowski Q6 · prompt cache enabled",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-1740c1778e85c380afa3",
+      "audit-d5886de4d4ad939e99cf",
+      "audit-49670dc3f230b5d82525",
+      "audit-c0262177522073277a49"
+    ],
+    "statements": {
+      "decision": "QUALITY_AND_POLICY_GATE_FAILED_HISTORICAL_SCREEN_NO_PROMOTION",
+      "scope": "Previously exposed 33 tasks; one task and policy-gate loss versus historical control. Causation not established; no Champion.",
+      "single_factor_decision": "NOT_QUALIFIED_SCREEN_GATE_NOT_MET",
+      "single_factor_limits": "Historical control; exposed Agent33 tasks. Request flag and a narrowly modified transport differ. Cache counters indicate reported reuse; no token-level or recurrent-state equivalence is proven. GPU energy excludes startup and CPU/system energy; counter bounds do not include sensor accuracy. No independent holdout or Champion claim."
+    },
+    "winner_qualified": false
   }
 ]

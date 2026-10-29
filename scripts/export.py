@@ -1390,8 +1390,8 @@ def main():
             experiments[ident]['related_audit_ids']=[review_id,reference_id]
             experiments[ident]['aggregate_metrics']['abba_diagnostic']=projection({'turns':measured['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':measured['energy_counter'],'historical_vs_fresh_no_cache':review['historical_vs_fresh_no_cache']})
             experiments[ident]['statements']['diagnosis_scope']=text(review['scope'])
-        if ident in ('R612','R614') and v.get('single_factor_review'):
-            item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/('staging/r534/AUDIT.json' if ident=='R612' else 'staging/r531/AUDIT.json'))
+        if ident in ('R612','R614','R616') and v.get('single_factor_review'):
+            item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/({'R612':'staging/r534/AUDIT.json','R614':'staging/r531/AUDIT.json','R616':'staging/r536/AUDIT.json'}[ident]))
             if not audit or not review_id or not reference_id:raise ValueError('R612 paired source missing')
             review=load(locations[review_id]);ref=load(locations[reference_id]);candidate=load(locations[audit])
             if review.get('reference_audit_sha256')!=digest(locations[reference_id]) or review.get('candidate_audit_sha256')!=digest(locations[audit]) or review.get('winner_qualified') is not False:raise ValueError('R612 source audit mismatch')
@@ -1405,7 +1405,7 @@ def main():
             for field in ('task_success','policy_gate_pass','task_scope_pass'):
                 pairs=[(x['reported_result'][field],y['reported_result'][field]) for x,y in zip(a,b)];expected={'reference_passed':sum(x for x,y in pairs),'candidate_passed':sum(y for x,y in pairs),'lost':sum(x and not y for x,y in pairs),'gained':sum(not x and y for x,y in pairs)}
                 if review['comparison']['quality'][field]!=expected:raise ValueError('R612 paired outcome mismatch')
-            if ident=='R614':
+            if ident in ('R614','R616'):
                 for records,key in zip(turns,('reference_cache','candidate_cache')):
                     usages=[r['reply']['usage'] for r in records];cached=[u['prompt_tokens_details']['cached_tokens'] for u in usages]
                     expected={'turns':len(usages),'cache_hit_turns':sum(v>0 for v in cached),'cached_tokens':sum(cached),'prompt_tokens':sum(u['prompt_tokens'] for u in usages),'completion_tokens':sum(u['completion_tokens'] for u in usages)}
