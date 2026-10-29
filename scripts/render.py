@@ -953,6 +953,16 @@ def main():
     on,off=cross['summed_request_wall_s_mtp_on_off'];t_on,t_off=cross['generated_tokens_mtp_on_off'];positions=cross['first_divergence_indices_sorted']
     page+=f"\nThe four-capture review matched {cross['matching_request_and_input_tokens']} request bodies and input-token sequences. {cross['different_output_turns']} responses differed across {cross['affected_cases']} cases, beginning at zero-based tokens {positions[0]}–{positions[-1]}; both task and policy outcomes matched in all 33 cases. In the two repeat sessions, summed response time was {on:.3f} s MTP ON and {off:.3f} s OFF, with {t_on:,} and {t_off:,} generated tokens respectively. Separate, unbalanced sessions and differing outputs prevent a causal speed or quality-equivalence claim. [Four-capture aggregates](assets/qwen-mtp-cross.json).\n"
     put('assets/qwen-mtp-cross.json',json.dumps(cross,ensure_ascii=False,indent=2))
+  r637=repro.get('r637_balanced_mtp')
+  if r637:
+   rows=[]
+   for x in r637['turns']:
+    rows.append([x['request'],'yes' if x['off_repeat_equal'] else 'no','yes' if x['on_repeat_equal'] else 'no',x['first_divergence_positions'][0],'/'.join(str(n) for n in x['output_lengths'])])
+   page+='\n## Balanced MTP token diagnostic · R637\n\n'
+   page+='Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.\n\n'
+   page+=table(['Request','OFF repeats equal','ON repeats equal','OFF/ON first divergence','Output tokens OFF/ON/ON/OFF'],rows)
+   page+=f"The shared TASK phase took {r637['task_phase_s']:.3f} s including starts and warmups; peak VRAM was {r637['peak_device_vram_mib']:,.1f} MiB. These selected cases show repeatable output differences in this scope, not quality or safety equivalence, an underlying numerical cause, or an independently qualified speed gain. No tools were executed. Audit SHA-256: `{r637['audit_sha256']}`; independent review SHA-256: `{r637['review_sha256']}`. [Aggregate results](assets/r637-mtp-abba.json).\n"
+   put('assets/r637-mtp-abba.json',json.dumps(r637,ensure_ascii=False,indent=2))
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')

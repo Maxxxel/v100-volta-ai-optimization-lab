@@ -923,6 +923,23 @@ def qwen_native_aa(root,baseline_id,trial_id):
  assert result['raw_comparison']['paired_outcomes']=={'task_success_both_pass':27,'task_success_both_fail':6,'task_success_gained':0,'task_success_lost':0,'policy_gate_pass_both_pass':31,'policy_gate_pass_both_fail':2,'policy_gate_pass_gained':0,'policy_gate_pass_lost':0}
  return {'status':result['status'],'scope':result['scope'],'paired_outcomes':result['raw_comparison']['paired_outcomes'],'turn_comparison':result['raw_comparison']['turn_comparison'],'metrics':metrics,'energy_scope':result['energy_scope'],'audit_sha256':result['raw_comparison']['audit_sha256'],'result_sha256':digest(path),'cpu_replay_sha256':result['cpu_replay_sha256'],'winner_qualified':False}
 
+def r637_balanced_mtp(root):
+ """Validate the two selected ABBA comparisons without exporting requests."""
+ root=Path(root);stage=root/'staging/r637';audit=stage/'AUDIT.json';review=stage/'INDEPENDENT_REVIEW.json'
+ if not audit.is_file() or not review.is_file():return None
+ a=json.loads(audit.read_text());v=json.loads(review.read_text())
+ assert a['status']=='FOUR_SESSION_ABBA_REQUEST_DIAGNOSTIC_COMPLETE' and a['winner_qualified'] is False and a['official_benchmark'] is False
+ assert v['status']=='INDEPENDENT_CPU_RAW_TOKEN_REVIEW_PASSED' and v['audit_sha256']==digest(audit) and v['raw_sha256']==a['raw_responses_sha256']
+ dirs=list((root.parent/'research/mcp-workspace/r637-qwen38-mtp-abba-token-pilot').glob('host-*'));assert len(dirs)==1
+ raw=dirs[0];assert digest(raw/'HTTP_RESULTS.jsonl')==a['raw_responses_sha256'] and digest(raw/'AUDIT.json')==a['broker_audit_sha256']
+ rows=[json.loads(l) for l in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()];seq={x['id']:x['reply']['__verbose']['tokens'] for x in rows if x.get('kind')=='r637_request'}
+ assert set(seq)=={f's{s}-t{t}' for s in range(1,5) for t in (1,2)}
+ for t in (1,2):
+  a0,b1,b2,a1=(seq[f's{s}-t{t}'] for s in range(1,5));first=next((i for i,(x,y) in enumerate(zip(a0,b1)) if x!=y),min(len(a0),len(b1)) if len(a0)!=len(b1) else None)
+  c=v['checks'][t-1];assert c['request']==t and c['off_repeat_equal']==(a0==a1) and c['on_repeat_equal']==(b1==b2) and c['first_off_on_divergence']==first
+  assert a['turns'][t-1]['first_divergence_positions'][0]==first
+ return {'experiment_id':'R637','task_phase_s':a['task_phase_s'],'peak_device_vram_mib':a['peak_device_vram_mib'],'turns':a['turns'],'audit_sha256':digest(audit),'review_sha256':digest(review),'broker_audit_sha256':a['broker_audit_sha256'],'raw_responses_sha256':a['raw_responses_sha256'],'scope':a['scope'],'winner_qualified':False}
+
 def qwen_mtp_cross_review(root,on_aa,off_aa):
  """Validate observed ON/OFF differences without treating them as causal."""
  root=Path(root);file=root/'staging/r636/MTP_CROSS_REVIEW.json'
@@ -1026,4 +1043,4 @@ def build(root):
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
  on_aa=qwen_native_aa(root,'R618','R635');off_aa=qwen_native_aa(root,'R625','R636')
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}

@@ -1,0 +1,47 @@
+{
+  "audit_sha256": "a06b519866b6ecc13883d94892fa367a6d53c1492e3f32be0e52f67c4d2005aa",
+  "broker_audit_sha256": "3a892e661ea6b4527fbc8a000149e4741c19eca5a500d400a72dfc442caac592",
+  "experiment_id": "R637",
+  "peak_device_vram_mib": 13596.5,
+  "raw_responses_sha256": "4226bd56a86b45b35a3d70b2f153574a8f9978ece122836cf2744315a603b384",
+  "review_sha256": "224a941a3628ec64ad4625aff55aa6f12a2dd9d114fd83401af610be233fa3cd",
+  "scope": "Two historically divergent exposed requests selected after observing outcomes; four sequential sessions OFF/ON/ON/OFF, temperature 0, seed 1001, exact input IDs. Shared TASK includes starts and warmups. Not quality or safety qualification; logits and per-arm energy NOT MEASURED.",
+  "task_phase_s": 218.728194292,
+  "turns": [
+    {
+      "first_divergence_positions": [
+        185,
+        185,
+        null
+      ],
+      "off_repeat_equal": true,
+      "off_vs_on_equal": false,
+      "on_repeat_equal": true,
+      "output_lengths": [
+        203,
+        203,
+        203,
+        203
+      ],
+      "request": 1
+    },
+    {
+      "first_divergence_positions": [
+        80,
+        80,
+        null
+      ],
+      "off_repeat_equal": true,
+      "off_vs_on_equal": false,
+      "on_repeat_equal": true,
+      "output_lengths": [
+        168,
+        175,
+        175,
+        168
+      ],
+      "request": 2
+    }
+  ],
+  "winner_qualified": false
+}

@@ -1,10 +1,18 @@
 import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences,qwen_native_aa
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences,qwen_native_aa,r637_balanced_mtp
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def write(p,value):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value,sort_keys=True))
+class R637Export(unittest.TestCase):
+ def test_absent_evidence_is_not_a_result(self):
+  with tempfile.TemporaryDirectory() as d:self.assertIsNone(r637_balanced_mtp(Path(d)))
+ def test_invalid_unverified_audit_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   stage=Path(d)/'staging/r637';write(stage/'AUDIT.json',{'status':'invented'});write(stage/'INDEPENDENT_REVIEW.json',{})
+   with self.assertRaises(AssertionError):r637_balanced_mtp(Path(d))
+
 class RuntimeIdentity(unittest.TestCase):
  def test_only_review_and_lease_may_differ(self):
   a={'model':'hash','native_recipe':{'seed':1001},'review':'old','execution_review':'old'}

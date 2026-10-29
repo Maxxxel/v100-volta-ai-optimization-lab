@@ -317,3 +317,14 @@ Energy bounds cover the first-to-last case window and between-case time; startup
 Audit SHA-256: R625 `404e2b9c072974e7ea26d580f0bbe0fac8d1d0d8ebb06178426edbdeb85427cd` · R636 `4cd92de091505d3cddc01dee97249872e8caaa0202e495121871147623023854`. [Aggregate results and hashes](assets/r636-aa.json).
 
 The four-capture review matched 150 request bodies and input-token sequences. 8 responses differed across 8 cases, beginning at zero-based tokens 16–245; both task and policy outcomes matched in all 33 cases. In the two repeat sessions, summed response time was 621.191 s MTP ON and 758.773 s OFF, with 12,110 and 12,069 generated tokens respectively. Separate, unbalanced sessions and differing outputs prevent a causal speed or quality-equivalence claim. [Four-capture aggregates](assets/qwen-mtp-cross.json).
+
+## Balanced MTP token diagnostic · R637
+
+Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.
+
+| Request | OFF repeats equal | ON repeats equal | OFF/ON first divergence | Output tokens OFF/ON/ON/OFF |
+|---|---|---|---|---|
+| 1 | yes | yes | 185 | 203/203/203/203 |
+| 2 | yes | yes | 80 | 168/175/175/168 |
+
+The shared TASK phase took 218.728 s including starts and warmups; peak VRAM was 13,596.5 MiB. These selected cases show repeatable output differences in this scope, not quality or safety equivalence, an underlying numerical cause, or an independently qualified speed gain. No tools were executed. Audit SHA-256: `a06b519866b6ecc13883d94892fa367a6d53c1492e3f32be0e52f67c4d2005aa`; independent review SHA-256: `224a941a3628ec64ad4625aff55aa6f12a2dd9d114fd83401af610be233fa3cd`. [Aggregate results](assets/r637-mtp-abba.json).
