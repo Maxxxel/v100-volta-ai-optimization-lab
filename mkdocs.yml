@@ -65,6 +65,7 @@ nav:
       - Experiment history: results.md
       - Qualified configurations: configurations.md
       - Negative results: rejected.md
+      - Volta Tensor-Core audit: volta-tensor-core-audit.md
       - Configuration history: configuration-archive.md
       - Model research: models.md
       - OmniCoder derivatives: omnicoder-derivatives.md
