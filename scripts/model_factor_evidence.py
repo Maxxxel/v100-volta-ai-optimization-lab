@@ -34,4 +34,14 @@ def reviewed_dispositions(experiments):
    e=byid.get(ident); normalized=re.sub(r'[^a-z0-9]','',(e.get('model') or '').lower()) if e else ''
    token=dict(PATTERNS)[model]
    if not e or factor not in (e.get('factor_ids') or ()) or token not in normalized:raise ValueError('Missing model-specific disposition evidence: '+ident)
+ on=byid.get('R618');off=byid.get('R625')
+ if on and off:
+  paired=(off.get('aggregate_metrics') or {}).get('mtp_paired_comparison') or {}
+  if ('qwen38' not in re.sub(r'[^a-z0-9]','',(on.get('model') or '').lower()) or
+      'qwen38' not in re.sub(r'[^a-z0-9]','',(off.get('model') or '').lower()) or
+      on['audit_id']!='audit-'+paired.get('candidate_on_audit_sha256','')[:20] or
+      off['audit_id']!='audit-'+paired.get('reference_off_audit_sha256','')[:20] or
+      paired.get('tasks')!=33 or paired.get('winner_qualified') is not False):
+   raise ValueError('Invalid Qwen3.8 MTP paired evidence')
+  rows.append(('S03','Qwen3.8','PARTIAL','R618','R625','MTP ON/OFF compared on 33 exposed agent tasks: 27/33 successes and 31/33 policy gates in each; 8/150 matched outputs differed. Separate sessions, no independent quality or safety equivalence; no Champion promotion.'))
  return rows

@@ -15,6 +15,7 @@ These decisions apply only to the linked, measured profiles and workloads. A fai
 | [K02](factors/K02.md) | Gemma 4 | PARTIAL | [R606](experiments/R606.md), [R608](experiments/R608.md) | Q8 value cache looked promising in a paired development screen; the later full coding score fell against a historical control. No promotion; causal quality loss is unconfirmed. |
 | [S03](factors/S03.md) | Qwen3.8 | PARTIAL | [R551](experiments/R551.md), [R548](experiments/R548.md) | Integrated MTP improved a fresh development comparison and passed a scoped coding gate; task-level safety and broad equivalence remain unqualified. |
 | [HBM07](factors/HBM07.md) | OmniCoder | TESTED_NEGATIVE | [R603](experiments/R603.md) | A 4 GiB conversion-cache development screen showed no practical latency benefit; this is limited to the measured workload and profile. |
+| [S03](factors/S03.md) | Qwen3.8 | PARTIAL | [R618](experiments/R618.md), [R625](experiments/R625.md) | MTP ON/OFF compared on 33 exposed agent tasks: 27/33 successes and 31/33 policy gates in each; 8/150 matched outputs differed. Separate sessions, no independent quality or safety equivalence; no Champion promotion. |
 
 
 ## Evidence index for all factors
