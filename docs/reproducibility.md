@@ -276,6 +276,20 @@ Energy bounds are cumulative GPU-board counter brackets from the first case star
 
 Audit SHA-256: R534 `38904a4aac691bd22747808c81e38ab9030c893a17723b073bacab29acdd9038` · R633 `e8d9b89292bd433016bcba571492b072ccf09c2800f50f9c426c1486cdee6ebb`. [Aggregate results and hashes](assets/r633-aa.json).
 
+## Distinct-seed pilot · R634
+
+Three previously exposed Gemma requests were selected for longer baseline outputs. Seeds 1001, 1002 and 1003 each ran twice in each of two sessions; the frozen input token IDs matched. Fixed-seed repetitions were identical, while every cross-seed pair differed. Positions below are zero-based output-token indices.
+
+| Request | Fixed-seed repeats | Seed 1001 matches R633 | 1001 vs 1002 | 1001 vs 1003 | 1002 vs 1003 |
+|---|---|---|---|---|---|
+| 1 | 4/4 per seed | yes | 66 | 66 | 67 |
+| 2 | 4/4 per seed | yes | 64 | 64 | 66 |
+| 3 | 4/4 per seed | yes | 68 | 102 | 68 |
+
+The 36 requests took 151.925 s including two starts and warmups; peak VRAM was 8,254.5 MiB. The GPU counter bounded the request window at 33,934.4–34,054.4 J, excluding system energy. These selected prompts are not a representative task-quality or safety test; no tools were executed and no Champion was qualified.
+
+Audit SHA-256: `9076375ffe9f423fe92bb8659db3ca160c8ed8a9d8c06b2343617bd7ddf8fb4b` · token review SHA-256: `3c64d8e463f3935dbd7f147d8f09ecf2685533bcc96712971d9cef7c43328cb6`. [Aggregate results and hashes](assets/r634-seeds.json).
+
 ## Same-profile A/A repeatability · R618 / R635
 
 R635 repeated the Qwen3.8 integrated-MTP profile on the same 33 previously exposed internal cases. Independent isolated CPU replay reproduced all case scores and effects. All 150 matched request bodies, input-token sequences and generated-token sequences matched; all 33 task and policy outcomes matched.

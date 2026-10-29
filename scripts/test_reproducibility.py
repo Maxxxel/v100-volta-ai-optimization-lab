@@ -1,6 +1,6 @@
 import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -24,6 +24,14 @@ class RuntimeIdentity(unittest.TestCase):
   with self.assertRaises(AssertionError):validate_r635_pair(a,b)
   b=copy.deepcopy(a);b['agent_case']['0']['reported_result']['policy_gate_pass']=False
   with self.assertRaises(AssertionError):validate_r635_pair(a,b)
+ def test_seed_pilot_distinguishes_seeds_and_rejects_unstable_repeats(self):
+  order=[1001,1002,1003,1003,1002,1001]*2
+  groups=[[(seed,[42,seed]) for seed in order] for _ in range(3)]
+  result=summarize_r634_sequences(groups,[[42,1001]]*3)
+  self.assertTrue(all(x['baseline_seed_matches_r633'] for x in result))
+  self.assertTrue(all(not p['equal'] and p['first_divergence']==1 for x in result for p in x['seed_pairs']))
+  broken=copy.deepcopy(groups);broken[0][5]=(1001,[99])
+  with self.assertRaises(AssertionError):summarize_r634_sequences(broken,[[42,1001]]*3)
 class HistoricalComparison(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.profiles={};self.raw={}

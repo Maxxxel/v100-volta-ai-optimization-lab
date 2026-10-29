@@ -922,6 +922,47 @@ def r635_native_aa(root):
  assert result['raw_comparison']['paired_outcomes']=={'task_success_both_pass':27,'task_success_both_fail':6,'task_success_gained':0,'task_success_lost':0,'policy_gate_pass_both_pass':31,'policy_gate_pass_both_fail':2,'policy_gate_pass_gained':0,'policy_gate_pass_lost':0}
  return {'status':result['status'],'scope':result['scope'],'paired_outcomes':result['raw_comparison']['paired_outcomes'],'turn_comparison':result['raw_comparison']['turn_comparison'],'metrics':metrics,'energy_scope':result['energy_scope'],'audit_sha256':result['raw_comparison']['audit_sha256'],'result_sha256':digest(path),'cpu_replay_sha256':result['cpu_replay_sha256'],'winner_qualified':False}
 
+def summarize_r634_sequences(groups,baseline):
+ """Return aggregates only; input prompts and output tokens stay private."""
+ assert len(groups)==len(baseline)==3
+ result=[]
+ for group,ref in zip(groups,baseline):
+  assert len(group)==12 and [x[0] for x in group]==[1001,1002,1003,1003,1002,1001]*2
+  sequences={seed:[tokens for actual,tokens in group if actual==seed] for seed in (1001,1002,1003)}
+  assert all(len(v)==4 and all(x==v[0] for x in v) for v in sequences.values())
+  pairs=[]
+  for a,b in ((1001,1002),(1001,1003),(1002,1003)):
+   x,y=sequences[a][0],sequences[b][0];first=next((i for i,(u,v) in enumerate(zip(x,y)) if u!=v),min(len(x),len(y)))
+   pairs.append({'seeds':[a,b],'equal':x==y,'first_divergence':None if x==y else first})
+  result.append({'request':len(result)+1,'baseline_seed_matches_r633':sequences[1001][0]==ref,'seed_pairs':pairs,'all_fixed_seed_repeats_equal':True})
+ return result
+
+def r634_seed_pilot(root):
+ """Validate R634's frozen input, GPU audit, seed outputs and CPU review."""
+ from leaderboard import counter_energy_bounds
+ root=Path(root);stage=root/'staging/r634';file=stage/'AUDIT.json'
+ if not file.is_file():return None
+ audit=json.loads(file.read_text());review=json.loads((stage/'INDEPENDENT_TOKEN_REVIEW.json').read_text());plan=json.loads((stage/'PREREGISTRATION.json').read_text())
+ assert audit['experiment_id']=='R634' and audit['winner_qualified'] is False and audit['official_benchmark'] is False and audit['tool_executions']==0
+ assert digest(file)==review['local_audit_sha256'] and review['status']=='COMPLETE_INDEPENDENT_TOKEN_REVIEW' and review['GPU_runs']==0
+ assert digest(stage/'PRIVATE_FROZEN_INPUTS.json')==plan['frozen_inputs_sha256'] and digest(root/'staging/r633/AA_RESULT.json')==audit['baseline_aa_result_sha256']
+ captures=list((root.parent/'research/mcp-workspace/r634-gemma-long-seed-token-pilot').glob('host-*'));assert len(captures)==1;raw=captures[0];pins=json.loads((raw/'RAW_HASHES.json').read_text());gpu=json.loads((raw/'AUDIT.json').read_text())
+ for name in ('AUDIT.json','HTTP_RESULTS.jsonl','GPU_TELEMETRY.jsonl','profile.json','LAUNCH.json','CONTRACT.json'):assert digest(raw/name)==pins[name]
+ assert pins['AUDIT.json']==audit['broker_audit_sha256'] and pins['HTTP_RESULTS.jsonl']==audit['raw_responses_sha256'] and pins['GPU_TELEMETRY.jsonl']==audit['raw_telemetry_sha256']
+ assert gpu['measurement_valid'] is True and gpu['GPU_execution_observed'] is True and gpu['tool_executions']==0 and gpu['peak_device_vram_mib']==audit['peak_device_vram_mib']
+ rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()];turns=[x for x in rows if x.get('kind')=='r634_request'];inputs=[x for x in rows if x.get('kind')=='r634_input'];frozen=json.loads((stage/'PRIVATE_REQUESTS.json').read_text())['cases'];assert len(turns)==len(inputs)==len(frozen)==36
+ for t,i,c in zip(turns,inputs,frozen):
+  assert t['id']==i['id']==c['id'] and json.dumps(t['request'],ensure_ascii=True,allow_nan=False)==c['request_json'] and i['prompt_token_ids']==c['expected_prompt_token_ids']
+  assert t['reply']['__verbose']['generation_settings']['temperature']==1.0
+ source=list((root.parent/'research/mcp-workspace/r633-native-validation33').glob('host-*'));assert len(source)==1
+ source_pins=json.loads((source[0]/'RAW_HASHES.json').read_text());assert digest(source[0]/'HTTP_RESULTS.jsonl')==source_pins['HTTP_RESULTS.jsonl']
+ orig={x['id']:x for x in (json.loads(line) for line in (source[0]/'HTTP_RESULTS.jsonl').read_text().splitlines()) if x.get('kind')=='agent_turn'}
+ chosen=json.loads((stage/'PRIVATE_FROZEN_INPUTS.json').read_text())['cases'];baseline=[orig[x['id']]['reply']['__verbose']['tokens'] for x in chosen]
+ groups=[[(x['reply']['__verbose']['generation_settings']['seed'],x['reply']['__verbose']['tokens']) for x in [turns[i+3*j] for j in range(12)]] for i in range(3)]
+ result=summarize_r634_sequences(groups,baseline);assert result==review['results']
+ telemetry=[json.loads(line) for line in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()];energy=counter_energy_bounds(telemetry,turns,[x['id'] for x in turns]);assert energy==audit['energy_counter']
+ return {'status':audit['status'],'scope':audit['scope'],'results':result,'task_phase_s':audit['task_phase_s'],'peak_vram_mib':audit['peak_device_vram_mib'],'energy_counter':energy,'audit_sha256':digest(file),'broker_audit_sha256':audit['broker_audit_sha256'],'raw_responses_sha256':audit['raw_responses_sha256'],'review_sha256':digest(stage/'INDEPENDENT_TOKEN_REVIEW.json'),'winner_qualified':False}
+
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'
  if not report.is_file():return None
@@ -958,4 +999,4 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':r635_native_aa(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':r635_native_aa(root),'r634_seed_pilot':r634_seed_pilot(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}

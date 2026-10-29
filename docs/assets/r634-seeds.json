@@ -1,0 +1,118 @@
+{
+  "audit_sha256": "9076375ffe9f423fe92bb8659db3ca160c8ed8a9d8c06b2343617bd7ddf8fb4b",
+  "broker_audit_sha256": "390baf0d7ab24880b038d9a201b85e8ab03c236c49b0e61ae22a5981bbffc9ad",
+  "energy_counter": {
+    "complete_request_s": 136.567355064,
+    "group_window_s": 142.593347779,
+    "groups": 1,
+    "included_between_request_setup_s": 6.025992715,
+    "lower_j": 33934.37,
+    "max_query_duration_s": 0.029872141,
+    "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+    "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+    "tasks": 36,
+    "upper_j": 34054.432
+  },
+  "peak_vram_mib": 8254.5,
+  "raw_responses_sha256": "8ff55a0e3867adc6da6e1ff001bd4c044cb8d847f5598230c6cb8a29b4b44b77",
+  "results": [
+    {
+      "all_fixed_seed_repeats_equal": true,
+      "baseline_seed_matches_r633": true,
+      "request": 1,
+      "seed_pairs": [
+        {
+          "equal": false,
+          "first_divergence": 66,
+          "seeds": [
+            1001,
+            1002
+          ]
+        },
+        {
+          "equal": false,
+          "first_divergence": 66,
+          "seeds": [
+            1001,
+            1003
+          ]
+        },
+        {
+          "equal": false,
+          "first_divergence": 67,
+          "seeds": [
+            1002,
+            1003
+          ]
+        }
+      ]
+    },
+    {
+      "all_fixed_seed_repeats_equal": true,
+      "baseline_seed_matches_r633": true,
+      "request": 2,
+      "seed_pairs": [
+        {
+          "equal": false,
+          "first_divergence": 64,
+          "seeds": [
+            1001,
+            1002
+          ]
+        },
+        {
+          "equal": false,
+          "first_divergence": 64,
+          "seeds": [
+            1001,
+            1003
+          ]
+        },
+        {
+          "equal": false,
+          "first_divergence": 66,
+          "seeds": [
+            1002,
+            1003
+          ]
+        }
+      ]
+    },
+    {
+      "all_fixed_seed_repeats_equal": true,
+      "baseline_seed_matches_r633": true,
+      "request": 3,
+      "seed_pairs": [
+        {
+          "equal": false,
+          "first_divergence": 68,
+          "seeds": [
+            1001,
+            1002
+          ]
+        },
+        {
+          "equal": false,
+          "first_divergence": 102,
+          "seeds": [
+            1001,
+            1003
+          ]
+        },
+        {
+          "equal": false,
+          "first_divergence": 68,
+          "seeds": [
+            1002,
+            1003
+          ]
+        }
+      ]
+    }
+  ],
+  "review_sha256": "3c64d8e463f3935dbd7f147d8f09ecf2685533bcc96712971d9cef7c43328cb6",
+  "scope": "Three exposed requests selected for longer baseline responses across two sessions; seeds 1001, 1002 and 1003 each repeated twice per session. Same actual input IDs; no tools executed. Shared 1100-second task phase includes startups and warmups. No whole-task quality or safety qualification; logits NOT MEASURED.",
+  "status": "TWO_SESSION_SEED_REPEAT_REQUEST_DIAGNOSTIC_COMPLETE",
+  "task_phase_s": 151.924568535,
+  "winner_qualified": false
+}

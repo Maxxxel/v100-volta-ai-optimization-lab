@@ -911,6 +911,19 @@ def main():
    page+='Energy bounds are cumulative GPU-board counter brackets from the first case start to the last case end, including time between cases; startup and CPU/system energy are excluded. Per-case energy coverage is incomplete. A single pair of exposed correlated cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The cache candidate remains unqualified.\n\n'
    page+=f"Audit SHA-256: R534 `{r633['audit_sha256']['R534']}` · R633 `{r633['audit_sha256']['R633']}`. [Aggregate results and hashes](assets/r633-aa.json).\n"
    put('assets/r633-aa.json',json.dumps(r633,ensure_ascii=False,indent=2))
+  r634=repro.get('r634_seed_pilot')
+  if r634:
+   rows=[]
+   for item in r634['results']:
+    positions=[str(pair['first_divergence']) if not pair['equal'] else 'identical' for pair in item['seed_pairs']]
+    rows.append([str(item['request']),'4/4 per seed','yes' if item['baseline_seed_matches_r633'] else 'no',*positions])
+   page+='\n## Distinct-seed pilot · R634\n\n'
+   page+='Three previously exposed Gemma requests were selected for longer baseline outputs. Seeds 1001, 1002 and 1003 each ran twice in each of two sessions; the frozen input token IDs matched. Fixed-seed repetitions were identical, while every cross-seed pair differed. Positions below are zero-based output-token indices.\n\n'
+   page+=table(['Request','Fixed-seed repeats','Seed 1001 matches R633','1001 vs 1002','1001 vs 1003','1002 vs 1003'],rows)
+   e=r634['energy_counter']
+   page+=f"The 36 requests took {r634['task_phase_s']:.3f} s including two starts and warmups; peak VRAM was {r634['peak_vram_mib']:,.1f} MiB. The GPU counter bounded the request window at {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J, excluding system energy. These selected prompts are not a representative task-quality or safety test; no tools were executed and no Champion was qualified.\n\n"
+   page+=f"Audit SHA-256: `{r634['audit_sha256']}` · token review SHA-256: `{r634['review_sha256']}`. [Aggregate results and hashes](assets/r634-seeds.json).\n"
+   put('assets/r634-seeds.json',json.dumps(r634,ensure_ascii=False,indent=2))
   r635=repro.get('r635_native_aa')
   if r635:
    rows=[]
