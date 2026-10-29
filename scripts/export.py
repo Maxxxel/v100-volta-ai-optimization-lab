@@ -1388,6 +1388,43 @@ def main():
                     expected={'turns':len(usages),'cache_hit_turns':sum(v>0 for v in cached),'cached_tokens':sum(cached),'prompt_tokens':sum(u['prompt_tokens'] for u in usages),'completion_tokens':sum(u['completion_tokens'] for u in usages)}
                     if review['comparison'][key]!=expected:raise ValueError('R614 cache counters differ')
             experiments[ident]['related_audit_ids']=[review_id,reference_id]
+            if ident=='R614' and v.get('policy_divergence_review'):
+                item=v['policy_divergence_review'];diagnosis_id=receipt(item['path'],item['sha256']);diagnosis=load(locations[diagnosis_id]) if diagnosis_id else {}
+                if diagnosis.get('reference_audit_sha256')!=digest(locations[reference_id]) or diagnosis.get('candidate_audit_sha256')!=digest(locations[audit]) or diagnosis.get('case_count_with_new_policy_failure')!=1:raise ValueError('R614 diagnosis provenance differs')
+                cases=[x['id'] for x,y in zip(a,b) if x['reported_result']['policy_gate_pass'] and not y['reported_result']['policy_gate_pass']]
+                if len(cases)!=1:raise ValueError('R614 diagnosis policy case differs')
+                matched=[[r for r in rows if r['id'].startswith(cases[0]+'--turn')] for rows in turns]
+                def semantic(m):return {'content':m.get('content'),'role':m.get('role'),'calls':[{'type':x.get('type'),'function':x.get('function')} for x in (m.get('tool_calls') or [])]}
+                observed=[]
+                for i,(x,y) in enumerate(zip(*matched),1):
+                    equal_request={k:v for k,v in x['request'].items() if k!='cache_prompt'}=={k:v for k,v in y['request'].items() if k!='cache_prompt'};equal_reply=semantic(x['reply']['choices'][0]['message'])==semantic(y['reply']['choices'][0]['message']);observed.append({'turn_number':i,'requests_equal_except_cache_flag':equal_request,'generated_content_and_calls_equal':equal_reply,'candidate_cached_tokens':y['reply']['usage']['prompt_tokens_details']['cached_tokens']})
+                    if not equal_request or not equal_reply:break
+                if observed!=diagnosis.get('turns_before_divergence'):raise ValueError('R614 divergence evidence differs')
+                experiments[ident]['related_audit_ids'].append(diagnosis_id)
+                experiments[ident]['statements']['policy_diagnosis']=text(diagnosis['interpretation'])
+                experiments[ident]['aggregate_metrics']['policy_diagnosis']=projection({'turns_before_divergence':observed,'case_count_with_new_policy_failure':1})
+                if v.get('token_divergence_review'):
+                    item=v['token_divergence_review'];token_id=receipt(item['path'],item['sha256']);token=load(locations[token_id]) if token_id else {};evidence=[]
+                    for i,(x,y) in enumerate(zip(*matched),1):
+                        if i>4:break
+                        left=x['reply']['__verbose']['tokens'];right=y['reply']['__verbose']['tokens'];prefix=0
+                        for u,w in zip(left,right):
+                            if u!=w:break
+                            prefix+=1
+                        same={k:v for k,v in x['request'].items() if k!='cache_prompt'}=={k:v for k,v in y['request'].items() if k!='cache_prompt'}
+                        evidence.append({'turn_number':i,'request_equal_except_cache':same,'candidate_cached_tokens':y['reply']['usage']['prompt_tokens_details']['cached_tokens'],'reference_output_tokens':len(left),'candidate_output_tokens':len(right),'equal_token_prefix_length':prefix,'identical_token_sequences':left==right})
+                    if token.get('reference_audit_sha256')!=digest(locations[reference_id]) or token.get('candidate_audit_sha256')!=digest(locations[audit]) or token.get('turns')!=evidence:raise ValueError('R614 token divergence differs')
+                    experiments[ident]['related_audit_ids'].append(token_id)
+                    experiments[ident]['aggregate_metrics']['token_divergence']=projection({'turns':evidence})
+            if ident=='R614' and v.get('state_path_review'):
+                item=v['state_path_review'];state_id=receipt(item['path'],item['sha256']);state=load(locations[state_id]) if state_id else {}
+                folder=pathlib.Path(candidate['raw_root']);pins=load(folder/'RAW_HASHES.json');log=folder/'server.log'
+                if state.get('candidate_audit_sha256')!=digest(locations[audit]) or state.get('server_log_sha256')!=pins['server.log'] or digest(log)!=pins['server.log']:raise ValueError('R614 state log provenance differs')
+                contents=log.read_text(errors='replace');expected={'restored_context_checkpoint':contents.count('restored context checkpoint'),'forced_full_prompt_reprocessing':contents.count('forcing full prompt re-processing'),'partial_sequence_removal_unsupported':contents.count('context does not support partial sequence removal'),'host_prompt_cache_disabled':contents.count('prompt cache is disabled')}
+                if state.get('observed_log_counts')!=expected:raise ValueError('R614 state counts differ')
+                experiments[ident]['related_audit_ids'].append(state_id)
+                experiments[ident]['statements']['state_path_scope']=text(state['scope'])
+                experiments[ident]['aggregate_metrics']['state_path_counts']=projection(expected)
             experiments[ident]['statements']['single_factor_decision']=text(review.get('decision',review['status']))
             experiments[ident]['statements']['single_factor_limits']=text(review['limits'])
             experiments[ident]['aggregate_metrics']['single_factor_comparison']=projection(review['comparison'])
