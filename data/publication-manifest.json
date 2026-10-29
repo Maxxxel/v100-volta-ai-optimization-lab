@@ -25,6 +25,7 @@
   "data/history.json": "cf170fad32321cb37cfd96993f53cb93e269820b61b98684af4e1203248e4ef3",
   "data/model-benchmarks.json": "c1579e29da6c8bd5f4c88aa643d0d782d97015cf03f037b7f58a57717ccbd03a",
   "data/models.json": "dc76adda12360906f99a5fa50e2d54c35029c0d7bc24f73c0bc03dcc0f50e328",
+  "data/paired-quality-analysis-2026-10-29.json": "dd74152a2ec22b6d7bcef2c8758c3aa35deb0cad3b9ec80d613df2d9dfacae4e",
   "data/pipeline-performance.json": "abc01f95d9acfe00fa08cc0631b01b306ac9379aee8ae90f957248535bbccc5a",
   "data/profiles.json": "76f2f2a9e563977aaa66441d72c524c56819502027a23ca590a15ee97e3e288d",
   "data/references.json": "a202359ff479599b580aa9416364451e89a1f5743cccab56e1b347bb6221fa2f",
@@ -73,6 +74,7 @@
   "docs/assets/harness/preaction-checklist.py": "fc3ef20a6720d2ccbe46699b03b68227f9bb529ab80139b9841a92dd8879bc82",
   "docs/assets/harness/system-prose.py": "815681cc326b87a7a6012e1bda85839eb2f3476d466ff24a6e93934ffce563bf",
   "docs/assets/harness/tool-json.py": "520d70a1f58c373e3a2bce3cca58cb083845f011bad18c7a07de75a8262383cb",
+  "docs/assets/paired-quality-analysis-2026-10-29.json": "dd74152a2ec22b6d7bcef2c8758c3aa35deb0cad3b9ec80d613df2d9dfacae4e",
   "docs/assets/reproduction/LICENSE.llama-cpp": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
   "docs/assets/reproduction/llama-grammar-prefill.h": "e9b74f0ec484a3ec19bd0933099b957ce9688ce50cbcccca421ad9530c2e128d",
   "docs/assets/reproduction/main-protocol.patch": "69fd43355a882451812995e5cfb6eae8af2c01224c0c3d41ef75c73fbd6e8b45",
@@ -2742,7 +2744,7 @@
   "docs/factors/T06.md": "42fdd5b8163a5ee4dce0ec69b2a0398df933ef2d5c4d193bca769f21060d147b",
   "docs/factors/T07.md": "23e155e6b711ba5ea2c7fe956d7bf95d7e0b9d4dede5f90454b8d15e99715562",
   "docs/final-qualification.md": "43e054f8e2276e153055a795bd50dd2f36a96f1b7bf368227798e74fd3c68ccc",
-  "docs/final-selection.md": "7b9de578dcc4a0eda8cdff910fb962afee3a4c0f6152a9c0c15074a62074155f",
+  "docs/final-selection.md": "ae2aea90b0a41dd888feebdac1b63b26d3ffcfddbb0eb4218280f193899df08d",
   "docs/hardware.md": "13a976ce02116d311f32a414de71d4003426e1fb71004a32dc82e41174a70c0c",
   "docs/index.md": "a43a09f4d214bc0c36b2bed680efecec31b7d03e4236f55e0f403449c0ff1d09",
   "docs/javascripts/benchmark-tables.js": "87e0984676447ec2920b1999c8ba345b495971591970504a2653896ee3f44fb2",
@@ -2784,7 +2786,7 @@
   "scripts/lean_metrics.py": "b56258dd69aa3893b0e1e6564d2ce2531e9f8a9824e34d9ad16192de0841633a",
   "scripts/model_factor_evidence.py": "85ce6ba85d451243bb7596ff33006a6a03454ec9a7c2554f4aedf6dc88ec58ce",
   "scripts/pipeline.py": "733a213d08319c3feedd87eef40b49a6048ad04d53a68a131ebc329dac34c5c3",
-  "scripts/render.py": "7ce6e1550cbd18d534130913b9e5a4182c8ff1e606d9c6777e9c04f87064fc67",
+  "scripts/render.py": "c8f809981817adb58d056b415e7fa4a076e38e25fb763667b9b9980e006e0be5",
   "scripts/reproducibility.py": "63a2a287ce196e746b8268666e601c2697c8f680d49a663fc0bd8c9bc6b9a9de",
   "scripts/screening.py": "68950987dfdb70b7d35ac17bfc2629e04366eba1f481fbc9145b55127c52f68d",
   "scripts/test_caveman_shape_study.py": "df5fb538b62301fe78eafe6606cc2a980518630ba4570fb502e6416b029d41dd",
@@ -2799,6 +2801,7 @@
   "scripts/test_native_tool_prefix.py": "ce3011877f03ada82cb62dacdd26a585a01ba353ccf65517bba5da63e666e880",
   "scripts/test_native_tools.py": "60d8ee74308f50ace583aafe3bf88644625a2f047a62442e2ad8a55f634cf57d",
   "scripts/test_paired_coding.py": "7d4b18e32ba773c592544014006be09c85c03246f21241c6e488b5946d2a7819",
+  "scripts/test_paired_quality_analysis.py": "e19d8030a29bd48ca27e70cbff244bada3547eecb9fb5710a4adf69563aedc56",
   "scripts/test_pipeline.py": "361e71e79f47430e5bc3f6ea4db9696bade7d99dee43315748e1e9231157facd",
   "scripts/test_pipeline_methods.py": "366490e9645678e5e90d823c76742769269f7fd676cfa97927175ffe7da24961",
   "scripts/test_publication.py": "773568f5a6946d37493ffd87ceece794c392adc458e464a5c47b726f8b63cc43",
@@ -2809,5 +2812,5 @@
   "scripts/test_screening.py": "23f493c09450afc3d5c49e31234eab71e1aa5fc3782ce1465f9e58097a202b13",
   "scripts/test_tools_confirmation.py": "97eca269088b9b1b08637c956598a86aeba103fe27eef7b5f912984fa7eb6756",
   "scripts/test_toon_metrics.py": "57ad3dbb3afb93809d10bf534ab1fea167c5bba7c229905b09f8426bf47e00a9",
-  "scripts/validate.py": "026629e522c6a0a017ff3ebca962e376c8a50bf538e1202ce54197318be9a934"
+  "scripts/validate.py": "6456ffc7b4c0ed9bf4b3691d2cf8738e3871e49f6a6219343f04aea4b12f9a9b"
 }

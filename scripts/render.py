@@ -397,7 +397,34 @@ def final_qualification_review(screening,history,experiments,frozen=None):
  text+='## Handoff\n\n'+('The three exact baseline packets are frozen in the [selection report](final-selection.md). ' if frozen else 'Finalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. ')+'Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.\n'
  return text
 
-def render_final_selection(frozen,history,experiments=None):
+def render_paired_profile_quality(analysis):
+ assert analysis['analysis_id']=='PAIRED_QUALIFIED_PROFILE_TASK_OUTCOMES_20261029'
+ assert analysis['method']['cpu_only'] is True and analysis['method']['new_gpu_runs']==0 and analysis['method']['new_model_requests']==0
+ rows=[]
+ for family,label in [('HumanEval+','Coding · HumanEval+164'),('BFCL_parallel_multiple','Tools · BFCL parallel_multiple200')]:
+  result=analysis[family];profiles=result['profiles']
+  expected=164 if family=='HumanEval+' else 200
+  assert len(profiles)==5 and len(result['pairwise'])==10
+  for model,p in profiles.items():
+   assert p['tasks']==expected and p.get('benchmark_identity_id',result.get('official_scorer_revision'))
+   solved=p.get('solved',p.get('solved_official_AST'))
+   rows.append([label,model,f"{solved}/{expected}",f"{p['experiment_id']} · {p['runtime_configuration_id']}"])
+  for pair in result['pairwise']:
+   assert pair['N']==expected and pair['A'] in profiles and pair['B'] in profiles
+   assert pair['A_only_pass']+pair['B_only_pass']+pair['both_pass']+pair['both_fail']==expected
+ text='\n## Same-task paired quality comparison\n\n'
+ text+='CPU-only reanalysis of existing qualified captures; **no inference rerun**. Same task identities and scorer within each category. Results compare whole native profiles, not a model-only causal effect.\n\n'
+ text+=table(['Category','Model profile','Passes','Capture · runtime profile'],rows)
+ text+='Each profile has one response per task. Paired task intervals describe task-set uncertainty, not run-to-run variability; task-family clustering and multiple-comparison adjustment are not applied. This analysis does not change the R585 frozen roles.\n\n'
+ for family,label in [('HumanEval+','Coding'),('BFCL_parallel_multiple','Tools')]:
+  result=analysis[family]
+  text+=f'<details markdown="1"><summary>{label}: all 10 paired profile comparisons</summary>\n\n'
+  text+=table(['A','B','B−A pp','Paired-task 95% CI pp','A-only / B-only passes','Unadjusted McNemar p'],[[r['A'],r['B'],f"{r['B_minus_A_percentage_points']:+.2f}",f"[{r['paired_task_Wald95_CI_percentage_points'][0]:+.2f}, {r['paired_task_Wald95_CI_percentage_points'][1]:+.2f}]",f"{r['A_only_pass']} / {r['B_only_pass']}",f"{r['McNemar_exact_two_sided_p_unadjusted']:.4g}"] for r in result['pairwise']])
+  text+='Exploratory, unadjusted pairwise statistics; they are not a population ranking or replacement decision.\n\n</details>\n\n'
+ text+='Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.\n\n'
+ return text
+
+def render_final_selection(frozen,history,experiments=None,paired_quality=None):
  from leaderboard import validate_final_baselines
  validate_final_baselines(frozen,history)
  text='# Jarvis — three frozen model baselines\n\n**Dated research selection through R585; not production approval or a universal model ranking.** Three concrete configurations are retained for the next controlled harness phase. Official Agent benchmarks remain NOT MEASURED.\n\n'
@@ -409,6 +436,8 @@ def render_final_selection(frozen,history,experiments=None):
   rows.append(['['+p['model']['name']+'](configuration-profiles/'+s['baseline_runtime_configuration_id']+'.md)',s['role'],str(c['solved'])+'/'+str(c['tasks']),str(t['solved'])+'/'+str(t['tasks']),f'{mean:.2f}% ·2/3',str(m['solved'])+'/33; policy '+str(m['policy_gate_passes'])+'/33 ['+a['experiment_id']+'](experiments/'+a['experiment_id']+'.md)' if m else 'NOT MEASURED at selected8K'])
  text+=table(['Frozen model/configuration','Intended role','HumanEval+164','BFCL parallel200','User mean / official coverage','Separate authored Agent33'],rows)
  text+='The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.\n\n'
+ if paired_quality:
+  text+=render_paired_profile_quality(paired_quality)
  if experiments:
   by_id={e.get('id'):e for e in experiments}
   post=[]
@@ -1168,7 +1197,7 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
  put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
- if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es))
+ if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,read('paired-quality-analysis-2026-10-29.json')))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():
   from pipeline import render as render_pipeline

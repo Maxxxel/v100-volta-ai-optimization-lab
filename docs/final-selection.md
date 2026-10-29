@@ -12,6 +12,66 @@ Role-complementary judgment using complete official coding/tools plus separately
 
 The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.
 
+
+## Same-task paired quality comparison
+
+CPU-only reanalysis of existing qualified captures; **no inference rerun**. Same task identities and scorer within each category. Results compare whole native profiles, not a model-only causal effect.
+
+| Category | Model profile | Passes | Capture · runtime profile |
+|---|---|---|---|
+| Coding · HumanEval+164 | OmniCoder | 134/164 | R516 · cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf |
+| Coding · HumanEval+164 | Gemma4 | 156/164 | R464 · cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625 |
+| Coding · HumanEval+164 | Nexus | 130/164 | R488 · cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba |
+| Coding · HumanEval+164 | Qwen3.5 | 135/164 | R465 · cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653 |
+| Coding · HumanEval+164 | Qwen3.8 | 151/164 | R548 · cfg-a4e9c9254a524b23fdc69375ec9877659abc32781e5119545b2accd73aedbc09 |
+| Tools · BFCL parallel_multiple200 | OmniCoder | 178/200 | R517 · cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049 |
+| Tools · BFCL parallel_multiple200 | Gemma4 | 154/200 | R472 · cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7 |
+| Tools · BFCL parallel_multiple200 | Nexus | 178/200 | R489 · cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b |
+| Tools · BFCL parallel_multiple200 | Qwen3.5 | 176/200 | R474 · cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55 |
+| Tools · BFCL parallel_multiple200 | Qwen3.8 | 169/200 | R549 · cfg-8cd6433abaeb5e09d17a8b974cd6d3fe69ef3954760daeda19447b24d6b1a91a |
+
+Each profile has one response per task. Paired task intervals describe task-set uncertainty, not run-to-run variability; task-family clustering and multiple-comparison adjustment are not applied. This analysis does not change the R585 frozen roles.
+
+<details markdown="1"><summary>Coding: all 10 paired profile comparisons</summary>
+
+| A | B | B−A pp | Paired-task 95% CI pp | A-only / B-only passes | Unadjusted McNemar p |
+|---|---|---|---|---|---|
+| OmniCoder | Gemma4 | +13.41 | [+7.66, +19.17] | 2 / 24 | 1.049e-05 |
+| OmniCoder | Nexus | -2.44 | [-8.05, +3.17] | 13 / 9 | 0.5235 |
+| OmniCoder | Qwen3.5 | +0.61 | [-4.61, +5.83] | 9 / 10 | 1 |
+| OmniCoder | Qwen3.8 | +10.37 | [+4.59, +16.14] | 4 / 21 | 0.0009105 |
+| Gemma4 | Nexus | -15.85 | [-21.71, -10.00] | 27 / 1 | 2.161e-07 |
+| Gemma4 | Qwen3.5 | -12.80 | [-18.21, -7.40] | 22 / 1 | 5.722e-06 |
+| Gemma4 | Qwen3.8 | -3.05 | [-6.61, +0.52] | 7 / 2 | 0.1797 |
+| Nexus | Qwen3.5 | +3.05 | [-2.42, +8.52] | 8 / 13 | 0.3833 |
+| Nexus | Qwen3.8 | +12.80 | [+7.14, +18.47] | 2 / 23 | 1.943e-05 |
+| Qwen3.5 | Qwen3.8 | +9.76 | [+4.34, +15.18] | 3 / 19 | 0.0008554 |
+
+Exploratory, unadjusted pairwise statistics; they are not a population ranking or replacement decision.
+
+</details>
+
+<details markdown="1"><summary>Tools: all 10 paired profile comparisons</summary>
+
+| A | B | B−A pp | Paired-task 95% CI pp | A-only / B-only passes | Unadjusted McNemar p |
+|---|---|---|---|---|---|
+| OmniCoder | Gemma4 | -12.00 | [-17.48, -6.52] | 29 / 5 | 3.856e-05 |
+| OmniCoder | Nexus | +0.00 | [-3.11, +3.11] | 5 / 5 | 1 |
+| OmniCoder | Qwen3.5 | -1.00 | [-4.93, +2.93] | 9 / 7 | 0.8036 |
+| OmniCoder | Qwen3.8 | -4.50 | [-8.50, -0.50] | 13 / 4 | 0.04904 |
+| Gemma4 | Nexus | +12.00 | [+6.52, +17.48] | 5 / 29 | 3.856e-05 |
+| Gemma4 | Qwen3.5 | +11.00 | [+5.14, +16.86] | 8 / 30 | 0.000472 |
+| Gemma4 | Qwen3.8 | +7.50 | [+2.70, +12.30] | 5 / 20 | 0.004077 |
+| Nexus | Qwen3.5 | -1.00 | [-5.39, +3.39] | 11 / 9 | 0.8238 |
+| Nexus | Qwen3.8 | -4.50 | [-8.50, -0.50] | 13 / 4 | 0.04904 |
+| Qwen3.5 | Qwen3.8 | -3.50 | [-8.19, +1.19] | 15 / 8 | 0.21 |
+
+Exploratory, unadjusted pairwise statistics; they are not a population ranking or replacement decision.
+
+</details>
+
+Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.
+
 ## Post-freeze evidence through R627
 
 The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.

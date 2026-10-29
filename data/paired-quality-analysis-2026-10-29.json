@@ -1,0 +1,444 @@
+{
+  "analysis_id": "PAIRED_QUALIFIED_PROFILE_TASK_OUTCOMES_20261029",
+  "created_at_utc": "2026-10-29T10:55:13.781379+00:00",
+  "method": {
+    "cpu_only": true,
+    "new_model_requests": 0,
+    "new_gpu_runs": 0,
+    "HumanEval+": "Same 164 task IDs and dataset/scorer identity. Pass iff original base and plus test statuses both pass, matching the audited local pass@1 count.",
+    "BFCL": "Same 200 parallel_multiple task IDs and official AST scorer revision. An attempted but unfinished response remains a failed outcome; no task is dropped from denominator.",
+    "paired_statistics": "Discordant paired counts, exact two-sided McNemar p, and approximate task-resampling Wald 95% CI. Exploratory, unadjusted across pairwise comparisons.",
+    "limits": [
+      "One generated response per task/profile; this does not estimate run-to-run or seed variability.",
+      "Task-resampling intervals describe uncertainty across benchmark tasks, not independent model-quality samples or runtime randomness.",
+      "Task-family clustering is not adjusted.",
+      "Native profiles differ in model and possibly inference settings; comparisons are profile-level, not causal model-only effects.",
+      "BFCL is one official category, not the whole BFCL leaderboard."
+    ]
+  },
+  "HumanEval+": {
+    "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+    "dataset_split_sha256": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f",
+    "profiles": {
+      "OmniCoder": {
+        "experiment_id": "R516",
+        "runtime_configuration_id": "cfg-9e79c90dcc636fdd0f427f39bc378a1fc3a27ae4d2408c4a75d748df003ff1cf",
+        "solved": 134,
+        "tasks": 164,
+        "source_audit_sha256": "518b6f38c0768b23386ee218e6c86a77d672e6631fc246ff685e53db6b50f4dd",
+        "replay_audit_sha256": "ad31a624605d4e1a5843a61fcf7202fa6790f2e562a3c98791ee56d47e1ff7dc",
+        "task_result_stdout_sha256": "612480f6b26f172da41a8716b889c6a2edc7388d04f0d1a5d2a46d2a982b7f61",
+        "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+        "dataset_split_sha256": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f"
+      },
+      "Gemma4": {
+        "experiment_id": "R464",
+        "runtime_configuration_id": "cfg-b3afa206e961953393b5942f2b885422942f5186753d25595edce11216c0b625",
+        "solved": 156,
+        "tasks": 164,
+        "source_audit_sha256": "a49a6cebc54822e25a330d315517e33dc419a8c076b509bf4053d2cf1d64181b",
+        "replay_audit_sha256": "b43347c3bf2f72d81d1f0eb47e561a2217c16e64d7d1f7f8e9d1319c6c243d2e",
+        "task_result_stdout_sha256": "002c9d64ba002851ec00269fbf203c8cc7053f15f3dbe8d3400feda102ca4aed",
+        "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+        "dataset_split_sha256": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f"
+      },
+      "Nexus": {
+        "experiment_id": "R488",
+        "runtime_configuration_id": "cfg-7f520b1330825ae5e48219c5056194ea305e706447fcefd2ae684397e67fdfba",
+        "solved": 130,
+        "tasks": 164,
+        "source_audit_sha256": "ec11a07b084793cfae3bea8ddde61d1749630a1e81deff2584878e51c2f56ace",
+        "replay_audit_sha256": "fc72239e99166910eda11c6ed2f417dcc07e8c71f3be941889ec852cd19b57b2",
+        "task_result_stdout_sha256": "9ff5ec20c99736d0a3b2259459c87a6043e75521d76699fcce77fbdfc12d1d55",
+        "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+        "dataset_split_sha256": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f"
+      },
+      "Qwen3.5": {
+        "experiment_id": "R465",
+        "runtime_configuration_id": "cfg-9fcb6193898540f39890fcfb16525895409d6b08f8de5165231fcbc0c17d2653",
+        "solved": 135,
+        "tasks": 164,
+        "source_audit_sha256": "543fb9745a67c9c58b9e407a8ec0ed831a3f087c22b2f4d8f669e2f292beae50",
+        "replay_audit_sha256": "58b76d6355085bb6e832ecbaa6b16c6b19e710bdaa11a92487e25ab8d50e500d",
+        "task_result_stdout_sha256": "8c2ca4fdc924260318e9f013aeed4d3969bd0ecd659bfae779b19a863d6845ca",
+        "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+        "dataset_split_sha256": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f"
+      },
+      "Qwen3.8": {
+        "experiment_id": "R548",
+        "runtime_configuration_id": "cfg-a4e9c9254a524b23fdc69375ec9877659abc32781e5119545b2accd73aedbc09",
+        "solved": 151,
+        "tasks": 164,
+        "source_audit_sha256": "e545ee1426b3b825a7a46c8fed7a85bf91b982a58f47ed5ec028a69d1eb00eec",
+        "replay_audit_sha256": "83e5bb4e2528f145181fce8641eb590797e2b9751fb77546369a59692dcbee71",
+        "task_result_stdout_sha256": "c94e891990f81f4898a4a6f181a9417addecf611676d9485c55c49a00e52169d",
+        "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
+        "dataset_split_sha256": "42526ec0e7d5f3ee0b06d6ced98f8c8bae3d76519151bfb3d36f79010645bd7f"
+      }
+    },
+    "pairwise": [
+      {
+        "A": "OmniCoder",
+        "B": "Gemma4",
+        "N": 164,
+        "A_only_pass": 2,
+        "B_only_pass": 24,
+        "both_pass": 132,
+        "both_fail": 6,
+        "B_minus_A_percentage_points": 13.4146,
+        "paired_task_Wald95_CI_percentage_points": [
+          7.6594,
+          19.1699
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 1.049041748046875e-05
+      },
+      {
+        "A": "OmniCoder",
+        "B": "Nexus",
+        "N": 164,
+        "A_only_pass": 13,
+        "B_only_pass": 9,
+        "both_pass": 121,
+        "both_fail": 21,
+        "B_minus_A_percentage_points": -2.439,
+        "paired_task_Wald95_CI_percentage_points": [
+          -8.0493,
+          3.1713
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.5234670639038086
+      },
+      {
+        "A": "OmniCoder",
+        "B": "Qwen3.5",
+        "N": 164,
+        "A_only_pass": 9,
+        "B_only_pass": 10,
+        "both_pass": 125,
+        "both_fail": 20,
+        "B_minus_A_percentage_points": 0.6098,
+        "paired_task_Wald95_CI_percentage_points": [
+          -4.6148,
+          5.8343
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 1.0
+      },
+      {
+        "A": "OmniCoder",
+        "B": "Qwen3.8",
+        "N": 164,
+        "A_only_pass": 4,
+        "B_only_pass": 21,
+        "both_pass": 130,
+        "both_fail": 9,
+        "B_minus_A_percentage_points": 10.3659,
+        "paired_task_Wald95_CI_percentage_points": [
+          4.5871,
+          16.1447
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.0009105205535888672
+      },
+      {
+        "A": "Gemma4",
+        "B": "Nexus",
+        "N": 164,
+        "A_only_pass": 27,
+        "B_only_pass": 1,
+        "both_pass": 129,
+        "both_fail": 7,
+        "B_minus_A_percentage_points": -15.8537,
+        "paired_task_Wald95_CI_percentage_points": [
+          -21.7115,
+          -9.9958
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 2.1606683731079102e-07
+      },
+      {
+        "A": "Gemma4",
+        "B": "Qwen3.5",
+        "N": 164,
+        "A_only_pass": 22,
+        "B_only_pass": 1,
+        "both_pass": 134,
+        "both_fail": 7,
+        "B_minus_A_percentage_points": -12.8049,
+        "paired_task_Wald95_CI_percentage_points": [
+          -18.2075,
+          -7.4022
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 5.7220458984375e-06
+      },
+      {
+        "A": "Gemma4",
+        "B": "Qwen3.8",
+        "N": 164,
+        "A_only_pass": 7,
+        "B_only_pass": 2,
+        "both_pass": 149,
+        "both_fail": 6,
+        "B_minus_A_percentage_points": -3.0488,
+        "paired_task_Wald95_CI_percentage_points": [
+          -6.6145,
+          0.517
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.1796875
+      },
+      {
+        "A": "Nexus",
+        "B": "Qwen3.5",
+        "N": 164,
+        "A_only_pass": 8,
+        "B_only_pass": 13,
+        "both_pass": 122,
+        "both_fail": 21,
+        "B_minus_A_percentage_points": 3.0488,
+        "paired_task_Wald95_CI_percentage_points": [
+          -2.4248,
+          8.5223
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.38331031799316406
+      },
+      {
+        "A": "Nexus",
+        "B": "Qwen3.8",
+        "N": 164,
+        "A_only_pass": 2,
+        "B_only_pass": 23,
+        "both_pass": 128,
+        "both_fail": 11,
+        "B_minus_A_percentage_points": 12.8049,
+        "paired_task_Wald95_CI_percentage_points": [
+          7.1425,
+          18.4673
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 1.9431114196777344e-05
+      },
+      {
+        "A": "Qwen3.5",
+        "B": "Qwen3.8",
+        "N": 164,
+        "A_only_pass": 3,
+        "B_only_pass": 19,
+        "both_pass": 132,
+        "both_fail": 10,
+        "B_minus_A_percentage_points": 9.7561,
+        "paired_task_Wald95_CI_percentage_points": [
+          4.3365,
+          15.1757
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.0008554458618164062
+      }
+    ]
+  },
+  "BFCL_parallel_multiple": {
+    "official_scorer_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+    "profiles": {
+      "OmniCoder": {
+        "experiment_id": "R517",
+        "runtime_configuration_id": "cfg-ef44057a9355a2b971bac6e5dcf6f018050b972a796a26c03d68c09af2e52049",
+        "solved_official_AST": 178,
+        "tasks": 200,
+        "completed_responses": 200,
+        "source_audit_sha256": "d995531168d22041ed7c3157c30cf3bc05afcc806c0f3b470514f812ecb59f69",
+        "task_result_stdout_sha256": "91ec28e21ee877dde6694ca950044c394a24ed7cbc26ed91056b2f231443c127",
+        "official_scorer_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+        "score_scope": "BFCL parallel_multiple category; not whole BFCL leaderboard"
+      },
+      "Gemma4": {
+        "experiment_id": "R472",
+        "runtime_configuration_id": "cfg-aebfa2c88282523db04a6e6e6b802fcb8eb8912f4c2715d30c53e52ed40096e7",
+        "solved_official_AST": 154,
+        "tasks": 200,
+        "completed_responses": 200,
+        "source_audit_sha256": "7bfd00d2fcca7e4c767d6a197c3b1f9cc2bb1a146d794d2977f54d28cf21b1aa",
+        "task_result_stdout_sha256": "a71bc2b408d60d4e5e8c9dacdb7a2b299e8a2b4f5c1e194e9d35591d019b6a8c",
+        "official_scorer_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+        "score_scope": "BFCL parallel_multiple category; not whole BFCL leaderboard"
+      },
+      "Nexus": {
+        "experiment_id": "R489",
+        "runtime_configuration_id": "cfg-694b972dbae1a38c201067e11a2e410c6a002052b4f225c2ac9c158445b1ef9b",
+        "solved_official_AST": 178,
+        "tasks": 200,
+        "completed_responses": 200,
+        "source_audit_sha256": "1f40bec8ca698e19a514378aa84c211fe43fff5e1738da97503a1ea5e343790a",
+        "task_result_stdout_sha256": "3560c3a89cb287bc8e7e608f9462f572f34af6762f4e8c02e5d3d8a87597b1d8",
+        "official_scorer_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+        "score_scope": "BFCL parallel_multiple category; not whole BFCL leaderboard"
+      },
+      "Qwen3.5": {
+        "experiment_id": "R474",
+        "runtime_configuration_id": "cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55",
+        "solved_official_AST": 176,
+        "tasks": 200,
+        "completed_responses": 199,
+        "source_audit_sha256": "89329075d5e77e4cc223859b7afb31a4f03e8810875b017a7a3e9cb48427e3f0",
+        "task_result_stdout_sha256": "3e30e6a9d7f9b7647c3884ea210301276a6fc892fcd61e9f41a0ed165c1ccf06",
+        "official_scorer_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+        "score_scope": "BFCL parallel_multiple category; not whole BFCL leaderboard"
+      },
+      "Qwen3.8": {
+        "experiment_id": "R549",
+        "runtime_configuration_id": "cfg-8cd6433abaeb5e09d17a8b974cd6d3fe69ef3954760daeda19447b24d6b1a91a",
+        "solved_official_AST": 169,
+        "tasks": 200,
+        "completed_responses": 200,
+        "source_audit_sha256": "ebb7528563c75fc63407e20a19c939e3c5c63fa3f4e00633deae404bdfdfaecb",
+        "task_result_stdout_sha256": "46b5310ab7718ca6035a8794e116b2d32b2427dbee28ae599c675f8a8ae27a2b",
+        "official_scorer_revision": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+        "score_scope": "BFCL parallel_multiple category; not whole BFCL leaderboard"
+      }
+    },
+    "pairwise": [
+      {
+        "A": "OmniCoder",
+        "B": "Gemma4",
+        "N": 200,
+        "A_only_pass": 29,
+        "B_only_pass": 5,
+        "both_pass": 149,
+        "both_fail": 17,
+        "B_minus_A_percentage_points": -12.0,
+        "paired_task_Wald95_CI_percentage_points": [
+          -17.4807,
+          -6.5193
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 3.8558151572942734e-05
+      },
+      {
+        "A": "OmniCoder",
+        "B": "Nexus",
+        "N": 200,
+        "A_only_pass": 5,
+        "B_only_pass": 5,
+        "both_pass": 173,
+        "both_fail": 17,
+        "B_minus_A_percentage_points": 0.0,
+        "paired_task_Wald95_CI_percentage_points": [
+          -3.1068,
+          3.1068
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 1.0
+      },
+      {
+        "A": "OmniCoder",
+        "B": "Qwen3.5",
+        "N": 200,
+        "A_only_pass": 9,
+        "B_only_pass": 7,
+        "both_pass": 169,
+        "both_fail": 15,
+        "B_minus_A_percentage_points": -1.0,
+        "paired_task_Wald95_CI_percentage_points": [
+          -4.9274,
+          2.9274
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.803619384765625
+      },
+      {
+        "A": "OmniCoder",
+        "B": "Qwen3.8",
+        "N": 200,
+        "A_only_pass": 13,
+        "B_only_pass": 4,
+        "both_pass": 165,
+        "both_fail": 18,
+        "B_minus_A_percentage_points": -4.5,
+        "paired_task_Wald95_CI_percentage_points": [
+          -8.5022,
+          -0.4978
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.049041748046875
+      },
+      {
+        "A": "Gemma4",
+        "B": "Nexus",
+        "N": 200,
+        "A_only_pass": 5,
+        "B_only_pass": 29,
+        "both_pass": 149,
+        "both_fail": 17,
+        "B_minus_A_percentage_points": 12.0,
+        "paired_task_Wald95_CI_percentage_points": [
+          6.5193,
+          17.4807
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 3.8558151572942734e-05
+      },
+      {
+        "A": "Gemma4",
+        "B": "Qwen3.5",
+        "N": 200,
+        "A_only_pass": 8,
+        "B_only_pass": 30,
+        "both_pass": 146,
+        "both_fail": 16,
+        "B_minus_A_percentage_points": 11.0,
+        "paired_task_Wald95_CI_percentage_points": [
+          5.1397,
+          16.8603
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.0004719867429230362
+      },
+      {
+        "A": "Gemma4",
+        "B": "Qwen3.8",
+        "N": 200,
+        "A_only_pass": 5,
+        "B_only_pass": 20,
+        "both_pass": 149,
+        "both_fail": 26,
+        "B_minus_A_percentage_points": 7.5,
+        "paired_task_Wald95_CI_percentage_points": [
+          2.6995,
+          12.3005
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.004077315330505371
+      },
+      {
+        "A": "Nexus",
+        "B": "Qwen3.5",
+        "N": 200,
+        "A_only_pass": 11,
+        "B_only_pass": 9,
+        "both_pass": 167,
+        "both_fail": 13,
+        "B_minus_A_percentage_points": -1.0,
+        "paired_task_Wald95_CI_percentage_points": [
+          -5.3915,
+          3.3915
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.8238029479980469
+      },
+      {
+        "A": "Nexus",
+        "B": "Qwen3.8",
+        "N": 200,
+        "A_only_pass": 13,
+        "B_only_pass": 4,
+        "both_pass": 165,
+        "both_fail": 18,
+        "B_minus_A_percentage_points": -4.5,
+        "paired_task_Wald95_CI_percentage_points": [
+          -8.5022,
+          -0.4978
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.049041748046875
+      },
+      {
+        "A": "Qwen3.5",
+        "B": "Qwen3.8",
+        "N": 200,
+        "A_only_pass": 15,
+        "B_only_pass": 8,
+        "both_pass": 161,
+        "both_fail": 16,
+        "B_minus_A_percentage_points": -3.5,
+        "paired_task_Wald95_CI_percentage_points": [
+          -8.1865,
+          1.1865
+        ],
+        "McNemar_exact_two_sided_p_unadjusted": 0.21003961563110352
+      }
+    ]
+  }
+}
