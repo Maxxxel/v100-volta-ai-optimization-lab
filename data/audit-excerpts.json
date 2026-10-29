@@ -181986,6 +181986,20 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-f569ca568c85ae168c3a",
+    "original_bytes": 1622,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "f569ca568c85ae168c3ae39197a56b69440252226ae7e749d491440775d118de",
+    "statements": {
+      "decision": "No quality, cache-hit or performance result. Existing frozen transport rejects cache_prompt true before task phase. Future distinct test requires independently reviewed transport variant and controlled broker admission; no rerun of the consumed job.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
     "aggregate_metrics": {
       "models": {
         "omnicoder2": {
