@@ -599,6 +599,23 @@ def lean_harness_report(experiments,research=None):
 
 def main():
  s=read('snapshot.json');fs=read('factors.json');es=read('experiments.json');audits={x['id']:x for x in read('audit-excerpts.json')};profiles=read('profiles.json');refs={x['id']:x for x in read('references.json')};models=read('models.json');counts=s['counts']
+ repro=s.get('reproducibility_review')
+ if repro:
+  profile_rows=[]
+  for key,label in [('r531','Nexus'),('r536','OmniCoder'),('r534','Gemma 4'),('r550','Qwen3.8 MTP')]:
+   p=repro['profiles'][key];profile_rows.append([label,f"[{key.upper()}](experiments/{key.upper()}.md)",p['configured_seed'],p['configured_temperature'],p['request_count'],p['server_reported_seeds'].get('1001',0)])
+  pair_rows=[]
+  for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
+   p=repro['paired_historical'][key];a,b=key.split('_');pair_rows.append([label,f"[{a.upper()}](experiments/{a.upper()}.md) / [{b.upper()}](experiments/{b.upper()}.md)",p['matching_requests'],p['different_input_tokens'],p['equal_outputs'],p['different_outputs']])
+  page='# Reproducibility and variability\n\nThese are archived, hash-verified observations; no new GPU execution. Fixed seeds do not establish deterministic results.\n\n## Seed propagation\n\n'+table(['Profile','Audit','Seed','Temperature','Requests','Server reports seed 1001'],profile_rows)
+  page+='The pinned engine source shows per-request sampler initialization and passes the parsed seed to the distribution sampler when that sampler is used. Server-reported generation settings establish parsed configuration; internal RNG state is not measured. Temperature zero can use greedy sampling under the recorded source conditions.\n\n## Historical matched requests\n\n'+table(['Profile','No cache / cache','Matching requests','Different input token sequences','Identical output sequences','Different output sequences'],pair_rows)
+  page+='The requests match except for the cache flag and use the same input token IDs. Each pair comes from different sessions; results do not isolate cache causality. Outputs are correlated, and these are not independent task-quality samples. Logits and internal RNG state are **NOT MEASURED**. The failed policy gates remain in force. See [R615](experiments/R615.md) for the limited Nexus in-session ABBA diagnostic and its historical baseline divergence.\n\nSource review SHA-256: `'+repro['source_review_sha256']+'`. Pinned source commit: `'+repro['source_commit']+'`.\n'
+  if repro.get('fixed_output_timings'):
+   perf=[]
+   for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
+    v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
+   page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')
  categories=[('Coding','humanevalplus-v0.1.10',164),('Tools','bfcl-v4-parallel-multiple-full200',200),('Agents','terminal-bench-2.1',89)]
@@ -665,7 +682,15 @@ Independent community project; no affiliation with NVIDIA, Ollama or model publi
 
 **Current task budget:1,200 seconds total per benchmark**, shared across all parts without resets. Startup, wrapper, cleanup and CPU evaluation limits are separate. Older900-second experiments keep their historical conditions.\n\nGolden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. Balanced sequences are used when drift or small differences justify them.
 
-Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. Reject on quality or correctness loss regardless of synthetic speed. Keep failures, incomplete screens and outliers under their original rules.
+Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. An observed quality or safety loss blocks promotion regardless of speed; a bounded investigation must distinguish a reproducible effect from baseline variability before attributing its cause. Preserve the original gate decision, failures, incomplete screens and outliers.
+
+## Reproducibility and uncertainty
+
+Check the request and server-reported sampler settings against the frozen profile. A fixed seed and temperature zero do not guarantee identical GPU outputs. Characterize baseline A/A repeatability with matched prompt bytes and token IDs, engine, checkpoint, seed, cache/slot lifecycle and resource limits. For stochastic profiles, repeat prespecified seeds and compare distinct seeds without treating correlated repeats as independent quality samples.
+
+When a potentially useful candidate changes a task or policy outcome, retain the failed gate and investigate baseline variation and the earliest token/state divergence. Use a fresh balanced paired A/B order when feasible; compare task-level outcomes and disclose uncertainty and correlated task families. No observed difference does not establish equivalence or noninferiority. Any new policy violation blocks promotion and requires investigation; authorization is enforced outside the model.
+
+Separate fixed-token prefill/decode measurements from complete agent latency, output length, tool calls and GPU joules per successful task. Fewer generated tokens alone do not demonstrate higher kernel throughput. Record actual cache hits, state resets and missing logits or token identities explicitly.
 
 Separate GPU/engine throughput, numerical kernel correctness, coding, native tool calling, isolated agent tasks and hardware telemetry. Use exact input IDs within one tokenizer; across models use the same tasks with correct templates and successful tasks per second/joule.
 

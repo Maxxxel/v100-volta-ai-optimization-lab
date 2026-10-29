@@ -537,6 +537,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R615](experiments/R615.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus 9B Q6_K |
 | [R616](experiments/R616.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B bartowski Q6 · prompt cache enabled |
 | [R617](experiments/R617.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B QAT Q4 · prompt cache enabled |
+| [R618](experiments/R618.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B IQ3_S integrated MTP3 |
 
 
 ## Historical signed windows

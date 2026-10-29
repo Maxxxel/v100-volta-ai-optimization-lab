@@ -4,7 +4,15 @@
 
 Golden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. Balanced sequences are used when drift or small differences justify them.
 
-Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. Reject on quality or correctness loss regardless of synthetic speed. Keep failures, incomplete screens and outliers under their original rules.
+Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. An observed quality or safety loss blocks promotion regardless of speed; a bounded investigation must distinguish a reproducible effect from baseline variability before attributing its cause. Preserve the original gate decision, failures, incomplete screens and outliers.
+
+## Reproducibility and uncertainty
+
+Check the request and server-reported sampler settings against the frozen profile. A fixed seed and temperature zero do not guarantee identical GPU outputs. Characterize baseline A/A repeatability with matched prompt bytes and token IDs, engine, checkpoint, seed, cache/slot lifecycle and resource limits. For stochastic profiles, repeat prespecified seeds and compare distinct seeds without treating correlated repeats as independent quality samples.
+
+When a potentially useful candidate changes a task or policy outcome, retain the failed gate and investigate baseline variation and the earliest token/state divergence. Use a fresh balanced paired A/B order when feasible; compare task-level outcomes and disclose uncertainty and correlated task families. No observed difference does not establish equivalence or noninferiority. Any new policy violation blocks promotion and requires investigation; authorization is enforced outside the model.
+
+Separate fixed-token prefill/decode measurements from complete agent latency, output length, tool calls and GPU joules per successful task. Fewer generated tokens alone do not demonstrate higher kernel throughput. Record actual cache hits, state resets and missing logits or token identities explicitly.
 
 Separate GPU/engine throughput, numerical kernel correctness, coding, native tool calling, isolated agent tasks and hardware telemetry. Use exact input IDs within one tokenizer; across models use the same tasks with correct templates and successful tasks per second/joule.
 

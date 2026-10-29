@@ -30,10 +30,10 @@ class PublishedReservedEvidence(unittest.TestCase):
   root=pathlib.Path(__file__).resolve().parents[1];es=json.loads((root/'data/experiments.json').read_text());snapshot=json.loads((root/'data/snapshot.json').read_text());return root,es,snapshot
  def test_three_frozen_profile_captures_keep_gemma_preflight_limit(self):
   _,es,_=self.source();rows={e['id']:e['aggregate_metrics']['native_lean_reserved_validation33'] for e in es if e.get('aggregate_metrics',{}).get('native_lean_reserved_validation33')}
-  self.assertEqual(set(rows),{'R589','R590','R591'});self.assertTrue(all(r['context_tokens']==8192 and r['max_output_tokens']==4096 and not r['official_benchmark'] and not r['winner_qualified'] for r in rows.values()));self.assertTrue(rows['R589']['complete_inference']);self.assertTrue(rows['R590']['complete_inference']);self.assertTrue(rows['R591']['complete_capture']);self.assertFalse(rows['R591']['complete_inference']);self.assertEqual(len(rows['R591']['preflight_limits']),2)
+  self.assertTrue({'R589','R590','R591'} <= set(rows));self.assertTrue(all(r['context_tokens']==8192 and r['max_output_tokens']==4096 and not r['official_benchmark'] and not r['winner_qualified'] for r in rows.values()));self.assertTrue(rows['R589']['complete_inference']);self.assertTrue(rows['R590']['complete_inference']);self.assertTrue(rows['R591']['complete_capture']);self.assertFalse(rows['R591']['complete_inference']);self.assertEqual(len(rows['R591']['preflight_limits']),2)
   for e in rows['R591']['preflight_limits']:self.assertGreater(e['prompt_tokens']+e['max_output_tokens'],e['context_tokens'])
  def test_new_research_cannot_enter_official_benchmark_history(self):
-  root,_,_=self.source();history=json.loads((root/'data/configuration-history.json').read_text());self.assertFalse(any(r['experiment_id'] in ('R589','R590','R591') for r in history['runs']))
+  root,_,_=self.source();history=json.loads((root/'data/configuration-history.json').read_text());self.assertFalse(any(r['experiment_id'] in ('R589','R590','R591','R618') for r in history['runs']))
  def test_frozen_reference_links_exact_audited_profiles_and_keeps_limits(self):
   _,es,snapshot=self.source();ref=snapshot['lean_harness_review']['frozen_reference'];self.assertEqual(len(ref['profiles']),3);self.assertEqual(ref['budgets']['TASK_total_seconds'],1200);self.assertEqual(ref['budgets']['max_VRAM_mib'],14336)
   for p in ref['profiles']:

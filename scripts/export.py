@@ -1155,6 +1155,7 @@ def verified_native_agent_development(root, summary, receipt):
         execution=load(pathlib.Path(profile['execution_review']['file']));assert digest(pathlib.Path(profile['execution_review']['file']))==profile['execution_review']['sha256']
         parent_path=pathlib.Path(execution['parent_model_snapshot_file']);parent=load(parent_path);assert digest(parent_path)==execution['parent_model_snapshot_sha256']
         pins={'a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052':'e8d6305a50fe0a2522475070c90e25dfbc373be7eba029870941c26a705d2973','b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c':'c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d','93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b':'40c9726c13614e7eb6a87a794e65c528bcddf5e32bef6bede930bb1ebc2bfb16'}
+        if a['experiment_id']=='R618':pins['58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f']='20bf0fd11aae78ca8de25fcd600d6a4bd1e01ad18dd20e7ac6950be68e11ca73'
         assert a['model_sha256'] in pins and digest(parent_path)==pins[a['model_sha256']]
         assert profile['native_recipe']['context']==8192 and profile['native_recipe']['agent18']['archive_sha256']=='1db8fe157575f6c69d169a9218a39702e6f900ea3717aa4072425199b080bed7'
         def native_identity(p):
@@ -1390,6 +1391,26 @@ def main():
             experiments[ident]['related_audit_ids']=[review_id,reference_id]
             experiments[ident]['aggregate_metrics']['abba_diagnostic']=projection({'turns':measured['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':measured['energy_counter'],'historical_vs_fresh_no_cache':review['historical_vs_fresh_no_cache']})
             experiments[ident]['statements']['diagnosis_scope']=text(review['scope'])
+        if ident=='R618' and v.get('cross_model_review'):
+            item=v['cross_model_review'];review_id=receipt(item['path'],item['sha256']);review=load(locations[review_id]) if review_id else {};candidate=load(locations[audit]) if audit else {};related=[review_id] if review_id else []
+            if not audit or review.get('winner_qualified') is not False or review.get('GPU_runs')!=0:raise ValueError('R618 comparison evidence missing')
+            def holdout_cases(record):
+                folder=pathlib.Path(record['raw_root']);pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl'
+                if digest(raw)!=pins['HTTP_RESULTS.jsonl']:raise ValueError('R618 response evidence changed')
+                return [r for r in (json.loads(line) for line in raw.read_text().splitlines() if line) if r.get('kind')=='agent_case']
+            new=holdout_cases(candidate)
+            for key,ref in review['comparisons'].items():
+                ref_id=receipt(root/('staging/'+key.lower()+'/AUDIT.json'));old_audit=load(locations[ref_id]) if ref_id else {};old=holdout_cases(old_audit)
+                if digest(locations[audit])!=ref['candidate_audit_sha256'] or not ref_id or digest(locations[ref_id])!=ref['reference_audit_sha256'] or len(old)!=33 or [r['id'] for r in old]!=[r['id'] for r in new]:raise ValueError('R618 comparison provenance differs')
+                for field in ('task_success','policy_gate_pass'):
+                    ps=[(x['reported_result'][field],y['reported_result'][field]) for x,y in zip(old,new)];expected={'reference_passed':sum(x for x,y in ps),'candidate_passed':sum(y for x,y in ps),'lost':sum(x and not y for x,y in ps),'gained':sum(not x and y for x,y in ps)}
+                    if ref[field]!=expected:raise ValueError('R618 paired outcomes differ')
+                for prefix,source in (('reference',old_audit),('candidate',candidate)):
+                    if ref[prefix+'_task_s']!=source['task_phase_s'] or ref[prefix+'_vram_mib']!=source['peak_device_vram_mib'] or ref[prefix+'_gpu_j_bounds']!=[source['GPU_counter']['lower_j'],source['GPU_counter']['upper_j']]:raise ValueError('R618 measured costs differ')
+                related.append(ref_id)
+            experiments[ident]['related_audit_ids']=related
+            experiments[ident]['aggregate_metrics']['cross_model_comparison']=projection(review['comparisons'])
+            experiments[ident]['statements']['comparison_scope']=text(review['scope'])
         if ident in ('R612','R614','R616','R617') and v.get('single_factor_review'):
             item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/({'R612':'staging/r534/AUDIT.json','R614':'staging/r531/AUDIT.json','R616':'staging/r536/AUDIT.json','R617':'staging/r534/AUDIT.json'}[ident]))
             if not audit or not review_id or not reference_id:raise ValueError('R612 paired source missing')
@@ -1678,6 +1699,8 @@ def main():
     register,configuration_history=build_leaderboard(root,db,comparison,list(experiments.values()),receipt,text,load(previous_file) if previous_file.exists() else None)
     snapshot={'schema':1,'matrix_revision':matrix['revision'],'source_sha256':source_hashes,'source_date':matrix.get('updated_at_utc') or matrix['factor_accountability_summary']['at_utc'],'counts':{'original_factors':130,'additional_factors':32,'factors':len(factors),'model_challengers':len(challengers),'assessed_factors':len(factors),'experimentally_covered':sum(x['experimentally_covered'] for x in factors),'omnicoder2_experimentally_covered':sum(x['omnicoder2_experimentally_covered'] for x in factors),'scientific_status':dict(collections.Counter(x['status'] for x in factors)),'sprint_records':len(experiments),'signed_windows':len(windows),'ledger_events':len(events),'reference_records':len(references),'qualified_profile_pointers':sum(bool(x['C']) for x in profiles)},'limitations':['An assessed factor is not a hardware experiment. A sprint ID may describe a build, source review or failed attempt.','GPU intervention count: NOT MEASURED AS ONE COMPARABLE TOTAL. Component processes, model sessions and requests remain separate in each original audit.','A redacted excerpt cannot reproduce the original SHA256. That SHA binds the retained original; exported bytes have their own manifest.','Canonical rationale excerpts may remain in their original German. Surrounding documentation is English.','No private benchmark prompts, tool entities, model outputs, logs, host paths, GPU UUIDs or model weights are distributed. Exact task-level reproduction therefore remains incomplete for withheld local suites.']}
     snapshot['lean_harness_review']=project_lean_research(root,receipt)
+    from reproducibility import build as build_reproducibility
+    snapshot['reproducibility_review']=build_reproducibility(root)
     assert snapshot['counts']['factors']==162 and len(challengers)==11
     for name,obj in [('snapshot.json',snapshot),('factors.json',factors),('experiments.json',sorted(experiments.values(),key=lambda x:int(x['id'][1:]))),('audit-excerpts.json',list(catalog.values())),('signed-windows.json',windows),('history.json',events),('references.json',references),('profiles.json',profiles),('models.json',challengers),('comparison.json',comparison),('benchmark-register.json',register),('configuration-history.json',configuration_history),('model-benchmarks.json',metrics({'model_comparison_progress':db['summary'].get('model_comparison_progress',{})})),('sources.json',sources),('research-subcases.json',subcases)]:write(name,obj)
     from screening import build as build_screening

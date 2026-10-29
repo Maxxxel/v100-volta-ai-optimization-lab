@@ -182601,6 +182601,204 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 150,
+      "model_starts": 1,
+      "native_lean_reserved_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 625.019195561,
+          "group_window_s": 625.02548034,
+          "lower_j": 162024.757,
+          "upper_j": 162132.541
+        },
+        "actual_generation_requests": 150,
+        "case_wall_s": 625.019195561,
+        "completed_request_wall_s": 621.922097462,
+        "completion_tokens": 12110,
+        "data_role": "RESERVED33_MODEL_UNSEEN_FIXTURES_CORRELATED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 6000.916925925926,
+        "gpu_j_per_success_upper": 6004.908925925926,
+        "independent_review_sha256": "423fa6d22a3290dc618e2f129ba591eddeea795bc16f47105cca2ba3887c769a",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 13602.5,
+        "planned_tasks": 33,
+        "profile_sha256": "a62cfcb8a2b47bdd4db62d959053d22879e930589b2fb1ac882804df4a4fba3f",
+        "solved": 27,
+        "successful_tasks_per_s": 0.043198171668486815,
+        "task_limit_s": 1200,
+        "task_phase_s": 625.026452675,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 19.471892137969792,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 13602.5,
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-166a134d68efb396723b",
+    "original_bytes": 4234,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "166a134d68efb396723b5ae0b67e73a4e67ec06333a3c7bfeab614601c064934",
+    "statements": {
+      "decision": "Independent reserved-fixture assessment of retained frozen minimal reference. No efficiency improvement or causal optimization claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparisons": {
+        "R589": {
+          "candidate_audit_sha256": "166a134d68efb396723b5ae0b67e73a4e67ec06333a3c7bfeab614601c064934",
+          "candidate_task_s": 625.026452675,
+          "candidate_vram_mib": 13602.5,
+          "policy_gate_pass": {
+            "candidate_passed": 31,
+            "gained": 3,
+            "lost": 2,
+            "reference_passed": 30
+          },
+          "reference_audit_sha256": "b407e9f62be2c168afe1d87d1adbbccc9550302810f7c8d28622cfcdc7810637",
+          "reference_task_s": 388.217217445,
+          "reference_vram_mib": 7680.5,
+          "task_success": {
+            "candidate_passed": 27,
+            "gained": 4,
+            "lost": 4,
+            "reference_passed": 27
+          },
+          "tasks": 33
+        },
+        "R590": {
+          "candidate_audit_sha256": "166a134d68efb396723b5ae0b67e73a4e67ec06333a3c7bfeab614601c064934",
+          "candidate_task_s": 625.026452675,
+          "candidate_vram_mib": 13602.5,
+          "policy_gate_pass": {
+            "candidate_passed": 31,
+            "gained": 3,
+            "lost": 2,
+            "reference_passed": 30
+          },
+          "reference_audit_sha256": "7c77da6bbe7a684c79bed84375b88a9cddb678a059672b7f121d18eb4477865f",
+          "reference_task_s": 325.981656485,
+          "reference_vram_mib": 7356.5,
+          "task_success": {
+            "candidate_passed": 27,
+            "gained": 3,
+            "lost": 2,
+            "reference_passed": 26
+          },
+          "tasks": 33
+        },
+        "R591": {
+          "candidate_audit_sha256": "166a134d68efb396723b5ae0b67e73a4e67ec06333a3c7bfeab614601c064934",
+          "candidate_task_s": 625.026452675,
+          "candidate_vram_mib": 13602.5,
+          "policy_gate_pass": {
+            "candidate_passed": 31,
+            "gained": 5,
+            "lost": 1,
+            "reference_passed": 27
+          },
+          "reference_audit_sha256": "f016d3f316b37e625eb6c9d7334d7b27a546af9b2f94a1e84eeea9afb2a5cb80",
+          "reference_task_s": 422.327075021,
+          "reference_vram_mib": 8118.5,
+          "task_success": {
+            "candidate_passed": 27,
+            "gained": 11,
+            "lost": 1,
+            "reference_passed": 17
+          },
+          "tasks": 33
+        }
+      },
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-114e9230730ece574077",
+    "original_bytes": 2912,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "114e9230730ece5740779331f6ee721982e8eee4ba723aab1390bc4cc4167583",
+    "statements": {
+      "scope": "Same reserved task instances, different model profiles, historical separate sessions and 11 correlated task families; not an A/B factor test, unseen population, official benchmark or champion. Board-energy counter bounds omit sensor uncertainty, startup and CPU/system energy."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-423fa6d22a3290dc618e",
+    "original_bytes": 10304,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "423fa6d22a3290dc618e2f129ba591eddeea795bc16f47105cca2ba3887c769a",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 31,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-8649d0addd2810e1e529",
+    "original_bytes": 994,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "8649d0addd2810e1e5297f2caf2cf3d79e276fceef6f6672aee15b59f165519d",
+    "statements": {
+      "scope": "Reserved model-unseen fixtures from11 existing authored families. Frozen minimal reference only; no tuned variant, official benchmark, population independence or Champion claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": 5922.0,
+        "task_phase_change_percent": 60.999158354832495
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 27,
+        "case_gained": 4,
+        "case_lost": 4,
+        "frozen_groups": 11,
+        "group_sign_flip_two_sided_p": 1.0,
+        "net_success_change": 0,
+        "nonzero_groups": 5,
+        "reference_solved": 27,
+        "tasks": 33
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-3fde7d8e2358eec44a12",
+    "original_bytes": 1140,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "3fde7d8e2358eec44a121fe38754d3df8b6a34e53fa844d9a61006a751667745",
+    "statements": {
+      "decision": "Frozen validation profile comparison with grouped sensitivity; retain task outcomes and costs. One33-case pass is not a population ranking, causal optimization or Champion qualification.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
