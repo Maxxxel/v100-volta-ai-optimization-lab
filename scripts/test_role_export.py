@@ -58,7 +58,8 @@ class FrozenBaselineGates(unittest.TestCase):
   for text in ['85.35% ·2/3','86.06% ·2/3','84.13% ·2/3','NOT MEASURED at selected8K','Nexus','Qwen3.5','Nemotron','gpt-oss','cold-switch overhead','Issue18','frozen-baselines.json']:
    self.assertIn(text,page)
   self.assertIn('Post-freeze evidence through R627',page)
-  self.assertIn('R614',page);self.assertIn('R616',page);self.assertIn('R625',page);self.assertIn('R627',page)
+  self.assertIn('R614',page);self.assertIn('R616',page);self.assertIn('R620',page);self.assertIn('R625',page);self.assertIn('R627',page)
+  self.assertIn('cache-hit outputs differed from baseline at token 0 in 4/4',page)
   self.assertIn('Cache candidates remain **NOT QUALIFIED**',page)
   self.assertIn('not causal speedup, quality equivalence or Champion qualification',page)
   self.assertIn('R585 selection above remains frozen and unchanged',page)

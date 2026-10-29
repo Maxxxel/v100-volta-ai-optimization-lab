@@ -441,7 +441,7 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None):
  if experiments:
   by_id={e.get('id'):e for e in experiments}
   post=[]
-  for rid in ('R614','R616','R618','R625','R627'):
+  for rid in ('R614','R616','R618','R620','R625','R627'):
    if rid in by_id:post.append(by_id[rid])
   if post:
    text+='## Post-freeze evidence through R627\n\nThe R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.\n\n'
@@ -463,6 +463,12 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None):
     m=gemma['aggregate_metrics']['kv_cache_repeatability_diagnostic'];assert m['winner_qualified'] is False
     changed=sum(not case['f16_q8_equal'] for case in m['cases']);n=len(m['cases'])
     text+=f"- [R627](experiments/R627.md) Gemma KV-cache diagnostic: F16 and Q8 each repeated identically within arm on {n}/{n} exposed prompts; the two cache precisions differed on {changed}/{n}, first-token divergence on those cases. Three-case CPU EvalPlus replay is diagnostic only. No task-quality, safety or Champion qualification.\n"
+   omni=by_id.get('R620')
+   if omni:
+    m=omni['aggregate_metrics']['repeatability_pilot'];turn=m['turns'][2]
+    assert omni['winner_qualified'] is False and turn['no_cache_all_four_equal'] is True and turn['cache_variants_differ_from_baseline']==4
+    assert turn['first_difference_position_zero_based']==0 and m['peak_device_vram_mib']<=14336
+    text+=f"- [R620](experiments/R620.md) OmniCoder exact exposed R616 prompt: no-cache A/A outputs matched 4/4 at 558 tokens; cache-hit outputs differed from baseline at token 0 in 4/4 after 1,675 cached tokens. This is one request across two sessions, not task/policy causality or an internal GDN/numerical diagnosis; R616 remains **NOT QUALIFIED**.\n"
    text+='These measurements do not change the R585 roles. Full cache/state evidence and limitations are in [Reproducibility](reproducibility.md); incomplete causal and population-level conclusions remain explicit.\n\n'
  for s in frozen['selected']:
   text+='## '+s['role']+'\n\n'+s['rationale']+'\n\n'
@@ -846,7 +852,7 @@ Independent community project; no affiliation with NVIDIA, Ollama or model publi
  put('hardware.md','# Hardware & scope\n\nOne NVIDIA Tesla V100-SXM2 ·16 GB HBM2 ·Volta SM70. Serialized local inference with recorded model, engine and kernel identities.\n\n- CUDA12.8 compiler baseline; driver580.178.04 recorded per run. Compiler, toolkit and loaded runtime identities remain distinct.\n- FP16 Tensor Cores; native BF16/FP8 Tensor Cores, cp.async and TMA are not assumed.\n- Attention KV, recurrent state, graphs and caches share the device memory budget.\n- Temperature is telemetry; existing ECC, VRAM, power, thermal and restore guards remain mandatory.\n\n[Reproduce](reproduce.md) · [Safety and admission](broker-admission.md)\n')
  put('methodology.md','''# Research methodology
 
-**Current task budget:1,200 seconds total per benchmark**, shared across all parts without resets. Startup, wrapper, cleanup and CPU evaluation limits are separate. Older900-second experiments keep their historical conditions.\n\nGolden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. Balanced sequences are used when drift or small differences justify them.
+**Current task budget:1,200 seconds total per benchmark**, shared across all parts without resets. Startup, wrapper, cleanup and CPU evaluation limits are separate. Older900-second experiments keep their historical conditions.\n\nGolden Baseline A0 is immutable per reproducible workload identity. Current Champion C is the best independently qualified configuration in that same profile. New candidate B first runs a cheap screen against valid stored references; only promising or materially uncertain cases receive fresh controls. For drift-sensitive or small effects, preregister a balanced ABBA or BAAB order; otherwise use a simpler paired A/B when it can resolve the decision. Keep the same task IDs, tokenized inputs, seed policy and execution budget across arms.\n\nFor every A/A or A/B repeat, record whether each request uses a fresh process, fresh slot, reset state, or intentional prefix/cache reuse. Do not call a state “reset” unless the engine operation and logs verify it. Compare paired task outcomes and first token/state divergence; preserve run order and session identity. If cache state is the treatment, change only that state and report both the request-level path and whole-task outcome. Repeated requests within one session are correlated observations, not independent quality samples. ABBA/BAAB controls order drift; it does not by itself establish statistical independence or causality.
 
 Pre-register the primary metric, practical improvement threshold, quality/numerical gates, maximum time and early-stop rule. An observed quality or safety loss blocks promotion regardless of speed; a bounded investigation must distinguish a reproducible effect from baseline variability before attributing its cause. Preserve the original gate decision, failures, incomplete screens and outliers.
 
