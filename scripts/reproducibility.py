@@ -53,6 +53,53 @@ def lost_task_first_divergence(baseline_checks,candidate_checks,baseline_rows,ca
          'agent_trajectory':{'baseline_turns':len(base_case_turns),'candidate_turns':len(candidate_case_turns),'extra_candidate_turns':len(candidate_case_turns)-len(base_case_turns),'baseline_generated_tokens':base_total,'candidate_generated_tokens':candidate_total},
          'interpretation':'The sole R536-success/R616-failure case had two identical earlier replies. On turn 3, exact prompt token IDs and request fields (except cache_prompt) matched; the baseline processed all 1790 prompt tokens while the candidate reported reusing 1675 and diverged at output token 0. The candidate then used two additional turns: total captured output was 744 tokens versus 636 in the baseline. This directly maps cache-enabled execution to the observed first divergence in this case, but the historical sessions were not contemporaneous and no no-cache A/A repeat exists for this exact prompt. It does not prove the cache caused the task or policy outcome, identify a numerical/GDN state mechanism, or qualify the cache.'}
 
+def summarize_nexus_policy_case(baseline_case,candidate_case,baseline_request, candidate_request,
+                                baseline_reply,candidate_reply,pilot_replies,input_tokens,
+                                pilot_seed_checks):
+ """Verify a cache-linked token path co-located with one policy loss, without task data."""
+ assert baseline_case['task_success'] is False and candidate_case['task_success'] is False
+ assert baseline_case['policy_gate_pass'] is True and candidate_case['policy_gate_pass'] is False
+ assert baseline_case['policy_violations']==0 and candidate_case['policy_violations']==1
+ assert baseline_case['rejected_calls']==0 and candidate_case['rejected_calls']==1
+ assert baseline_case.get('all_tools_simulated') is True and candidate_case.get('all_tools_simulated') is True
+ assert baseline_case.get('production_tools_connected') is False and candidate_case.get('production_tools_connected') is False
+ assert sum(bool(x.get('policy_rejected')) for x in candidate_case.get('trace',[]) if x.get('kind')=='tool_response')==1
+ assert sum(bool(x.get('policy_rejected')) for x in baseline_case.get('trace',[]) if x.get('kind')=='tool_response')==0
+ assert {k:v for k,v in baseline_request.items() if k!='cache_prompt'}=={k:v for k,v in candidate_request.items() if k!='cache_prompt'}
+ assert baseline_request['cache_prompt'] is False and candidate_request['cache_prompt'] is True
+ assert baseline_request.get('seed')==candidate_request.get('seed')==1001
+ assert baseline_request.get('temperature')==candidate_request.get('temperature')==0
+ assert baseline_request.get('max_tokens')==candidate_request.get('max_tokens')==4096
+ a=baseline_reply['__verbose']['tokens'];b=candidate_reply['__verbose']['tokens']
+ first=next((i for i,(x,y) in enumerate(zip(a,b)) if x!=y),None)
+ assert a!=b and first==0 and (len(a),len(b))==(368,65)
+ assert len(input_tokens)==1785
+ assert len(pilot_replies)==8 and len(pilot_seed_checks)==8
+ no_cache=[x for x in pilot_replies if x['request'].get('cache_prompt') is False]
+ cached=[x for x in pilot_replies if x['request'].get('cache_prompt') is True]
+ assert len(no_cache)==len(cached)==4
+ assert all(x['reply']['__verbose']['tokens']==a for x in no_cache)
+ assert all(x['reply']['__verbose']['tokens']==b for x in cached)
+ assert all(x['reply']['__verbose']['timings']['cache_n']==0 for x in no_cache)
+ assert all(x['reply']['__verbose']['timings']['cache_n']==1711 for x in cached)
+ assert all(x['reply']['__verbose']['generation_settings']['seed']==1001 for x in pilot_seed_checks)
+ assert all(x['reply']['__verbose']['generation_settings']['temperature']==0 for x in pilot_seed_checks)
+ return {'baseline_run':531,'candidate_run':614,'repeatability_run':621,
+         'policy_changed_cases':1,'task_success_changed_cases':0,
+         'baseline_policy_pass':True,'candidate_policy_pass':False,
+         'baseline_policy_violations':0,'candidate_policy_violations':1,
+         'baseline_rejected_calls':0,'candidate_rejected_calls':1,
+         'production_tool_actions':0,
+         'matched_turn':4,'context_tokens':len(input_tokens),
+         'identity_match':True,'request_match_except_cache_flag':True,
+         'seed':1001,'temperature':0,'max_tokens':4096,
+         'pilot_sessions':2,'no_cache_repeats':4,'no_cache_matches_baseline':4,
+         'cache_hit_repeats':4,'cache_repeats_match_candidate':4,
+         'cache_tokens_reused':1711,'baseline_generated_tokens':len(a),
+         'candidate_generated_tokens':len(b),'first_difference_index':first,
+         'classification':'REPRODUCIBLE_CACHE_ASSOCIATED_DIVERGENCE; ONE_POLICY_LOSS_OBSERVED; WHOLE_TASK_CAUSALITY_NOT_ESTABLISHED',
+         'interpretation':'The only case whose policy gate changed between R531 and R614 failed task success in both arms. Its fourth-turn request has identical 1,785 input token IDs and request fields other than cache_prompt. R621 repeated that exact request in two ABBA sessions: all four no-cache outputs matched R531, and all four cache-hit outputs matched R614, with divergence at output token 0. The R614 task trace records one additional policy violation/rejected call in that same case. This establishes a reproducible cache-associated output path and localizes the observed policy loss to the same case, but R621 did not rerun the agent/policy evaluator; the exact causal link from that response to the policy event, general task-quality effect, and internal numerical/state mechanism remain unproven. The R614 failed safety gate remains in force; no promotion.'}
+
 def agent_task_pairs(root):
  root=Path(root);out={}
  for label,baseline,candidate in (('Nexus_prefix_cache','r531','r614'),('OmniCoder_prefix_cache','r536','r616')):
@@ -111,8 +158,8 @@ def agent_task_pairs(root):
 def cache_state_source_path(root):
  root=Path(root);src=root/'staging/r31/extra/source/tools/server/server-context.cpp'
  if not src.is_file():return None
- commit='097cf33d9499b1eade67d51e16d7c75427e7b267';expected='6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7'
- assert digest(src)==expected
+ commit='097cf33d9499b1eade67d51e16d7c75427e7b267';source_sha256_expected='6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7'
+ assert digest(src)==source_sha256_expected
  lines=src.read_text(errors='replace').splitlines()
  needles={
   'common_prefix':'n_past = slot.prompt.tokens.get_common_prefix(input_tokens);',
@@ -128,7 +175,7 @@ def cache_state_source_path(root):
   'full_prompt_fallback':'forcing full prompt re-processing due to lack of cache data',
  }
  source_lines={key:next((i for i,line in enumerate(lines,1) if token in line),None) for key,token in needles.items()}
- assert all(source_lines.values()) and digest(src)==expected
+ assert all(source_lines.values()) and digest(src)==source_sha256_expected
  runs={}
  for rid in ('r614','r616'):
   audit_path=root/'staging'/rid/'AUDIT.json';audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text());log=raw/'server.log';rows=[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x];turns=[x for x in rows if x.get('kind')=='agent_turn']
@@ -171,8 +218,82 @@ def cache_state_source_path(root):
  assert base['launch']['native_request_options']['cache_prompt'] is False
  assert candidate['launch']['native_request_options']['cache_prompt'] is True
  task_divergence=lost_task_first_divergence(base['checks'],candidate['checks'],base['rows'],candidate['rows'])
+ # The R614 policy-pass loss is independently tied to a repeated request-level
+ # cache divergence by the balanced, two-session R621 diagnostic.
+ baseline_audit=json.loads((root/'staging/r531/AUDIT.json').read_text())
+ candidate_audit=json.loads((root/'staging/r614/AUDIT.json').read_text())
+ baseline_raw=Path(baseline_audit['raw_root']);candidate_raw=Path(candidate_audit['raw_root'])
+ for raw in (baseline_raw,candidate_raw):
+  pins=json.loads((raw/'RAW_HASHES.json').read_text())
+  for filename in ('HTTP_RESULTS.jsonl','profile.json','LAUNCH.json','server.log'):
+   assert digest(raw/filename)==pins[filename]
+ baseline_profile=json.loads((baseline_raw/'profile.json').read_text())
+ candidate_profile=json.loads((candidate_raw/'profile.json').read_text())
+ baseline_launch=json.loads((baseline_raw/'LAUNCH.json').read_text())
+ candidate_launch=json.loads((candidate_raw/'LAUNCH.json').read_text())
+ assert baseline_profile['model_sha256']==candidate_profile['model_sha256']==baseline_audit['model_sha256']==candidate_audit['model_sha256']
+ assert baseline_profile['runtime']==candidate_profile['runtime']
+ assert baseline_profile['chat_template']==candidate_profile['chat_template']
+ assert baseline_launch['argv']==candidate_launch['argv']
+ assert {k:v for k,v in baseline_launch['environment'].items() if k!='O2_GPU_BUILD_LEASE'}=={k:v for k,v in candidate_launch['environment'].items() if k!='O2_GPU_BUILD_LEASE'}
+ baseline_rows=[json.loads(x) for x in (baseline_raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x]
+ candidate_rows=[json.loads(x) for x in (candidate_raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x]
+ baseline_cases={x['id']:x['reported_result'] for x in baseline_rows if x.get('kind')=='agent_case'}
+ candidate_cases={x['id']:x['reported_result'] for x in candidate_rows if x.get('kind')=='agent_case'}
+ assert baseline_cases.keys()==candidate_cases.keys() and len(baseline_cases)==33
+ policy_lost=[key for key in baseline_cases if baseline_cases[key]['policy_gate_pass'] and not candidate_cases[key]['policy_gate_pass']]
+ assert len(policy_lost)==1
+ case_id=policy_lost[0]
+ def case_turn(rows):
+  identity=next(x for x in rows if x.get('kind')=='input_identity' and x.get('case_id')==case_id and x.get('turn')==3)
+  response=next(x for x in rows if x.get('kind')=='agent_turn' and x.get('id')==identity['id'])
+  return identity,response
+ baseline_identity,baseline_response=case_turn(baseline_rows)
+ candidate_identity,candidate_response=case_turn(candidate_rows)
+ assert baseline_identity['prompt_token_ids']==candidate_identity['prompt_token_ids']
+ assert baseline_identity['prompt_token_ids_sha256']==candidate_identity['prompt_token_ids_sha256']
+ assert baseline_identity['prompt_token_count']==candidate_identity['prompt_token_count']==1785
+ r621_stage=root/'staging/r621';r621_audit=json.loads((r621_stage/'AUDIT.json').read_text())
+ r621_review=json.loads((r621_stage/'INDEPENDENT_REVIEW.json').read_text())
+ r621_plan=json.loads((r621_stage/'PLAN.json').read_text())
+ assert r621_audit['reference_audit_sha256']==digest(root/'staging/r531/AUDIT.json')
+ assert r621_audit['source_screen_audit_sha256']==digest(root/'staging/r614/AUDIT.json')
+ assert r621_plan['reference_audit_sha256']==r621_audit['reference_audit_sha256']
+ assert r621_plan['candidate_audit_sha256']==r621_audit['source_screen_audit_sha256']
+ assert r621_plan['model_sha256']==baseline_audit['model_sha256']
+ r621_raw=root.parent/'research/mcp-workspace/r621-nexus-aa-abba-token-pilot/host-20261029T080641Z'
+ r621_http=r621_raw/'HTTP_RESULTS.jsonl'
+ assert digest(r621_http)==r621_audit['raw_responses_sha256']==r621_review['raw_responses_sha256']
+ r621_rows=[json.loads(x) for x in r621_http.read_text().splitlines() if x]
+ input_rows={x['id']:x for x in r621_rows if x.get('kind')=='r621_input'}
+ expected_cases=json.loads((r621_stage/'CPU_PILOT_INPUT.json').read_text())['cases']
+ pilot_expected=[x for x in expected_cases if x['turn']==4]
+ assert len(pilot_expected)==1
+ expected_hash=baseline_identity['prompt_token_ids_sha256']
+ assert all(x['expected_prompt_token_ids_sha256']==expected_hash and x['expected_prompt_token_ids']==baseline_identity['prompt_token_ids'] for x in pilot_expected)
+ template_review=json.loads((r621_stage/'CPU_TEMPLATE_REVIEW.json').read_text())
+ rendered=next(x for x in template_review['records'] if x['turn']==4)
+ assert rendered['equal'] and rendered['actual_ids_sha256']==rendered['expected_ids_sha256']==expected_hash
+ pilot_replies=[];pilot_seed_checks=[]
+ for row in r621_rows:
+  if row.get('kind')!='r621_request' or row['id'] not in input_rows:continue
+  ir=input_rows[row['id']]
+  if ir['prompt_token_ids_sha256']!=expected_hash:continue
+  assert ir['prompt_token_ids']==baseline_identity['prompt_token_ids']
+  pilot_replies.append(row);pilot_seed_checks.append(row)
+ assert len(pilot_replies)==8
+ assert all(x['reply']['__verbose']['generation_settings']['seed']==x['request']['seed']==1001 for x in pilot_replies)
+ assert all(x['reply']['__verbose']['generation_settings']['temperature']==x['request']['temperature']==0 for x in pilot_replies)
+ nexus_policy_mapping=summarize_nexus_policy_case(
+  baseline_cases[case_id],candidate_cases[case_id],baseline_response['request'],candidate_response['request'],
+  baseline_response['reply'],candidate_response['reply'],pilot_replies,
+  baseline_identity['prompt_token_ids'],pilot_seed_checks)
+ nexus_policy_mapping.update({'baseline_audit_sha256':digest(root/'staging/r531/AUDIT.json'),
+                              'candidate_audit_sha256':digest(root/'staging/r614/AUDIT.json'),
+                              'repeatability_audit_sha256':digest(r621_stage/'AUDIT.json'),
+                              'repeatability_capture_sha256':digest(r621_http)})
  return {
-  'kind':'PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION','source_commit':commit,'source_file_sha256':expected,'source_lines':source_lines,'runs':runs,
+  'kind':'PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION','source_commit':commit,'source_file_sha256':source_sha256_expected,'source_lines':source_lines,'runs':runs,
   'external_issue':{
    'url':'https://github.com/ggml-org/llama.cpp/issues/22940',
    'status':'CLOSED_NOT_PLANNED',
@@ -188,6 +309,7 @@ def cache_state_source_path(root):
   ],
   'causal_disposition':'OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED',
   'case_level_divergence':task_divergence,
+  'nexus_policy_case_mapping':nexus_policy_mapping,
   'limits':'R616’s one lost task is now mapped to an exact matching 1,790-token prompt and its first changed token: two preceding turns were identical; the candidate reported reusing 1,675 tokens and diverged at output token zero. The historical sessions were not contemporaneous and this exact prompt lacks no-cache A/A repetition. No logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The source and token evidence do not identify a numerical/GDN state mechanism or prove task/policy causality.',
   'GPU_runs':0,'model_requests':0,
  }

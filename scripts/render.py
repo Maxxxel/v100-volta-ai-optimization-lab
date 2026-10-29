@@ -753,6 +753,17 @@ def main():
    page+=f"The pinned [`server-context.cpp` source]({source_url}) reuses a matching prefix and stores target, draft and speculative state in context checkpoints. It explicitly notes recurrent state cannot be rewound from the final state alone (source SHA-256 `{state['source_file_sha256']}`). If a usable checkpoint is unavailable, it falls back to full prompt re-processing.\n\n"+table(['Code path','Pinned source'],code_rows)
    issue=state['external_issue']
    page+=f"The upstream [issue #22940]({issue['url']}) claims FULL-only memory permanently disables prompt-cache restore when `pos_min == -1`; it was closed as not planned. That blanket claim is **not established for our pinned build**: source has a FULL-only checkpoint path and an explicit `pos_min == -1` abort guard, while R614/R616 logs record {state['runs']['R614']['log_counts']['restored_context_checkpoint']}/{state['runs']['R616']['log_counts']['restored_context_checkpoint']} checkpoint restores. This does not map restore/fallback events to the divergent requests or explain their token differences.\n\n"
+   nexus=state.get('nexus_policy_case_mapping')
+   if nexus:
+    page+='### R614 policy-loss case · exact request repeated in R621\n\n'
+    page+=table(['Evidence','Observed result'],[
+     ['Paired task outcome',f"One policy-gate loss; task success unchanged (failed in both). Policy passes: {int(nexus['baseline_policy_pass'])} → {int(nexus['candidate_policy_pass'])}; rejected calls: {nexus['baseline_rejected_calls']} → {nexus['candidate_rejected_calls']}."],
+     ['Matched request',f"Turn {nexus['matched_turn']}; {nexus['context_tokens']} input tokens; exact token IDs and request fields match except `cache_prompt`; seed {nexus['seed']}, temperature {nexus['temperature']}, output limit {nexus['max_tokens']}."],
+     ['R621 no-cache A/A',f"{nexus['no_cache_matches_baseline']}/{nexus['no_cache_repeats']} generated sequences matched the R531 baseline exactly ({nexus['baseline_generated_tokens']} tokens; cache_n=0)."],
+     ['R621 cache-hit repeats',f"{nexus['cache_repeats_match_candidate']}/{nexus['cache_hit_repeats']} generated sequences matched R614 exactly ({nexus['candidate_generated_tokens']} tokens; cache_n={nexus['cache_tokens_reused']})."],
+     ['Earliest difference',f"Generated token {nexus['first_difference_index']}. Two sessions; four repetitions per cache condition."],
+     ['Disposition',nexus['classification']]])
+    page+=f"The R614 case trace records one additional policy-rejected call in the same case; all actions were simulated and no production tool was connected. The balanced R621 prompt replay reproduces the cache-associated output path, but it does not rerun the complete agent or policy evaluator. This localizes the observed policy loss; it does not prove the exact response-to-policy causal link or an internal numerical/state mechanism. R614 remains **NOT QUALIFIED**. [R531](experiments/R531.md) · [R614](experiments/R614.md) · [R621](experiments/R621.md).\n\n"
    case=state.get('case_level_divergence')
    if case:
     turns=case['turns']

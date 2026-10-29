@@ -1,6 +1,7 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,lost_task_first_divergence
+from reproducibility import build,lost_task_first_divergence,summarize_nexus_policy_case
+from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def write(p,value):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value,sort_keys=True))
@@ -50,4 +51,30 @@ class LostTaskMapping(unittest.TestCase):
  def test_changed_prompt_ids_fail_closed(self):
   a,b,ar,br=self.captures(prompt_change=True)
   with self.assertRaises(AssertionError):lost_task_first_divergence(a,b,ar,br)
+
+class NexusPolicyMapping(unittest.TestCase):
+ def sample(self,corrupt_cache=False):
+  base_case={'task_success':False,'policy_gate_pass':True,'policy_violations':0,'rejected_calls':0,'all_tools_simulated':True,'production_tools_connected':False,'trace':[]}
+  cand_case={'task_success':False,'policy_gate_pass':False,'policy_violations':1,'rejected_calls':1,'all_tools_simulated':True,'production_tools_connected':False,'trace':[{'kind':'tool_response','policy_rejected':True}]}
+  base_req={'seed':1001,'temperature':0,'max_tokens':4096,'cache_prompt':False};cand_req={**base_req,'cache_prompt':True}
+  out_a=[7]*368;out_b=[8]*65
+  base_reply={'__verbose':{'tokens':out_a}}
+  cand_reply={'__verbose':{'tokens':out_b}}
+  pilot=[]
+  for i in range(8):
+   cached=i%2==1;tokens=(out_b[:] if cached else out_a[:])
+   if corrupt_cache and i==1:tokens[1]=9
+   pilot.append({'request':{**base_req,'cache_prompt':cached},'reply':{'__verbose':{'tokens':tokens,'timings':{'cache_n':1711 if cached else 0},'generation_settings':{'seed':1001,'temperature':0}}}})
+  return base_case,cand_case,base_req,cand_req,base_reply,cand_reply,pilot
+ def test_reproduces_case_local_cache_association_without_overclaim(self):
+  args=self.sample();out=summarize_nexus_policy_case(*args,[1]*1785,args[6])
+  self.assertEqual(out['cache_repeats_match_candidate'],4)
+  self.assertEqual(out['first_difference_index'],0)
+  self.assertEqual(out['task_success_changed_cases'],0)
+  self.assertIn('WHOLE_TASK_CAUSALITY_NOT_ESTABLISHED',out['classification'])
+  public=projection({'nexus_policy_case_mapping':out});encoded=json.dumps(public)
+  self.assertNotIn('case_id',encoded);self.assertNotIn('prompt_token_ids',encoded);self.assertNotIn('private-case-id',encoded)
+ def test_inconsistent_repeated_cache_output_fails_closed(self):
+  args=self.sample(corrupt_cache=True)
+  with self.assertRaises(AssertionError):summarize_nexus_policy_case(*args,[1]*1785,args[6])
 if __name__=='__main__':unittest.main()

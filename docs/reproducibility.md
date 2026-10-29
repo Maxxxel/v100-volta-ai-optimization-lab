@@ -180,6 +180,19 @@ The pinned [`server-context.cpp` source](https://github.com/ggml-org/llama.cpp/b
 
 The upstream [issue #22940](https://github.com/ggml-org/llama.cpp/issues/22940) claims FULL-only memory permanently disables prompt-cache restore when `pos_min == -1`; it was closed as not planned. That blanket claim is **not established for our pinned build**: source has a FULL-only checkpoint path and an explicit `pos_min == -1` abort guard, while R614/R616 logs record 57/40 checkpoint restores. This does not map restore/fallback events to the divergent requests or explain their token differences.
 
+### R614 policy-loss case · exact request repeated in R621
+
+| Evidence | Observed result |
+|---|---|
+| Paired task outcome | One policy-gate loss; task success unchanged (failed in both). Policy passes: 1 → 0; rejected calls: 0 → 1. |
+| Matched request | Turn 4; 1785 input tokens; exact token IDs and request fields match except `cache_prompt`; seed 1001, temperature 0, output limit 4096. |
+| R621 no-cache A/A | 4/4 generated sequences matched the R531 baseline exactly (368 tokens; cache_n=0). |
+| R621 cache-hit repeats | 4/4 generated sequences matched R614 exactly (65 tokens; cache_n=1711). |
+| Earliest difference | Generated token 0. Two sessions; four repetitions per cache condition. |
+| Disposition | REPRODUCIBLE_CACHE_ASSOCIATED_DIVERGENCE; ONE_POLICY_LOSS_OBSERVED; WHOLE_TASK_CAUSALITY_NOT_ESTABLISHED |
+
+The R614 case trace records one additional policy-rejected call in the same case; all actions were simulated and no production tool was connected. The balanced R621 prompt replay reproduces the cache-associated output path, but it does not rerun the complete agent or policy evaluator. This localizes the observed policy loss; it does not prove the exact response-to-policy causal link or an internal numerical/state mechanism. R614 remains **NOT QUALIFIED**. [R531](experiments/R531.md) · [R614](experiments/R614.md) · [R621](experiments/R621.md).
+
 ### R616 lost-task first-divergence mapping
 
 A CPU-only pairing of retained R536/R616 request captures maps the sole case that passed in R536 and failed in R616. Model SHA, runtime, template, server arguments and environment match; request options differ only in `cache_prompt`. Task ID and prompt content remain private.
