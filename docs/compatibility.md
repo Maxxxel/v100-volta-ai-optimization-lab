@@ -11,6 +11,10 @@ These decisions apply only to the linked, measured profiles and workloads. A fai
 | [R22](factors/R22.md) | Gemma 4 | PARTIAL | [R617](experiments/R617.md), [R624](experiments/R624.md) | Historical policy gate failed; cache-associated token divergence reproduced at original seed and temperature; whole-task causality remains unresolved. |
 | [HBM07](factors/HBM07.md) | OmniCoder | TESTED_NEGATIVE | [R611](experiments/R611.md) | One exposed Agent33 conversion-cache screen found no practical gain; other workloads and implementations remain open. |
 | [R04](factors/R04.md) | Gemma 4 | TESTED_NEGATIVE | [R612](experiments/R612.md) | Microbatch 256 lost to historical 512 in one screen; output lengths and stochastic results differ, so causation remains unconfirmed. |
+| [S01](factors/S01.md) | Nexus | TESTED_NEGATIVE | [R604](experiments/R604.md) | A 32-task exposed n-gram screen showed no practical gain versus a historical interleaved control; energy was not fully measured and causation remains uncertain. |
+| [K02](factors/K02.md) | Gemma 4 | PARTIAL | [R606](experiments/R606.md), [R608](experiments/R608.md) | Q8 value cache looked promising in a paired development screen; the later full coding score fell against a historical control. No promotion; causal quality loss is unconfirmed. |
+| [S03](factors/S03.md) | Qwen3.8 | PARTIAL | [R551](experiments/R551.md), [R548](experiments/R548.md) | Integrated MTP improved a fresh development comparison and passed a scoped coding gate; task-level safety and broad equivalence remain unqualified. |
+| [HBM07](factors/HBM07.md) | OmniCoder | TESTED_NEGATIVE | [R603](experiments/R603.md) | A 4 GiB conversion-cache development screen showed no practical latency benefit; this is limited to the measured workload and profile. |
 
 
 ## Evidence index for all factors

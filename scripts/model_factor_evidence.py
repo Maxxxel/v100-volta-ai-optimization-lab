@@ -22,7 +22,11 @@ def reviewed_dispositions(experiments):
   ('R22','Nexus','PARTIAL','R614','R621','Historical policy gate failed; cache-associated token divergence reproduced, but whole-task causality remains unresolved.'),
   ('R22','Gemma 4','PARTIAL','R617','R624','Historical policy gate failed; cache-associated token divergence reproduced at original seed and temperature; whole-task causality remains unresolved.'),
   ('HBM07','OmniCoder','TESTED_NEGATIVE','R611',None,'One exposed Agent33 conversion-cache screen found no practical gain; other workloads and implementations remain open.'),
-  ('R04','Gemma 4','TESTED_NEGATIVE','R612',None,'Microbatch 256 lost to historical 512 in one screen; output lengths and stochastic results differ, so causation remains unconfirmed.')]
+  ('R04','Gemma 4','TESTED_NEGATIVE','R612',None,'Microbatch 256 lost to historical 512 in one screen; output lengths and stochastic results differ, so causation remains unconfirmed.'),
+  ('S01','Nexus','TESTED_NEGATIVE','R604',None,'A 32-task exposed n-gram screen showed no practical gain versus a historical interleaved control; energy was not fully measured and causation remains uncertain.'),
+  ('K02','Gemma 4','PARTIAL','R606','R608','Q8 value cache looked promising in a paired development screen; the later full coding score fell against a historical control. No promotion; causal quality loss is unconfirmed.'),
+  ('S03','Qwen3.8','PARTIAL','R551','R548','Integrated MTP improved a fresh development comparison and passed a scoped coding gate; task-level safety and broad equivalence remain unqualified.'),
+  ('HBM07','OmniCoder','TESTED_NEGATIVE','R603',None,'A 4 GiB conversion-cache development screen showed no practical latency benefit; this is limited to the measured workload and profile.')]
  byid={e['id']:e for e in experiments if e.get('audit_id')}
  for factor,model,status,primary,followup,reason in rows:
   for ident in (primary,followup):
