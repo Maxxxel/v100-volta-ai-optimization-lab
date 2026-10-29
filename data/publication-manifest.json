@@ -1683,7 +1683,7 @@
   "docs/benchmarks.md": "b1bb7657341f8f0ecb447858a00a5e72bcc835308359308044db61edb8473e13",
   "docs/best-of-v100-2026.md": "581faadef6cac1057c4938ebe2bd732076db3281067acbb93b08b9946abb20ee",
   "docs/broker-admission.md": "de1d97c0a94251cc56dcc59f40dbfec9914f475261c1f22e33ae8a8f1a3341d0",
-  "docs/compatibility.md": "a836ed5e6369d8eb80098f98ef836a6ae198fd3e11645087c301ae6cee372f66",
+  "docs/compatibility.md": "7fda59e93d82fd191ffd3cd34a6b63a6b38a1a3762e531349c1b8a88e133887e",
   "docs/configuration-archive.md": "91b5f123fc9d7fd2f45433a06539fac4560014612d0a8bcc0c50a9007efaf458",
   "docs/configuration-comparison.md": "07b368153b4d6b2b9019c619fabccae4daaa4c818fcffed3b95063a65bdbfbfc",
   "docs/configuration-profiles/cfg-0080a1a880d197af55990d72e2797b05a0b30c39ab343acd26f3a287091dad9b.md": "28338bd458c85b6c695763a0e05cd711d8961460a565eb30a299bc894dc8377f",
@@ -2760,8 +2760,9 @@
   "scripts/harness_prefix.py": "88d7fcb0d6fe1ced3f2b66c7caf3e6776fc3e6f66198c494320e7913242c09a3",
   "scripts/leaderboard.py": "09e9e16bf440017a90f55c6ce383c601bdfdc06ee77f6da834af2804bc2d97d2",
   "scripts/lean_metrics.py": "b56258dd69aa3893b0e1e6564d2ce2531e9f8a9824e34d9ad16192de0841633a",
+  "scripts/model_factor_evidence.py": "faa0a9cf301c4486831ced9013917a7681ae90537e5e26bb798d183d55836ab8",
   "scripts/pipeline.py": "733a213d08319c3feedd87eef40b49a6048ad04d53a68a131ebc329dac34c5c3",
-  "scripts/render.py": "77f4ae344074ba835430dfa466ae0526d3aff073a22b83bc3cd8bff36e338735",
+  "scripts/render.py": "b608b91f92d71180dca2586b96e65d1ba759cff192f50ddd08e1977e54565b47",
   "scripts/reproducibility.py": "756832d8d5a51f658cb13706f5ce9a53b69855cc2aaa55d642d4bf92e91030cc",
   "scripts/screening.py": "68950987dfdb70b7d35ac17bfc2629e04366eba1f481fbc9145b55127c52f68d",
   "scripts/test_caveman_shape_study.py": "df5fb538b62301fe78eafe6606cc2a980518630ba4570fb502e6416b029d41dd",
@@ -2772,6 +2773,7 @@
   "scripts/test_lean_export.py": "ed245cdc0346ac2b57b0d99d3bc6f9c9e4517acdfa1bb23f3aceb3b237993560",
   "scripts/test_master_browser.cjs": "a7b797ceb548c76ec8ee1f02e9c9ced1f97e61062d37d3da6dd9fd0b666e5548",
   "scripts/test_master_table.cjs": "b7b1ff72cd558ba31b5513a19fb6a2ae296ca73051009ae6c16bf59fec6bc644",
+  "scripts/test_model_factor_evidence.py": "ae2d7e548620ed1a50d48ff1d6a680bff00a79a3fcbb2c4a63930f886b60be3d",
   "scripts/test_native_tool_prefix.py": "ce3011877f03ada82cb62dacdd26a585a01ba353ccf65517bba5da63e666e880",
   "scripts/test_native_tools.py": "60d8ee74308f50ace583aafe3bf88644625a2f047a62442e2ad8a55f634cf57d",
   "scripts/test_paired_coding.py": "7d4b18e32ba773c592544014006be09c85c03246f21241c6e488b5946d2a7819",
@@ -2785,5 +2787,5 @@
   "scripts/test_screening.py": "23f493c09450afc3d5c49e31234eab71e1aa5fc3782ce1465f9e58097a202b13",
   "scripts/test_tools_confirmation.py": "97eca269088b9b1b08637c956598a86aeba103fe27eef7b5f912984fa7eb6756",
   "scripts/test_toon_metrics.py": "57ad3dbb3afb93809d10bf534ab1fea167c5bba7c229905b09f8426bf47e00a9",
-  "scripts/validate.py": "a652335fcd564e3d1fa6c3e2fa7af5707321cbe16b0794f417c8d5b9002b137a"
+  "scripts/validate.py": "026629e522c6a0a017ff3ebca962e376c8a50bf538e1202ce54197318be9a934"
 }

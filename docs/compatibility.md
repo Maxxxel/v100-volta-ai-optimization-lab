@@ -1,168 +1,170 @@
-# Optimization compatibility matrix
+# Model × optimization evidence index
 
-The table deliberately distinguishes demonstrated OmniCoder2 scope from conditional transfer. Qwen3.5 and Qwen3.8 stages must be read from the exact model-specific experiments. No cross-model gain is inferred. vLLM/FP8 and dense/MoE applicability differ from GGUF.
+For every one of the 162 factors, the five columns link indexed audits with an explicit matching model label. **PARTIAL / linked evidence is an association only:** a linked audit may describe source inspection, a build, a negative screen or a GPU run; it does not prove applicability, a GPU intervention or qualification. Open each experiment for the actual scope, model artifact and decision. Each cell shows up to three highest-numbered links and the total indexed count; the factor page holds the broader record.
 
-| Factor | OmniCoder2 / llama.cpp GGUF | Qwen3.5 | Qwen3.8 | Other engines/models |
-|---|---|---|---|---|
-| [R01](factors/R01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R02](factors/R02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R03](factors/R03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R04](factors/R04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R05](factors/R05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R06](factors/R06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R07](factors/R07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R08](factors/R08.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R09](factors/R09.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R10](factors/R10.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R11](factors/R11.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R12](factors/R12.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R13](factors/R13.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R14](factors/R14.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R15](factors/R15.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R16](factors/R16.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R17](factors/R17.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R18](factors/R18.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R19](factors/R19.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R20](factors/R20.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R21](factors/R21.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [R22](factors/R22.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K01](factors/K01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K02](factors/K02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K03](factors/K03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K04](factors/K04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K05](factors/K05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K06](factors/K06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [K07](factors/K07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C01](factors/C01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C02](factors/C02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C03](factors/C03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C04](factors/C04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C05](factors/C05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C06](factors/C06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C07](factors/C07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C08](factors/C08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C09](factors/C09.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C10](factors/C10.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C11](factors/C11.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C12](factors/C12.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C13](factors/C13.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C14](factors/C14.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C15](factors/C15.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C16](factors/C16.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C17](factors/C17.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [C18](factors/C18.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H01](factors/H01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H02](factors/H02.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H03](factors/H03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H04](factors/H04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H05](factors/H05.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H06](factors/H06.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H07](factors/H07.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H08](factors/H08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H09](factors/H09.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [H10](factors/H10.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q01](factors/Q01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q02](factors/Q02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q03](factors/Q03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q04](factors/Q04.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q05](factors/Q05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q06](factors/Q06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q07](factors/Q07.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [Q08](factors/Q08.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M01](factors/M01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M02](factors/M02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M03](factors/M03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M04](factors/M04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M05](factors/M05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M06](factors/M06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M07](factors/M07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M08](factors/M08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M09](factors/M09.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M10](factors/M10.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M11](factors/M11.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M12](factors/M12.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [M13](factors/M13.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [S01](factors/S01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [S02](factors/S02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [S03](factors/S03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [S04](factors/S04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E01](factors/E01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E02](factors/E02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E03](factors/E03.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E04](factors/E04.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E05](factors/E05.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E06](factors/E06.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E07](factors/E07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E08](factors/E08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [E09](factors/E09.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A01](factors/A01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A02](factors/A02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A03](factors/A03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A04](factors/A04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A05](factors/A05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A06](factors/A06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A07](factors/A07.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [A08](factors/A08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T01](factors/T01.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T02](factors/T02.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T03](factors/T03.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T04](factors/T04.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T05](factors/T05.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T06](factors/T06.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [T07](factors/T07.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM01](factors/HBM01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM02](factors/HBM02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM03](factors/HBM03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM04](factors/HBM04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM05](factors/HBM05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM06](factors/HBM06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM07](factors/HBM07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM08](factors/HBM08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM09](factors/HBM09.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM10](factors/HBM10.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM11](factors/HBM11.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM12](factors/HBM12.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM13](factors/HBM13.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM14](factors/HBM14.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM15](factors/HBM15.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM16](factors/HBM16.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM17](factors/HBM17.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM18](factors/HBM18.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM19](factors/HBM19.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM20](factors/HBM20.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM21](factors/HBM21.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM22](factors/HBM22.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM23](factors/HBM23.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [HBM24](factors/HBM24.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT01](factors/BMT01.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT02](factors/BMT02.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT03](factors/BMT03.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT04](factors/BMT04.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT05](factors/BMT05.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT06](factors/BMT06.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT07](factors/BMT07.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT08](factors/BMT08.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT09](factors/BMT09.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT10](factors/BMT10.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT11](factors/BMT11.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT12](factors/BMT12.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT13](factors/BMT13.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT14](factors/BMT14.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT15](factors/BMT15.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT16](factors/BMT16.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT17](factors/BMT17.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT18](factors/BMT18.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT19](factors/BMT19.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT20](factors/BMT20.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT21](factors/BMT21.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT22](factors/BMT22.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT23](factors/BMT23.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT24](factors/BMT24.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT25](factors/BMT25.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT26](factors/BMT26.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT27](factors/BMT27.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT28](factors/BMT28.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT29](factors/BMT29.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT30](factors/BMT30.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT31](factors/BMT31.md) | Local evidence in stated scope | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
-| [BMT32](factors/BMT32.md) | Unverified / architecture-specific | Requires model-specific audit | Requires model-specific audit | No automatic transfer |
+**NOT YET VERIFIED IN INDEX** means no explicitly model-labelled audit was found by this index. It is not proof that the technique was never tested or is technically inapplicable. Qwen3.5 weights used by the historical profile are currently unavailable locally. This index is not the requested complete model-specific experimental disposition: unreviewed variants remain open.
+
+| Factor | OmniCoder | Nexus | Gemma 4 | Qwen3.5 | Qwen3.8 |
+|---|---|---|---|---|---|
+| [R01](factors/R01.md) | PARTIAL / linked evidence (1): [R360](experiments/R360.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R02](factors/R02.md) | PARTIAL / linked evidence (1): [R360](experiments/R360.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R03](factors/R03.md) | PARTIAL / linked evidence (1): [R360](experiments/R360.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R04](factors/R04.md) | PARTIAL / linked evidence (6): [R359](experiments/R359.md), [R185](experiments/R185.md), [R184](experiments/R184.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (1): [R612](experiments/R612.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R05](factors/R05.md) | PARTIAL / linked evidence (1): [R364](experiments/R364.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R06](factors/R06.md) | PARTIAL / linked evidence (1): [R361](experiments/R361.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R07](factors/R07.md) | PARTIAL / linked evidence (1): [R361](experiments/R361.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R08](factors/R08.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R09](factors/R09.md) | PARTIAL / linked evidence (3): [R376](experiments/R376.md), [R361](experiments/R361.md), [R341](experiments/R341.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R10](factors/R10.md) | PARTIAL / linked evidence (3): [R382](experiments/R382.md), [R362](experiments/R362.md), [R361](experiments/R361.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R11](factors/R11.md) | PARTIAL / linked evidence (2): [R359](experiments/R359.md), [R229](experiments/R229.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R12](factors/R12.md) | PARTIAL / linked evidence (1): [R361](experiments/R361.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R13](factors/R13.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R14](factors/R14.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R15](factors/R15.md) | PARTIAL / linked evidence (3): [R363](experiments/R363.md), [R169](experiments/R169.md), [R168](experiments/R168.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R16](factors/R16.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R17](factors/R17.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R18](factors/R18.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R19](factors/R19.md) | PARTIAL / linked evidence (7): [R359](experiments/R359.md), [R339](experiments/R339.md), [R338](experiments/R338.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (3): [R431](experiments/R431.md), [R430](experiments/R430.md), [R429](experiments/R429.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (3): [R434](experiments/R434.md), [R433](experiments/R433.md), [R432](experiments/R432.md) |
+| [R20](factors/R20.md) | PARTIAL / linked evidence (1): [R364](experiments/R364.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R21](factors/R21.md) | PARTIAL / linked evidence (1): [R364](experiments/R364.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R22](factors/R22.md) | PARTIAL / linked evidence (5): [R620](experiments/R620.md), [R619](experiments/R619.md), [R616](experiments/R616.md) | PARTIAL / linked evidence (4): [R621](experiments/R621.md), [R615](experiments/R615.md), [R614](experiments/R614.md) | PARTIAL / linked evidence (3): [R624](experiments/R624.md), [R622](experiments/R622.md), [R617](experiments/R617.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (1): [R623](experiments/R623.md) |
+| [K01](factors/K01.md) | PARTIAL / linked evidence (7): [R358](experiments/R358.md), [R270](experiments/R270.md), [R269](experiments/R269.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (3): [R610](experiments/R610.md), [R513](experiments/R513.md), [R512](experiments/R512.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [K02](factors/K02.md) | PARTIAL / linked evidence (3): [R358](experiments/R358.md), [R265](experiments/R265.md), [R234](experiments/R234.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (4): [R608](experiments/R608.md), [R607](experiments/R607.md), [R606](experiments/R606.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [K03](factors/K03.md) | PARTIAL / linked evidence (2): [R380](experiments/R380.md), [R345](experiments/R345.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [K04](factors/K04.md) | PARTIAL / linked evidence (1): [R345](experiments/R345.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [K05](factors/K05.md) | PARTIAL / linked evidence (8): [R407](experiments/R407.md), [R364](experiments/R364.md), [R341](experiments/R341.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [K06](factors/K06.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [K07](factors/K07.md) | PARTIAL / linked evidence (4): [R365](experiments/R365.md), [R163](experiments/R163.md), [R162](experiments/R162.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C01](factors/C01.md) | PARTIAL / linked evidence (1): [R356](experiments/R356.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C02](factors/C02.md) | PARTIAL / linked evidence (1): [R356](experiments/R356.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C03](factors/C03.md) | PARTIAL / linked evidence (2): [R356](experiments/R356.md), [R311](experiments/R311.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C04](factors/C04.md) | PARTIAL / linked evidence (1): [R355](experiments/R355.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C05](factors/C05.md) | PARTIAL / linked evidence (1): [R355](experiments/R355.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C06](factors/C06.md) | PARTIAL / linked evidence (1): [R355](experiments/R355.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C07](factors/C07.md) | PARTIAL / linked evidence (1): [R345](experiments/R345.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C08](factors/C08.md) | PARTIAL / linked evidence (1): [R346](experiments/R346.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C09](factors/C09.md) | PARTIAL / linked evidence (1): [R348](experiments/R348.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C10](factors/C10.md) | PARTIAL / linked evidence (1): [R353](experiments/R353.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C11](factors/C11.md) | PARTIAL / linked evidence (1): [R357](experiments/R357.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C12](factors/C12.md) | PARTIAL / linked evidence (1): [R353](experiments/R353.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C13](factors/C13.md) | PARTIAL / linked evidence (1): [R354](experiments/R354.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C14](factors/C14.md) | PARTIAL / linked evidence (2): [R390](experiments/R390.md), [R346](experiments/R346.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C15](factors/C15.md) | PARTIAL / linked evidence (2): [R388](experiments/R388.md), [R356](experiments/R356.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C16](factors/C16.md) | PARTIAL / linked evidence (2): [R389](experiments/R389.md), [R356](experiments/R356.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C17](factors/C17.md) | PARTIAL / linked evidence (1): [R356](experiments/R356.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [C18](factors/C18.md) | PARTIAL / linked evidence (1): [R357](experiments/R357.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H01](factors/H01.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H02](factors/H02.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H03](factors/H03.md) | PARTIAL / linked evidence (14): [R372](experiments/R372.md), [R252](experiments/R252.md), [R251](experiments/R251.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (3): [R437](experiments/R437.md), [R436](experiments/R436.md), [R435](experiments/R435.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H04](factors/H04.md) | PARTIAL / linked evidence (2): [R372](experiments/R372.md), [R167](experiments/R167.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H05](factors/H05.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H06](factors/H06.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H07](factors/H07.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H08](factors/H08.md) | PARTIAL / linked evidence (1): [R230](experiments/R230.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H09](factors/H09.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [H10](factors/H10.md) | PARTIAL / linked evidence (1): [R373](experiments/R373.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q01](factors/Q01.md) | PARTIAL / linked evidence (12): [R306](experiments/R306.md), [R305](experiments/R305.md), [R304](experiments/R304.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q02](factors/Q02.md) | PARTIAL / linked evidence (5): [R315](experiments/R315.md), [R314](experiments/R314.md), [R147](experiments/R147.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q03](factors/Q03.md) | PARTIAL / linked evidence (10): [R326](experiments/R326.md), [R324](experiments/R324.md), [R323](experiments/R323.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q04](factors/Q04.md) | PARTIAL / linked evidence (2): [R397](experiments/R397.md), [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q05](factors/Q05.md) | PARTIAL / linked evidence (2): [R187](experiments/R187.md), [R164](experiments/R164.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q06](factors/Q06.md) | PARTIAL / linked evidence (5): [R164](experiments/R164.md), [R160](experiments/R160.md), [R158](experiments/R158.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q07](factors/Q07.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [Q08](factors/Q08.md) | PARTIAL / linked evidence (3): [R352](experiments/R352.md), [R351](experiments/R351.md), [R350](experiments/R350.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M01](factors/M01.md) | PARTIAL / linked evidence (3): [R367](experiments/R367.md), [R301](experiments/R301.md), [R257](experiments/R257.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M02](factors/M02.md) | PARTIAL / linked evidence (2): [R366](experiments/R366.md), [R293](experiments/R293.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M03](factors/M03.md) | PARTIAL / linked evidence (1): [R366](experiments/R366.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M04](factors/M04.md) | PARTIAL / linked evidence (1): [R366](experiments/R366.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M05](factors/M05.md) | PARTIAL / linked evidence (1): [R366](experiments/R366.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M06](factors/M06.md) | PARTIAL / linked evidence (2): [R366](experiments/R366.md), [R316](experiments/R316.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M07](factors/M07.md) | PARTIAL / linked evidence (8): [R601](experiments/R601.md), [R517](experiments/R517.md), [R516](experiments/R516.md) | PARTIAL / linked evidence (5): [R489](experiments/R489.md), [R488](experiments/R488.md), [R487](experiments/R487.md) | PARTIAL / linked evidence (6): [R545](experiments/R545.md), [R544](experiments/R544.md), [R472](experiments/R472.md) | PARTIAL / linked evidence (8): [R585](experiments/R585.md), [R584](experiments/R584.md), [R514](experiments/R514.md) | PARTIAL / linked evidence (4): [R538](experiments/R538.md), [R473](experiments/R473.md), [R466](experiments/R466.md) |
+| [M08](factors/M08.md) | PARTIAL / linked evidence (4): [R368](experiments/R368.md), [R322](experiments/R322.md), [R158](experiments/R158.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (2): [R423](experiments/R423.md), [R422](experiments/R422.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M09](factors/M09.md) | PARTIAL / linked evidence (5): [R368](experiments/R368.md), [R333](experiments/R333.md), [R191](experiments/R191.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M10](factors/M10.md) | PARTIAL / linked evidence (1): [R349](experiments/R349.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M11](factors/M11.md) | PARTIAL / linked evidence (2): [R367](experiments/R367.md), [R302](experiments/R302.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M12](factors/M12.md) | PARTIAL / linked evidence (3): [R402](experiments/R402.md), [R393](experiments/R393.md), [R349](experiments/R349.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [M13](factors/M13.md) | PARTIAL / linked evidence (4): [R368](experiments/R368.md), [R317](experiments/R317.md), [R190](experiments/R190.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [S01](factors/S01.md) | PARTIAL / linked evidence (5): [R369](experiments/R369.md), [R246](experiments/R246.md), [R245](experiments/R245.md) | PARTIAL / linked evidence (1): [R604](experiments/R604.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [S02](factors/S02.md) | PARTIAL / linked evidence (6): [R371](experiments/R371.md), [R370](experiments/R370.md), [R369](experiments/R369.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [S03](factors/S03.md) | PARTIAL / linked evidence (27): [R546](experiments/R546.md), [R542](experiments/R542.md), [R541](experiments/R541.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (1): [R602](experiments/R602.md) | PARTIAL / linked evidence (12): [R551](experiments/R551.md), [R549](experiments/R549.md), [R548](experiments/R548.md) |
+| [S04](factors/S04.md) | PARTIAL / linked evidence (2): [R369](experiments/R369.md), [R148](experiments/R148.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E01](factors/E01.md) | PARTIAL / linked evidence (2): [R377](experiments/R377.md), [R278](experiments/R278.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E02](factors/E02.md) | PARTIAL / linked evidence (10): [R377](experiments/R377.md), [R331](experiments/R331.md), [R330](experiments/R330.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E03](factors/E03.md) | PARTIAL / linked evidence (3): [R377](experiments/R377.md), [R343](experiments/R343.md), [R342](experiments/R342.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E04](factors/E04.md) | PARTIAL / linked evidence (1): [R377](experiments/R377.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E05](factors/E05.md) | PARTIAL / linked evidence (1): [R377](experiments/R377.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E06](factors/E06.md) | PARTIAL / linked evidence (2): [R386](experiments/R386.md), [R347](experiments/R347.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E07](factors/E07.md) | PARTIAL / linked evidence (3): [R383](experiments/R383.md), [R382](experiments/R382.md), [R377](experiments/R377.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E08](factors/E08.md) | PARTIAL / linked evidence (3): [R394](experiments/R394.md), [R377](experiments/R377.md), [R193](experiments/R193.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [E09](factors/E09.md) | PARTIAL / linked evidence (9): [R377](experiments/R377.md), [R376](experiments/R376.md), [R313](experiments/R313.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A01](factors/A01.md) | PARTIAL / linked evidence (12): [R365](experiments/R365.md), [R344](experiments/R344.md), [R153](experiments/R153.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A02](factors/A02.md) | PARTIAL / linked evidence (6): [R405](experiments/R405.md), [R404](experiments/R404.md), [R365](experiments/R365.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A03](factors/A03.md) | PARTIAL / linked evidence (5): [R600](experiments/R600.md), [R599](experiments/R599.md), [R365](experiments/R365.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A04](factors/A04.md) | PARTIAL / linked evidence (4): [R368](experiments/R368.md), [R241](experiments/R241.md), [R192](experiments/R192.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (1): [R121](experiments/R121.md) |
+| [A05](factors/A05.md) | PARTIAL / linked evidence (13): [R336](experiments/R336.md), [R335](experiments/R335.md), [R300](experiments/R300.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A06](factors/A06.md) | PARTIAL / linked evidence (11): [R368](experiments/R368.md), [R327](experiments/R327.md), [R153](experiments/R153.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A07](factors/A07.md) | PARTIAL / linked evidence (12): [R387](experiments/R387.md), [R368](experiments/R368.md), [R240](experiments/R240.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [A08](factors/A08.md) | PARTIAL / linked evidence (4): [R365](experiments/R365.md), [R163](experiments/R163.md), [R162](experiments/R162.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T01](factors/T01.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T02](factors/T02.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T03](factors/T03.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T04](factors/T04.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T05](factors/T05.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T06](factors/T06.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [T07](factors/T07.md) | PARTIAL / linked evidence (1): [R378](experiments/R378.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM01](factors/HBM01.md) | PARTIAL / linked evidence (1): [R374](experiments/R374.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM02](factors/HBM02.md) | PARTIAL / linked evidence (1): [R355](experiments/R355.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM03](factors/HBM03.md) | PARTIAL / linked evidence (1): [R348](experiments/R348.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM04](factors/HBM04.md) | PARTIAL / linked evidence (1): [R355](experiments/R355.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM05](factors/HBM05.md) | PARTIAL / linked evidence (1): [R357](experiments/R357.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM06](factors/HBM06.md) | PARTIAL / linked evidence (1): [R357](experiments/R357.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM07](factors/HBM07.md) | PARTIAL / linked evidence (15): [R611](experiments/R611.md), [R603](experiments/R603.md), [R372](experiments/R372.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (6): [R127](experiments/R127.md), [R126](experiments/R126.md), [R125](experiments/R125.md) | NOT YET VERIFIED IN INDEX |
+| [HBM08](factors/HBM08.md) | PARTIAL / linked evidence (2): [R380](experiments/R380.md), [R358](experiments/R358.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM09](factors/HBM09.md) | PARTIAL / linked evidence (2): [R395](experiments/R395.md), [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM10](factors/HBM10.md) | PARTIAL / linked evidence (2): [R396](experiments/R396.md), [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM11](factors/HBM11.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM12](factors/HBM12.md) | PARTIAL / linked evidence (4): [R385](experiments/R385.md), [R384](experiments/R384.md), [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM13](factors/HBM13.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM14](factors/HBM14.md) | PARTIAL / linked evidence (1): [R374](experiments/R374.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM15](factors/HBM15.md) | PARTIAL / linked evidence (1): [R374](experiments/R374.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM16](factors/HBM16.md) | PARTIAL / linked evidence (1): [R374](experiments/R374.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM17](factors/HBM17.md) | PARTIAL / linked evidence (3): [R369](experiments/R369.md), [R236](experiments/R236.md), [R235](experiments/R235.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM18](factors/HBM18.md) | PARTIAL / linked evidence (4): [R381](experiments/R381.md), [R379](experiments/R379.md), [R376](experiments/R376.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM19](factors/HBM19.md) | PARTIAL / linked evidence (6): [R372](experiments/R372.md), [R153](experiments/R153.md), [R152](experiments/R152.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM20](factors/HBM20.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM21](factors/HBM21.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM22](factors/HBM22.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM23](factors/HBM23.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM24](factors/HBM24.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT01](factors/BMT01.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT02](factors/BMT02.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT03](factors/BMT03.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT04](factors/BMT04.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT05](factors/BMT05.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT06](factors/BMT06.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT07](factors/BMT07.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT08](factors/BMT08.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT09](factors/BMT09.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT10](factors/BMT10.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT11](factors/BMT11.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT12](factors/BMT12.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT13](factors/BMT13.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT14](factors/BMT14.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT15](factors/BMT15.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT16](factors/BMT16.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT17](factors/BMT17.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT18](factors/BMT18.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT19](factors/BMT19.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT20](factors/BMT20.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT21](factors/BMT21.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT22](factors/BMT22.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT23](factors/BMT23.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT24](factors/BMT24.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT25](factors/BMT25.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT26](factors/BMT26.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT27](factors/BMT27.md) | PARTIAL / linked evidence (2): [R392](experiments/R392.md), [R391](experiments/R391.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT28](factors/BMT28.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT29](factors/BMT29.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT30](factors/BMT30.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT31](factors/BMT31.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT32](factors/BMT32.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
