@@ -28519,6 +28519,22 @@
   },
   {
     "aggregate_metrics": {
+      "earliest_token_divergence": {
+        "cases": [
+          {
+            "common_recorded_turns": 8,
+            "first_divergence": {
+              "turn": 4
+            }
+          },
+          {
+            "common_recorded_turns": 4,
+            "first_divergence": {
+              "turn": 3
+            }
+          }
+        ]
+      },
       "native_validation33": {
         "GPU_counter": {
           "complete_request_s": 493.49064702,
@@ -28658,11 +28674,13 @@
       "audit-c0604aa598e7e6d04b40",
       "audit-64b3d7585d0fc016342f",
       "audit-b62a920f4750b827e60b",
+      "audit-4aef9594906c647940b3",
       "audit-1c5712c82e726c852a42",
       "audit-23838b29aa5b17c15544"
     ],
     "statements": {
       "decision": "NOT_QUALIFIED_NEW_POLICY_FAILURES",
+      "earliest_token_scope": "Two previously exposed newly policy-failing cases; temperature differs, historical sessions. Input and output token identities are actual captures. Earliest divergence describes observations only and does not establish cause, independence or safety equivalence. No new model generation.",
       "policy_diagnosis": "Two previously exposed tasks; simulator enforcement rejected requested actions, production tools disconnected. Independent CPU replay verifies recorded scoring, not a new generation. Baseline A/A matched, but no causal or population inference from one T0 run.",
       "scope": "Gemma temperature 0 versus historical temperature 1; two newly failing policy cases, no quality/safety or causal equivalence claim.",
       "single_factor_decision": "Report observed paired outcomes; no automatic promotion or safety equivalence. A new policy-failure case blocks promotion; further confirmation is needed.",

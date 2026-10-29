@@ -1773,6 +1773,28 @@ def main():
                 experiments[ident]['related_audit_ids'].append(rid)
                 experiments[ident]['statements']['policy_diagnosis']=text(policy['scope'])
                 experiments[ident]['aggregate_metrics']['policy_diagnosis']=projection({'new_failure_cases':len(lost),'baseline_repeat_policy_matches':policy['baseline_repeat_policy_matches'],'details':details})
+                if v.get('earliest_turn_review'):
+                    item=v['earliest_turn_review'];tid=receipt(item['path'],item['sha256']);diagnosis=load(locations[tid]) if tid else {}
+                    if diagnosis.get('baseline_audit_sha256')!=digest(locations[reference_id]) or diagnosis.get('candidate_audit_sha256')!=digest(locations[audit]):raise ValueError('R638 token review provenance differs')
+                    indexes=[]
+                    for record in (ref,candidate):
+                        raw=pathlib.Path(record['raw_root'])/'HTTP_RESULTS.jsonl'
+                        indexes.append({(r['kind'],r['id']):r for r in (json.loads(line) for line in raw.read_text().splitlines() if line) if r.get('kind') in ('agent_turn','input_identity')})
+                    observed=[]
+                    for old,new in zip(a,b):
+                        if not (old['reported_result']['policy_gate_pass'] and not new['reported_result']['policy_gate_pass']):continue
+                        records=[]
+                        for n in range(24):
+                            key=old['id']+'--turn'+str(n);ai=indexes[0].get(('input_identity',key));bi=indexes[1].get(('input_identity',key));aa=indexes[0].get(('agent_turn',key));bb=indexes[1].get(('agent_turn',key))
+                            if not all((ai,bi,aa,bb)):break
+                            left=aa['reply']['__verbose']['tokens'];right=bb['reply']['__verbose']['tokens'];first=next((j for j,(x,y) in enumerate(zip(left,right)) if x!=y),None)
+                            records.append({'turn':n,'same_input_tokens':ai['prompt_token_ids']==bi['prompt_token_ids'],'same_output_tokens':left==right,'first_output_difference_index':first})
+                        if not records:raise ValueError('R638 missing initial turn')
+                        observed.append({'initial_input_tokens_equal':records[0]['same_input_tokens'],'initial_output_tokens_equal':records[0]['same_output_tokens'],'common_recorded_turns':len(records),'first_divergence':next((r for r in records if not r['same_input_tokens'] or not r['same_output_tokens']),None)})
+                    if observed!=diagnosis.get('cases'):raise ValueError('R638 first divergence differs from captured tokens')
+                    experiments[ident]['related_audit_ids'].append(tid)
+                    experiments[ident]['aggregate_metrics']['earliest_token_divergence']=projection({'cases':observed})
+                    experiments[ident]['statements']['earliest_token_scope']=text(diagnosis['scope'])
             experiments[ident]['statements']['single_factor_decision']=text(review.get('decision',review['status']))
             experiments[ident]['statements']['single_factor_limits']=text(review['limits'])
             experiments[ident]['aggregate_metrics']['single_factor_comparison']=projection(review['comparison'])
