@@ -2556,6 +2556,42 @@
       ],
       "winner_qualified": false
     },
+    "r639_policy_replay": {
+      "audit_sha256": "356571dee4bc5d7e453a1bab06ab4708dbdd8d7588b17b9b809eb9fd3038f1a5",
+      "broker_audit_sha256": "ed5251c7dc8a0d389d872643545ad0974b80cfcdc28bbc0043f99b8e2723ae69",
+      "cases": [
+        {
+          "all_four_equal": true,
+          "identical_to_r638": 4,
+          "output_tokens": 89,
+          "repetitions": 4
+        },
+        {
+          "all_four_equal": true,
+          "identical_to_r638": 4,
+          "output_tokens": 46,
+          "repetitions": 4
+        }
+      ],
+      "energy_counter": {
+        "complete_request_s": 18.015266357,
+        "group_window_s": 23.306997449,
+        "groups": 1,
+        "included_between_request_setup_s": 5.291731092,
+        "lower_j": 4810.69,
+        "max_query_duration_s": 0.029328583,
+        "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+        "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+        "tasks": 8,
+        "upper_j": 4898.856
+      },
+      "peak_vram_mib": 8254.5,
+      "review_sha256": "50d4719c78259d1b7ab70ec672b88e6e6f1e2a8a85b200d8822a9d37067da437",
+      "scope": "Two exposed divergent requests; fixed temperature and seed, two repeats per fresh session. Identical prompt IDs verified. Single-turn replay is not independent task-level policy or quality qualification; logits and energy per successful task are NOT MEASURED.",
+      "status": "TWO_SESSION_REQUEST_DIAGNOSTIC_COMPLETE",
+      "task_phase_s": 29.607445245,
+      "winner_qualified": false
+    },
     "scope": "Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.",
     "seed_execution_path": {
       "engine_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267",

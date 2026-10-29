@@ -953,6 +953,13 @@ def main():
     on,off=cross['summed_request_wall_s_mtp_on_off'];t_on,t_off=cross['generated_tokens_mtp_on_off'];positions=cross['first_divergence_indices_sorted']
     page+=f"\nThe four-capture review matched {cross['matching_request_and_input_tokens']} request bodies and input-token sequences. {cross['different_output_turns']} responses differed across {cross['affected_cases']} cases, beginning at zero-based tokens {positions[0]}–{positions[-1]}; both task and policy outcomes matched in all 33 cases. In the two repeat sessions, summed response time was {on:.3f} s MTP ON and {off:.3f} s OFF, with {t_on:,} and {t_off:,} generated tokens respectively. Separate, unbalanced sessions and differing outputs prevent a causal speed or quality-equivalence claim. [Four-capture aggregates](assets/qwen-mtp-cross.json).\n"
     put('assets/qwen-mtp-cross.json',json.dumps(cross,ensure_ascii=False,indent=2))
+  r639=repro.get('r639_policy_replay')
+  if r639:
+   page+='\n## Gemma policy-case request replay · R639\n\n'
+   page+='Two previously exposed requests were repeated twice in each of two fresh sessions with temperature 0 and seed 1001. Exact prompt token IDs were checked.\n\n'
+   page+='| Request | Repetitions matching R638 | Four outputs identical | Output tokens |\n|---|---:|---|---:|\n'
+   for i,x in enumerate(r639['cases'],1):page+=f"| {i} | {x['identical_to_r638']}/{x['repetitions']} | {'Yes' if x['all_four_equal'] else 'No'} | {x['output_tokens']} |\n"
+   e=r639['energy_counter'];page+=f"\nTASK phase: {r639['task_phase_s']:.3f} s; peak VRAM: {r639['peak_vram_mib']:,.1f} MiB; GPU request-window energy: {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J. No tools were executed. This is not a complete task replay, safety equivalence, causal proof or Champion qualification. Audit SHA-256: `{r639['audit_sha256']}`; independent review SHA-256: `{r639['review_sha256']}`.\n"
   r637=repro.get('r637_balanced_mtp')
   if r637:
    rows=[]

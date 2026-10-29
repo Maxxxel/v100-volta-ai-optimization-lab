@@ -318,6 +318,17 @@ Audit SHA-256: R625 `404e2b9c072974e7ea26d580f0bbe0fac8d1d0d8ebb06178426edbdeb85
 
 The four-capture review matched 150 request bodies and input-token sequences. 8 responses differed across 8 cases, beginning at zero-based tokens 16–245; both task and policy outcomes matched in all 33 cases. In the two repeat sessions, summed response time was 621.191 s MTP ON and 758.773 s OFF, with 12,110 and 12,069 generated tokens respectively. Separate, unbalanced sessions and differing outputs prevent a causal speed or quality-equivalence claim. [Four-capture aggregates](assets/qwen-mtp-cross.json).
 
+## Gemma policy-case request replay · R639
+
+Two previously exposed requests were repeated twice in each of two fresh sessions with temperature 0 and seed 1001. Exact prompt token IDs were checked.
+
+| Request | Repetitions matching R638 | Four outputs identical | Output tokens |
+|---|---:|---|---:|
+| 1 | 4/4 | Yes | 89 |
+| 2 | 4/4 | Yes | 46 |
+
+TASK phase: 29.607 s; peak VRAM: 8,254.5 MiB; GPU request-window energy: 4,810.7–4,898.9 J. No tools were executed. This is not a complete task replay, safety equivalence, causal proof or Champion qualification. Audit SHA-256: `356571dee4bc5d7e453a1bab06ab4708dbdd8d7588b17b9b809eb9fd3038f1a5`; independent review SHA-256: `50d4719c78259d1b7ab70ec672b88e6e6f1e2a8a85b200d8822a9d37067da437`.
+
 ## Balanced MTP token diagnostic · R637
 
 Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.
