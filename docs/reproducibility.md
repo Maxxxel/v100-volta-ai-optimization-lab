@@ -35,6 +35,16 @@ Source review SHA-256: `319375870744b2c6a3d35ab109e8ad3ba2e81b1af0b60ca444a665c7
 
 Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.
 
+## Qwen3.8 integrated MTP A/A pilot
+
+| Fixed request | Within-session repeats equal | Across-session equal |
+|---|---|---|
+| 1 | YES | YES |
+| 2 | YES | YES |
+| 3 | YES | YES |
+
+[R623](experiments/R623.md) used three short, previously exposed tool requests with seed 1001 and integrated MTP in two sessions. This restricted A/A observation does not prove general determinism, task quality, safety or a causal MTP improvement.
+
 ## Gemma fixed and distinct seed pilot
 
 | Fixed request | Seed | Within-session repeat equal | Across-session equal | Distinct outputs across seeds |

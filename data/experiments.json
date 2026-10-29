@@ -27461,5 +27461,120 @@
       "repeatability_limits": "Three exposed fixed requests, no tool execution, same runtime and two adjacent sessions. Repeats are correlated; no population-quality or safety equivalence claim. Logits and numerical margins NOT MEASURED."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "mtp_repeatability_pilot": {
+        "energy_counter": {
+          "complete_request_s": 72.211851175,
+          "group_window_s": 107.382462323,
+          "groups": 1,
+          "included_between_request_setup_s": 35.170611148,
+          "lower_j": 22288.584,
+          "max_query_duration_s": 0.113050692,
+          "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+          "tasks": 24,
+          "upper_j": 22367.779
+        },
+        "peak_device_vram_mib": 13600.5,
+        "task_phase_s": 143.021451689,
+        "turns": [
+          {
+            "across_session_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_lengths": [
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33
+            ],
+            "turn": 1,
+            "within_session_1_equal": true,
+            "within_session_2_equal": true
+          },
+          {
+            "across_session_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_lengths": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34
+            ],
+            "turn": 2,
+            "within_session_1_equal": true,
+            "within_session_2_equal": true
+          },
+          {
+            "across_session_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_lengths": [
+              38,
+              38,
+              38,
+              38,
+              38,
+              38,
+              38,
+              38
+            ],
+            "turn": 3,
+            "within_session_1_equal": true,
+            "within_session_2_equal": true
+          }
+        ]
+      }
+    },
+    "audit_id": "audit-b6ef9ef0223638b5ee1a",
+    "date": "2026-10-29T08:28:40.819866+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R623",
+    "model": "Qwen3.8 27B IQ3_S integrated MTP3",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d2696a84af5856757df7",
+      "audit-0f489117c2432c6b2838"
+    ],
+    "statements": {
+      "decision": "All repeats of three exposed tool requests matched in two adjacent sessions with MTP enabled, seed 1001 and identical input IDs. This is a scoped A/A observation, not task quality, broad determinism or a causal MTP comparison.",
+      "repeatability_decision": "All repeats of three exposed tool requests matched in two adjacent sessions with MTP enabled, seed 1001 and identical input IDs. This is a scoped A/A observation, not task quality, broad determinism or a causal MTP comparison.",
+      "repeatability_limits": "Three exposed fixed requests, integrated MTP enabled, same runtime and two adjacent sessions. Repeats are correlated; no population-quality, causal MTP or safety equivalence claim. Logits and numerical margins NOT MEASURED."
+    },
+    "winner_qualified": false
   }
 ]

@@ -615,6 +615,11 @@ def main():
    for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
     v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
    page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  qwen_pilot=next((e for e in es if e['id']=='R623'),None)
+  if qwen_pilot and qwen_pilot.get('aggregate_metrics',{}).get('mtp_repeatability_pilot'):
+   p=qwen_pilot['aggregate_metrics']['mtp_repeatability_pilot'];rows=p['turns']
+   page+='\n## Qwen3.8 integrated MTP A/A pilot\n\n'+table(['Fixed request','Within-session repeats equal','Across-session equal'],[[x['turn'],'YES' if x['within_session_1_equal'] and x['within_session_2_equal'] else 'NO','YES' if x['across_session_equal'] else 'NO'] for x in rows])
+   page+='[R623](experiments/R623.md) used three short, previously exposed tool requests with seed 1001 and integrated MTP in two sessions. This restricted A/A observation does not prove general determinism, task quality, safety or a causal MTP improvement.\n'
   gemma_pilot=next((e for e in es if e['id']=='R622'),None)
   if gemma_pilot and gemma_pilot.get('aggregate_metrics',{}).get('seed_repeatability_pilot'):
    p=gemma_pilot['aggregate_metrics']['seed_repeatability_pilot'];rows=[]

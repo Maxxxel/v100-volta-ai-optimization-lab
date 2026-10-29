@@ -182960,6 +182960,34 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 13600.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-b6ef9ef0223638b5ee1a",
+    "original_bytes": 3505,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "b6ef9ef0223638b5ee1a42bb19c6f50d8ce7d895c52acc0dd8ce40db6714053c",
+    "statements": {
+      "scope": "Three exposed fixed requests, four repeats in each of two sessions, integrated MTP enabled, seed 1001, temperature zero, exact input token IDs; no tool actions. Shared TASK time includes both startups and warmups. Not a task-quality, safety or causal MTP qualification; logits NOT MEASURED."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d2696a84af5856757df7",
+    "original_bytes": 2206,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d2696a84af5856757df7bbc639c434f0b0e2518020e2fa7c69ca31ed13c3243f",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
