@@ -254,6 +254,12 @@ def cache_state_source_path(root):
  commit='097cf33d9499b1eade67d51e16d7c75427e7b267';source_sha256_expected='6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7'
  assert digest(src)==source_sha256_expected
  lines=src.read_text(errors='replace').splitlines()
+ common=root/'staging/r31/extra/source/common/common.h'
+ common_sha256_expected='2a2d084f28932b04ca0a26687bd4c4744bd68e504956d50f8f5719cbbecca4cd'
+ assert digest(common)==common_sha256_expected
+ common_lines=common.read_text(errors='replace').splitlines()
+ cache_reuse_default=next((i for i,line in enumerate(common_lines,1) if 'int32_t n_cache_reuse       = 0;' in line),None)
+ assert cache_reuse_default==634
  needles={
   'common_prefix':'n_past = slot.prompt.tokens.get_common_prefix(input_tokens);',
   'prefix_chunk_reuse':'reusing chunk with size',
@@ -272,12 +278,17 @@ def cache_state_source_path(root):
  runs={}
  for rid in ('r614','r616'):
   audit_path=root/'staging'/rid/'AUDIT.json';audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text());log=raw/'server.log';rows=[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x];turns=[x for x in rows if x.get('kind')=='agent_turn']
-  assert digest(log)==pins['server.log'] and digest(raw/'HTTP_RESULTS.jsonl')==pins['HTTP_RESULTS.jsonl'] and digest(raw/'profile.json')==pins['profile.json']
+  assert digest(log)==pins['server.log'] and digest(raw/'HTTP_RESULTS.jsonl')==pins['HTTP_RESULTS.jsonl'] and digest(raw/'profile.json')==pins['profile.json'] and digest(raw/'LAUNCH.json')==pins['LAUNCH.json']
   cache_flags=collections.Counter(str(x.get('request',{}).get('cache_prompt','MISSING')) for x in turns)
   assert cache_flags=={'True':len(turns)}
+  launch=json.loads((raw/'LAUNCH.json').read_text())
+  argv=launch.get('argv',[])
+  cache_reuse_option_present=any(str(arg)=='--cache-reuse' for arg in argv)
+  if rid=='r616':assert not cache_reuse_option_present and launch.get('native_request_options',{}).get('cache_prompt') is True
   text=log.read_text(errors='replace')
   runs[rid.upper()]={
    'audit_sha256':digest(audit_path),'server_log_sha256':pins['server.log'],'profile_sha256':pins['profile.json'],'requests_with_cache_prompt_true':len(turns),
+   'cache_reuse_option_present':cache_reuse_option_present,
    'log_counts':{
     'restored_context_checkpoint':text.count('restored context checkpoint'),
     'forced_full_prompt_reprocessing':text.count('forcing full prompt re-processing due to lack of cache data'),
@@ -421,8 +432,11 @@ def cache_state_source_path(root):
                               'candidate_audit_sha256':digest(root/'staging/r614/AUDIT.json'),
                               'repeatability_audit_sha256':digest(r621_stage/'AUDIT.json'),
                               'repeatability_capture_sha256':digest(r621_http)})
+ source_lines['cache_reuse_default']=cache_reuse_default
  return {
   'kind':'PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION','source_commit':commit,'source_file_sha256':source_sha256_expected,'source_lines':source_lines,'runs':runs,
+  'common_header_sha256':common_sha256_expected,
+  'R616_prefix_execution':{'cache_prompt':True,'cache_reuse_option_present':runs['R616']['cache_reuse_option_present'],'effective_n_cache_reuse':0,'basis':'Pinned common.h default; R616 launch does not pass --cache-reuse.'},
   'external_issue':{
    'url':'https://github.com/ggml-org/llama.cpp/issues/22940',
    'status':'CLOSED_NOT_PLANNED',

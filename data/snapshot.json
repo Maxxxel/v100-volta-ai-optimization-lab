@@ -1501,6 +1501,12 @@
     },
     "cache_state_source_path": {
       "GPU_runs": 0,
+      "R616_prefix_execution": {
+        "basis": "Pinned common.h default; R616 launch does not pass --cache-reuse.",
+        "cache_prompt": true,
+        "cache_reuse_option_present": false,
+        "effective_n_cache_reuse": 0
+      },
       "case_level_divergence": {
         "agent_trajectory": {
           "baseline_generated_tokens": 636,
@@ -1611,6 +1617,7 @@
         ]
       },
       "causal_disposition": "OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED",
+      "common_header_sha256": "2a2d084f28932b04ca0a26687bd4c4744bd68e504956d50f8f5719cbbecca4cd",
       "external_issue": {
         "claim": "FULL-only memory backends always fall back because the checkpoint restore path is not consulted when pos_min == -1.",
         "local_applicability": "NOT_ESTABLISHED; pinned source explicitly selects checkpoint state for FULL-only rollback and contains an explicit pos_min == -1 abort guard. R614/R616 logs contain checkpoint-restore events, so the issue’s blanket permanent-disablement claim does not describe every request in these runs.",
@@ -1693,6 +1700,7 @@
       "runs": {
         "R614": {
           "audit_sha256": "e76c97be395f0fdb6db48dfda46c31ab68d8f4768c615de51c022602f7799ff7",
+          "cache_reuse_option_present": false,
           "log_counts": {
             "forced_full_prompt_reprocessing": 32,
             "host_ram_prompt_cache_disabled": 1,
@@ -1705,6 +1713,7 @@
         },
         "R616": {
           "audit_sha256": "9ba34885e6fdc79441346c60285a8e07f195e1303520b3d15929e75dafc8e43b",
+          "cache_reuse_option_present": false,
           "log_counts": {
             "forced_full_prompt_reprocessing": 33,
             "host_ram_prompt_cache_disabled": 1,
@@ -1725,6 +1734,7 @@
         "The log message that the host RAM prompt cache is disabled is a separate cache layer; it does not mean the per-request cache_prompt flag was off."
       ],
       "source_lines": {
+        "cache_reuse_default": 634,
         "checkpoint_draft_state": 2585,
         "checkpoint_restore": 3760,
         "checkpoint_restore_draft": 3761,
