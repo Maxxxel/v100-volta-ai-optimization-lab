@@ -1516,7 +1516,8 @@
         "R612",
         "R614",
         "R616",
-        "R617"
+        "R617",
+        "R638"
       ],
       "profiles": [
         {
@@ -2826,6 +2827,77 @@
           "winner_qualified": false
         },
         "model": "Gemma4-12B QAT Q4 · prompt cache enabled"
+      },
+      {
+        "audit_sha256": "cea51dad64c7bfb2724663cba3e5c68cadbfbe9d64c8afc4c44f9934f5e7a4b5",
+        "experiment_id": "R638",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 493.49064702,
+            "group_window_s": 493.497477537,
+            "lower_j": 119123.749,
+            "upper_j": 119227.866
+          },
+          "actual_generation_requests": 202,
+          "bridge_source_sha256": "d34f9413b375a9f7a2ad2f7b026308c45b95451061ce4cb3f10d997a6bfc81af",
+          "case_wall_s": 493.49064702,
+          "completed_request_wall_s": 485.675385306,
+          "completion_tokens": 13432,
+          "context_tokens": 16384,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 5956.187449999999,
+          "gpu_j_per_success_upper": 5961.3933,
+          "independent_review_audit_id": "audit-c5bc40259f6fb5a0ec36",
+          "independent_review_sha256": "c5bc40259f6fb5a0ec3654ee74694f1c02d61d84045c40f0a7a2a501a8474277",
+          "max_output_tokens": 4096,
+          "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 4,
+            "case_lost": 1,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 0.5,
+            "net_success_change": 3,
+            "nonzero_groups": 4,
+            "reference_experiment_id": "R534",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 8254.5,
+          "planned_tasks": 33,
+          "policy_gate_passes": 28,
+          "profile_sha256": "db2110efd5646c6bc0a1a84ba058dcc1386fa271afa5d3d92e59e308e64abcb7",
+          "quality_diagnostics": {
+            "evidence_or_postcondition_failure_cases": 3,
+            "final_contract_failure_cases": 3,
+            "incorrect_facts_cases": 9,
+            "invalid_action_cases": 0,
+            "invalid_action_events": 0,
+            "invalid_final_contract_cases": 3,
+            "missing_valid_final_cases": 3,
+            "parse_failed_cases": 0,
+            "parse_failed_rounds": 0,
+            "policy_violation_cases": 5,
+            "policy_violation_events": 62,
+            "rejected_tool_call_cases": 5,
+            "rejected_tool_call_events": 62,
+            "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+            "wrong_final_status_cases": 0,
+            "wrong_reason_code_cases": 0
+          },
+          "solved": 20,
+          "successful_tasks_per_s": 0.04052700704978311,
+          "task_limit_s": 1200,
+          "task_phase_s": 493.498075874,
+          "task_scope_passes": 33,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 27.65633261718043,
+          "winner_qualified": false
+        },
+        "model": "Gemma4-12B QAT Q4_0 · temperature 0.0"
       }
     ],
     "multi_agent_plan": {

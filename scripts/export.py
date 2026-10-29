@@ -1706,8 +1706,8 @@ def main():
             experiments[ident]['related_audit_ids']=related
             experiments[ident]['aggregate_metrics']['cross_model_comparison']=projection(review['comparisons'])
             experiments[ident]['statements']['comparison_scope']=text(review['scope'])
-        if ident in ('R612','R614','R616','R617') and v.get('single_factor_review'):
-            item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/({'R612':'staging/r534/AUDIT.json','R614':'staging/r531/AUDIT.json','R616':'staging/r536/AUDIT.json','R617':'staging/r534/AUDIT.json'}[ident]))
+        if ident in ('R612','R614','R616','R617','R638') and v.get('single_factor_review'):
+            item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/({'R612':'staging/r534/AUDIT.json','R614':'staging/r531/AUDIT.json','R616':'staging/r536/AUDIT.json','R617':'staging/r534/AUDIT.json','R638':'staging/r534/AUDIT.json'}[ident]))
             if not audit or not review_id or not reference_id:raise ValueError('R612 paired source missing')
             review=load(locations[review_id]);ref=load(locations[reference_id]);candidate=load(locations[audit])
             if review.get('reference_audit_sha256')!=digest(locations[reference_id]) or review.get('candidate_audit_sha256')!=digest(locations[audit]) or review.get('winner_qualified') is not False:raise ValueError('R612 source audit mismatch')
@@ -1764,6 +1764,15 @@ def main():
                 experiments[ident]['related_audit_ids'].append(state_id)
                 experiments[ident]['statements']['state_path_scope']=text(state['scope'])
                 experiments[ident]['aggregate_metrics']['state_path_counts']=projection(expected)
+            if ident=='R638' and v.get('policy_regression_review'):
+                item=v['policy_regression_review'];rid=receipt(item['path'],item['sha256']);policy=load(locations[rid]) if rid else {}
+                if policy.get('reference_audit_sha256')!=digest(locations[reference_id]) or policy.get('candidate_audit_sha256')!=digest(locations[audit]):raise ValueError('R638 policy audit mismatch')
+                lost=[(x['reported_result'],y['reported_result']) for x,y in zip(a,b) if x['reported_result']['policy_gate_pass'] and not y['reported_result']['policy_gate_pass']]
+                details=[{'reference_task_success':x['task_success'],'candidate_task_success':y['task_success'],'candidate_rejected_calls':y['rejected_calls'],'candidate_policy_violations':y['policy_violations'],'candidate_model_rounds':y['total_model_rounds']} for x,y in lost]
+                if policy.get('new_failure_cases')!=len(lost) or policy.get('details')!=details or policy.get('decision')!='NOT_QUALIFIED: two newly failing policy cases; preserve baseline and require separate investigation/confirmation.':raise ValueError('R638 policy findings mismatch')
+                experiments[ident]['related_audit_ids'].append(rid)
+                experiments[ident]['statements']['policy_diagnosis']=text(policy['scope'])
+                experiments[ident]['aggregate_metrics']['policy_diagnosis']=projection({'new_failure_cases':len(lost),'baseline_repeat_policy_matches':policy['baseline_repeat_policy_matches'],'details':details})
             experiments[ident]['statements']['single_factor_decision']=text(review.get('decision',review['status']))
             experiments[ident]['statements']['single_factor_limits']=text(review['limits'])
             experiments[ident]['aggregate_metrics']['single_factor_comparison']=projection(review['comparison'])
