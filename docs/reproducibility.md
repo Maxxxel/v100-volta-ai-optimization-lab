@@ -4,16 +4,19 @@ These are archived, hash-verified observations; no new GPU execution. Fixed seed
 
 ## Seed propagation and sampler behavior
 
-| Profile | Audit | Configured seed | Request → server seed match | Temperature | Requests | Greedy-path condition |
-|---|---|---|---|---|---|---|
-| Nexus | [R531](experiments/R531.md) | 1001 | 153/153 request → server | 0.0 | 153 | 153 |
-| OmniCoder | [R536](experiments/R536.md) | 1001 | 154/154 request → server | 0 | 154 | 154 |
-| Gemma 4 | [R534](experiments/R534.md) | 1001 | 177/177 request → server | 1.0 | 177 | 0 |
-| Qwen3.8 MTP | [R550](experiments/R550.md) | 1001 | 150/150 request → server | 0 | 150 | 150 |
+| Profile | Audit | Configured seed | Request → server seed match | Temperature | Requests | Greedy-path condition | Same-prompt A/A evidence |
+|---|---|---|---|---|---|---|---|
+| Nexus | [R531](experiments/R531.md) | 1001 | 153/153 request → server | 0.0 | 153 | 153 | R621 · 4 exposed requests |
+| OmniCoder | [R536](experiments/R536.md) | 1001 | 154/154 request → server | 0 | 154 | 154 | R620 · 1 exposed request |
+| Gemma 4 | [R534](experiments/R534.md) | 1001 | 177/177 request → server | 1.0 | 177 | 0 | R622/R627 · 3 exposed requests each |
+| Qwen3.8 MTP | [R550](experiments/R550.md) | 1001 | 150/150 request → server | 0 | 150 | 150 | R623/R626 · 3 exposed requests each |
+| Qwen3.5-9B | [R535](experiments/R535.md) | 1001 | 162/162 request → server | 0.0 | 162 | 162 | NOT MEASURED · 162 unique prompts |
 
 For every listed profile, each archived request seed matches the server-reported generation setting; request count and seed histogram are checked against raw captures. The pinned schema starts from server defaults and applies request fields, then the server initializes a sampler for each task. A `n > 1` request creates child tasks with offset seeds. This verifies configured-seed propagation and source-level reset behavior, not hidden RNG state.
 
 R614/R616 each meet the pinned greedy-selection condition on all requests: temperature 0, `n_probs=0`, backend sampling off, temperature as the final sampler, and zero dynamic-temperature range. Their observed token divergence is therefore not explained by the sampler RNG seed alone; differing logits or another runtime/state path remain possible. This does not prove deterministic GPU computation or identify cache causality. Gemma at temperature 1 remains stochastic even with a fixed per-request seed.
+
+Qwen3.5-9B R535 confirms seed propagation in 162/162 requests, but all 162 tokenized prompts are unique. **Same-prompt baseline A/A repeatability is NOT MEASURED for Qwen3.5-9B.** This single validation profile is not repeatability evidence.
 
 Pinned source: [request seed field](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-schema.cpp#L175), [per-task sampler initialization](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L1925), [greedy sampler selection](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/common/sampling.cpp#L403), [temperature-zero argmax](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/src/llama-sampler.cpp#L265), [multi-choice seed offsets](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-task.h#L287). Source hashes: `common/sampling.cpp b6a1f963fd75, tools/server/server-context.cpp 6b5fdf2b2460, tools/server/server-schema.cpp 1f9d7b73b436`.
 

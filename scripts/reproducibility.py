@@ -457,7 +457,7 @@ def cache_state_source_path(root):
   'GPU_runs':0,'model_requests':0,
  }
 
-def seed_execution_path(data, captures):
+def seed_execution_path(data, captures, root):
  """Reconcile archived seed fields with the pinned per-request sampler path."""
  commit='097cf33d9499b1eade67d51e16d7c75427e7b267'
  if data['build_source']['commit']!=commit:return None
@@ -493,6 +493,8 @@ def seed_execution_path(data, captures):
       'requests':n} for k,n in sorted(settings.items(),key=lambda x:str(x[0]))],
    'source_greedy_condition_requests':temp0_greedy,
   }
+ qwen35=qwen35_seed_profile(root)
+ if qwen35:profiles['r535']=qwen35
  return {
   'engine_commit':commit,
   'source_sha256':expected,
@@ -507,6 +509,50 @@ def seed_execution_path(data, captures):
   'profiles':profiles,
   'interpretation':'The archived requests and server-reported settings carry the configured seed in every reviewed request. The pinned server overlays request fields on global defaults and initializes a sampler for each task; multi-choice child tasks intentionally offset seeds. For R614/R616, temperature=0, n_probs=0, backend sampling=false, final sampler=temperature, and dynatemp_range=0 satisfy the pinned greedy-sampler branch, so RNG seed variation is not a sufficient explanation for their token divergence. This does not establish deterministic GPU logits or identify a cache/kernel/state cause. Gemma temperature=1 remains stochastic even with a fixed per-request seed.'
  }
+
+def qwen35_seed_profile(root):
+ """Verify seed propagation in Qwen3.5 R535 without treating unique tasks as A/A."""
+ root=Path(root);stage=root/'staging/r535';audit_path=stage/'AUDIT.json'
+ if not audit_path.is_file():return None
+ audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text())
+ for name in ('profile.json','LAUNCH.json','HTTP_RESULTS.jsonl','server.log'):
+  assert name in pins and digest(raw/name)==pins[name]
+  assert audit['original_raw_files_sha256'][name]==pins[name]
+ profile=json.loads((raw/'profile.json').read_text())
+ assert digest(raw/'profile.json')==audit['profile_sha256']
+ assert profile['model_sha256']==audit['model_sha256']=='02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d'
+ argv=profile['native_recipe']['argv_tail'];seed=next((int(argv[i+1]) for i,x in enumerate(argv[:-1]) if x=='--seed'),None)
+ assert seed==1001
+ rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if line]
+ turns={x['id']:x for x in rows if x.get('kind')=='agent_turn'}
+ identities={x['id']:x for x in rows if x.get('kind')=='input_identity'}
+ assert len(turns)==162 and turns.keys()==identities.keys()
+ req=collections.Counter(str(x['request'].get('seed','MISSING')) for x in turns.values())
+ server=collections.Counter(str(x['reply'].get('__verbose',{}).get('generation_settings',{}).get('seed','MISSING')) for x in turns.values())
+ assert dict(req)==dict(server)=={str(seed):len(turns)}
+ settings=collections.Counter()
+ for x in turns.values():
+  g=x['reply'].get('__verbose',{}).get('generation_settings',{})
+  settings[(g.get('temperature'),g.get('n_probs'),g.get('backend_sampling'),tuple(g.get('samplers',[])[-1:]),g.get('dynatemp_range'))]+=1
+ assert len(settings)==1
+ (temperature,n_probs,backend,last_sampler,dynatemp),setting_count=next(iter(settings.items()))
+ hashes=[]
+ for identity in identities.values():
+  ids=identity['prompt_token_ids'];token_hash=hashlib.sha256(json.dumps(ids,separators=(',',':')).encode()).hexdigest()
+  assert token_hash==identity['prompt_token_ids_sha256'] and len(ids)==identity['prompt_token_count']
+  hashes.append(token_hash)
+ repeated=sum(n>1 for n in collections.Counter(hashes).values())
+ assert repeated==0
+ return {'experiment_id':'R535','model':'Qwen3.5-9B','model_sha256':profile['model_sha256'],
+  'audit_sha256':digest(audit_path),'profile_sha256':digest(raw/'profile.json'),
+  'request_count':len(turns),'configured_seed':seed,'configured_temperature':temperature,
+  'request_seed_counts':dict(req),
+  'server_reported_seed_counts':dict(server),'all_request_and_reported_seeds_match':True,
+  'unique_tokenized_prompts':len(set(hashes)),'repeated_tokenized_prompts':repeated,
+  'observed_sampling_settings':[{'temperature':temperature,'n_probs':n_probs,'backend_sampling':backend,
+   'final_sampler':list(last_sampler),'dynatemp_range':dynatemp,'requests':setting_count}],
+  'source_greedy_condition_requests':setting_count if temperature==0 and n_probs==0 and backend is False and last_sampler==('temperature',) and dynatemp==0 else 0,
+  'same_prompt_AA_repeats':'NOT_MEASURED','disposition':'SEED_PROPAGATION_VERIFIED; BASELINE_AA_NOT_MEASURED'}
 
 def logprobs_diagnostic_path(data, captures):
  """Check whether the pinned non-stream API can expose bounded token probabilities."""
@@ -570,4 +616,4 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}

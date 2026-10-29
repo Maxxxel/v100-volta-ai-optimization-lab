@@ -35,7 +35,7 @@ class SeedPath(unittest.TestCase):
   data={'build_source':{'commit':'097cf33d9499b1eade67d51e16d7c75427e7b267','checks':{k:{'actual':v,'proof':v} for k,v in hashes.items()}},
         'profiles':{'r616':{'configured_seed':1001,'request_count':1,'request_seeds':{'1001':1},'server_reported_seeds':{'1001':1}}}}
   turns={'private-turn':{'request':{'seed':1001,'stream':False,'tools':[]},'reply':{'__verbose':{'generation_settings':{'seed':1001,'temperature':0,'n_probs':0,'backend_sampling':False,'samplers':['temperature'],'dynatemp_range':0}}}}}
-  out=seed_execution_path(data,{'r616':(turns,{})})
+  out=seed_execution_path(data,{'r616':(turns,{})},Path('/tmp/no-r535-fixture'))
   self.assertEqual(out['profiles']['r616']['source_greedy_condition_requests'],1)
   self.assertTrue(out['profiles']['r616']['all_request_and_reported_seeds_match'])
   self.assertNotIn('private-turn',json.dumps(out))
@@ -44,10 +44,10 @@ class SeedPath(unittest.TestCase):
   self.assertEqual(lp['default_top_logprobs'],20)
   self.assertNotIn('private-turn',json.dumps(lp))
   turns['private-turn']['reply']['__verbose']['generation_settings']['seed']=7
-  with self.assertRaises(AssertionError):seed_execution_path(data,{'r616':(turns,{})})
+  with self.assertRaises(AssertionError):seed_execution_path(data,{'r616':(turns,{})},Path('/tmp/no-r535-fixture'))
 
  def test_unknown_engine_source_does_not_claim_pinned_behavior(self):
-  self.assertIsNone(seed_execution_path({'build_source':{'commit':'b'*40}},{}))
+  self.assertIsNone(seed_execution_path({'build_source':{'commit':'b'*40}},{},Path('/tmp/no-r535-fixture')))
 
 class LostTaskMapping(unittest.TestCase):
  def captures(self, prompt_change=False):
