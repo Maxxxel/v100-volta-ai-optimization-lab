@@ -30,6 +30,7 @@ flowchart LR
 | [R590 · Nexus Q6 OFF/T0](experiments/R590.md) | 26/33 | 33/33 complete | 30/33 | 271359 / 16741 | 152 | 325.97 | 3445.81–3449.83 | 7356.5 | 0 / 0 |
 | [R591 · Gemma4 QAT Q4_0 frozen8K](experiments/R591.md) | 17/33 | 33/33 complete | 27/33 | 304608 / 13111 | 176 | 422.32 | 6025.80–6031.14 | 8118.5 | 2 / 0 |
 | [R618 · Qwen3.8 27B IQ3_S integrated MTP3](experiments/R618.md) | 27/33 | 33/33 complete | 31/33 | 267965 / 12110 | 150 | 625.02 | 6000.92–6004.91 | 13602.5 | 0 / 0 |
+| [R625 · Qwen3.8 27B IQ3_S MTP OFF](experiments/R625.md) | 27/33 | 33/33 complete | 31/33 | 267965 / 12069 | 150 | 761.51 | 7731.79–7735.56 | 12454.5 | 0 / 0 |
 
 Policy failures are rejected proposals, not executed production actions. Failed cases remain in time/energy totals and available token usage. Token counts cover completed-response usage; unknown usage from failed requests is never estimated. Reasoning tokens: **NOT MEASURED** where response instrumentation is absent. NVML bounds are counter-query brackets, not statistical confidence intervals; model loading, warm-up and host CPU energy are excluded. Complete case capture does not mean every case reached inference: preflight failures are shown separately. No population-equivalence or optimized-harness adoption claim.
 
@@ -106,6 +107,24 @@ Scorer SHA256: `e18c5e03b37e31ae55092e22f18209970a5b7b318371fd8710a48a764923d43c
 Dataset: `jarvis-lean-holdout-20261027-v1`. Engine binary SHA256: `08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54`; template SHA256: `c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041`. Engine release version: **NOT RECORDED**; hashes are not version numbers. [Frozen sampling, thinking and model settings](final-selection.md).
 
 [Audit and original-capture hashes](experiments/R618.md).
+
+</details>
+
+<details markdown="1"><summary>R625 · frozen configuration and evidence</summary>
+
+Context / output: 8192 / 4096 tokens. Captured cases: 33/33. Independent nonroot CPU replay verified retained replies and simulated effects.
+
+Model SHA256: `58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f`
+
+Captured profile SHA256: `c958d2613e5c14c66ef7ee6b17ef6236d27889757f6518fdb96f6a11bbb88f69`
+
+Frozen parent profile SHA256: `855da15db648fbac7e74db7153dd2d0cc12a1e46bc6191705ceeb9ad27fc7c61`
+
+Scorer SHA256: `e18c5e03b37e31ae55092e22f18209970a5b7b318371fd8710a48a764923d43c`
+
+Dataset: `jarvis-lean-holdout-20261027-v1`. Engine binary SHA256: `08827111e1b856c38d7a3a46ef2d33b36f201d3de76afdf4ac60f061c97fce54`; template SHA256: `c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041`. Engine release version: **NOT RECORDED**; hashes are not version numbers. [Frozen sampling, thinking and model settings](final-selection.md).
+
+[Audit and original-capture hashes](experiments/R625.md).
 
 </details>
 

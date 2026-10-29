@@ -1149,13 +1149,14 @@ def verified_native_agent_development(root, summary, receipt):
         else:raise AssertionError('Historical validation projection requires original complete33 capture')
     if reserved:
         plan=load(ap.parent/'CAMPAIGN_PLAN.json');assert digest(ap.parent/'CAMPAIGN_PLAN.json')==a['campaign_plan_sha256']
-        assert plan['independent_holdout'] is True and plan['family_independent'] is False and plan['no_retuning_on_reserved_replies'] is True
+        assert plan['independent_holdout'] is (False if a['experiment_id']=='R625' else True) and plan['family_independent'] is False and plan['no_retuning_on_reserved_replies'] is True
         assert plan['holdout_plan_sha256']=='627675b304d7252b6e8136606dd83cb798559bfa7b544a40ac05b65c2987792a'
         assert digest(root/'staging/model-comparison-preparation/agent-qualification/LEAN_HOLDOUT_PLAN.json')==plan['holdout_plan_sha256']
         execution=load(pathlib.Path(profile['execution_review']['file']));assert digest(pathlib.Path(profile['execution_review']['file']))==profile['execution_review']['sha256']
         parent_path=pathlib.Path(execution['parent_model_snapshot_file']);parent=load(parent_path);assert digest(parent_path)==execution['parent_model_snapshot_sha256']
         pins={'a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052':'e8d6305a50fe0a2522475070c90e25dfbc373be7eba029870941c26a705d2973','b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c':'c1a06cb4be35d758d43a3a6056b0ab2bb4f5e2d1d197741ded1c43c6f4d54d1d','93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b':'40c9726c13614e7eb6a87a794e65c528bcddf5e32bef6bede930bb1ebc2bfb16'}
         if a['experiment_id']=='R618':pins['58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f']='20bf0fd11aae78ca8de25fcd600d6a4bd1e01ad18dd20e7ac6950be68e11ca73'
+        if a['experiment_id']=='R625':pins['58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f']='855da15db648fbac7e74db7153dd2d0cc12a1e46bc6191705ceeb9ad27fc7c61'
         assert a['model_sha256'] in pins and digest(parent_path)==pins[a['model_sha256']]
         assert profile['native_recipe']['context']==8192 and profile['native_recipe']['agent18']['archive_sha256']=='1db8fe157575f6c69d169a9218a39702e6f900ea3717aa4072425199b080bed7'
         def native_identity(p):
@@ -1164,7 +1165,7 @@ def verified_native_agent_development(root, summary, receipt):
             for k in ('agent18','maximum_tasks','maximum_generation_requests','maximum_runtime_seconds','http_timeout_policy','preflight_all_inputs'):p['native_recipe'].pop(k,None)
             return p
         assert native_identity(profile)==native_identity(parent)
-        m.update(reserved_validation_work(records),complete_capture=a['measurement_valid'] and a['tasks']==33,complete_inference=a['measurement_valid'] and a['tasks']==33 and a['technical_request_errors']==a['technical_preflight_cases']==0,family_independent=False,model_fixtures_unseen_at_freeze=True,optimization_winner=False,profile_sha256=a['profile_sha256'],parent_profile_sha256=digest(parent_path),model_sha256=a['model_sha256'],scorer_sha256=review['scorer_sha256'],dataset_id=a['dataset_id'])
+        m.update(reserved_validation_work(records),complete_capture=a['measurement_valid'] and a['tasks']==33,complete_inference=a['measurement_valid'] and a['tasks']==33 and a['technical_request_errors']==a['technical_preflight_cases']==0,family_independent=False,model_fixtures_unseen_at_freeze=plan['independent_holdout'],optimization_winner=False,profile_sha256=a['profile_sha256'],parent_profile_sha256=digest(parent_path),model_sha256=a['model_sha256'],scorer_sha256=review['scorer_sha256'],dataset_id=a['dataset_id'])
         domain_by_id={c['id']:c['task']['domain'] for c in frozen['cases']};domain_results={}
         for c in cases:
             domain=domain_by_id[c['id']];assert domain in ('code','ha','pve','poke','pal','astra');counts=domain_results.setdefault(domain,{'cases':0,'solved':0,'policy_gate_passes':0,'policy_violation_events':0})
@@ -1558,6 +1559,32 @@ def main():
                 experiments[ident]['related_audit_ids'].append(oid)
                 experiments[ident]['aggregate_metrics']['cpu_wire_order_control']={'inputs':3,'sorted_order_mismatches':3,'original_order_matches':3,'extra_tokens_per_prompt':8,'GPU_runs':0}
                 experiments[ident]['statements']['tokenizer_scope']='CPU source and pinned-server checks reproduced the mismatch when JSON keys were sorted; preserving original tool-schema key order restored the three historical input token sequences. No model generation was performed.'
+        if ident=='R625' and v.get('mtp_comparison_review'):
+            item=v['mtp_comparison_review'];review_id=receipt(item['path'],item['sha256']);ref_id=receipt(root/'staging/r618/AUDIT.json')
+            if not audit or not review_id or not ref_id:raise ValueError('R625 comparison evidence missing')
+            review=load(locations[review_id]);off=load(locations[audit]);on=load(locations[ref_id])
+            if review['reference_off_audit_sha256']!=digest(locations[audit]) or review['candidate_on_audit_sha256']!=digest(locations[ref_id]) or review['winner_qualified'] is not False:raise ValueError('R625 comparison provenance differs')
+            records=[]
+            for source in (off,on):
+                folder=pathlib.Path(source['raw_root']);raw=folder/'HTTP_RESULTS.jsonl';pins=load(folder/'RAW_HASHES.json')
+                if digest(raw)!=pins['HTTP_RESULTS.jsonl']:raise ValueError('R625 response evidence changed')
+                rows=[json.loads(line) for line in raw.read_text().splitlines() if line];records.append(([x for x in rows if x.get('kind')=='agent_case'],{x['id']:x for x in rows if x.get('kind')=='agent_turn'},{x['id']:x for x in rows if x.get('kind')=='input_identity'}))
+            (a,at,ai),(b,bt,bi)=records
+            if len(a)!=33 or [x['id'] for x in a]!=[x['id'] for x in b]:raise ValueError('R625 task identity differs')
+            for key in ('task_success','policy_gate_pass'):
+                pairs=[(x['reported_result'][key],y['reported_result'][key]) for x,y in zip(a,b)];expected={'off_passed':sum(x for x,y in pairs),'on_passed':sum(y for x,y in pairs),'off_only':sum(x and not y for x,y in pairs),'on_only':sum(not x and y for x,y in pairs)}
+                if review[key]!=expected:raise ValueError('R625 paired outcomes differ')
+            for prefix,source in (('off',off),('on',on)):
+                if review[prefix+'_task_s']!=source['task_phase_s'] or review[prefix+'_peak_vram_mib']!=source['peak_device_vram_mib'] or review[prefix+'_completion_tokens']!=source['completion_tokens'] or review[prefix+'_gpu_j_bounds']!=[source['GPU_counter']['lower_j'],source['GPU_counter']['upper_j']]:raise ValueError('R625 measured costs differ')
+            matched=[k for k in at.keys()&bt.keys()&ai.keys()&bi.keys() if at[k]['request']==bt[k]['request']];same=[k for k in matched if ai[k]['prompt_token_ids']==bi[k]['prompt_token_ids']];equal=sum(at[k]['reply']['__verbose']['tokens']==bt[k]['reply']['__verbose']['tokens'] for k in same)
+            if [review['matched_request_and_input_token_ids'],review['matched_request_different_input_ids'],review['matched_output_sequences_equal'],review['matched_output_sequences_different']]!=[len(same),len(matched)-len(same),equal,len(same)-equal]:raise ValueError('R625 token comparisons differ')
+            profile=v['profile_comparison_review'];profile_id=receipt(profile['path'],profile['sha256'])
+            if not profile_id:raise ValueError('R625 profile comparison missing')
+            experiments[ident].setdefault('related_audit_ids',[]).extend([review_id,ref_id,profile_id])
+            public_review=projection(review)
+            for key in ('off_gpu_j_bounds','on_gpu_j_bounds','matched_request_and_input_token_ids','matched_request_different_input_ids','matched_output_sequences_equal','matched_output_sequences_different'):public_review[key]=review[key]
+            experiments[ident]['aggregate_metrics']['mtp_paired_comparison']=public_review
+            experiments[ident]['statements']['comparison_scope']=text(review['scope'])
         if ident=='R618' and v.get('cross_model_review'):
             item=v['cross_model_review'];review_id=receipt(item['path'],item['sha256']);review=load(locations[review_id]) if review_id else {};candidate=load(locations[audit]) if audit else {};related=[review_id] if review_id else []
             if not audit or review.get('winner_qualified') is not False or review.get('GPU_runs')!=0:raise ValueError('R618 comparison evidence missing')

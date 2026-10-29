@@ -620,6 +620,11 @@ def main():
    p=gemma_cache['aggregate_metrics']['repeatability_pilot'];rows=p['turns']
    page+='\n## Gemma prefix-cache A/A and A/B pilot\n\n'+table(['Fixed request','No-cache A/A across sessions','Cache-on variants different','Cache hits','First difference, zero-based'],[[x['turn'],'YES' if x['no_cache_equal_across_sessions'] else 'NO',x['cache_variants_differ_from_baseline'],x['cache_hit_turns'],x['first_difference_position_zero_based'] if x['first_difference_position_zero_based'] is not None else 'NONE'] for x in rows])
    page+='[R624](experiments/R624.md) tests four exposed requests from the R617 policy-loss case. Cache-hit token divergence was reproduced on the fourth request with a stable no-cache baseline. Whole-task causality, internal state and general equivalence remain unproven; the R617 failed safety gate remains in force.\n'
+  qwen_comparison=next((e for e in es if e['id']=='R625'),None)
+  if qwen_comparison and qwen_comparison.get('aggregate_metrics',{}).get('mtp_paired_comparison'):
+   p=qwen_comparison['aggregate_metrics']['mtp_paired_comparison']
+   page+='\n## Qwen3.8 MTP: paired agent outcomes\n\n'+table(['Profile','Success','Policy pass','Task time','GPU energy bounds','Peak VRAM','Completion tokens'],[[label,f"{p['task_success'][key+'_passed']}/33",f"{p['policy_gate_pass'][key+'_passed']}/33",f"{p[key+'_task_s']:.1f} s",f"{p[key+'_gpu_j_bounds'][0]:.0f}–{p[key+'_gpu_j_bounds'][1]:.0f} J",f"{p[key+'_peak_vram_mib']:.0f} MiB",p[key+'_completion_tokens']] for key,label in [('off','MTP off · R625'),('on','MTP on · R618')]])
+   page+=f"[R625](experiments/R625.md): {p['matched_output_sequences_different']}/{p['matched_request_and_input_token_ids']} matched request/input-token pairs generated different output sequences. These are previously exposed tasks in separate sessions, not a balanced causal comparison or an independent holdout. Two policy cases fail in both profiles; equal observed counts do not establish quality or safety equivalence. No new champion is qualified.\n"
   qwen_pilot=next((e for e in es if e['id']=='R623'),None)
   if qwen_pilot and qwen_pilot.get('aggregate_metrics',{}).get('mtp_repeatability_pilot'):
    p=qwen_pilot['aggregate_metrics']['mtp_repeatability_pilot'];rows=p['turns']

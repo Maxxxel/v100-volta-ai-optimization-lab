@@ -183029,6 +183029,153 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 150,
+      "model_starts": 1,
+      "native_lean_reserved_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 761.506577958,
+          "group_window_s": 761.512855829,
+          "lower_j": 208758.207,
+          "upper_j": 208860.023
+        },
+        "actual_generation_requests": 150,
+        "case_wall_s": 761.506577958,
+        "completed_request_wall_s": 758.381167537,
+        "completion_tokens": 12069,
+        "data_role": "RESERVED33_MODEL_UNSEEN_FIXTURES_CORRELATED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 7731.785444444445,
+        "gpu_j_per_success_upper": 7735.556407407407,
+        "independent_review_sha256": "1182d3c2857a7cf7444ccc37f0039e3bc4844d3d0149b8e7d73b5cc2804216ca",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 12454.5,
+        "planned_tasks": 33,
+        "profile_sha256": "c958d2613e5c14c66ef7ee6b17ef6236d27889757f6518fdb96f6a11bbb88f69",
+        "solved": 27,
+        "successful_tasks_per_s": 0.035455673580266515,
+        "task_limit_s": 1200,
+        "task_phase_s": 761.51423097,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 15.914161000591006,
+        "winner_qualified": false
+      },
+      "peak_device_vram_mib": 12454.5,
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c2e9081a083f72a45411",
+    "original_bytes": 4161,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c2e9081a083f72a45411807aac2b6aa5821bf93ee4bc2c79d64a93fbe1336a15",
+    "statements": {
+      "decision": "Historical ON/OFF profile comparison; no balanced causal, quality-equivalence or Champion claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-c643a7d91f71c294b6b0",
+    "original_bytes": 1438,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c643a7d91f71c294b6b0e8d7c1ddc336bbc9c3c8af4cd8a76c375f3988ae0b9c",
+    "statements": {
+      "scope": "Historical separate OFF and ON sessions on the same previously exposed 33 simulated agent tasks from 11 correlated families. Same model and native runtime except MTP flags, not a fresh balanced A/B or independent unseen holdout. Real task times include differing generated token counts; not pure kernel speed. NVML counter bounds exclude startup and CPU/system energy. No automatic safety or Champion qualification."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-7e48ccbb1fb9a9bd683b",
+    "original_bytes": 834,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "7e48ccbb1fb9a9bd683b25b728c0510b3fe7b860413479cad4abbf42bf322c07",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-1182d3c2857a7cf7444c",
+    "original_bytes": 10304,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "1182d3c2857a7cf7444ccc37f0039e3bc4844d3d0149b8e7d73b5cc2804216ca",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "quality": {
+        "policy_gate_passes": 31,
+        "task_scope_passes": 33,
+        "technical_preflight_cases": 0
+      },
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-aa8020f41049dfdcc060",
+    "original_bytes": 966,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "aa8020f41049dfdcc06015be1b092e4c9be8f2160065e78f9b1508af571cc76e",
+    "statements": {
+      "scope": "Previously exposed fixtures from11 existing authored families; MTP OFF compared with historical R618 ON. No model-unseen or official benchmark claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "peak_vram_change_mib": -1148.0,
+        "task_phase_change_percent": 21.837120286806577
+      },
+      "model_requests": 0,
+      "quality": {
+        "candidate_completed": 33,
+        "candidate_solved": 27,
+        "case_gained": 0,
+        "case_lost": 0,
+        "frozen_groups": 11,
+        "group_sign_flip_two_sided_p": 1.0,
+        "net_success_change": 0,
+        "nonzero_groups": 0,
+        "reference_solved": 27,
+        "tasks": 33
+      }
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-9c2e51acb4b2a7083bab",
+    "original_bytes": 1141,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "9c2e51acb4b2a7083babf284d8e7a3dc92975ecaa5f34d650e9dc56b38f400be",
+    "statements": {
+      "decision": "Frozen validation profile comparison with grouped sensitivity; retain task outcomes and costs. One33-case pass is not a population ranking, causal optimization or Champion qualification.",
+      "scope": "Whole native profiles on33 frozen fixtures/11 authored families. Native templates/samplers/quantization may differ; no causal optimization or population-quality claim."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

@@ -46,6 +46,15 @@ Historical server timings, not kernel counters or a balanced causal experiment. 
 
 [R624](experiments/R624.md) tests four exposed requests from the R617 policy-loss case. Cache-hit token divergence was reproduced on the fourth request with a stable no-cache baseline. Whole-task causality, internal state and general equivalence remain unproven; the R617 failed safety gate remains in force.
 
+## Qwen3.8 MTP: paired agent outcomes
+
+| Profile | Success | Policy pass | Task time | GPU energy bounds | Peak VRAM | Completion tokens |
+|---|---|---|---|---|---|---|
+| MTP off · R625 | 27/33 | 31/33 | 761.5 s | 208758–208860 J | 12454 MiB | 12069 |
+| MTP on · R618 | 27/33 | 31/33 | 625.0 s | 162025–162133 J | 13602 MiB | 12110 |
+
+[R625](experiments/R625.md): 8/150 matched request/input-token pairs generated different output sequences. These are previously exposed tasks in separate sessions, not a balanced causal comparison or an independent holdout. Two policy cases fail in both profiles; equal observed counts do not establish quality or safety equivalence. No new champion is qualified.
+
 ## Qwen3.8 integrated MTP A/A pilot
 
 | Fixed request | Within-session repeats equal | Across-session equal |

@@ -443,5 +443,22 @@
       "measured_speedup": null,
       "measured_energy_saving": null
     }
+  },
+  {
+    "subcase": "JARVIS-EFFICIENCY-LORA",
+    "status": "OPEN_CPU_FEASIBILITY_NO_TRAINING_ADMISSION",
+    "title": "Research: Jarvis Efficiency LoRA — compact output behavior without repeated style prompts",
+    "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/19",
+    "github_state": "OPEN",
+    "github_checked_at_utc": "2026-10-29T08:51:19.222880+00:00",
+    "source_issue_updated_at_utc": "2026-10-27T17:47:26Z",
+    "source_issue_body_sha256": "e968b4486414e1d622b07acdea5f6cc5bed35eccd30e1873daf4afdef1cf384d",
+    "freeze_priority": "P2_FEASIBILITY_ONLY_NO_TRAINING",
+    "next_action": "Review exact base provenance, adapter mapping, SM70 training resources and licenses before any training request. The system Python checked in the inference container did not expose PyTorch, Transformers, PEFT or bitsandbytes; this does not establish that no other environment exists. Do not train or alter baselines without separate authorization.",
+    "evidence_urls": [
+      "https://huggingface.co/Tesslate/OmniCoder-9B/tree/9edd36a30fc7b95b6fd81b7ea16a73cbaf205734",
+      "https://huggingface.co/bartowski/Tesslate_OmniCoder-9B-GGUF/tree/f0fbc2243f49ab2dbdf91fe5930dd73e6bce767c"
+    ],
+    "limits": "Publisher tags identify a safetensors source and Apache-2.0; exact upstream weights-to-local-GGUF lineage and adapter compatibility remain unverified."
   }
 ]
