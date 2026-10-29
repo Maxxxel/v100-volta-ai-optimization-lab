@@ -1549,6 +1549,47 @@ def main():
                 experiments[ident]['related_audit_ids'].append(cid);experiments[ident]['aggregate_metrics']['mtp_off_on_pair']={'turns':comparison['turns'],'paired_requests':24,'scope':text(comparison['scope'])}
             experiments[ident]['statements']['repeatability_limits']=text(review['limits'])
             experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
+        if ident=='R627' and v.get('independent_review_path'):
+            rid=receipt(v['independent_review_path'],v['independent_review_sha256'])
+            refid=receipt(v['reference_audit_path'],v['reference_audit_sha256'])
+            candidateid=receipt(v['candidate_audit_path'],v['candidate_audit_sha256'])
+            if not audit or not rid or not refid or not candidateid:raise ValueError('R627 evidence missing')
+            measured=load(locations[audit]);review=load(locations[rid])
+            previous=receipt(v['prior_energy_review_path'],v['prior_energy_review_sha256']) if v.get('prior_energy_review_path') else None
+            if not previous or review.get('prior_energy_review_sha256')!=digest(locations[previous]):raise ValueError('R627 prior review chain differs')
+            if measured.get('reference_audit_sha256')!=digest(locations[refid]) or measured.get('candidate_audit_sha256')!=digest(locations[candidateid]):raise ValueError('R627 source audit mismatch')
+            if review.get('source_collector_audit_sha256')!=digest(locations[audit]) or review.get('source_broker_audit_sha256')!=measured.get('broker_audit_sha256') or review.get('winner_qualified') is not False:raise ValueError('R627 independent review identity mismatch')
+            folders=list((root.parent/'research/mcp-workspace/r627-gemma-q8-kv-abba-pilot').glob('host-*'))
+            if len(folders)!=1:raise ValueError('R627 capture count differs')
+            folder=folders[0];pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl';launch=load(folder/'LAUNCH.json')
+            if digest(raw)!=pins['HTTP_RESULTS.jsonl'] or digest(raw)!=review['raw_results_sha256'] or digest(folder/'GPU_TELEMETRY.jsonl')!=pins['GPU_TELEMETRY.jsonl']:raise ValueError('R627 raw capture changed')
+            if review['launch_sha256']!=pins['LAUNCH.json'] or launch.get('single_shared_task_clock') is not True or launch.get('uid')!=65534:raise ValueError('R627 execution provenance differs')
+            arms=launch.get('arms',[])
+            if [x.get('arm') for x in arms]!=['A1','B1','B2','A2'] or [x['launch']['argv'][x['launch']['argv'].index('--cache-type-v')+1] for x in arms]!=['f16','q8_0','q8_0','f16']:raise ValueError('R627 balanced order differs')
+            telemetry=[json.loads(line) for line in (folder/'GPU_TELEMETRY.jsonl').read_text().splitlines() if line]
+            if not telemetry or any(x['ecc_uncorrected']!=0 or x['device_vram_bytes']>14336*2**20 for x in telemetry):raise ValueError('R627 hardware guard evidence differs')
+            clock=review['task_clock_boot_ns'];samples=review['energy_counter_bracket_samples']
+            if not (samples['before_begin']['at_ns']<=clock['begin']<=samples['after_begin']['at_ns']<=samples['before_end']['at_ns']<=clock['end']<=samples['after_end']['at_ns']):raise ValueError('R627 energy samples do not bracket TASK')
+            lower=(samples['before_end']['counter_mj']-samples['after_begin']['counter_mj'])/1e6;upper=(samples['after_end']['counter_mj']-samples['before_begin']['counter_mj'])/1e6
+            if lower<=0 or upper<lower or abs(lower-review['task_phase_gpu_energy_counter_bound_kj']['lower'])>1e-9 or abs(upper-review['task_phase_gpu_energy_counter_bound_kj']['upper'])>1e-9:raise ValueError('R627 GPU energy bound differs')
+            if abs((clock['end']-clock['begin'])/1e9-review['task_phase_seconds'])>1e-9:raise ValueError('R627 TASK duration differs')
+            for sample in samples.values():
+                if not any(x['at_ns']==sample['at_ns'] and x['gpu_energy_counter_mj']==sample['counter_mj'] for x in telemetry):raise ValueError('R627 energy sample missing from raw telemetry')
+            captured=[json.loads(x) for x in raw.read_text().splitlines() if x];turns=[x for x in captured if x.get('kind')=='r627_request'];inputs=[x for x in captured if x.get('kind')=='r627_input'];data=load(root/'staging/r627/PRIVATE_REQUESTS.json')['cases']
+            if len(turns)!=24 or len(inputs)!=24 or len(data)!=24 or review.get('input_ids_and_request_wire_verified')!=24:raise ValueError('R627 incomplete')
+            by_id={x['id']:x for x in data}
+            for x,y in zip(turns,inputs):
+                c=by_id[x['id']];settings=x['reply']['__verbose']['generation_settings']
+                if x['id']!=y['id'] or json.dumps(x['request'],ensure_ascii=True,allow_nan=False)!=c['request_json'] or y['prompt_token_ids']!=c['expected_prompt_token_ids'] or y['prompt_token_ids_sha256']!=c['expected_prompt_token_ids_sha256'] or settings['seed']!=x['request']['seed'] or settings['seed']!=1001 or settings['temperature']!=x['request']['temperature'] or settings['temperature']!=1.0:raise ValueError('R627 input/sampler identity differs')
+            cases=[]
+            for i in range(3):
+                seq=[turns[i+3*j]['reply']['__verbose']['tokens'] for j in range(8)];row=review['cases'][i]
+                same_a=seq[0]==seq[1]==seq[6]==seq[7];same_b=seq[2]==seq[3]==seq[4]==seq[5];cross=seq[0]==seq[2]
+                if row['f16_repeats_match_across_sessions']!=same_a or row['q8_repeats_match_across_sessions']!=same_b or row['f16_vs_q8_match']!=cross:raise ValueError('R627 independent token result differs')
+                cases.append({'case':i+1,'f16_AA_equal':same_a,'q8_AA_equal':same_b,'f16_q8_equal':cross,'first_divergence_positions':row['first_divergence_positions'],'output_token_counts':row['output_token_counts']})
+            experiments[ident]['related_audit_ids']=[rid,refid,candidateid,previous]
+            experiments[ident]['aggregate_metrics']['kv_cache_repeatability_diagnostic']={'cases':cases,'model_starts':4,'requests':24,'task_phase_seconds':review['task_phase_seconds'],'peak_device_vram_mib':review['peak_device_vram_mib'],'task_phase_gpu_energy_counter_bound_kj':review['task_phase_gpu_energy_counter_bound_kj'],'energy_per_success':None,'uncorrected_ecc':review['uncorrected_ecc'],'input_token_and_wire_matches':24,'gpu_runs':1,'winner_qualified':False,'official_benchmark':False,'scope':'Three previously exposed coding requests; fixed seed 1001 and temperature 1.0; ABBA f16/q8_0 value-cache sessions. Diagnostic only, no quality or safety qualification; gross TASK GPU counter energy is bracketed; energy per success and logits not measured.'}
+            experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
         if ident=='R619' and v.get('cpu_tokenizer_review'):
             item=v['cpu_tokenizer_review'];rid=receipt(item['path'],item['sha256']);cid=receipt(item['receipt_path'],item['receipt_sha256']);review=load(locations[rid]) if rid else {};proof=load(locations[cid]) if cid else {};private=pathlib.Path(item['private_output_path'])
             if not rid or not cid or digest(private)!=item['private_output_sha256'] or proof.get('private_output_sha256')!=digest(private) or proof.get('review_sha256')!=digest(locations[rid]) or proof.get('gpu_calls')!=0 or proof.get('model_generations')!=0:raise ValueError('R619 CPU tokenizer evidence missing')

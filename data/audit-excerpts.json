@@ -183290,6 +183290,55 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 8118.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-a479fd3939bbbf846f63",
+    "original_bytes": 2312,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "a479fd3939bbbf846f632dad2239dcc7084e2e53d764723a582c86689925639f",
+    "statements": {
+      "scope": "Three exposed coding prompts selected after historical outcomes; four sequential sessions ABBA, two repeats per request/session, temperature 1, seed 1001, exact input IDs. Shared TASK includes starts and warmups. Not quality or safety qualification; logits and per-arm energy NOT MEASURED."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "model_starts": 4,
+      "peak_device_vram_mib": 8118.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-560308629c1510a37e55",
+    "original_bytes": 3890,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "560308629c1510a37e55a146a806904d3c1c61c8cc49ea994602753bc627c1a9",
+    "statements": {
+      "interpretation": "Fixed-seed A/A token identity held for these three exposed prompts in this run, while cache-arm outputs differed on two prompts at token 0 and matched on one. Gross GPU energy for the shared TASK interval is bounded by the NVML counter; energy per successful task is unavailable because tasks were not scored for success. This is a bounded state/output diagnostic, not a quality, safety, noninferiority, or optimization qualification. Prompts were previously exposed; logits/margins were not captured."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0,
+      "model_starts": 4,
+      "peak_device_vram_mib": 8118.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-0181b2c257284e3cb1ac",
+    "original_bytes": 3302,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "0181b2c257284e3cb1ac11a4283699df6472facc2c0900cfc982462ba4dff382",
+    "statements": {
+      "interpretation": "Fixed-seed A/A token identity held for these three exposed prompts in this run, while cache-arm outputs differed on two prompts at token 0 and matched on one. Gross GPU energy for the shared TASK interval is bounded by the NVML counter; energy per successful task is unavailable because tasks were not scored for success. This is a bounded state/output diagnostic, not a quality, safety, noninferiority, or optimization qualification. Prompts were previously exposed; logits/margins were not captured."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

@@ -28060,5 +28060,127 @@
       "repeatability_limits": "Three exposed fixed requests, integrated MTP disabled, same runtime and two adjacent sessions. Repeats are correlated; no population-quality, causal MTP or safety equivalence claim. Logits and numerical margins NOT MEASURED."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "kv_cache_repeatability_diagnostic": {
+        "cases": [
+          {
+            "case": 1,
+            "f16_AA_equal": true,
+            "f16_q8_equal": false,
+            "first_divergence_positions": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              null,
+              null
+            ],
+            "output_token_counts": [
+              169,
+              169,
+              205,
+              205,
+              205,
+              205,
+              169,
+              169
+            ],
+            "q8_AA_equal": true
+          },
+          {
+            "case": 2,
+            "f16_AA_equal": true,
+            "f16_q8_equal": false,
+            "first_divergence_positions": [
+              null,
+              0,
+              0,
+              0,
+              0,
+              null,
+              null
+            ],
+            "output_token_counts": [
+              415,
+              415,
+              1268,
+              1268,
+              1268,
+              1268,
+              415,
+              415
+            ],
+            "q8_AA_equal": true
+          },
+          {
+            "case": 3,
+            "f16_AA_equal": true,
+            "f16_q8_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_token_counts": [
+              187,
+              187,
+              187,
+              187,
+              187,
+              187,
+              187,
+              187
+            ],
+            "q8_AA_equal": true
+          }
+        ],
+        "energy_per_success": null,
+        "gpu_runs": 1,
+        "input_token_and_wire_matches": 24,
+        "model_starts": 4,
+        "official_benchmark": false,
+        "peak_device_vram_mib": 8118.5,
+        "requests": 24,
+        "scope": "Three previously exposed coding requests; fixed seed 1001 and temperature 1.0; ABBA f16/q8_0 value-cache sessions. Diagnostic only, no quality or safety qualification; gross TASK GPU counter energy is bracketed; energy per success and logits not measured.",
+        "task_phase_gpu_energy_counter_bound_kj": {
+          "lower": 36.90014,
+          "upper": 36.926396
+        },
+        "task_phase_seconds": 169.275044209,
+        "uncorrected_ecc": 0,
+        "winner_qualified": false
+      },
+      "model_starts": 4,
+      "peak_device_vram_mib": 8118.5,
+      "tasks": 24
+    },
+    "audit_id": "audit-a479fd3939bbbf846f63",
+    "date": "2026-10-29T09:51:25.552667+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "K02"
+    ],
+    "id": "R627",
+    "model": "Gemma 4 12B QAT Q4 · F16 versus Q8_0 value-cache repeatability diagnostic",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-560308629c1510a37e55",
+      "audit-a49a6cebc54822e25a33",
+      "audit-29c7848fd89a7c45e467",
+      "audit-0181b2c257284e3cb1ac"
+    ],
+    "statements": {
+      "decision": "On three previously exposed coding requests at temperature 1 and seed 1001, both cache settings repeated token-identically across their two sessions (3/3 each). F16 and Q8_0 outputs differed from the first token on 2/3 requests and matched on 1/3. This is a small request/output-state diagnostic only; it neither attributes R608 quality losses nor qualifies quality, safety, performance, energy per success, or a Champion. Whole TASK GPU energy from the NVML counter is bounded at 36.900–36.926 kJ; no task-success scoring was performed, so energy per success remains not measured.",
+      "hypothesis": "Determine whether baseline A/A repeatability differs from F16/Q8_0 value-cache output divergence on three preselected, previously exposed R608 coding requests.",
+      "repeatability_decision": "On three previously exposed coding requests at temperature 1 and seed 1001, both cache settings repeated token-identically across their two sessions (3/3 each). F16 and Q8_0 outputs differed from the first token on 2/3 requests and matched on 1/3. This is a small request/output-state diagnostic only; it neither attributes R608 quality losses nor qualifies quality, safety, performance, energy per success, or a Champion. Whole TASK GPU energy from the NVML counter is bounded at 36.900–36.926 kJ; no task-success scoring was performed, so energy per success remains not measured."
+    },
+    "winner_qualified": false
   }
 ]
