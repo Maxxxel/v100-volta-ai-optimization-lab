@@ -86,7 +86,7 @@ These locally measured cases are supplementary evidence only; they do not enter 
 
 Completion tokens, response time, validity, descriptive Wilson intervals, and full audit hashes are available in the [validation aggregate](assets/validation16.json). No task prompts, IDs, outputs, or per-task results are published. Do not interpret per-category GPU joules per success as whole-task energy; the meter brackets only the selected category request group.
 
-## Post-freeze evidence through R627
+## Post-freeze evidence through R630
 
 The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.
 
@@ -95,6 +95,7 @@ The R585 selection above remains frozen and unchanged. These later measurements 
 - [Qwen3.8 MTP ON/OFF: R618/R625](experiments/R618.md): both completed the same reserved authored set at 27/33 and 27/33. Observed task wall 625.0s ON vs 761.5s OFF; outputs 12,110 vs 12,069 tokens, 8/150 matched requests produced different sequences, peak VRAM 13602 vs 12454MiB, GPU energy 162.02–162.13 vs 208.76–208.86kJ. Separate sessions, exposed correlated tasks: **exploratory profile comparison only**, not causal speedup, quality equivalence or Champion qualification.
 - [R627](experiments/R627.md) Gemma KV-cache diagnostic: F16 and Q8 each repeated identically within arm on 3/3 exposed prompts; the two cache precisions differed on 2/3, first-token divergence on those cases. Three-case CPU EvalPlus replay is diagnostic only. No task-quality, safety or Champion qualification.
 - [R620](experiments/R620.md) OmniCoder exact exposed R616 prompt: no-cache A/A outputs matched 4/4 at 558 tokens; cache-hit outputs differed from baseline at token 0 in 4/4 after 1,675 cached tokens. This is one request across two sessions, not task/policy causality or an internal GDN/numerical diagnosis; R616 remains **NOT QUALIFIED**.
+- [R630 same-profile A/A](reproducibility.md#same-profile-aa-repeatability-r536-r630): R536/R630 generated identical request/token sequences in 154/154 turns and identical outcomes in 33/33 exposed tasks (both 28/33 solved; policy gates 29/33). TASK time 401.663→401.311s (−0.088%, one descriptive pair); peak VRAM 7680.5 MiB both. Whole-phase energy bounds overlap (109,461.5–109,572.7 vs 109,447.6–109,549.6 J): no speed/energy winner or Champion change. Same exposed set, not an independent quality sample.
 These measurements do not change the R585 roles. Full cache/state evidence and limitations are in [Reproducibility](reproducibility.md); incomplete causal and population-level conclusions remain explicit.
 
 ## Balanced Jarvis sandbox baseline

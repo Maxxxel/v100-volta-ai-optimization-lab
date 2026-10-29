@@ -54,12 +54,20 @@ class FrozenBaselineGates(unittest.TestCase):
  def test_rendered_selection_keeps_agent_context_and_nonselection_limits(self):
   from leaderboard import freeze_final_baselines
   from render import render_final_selection
-  h,r,e=self.inputs();f=freeze_final_baselines(h,r,e,'2026-10-27T00:00:00+00:00');page=render_final_selection(f,h,e)
+  h,r,e=self.inputs();f=freeze_final_baselines(h,r,e,'2026-10-27T00:00:00+00:00')
+  aa={'r630_native_aa':{'identical_generated_token_sequences':154,'identical_task_outcomes':33,
+      'baseline':{'solved':28,'policy_gate_pass':29,'task_phase_s':401.663127198,'peak_vram_mib':7680.5},
+      'candidate':{'solved':28,'policy_gate_pass':29,'task_phase_s':401.310538789,'peak_vram_mib':7680.5},
+      'gpu_energy_counter_bounds_j':{'R536':{'lower':109461.518,'upper':109572.691},
+                                     'R630':{'lower':109447.605,'upper':109549.572}}}}
+  page=render_final_selection(f,h,e,reproducibility_review=aa)
   for text in ['85.35% ·2/3','86.06% ·2/3','84.13% ·2/3','NOT MEASURED at selected8K','Nexus','Qwen3.5','Nemotron','gpt-oss','cold-switch overhead','Issue18','frozen-baselines.json']:
    self.assertIn(text,page)
-  self.assertIn('Post-freeze evidence through R627',page)
+  self.assertIn('Post-freeze evidence through R630',page)
   self.assertIn('R614',page);self.assertIn('R616',page);self.assertIn('R620',page);self.assertIn('R625',page);self.assertIn('R627',page)
   self.assertIn('cache-hit outputs differed from baseline at token 0 in 4/4',page)
+  self.assertIn('R630 same-profile A/A',page)
+  self.assertIn('no speed/energy winner or Champion change',page)
   self.assertIn('Cache candidates remain **NOT QUALIFIED**',page)
   self.assertIn('not causal speedup, quality equivalence or Champion qualification',page)
   self.assertIn('R585 selection above remains frozen and unchanged',page)

@@ -424,7 +424,7 @@ def render_paired_profile_quality(analysis):
  text+='Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.\n\n'
  return text
 
-def render_final_selection(frozen,history,experiments=None,paired_quality=None,validation16=None):
+def render_final_selection(frozen,history,experiments=None,paired_quality=None,validation16=None,reproducibility_review=None):
  from leaderboard import validate_final_baselines
  validate_final_baselines(frozen,history)
  text='# Jarvis — three frozen model baselines\n\n**Dated research selection through R585; not production approval or a universal model ranking.** Three concrete configurations are retained for the next controlled harness phase. Official Agent benchmarks remain NOT MEASURED.\n\n'
@@ -457,7 +457,7 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   for rid in ('R614','R616','R618','R620','R625','R627'):
    if rid in by_id:post.append(by_id[rid])
   if post:
-   text+='## Post-freeze evidence through R627\n\nThe R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.\n\n'
+   text+='## Post-freeze evidence through R630\n\nThe R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.\n\n'
    for rid in ('R614','R616'):
     e=by_id.get(rid)
     if not e:continue
@@ -482,6 +482,11 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
     assert omni['winner_qualified'] is False and turn['no_cache_all_four_equal'] is True and turn['cache_variants_differ_from_baseline']==4
     assert turn['first_difference_position_zero_based']==0 and m['peak_device_vram_mib']<=14336
     text+=f"- [R620](experiments/R620.md) OmniCoder exact exposed R616 prompt: no-cache A/A outputs matched 4/4 at 558 tokens; cache-hit outputs differed from baseline at token 0 in 4/4 after 1,675 cached tokens. This is one request across two sessions, not task/policy causality or an internal GDN/numerical diagnosis; R616 remains **NOT QUALIFIED**.\n"
+   r630=(reproducibility_review or {}).get('r630_native_aa')
+   if r630:
+    b,c=r630['baseline'],r630['candidate'];eb=r630['gpu_energy_counter_bounds_j']
+    bb,cb=eb['R536'],eb['R630']
+    text+=f"- [R630 same-profile A/A](reproducibility.md#same-profile-aa-repeatability-r536-r630): R536/R630 generated identical request/token sequences in {r630['identical_generated_token_sequences']}/154 turns and identical outcomes in {r630['identical_task_outcomes']}/33 exposed tasks (both {b['solved']}/33 solved; policy gates {b['policy_gate_pass']}/33). TASK time {b['task_phase_s']:.3f}→{c['task_phase_s']:.3f}s (−0.088%, one descriptive pair); peak VRAM {b['peak_vram_mib']:.1f} MiB both. Whole-phase energy bounds overlap ({bb['lower']:,.1f}–{bb['upper']:,.1f} vs {cb['lower']:,.1f}–{cb['upper']:,.1f} J): no speed/energy winner or Champion change. Same exposed set, not an independent quality sample.\n"
    text+='These measurements do not change the R585 roles. Full cache/state evidence and limitations are in [Reproducibility](reproducibility.md); incomplete causal and population-level conclusions remain explicit.\n\n'
  for s in frozen['selected']:
   text+='## '+s['role']+'\n\n'+s['rationale']+'\n\n'
@@ -1279,7 +1284,7 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
  put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
- if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,read('paired-quality-analysis-2026-10-29.json'),read('validation16.json') if (P/'data/validation16.json').exists() else None))
+ if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,read('paired-quality-analysis-2026-10-29.json'),read('validation16.json') if (P/'data/validation16.json').exists() else None,read('snapshot.json').get('reproducibility_review')))
  if (P/'data/validation16.json').exists():put('assets/validation16.json',json.dumps(read('validation16.json'),ensure_ascii=False,indent=2))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():
