@@ -66,6 +66,8 @@ class FrozenBaselineGates(unittest.TestCase):
   self.assertIn('Post-freeze evidence through R630',page)
   self.assertIn('R614',page);self.assertIn('R616',page);self.assertIn('R620',page);self.assertIn('R625',page);self.assertIn('R627',page)
   self.assertIn('cache-hit outputs differed from baseline at token 0 in 4/4',page)
+  self.assertIn('R630 independently repeated the unchanged no-cache R536 profile',page)
+  self.assertIn('cache causation for the task/policy outcome remains unresolved',page)
   self.assertIn('R630 same-profile A/A',page)
   self.assertIn('no speed/energy winner or Champion change',page)
   self.assertIn('Cache candidates remain **NOT QUALIFIED**',page)

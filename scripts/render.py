@@ -476,13 +476,15 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
     m=gemma['aggregate_metrics']['kv_cache_repeatability_diagnostic'];assert m['winner_qualified'] is False
     changed=sum(not case['f16_q8_equal'] for case in m['cases']);n=len(m['cases'])
     text+=f"- [R627](experiments/R627.md) Gemma KV-cache diagnostic: F16 and Q8 each repeated identically within arm on {n}/{n} exposed prompts; the two cache precisions differed on {changed}/{n}, first-token divergence on those cases. Three-case CPU EvalPlus replay is diagnostic only. No task-quality, safety or Champion qualification.\n"
+   r630=(reproducibility_review or {}).get('r630_native_aa')
    omni=by_id.get('R620')
    if omni:
     m=omni['aggregate_metrics']['repeatability_pilot'];turn=m['turns'][2]
     assert omni['winner_qualified'] is False and turn['no_cache_all_four_equal'] is True and turn['cache_variants_differ_from_baseline']==4
     assert turn['first_difference_position_zero_based']==0 and m['peak_device_vram_mib']<=14336
     text+=f"- [R620](experiments/R620.md) OmniCoder exact exposed R616 prompt: no-cache A/A outputs matched 4/4 at 558 tokens; cache-hit outputs differed from baseline at token 0 in 4/4 after 1,675 cached tokens. This is one request across two sessions, not task/policy causality or an internal GDN/numerical diagnosis; R616 remains **NOT QUALIFIED**.\n"
-   r630=(reproducibility_review or {}).get('r630_native_aa')
+    if r630:
+     text+='  R630 independently repeated the unchanged no-cache R536 profile: all 154 request/token sequences and 33/33 exposed task outcomes matched. This makes the R536 baseline result reproducible in one same-profile pair, but does not estimate broad run-to-run variability. Together with R620, divergence is associated with the cache-enabled path; cache causation for the task/policy outcome remains unresolved, so R616 stays **NOT QUALIFIED**.\n'
    if r630:
     b,c=r630['baseline'],r630['candidate'];eb=r630['gpu_energy_counter_bounds_j']
     bb,cb=eb['R536'],eb['R630']
