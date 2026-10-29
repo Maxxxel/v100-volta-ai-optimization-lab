@@ -42,6 +42,7 @@ class SeedPath(unittest.TestCase):
   lp=logprobs_diagnostic_path(data,{'r616':(turns,{})})
   self.assertEqual(lp['non_stream_with_tools'],1)
   self.assertEqual(lp['default_top_logprobs'],20)
+  self.assertIn('distribution sampler',lp['sampler_effect'])
   self.assertNotIn('private-turn',json.dumps(lp))
   turns['private-turn']['reply']['__verbose']['generation_settings']['seed']=7
   with self.assertRaises(AssertionError):seed_execution_path(data,{'r616':(turns,{})},Path('/tmp/no-r535-fixture'))

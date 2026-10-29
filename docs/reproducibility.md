@@ -24,6 +24,8 @@ Pinned source: [request seed field](https://github.com/ggml-org/llama.cpp/blob/0
 
 R616 archived 156 non-stream requests with tools; none requested logprobs. The pinned API accepts this combination because its restriction is limited to `tools + stream`. It can return up to 20 top-token probabilities/logprobs per generated token—not a full raw-logit vector or internal state. Captures did not enable this instrumentation. A future measurement needs a separate reviewed broker profile and identical instrumentation in both cache arms; R616 remains untouched and no GPU run was made.
 
+**Instrumentation changes the sampler chain:** Requesting probabilities disables the n_probs==0 greedy fast-path and selects the distribution sampler in this pinned build; temperature zero remains in the chain. Identical output versus the original uninstrumented profile is not established. Compare the instrumented profile separately with its uninstrumented reference before attributing differences to caching. Pinned [sampler source](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/common/sampling.cpp#L403), SHA-256 `b6a1f963fd75fd17d12bafb59351a1009d2358dd789dba7ed10943340f8e5553`.
+
 Pinned [request parser and stream guard](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-common.cpp#L1455). Source SHA-256: `c4d53b4c72ca825434a035a4b632c8bc71e709d22fe33ca149fde95cee8460a1`.
 
 ## Historical matched requests

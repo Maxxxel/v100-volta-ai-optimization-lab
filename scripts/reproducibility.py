@@ -660,6 +660,8 @@ def logprobs_diagnostic_path(data, captures):
  checks=data['build_source'].get('checks',{})
  expected='c4d53b4c72ca825434a035a4b632c8bc71e709d22fe33ca149fde95cee8460a1'
  assert checks['tools/server/server-common.cpp']['actual']==checks['tools/server/server-common.cpp']['proof']==expected
+ sampling_sha='b6a1f963fd75fd17d12bafb59351a1009d2358dd789dba7ed10943340f8e5553'
+ assert checks['common/sampling.cpp']['actual']==checks['common/sampling.cpp']['proof']==sampling_sha
  turns=captures['r616'][0]
  shape=collections.Counter((r['request'].get('stream'), 'tools' in r['request'],
                             'logprobs' in r['request'], 'top_logprobs' in r['request'])
@@ -675,7 +677,9 @@ def logprobs_diagnostic_path(data, captures):
   'logprobs_requested':0,'top_logprobs_requested':0,
   'pinned_api_support':'SUPPORTED_FOR_NON_STREAM_TOOL_REQUESTS',
   'default_top_logprobs':20,
-  'limit':'Top-20 probability/logprob view only; not a full raw-logit vector. Enabling it changes instrumentation and must be symmetric across cache arms.',
+  'sampler_effect':'Requesting probabilities disables the n_probs==0 greedy fast-path and selects the distribution sampler in this pinned build; temperature zero remains in the chain. Identical output versus the original uninstrumented profile is not established.',
+  'sampling_source_sha256':sampling_sha,
+  'limit':'Top-20 probability/logprob view only; not a full raw-logit vector. Enabling it changes the sampler chain as well as instrumentation; match both arms and compare separately against the original uninstrumented profile.',
   'decision':'R616 frozen profile remains unchanged. Any token-probability diagnosis requires a separate reviewed broker profile; no GPU request or run was made.'
  }
 
