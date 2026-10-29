@@ -679,7 +679,7 @@ def main():
   profile_rows=[]
   for key,label in [('r531','Nexus'),('r536','OmniCoder'),('r534','Gemma 4'),('r550','Qwen3.8 MTP')]:
    p=repro['profiles'][key];sp=seed_path['profiles'][key];seed=str(p['configured_seed']);matched=sp['request_seed_counts'].get(seed,0)
-   repeat={'r531':'R621 · 4 exposed requests','r536':'R620 · 1 exposed request','r534':'R622/R627 · 3 exposed requests each','r550':'R623/R626 · 3 exposed requests each'}[key]
+   repeat={'r531':'R621 · 4 exposed requests','r536':'R620 · 1 exposed request; [R630](#same-profile-aa-repeatability-r536-r630) · 154/154 turns and 33/33 exposed tasks','r534':'R622/R627 · 3 exposed requests each','r550':'R623/R626 · 3 exposed requests each'}[key]
    profile_rows.append([label,f"[{key.upper()}](experiments/{key.upper()}.md)",p['configured_seed'],f"{matched}/{sp['request_count']} request → server",p['configured_temperature'],sp['request_count'],sp['source_greedy_condition_requests'],repeat])
   qwen35=seed_path['profiles'].get('r535')
   if qwen35:

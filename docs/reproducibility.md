@@ -7,7 +7,7 @@ These are archived, hash-verified observations; no new GPU execution. Fixed seed
 | Profile | Audit | Configured seed | Request → server seed match | Temperature | Requests | Greedy-path condition | Same-prompt A/A evidence |
 |---|---|---|---|---|---|---|---|
 | Nexus | [R531](experiments/R531.md) | 1001 | 153/153 request → server | 0.0 | 153 | 153 | R621 · 4 exposed requests |
-| OmniCoder | [R536](experiments/R536.md) | 1001 | 154/154 request → server | 0 | 154 | 154 | R620 · 1 exposed request |
+| OmniCoder | [R536](experiments/R536.md) | 1001 | 154/154 request → server | 0 | 154 | 154 | R620 · 1 exposed request; [R630](#same-profile-aa-repeatability-r536-r630) · 154/154 turns and 33/33 exposed tasks |
 | Gemma 4 | [R534](experiments/R534.md) | 1001 | 177/177 request → server | 1.0 | 177 | 0 | R622/R627 · 3 exposed requests each |
 | Qwen3.8 MTP | [R550](experiments/R550.md) | 1001 | 150/150 request → server | 0 | 150 | 150 | R623/R626 · 3 exposed requests each |
 | Qwen3.5-9B | [R535](experiments/R535.md) | 1001 | 162/162 request → server | 0.0 | 162 | 162 | Task A/A NOT MEASURED · 162 unique prompts; synthetic warm-up text repeated in 4 runs |
