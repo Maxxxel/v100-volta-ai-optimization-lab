@@ -615,6 +615,17 @@ def main():
    for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
     v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
    page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  if repro.get('agent_task_pairs'):
+   rows=[]
+   for key,label in [('Nexus_prefix_cache','Nexus · R531 → R614'),('OmniCoder_prefix_cache','OmniCoder · R536 → R616')]:
+    p=repro['agent_task_pairs'].get(key)
+    if not p:continue
+    o=p['task_outcomes'];wall=p['case_wall_seconds'];energy=p['gpu_energy_j_bounds'];tokens=p['completion_tokens'];policy=p['policy_gate_passes']
+    rows.append([f"[{label}](experiments/{p['candidate_experiment']}.md)",f"{o['both_success']} both · +{o['candidate_only_success']} / −{o['baseline_only_success']}",f"{policy['baseline']} → {policy['candidate']} / 33",f"{wall['baseline']:.1f} → {wall['candidate']:.1f} s",f"{tokens['baseline']:,} → {tokens['candidate']:,}",f"{energy['baseline'][0]:,.0f}–{energy['baseline'][1]:,.0f} → {energy['candidate'][0]:,.0f}–{energy['candidate'][1]:,.0f} J"])
+   if rows:
+    page+='\n## Paired agent task outcomes · prefix-cache profiles\n\n'
+    page+=table(['Historical profile','Task successes · 33 paired','Policy-gate passes','Observed task wall time','Completion tokens','GPU energy bounds'],rows)
+    page+='Same 33 exposed tasks (11 related families), one response per arm; exact paired McNemar p=1.0 in both pairs. This tiny test does not establish equivalence or noninferiority. Nexus gained no task successes and emitted more tokens; OmniCoder lost one task success while emitting 0.97% fewer tokens, too little to explain the observed wall-time change by itself. Both candidates lost one policy-gate pass and remain unqualified. Cache-associated output divergence is separately documented; task-level causality is unresolved. These historical whole-task profiles are not independent repeats.\n'
   gemma_cache=next((e for e in es if e['id']=='R624'),None)
   if gemma_cache and gemma_cache.get('aggregate_metrics',{}).get('repeatability_pilot'):
    p=gemma_cache['aggregate_metrics']['repeatability_pilot'];rows=p['turns']

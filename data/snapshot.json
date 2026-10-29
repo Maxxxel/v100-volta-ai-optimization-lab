@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1885,
+    "ledger_events": 1890,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -1389,6 +1389,108 @@
   ],
   "matrix_revision": 435,
   "reproducibility_review": {
+    "agent_task_pairs": {
+      "Nexus_prefix_cache": {
+        "baseline_audit_sha256": "7bcbff8eac137ed8da5f2552cafb269cdedc97d908b522896a26665d653e8b69",
+        "baseline_experiment": "R531",
+        "baseline_independent_review_sha256": "f82eff2d03ff5ef1d3f1f2a75abda6e160e7e2e26018a84bf60fa0323b219370",
+        "cache_observation": {
+          "candidate_cache_hit_turns": 122,
+          "candidate_cached_tokens": 214113
+        },
+        "candidate_audit_sha256": "e76c97be395f0fdb6db48dfda46c31ab68d8f4768c615de51c022602f7799ff7",
+        "candidate_experiment": "R614",
+        "candidate_independent_review_sha256": "78da387757a03b2e06d0e25b3f7422955c79c1e2f5a8f21a95276fa27c8c30ef",
+        "case_wall_seconds": {
+          "baseline": 319.96516894,
+          "candidate": 255.4077487,
+          "observed_reduction_percent": 20.176389965779627
+        },
+        "completion_tokens": {
+          "baseline": 16392,
+          "candidate": 16777
+        },
+        "dataset_id": "jarvis-agent-validation-20261025-v1",
+        "gpu_energy_j_bounds": {
+          "baseline": [
+            87162.708,
+            87236.676
+          ],
+          "candidate": [
+            69685.207,
+            69786.33
+          ]
+        },
+        "interpretation": "One complete response per arm on 33 exposed fixed tasks. Exact paired test is descriptive and underpowered with 0/1 discordant task; no equivalence or noninferiority claim. Task-level A/A repeatability is not estimated. Cache-on request-level divergence is separately documented; whole-task causality remains unresolved.",
+        "peak_vram_mib": {
+          "baseline": 7356.5,
+          "candidate": 7356.5
+        },
+        "policy_gate_passes": {
+          "baseline": 29,
+          "candidate": 28
+        },
+        "task_outcomes": {
+          "baseline_only_success": 0,
+          "both_failed": 8,
+          "both_success": 25,
+          "candidate_only_success": 0,
+          "exact_mcnemar_two_sided_p": 1.0
+        },
+        "tasks": 33,
+        "winner_qualified": false
+      },
+      "OmniCoder_prefix_cache": {
+        "baseline_audit_sha256": "d5886de4d4ad939e99cf97e1811cd1ad62186a151b2ffa720deb03cad0f3e1cf",
+        "baseline_experiment": "R536",
+        "baseline_independent_review_sha256": "912bb2eb946635e06d768df096a209b57b8d62b4602e08de073cf20682a0e103",
+        "cache_observation": {
+          "candidate_cache_hit_turns": 123,
+          "candidate_cached_tokens": 220846
+        },
+        "candidate_audit_sha256": "9ba34885e6fdc79441346c60285a8e07f195e1303520b3d15929e75dafc8e43b",
+        "candidate_experiment": "R616",
+        "candidate_independent_review_sha256": "4214de99a81deaa159aa5e0187983214bce5802a0d35e0a5cacb758c4648f5d4",
+        "case_wall_seconds": {
+          "baseline": 401.663127198,
+          "candidate": 328.411291892,
+          "observed_reduction_percent": 18.23713215026842
+        },
+        "completion_tokens": {
+          "baseline": 22528,
+          "candidate": 22309
+        },
+        "dataset_id": "jarvis-agent-validation-20261025-v1",
+        "gpu_energy_j_bounds": {
+          "baseline": [
+            109461.518,
+            109572.691
+          ],
+          "candidate": [
+            89455.538,
+            89571.448
+          ]
+        },
+        "interpretation": "One complete response per arm on 33 exposed fixed tasks. Exact paired test is descriptive and underpowered with 0/1 discordant task; no equivalence or noninferiority claim. Task-level A/A repeatability is not estimated. Cache-on request-level divergence is separately documented; whole-task causality remains unresolved.",
+        "peak_vram_mib": {
+          "baseline": 7680.5,
+          "candidate": 7680.5
+        },
+        "policy_gate_passes": {
+          "baseline": 29,
+          "candidate": 28
+        },
+        "task_outcomes": {
+          "baseline_only_success": 1,
+          "both_failed": 5,
+          "both_success": 27,
+          "candidate_only_success": 0,
+          "exact_mcnemar_two_sided_p": 1.0
+        },
+        "tasks": 33,
+        "winner_qualified": false
+      }
+    },
     "fixed_output_timings": {
       "r531_r614": {
         "candidate": {
@@ -1573,7 +1675,7 @@
     "BENCHMARK_REGISTER.json": "7441a8b0528d16230548c9b1b2f8ace0624d846d486fa2f9050eab76a494bdd3",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "d45d89cf2a98e289a0ecaed1a4563551a958ed8f378493df8a0259d1144fa446",
+    "O2_EXPERIMENTS.jsonl": "a9c3a324edd9e67abfb8e6ce770439d74e39d52ac7560af7ef1ffb3766ea2adb",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

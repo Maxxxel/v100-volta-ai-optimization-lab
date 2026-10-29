@@ -35,6 +35,15 @@ Source review SHA-256: `319375870744b2c6a3d35ab109e8ad3ba2e81b1af0b60ca444a665c7
 
 Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.
 
+## Paired agent task outcomes · prefix-cache profiles
+
+| Historical profile | Task successes · 33 paired | Policy-gate passes | Observed task wall time | Completion tokens | GPU energy bounds |
+|---|---|---|---|---|---|
+| [Nexus · R531 → R614](experiments/R614.md) | 25 both · +0 / −0 | 29 → 28 / 33 | 320.0 → 255.4 s | 16,392 → 16,777 | 87,163–87,237 → 69,685–69,786 J |
+| [OmniCoder · R536 → R616](experiments/R616.md) | 27 both · +0 / −1 | 29 → 28 / 33 | 401.7 → 328.4 s | 22,528 → 22,309 | 109,462–109,573 → 89,456–89,571 J |
+
+Same 33 exposed tasks (11 related families), one response per arm; exact paired McNemar p=1.0 in both pairs. This tiny test does not establish equivalence or noninferiority. Nexus gained no task successes and emitted more tokens; OmniCoder lost one task success while emitting 0.97% fewer tokens, too little to explain the observed wall-time change by itself. Both candidates lost one policy-gate pass and remain unqualified. Cache-associated output divergence is separately documented; task-level causality is unresolved. These historical whole-task profiles are not independent repeats.
+
 ## Gemma prefix-cache A/A and A/B pilot
 
 | Fixed request | No-cache A/A across sessions | Cache-on variants different | Cache hits | First difference, zero-based |
