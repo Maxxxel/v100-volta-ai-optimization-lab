@@ -1509,8 +1509,36 @@
           "candidate_turns": 5,
           "extra_candidate_turns": 2
         },
-        "interpretation": "The sole R536-success/R616-failure case had two identical earlier replies. On turn 3, exact prompt token IDs and request fields (except cache_prompt) matched; the baseline processed all 1790 prompt tokens while the candidate reported reusing 1675 and diverged at output token 0. The candidate then used two additional turns: total captured output was 744 tokens versus 636 in the baseline. This directly maps cache-enabled execution to the observed first divergence in this case, but the historical sessions were not contemporaneous and no no-cache A/A repeat exists for this exact prompt. It does not prove the cache caused the task or policy outcome, identify a numerical/GDN state mechanism, or qualify the cache.",
+        "interpretation": "The sole R536-success/R616-failure case had two identical earlier replies; the first divergent response was turn 3, where the candidate reported reusing 1,675 prefix tokens and diverged at output token 0. R620 later repeated this exact exposed prompt: no-cache outputs were identical in 4/4 trials, while cache-on produced two distinct sequences across 4/4 trials (164/166 tokens), each differing from the no-cache output at token 0. This shows baseline variability was not observed but candidate variability was observed for this one prompt. It narrows the repeatability concern; it does not prove that cache behavior caused the complete-task or policy outcome, identify a numerical/GDN mechanism, or qualify the cache.",
         "lost_task_count": 1,
+        "repeatability_followup": {
+          "cache_hit_tokens_each": 1675,
+          "cache_on_distinct_sequences": 2,
+          "cache_on_output_tokens": [
+            164,
+            166,
+            166,
+            164
+          ],
+          "cache_on_repeats": 4,
+          "cache_on_repeats_identical_to_baseline": 0,
+          "classification": "BASELINE_VARIABILITY_NOT_OBSERVED; CANDIDATE_VARIABILITY_OBSERVED_ON_ONE_EXPOSED_PROMPT",
+          "experiment_id": "R620",
+          "first_output_difference_position_zero_based": 0,
+          "limits": "Two sessions, one previously exposed request, fixed seed and temperature. No task replay, logits, RNG internals or recurrent-state values; this does not establish whole-task or policy causality.",
+          "no_cache_output_tokens": [
+            558,
+            558,
+            558,
+            558
+          ],
+          "no_cache_repeats_identical": 4,
+          "repetitions_per_cache_setting": 4,
+          "request_seed": 1001,
+          "same_exposed_prompt_token_ids_verified": true,
+          "sessions": 2,
+          "temperature": 0
+        },
         "server_execution_path": {
           "baseline": {
             "checkpoint_restore_logged": false,
@@ -1591,7 +1619,7 @@
         "url": "https://github.com/ggml-org/llama.cpp/issues/22940"
       },
       "kind": "PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION",
-      "limits": "R616’s one lost task is now mapped to an exact matching 1,790-token prompt and its first changed token: two preceding turns were identical; the candidate reported reusing 1,675 tokens and diverged at output token zero. The historical sessions were not contemporaneous and this exact prompt lacks no-cache A/A repetition. No logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The source and token evidence do not identify a numerical/GDN state mechanism or prove task/policy causality.",
+      "limits": "R616’s one lost task is mapped to an exact matching 1,790-token prompt and first changed token. R620 repeats the exact prompt in two sessions: selected no-cache outputs are stable in 4/4 trials, while cache-on outputs vary across two sequences in 4/4 trials. These are exposed request-level observations only; no logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The evidence does not prove task/policy causality or identify a numerical/GDN state mechanism.",
       "model_requests": 0,
       "nexus_policy_case_mapping": {
         "baseline_audit_sha256": "7bcbff8eac137ed8da5f2552cafb269cdedc97d908b522896a26665d653e8b69",

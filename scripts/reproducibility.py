@@ -53,6 +53,50 @@ def lost_task_first_divergence(baseline_checks,candidate_checks,baseline_rows,ca
          'agent_trajectory':{'baseline_turns':len(base_case_turns),'candidate_turns':len(candidate_case_turns),'extra_candidate_turns':len(candidate_case_turns)-len(base_case_turns),'baseline_generated_tokens':base_total,'candidate_generated_tokens':candidate_total},
          'interpretation':'The sole R536-success/R616-failure case had two identical earlier replies. On turn 3, exact prompt token IDs and request fields (except cache_prompt) matched; the baseline processed all 1790 prompt tokens while the candidate reported reusing 1675 and diverged at output token 0. The candidate then used two additional turns: total captured output was 744 tokens versus 636 in the baseline. This directly maps cache-enabled execution to the observed first divergence in this case, but the historical sessions were not contemporaneous and no no-cache A/A repeat exists for this exact prompt. It does not prove the cache caused the task or policy outcome, identify a numerical/GDN state mechanism, or qualify the cache.'}
 
+def omni_cache_aa_repeatability(root, expected_prompt_ids):
+ """Verify the exact R616 divergent prompt's two-session R620 A/A/A/B pilot."""
+ root=Path(root);stage=root/'staging/r620';review=json.loads((stage/'INDEPENDENT_REVIEW.json').read_text())
+ audit=json.loads((stage/'AUDIT.json').read_text());assert review['source_audit_sha256']==digest(stage/'AUDIT.json')
+ assert review['status']=='INDEPENDENT_CPU_TOKEN_RECOMPUTATION_COMPLETE'
+ raw_parent=root.parent/'research/mcp-workspace/r620-omni-aa-abba-token-pilot'
+ raw_dirs=[p for p in raw_parent.glob('host-*') if (p/'HTTP_RESULTS.jsonl').is_file()]
+ assert len(raw_dirs)==1
+ raw=raw_dirs[0];pins=json.loads((raw/'RAW_HASHES.json').read_text())
+ assert digest(raw/'HTTP_RESULTS.jsonl')==pins['HTTP_RESULTS.jsonl']==review['raw_responses_sha256']
+ rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if line]
+ inputs={x['id']:x for x in rows if x.get('kind')=='r620_input'}
+ requests={x['id']:x for x in rows if x.get('kind')=='r620_request'}
+ assert len(requests)==24 and len(inputs)==24 and requests.keys()==inputs.keys()
+ selected=[requests[f's{s}-a{a}-t3'] for s,a in ((1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4))]
+ for record in selected:
+  identity=inputs[record['id']]
+  assert identity['prompt_token_ids']==expected_prompt_ids
+  assert identity['prompt_token_ids_sha256']==hashlib.sha256(json.dumps(expected_prompt_ids,separators=(',',':')).encode()).hexdigest()
+  assert record['request']['seed']==1001 and record['request']['temperature']==0
+  assert {k:v for k,v in record['request'].items() if k!='cache_prompt'}=={k:v for k,v in selected[0]['request'].items() if k!='cache_prompt'}
+ def seq(row):return row['reply']['__verbose']['tokens']
+ baseline=[r for r in selected if r['request']['cache_prompt'] is False]
+ candidate=[r for r in selected if r['request']['cache_prompt'] is True]
+ assert len(baseline)==len(candidate)==4
+ base_sequences=[seq(r) for r in baseline];candidate_sequences=[seq(r) for r in candidate]
+ assert all(x==base_sequences[0] for x in base_sequences) and len(base_sequences[0])==558
+ assert all(next((i for i,(x,y) in enumerate(zip(base_sequences[0],seq(r))) if x!=y),None)==0 for r in candidate)
+ assert [len(x) for x in candidate_sequences]==[164,166,166,164]
+ unique_candidate=len({tuple(x) for x in candidate_sequences})
+ assert unique_candidate==2
+ assert all(r['reply']['__verbose']['timings']['cache_n']==1675 for r in candidate)
+ assert review['turns'][2]['no_cache_all_four_equal'] is True
+ assert review['turns'][2]['cache_all_four_equal'] is False
+ return {'experiment_id':'R620','same_exposed_prompt_token_ids_verified':True,
+         'request_seed':1001,'temperature':0,'sessions':2,'repetitions_per_cache_setting':4,
+         'no_cache_repeats_identical':4,'no_cache_output_tokens':[558,558,558,558],
+         'cache_on_distinct_sequences':unique_candidate,'cache_on_repeats':4,
+         'cache_on_output_tokens':[len(x) for x in candidate_sequences],
+         'cache_on_repeats_identical_to_baseline':0,'cache_hit_tokens_each':1675,
+         'first_output_difference_position_zero_based':0,
+         'classification':'BASELINE_VARIABILITY_NOT_OBSERVED; CANDIDATE_VARIABILITY_OBSERVED_ON_ONE_EXPOSED_PROMPT',
+         'limits':'Two sessions, one previously exposed request, fixed seed and temperature. No task replay, logits, RNG internals or recurrent-state values; this does not establish whole-task or policy causality.'}
+
 def summarize_nexus_policy_case(baseline_case,candidate_case,baseline_request, candidate_request,
                                 baseline_reply,candidate_reply,pilot_replies,input_tokens,
                                 pilot_seed_checks):
@@ -279,6 +323,13 @@ def cache_state_source_path(root):
  assert baseline_server_path['requests']==154 and candidate_server_path['requests']==156
  task_divergence['server_execution_path']={'baseline':baseline_server_path,'candidate':candidate_server_path,
   'interpretation':'Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline began with no reusable context and evaluated all 1,790 input tokens; candidate began with 1,675 reusable prefix tokens and evaluated 115. Neither selected server task logged checkpoint restore or full-prompt fallback. This verifies the common-prefix compute path, not whole-task cache causality or an internal state/numerical mechanism.'}
+ # R620 subsequently repeated this exact exposed prompt in two sessions.
+ # Preserve the task-level causal limit, but replace the now-stale claim that
+ # no no-cache A/A existed for the prompt.
+ exact_prompt_ids=next(x for x in base['rows'] if x.get('kind')=='input_identity' and x.get('case_id')==lost_case and x.get('turn')==2)['prompt_token_ids']
+ followup=omni_cache_aa_repeatability(root,exact_prompt_ids)
+ task_divergence['repeatability_followup']=followup
+ task_divergence['interpretation']='The sole R536-success/R616-failure case had two identical earlier replies; the first divergent response was turn 3, where the candidate reported reusing 1,675 prefix tokens and diverged at output token 0. R620 later repeated this exact exposed prompt: no-cache outputs were identical in 4/4 trials, while cache-on produced two distinct sequences across 4/4 trials (164/166 tokens), each differing from the no-cache output at token 0. This shows baseline variability was not observed but candidate variability was observed for this one prompt. It narrows the repeatability concern; it does not prove that cache behavior caused the complete-task or policy outcome, identify a numerical/GDN mechanism, or qualify the cache.'
  # The R614 policy-pass loss is independently tied to a repeated request-level
  # cache divergence by the balanced, two-session R621 diagnostic.
  baseline_audit=json.loads((root/'staging/r531/AUDIT.json').read_text())
@@ -388,7 +439,7 @@ def cache_state_source_path(root):
   'causal_disposition':'OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED',
   'case_level_divergence':task_divergence,
   'nexus_policy_case_mapping':nexus_policy_mapping,
-  'limits':'R616’s one lost task is now mapped to an exact matching 1,790-token prompt and its first changed token: two preceding turns were identical; the candidate reported reusing 1,675 tokens and diverged at output token zero. The historical sessions were not contemporaneous and this exact prompt lacks no-cache A/A repetition. No logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The source and token evidence do not identify a numerical/GDN state mechanism or prove task/policy causality.',
+  'limits':'R616’s one lost task is mapped to an exact matching 1,790-token prompt and first changed token. R620 repeats the exact prompt in two sessions: selected no-cache outputs are stable in 4/4 trials, while cache-on outputs vary across two sequences in 4/4 trials. These are exposed request-level observations only; no logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The evidence does not prove task/policy causality or identify a numerical/GDN state mechanism.',
   'GPU_runs':0,'model_requests':0,
  }
 

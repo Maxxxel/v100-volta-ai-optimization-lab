@@ -145,13 +145,13 @@ HumanEval/54 reproduced the historical F16-pass/Q8-fail pair; HumanEval/95 faile
 
 ## OmniCoder two-session pilot
 
-| Fixed request | No-cache A/A across sessions | Cache-on variants different from baseline | Cache hits | First difference, zero-based |
-|---|---|---|---|---|
-| 1 | YES | 0 | 2 | same |
-| 2 | YES | 0 | 4 | same |
-| 3 | YES | 4 | 4 | 0 |
+| Fixed request | No-cache A/A across sessions | Cache-on differs from baseline | Cache-on distinct outputs / lengths | Cache hits | First difference, zero-based |
+|---|---|---|---|---|---|
+| 1 | YES | 0 | NOT MEASURED | 2 | same |
+| 2 | YES | 0 | NOT MEASURED | 4 | same |
+| 3 | YES | 4 | 4 repeats / 2 sequences; 164/166/166/164 tokens | 4 | 0 |
 
-[R620](experiments/R620.md) used identical input token IDs and wire order in two adjacent model sessions. The third request reproduced a cache-associated token divergence; this is not a whole-task safety evaluation or an identified kernel cause. In pinned llama.cpp source `097cf33d9499b1eade67d51e16d7c75427e7b267`, `server-context.cpp` reuses the common prompt prefix and evaluates the suffix; its server README warns that cache-enabled prompt processing can use a different batch path and produce non-bit-identical logits. R620 reused 1,675 of 1,790 prompt tokens on this request. This is consistent with a cache-path numerical difference, but does not prove its exact cause or the R616 policy regression. The [R619](experiments/R619.md) preflight failure was traced separately to reordered JSON object keys and remains preserved.
+[R620](experiments/R620.md) used identical input token IDs and wire order in two adjacent model sessions. On the exact R616 divergent request, no-cache A/A outputs matched in 4/4 trials (558 tokens); cache-on outputs produced two distinct sequences in 4/4 trials (164/166 tokens), each differing at output token 0 after 1,675 reported cache tokens. **BASELINE_VARIABILITY_NOT_OBSERVED; CANDIDATE_VARIABILITY_OBSERVED** for this single exposed request. This narrows the repeatability concern but does not establish whole-task or policy causality, or an internal kernel/state cause. The pinned llama.cpp server-context reuses common prompt prefixes and may use a different prompt-processing batch path. The [R619](experiments/R619.md) preflight failure from reordered JSON keys remains preserved.
 
 ## Cache and recurrent-state source-path review
 
@@ -207,7 +207,7 @@ A CPU-only pairing of retained R536/R616 request captures maps the sole case tha
 
 Server-task alignment: 154/154 baseline and 156/156 candidate turns match captured input/completion token counts. On the divergent third turn, initial reusable context was 0 vs 1675 tokens; server input evaluation was 1790/1790 vs 115/1790. Checkpoint restore/reprocess fallback logged: False/False baseline; False/False candidate. Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline began with no reusable context and evaluated all 1,790 input tokens; candidate began with 1,675 reusable prefix tokens and evaluated 115. Neither selected server task logged checkpoint restore or full-prompt fallback. This verifies the common-prefix compute path, not whole-task cache causality or an internal state/numerical mechanism.
 
-On turn 3, the same 1,790-token prompt had a first-token difference: uncached baseline `cache_n=0`, candidate `cache_n=1675`. That response was shorter (166 vs558 tokens), but the candidate then used two additional model turns; total captured output for this case was 744 vs636 tokens. The task-time difference therefore cannot be explained as a simple decode-throughput gain. This is cache-associated divergence in the one lost task, but sessions were not contemporaneous and this exact prompt has no no-cache A/A repeat. It does not establish that caching caused the task/policy outcome or identify the internal numerical/state path.
+On turn 3, the same 1,790-token prompt had a first-token difference: uncached baseline `cache_n=0`, candidate `cache_n=1675`. That response was shorter (166 vs558 tokens), but the candidate then used two additional model turns; total captured output for this case was 744 vs636 tokens. The task-time difference therefore cannot be explained as a simple decode-throughput gain. R620 supplies exact-prompt no-cache A/A repetition: 4/4 outputs matched; cache-on varied across two sequences in 4/4 trials. This confirms scoped candidate variability, not that caching caused the task/policy outcome or an internal numerical/state path.
 
 The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.
 
