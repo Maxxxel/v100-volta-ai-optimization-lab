@@ -508,6 +508,32 @@ def seed_execution_path(data, captures):
   'interpretation':'The archived requests and server-reported settings carry the configured seed in every reviewed request. The pinned server overlays request fields on global defaults and initializes a sampler for each task; multi-choice child tasks intentionally offset seeds. For R614/R616, temperature=0, n_probs=0, backend sampling=false, final sampler=temperature, and dynatemp_range=0 satisfy the pinned greedy-sampler branch, so RNG seed variation is not a sufficient explanation for their token divergence. This does not establish deterministic GPU logits or identify a cache/kernel/state cause. Gemma temperature=1 remains stochastic even with a fixed per-request seed.'
  }
 
+def logprobs_diagnostic_path(data, captures):
+ """Check whether the pinned non-stream API can expose bounded token probabilities."""
+ commit='097cf33d9499b1eade67d51e16d7c75427e7b267'
+ if data['build_source']['commit']!=commit:return None
+ checks=data['build_source'].get('checks',{})
+ expected='c4d53b4c72ca825434a035a4b632c8bc71e709d22fe33ca149fde95cee8460a1'
+ assert checks['tools/server/server-common.cpp']['actual']==checks['tools/server/server-common.cpp']['proof']==expected
+ turns=captures['r616'][0]
+ shape=collections.Counter((r['request'].get('stream'), 'tools' in r['request'],
+                            'logprobs' in r['request'], 'top_logprobs' in r['request'])
+                           for r in turns.values())
+ count=data['profiles']['r616']['request_count']
+ assert sum(shape.values())==count and shape=={(False,True,False,False):count}
+ return {
+  'source_file_sha256':expected,
+  'source_locations':{'logprobs_parse_and_stream_guard':'tools/server/server-common.cpp:1455-1463',
+                      'pre_sampling_logits_collection':'tools/server/server-context.cpp:1932',
+                      'probability_output':'tools/server/server-task.cpp:256-289'},
+  'r616_requests':len(turns),'non_stream_with_tools':count,
+  'logprobs_requested':0,'top_logprobs_requested':0,
+  'pinned_api_support':'SUPPORTED_FOR_NON_STREAM_TOOL_REQUESTS',
+  'default_top_logprobs':20,
+  'limit':'Top-20 probability/logprob view only; not a full raw-logit vector. Enabling it changes instrumentation and must be symmetric across cache arms.',
+  'decision':'R616 frozen profile remains unchanged. Any token-probability diagnosis requires a separate reviewed broker profile; no GPU request or run was made.'
+ }
+
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'
  if not report.is_file():return None
@@ -544,4 +570,4 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}

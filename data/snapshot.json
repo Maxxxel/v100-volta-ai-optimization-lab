@@ -1807,6 +1807,22 @@
         }
       }
     },
+    "logprobs_diagnostic_path": {
+      "decision": "R616 frozen profile remains unchanged. Any token-probability diagnosis requires a separate reviewed broker profile; no GPU request or run was made.",
+      "default_top_logprobs": 20,
+      "limit": "Top-20 probability/logprob view only; not a full raw-logit vector. Enabling it changes instrumentation and must be symmetric across cache arms.",
+      "logprobs_requested": 0,
+      "non_stream_with_tools": 156,
+      "pinned_api_support": "SUPPORTED_FOR_NON_STREAM_TOOL_REQUESTS",
+      "r616_requests": 156,
+      "source_file_sha256": "c4d53b4c72ca825434a035a4b632c8bc71e709d22fe33ca149fde95cee8460a1",
+      "source_locations": {
+        "logprobs_parse_and_stream_guard": "tools/server/server-common.cpp:1455-1463",
+        "pre_sampling_logits_collection": "tools/server/server-context.cpp:1932",
+        "probability_output": "tools/server/server-task.cpp:256-289"
+      },
+      "top_logprobs_requested": 0
+    },
     "paired_historical": {
       "r531_r614": {
         "different_input_tokens": 0,

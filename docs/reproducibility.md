@@ -17,6 +17,12 @@ R614/R616 each meet the pinned greedy-selection condition on all requests: tempe
 
 Pinned source: [request seed field](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-schema.cpp#L175), [per-task sampler initialization](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L1925), [greedy sampler selection](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/common/sampling.cpp#L403), [temperature-zero argmax](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/src/llama-sampler.cpp#L265), [multi-choice seed offsets](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-task.h#L287). Source hashes: `common/sampling.cpp b6a1f963fd75, tools/server/server-context.cpp 6b5fdf2b2460, tools/server/server-schema.cpp 1f9d7b73b436`.
 
+## Token-probability diagnostic feasibility
+
+R616 archived 156 non-stream requests with tools; none requested logprobs. The pinned API accepts this combination because its restriction is limited to `tools + stream`. It can return up to 20 top-token probabilities/logprobs per generated token—not a full raw-logit vector or internal state. Captures did not enable this instrumentation. A future measurement needs a separate reviewed broker profile and identical instrumentation in both cache arms; R616 remains untouched and no GPU run was made.
+
+Pinned [request parser and stream guard](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-common.cpp#L1455). Source SHA-256: `c4d53b4c72ca825434a035a4b632c8bc71e709d22fe33ca149fde95cee8460a1`.
+
 ## Historical matched requests
 
 | Profile | No cache / cache | Matching requests | Different input token sequences | Identical output sequences | Different output sequences |
