@@ -182932,6 +182932,34 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 8254.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-e61d21d8155f97c16247",
+    "original_bytes": 6198,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "e61d21d8155f97c16247419e4cabbfe3a361cc0122a13ac5a01b28e8f51fcc57",
+    "statements": {
+      "scope": "Three exposed fixed requests across two sessions; seeds 1001, 1002 and 1003 each repeated twice per session. Same actual input IDs; no tools executed. Shared 1200-second task phase includes startups and warmups. No whole-task quality or safety qualification; logits NOT MEASURED."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-5e0257b229360e2d3652",
+    "original_bytes": 4647,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "5e0257b229360e2d365275928a626c7c83029bb6529e81a1b35b6f9ca6e4dff5",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

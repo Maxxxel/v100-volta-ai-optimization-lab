@@ -27249,5 +27249,217 @@
       "repeatability_limits": "Four fixed previously exposed requests, no tool execution, one runtime and two adjacent sessions. Identical no-cache outputs are scoped to these requests; no statistical equivalence or whole-task policy causality. Logits and numerical margins NOT MEASURED. Cache and slot state differ by design; implementation-level cause unverified."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "seed_repeatability_pilot": {
+        "energy_counter": {
+          "complete_request_s": 50.67273315,
+          "group_window_s": 56.124917032,
+          "groups": 1,
+          "included_between_request_setup_s": 5.452183882,
+          "lower_j": 12194.839,
+          "max_query_duration_s": 0.055329786,
+          "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+          "tasks": 36,
+          "upper_j": 12304.061
+        },
+        "peak_device_vram_mib": 8254.5,
+        "task_phase_s": 62.406574852,
+        "turns": [
+          {
+            "different_seed_outputs": 1,
+            "seeds": [
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  21,
+                  21,
+                  21,
+                  21
+                ],
+                "seed": 1001,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              },
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  21,
+                  21,
+                  21,
+                  21
+                ],
+                "seed": 1002,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              },
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  21,
+                  21,
+                  21,
+                  21
+                ],
+                "seed": 1003,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              }
+            ],
+            "turn": 1
+          },
+          {
+            "different_seed_outputs": 1,
+            "seeds": [
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  22,
+                  22,
+                  22,
+                  22
+                ],
+                "seed": 1001,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              },
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  22,
+                  22,
+                  22,
+                  22
+                ],
+                "seed": 1002,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              },
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  22,
+                  22,
+                  22,
+                  22
+                ],
+                "seed": 1003,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              }
+            ],
+            "turn": 2
+          },
+          {
+            "different_seed_outputs": 1,
+            "seeds": [
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  29,
+                  29,
+                  29,
+                  29
+                ],
+                "seed": 1001,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              },
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  29,
+                  29,
+                  29,
+                  29
+                ],
+                "seed": 1002,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              },
+              {
+                "across_session_equal": true,
+                "first_divergence_positions": [
+                  null,
+                  null,
+                  null
+                ],
+                "output_lengths": [
+                  29,
+                  29,
+                  29,
+                  29
+                ],
+                "seed": 1003,
+                "within_session_1_equal": true,
+                "within_session_2_equal": true
+              }
+            ],
+            "turn": 3
+          }
+        ]
+      }
+    },
+    "audit_id": "audit-e61d21d8155f97c16247",
+    "date": "2026-10-29T08:19:02.360001+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R622",
+    "model": "Gemma 4 12B QAT Q4",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-5e0257b229360e2d3652",
+      "audit-64b3d7585d0fc016342f",
+      "audit-9ba01e7c0be3b578b5c0"
+    ],
+    "statements": {
+      "decision": "On three exposed first-turn tool requests all seed-specific repetitions are identical across two sessions; outputs also match across tested seeds. Sampling effect and repeatability for broader workloads remain unproven. Existing R617 failed policy gate remains.",
+      "repeatability_decision": "On three exposed first-turn tool requests all seed-specific repetitions are identical across two sessions; outputs also match across tested seeds. Sampling effect and repeatability for broader workloads remain unproven. Existing R617 failed policy gate remains.",
+      "repeatability_limits": "Three exposed fixed requests, no tool execution, same runtime and two adjacent sessions. Repeats are correlated; no population-quality or safety equivalence claim. Logits and numerical margins NOT MEASURED."
+    },
+    "winner_qualified": false
   }
 ]

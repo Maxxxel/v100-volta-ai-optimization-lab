@@ -1457,6 +1457,31 @@ def main():
             experiments[ident]['aggregate_metrics']['repeatability_pilot']={'turns':safe_turns,'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':projection(measured['energy_counter'])}
             experiments[ident]['statements']['repeatability_limits']=text(review['limits'])
             experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
+        if ident=='R622' and v.get('independent_review_path'):
+            rid=receipt(v['independent_review_path'],v['independent_review_sha256']);refid=receipt(root/'staging/r534/AUDIT.json');screenid=receipt(root/'staging/r617/AUDIT.json')
+            if not audit or not rid or not refid or not screenid:raise ValueError('R622 evidence missing')
+            measured=load(locations[audit]);review=load(locations[rid])
+            if review['source_audit_sha256']!=digest(locations[audit]) or measured['reference_audit_sha256']!=digest(locations[refid]) or measured['source_screen_audit_sha256']!=digest(locations[screenid]) or review['winner_qualified'] is not False:raise ValueError('R622 source mismatch')
+            folders=list((root.parent/'research/mcp-workspace/r622-gemma-seed-repeat-token-pilot').glob('host-*'))
+            if len(folders)!=1:raise ValueError('R622 capture count differs')
+            folder=folders[0];pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl'
+            if digest(raw)!=pins['HTTP_RESULTS.jsonl'] or digest(raw)!=review['raw_responses_sha256']:raise ValueError('R622 raw capture changed')
+            captured=[json.loads(x) for x in raw.read_text().splitlines() if x];turns=[x for x in captured if x.get('kind')=='r622_request'];inputs=[x for x in captured if x.get('kind')=='r622_input'];data=load(root/'staging/r622/PRIVATE_REQUESTS.json')['cases']
+            if len(turns)!=36 or len(inputs)!=36 or len(data)!=36:raise ValueError('R622 incomplete')
+            for x,y,c in zip(turns,inputs,data):
+                settings=x['reply']['__verbose']['generation_settings']
+                if x['id']!=y['id'] or x['id']!=c['id'] or json.dumps(x['request'],ensure_ascii=True,allow_nan=False)!=c['request_json'] or y['prompt_token_ids']!=c['expected_prompt_token_ids'] or settings['seed']!=x['request']['seed'] or settings['temperature']!=1.0 or x['request']['cache_prompt'] is not False:raise ValueError('R622 input or sampler evidence differs')
+            for i in range(3):
+                group=[turns[i+3*j] for j in range(12)];seq=[x['reply']['__verbose']['tokens'] for x in group];seeds=[x['reply']['__verbose']['generation_settings']['seed'] for x in group]
+                if seeds!=[1001,1002,1003,1003,1002,1001]*2:raise ValueError('R622 seed order differs')
+                for seed in (1001,1002,1003):
+                    variants=[x for x,k in zip(seq,seeds) if k==seed];row=next(x for x in review['turns'][i]['seeds'] if x['seed']==seed)
+                    if row['within_session_1_equal']!=(variants[0]==variants[1]) or row['within_session_2_equal']!=(variants[2]==variants[3]) or row['across_session_equal']!=(variants[0]==variants[2]):raise ValueError('R622 repeat result differs')
+                if review['turns'][i]['different_seed_outputs']!=len({tuple(x) for x in seq[:3]}):raise ValueError('R622 distinct seed result differs')
+            experiments[ident]['related_audit_ids']=[rid,refid,screenid]
+            experiments[ident]['aggregate_metrics']['seed_repeatability_pilot']={'turns':review['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':projection(measured['energy_counter'])}
+            experiments[ident]['statements']['repeatability_limits']=text(review['limits'])
+            experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
         if ident=='R619' and v.get('cpu_tokenizer_review'):
             item=v['cpu_tokenizer_review'];rid=receipt(item['path'],item['sha256']);cid=receipt(item['receipt_path'],item['receipt_sha256']);review=load(locations[rid]) if rid else {};proof=load(locations[cid]) if cid else {};private=pathlib.Path(item['private_output_path'])
             if not rid or not cid or digest(private)!=item['private_output_sha256'] or proof.get('private_output_sha256')!=digest(private) or proof.get('review_sha256')!=digest(locations[rid]) or proof.get('gpu_calls')!=0 or proof.get('model_generations')!=0:raise ValueError('R619 CPU tokenizer evidence missing')

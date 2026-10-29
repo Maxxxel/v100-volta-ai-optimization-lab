@@ -541,6 +541,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R619](experiments/R619.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder 9B bartowski Q6 |
 | [R620](experiments/R620.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder 9B bartowski Q6 |
 | [R621](experiments/R621.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus 9B Q6 |
+| [R622](experiments/R622.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma 4 12B QAT Q4 |
 
 
 ## Historical signed windows

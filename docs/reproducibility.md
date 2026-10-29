@@ -35,6 +35,22 @@ Source review SHA-256: `319375870744b2c6a3d35ab109e8ad3ba2e81b1af0b60ca444a665c7
 
 Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.
 
+## Gemma fixed and distinct seed pilot
+
+| Fixed request | Seed | Within-session repeat equal | Across-session equal | Distinct outputs across seeds |
+|---|---|---|---|---|
+| 1 | 1001 | YES | YES | 1 |
+| 1 | 1002 | YES | YES | 1 |
+| 1 | 1003 | YES | YES | 1 |
+| 2 | 1001 | YES | YES | 1 |
+| 2 | 1002 | YES | YES | 1 |
+| 2 | 1003 | YES | YES | 1 |
+| 3 | 1001 | YES | YES | 1 |
+| 3 | 1002 | YES | YES | 1 |
+| 3 | 1003 | YES | YES | 1 |
+
+[R622](experiments/R622.md) tested three short, constrained and previously exposed tool requests, using three seeds twice per session across two sessions. Identical outputs in this small sample do not establish general determinism or quality/safety equivalence. The R617 failed policy gate remains in force.
+
 ## Nexus two-session pilot
 
 | Fixed request | No-cache A/A across sessions | Cache-on variants different | Cache hits | First difference, zero-based |

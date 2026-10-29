@@ -615,6 +615,13 @@ def main():
    for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
     v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
    page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  gemma_pilot=next((e for e in es if e['id']=='R622'),None)
+  if gemma_pilot and gemma_pilot.get('aggregate_metrics',{}).get('seed_repeatability_pilot'):
+   p=gemma_pilot['aggregate_metrics']['seed_repeatability_pilot'];rows=[]
+   for x in p['turns']:
+    for y in x['seeds']:rows.append([x['turn'],y['seed'],'YES' if y['within_session_1_equal'] and y['within_session_2_equal'] else 'NO','YES' if y['across_session_equal'] else 'NO',x['different_seed_outputs']])
+   page+='\n## Gemma fixed and distinct seed pilot\n\n'+table(['Fixed request','Seed','Within-session repeat equal','Across-session equal','Distinct outputs across seeds'],rows)
+   page+='[R622](experiments/R622.md) tested three short, constrained and previously exposed tool requests, using three seeds twice per session across two sessions. Identical outputs in this small sample do not establish general determinism or quality/safety equivalence. The R617 failed policy gate remains in force.\n'
   nexus_pilot=next((e for e in es if e['id']=='R621'),None)
   if nexus_pilot and nexus_pilot.get('aggregate_metrics',{}).get('repeatability_pilot'):
    v=nexus_pilot['aggregate_metrics']['repeatability_pilot']; rows=v['turns']; assert len(rows)==4
