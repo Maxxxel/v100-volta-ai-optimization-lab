@@ -12,6 +12,16 @@ Role-complementary judgment using complete official coding/tools plus separately
 
 The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.
 
+## Post-freeze evidence through R627
+
+The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.
+
+- [R614](experiments/R614.md) Nexus-9B Q6 · prompt cache enabled: versus [R531](experiments/R531.md) on the same exposed33 tasks, task success 25/33→25/33; task wall 320.0→255.4s (20.18% observed), completed output 16,392→16,777 tokens, GPU counter energy 87.16–87.24→69.69–69.79kJ, policy passes 29/33→28/33. Cache candidates remain **NOT QUALIFIED**: the small exposed set has an observed policy-gate loss; output lengths differ; cache causality is unresolved.
+- [R616](experiments/R616.md) OmniCoder-9B bartowski Q6 · prompt cache enabled: versus [R536](experiments/R536.md) on the same exposed33 tasks, task success 28/33→27/33; task wall 401.7→328.4s (18.24% observed), completed output 22,528→22,309 tokens, GPU counter energy 109.46–109.57→89.46–89.57kJ, policy passes 29/33→28/33. Cache candidates remain **NOT QUALIFIED**: the small exposed set has an observed policy-gate loss; output lengths differ; cache causality is unresolved.
+- [Qwen3.8 MTP ON/OFF: R618/R625](experiments/R618.md): both completed the same reserved authored set at 27/33 and 27/33. Observed task wall 625.0s ON vs 761.5s OFF; outputs 12,110 vs 12,069 tokens, 8/150 matched requests produced different sequences, peak VRAM 13602 vs 12454MiB, GPU energy 162.02–162.13 vs 208.76–208.86kJ. Separate sessions, exposed correlated tasks: **exploratory profile comparison only**, not causal speedup, quality equivalence or Champion qualification.
+- [R627](experiments/R627.md) Gemma KV-cache diagnostic: F16 and Q8 each repeated identically within arm on 3/3 exposed prompts; the two cache precisions differed on 2/3, first-token divergence on those cases. Three-case CPU EvalPlus replay is diagnostic only. No task-quality, safety or Champion qualification.
+These measurements do not change the R585 roles. Full cache/state evidence and limitations are in [Reproducibility](reproducibility.md); incomplete causal and population-level conclusions remain explicit.
+
 ## Balanced Jarvis sandbox baseline
 
 OmniCoder bartowski Q6, MTP OFF combines134/164 coding,178/200 parallel tools and the separate28/33 authored agent result. Against Nexus it buys four more coding cases and three more local agent cases at greater cost; against Qwen3.5 it trades one coding case and more memory for two tool cases and five local agent cases. These finite differences are not population superiority or a safety certificate.

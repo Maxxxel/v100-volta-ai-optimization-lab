@@ -397,7 +397,7 @@ def final_qualification_review(screening,history,experiments,frozen=None):
  text+='## Handoff\n\n'+('The three exact baseline packets are frozen in the [selection report](final-selection.md). ' if frozen else 'Finalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. ')+'Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.\n'
  return text
 
-def render_final_selection(frozen,history):
+def render_final_selection(frozen,history,experiments=None):
  from leaderboard import validate_final_baselines
  validate_final_baselines(frozen,history)
  text='# Jarvis — three frozen model baselines\n\n**Dated research selection through R585; not production approval or a universal model ranking.** Three concrete configurations are retained for the next controlled harness phase. Official Agent benchmarks remain NOT MEASURED.\n\n'
@@ -409,6 +409,32 @@ def render_final_selection(frozen,history):
   rows.append(['['+p['model']['name']+'](configuration-profiles/'+s['baseline_runtime_configuration_id']+'.md)',s['role'],str(c['solved'])+'/'+str(c['tasks']),str(t['solved'])+'/'+str(t['tasks']),f'{mean:.2f}% ·2/3',str(m['solved'])+'/33; policy '+str(m['policy_gate_passes'])+'/33 ['+a['experiment_id']+'](experiments/'+a['experiment_id']+'.md)' if m else 'NOT MEASURED at selected8K'])
  text+=table(['Frozen model/configuration','Intended role','HumanEval+164','BFCL parallel200','User mean / official coverage','Separate authored Agent33'],rows)
  text+='The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.\n\n'
+ if experiments:
+  by_id={e.get('id'):e for e in experiments}
+  post=[]
+  for rid in ('R614','R616','R618','R625','R627'):
+   if rid in by_id:post.append(by_id[rid])
+  if post:
+   text+='## Post-freeze evidence through R627\n\nThe R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.\n\n'
+   for rid in ('R614','R616'):
+    e=by_id.get(rid)
+    if not e:continue
+    m=e['aggregate_metrics']['native_validation33'];c=e['aggregate_metrics']['single_factor_comparison'];ref=c['reference_cache'];cand=c['candidate_cache']
+    refid={'R614':'R531','R616':'R536'}[rid]
+    assert m['winner_qualified'] is False and m['official_benchmark'] is False
+    quality=c['quality']
+    text+=f"- [{rid}](experiments/{rid}.md) {e['model']}: versus [{refid}](experiments/{refid}.md) on the same exposed33 tasks, task success {quality['task_success']['reference_passed']}/33→{quality['task_success']['candidate_passed']}/33; task wall {c['reference_case_wall_s']:.1f}→{c['candidate_case_wall_s']:.1f}s ({c['case_wall_reduction_percent']:.2f}% observed), completed output {ref['completion_tokens']:,}→{cand['completion_tokens']:,} tokens, GPU counter energy {c['reference_gpu_j_lower']/1000:.2f}–{c['reference_gpu_j_upper']/1000:.2f}→{c['candidate_gpu_j_lower']/1000:.2f}–{c['candidate_gpu_j_upper']/1000:.2f}kJ, policy passes {quality['policy_gate_pass']['reference_passed']}/33→{quality['policy_gate_pass']['candidate_passed']}/33. Cache candidates remain **NOT QUALIFIED**: the small exposed set has an observed policy-gate loss; output lengths differ; cache causality is unresolved.\n"
+   on=by_id.get('R618');off=by_id.get('R625')
+   if on and off:
+    a=on['aggregate_metrics']['native_lean_reserved_validation33'];b=off['aggregate_metrics']['native_lean_reserved_validation33'];pair=off['aggregate_metrics']['mtp_paired_comparison']
+    assert pair['winner_qualified'] is False and a['winner_qualified'] is False and b['winner_qualified'] is False
+    text+=f"- [Qwen3.8 MTP ON/OFF: R618/R625](experiments/R618.md): both completed the same reserved authored set at {a['solved']}/33 and {b['solved']}/33. Observed task wall {a['case_wall_s']:.1f}s ON vs {b['case_wall_s']:.1f}s OFF; outputs {a['completion_tokens']:,} vs {b['completion_tokens']:,} tokens, {pair['matched_output_sequences_different']}/{pair['matched_request_and_input_token_ids']} matched requests produced different sequences, peak VRAM {a['peak_device_vram_mib']:.0f} vs {b['peak_device_vram_mib']:.0f}MiB, GPU energy {pair['on_gpu_j_bounds'][0]/1000:.2f}–{pair['on_gpu_j_bounds'][1]/1000:.2f} vs {pair['off_gpu_j_bounds'][0]/1000:.2f}–{pair['off_gpu_j_bounds'][1]/1000:.2f}kJ. Separate sessions, exposed correlated tasks: **exploratory profile comparison only**, not causal speedup, quality equivalence or Champion qualification.\n"
+   gemma=by_id.get('R627')
+   if gemma:
+    m=gemma['aggregate_metrics']['kv_cache_repeatability_diagnostic'];assert m['winner_qualified'] is False
+    changed=sum(not case['f16_q8_equal'] for case in m['cases']);n=len(m['cases'])
+    text+=f"- [R627](experiments/R627.md) Gemma KV-cache diagnostic: F16 and Q8 each repeated identically within arm on {n}/{n} exposed prompts; the two cache precisions differed on {changed}/{n}, first-token divergence on those cases. Three-case CPU EvalPlus replay is diagnostic only. No task-quality, safety or Champion qualification.\n"
+   text+='These measurements do not change the R585 roles. Full cache/state evidence and limitations are in [Reproducibility](reproducibility.md); incomplete causal and population-level conclusions remain explicit.\n\n'
  for s in frozen['selected']:
   text+='## '+s['role']+'\n\n'+s['rationale']+'\n\n'
   p=s['baseline_packet']['profile'];text+='Frozen runtime ID: `'+s['baseline_runtime_configuration_id']+'`. Weight SHA256: `'+p['model']['artifact_sha256']+'`.\n\n'
@@ -1142,7 +1168,7 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
  put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
- if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json')))
+ if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():
   from pipeline import render as render_pipeline
