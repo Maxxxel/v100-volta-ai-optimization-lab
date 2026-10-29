@@ -1,6 +1,6 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,lost_task_first_divergence,summarize_nexus_policy_case,summarize_server_prompt_path
+from reproducibility import build,lost_task_first_divergence,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -23,6 +23,26 @@ class HistoricalComparison(unittest.TestCase):
   fixed={'GPU_runs':0,'pairs':{'r1_r2':{'matched_requests':999,'reference_audit_sha256':'x','candidate_audit_sha256':'y'}}}
   write(self.root/'staging/reproducibility-20261029/FIXED_OUTPUT_TIMING_REVIEW.json',fixed)
   with self.assertRaises(AssertionError):build(self.root)
+
+class SeedPath(unittest.TestCase):
+ def test_reconciles_request_and_server_seed_and_greedy_conditions(self):
+  hashes={
+   'tools/server/server-schema.cpp':'1f9d7b73b4363b90b08de0360b0a5ce0b3d152750bfb8d587a367e90c7904050',
+   'tools/server/server-context.cpp':'6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7',
+   'common/sampling.cpp':'b6a1f963fd75fd17d12bafb59351a1009d2358dd789dba7ed10943340f8e5553',
+  }
+  data={'build_source':{'commit':'097cf33d9499b1eade67d51e16d7c75427e7b267','checks':{k:{'actual':v,'proof':v} for k,v in hashes.items()}},
+        'profiles':{'r616':{'configured_seed':1001,'request_seeds':{'1001':1},'server_reported_seeds':{'1001':1}}}}
+  turns={'private-turn':{'request':{'seed':1001},'reply':{'__verbose':{'generation_settings':{'seed':1001,'temperature':0,'n_probs':0,'backend_sampling':False,'samplers':['temperature'],'dynatemp_range':0}}}}}
+  out=seed_execution_path(data,{'r616':(turns,{})})
+  self.assertEqual(out['profiles']['r616']['source_greedy_condition_requests'],1)
+  self.assertTrue(out['profiles']['r616']['all_request_and_reported_seeds_match'])
+  self.assertNotIn('private-turn',json.dumps(out))
+  turns['private-turn']['reply']['__verbose']['generation_settings']['seed']=7
+  with self.assertRaises(AssertionError):seed_execution_path(data,{'r616':(turns,{})})
+
+ def test_unknown_engine_source_does_not_claim_pinned_behavior(self):
+  self.assertIsNone(seed_execution_path({'build_source':{'commit':'b'*40}},{}))
 
 class LostTaskMapping(unittest.TestCase):
  def captures(self, prompt_change=False):

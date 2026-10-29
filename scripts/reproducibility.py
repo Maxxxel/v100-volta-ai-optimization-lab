@@ -457,6 +457,57 @@ def cache_state_source_path(root):
   'GPU_runs':0,'model_requests':0,
  }
 
+def seed_execution_path(data, captures):
+ """Reconcile archived seed fields with the pinned per-request sampler path."""
+ commit='097cf33d9499b1eade67d51e16d7c75427e7b267'
+ if data['build_source']['commit']!=commit:return None
+ checks=data['build_source'].get('checks',{})
+ expected={
+  'tools/server/server-schema.cpp':'1f9d7b73b4363b90b08de0360b0a5ce0b3d152750bfb8d587a367e90c7904050',
+  'tools/server/server-context.cpp':'6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7',
+  'common/sampling.cpp':'b6a1f963fd75fd17d12bafb59351a1009d2358dd789dba7ed10943340f8e5553',
+ }
+ assert all(checks[k]['actual']==checks[k]['proof']==v for k,v in expected.items())
+ profiles={}
+ for key,(turns,_) in captures.items():
+  configured=data['profiles'][key]['configured_seed']
+  req=collections.Counter(str(r['request'].get('seed','MISSING')) for r in turns.values())
+  server=collections.Counter(str(r['reply'].get('__verbose',{}).get('generation_settings',{}).get('seed','MISSING')) for r in turns.values())
+  assert dict(req)==data['profiles'][key]['request_seeds']
+  assert dict(server)==data['profiles'][key]['server_reported_seeds']
+  assert len(req)==len(server)==1 and next(iter(req))==next(iter(server))==str(configured)
+  settings=collections.Counter()
+  for r in turns.values():
+   g=r['reply'].get('__verbose',{}).get('generation_settings',{})
+   settings[(g.get('temperature'),g.get('n_probs'),g.get('backend_sampling'),
+             tuple(g.get('samplers',[])[-1:]),g.get('dynatemp_range'))]+=1
+  temp0_greedy=sum(n for (temp,n_probs,backend,last,dynatemp),n in settings.items()
+                   if temp==0 and n_probs==0 and backend is False and last==('temperature',)
+                   and dynatemp==0)
+  profiles[key]={
+   'request_count':len(turns),'configured_seed':configured,
+   'request_seed_counts':dict(req),'server_reported_seed_counts':dict(server),
+   'all_request_and_reported_seeds_match':True,
+   'observed_sampling_settings':[{'temperature':k[0],'n_probs':k[1],
+      'backend_sampling':k[2],'final_sampler':list(k[3]),'dynatemp_range':k[4],
+      'requests':n} for k,n in sorted(settings.items(),key=lambda x:str(x[0]))],
+   'source_greedy_condition_requests':temp0_greedy,
+  }
+ return {
+  'engine_commit':commit,
+  'source_sha256':expected,
+  'source_locations':{
+   'request_seed_field':'tools/server/server-schema.cpp:175',
+   'global_defaults_then_request_overrides':'tools/server/server-schema.cpp:470-495',
+   'per-task_sampler_initialization':'tools/server/server-context.cpp:1925',
+   'greedy_sampler_selection':'common/sampling.cpp:403-406',
+   'temperature_zero_argmax':'src/llama-sampler.cpp:265-280',
+   'multi-choice_child_seed_offset':'tools/server/server-task.h:287-291',
+  },
+  'profiles':profiles,
+  'interpretation':'The archived requests and server-reported settings carry the configured seed in every reviewed request. The pinned server overlays request fields on global defaults and initializes a sampler for each task; multi-choice child tasks intentionally offset seeds. For R614/R616, temperature=0, n_probs=0, backend sampling=false, final sampler=temperature, and dynatemp_range=0 satisfy the pinned greedy-sampler branch, so RNG seed variation is not a sufficient explanation for their token divergence. This does not establish deterministic GPU logits or identify a cache/kernel/state cause. Gemma temperature=1 remains stochastic even with a fixed per-request seed.'
+ }
+
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'
  if not report.is_file():return None
@@ -493,4 +544,4 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
