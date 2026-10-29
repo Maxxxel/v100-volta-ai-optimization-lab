@@ -1,6 +1,6 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,logprobs_diagnostic_path,lost_task_first_divergence,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path
+from reproducibility import build,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -48,6 +48,38 @@ class SeedPath(unittest.TestCase):
 
  def test_unknown_engine_source_does_not_claim_pinned_behavior(self):
   self.assertIsNone(seed_execution_path({'build_source':{'commit':'b'*40}},{},Path('/tmp/no-r535-fixture')))
+
+class Qwen35WarmupRepeatability(unittest.TestCase):
+ def fixture(self,diverge=False):
+  tmp=tempfile.TemporaryDirectory();root=Path(tmp.name);model='02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d'
+  template='/private/qwen35-template.jinja';runtime='/private/runtime/llama-server';records=[]
+  for run,ident in enumerate(('r501','r509','r519','r535')):
+   raw=root/f'raw-{ident}';raw.mkdir();profile={'model_sha256':model,'chat_template':template,
+    'assets':{template:'a'*64,runtime:'b'*64},'native_recipe':{'argv_tail':['--model','/private/qwen.gguf','--ctx-size','8192','--seed','1001'],
+     'context':8192,'environment':{'GGML_CUDA_GRAPH_OPT':'0'},'request_options':{'seed':1001,'temperature':0,'cache_prompt':False}}}
+   write(raw/'profile.json',profile);write(raw/'LAUNCH.json',{'run':ident});(raw/'server.log').write_text('server started\n')
+   rows=[]
+   for wid,prompt,n_predict,content in [('warmup-0','synthetic warmup OK',1,'OK'),('warmup-1','synthetic labels',128,'A B C')]:
+    if diverge and ident=='r535' and wid=='warmup-1':content='A B D'
+    rows.append({'kind':'warmup','id':wid,'request':{'prompt':prompt,'seed':1001,'temperature':0,'n_predict':n_predict,'cache_prompt':False,'ignore_eos':True,'stream':False},
+     'reply':{'content':content,'tokens':[],'tokens_predicted':n_predict,'stop_type':'limit','generation_settings':{'seed':1001,'temperature':0,'backend_sampling':False}}})
+   (raw/'HTTP_RESULTS.jsonl').write_text(''.join(json.dumps(x)+'\n' for x in rows))
+   pins={name:h(raw/name) for name in ('profile.json','LAUNCH.json','HTTP_RESULTS.jsonl','server.log')};write(raw/'RAW_HASHES.json',pins)
+   write(root/'phase_o2_restart_20261015_2245'/f'staging/{ident}/AUDIT.json',{'raw_root':str(raw),'GPU_execution_observed':True,'original_raw_files_sha256':pins})
+  return tmp,root
+ def test_hash_verified_same_prompt_warmups_are_narrow_text_evidence(self):
+  tmp,root=self.fixture()
+  try:
+   out=qwen35_warmup_repeatability(root);self.assertEqual(out['distinct_gpu_experiments'],4)
+   self.assertEqual([x['tokens_predicted'] for x in out['warmups']],[1,128])
+   self.assertTrue(all(x['token_ids']=='NOT_CAPTURED' for x in out['warmups']))
+   self.assertNotIn('synthetic warmup OK',json.dumps(out));self.assertNotIn('A B C',json.dumps(out))
+  finally:tmp.cleanup()
+ def test_changed_output_text_fails_closed(self):
+  tmp,root=self.fixture(diverge=True)
+  try:
+   with self.assertRaises(AssertionError):qwen35_warmup_repeatability(root)
+  finally:tmp.cleanup()
 
 class LostTaskMapping(unittest.TestCase):
  def captures(self, prompt_change=False):

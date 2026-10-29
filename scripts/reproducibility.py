@@ -543,6 +543,7 @@ def qwen35_seed_profile(root):
   hashes.append(token_hash)
  repeated=sum(n>1 for n in collections.Counter(hashes).values())
  assert repeated==0
+ warmup=qwen35_warmup_repeatability(root)
  return {'experiment_id':'R535','model':'Qwen3.5-9B','model_sha256':profile['model_sha256'],
   'audit_sha256':digest(audit_path),'profile_sha256':digest(raw/'profile.json'),
   'request_count':len(turns),'configured_seed':seed,'configured_temperature':temperature,
@@ -552,7 +553,75 @@ def qwen35_seed_profile(root):
   'observed_sampling_settings':[{'temperature':temperature,'n_probs':n_probs,'backend_sampling':backend,
    'final_sampler':list(last_sampler),'dynatemp_range':dynatemp,'requests':setting_count}],
   'source_greedy_condition_requests':setting_count if temperature==0 and n_probs==0 and backend is False and last_sampler==('temperature',) and dynatemp==0 else 0,
-  'same_prompt_AA_repeats':'NOT_MEASURED','disposition':'SEED_PROPAGATION_VERIFIED; BASELINE_AA_NOT_MEASURED'}
+  'same_prompt_AA_repeats':'NOT_MEASURED','warmup_repeatability':warmup,
+  'disposition':'SEED_PROPAGATION_VERIFIED; SYNTHETIC_WARMUP_TEXT_REPEATABILITY_OBSERVED; TASK_LEVEL_AA_NOT_MEASURED'}
+
+def qwen35_warmup_repeatability(root):
+ """Compare exact synthetic warmup requests and output text across archived Qwen3.5 runs."""
+ root=Path(root);phase=root if (root/'staging').is_dir() else root/'phase_o2_restart_20261015_2245';experiment_ids=('r501','r509','r519','r535');runs=[]
+ expected_model='02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d'
+ for ident in experiment_ids:
+  audit_path=phase/f'staging/{ident}/AUDIT.json'
+  if not audit_path.is_file():return None
+  audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text())
+  for name in ('profile.json','LAUNCH.json','HTTP_RESULTS.jsonl','server.log'):
+   assert name in pins and digest(raw/name)==pins[name]
+   assert audit['original_raw_files_sha256'][name]==pins[name]
+  profile=json.loads((raw/'profile.json').read_text())
+  assert profile['model_sha256']==expected_model
+  recipe=profile['native_recipe']
+  argv=recipe['argv_tail'];seed=next((int(argv[i+1]) for i,x in enumerate(argv[:-1]) if x=='--seed'),None)
+  runtime={k:v for k,v in profile['assets'].items() if '/runtime/' in k}
+  template_sha=profile['assets'].get(profile['chat_template'])
+  assert seed==1001 and recipe['context']==8192 and runtime and template_sha
+  rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if line]
+  warmups={x['id']:x for x in rows if x.get('kind')=='warmup'}
+  assert set(warmups)=={'warmup-0','warmup-1'}
+  runs.append({'experiment_id':ident,'audit_sha256':digest(audit_path),
+   'profile_sha256':digest(raw/'profile.json'),'model_sha256':profile['model_sha256'],
+   'argv_sha256':hashlib.sha256(json.dumps(argv,separators=(',',':')).encode()).hexdigest(),
+   'runtime_assets_sha256':hashlib.sha256(json.dumps(runtime,sort_keys=True,separators=(',',':')).encode()).hexdigest(),
+   'request_options_sha256':hashlib.sha256(json.dumps(recipe['request_options'],sort_keys=True,separators=(',',':')).encode()).hexdigest(),
+   'template_sha256':template_sha,
+   'environment':recipe['environment'],'context':recipe['context'],'warmups':warmups})
+ assert len({x['model_sha256'] for x in runs})==1
+ assert len({x['argv_sha256'] for x in runs})==1
+ assert len({x['runtime_assets_sha256'] for x in runs})==1
+ assert len({x['request_options_sha256'] for x in runs})==1
+ assert len({x['template_sha256'] for x in runs})==1
+ assert len({json.dumps(x['environment'],sort_keys=True) for x in runs})==1
+ assert len({x['context'] for x in runs})==1
+ evidence=[]
+ for warm_id in ('warmup-0','warmup-1'):
+  observations=[]
+  for run in runs:
+   item=run['warmups'][warm_id];request=item['request'];reply=item['reply'];settings=reply['generation_settings']
+   request_settings={k:request.get(k) for k in ('seed','temperature','n_predict','cache_prompt','ignore_eos','stream')}
+   assert request_settings=={'seed':1001,'temperature':0,'n_predict':(1 if warm_id=='warmup-0' else 128),'cache_prompt':False,'ignore_eos':True,'stream':False}
+   assert settings.get('seed')==1001 and settings.get('temperature')==0 and settings.get('backend_sampling') is False
+   observations.append({'prompt_sha256':hashlib.sha256(request['prompt'].encode()).hexdigest(),
+    'request_settings':request_settings,
+    'output_text_sha256':hashlib.sha256(reply['content'].encode()).hexdigest(),
+    'output_characters':len(reply['content']),'tokens_predicted':reply['tokens_predicted'],
+    'stop_type':reply.get('stop_type'),'returned_token_ids':len(reply.get('tokens',[]))})
+  assert len({x['prompt_sha256'] for x in observations})==1
+  assert len({json.dumps(x['request_settings'],sort_keys=True) for x in observations})==1
+  assert len({x['output_text_sha256'] for x in observations})==1
+  assert len({x['tokens_predicted'] for x in observations})==1
+  evidence.append({'warmup_id':warm_id,'independent_profiles':len(observations),
+   'prompt_sha256':observations[0]['prompt_sha256'],'request_settings':observations[0]['request_settings'],
+   'output_text_sha256':observations[0]['output_text_sha256'],
+   'output_characters':observations[0]['output_characters'],
+   'tokens_predicted':observations[0]['tokens_predicted'],
+   'sampling_and_prompt_text_match_across_profiles':True,
+   'token_ids':'NOT_CAPTURED','logits':'NOT_CAPTURED'})
+ return {'experiment_ids':list(experiment_ids),'audit_sha256':{x['experiment_id']:x['audit_sha256'] for x in runs},
+  'profile_sha256':{x['experiment_id']:x['profile_sha256'] for x in runs},
+  'distinct_gpu_experiments':len(runs),'model_sha256':expected_model,
+  'argv_sha256':runs[0]['argv_sha256'],'runtime_assets_sha256':runs[0]['runtime_assets_sha256'],
+  'request_options_sha256':runs[0]['request_options_sha256'],'template_sha256':runs[0]['template_sha256'],
+  'same_model_engine_runtime_argv_template_and_context_verified':True,'warmups':evidence,
+  'interpretation':'Identical synthetic warmup prompt bytes and output text hashes were observed across four separately audited GPU experiments. This is narrow warmup text-repeatability evidence only; it does not characterize task-level quality variability. API token IDs and logits were not captured. The 128-token warmup is an output-limit path, not a scored complete task.'}
 
 def logprobs_diagnostic_path(data, captures):
  """Check whether the pinned non-stream API can expose bounded token probabilities."""

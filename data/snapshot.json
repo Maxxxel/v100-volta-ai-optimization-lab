@@ -1994,7 +1994,7 @@
           "audit_sha256": "d3b5588718f9aa2d28b1c42809b913e9f79d643c6d65e67adebfb809ae4b1f23",
           "configured_seed": 1001,
           "configured_temperature": 0.0,
-          "disposition": "SEED_PROPAGATION_VERIFIED; BASELINE_AA_NOT_MEASURED",
+          "disposition": "SEED_PROPAGATION_VERIFIED; SYNTHETIC_WARMUP_TEXT_REPEATABILITY_OBSERVED; TASK_LEVEL_AA_NOT_MEASURED",
           "experiment_id": "R535",
           "model": "Qwen3.5-9B",
           "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
@@ -2021,7 +2021,75 @@
             "1001": 162
           },
           "source_greedy_condition_requests": 162,
-          "unique_tokenized_prompts": 162
+          "unique_tokenized_prompts": 162,
+          "warmup_repeatability": {
+            "argv_sha256": "72d6459d16b402acb8b49f29b6ce4493e0609a1bd7b59408f688eac3345b8320",
+            "audit_sha256": {
+              "r501": "9e9b0f0375c964838fb98cac1be993c2b7bb88c3299d8e7e0759f9d3f95deca7",
+              "r509": "c32f1defdd7183008386e0da9236139c0a482ad39b50ab2405373dd39e8c1e31",
+              "r519": "2256e0b376afc37e9ba2365b340b24965865734b1a2510f72bc2d823dd3c59ef",
+              "r535": "d3b5588718f9aa2d28b1c42809b913e9f79d643c6d65e67adebfb809ae4b1f23"
+            },
+            "distinct_gpu_experiments": 4,
+            "experiment_ids": [
+              "r501",
+              "r509",
+              "r519",
+              "r535"
+            ],
+            "interpretation": "Identical synthetic warmup prompt bytes and output text hashes were observed across four separately audited GPU experiments. This is narrow warmup text-repeatability evidence only; it does not characterize task-level quality variability. API token IDs and logits were not captured. The 128-token warmup is an output-limit path, not a scored complete task.",
+            "model_sha256": "02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+            "profile_sha256": {
+              "r501": "03bf7138956bcc4d2f8c411056cffb275e7dc74add5b6f022d0b22022f5a9c1c",
+              "r509": "9a4df97cc2d11be779380198fb0d847e2ac0b604b72b04ceb4940e0629807481",
+              "r519": "bb5da299c67348aa26a26bc5f292becabb3065e546fc549bb79d5fc76032f7c7",
+              "r535": "1fb2cf649f18e4f66844834912dbd17197688f08f183c3f9d4faea1a86000c91"
+            },
+            "request_options_sha256": "2d91f2cc90a813358673dda8907c5946eceecfd4759b1e71f512e07dfa2dfbf4",
+            "runtime_assets_sha256": "fd378b7f669e965762cfea669a05348ab593b2c1d057a46e8666a56ab91894a4",
+            "same_model_engine_runtime_argv_template_and_context_verified": true,
+            "template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+            "warmups": [
+              {
+                "independent_profiles": 4,
+                "logits": "NOT_CAPTURED",
+                "output_characters": 2,
+                "output_text_sha256": "565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3",
+                "prompt_sha256": "e8a576b6d8d638c455027fc77b8cb4dc4c255bfa9a4498ac9bdf888d16ab7e0a",
+                "request_settings": {
+                  "cache_prompt": false,
+                  "ignore_eos": true,
+                  "n_predict": 1,
+                  "seed": 1001,
+                  "stream": false,
+                  "temperature": 0
+                },
+                "sampling_and_prompt_text_match_across_profiles": true,
+                "token_ids": "NOT_CAPTURED",
+                "tokens_predicted": 1,
+                "warmup_id": "warmup-0"
+              },
+              {
+                "independent_profiles": 4,
+                "logits": "NOT_CAPTURED",
+                "output_characters": 443,
+                "output_text_sha256": "3dd9761005203f91f242a2410aa3311c073609fec8abdeb89ee8a7ac4a1243fa",
+                "prompt_sha256": "2b2364e69a0b949c3705cb45a3ec539b588006465a1c7c98a5516f54894a2947",
+                "request_settings": {
+                  "cache_prompt": false,
+                  "ignore_eos": true,
+                  "n_predict": 128,
+                  "seed": 1001,
+                  "stream": false,
+                  "temperature": 0
+                },
+                "sampling_and_prompt_text_match_across_profiles": true,
+                "token_ids": "NOT_CAPTURED",
+                "tokens_predicted": 128,
+                "warmup_id": "warmup-1"
+              }
+            ]
+          }
         },
         "r536": {
           "all_request_and_reported_seeds_match": true,
