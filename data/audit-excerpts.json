@@ -183339,6 +183339,32 @@
   },
   {
     "aggregate_metrics": {
+      "tasks": 3
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-264aa9fff4a353762d20",
+    "original_bytes": 2736,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "264aa9fff4a353762d20a495b9f46f6629a937c17dbc7065b67898e00b5d92b1",
+    "statements": {
+      "scope": "Post-hoc CPU scoring of three previously exposed R608 cases from R627 F16/Q8_0 outputs. Targeted diagnostic only; selected cases include two historical R608 losses and one output-matched case. Not an independent benchmark, not a complete HumanEval+ result, and not suitable for leaderboard or Champion qualification."
+    }
+  },
+  {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-c4e041c6080447986e9c",
+    "original_bytes": 13001,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "c4e041c6080447986e9c1b0bb787a107b40f49c0d6b0cf73683aa27e508c8f6b",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

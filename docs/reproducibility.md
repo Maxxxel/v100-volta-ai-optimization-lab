@@ -97,6 +97,16 @@ Safety review: both profiles attempted denied simulated climate changes in the s
 
 [R627](experiments/R627.md) captured 24 requests across four ABBA sessions (seed 1001, temperature 1.0; 169.3 s task phase, 8118 MiB peak VRAM). The whole-task GPU energy-counter bound was 36.90–36.93 kJ; per-success energy cannot be calculated because task success was not scored. F16 and Q8 each repeated token-identically across both sessions on all three exposed requests; their outputs differed at token zero on two requests and matched on one. This is repeatable output divergence associated with the cache setting in this small diagnostic, not a quality or safety regression finding. Logits were not measured; no promotion.
 
+Post-hoc CPU EvalPlus replay of three exposed requests (not leaderboard data):
+
+| Task | F16 base / plus | Q8 base / plus |
+|---|---|---|
+| HumanEval/54 | pass · 7/7 / pass · 999/999 | fail · 0/7 / fail · 0/999 |
+| HumanEval/95 | fail · 0/14 / fail · 0/510 | fail · 4/14 / fail · 4/510 |
+| HumanEval/0 | pass · 7/7 / pass · 999/999 | pass · 7/7 / pass · 999/999 |
+
+HumanEval/54 reproduced the historical F16-pass/Q8-fail pair; HumanEval/95 failed in both fresh arms although the historical R608 control passed that task. The latter demonstrates run-to-run baseline variation in this targeted sample. These previously exposed cases do not establish a general causal quality effect or qualify Q8; R608 remains unqualified.
+
 ## Gemma fixed and distinct seed pilot
 
 | Fixed request | Seed | Within-session repeat equal | Across-session equal | Distinct outputs across seeds |

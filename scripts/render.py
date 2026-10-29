@@ -652,6 +652,12 @@ def main():
    page+='\n## Gemma F16/Q8 value-cache repeatability diagnostic\n\n'+table(['Exposed request','F16 A/A repeats','Q8 A/A repeats','F16 vs Q8 output','First divergence'],[[x['case'],'IDENTICAL' if x['f16_AA_equal'] else 'DIFFERENT','IDENTICAL' if x['q8_AA_equal'] else 'DIFFERENT','IDENTICAL' if x['f16_q8_equal'] else 'DIFFERENT',('token '+str(min(y for y in x['first_divergence_positions'] if y is not None)) if any(y is not None for y in x['first_divergence_positions']) else 'none')] for x in p['cases']])
    energy=p['task_phase_gpu_energy_counter_bound_kj']
    page+=f"[R627](experiments/R627.md) captured 24 requests across four ABBA sessions (seed 1001, temperature 1.0; {p['task_phase_seconds']:.1f} s task phase, {p['peak_device_vram_mib']:.0f} MiB peak VRAM). The whole-task GPU energy-counter bound was {energy['lower']:.2f}–{energy['upper']:.2f} kJ; per-success energy cannot be calculated because task success was not scored. F16 and Q8 each repeated token-identically across both sessions on all three exposed requests; their outputs differed at token zero on two requests and matched on one. This is repeatable output divergence associated with the cache setting in this small diagnostic, not a quality or safety regression finding. Logits were not measured; no promotion.\n"
+   q=gemma_q8_repeat['aggregate_metrics'].get('kv_cache_cpu_quality_diagnostic')
+   if q:
+    def cell(v,suite):
+     x=v[suite];return f"{x['status']} · {x['passed']}/{x['total']}"
+    page+='\nPost-hoc CPU EvalPlus replay of three exposed requests (not leaderboard data):\n\n'+table(['Task','F16 base / plus','Q8 base / plus'],[[x['task_id'],cell(x['F16'],'base')+' / '+cell(x['F16'],'plus'),cell(x['Q8_0'],'base')+' / '+cell(x['Q8_0'],'plus')] for x in q['cases']])
+    page+='HumanEval/54 reproduced the historical F16-pass/Q8-fail pair; HumanEval/95 failed in both fresh arms although the historical R608 control passed that task. The latter demonstrates run-to-run baseline variation in this targeted sample. These previously exposed cases do not establish a general causal quality effect or qualify Q8; R608 remains unqualified.\n'
   gemma_pilot=next((e for e in es if e['id']=='R622'),None)
   if gemma_pilot and gemma_pilot.get('aggregate_metrics',{}).get('seed_repeatability_pilot'):
    p=gemma_pilot['aggregate_metrics']['seed_repeatability_pilot'];rows=[]

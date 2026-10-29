@@ -1590,6 +1590,30 @@ def main():
             experiments[ident]['related_audit_ids']=[rid,refid,candidateid,previous]
             experiments[ident]['aggregate_metrics']['kv_cache_repeatability_diagnostic']={'cases':cases,'model_starts':4,'requests':24,'task_phase_seconds':review['task_phase_seconds'],'peak_device_vram_mib':review['peak_device_vram_mib'],'task_phase_gpu_energy_counter_bound_kj':review['task_phase_gpu_energy_counter_bound_kj'],'energy_per_success':None,'uncorrected_ecc':review['uncorrected_ecc'],'input_token_and_wire_matches':24,'gpu_runs':1,'winner_qualified':False,'official_benchmark':False,'scope':'Three previously exposed coding requests; fixed seed 1001 and temperature 1.0; ABBA f16/q8_0 value-cache sessions. Diagnostic only, no quality or safety qualification; gross TASK GPU counter energy is bracketed; energy per success and logits not measured.'}
             experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
+            if v.get('cpu_quality_diagnostic_path'):
+                qid=receipt(v['cpu_quality_diagnostic_path'],v['cpu_quality_diagnostic_sha256'])
+                jrid=receipt(v['cpu_quality_receipt_path'],v['cpu_quality_receipt_sha256'])
+                sample=pathlib.Path(v['cpu_private_samples_path']).resolve();stdout=pathlib.Path(v['cpu_quality_stdout_path']).resolve()
+                qa=load(locations[qid]) if qid else {};run=load(locations[jrid]) if jrid else {}
+                if not qid or not jrid or not sample.is_relative_to(root) or not stdout.is_relative_to(root) or digest(sample)!=v['cpu_private_samples_sha256'] or digest(stdout)!=v['cpu_quality_stdout_sha256']:raise ValueError('R627 CPU quality inputs changed')
+                if qa.get('source_broker_capture_sha256')!=pins['HTTP_RESULTS.jsonl'] or qa.get('source_gpu_telemetry_sha256')!=pins['GPU_TELEMETRY.jsonl'] or qa.get('private_sample_sha256')!=digest(sample):raise ValueError('R627 CPU quality source mismatch')
+                if qa.get('tasks')!=3 or qa.get('GPU_runs')!=0 or qa.get('model_generations')!=0 or qa.get('winner_qualified') is not False or len(qa.get('cases',[]))!=3:raise ValueError('R627 CPU diagnostic scope differs')
+                if run.get('returncode')!=0 or 'Result=success' not in run.get('properties','') or 'ExecMainStatus=0' not in run.get('properties',''):raise ValueError('R627 CPU scorer jail did not pass')
+                if any('/dev/nvidia' in str(x) for x in run.get('argv',[])):raise ValueError('R627 CPU scorer had GPU access')
+                actual=[json.loads(line) for line in stdout.read_text().splitlines() if line.startswith('{')]
+                if len(actual)!=6:raise ValueError('R627 CPU scorer outputs incomplete')
+                verified_cases=[]
+                for case in qa['cases']:
+                    cells={arm:{} for arm in ('F16','Q8_0')}
+                    for arm in cells:
+                        for suite in ('base','plus'):
+                            row=next(x for x in actual if x.get('id')==f"R627-{arm}-{case['task_id']}")
+                            obs=row['checks'][suite];want=case[arm][suite]
+                            if any(obs[k]!=want[key] for k,key in (('status','status'),('passed_cases','passed'),('total_cases','total'))):raise ValueError('R627 CPU judged outcome differs')
+                            cells[arm][suite]=want
+                    verified_cases.append({'task_id':case['task_id'],'F16':cells['F16'],'Q8_0':cells['Q8_0']})
+                experiments[ident]['related_audit_ids'].extend([qid,jrid])
+                experiments[ident]['aggregate_metrics']['kv_cache_cpu_quality_diagnostic']={'cases':verified_cases,'tasks':3,'official_benchmark':False,'leaderboard_eligible':False,'GPU_runs':0,'model_generations':0,'winner_qualified':False,'scope':'Post-hoc official EvalPlus CPU replay of three exposed cases only; partial diagnostic, not a full benchmark or independent validation.'}
         if ident=='R619' and v.get('cpu_tokenizer_review'):
             item=v['cpu_tokenizer_review'];rid=receipt(item['path'],item['sha256']);cid=receipt(item['receipt_path'],item['receipt_sha256']);review=load(locations[rid]) if rid else {};proof=load(locations[cid]) if cid else {};private=pathlib.Path(item['private_output_path'])
             if not rid or not cid or digest(private)!=item['private_output_sha256'] or proof.get('private_output_sha256')!=digest(private) or proof.get('review_sha256')!=digest(locations[rid]) or proof.get('gpu_calls')!=0 or proof.get('model_generations')!=0:raise ValueError('R619 CPU tokenizer evidence missing')
