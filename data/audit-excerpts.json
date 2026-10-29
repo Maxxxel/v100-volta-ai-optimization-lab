@@ -182221,6 +182221,36 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 7354.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-724e62f840e8188e64cc",
+    "original_bytes": 3539,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "724e62f840e8188e64cc6d3733edcfdbaf004ae957050f05f8bba9d3bdb2a488",
+    "statements": {
+      "scope": "Four previously exposed requests, 16 fixed ABBA calls, same model/engine and greedy sampler; cache flag changes. No tool actions. A/B repeat differences constrain attribution; this is not a general quality or Champion test. GPU counter excludes CPU/system energy."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-63b45b191dbecef35dac",
+    "original_bytes": 1842,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "63b45b191dbecef35dacbe40c087bfc0c54cb053e1f8379ad817b51d261dc56c",
+    "statements": {
+      "scope": "Exact request bodies in R531 and R615 no-cache arm; same model/engine and parameters, but different sessions and prior slot history. Observed token variation prevents attributing R614 policy regression to caching without further evidence. Four exposed requests cannot prove general state correctness."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

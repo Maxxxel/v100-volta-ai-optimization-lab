@@ -1367,6 +1367,29 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if ident=='R615' and v.get('independent_review_path'):
+            review_id=receipt(v['independent_review_path'],v['independent_review_sha256']);reference_id=receipt(root/'staging/r531/AUDIT.json')
+            if not audit or not review_id or not reference_id:raise ValueError('R615 evidence missing')
+            measured=load(locations[audit]);review=load(locations[review_id]);reference=load(locations[reference_id])
+            if review.get('source_audit_sha256')!=digest(locations[audit]) or review.get('original_R531_audit_sha256')!=digest(locations[reference_id]):raise ValueError('R615 audit identity mismatch')
+            folders=list((root.parent/'research/mcp-workspace/r615-nexus-prefix-token-abba').glob('host-*'))
+            if len(folders)!=1:raise ValueError('R615 capture identity mismatch')
+            folder=folders[0];pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl';oldfolder=pathlib.Path(reference['raw_root']);oldpins=load(oldfolder/'RAW_HASHES.json');oldraw=oldfolder/'HTTP_RESULTS.jsonl'
+            if digest(raw)!=pins['HTTP_RESULTS.jsonl'] or digest(raw)!=review.get('source_responses_sha256') or digest(oldraw)!=oldpins['HTTP_RESULTS.jsonl'] or digest(oldraw)!=review.get('reference_responses_sha256'):raise ValueError('R615 raw capture changed')
+            runs=[r for r in (json.loads(line) for line in raw.read_text().splitlines()) if r.get('kind')=='r615_request'];original=[r for r in (json.loads(line) for line in oldraw.read_text().splitlines()) if r.get('kind')=='agent_turn']
+            if len(runs)!=16 or len(measured.get('turns',[]))!=4:raise ValueError('R615 incomplete request capture')
+            for i in range(4):
+                items=[runs[i+4*j] for j in range(4)];seq=[r['reply']['__verbose']['tokens'] for r in items];metric=measured['turns'][i];matches=[r for r in original if r['request_sha256']==items[0]['request_sha256']]
+                if len(matches)!=1 or matches[0]['request']!=items[0]['request']:raise ValueError('R615 historical request mismatch')
+                oldseq=matches[0]['reply']['__verbose']['tokens'];common=0
+                for a,b in zip(oldseq,seq[0]):
+                    if a!=b:break
+                    common+=1
+                expected={'turn':i+1,'same_request_as_R531':True,'R531_vs_fresh_A_tokens_identical':oldseq==seq[0],'R531_output_token_count':len(oldseq),'fresh_A_output_token_count':len(seq[0]),'common_prefix_tokens':common}
+                if review['historical_vs_fresh_no_cache'][i]!=expected or metric['A_repeats_identical']!=(seq[0]==seq[3]) or metric['B_repeats_identical']!=(seq[1]==seq[2]) or metric['A1_B1_identical']!=(seq[0]==seq[1]):raise ValueError('R615 token comparison differs')
+            experiments[ident]['related_audit_ids']=[review_id,reference_id]
+            experiments[ident]['aggregate_metrics']['abba_diagnostic']=projection({'turns':measured['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':measured['energy_counter'],'historical_vs_fresh_no_cache':review['historical_vs_fresh_no_cache']})
+            experiments[ident]['statements']['diagnosis_scope']=text(review['scope'])
         if ident in ('R612','R614') and v.get('single_factor_review'):
             item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/('staging/r534/AUDIT.json' if ident=='R612' else 'staging/r531/AUDIT.json'))
             if not audit or not review_id or not reference_id:raise ValueError('R612 paired source missing')
