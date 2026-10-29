@@ -302,3 +302,18 @@ R635 repeated the Qwen3.8 integrated-MTP profile on the same 33 previously expos
 GPU-board energy bounds bracket the first-to-last case window, including time between cases; startup and CPU/system energy are excluded. Per-case integration is incomplete. One A/A pair of correlated exposed cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The separate MTP ON/OFF comparison remains unqualified.
 
 Audit SHA-256: R618 `3f718e7c2211b4c8721893ffa93aa3836601b31a9925a5640f28dac400634aaa` · R635 `dda8a6a4ca873831fc8dcc6c2b16759fcc57fe5cce831f76a3d26e823c8e6a2a`. [Aggregate results and hashes](assets/r635-aa.json).
+
+## Same-profile A/A repeatability · R625 / R636
+
+R636 repeated the Qwen3.8 MTP-off profile on the same 33 previously exposed internal cases. Isolated CPU replay reproduced all case scores and effects. All 150 request bodies, input-token sequences and generated-token sequences matched; task and policy outcomes matched in all 33 cases.
+
+| Run | Solved | Policy gates | Case window s | GPU energy bounds J | GPU J / success bounds | Peak VRAM MiB | Per-case energy coverage |
+|---|---|---|---|---|---|---|---|
+| R625 | 27/33 | 31/33 | 761.513 | 208,758.2–208,860.0 | 7,731.8–7,735.6 | 12,454.5 | 0/33 |
+| R636 | 27/33 | 31/33 | 761.883 | 208,779.7–208,881.4 | 7,732.6–7,736.3 | 12,454.5 | 0/33 |
+
+Energy bounds cover the first-to-last case window and between-case time; startup and CPU/system energy are excluded. Per-case energy is incomplete. Together with R618/R635, both MTP arms repeated on these exposed cases. The historical MTP-on/off comparison still has eight differing matched outputs; sessions were not balanced and this does not establish causation, safety equivalence or a Champion.
+
+Audit SHA-256: R625 `404e2b9c072974e7ea26d580f0bbe0fac8d1d0d8ebb06178426edbdeb85427cd` · R636 `4cd92de091505d3cddc01dee97249872e8caaa0202e495121871147623023854`. [Aggregate results and hashes](assets/r636-aa.json).
+
+The four-capture review matched 150 request bodies and input-token sequences. 8 responses differed across 8 cases, beginning at zero-based tokens 16–245; both task and policy outcomes matched in all 33 cases. In the two repeat sessions, summed response time was 621.191 s MTP ON and 758.773 s OFF, with 12,110 and 12,069 generated tokens respectively. Separate, unbalanced sessions and differing outputs prevent a causal speed or quality-equivalence claim. [Four-capture aggregates](assets/qwen-mtp-cross.json).

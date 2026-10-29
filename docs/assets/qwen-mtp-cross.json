@@ -1,0 +1,52 @@
+{
+  "GPU_runs": 0,
+  "affected_cases": 8,
+  "captures": {
+    "R618": {
+      "audit": "3f718e7c2211b4c8721893ffa93aa3836601b31a9925a5640f28dac400634aaa",
+      "responses": "05cec741aeef3fd01e2d8782c5a427b681f912cb317cbe6e6417f59fe53aeeb3"
+    },
+    "R625": {
+      "audit": "404e2b9c072974e7ea26d580f0bbe0fac8d1d0d8ebb06178426edbdeb85427cd",
+      "responses": "11e5dac94b94cf2a33d97d605d9c5bdfe4b71d56dbc04829764189ac2145ec3c"
+    },
+    "R635": {
+      "audit": "dda8a6a4ca873831fc8dcc6c2b16759fcc57fe5cce831f76a3d26e823c8e6a2a",
+      "responses": "adaf1971930bfae555b2d67b3ce3ad257158a0269f4a8464190a346f3ee04509"
+    },
+    "R636": {
+      "audit": "4cd92de091505d3cddc01dee97249872e8caaa0202e495121871147623023854",
+      "responses": "c918db21c4a4544c0531940f72593585d059dd7286af43d91c7aa9cc2c63f1c3"
+    }
+  },
+  "cases": 33,
+  "different_output_turns": 8,
+  "first_divergence_indices_sorted": [
+    16,
+    80,
+    148,
+    158,
+    182,
+    185,
+    205,
+    245
+  ],
+  "generated_tokens_mtp_on_off": [
+    12110,
+    12069
+  ],
+  "identical_output_turns": 142,
+  "matching_request_and_input_tokens": 150,
+  "model_requests": 0,
+  "policy_passes_per_arm": 31,
+  "review_sha256": "ede01539c0982d0e2be3e63579a817d21fe44653546c05896a19278c0e04e640",
+  "same_policy_outcomes": 33,
+  "same_task_outcomes": 33,
+  "scope": "Four separate historical sessions, two A/A pairs and exposed correlated cases. Not balanced A/B; no causal speed attribution, equivalence, safety qualification or Champion. First divergence indices are zero-based; durations reflect whole response windows and output lengths differ.",
+  "status": "FOUR_CAPTURE_CROSS_REVIEW_COMPLETE",
+  "successes_per_arm": 27,
+  "summed_request_wall_s_mtp_on_off": [
+    621.191386601,
+    758.7725869909998
+  ]
+}

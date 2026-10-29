@@ -1,0 +1,53 @@
+{
+  "audit_sha256": {
+    "R625": "404e2b9c072974e7ea26d580f0bbe0fac8d1d0d8ebb06178426edbdeb85427cd",
+    "R636": "4cd92de091505d3cddc01dee97249872e8caaa0202e495121871147623023854"
+  },
+  "cpu_replay_sha256": "236424a532c1db10e8b8d0336f261ec230815e43ba71580faa479b1042cf7397",
+  "energy_scope": "NVML cumulative GPU-board counter brackets first-to-last case window including between-case idle. Per-case integrals incomplete; excludes CPU/system energy and startup.",
+  "metrics": {
+    "R625": {
+      "case_window_s": 761.512855829,
+      "energy_complete_cases": 0,
+      "gpu_case_window_j_bounds": [
+        208758.207,
+        208860.023
+      ],
+      "gpu_j_per_success_bounds": [
+        7731.785444444445,
+        7735.556407407407
+      ],
+      "peak_vram_mib": 12454.5
+    },
+    "R636": {
+      "case_window_s": 761.882668733,
+      "energy_complete_cases": 0,
+      "gpu_case_window_j_bounds": [
+        208779.679,
+        208881.367
+      ],
+      "gpu_j_per_success_bounds": [
+        7732.580703703704,
+        7736.3469259259255
+      ],
+      "peak_vram_mib": 12454.5
+    }
+  },
+  "paired_outcomes": {
+    "policy_gate_pass_both_fail": 2,
+    "policy_gate_pass_both_pass": 31,
+    "policy_gate_pass_gained": 0,
+    "policy_gate_pass_lost": 0,
+    "task_success_both_fail": 6,
+    "task_success_both_pass": 27,
+    "task_success_gained": 0,
+    "task_success_lost": 0
+  },
+  "result_sha256": "e81b3ffcef654b2480e1257df3035c67c7249949d190b1fbb727e6f7ebd36f3a",
+  "scope": "One MTP-off A/A pair with 33 previously exposed correlated cases, 150 matching responses and same profile. No independent holdout, equivalence, broad determinism or champion claim.",
+  "status": "GPU_COMPLETE_INDEPENDENT_CPU_REPLAYED",
+  "turn_comparison": {
+    "identical_output_tokens": 150
+  },
+  "winner_qualified": false
+}

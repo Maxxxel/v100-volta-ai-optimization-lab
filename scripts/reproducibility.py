@@ -892,21 +892,22 @@ def validate_r635_pair(a,b):
  assert len(a['agent_case'])==33 and len(a['agent_turn'])==150
  assert sum(x['reported_result']['task_success'] for x in a['agent_case'].values())==27 and sum(x['reported_result']['policy_gate_pass'] for x in a['agent_case'].values())==31
 
-def r635_native_aa(root):
- """Recompute Qwen R618/R635 A/A aggregates from pinned raw evidence."""
+def qwen_native_aa(root,baseline_id,trial_id):
+ """Recompute a Qwen A/A pair from pinned raw evidence."""
  from leaderboard import counter_energy_bounds
- root=Path(root);stage=root/'staging/r635';path=stage/'AA_RESULT.json'
+ assert (baseline_id,trial_id) in (('R618','R635'),('R625','R636'))
+ root=Path(root);stage=root/'staging'/trial_id.lower();path=stage/'AA_RESULT.json'
  if not path.is_file():return None
  result=json.loads(path.read_text());receipt=json.loads((stage/'CPU_REPLAY_RECEIPT.json').read_text())
- assert result['status']=='GPU_COMPLETE_INDEPENDENT_CPU_REPLAYED' and result['winner_qualified'] is False
+ assert result['experiment_id']==trial_id and result['baseline']==baseline_id and result['status']=='GPU_COMPLETE_INDEPENDENT_CPU_REPLAYED' and result['winner_qualified'] is False
  assert digest(stage/'CPU_REPLAY_RECEIPT.json')==result['cpu_replay_sha256']
  assert receipt['status']=='SUCCESS' and receipt['cases']==33 and receipt['solved']==27 and receipt['GPU_runs']==receipt['model_requests']==0
  assert digest(stage/'cpu-replay.stdout')==receipt['stdout_sha256'] and digest(stage/'CPU_INPUTS/quality_eval.py')==receipt['scorer_sha256']=='e18c5e03b37e31ae55092e22f18209970a5b7b318371fd8710a48a764923d43c'
  replay=json.loads(next(line for line in (stage/'cpu-replay.stdout').read_text().splitlines() if line.startswith('AGENT18_REPLAY_JSON ')).split(' ',1)[1])
  assert replay['cases']==33 and replay['solved']==27 and replay['all_scores_and_effects_reproduced'] is True and replay['real_evaluator_uid']!=0 and replay['GPU_runs']==replay['model_requests']==0
- baseline=Path(json.loads((root/'staging/r618/AUDIT.json').read_text())['raw_root']);captures=list((root.parent/'research/mcp-workspace/r635-lean-final-validation33').glob('host-*'));assert len(captures)==1
+ baseline=Path(json.loads((root/'staging'/baseline_id.lower()/'AUDIT.json').read_text())['raw_root']);captures=list((root.parent/'research/mcp-workspace'/(trial_id.lower()+'-lean-final-validation33')).glob('host-*'));assert len(captures)==1
  indexed={};profiles=[];launches=[];metrics={}
- for ident,raw in (('R618',baseline),('R635',captures[0])):
+ for ident,raw in ((baseline_id,baseline),(trial_id,captures[0])):
   pins=json.loads((raw/'RAW_HASHES.json').read_text());audit=json.loads((raw/'AUDIT.json').read_text())
   for name in ('AUDIT.json','HTTP_RESULTS.jsonl','GPU_TELEMETRY.jsonl','profile.json','LAUNCH.json'):assert digest(raw/name)==pins[name]
   assert pins['AUDIT.json']==result['raw_comparison']['audit_sha256'][ident] and audit['measurement_valid'] is True and audit['GPU_execution_observed'] is True
@@ -917,10 +918,35 @@ def r635_native_aa(root):
   assert m['case_window_s']==bounds['group_window_s'] and m['gpu_case_window_j_bounds']==[bounds['lower_j'],bounds['upper_j']] and m['gpu_j_per_success_bounds']==[bounds['lower_j']/27,bounds['upper_j']/27]
   assert m['peak_vram_mib']==audit['peak_device_vram_mib'] and m['energy_complete_cases']==audit['energy_complete_cases']
   indexed[ident]=idx;metrics[ident]=m
- verify_aa_runtime_identity(profiles,launches);validate_r635_pair(indexed['R618'],indexed['R635'])
+ verify_aa_runtime_identity(profiles,launches);validate_r635_pair(indexed[baseline_id],indexed[trial_id])
  assert result['raw_comparison']['turn_comparison']=={'identical_output_tokens':150}
  assert result['raw_comparison']['paired_outcomes']=={'task_success_both_pass':27,'task_success_both_fail':6,'task_success_gained':0,'task_success_lost':0,'policy_gate_pass_both_pass':31,'policy_gate_pass_both_fail':2,'policy_gate_pass_gained':0,'policy_gate_pass_lost':0}
  return {'status':result['status'],'scope':result['scope'],'paired_outcomes':result['raw_comparison']['paired_outcomes'],'turn_comparison':result['raw_comparison']['turn_comparison'],'metrics':metrics,'energy_scope':result['energy_scope'],'audit_sha256':result['raw_comparison']['audit_sha256'],'result_sha256':digest(path),'cpu_replay_sha256':result['cpu_replay_sha256'],'winner_qualified':False}
+
+def qwen_mtp_cross_review(root,on_aa,off_aa):
+ """Validate observed ON/OFF differences without treating them as causal."""
+ root=Path(root);file=root/'staging/r636/MTP_CROSS_REVIEW.json'
+ if not file.is_file():return None
+ assert on_aa is not None and off_aa is not None
+ review=json.loads(file.read_text());assert review['status']=='FOUR_CAPTURE_CROSS_REVIEW_COMPLETE' and review['GPU_runs']==review['model_requests']==0
+ for ident,aa in (('R618',on_aa),('R635',on_aa),('R625',off_aa),('R636',off_aa)):
+  assert review['captures'][ident]['audit']==aa['audit_sha256'][ident]
+ captures={}
+ for ident in ('R635','R636'):
+  dirs=list((root.parent/'research/mcp-workspace'/(ident.lower()+'-lean-final-validation33')).glob('host-*'));assert len(dirs)==1;path=dirs[0]/'HTTP_RESULTS.jsonl'
+  assert digest(path)==review['captures'][ident]['responses']
+  rows=[json.loads(line) for line in path.read_text().splitlines()];captures[ident]={kind:{x['id']:x for x in rows if x.get('kind')==kind} for kind in ('agent_turn','input_identity','agent_case')}
+ x,y=captures['R635'],captures['R636'];assert all(x[k].keys()==y[k].keys() for k in x)
+ equal=0;positions=[];cases=set();tokens=[0,0];wall=[0.0,0.0]
+ for key in sorted(x['agent_turn']):
+  a,b=x['agent_turn'][key],y['agent_turn'][key];assert a['request']==b['request'] and x['input_identity'][key]['prompt_token_ids']==y['input_identity'][key]['prompt_token_ids']
+  u,v=a['reply']['__verbose']['tokens'],b['reply']['__verbose']['tokens'];tokens[0]+=len(u);tokens[1]+=len(v);wall[0]+=a['e2e_s'];wall[1]+=b['e2e_s']
+  if u==v:equal+=1
+  else:cases.add(key.rsplit('--turn',1)[0]);positions.append(next((i for i,(p,q) in enumerate(zip(u,v)) if p!=q),min(len(u),len(v))))
+ assert len(x['agent_turn'])==review['matching_request_and_input_tokens']==150 and equal==review['identical_output_turns'] and len(positions)==review['different_output_turns'] and len(cases)==review['affected_cases']
+ assert sorted(positions)==review['first_divergence_indices_sorted'] and tokens==review['generated_tokens_mtp_on_off'] and wall==review['summed_request_wall_s_mtp_on_off']
+ assert all(x['agent_case'][k]['reported_result'][z]==y['agent_case'][k]['reported_result'][z] for k in x['agent_case'] for z in ('task_success','policy_gate_pass'))
+ return {**review,'review_sha256':digest(file)}
 
 def summarize_r634_sequences(groups,baseline):
  """Return aggregates only; input prompts and output tokens stay private."""
@@ -999,4 +1025,5 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':r635_native_aa(root),'r634_seed_pilot':r634_seed_pilot(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
+ on_aa=qwen_native_aa(root,'R618','R635');off_aa=qwen_native_aa(root,'R625','R636')
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}

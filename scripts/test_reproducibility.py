@@ -1,6 +1,6 @@
 import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences,qwen_native_aa
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -32,6 +32,10 @@ class RuntimeIdentity(unittest.TestCase):
   self.assertTrue(all(not p['equal'] and p['first_divergence']==1 for x in result for p in x['seed_pairs']))
   broken=copy.deepcopy(groups);broken[0][5]=(1001,[99])
   with self.assertRaises(AssertionError):summarize_r634_sequences(broken,[[42,1001]]*3)
+ def test_qwen_aa_rejects_unauthorized_pairing(self):
+  with tempfile.TemporaryDirectory() as td:
+   self.assertIsNone(qwen_native_aa(Path(td),'R625','R636'))
+   with self.assertRaises(AssertionError):qwen_native_aa(Path(td),'R618','R636')
 class HistoricalComparison(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.profiles={};self.raw={}
