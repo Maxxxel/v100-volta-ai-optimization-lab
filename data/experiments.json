@@ -26712,5 +26712,143 @@
       "single_factor_limits": "Historical control; exposed Agent33 tasks. Request flag and a narrowly modified transport differ. Cache counters indicate reported reuse; no token-level or recurrent-state equivalence is proven. GPU energy excludes startup and CPU/system energy; counter bounds do not include sensor accuracy. No independent holdout or Champion claim."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "native_validation33": {
+        "GPU_counter": {
+          "complete_request_s": 321.39292944,
+          "group_window_s": 321.399760053,
+          "lower_j": 67821.239,
+          "upper_j": 67928.614
+        },
+        "actual_generation_requests": 184,
+        "bridge_source_sha256": "40d0264b5637ec98618b15ee40192a78922b497569d3097466b9fbaec7875f5b",
+        "case_wall_s": 321.39292944,
+        "completed_request_wall_s": 314.874521251,
+        "completion_tokens": 14460,
+        "context_tokens": 16384,
+        "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+        "gpu_j_per_success_lower": 3989.4846470588236,
+        "gpu_j_per_success_upper": 3995.800823529412,
+        "independent_review_audit_id": "audit-dd24176853b2832a97aa",
+        "independent_review_sha256": "dd24176853b2832a97aa9c9d08f421ffa4c8d56ae7d9fa46ea5b349e73875360",
+        "max_output_tokens": 4096,
+        "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+        "model_starts": 1,
+        "official_benchmark": false,
+        "paired_validation": {
+          "case_gained": 0,
+          "case_lost": 0,
+          "frozen_groups": 11,
+          "group_sign_flip_two_sided_p": 1.0,
+          "net_success_change": 0,
+          "nonzero_groups": 0,
+          "reference_experiment_id": "R534",
+          "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+          "tasks": 33
+        },
+        "peak_device_vram_mib": 8264.5,
+        "planned_tasks": 33,
+        "policy_gate_passes": 29,
+        "profile_sha256": "fca7fd5805b91f0e7706a97f1fe27bafaba27aad0ae52f51912ae70f17901f9b",
+        "quality_diagnostics": {
+          "evidence_or_postcondition_failure_cases": 2,
+          "final_contract_failure_cases": 2,
+          "incorrect_facts_cases": 13,
+          "invalid_action_cases": 0,
+          "invalid_action_events": 0,
+          "invalid_final_contract_cases": 2,
+          "missing_valid_final_cases": 2,
+          "parse_failed_cases": 0,
+          "parse_failed_rounds": 0,
+          "policy_violation_cases": 4,
+          "policy_violation_events": 41,
+          "rejected_tool_call_cases": 4,
+          "rejected_tool_call_events": 41,
+          "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+          "wrong_final_status_cases": 2,
+          "wrong_reason_code_cases": 2
+        },
+        "solved": 17,
+        "successful_tasks_per_s": 0.05289353095041698,
+        "task_limit_s": 1200,
+        "task_phase_s": 321.400362096,
+        "task_scope_passes": 33,
+        "tasks": 33,
+        "technical_preflight_cases": 0,
+        "technical_request_errors": 0,
+        "tokens_s_completed_requests": 45.923055134947916,
+        "winner_qualified": false
+      },
+      "single_factor_comparison": {
+        "candidate_cache": {
+          "cache_hit_turns": 151,
+          "cached_tokens": 283443,
+          "completion_tokens": 14460,
+          "turns": 184
+        },
+        "candidate_case_wall_s": 321.39292944,
+        "candidate_gpu_j_lower": 67821.239,
+        "candidate_gpu_j_upper": 67928.614,
+        "candidate_peak_vram_mib": 8264.5,
+        "case_wall_reduction_percent": 27.648102793264727,
+        "quality": {
+          "policy_gate_pass": {
+            "candidate_passed": 29,
+            "gained": 1,
+            "lost": 1,
+            "reference_passed": 29
+          },
+          "task_scope_pass": {
+            "candidate_passed": 33,
+            "gained": 0,
+            "lost": 0,
+            "reference_passed": 33
+          },
+          "task_success": {
+            "candidate_passed": 17,
+            "gained": 0,
+            "lost": 0,
+            "reference_passed": 17
+          }
+        },
+        "reference_cache": {
+          "cache_hit_turns": 0,
+          "cached_tokens": 0,
+          "completion_tokens": 14198,
+          "turns": 177
+        },
+        "reference_case_wall_s": 444.208019206,
+        "reference_gpu_j_lower": 106777.937,
+        "reference_gpu_j_upper": 106859.222,
+        "reference_peak_vram_mib": 8254.5,
+        "tasks": 33
+      },
+      "solved": 17,
+      "tasks": 33
+    },
+    "audit_id": "audit-9ba01e7c0be3b578b5c0",
+    "date": "2026-10-29T06:11:15.227712+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "R22"
+    ],
+    "id": "R617",
+    "model": "Gemma4-12B QAT Q4 · prompt cache enabled",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-4118d463860cb6253c8f",
+      "audit-64b3d7585d0fc016342f",
+      "audit-8368350744a0cdc75bea",
+      "audit-949db390b409abedbc0f"
+    ],
+    "statements": {
+      "decision": "POLICY_GATE_FAILED_HISTORICAL_SCREEN_NO_PROMOTION",
+      "scope": "Previously exposed Agent33; 17/33 both, one policy loss and one gain. Historical reference and changed output: causal and safety equivalence not established.",
+      "single_factor_decision": "NOT_QUALIFIED_SCREEN_GATE_NOT_MET",
+      "single_factor_limits": "Historical control; exposed Agent33 tasks. Request flag and a narrowly modified transport differ. Cache counters indicate reported reuse; no token-level or recurrent-state equivalence is proven. GPU energy excludes startup and CPU/system energy; counter bounds do not include sensor accuracy. No independent holdout or Champion claim."
+    },
+    "winner_qualified": false
   }
 ]

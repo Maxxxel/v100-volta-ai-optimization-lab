@@ -1515,7 +1515,8 @@
         "R580",
         "R612",
         "R614",
-        "R616"
+        "R616",
+        "R617"
       ],
       "profiles": [
         {
@@ -2754,6 +2755,77 @@
           "winner_qualified": false
         },
         "model": "OmniCoder-9B bartowski Q6 · prompt cache enabled"
+      },
+      {
+        "audit_sha256": "9ba01e7c0be3b578b5c0bfb831ba4c9103d01479a2ae290fdc927cbf7e55fcb5",
+        "experiment_id": "R617",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 321.39292944,
+            "group_window_s": 321.399760053,
+            "lower_j": 67821.239,
+            "upper_j": 67928.614
+          },
+          "actual_generation_requests": 184,
+          "bridge_source_sha256": "40d0264b5637ec98618b15ee40192a78922b497569d3097466b9fbaec7875f5b",
+          "case_wall_s": 321.39292944,
+          "completed_request_wall_s": 314.874521251,
+          "completion_tokens": 14460,
+          "context_tokens": 16384,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 3989.4846470588236,
+          "gpu_j_per_success_upper": 3995.800823529412,
+          "independent_review_audit_id": "audit-dd24176853b2832a97aa",
+          "independent_review_sha256": "dd24176853b2832a97aa9c9d08f421ffa4c8d56ae7d9fa46ea5b349e73875360",
+          "max_output_tokens": 4096,
+          "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 0,
+            "case_lost": 0,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 1.0,
+            "net_success_change": 0,
+            "nonzero_groups": 0,
+            "reference_experiment_id": "R534",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 8264.5,
+          "planned_tasks": 33,
+          "policy_gate_passes": 29,
+          "profile_sha256": "fca7fd5805b91f0e7706a97f1fe27bafaba27aad0ae52f51912ae70f17901f9b",
+          "quality_diagnostics": {
+            "evidence_or_postcondition_failure_cases": 2,
+            "final_contract_failure_cases": 2,
+            "incorrect_facts_cases": 13,
+            "invalid_action_cases": 0,
+            "invalid_action_events": 0,
+            "invalid_final_contract_cases": 2,
+            "missing_valid_final_cases": 2,
+            "parse_failed_cases": 0,
+            "parse_failed_rounds": 0,
+            "policy_violation_cases": 4,
+            "policy_violation_events": 41,
+            "rejected_tool_call_cases": 4,
+            "rejected_tool_call_events": 41,
+            "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+            "wrong_final_status_cases": 2,
+            "wrong_reason_code_cases": 2
+          },
+          "solved": 17,
+          "successful_tasks_per_s": 0.05289353095041698,
+          "task_limit_s": 1200,
+          "task_phase_s": 321.400362096,
+          "task_scope_passes": 33,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 45.923055134947916,
+          "winner_qualified": false
+        },
+        "model": "Gemma4-12B QAT Q4 · prompt cache enabled"
       }
     ],
     "multi_agent_plan": {

@@ -233,6 +233,7 @@ Plans, configuration attempts and profiles without benchmark result records are 
 | Gemma4-12B QAT Q4_0 · microbatch 256 | [cfg-6656fe4edfa2a073](configuration-profiles/cfg-6656fe4edfa2a07369d3c3b85bb3694b9ade0574b465e214295191fa73cfbd37.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 | Nexus-9B Q6 · prompt cache enabled | [cfg-c4572eda5227a5b4](configuration-profiles/cfg-c4572eda5227a5b4c784206771ef04576d74114d3458a25836c38d88fc66a7c1.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 | OmniCoder-9B bartowski Q6 · prompt cache enabled | [cfg-4d348635b3923b1c](configuration-profiles/cfg-4d348635b3923b1c04348ef02fecf50068a12c778e31712af1772a4ff326d657.md) | No benchmark result in history.runs; inspect archived attempt evidence |
+| Gemma4-12B QAT Q4 · prompt cache enabled | [cfg-82b64715c7d62716](configuration-profiles/cfg-82b64715c7d62716ee07d909aaa482e3b5697c20acf8d3fa28cf4ad0a825bb26.md) | No benchmark result in history.runs; inspect archived attempt evidence |
 
 
 ## Other measured benchmark profiles — preserved outside the category comparison
