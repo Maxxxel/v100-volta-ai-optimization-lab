@@ -629,6 +629,9 @@ def main():
    if f:
     page+='\n'+table(['Identical-input/output subset','Prompt tokens','Generated tokens','Prefill off / on','Decode off / on','Request E2E off / on','Draft accepted'],[[f['matched_requests'],f['arms']['off']['prompt_n'],f['arms']['off']['predicted_n'],f"{f['arms']['off']['prompt_ms']/1000:.1f} / {f['arms']['on']['prompt_ms']/1000:.1f} s",f"{f['arms']['off']['predicted_ms']/1000:.1f} / {f['arms']['on']['predicted_ms']/1000:.1f} s",f"{f['arms']['off']['request_e2e_s']:.1f} / {f['arms']['on']['request_e2e_s']:.1f} s",f"{f['arms']['on']['draft_n_accepted']}/{f['arms']['on']['draft_n']}"]])
     page+='Retrospectively selected matched outputs; separate sessions. Server timings do not establish a causal kernel speedup. Subset energy is NOT MEASURED.\n'
+   safety=qwen_comparison['aggregate_metrics'].get('mtp_policy_review')
+   if safety:
+    page+=f"\nSafety review: both profiles attempted denied simulated climate changes in the same {safety['same_failed_cases']} cases; {safety['same_output_tokens']}/{safety['same_request_and_input_tokens']} matching requests had identical output tokens. External authorization rejected the calls; no production tools were connected. This is one correlated task family and cannot establish general safety equivalence.\n"
   qwen_pilot=next((e for e in es if e['id']=='R623'),None)
   if qwen_pilot and qwen_pilot.get('aggregate_metrics',{}).get('mtp_repeatability_pilot'):
    p=qwen_pilot['aggregate_metrics']['mtp_repeatability_pilot'];rows=p['turns']

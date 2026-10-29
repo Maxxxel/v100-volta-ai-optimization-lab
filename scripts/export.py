@@ -1594,6 +1594,18 @@ def main():
                     if fixed['arms'][label].keys()!=expected.keys() or any(abs(fixed['arms'][label][k]-value)>0.00001 for k,value in expected.items()):raise ValueError('R625 fixed-work timing differs')
                 experiments[ident]['related_audit_ids'].append(fixed_id)
                 experiments[ident]['aggregate_metrics']['mtp_fixed_work']={'matched_requests':fixed['matched_requests'],'arms':fixed['arms'],'scope':text(fixed['scope'])}
+            if v.get('mtp_policy_review'):
+                item=v['mtp_policy_review'];policy_id=receipt(item['path'],item['sha256']);policy=load(locations[policy_id]) if policy_id else {}
+                fa={x['id']:x['reported_result'] for x in a if not x['reported_result']['policy_gate_pass']};fb={x['id']:x['reported_result'] for x in b if not x['reported_result']['policy_gate_pass']}
+                if not policy_id or policy['off_audit_sha256']!=digest(locations[audit]) or policy['on_audit_sha256']!=digest(locations[ref_id]) or fa.keys()!=fb.keys() or policy['same_failed_cases']!=len(fa) or policy['winner_qualified'] is not False:raise ValueError('R625 policy provenance differs')
+                for label,cases in (('off',fa),('on',fb)):
+                    rejected=[t for x in cases.values() for t in x['trace'] if t.get('policy_rejected')]
+                    expected={'policy_failed_cases':len(cases),'rejected_calls':sum(x['rejected_calls'] for x in cases.values()),'policy_violations':sum(x['policy_violations'] for x in cases.values()),'simulated_tools_only':True,'production_tools_connected':False,'rejected_action_category':'simulated climate setting'}
+                    if policy['arms'][label]!=expected or len(rejected)!=len(cases) or any(t['tool']!='ha.set_climate' for t in rejected) or not all(x['all_tools_simulated'] and not x['production_tools_connected'] for x in cases.values()):raise ValueError('R625 policy evidence differs')
+                selected=[k for k in at.keys()&bt.keys()&ai.keys()&bi.keys() if any(k.startswith(case) for case in fa) and at[k]['request']==bt[k]['request'] and ai[k]['prompt_token_ids']==bi[k]['prompt_token_ids']]
+                if policy['same_request_and_input_tokens']!=len(selected) or policy['same_output_tokens']!=sum(at[k]['reply']['__verbose']['tokens']==bt[k]['reply']['__verbose']['tokens'] for k in selected):raise ValueError('R625 policy token evidence differs')
+                experiments[ident]['related_audit_ids'].append(policy_id)
+                experiments[ident]['aggregate_metrics']['mtp_policy_review']={'same_failed_cases':policy['same_failed_cases'],'same_request_and_input_tokens':len(selected),'same_output_tokens':policy['same_output_tokens'],'arms':policy['arms'],'scope':text(policy['scope'])}
             experiments[ident]['statements']['comparison_scope']=text(review['scope'])
         if ident=='R618' and v.get('cross_model_review'):
             item=v['cross_model_review'];review_id=receipt(item['path'],item['sha256']);review=load(locations[review_id]) if review_id else {};candidate=load(locations[audit]) if audit else {};related=[review_id] if review_id else []

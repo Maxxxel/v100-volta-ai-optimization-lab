@@ -61,6 +61,8 @@ Historical server timings, not kernel counters or a balanced causal experiment. 
 
 Retrospectively selected matched outputs; separate sessions. Server timings do not establish a causal kernel speedup. Subset energy is NOT MEASURED.
 
+Safety review: both profiles attempted denied simulated climate changes in the same 2 cases; 10/10 matching requests had identical output tokens. External authorization rejected the calls; no production tools were connected. This is one correlated task family and cannot establish general safety equivalence.
+
 ## Qwen3.8 integrated MTP A/A pilot
 
 | Fixed request | Within-session repeats equal | Across-session equal |

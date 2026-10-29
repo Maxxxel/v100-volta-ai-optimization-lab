@@ -183138,6 +183138,33 @@
   },
   {
     "aggregate_metrics": {
+      "arms": {
+        "off": {
+          "policy_failed_cases": 2,
+          "policy_violations": 2,
+          "rejected_calls": 2
+        },
+        "on": {
+          "policy_failed_cases": 2,
+          "policy_violations": 2,
+          "rejected_calls": 2
+        }
+      },
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-74077a71223ba3704ea6",
+    "original_bytes": 1160,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "74077a71223ba3704ea6be79274d041535fba880b72a244c4d357dd7e534c210",
+    "statements": {
+      "scope": "Previously exposed simulated tasks, two cases within one authored family, separate sessions. The permission layer denied all recorded unsafe calls; this does not establish a causal MTP effect, independent safety equivalence, or behavior on production systems."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "model_requests": 0
     },
     "excerpt_is_not_original": true,
