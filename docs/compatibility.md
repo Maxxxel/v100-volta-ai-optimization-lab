@@ -1,5 +1,20 @@
 # Model × optimization evidence index
 
+## Reviewed model-specific decisions
+
+These decisions apply only to the linked, measured profiles and workloads. A failed policy gate blocks promotion; a historical comparison does not establish causation. Other implementations remain open.
+
+| Factor | Model | Scoped disposition | Evidence | Reason and limits |
+|---|---|---|---|---|
+| [R22](factors/R22.md) | OmniCoder | PARTIAL | [R616](experiments/R616.md), [R620](experiments/R620.md) | Historical quality and policy gate failed; cache-associated token divergence reproduced, but whole-task causality remains unresolved. |
+| [R22](factors/R22.md) | Nexus | PARTIAL | [R614](experiments/R614.md), [R621](experiments/R621.md) | Historical policy gate failed; cache-associated token divergence reproduced, but whole-task causality remains unresolved. |
+| [R22](factors/R22.md) | Gemma 4 | PARTIAL | [R617](experiments/R617.md), [R624](experiments/R624.md) | Historical policy gate failed; cache-associated token divergence reproduced at original seed and temperature; whole-task causality remains unresolved. |
+| [HBM07](factors/HBM07.md) | OmniCoder | TESTED_NEGATIVE | [R611](experiments/R611.md) | One exposed Agent33 conversion-cache screen found no practical gain; other workloads and implementations remain open. |
+| [R04](factors/R04.md) | Gemma 4 | TESTED_NEGATIVE | [R612](experiments/R612.md) | Microbatch 256 lost to historical 512 in one screen; output lengths and stochastic results differ, so causation remains unconfirmed. |
+
+
+## Evidence index for all factors
+
 For every one of the 162 factors, the five columns link indexed audits with an explicit matching model label. **PARTIAL / linked evidence is an association only:** a linked audit may describe source inspection, a build, a negative screen or a GPU run; it does not prove applicability, a GPU intervention or qualification. Open each experiment for the actual scope, model artifact and decision. Each cell shows up to three highest-numbered links and the total indexed count; the factor page holds the broader record.
 
 **NOT YET VERIFIED IN INDEX** means no explicitly model-labelled audit was found by this index. It is not proof that the technique was never tested or is technically inapplicable. Qwen3.5 weights used by the historical profile are currently unavailable locally. This index is not the requested complete model-specific experimental disposition: unreviewed variants remain open.
