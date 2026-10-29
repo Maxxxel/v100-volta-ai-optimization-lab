@@ -27895,5 +27895,148 @@
       "decision": "MTP off and on each solve 27/33 and pass policy 31/33 in separate sessions; causal and safety equivalence not established."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "mtp_off_on_pair": {
+        "paired_requests": 24,
+        "scope": "Three exposed requests repeated across two sessions per profile; ON and OFF collected in different jobs, no fresh balanced A/B. Identical outputs in this tiny correlated sample do not establish target-model equivalence, task quality or safety.",
+        "turns": [
+          {
+            "matching_output_tokens": 8,
+            "off_repeatability": true,
+            "on_repeatability": true,
+            "pairs": 8,
+            "turn": 1
+          },
+          {
+            "matching_output_tokens": 8,
+            "off_repeatability": true,
+            "on_repeatability": true,
+            "pairs": 8,
+            "turn": 2
+          },
+          {
+            "matching_output_tokens": 8,
+            "off_repeatability": true,
+            "on_repeatability": true,
+            "pairs": 8,
+            "turn": 3
+          }
+        ]
+      },
+      "mtp_repeatability_pilot": {
+        "energy_counter": {
+          "complete_request_s": 78.298155717,
+          "group_window_s": 95.203347277,
+          "groups": 1,
+          "included_between_request_setup_s": 16.90519156,
+          "lower_j": 24360.65,
+          "max_query_duration_s": 0.035849243,
+          "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+          "tasks": 24,
+          "upper_j": 24493.583
+        },
+        "peak_device_vram_mib": 12452.5,
+        "task_phase_s": 124.23338798,
+        "turns": [
+          {
+            "across_session_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_lengths": [
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33
+            ],
+            "turn": 1,
+            "within_session_1_equal": true,
+            "within_session_2_equal": true
+          },
+          {
+            "across_session_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_lengths": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34
+            ],
+            "turn": 2,
+            "within_session_1_equal": true,
+            "within_session_2_equal": true
+          },
+          {
+            "across_session_equal": true,
+            "first_divergence_positions": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "output_lengths": [
+              38,
+              38,
+              38,
+              38,
+              38,
+              38,
+              38,
+              38
+            ],
+            "turn": 3,
+            "within_session_1_equal": true,
+            "within_session_2_equal": true
+          }
+        ]
+      }
+    },
+    "audit_id": "audit-027b221e4cef8f6d5e4c",
+    "date": "2026-10-29T09:24:49.193704+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "S03"
+    ],
+    "id": "R626",
+    "model": "Qwen3.8 27B IQ3_S MTP OFF",
+    "reference_A0": null,
+    "related_audit_ids": [
+      "audit-d182dd4e5bd90329f2e5",
+      "audit-b6ef9ef0223638b5ee1a",
+      "audit-ae7e912d8fc35b67383f"
+    ],
+    "statements": {
+      "decision": "Three exposed fixed requests reproduced across two OFF sessions and matched the historical ON pilot in all 24 paired outputs. No broad determinism, losslessness, task quality, safety equivalence or causal performance claim.",
+      "repeatability_decision": "Three exposed fixed requests reproduced across two OFF sessions and matched the historical ON pilot in all 24 paired outputs. No broad determinism, losslessness, task quality, safety equivalence or causal performance claim.",
+      "repeatability_limits": "Three exposed fixed requests, integrated MTP disabled, same runtime and two adjacent sessions. Repeats are correlated; no population-quality, causal MTP or safety equivalence claim. Logits and numerical margins NOT MEASURED."
+    },
+    "winner_qualified": false
   }
 ]

@@ -73,6 +73,16 @@ Safety review: both profiles attempted denied simulated climate changes in the s
 
 [R623](experiments/R623.md) used three short, previously exposed tool requests with seed 1001 and integrated MTP in two sessions. This restricted A/A observation does not prove general determinism, task quality, safety or a causal MTP improvement.
 
+## Qwen3.8 MTP-off A/A and historical ON comparison
+
+| Fixed request | MTP-off across sessions | MTP-on across sessions | Same output ON/OFF |
+|---|---|---|---|
+| 1 | YES | YES | 8/8 |
+| 2 | YES | YES | 8/8 |
+| 3 | YES | YES | 8/8 |
+
+[R626](experiments/R626.md) reused three exposed requests over two fresh MTP-off sessions. R623 ON and R626 OFF are separate jobs; identical outputs in this small correlated sample do not establish general determinism, losslessness, task quality or safety equivalence.
+
 ## Gemma fixed and distinct seed pilot
 
 | Fixed request | Seed | Within-session repeat equal | Across-session equal | Distinct outputs across seeds |

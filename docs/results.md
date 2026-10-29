@@ -545,6 +545,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R623](experiments/R623.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B IQ3_S integrated MTP3 |
 | [R624](experiments/R624.md) | R22 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma 4 12B QAT Q4 |
 | [R625](experiments/R625.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B IQ3_S MTP OFF |
+| [R626](experiments/R626.md) | S03 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B IQ3_S MTP OFF |
 
 
 ## Historical signed windows

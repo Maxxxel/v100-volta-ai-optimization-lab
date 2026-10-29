@@ -637,6 +637,11 @@ def main():
    p=qwen_pilot['aggregate_metrics']['mtp_repeatability_pilot'];rows=p['turns']
    page+='\n## Qwen3.8 integrated MTP A/A pilot\n\n'+table(['Fixed request','Within-session repeats equal','Across-session equal'],[[x['turn'],'YES' if x['within_session_1_equal'] and x['within_session_2_equal'] else 'NO','YES' if x['across_session_equal'] else 'NO'] for x in rows])
    page+='[R623](experiments/R623.md) used three short, previously exposed tool requests with seed 1001 and integrated MTP in two sessions. This restricted A/A observation does not prove general determinism, task quality, safety or a causal MTP improvement.\n'
+  qwen_off=next((e for e in es if e['id']=='R626'),None)
+  if qwen_off and qwen_off.get('aggregate_metrics',{}).get('mtp_off_on_pair'):
+   p=qwen_off['aggregate_metrics']['mtp_off_on_pair']
+   page+='\n## Qwen3.8 MTP-off A/A and historical ON comparison\n\n'+table(['Fixed request','MTP-off across sessions','MTP-on across sessions','Same output ON/OFF'],[[x['turn'],'YES' if x['off_repeatability'] else 'NO','YES' if x['on_repeatability'] else 'NO',f"{x['matching_output_tokens']}/{x['pairs']}"] for x in p['turns']])
+   page+='[R626](experiments/R626.md) reused three exposed requests over two fresh MTP-off sessions. R623 ON and R626 OFF are separate jobs; identical outputs in this small correlated sample do not establish general determinism, losslessness, task quality or safety equivalence.\n'
   gemma_pilot=next((e for e in es if e['id']=='R622'),None)
   if gemma_pilot and gemma_pilot.get('aggregate_metrics',{}).get('seed_repeatability_pilot'):
    p=gemma_pilot['aggregate_metrics']['seed_repeatability_pilot'];rows=[]

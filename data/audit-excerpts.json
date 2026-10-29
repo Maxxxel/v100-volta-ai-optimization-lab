@@ -183232,6 +183232,49 @@
   },
   {
     "aggregate_metrics": {
+      "peak_device_vram_mib": 12452.5
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-027b221e4cef8f6d5e4c",
+    "original_bytes": 3502,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "027b221e4cef8f6d5e4ca8eed82082f2ecf4fd415e498f2762be7c898786e051",
+    "statements": {
+      "scope": "Three exposed fixed requests, four repeats in each of two sessions, integrated MTP disabled, seed 1001, temperature zero, exact input token IDs; no tool actions. Shared TASK time includes both startups and warmups. Not a task-quality, safety or causal MTP qualification; logits NOT MEASURED."
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d182dd4e5bd90329f2e5",
+    "original_bytes": 2211,
+    "original_filename": "INDEPENDENT_REVIEW.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d182dd4e5bd90329f2e55b01e1a12bc36f1206fb4bfe4f74d69425de4e95a0aa",
+    "statements": {}
+  },
+  {
+    "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ae7e912d8fc35b67383f",
+    "original_bytes": 1019,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ae7e912d8fc35b67383f297ef153e989488daccff7fb22f41e90b3b269723dd2",
+    "statements": {
+      "scope": "Three exposed requests repeated across two sessions per profile; ON and OFF collected in different jobs, no fresh balanced A/B. Identical outputs in this tiny correlated sample do not establish target-model equivalence, task quality or safety."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

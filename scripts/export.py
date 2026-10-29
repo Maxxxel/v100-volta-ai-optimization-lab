@@ -1516,12 +1516,12 @@ def main():
             experiments[ident]['aggregate_metrics']['seed_repeatability_pilot']={'turns':review['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':projection(measured['energy_counter'])}
             experiments[ident]['statements']['repeatability_limits']=text(review['limits'])
             experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
-        if ident=='R623' and v.get('independent_review_path'):
-            rid=receipt(v['independent_review_path'],v['independent_review_sha256']);refid=receipt(root/'staging/r550/AUDIT.json')
+        if ident in ('R623','R626') and v.get('independent_review_path'):
+            rid=receipt(v['independent_review_path'],v['independent_review_sha256']);refid=receipt(root/('staging/r550/AUDIT.json' if ident=='R623' else 'staging/r623/AUDIT.json'))
             if not audit or not rid or not refid:raise ValueError('R623 evidence missing')
             measured=load(locations[audit]);review=load(locations[rid])
             if review['source_audit_sha256']!=digest(locations[audit]) or measured['reference_audit_sha256']!=digest(locations[refid]) or review['winner_qualified'] is not False:raise ValueError('R623 source mismatch')
-            folders=list((root.parent/'research/mcp-workspace/r623-qwen38-mtp-aa-token-pilot').glob('host-*'))
+            folders=list((root.parent/('research/mcp-workspace/r623-qwen38-mtp-aa-token-pilot' if ident=='R623' else 'research/mcp-workspace/r626-qwen38-mtp-off-aa-token-pilot')).glob('host-*'))
             if len(folders)!=1:raise ValueError('R623 capture count differs')
             folder=folders[0];pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl'
             if digest(raw)!=pins['HTTP_RESULTS.jsonl'] or digest(raw)!=review['raw_responses_sha256']:raise ValueError('R623 raw capture changed')
@@ -1535,6 +1535,18 @@ def main():
                 if row['within_session_1_equal']!=all(x==seq[0] for x in seq[:4]) or row['within_session_2_equal']!=all(x==seq[4] for x in seq[4:]) or row['across_session_equal']!=(seq[0]==seq[4]):raise ValueError('R623 repeat result differs')
             experiments[ident]['related_audit_ids']=[rid,refid]
             experiments[ident]['aggregate_metrics']['mtp_repeatability_pilot']={'turns':review['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':projection(measured['energy_counter'])}
+            if ident=='R626':
+                item=v['mtp_comparison_review'];cid=receipt(item['path'],item['sha256']);comparison=load(locations[cid]) if cid else {};oldfolders=list((root.parent/'research/mcp-workspace/r623-qwen38-mtp-aa-token-pilot').glob('host-*'))
+                if not cid or len(oldfolders)!=1 or comparison.get('off_audit_sha256')!=digest(locations[audit]) or comparison.get('on_audit_sha256')!=digest(locations[refid]) or comparison.get('winner_qualified') is not False:raise ValueError('R626 paired provenance differs')
+                oldraw=oldfolders[0]/'HTTP_RESULTS.jsonl';oldpins=load(oldfolders[0]/'RAW_HASHES.json')
+                if digest(oldraw)!=oldpins['HTTP_RESULTS.jsonl']:raise ValueError('R626 reference capture changed')
+                old=[json.loads(x) for x in oldraw.read_text().splitlines() if x];ot=[x for x in old if x.get('kind')=='r623_request'];oi=[x for x in old if x.get('kind')=='r623_input']
+                if len(ot)!=24 or len(oi)!=24:raise ValueError('R626 reference incomplete')
+                for i in range(3):
+                    group=[(turns[i+3*j],inputs[i+3*j],ot[i+3*j],oi[i+3*j]) for j in range(8)]
+                    if any(a['request']!=c['request'] or b['prompt_token_ids']!=d['prompt_token_ids'] for a,b,c,d in group):raise ValueError('R626 paired inputs differ')
+                    if comparison['turns'][i]['matching_output_tokens']!=sum(a['reply']['__verbose']['tokens']==c['reply']['__verbose']['tokens'] for a,b,c,d in group):raise ValueError('R626 paired output differs')
+                experiments[ident]['related_audit_ids'].append(cid);experiments[ident]['aggregate_metrics']['mtp_off_on_pair']={'turns':comparison['turns'],'paired_requests':24,'scope':text(comparison['scope'])}
             experiments[ident]['statements']['repeatability_limits']=text(review['limits'])
             experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
         if ident=='R619' and v.get('cpu_tokenizer_review'):
