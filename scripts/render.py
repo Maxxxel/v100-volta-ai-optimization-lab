@@ -615,6 +615,11 @@ def main():
    for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
     v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
    page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  nexus_pilot=next((e for e in es if e['id']=='R621'),None)
+  if nexus_pilot and nexus_pilot.get('aggregate_metrics',{}).get('repeatability_pilot'):
+   v=nexus_pilot['aggregate_metrics']['repeatability_pilot']; rows=v['turns']; assert len(rows)==4
+   page+='\n## Nexus two-session pilot\n\n'+table(['Fixed request','No-cache A/A across sessions','Cache-on variants different','Cache hits','First difference, zero-based'],[[x['turn'],'YES' if x['no_cache_equal_across_sessions'] else 'NO',x['cache_variants_differ_from_baseline'],x['cache_hit_turns'],x['first_difference_position_zero_based'] if x['first_difference_position_zero_based'] is not None else 'NONE'] for x in rows])
+   page+='[R621](experiments/R621.md) verifies actual input token IDs across two adjacent sessions. The fourth request diverged at output token zero in all four cache-hit trials; two other requests matched and the first differed only when cache hits occurred. This does not establish whole-task safety causation or an implementation-level cause. The R614 failed safety gate remains in force.\n'
   pilot=next((e for e in es if e['id']=='R620'),None)
   if pilot and pilot.get('aggregate_metrics',{}).get('repeatability_pilot'):
    p=pilot['aggregate_metrics']['repeatability_pilot'];turns=p['turns'];assert len(turns)==3

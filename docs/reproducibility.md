@@ -35,6 +35,17 @@ Source review SHA-256: `319375870744b2c6a3d35ab109e8ad3ba2e81b1af0b60ca444a665c7
 
 Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.
 
+## Nexus two-session pilot
+
+| Fixed request | No-cache A/A across sessions | Cache-on variants different | Cache hits | First difference, zero-based |
+|---|---|---|---|---|
+| 1 | YES | 2 | 2 | 6 |
+| 2 | YES | 0 | 4 | NONE |
+| 3 | YES | 0 | 4 | NONE |
+| 4 | YES | 4 | 4 | 0 |
+
+[R621](experiments/R621.md) verifies actual input token IDs across two adjacent sessions. The fourth request diverged at output token zero in all four cache-hit trials; two other requests matched and the first differed only when cache hits occurred. This does not establish whole-task safety causation or an implementation-level cause. The R614 failed safety gate remains in force.
+
 ## OmniCoder two-session pilot
 
 | Fixed request | No-cache A/A across sessions | Cache-on variants different from baseline | Cache hits | First difference, zero-based |
