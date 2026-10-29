@@ -26098,5 +26098,41 @@
       "scope": "Full local HumanEval+164: q8 key 151/164 versus historical f16 156/164 with five paired losses. Temperature 1 and noncontemporaneous sessions limit causal interpretation; no champion. Counter bounds exclude startup. R610 unnecessarily repeats the already completed matching R544, with identical seed and outputs; this is not a new independent-seed result."
     },
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "comparison": {
+        "arm_gpu_energy_j_A": 110514.19,
+        "arm_gpu_energy_j_B": 110185.522,
+        "arm_gpu_j_per_success_A": 3946.9353571428574,
+        "arm_gpu_j_per_success_B": 3935.1972142857144,
+        "paired_gained": 0,
+        "paired_lost": 0,
+        "peak_device_vram_mib_A": 7680.5,
+        "peak_device_vram_mib_B": 11776.5,
+        "request_wall_reduction_percent": 1.4167890053129018,
+        "request_wall_s_A": 400.845347522,
+        "request_wall_s_B": 395.16621471,
+        "successes_A": 28,
+        "successes_B": 28,
+        "tasks_per_arm": 33
+      },
+      "model_starts": 2
+    },
+    "audit_id": "audit-b40e49a44f792c74a6cd",
+    "date": "2026-10-29T00:39:06.372345+00:00",
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [
+      "HBM07"
+    ],
+    "id": "R611",
+    "model": "OmniCoder 9B bartowski Q6_K",
+    "reference_A0": null,
+    "statements": {
+      "decision": "NO_PRACTICAL_GAIN_IN_SINGLE_SCREEN",
+      "evidence_class": "LOKAL_GEMESSEN",
+      "scope": "Previously exposed Agent33 development tasks, fixed A then B order, same engine/model/profile, 0 versus 4096 MiB conversion cache. No independent holdout or champion qualification. Arm energy includes startup and idle; sample boundaries omitted. Per-case energy not measured."
+    },
+    "winner_qualified": false
   }
 ]
