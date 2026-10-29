@@ -275,7 +275,7 @@ def cache_state_source_path(root):
  }
  source_lines={key:next((i for i,line in enumerate(lines,1) if token in line),None) for key,token in needles.items()}
  assert all(source_lines.values()) and digest(src)==source_sha256_expected
- runs={}
+ runs={};profiles={}
  for rid in ('r614','r616'):
   audit_path=root/'staging'/rid/'AUDIT.json';audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text());log=raw/'server.log';rows=[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x];turns=[x for x in rows if x.get('kind')=='agent_turn']
   assert digest(log)==pins['server.log'] and digest(raw/'HTTP_RESULTS.jsonl')==pins['HTTP_RESULTS.jsonl'] and digest(raw/'profile.json')==pins['profile.json'] and digest(raw/'LAUNCH.json')==pins['LAUNCH.json']
@@ -649,6 +649,77 @@ def logprobs_diagnostic_path(data, captures):
   'decision':'R616 frozen profile remains unchanged. Any token-probability diagnosis requires a separate reviewed broker profile; no GPU request or run was made.'
  }
 
+def r630_native_aa(root):
+ """Verify and safely summarize the R536/R630 same-profile replay and counter bounds."""
+ root=Path(root);stage=root/'staging/r630';addendum=stage/'COUNTER_ENERGY_BOUNDS.json'
+ if not addendum.is_file():return None
+ raw_dirs={
+  'R536':root.parent/'research/mcp-workspace/r536-native-validation33/host-20261025T092944Z',
+  'R630':root.parent/'research/mcp-workspace/r630-native-validation33/host-20261029T163436Z',
+ }
+ comparison=json.loads((stage/'AA_COMPARISON.json').read_text())
+ replay=json.loads((stage/'INDEPENDENT_REVIEW.json').read_text())
+ receipt=json.loads((stage/'CPU_REPLAY_RECEIPT.json').read_text())
+ energy=json.loads(addendum.read_text())
+ assert comparison['experiment_id']=='R630' and comparison['official_benchmark'] is False
+ assert replay['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and replay['result']['cases']==33
+ assert receipt['systemd_result']=='success' and receipt['result']['GPU_runs']==0
+ runs={};profiles={}
+ captures={}
+ for ident,raw in raw_dirs.items():
+  audit=json.loads((raw/'AUDIT.json').read_text());pins=json.loads((raw/'RAW_HASHES.json').read_text())
+  for name in ('AUDIT.json','HTTP_RESULTS.jsonl','GPU_TELEMETRY.jsonl','profile.json'):
+   assert name in pins and digest(raw/name)==pins[name]
+  rows=[json.loads(line) for line in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if line]
+  by_kind={kind:{x['id']:x for x in rows if x.get('kind')==kind and x.get('id')}
+           for kind in ('input_identity','agent_turn','agent_case')}
+  assert len(by_kind['input_identity'])==len(by_kind['agent_turn'])==154
+  assert len(by_kind['agent_case'])==33 and audit['measurement_valid'] is True
+  profiles[ident]=json.loads((raw/'profile.json').read_text())
+  captures[ident]=by_kind
+  cases=list(by_kind['agent_case'].values())
+  runs[ident]={'experiment_id':ident,'audit_sha256':pins['AUDIT.json'],'raw_capture_sha256':pins['HTTP_RESULTS.jsonl'],
+               'tasks':33,'solved':sum(bool(x['reported_result']['task_success']) for x in cases),
+               'policy_gate_pass':sum(bool(x['reported_result']['policy_gate_pass']) for x in cases),
+               'task_scope_pass':sum(bool(x['reported_result']['task_scope_pass']) for x in cases),
+               'task_phase_s':audit['case_inference_wall_s'],'peak_vram_mib':audit['peak_device_vram_mib']}
+ a,b=profiles['R536'],profiles['R630']
+ for profile in (a,b):profile.pop('execution_review',None);profile.pop('review',None)
+ assert a==b
+ left,right=captures['R536'],captures['R630']
+ input_match=request_match=token_match=case_match=0
+ for ident,x in left['input_identity'].items():
+  y=right['input_identity'].get(ident)
+  if y and x.get('prompt_token_ids_sha256')==y.get('prompt_token_ids_sha256'):input_match+=1
+ for ident,x in left['agent_turn'].items():
+  y=right['agent_turn'].get(ident)
+  if not y:continue
+  request_match+=x.get('request_sha256')==y.get('request_sha256')
+  token_match+=x['reply']['__verbose']['tokens']==y['reply']['__verbose']['tokens']
+ stable=('case_id','domain','task_success','policy_gate_pass','task_scope_pass','failure_reasons',
+         'total_model_rounds','all_tools_simulated','production_tools_connected','actual','expected')
+ for ident,x in left['agent_case'].items():
+  y=right['agent_case'].get(ident)
+  if y and all(x['reported_result'].get(k)==y['reported_result'].get(k) for k in stable):case_match+=1
+ assert (input_match,request_match,token_match,case_match)==(154,154,154,33)
+ assert runs['R536']['solved']==runs['R630']['solved']==28
+ assert energy['baseline']['raw_capture_sha256']==runs['R536']['raw_capture_sha256']
+ assert energy['candidate']['raw_capture_sha256']==runs['R630']['raw_capture_sha256']
+ e0=energy['baseline']['whole_gpu_task_phase_energy_bounds_j'];e1=energy['candidate']['whole_gpu_task_phase_energy_bounds_j']
+ overlap=max(e0['lower'],e1['lower'])<=min(e0['upper'],e1['upper'])
+ assert overlap==energy['comparison']['energy_bounds_overlap'] is True
+ return {'status':'A_A_REPRODUCED_ON_EXPOSED_FROZEN33', 'baseline':runs['R536'],'candidate':runs['R630'],
+         'identical_prompts':input_match,'identical_requests':request_match,
+         'identical_generated_token_sequences':token_match,'identical_task_outcomes':case_match,
+         'gpu_energy_counter_bounds_j':{'R536':e0,'R630':e1},
+         'gross_gpu_j_per_success_bounds':{'R536':energy['baseline']['gross_GPU_J_per_success_bounds'],
+                                           'R630':energy['candidate']['gross_GPU_J_per_success_bounds']},
+         'energy_bounds_overlap':True,'energy_scope':'Whole task-phase GPU-board counter bounds; per-case power integration incomplete; excludes CPU/system energy.',
+         'limits':'Same exposed validation tasks, not an unseen holdout or official benchmark. One A/A pair only; no speed or energy winner, no Champion qualification.',
+         'evidence':{'R536_audit_sha256':runs['R536']['audit_sha256'],'R536_capture_sha256':runs['R536']['raw_capture_sha256'],
+                     'R630_audit_sha256':runs['R630']['audit_sha256'],'R630_capture_sha256':runs['R630']['raw_capture_sha256'],
+                     'counter_addendum_sha256':digest(addendum),'CPU_replay_sha256':digest(stage/'INDEPENDENT_REVIEW.json')}}
+
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'
  if not report.is_file():return None
@@ -685,4 +756,4 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}

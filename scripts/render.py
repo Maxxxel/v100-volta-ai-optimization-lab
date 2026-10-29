@@ -820,6 +820,23 @@ def main():
    page+='On turn 3, the same 1,790-token prompt had a first-token difference: uncached baseline `cache_n=0`, candidate `cache_n=1675`. That response was shorter (166 vs558 tokens), but the candidate then used two additional model turns; total captured output for this case was 744 vs636 tokens. The task-time difference therefore cannot be explained as a simple decode-throughput gain. R620 supplies exact-prompt no-cache A/A repetition: 4/4 outputs matched; cache-on varied across two sequences in 4/4 trials. This confirms scoped candidate variability, not that caching caused the task/policy outcome or an internal numerical/state path.\n\n'
    page+='The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.\n\n'
    page+='**Interpretation:** the R616 lost-task divergence is mapped to a cache-hit response, consistent with a cache/recompute numerical-path effect; corrupted GDN state is not established. Per-request server input evaluation is now mapped, but exact checkpoint restore/fallback attribution, logits, per-layer state and kernel traces remain unmeasured. The R614/R616 task-level policy causes remain **UNRESOLVED**, and neither candidate is qualified.\n'
+  r630=repro.get('r630_native_aa')
+  if r630:
+   rows=[]
+   for key in ('baseline','candidate'):
+    run=r630[key];energy=r630['gpu_energy_counter_bounds_j'][run['experiment_id']]
+    joules=r630['gross_gpu_j_per_success_bounds'][run['experiment_id']]
+    rows.append([run['experiment_id'],f"{run['solved']}/{run['tasks']}",f"{run['policy_gate_pass']}/{run['tasks']}",
+                 f"{run['task_phase_s']:.3f}",f"{energy['lower']:,.1f}–{energy['upper']:,.1f}",
+                 f"{joules['lower']:,.1f}–{joules['upper']:,.1f}",f"{run['peak_vram_mib']:,.1f}"])
+   page+='\n## Same-profile A/A repeatability · R536 / R630\n\n'
+   page+='R630 repeated the unchanged OmniCoder bartowski Q6 profile on the same exposed 33-task validation set. Independent CPU replay confirmed all task outcomes and effects. '
+   page+=f"Prompt identities, requests and generated token sequences matched in **{r630['identical_prompts']}/{r630['identical_prompts']}** turns; task outcomes matched in **{r630['identical_task_outcomes']}/33**.\n\n"
+   page+=table(['Run','Solved','Policy gates','Task phase s','Whole-phase GPU energy bounds J','Gross GPU J / success bounds','Peak VRAM MiB'],rows)
+   page+='The cumulative NVML counter is monotonic and brackets the full task phase; the per-case power integral remains incomplete because sample gaps exceed its 0.25 s validity limit. Counter ranges overlap. One A/A pair establishes neither a speed nor an energy winner. These are whole-phase GPU-board values, not CPU/system or isolated per-task energy. This is not an official benchmark, unseen holdout, or Champion qualification. Original prompts and task contents are not published.\n\n'
+   ev=r630['evidence']
+   page+=f"Audit SHA-256: R536 `{ev['R536_audit_sha256']}` · R630 `{ev['R630_audit_sha256']}`. Raw capture SHA-256: R536 `{ev['R536_capture_sha256']}` · R630 `{ev['R630_capture_sha256']}`. Counter addendum SHA-256: `{ev['counter_addendum_sha256']}`.\n"
+   put('assets/r630-aa.json',json.dumps(r630,ensure_ascii=False,indent=2))
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')

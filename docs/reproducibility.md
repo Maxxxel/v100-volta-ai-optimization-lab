@@ -228,3 +228,16 @@ On turn 3, the same 1,790-token prompt had a first-token difference: uncached ba
 The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.
 
 **Interpretation:** the R616 lost-task divergence is mapped to a cache-hit response, consistent with a cache/recompute numerical-path effect; corrupted GDN state is not established. Per-request server input evaluation is now mapped, but exact checkpoint restore/fallback attribution, logits, per-layer state and kernel traces remain unmeasured. The R614/R616 task-level policy causes remain **UNRESOLVED**, and neither candidate is qualified.
+
+## Same-profile A/A repeatability · R536 / R630
+
+R630 repeated the unchanged OmniCoder bartowski Q6 profile on the same exposed 33-task validation set. Independent CPU replay confirmed all task outcomes and effects. Prompt identities, requests and generated token sequences matched in **154/154** turns; task outcomes matched in **33/33**.
+
+| Run | Solved | Policy gates | Task phase s | Whole-phase GPU energy bounds J | Gross GPU J / success bounds | Peak VRAM MiB |
+|---|---|---|---|---|---|---|
+| R536 | 28/33 | 29/33 | 401.663 | 109,461.5–109,572.7 | 3,909.3–3,913.3 | 7,680.5 |
+| R630 | 28/33 | 29/33 | 401.311 | 109,447.6–109,549.6 | 3,908.8–3,912.5 | 7,680.5 |
+
+The cumulative NVML counter is monotonic and brackets the full task phase; the per-case power integral remains incomplete because sample gaps exceed its 0.25 s validity limit. Counter ranges overlap. One A/A pair establishes neither a speed nor an energy winner. These are whole-phase GPU-board values, not CPU/system or isolated per-task energy. This is not an official benchmark, unseen holdout, or Champion qualification. Original prompts and task contents are not published.
+
+Audit SHA-256: R536 `c43fcc568c66cf86604b715ef6d094774cbf13888890daad0fae27711173b391` · R630 `4e20c6da6fe47fbceba2a448ca4ee65e296a7c307bbf132a6b71f458bfbdd5b2`. Raw capture SHA-256: R536 `ac3b4ac10aba8d98b8b12d3b29c63b1add2ffc294a2f2383a84c683b4ba1daa5` · R630 `3a2fc8e6f74dfb6585a87e2b7edaf4260ad066027cc1e6b2c5cc811acffa2599`. Counter addendum SHA-256: `e9e20f6c79d05cbfc56b3a3ee89554345e18a45e797dbec53c338892ca966437`.
