@@ -1625,6 +1625,35 @@
         "status": "CLOSED_NOT_PLANNED",
         "url": "https://github.com/ggml-org/llama.cpp/issues/22940"
       },
+      "hybrid_recurrent_state": {
+        "R614_n_swa_values": [
+          0
+        ],
+        "R616_n_swa_values": [
+          0
+        ],
+        "SWA_checkpoint_position_TODO_applies": false,
+        "divergent_R616_checkpoint_restore_logged": false,
+        "divergent_R616_full_prompt_fallback_logged": false,
+        "hybrid_source_lines": {
+          "attention_read": 201,
+          "attention_write": 192,
+          "partial_read_attention_guard": 198,
+          "partial_write_attention_guard": 191,
+          "recurrent_read_after_guard": 205,
+          "recurrent_write_after_guard": 194
+        },
+        "hybrid_source_sha256": "907b769206d9b29b8ee2dd0f04ead29e99810843edaecb722ddbbac852d0bf1e",
+        "interpretation": "Does not identify the cause of token divergence. Actual recurrent-state values, logits and intermediate numerics were not captured.",
+        "partial_only_semantics": "attention memory excluded; recurrent memory serialized/restored",
+        "recurrent_source_lines": {
+          "state_read": 869,
+          "state_write": 788,
+          "state_write_data": 866
+        },
+        "recurrent_source_sha256": "51172be188d0eece2267c9105dc5a8d2c3ef7ebd58e88a6f562ac6ee36326f98",
+        "source_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267"
+      },
       "kind": "PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION",
       "limits": "R616’s one lost task is mapped to an exact matching 1,790-token prompt and first changed token. R620 repeats the exact prompt in two sessions: selected no-cache outputs are stable in 4/4 trials, while cache-on outputs vary across two sequences in 4/4 trials. These are exposed request-level observations only; no logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The evidence does not prove task/policy causality or identify a numerical/GDN state mechanism.",
       "model_requests": 0,
@@ -1730,6 +1759,8 @@
       "source_interpretation": [
         "The request-level cache_prompt path finds a matching prompt prefix; the server can reuse cached chunks.",
         "Context checkpoints save target state (and the source also saves draft/speculative state); the source comment says recurrent state cannot be rewound from only the final state.",
+        "In the pinned hybrid-memory implementation, PARTIAL_ONLY omits attention-memory serialization/restoration but still serializes/restores recurrent memory; the recurrent implementation writes cell metadata and tensor state. Missing recurrent checkpoint serialization is therefore not supported by this code path.",
+        "The source TODO about checkpoint position coverage is explicitly scoped to SWA. Both R614 and R616 logs report n_swa=0; the divergent R616 request has no checkpoint restore or full-prompt fallback. That TODO is not an evidenced explanation for this divergence.",
         "When a usable checkpoint is unavailable for a hybrid/recurrent context, this code path forces full prompt re-processing.",
         "The log message that the host RAM prompt cache is disabled is a separate cache layer; it does not mean the per-request cache_prompt flag was off."
       ],

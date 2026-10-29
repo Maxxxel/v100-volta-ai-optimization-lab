@@ -1,6 +1,6 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -160,4 +160,30 @@ class ServerPromptPath(unittest.TestCase):
    self.assertNotIn('task_id',json.dumps(out))
    rows[1]['reply']['usage']['completion_tokens']=9
    with self.assertRaises(AssertionError):summarize_server_prompt_path(rows,log,'selected')
+
+class HybridCheckpointSource(unittest.TestCase):
+ def test_partial_checkpoint_excludes_attention_but_keeps_recurrent_state(self):
+  hybrid='''void state_write() {
+    if ((flags & LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY) == 0) {
+        mem_attn->state_write(io, seq_id, flags);
+    }
+    mem_recr->state_write(io, seq_id, flags);
+  }
+  void state_read() {
+    const bool read_attn = (flags & LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY) == 0;
+    if (read_attn) {
+        mem_attn->state_read(io, seq_id, flags);
+    }
+    mem_recr->state_read(io, seq_id, flags);
+  }'''.splitlines()
+  recurrent='''void llama_memory_recurrent::state_write() {}
+  state_write_data(io, cell_ranges_data);
+  void llama_memory_recurrent::state_read() {}'''.splitlines()
+  result=hybrid_recurrent_state_semantics(hybrid,recurrent)
+  self.assertGreater(result['hybrid_source_lines']['recurrent_write_after_guard'],result['hybrid_source_lines']['attention_write'])
+  self.assertGreater(result['hybrid_source_lines']['recurrent_read_after_guard'],result['hybrid_source_lines']['attention_read'])
+  self.assertTrue(result['recurrent_source_lines']['state_write_data'])
+  broken=[line for line in hybrid if 'mem_recr->state_write' not in line]
+  with self.assertRaises(AssertionError):hybrid_recurrent_state_semantics(broken,recurrent)
+
 if __name__=='__main__':unittest.main()

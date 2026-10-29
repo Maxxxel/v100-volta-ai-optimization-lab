@@ -253,7 +253,14 @@ def cache_state_source_path(root):
  if not src.is_file():return None
  commit='097cf33d9499b1eade67d51e16d7c75427e7b267';source_sha256_expected='6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7'
  assert digest(src)==source_sha256_expected
+ hybrid=root/'staging/r31/extra/source/src/llama-memory-hybrid.cpp'
+ recurrent=root/'staging/r31/extra/source/src/llama-memory-recurrent.cpp'
+ hybrid_sha256='907b769206d9b29b8ee2dd0f04ead29e99810843edaecb722ddbbac852d0bf1e'
+ recurrent_sha256='51172be188d0eece2267c9105dc5a8d2c3ef7ebd58e88a6f562ac6ee36326f98'
+ assert digest(hybrid)==hybrid_sha256 and digest(recurrent)==recurrent_sha256
  lines=src.read_text(errors='replace').splitlines()
+ hybrid_lines=hybrid.read_text(errors='replace').splitlines()
+ recurrent_lines=recurrent.read_text(errors='replace').splitlines()
  common=root/'staging/r31/extra/source/common/common.h'
  common_sha256_expected='2a2d084f28932b04ca0a26687bd4c4744bd68e504956d50f8f5719cbbecca4cd'
  assert digest(common)==common_sha256_expected
@@ -275,6 +282,7 @@ def cache_state_source_path(root):
  }
  source_lines={key:next((i for i,line in enumerate(lines,1) if token in line),None) for key,token in needles.items()}
  assert all(source_lines.values()) and digest(src)==source_sha256_expected
+ hybrid_recurrent=hybrid_recurrent_state_semantics(hybrid_lines,recurrent_lines)
  runs={};profiles={}
  for rid in ('r614','r616'):
   audit_path=root/'staging'/rid/'AUDIT.json';audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text());log=raw/'server.log';rows=[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x];turns=[x for x in rows if x.get('kind')=='agent_turn']
@@ -447,6 +455,8 @@ def cache_state_source_path(root):
   'source_interpretation':[
    'The request-level cache_prompt path finds a matching prompt prefix; the server can reuse cached chunks.',
    'Context checkpoints save target state (and the source also saves draft/speculative state); the source comment says recurrent state cannot be rewound from only the final state.',
+   'In the pinned hybrid-memory implementation, PARTIAL_ONLY omits attention-memory serialization/restoration but still serializes/restores recurrent memory; the recurrent implementation writes cell metadata and tensor state. Missing recurrent checkpoint serialization is therefore not supported by this code path.',
+   'The source TODO about checkpoint position coverage is explicitly scoped to SWA. Both R614 and R616 logs report n_swa=0; the divergent R616 request has no checkpoint restore or full-prompt fallback. That TODO is not an evidenced explanation for this divergence.',
    'When a usable checkpoint is unavailable for a hybrid/recurrent context, this code path forces full prompt re-processing.',
    'The log message that the host RAM prompt cache is disabled is a separate cache layer; it does not mean the per-request cache_prompt flag was off.',
   ],
@@ -454,8 +464,28 @@ def cache_state_source_path(root):
   'case_level_divergence':task_divergence,
   'nexus_policy_case_mapping':nexus_policy_mapping,
   'limits':'R616’s one lost task is mapped to an exact matching 1,790-token prompt and first changed token. R620 repeats the exact prompt in two sessions: selected no-cache outputs are stable in 4/4 trials, while cache-on outputs vary across two sequences in 4/4 trials. These are exposed request-level observations only; no logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The evidence does not prove task/policy causality or identify a numerical/GDN state mechanism.',
+  'hybrid_recurrent_state':{'source_commit':commit,'hybrid_source_sha256':hybrid_sha256,'recurrent_source_sha256':recurrent_sha256,**hybrid_recurrent,'partial_only_semantics':'attention memory excluded; recurrent memory serialized/restored','R614_n_swa_values':[0],'R616_n_swa_values':[0],'SWA_checkpoint_position_TODO_applies':False,'divergent_R616_checkpoint_restore_logged':False,'divergent_R616_full_prompt_fallback_logged':False,'interpretation':'Does not identify the cause of token divergence. Actual recurrent-state values, logits and intermediate numerics were not captured.'},
   'GPU_runs':0,'model_requests':0,
  }
+
+def hybrid_recurrent_state_semantics(hybrid_lines,recurrent_lines):
+ """Summarize the pinned hybrid PARTIAL_ONLY checkpoint serialization path."""
+ def find(lines,needle):return next((i for i,line in enumerate(lines,1) if needle in line),None)
+ write_cond=find(hybrid_lines,'if ((flags & LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY) == 0) {')
+ write_attn=find(hybrid_lines,'mem_attn->state_write(io, seq_id, flags);')
+ write_recr=find(hybrid_lines,'mem_recr->state_write(io, seq_id, flags);')
+ read_cond=find(hybrid_lines,'const bool read_attn = (flags & LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY) == 0;')
+ read_attn_call=find(hybrid_lines,'mem_attn->state_read(io, seq_id, flags);')
+ read_recr=find(hybrid_lines,'mem_recr->state_read(io, seq_id, flags);')
+ write_close=next((i for i in range(write_attn+1,len(hybrid_lines)+1) if hybrid_lines[i-1].strip()=='}'),None) if write_attn else None
+ assert write_cond and write_attn and write_recr and write_close and write_recr>write_close
+ read_close=next((i for i in range(read_attn_call+1,len(hybrid_lines)+1) if hybrid_lines[i-1].strip()=='}'),None) if read_attn_call else None
+ assert read_cond and read_attn_call and read_recr and read_close and read_recr>read_close
+ recurrent_write=find(recurrent_lines,'void llama_memory_recurrent::state_write(')
+ recurrent_data=find(recurrent_lines,'state_write_data(io, cell_ranges_data);')
+ recurrent_read=find(recurrent_lines,'void llama_memory_recurrent::state_read(')
+ assert recurrent_write and recurrent_data and recurrent_read
+ return {'hybrid_source_lines':{'partial_write_attention_guard':write_cond,'attention_write':write_attn,'recurrent_write_after_guard':write_recr,'partial_read_attention_guard':read_cond,'attention_read':read_attn_call,'recurrent_read_after_guard':read_recr},'recurrent_source_lines':{'state_write':recurrent_write,'state_write_data':recurrent_data,'state_read':recurrent_read}}
 
 def seed_execution_path(data, captures, root):
  """Reconcile archived seed fields with the pinned per-request sampler path."""
