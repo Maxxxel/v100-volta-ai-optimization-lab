@@ -938,7 +938,16 @@ def r637_balanced_mtp(root):
   a0,b1,b2,a1=(seq[f's{s}-t{t}'] for s in range(1,5));first=next((i for i,(x,y) in enumerate(zip(a0,b1)) if x!=y),min(len(a0),len(b1)) if len(a0)!=len(b1) else None)
   c=v['checks'][t-1];assert c['request']==t and c['off_repeat_equal']==(a0==a1) and c['on_repeat_equal']==(b1==b2) and c['first_off_on_divergence']==first
   assert a['turns'][t-1]['first_divergence_positions'][0]==first
- return {'experiment_id':'R637','task_phase_s':a['task_phase_s'],'peak_device_vram_mib':a['peak_device_vram_mib'],'turns':a['turns'],'audit_sha256':digest(audit),'review_sha256':digest(review),'broker_audit_sha256':a['broker_audit_sha256'],'raw_responses_sha256':a['raw_responses_sha256'],'scope':a['scope'],'winner_qualified':False}
+ argument_path=stage/'ARGUMENT_REVIEW.json';arg_result=None
+ if argument_path.is_file():
+  ar=json.loads(argument_path.read_text());assert ar['status']=='CPU_SEMANTIC_ARGUMENT_COMPARISON' and ar['raw_responses_sha256']==digest(raw/'HTTP_RESULTS.jsonl') and ar['GPU_runs']==ar['model_requests']==0
+  by_id={x['id']:x for x in rows if x.get('kind')=='r637_request'}
+  for t in (1,2):
+   messages=[by_id[f's{i}-t{t}']['reply']['choices'][0]['message'] for i in range(1,5)];assert all(len(m['tool_calls'])==1 for m in messages)
+   f=[m['tool_calls'][0]['function'] for m in messages];args=[json.loads(x['arguments']) for x in f];assert all(type(x) is dict for x in args)
+   c=ar['checks'][t-1];expected={'request':t,'tool_call_count_each':1,'same_tool_name':len({x['name'] for x in f})==1,'same_argument_keys':all(set(x)==set(args[0]) for x in args),'same_arguments_within_off':args[0]==args[3],'same_arguments_within_on':args[1]==args[2],'same_arguments_off_vs_on':args[0]==args[1],'same_content':all(x.get('content')==messages[0].get('content') for x in messages)};assert c==expected
+  arg_result={'checks':ar['checks'],'review_sha256':digest(argument_path),'scope':ar['scope']}
+ return {'experiment_id':'R637','argument_review':arg_result,'task_phase_s':a['task_phase_s'],'peak_device_vram_mib':a['peak_device_vram_mib'],'turns':a['turns'],'audit_sha256':digest(audit),'review_sha256':digest(review),'broker_audit_sha256':a['broker_audit_sha256'],'raw_responses_sha256':a['raw_responses_sha256'],'scope':a['scope'],'winner_qualified':False}
 
 def qwen_mtp_cross_review(root,on_aa,off_aa):
  """Validate observed ON/OFF differences without treating them as causal."""

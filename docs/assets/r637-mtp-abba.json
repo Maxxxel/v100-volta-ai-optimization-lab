@@ -1,4 +1,30 @@
 {
+  "argument_review": {
+    "checks": [
+      {
+        "request": 1,
+        "same_argument_keys": true,
+        "same_arguments_off_vs_on": false,
+        "same_arguments_within_off": true,
+        "same_arguments_within_on": true,
+        "same_content": true,
+        "same_tool_name": true,
+        "tool_call_count_each": 1
+      },
+      {
+        "request": 2,
+        "same_argument_keys": true,
+        "same_arguments_off_vs_on": false,
+        "same_arguments_within_off": true,
+        "same_arguments_within_on": true,
+        "same_content": true,
+        "same_tool_name": true,
+        "tool_call_count_each": 1
+      }
+    ],
+    "review_sha256": "1abef1f14a704aee9879ab6482b538b6d3fc95e9d0827169df60ef66681bbd82",
+    "scope": "Parsed argument equality only; no tool execution, task scoring or correctness judgement. Two exposed, previously selected requests."
+  },
   "audit_sha256": "a06b519866b6ecc13883d94892fa367a6d53c1492e3f32be0e52f67c4d2005aa",
   "broker_audit_sha256": "3a892e661ea6b4527fbc8a000149e4741c19eca5a500d400a72dfc442caac592",
   "experiment_id": "R637",

@@ -328,3 +328,5 @@ Two previously exposed requests were selected because historical MTP ON/OFF outp
 | 2 | yes | yes | 80 | 168/175/175/168 |
 
 The shared TASK phase took 218.728 s including starts and warmups; peak VRAM was 13,596.5 MiB. These selected cases show repeatable output differences in this scope, not quality or safety equivalence, an underlying numerical cause, or an independently qualified speed gain. No tools were executed. Audit SHA-256: `a06b519866b6ecc13883d94892fa367a6d53c1492e3f32be0e52f67c4d2005aa`; independent review SHA-256: `224a941a3628ec64ad4625aff55aa6f12a2dd9d114fd83401af610be233fa3cd`. [Aggregate results](assets/r637-mtp-abba.json).
+
+Parsed tool calls: same function name in 2/2 requests, same argument keys in 2/2, and identical argument values in 0/2 across MTP modes. Arguments repeated within each mode. This is an equality check, not a correctness or safety judgment; the requests were selected after prior results. Review SHA-256: `1abef1f14a704aee9879ab6482b538b6d3fc95e9d0827169df60ef66681bbd82`.

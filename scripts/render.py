@@ -962,6 +962,10 @@ def main():
    page+='Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.\n\n'
    page+=table(['Request','OFF repeats equal','ON repeats equal','OFF/ON first divergence','Output tokens OFF/ON/ON/OFF'],rows)
    page+=f"The shared TASK phase took {r637['task_phase_s']:.3f} s including starts and warmups; peak VRAM was {r637['peak_device_vram_mib']:,.1f} MiB. These selected cases show repeatable output differences in this scope, not quality or safety equivalence, an underlying numerical cause, or an independently qualified speed gain. No tools were executed. Audit SHA-256: `{r637['audit_sha256']}`; independent review SHA-256: `{r637['review_sha256']}`. [Aggregate results](assets/r637-mtp-abba.json).\n"
+   ar=r637.get('argument_review')
+   if ar:
+    same=sum(x['same_arguments_off_vs_on'] for x in ar['checks']);names=sum(x['same_tool_name'] for x in ar['checks']);keys=sum(x['same_argument_keys'] for x in ar['checks'])
+    page+=f"\nParsed tool calls: same function name in {names}/2 requests, same argument keys in {keys}/2, and identical argument values in {same}/2 across MTP modes. Arguments repeated within each mode. This is an equality check, not a correctness or safety judgment; the requests were selected after prior results. Review SHA-256: `{ar['review_sha256']}`.\n"
    put('assets/r637-mtp-abba.json',json.dumps(r637,ensure_ascii=False,indent=2))
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
