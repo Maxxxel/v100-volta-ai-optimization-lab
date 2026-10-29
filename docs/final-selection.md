@@ -72,6 +72,20 @@ Exploratory, unadjusted pairwise statistics; they are not a population ranking o
 
 Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.
 
+## Reserved 8+8 profile validation · non-official
+
+These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across five profiles, so the small samples are correlated across models and cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.
+
+| Profile | Coding · 8 tasks | Tools · 8 tasks | Total task phase · peak VRAM | Evidence |
+|---|---|---|---|---|
+| [Qwen3.5-9B](experiments/R509.md) · parent [R474](experiments/R474.md) | 8/8 · 93.2 tok/s · 624–637 GPU J/success | 6/8 · 55.2 tok/s · 276–293 GPU J/success | 26.8s · 5956 MiB | [audit](experiments/R509.md) · `c32f1defdd71` |
+| [Gemma4-12B](experiments/R510.md) · parent [R472](experiments/R472.md) | 7/8 · 69.3 tok/s · 627–642 GPU J/success | 7/8 · 35.2 tok/s · 195–208 GPU J/success | 26.2s · 8118 MiB | [audit](experiments/R510.md) · `4b3e693eb56c` |
+| [OmniCoder-9B](experiments/R511.md) · parent [R478](experiments/R478.md) | 8/8 · 76.4 tok/s · 667–680 GPU J/success | 6/8 · 49.4 tok/s · 324–337 GPU J/success | 27.7s · 7356 MiB | [audit](experiments/R511.md) · `dbceec90e287` |
+| [Nexus-9B · OFF/T0](experiments/R526.md) · parent [R489](experiments/R489.md) | 6/8 · 74.6 tok/s · 559–574 GPU J/success | 5/8 · 55.8 tok/s · 496–509 GPU J/success | 22.4s · 7356 MiB | [audit](experiments/R526.md) · `240fa31ab141` |
+| [Ornith-1.5-9B · OFF/T0](experiments/R527.md) · parent [R496](experiments/R496.md) | 7/8 · 74.5 tok/s · 476–493 GPU J/success | 5/8 · 57.4 tok/s · 530–546 GPU J/success | 22.7s · 7356 MiB | [audit](experiments/R527.md) · `032c85b436c2` |
+
+Completion tokens, response time, validity, descriptive Wilson intervals, and full audit hashes are available in the [validation aggregate](assets/validation16.json). No task prompts, IDs, outputs, or per-task results are published. Do not interpret per-category GPU joules per success as whole-task energy; the meter brackets only the selected category request group.
+
 ## Post-freeze evidence through R627
 
 The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.

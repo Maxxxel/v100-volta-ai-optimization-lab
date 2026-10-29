@@ -431,9 +431,9 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R506](experiments/R506.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R507](experiments/R507.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R508](experiments/R508.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R509](experiments/R509.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R510](experiments/R510.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R511](experiments/R511.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R509](experiments/R509.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-9B |
+| [R510](experiments/R510.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B |
+| [R511](experiments/R511.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B |
 | [R512](experiments/R512.md) | K01 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B |
 | [R513](experiments/R513.md) | K01 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4_12b_it_qat_q4_0 |
 | [R514](experiments/R514.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.5-0.8B |
@@ -448,8 +448,8 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R523](experiments/R523.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Opus Distill-9B · OFF/T0 |
 | [R524](experiments/R524.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Slopus-9B · OFF/T0 |
 | [R525](experiments/R525.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Ornith-1.5-9B · OFF/T0 |
-| [R526](experiments/R526.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R527](experiments/R527.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R526](experiments/R526.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus-9B · OFF/T0 |
+| [R527](experiments/R527.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Ornith-1.5-9B · OFF/T0 |
 | [R528](experiments/R528.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B · ctx16K |
 | [R529](experiments/R529.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B · ctx16K bridge-v2 |
 | [R530](experiments/R530.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder-9B |

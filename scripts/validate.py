@@ -17,8 +17,10 @@ DATA.add('screening.json')
 DATA.add('frozen-baselines.json')
 DATA.add('caveman-large-output-cpu.json')
 DATA.add('paired-quality-analysis-2026-10-29.json')
+DATA.add('validation16.json')
 SCRIPTS.update({'derivatives.py','test_derivatives.py','test_native_tools.py','test_native_tool_prefix.py'})
 SCRIPTS.update({'test_paired_quality_analysis.py'})
+SCRIPTS.update({'validation16.py','test_validation16.py'})
 SECRET=re.compile(r'(?i)(?:gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,}|sk-[A-Za-z0-9]{16,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(?:password|passwd|api[_-]?key|access[_-]?token|authorization)\s*[:=]\s*[\x22\x27]?[A-Za-z0-9/+_=.-]{12,})')
 PRIVATE=re.compile(r'(?i)(?:\bGPU-[a-f0-9-]{16,}|\b[a-z0-9-]+\.(?:lan|local|internal)\b|\b(?:sensor|switch|light|climate|automation|person|device_tracker|input_boolean)\.[a-z0-9_]+|\b(?:pve|proxmox)-[a-z0-9-]+\b|(?:/opt|/root|/home|/run|/var)/(?!\[)[A-Za-z0-9_.-]+/)')
 def allowed(p):
@@ -29,7 +31,7 @@ def allowed(p):
  if parts[:2]==('.github','workflows'):return len(parts)==3 and p.name in {'pages.yml','security.yml'}
  if parts[:2]==('.github','ISSUE_TEMPLATE'):return len(parts)==3 and p.suffix in {'.md','.yml'}
  if s in {'docs/assets/reproduction/main-protocol.patch','docs/assets/reproduction/llama-grammar-prefill.h','docs/assets/reproduction/numeric-fixtures.patch','docs/assets/reproduction/LICENSE.llama-cpp'}:return True
- if s=='docs/assets/paired-quality-analysis-2026-10-29.json':return True
+ if s in {'docs/assets/paired-quality-analysis-2026-10-29.json','docs/assets/validation16.json'}:return True
  if s in {'docs/assets/harness/system-prose.py','docs/assets/harness/tool-json.py','docs/assets/harness/preaction-checklist.py','docs/assets/harness/original-toon-adapter.py','docs/assets/harness/original-node-shrink-adapter.py','docs/assets/harness/original-node-shrink-request.cjs'}:return True
  if parts[0]=='docs':return p.suffix in {'.md','.css','.js','.svg'} and all(re.fullmatch('[A-Za-z0-9_.-]+',x) for x in parts)
  return False

@@ -2023,6 +2023,14 @@ def main():
     from reproducibility import build as build_reproducibility
     snapshot['reproducibility_review']=build_reproducibility(root)
     assert snapshot['counts']['factors']==162 and len(challengers)==11
+    from validation16 import build as build_validation16
+    validation16=build_validation16(root)
+    for row in validation16['rows']:
+        experiment=experiments[row['experiment_id']]
+        experiment['model']=row['model']
+        experiment['date']=row['at_utc']
+        experiment.setdefault('aggregate_metrics',{})['reserved_validation16']=row
+    write('validation16.json',validation16)
     for name,obj in [('snapshot.json',snapshot),('factors.json',factors),('experiments.json',sorted(experiments.values(),key=lambda x:int(x['id'][1:]))),('audit-excerpts.json',list(catalog.values())),('signed-windows.json',windows),('history.json',events),('references.json',references),('profiles.json',profiles),('models.json',challengers),('comparison.json',comparison),('benchmark-register.json',register),('configuration-history.json',configuration_history),('model-benchmarks.json',metrics({'model_comparison_progress':db['summary'].get('model_comparison_progress',{})})),('sources.json',sources),('research-subcases.json',subcases)]:write(name,obj)
     from screening import build as build_screening
     write('screening.json',build_screening(root))

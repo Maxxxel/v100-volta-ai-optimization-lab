@@ -424,7 +424,7 @@ def render_paired_profile_quality(analysis):
  text+='Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.\n\n'
  return text
 
-def render_final_selection(frozen,history,experiments=None,paired_quality=None):
+def render_final_selection(frozen,history,experiments=None,paired_quality=None,validation16=None):
  from leaderboard import validate_final_baselines
  validate_final_baselines(frozen,history)
  text='# Jarvis — three frozen model baselines\n\n**Dated research selection through R585; not production approval or a universal model ranking.** Three concrete configurations are retained for the next controlled harness phase. Official Agent benchmarks remain NOT MEASURED.\n\n'
@@ -438,6 +438,19 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None):
  text+='The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.\n\n'
  if paired_quality:
   text+=render_paired_profile_quality(paired_quality)
+ if validation16:
+  assert validation16['official_benchmark'] is False and len(validation16['rows']) == 5
+  text+='## Reserved 8+8 profile validation · non-official\n\n'
+  text+='These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across five profiles, so the small samples are correlated across models and cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.\n\n'
+  def vcell(m):
+   return f"{m['successes']}/8 · {m['tokens_per_second']:.1f} tok/s · {m['gpu_j_per_success_lower']:.0f}–{m['gpu_j_per_success_upper']:.0f} GPU J/success"
+  vrows=[]
+  for r in validation16['rows']:
+   vrows.append(['['+r['model']+'](experiments/'+r['experiment_id']+'.md) · parent ['+r['parent_experiment_id']+'](experiments/'+r['parent_experiment_id']+'.md)',
+      vcell(r['coding']),vcell(r['tools']),f"{r['task_phase_s']:.1f}s · {r['peak_device_vram_mib']:.0f} MiB",
+      '[audit](experiments/'+r['experiment_id']+'.md) · `'+r['audit_sha256'][:12]+'`'])
+  text+=table(['Profile','Coding · 8 tasks','Tools · 8 tasks','Total task phase · peak VRAM','Evidence'],vrows)
+  text+='Completion tokens, response time, validity, descriptive Wilson intervals, and full audit hashes are available in the [validation aggregate](assets/validation16.json). No task prompts, IDs, outputs, or per-task results are published. Do not interpret per-category GPU joules per success as whole-task energy; the meter brackets only the selected category request group.\n\n'
  if experiments:
   by_id={e.get('id'):e for e in experiments}
   post=[]
@@ -1229,7 +1242,8 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
  put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
- if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,read('paired-quality-analysis-2026-10-29.json')))
+ if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,read('paired-quality-analysis-2026-10-29.json'),read('validation16.json') if (P/'data/validation16.json').exists() else None))
+ if (P/'data/validation16.json').exists():put('assets/validation16.json',json.dumps(read('validation16.json'),ensure_ascii=False,indent=2))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():
   from pipeline import render as render_pipeline

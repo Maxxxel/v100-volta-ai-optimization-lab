@@ -20414,37 +20414,181 @@
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "reserved_validation16": {
+        "at_utc": "2026-10-24T22:12:08.701605+00:00",
+        "audit_sha256": "c32f1defdd7183008386e0da9236139c0a482ad39b50ab2405373dd39e8c1e31",
+        "capture_review_sha256": "96fc047621cbceec632f38762a671528fbd980607f4fbac099a8a0a39004b15e",
+        "coding": {
+          "completed": 8,
+          "completed_request_wall_s": 19.698913364,
+          "completion_tokens": 1836,
+          "final_text_present": 8,
+          "gpu_j_per_success_lower": 623.628875,
+          "gpu_j_per_success_upper": 637.37975,
+          "successes": 8,
+          "successful_tasks_per_second": 0.40611377146417105,
+          "tokens_per_second": 93.20311055102725,
+          "valid_terminal_output": 8,
+          "wilson95_descriptive": [
+            0.6755924351161198,
+            1
+          ]
+        },
+        "experiment_id": "R509",
+        "independent_review_sha256": "cea0bfef39128c7ad6c037450cb589b0dd23028e00e6ac85461dc721ba5ad45b",
+        "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
+        "model": "Qwen3.5-9B",
+        "parent_experiment_id": "R474",
+        "parent_profile": "qwen35-q4-native-parallel200-task1200-reviewed-sm70",
+        "peak_device_vram_mib": 5956.5,
+        "status": "COMPLETE_NON_OFFICIAL_VALIDATION",
+        "task_phase_s": 26.758092889,
+        "tasks_per_category": 8,
+        "tools": {
+          "completed": 8,
+          "completed_request_wall_s": 7.0508875699999995,
+          "completion_tokens": 389,
+          "final_text_present": 2,
+          "gpu_j_per_success_lower": 276.3385,
+          "gpu_j_per_success_upper": 293.18216666666666,
+          "successes": 6,
+          "successful_tasks_per_second": 0.8509566973566138,
+          "tokens_per_second": 55.170359211953794,
+          "valid_terminal_output": 6,
+          "wilson95_descriptive": [
+            0.40927543031016883,
+            0.9285207872478909
+          ]
+        }
+      }
+    },
     "audit_id": "audit-c32f1defdd7183008386",
-    "date": null,
+    "date": "2026-10-24T22:12:08.701605+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R509",
-    "model": null,
+    "model": "Qwen3.5-9B",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "reserved_validation16": {
+        "at_utc": "2026-10-24T22:15:00.111058+00:00",
+        "audit_sha256": "4b3e693eb56c8fde0087d4a269d103876f91a155b42fd6a85fe817fe85341bbf",
+        "capture_review_sha256": "534ee4e06738d35e6102a7ec2f10e75ee98d11aa091533ab75c9cb4c05eb002c",
+        "coding": {
+          "completed": 8,
+          "completed_request_wall_s": 19.702231691,
+          "completion_tokens": 1365,
+          "final_text_present": 8,
+          "gpu_j_per_success_lower": 627.0148571428572,
+          "gpu_j_per_success_upper": 641.8392857142857,
+          "successes": 7,
+          "successful_tasks_per_second": 0.35528970066866117,
+          "tokens_per_second": 69.28149163038893,
+          "valid_terminal_output": 8,
+          "wilson95_descriptive": [
+            0.5291118177871464,
+            0.9775825085499433
+          ]
+        },
+        "experiment_id": "R510",
+        "independent_review_sha256": "0b8c9590ec628c2d26175b68df9c0a8a1928d211d94d41a56af5ec2b57830a17",
+        "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
+        "model": "Gemma4-12B",
+        "parent_experiment_id": "R472",
+        "parent_profile": "gemma4-qat-q4-native-parallel200-task1200-reviewed-sm70",
+        "peak_device_vram_mib": 8118.5,
+        "status": "COMPLETE_NON_OFFICIAL_VALIDATION",
+        "task_phase_s": 26.162608824,
+        "tasks_per_category": 8,
+        "tools": {
+          "completed": 8,
+          "completed_request_wall_s": 6.45231367,
+          "completion_tokens": 227,
+          "final_text_present": 2,
+          "gpu_j_per_success_lower": 195.38214285714284,
+          "gpu_j_per_success_upper": 207.7887142857143,
+          "successes": 7,
+          "successful_tasks_per_second": 1.084882161347249,
+          "tokens_per_second": 35.18117866083222,
+          "valid_terminal_output": 7,
+          "wilson95_descriptive": [
+            0.5291118177871464,
+            0.9775825085499433
+          ]
+        }
+      }
+    },
     "audit_id": "audit-4b3e693eb56c8fde0087",
-    "date": null,
+    "date": "2026-10-24T22:15:00.111058+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R510",
-    "model": null,
+    "model": "Gemma4-12B",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "reserved_validation16": {
+        "at_utc": "2026-10-24T22:20:07.840974+00:00",
+        "audit_sha256": "dbceec90e287bbc4ae3d1470f2d8f4414c9e2da9a109886537191900c02ccaef",
+        "capture_review_sha256": "e5833fa3a32b046ed21295a448d511dc11ab4d22aed5f84eb15e3c3dc06c947d",
+        "coding": {
+          "completed": 8,
+          "completed_request_wall_s": 20.005620337,
+          "completion_tokens": 1528,
+          "final_text_present": 8,
+          "gpu_j_per_success_lower": 666.533125,
+          "gpu_j_per_success_upper": 680.142375,
+          "successes": 8,
+          "successful_tasks_per_second": 0.39988762483931367,
+          "tokens_per_second": 76.37853634430891,
+          "valid_terminal_output": 8,
+          "wilson95_descriptive": [
+            0.6755924351161198,
+            1
+          ]
+        },
+        "experiment_id": "R511",
+        "independent_review_sha256": "9a56331f8dd668ccbc2a3105dc1dcf36e8c708dfa571b8e0bc79e6241a3ca8d7",
+        "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
+        "model": "OmniCoder-9B",
+        "parent_experiment_id": "R478",
+        "parent_profile": "omni-q6-native-coding-task1200-reviewed-sm70",
+        "peak_device_vram_mib": 7356.5,
+        "status": "COMPLETE_NON_OFFICIAL_VALIDATION",
+        "task_phase_s": 27.670937865,
+        "tasks_per_category": 8,
+        "tools": {
+          "completed": 8,
+          "completed_request_wall_s": 7.657074362,
+          "completion_tokens": 378,
+          "final_text_present": 2,
+          "gpu_j_per_success_lower": 323.79733333333337,
+          "gpu_j_per_success_upper": 336.709,
+          "successes": 6,
+          "successful_tasks_per_second": 0.7835890989613977,
+          "tokens_per_second": 49.36611323456806,
+          "valid_terminal_output": 6,
+          "wilson95_descriptive": [
+            0.40927543031016883,
+            0.9285207872478909
+          ]
+        }
+      }
+    },
     "audit_id": "audit-dbceec90e287bbc4ae3d",
-    "date": null,
+    "date": "2026-10-24T22:20:07.840974+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R511",
-    "model": null,
+    "model": "OmniCoder-9B",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
@@ -21300,25 +21444,121 @@
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "reserved_validation16": {
+        "at_utc": "2026-10-25T05:20:47.539792+00:00",
+        "audit_sha256": "240fa31ab1418c9183363aae86f2f32ea68d719ccd95cebf3e1faef3f9794f9b",
+        "capture_review_sha256": "6c2d4abcaedae77dc7a5c5d5406b87a18930fa81ed7c58bec7b7250eab9eff4d",
+        "coding": {
+          "completed": 8,
+          "completed_request_wall_s": 12.698765453,
+          "completion_tokens": 947,
+          "final_text_present": 8,
+          "gpu_j_per_success_lower": 558.5448333333333,
+          "gpu_j_per_success_upper": 573.9496666666666,
+          "successes": 6,
+          "successful_tasks_per_second": 0.47248687458689453,
+          "tokens_per_second": 74.57417837229819,
+          "valid_terminal_output": 8,
+          "wilson95_descriptive": [
+            0.40927543031016883,
+            0.9285207872478909
+          ]
+        },
+        "experiment_id": "R526",
+        "independent_review_sha256": "95d92c6e3e41227236d90b6bbbf692a944fd287e65bca2591f0e2e41f4f1e106",
+        "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
+        "model": "Nexus-9B · OFF/T0",
+        "parent_experiment_id": "R489",
+        "parent_profile": "nexus-q6-thinking-off-t0-native-parallel200-task1200-reviewed-sm70",
+        "peak_device_vram_mib": 7356.5,
+        "status": "COMPLETE_NON_OFFICIAL_VALIDATION",
+        "task_phase_s": 22.416419647,
+        "tasks_per_category": 8,
+        "tools": {
+          "completed": 8,
+          "completed_request_wall_s": 9.708891944,
+          "completion_tokens": 542,
+          "final_text_present": 2,
+          "gpu_j_per_success_lower": 495.9348,
+          "gpu_j_per_success_upper": 508.7688,
+          "successes": 5,
+          "successful_tasks_per_second": 0.514991826960228,
+          "tokens_per_second": 55.82511404248872,
+          "valid_terminal_output": 5,
+          "wilson95_descriptive": [
+            0.30574239460262737,
+            0.8631557141764026
+          ]
+        }
+      }
+    },
     "audit_id": "audit-240fa31ab1418c918336",
-    "date": null,
+    "date": "2026-10-25T05:20:47.539792+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R526",
-    "model": null,
+    "model": "Nexus-9B · OFF/T0",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
   },
   {
-    "aggregate_metrics": {},
+    "aggregate_metrics": {
+      "reserved_validation16": {
+        "at_utc": "2026-10-25T05:23:23.862236+00:00",
+        "audit_sha256": "032c85b436c2c9d0e6378ef049dc9299a815006f6d8ad8eafd27ee861969110c",
+        "capture_review_sha256": "b578878c17047e5a52ee2138223a7c782a38870269d307b92a04659436ca04bf",
+        "coding": {
+          "completed": 8,
+          "completed_request_wall_s": 12.584821721,
+          "completion_tokens": 938,
+          "final_text_present": 8,
+          "gpu_j_per_success_lower": 475.51785714285717,
+          "gpu_j_per_success_upper": 492.54285714285714,
+          "successes": 7,
+          "successful_tasks_per_second": 0.5562255989943236,
+          "tokens_per_second": 74.53423026523936,
+          "valid_terminal_output": 8,
+          "wilson95_descriptive": [
+            0.5291118177871464,
+            0.9775825085499433
+          ]
+        },
+        "experiment_id": "R527",
+        "independent_review_sha256": "9094a06da6a64449f6076cd0e0d0cad843ee3ac11a75eed00140b754f25f0aed",
+        "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
+        "model": "Ornith-1.5-9B · OFF/T0",
+        "parent_experiment_id": "R496",
+        "parent_profile": "ornith15-q6-thinking-off-t0-native-parallel200-task1200-reviewed-sm70",
+        "peak_device_vram_mib": 7356.5,
+        "status": "COMPLETE_NON_OFFICIAL_VALIDATION",
+        "task_phase_s": 22.656069131,
+        "tasks_per_category": 8,
+        "tools": {
+          "completed": 8,
+          "completed_request_wall_s": 10.062789022,
+          "completion_tokens": 578,
+          "final_text_present": 3,
+          "gpu_j_per_success_lower": 530.3217999999999,
+          "gpu_j_per_success_upper": 545.5178,
+          "successes": 5,
+          "successful_tasks_per_second": 0.4968801382070753,
+          "tokens_per_second": 57.4393439767379,
+          "valid_terminal_output": 5,
+          "wilson95_descriptive": [
+            0.30574239460262737,
+            0.8631557141764026
+          ]
+        }
+      }
+    },
     "audit_id": "audit-032c85b436c2c9d0e637",
-    "date": null,
+    "date": "2026-10-25T05:23:23.862236+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R527",
-    "model": null,
+    "model": "Ornith-1.5-9B · OFF/T0",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
