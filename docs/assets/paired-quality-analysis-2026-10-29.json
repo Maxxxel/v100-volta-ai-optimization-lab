@@ -14,7 +14,8 @@
       "Task-family clustering is not adjusted.",
       "Native profiles differ in model and possibly inference settings; comparisons are profile-level, not causal model-only effects.",
       "BFCL is one official category, not the whole BFCL leaderboard."
-    ]
+    ],
+    "multiple_testing": "Holm step-down family-wise adjustment within each benchmark category across its 10 pairwise profile tests. Pointwise Wald intervals remain unadjusted; task-family clustering and run-to-run variability are not estimated."
   },
   "HumanEval+": {
     "benchmark_identity_id": "bench-343ddfa996f79239e54edb7a1ddd23732c676d7d21d5d83cb22efddfc23e8f9c",
@@ -90,7 +91,8 @@
           7.6594,
           19.1699
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 1.049041748046875e-05
+        "McNemar_exact_two_sided_p_unadjusted": 1.049041748046875e-05,
+        "McNemar_exact_two_sided_p_holm_within_category": 8.392333984375e-05
       },
       {
         "A": "OmniCoder",
@@ -105,7 +107,8 @@
           -8.0493,
           3.1713
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.5234670639038086
+        "McNemar_exact_two_sided_p_unadjusted": 0.5234670639038086,
+        "McNemar_exact_two_sided_p_holm_within_category": 1.0
       },
       {
         "A": "OmniCoder",
@@ -120,7 +123,8 @@
           -4.6148,
           5.8343
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 1.0
+        "McNemar_exact_two_sided_p_unadjusted": 1.0,
+        "McNemar_exact_two_sided_p_holm_within_category": 1.0
       },
       {
         "A": "OmniCoder",
@@ -135,7 +139,8 @@
           4.5871,
           16.1447
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.0009105205535888672
+        "McNemar_exact_two_sided_p_unadjusted": 0.0009105205535888672,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.0051326751708984375
       },
       {
         "A": "Gemma4",
@@ -150,7 +155,8 @@
           -21.7115,
           -9.9958
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 2.1606683731079102e-07
+        "McNemar_exact_two_sided_p_unadjusted": 2.1606683731079102e-07,
+        "McNemar_exact_two_sided_p_holm_within_category": 2.16066837310791e-06
       },
       {
         "A": "Gemma4",
@@ -165,7 +171,8 @@
           -18.2075,
           -7.4022
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 5.7220458984375e-06
+        "McNemar_exact_two_sided_p_unadjusted": 5.7220458984375e-06,
+        "McNemar_exact_two_sided_p_holm_within_category": 5.14984130859375e-05
       },
       {
         "A": "Gemma4",
@@ -180,7 +187,8 @@
           -6.6145,
           0.517
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.1796875
+        "McNemar_exact_two_sided_p_unadjusted": 0.1796875,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.71875
       },
       {
         "A": "Nexus",
@@ -195,7 +203,8 @@
           -2.4248,
           8.5223
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.38331031799316406
+        "McNemar_exact_two_sided_p_unadjusted": 0.38331031799316406,
+        "McNemar_exact_two_sided_p_holm_within_category": 1.0
       },
       {
         "A": "Nexus",
@@ -210,7 +219,8 @@
           7.1425,
           18.4673
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 1.9431114196777344e-05
+        "McNemar_exact_two_sided_p_unadjusted": 1.9431114196777344e-05,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.0001360177993774414
       },
       {
         "A": "Qwen3.5",
@@ -225,7 +235,8 @@
           4.3365,
           15.1757
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.0008554458618164062
+        "McNemar_exact_two_sided_p_unadjusted": 0.0008554458618164062,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.0051326751708984375
       }
     ]
   },
@@ -302,7 +313,8 @@
           -17.4807,
           -6.5193
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 3.8558151572942734e-05
+        "McNemar_exact_two_sided_p_unadjusted": 3.8558151572942734e-05,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.00038558151572942734
       },
       {
         "A": "OmniCoder",
@@ -317,7 +329,8 @@
           -3.1068,
           3.1068
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 1.0
+        "McNemar_exact_two_sided_p_unadjusted": 1.0,
+        "McNemar_exact_two_sided_p_holm_within_category": 1.0
       },
       {
         "A": "OmniCoder",
@@ -332,7 +345,8 @@
           -4.9274,
           2.9274
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.803619384765625
+        "McNemar_exact_two_sided_p_unadjusted": 0.803619384765625,
+        "McNemar_exact_two_sided_p_holm_within_category": 1.0
       },
       {
         "A": "OmniCoder",
@@ -347,7 +361,8 @@
           -8.5022,
           -0.4978
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.049041748046875
+        "McNemar_exact_two_sided_p_unadjusted": 0.049041748046875,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.29425048828125
       },
       {
         "A": "Gemma4",
@@ -362,7 +377,8 @@
           6.5193,
           17.4807
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 3.8558151572942734e-05
+        "McNemar_exact_two_sided_p_unadjusted": 3.8558151572942734e-05,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.00038558151572942734
       },
       {
         "A": "Gemma4",
@@ -377,7 +393,8 @@
           5.1397,
           16.8603
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.0004719867429230362
+        "McNemar_exact_two_sided_p_unadjusted": 0.0004719867429230362,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.0037758939433842897
       },
       {
         "A": "Gemma4",
@@ -392,7 +409,8 @@
           2.6995,
           12.3005
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.004077315330505371
+        "McNemar_exact_two_sided_p_unadjusted": 0.004077315330505371,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.028541207313537598
       },
       {
         "A": "Nexus",
@@ -407,7 +425,8 @@
           -5.3915,
           3.3915
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.8238029479980469
+        "McNemar_exact_two_sided_p_unadjusted": 0.8238029479980469,
+        "McNemar_exact_two_sided_p_holm_within_category": 1.0
       },
       {
         "A": "Nexus",
@@ -422,7 +441,8 @@
           -8.5022,
           -0.4978
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.049041748046875
+        "McNemar_exact_two_sided_p_unadjusted": 0.049041748046875,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.29425048828125
       },
       {
         "A": "Qwen3.5",
@@ -437,7 +457,8 @@
           -8.1865,
           1.1865
         ],
-        "McNemar_exact_two_sided_p_unadjusted": 0.21003961563110352
+        "McNemar_exact_two_sided_p_unadjusted": 0.21003961563110352,
+        "McNemar_exact_two_sided_p_holm_within_category": 0.8401584625244141
       }
     ]
   }

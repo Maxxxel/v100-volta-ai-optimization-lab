@@ -397,7 +397,25 @@ def final_qualification_review(screening,history,experiments,frozen=None):
  text+='## Handoff\n\n'+('The three exact baseline packets are frozen in the [selection report](final-selection.md). ' if frozen else 'Finalize exactly three immutable baseline profiles only after reviewing these dispositions and configuration identities. ')+'Then address [Issue17](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17) and [Issue18](https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18): retained-trace/CPU analysis first, separately admitted harness experiments later. Harness changes must not contaminate this model-selection baseline. Community derivatives and source-only leads retain the versioned feasibility review in [open questions](questions.md); publisher claims are not local results.\n'
  return text
 
+def holm_adjust(pvalues):
+ if not pvalues or any(not isinstance(p,(int,float)) or not 0<=p<=1 for p in pvalues):raise ValueError('Invalid p-value family')
+ ordered=sorted(enumerate(pvalues),key=lambda x:x[1]);adjusted=[None]*len(pvalues);running=0.0
+ for rank,(index,p) in enumerate(ordered):
+  running=max(running,min(1.0,(len(pvalues)-rank)*p));adjusted[index]=running
+ return adjusted
+
+def augment_paired_quality(analysis):
+ enriched=json.loads(json.dumps(analysis))
+ enriched['method']['multiple_testing']='Holm step-down family-wise adjustment within each benchmark category across its 10 pairwise profile tests. Pointwise Wald intervals remain unadjusted; task-family clustering and run-to-run variability are not estimated.'
+ for family in ('HumanEval+','BFCL_parallel_multiple'):
+  pairs=enriched[family]['pairwise'];pvalues=[x['McNemar_exact_two_sided_p_unadjusted'] for x in pairs]
+  for row,p in zip(pairs,holm_adjust(pvalues)):
+   row['McNemar_exact_two_sided_p_holm_within_category']=p
+ return enriched
+
 def render_paired_profile_quality(analysis):
+ if any('McNemar_exact_two_sided_p_holm_within_category' not in row for family in ('HumanEval+','BFCL_parallel_multiple') for row in analysis[family]['pairwise']):
+  analysis=augment_paired_quality(analysis)
  assert analysis['analysis_id']=='PAIRED_QUALIFIED_PROFILE_TASK_OUTCOMES_20261029'
  assert analysis['method']['cpu_only'] is True and analysis['method']['new_gpu_runs']==0 and analysis['method']['new_model_requests']==0
  rows=[]
@@ -415,12 +433,12 @@ def render_paired_profile_quality(analysis):
  text='\n## Same-task paired quality comparison\n\n'
  text+='CPU-only reanalysis of existing qualified captures; **no inference rerun**. Same task identities and scorer within each category. Results compare whole native profiles, not a model-only causal effect.\n\n'
  text+=table(['Category','Model profile','Passes','Capture · runtime profile'],rows)
- text+='Each profile has one response per task. Paired task intervals describe task-set uncertainty, not run-to-run variability; task-family clustering and multiple-comparison adjustment are not applied. This analysis does not change the R585 frozen roles.\n\n'
+ text+='Each profile has one response per task. Paired task intervals describe task-set uncertainty, not run-to-run variability. Holm adjustment controls family-wise error across the 10 profile comparisons within each category; intervals remain pointwise, and task-family clustering is not assessed. This CPU reanalysis does not change the R585 frozen roles.\n\n'
  for family,label in [('HumanEval+','Coding'),('BFCL_parallel_multiple','Tools')]:
   result=analysis[family]
   text+=f'<details markdown="1"><summary>{label}: all 10 paired profile comparisons</summary>\n\n'
-  text+=table(['A','B','B−A pp','Paired-task 95% CI pp','A-only / B-only passes','Unadjusted McNemar p'],[[r['A'],r['B'],f"{r['B_minus_A_percentage_points']:+.2f}",f"[{r['paired_task_Wald95_CI_percentage_points'][0]:+.2f}, {r['paired_task_Wald95_CI_percentage_points'][1]:+.2f}]",f"{r['A_only_pass']} / {r['B_only_pass']}",f"{r['McNemar_exact_two_sided_p_unadjusted']:.4g}"] for r in result['pairwise']])
-  text+='Exploratory, unadjusted pairwise statistics; they are not a population ranking or replacement decision.\n\n</details>\n\n'
+  text+=table(['A','B','B−A pp','Paired-task 95% CI pp','A-only / B-only passes','Exact McNemar p','Holm p · category'],[[r['A'],r['B'],f"{r['B_minus_A_percentage_points']:+.2f}",f"[{r['paired_task_Wald95_CI_percentage_points'][0]:+.2f}, {r['paired_task_Wald95_CI_percentage_points'][1]:+.2f}]",f"{r['A_only_pass']} / {r['B_only_pass']}",f"{r['McNemar_exact_two_sided_p_unadjusted']:.4g}",f"{r['McNemar_exact_two_sided_p_holm_within_category']:.4g}"] for r in result['pairwise']])
+  text+='Exploratory profile-level inference, not a model-only causal effect or population ranking.\n\n</details>\n\n'
  text+='Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.\n\n'
  return text
 
@@ -1286,7 +1304,10 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  methods.write_text(methods.read_text()+render_qualification(read('screening.json'))+render_validation(read('screening.json'))+render_native_agent_development(es))
  frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
  put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
- if frozen:put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,read('paired-quality-analysis-2026-10-29.json'),read('validation16.json') if (P/'data/validation16.json').exists() else None,read('snapshot.json').get('reproducibility_review')))
+ if frozen:
+  paired_quality=augment_paired_quality(read('paired-quality-analysis-2026-10-29.json'))
+  put('assets/paired-quality-analysis-2026-10-29.json',json.dumps(paired_quality,ensure_ascii=False,indent=2))
+  put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,paired_quality,read('validation16.json') if (P/'data/validation16.json').exists() else None,read('snapshot.json').get('reproducibility_review')))
  if (P/'data/validation16.json').exists():put('assets/validation16.json',json.dumps(read('validation16.json'),ensure_ascii=False,indent=2))
  print('Rendered',len(fs),'factors,',len(es),'sprints,',len(audits),'audit excerpts')
  if (P/'data/pipeline-performance.json').is_file():

@@ -30,43 +30,43 @@ CPU-only reanalysis of existing qualified captures; **no inference rerun**. Same
 | Tools · BFCL parallel_multiple200 | Qwen3.5 | 176/200 | R474 · cfg-aae586a5fa23e08f528cfec90a0d3e1817a681b815a4b5329c4326467b848a55 |
 | Tools · BFCL parallel_multiple200 | Qwen3.8 | 169/200 | R549 · cfg-8cd6433abaeb5e09d17a8b974cd6d3fe69ef3954760daeda19447b24d6b1a91a |
 
-Each profile has one response per task. Paired task intervals describe task-set uncertainty, not run-to-run variability; task-family clustering and multiple-comparison adjustment are not applied. This analysis does not change the R585 frozen roles.
+Each profile has one response per task. Paired task intervals describe task-set uncertainty, not run-to-run variability. Holm adjustment controls family-wise error across the 10 profile comparisons within each category; intervals remain pointwise, and task-family clustering is not assessed. This CPU reanalysis does not change the R585 frozen roles.
 
 <details markdown="1"><summary>Coding: all 10 paired profile comparisons</summary>
 
-| A | B | B−A pp | Paired-task 95% CI pp | A-only / B-only passes | Unadjusted McNemar p |
-|---|---|---|---|---|---|
-| OmniCoder | Gemma4 | +13.41 | [+7.66, +19.17] | 2 / 24 | 1.049e-05 |
-| OmniCoder | Nexus | -2.44 | [-8.05, +3.17] | 13 / 9 | 0.5235 |
-| OmniCoder | Qwen3.5 | +0.61 | [-4.61, +5.83] | 9 / 10 | 1 |
-| OmniCoder | Qwen3.8 | +10.37 | [+4.59, +16.14] | 4 / 21 | 0.0009105 |
-| Gemma4 | Nexus | -15.85 | [-21.71, -10.00] | 27 / 1 | 2.161e-07 |
-| Gemma4 | Qwen3.5 | -12.80 | [-18.21, -7.40] | 22 / 1 | 5.722e-06 |
-| Gemma4 | Qwen3.8 | -3.05 | [-6.61, +0.52] | 7 / 2 | 0.1797 |
-| Nexus | Qwen3.5 | +3.05 | [-2.42, +8.52] | 8 / 13 | 0.3833 |
-| Nexus | Qwen3.8 | +12.80 | [+7.14, +18.47] | 2 / 23 | 1.943e-05 |
-| Qwen3.5 | Qwen3.8 | +9.76 | [+4.34, +15.18] | 3 / 19 | 0.0008554 |
+| A | B | B−A pp | Paired-task 95% CI pp | A-only / B-only passes | Exact McNemar p | Holm p · category |
+|---|---|---|---|---|---|---|
+| OmniCoder | Gemma4 | +13.41 | [+7.66, +19.17] | 2 / 24 | 1.049e-05 | 8.392e-05 |
+| OmniCoder | Nexus | -2.44 | [-8.05, +3.17] | 13 / 9 | 0.5235 | 1 |
+| OmniCoder | Qwen3.5 | +0.61 | [-4.61, +5.83] | 9 / 10 | 1 | 1 |
+| OmniCoder | Qwen3.8 | +10.37 | [+4.59, +16.14] | 4 / 21 | 0.0009105 | 0.005133 |
+| Gemma4 | Nexus | -15.85 | [-21.71, -10.00] | 27 / 1 | 2.161e-07 | 2.161e-06 |
+| Gemma4 | Qwen3.5 | -12.80 | [-18.21, -7.40] | 22 / 1 | 5.722e-06 | 5.15e-05 |
+| Gemma4 | Qwen3.8 | -3.05 | [-6.61, +0.52] | 7 / 2 | 0.1797 | 0.7188 |
+| Nexus | Qwen3.5 | +3.05 | [-2.42, +8.52] | 8 / 13 | 0.3833 | 1 |
+| Nexus | Qwen3.8 | +12.80 | [+7.14, +18.47] | 2 / 23 | 1.943e-05 | 0.000136 |
+| Qwen3.5 | Qwen3.8 | +9.76 | [+4.34, +15.18] | 3 / 19 | 0.0008554 | 0.005133 |
 
-Exploratory, unadjusted pairwise statistics; they are not a population ranking or replacement decision.
+Exploratory profile-level inference, not a model-only causal effect or population ranking.
 
 </details>
 
 <details markdown="1"><summary>Tools: all 10 paired profile comparisons</summary>
 
-| A | B | B−A pp | Paired-task 95% CI pp | A-only / B-only passes | Unadjusted McNemar p |
-|---|---|---|---|---|---|
-| OmniCoder | Gemma4 | -12.00 | [-17.48, -6.52] | 29 / 5 | 3.856e-05 |
-| OmniCoder | Nexus | +0.00 | [-3.11, +3.11] | 5 / 5 | 1 |
-| OmniCoder | Qwen3.5 | -1.00 | [-4.93, +2.93] | 9 / 7 | 0.8036 |
-| OmniCoder | Qwen3.8 | -4.50 | [-8.50, -0.50] | 13 / 4 | 0.04904 |
-| Gemma4 | Nexus | +12.00 | [+6.52, +17.48] | 5 / 29 | 3.856e-05 |
-| Gemma4 | Qwen3.5 | +11.00 | [+5.14, +16.86] | 8 / 30 | 0.000472 |
-| Gemma4 | Qwen3.8 | +7.50 | [+2.70, +12.30] | 5 / 20 | 0.004077 |
-| Nexus | Qwen3.5 | -1.00 | [-5.39, +3.39] | 11 / 9 | 0.8238 |
-| Nexus | Qwen3.8 | -4.50 | [-8.50, -0.50] | 13 / 4 | 0.04904 |
-| Qwen3.5 | Qwen3.8 | -3.50 | [-8.19, +1.19] | 15 / 8 | 0.21 |
+| A | B | B−A pp | Paired-task 95% CI pp | A-only / B-only passes | Exact McNemar p | Holm p · category |
+|---|---|---|---|---|---|---|
+| OmniCoder | Gemma4 | -12.00 | [-17.48, -6.52] | 29 / 5 | 3.856e-05 | 0.0003856 |
+| OmniCoder | Nexus | +0.00 | [-3.11, +3.11] | 5 / 5 | 1 | 1 |
+| OmniCoder | Qwen3.5 | -1.00 | [-4.93, +2.93] | 9 / 7 | 0.8036 | 1 |
+| OmniCoder | Qwen3.8 | -4.50 | [-8.50, -0.50] | 13 / 4 | 0.04904 | 0.2943 |
+| Gemma4 | Nexus | +12.00 | [+6.52, +17.48] | 5 / 29 | 3.856e-05 | 0.0003856 |
+| Gemma4 | Qwen3.5 | +11.00 | [+5.14, +16.86] | 8 / 30 | 0.000472 | 0.003776 |
+| Gemma4 | Qwen3.8 | +7.50 | [+2.70, +12.30] | 5 / 20 | 0.004077 | 0.02854 |
+| Nexus | Qwen3.5 | -1.00 | [-5.39, +3.39] | 11 / 9 | 0.8238 | 1 |
+| Nexus | Qwen3.8 | -4.50 | [-8.50, -0.50] | 13 / 4 | 0.04904 | 0.2943 |
+| Qwen3.5 | Qwen3.8 | -3.50 | [-8.19, +1.19] | 15 / 8 | 0.21 | 0.8402 |
 
-Exploratory, unadjusted pairwise statistics; they are not a population ranking or replacement decision.
+Exploratory profile-level inference, not a model-only causal effect or population ranking.
 
 </details>
 

@@ -2,7 +2,7 @@ import json
 import pathlib
 import unittest
 
-from render import render_paired_profile_quality
+from render import augment_paired_quality, holm_adjust, render_paired_profile_quality
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -42,6 +42,21 @@ class PairedProfileQualityTest(unittest.TestCase):
         changed["HumanEval+"]["pairwise"][0]["N"] = 163
         with self.assertRaises(AssertionError):
             render_paired_profile_quality(changed)
+
+    def test_holm_adjustment_is_monotone_and_keeps_raw_evidence(self):
+        self.assertEqual(holm_adjust([0.01, 0.04, 0.03]), [0.03, 0.06, 0.06])
+        changed = augment_paired_quality(self.analysis)
+        self.assertEqual(changed["HumanEval+"]["pairwise"][0]["McNemar_exact_two_sided_p_unadjusted"],
+                         self.analysis["HumanEval+"]["pairwise"][0]["McNemar_exact_two_sided_p_unadjusted"])
+        for family in ("HumanEval+", "BFCL_parallel_multiple"):
+            self.assertEqual(len(changed[family]["pairwise"]), 10)
+            for row in changed[family]["pairwise"]:
+                self.assertGreaterEqual(row["McNemar_exact_two_sided_p_holm_within_category"],
+                                        row["McNemar_exact_two_sided_p_unadjusted"])
+                self.assertLessEqual(row["McNemar_exact_two_sided_p_holm_within_category"], 1.0)
+        page = render_paired_profile_quality(changed)
+        self.assertIn("Holm p · category", page)
+        self.assertIn("task-family clustering is not assessed", page)
 
 
 if __name__ == "__main__":
