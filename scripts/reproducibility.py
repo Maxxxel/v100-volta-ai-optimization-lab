@@ -123,6 +123,10 @@ def summarize_server_prompt_path(rows,server_log,selected_request_id):
    if m:out.update(prompt_eval_ms=float(m.group(1)),prompt_eval_tokens=int(m.group(2)))
    m=re.search(r'eval time\s*=\s*([0-9.]+)\s*ms\s*/\s*(\d+)\s+tokens',line)
    if m:out.update(decode_ms=float(m.group(1)),completion_tokens=int(m.group(2)))
+   m=re.search(r'cached n_tokens\s*=\s*(\d+)',line)
+   if m and 'initial_context_cached_tokens' not in out:out['initial_context_cached_tokens']=int(m.group(1))
+   if 'restored context checkpoint' in line:out['checkpoint_restore_logged']=True
+   if 'forcing full prompt re-processing due to lack of cache data' in line:out['full_reprocess_fallback_logged']=True
   return out
  tasks=[parse_task(tid) for tid in task_order[len(warmups):]] # warmups precede scored turns
  assert len(tasks)==len(turns)
@@ -138,6 +142,9 @@ def summarize_server_prompt_path(rows,server_log,selected_request_id):
          'input_tokens':usage['prompt_tokens'],'completion_tokens':usage['completion_tokens'],
          'server_input_eval_tokens':task['prompt_eval_tokens'],
          'server_input_eval_ms':task['prompt_eval_ms'],
+         'initial_context_cached_tokens':task.get('initial_context_cached_tokens'),
+         'checkpoint_restore_logged':bool(task.get('checkpoint_restore_logged',False)),
+         'full_reprocess_fallback_logged':bool(task.get('full_reprocess_fallback_logged',False)),
          'selected_reported_cached_tokens':usage.get('prompt_tokens_details',{}).get('cached_tokens'),
          'selected_engine_cache_n':timing.get('cache_n'),
          'selected_cache_flag':turn['request'].get('cache_prompt')}
@@ -265,11 +272,13 @@ def cache_state_source_path(root):
  candidate_identity=next(x for x in candidate['rows'] if x.get('kind')=='input_identity' and x.get('case_id')==lost_case and x.get('turn')==2)
  baseline_server_path=summarize_server_prompt_path(base['rows'],Path(base['audit']['raw_root'])/'server.log',baseline_identity['id'])
  candidate_server_path=summarize_server_prompt_path(candidate['rows'],Path(candidate['audit']['raw_root'])/'server.log',candidate_identity['id'])
- assert baseline_server_path['server_input_eval_tokens']==1790 and baseline_server_path['selected_engine_cache_n']==0
- assert candidate_server_path['server_input_eval_tokens']==115 and candidate_server_path['selected_engine_cache_n']==1675
+ assert baseline_server_path['server_input_eval_tokens']==1790 and baseline_server_path['selected_engine_cache_n']==0 and baseline_server_path['initial_context_cached_tokens']==0
+ assert candidate_server_path['server_input_eval_tokens']==115 and candidate_server_path['selected_engine_cache_n']==1675 and candidate_server_path['initial_context_cached_tokens']==1675
+ assert not baseline_server_path['checkpoint_restore_logged'] and not candidate_server_path['checkpoint_restore_logged']
+ assert not baseline_server_path['full_reprocess_fallback_logged'] and not candidate_server_path['full_reprocess_fallback_logged']
  assert baseline_server_path['requests']==154 and candidate_server_path['requests']==156
  task_divergence['server_execution_path']={'baseline':baseline_server_path,'candidate':candidate_server_path,
-  'interpretation':'Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline evaluated all 1,790 input tokens; candidate reported reusing 1,675 and evaluated 115. This verifies the per-request compute path, not whole-task cache causality or an internal state/numerical mechanism.'}
+  'interpretation':'Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline began with no reusable context and evaluated all 1,790 input tokens; candidate began with 1,675 reusable prefix tokens and evaluated 115. Neither selected server task logged checkpoint restore or full-prompt fallback. This verifies the common-prefix compute path, not whole-task cache causality or an internal state/numerical mechanism.'}
  # The R614 policy-pass loss is independently tied to a repeated request-level
  # cache divergence by the balanced, two-session R621 diagnostic.
  baseline_audit=json.loads((root/'staging/r531/AUDIT.json').read_text())
@@ -344,15 +353,19 @@ def cache_state_source_path(root):
  candidate_server_path=summarize_server_prompt_path(candidate_rows,candidate_raw/'server.log',candidate_response['id'])
  assert baseline_server_path['server_input_eval_tokens']==1785
  assert baseline_server_path['selected_engine_cache_n']==0
+ assert baseline_server_path['initial_context_cached_tokens']==0
  assert candidate_server_path['server_input_eval_tokens']==74
  assert candidate_server_path['selected_engine_cache_n']==1711
+ assert candidate_server_path['initial_context_cached_tokens']==1711
+ assert not baseline_server_path['checkpoint_restore_logged'] and not candidate_server_path['checkpoint_restore_logged']
+ assert not baseline_server_path['full_reprocess_fallback_logged'] and not candidate_server_path['full_reprocess_fallback_logged']
  assert candidate_server_path['selected_reported_cached_tokens']==1711
  assert baseline_server_path['selected_cache_flag'] is False
  assert candidate_server_path['selected_cache_flag'] is True
  assert baseline_server_path['requests']==153 and candidate_server_path['requests']==155
  nexus_policy_mapping['server_execution_path']={
   'baseline':baseline_server_path,'candidate':candidate_server_path,
-  'interpretation':'Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline evaluated all 1,785 input tokens; candidate reported reusing 1,711 and evaluated 74. This confirms the measured input-compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome.'}
+  'interpretation':'Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline began with no reusable context and evaluated all 1,785 input tokens; candidate began with 1,711 reusable prefix tokens and evaluated 74. Neither selected server task logged checkpoint restore or full-prompt fallback. This confirms the common-prefix compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome.'}
  nexus_policy_mapping.update({'baseline_audit_sha256':digest(root/'staging/r531/AUDIT.json'),
                               'candidate_audit_sha256':digest(root/'staging/r614/AUDIT.json'),
                               'repeatability_audit_sha256':digest(r621_stage/'AUDIT.json'),

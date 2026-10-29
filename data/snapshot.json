@@ -1513,8 +1513,11 @@
         "lost_task_count": 1,
         "server_execution_path": {
           "baseline": {
+            "checkpoint_restore_logged": false,
             "completion_tokens": 558,
             "exact_input_and_completion_token_matches": 154,
+            "full_reprocess_fallback_logged": false,
+            "initial_context_cached_tokens": 0,
             "input_tokens": 1790,
             "requests": 154,
             "selected_cache_flag": false,
@@ -1525,8 +1528,11 @@
             "server_tasks": 154
           },
           "candidate": {
+            "checkpoint_restore_logged": false,
             "completion_tokens": 166,
             "exact_input_and_completion_token_matches": 156,
+            "full_reprocess_fallback_logged": false,
+            "initial_context_cached_tokens": 1675,
             "input_tokens": 1790,
             "requests": 156,
             "selected_cache_flag": true,
@@ -1536,7 +1542,7 @@
             "server_input_eval_tokens": 115,
             "server_tasks": 156
           },
-          "interpretation": "Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline evaluated all 1,790 input tokens; candidate reported reusing 1,675 and evaluated 115. This verifies the per-request compute path, not whole-task cache causality or an internal state/numerical mechanism."
+          "interpretation": "Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline began with no reusable context and evaluated all 1,790 input tokens; candidate began with 1,675 reusable prefix tokens and evaluated 115. Neither selected server task logged checkpoint restore or full-prompt fallback. This verifies the common-prefix compute path, not whole-task cache causality or an internal state/numerical mechanism."
         },
         "source_experiments": [
           "R536",
@@ -1622,8 +1628,11 @@
         "seed": 1001,
         "server_execution_path": {
           "baseline": {
+            "checkpoint_restore_logged": false,
             "completion_tokens": 368,
             "exact_input_and_completion_token_matches": 153,
+            "full_reprocess_fallback_logged": false,
+            "initial_context_cached_tokens": 0,
             "input_tokens": 1785,
             "requests": 153,
             "selected_cache_flag": false,
@@ -1634,8 +1643,11 @@
             "server_tasks": 153
           },
           "candidate": {
+            "checkpoint_restore_logged": false,
             "completion_tokens": 65,
             "exact_input_and_completion_token_matches": 155,
+            "full_reprocess_fallback_logged": false,
+            "initial_context_cached_tokens": 1711,
             "input_tokens": 1785,
             "requests": 155,
             "selected_cache_flag": true,
@@ -1645,7 +1657,7 @@
             "server_input_eval_tokens": 74,
             "server_tasks": 155
           },
-          "interpretation": "Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline evaluated all 1,785 input tokens; candidate reported reusing 1,711 and evaluated 74. This confirms the measured input-compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome."
+          "interpretation": "Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline began with no reusable context and evaluated all 1,785 input tokens; candidate began with 1,711 reusable prefix tokens and evaluated 74. Neither selected server task logged checkpoint restore or full-prompt fallback. This confirms the common-prefix compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome."
         },
         "task_success_changed_cases": 0,
         "temperature": 0
