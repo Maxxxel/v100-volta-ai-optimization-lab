@@ -4,6 +4,55 @@ from pathlib import Path
 
 def digest(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
+def lost_task_first_divergence(baseline_checks,candidate_checks,baseline_rows,candidate_rows):
+ """Return a prompt-free summary of the one R536->R616 lost task, if provable."""
+ left={x['id']:bool(x['task_success']) for x in baseline_checks}
+ right={x['id']:bool(x['task_success']) for x in candidate_checks}
+ assert left.keys()==right.keys() and len(left)>0
+ lost=[key for key in left if left[key] and not right[key]]
+ assert len(lost)==1
+ case=lost[0]
+ def indexed(rows,kind):return {x['id']:x for x in rows if x.get('kind')==kind}
+ aturns, bturns=indexed(baseline_rows,'agent_turn'),indexed(candidate_rows,'agent_turn')
+ ainputs, binputs=indexed(baseline_rows,'input_identity'),indexed(candidate_rows,'input_identity')
+ ids=sorted((key for key in aturns.keys()&bturns.keys() if key.startswith(case+'--turn')),
+            key=lambda key:int(key.rsplit('turn',1)[1]))
+ assert len(ids)>=3
+ turns=[]
+ for key in ids:
+  a,b=aturns[key],bturns[key]
+  assert key in ainputs and key in binputs
+  ai,bi=ainputs[key],binputs[key]
+  assert ai['prompt_token_ids']==bi['prompt_token_ids']
+  assert ai['prompt_token_ids_sha256']==bi['prompt_token_ids_sha256']
+  ar,br=a['request'],b['request']
+  assert {k:v for k,v in ar.items() if k!='cache_prompt'}=={k:v for k,v in br.items() if k!='cache_prompt'}
+  assert ar.get('cache_prompt') is False and br.get('cache_prompt') is True
+  at=a['reply']['__verbose']['tokens'];bt=b['reply']['__verbose']['tokens']
+  first=next((i for i,(x,y) in enumerate(zip(at,bt)) if x!=y),None)
+  identical=len(at)==len(bt) and first is None
+  av=a['reply']['__verbose']['timings'];bv=b['reply']['__verbose']['timings']
+  turns.append({'context_tokens':ai['prompt_token_count'],'identity_match':True,
+                'same_tokens':identical,'baseline_generated_tokens':len(at),
+                'candidate_generated_tokens':len(bt),'first_difference_index':first,
+                'baseline_cached_tokens':av['cache_n'],'candidate_cached_tokens':bv['cache_n']})
+ # Validate the observed pattern rather than turning any arbitrary comparison into a claim.
+ assert turns[0]['same_tokens'] and turns[1]['same_tokens']
+ assert not turns[2]['same_tokens'] and turns[2]['first_difference_index']==0
+ assert turns[2]['context_tokens']==1790 and turns[2]['baseline_cached_tokens']==0
+ assert turns[1]['candidate_cached_tokens']==1543 and turns[2]['candidate_cached_tokens']==1675
+ assert turns[2]['baseline_generated_tokens']==558 and turns[2]['candidate_generated_tokens']==166
+ base_case_turns=[x for x in aturns.values() if x['id'].startswith(case+'--turn')]
+ candidate_case_turns=[x for x in bturns.values() if x['id'].startswith(case+'--turn')]
+ base_total=sum(len(x['reply']['__verbose']['tokens']) for x in base_case_turns)
+ candidate_total=sum(len(x['reply']['__verbose']['tokens']) for x in candidate_case_turns)
+ assert len(base_case_turns)==3 and len(candidate_case_turns)==5
+ assert (base_total,candidate_total)==(636,744)
+ return {'source_experiments':['R536','R616'],'lost_task_count':1,
+         'task_identifier_withheld':True,'turns':turns,
+         'agent_trajectory':{'baseline_turns':len(base_case_turns),'candidate_turns':len(candidate_case_turns),'extra_candidate_turns':len(candidate_case_turns)-len(base_case_turns),'baseline_generated_tokens':base_total,'candidate_generated_tokens':candidate_total},
+         'interpretation':'The sole R536-success/R616-failure case had two identical earlier replies. On turn 3, exact prompt token IDs and request fields (except cache_prompt) matched; the baseline processed all 1790 prompt tokens while the candidate reported reusing 1675 and diverged at output token 0. The candidate then used two additional turns: total captured output was 744 tokens versus 636 in the baseline. This directly maps cache-enabled execution to the observed first divergence in this case, but the historical sessions were not contemporaneous and no no-cache A/A repeat exists for this exact prompt. It does not prove the cache caused the task or policy outcome, identify a numerical/GDN state mechanism, or qualify the cache.'}
+
 def agent_task_pairs(root):
  root=Path(root);out={}
  for label,baseline,candidate in (('Nexus_prefix_cache','r531','r614'),('OmniCoder_prefix_cache','r536','r616')):
@@ -96,6 +145,32 @@ def cache_state_source_path(root):
     'host_ram_prompt_cache_disabled':text.count('prompt cache is disabled'),
    },
   }
+ # Map the only OmniCoder task lost after R616 to its first changed response.
+ # The two independent sessions and all private task text stay local.
+ divergence_inputs={}
+ for rid in ('r536','r616'):
+  stage=root/'staging'/rid
+  audit=json.loads((stage/'AUDIT.json').read_text());raw=Path(audit['raw_root'])
+  pins=json.loads((raw/'RAW_HASHES.json').read_text())
+  for name in ('HTTP_RESULTS.jsonl','profile.json','LAUNCH.json','server.log'):
+   assert digest(raw/name)==pins[name]
+  divergence_inputs[rid]={
+   'audit':audit,
+   'checks':json.loads((stage/'INDEPENDENT_REVIEW.json').read_text())['result']['checks'],
+   'rows':[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x],
+   'profile':json.loads((raw/'profile.json').read_text()),
+   'launch':json.loads((raw/'LAUNCH.json').read_text()),
+  }
+ base,candidate=divergence_inputs['r536'],divergence_inputs['r616']
+ assert base['profile']['model_sha256']==candidate['profile']['model_sha256']=='a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052'
+ assert base['profile']['chat_template']==candidate['profile']['chat_template']
+ assert base['profile']['runtime']==candidate['profile']['runtime']
+ assert base['launch']['argv']==candidate['launch']['argv']
+ assert {k:v for k,v in base['launch']['environment'].items() if k!='O2_GPU_BUILD_LEASE'}=={k:v for k,v in candidate['launch']['environment'].items() if k!='O2_GPU_BUILD_LEASE'}
+ assert {k:v for k,v in base['launch']['native_request_options'].items() if k!='cache_prompt'}=={k:v for k,v in candidate['launch']['native_request_options'].items() if k!='cache_prompt'}
+ assert base['launch']['native_request_options']['cache_prompt'] is False
+ assert candidate['launch']['native_request_options']['cache_prompt'] is True
+ task_divergence=lost_task_first_divergence(base['checks'],candidate['checks'],base['rows'],candidate['rows'])
  return {
   'kind':'PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION','source_commit':commit,'source_file_sha256':expected,'source_lines':source_lines,'runs':runs,
   'external_issue':{
@@ -112,7 +187,8 @@ def cache_state_source_path(root):
    'The log message that the host RAM prompt cache is disabled is a separate cache layer; it does not mean the per-request cache_prompt flag was off.',
   ],
   'causal_disposition':'OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED',
-  'limits':'Aggregate log counts are not mapped to the differing task/request. No logits, per-layer state, or kernel trace was captured. Source describes intended checkpoint/fallback handling; it does not prove the selected path was correct for each divergent response, nor prove GDN corruption or policy-failure causality.',
+  'case_level_divergence':task_divergence,
+  'limits':'R616’s one lost task is now mapped to an exact matching 1,790-token prompt and its first changed token: two preceding turns were identical; the candidate reported reusing 1,675 tokens and diverged at output token zero. The historical sessions were not contemporaneous and this exact prompt lacks no-cache A/A repetition. No logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The source and token evidence do not identify a numerical/GDN state mechanism or prove task/policy causality.',
   'GPU_runs':0,'model_requests':0,
  }
 

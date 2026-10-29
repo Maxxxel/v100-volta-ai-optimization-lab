@@ -1,6 +1,6 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build
+from reproducibility import build,lost_task_first_divergence
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def write(p,value):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value,sort_keys=True))
@@ -22,4 +22,32 @@ class HistoricalComparison(unittest.TestCase):
   fixed={'GPU_runs':0,'pairs':{'r1_r2':{'matched_requests':999,'reference_audit_sha256':'x','candidate_audit_sha256':'y'}}}
   write(self.root/'staging/reproducibility-20261029/FIXED_OUTPUT_TIMING_REVIEW.json',fixed)
   with self.assertRaises(AssertionError):build(self.root)
+
+class LostTaskMapping(unittest.TestCase):
+ def captures(self, prompt_change=False):
+  case='private-case-id'; baseline_checks=[{'id':case,'task_success':True}];candidate_checks=[{'id':case,'task_success':False}]
+  base=[];candidate=[]
+  prompts=[1505,1637,1790]
+  output_lengths_base=[39,39,558];output_lengths_candidate=[39,39,166,182,318]
+  for turn,n in enumerate(prompts):
+   ids=list(range(n));candidate_ids=list(range(n))
+   if prompt_change and turn==2:candidate_ids[-1]+=1
+   token_id=f'{case}--turn{turn}';aout=[turn+1]*output_lengths_base[turn];bout=aout if turn<2 else [98]*output_lengths_candidate[turn]
+   for dest,cache,out,prompt_ids,cache_n in ((base,False,aout,ids,0),(candidate,True,bout,candidate_ids,[0,1543,1675][turn])):
+    dest.extend([
+     {'kind':'input_identity','id':token_id,'prompt_token_count':n,'prompt_token_ids':prompt_ids,'prompt_token_ids_sha256':hashlib.sha256(json.dumps(prompt_ids,separators=(',',':')).encode()).hexdigest()},
+     {'kind':'agent_turn','id':token_id,'request':{'cache_prompt':cache,'seed':1001,'temperature':0},'reply':{'__verbose':{'tokens':out,'timings':{'cache_n':cache_n}}}},
+    ])
+  for turn,length in ((3,182),(4,318)):
+   token_id=f'{case}--turn{turn}';candidate.append({'kind':'agent_turn','id':token_id,'request':{'cache_prompt':True,'seed':1001,'temperature':0},'reply':{'__verbose':{'tokens':[98]*length,'timings':{'cache_n':0}}}})
+  return baseline_checks,candidate_checks,base,candidate
+ def test_maps_only_scoped_lost_task_and_discloses_token_cost(self):
+  a,b,ar,br=self.captures();out=lost_task_first_divergence(a,b,ar,br)
+  self.assertEqual(out['turns'][2]['first_difference_index'],0)
+  self.assertEqual(out['turns'][2]['candidate_cached_tokens'],1675)
+  self.assertEqual(out['agent_trajectory'],{'baseline_turns':3,'candidate_turns':5,'extra_candidate_turns':2,'baseline_generated_tokens':636,'candidate_generated_tokens':744})
+  self.assertNotIn('private-case-id',json.dumps(out))
+ def test_changed_prompt_ids_fail_closed(self):
+  a,b,ar,br=self.captures(prompt_change=True)
+  with self.assertRaises(AssertionError):lost_task_first_divergence(a,b,ar,br)
 if __name__=='__main__':unittest.main()

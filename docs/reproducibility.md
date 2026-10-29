@@ -180,6 +180,18 @@ The pinned [`server-context.cpp` source](https://github.com/ggml-org/llama.cpp/b
 
 The upstream [issue #22940](https://github.com/ggml-org/llama.cpp/issues/22940) claims FULL-only memory permanently disables prompt-cache restore when `pos_min == -1`; it was closed as not planned. That blanket claim is **not established for our pinned build**: source has a FULL-only checkpoint path and an explicit `pos_min == -1` abort guard, while R614/R616 logs record 57/40 checkpoint restores. This does not map restore/fallback events to the divergent requests or explain their token differences.
 
+### R616 lost-task first-divergence mapping
+
+A CPU-only pairing of retained R536/R616 request captures maps the sole case that passed in R536 and failed in R616. Model SHA, runtime, template, server arguments and environment match; request options differ only in `cache_prompt`. Task ID and prompt content remain private.
+
+| Turn | Input tokens | Input IDs match | Outputs identical | Cache tokens · baseline / candidate | Output tokens · baseline / candidate | First changed output token |
+|---|---|---|---|---|---|---|
+| 1 | 1505 | YES | YES | 0 / 0 | 39 / 39 | NONE |
+| 2 | 1637 | YES | YES | 0 / 1543 | 39 / 39 | NONE |
+| 3 | 1790 | YES | NO | 0 / 1675 | 558 / 166 | 0 |
+
+On turn 3, the same 1,790-token prompt had a first-token difference: uncached baseline `cache_n=0`, candidate `cache_n=1675`. That response was shorter (166 vs558 tokens), but the candidate then used two additional model turns; total captured output for this case was 744 vs636 tokens. The task-time difference therefore cannot be explained as a simple decode-throughput gain. This is cache-associated divergence in the one lost task, but sessions were not contemporaneous and this exact prompt has no no-cache A/A repeat. It does not establish that caching caused the task/policy outcome or identify the internal numerical/state path.
+
 The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.
 
-**Interpretation:** this is a plausible cache/recompute numerical-path mechanism, not evidence of corrupted GDN state. Aggregate counts are not mapped to the divergent request; logits, per-layer state and kernel traces were not captured. The origin of the R614/R616 task-level policy differences therefore remains **UNRESOLVED**, and neither candidate is qualified.
+**Interpretation:** the R616 lost-task divergence is mapped to a cache-hit response, consistent with a cache/recompute numerical-path effect; corrupted GDN state is not established. Exact checkpoint restore/fallback events remain unmapped to this request; logits, per-layer state and kernel traces were not captured. The R614/R616 task-level policy causes remain **UNRESOLVED**, and neither candidate is qualified.

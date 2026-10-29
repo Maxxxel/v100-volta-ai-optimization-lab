@@ -1501,6 +1501,54 @@
     },
     "cache_state_source_path": {
       "GPU_runs": 0,
+      "case_level_divergence": {
+        "agent_trajectory": {
+          "baseline_generated_tokens": 636,
+          "baseline_turns": 3,
+          "candidate_generated_tokens": 744,
+          "candidate_turns": 5,
+          "extra_candidate_turns": 2
+        },
+        "interpretation": "The sole R536-success/R616-failure case had two identical earlier replies. On turn 3, exact prompt token IDs and request fields (except cache_prompt) matched; the baseline processed all 1790 prompt tokens while the candidate reported reusing 1675 and diverged at output token 0. The candidate then used two additional turns: total captured output was 744 tokens versus 636 in the baseline. This directly maps cache-enabled execution to the observed first divergence in this case, but the historical sessions were not contemporaneous and no no-cache A/A repeat exists for this exact prompt. It does not prove the cache caused the task or policy outcome, identify a numerical/GDN state mechanism, or qualify the cache.",
+        "lost_task_count": 1,
+        "source_experiments": [
+          "R536",
+          "R616"
+        ],
+        "task_identifier_withheld": true,
+        "turns": [
+          {
+            "baseline_cached_tokens": 0,
+            "baseline_generated_tokens": 39,
+            "candidate_cached_tokens": 0,
+            "candidate_generated_tokens": 39,
+            "context_tokens": 1505,
+            "first_difference_index": null,
+            "identity_match": true,
+            "same_tokens": true
+          },
+          {
+            "baseline_cached_tokens": 0,
+            "baseline_generated_tokens": 39,
+            "candidate_cached_tokens": 1543,
+            "candidate_generated_tokens": 39,
+            "context_tokens": 1637,
+            "first_difference_index": null,
+            "identity_match": true,
+            "same_tokens": true
+          },
+          {
+            "baseline_cached_tokens": 0,
+            "baseline_generated_tokens": 558,
+            "candidate_cached_tokens": 1675,
+            "candidate_generated_tokens": 166,
+            "context_tokens": 1790,
+            "first_difference_index": 0,
+            "identity_match": true,
+            "same_tokens": false
+          }
+        ]
+      },
       "causal_disposition": "OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED",
       "external_issue": {
         "claim": "FULL-only memory backends always fall back because the checkpoint restore path is not consulted when pos_min == -1.",
@@ -1510,7 +1558,7 @@
         "url": "https://github.com/ggml-org/llama.cpp/issues/22940"
       },
       "kind": "PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION",
-      "limits": "Aggregate log counts are not mapped to the differing task/request. No logits, per-layer state, or kernel trace was captured. Source describes intended checkpoint/fallback handling; it does not prove the selected path was correct for each divergent response, nor prove GDN corruption or policy-failure causality.",
+      "limits": "R616’s one lost task is now mapped to an exact matching 1,790-token prompt and its first changed token: two preceding turns were identical; the candidate reported reusing 1,675 tokens and diverged at output token zero. The historical sessions were not contemporaneous and this exact prompt lacks no-cache A/A repetition. No logits, per-layer state, or request-to-checkpoint restore/fallback mapping was captured. The source and token evidence do not identify a numerical/GDN state mechanism or prove task/policy causality.",
       "model_requests": 0,
       "runs": {
         "R614": {
