@@ -55,6 +55,12 @@ Historical server timings, not kernel counters or a balanced causal experiment. 
 
 [R625](experiments/R625.md): 8/150 matched request/input-token pairs generated different output sequences. These are previously exposed tasks in separate sessions, not a balanced causal comparison or an independent holdout. Two policy cases fail in both profiles; equal observed counts do not establish quality or safety equivalence. No new champion is qualified.
 
+| Identical-input/output subset | Prompt tokens | Generated tokens | Prefill off / on | Decode off / on | Request E2E off / on | Draft accepted |
+|---|---|---|---|---|---|---|
+| 142 | 251890 | 10508 | 387.7 / 426.0 s | 299.9 / 143.9 s | 689.2 / 571.6 s | 7526/8604 |
+
+Retrospectively selected matched outputs; separate sessions. Server timings do not establish a causal kernel speedup. Subset energy is NOT MEASURED.
+
 ## Qwen3.8 integrated MTP A/A pilot
 
 | Fixed request | Within-session repeats equal | Across-session equal |

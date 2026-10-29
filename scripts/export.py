@@ -1584,6 +1584,16 @@ def main():
             public_review=projection(review)
             for key in ('off_gpu_j_bounds','on_gpu_j_bounds','matched_request_and_input_token_ids','matched_request_different_input_ids','matched_output_sequences_equal','matched_output_sequences_different'):public_review[key]=review[key]
             experiments[ident]['aggregate_metrics']['mtp_paired_comparison']=public_review
+            if v.get('mtp_fixed_work_review'):
+                item=v['mtp_fixed_work_review'];fixed_id=receipt(item['path'],item['sha256']);fixed=load(locations[fixed_id]) if fixed_id else {}
+                selected=[k for k in same if at[k]['reply']['__verbose']['tokens']==bt[k]['reply']['__verbose']['tokens']]
+                if not fixed_id or fixed['off_audit_sha256']!=digest(locations[audit]) or fixed['on_audit_sha256']!=digest(locations[ref_id]) or fixed['matched_requests']!=len(selected) or fixed['winner_qualified'] is not False:raise ValueError('R625 fixed-work provenance differs')
+                for label,turns in (('off',at),('on',bt)):
+                    timings=[turns[k]['reply']['timings'] for k in selected];expected={key:round(sum(t[key] for t in timings),6) for key in ('prompt_n','prompt_ms','predicted_n','predicted_ms')};expected['request_e2e_s']=round(sum(turns[k]['e2e_s'] for k in selected),6)
+                    if label=='on':expected.update(draft_n=sum(t.get('draft_n',0) for t in timings),draft_n_accepted=sum(t.get('draft_n_accepted',0) for t in timings))
+                    if fixed['arms'][label].keys()!=expected.keys() or any(abs(fixed['arms'][label][k]-value)>0.00001 for k,value in expected.items()):raise ValueError('R625 fixed-work timing differs')
+                experiments[ident]['related_audit_ids'].append(fixed_id)
+                experiments[ident]['aggregate_metrics']['mtp_fixed_work']={'matched_requests':fixed['matched_requests'],'arms':fixed['arms'],'scope':text(fixed['scope'])}
             experiments[ident]['statements']['comparison_scope']=text(review['scope'])
         if ident=='R618' and v.get('cross_model_review'):
             item=v['cross_model_review'];review_id=receipt(item['path'],item['sha256']);review=load(locations[review_id]) if review_id else {};candidate=load(locations[audit]) if audit else {};related=[review_id] if review_id else []

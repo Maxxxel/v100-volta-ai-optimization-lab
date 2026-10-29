@@ -27653,6 +27653,28 @@
   },
   {
     "aggregate_metrics": {
+      "mtp_fixed_work": {
+        "arms": {
+          "off": {
+            "predicted_ms": 299918.289,
+            "predicted_n": 10508,
+            "prompt_ms": 387742.972,
+            "prompt_n": 251890,
+            "request_e2e_s": 689.248631
+          },
+          "on": {
+            "draft_n": 8604,
+            "draft_n_accepted": 7526,
+            "predicted_ms": 143944.932,
+            "predicted_n": 10508,
+            "prompt_ms": 426014.926,
+            "prompt_n": 251890,
+            "request_e2e_s": 571.557498
+          }
+        },
+        "matched_requests": 142,
+        "scope": "Retrospectively selected exact request, input and output token matches from previously exposed correlated tasks. Separate sessions, not a balanced causal comparison. Server timing is not a hardware counter; draft acceptance is not quality equivalence. GPU energy for this subset is not measured."
+      },
       "mtp_paired_comparison": {
         "GPU_runs": 0,
         "candidate_on_audit_sha256": "166a134d68efb396723b5ae0b67e73a4e67ec06333a3c7bfeab614601c064934",
@@ -27839,6 +27861,7 @@
       "audit-c643a7d91f71c294b6b0",
       "audit-166a134d68efb396723b",
       "audit-7e48ccbb1fb9a9bd683b",
+      "audit-1548b4ed77601b7da4c2",
       "audit-aa8020f41049dfdcc060",
       "audit-9c2e51acb4b2a7083bab"
     ],
