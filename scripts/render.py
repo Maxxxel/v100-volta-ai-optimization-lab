@@ -739,7 +739,12 @@ def main():
    if rows:
     page+='\n## Paired agent task outcomes · prefix-cache profiles\n\n'
     page+=table(['Historical profile','Task successes · 33 paired','Policy-gate passes','Observed task wall time','Completion tokens','GPU energy bounds','Decision'],rows)
-    page+='Same 33 exposed tasks (11 related families), one response per arm; exact paired McNemar p=1.0 in both pairs. This tiny test does not establish equivalence or noninferiority. Task-level A/A variability is NOT MEASURED. Nexus gained no task successes and emitted more tokens; OmniCoder lost one task success while emitting 0.97% fewer tokens, too little to explain the observed wall-time change by itself. Both candidates lost one policy-gate pass. Cache-associated output divergence is separately documented; task-level causality remains unconfirmed. These historical whole-task profiles are not independent repeats.\n'
+    page+='Same 33 exposed tasks (11 related families), one response per arm; exact paired McNemar p=1.0 in both pairs. This tiny test does not establish equivalence or noninferiority. '
+    if repro.get('r630_native_aa') and repro.get('r631_native_aa'):
+     page+='Subsequent baseline A/A pairs [R536/R630](#same-profile-aa-repeatability-r536-r630) and [R531/R631](#same-profile-aa-repeatability-r531-r631) each matched all 33 task outcomes; one pair per profile cannot estimate general variability. '
+    else:
+     page+='Task-level baseline variability is not estimated from these A/B pairs. '
+    page+='Nexus gained no task successes and emitted more tokens; OmniCoder lost one task success while emitting 0.97% fewer tokens, too little to explain the observed wall-time change by itself. Both candidates lost one policy-gate pass. Cache-associated output divergence is separately documented; task-level causality remains unconfirmed. These historical whole-task profiles are not independent repeats.\n'
   gemma_cache=next((e for e in es if e['id']=='R624'),None)
   if gemma_cache and gemma_cache.get('aggregate_metrics',{}).get('repeatability_pilot'):
    p=gemma_cache['aggregate_metrics']['repeatability_pilot'];rows=p['turns']

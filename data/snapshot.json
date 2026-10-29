@@ -1433,7 +1433,7 @@
           "candidate": 28
         },
         "qualification": "NOT_QUALIFIED",
-        "task_level_repeatability": "NOT_MEASURED",
+        "task_level_repeatability": "NOT_ESTIMATED_FROM_THIS_AB_PAIR",
         "task_outcomes": {
           "baseline_only_success": 0,
           "both_failed": 8,
@@ -1487,7 +1487,7 @@
           "candidate": 28
         },
         "qualification": "NOT_QUALIFIED",
-        "task_level_repeatability": "NOT_MEASURED",
+        "task_level_repeatability": "NOT_ESTIMATED_FROM_THIS_AB_PAIR",
         "task_outcomes": {
           "baseline_only_success": 1,
           "both_failed": 5,

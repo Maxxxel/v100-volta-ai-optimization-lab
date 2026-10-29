@@ -239,7 +239,7 @@ def agent_task_pairs(root):
    'gpu_energy_j_bounds':{'baseline':[comparison['reference_gpu_j_lower'],comparison['reference_gpu_j_upper']],'candidate':[comparison['candidate_gpu_j_lower'],comparison['candidate_gpu_j_upper']]},
    'peak_vram_mib':{'baseline':comparison['reference_peak_vram_mib'],'candidate':comparison['candidate_peak_vram_mib']},
    'cache_observation':{'candidate_cache_hit_turns':comparison['candidate_cache']['cache_hit_turns'],'candidate_cached_tokens':comparison['candidate_cache']['cached_tokens']},
-   'task_level_repeatability':'NOT_MEASURED',
+   'task_level_repeatability':'NOT_ESTIMATED_FROM_THIS_AB_PAIR',
    'causal_disposition':'OBSERVED_REGRESSION_CAUSE_UNCONFIRMED',
    'performance_disposition':'OBSERVED_SPEED_DIFFERENCE_CAUSAL_GAIN_UNCONFIRMED',
    'qualification':'NOT_QUALIFIED',
