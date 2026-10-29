@@ -756,14 +756,16 @@ def main():
    nexus=state.get('nexus_policy_case_mapping')
    if nexus:
     page+='### R614 policy-loss case · exact request repeated in R621\n\n'
+    server=nexus.get('server_execution_path',{});server_a=server.get('baseline',{});server_b=server.get('candidate',{})
     page+=table(['Evidence','Observed result'],[
      ['Paired task outcome',f"One policy-gate loss; task success unchanged (failed in both). Policy passes: {int(nexus['baseline_policy_pass'])} → {int(nexus['candidate_policy_pass'])}; rejected calls: {nexus['baseline_rejected_calls']} → {nexus['candidate_rejected_calls']}."],
      ['Matched request',f"Turn {nexus['matched_turn']}; {nexus['context_tokens']} input tokens; exact token IDs and request fields match except `cache_prompt`; seed {nexus['seed']}, temperature {nexus['temperature']}, output limit {nexus['max_tokens']}."],
      ['R621 no-cache A/A',f"{nexus['no_cache_matches_baseline']}/{nexus['no_cache_repeats']} generated sequences matched the R531 baseline exactly ({nexus['baseline_generated_tokens']} tokens; cache_n=0)."],
      ['R621 cache-hit repeats',f"{nexus['cache_repeats_match_candidate']}/{nexus['cache_hit_repeats']} generated sequences matched R614 exactly ({nexus['candidate_generated_tokens']} tokens; cache_n={nexus['cache_tokens_reused']})."],
      ['Earliest difference',f"Generated token {nexus['first_difference_index']}. Two sessions; four repetitions per cache condition."],
+     ['Server execution path',f"Exact input/completion-token alignment: {server_a.get('exact_input_and_completion_token_matches','NOT MEASURED')}/{server_a.get('requests','NOT MEASURED')} baseline and {server_b.get('exact_input_and_completion_token_matches','NOT MEASURED')}/{server_b.get('requests','NOT MEASURED')} candidate turns. Matched turn: server evaluated {server_a.get('server_input_eval_tokens','NOT MEASURED')}/{server_a.get('input_tokens','?')} vs {server_b.get('server_input_eval_tokens','NOT MEASURED')}/{server_b.get('input_tokens','?')} input tokens; candidate reused {server_b.get('selected_reported_cached_tokens','NOT MEASURED')}."],
      ['Disposition',nexus['classification']]])
-    page+=f"The R614 case trace records one additional policy-rejected call in the same case; all actions were simulated and no production tool was connected. The balanced R621 prompt replay reproduces the cache-associated output path, but it does not rerun the complete agent or policy evaluator. This localizes the observed policy loss; it does not prove the exact response-to-policy causal link or an internal numerical/state mechanism. R614 remains **NOT QUALIFIED**. [R531](experiments/R531.md) · [R614](experiments/R614.md) · [R621](experiments/R621.md).\n\n"
+    page+=f"{server.get('interpretation','')} The R614 case trace records one additional policy-rejected call in the same case; all actions were simulated and no production tool was connected. The balanced R621 prompt replay reproduces the cache-associated output path, but it does not rerun the complete agent or policy evaluator. This localizes the observed policy loss; it does not prove the exact response-to-policy causal link or an internal numerical/state mechanism. R614 remains **NOT QUALIFIED**. [R531](experiments/R531.md) · [R614](experiments/R614.md) · [R621](experiments/R621.md).\n\n"
    case=state.get('case_level_divergence')
    if case:
     turns=case['turns']

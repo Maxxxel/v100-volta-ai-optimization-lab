@@ -1553,7 +1553,7 @@
       "external_issue": {
         "claim": "FULL-only memory backends always fall back because the checkpoint restore path is not consulted when pos_min == -1.",
         "local_applicability": "NOT_ESTABLISHED; pinned source explicitly selects checkpoint state for FULL-only rollback and contains an explicit pos_min == -1 abort guard. R614/R616 logs contain checkpoint-restore events, so the issue’s blanket permanent-disablement claim does not describe every request in these runs.",
-        "remaining_limit": "The restore/fallback events are not mapped to each divergent request; this does not identify why a specific checkpoint was unavailable or explain token/policy divergence.",
+        "remaining_limit": "Per-request input-compute counts are mapped for the R614 policy case; checkpoint restore/fallback event attribution and internal recurrent-state/numerical mechanism remain unresolved, as does whole-task policy causality.",
         "status": "CLOSED_NOT_PLANNED",
         "url": "https://github.com/ggml-org/llama.cpp/issues/22940"
       },
@@ -1593,6 +1593,33 @@
         "repeatability_run": 621,
         "request_match_except_cache_flag": true,
         "seed": 1001,
+        "server_execution_path": {
+          "baseline": {
+            "completion_tokens": 368,
+            "exact_input_and_completion_token_matches": 153,
+            "input_tokens": 1785,
+            "requests": 153,
+            "selected_cache_flag": false,
+            "selected_engine_cache_n": 0,
+            "selected_reported_cached_tokens": 0,
+            "server_input_eval_ms": 686.81,
+            "server_input_eval_tokens": 1785,
+            "server_tasks": 153
+          },
+          "candidate": {
+            "completion_tokens": 65,
+            "exact_input_and_completion_token_matches": 155,
+            "input_tokens": 1785,
+            "requests": 155,
+            "selected_cache_flag": true,
+            "selected_engine_cache_n": 1711,
+            "selected_reported_cached_tokens": 1711,
+            "server_input_eval_ms": 151.32,
+            "server_input_eval_tokens": 74,
+            "server_tasks": 155
+          },
+          "interpretation": "Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline evaluated all 1,785 input tokens; candidate reported reusing 1,711 and evaluated 74. This confirms the measured input-compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome."
+        },
         "task_success_changed_cases": 0,
         "temperature": 0
       },

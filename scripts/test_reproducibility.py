@@ -1,6 +1,6 @@
 import hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,lost_task_first_divergence,summarize_nexus_policy_case
+from reproducibility import build,lost_task_first_divergence,summarize_nexus_policy_case,summarize_server_prompt_path
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -77,4 +77,30 @@ class NexusPolicyMapping(unittest.TestCase):
  def test_inconsistent_repeated_cache_output_fails_closed(self):
   args=self.sample(corrupt_cache=True)
   with self.assertRaises(AssertionError):summarize_nexus_policy_case(*args,[1]*1785,args[6])
+
+class ServerPromptPath(unittest.TestCase):
+ def test_aligns_server_task_to_captured_request_without_exporting_task_id(self):
+  with tempfile.TemporaryDirectory() as td:
+   log=Path(td)/'server.log'
+   log.write_text('\n'.join([
+    '0.00.001.000 I slot launch_slot_: id 0 | task 0 | processing task, is_child = 0',
+    '0.00.001.001 I slot operator(): id 0 | task 0 | new prompt, task.n_tokens = 11',
+    '0.00.001.002 I slot print_timing: id 0 | task 0 | prompt eval time = 1.0 ms / 11 tokens',
+    '0.00.001.003 I slot print_timing: id 0 | task 0 | eval time = 2.0 ms / 3 tokens',
+    '0.00.002.000 I slot launch_slot_: id 0 | task 7 | processing task, is_child = 0',
+    '0.00.002.001 I slot operator(): id 0 | task 7 | new prompt, task.n_tokens = 100',
+    '0.00.002.002 I slot print_timing: id 0 | task 7 | prompt eval time = 5.0 ms / 4 tokens',
+    '0.00.002.003 I slot print_timing: id 0 | task 7 | eval time = 6.0 ms / 8 tokens',
+   ])+'\n')
+   rows=[{'kind':'warmup','start_ns':0},
+         {'kind':'agent_turn','id':'selected','start_ns':1,'request':{'cache_prompt':True},
+          'reply':{'usage':{'prompt_tokens':100,'completion_tokens':8,'prompt_tokens_details':{'cached_tokens':96}},
+                   '__verbose':{'timings':{'cache_n':96}}}}]
+   out=summarize_server_prompt_path(rows,log,'selected')
+   self.assertEqual(out['exact_input_and_completion_token_matches'],1)
+   self.assertEqual(out['server_input_eval_tokens'],4)
+   self.assertEqual(out['selected_reported_cached_tokens'],96)
+   self.assertNotIn('task_id',json.dumps(out))
+   rows[1]['reply']['usage']['completion_tokens']=9
+   with self.assertRaises(AssertionError):summarize_server_prompt_path(rows,log,'selected')
 if __name__=='__main__':unittest.main()

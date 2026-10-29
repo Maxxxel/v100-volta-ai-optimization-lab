@@ -1,5 +1,5 @@
 """Verify aggregate reproducibility evidence without exporting private requests."""
-import collections,hashlib,json,math
+import collections,hashlib,json,math,re
 from pathlib import Path
 
 def digest(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -99,6 +99,48 @@ def summarize_nexus_policy_case(baseline_case,candidate_case,baseline_request, c
          'candidate_generated_tokens':len(b),'first_difference_index':first,
          'classification':'REPRODUCIBLE_CACHE_ASSOCIATED_DIVERGENCE; ONE_POLICY_LOSS_OBSERVED; WHOLE_TASK_CAUSALITY_NOT_ESTABLISHED',
          'interpretation':'The only case whose policy gate changed between R531 and R614 failed task success in both arms. Its fourth-turn request has identical 1,785 input token IDs and request fields other than cache_prompt. R621 repeated that exact request in two ABBA sessions: all four no-cache outputs matched R531, and all four cache-hit outputs matched R614, with divergence at output token 0. The R614 task trace records one additional policy violation/rejected call in that same case. This establishes a reproducible cache-associated output path and localizes the observed policy loss to the same case, but R621 did not rerun the agent/policy evaluator; the exact causal link from that response to the policy event, general task-quality effect, and internal numerical/state mechanism remain unproven. The R614 failed safety gate remains in force; no promotion.'}
+
+def summarize_server_prompt_path(rows,server_log,selected_request_id):
+ """Pair server task timing rows with captured requests by order and exact token counts."""
+ turns=sorted((x for x in rows if x.get('kind')=='agent_turn'),key=lambda x:x['start_ns'])
+ warmups=sorted((x for x in rows if x.get('kind')=='warmup'),key=lambda x:x['start_ns'])
+ assert len(warmups)==1
+ task_order=[]; task_data={}
+ for line in Path(server_log).read_text(errors='replace').splitlines():
+  m=re.search(r'task\s+(\d+)\s+\|\s+processing task, is_child = 0',line)
+  if m:
+   tid=m.group(1);assert tid not in task_data
+   task_data[tid]={'lines':[]};task_order.append(tid)
+  m=re.search(r'task\s+(\d+)\s+\|',line)
+  if m and m.group(1) in task_data:task_data[m.group(1)]['lines'].append(line)
+ assert len(task_order)==len(turns)+1
+ def parse_task(tid):
+  out={}
+  for line in task_data[tid]['lines']:
+   m=re.search(r'task\.n_tokens\s*=\s*(\d+)',line)
+   if m:out['prompt_tokens']=int(m.group(1))
+   m=re.search(r'prompt eval time\s*=\s*([0-9.]+)\s*ms\s*/\s*(\d+)\s+tokens',line)
+   if m:out.update(prompt_eval_ms=float(m.group(1)),prompt_eval_tokens=int(m.group(2)))
+   m=re.search(r'eval time\s*=\s*([0-9.]+)\s*ms\s*/\s*(\d+)\s+tokens',line)
+   if m:out.update(decode_ms=float(m.group(1)),completion_tokens=int(m.group(2)))
+  return out
+ tasks=[parse_task(tid) for tid in task_order[1:]] # first server task is the captured warmup
+ assert len(tasks)==len(turns)
+ for turn,task in zip(turns,tasks):
+  usage=turn['reply']['usage']
+  assert task.get('prompt_tokens')==usage['prompt_tokens']
+  assert task.get('completion_tokens')==usage['completion_tokens']
+  assert 'prompt_eval_tokens' in task and 'decode_ms' in task
+ selected=[(turn,task) for turn,task in zip(turns,tasks) if turn['id']==selected_request_id]
+ assert len(selected)==1
+ turn,task=selected[0];usage=turn['reply']['usage'];timing=turn['reply']['__verbose']['timings']
+ return {'requests':len(turns),'server_tasks':len(tasks),'exact_input_and_completion_token_matches':len(turns),
+         'input_tokens':usage['prompt_tokens'],'completion_tokens':usage['completion_tokens'],
+         'server_input_eval_tokens':task['prompt_eval_tokens'],
+         'server_input_eval_ms':task['prompt_eval_ms'],
+         'selected_reported_cached_tokens':usage.get('prompt_tokens_details',{}).get('cached_tokens'),
+         'selected_engine_cache_n':timing.get('cache_n'),
+         'selected_cache_flag':turn['request'].get('cache_prompt')}
 
 def agent_task_pairs(root):
  root=Path(root);out={}
@@ -288,6 +330,19 @@ def cache_state_source_path(root):
   baseline_cases[case_id],candidate_cases[case_id],baseline_response['request'],candidate_response['request'],
   baseline_response['reply'],candidate_response['reply'],pilot_replies,
   baseline_identity['prompt_token_ids'],pilot_seed_checks)
+ baseline_server_path=summarize_server_prompt_path(baseline_rows,baseline_raw/'server.log',baseline_response['id'])
+ candidate_server_path=summarize_server_prompt_path(candidate_rows,candidate_raw/'server.log',candidate_response['id'])
+ assert baseline_server_path['server_input_eval_tokens']==1785
+ assert baseline_server_path['selected_engine_cache_n']==0
+ assert candidate_server_path['server_input_eval_tokens']==74
+ assert candidate_server_path['selected_engine_cache_n']==1711
+ assert candidate_server_path['selected_reported_cached_tokens']==1711
+ assert baseline_server_path['selected_cache_flag'] is False
+ assert candidate_server_path['selected_cache_flag'] is True
+ assert baseline_server_path['requests']==153 and candidate_server_path['requests']==155
+ nexus_policy_mapping['server_execution_path']={
+  'baseline':baseline_server_path,'candidate':candidate_server_path,
+  'interpretation':'Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline evaluated all 1,785 input tokens; candidate reported reusing 1,711 and evaluated 74. This confirms the measured input-compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome.'}
  nexus_policy_mapping.update({'baseline_audit_sha256':digest(root/'staging/r531/AUDIT.json'),
                               'candidate_audit_sha256':digest(root/'staging/r614/AUDIT.json'),
                               'repeatability_audit_sha256':digest(r621_stage/'AUDIT.json'),
@@ -299,7 +354,7 @@ def cache_state_source_path(root):
    'status':'CLOSED_NOT_PLANNED',
    'claim':'FULL-only memory backends always fall back because the checkpoint restore path is not consulted when pos_min == -1.',
    'local_applicability':'NOT_ESTABLISHED; pinned source explicitly selects checkpoint state for FULL-only rollback and contains an explicit pos_min == -1 abort guard. R614/R616 logs contain checkpoint-restore events, so the issue’s blanket permanent-disablement claim does not describe every request in these runs.',
-   'remaining_limit':'The restore/fallback events are not mapped to each divergent request; this does not identify why a specific checkpoint was unavailable or explain token/policy divergence.'
+  'remaining_limit':'Per-request input-compute counts are mapped for the R614 policy case; checkpoint restore/fallback event attribution and internal recurrent-state/numerical mechanism remain unresolved, as does whole-task policy causality.'
   },
   'source_interpretation':[
    'The request-level cache_prompt path finds a matching prompt prefix; the server can reuse cached chunks.',

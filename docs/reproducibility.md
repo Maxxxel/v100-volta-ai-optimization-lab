@@ -189,9 +189,10 @@ The upstream [issue #22940](https://github.com/ggml-org/llama.cpp/issues/22940) 
 | R621 no-cache A/A | 4/4 generated sequences matched the R531 baseline exactly (368 tokens; cache_n=0). |
 | R621 cache-hit repeats | 4/4 generated sequences matched R614 exactly (65 tokens; cache_n=1711). |
 | Earliest difference | Generated token 0. Two sessions; four repetitions per cache condition. |
+| Server execution path | Exact input/completion-token alignment: 153/153 baseline and 155/155 candidate turns. Matched turn: server evaluated 1785/1785 vs 74/1785 input tokens; candidate reused 1711. |
 | Disposition | REPRODUCIBLE_CACHE_ASSOCIATED_DIVERGENCE; ONE_POLICY_LOSS_OBSERVED; WHOLE_TASK_CAUSALITY_NOT_ESTABLISHED |
 
-The R614 case trace records one additional policy-rejected call in the same case; all actions were simulated and no production tool was connected. The balanced R621 prompt replay reproduces the cache-associated output path, but it does not rerun the complete agent or policy evaluator. This localizes the observed policy loss; it does not prove the exact response-to-policy causal link or an internal numerical/state mechanism. R614 remains **NOT QUALIFIED**. [R531](experiments/R531.md) · [R614](experiments/R614.md) · [R621](experiments/R621.md).
+Server task records align one-to-one with every captured agent request by exact input and completion token counts. For the matched request, baseline evaluated all 1,785 input tokens; candidate reported reusing 1,711 and evaluated 74. This confirms the measured input-compute path for this request, not why its first generated token changed or whether caching caused the complete-task policy outcome. The R614 case trace records one additional policy-rejected call in the same case; all actions were simulated and no production tool was connected. The balanced R621 prompt replay reproduces the cache-associated output path, but it does not rerun the complete agent or policy evaluator. This localizes the observed policy loss; it does not prove the exact response-to-policy causal link or an internal numerical/state mechanism. R614 remains **NOT QUALIFIED**. [R531](experiments/R531.md) · [R614](experiments/R614.md) · [R621](experiments/R621.md).
 
 ### R616 lost-task first-divergence mapping
 
