@@ -131,8 +131,8 @@
     "status": "DEFERRED_DISTINCT_PROFILE_HYPOTHESIS_REQUIRED",
     "title": "Investigate LFM24 one-call behavior on complete complex-tool benchmark",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13",
-    "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-26T18:41:39.997857+00:00",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-29T17:55:31Z",
     "freeze_priority": "P2_NO_JUSTIFIED_RERUN",
     "next_action": "Cardinality and argument preservation checks are complete: no observed parser loss. The cause of6/200 remains unproven. Resume only for a distinct source-backed template/harness discrepancy; do not rerun merely to set parallel_tool_calls.",
     "evidence_sha256": {
@@ -142,7 +142,8 @@
     "evidence_urls": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13#issuecomment-6395922011",
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/13#issuecomment-6398582411"
-    ]
+    ],
+    "source_issue_updated_at_utc": "2026-10-29T14:09:22Z"
   },
   {
     "subcase": "TASK-WRAPPER-TIMING",
@@ -351,15 +352,15 @@
   },
   {
     "subcase": "NOVEMBER-HARNESS",
-    "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
+    "status": "CLOSED_SCOPED_HARNESS_RESEARCH_OUTCOME",
     "title": "Research: minimal vs complex coding-agent harness — quality, tokens, latency and GPU-J/success",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/17",
-    "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
-    "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
-    "next_action": "R537 token/call reconciliation is complete and inconclusive. Pinned mini-SWE source review confirms append-only trajectories, delegated action execution and pre-query wall-clock limits; these do not replace broker deadlines or policy enforcement. Preregister matched development/holdout prose ablation; no extra GPU admission. R537 exact-token recurrence is archived below; any state-correct caching/preamble ablation remains a separate hypothesis and GPU admission. No savings measured.",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-29T17:55:31Z",
+    "freeze_priority": "ARCHIVED_CLOSED_2026_10_27",
+    "next_action": "GitHub issue closed 2026-10-27. Preserve the bounded R537 comparison and its inconclusive five-task result; no universal multi-agent winner or further GPU work is authorized by this issue.",
     "previous_scientific_status": "DEFERRED_NOVEMBER_RESEARCH",
-    "source_issue_updated_at_utc": "2026-10-26T11:40:36Z",
+    "source_issue_updated_at_utc": "2026-10-27T22:25:48Z",
     "source_issue_body_sha256": "40c1b0e8d900fbd8bdd829a1e382d67da585c79db970390d05d0ca4cd17405a0",
     "cpu_evidence_sha256": "bf187f637c26a3b71740977d3f7862dc07c3bde54438e77a409a4eb6f3159ac6",
     "evidence_urls": [
@@ -401,13 +402,13 @@
     "subcase": "LEAN-HARNESS",
     "url": "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18",
     "title": "Research: Lean Jarvis harness — Caveman, mini-SWE-agent, context compaction A/B before final V100 tuning",
-    "github_state": "OPEN",
-    "github_checked_at_utc": "2026-10-26T21:57:08.216861+00:00",
-    "source_issue_updated_at_utc": "2026-10-26T21:51:17Z",
+    "github_state": "CLOSED",
+    "github_checked_at_utc": "2026-10-29T17:55:31Z",
+    "source_issue_updated_at_utc": "2026-10-28T00:16:15Z",
     "source_issue_body_sha256": "4b8e283a7930b7f7ee7573b56a2fe32980e9f47080b47f3e7f69749e9584a552",
-    "status": "CPU_EVIDENCE_REVIEW_PENDING_NO_GPU_ADMISSION",
-    "freeze_priority": "P1_CPU_HARNESS_REVIEW_BEFORE_TUNING",
-    "next_action": "Pinned current Caveman3+ is Apache2; older release terms remain distinct. Prose compression is model-assisted rewriting, not proven lossless; documented gateway recovery does not establish local API compatibility. No proxy, MCP or compressor installed. Reuse #17; any later GPU ablation requires separate admission. R537 exact-token recurrence is archived below; any state-correct caching/preamble ablation remains a separate hypothesis and GPU admission. No savings measured.",
+    "status": "CLOSED_SCOPED_NO_HARNESS_VARIANT_QUALIFIED",
+    "freeze_priority": "ARCHIVED_CLOSED_2026_10_28",
+    "next_action": "GitHub issue closed 2026-10-28. R601 found no practical gain; original Caveman prompt reduced task success. Proxy and large-output compression remain unqualified and require a distinct eligible workload plus fresh admission.",
     "evidence_urls": [
       "https://github.com/Maxxxel/v100-volta-ai-optimization-lab/issues/18#issuecomment-6428911369",
       "https://github.com/JuliusBrussee/caveman/blob/9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4/LICENSING.md",
