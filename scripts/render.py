@@ -642,6 +642,10 @@ def main():
    p=qwen_off['aggregate_metrics']['mtp_off_on_pair']
    page+='\n## Qwen3.8 MTP-off A/A and historical ON comparison\n\n'+table(['Fixed request','MTP-off across sessions','MTP-on across sessions','Same output ON/OFF'],[[x['turn'],'YES' if x['off_repeatability'] else 'NO','YES' if x['on_repeatability'] else 'NO',f"{x['matching_output_tokens']}/{x['pairs']}"] for x in p['turns']])
    page+='[R626](experiments/R626.md) reused three exposed requests over two fresh MTP-off sessions. R623 ON and R626 OFF are separate jobs; identical outputs in this small correlated sample do not establish general determinism, losslessness, task quality or safety equivalence.\n'
+  gemma_kv=next((e for e in es if e['id']=='R608'),None)
+  if gemma_kv and gemma_kv.get('aggregate_metrics',{}).get('kv_token_forensics'):
+   f=gemma_kv['aggregate_metrics']['kv_token_forensics'];c=f['matched_tasks']
+   page+=f"\n## Gemma Q8 value-cache coding forensics\n\n[R608](experiments/R608.md) and its historical F16 control had {c['same_input_tokens']} matching request/input-token pairs. {c['same_output_tokens']} outputs matched; {c['different_output_tokens']} diverged. All {f['paired_scored_losses']} observed losses had different output tokens; first divergences occurred at zero-based positions {', '.join(str(x) for x in f['loss_first_output_divergence_positions'])}. Temperature 1 and seed 1001 were preserved. Separate sessions cannot establish whether Q8 caused these changes; the quality gate remains failed and a fresh A/A–A/B diagnosis is needed.\n"
   gemma_pilot=next((e for e in es if e['id']=='R622'),None)
   if gemma_pilot and gemma_pilot.get('aggregate_metrics',{}).get('seed_repeatability_pilot'):
    p=gemma_pilot['aggregate_metrics']['seed_repeatability_pilot'];rows=[]

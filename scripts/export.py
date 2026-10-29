@@ -1721,6 +1721,32 @@ def main():
                 telemetry=[json.loads(line) for line in (folder/'GPU_TELEMETRY.jsonl').read_text().splitlines()];requests=[x for x in (json.loads(line) for line in (folder/'HTTP_RESULTS.jsonl').read_text().splitlines()) if x.get('kind')=='coding'];bounds=counter_energy_bounds(telemetry,requests,[x['id'] for x in requests]);solved=source['solved_observed_tasks']
                 if len(requests)!=164 or row['counter_bounds']!=bounds or row['successes']!=solved or comparison['counter_gpu_j_per_success_lower_'+arm]!=bounds['lower_j']/solved or comparison['counter_gpu_j_per_success_upper_'+arm]!=bounds['upper_j']/solved or comparison[arm+'_completion_tokens']!=sum(x['reply']['usage']['completion_tokens'] for x in requests):raise ValueError('R608 counter projection differs')
             experiments[ident]['related_audit_ids']=[paired,energy_id,ref_id]
+            if ident=='R608' and v.get('token_forensics'):
+                item=v['token_forensics'];fid=receipt(item['path'],item['sha256']);f=load(locations[fid]) if fid else {};captures=[]
+                if not fid or f['reference_audit_sha256']!=digest(locations[ref_id]) or f['candidate_audit_sha256']!=digest(locations[audit]) or f['winner_qualified'] is not False:raise ValueError('R608 token review provenance differs')
+                for source in (reference,candidate):
+                    folder=pathlib.Path(source['parts'][0]['audit_path']).parent;raw=folder/'HTTP_RESULTS.jsonl';pins=load(folder/'RAW_HASHES.json')
+                    if digest(raw)!=pins['HTTP_RESULTS.jsonl'] or digest(raw)!=source['parts'][0]['raw_answers_sha256']:raise ValueError('R608 token capture changed')
+                    rows=[json.loads(line) for line in raw.read_text().splitlines() if line];captures.append(({x['id']:x for x in rows if x.get('kind')=='coding'},{x['id']:x for x in rows if x.get('kind')=='input_identity'}))
+                (a,ai),(b,bi)=captures
+                if len(a)!=164 or a.keys()!=b.keys() or a.keys()!=ai.keys() or a.keys()!=bi.keys():raise ValueError('R608 input set differs')
+                count={'same_request':0,'same_input_tokens':0,'same_output_tokens':0,'different_output_tokens':0};positions=[];lost=[]
+                for k in a:
+                    if a[k]['request']!=b[k]['request']:count['request_mismatch']=count.get('request_mismatch',0)+1;continue
+                    count['same_request']+=1
+                    if ai[k]['prompt_token_ids']!=bi[k]['prompt_token_ids']:count['input_token_mismatch']=count.get('input_token_mismatch',0)+1;continue
+                    count['same_input_tokens']+=1
+                    if any(z['reply']['__verbose']['generation_settings']['seed']!=1001 or z['reply']['__verbose']['generation_settings']['temperature']!=1.0 for z in (a[k],b[k])):raise ValueError('R608 sampler changed')
+                    x=a[k]['reply']['__verbose']['tokens'];y=b[k]['reply']['__verbose']['tokens']
+                    if x==y:count['same_output_tokens']+=1;continue
+                    count['different_output_tokens']+=1;n=0
+                    for aa,bb in zip(x,y):
+                        if aa!=bb:break
+                        n+=1
+                    positions.append(n)
+                    if k in paired_data['paired_losses']:lost.append(n)
+                if f['matched_tasks']!=count or f['loss_first_output_divergence_positions']!=sorted(lost) or f['losses_with_observed_output_divergence']!=len(lost) or f['paired_scored_losses']!=len(paired_data['paired_losses']) or f['paired_scored_gains']!=len(paired_data['paired_gains']):raise ValueError('R608 token review differs')
+                experiments[ident]['related_audit_ids'].append(fid);experiments[ident]['aggregate_metrics']['kv_token_forensics']={'matched_tasks':f['matched_tasks'],'paired_scored_losses':f['paired_scored_losses'],'loss_first_output_divergence_positions':f['loss_first_output_divergence_positions'],'scope':text(f['scope'])}
             if ident=='R610' and v.get('duplicate_review'):
                 item=v['duplicate_review'];duplicate_id=receipt(item['path'],item['sha256'])
                 if not duplicate_id:raise ValueError('R610 duplicate review missing')

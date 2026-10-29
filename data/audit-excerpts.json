@@ -181717,6 +181717,21 @@
   },
   {
     "aggregate_metrics": {
+      "model_requests": 0
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-4d501611b006184c59ad",
+    "original_bytes": 1031,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "4d501611b006184c59adb6976c18626c319e0287691a8c5c6e771b560753c650",
+    "statements": {
+      "scope": "Retrospective task-paired historical sessions at original temperature 1 and seed 1001. Output-token differences do not establish that Q8 KV caused any quality change. No independent repeats or logits; tasks are benchmark-exposed and this is not a new evaluation."
+    }
+  },
+  {
+    "aggregate_metrics": {
       "arms": {
         "candidate": {
           "completion_tokens": 50219,

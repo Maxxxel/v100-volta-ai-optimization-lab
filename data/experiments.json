@@ -26017,6 +26017,27 @@
         "reference_successes": 156,
         "tasks": 164
       },
+      "kv_token_forensics": {
+        "loss_first_output_divergence_positions": [
+          0,
+          0,
+          1,
+          24,
+          136,
+          143,
+          176,
+          194,
+          350
+        ],
+        "matched_tasks": {
+          "different_output_tokens": 106,
+          "same_input_tokens": 164,
+          "same_output_tokens": 58,
+          "same_request": 164
+        },
+        "paired_scored_losses": 9,
+        "scope": "Retrospective task-paired historical sessions at original temperature 1 and seed 1001. Output-token differences do not establish that Q8 KV caused any quality change. No independent repeats or logits; tasks are benchmark-exposed and this is not a new evaluation."
+      },
       "model_starts": 1,
       "peak_device_vram_mib": 7976.5,
       "scopes": {
@@ -26039,7 +26060,8 @@
     "related_audit_ids": [
       "audit-13857323ff434bebfe7e",
       "audit-fe60caec40cd524ebbff",
-      "audit-a49a6cebc54822e25a33"
+      "audit-a49a6cebc54822e25a33",
+      "audit-4d501611b006184c59ad"
     ],
     "statements": {
       "decision": "HISTORICAL_CODING_REGRESSION_NO_PROMOTION",

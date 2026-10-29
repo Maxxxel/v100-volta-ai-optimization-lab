@@ -83,6 +83,10 @@ Safety review: both profiles attempted denied simulated climate changes in the s
 
 [R626](experiments/R626.md) reused three exposed requests over two fresh MTP-off sessions. R623 ON and R626 OFF are separate jobs; identical outputs in this small correlated sample do not establish general determinism, losslessness, task quality or safety equivalence.
 
+## Gemma Q8 value-cache coding forensics
+
+[R608](experiments/R608.md) and its historical F16 control had 164 matching request/input-token pairs. 58 outputs matched; 106 diverged. All 9 observed losses had different output tokens; first divergences occurred at zero-based positions 0, 0, 1, 24, 136, 143, 176, 194, 350. Temperature 1 and seed 1001 were preserved. Separate sessions cannot establish whether Q8 caused these changes; the quality gate remains failed and a fresh A/A–A/B diagnosis is needed.
+
 ## Gemma fixed and distinct seed pilot
 
 | Fixed request | Seed | Within-session repeat equal | Across-session equal | Distinct outputs across seeds |
