@@ -1406,6 +1406,7 @@
           "candidate": 255.4077487,
           "observed_reduction_percent": 20.176389965779627
         },
+        "causal_disposition": "OBSERVED_REGRESSION_CAUSE_UNCONFIRMED",
         "completion_tokens": {
           "baseline": 16392,
           "candidate": 16777
@@ -1426,10 +1427,13 @@
           "baseline": 7356.5,
           "candidate": 7356.5
         },
+        "performance_disposition": "OBSERVED_SPEED_DIFFERENCE_CAUSAL_GAIN_UNCONFIRMED",
         "policy_gate_passes": {
           "baseline": 29,
           "candidate": 28
         },
+        "qualification": "NOT_QUALIFIED",
+        "task_level_repeatability": "NOT_MEASURED",
         "task_outcomes": {
           "baseline_only_success": 0,
           "both_failed": 8,
@@ -1456,6 +1460,7 @@
           "candidate": 328.411291892,
           "observed_reduction_percent": 18.23713215026842
         },
+        "causal_disposition": "OBSERVED_REGRESSION_CAUSE_UNCONFIRMED",
         "completion_tokens": {
           "baseline": 22528,
           "candidate": 22309
@@ -1476,10 +1481,13 @@
           "baseline": 7680.5,
           "candidate": 7680.5
         },
+        "performance_disposition": "OBSERVED_SPEED_DIFFERENCE_CAUSAL_GAIN_UNCONFIRMED",
         "policy_gate_passes": {
           "baseline": 29,
           "candidate": 28
         },
+        "qualification": "NOT_QUALIFIED",
+        "task_level_repeatability": "NOT_MEASURED",
         "task_outcomes": {
           "baseline_only_success": 1,
           "both_failed": 5,
