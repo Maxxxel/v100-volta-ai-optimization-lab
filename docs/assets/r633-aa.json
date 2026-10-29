@@ -1,0 +1,70 @@
+{
+  "audit_sha256": {
+    "R534": "38904a4aac691bd22747808c81e38ab9030c893a17723b073bacab29acdd9038",
+    "R633": "e8d9b89292bd433016bcba571492b072ccf09c2800f50f9c426c1486cdee6ebb"
+  },
+  "cpu_replay_sha256": "7c4e75f0529696425c1de6814c168243b67249c66a87224d1f05d1db2c77c575",
+  "energy_scope": "NVML cumulative GPU-board counter bounds for first-to-last case window, including intervals between cases; excludes startup, CPU and system energy. Per-case integration is incomplete. One A/A pair does not support a speed or energy winner.",
+  "metrics": {
+    "R534": {
+      "case_window_s": 444.219536044,
+      "energy_complete_cases": 1,
+      "gpu_case_window_j_bounds": [
+        106777.937,
+        106859.222
+      ],
+      "gpu_j_per_success_bounds": [
+        6281.055117647059,
+        6285.836588235294
+      ],
+      "max_temperature_c": 72,
+      "peak_vram_mib": 8254.5,
+      "throttle_masks": [
+        0,
+        1,
+        4
+      ],
+      "uncorrected_ecc_observed": false
+    },
+    "R633": {
+      "case_window_s": 445.572922563,
+      "energy_complete_cases": 0,
+      "gpu_case_window_j_bounds": [
+        106883.148,
+        106995.543
+      ],
+      "gpu_j_per_success_bounds": [
+        6287.244,
+        6293.855470588235
+      ],
+      "max_temperature_c": 73,
+      "peak_vram_mib": 8254.5,
+      "throttle_masks": [
+        0,
+        1,
+        4
+      ],
+      "uncorrected_ecc_observed": false
+    }
+  },
+  "outcomes": {
+    "R534_policy_pass": 29,
+    "R534_solved": 17,
+    "R633_policy_pass": 29,
+    "R633_solved": 17,
+    "first_divergence": "NONE_OBSERVED",
+    "identical_generated_token_sequences": 177,
+    "identical_input_token_sequences": 177,
+    "identical_policy_outcomes": 33,
+    "identical_request_bodies": 177,
+    "identical_task_outcomes": 33
+  },
+  "raw_capture_sha256": {
+    "R534": "b56fa3b0f7863530987dcc8bc53da6ffa8a6439882ca6e6a1c90095dea8f7f7e",
+    "R633": "e6c40dac01ff28fc1107c68d5ffdc7a97049a6acec551755f6a401a942f5f70f"
+  },
+  "result_sha256": "d62c70518f2c3d156b0034877d7fc4ab5081b620d1fc6a6a88f4ab7a1c56b5c9",
+  "scope": "One A/A pair, same previously exposed 33 internal cases, 11 correlated families; not a holdout, official benchmark, population determinism or quality equivalence.",
+  "status": "COMPLETE_INDEPENDENT_CPU_REPLAYED_NOT_QUALIFICATION",
+  "winner_qualified": false
+}

@@ -705,6 +705,8 @@ def main():
   for key,label in [('r531','Nexus'),('r536','OmniCoder'),('r534','Gemma 4'),('r550','Qwen3.8 MTP')]:
    p=repro['profiles'][key];sp=seed_path['profiles'][key];seed=str(p['configured_seed']);matched=sp['request_seed_counts'].get(seed,0)
    repeat={'r531':'R621 · 4 exposed requests','r536':'R620 · 1 exposed request; [R630](#same-profile-aa-repeatability-r536-r630) · 154/154 turns and 33/33 exposed tasks','r534':'R622/R627 · 3 exposed requests each','r550':'R623/R626 · 3 exposed requests each'}[key]
+   if key=='r531' and repro.get('r631_native_aa'):repeat+='; [R631](#same-profile-aa-repeatability-r531-r631) · 153/153 turns and 33/33 tasks'
+   if key=='r534' and repro.get('r633_native_aa'):repeat+='; [R633](#same-profile-aa-repeatability-r534-r633) · 177/177 turns and 33/33 tasks'
    profile_rows.append([label,f"[{key.upper()}](experiments/{key.upper()}.md)",p['configured_seed'],f"{matched}/{sp['request_count']} request → server",p['configured_temperature'],sp['request_count'],sp['source_greedy_condition_requests'],repeat])
   qwen35=seed_path['profiles'].get('r535')
   if qwen35:
@@ -897,6 +899,18 @@ def main():
    ev=r631['evidence']
    page+=f"Audit SHA-256: R531 `{ev['R531_audit_sha256']}` · R631 `{ev['R631_audit_sha256']}`. Raw capture SHA-256: R531 `{ev['R531_capture_sha256']}` · R631 `{ev['R631_capture_sha256']}`. CPU replay receipt SHA-256: `{r631['cpu_replay']['receipt_sha256']}`.\n"
    put('assets/r631-aa.json',json.dumps(r631,ensure_ascii=False,indent=2))
+  r633=repro.get('r633_native_aa')
+  if r633:
+   rows=[]
+   for ident in ('R534','R633'):
+    m=r633['metrics'][ident];e=m['gpu_case_window_j_bounds'];j=m['gpu_j_per_success_bounds']
+    rows.append([ident,'17/33','29/33',f"{m['case_window_s']:.3f}",f"{e[0]:,.1f}–{e[1]:,.1f}",f"{j[0]:,.1f}–{j[1]:,.1f}",f"{m['peak_vram_mib']:,.1f}",f"{m['energy_complete_cases']}/33"])
+   page+='\n## Same-profile A/A repeatability · R534 / R633\n\n'
+   page+='R633 repeated the Gemma 4 QAT profile at temperature 1.0 and seed 1001 on the same exposed 33-case internal validation set. Independent isolated CPU replay reproduced all 33 case scores and effects. All 177 request bodies, input-token sequences and generated-token sequences matched; task and policy outcomes matched in all 33 cases.\n\n'
+   page+=table(['Run','Solved','Policy gates','Case window s','GPU energy bounds J','GPU J / success bounds','Peak VRAM MiB','Per-case energy coverage'],rows)
+   page+='Energy bounds are cumulative GPU-board counter brackets from the first case start to the last case end, including time between cases; startup and CPU/system energy are excluded. Per-case energy coverage is incomplete. A single pair of exposed correlated cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The cache candidate remains unqualified.\n\n'
+   page+=f"Audit SHA-256: R534 `{r633['audit_sha256']['R534']}` · R633 `{r633['audit_sha256']['R633']}`. [Aggregate results and hashes](assets/r633-aa.json).\n"
+   put('assets/r633-aa.json',json.dumps(r633,ensure_ascii=False,indent=2))
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')

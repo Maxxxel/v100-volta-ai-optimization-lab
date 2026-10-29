@@ -6,9 +6,9 @@ These are archived, hash-verified observations; no new GPU execution. Fixed seed
 
 | Profile | Audit | Configured seed | Request → server seed match | Temperature | Requests | Greedy-path condition | Same-prompt A/A evidence |
 |---|---|---|---|---|---|---|---|
-| Nexus | [R531](experiments/R531.md) | 1001 | 153/153 request → server | 0.0 | 153 | 153 | R621 · 4 exposed requests |
+| Nexus | [R531](experiments/R531.md) | 1001 | 153/153 request → server | 0.0 | 153 | 153 | R621 · 4 exposed requests; [R631](#same-profile-aa-repeatability-r531-r631) · 153/153 turns and 33/33 tasks |
 | OmniCoder | [R536](experiments/R536.md) | 1001 | 154/154 request → server | 0 | 154 | 154 | R620 · 1 exposed request; [R630](#same-profile-aa-repeatability-r536-r630) · 154/154 turns and 33/33 exposed tasks |
-| Gemma 4 | [R534](experiments/R534.md) | 1001 | 177/177 request → server | 1.0 | 177 | 0 | R622/R627 · 3 exposed requests each |
+| Gemma 4 | [R534](experiments/R534.md) | 1001 | 177/177 request → server | 1.0 | 177 | 0 | R622/R627 · 3 exposed requests each; [R633](#same-profile-aa-repeatability-r534-r633) · 177/177 turns and 33/33 tasks |
 | Qwen3.8 MTP | [R550](experiments/R550.md) | 1001 | 150/150 request → server | 0 | 150 | 150 | R623/R626 · 3 exposed requests each |
 | Qwen3.5-9B | [R535](experiments/R535.md) | 1001 | 162/162 request → server | 0.0 | 162 | 162 | Task A/A NOT MEASURED · 162 unique prompts; synthetic warm-up text repeated in 4 runs |
 
@@ -262,3 +262,16 @@ R631 repeated the unchanged Nexus Q6_K, thinking-off, T=0 profile on the same ex
 Energy bounds come from the cumulative NVML GPU-board counter bracketing the task phase. R631 per-case energy is **NOT MEASURED (0/33)** because telemetry sampling gaps invalidated case-level integration. Aggregate task-phase energy is not CPU/system or per-task energy. Differences are descriptive; no performance winner or Champion change. The earlier R614/R621 cache-associated cause remains unresolved.
 
 Audit SHA-256: R531 `fc856a19b65377ec96c861e97812ed84801a3a9bc908262a882a0fdf63b86e12` · R631 `35b5ccc8057f043b64f6dd1de2f77b40528c21a92e01aa740b89f35a7c2ca89a`. Raw capture SHA-256: R531 `982925508cc69aac82a82cf3ca92eec62fea24654a7537ee29caa116dfde244d` · R631 `962180aff5a406998cbe1cf9f8323e31b3b96abbc213592827f7a87c529da831`. CPU replay receipt SHA-256: `a6da916e5a94b6b3ceaac677b212358ea5aecc4ad0a252698ecc6f2db8225940`.
+
+## Same-profile A/A repeatability · R534 / R633
+
+R633 repeated the Gemma 4 QAT profile at temperature 1.0 and seed 1001 on the same exposed 33-case internal validation set. Independent isolated CPU replay reproduced all 33 case scores and effects. All 177 request bodies, input-token sequences and generated-token sequences matched; task and policy outcomes matched in all 33 cases.
+
+| Run | Solved | Policy gates | Case window s | GPU energy bounds J | GPU J / success bounds | Peak VRAM MiB | Per-case energy coverage |
+|---|---|---|---|---|---|---|---|
+| R534 | 17/33 | 29/33 | 444.220 | 106,777.9–106,859.2 | 6,281.1–6,285.8 | 8,254.5 | 1/33 |
+| R633 | 17/33 | 29/33 | 445.573 | 106,883.1–106,995.5 | 6,287.2–6,293.9 | 8,254.5 | 0/33 |
+
+Energy bounds are cumulative GPU-board counter brackets from the first case start to the last case end, including time between cases; startup and CPU/system energy are excluded. Per-case energy coverage is incomplete. A single pair of exposed correlated cases establishes neither general determinism nor quality equivalence and does not qualify a Champion. The cache candidate remains unqualified.
+
+Audit SHA-256: R534 `38904a4aac691bd22747808c81e38ab9030c893a17723b073bacab29acdd9038` · R633 `e8d9b89292bd433016bcba571492b072ccf09c2800f50f9c426c1486cdee6ebb`. [Aggregate results and hashes](assets/r633-aa.json).
