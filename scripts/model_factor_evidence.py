@@ -25,6 +25,7 @@ def reviewed_dispositions(experiments):
   ('R04','Gemma 4','TESTED_NEGATIVE','R612',None,'Microbatch 256 lost to historical 512 in one screen; output lengths and stochastic results differ, so causation remains unconfirmed.'),
   ('S01','Nexus','TESTED_NEGATIVE','R604',None,'A 32-task exposed n-gram screen showed no practical gain versus a historical interleaved control; energy was not fully measured and causation remains uncertain.'),
   ('K02','Gemma 4','PARTIAL','R606','R608','Q8 value cache looked promising in a paired development screen; the later full coding score fell against a historical control. No promotion; causal quality loss is unconfirmed.'),
+  ('K02','Gemma 4','PARTIAL','R608','R627','The F16/Q8 value-cache diagnostic repeated each arm on three exposed prompts; two differed at the first token between arms. A historical baseline inconsistency remains; this is not a general quality or safety qualification.'),
   ('S03','Qwen3.8','PARTIAL','R551','R548','Integrated MTP improved a fresh development comparison and passed a scoped coding gate; task-level safety and broad equivalence remain unqualified.'),
   ('HBM07','OmniCoder','TESTED_NEGATIVE','R603',None,'A 4 GiB conversion-cache development screen showed no practical latency benefit; this is limited to the measured workload and profile.')]
  byid={e['id']:e for e in experiments if e.get('audit_id')}
@@ -35,6 +36,7 @@ def reviewed_dispositions(experiments):
    token=dict(PATTERNS)[model]
    if not e or factor not in (e.get('factor_ids') or ()) or token not in normalized:raise ValueError('Missing model-specific disposition evidence: '+ident)
  on=byid.get('R618');off=byid.get('R625')
+ if bool(on)!=bool(off):raise ValueError('Incomplete Qwen3.8 MTP paired evidence')
  if on and off:
   paired=(off.get('aggregate_metrics') or {}).get('mtp_paired_comparison') or {}
   if ('qwen38' not in re.sub(r'[^a-z0-9]','',(on.get('model') or '').lower()) or
