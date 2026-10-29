@@ -1367,6 +1367,25 @@ def main():
         if factor in {x['id'] for x in factors}:axes=list(set(axes+[factor]))
         axes=[x for x in axes if isinstance(x,str) and re.fullmatch(r'(?:R|K|C|H|Q|M|S|E|A|T|HBM|BMT)\d{2}',x)]
         experiments[ident]={'id':ident,'date':text(v.get('at_utc')),'factor_ids':sorted(set(axes)),'audit_id':audit,'evidence_status':state,'statements':snippets(v),'aggregate_metrics':metrics(v),'winner_qualified':v.get('winner_qualified') is True,'model':text(v.get('model')),'reference_A0':v.get('reference_A0') if isinstance(v.get('reference_A0'),str) and re.fullmatch('[a-f0-9]{64}',v['reference_A0']) else None}
+        if ident=='R612' and v.get('single_factor_review'):
+            item=v['single_factor_review'];review_id=receipt(item['path'],item['sha256']);reference_id=receipt(root/'staging/r534/AUDIT.json')
+            if not audit or not review_id or not reference_id:raise ValueError('R612 paired source missing')
+            review=load(locations[review_id]);ref=load(locations[reference_id]);candidate=load(locations[audit])
+            if review.get('reference_audit_sha256')!=digest(locations[reference_id]) or review.get('candidate_audit_sha256')!=digest(locations[audit]) or review.get('winner_qualified') is not False:raise ValueError('R612 source audit mismatch')
+            captures=[]
+            for record in (ref,candidate):
+                folder=pathlib.Path(record['raw_root']);pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl'
+                if digest(raw)!=pins['HTTP_RESULTS.jsonl']:raise ValueError('R612 response evidence changed')
+                captures.append([r for r in (json.loads(line) for line in raw.read_text().splitlines()) if r.get('kind')=='agent_case'])
+            a,b=captures
+            if len(a)!=33 or [r['id'] for r in a]!=[r['id'] for r in b]:raise ValueError('R612 task identity mismatch')
+            for field in ('task_success','policy_gate_pass','task_scope_pass'):
+                pairs=[(x['reported_result'][field],y['reported_result'][field]) for x,y in zip(a,b)];expected={'reference_passed':sum(x for x,y in pairs),'candidate_passed':sum(y for x,y in pairs),'lost':sum(x and not y for x,y in pairs),'gained':sum(not x and y for x,y in pairs)}
+                if review['comparison']['quality'][field]!=expected:raise ValueError('R612 paired outcome mismatch')
+            experiments[ident]['related_audit_ids']=[review_id,reference_id]
+            experiments[ident]['statements']['single_factor_decision']=text(review['decision'])
+            experiments[ident]['statements']['single_factor_limits']=text(review['limits'])
+            experiments[ident]['aggregate_metrics']['single_factor_comparison']=projection(review['comparison'])
         if ident in ('R608','R610') and v.get('comparison_review_path'):
             paired=receipt(v['comparison_review_path'],v['comparison_review_sha256']); energy_id=receipt(v['paired_energy_counter_review']['path'],v['paired_energy_counter_review']['sha256']); ref_id=receipt(root/'staging/r464/AUDIT.json')
             if not audit or not paired or not energy_id or not ref_id:raise ValueError('R608 comparison evidence missing')

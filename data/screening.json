@@ -1512,7 +1512,8 @@
         "R565",
         "R567",
         "R572",
-        "R580"
+        "R580",
+        "R612"
       ],
       "profiles": [
         {
@@ -2538,6 +2539,77 @@
           "winner_qualified": false
         },
         "model": "Ministral-3-14B-Instruct-2512"
+      },
+      {
+        "audit_sha256": "6b2ef43e89132e92f98ea049e3ab9d4a3515004b42546acf0b23bd04f1e36cc5",
+        "experiment_id": "R612",
+        "metrics": {
+          "GPU_counter": {
+            "complete_request_s": 591.593561497,
+            "group_window_s": 591.600407792,
+            "lower_j": 147737.829,
+            "upper_j": 147847.571
+          },
+          "actual_generation_requests": 186,
+          "bridge_source_sha256": "d34f9413b375a9f7a2ad2f7b026308c45b95451061ce4cb3f10d997a6bfc81af",
+          "case_wall_s": 591.593561497,
+          "completed_request_wall_s": 584.998231845,
+          "completion_tokens": 17903,
+          "context_tokens": 16384,
+          "data_role": "FROZEN33_VALIDATION_AUTHORED_FAMILIES_NOT_OFFICIAL",
+          "gpu_j_per_success_lower": 8690.460529411765,
+          "gpu_j_per_success_upper": 8696.91594117647,
+          "independent_review_audit_id": "audit-54f8d3f5bc8c2af76b81",
+          "independent_review_sha256": "54f8d3f5bc8c2af76b8143eb3bfb295fde3d6d59434389be57c51f69297435b5",
+          "max_output_tokens": 4096,
+          "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "model_starts": 1,
+          "official_benchmark": false,
+          "paired_validation": {
+            "case_gained": 0,
+            "case_lost": 0,
+            "frozen_groups": 11,
+            "group_sign_flip_two_sided_p": 1.0,
+            "net_success_change": 0,
+            "nonzero_groups": 0,
+            "reference_experiment_id": "R534",
+            "scope": "Descriptive paired sensitivity on frozen authored families, not population superiority.",
+            "tasks": 33
+          },
+          "peak_device_vram_mib": 8098.5,
+          "planned_tasks": 33,
+          "policy_gate_passes": 29,
+          "profile_sha256": "cfb35c80c4caf2674f7b667a45a55cfeea670035e217f83c7066a4f9593fcd2c",
+          "quality_diagnostics": {
+            "evidence_or_postcondition_failure_cases": 2,
+            "final_contract_failure_cases": 3,
+            "incorrect_facts_cases": 12,
+            "invalid_action_cases": 0,
+            "invalid_action_events": 0,
+            "invalid_final_contract_cases": 3,
+            "missing_valid_final_cases": 3,
+            "parse_failed_cases": 1,
+            "parse_failed_rounds": 1,
+            "policy_violation_cases": 4,
+            "policy_violation_events": 40,
+            "rejected_tool_call_cases": 4,
+            "rejected_tool_call_events": 40,
+            "scope": "Replayed local33 simulated cases; categories overlap. Cases are not events, parser success is not semantic correctness, and blocked proposals are not executed production actions.",
+            "wrong_final_status_cases": 2,
+            "wrong_reason_code_cases": 2
+          },
+          "solved": 17,
+          "successful_tasks_per_s": 0.028735570845024577,
+          "task_limit_s": 1200,
+          "task_phase_s": 591.601262828,
+          "task_scope_passes": 33,
+          "tasks": 33,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0,
+          "tokens_s_completed_requests": 30.603511302139363,
+          "winner_qualified": false
+        },
+        "model": "Gemma4-12B QAT Q4_0 · microbatch 256"
       }
     ],
     "multi_agent_plan": {

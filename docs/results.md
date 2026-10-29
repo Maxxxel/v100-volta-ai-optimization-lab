@@ -531,6 +531,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R608](experiments/R608.md) | K02 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4_12b_qat |
 | [R610](experiments/R610.md) | K01 | ORIGINAL_AUDIT_HASH_VERIFIED | gemma4_12b_qat |
 | [R611](experiments/R611.md) | HBM07 | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder 9B bartowski Q6_K |
+| [R612](experiments/R612.md) | R04 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B QAT Q4_0 · microbatch 256 |
 
 
 ## Historical signed windows
