@@ -615,6 +615,11 @@ def main():
    for key,label in [('r531_r614','Nexus'),('r536_r616','OmniCoder'),('r534_r617','Gemma 4')]:
     v=repro['fixed_output_timings'][key];a=v['reference'];b=v['candidate'];perf.append([label,v['matched_requests'],a['decode_tokens'],f"{a['prefill_ms']/1000:.1f} / {b['prefill_ms']/1000:.1f}",f"{a['decode_ms']/1000:.1f} / {b['decode_ms']/1000:.1f}",b['reported_cached_tokens']])
    page+='\n## Timing with identical input and output tokens\n\n'+table(['Profile','Matched requests','Output tokens each','Prefill seconds off / on','Decode seconds off / on','Cached input tokens on'],perf)+'Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.\n'
+  pilot=next((e for e in es if e['id']=='R620'),None)
+  if pilot and pilot.get('aggregate_metrics',{}).get('repeatability_pilot'):
+   p=pilot['aggregate_metrics']['repeatability_pilot'];turns=p['turns'];assert len(turns)==3
+   page+='\n## OmniCoder two-session pilot\n\n'+table(['Fixed request','No-cache A/A across sessions','Cache-on variants different from baseline','Cache hits','First difference, zero-based'],[[v['turn'],'YES' if v['no_cache_equal_across_sessions'] else 'NO',v['cache_variants_differ_from_baseline'],v['cache_hit_turns'],v['first_difference_position_zero_based'] if v['first_difference_position_zero_based'] is not None else 'same'] for v in turns])
+   page+='[R620](experiments/R620.md) used identical input token IDs and wire order in two adjacent model sessions. The third request reproduced a cache-associated token divergence; this is not a whole-task safety evaluation or an identified kernel cause. The [R619](experiments/R619.md) preflight failure was traced separately to reordered JSON object keys and remains preserved.\n'
   put('reproducibility.md',page)
  put('lean-harness.md',lean_harness_report(es,s.get('lean_harness_review')))
  history=read('configuration-history.json');register=read('benchmark-register.json')

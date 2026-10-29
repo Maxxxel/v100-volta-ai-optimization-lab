@@ -1391,6 +1391,39 @@ def main():
             experiments[ident]['related_audit_ids']=[review_id,reference_id]
             experiments[ident]['aggregate_metrics']['abba_diagnostic']=projection({'turns':measured['turns'],'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':measured['energy_counter'],'historical_vs_fresh_no_cache':review['historical_vs_fresh_no_cache']})
             experiments[ident]['statements']['diagnosis_scope']=text(review['scope'])
+        if ident=='R620' and v.get('independent_review_path'):
+            rid=receipt(v['independent_review_path'],v['independent_review_sha256']);pid=receipt(v['prompt_render_review_path'],v['prompt_render_review_sha256']);refid=receipt(root/'staging/r536/AUDIT.json');screenid=receipt(root/'staging/r616/AUDIT.json')
+            if not audit or not rid or not pid or not refid or not screenid:raise ValueError('R620 evidence missing')
+            measured=load(locations[audit]);review=load(locations[rid]);prompts=load(locations[pid]);reference=load(locations[refid])
+            if review.get('source_audit_sha256')!=digest(locations[audit]) or prompts.get('source_audit_sha256')!=digest(locations[audit]) or measured.get('reference_audit_sha256')!=digest(locations[refid]) or measured.get('source_screen_audit_sha256')!=digest(locations[screenid]) or review.get('winner_qualified') is not False:raise ValueError('R620 source identity mismatch')
+            folders=list((root.parent/'research/mcp-workspace/r620-omni-aa-abba-token-pilot').glob('host-*'))
+            if len(folders)!=1:raise ValueError('R620 capture count differs')
+            folder=folders[0];pins=load(folder/'RAW_HASHES.json');raw=folder/'HTTP_RESULTS.jsonl';oldfolder=pathlib.Path(reference['raw_root']);oldpins=load(oldfolder/'RAW_HASHES.json');oldraw=oldfolder/'HTTP_RESULTS.jsonl'
+            if digest(raw)!=pins['HTTP_RESULTS.jsonl'] or digest(raw)!=review['raw_responses_sha256'] or digest(oldraw)!=oldpins['HTTP_RESULTS.jsonl'] or digest(oldraw)!=prompts['historical_responses_sha256']:raise ValueError('R620 raw capture changed')
+            captured=[json.loads(x) for x in raw.read_text().splitlines() if x];turns=[x for x in captured if x.get('kind')=='r620_request'];inputs=[x for x in captured if x.get('kind')=='r620_input'];historical=[x for x in (json.loads(t) for t in oldraw.read_text().splitlines() if t) if x.get('kind')=='agent_turn'];data=load(root/'staging/r620/PRIVATE_REQUESTS.json')['cases']
+            if len(turns)!=24 or len(inputs)!=24 or len(data)!=24:raise ValueError('R620 incomplete')
+            for x,y,c in zip(turns,inputs,data):
+                if x['id']!=y['id'] or x['id']!=c['id'] or json.dumps(x['request'],ensure_ascii=True,allow_nan=False)!=c['request_json'] or y['prompt_token_ids']!=c['expected_prompt_token_ids'] or x['reply']['__verbose']['generation_settings']['seed']!=1001:raise ValueError('R620 input evidence differs')
+            for i in range(3):
+                group=[turns[i+3*j] for j in range(8)];seq=[x['reply']['__verbose']['tokens'] for x in group];cached=[x['reply']['usage']['prompt_tokens_details']['cached_tokens'] for x in group];aa=[seq[j] for j in (0,3,5,6)];bb=[seq[j] for j in (1,2,4,7)]
+                def first(a,b):
+                    n=0
+                    for x,y in zip(a,b):
+                        if x!=y:break
+                        n+=1
+                    return n
+                expected={'turn':i+1,'no_cache_all_four_equal':all(x==aa[0] for x in aa),'no_cache_equal_across_sessions':aa[0]==aa[2],'cache_all_four_equal':all(x==bb[0] for x in bb),'every_cache_equals_baseline':all(x==aa[0] for x in bb),'cache_variants_differ_from_baseline':sum(x!=aa[0] for x in bb),'first_difference_positions_zero_based':[first(aa[0],x) if x!=aa[0] else None for x in bb],'cache_hit_turns':sum(cached[j]>0 for j in (1,2,4,7)),'output_lengths':[len(x) for x in seq]}
+                if review['turns'][i]!=expected:raise ValueError('R620 token outcome differs')
+                matching=[x for x in historical if x['request']==json.loads(data[i]['request_json'])]
+                if len(matching)!=1 or prompts['turns'][i]['all_eight_report_original_prompt']!=all(x['reply']['__verbose']['prompt']==matching[0]['reply']['__verbose']['prompt'] for x in group):raise ValueError('R620 reported prompt differs')
+            experiments[ident]['related_audit_ids']=[rid,pid,refid,screenid]
+            safe_turns=[]
+            for x in review['turns']:
+                positions=[v for v in x['first_difference_positions_zero_based'] if v is not None]
+                safe_turns.append({k:x[k] for k in ('turn','no_cache_equal_across_sessions','no_cache_all_four_equal','cache_variants_differ_from_baseline','cache_hit_turns')} | {'first_difference_position_zero_based':min(positions) if positions else None})
+            experiments[ident]['aggregate_metrics']['repeatability_pilot']={'turns':safe_turns,'task_phase_s':measured['task_phase_s'],'peak_device_vram_mib':measured['peak_device_vram_mib'],'energy_counter':projection(measured['energy_counter'])}
+            experiments[ident]['statements']['repeatability_limits']=text(review['limits'])
+            experiments[ident]['statements']['repeatability_decision']=text(v['decision'])
         if ident=='R619' and v.get('cpu_tokenizer_review'):
             item=v['cpu_tokenizer_review'];rid=receipt(item['path'],item['sha256']);cid=receipt(item['receipt_path'],item['receipt_sha256']);review=load(locations[rid]) if rid else {};proof=load(locations[cid]) if cid else {};private=pathlib.Path(item['private_output_path'])
             if not rid or not cid or digest(private)!=item['private_output_sha256'] or proof.get('private_output_sha256')!=digest(private) or proof.get('review_sha256')!=digest(locations[rid]) or proof.get('gpu_calls')!=0 or proof.get('model_generations')!=0:raise ValueError('R619 CPU tokenizer evidence missing')
@@ -1405,6 +1438,14 @@ def main():
             experiments[ident].setdefault('related_audit_ids',[]).extend([rid,cid])
             experiments[ident]['aggregate_metrics']['cpu_tokenizer_replay']={'turns':len(turns),'identical':sum(x['token_ids']==x['expected_token_ids'] for x in turns),'GPU_runs':0,'model_requests':0}
             experiments[ident]['statements']['tokenizer_scope']='CPU vocabulary-only replay of archived rendered prompts with pinned library; the failed fresh preflight was not captured, so its mismatch cause remains undetermined.'
+            if v.get('json_order_cpu_review'):
+                item=v['json_order_cpu_review'];oid=receipt(item['path'],item['sha256']);o=load(locations[oid]) if oid else {};folder=root/'staging/reproducibility-20261029/template-cpu';journal=folder/'CPU_TEMPLATE_JOURNAL.txt'
+                if not oid or digest(journal)!=o.get('raw_cpu_output_sha256') or digest(folder/'pilot.json')!=o.get('unordered_input_sha256') or digest(folder/'pilot-ordered.json')!=o.get('ordered_input_sha256'):raise ValueError('R619 order review provenance differs')
+                controls=load(journal)
+                if len(controls)!=2 or any(x['GPU_runs']!=0 or x['model_generations']!=0 or len(x['records'])!=3 for x in controls) or not all(not x['equal'] and x['actual_count']==x['expected_count']+8 and x['common_prefix_tokens']==61 for x in controls[0]['records']) or not all(x['equal'] for x in controls[1]['records']):raise ValueError('R619 order control differs')
+                experiments[ident]['related_audit_ids'].append(oid)
+                experiments[ident]['aggregate_metrics']['cpu_wire_order_control']={'inputs':3,'sorted_order_mismatches':3,'original_order_matches':3,'extra_tokens_per_prompt':8,'GPU_runs':0}
+                experiments[ident]['statements']['tokenizer_scope']='CPU source and pinned-server checks reproduced the mismatch when JSON keys were sorted; preserving original tool-schema key order restored the three historical input token sequences. No model generation was performed.'
         if ident=='R618' and v.get('cross_model_review'):
             item=v['cross_model_review'];review_id=receipt(item['path'],item['sha256']);review=load(locations[review_id]) if review_id else {};candidate=load(locations[audit]) if audit else {};related=[review_id] if review_id else []
             if not audit or review.get('winner_qualified') is not False or review.get('GPU_runs')!=0:raise ValueError('R618 comparison evidence missing')

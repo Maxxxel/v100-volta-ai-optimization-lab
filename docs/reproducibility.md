@@ -34,3 +34,13 @@ Source review SHA-256: `319375870744b2c6a3d35ab109e8ad3ba2e81b1af0b60ca444a665c7
 | Gemma 4 | 134 | 5658 | 169.6 / 80.8 | 79.8 / 79.6 | 176680 |
 
 Historical server timings, not kernel counters or a balanced causal experiment. Input/output-identical subsets are selected retrospectively; they do not establish task quality, safety or a universal speedup.
+
+## OmniCoder two-session pilot
+
+| Fixed request | No-cache A/A across sessions | Cache-on variants different from baseline | Cache hits | First difference, zero-based |
+|---|---|---|---|---|
+| 1 | YES | 0 | 2 | same |
+| 2 | YES | 0 | 4 | same |
+| 3 | YES | 4 | 4 | 0 |
+
+[R620](experiments/R620.md) used identical input token IDs and wire order in two adjacent model sessions. The third request reproduced a cache-associated token divergence; this is not a whole-task safety evaluation or an identified kernel cause. The [R619](experiments/R619.md) preflight failure was traced separately to reordered JSON object keys and remains preserved.
