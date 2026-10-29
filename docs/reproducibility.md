@@ -152,3 +152,30 @@ HumanEval/54 reproduced the historical F16-pass/Q8-fail pair; HumanEval/95 faile
 | 3 | YES | 4 | 4 | 0 |
 
 [R620](experiments/R620.md) used identical input token IDs and wire order in two adjacent model sessions. The third request reproduced a cache-associated token divergence; this is not a whole-task safety evaluation or an identified kernel cause. In pinned llama.cpp source `097cf33d9499b1eade67d51e16d7c75427e7b267`, `server-context.cpp` reuses the common prompt prefix and evaluates the suffix; its server README warns that cache-enabled prompt processing can use a different batch path and produce non-bit-identical logits. R620 reused 1,675 of 1,790 prompt tokens on this request. This is consistent with a cache-path numerical difference, but does not prove its exact cause or the R616 policy regression. The [R619](experiments/R619.md) preflight failure was traced separately to reordered JSON object keys and remains preserved.
+
+## Cache and recurrent-state source-path review
+
+CPU-only inspection of the pinned source and hash-verified server logs; no model requests or GPU runs.
+
+| Run | Requests with cache_prompt=true | Checkpoint restores logged | Full-prompt fallbacks logged | Partial removal unsupported | Host RAM cache disabled |
+|---|---|---|---|---|---|
+| [R614](experiments/R614.md) | 155 | 57 | 32 | 1 | 1 |
+| [R616](experiments/R616.md) | 156 | 40 | 33 | 1 | 1 |
+
+The pinned [`server-context.cpp` source](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp) reuses a matching prefix and stores target, draft and speculative state in context checkpoints. It explicitly notes recurrent state cannot be rewound from the final state alone (source SHA-256 `6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7`). If a usable checkpoint is unavailable, it falls back to full prompt re-processing.
+
+| Code path | Pinned source |
+|---|---|
+| Common-prefix match | [line 3600](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3600) |
+| Prefix chunk reuse | [line 3653](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3653) |
+| Target state checkpoint | [line 2584](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L2584) |
+| Draft state checkpoint | [line 2585](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L2585) |
+| Speculative state checkpoint | [line 2587](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L2587) |
+| Recurrent-state rewind limitation | [line 2596](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L2596) |
+| Target checkpoint restore | [line 3760](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3760) |
+| Draft checkpoint restore | [line 3761](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3761) |
+| Full-prompt fallback | [line 3781](https://github.com/ggml-org/llama.cpp/blob/097cf33d9499b1eade67d51e16d7c75427e7b267/tools/server/server-context.cpp#L3781) |
+
+The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.
+
+**Interpretation:** this is a plausible cache/recompute numerical-path mechanism, not evidence of corrupted GDN state. Aggregate counts are not mapped to the divergent request; logits, per-layer state and kernel traces were not captured. The origin of the R614/R616 task-level policy differences therefore remains **UNRESOLVED**, and neither candidate is qualified.

@@ -59,6 +59,54 @@ def agent_task_pairs(root):
   }
  return out
 
+def cache_state_source_path(root):
+ root=Path(root);src=root/'staging/r31/extra/source/tools/server/server-context.cpp'
+ if not src.is_file():return None
+ commit='097cf33d9499b1eade67d51e16d7c75427e7b267';expected='6b5fdf2b246017b074c239e8f0b93f9d6952b4715501269627fec7a11b00bab7'
+ assert digest(src)==expected
+ lines=src.read_text(errors='replace').splitlines()
+ needles={
+  'common_prefix':'n_past = slot.prompt.tokens.get_common_prefix(input_tokens);',
+  'prefix_chunk_reuse':'reusing chunk with size',
+  'checkpoint_target_state':'cur.update_tgt(ctx_tgt, slot.id, LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY);',
+  'checkpoint_draft_state':'cur.update_dft(ctx_dft, slot.id, LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY);',
+  'checkpoint_speculative_state':'common_speculative_get_state(spec.get(), slot.id, cur.data_spec);',
+  'recurrent_state_rewind_limit':'a recurrent state cannot be rewound',
+  'checkpoint_restore':'it->load_tgt(ctx_tgt, slot.id, LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY)',
+  'checkpoint_restore_draft':'it->load_dft(ctx_dft, slot.id, LLAMA_STATE_SEQ_FLAGS_PARTIAL_ONLY)',
+  'full_prompt_fallback':'forcing full prompt re-processing due to lack of cache data',
+ }
+ source_lines={key:next((i for i,line in enumerate(lines,1) if token in line),None) for key,token in needles.items()}
+ assert all(source_lines.values()) and digest(src)==expected
+ runs={}
+ for rid in ('r614','r616'):
+  audit_path=root/'staging'/rid/'AUDIT.json';audit=json.loads(audit_path.read_text());raw=Path(audit['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text());log=raw/'server.log';rows=[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines() if x];turns=[x for x in rows if x.get('kind')=='agent_turn']
+  assert digest(log)==pins['server.log'] and digest(raw/'HTTP_RESULTS.jsonl')==pins['HTTP_RESULTS.jsonl'] and digest(raw/'profile.json')==pins['profile.json']
+  cache_flags=collections.Counter(str(x.get('request',{}).get('cache_prompt','MISSING')) for x in turns)
+  assert cache_flags=={'True':len(turns)}
+  text=log.read_text(errors='replace')
+  runs[rid.upper()]={
+   'audit_sha256':digest(audit_path),'server_log_sha256':pins['server.log'],'profile_sha256':pins['profile.json'],'requests_with_cache_prompt_true':len(turns),
+   'log_counts':{
+    'restored_context_checkpoint':text.count('restored context checkpoint'),
+    'forced_full_prompt_reprocessing':text.count('forcing full prompt re-processing due to lack of cache data'),
+    'partial_sequence_removal_unsupported':text.count('context does not support partial sequence removal'),
+    'host_ram_prompt_cache_disabled':text.count('prompt cache is disabled'),
+   },
+  }
+ return {
+  'kind':'PINNED_SOURCE_AND_HASHED_LOG_RECONCILIATION','source_commit':commit,'source_file_sha256':expected,'source_lines':source_lines,'runs':runs,
+  'source_interpretation':[
+   'The request-level cache_prompt path finds a matching prompt prefix; the server can reuse cached chunks.',
+   'Context checkpoints save target state (and the source also saves draft/speculative state); the source comment says recurrent state cannot be rewound from only the final state.',
+   'When a usable checkpoint is unavailable for a hybrid/recurrent context, this code path forces full prompt re-processing.',
+   'The log message that the host RAM prompt cache is disabled is a separate cache layer; it does not mean the per-request cache_prompt flag was off.',
+  ],
+  'causal_disposition':'OBSERVED_CACHE_ASSOCIATED_TOKEN_DIVERGENCE; INTERNAL_STATE_OR_NUMERICAL_CAUSE_UNRESOLVED',
+  'limits':'Aggregate log counts are not mapped to the differing task/request. No logits, per-layer state, or kernel trace was captured. Source describes intended checkpoint/fallback handling; it does not prove the selected path was correct for each divergent response, nor prove GDN corruption or policy-failure causality.',
+  'GPU_runs':0,'model_requests':0,
+ }
+
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'
  if not report.is_file():return None
@@ -95,4 +143,4 @@ def build(root):
    assert review['matched_requests']==len(selected) and review['reference_audit_sha256']==data['profiles'][a]['audit_sha256'] and review['candidate_audit_sha256']==data['profiles'][b]['audit_sha256'] and review['reference']==stats(0) and review['candidate']==stats(1)
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'cache_state_source_path':cache_state_source_path(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run.'}
