@@ -204,8 +204,11 @@ A CPU-only pairing of retained R536/R616 request captures maps the sole case tha
 | 2 | 1637 | YES | YES | 0 / 1543 | 39 / 39 | NONE |
 | 3 | 1790 | YES | NO | 0 / 1675 | 558 / 166 | 0 |
 
+
+Server-task alignment: 154/154 baseline and 156/156 candidate turns match captured input/completion token counts. On the divergent third turn, server input evaluation was 1790/1790 vs 115/1790 tokens; candidate reported 1675 cached tokens. Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline evaluated all 1,790 input tokens; candidate reported reusing 1,675 and evaluated 115. This verifies the per-request compute path, not whole-task cache causality or an internal state/numerical mechanism.
+
 On turn 3, the same 1,790-token prompt had a first-token difference: uncached baseline `cache_n=0`, candidate `cache_n=1675`. That response was shorter (166 vs558 tokens), but the candidate then used two additional model turns; total captured output for this case was 744 vs636 tokens. The task-time difference therefore cannot be explained as a simple decode-throughput gain. This is cache-associated divergence in the one lost task, but sessions were not contemporaneous and this exact prompt has no no-cache A/A repeat. It does not establish that caching caused the task/policy outcome or identify the internal numerical/state path.
 
 The `host RAM cache disabled` log is distinct from request-level `cache_prompt=true`.
 
-**Interpretation:** the R616 lost-task divergence is mapped to a cache-hit response, consistent with a cache/recompute numerical-path effect; corrupted GDN state is not established. Exact checkpoint restore/fallback events remain unmapped to this request; logits, per-layer state and kernel traces were not captured. The R614/R616 task-level policy causes remain **UNRESOLVED**, and neither candidate is qualified.
+**Interpretation:** the R616 lost-task divergence is mapped to a cache-hit response, consistent with a cache/recompute numerical-path effect; corrupted GDN state is not established. Per-request server input evaluation is now mapped, but exact checkpoint restore/fallback attribution, logits, per-layer state and kernel traces remain unmeasured. The R614/R616 task-level policy causes remain **UNRESOLVED**, and neither candidate is qualified.

@@ -104,7 +104,7 @@ def summarize_server_prompt_path(rows,server_log,selected_request_id):
  """Pair server task timing rows with captured requests by order and exact token counts."""
  turns=sorted((x for x in rows if x.get('kind')=='agent_turn'),key=lambda x:x['start_ns'])
  warmups=sorted((x for x in rows if x.get('kind')=='warmup'),key=lambda x:x['start_ns'])
- assert len(warmups)==1
+ assert len(warmups)>=1
  task_order=[]; task_data={}
  for line in Path(server_log).read_text(errors='replace').splitlines():
   m=re.search(r'task\s+(\d+)\s+\|\s+processing task, is_child = 0',line)
@@ -113,7 +113,7 @@ def summarize_server_prompt_path(rows,server_log,selected_request_id):
    task_data[tid]={'lines':[]};task_order.append(tid)
   m=re.search(r'task\s+(\d+)\s+\|',line)
   if m and m.group(1) in task_data:task_data[m.group(1)]['lines'].append(line)
- assert len(task_order)==len(turns)+1
+ assert len(task_order)==len(turns)+len(warmups)
  def parse_task(tid):
   out={}
   for line in task_data[tid]['lines']:
@@ -124,7 +124,7 @@ def summarize_server_prompt_path(rows,server_log,selected_request_id):
    m=re.search(r'eval time\s*=\s*([0-9.]+)\s*ms\s*/\s*(\d+)\s+tokens',line)
    if m:out.update(decode_ms=float(m.group(1)),completion_tokens=int(m.group(2)))
   return out
- tasks=[parse_task(tid) for tid in task_order[1:]] # first server task is the captured warmup
+ tasks=[parse_task(tid) for tid in task_order[len(warmups):]] # warmups precede scored turns
  assert len(tasks)==len(turns)
  for turn,task in zip(turns,tasks):
   usage=turn['reply']['usage']
@@ -260,6 +260,16 @@ def cache_state_source_path(root):
  assert base['launch']['native_request_options']['cache_prompt'] is False
  assert candidate['launch']['native_request_options']['cache_prompt'] is True
  task_divergence=lost_task_first_divergence(base['checks'],candidate['checks'],base['rows'],candidate['rows'])
+ lost_case=next(x['id'] for x in base['checks'] if x['task_success'] and not next(y for y in candidate['checks'] if y['id']==x['id'])['task_success'])
+ baseline_identity=next(x for x in base['rows'] if x.get('kind')=='input_identity' and x.get('case_id')==lost_case and x.get('turn')==2)
+ candidate_identity=next(x for x in candidate['rows'] if x.get('kind')=='input_identity' and x.get('case_id')==lost_case and x.get('turn')==2)
+ baseline_server_path=summarize_server_prompt_path(base['rows'],Path(base['audit']['raw_root'])/'server.log',baseline_identity['id'])
+ candidate_server_path=summarize_server_prompt_path(candidate['rows'],Path(candidate['audit']['raw_root'])/'server.log',candidate_identity['id'])
+ assert baseline_server_path['server_input_eval_tokens']==1790 and baseline_server_path['selected_engine_cache_n']==0
+ assert candidate_server_path['server_input_eval_tokens']==115 and candidate_server_path['selected_engine_cache_n']==1675
+ assert baseline_server_path['requests']==154 and candidate_server_path['requests']==156
+ task_divergence['server_execution_path']={'baseline':baseline_server_path,'candidate':candidate_server_path,
+  'interpretation':'Server task logs align one-to-one with every captured scored request by exact input and completion token counts. On the lost task’s divergent third turn, baseline evaluated all 1,790 input tokens; candidate reported reusing 1,675 and evaluated 115. This verifies the per-request compute path, not whole-task cache causality or an internal state/numerical mechanism.'}
  # The R614 policy-pass loss is independently tied to a repeated request-level
  # cache divergence by the balanced, two-session R621 diagnostic.
  baseline_audit=json.loads((root/'staging/r531/AUDIT.json').read_text())
