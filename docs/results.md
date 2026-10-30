@@ -550,6 +550,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R638](experiments/R638.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B QAT Q4_0 · temperature 0.0 |
 | [R644](experiments/R644.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B · IQ3_S · MTP3 |
 | [R645](experiments/R645.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B · IQ3_S · MTP OFF |
+| [R646](experiments/R646.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows

@@ -93,6 +93,17 @@ The 33 reserved cases belong to 11 authored families. These are historical whole
 
 Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).
 
+## Second frozen 8+8 comparison · non-official
+
+OmniCoder R599 baseline and Qwen3.8 MTP R646 used the same questions and mock-tool schemas, with different complete model profiles and historical sessions. These researcher-exposed, self-authored cases are supplementary; they do not enter official scores or establish population equivalence.
+
+| Category | Omni R599 | Qwen R646 | Request seconds · Omni / Qwen | GPU J/success · Omni / Qwen |
+|---|---|---|---|---|
+| Coding | 8/8 | 8/8 | 18.12 / 17.96 | 565–640 / 535–549 |
+| Tools | 7/8 | 7/8 | 7.35 / 17.28 | 216–299 / 584–596 |
+
+All 16 task outcomes matched; both profiles failed the same tool case. R599 baseline requests were interleaved with another arm; GPU counter brackets can include intervening activity. Failed requests remain in energy costs; startup and CPU/system energy are excluded. [R599](experiments/R599.md) · [R646](experiments/R646.md).
+
 ## Frozen 8+8 profile validation · non-official
 
 These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across seven profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.

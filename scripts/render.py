@@ -467,6 +467,17 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
    t=x['metrics']['task_success'];p=x['metrics']['policy_gate_pass'];rows.append([x['left']+' vs '+x['right'],f"{t['left_only']} / {t['right_only']}",f"{p['left_only']} / {p['right_only']}",f"{t['families_left_ahead']} / {t['families_right_ahead']} / {t['families_tied']}",f"{t['family_sign_flip_two_sided_p']:.3f}"])
   text+=table(['Pair','Task pass only left / right','Policy pass only left / right','Families left / right / tied','Family sign-flip p'],rows)
   text+='Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).\n\n'
+ fresh=(reproducibility_review or {}).get('r646_fresh_comparison')
+ if fresh:
+  assert fresh['official_benchmark'] is False and fresh['matched_tasks']==16
+  text+='## Second frozen 8+8 comparison · non-official\n\n'
+  text+='OmniCoder R599 baseline and Qwen3.8 MTP R646 used the same questions and mock-tool schemas, with different complete model profiles and historical sessions. These researcher-exposed, self-authored cases are supplementary; they do not enter official scores or establish population equivalence.\n\n'
+  rows=[]
+  for cat in fresh['categories']:
+   left,right=cat['R599'],cat['R646']
+   rows.append([cat['category'].title(),f"{left['successes']}/8",f"{right['successes']}/8",f"{left['request_wall_s']:.2f} / {right['request_wall_s']:.2f}",f"{left['gpu_j_per_success_lower']:.0f}–{left['gpu_j_per_success_upper']:.0f} / {right['gpu_j_per_success_lower']:.0f}–{right['gpu_j_per_success_upper']:.0f}"])
+  text+=table(['Category','Omni R599','Qwen R646','Request seconds · Omni / Qwen','GPU J/success · Omni / Qwen'],rows)
+  text+='All 16 task outcomes matched; both profiles failed the same tool case. R599 baseline requests were interleaved with another arm; GPU counter brackets can include intervening activity. Failed requests remain in energy costs; startup and CPU/system energy are excluded. [R599](experiments/R599.md) · [R646](experiments/R646.md).\n\n'
  if validation16:
   assert validation16['official_benchmark'] is False and len(validation16['rows']) == 7
   text+='## Frozen 8+8 profile validation · non-official\n\n'

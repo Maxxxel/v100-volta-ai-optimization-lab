@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1894,
+    "ledger_events": 1895,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 546
+    "sprint_records": 547
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -3530,6 +3530,82 @@
       "tool_delta_review_sha256": "f6d2bc17fe305f5577b955bd9f3ce1a3f83766bd0e955f4047ead8f6567bb3a0",
       "winner_qualified": false
     },
+    "r646_fresh_comparison": {
+      "audit_sha256": {
+        "R599": "5f6d11cb9c91abb81ebf0bf74f0e490aef96e856667718033b83c888df1969f0",
+        "R646": "700edab97ff84a667bcd25d547cb55d03c3ff826027756927212d6b1d6742663"
+      },
+      "categories": [
+        {
+          "R599": {
+            "completion_tokens": 1356,
+            "counter_groups": 5,
+            "gpu_energy_lower_j": 4519.558,
+            "gpu_energy_upper_j": 5122.913,
+            "gpu_j_per_success_lower": 564.94475,
+            "gpu_j_per_success_upper": 640.364125,
+            "request_wall_s": 18.123520126,
+            "successes": 8,
+            "total": 8
+          },
+          "R646": {
+            "completion_tokens": 1001,
+            "counter_groups": 1,
+            "gpu_energy_lower_j": 4279.084,
+            "gpu_energy_upper_j": 4392.876,
+            "gpu_j_per_success_lower": 534.8855,
+            "gpu_j_per_success_upper": 549.1095,
+            "request_wall_s": 17.964616691,
+            "successes": 8,
+            "total": 8
+          },
+          "both_fail": 0,
+          "both_pass": 8,
+          "category": "coding",
+          "omni_only_pass": 0,
+          "qwen_only_pass": 0
+        },
+        {
+          "R599": {
+            "completion_tokens": 351,
+            "counter_groups": 5,
+            "gpu_energy_lower_j": 1513.836,
+            "gpu_energy_upper_j": 2092.838,
+            "gpu_j_per_success_lower": 216.26228571428572,
+            "gpu_j_per_success_upper": 298.97685714285717,
+            "request_wall_s": 7.347402447,
+            "successes": 7,
+            "total": 8
+          },
+          "R646": {
+            "completion_tokens": 339,
+            "counter_groups": 1,
+            "gpu_energy_lower_j": 4089.142,
+            "gpu_energy_upper_j": 4169.263,
+            "gpu_j_per_success_lower": 584.1631428571428,
+            "gpu_j_per_success_upper": 595.609,
+            "request_wall_s": 17.279591012,
+            "successes": 7,
+            "total": 8
+          },
+          "both_fail": 1,
+          "both_pass": 7,
+          "category": "tools",
+          "omni_only_pass": 0,
+          "qwen_only_pass": 0
+        }
+      ],
+      "comparison_sha256": "19fddfa1cf823966106ef3765eefe502a3b9e6ff750731c14b93c4e7b2a0a1d3",
+      "experiment_id": "R646",
+      "independent_review_sha256": {
+        "R599": "c5c1620ecda784559b15d20459893ff93f6b6f21e8c8106cd2635e1694eb0de6",
+        "R646": "2ea2a38a0f3484f17fbb730ecb4afe47c0f8c1fa8d98706928cc58ad3ef5bbaf"
+      },
+      "matched_tasks": 16,
+      "official_benchmark": false,
+      "reference_experiment_id": "R599",
+      "scope": "Same frozen 8+8 questions and tool schemas, but different model profiles, templates and historical sessions. Omni A cases interleaved with B; counter brackets may include intervening activity. Researcher-exposed, self-authored correlated cases, not official, blinded, independent population sample, causal model comparison or champion. GPU board energy includes failed-task costs; excludes startup and CPU/system energy."
+    },
     "reserved_agent_comparison": {
       "dataset_id": "jarvis-lean-holdout-20261027-v1",
       "families": 11,
@@ -4005,11 +4081,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "cfa075acc50751f26e7c728ee597ec7cf65e0d4828f9250c11f4309099269619",
+    "BENCHMARK_REFERENCES.json": "d49bbbb466543d9c1e88a2f09a185e96619727747c5466a6435393276519af95",
     "BENCHMARK_REGISTER.json": "7441a8b0528d16230548c9b1b2f8ace0624d846d486fa2f9050eab76a494bdd3",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "13d81002a16910c624d006034a31fa3a05e20d4d55ee674ab06a392203c11670",
+    "O2_EXPERIMENTS.jsonl": "80c95f145b6bff19b35a11db3caa920ffad293e8e5d30a79b1e9c6897156ecd1",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }
