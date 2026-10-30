@@ -19,6 +19,17 @@ These decisions apply only to the linked, measured profiles and workloads. A fai
 | [S03](factors/S03.md) | Qwen3.8 | PARTIAL | [R618](experiments/R618.md), [R625](experiments/R625.md) | MTP ON/OFF compared on 33 exposed agent tasks: 27/33 successes and 31/33 policy gates in each; 8/150 matched outputs differed. Separate sessions, no independent quality or safety equivalence; no Champion promotion. |
 
 
+### Hardware-specific exclusions
+
+These physical constraints apply to each listed model on this installation. They are technical assessments, not GPU benchmarks. The exclusions cover the named variants only.
+
+| Factor | Variant | Models | Decision and reopening condition | Evidence |
+|---|---|---|---|---|
+| [R16](factors/R16.md) | multi-node placement | OmniCoder, Nexus, Gemma 4, Qwen3.5, Qwen3.8 | Host and container expose one NUMA node; single-node operation remains available. Reopen: At least two physically exposed NUMA nodes. | [audit-00f780e69d8e14e1c6a9](audits/audit-00f780e69d8e14e1c6a9.md), [audit-562eaeb901f0c1b39e99](audits/audit-562eaeb901f0c1b39e99.md), [audit-bc43e8b613cc983bfb4a](audits/audit-bc43e8b613cc983bfb4a.md) |
+| [HBM20](factors/HBM20.md) | custom HBM logic | OmniCoder, Nexus, Gemma 4, Qwen3.5, Qwen3.8 | The current V100 has no replaceable custom HBM logic; software caches remain separate. Reopen: A compatible different physical memory architecture. | [audit-562eaeb901f0c1b39e99](audits/audit-562eaeb901f0c1b39e99.md), [audit-bc43e8b613cc983bfb4a](audits/audit-bc43e8b613cc983bfb4a.md) |
+| [HBM21](factors/HBM21.md) | high-bandwidth flash stack | OmniCoder, Nexus, Gemma 4, Qwen3.5, Qwen3.8 | This accelerator has no high-bandwidth flash stack; PCIe SSD is not equivalent. Reopen: Actual compatible high-bandwidth flash hardware and transfer path. | [audit-562eaeb901f0c1b39e99](audits/audit-562eaeb901f0c1b39e99.md), [audit-bc43e8b613cc983bfb4a](audits/audit-bc43e8b613cc983bfb4a.md) |
+
+
 ### Controlled policy follow-up
 
 | Factor | Model | Scoped disposition | Evidence | Reason and limits |
@@ -50,7 +61,7 @@ For every one of the 162 factors, the five columns link indexed audits with an e
 | [R13](factors/R13.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [R14](factors/R14.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [R15](factors/R15.md) | PARTIAL / linked evidence (3): [R363](experiments/R363.md), [R169](experiments/R169.md), [R168](experiments/R168.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
-| [R16](factors/R16.md) | PARTIAL / linked evidence (1): [R375](experiments/R375.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [R16](factors/R16.md) | NOT APPLICABLE · multi-node placement | NOT APPLICABLE · multi-node placement | NOT APPLICABLE · multi-node placement | NOT APPLICABLE · multi-node placement | NOT APPLICABLE · multi-node placement |
 | [R17](factors/R17.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [R18](factors/R18.md) | PARTIAL / linked evidence (1): [R363](experiments/R363.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [R19](factors/R19.md) | PARTIAL / linked evidence (7): [R359](experiments/R359.md), [R339](experiments/R339.md), [R338](experiments/R338.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (3): [R431](experiments/R431.md), [R430](experiments/R430.md), [R429](experiments/R429.md) | NOT YET VERIFIED IN INDEX | PARTIAL / linked evidence (3): [R434](experiments/R434.md), [R433](experiments/R433.md), [R432](experiments/R432.md) |
@@ -160,8 +171,8 @@ For every one of the 162 factors, the five columns link indexed audits with an e
 | [HBM17](factors/HBM17.md) | PARTIAL / linked evidence (3): [R369](experiments/R369.md), [R236](experiments/R236.md), [R235](experiments/R235.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [HBM18](factors/HBM18.md) | PARTIAL / linked evidence (4): [R381](experiments/R381.md), [R379](experiments/R379.md), [R376](experiments/R376.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [HBM19](factors/HBM19.md) | PARTIAL / linked evidence (6): [R372](experiments/R372.md), [R153](experiments/R153.md), [R152](experiments/R152.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
-| [HBM20](factors/HBM20.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
-| [HBM21](factors/HBM21.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM20](factors/HBM20.md) | NOT APPLICABLE · custom HBM logic | NOT APPLICABLE · custom HBM logic | NOT APPLICABLE · custom HBM logic | NOT APPLICABLE · custom HBM logic | NOT APPLICABLE · custom HBM logic |
+| [HBM21](factors/HBM21.md) | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack |
 | [HBM22](factors/HBM22.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [HBM23](factors/HBM23.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [HBM24](factors/HBM24.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |

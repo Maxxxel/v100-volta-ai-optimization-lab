@@ -2,6 +2,18 @@
 import re
 MODELS=('OmniCoder','Nexus','Gemma 4','Qwen3.5','Qwen3.8')
 PATTERNS=(('OmniCoder','omnicoder'),('Nexus','nexus'),('Gemma 4','gemma4'),('Qwen3.5','qwen35'),('Qwen3.8','qwen38'))
+def reviewed_hardware_dispositions(factors,audits):
+ """Physical exclusions are scoped to a variant, not the whole factor family."""
+ byid={x['id']:x for x in factors};known={x['id'] for x in audits};out={}
+ for ident,variant,reason,reopen in (
+  ('R16','multi-node placement','Host and container expose one NUMA node; single-node operation remains available.','At least two physically exposed NUMA nodes.'),
+  ('HBM20','custom HBM logic','The current V100 has no replaceable custom HBM logic; software caches remain separate.','A compatible different physical memory architecture.'),
+  ('HBM21','high-bandwidth flash stack','This accelerator has no high-bandwidth flash stack; PCIe SSD is not equivalent.','Actual compatible high-bandwidth flash hardware and transfer path.')):
+  f=byid[ident];evidence=f.get('evidence_ids') or []
+  if f.get('status')!='NOT_APPLICABLE' or not evidence or not all(x in known for x in evidence):
+   raise ValueError('Missing reviewed hardware disposition evidence: '+ident)
+  out[ident]={'variant':variant,'status':'NOT_APPLICABLE','reason':reason,'reopen':reopen,'evidence_ids':evidence,'models':MODELS,'gpu_test':False}
+ return out
 def build(factors,experiments):
  ids={f['id'] for f in factors};out={f:{m:[] for m in MODELS} for f in ids}
  for e in experiments:

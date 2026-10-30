@@ -1,5 +1,5 @@
 import unittest
-from model_factor_evidence import build, reviewed_dispositions
+from model_factor_evidence import build, reviewed_dispositions, reviewed_hardware_dispositions
 from render import cache_policy_matrix_evidence
 class ModelFactorEvidence(unittest.TestCase):
  def test_exact_model_and_audit_required(self):
@@ -7,6 +7,14 @@ class ModelFactorEvidence(unittest.TestCase):
   self.assertEqual(out['R22']['Gemma 4'],['R1']);self.assertEqual(out['R22']['Qwen3.8'],['R2']);self.assertEqual(out['R22']['Qwen3.5'],[]);self.assertEqual(out['K02']['Gemma 4'],[]);self.assertEqual(out['K02']['Nexus'],['R5'])
  def test_reviewed_dispositions_require_matching_audits(self):
   with self.assertRaises(ValueError):reviewed_dispositions([])
+ def test_hardware_exclusions_require_existing_audit_and_scope(self):
+  factors=[{'id':x,'status':'NOT_APPLICABLE','evidence_ids':['audit-1']} for x in ('R16','HBM20','HBM21')]
+  out=reviewed_hardware_dispositions(factors,[{'id':'audit-1'}])
+  self.assertEqual(len(out),3)
+  self.assertTrue(all(len(v['models'])==5 and not v['gpu_test'] and v['reopen'] for v in out.values()))
+  with self.assertRaises(ValueError):reviewed_hardware_dispositions(factors,[])
+  factors[0]['status']='PARTIAL'
+  with self.assertRaises(ValueError):reviewed_hardware_dispositions(factors,[{'id':'audit-1'}])
  def test_cache_followup_requires_matching_tokens_and_policy(self):
   import copy, json
   from pathlib import Path
