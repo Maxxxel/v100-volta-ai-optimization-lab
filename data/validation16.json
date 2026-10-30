@@ -311,8 +311,17 @@
       "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
       "model": "Qwen3.8-27B · IQ3_S · MTP OFF",
       "paired_with_r644": {
+        "energy_review_sha256": "43b824f77dd142a7f08ee66c67ec9c61260269137f10a0d937542d7e0d94ee75",
         "identical_output_token_sequences": 14,
         "identical_requests": 16,
+        "matched_output_gpu_j_per_success_off": [
+          1119.9563636363637,
+          1141.1332727272727
+        ],
+        "matched_output_gpu_j_per_success_on": [
+          684.3748181818181,
+          703.794
+        ],
         "matched_output_on_faster_count": 14,
         "matched_output_request_seconds_off": 46.253217473,
         "matched_output_request_seconds_on": 31.254611524,

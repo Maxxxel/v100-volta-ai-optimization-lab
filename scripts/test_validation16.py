@@ -68,6 +68,13 @@ def fixture(root):
                 'gpu_runs':0, 'matched_cases':14, 'excluded_cases':2,
                 'on_total_request_s':14.0, 'off_total_request_s':28.0, 'individual_cases_on_faster':14,
                 'items':[{'id':str(i), 'on_s':1.0, 'off_s':2.0} for i in range(14)]})
+            meter={'successful_tasks':11, 'gpu_energy_j_lower':110.0, 'gpu_energy_j_upper':121.0,
+                   'gpu_j_per_success_lower':10.0, 'gpu_j_per_success_upper':11.0}
+            dump(folder / 'EXACT_OUTPUT_ENERGY_REVIEW.json', {'status':'NVML_MATCHED_OUTPUT_SUBSET_UNBALANCED',
+                'timing_review_sha256':validation16.digest(folder / 'EXACT_OUTPUT_TIMING_REVIEW.json'),
+                'audits':{'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
+                'gpu_runs':0, 'matched_tasks':14, 'failures_included_in_energy':3,
+                'profiles':{'R644':meter,'R645':meter}})
 
 
 class Validation16Projection(unittest.TestCase):
@@ -114,6 +121,16 @@ class Validation16Projection(unittest.TestCase):
             p = Path(td) / 'staging/r644/TOOL_FAILURE_REVIEW.json'
             review = json.loads(p.read_text())
             review['raw_sha256'] = '0' * 64
+            dump(p, review)
+            with self.assertRaises(AssertionError):
+                validation16.build(td)
+
+    def test_energy_per_success_must_include_measured_failures(self):
+        with tempfile.TemporaryDirectory() as td:
+            fixture(td)
+            p = Path(td) / 'staging/r645/EXACT_OUTPUT_ENERGY_REVIEW.json'
+            review = json.loads(p.read_text())
+            review['profiles']['R644']['successful_tasks'] = 14
             dump(p, review)
             with self.assertRaises(AssertionError):
                 validation16.build(td)

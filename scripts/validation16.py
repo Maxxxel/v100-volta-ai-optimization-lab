@@ -138,6 +138,18 @@ def build(root):
             assert abs(sum(x['on_s'] for x in timing['items']) - timing['on_total_request_s']) < 1e-9
             assert abs(sum(x['off_s'] for x in timing['items']) - timing['off_total_request_s']) < 1e-9
             assert sum(x['on_s'] < x['off_s'] for x in timing['items']) == timing['individual_cases_on_faster']
+            energy_path = folder / 'EXACT_OUTPUT_ENERGY_REVIEW.json'
+            energy = load(energy_path)
+            assert energy['status'] == 'NVML_MATCHED_OUTPUT_SUBSET_UNBALANCED'
+            assert energy['timing_review_sha256'] == digest(timing_path) and energy['audits'] == pair['audit_sha256']
+            assert energy['gpu_runs'] == 0 and energy['matched_tasks'] == timing['matched_cases']
+            assert energy['failures_included_in_energy'] == 3
+            for profile in ('R644', 'R645'):
+                meter = energy['profiles'][profile]
+                assert meter['successful_tasks'] + energy['failures_included_in_energy'] == energy['matched_tasks']
+                assert 0 <= meter['gpu_energy_j_lower'] <= meter['gpu_energy_j_upper']
+                assert abs(meter['gpu_j_per_success_lower'] * meter['successful_tasks'] - meter['gpu_energy_j_lower']) < 1e-7
+                assert abs(meter['gpu_j_per_success_upper'] * meter['successful_tasks'] - meter['gpu_energy_j_upper']) < 1e-7
             rows[-1]['paired_with_r644'] = {'identical_requests': 16,
                 'identical_output_token_sequences': pair['identical_output_token_sequences'],
                 'task_outcome_agreements': 16, 'review_sha256': digest(folder / 'PAIRED_REVIEW.json'),
@@ -145,7 +157,10 @@ def build(root):
                 'matched_output_request_seconds_on': timing['on_total_request_s'],
                 'matched_output_request_seconds_off': timing['off_total_request_s'],
                 'matched_output_on_faster_count': timing['individual_cases_on_faster'],
-                'timing_review_sha256': digest(timing_path)}
+                'timing_review_sha256': digest(timing_path),
+                'matched_output_gpu_j_per_success_on': [energy['profiles']['R644']['gpu_j_per_success_lower'], energy['profiles']['R644']['gpu_j_per_success_upper']],
+                'matched_output_gpu_j_per_success_off': [energy['profiles']['R645']['gpu_j_per_success_lower'], energy['profiles']['R645']['gpu_j_per_success_upper']],
+                'energy_review_sha256': digest(energy_path)}
     assert len(rows) == len(PROFILES)
     return {'schema': 1, 'benchmark_id': 'frozen-jarvis-validation16-v1',
             'official_benchmark': False, 'purpose': 'SUPPLEMENTARY_PROFILE_VALIDATION_ONLY',

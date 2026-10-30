@@ -488,6 +488,8 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
    pair=off['paired_with_r644']
    text+=f"R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); {pair['identical_output_token_sequences']}/16 output-token sequences matched, including all {pair['tool_output_token_matches']}/8 tool tasks. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.\n\n"
    text+=f"For the {pair['identical_output_token_sequences']} retrospectively selected requests with identical output tokens, request wall time was {pair['matched_output_request_seconds_on']:.2f}s ON versus {pair['matched_output_request_seconds_off']:.2f}s OFF; ON was faster for {pair['matched_output_on_faster_count']}/{pair['identical_output_token_sequences']}. Input token IDs were not independently verified. This is not a kernel-throughput measurement or independent performance qualification.\n\n"
+   on_j=pair['matched_output_gpu_j_per_success_on'];off_j=pair['matched_output_gpu_j_per_success_off']
+   text+=f"For the same 14 requests, GPU-board energy was {on_j[0]:.0f}–{on_j[1]:.0f} J/success ON and {off_j[0]:.0f}–{off_j[1]:.0f} J/success OFF, including the energy of three failures and dividing by 11 successes. Counter bounds include within-group setup; startup and CPU/system energy are excluded.\n\n"
  if experiments:
   by_id={e.get('id'):e for e in experiments}
   post=[]

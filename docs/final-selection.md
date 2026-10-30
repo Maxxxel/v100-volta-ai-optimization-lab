@@ -115,6 +115,8 @@ R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); 14/16 output-toke
 
 For the 14 retrospectively selected requests with identical output tokens, request wall time was 31.25s ON versus 46.25s OFF; ON was faster for 14/14. Input token IDs were not independently verified. This is not a kernel-throughput measurement or independent performance qualification.
 
+For the same 14 requests, GPU-board energy was 684–704 J/success ON and 1120–1141 J/success OFF, including the energy of three failures and dividing by 11 successes. Counter bounds include within-group setup; startup and CPU/system energy are excluded.
+
 ## Post-freeze evidence through R630
 
 The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.
