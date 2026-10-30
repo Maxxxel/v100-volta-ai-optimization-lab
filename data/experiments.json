@@ -28953,5 +28953,26 @@
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "captured_cases": 15,
+      "planned_cases": 33,
+      "solved": 10,
+      "tasks": 15,
+      "technical_preflight_cases": 1
+    },
+    "audit_id": "audit-916c39356f68ce474744",
+    "date": "2026-10-30T03:56:06.046594+00:00",
+    "evidence_status": "PARTIAL_HARDWARE_FAULT_CPU_REPLAY_ONLY",
+    "factor_ids": [],
+    "id": "R652",
+    "model": "Gemma 4 12B QAT Q4",
+    "reference_A0": null,
+    "statements": {
+      "decision": "PARTIAL HARDWARE FAULT; NOT QUALIFIED",
+      "scope": "Uncorrectable GPU ECC interrupted the run. Independent CPU replay verifies only captured scoring, not GPU correctness. GPU energy is NOT MEASURED; no ranking or extrapolation."
+    },
+    "winner_qualified": false
   }
 ]

@@ -332,5 +332,12 @@ class ReservedAgentPairing(unittest.TestCase):
   for ident in ('R649','R650','R651'):
    self.assertTrue(byid[ident]['model']);self.assertTrue(byid[ident]['date']);self.assertEqual(byid[ident]['factor_ids'],[])
    p=byid[ident]['aggregate_metrics']['confirmation_agent_profile'];self.assertEqual(p['model'],byid[ident]['model']);self.assertEqual(p['solved'],byid[ident]['aggregate_metrics']['solved']);self.assertTrue(p['audit_sha256'].startswith(byid[ident]['audit_id'].removeprefix('audit-')))
+ def test_faulted_capture_is_archived_but_not_official(self):
+  import os
+  source=os.environ.get('V100_RESEARCH_SOURCE')
+  if not source:self.skipTest('Local research source not configured')
+  data=Path(__file__).resolve().parents[1]/'data';experiments=json.loads((data/'experiments.json').read_text());history=json.loads((data/'configuration-history.json').read_text())
+  row=next(x for x in experiments if x['id']=='R652');self.assertEqual(row['evidence_status'],'PARTIAL_HARDWARE_FAULT_CPU_REPLAY_ONLY');self.assertFalse(row['winner_qualified']);self.assertEqual(row['aggregate_metrics']['captured_cases'],15);self.assertIn('NOT MEASURED',row['statements']['scope'])
+  self.assertFalse(any(r.get('experiment_id')=='R652' and r.get('official_eligible') for r in history['runs']))
 
 if __name__=='__main__':unittest.main()

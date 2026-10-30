@@ -556,6 +556,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R649](experiments/R649.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder 9B bartowski Q6_K |
 | [R650](experiments/R650.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B IQ3_S integrated MTP3 |
 | [R651](experiments/R651.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus 9B Q6_K thinking OFF/T0 |
+| [R652](experiments/R652.md) |  | PARTIAL_HARDWARE_FAULT_CPU_REPLAY_ONLY | Gemma 4 12B QAT Q4 |
 
 
 ## Historical signed windows

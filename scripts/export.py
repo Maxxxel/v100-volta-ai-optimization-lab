@@ -1945,6 +1945,14 @@ def main():
             experiments[ident].update(model=text(matches[0]['model']),date=text(metadata['at_utc']))
             experiments[ident]['aggregate_metrics']['confirmation_agent_profile']=projection(matches[0])
             # A profile comparison is not evidence that a new optimization factor was exercised.
+        if audit and v.get('status')=='PARTIAL_HARDWARE_FAULT_NO_QUALIFICATION':
+            if ident!='R652':raise ValueError('Unreviewed hardware-fault recovery')
+            stage=root/'staging/r652';meta=load(locations[audit]);plan=load(stage/'CAMPAIGN_PLAN.json');replay=load(stage/'CPU_REPLAY_PLAN.json')
+            if (meta.get('experiment_id')!=ident or meta.get('status')!=v['status'] or meta.get('official_benchmark') is not False or meta.get('winner_qualified') is not False or meta.get('GPU_runs_added')!=0 or meta.get('model_requests_added')!=0 or meta.get('GPU_fault_evidence_sha256')!=digest(stage/'GPU_FAULT_EVIDENCE.json') or meta.get('CPU_replay_stdout_sha256')!=digest(stage/'r652-agent18-replay.stdout') or meta.get('CPU_replay_receipt_sha256')!=digest(stage/'r652-agent18-replay.receipt.json') or meta.get('replay_plan_sha256')!=digest(stage/'CPU_REPLAY_PLAN.json') or replay.get('full_capture') is not False or plan.get('model')!='Gemma 4 12B QAT Q4'):
+                raise ValueError('Hardware-fault recovery provenance differs')
+            experiments[ident].update(model=text(plan['model']),date=text(meta['at_utc']),evidence_status='PARTIAL_HARDWARE_FAULT_CPU_REPLAY_ONLY',winner_qualified=False)
+            experiments[ident]['statements']={'decision':'PARTIAL HARDWARE FAULT; NOT QUALIFIED','scope':'Uncorrectable GPU ECC interrupted the run. Independent CPU replay verifies only captured scoring, not GPU correctness. GPU energy is NOT MEASURED; no ranking or extrapolation.'}
+            experiments[ident]['aggregate_metrics'].update(captured_cases=meta['completed_cases'],planned_cases=meta['planned_cases'],technical_preflight_cases=meta['technical_preflight_cases'])
         native_key=next((key for key in ('native_lean_reserved_validation33','native_validation33','native_agent18_development') if catalog.get(audit,{}).get('aggregate_metrics',{}).get(key)), 'native_agent18_development')
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
             experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)

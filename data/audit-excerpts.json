@@ -183698,6 +183698,19 @@
     }
   },
   {
+    "aggregate_metrics": {},
+    "excerpt_is_not_original": true,
+    "id": "audit-916c39356f68ce474744",
+    "original_bytes": 1228,
+    "original_filename": "research-metadata.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "916c39356f68ce4747447aaa9e76825afa27965b1addad94e680073f3fe67365",
+    "statements": {
+      "scope": "Partial 15/33 capture interrupted by GPU hardware ECC; no quality ranking, extrapolation, speedup or completed benchmark claim. Scoring is CPU replay of existing responses only."
+    }
+  },
+  {
     "aggregate_metrics": {
       "models": {
         "omnicoder2": {
