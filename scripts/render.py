@@ -968,6 +968,14 @@ def main():
    page+=table(['Session','Temperature','Tasks passed','Policy passed','Denied calls','Output tokens','Case wall s'],rows)
    e=r640['energy_counter'];page+=f"Independent isolated CPU replay reproduced all eight outcomes. No production tool was executed. T0 remains **NOT QUALIFIED**; these selected, correlated cases cannot establish an overall regression rate. TASK phase: {r640['task_phase_s']:.3f} s; peak VRAM: {r640['peak_vram_mib']:,.1f} MiB; GPU case-window energy: {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J, including between-case time. Audit SHA-256: `{r640['audit_sha256']}`; replay review SHA-256: `{r640['review_sha256']}`. [Verified aggregates](assets/r640-policy-abba.json).\n"
    put('assets/r640-policy-abba.json',json.dumps(r640,ensure_ascii=False,indent=2))
+  r641=repro.get('r641_policy_abba')
+  if r641:
+   page+='\n## Nexus prefix-cache policy case · R641\n\n'
+   page+='One previously exposed case, selected after a historical policy failure, was tested in four fresh sessions (cache off / on / on / off). Independent isolated CPU replay confirmed all outcomes.\n\n'
+   rows=[[x['arm'], 'on' if x['arm'].startswith('B') else 'off', x['task_successes'], x['policy_passes'], x['denied_calls'], x['completion_tokens'], f"{x['case_wall_s']:.2f}"] for x in r641['arms']]
+   page+=table(['Session','Prefix cache','Task passed','Policy passed','Denied calls','Output tokens','Case wall s'],rows)
+   e=r641['energy_counter'];page+=f"On the fourth request identical prompt token IDs led to a different first output token in both off/on comparisons; cache hits were recorded. Each condition repeated identically. The selected case supports a reproducible cache-associated difference, but not its internal mechanism or its frequency. Cache remains **NOT QUALIFIED**; no production tools were executed. TASK {r641['task_phase_s']:.3f} s; peak VRAM {r641['peak_vram_mib']:,.1f} MiB; GPU group energy {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J including between-case setup. Audit `{r641['audit_sha256']}`; independent replay `{r641['review_sha256']}`; token review `{r641['token_review_sha256']}`. [Verified aggregates](assets/r641-policy-abba.json).\n"
+   put('assets/r641-policy-abba.json',json.dumps(r641,ensure_ascii=False,indent=2))
   r637=repro.get('r637_balanced_mtp')
   if r637:
    rows=[]

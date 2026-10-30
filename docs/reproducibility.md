@@ -342,6 +342,19 @@ Two previously exposed cases were selected because R638 showed new policy failur
 
 Independent isolated CPU replay reproduced all eight outcomes. No production tool was executed. T0 remains **NOT QUALIFIED**; these selected, correlated cases cannot establish an overall regression rate. TASK phase: 257.830 s; peak VRAM: 8,254.5 MiB; GPU case-window energy: 58,695.1–58,793.2 J, including between-case time. Audit SHA-256: `041b3c3de4caedec77f3cbd26989eb56249923b325b8bc46f620e0d9322ece85`; replay review SHA-256: `28fad6274aab4396024b8e0118ab0281cc53d9838ee859faba78ee575bf6dca3`. [Verified aggregates](assets/r640-policy-abba.json).
 
+## Nexus prefix-cache policy case · R641
+
+One previously exposed case, selected after a historical policy failure, was tested in four fresh sessions (cache off / on / on / off). Independent isolated CPU replay confirmed all outcomes.
+
+| Session | Prefix cache | Task passed | Policy passed | Denied calls | Output tokens | Case wall s |
+|---|---|---|---|---|---|---|
+| A1 | off | 0 | 1 | 0 | 512 | 9.57 |
+| B1 | on | 0 | 0 | 1 | 377 | 6.28 |
+| B2 | on | 0 | 0 | 1 | 377 | 6.25 |
+| A2 | off | 0 | 1 | 0 | 512 | 9.18 |
+
+On the fourth request identical prompt token IDs led to a different first output token in both off/on comparisons; cache hits were recorded. Each condition repeated identically. The selected case supports a reproducible cache-associated difference, but not its internal mechanism or its frequency. Cache remains **NOT QUALIFIED**; no production tools were executed. TASK 58.078 s; peak VRAM 7,354.5 MiB; GPU group energy 9,908.1–10,018.3 J including between-case setup. Audit `1c75ef0acb72ceaa237624cd06778182f07698f249ea307f50c9e8e83b96a8b1`; independent replay `4b3b9e39bd0a0956c6964036c05f99e1cbc1111b923905d9fa82bde8f82cf047`; token review `3e76e63bf3d627645992d32180569e9e6e9ba053e2fe7d2926d1ea3a602a811b`. [Verified aggregates](assets/r641-policy-abba.json).
+
 ## Balanced MTP token diagnostic · R637
 
 Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.

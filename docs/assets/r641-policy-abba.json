@@ -1,0 +1,320 @@
+{
+  "arms": [
+    {
+      "arm": "A1",
+      "case_wall_s": 9.571216035,
+      "completion_tokens": 512,
+      "denied_calls": 0,
+      "model_requests": 4,
+      "policy_passes": 1,
+      "task_successes": 0
+    },
+    {
+      "arm": "B1",
+      "case_wall_s": 6.278152685,
+      "completion_tokens": 377,
+      "denied_calls": 1,
+      "model_requests": 6,
+      "policy_passes": 0,
+      "task_successes": 0
+    },
+    {
+      "arm": "B2",
+      "case_wall_s": 6.247299464,
+      "completion_tokens": 377,
+      "denied_calls": 1,
+      "model_requests": 6,
+      "policy_passes": 0,
+      "task_successes": 0
+    },
+    {
+      "arm": "A2",
+      "case_wall_s": 9.176869565,
+      "completion_tokens": 512,
+      "denied_calls": 0,
+      "model_requests": 4,
+      "policy_passes": 1,
+      "task_successes": 0
+    }
+  ],
+  "audit_sha256": "1c75ef0acb72ceaa237624cd06778182f07698f249ea307f50c9e8e83b96a8b1",
+  "broker_audit_sha256": "a88ec82877db9b8d68df0606318fd5d2f98cc95e5669277793a34e84b6d5f333",
+  "cached_prompt_tokens": {
+    "A1": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "A2": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "B1": [
+      0,
+      1414,
+      1583,
+      1711,
+      1849,
+      1945
+    ],
+    "B2": [
+      0,
+      1414,
+      1583,
+      1711,
+      1849,
+      1945
+    ]
+  },
+  "comparisons": [
+    {
+      "arms": [
+        "A1",
+        "A2"
+      ],
+      "total_turns": [
+        4,
+        4
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            64,
+            64
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            368,
+            368
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 4
+        }
+      ]
+    },
+    {
+      "arms": [
+        "B1",
+        "B2"
+      ],
+      "total_turns": [
+        6,
+        6
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            64,
+            64
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            65,
+            65
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 4
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 5
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            128,
+            128
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 6
+        }
+      ]
+    },
+    {
+      "arms": [
+        "A1",
+        "B1"
+      ],
+      "total_turns": [
+        4,
+        6
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            64,
+            64
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        },
+        {
+          "first_output_token_difference_0based": 0,
+          "output_lengths": [
+            368,
+            65
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 4
+        }
+      ]
+    },
+    {
+      "arms": [
+        "A2",
+        "B2"
+      ],
+      "total_turns": [
+        4,
+        6
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            64,
+            64
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            40,
+            40
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        },
+        {
+          "first_output_token_difference_0based": 0,
+          "output_lengths": [
+            368,
+            65
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 4
+        }
+      ]
+    }
+  ],
+  "energy_counter": {
+    "complete_request_s": 31.273537749,
+    "group_window_s": 45.715013943,
+    "groups": 1,
+    "included_between_request_setup_s": 14.441476194,
+    "lower_j": 9908.121,
+    "max_query_duration_s": 0.024416133,
+    "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+    "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+    "tasks": 4,
+    "upper_j": 10018.328
+  },
+  "peak_vram_mib": 7354.5,
+  "review_sha256": "4b3b9e39bd0a0956c6964036c05f99e1cbc1111b923905d9fa82bde8f82cf047",
+  "scope": "Four serial A/B/B/A sessions on one previously exposed selected case. Captured simulator reports require independent CPU replay; no broad safety equivalence or Champion claim.",
+  "task_phase_s": 58.078013776,
+  "token_review_sha256": "3e76e63bf3d627645992d32180569e9e6e9ba053e2fe7d2926d1ea3a602a811b",
+  "winner_qualified": false
+}
