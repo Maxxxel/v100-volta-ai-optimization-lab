@@ -2,6 +2,18 @@
 import re
 MODELS=('OmniCoder','Nexus','Gemma 4','Qwen3.5','Qwen3.8')
 PATTERNS=(('OmniCoder','omnicoder'),('Nexus','nexus'),('Gemma 4','gemma4'),('Qwen3.5','qwen35'),('Qwen3.8','qwen38'))
+def reviewed_architecture_exclusions(factors,audits):
+ """Preserve only source-reviewed exclusions for the exact named variants."""
+ byid={x['id']:x for x in factors};known={x['id'] for x in audits};out={}
+ for ident,variant,models,fragment,reason,reopen in (
+  ('BMT12','MoE expert residency',('OmniCoder',),'Omni9B is dense','Dense OmniCoder has no routed experts to prefetch.','A separately admitted MoE checkpoint with compatible engine and memory budget.'),
+  ('HBM24','qwen4exp QSA operator',('OmniCoder','Qwen3.5','Qwen3.8'),'not qwen4exp','The reviewed current qwen35-architecture artifacts do not contain the qwen4exp-specific path.','An admitted qwen4exp model and compatible loader, operator and memory budget.')):
+  f=byid[ident];evidence=f.get('evidence_ids') or []
+  if f.get('status')!='NOT_APPLICABLE' or fragment not in (f.get('decision') or '') or not evidence or not all(x in known for x in evidence):raise ValueError('Missing reviewed architecture disposition evidence: '+ident)
+  if ident=='HBM24' and {x.get('model') for x in f.get('per_model_original_coverage',[])}!={'omnicoder2','qwen35','qwen38'}:raise ValueError('Missing reviewed qwen4exp model scope')
+  out[ident]={'variant':variant,'models':models,'reason':reason,'reopen':reopen,'evidence_ids':evidence,'status':'NOT_APPLICABLE','gpu_test':False}
+ return out
+
 def reviewed_hardware_dispositions(factors,audits):
  """Physical exclusions are scoped to a variant, not the whole factor family."""
  byid={x['id']:x for x in factors};known={x['id'] for x in audits};out={}

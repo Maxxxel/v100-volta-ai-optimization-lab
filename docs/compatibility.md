@@ -31,6 +31,16 @@ These physical constraints apply to each listed model on this installation. They
 | [HBM21](factors/HBM21.md) | high-bandwidth flash stack | OmniCoder, Nexus, Gemma 4, Qwen3.5, Qwen3.8 | This accelerator has no high-bandwidth flash stack; PCIe SSD is not equivalent. Reopen: Actual compatible high-bandwidth flash hardware and transfer path. | [audit-562eaeb901f0c1b39e99](audits/audit-562eaeb901f0c1b39e99.md), [audit-bc43e8b613cc983bfb4a](audits/audit-bc43e8b613cc983bfb4a.md) |
 
 
+### Architecture-specific exclusions
+
+These source-reviewed exclusions apply only to the listed model families and named variants; they are not GPU measurements.
+
+| Factor | Variant | Models | Decision and reopening condition | Evidence |
+|---|---|---|---|---|
+| [BMT12](factors/BMT12.md) | MoE expert residency | OmniCoder | Dense OmniCoder has no routed experts to prefetch. Reopen: A separately admitted MoE checkpoint with compatible engine and memory budget. | [audit-562eaeb901f0c1b39e99](audits/audit-562eaeb901f0c1b39e99.md), [audit-bc43e8b613cc983bfb4a](audits/audit-bc43e8b613cc983bfb4a.md) |
+| [HBM24](factors/HBM24.md) | qwen4exp QSA operator | OmniCoder, Qwen3.5, Qwen3.8 | The reviewed current qwen35-architecture artifacts do not contain the qwen4exp-specific path. Reopen: An admitted qwen4exp model and compatible loader, operator and memory budget. | [audit-562eaeb901f0c1b39e99](audits/audit-562eaeb901f0c1b39e99.md), [audit-bc43e8b613cc983bfb4a](audits/audit-bc43e8b613cc983bfb4a.md) |
+
+
 ### Controlled policy follow-up
 
 | Factor | Model | Scoped disposition | Evidence | Reason and limits |
@@ -176,7 +186,7 @@ For every one of the 162 factors, the five columns link indexed audits with an e
 | [HBM21](factors/HBM21.md) | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack | NOT APPLICABLE · high-bandwidth flash stack |
 | [HBM22](factors/HBM22.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [HBM23](factors/HBM23.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
-| [HBM24](factors/HBM24.md) | PARTIAL / linked evidence (1): [R382](experiments/R382.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [HBM24](factors/HBM24.md) | NOT APPLICABLE · qwen4exp QSA operator | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT APPLICABLE · qwen4exp QSA operator | NOT APPLICABLE · qwen4exp QSA operator |
 | [BMT01](factors/BMT01.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT02](factors/BMT02.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT03](factors/BMT03.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
@@ -188,7 +198,7 @@ For every one of the 162 factors, the five columns link indexed audits with an e
 | [BMT09](factors/BMT09.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT10](factors/BMT10.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT11](factors/BMT11.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
-| [BMT12](factors/BMT12.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
+| [BMT12](factors/BMT12.md) | NOT APPLICABLE · MoE expert residency | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT13](factors/BMT13.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT14](factors/BMT14.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |
 | [BMT15](factors/BMT15.md) | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX | NOT YET VERIFIED IN INDEX |

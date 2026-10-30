@@ -1,5 +1,5 @@
 import unittest
-from model_factor_evidence import build, reviewed_dispositions, reviewed_hardware_dispositions
+from model_factor_evidence import build, reviewed_dispositions, reviewed_hardware_dispositions, reviewed_architecture_exclusions
 from render import cache_policy_matrix_evidence
 class ModelFactorEvidence(unittest.TestCase):
  def test_exact_model_and_audit_required(self):
@@ -23,6 +23,14 @@ class ModelFactorEvidence(unittest.TestCase):
   with self.assertRaises(ValueError):reviewed_hardware_dispositions(factors,[])
   factors[0]['status']='PARTIAL'
   with self.assertRaises(ValueError):reviewed_hardware_dispositions(factors,[{'id':'audit-1'}])
+ def test_architecture_exclusions_are_model_scoped_and_audit_bound(self):
+  import json
+  from pathlib import Path
+  p=Path(__file__).resolve().parents[1]/'data';f=json.loads((p/'factors.json').read_text());a=json.loads((p/'audit-excerpts.json').read_text())
+  result=reviewed_architecture_exclusions(f,a)
+  self.assertEqual(result['BMT12']['models'],('OmniCoder',));self.assertNotIn('Gemma 4',result['HBM24']['models'])
+  self.assertFalse(result['BMT12']['gpu_test']);self.assertTrue(result['BMT12']['reopen'])
+  with self.assertRaises(ValueError):reviewed_architecture_exclusions(f,[])
  def test_cache_followup_requires_matching_tokens_and_policy(self):
   import copy, json
   from pathlib import Path
