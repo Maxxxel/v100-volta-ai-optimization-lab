@@ -1168,6 +1168,59 @@ def r642_policy_abba(root):
  telemetry=[json.loads(x) for x in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()];assert counter_energy_bounds(telemetry,cases_all,[x['id'] for x in cases_all])==audit['energy_counter']
  return {'arms':computed,'task_phase_s':audit['task_phase_s'],'peak_vram_mib':audit['peak_device_vram_mib'],'energy_counter':audit['energy_counter'],'audit_sha256':digest(file),'review_sha256':digest(stage/'INDEPENDENT_REVIEW.json'),'broker_audit_sha256':audit['broker_audit_sha256'],'scope':audit['scope'],'winner_qualified':False,'token_review_sha256':digest(stage/'TOKEN_REVIEW.json'),'cached_prompt_tokens':token['cached_prompt_tokens'],'comparisons':token['comparisons']}
 
+def r643_mtp_agent_abba(root):
+ """Recompute the eight-case ABBA metrics from immutable captures and replay."""
+ import re
+ from leaderboard import counter_energy_bounds
+ root=Path(root);stage=root/'staging/r643';file=stage/'AUDIT.json'
+ if not file.exists():return None
+ a=json.loads(file.read_text());r=json.loads((stage/'INDEPENDENT_REVIEW.json').read_text());analysis=json.loads((stage/'ANALYSIS.json').read_text())
+ assert a['experiment_id']=='R643' and not a['winner_qualified'] and not a['official_benchmark'] and a['tool_executions']==0
+ assert r['status']=='INDEPENDENT_CPU_REPLAY_PASSED' and r['audit_sha256']==digest(file) and analysis['audit_sha256']==digest(file) and analysis['independent_review_sha256']==digest(stage/'INDEPENDENT_REVIEW.json')
+ assert r['replay_sha256']==digest(stage/'independent_replay.py') and r['adapter_sha256']==digest(stage/'task_adapter_candidate.py') and r['result']['gpu_runs']==0 and r['result']['model_requests']==0 and not r['result']['production_tools_connected']
+ assert digest(root/'staging/r618/AUDIT.json')==a['reference_audit_sha256']
+ raw=Path(a['raw_root']);pins=json.loads((raw/'RAW_HASHES.json').read_text());gpu=json.loads((raw/'AUDIT.json').read_text())
+ for name in ('AUDIT.json','HTTP_RESULTS.jsonl','GPU_TELEMETRY.jsonl','profile.json','CONTRACT.json','LAUNCH.json'):assert digest(raw/name)==pins[name]
+ assert pins['AUDIT.json']==a['broker_audit_sha256'] and pins['HTTP_RESULTS.jsonl']==a['raw_response_sha256'] and pins['GPU_TELEMETRY.jsonl']==a['raw_telemetry_sha256']
+ assert gpu['measurement_valid'] and gpu['GPU_execution_observed'] and gpu['model_starts']==4 and gpu['tool_executions']==0 and gpu['peak_device_vram_mib']==a['peak_device_vram_mib'] and r['input_sha256']['captured-profile.json']==pins['profile.json']
+ labels=('A1','B1','B2','A2');data={};allcases=[];computed=[]
+ pattern=re.compile(r'spec common_specu:\s+statistics\s+draft-mtp:.*?#gen drafts\s*=\s*(\d+),\s*#acc drafts\s*=\s*(\d+),\s*#gen tokens\s*=\s*(\d+),\s*#acc tokens\s*=\s*(\d+),\s*#mean acc len\s*=\s*([\d.]+)')
+ for label,check in zip(labels,r['result']['arms']):
+  name='r643-'+label+'-HTTP_RESULTS.jsonl';assert digest(raw/name)==pins[name]==r['input_sha256'][label+'.jsonl'] and check['arm']==label and check['cases']==8 and check['complete'] and check['all_scores_and_effects_reproduced']
+  launch='r643-'+label+'-LAUNCH.json';log='r643-'+label+'-server.log';assert digest(raw/launch)==pins[launch] and digest(raw/log)==pins[log];argv=json.loads((raw/launch).read_text())['argv'];assert argv[argv.index('--spec-type')+1]==('none' if label.startswith('A') else 'draft-mtp')
+  rows=[json.loads(x) for x in (raw/name).read_text().splitlines() if x];cases=[x for x in rows if x.get('kind')=='agent_case'];turns={x['id']:x for x in rows if x.get('kind')=='agent_turn'};inputs={x['id']:x for x in rows if x.get('kind')=='input_identity'};assert len(cases)==8 and turns.keys()==inputs.keys()
+  for t in turns.values():
+   settings=t['reply']['__verbose']['generation_settings'];assert settings['seed']==1001 and settings['temperature']==0 and t['request']['cache_prompt'] is False
+  for case in cases:entry=dict(case);entry['id']=label+'-'+case['id'];allcases.append(entry)
+  data[label]=(cases,turns,inputs)
+  computed.append({'arm':label,'task_successes':sum(x['reported_result']['task_success'] for x in cases),'policy_passes':sum(x['reported_result']['policy_gate_pass'] for x in cases),'denied_calls':sum(x['reported_result']['rejected_calls'] for x in cases),'model_requests':len(turns),'completion_tokens':sum(x['reply']['usage']['completion_tokens'] for x in turns.values()),'case_wall_s':sum(x['e2e_s'] for x in cases)})
+  matches=list(pattern.finditer((raw/log).read_text(errors='replace')));observed=analysis['server_reported_mtp_counters'][label]
+  if label.startswith('A'):assert not matches and observed['status']=='NOT_MEASURED'
+  else:
+   assert matches and observed['status']=='OBSERVED_SERVER_COUNTERS' and observed['log_records']==len(matches)
+   counts=matches[-1].groups();assert tuple(int(x) for x in counts[:4])==tuple(observed[k] for k in ('generated_drafts','accepted_drafts','generated_draft_tokens','accepted_draft_tokens')) and float(counts[4])==observed['mean_accepted_length_reported']
+   assert observed['accepted_draft_token_fraction']==int(counts[3])/int(counts[2])
+ assert computed==a['arms']
+ telemetry=[json.loads(x) for x in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()];assert counter_energy_bounds(telemetry,allcases,[x['id'] for x in allcases])==a['energy_counter']
+ for arm in computed:
+  label=arm['arm'];e=counter_energy_bounds(telemetry,allcases,[x['id'] for x in allcases if x['id'].startswith(label+'-')]);success=arm['task_successes'];e['gpu_j_per_success_lower']=e['lower_j']/success if success else None;e['gpu_j_per_success_upper']=e['upper_j']/success if success else None;assert e==analysis['per_arm_energy'][label]
+ assert [(x['left'],x['right']) for x in analysis['paired']]==[('A1','A2'),('B1','B2'),('A1','B1'),('A2','B2')]
+ for pair in analysis['paired']:
+  ac,at,ai=data[pair['left']];bc,bt,bi=data[pair['right']];assert [x['id'] for x in ac]==[x['id'] for x in bc];loss=gain=ploss=pgain=0
+  for x,y in zip(ac,bc):
+   u,v=x['reported_result'],y['reported_result'];loss+=u['task_success'] and not v['task_success'];gain+=v['task_success'] and not u['task_success'];ploss+=u['policy_gate_pass'] and not v['policy_gate_pass'];pgain+=v['policy_gate_pass'] and not u['policy_gate_pass']
+  matched=equal=0;first=[]
+  for k in sorted(at.keys() & bt.keys()):
+   x,y=at[k],bt[k]
+   if x['request']!=y['request'] or ai[k]['prompt_token_ids']!=bi[k]['prompt_token_ids']:continue
+   matched+=1;xx=x['reply']['__verbose']['tokens'];yy=y['reply']['__verbose']['tokens'];d=next((i for i,(u,v) in enumerate(zip(xx,yy)) if u!=v),None)
+   if d is None and len(xx)!=len(yy):d=min(len(xx),len(yy))
+   if d is None:equal+=1
+   else:first.append(d)
+  assert (loss,gain,ploss,pgain,matched,equal,sorted(first))==tuple(pair[k] for k in ('task_losses','task_gains','policy_losses','policy_gains','matched_requests_and_prompt_ids','identical_output_sequences','first_differences_0based'))
+ off=computed[0]['case_wall_s']+computed[3]['case_wall_s'];on=computed[1]['case_wall_s']+computed[2]['case_wall_s']
+ return {'arms':computed,'pairs':analysis['paired'],'per_arm_energy':analysis['per_arm_energy'],'mtp_counters':analysis['server_reported_mtp_counters'],'off_total_case_s':off,'on_total_case_s':on,'observed_case_reduction_pct':(off-on)/off*100,'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'audit_sha256':digest(file),'review_sha256':digest(stage/'INDEPENDENT_REVIEW.json'),'analysis_sha256':digest(stage/'ANALYSIS.json'),'scope':analysis['scope'],'winner_qualified':False}
+
 def reserved_family_sign_flip(group_differences):
  """Exact paired family sign enumeration; not an independence/equivalence claim."""
  import itertools
@@ -1240,4 +1293,4 @@ def build(root):
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
  on_aa=qwen_native_aa(root,'R618','R635');off_aa=qwen_native_aa(root,'R625','R636')
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'r639_policy_replay':r639_policy_replay(root),'r640_policy_abba':r640_policy_abba(root),'r641_policy_abba':r641_policy_abba(root),'r642_policy_abba':r642_policy_abba(root),'reserved_agent_comparison':reserved_agent_comparison(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'r639_policy_replay':r639_policy_replay(root),'r640_policy_abba':r640_policy_abba(root),'r641_policy_abba':r641_policy_abba(root),'r642_policy_abba':r642_policy_abba(root),'reserved_agent_comparison':reserved_agent_comparison(root),'r643_mtp_agent_abba':r643_mtp_agent_abba(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}

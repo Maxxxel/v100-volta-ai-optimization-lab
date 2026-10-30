@@ -995,6 +995,16 @@ def main():
    page+=table(['Session','Prefix cache','Task passed','Policy passed','Denied calls','Output tokens','Case wall s'],rows)
    e=r642['energy_counter'];page+=f"Both cache-on sessions produced two denied calls; both cache-off sessions passed. In both matched comparisons, identical prompt token IDs on the third request led to a different first output token; actual cached tokens were recorded. Same-condition repeats matched. This selected case demonstrates a repeatable cache-associated difference, not its internal mechanism or frequency. Cache remains **NOT QUALIFIED**. No production tool executed. TASK {r642['task_phase_s']:.3f} s; peak VRAM {r642['peak_vram_mib']:,.1f} MiB; GPU group energy {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J including between-case setup. Audit `{r642['audit_sha256']}`; replay `{r642['review_sha256']}`; token review `{r642['token_review_sha256']}`. [Verified aggregates](assets/r642-policy-abba.json).\n"
    put('assets/r642-policy-abba.json',json.dumps(r642,ensure_ascii=False,indent=2))
+  r643=repro.get('r643_mtp_agent_abba')
+  if r643:
+   page+='\n## Qwen3.8 MTP agent pilot · R643\n\n'
+   page+='Four fresh sessions in OFF / ON / ON / OFF order used the same eight previously exposed cases, seed 1001 and temperature 0. These are internal development cases, not an official benchmark or unseen holdout.\n\n'
+   rows=[]
+   for x in r643['arms']:
+    e=r643['per_arm_energy'][x['arm']];rows.append([x['arm'],'on' if x['arm'].startswith('B') else 'off',f"{x['task_successes']}/8",f"{x['policy_passes']}/8",x['completion_tokens'],f"{x['case_wall_s']:.2f}",f"{e['gpu_j_per_success_lower']:,.0f}–{e['gpu_j_per_success_upper']:,.0f}" if e.get('gpu_j_per_success_lower') is not None else 'NOT MEASURED'])
+   page+=table(['Session','MTP','Tasks passed','Policy passed','Output tokens','Case wall s','GPU J / success'],rows)
+   b=r643['mtp_counters']['B1'];pair=r643['pairs'][2];page+=f"Total case time was {r643['off_total_case_s']:.2f} s off versus {r643['on_total_case_s']:.2f} s on ({r643['observed_case_reduction_pct']:.2f}% lower for this sample). All four runs passed 6/8 tasks and 8/8 policy gates; {pair['identical_output_sequences']}/{pair['matched_requests_and_prompt_ids']} matched requests had identical output token sequences. The remaining request diverged at token {pair['first_differences_0based'][0]}; token equality and population-quality equivalence are not established. MTP ON reported {b['accepted_draft_tokens']}/{b['generated_draft_tokens']} accepted/generated draft tokens for B1, including warmups. Peak VRAM {r643['peak_vram_mib']:,.1f} MiB; TASK phase {r643['task_phase_s']:.2f} s. GPU-energy bounds cover case windows, including between-case idle; startup and CPU/system energy are excluded. No kernel-throughput or Champion claim. Audit `{r643['audit_sha256']}`; independent replay `{r643['review_sha256']}`; analysis `{r643['analysis_sha256']}`. [Verified aggregates](assets/r643-mtp-agent-abba.json).\n"
+   put('assets/r643-mtp-agent-abba.json',json.dumps(r643,ensure_ascii=False,indent=2))
   r637=repro.get('r637_balanced_mtp')
   if r637:
    rows=[]

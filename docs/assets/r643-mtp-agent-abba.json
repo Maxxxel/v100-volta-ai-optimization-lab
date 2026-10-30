@@ -1,0 +1,190 @@
+{
+  "analysis_sha256": "af0acd3b7a890ac69117b671589280b2e41f9ecb7fc5412642a2e9e6c7ebd336",
+  "arms": [
+    {
+      "arm": "A1",
+      "case_wall_s": 183.051276133,
+      "completion_tokens": 2767,
+      "denied_calls": 0,
+      "model_requests": 37,
+      "policy_passes": 8,
+      "task_successes": 6
+    },
+    {
+      "arm": "B1",
+      "case_wall_s": 153.642256724,
+      "completion_tokens": 2767,
+      "denied_calls": 0,
+      "model_requests": 37,
+      "policy_passes": 8,
+      "task_successes": 6
+    },
+    {
+      "arm": "B2",
+      "case_wall_s": 153.791645303,
+      "completion_tokens": 2767,
+      "denied_calls": 0,
+      "model_requests": 37,
+      "policy_passes": 8,
+      "task_successes": 6
+    },
+    {
+      "arm": "A2",
+      "case_wall_s": 184.373063982,
+      "completion_tokens": 2767,
+      "denied_calls": 0,
+      "model_requests": 37,
+      "policy_passes": 8,
+      "task_successes": 6
+    }
+  ],
+  "audit_sha256": "88a215f67cc71bdbe56f1bb3c4a507454d0e98875dbcfe588f12657cd58333c7",
+  "mtp_counters": {
+    "A1": {
+      "log_records": 0,
+      "status": "NOT_MEASURED"
+    },
+    "A2": {
+      "log_records": 0,
+      "status": "NOT_MEASURED"
+    },
+    "B1": {
+      "accepted_draft_token_fraction": 0.8586321934945789,
+      "accepted_draft_tokens": 2059,
+      "accepted_drafts": 757,
+      "generated_draft_tokens": 2398,
+      "generated_drafts": 800,
+      "log_records": 38,
+      "mean_accepted_length_reported": 3.57,
+      "scope": "Last cumulative server-reported counters, including warmups if present; not independent verification, task success, energy or a quality guarantee.",
+      "status": "OBSERVED_SERVER_COUNTERS"
+    },
+    "B2": {
+      "accepted_draft_token_fraction": 0.8586321934945789,
+      "accepted_draft_tokens": 2059,
+      "accepted_drafts": 757,
+      "generated_draft_tokens": 2398,
+      "generated_drafts": 800,
+      "log_records": 38,
+      "mean_accepted_length_reported": 3.57,
+      "scope": "Last cumulative server-reported counters, including warmups if present; not independent verification, task success, energy or a quality guarantee.",
+      "status": "OBSERVED_SERVER_COUNTERS"
+    }
+  },
+  "observed_case_reduction_pct": 16.327290148829984,
+  "off_total_case_s": 367.42434011499995,
+  "on_total_case_s": 307.433902027,
+  "pairs": [
+    {
+      "first_differences_0based": [],
+      "identical_output_sequences": 37,
+      "left": "A1",
+      "matched_requests_and_prompt_ids": 37,
+      "policy_gains": 0,
+      "policy_losses": 0,
+      "right": "A2",
+      "task_gains": 0,
+      "task_losses": 0
+    },
+    {
+      "first_differences_0based": [],
+      "identical_output_sequences": 37,
+      "left": "B1",
+      "matched_requests_and_prompt_ids": 37,
+      "policy_gains": 0,
+      "policy_losses": 0,
+      "right": "B2",
+      "task_gains": 0,
+      "task_losses": 0
+    },
+    {
+      "first_differences_0based": [
+        185
+      ],
+      "identical_output_sequences": 36,
+      "left": "A1",
+      "matched_requests_and_prompt_ids": 37,
+      "policy_gains": 0,
+      "policy_losses": 0,
+      "right": "B1",
+      "task_gains": 0,
+      "task_losses": 0
+    },
+    {
+      "first_differences_0based": [
+        185
+      ],
+      "identical_output_sequences": 36,
+      "left": "A2",
+      "matched_requests_and_prompt_ids": 37,
+      "policy_gains": 0,
+      "policy_losses": 0,
+      "right": "B2",
+      "task_gains": 0,
+      "task_losses": 0
+    }
+  ],
+  "peak_vram_mib": 13600.5,
+  "per_arm_energy": {
+    "A1": {
+      "complete_request_s": 183.051276133,
+      "gpu_j_per_success_lower": 8216.325666666666,
+      "gpu_j_per_success_upper": 8235.2795,
+      "group_window_s": 183.054067792,
+      "groups": 1,
+      "included_between_request_setup_s": 0.002791659,
+      "lower_j": 49297.954,
+      "max_query_duration_s": 0.063138526,
+      "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+      "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+      "tasks": 8,
+      "upper_j": 49411.677
+    },
+    "A2": {
+      "complete_request_s": 184.373063982,
+      "gpu_j_per_success_lower": 8386.838833333333,
+      "gpu_j_per_success_upper": 8410.6875,
+      "group_window_s": 184.374319273,
+      "groups": 1,
+      "included_between_request_setup_s": 0.001255291,
+      "lower_j": 50321.033,
+      "max_query_duration_s": 0.063138526,
+      "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+      "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+      "tasks": 8,
+      "upper_j": 50464.125
+    },
+    "B1": {
+      "complete_request_s": 153.642256724,
+      "gpu_j_per_success_lower": 6593.267833333334,
+      "gpu_j_per_success_upper": 6616.316833333333,
+      "group_window_s": 153.643503069,
+      "groups": 1,
+      "included_between_request_setup_s": 0.001246345,
+      "lower_j": 39559.607,
+      "max_query_duration_s": 0.063138526,
+      "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+      "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+      "tasks": 8,
+      "upper_j": 39697.901
+    },
+    "B2": {
+      "complete_request_s": 153.791645303,
+      "gpu_j_per_success_lower": 6612.124166666667,
+      "gpu_j_per_success_upper": 6627.406333333333,
+      "group_window_s": 153.792892027,
+      "groups": 1,
+      "included_between_request_setup_s": 0.001246724,
+      "lower_j": 39672.745,
+      "max_query_duration_s": 0.063138526,
+      "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+      "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+      "tasks": 8,
+      "upper_j": 39764.438
+    }
+  },
+  "review_sha256": "a5099ee85fd4e494d34ea822760702d8d18802e30c9aed1eb2d3d383bedd30e4",
+  "scope": "Four fresh sequential sessions on eight previously exposed selected cases from related authored families, same fixed seed. E2E timing includes changed generated tokens; no throughput, population equivalence or Champion claim. GPU-only energy brackets case windows and omits startup.",
+  "task_phase_s": 833.525269579,
+  "winner_qualified": false
+}

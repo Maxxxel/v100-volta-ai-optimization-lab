@@ -368,6 +368,19 @@ One previously exposed policy-loss case was tested in four fresh sessions (cache
 
 Both cache-on sessions produced two denied calls; both cache-off sessions passed. In both matched comparisons, identical prompt token IDs on the third request led to a different first output token; actual cached tokens were recorded. Same-condition repeats matched. This selected case demonstrates a repeatable cache-associated difference, not its internal mechanism or frequency. Cache remains **NOT QUALIFIED**. No production tool executed. TASK 67.209 s; peak VRAM 7,680.5 MiB; GPU group energy 12,933.4–13,050.1 J including between-case setup. Audit `8dfd12bd04038a33698d5e8042e0cee0de4ff2ec26167d4a6909eb62649d8696`; replay `4f32bee721e9ab0e9d4c44d3d23a4fd731f99f7ee2d56f9d7b07ac2814ab6403`; token review `aac9d50411d055d2a0078d8ea99cbd7786e9efdafc061410e69f7ccf2cd9f0c1`. [Verified aggregates](assets/r642-policy-abba.json).
 
+## Qwen3.8 MTP agent pilot · R643
+
+Four fresh sessions in OFF / ON / ON / OFF order used the same eight previously exposed cases, seed 1001 and temperature 0. These are internal development cases, not an official benchmark or unseen holdout.
+
+| Session | MTP | Tasks passed | Policy passed | Output tokens | Case wall s | GPU J / success |
+|---|---|---|---|---|---|---|
+| A1 | off | 6/8 | 8/8 | 2767 | 183.05 | 8,216–8,235 |
+| B1 | on | 6/8 | 8/8 | 2767 | 153.64 | 6,593–6,616 |
+| B2 | on | 6/8 | 8/8 | 2767 | 153.79 | 6,612–6,627 |
+| A2 | off | 6/8 | 8/8 | 2767 | 184.37 | 8,387–8,411 |
+
+Total case time was 367.42 s off versus 307.43 s on (16.33% lower for this sample). All four runs passed 6/8 tasks and 8/8 policy gates; 36/37 matched requests had identical output token sequences. The remaining request diverged at token 185; token equality and population-quality equivalence are not established. MTP ON reported 2059/2398 accepted/generated draft tokens for B1, including warmups. Peak VRAM 13,600.5 MiB; TASK phase 833.53 s. GPU-energy bounds cover case windows, including between-case idle; startup and CPU/system energy are excluded. No kernel-throughput or Champion claim. Audit `88a215f67cc71bdbe56f1bb3c4a507454d0e98875dbcfe588f12657cd58333c7`; independent replay `a5099ee85fd4e494d34ea822760702d8d18802e30c9aed1eb2d3d383bedd30e4`; analysis `af0acd3b7a890ac69117b671589280b2e41f9ecb7fc5412642a2e9e6c7ebd336`. [Verified aggregates](assets/r643-mtp-agent-abba.json).
+
 ## Balanced MTP token diagnostic · R637
 
 Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.
