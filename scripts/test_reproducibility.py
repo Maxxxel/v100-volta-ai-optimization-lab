@@ -1,10 +1,17 @@
 import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
-from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences,qwen_native_aa,r637_balanced_mtp
+from reproducibility import build,hybrid_recurrent_state_semantics,logprobs_diagnostic_path,lost_task_first_divergence,qwen35_warmup_repeatability,seed_execution_path,summarize_nexus_policy_case,summarize_server_prompt_path,verify_aa_runtime_identity,validate_r635_pair,summarize_r634_sequences,qwen_native_aa,r637_balanced_mtp,r640_policy_abba
 from export import projection
 
 def h(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def write(p,value):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value,sort_keys=True))
+class R640Export(unittest.TestCase):
+ def test_absent_is_not_an_experiment(self):
+  with tempfile.TemporaryDirectory() as d:self.assertIsNone(r640_policy_abba(Path(d)))
+ def test_unverified_result_is_rejected(self):
+  with tempfile.TemporaryDirectory() as d:
+   stage=Path(d)/'staging/r640';write(stage/'AUDIT.json',{'experiment_id':'R640','winner_qualified':True,'official_benchmark':False,'tool_executions':0});write(stage/'INDEPENDENT_REVIEW.json',{})
+   with self.assertRaises(AssertionError):r640_policy_abba(Path(d))
 class R637Export(unittest.TestCase):
  def test_absent_evidence_is_not_a_result(self):
   with tempfile.TemporaryDirectory() as d:self.assertIsNone(r637_balanced_mtp(Path(d)))

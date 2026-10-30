@@ -31,7 +31,7 @@ def allowed(p):
  if parts[:2]==('.github','workflows'):return len(parts)==3 and p.name in {'pages.yml','security.yml'}
  if parts[:2]==('.github','ISSUE_TEMPLATE'):return len(parts)==3 and p.suffix in {'.md','.yml'}
  if s in {'docs/assets/reproduction/main-protocol.patch','docs/assets/reproduction/llama-grammar-prefill.h','docs/assets/reproduction/numeric-fixtures.patch','docs/assets/reproduction/LICENSE.llama-cpp'}:return True
- if s in {'docs/assets/paired-quality-analysis-2026-10-29.json','docs/assets/validation16.json','docs/assets/r630-aa.json','docs/assets/r631-aa.json','docs/assets/r633-aa.json','docs/assets/r635-aa.json','docs/assets/r634-seeds.json','docs/assets/r636-aa.json','docs/assets/qwen-mtp-cross.json','docs/assets/r637-mtp-abba.json'}:return True
+ if s in {'docs/assets/paired-quality-analysis-2026-10-29.json','docs/assets/validation16.json','docs/assets/r630-aa.json','docs/assets/r631-aa.json','docs/assets/r633-aa.json','docs/assets/r635-aa.json','docs/assets/r634-seeds.json','docs/assets/r636-aa.json','docs/assets/qwen-mtp-cross.json','docs/assets/r637-mtp-abba.json','docs/assets/r640-policy-abba.json'}:return True
  if s in {'docs/assets/harness/system-prose.py','docs/assets/harness/tool-json.py','docs/assets/harness/preaction-checklist.py','docs/assets/harness/original-toon-adapter.py','docs/assets/harness/original-node-shrink-adapter.py','docs/assets/harness/original-node-shrink-request.cjs'}:return True
  if parts[0]=='docs':return p.suffix in {'.md','.css','.js','.svg'} and all(re.fullmatch('[A-Za-z0-9_.-]+',x) for x in parts)
  return False

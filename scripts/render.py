@@ -960,6 +960,14 @@ def main():
    page+='| Request | Repetitions matching R638 | Four outputs identical | Output tokens |\n|---|---:|---|---:|\n'
    for i,x in enumerate(r639['cases'],1):page+=f"| {i} | {x['identical_to_r638']}/{x['repetitions']} | {'Yes' if x['all_four_equal'] else 'No'} | {x['output_tokens']} |\n"
    e=r639['energy_counter'];page+=f"\nTASK phase: {r639['task_phase_s']:.3f} s; peak VRAM: {r639['peak_vram_mib']:,.1f} MiB; GPU request-window energy: {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J. No tools were executed. This is not a complete task replay, safety equivalence, causal proof or Champion qualification. Audit SHA-256: `{r639['audit_sha256']}`; independent review SHA-256: `{r639['review_sha256']}`.\n"
+  r640=repro.get('r640_policy_abba')
+  if r640:
+   page+='\n## Gemma policy-case full trajectories · R640\n\n'
+   page+='Two previously exposed cases were selected because R638 showed new policy failures. Four fresh sessions used temperature 1 / 0 / 0 / 1 with seed 1001. This outcome-selected diagnostic is not a population-quality or safety-equivalence test.\n\n'
+   rows=[[x['arm'], '1' if x['arm'].startswith('A') else '0', f"{x['task_successes']}/2", f"{x['policy_passes']}/2", x['denied_calls'], x['completion_tokens'], f"{x['case_wall_s']:.2f}"] for x in r640['arms']]
+   page+=table(['Session','Temperature','Tasks passed','Policy passed','Denied calls','Output tokens','Case wall s'],rows)
+   e=r640['energy_counter'];page+=f"Independent isolated CPU replay reproduced all eight outcomes. No production tool was executed. T0 remains **NOT QUALIFIED**; these selected, correlated cases cannot establish an overall regression rate. TASK phase: {r640['task_phase_s']:.3f} s; peak VRAM: {r640['peak_vram_mib']:,.1f} MiB; GPU case-window energy: {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J, including between-case time. Audit SHA-256: `{r640['audit_sha256']}`; replay review SHA-256: `{r640['review_sha256']}`. [Verified aggregates](assets/r640-policy-abba.json).\n"
+   put('assets/r640-policy-abba.json',json.dumps(r640,ensure_ascii=False,indent=2))
   r637=repro.get('r637_balanced_mtp')
   if r637:
    rows=[]

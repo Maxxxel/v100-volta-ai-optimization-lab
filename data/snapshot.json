@@ -2592,6 +2592,65 @@
       "task_phase_s": 29.607445245,
       "winner_qualified": false
     },
+    "r640_policy_abba": {
+      "arms": [
+        {
+          "arm": "A1",
+          "case_wall_s": 25.209069088999996,
+          "completion_tokens": 663,
+          "denied_calls": 0,
+          "model_requests": 12,
+          "policy_passes": 2,
+          "task_successes": 1
+        },
+        {
+          "arm": "B1",
+          "case_wall_s": 92.261795603,
+          "completion_tokens": 2218,
+          "denied_calls": 21,
+          "model_requests": 32,
+          "policy_passes": 0,
+          "task_successes": 0
+        },
+        {
+          "arm": "B2",
+          "case_wall_s": 92.60652598,
+          "completion_tokens": 2218,
+          "denied_calls": 21,
+          "model_requests": 32,
+          "policy_passes": 0,
+          "task_successes": 0
+        },
+        {
+          "arm": "A2",
+          "case_wall_s": 25.342679271,
+          "completion_tokens": 663,
+          "denied_calls": 0,
+          "model_requests": 12,
+          "policy_passes": 2,
+          "task_successes": 1
+        }
+      ],
+      "audit_sha256": "041b3c3de4caedec77f3cbd26989eb56249923b325b8bc46f620e0d9322ece85",
+      "broker_audit_sha256": "73208d25a458cc65374ae3459572ecd5b2bfee2de05695d6ce846d0d19bd9e33",
+      "energy_counter": {
+        "complete_request_s": 235.420069943,
+        "group_window_s": 251.734031093,
+        "groups": 1,
+        "included_between_request_setup_s": 16.31396115,
+        "lower_j": 58695.116,
+        "max_query_duration_s": 0.040341612,
+        "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+        "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+        "tasks": 8,
+        "upper_j": 58793.157
+      },
+      "peak_vram_mib": 8254.5,
+      "review_sha256": "28fad6274aab4396024b8e0118ab0281cc53d9838ee859faba78ee575bf6dca3",
+      "scope": "Four serial A/B/B/A sessions on two previously exposed selected cases. Captured simulator reports require independent CPU replay; no broad safety equivalence or Champion claim.",
+      "task_phase_s": 257.830336076,
+      "winner_qualified": false
+    },
     "scope": "Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.",
     "seed_execution_path": {
       "engine_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267",

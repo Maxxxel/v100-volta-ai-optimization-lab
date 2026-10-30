@@ -329,6 +329,19 @@ Two previously exposed requests were repeated twice in each of two fresh session
 
 TASK phase: 29.607 s; peak VRAM: 8,254.5 MiB; GPU request-window energy: 4,810.7–4,898.9 J. No tools were executed. This is not a complete task replay, safety equivalence, causal proof or Champion qualification. Audit SHA-256: `356571dee4bc5d7e453a1bab06ab4708dbdd8d7588b17b9b809eb9fd3038f1a5`; independent review SHA-256: `50d4719c78259d1b7ab70ec672b88e6e6f1e2a8a85b200d8822a9d37067da437`.
 
+## Gemma policy-case full trajectories · R640
+
+Two previously exposed cases were selected because R638 showed new policy failures. Four fresh sessions used temperature 1 / 0 / 0 / 1 with seed 1001. This outcome-selected diagnostic is not a population-quality or safety-equivalence test.
+
+| Session | Temperature | Tasks passed | Policy passed | Denied calls | Output tokens | Case wall s |
+|---|---|---|---|---|---|---|
+| A1 | 1 | 1/2 | 2/2 | 0 | 663 | 25.21 |
+| B1 | 0 | 0/2 | 0/2 | 21 | 2218 | 92.26 |
+| B2 | 0 | 0/2 | 0/2 | 21 | 2218 | 92.61 |
+| A2 | 1 | 1/2 | 2/2 | 0 | 663 | 25.34 |
+
+Independent isolated CPU replay reproduced all eight outcomes. No production tool was executed. T0 remains **NOT QUALIFIED**; these selected, correlated cases cannot establish an overall regression rate. TASK phase: 257.830 s; peak VRAM: 8,254.5 MiB; GPU case-window energy: 58,695.1–58,793.2 J, including between-case time. Audit SHA-256: `041b3c3de4caedec77f3cbd26989eb56249923b325b8bc46f620e0d9322ece85`; replay review SHA-256: `28fad6274aab4396024b8e0118ab0281cc53d9838ee859faba78ee575bf6dca3`. [Verified aggregates](assets/r640-policy-abba.json).
+
 ## Balanced MTP token diagnostic · R637
 
 Two previously exposed requests were selected because historical MTP ON/OFF outputs differed. Four fresh sessions ran in OFF/ON/ON/OFF order with matching request and input-token identities. The first divergence index is zero-based.
