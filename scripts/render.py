@@ -486,7 +486,7 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   off=next((r for r in validation16['rows'] if r['experiment_id']=='R645'), None)
   if off:
    pair=off['paired_with_r644']
-   text+=f"R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); {pair['identical_output_token_sequences']}/16 output-token sequences matched. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.\n\n"
+   text+=f"R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); {pair['identical_output_token_sequences']}/16 output-token sequences matched, including all {pair['tool_output_token_matches']}/8 tool tasks. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.\n\n"
  if experiments:
   by_id={e.get('id'):e for e in experiments}
   post=[]

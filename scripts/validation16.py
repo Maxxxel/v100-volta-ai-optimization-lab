@@ -117,9 +117,19 @@ def build(root):
             assert 0 <= pair['identical_output_token_sequences'] <= 16
             on_tool_review = load(root / 'staging/r644/TOOL_FAILURE_REVIEW.json')
             assert {x['task_id'] for x in cases} == {x['task_id'] for x in on_tool_review['observed']}
+            token_review_path = folder / 'TOOL_TOKEN_REVIEW.json'
+            token_review = load(token_review_path)
+            assert token_review['status'] == 'CPU_SOURCE_CHECKED'
+            assert token_review['pair_review_sha256'] == digest(folder / 'PAIRED_REVIEW.json')
+            assert token_review['audits'] == pair['audit_sha256']
+            assert token_review['matched_cases'] == token_review['same_output_tokens'] == token_review['same_tool_names_and_parsed_arguments'] == 8
+            assert token_review['tool_choice'] == 'auto' and token_review['gpu_runs'] == 0
+            assert len({x['task_id'] for x in token_review['cases']}) == 8
+            assert all(x['identical_tokens'] is True and x['identical_tool_names_and_parsed_arguments'] is True for x in token_review['cases'])
             rows[-1]['paired_with_r644'] = {'identical_requests': 16,
                 'identical_output_token_sequences': pair['identical_output_token_sequences'],
-                'task_outcome_agreements': 16, 'review_sha256': digest(folder / 'PAIRED_REVIEW.json')}
+                'task_outcome_agreements': 16, 'review_sha256': digest(folder / 'PAIRED_REVIEW.json'),
+                'tool_output_token_matches': 8, 'tool_token_review_sha256': digest(token_review_path)}
     assert len(rows) == len(PROFILES)
     return {'schema': 1, 'benchmark_id': 'frozen-jarvis-validation16-v1',
             'official_benchmark': False, 'purpose': 'SUPPLEMENTARY_PROFILE_VALIDATION_ONLY',

@@ -314,7 +314,9 @@
         "identical_output_token_sequences": 14,
         "identical_requests": 16,
         "review_sha256": "760600f56f7a0da23e99a67460bd825a4a33f27c9c8231bb3c4885e5af582a0e",
-        "task_outcome_agreements": 16
+        "task_outcome_agreements": 16,
+        "tool_output_token_matches": 8,
+        "tool_token_review_sha256": "263b3c841d17582d3969b7ed89324db088f68f1071ed59501618c29e834e0b61"
       },
       "parent_experiment_id": "R502",
       "parent_profile": "qwen38-iq3-screening32-task1200-reviewed-sm70",

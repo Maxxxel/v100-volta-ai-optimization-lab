@@ -111,7 +111,7 @@ Completion tokens, response time, validity, descriptive Wilson intervals, and fu
 
 R644: 3 tool cases produced a call where none was expected. The mock tools were not executed; the observed calls alone do not establish an external authorization-policy violation.
 
-R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); 14/16 output-token sequences matched. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.
+R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); 14/16 output-token sequences matched, including all 8/8 tool tasks. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.
 
 ## Post-freeze evidence through R630
 

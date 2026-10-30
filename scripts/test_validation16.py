@@ -55,6 +55,12 @@ def fixture(root):
                 'audit_sha256': {'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
                 'review_sha256': {'R644':validation16.digest(other / 'INDEPENDENT_REVIEW.json'), 'R645':validation16.digest(folder / 'INDEPENDENT_REVIEW.json')},
                 'identical_requests':16, 'task_outcome_agreements':16, 'identical_output_token_sequences':14})
+            dump(folder / 'TOOL_TOKEN_REVIEW.json', {'status':'CPU_SOURCE_CHECKED',
+                'pair_review_sha256': validation16.digest(folder / 'PAIRED_REVIEW.json'),
+                'audits': {'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
+                'matched_cases':8, 'same_output_tokens':8, 'same_tool_names_and_parsed_arguments':8,
+                'tool_choice':'auto', 'gpu_runs':0,
+                'cases':[{'task_id':str(i), 'identical_tokens':True, 'identical_tool_names_and_parsed_arguments':True} for i in range(8)]})
 
 
 class Validation16Projection(unittest.TestCase):
