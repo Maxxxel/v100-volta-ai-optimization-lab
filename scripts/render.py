@@ -468,9 +468,9 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   text+=table(['Pair','Task pass only left / right','Policy pass only left / right','Families left / right / tied','Family sign-flip p'],rows)
   text+='Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).\n\n'
  if validation16:
-  assert validation16['official_benchmark'] is False and len(validation16['rows']) == 6
+  assert validation16['official_benchmark'] is False and len(validation16['rows']) == 7
   text+='## Frozen 8+8 profile validation · non-official\n\n'
-  text+='These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across six profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.\n\n'
+  text+='These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across seven profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.\n\n'
   def vcell(m):
    return f"{m['successes']}/8 · {m['tokens_per_second']:.1f} tok/s · {m['gpu_j_per_success_lower']:.0f}–{m['gpu_j_per_success_upper']:.0f} GPU J/success"
   vrows=[]
@@ -483,6 +483,10 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   qwen=next((r for r in validation16['rows'] if r['experiment_id']=='R644'), None)
   if qwen:
    text+=f"R644: {qwen['unexpected_tool_call_cases']} tool cases produced a call where none was expected. The mock tools were not executed; the observed calls alone do not establish an external authorization-policy violation.\n\n"
+  off=next((r for r in validation16['rows'] if r['experiment_id']=='R645'), None)
+  if off:
+   pair=off['paired_with_r644']
+   text+=f"R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); {pair['identical_output_token_sequences']}/16 output-token sequences matched. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.\n\n"
  if experiments:
   by_id={e.get('id'):e for e in experiments}
   post=[]

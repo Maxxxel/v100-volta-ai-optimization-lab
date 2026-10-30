@@ -95,7 +95,7 @@ Exact family sign-flip values are exploratory and assume symmetric, exchangeable
 
 ## Frozen 8+8 profile validation · non-official
 
-These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across six profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.
+These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across seven profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.
 
 | Profile | Coding · 8 tasks | Tools · 8 tasks | Total task phase · peak VRAM | Evidence |
 |---|---|---|---|---|
@@ -105,10 +105,13 @@ These locally measured cases are supplementary evidence only; they do not enter 
 | [Nexus-9B · OFF/T0](experiments/R526.md) · parent [R489](experiments/R489.md) | 6/8 · 74.6 tok/s · 559–574 GPU J/success | 5/8 · 55.8 tok/s · 496–509 GPU J/success | 22.4s · 7356 MiB | [audit](experiments/R526.md) · `240fa31ab141` |
 | [Ornith-1.5-9B · OFF/T0](experiments/R527.md) · parent [R496](experiments/R496.md) | 7/8 · 74.5 tok/s · 476–493 GPU J/success | 5/8 · 57.4 tok/s · 530–546 GPU J/success | 22.7s · 7356 MiB | [audit](experiments/R527.md) · `032c85b436c2` |
 | [Qwen3.8-27B · IQ3_S · MTP3](experiments/R644.md) · parent [R547](experiments/R547.md) | 8/8 · 58.2 tok/s · 533–545 GPU J/success | 5/8 · 22.3 tok/s · 843–861 GPU J/success | 35.0s · 13598 MiB | [audit](experiments/R644.md) · `75f15d377e75` |
+| [Qwen3.8-27B · IQ3_S · MTP OFF](experiments/R645.md) · parent [R502](experiments/R502.md) | 8/8 · 32.7 tok/s · 1129–1145 GPU J/success | 5/8 · 17.8 tok/s · 1166–1187 GPU J/success | 55.7s · 12452 MiB | [audit](experiments/R645.md) · `5de47f097545` |
 
 Completion tokens, response time, validity, descriptive Wilson intervals, and full audit hashes are available in the [validation aggregate](assets/validation16.json). No task prompts, IDs, outputs, or per-task results are published. Do not interpret per-category GPU joules per success as whole-task energy; the meter brackets only the selected category request group.
 
 R644: 3 tool cases produced a call where none was expected. The mock tools were not executed; the observed calls alone do not establish an external authorization-policy violation.
+
+R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); 14/16 output-token sequences matched. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.
 
 ## Post-freeze evidence through R630
 

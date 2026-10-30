@@ -12,7 +12,7 @@ def dump(path, obj):
 
 
 def fixture(root):
-    scores = {'R509': (8, 6), 'R510': (7, 7), 'R511': (8, 6), 'R526': (6, 5), 'R527': (7, 5), 'R644': (8, 5)}
+    scores = {'R509': (8, 6), 'R510': (7, 7), 'R511': (8, 6), 'R526': (6, 5), 'R527': (7, 5), 'R644': (8, 5), 'R645': (8, 5)}
     for ident, (coding, tools) in scores.items():
         folder = Path(root) / 'staging' / ident.lower()
         capture = {'GPU_execution_observed': True, 'all_replies_match_root_event_stream': True,
@@ -36,7 +36,7 @@ def fixture(root):
                  'completed_requests': 16, 'planned_requests': 16, 'groups': groups,
                  'task_phase_s': 10, 'task_limit_s': 1200, 'peak_device_vram_mib': 7000,
                  'timeouts': 0, 'capture_review_sha256': validation16.digest(folder / 'CAPTURE_REVIEW.json')}
-        if ident == 'R644':
+        if ident in ('R644', 'R645'):
             audit['original_raw_files_sha256'] = {'HTTP_RESULTS.jsonl': 'f' * 64}
         dump(folder / 'AUDIT.json', audit)
         review = {'audit_sha256': validation16.digest(folder / 'AUDIT.json'),
@@ -45,10 +45,16 @@ def fixture(root):
         dump(folder / 'INDEPENDENT_REVIEW.json', review)
         dump(folder / 'EXECUTION_REVIEW.json', {'scope_kind': 'FROZEN_EXISTING_MODEL_VALIDATION16',
               'status': 'APPROVED_FRESH_FULL_SUITE_SINGLE_SESSION', 'parent_profile': 'frozen-profile'})
-        if ident == 'R644':
+        if ident in ('R644', 'R645'):
             dump(folder / 'TOOL_FAILURE_REVIEW.json', {'status': 'CPU_SOURCE_CHECKED',
                 'audit_sha256': validation16.digest(folder / 'AUDIT.json'), 'raw_sha256': 'f' * 64,
-                'observed': [{'expected_calls': 0, 'observed_calls': 1, 'tools_executed': False} for _ in range(3)]})
+                'observed': [{'task_id':str(i), 'expected_calls': 0, 'observed_calls': 1, 'tools_executed': False} for i in range(3)]})
+        if ident == 'R645':
+            other = Path(root) / 'staging/r644'
+            dump(folder / 'PAIRED_REVIEW.json', {'status':'UNBALANCED_EXPOSED_PAIRED_DIAGNOSTIC',
+                'audit_sha256': {'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
+                'review_sha256': {'R644':validation16.digest(other / 'INDEPENDENT_REVIEW.json'), 'R645':validation16.digest(folder / 'INDEPENDENT_REVIEW.json')},
+                'identical_requests':16, 'task_outcome_agreements':16, 'identical_output_token_sequences':14})
 
 
 class Validation16Projection(unittest.TestCase):
@@ -57,10 +63,10 @@ class Validation16Projection(unittest.TestCase):
             fixture(td)
             result = validation16.build(td)
         self.assertEqual([x['experiment_id'] for x in result['rows']],
-                         ['R509', 'R510', 'R511', 'R526', 'R527', 'R644'])
+                         ['R509', 'R510', 'R511', 'R526', 'R527', 'R644', 'R645'])
         self.assertFalse(result['official_benchmark'])
         self.assertEqual([(x['coding']['successes'], x['tools']['successes'])
-                          for x in result['rows']], [(8, 6), (7, 7), (8, 6), (6, 5), (7, 5), (8, 5)])
+                          for x in result['rows']], [(8, 6), (7, 7), (8, 6), (6, 5), (7, 5), (8, 5), (8, 5)])
         encoded = json.dumps(result)
         self.assertNotIn('coding-0', encoded)
         self.assertNotIn('tools-0', encoded)

@@ -17,6 +17,7 @@ PROFILES = {
     'R526': ('Nexus-9B · OFF/T0', 'R489'),
     'R527': ('Ornith-1.5-9B · OFF/T0', 'R496'),
     'R644': ('Qwen3.8-27B · IQ3_S · MTP3', 'R547'),
+    'R645': ('Qwen3.8-27B · IQ3_S · MTP OFF', 'R502'),
 }
 
 
@@ -96,7 +97,7 @@ def build(root):
             'capture_review_sha256': digest(capture_path),
             'limitations': 'Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.',
         })
-        if experiment == 'R644':
+        if experiment in ('R644', 'R645'):
             tool_review = load(folder / 'TOOL_FAILURE_REVIEW.json')
             assert tool_review['status'] == 'CPU_SOURCE_CHECKED'
             assert tool_review['audit_sha256'] == audit_hash
@@ -105,6 +106,20 @@ def build(root):
             assert len(cases) == 8 - categories['tools']['successes']
             assert all(x['expected_calls'] == 0 and x['observed_calls'] == 1 and x['tools_executed'] is False for x in cases)
             rows[-1]['unexpected_tool_call_cases'] = len(cases)
+        if experiment == 'R645':
+            pair = load(folder / 'PAIRED_REVIEW.json')
+            assert pair['status'] == 'UNBALANCED_EXPOSED_PAIRED_DIAGNOSTIC'
+            assert pair['audit_sha256']['R645'] == audit_hash
+            assert pair['audit_sha256']['R644'] == digest(root / 'staging/r644/AUDIT.json')
+            assert pair['review_sha256']['R645'] == digest(review_path)
+            assert pair['review_sha256']['R644'] == digest(root / 'staging/r644/INDEPENDENT_REVIEW.json')
+            assert pair['identical_requests'] == 16 and pair['task_outcome_agreements'] == 16
+            assert 0 <= pair['identical_output_token_sequences'] <= 16
+            on_tool_review = load(root / 'staging/r644/TOOL_FAILURE_REVIEW.json')
+            assert {x['task_id'] for x in cases} == {x['task_id'] for x in on_tool_review['observed']}
+            rows[-1]['paired_with_r644'] = {'identical_requests': 16,
+                'identical_output_token_sequences': pair['identical_output_token_sequences'],
+                'task_outcome_agreements': 16, 'review_sha256': digest(folder / 'PAIRED_REVIEW.json')}
     assert len(rows) == len(PROFILES)
     return {'schema': 1, 'benchmark_id': 'frozen-jarvis-validation16-v1',
             'official_benchmark': False, 'purpose': 'SUPPLEMENTARY_PROFILE_VALIDATION_ONLY',

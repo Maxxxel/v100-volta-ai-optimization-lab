@@ -549,6 +549,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R627](experiments/R627.md) | K02 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma 4 12B QAT Q4 · F16 versus Q8_0 value-cache repeatability diagnostic |
 | [R638](experiments/R638.md) | M07 | ORIGINAL_AUDIT_HASH_VERIFIED | Gemma4-12B QAT Q4_0 · temperature 0.0 |
 | [R644](experiments/R644.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B · IQ3_S · MTP3 |
+| [R645](experiments/R645.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B · IQ3_S · MTP OFF |
 
 
 ## Historical signed windows
