@@ -1218,8 +1218,28 @@ def r643_mtp_agent_abba(root):
    if d is None:equal+=1
    else:first.append(d)
   assert (loss,gain,ploss,pgain,matched,equal,sorted(first))==tuple(pair[k] for k in ('task_losses','task_gains','policy_losses','policy_gains','matched_requests_and_prompt_ids','identical_output_sequences','first_differences_0based'))
+ tool=json.loads((stage/'TOOL_DELTA_REVIEW.json').read_text());timing=json.loads((stage/'CASE_TIMING_REVIEW.json').read_text());assert tool['audit_sha256']==timing['audit_sha256']==digest(file) and tool['replay_sha256']==timing['replay_sha256']==digest(stage/'INDEPENDENT_REVIEW.json')
+ detailed=[]
+ for left,right in (('A1','B1'),('A2','B2')):
+  ac,at,ai=data[left];bc,bt,bi=data[right];ac={v['id']:v for v in ac};bc={v['id']:v for v in bc};changes=[]
+  for k in sorted(at.keys() & bt.keys()):
+   a1,b1=at[k],bt[k]
+   if a1['request']!=b1['request'] or ai[k]['prompt_token_ids']!=bi[k]['prompt_token_ids'] or a1['reply']['__verbose']['tokens']==b1['reply']['__verbose']['tokens']:continue
+   x,y=[v['reply']['choices'][0] for v in (a1,b1)];xm,ym=x['message'],y['message'];xc=xm.get('tool_calls') or [];yc=ym.get('tool_calls') or [];names=len(xc)==len(yc) and [z['function']['name'] for z in xc]==[z['function']['name'] for z in yc]
+   try:arguments=len(xc)==len(yc) and [json.loads(z['function']['arguments']) for z in xc]==[json.loads(z['function']['arguments']) for z in yc]
+   except (KeyError,TypeError,ValueError):arguments=None
+   key=k.rsplit('--turn',1)[0];changes.append({'call_counts':[len(xc),len(yc)],'function_names_equal':names,'parsed_arguments_equal':arguments,'response_content_equal':xm.get('content')==ym.get('content'),'finish_reason_equal':x.get('finish_reason')==y.get('finish_reason'),'task_successes':[ac[key]['reported_result']['task_success'],bc[key]['reported_result']['task_success']],'policy_passes':[ac[key]['reported_result']['policy_gate_pass'],bc[key]['reported_result']['policy_gate_pass']]})
+  detailed.append(changes)
+ assert detailed[0]==detailed[1]==tool['results'] and len(detailed[0])==tool['matched_divergent_turns_per_pair']
+ import statistics
+ maps={k:{x['id']:x for x in data[k][0]} for k in labels};assert all(maps[k].keys()==maps['A1'].keys() for k in labels);delta=[]
+ for key in maps['A1']:
+  off=(maps['A1'][key]['e2e_s']+maps['A2'][key]['e2e_s'])/2;on=(maps['B1'][key]['e2e_s']+maps['B2'][key]['e2e_s'])/2;assert off>0 and on>0;delta.append((off-on,100*(off-on)/off))
+ assert len(delta)==timing['cases']==8 and len({k.rsplit('-',1)[0] for k in maps['A1']})==timing['families']==8
+ assert (sum(x>0 for x,y in delta),sum(x<0 for x,y in delta),sum(x==0 for x,y in delta))==(timing['mtp_faster_cases'],timing['mtp_slower_cases'],timing['ties'])
+ assert (min(y for x,y in delta),statistics.median(y for x,y in delta),max(y for x,y in delta))==(timing['min_case_reduction_percent'],timing['median_case_reduction_percent'],timing['max_case_reduction_percent'])
  off=computed[0]['case_wall_s']+computed[3]['case_wall_s'];on=computed[1]['case_wall_s']+computed[2]['case_wall_s']
- return {'arms':computed,'pairs':analysis['paired'],'per_arm_energy':analysis['per_arm_energy'],'mtp_counters':analysis['server_reported_mtp_counters'],'off_total_case_s':off,'on_total_case_s':on,'observed_case_reduction_pct':(off-on)/off*100,'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'audit_sha256':digest(file),'review_sha256':digest(stage/'INDEPENDENT_REVIEW.json'),'analysis_sha256':digest(stage/'ANALYSIS.json'),'scope':analysis['scope'],'winner_qualified':False}
+ return {'tool_delta':tool['results'],'tool_delta_review_sha256':digest(stage/'TOOL_DELTA_REVIEW.json'),'case_timing':{k:v for k,v in timing.items() if k not in ('audit_sha256','replay_sha256')},'case_timing_review_sha256':digest(stage/'CASE_TIMING_REVIEW.json'),'arms':computed,'pairs':analysis['paired'],'per_arm_energy':analysis['per_arm_energy'],'mtp_counters':analysis['server_reported_mtp_counters'],'off_total_case_s':off,'on_total_case_s':on,'observed_case_reduction_pct':(off-on)/off*100,'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'audit_sha256':digest(file),'review_sha256':digest(stage/'INDEPENDENT_REVIEW.json'),'analysis_sha256':digest(stage/'ANALYSIS.json'),'scope':analysis['scope'],'winner_qualified':False}
 
 def reserved_family_sign_flip(group_differences):
  """Exact paired family sign enumeration; not an independence/equivalence claim."""

@@ -39,6 +39,20 @@
     }
   ],
   "audit_sha256": "88a215f67cc71bdbe56f1bb3c4a507454d0e98875dbcfe588f12657cd58333c7",
+  "case_timing": {
+    "case_averaging": "Average two repeated fixed-seed sessions per condition before paired comparisons. Repeats are not independent task samples.",
+    "cases": 8,
+    "experiment_id": "R643",
+    "families": 8,
+    "max_case_reduction_percent": 24.825744474025825,
+    "median_case_reduction_percent": 18.31421676945949,
+    "min_case_reduction_percent": 11.375580204285617,
+    "mtp_faster_cases": 8,
+    "mtp_slower_cases": 0,
+    "scope": "Selected and previously exposed cases from eight related authored families; descriptive only, no inferential confidence or generalization. Task time includes changed output content and excludes model startup; energy is GPU-only.",
+    "ties": 0
+  },
+  "case_timing_review_sha256": "c414eddfb7c491a364ce032f0889deb87cd6f7ba9b6e0c6fe7680fbb6cc6a2fa",
   "mtp_counters": {
     "A1": {
       "log_records": 0,
@@ -186,5 +200,26 @@
   "review_sha256": "a5099ee85fd4e494d34ea822760702d8d18802e30c9aed1eb2d3d383bedd30e4",
   "scope": "Four fresh sequential sessions on eight previously exposed selected cases from related authored families, same fixed seed. E2E timing includes changed generated tokens; no throughput, population equivalence or Champion claim. GPU-only energy brackets case windows and omits startup.",
   "task_phase_s": 833.525269579,
+  "tool_delta": [
+    {
+      "call_counts": [
+        1,
+        1
+      ],
+      "finish_reason_equal": true,
+      "function_names_equal": true,
+      "parsed_arguments_equal": false,
+      "policy_passes": [
+        true,
+        true
+      ],
+      "response_content_equal": true,
+      "task_successes": [
+        true,
+        true
+      ]
+    }
+  ],
+  "tool_delta_review_sha256": "f6d2bc17fe305f5577b955bd9f3ce1a3f83766bd0e955f4047ead8f6567bb3a0",
   "winner_qualified": false
 }
