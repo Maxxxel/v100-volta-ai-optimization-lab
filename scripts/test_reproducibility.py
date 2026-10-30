@@ -264,6 +264,14 @@ class GemmaSupplementalComparison(unittest.TestCase):
   self.assertEqual(result['categories']['tools']['r648'],{'successes':5,'total':8})
 
 class ReservedAgentPairing(unittest.TestCase):
+ def test_gpu_fault_projection_hides_kernel_logs(self):
+  from reproducibility import gpu_fault_snapshot
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);self.assertIsNone(gpu_fault_snapshot(root));path=root/'staging/r652/GPU_FAULT_EVIDENCE.json'
+   event={'experiment_id':'R652','status':'GPU_HARDWARE_FAULT_NOT_QUALIFIED','gpu_reset_performed':False,'new_gpu_runs_allowed':False,'at_utc':'2026-10-30T03:54:00Z','events':['Xid (PCI:secret): 48, uncorrectable double bit error','Xid (PCI:secret): 171, HBM','Xid (PCI:secret): 64, failed','Xid (PCI:secret): 154, GPU Reset Required']};write(path,event)
+   projected=gpu_fault_snapshot(root);self.assertEqual(projected['xid_codes'],[48,64,154,171]);self.assertNotIn('secret',json.dumps(projected))
+   event['gpu_reset_performed']=True;write(path,event)
+   with self.assertRaises(AssertionError):gpu_fault_snapshot(root)
  def test_exact_family_sign_flip(self):
   from reproducibility import reserved_family_sign_flip
   self.assertEqual(reserved_family_sign_flip([0,0]),1.0)
@@ -282,21 +290,24 @@ class ReservedAgentPairing(unittest.TestCase):
    root=Path(d)
    for ident in ('r649','r650','r651'):
     stage=root/'staging'/ident;raw=root/'raw'/ident;raw.mkdir(parents=True)
-    profile=raw/'profile.json';write(profile,{'model_sha256':ident,'selected_task_inputs':{'cases':['fixed']}})
-    cases=[{'kind':'agent_case','id':f'family-{i//3}-{i%3}','reported_result':{'task_success':i<26,'policy_gate_pass':i<29,'all_tools_simulated':True,'production_tools_connected':False}} for i in range(33)]
+    profile=raw/'profile.json';write(profile,{'model_sha256':ident,'selected_task_inputs':{'cases':[{'id':f'family-{i//3}-{i%3}'} for i in range(33)]}})
+    cases=[{'kind':'agent_case','id':f'family-{i//3}-{i%3}','reported_result':{'task_success':i<26,'policy_gate_pass':i<29,'rejected_calls':int(i>=29),'all_tools_simulated':True,'production_tools_connected':False}} for i in range(33)]
     capture=raw/'HTTP_RESULTS.jsonl';capture.write_text(''.join(json.dumps(x)+'\n' for x in cases))
-    checks=[{'id':f'family-{i//3}-{i%3}','task_success':i<26,'score_and_effects_reproduced':True} for i in range(33)]
+    checks=[{'id':f'family-{i//3}-{i%3}','task_success':i<26,'technical_preflight_failure':False,'score_and_effects_reproduced':True} for i in range(33)]
     review=stage/'INDEPENDENT_REVIEW.json';write(review,{'status':'INDEPENDENT_CPU_REPLAY_IDENTICAL','GPU_runs':0,'model_requests':0,'scorer_sha256':'same','result':{'cases':33,'complete':True,'all_scores_and_effects_reproduced':True,'checks':checks}})
-    write(stage/'AUDIT.json',{'measurement_valid':True,'GPU_execution_observed':True,'tasks':33,'dataset_id':'jarvis-confirmation-20261030-v1','official_benchmark':False,'independent_review_sha256':h(review),'raw_root':str(raw),'original_raw_files_sha256':{'HTTP_RESULTS.jsonl':h(capture),'profile.json':h(profile)},'profile_sha256':h(profile),'model_sha256':ident,'solved':26,'model':ident,'task_phase_s':1,'peak_device_vram_mib':1,'GPU_counter':{'lower_j':1,'upper_j':2}})
+    write(stage/'AUDIT.json',{'measurement_valid':True,'GPU_execution_observed':True,'tasks':33,'dataset_id':'jarvis-confirmation-20261030-v1','official_benchmark':False,'independent_review_sha256':h(review),'raw_root':str(raw),'original_raw_files_sha256':{'HTTP_RESULTS.jsonl':h(capture),'profile.json':h(profile)},'profile_sha256':h(profile),'model_sha256':ident,'solved':26,'technical_preflight_cases':0,'technical_request_errors':0,'model':ident,'task_phase_s':1,'peak_device_vram_mib':1,'GPU_counter':{'lower_j':1,'upper_j':2}})
    result=confirmation_agent_comparison(root)
    self.assertEqual(result['comparisons'][0]['metrics']['task_success']['both_pass'],26)
    self.assertEqual([x['candidate'] for x in result['comparisons']],['R650','R651'])
+   review=root/'staging/r651/INDEPENDENT_REVIEW.json';rv=json.loads(review.read_text());rv['result']['checks'][0]['technical_preflight_failure']=True;write(review,rv)
+   audit=root/'staging/r651/AUDIT.json';av=json.loads(audit.read_text());av['independent_review_sha256']=h(review);av['technical_preflight_cases']=1;write(audit,av)
+   self.assertEqual(confirmation_agent_comparison(root)['comparisons'][1]['eligible_cases'],32)
    absent=root/'staging/r650/AUDIT.json';saved=absent.read_bytes();absent.unlink()
    self.assertEqual(len(confirmation_agent_comparison(root)['profiles']),2)
    absent.write_bytes(saved)
    capture=root/'raw/r650/HTTP_RESULTS.jsonl';original=capture.read_text();capture.write_text(original+'\n')
    with self.assertRaises(AssertionError):confirmation_agent_comparison(root)
-   capture.write_text(original);profile=root/'raw/r650/profile.json';write(profile,{'model_sha256':'r650','selected_task_inputs':{'cases':['changed']}})
+   capture.write_text(original);profile=root/'raw/r650/profile.json';write(profile,{'model_sha256':'r650','selected_task_inputs':{'cases':[{'id':f'family-{i//3}-{i%3}'} for i in range(32)]+[{'id':'changed'}]}})
    audit=root/'staging/r650/AUDIT.json';value=json.loads(audit.read_text());value['profile_sha256']=h(profile);value['original_raw_files_sha256']['profile.json']=h(profile);write(audit,value)
    with self.assertRaises(AssertionError):confirmation_agent_comparison(root)
 

@@ -1783,6 +1783,8 @@
       "comparisons": [
         {
           "candidate": "R650",
+          "eligible_cases": 33,
+          "excluded_preflight_cases": 0,
           "metrics": {
             "policy_gate_pass": {
               "both_fail": 0,
@@ -1809,6 +1811,8 @@
         },
         {
           "candidate": "R651",
+          "eligible_cases": 33,
+          "excluded_preflight_cases": 0,
           "metrics": {
             "policy_gate_pass": {
               "both_fail": 1,
@@ -1845,9 +1849,12 @@
           "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
           "peak_vram_mib": 7680.5,
           "policy_passes": 29,
+          "rejected_tool_calls": 5,
           "replay_sha256": "3f108ff3bdda4b330b3f7fd80673580d61a13aae43601d61c64e1c6c26cfc0a7",
           "solved": 26,
-          "task_phase_s": 391.943965885
+          "task_phase_s": 391.943965885,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0
         },
         {
           "audit_sha256": "ea31f8d4aa2bc472fe18818ef866666d9bd93066f2bb9da71226ba79af3fab0b",
@@ -1858,9 +1865,12 @@
           "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
           "peak_vram_mib": 13600.5,
           "policy_passes": 31,
+          "rejected_tool_calls": 2,
           "replay_sha256": "e6b628a655bd97d1d53a621467d21528f0f42e27ea6e500285123049e94dba67",
           "solved": 26,
-          "task_phase_s": 620.563402896
+          "task_phase_s": 620.563402896,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0
         },
         {
           "audit_sha256": "40ff53fc755cccef0a3d065bc21259eec19794c9a41ab9958bdb94de63e41a2f",
@@ -1871,9 +1881,12 @@
           "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
           "peak_vram_mib": 7356.5,
           "policy_passes": 30,
+          "rejected_tool_calls": 4,
           "replay_sha256": "c70834d31d52dfcfd9791eb6291dcbb8742ac427f114bd873a6f36a0c248a3e1",
           "solved": 27,
-          "task_phase_s": 316.452002426
+          "task_phase_s": 316.452002426,
+          "technical_preflight_cases": 0,
+          "technical_request_errors": 0
         }
       ],
       "scope": "New fixed instances from previously exposed authored families; distinct whole profiles and historical sessions. Independent CPU rescoring is not independent generation. No population, causal or Champion claim. GPU energy includes failures and between-case idle; excludes startup and CPU/system energy.",
@@ -1937,6 +1950,21 @@
           "request_wall_s": 167.040026117
         }
       }
+    },
+    "gpu_fault_snapshot": {
+      "at_utc": "2026-10-30T03:54:18.766947+00:00",
+      "evidence_sha256": "87f7828b5462efb5b9d4dc38a10a3d2e8a8b0afd43d2c51fe7622da041ad666e",
+      "experiment_id": "R652",
+      "gpu_reset_performed": false,
+      "new_gpu_runs_allowed_at_capture": false,
+      "scope": "The driver logged uncorrectable framebuffer/HBM ECC, failed page retirement and reset required. Static snapshot, not a live monitor or definitive component diagnosis. No raw kernel log exported.",
+      "status": "HARDWARE_FAULT_NOT_QUALIFIED",
+      "xid_codes": [
+        48,
+        64,
+        154,
+        171
+      ]
     },
     "logprobs_diagnostic_path": {
       "decision": "R616 frozen profile remains unchanged. Any token-probability diagnosis requires a separate reviewed broker profile; no GPU request or run was made.",

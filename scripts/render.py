@@ -471,6 +471,9 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   rows.append(['['+p['model']['name']+'](configuration-profiles/'+s['baseline_runtime_configuration_id']+'.md)',s['role'],str(c['solved'])+'/'+str(c['tasks']),str(t['solved'])+'/'+str(t['tasks']),f'{mean:.2f}% ·2/3',str(m['solved'])+'/33; policy '+str(m['policy_gate_passes'])+'/33 ['+a['experiment_id']+'](experiments/'+a['experiment_id']+'.md)' if m else 'NOT MEASURED at selected8K'])
  text+=table(['Frozen model/configuration','Intended role','HumanEval+164','BFCL parallel200','User mean / official coverage','Separate authored Agent33'],rows)
  text+='The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.\n\n'
+ fault=(reproducibility_review or {}).get('gpu_fault_snapshot')
+ if fault:
+  text+=f"**Hardware event · {fault['at_utc']}:** R652 is not qualified. The driver logged uncorrectable HBM/framebuffer ECC, failed page retirement and a reset-required status. Research GPU starts were stopped at capture; this is a timestamped snapshot, not live hardware status or a diagnosis. Earlier completed results are retained. Audit SHA256: `{fault['evidence_sha256']}`.\n\n"
  if paired_quality:
   text+=render_paired_profile_quality(paired_quality)
  reserved=(reproducibility_review or {}).get('reserved_agent_comparison')
@@ -491,17 +494,17 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   rows=[]
   for x in confirmation['profiles']:
    lo=x['gpu_energy_lower_j']/x['solved'] if x['solved'] else None;hi=x['gpu_energy_upper_j']/x['solved'] if x['solved'] else None
-   rows.append([f"[{x['experiment_id']}](experiments/{x['experiment_id']}.md)",x['model'],f"{x['solved']}/33",f"{x['policy_passes']}/33",f"{x['task_phase_s']:.1f}",f"{x['peak_vram_mib']:,.1f}",f"{lo:,.0f}–{hi:,.0f}" if lo is not None else 'NOT MEASURED'])
-  text+=table(['Run','Profile','Tasks passed','Policy passed','TASK s','Peak MiB','GPU J per success'],rows)
+   rows.append([f"[{x['experiment_id']}](experiments/{x['experiment_id']}.md)",x['model'],f"{x['solved']}/33",f"{x['policy_passes']}/33",str(x['rejected_tool_calls']),f"{x['technical_preflight_cases']} / {x['technical_request_errors']}",f"{x['task_phase_s']:.1f}",f"{x['peak_vram_mib']:,.1f}",f"{lo:,.0f}–{hi:,.0f}" if lo is not None else 'NOT MEASURED'])
+  text+=table(['Run','Profile','Tasks passed','Policy passed','Rejected tool calls','Preflight cases / request errors','TASK s','Peak MiB','GPU J per success'],rows)
   if not any(x['experiment_id']=='R650' for x in confirmation['profiles']):text+='Qwen R650: complete, independently verified result NOT AVAILABLE.\n\n'
   if confirmation['comparisons']:
    rows=[]
    for comparison in confirmation['comparisons']:
     for metric,label in (('task_success','Task success'),('policy_gate_pass','Policy pass')):
-     x=comparison['metrics'][metric];rows.append([comparison['candidate'],label,f"{x['omni_only']} / {x['candidate_only']}",f"{x['families_omni_ahead']} / {x['families_candidate_ahead']} / {x['families_tied']}",f"{x['family_sign_flip_two_sided_p']:.3f}"])
-   text+=table(['Candidate vs R649','Paired outcome','Only Omni / candidate','Families Omni / candidate / tied','Exploratory sign-flip p'],rows)
+     x=comparison['metrics'][metric];rows.append([comparison['candidate'],label,f"{comparison['eligible_cases']}/33",f"{x['omni_only']} / {x['candidate_only']}",f"{x['families_omni_ahead']} / {x['families_candidate_ahead']} / {x['families_tied']}",f"{x['family_sign_flip_two_sided_p']:.3f}"])
+   text+=table(['Candidate vs R649','Paired outcome','Eligible cases','Only Omni / candidate','Families Omni / candidate / tied','Exploratory sign-flip p'],rows)
    text+='Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.\n\n'
-  text+='GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.\n\n'
+  text+='Preflight cases and request errors are technical failures, not automatic evidence of model capability. GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.\n\n'
  fresh=(reproducibility_review or {}).get('r646_fresh_comparison')
  if fresh:
   assert fresh['official_benchmark'] is False and fresh['matched_tasks']==16

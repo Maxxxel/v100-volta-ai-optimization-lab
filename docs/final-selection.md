@@ -12,6 +12,8 @@ Role-complementary judgment using complete official coding/tools plus separately
 
 The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.
 
+**Hardware event · 2026-10-30T03:54:18.766947+00:00:** R652 is not qualified. The driver logged uncorrectable HBM/framebuffer ECC, failed page retirement and a reset-required status. Research GPU starts were stopped at capture; this is a timestamped snapshot, not live hardware status or a diagnosis. Earlier completed results are retained. Audit SHA256: `87f7828b5462efb5b9d4dc38a10a3d2e8a8b0afd43d2c51fe7622da041ad666e`.
+
 
 ## Same-task paired quality comparison
 
@@ -97,22 +99,22 @@ Exact family sign-flip values are exploratory and assume symmetric, exchangeable
 
 These 33 new instances from 11 previously exposed task families were independently rescored. Different entire model profiles do not establish a causal optimization effect or general model superiority.
 
-| Run | Profile | Tasks passed | Policy passed | TASK s | Peak MiB | GPU J per success |
-|---|---|---|---|---|---|---|
-| [R649](experiments/R649.md) | OmniCoder 9B bartowski Q6_K | 26/33 | 29/33 | 391.9 | 7,680.5 | 4,094–4,099 |
-| [R650](experiments/R650.md) | Qwen3.8 27B IQ3_S integrated MTP3 | 26/33 | 31/33 | 620.6 | 13,600.5 | 6,176–6,181 |
-| [R651](experiments/R651.md) | Nexus 9B Q6_K thinking OFF/T0 | 27/33 | 30/33 | 316.5 | 7,356.5 | 3,203–3,209 |
+| Run | Profile | Tasks passed | Policy passed | Rejected tool calls | Preflight cases / request errors | TASK s | Peak MiB | GPU J per success |
+|---|---|---|---|---|---|---|---|---|
+| [R649](experiments/R649.md) | OmniCoder 9B bartowski Q6_K | 26/33 | 29/33 | 5 | 0 / 0 | 391.9 | 7,680.5 | 4,094–4,099 |
+| [R650](experiments/R650.md) | Qwen3.8 27B IQ3_S integrated MTP3 | 26/33 | 31/33 | 2 | 0 / 0 | 620.6 | 13,600.5 | 6,176–6,181 |
+| [R651](experiments/R651.md) | Nexus 9B Q6_K thinking OFF/T0 | 27/33 | 30/33 | 4 | 0 / 0 | 316.5 | 7,356.5 | 3,203–3,209 |
 
-| Candidate vs R649 | Paired outcome | Only Omni / candidate | Families Omni / candidate / tied | Exploratory sign-flip p |
-|---|---|---|---|---|
-| R650 | Task success | 4 / 4 | 2 / 3 / 6 | 1.000 |
-| R650 | Policy pass | 2 / 4 | 1 / 3 / 7 | 0.750 |
-| R651 | Task success | 4 / 5 | 2 / 4 / 5 | 1.000 |
-| R651 | Policy pass | 2 / 3 | 1 / 2 / 8 | 1.000 |
+| Candidate vs R649 | Paired outcome | Eligible cases | Only Omni / candidate | Families Omni / candidate / tied | Exploratory sign-flip p |
+|---|---|---|---|---|---|
+| R650 | Task success | 33/33 | 4 / 4 | 2 / 3 / 6 | 1.000 |
+| R650 | Policy pass | 33/33 | 2 / 4 | 1 / 3 / 7 | 0.750 |
+| R651 | Task success | 33/33 | 4 / 5 | 2 / 4 / 5 | 1.000 |
+| R651 | Policy pass | 33/33 | 2 / 3 | 1 / 2 / 8 | 1.000 |
 
 Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.
 
-GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.
+Preflight cases and request errors are technical failures, not automatic evidence of model capability. GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.
 
 ## Second frozen 8+8 comparison · non-official
 

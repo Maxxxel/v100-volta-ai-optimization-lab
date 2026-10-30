@@ -1370,6 +1370,7 @@ def reserved_agent_comparison(root):
   rows=[json.loads(line) for line in source.read_text().splitlines() if line];cases=[x for x in rows if x.get('kind')=='agent_case'];assert len(cases)==33
   byid={x['id']:x['reported_result'] for x in cases};assert len(byid)==33 and sum(x['task_success'] for x in byid.values())==a['solved']
   checks=r['result']['checks'];assert len(checks)==33 and {x['id'] for x in checks}==set(byid) and all(x['score_and_effects_reproduced'] and x['task_success']==byid[x['id']]['task_success'] for x in checks)
+  assert sum(x['technical_preflight_failure'] for x in checks)==a['technical_preflight_cases']
   data[ident]={'audit':a,'cases':byid,'audit_sha256':digest(file),'replay_sha256':digest(reviewfile),'raw_sha256':digest(source)}
  assert len(scorers)==1 and all(set(x['cases'])==set(data['r589']['cases']) for x in data.values())
  families={k:k.rsplit('-',1)[0] for k in data['r589']['cases']};assert len(set(families.values()))==11 and all(list(families.values()).count(f)==3 for f in set(families.values()))
@@ -1384,6 +1385,16 @@ def reserved_agent_comparison(root):
    metrics[key]={'left_only':ao,'right_only':bo,'net_left_minus_right':ao-bo,'families_left_ahead':sum(v>0 for v in diffs.values()),'families_right_ahead':sum(v<0 for v in diffs.values()),'families_tied':sum(v==0 for v in diffs.values()),'family_sign_flip_two_sided_p':reserved_family_sign_flip(list(diffs.values()))}
   pairs.append({'left':left.upper(),'right':right.upper(),'metrics':metrics})
  return {'dataset_id':'jarvis-lean-holdout-20261027-v1','tasks':33,'families':11,'scorer_sha256':next(iter(scorers)),'profiles':profiles,'pairs':pairs,'official_benchmark':False,'scope':'Previously reserved instances from 11 authored related families, historical non-concurrent whole-profile comparisons, one generation per model. Exact family sign-flip is exploratory and assumes exchangeable/symmetric paired family effects; no population independence, causality, equivalence, official benchmark, seed variability or Champion qualification. Shared GPU energy includes group idle; not CPU/system energy.'}
+
+def gpu_fault_snapshot(root):
+ """Project a local hardware event without publishing private kernel logs."""
+ path=Path(root)/'staging/r652/GPU_FAULT_EVIDENCE.json'
+ if not path.is_file():return None
+ a=json.loads(path.read_text());events=a['events']
+ assert a['experiment_id']=='R652' and a['status']=='GPU_HARDWARE_FAULT_NOT_QUALIFIED' and a['gpu_reset_performed'] is False and a['new_gpu_runs_allowed'] is False
+ assert any('uncorrectable double bit error' in line for line in events) and any('GPU Reset Required' in line for line in events)
+ assert any('): 171,' in line for line in events) and any('): 64,' in line for line in events)
+ return {'experiment_id':'R652','at_utc':a['at_utc'],'evidence_sha256':digest(path),'status':'HARDWARE_FAULT_NOT_QUALIFIED','xid_codes':[48,64,154,171],'gpu_reset_performed':False,'new_gpu_runs_allowed_at_capture':False,'scope':'The driver logged uncorrectable framebuffer/HBM ECC, failed page retirement and reset required. Static snapshot, not a live monitor or definitive component diagnosis. No raw kernel log exported.'}
 
 def confirmation_agent_comparison(root):
  """Export only independently replayed, hash-bound results of the same fixed cases."""
@@ -1401,26 +1412,30 @@ def confirmation_agent_comparison(root):
   profile=raw/'profile.json';assert digest(profile)==a['profile_sha256']==a['original_raw_files_sha256']['profile.json'];p=json.loads(profile.read_text());assert p['model_sha256']==a['model_sha256'];inputs.append(p['selected_task_inputs'])
   cases=[x for x in map(json.loads,source.read_text().splitlines()) if x.get('kind')=='agent_case'];byid={x['id']:x['reported_result'] for x in cases}
   assert len(cases)==len(byid)==33 and sum(x['task_success'] for x in byid.values())==a['solved']
+  assert set(byid)=={x['id'] for x in p['selected_task_inputs']['cases']}
   assert all(x['all_tools_simulated'] is True and x['production_tools_connected'] is False for x in byid.values())
   checks=r['result']['checks'];assert len(checks)==33 and {x['id'] for x in checks}==set(byid) and all(x['score_and_effects_reproduced'] and x['task_success']==byid[x['id']]['task_success'] for x in checks)
-  data[ident]={'audit':a,'cases':byid,'audit_sha256':digest(file),'replay_sha256':digest(reviewfile)}
+  data[ident]={'audit':a,'cases':byid,'preflight_ids':{x['id'] for x in checks if x['technical_preflight_failure']},'audit_sha256':digest(file),'replay_sha256':digest(reviewfile)}
  if 'r649' not in data:return None
  assert len(scorers)==1
  assert all(value==inputs[0] for value in inputs) and all(set(value['cases'])==set(data['r649']['cases']) for value in data.values())
  profiles=[]
  for ident in data:
-  x=data[ident];a=x['audit'];energy=a['GPU_counter'];profiles.append({'experiment_id':ident.upper(),'model':a['model'],'model_sha256':a['model_sha256'],'solved':a['solved'],'policy_passes':sum(v['policy_gate_pass'] for v in x['cases'].values()),'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'gpu_energy_lower_j':energy['lower_j'],'gpu_energy_upper_j':energy['upper_j'],'audit_sha256':x['audit_sha256'],'replay_sha256':x['replay_sha256']})
+  x=data[ident];a=x['audit'];energy=a['GPU_counter'];profiles.append({'experiment_id':ident.upper(),'model':a['model'],'model_sha256':a['model_sha256'],'solved':a['solved'],'policy_passes':sum(v['policy_gate_pass'] for v in x['cases'].values()),'rejected_tool_calls':sum(v['rejected_calls'] for v in x['cases'].values()),'technical_preflight_cases':a['technical_preflight_cases'],'technical_request_errors':a['technical_request_errors'],'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'gpu_energy_lower_j':energy['lower_j'],'gpu_energy_upper_j':energy['upper_j'],'audit_sha256':x['audit_sha256'],'replay_sha256':x['replay_sha256']})
  pairs={};comparisons=[]
  if len(data)>1:
   families={k:k.rsplit('-',1)[0] for k in data['r649']['cases']}
   assert len(set(families.values()))==11 and all(list(families.values()).count(f)==3 for f in set(families.values()))
   for ident in data:
    if ident=='r649':continue
+   if data['r649']['audit']['technical_request_errors'] or data[ident]['audit']['technical_request_errors']:continue
+   excluded=data['r649']['preflight_ids']|data[ident]['preflight_ids'];eligible=set(data['r649']['cases'])-excluded
+   if not eligible:continue
    metrics={}
    for metric in ('task_success','policy_gate_pass'):
-    a,b=data['r649']['cases'],data[ident]['cases'];diffs=[sum(int(a[k][metric])-int(b[k][metric]) for k in a if families[k]==f) for f in sorted(set(families.values()))]
+    a={k:v for k,v in data['r649']['cases'].items() if k in eligible};b={k:v for k,v in data[ident]['cases'].items() if k in eligible};diffs=[sum(int(a[k][metric])-int(b[k][metric]) for k in a if families[k]==f) for f in sorted({families[k] for k in eligible})]
     metrics[metric]={'omni_only':sum(a[k][metric] and not b[k][metric] for k in a),'candidate_only':sum(b[k][metric] and not a[k][metric] for k in a),'both_pass':sum(a[k][metric] and b[k][metric] for k in a),'both_fail':sum(not a[k][metric] and not b[k][metric] for k in a),'families_omni_ahead':sum(v>0 for v in diffs),'families_candidate_ahead':sum(v<0 for v in diffs),'families_tied':sum(v==0 for v in diffs),'family_sign_flip_two_sided_p':reserved_family_sign_flip(diffs)}
-   comparisons.append({'reference':'R649','candidate':ident.upper(),'metrics':metrics})
+   comparisons.append({'reference':'R649','candidate':ident.upper(),'eligible_cases':len(eligible),'excluded_preflight_cases':len(excluded),'metrics':metrics})
  return {'tasks':33,'profiles':profiles,'comparisons':comparisons,'official_benchmark':False,'scope':'New fixed instances from previously exposed authored families; distinct whole profiles and historical sessions. Independent CPU rescoring is not independent generation. No population, causal or Champion claim. GPU energy includes failures and between-case idle; excludes startup and CPU/system energy.'}
 
 def build(root):
@@ -1460,4 +1475,4 @@ def build(root):
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
  on_aa=qwen_native_aa(root,'R618','R635');off_aa=qwen_native_aa(root,'R625','R636')
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'r639_policy_replay':r639_policy_replay(root),'r640_policy_abba':r640_policy_abba(root),'r641_policy_abba':r641_policy_abba(root),'r642_policy_abba':r642_policy_abba(root),'reserved_agent_comparison':reserved_agent_comparison(root),'confirmation_agent_comparison':confirmation_agent_comparison(root),'r643_mtp_agent_abba':r643_mtp_agent_abba(root),'r646_fresh_comparison':r646_fresh_comparison(root),'r647_gemma_fresh_comparison':r647_gemma_fresh_comparison(root),'r648_nexus_fresh_comparison':r648_nexus_fresh_comparison(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'r639_policy_replay':r639_policy_replay(root),'r640_policy_abba':r640_policy_abba(root),'r641_policy_abba':r641_policy_abba(root),'r642_policy_abba':r642_policy_abba(root),'reserved_agent_comparison':reserved_agent_comparison(root),'confirmation_agent_comparison':confirmation_agent_comparison(root),'gpu_fault_snapshot':gpu_fault_snapshot(root),'r643_mtp_agent_abba':r643_mtp_agent_abba(root),'r646_fresh_comparison':r646_fresh_comparison(root),'r647_gemma_fresh_comparison':r647_gemma_fresh_comparison(root),'r648_nexus_fresh_comparison':r648_nexus_fresh_comparison(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
