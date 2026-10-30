@@ -113,6 +113,15 @@ All 16 task outcomes matched; both profiles failed the same tool case. R599 base
 
 Gemma TASK time 27.91 s; peak VRAM 8,118.5 MiB. GPU energy includes failed requests and excludes startup and CPU/system energy. Same exposed tasks and different native profiles; this small supplemental result does not establish model superiority or qualification. [R647](experiments/R647.md).
 
+### Nexus on the same 8+8 tasks · R648
+
+| Category | Omni R599 | Qwen R646 | Gemma R647 | Nexus R648 | Nexus request seconds | Nexus GPU J/success |
+|---|---|---|---|---|---|---|
+| Coding | 8/8 | 8/8 | 7/8 | 8/8 | 12.10 | 384–398 |
+| Tools | 7/8 | 7/8 | 7/8 | 5/8 | 8.25 | 420–439 |
+
+Nexus TASK time 20.36 s; peak VRAM 7,356.5 MiB. Failed requests are included in GPU energy; startup and CPU/system energy are excluded. These researcher-exposed tasks and distinct native profiles do not establish model superiority or qualification. [R648](experiments/R648.md).
+
 ## Frozen 8+8 profile validation · non-official
 
 These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across seven profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.

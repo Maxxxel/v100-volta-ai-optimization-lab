@@ -505,6 +505,16 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
    rows.append([cat.title(),f"{x['r599']['successes']}/8",f"{x['r646']['successes']}/8",f"{g['successes']}/8",f"{g['request_wall_s']:.2f}",f"{g['gpu_j_per_success_lower']:.0f}–{g['gpu_j_per_success_upper']:.0f}"])
   text+=table(['Category','Omni R599','Qwen R646','Gemma R647','Gemma request seconds','Gemma GPU J/success'],rows)
   text+=f"Gemma TASK time {gemma['task_phase_s']:.2f} s; peak VRAM {gemma['peak_vram_mib']:,.1f} MiB. GPU energy includes failed requests and excludes startup and CPU/system energy. Same exposed tasks and different native profiles; this small supplemental result does not establish model superiority or qualification. [R647](experiments/R647.md).\n\n"
+ nexus=(reproducibility_review or {}).get('r648_nexus_fresh_comparison')
+ if nexus:
+  assert not nexus['official_benchmark'] and nexus['matched_tasks']==16
+  text+='### Nexus on the same 8+8 tasks · R648\n\n'
+  rows=[]
+  for cat in ('coding','tools'):
+   x=nexus['categories'][cat];g=nexus['groups'][cat]
+   rows.append([cat.title(),f"{x['r599']['successes']}/8",f"{x['r646']['successes']}/8",f"{x['r647']['successes']}/8",f"{g['successes']}/8",f"{g['request_wall_s']:.2f}",f"{g['gpu_j_per_success_lower']:.0f}–{g['gpu_j_per_success_upper']:.0f}"])
+  text+=table(['Category','Omni R599','Qwen R646','Gemma R647','Nexus R648','Nexus request seconds','Nexus GPU J/success'],rows)
+  text+=f"Nexus TASK time {nexus['task_phase_s']:.2f} s; peak VRAM {nexus['peak_vram_mib']:,.1f} MiB. Failed requests are included in GPU energy; startup and CPU/system energy are excluded. These researcher-exposed tasks and distinct native profiles do not establish model superiority or qualification. [R648](experiments/R648.md).\n\n"
  if validation16:
   assert validation16['official_benchmark'] is False and len(validation16['rows']) == 7
   text+='## Frozen 8+8 profile validation · non-official\n\n'

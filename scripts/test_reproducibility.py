@@ -249,6 +249,20 @@ class GemmaSupplementalComparison(unittest.TestCase):
   self.assertEqual(result['categories']['tools']['r647'],{'successes':7,'total':8})
   self.assertGreater(result['peak_vram_mib'],0)
 
+ def test_nexus_four_profile_comparison(self):
+  import os
+  from pathlib import Path
+  from reproducibility import r648_nexus_fresh_comparison
+  source=os.environ.get('V100_RESEARCH_SOURCE')
+  if not source:self.skipTest('Local research source not configured')
+  root=Path(source)
+  if not (root/'staging/r648/CROSS_MODEL_REVIEW.json').exists():self.skipTest('Local source evidence unavailable')
+  result=r648_nexus_fresh_comparison(root)
+  self.assertFalse(result['official_benchmark'])
+  self.assertEqual(result['matched_tasks'],16)
+  self.assertEqual(result['categories']['coding']['r648'],{'successes':8,'total':8})
+  self.assertEqual(result['categories']['tools']['r648'],{'successes':5,'total':8})
+
 class ReservedAgentPairing(unittest.TestCase):
  def test_exact_family_sign_flip(self):
   from reproducibility import reserved_family_sign_flip

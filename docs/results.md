@@ -552,6 +552,7 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R645](experiments/R645.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8-27B · IQ3_S · MTP OFF |
 | [R646](experiments/R646.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R647](experiments/R647.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R648](experiments/R648.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 
 
 ## Historical signed windows
