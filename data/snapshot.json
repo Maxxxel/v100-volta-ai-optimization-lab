@@ -3302,6 +3302,64 @@
         "ties": 0
       },
       "case_timing_review_sha256": "c414eddfb7c491a364ce032f0889deb87cd6f7ba9b6e0c6fe7680fbb6cc6a2fa",
+      "exact_trajectory": {
+        "arms": {
+          "A1": {
+            "cases": 7,
+            "counter_groups": 1,
+            "gpu_energy_lower_j": 37979.983,
+            "gpu_energy_upper_j": 38090.883,
+            "gpu_j_per_success_lower": 7595.9966,
+            "gpu_j_per_success_upper": 7618.176600000001,
+            "policy_passes": 7,
+            "successes": 5,
+            "task_wall_s": 141.385609928
+          },
+          "A2": {
+            "cases": 7,
+            "counter_groups": 1,
+            "gpu_energy_lower_j": 38904.893,
+            "gpu_energy_upper_j": 39042.749,
+            "gpu_j_per_success_lower": 7780.9785999999995,
+            "gpu_j_per_success_upper": 7808.549800000001,
+            "policy_passes": 7,
+            "successes": 5,
+            "task_wall_s": 142.519391431
+          },
+          "B1": {
+            "cases": 7,
+            "counter_groups": 1,
+            "gpu_energy_lower_j": 30150.426,
+            "gpu_energy_upper_j": 30280.84,
+            "gpu_j_per_success_lower": 6030.0851999999995,
+            "gpu_j_per_success_upper": 6056.168,
+            "policy_passes": 7,
+            "successes": 5,
+            "task_wall_s": 117.21132379
+          },
+          "B2": {
+            "cases": 7,
+            "counter_groups": 1,
+            "gpu_energy_lower_j": 30175.835,
+            "gpu_energy_upper_j": 30287.376,
+            "gpu_j_per_success_lower": 6035.1669999999995,
+            "gpu_j_per_success_upper": 6057.4752,
+            "policy_passes": 7,
+            "successes": 5,
+            "task_wall_s": 117.322759876
+          }
+        },
+        "at_utc": "2026-10-30T02:16:45.491449+00:00",
+        "excluded_cases": 1,
+        "gpu_runs": 0,
+        "observed_reduction_pct": 17.389942923397157,
+        "off_combined_s": 283.90500135900004,
+        "on_combined_s": 234.53408366600002,
+        "scope": "Retrospective selection of seven exposed agent cases whose full request, input token IDs and output token IDs match across all four ABBA sessions. Two failed tasks per arm remain in energy numerator; denominator 5 successes. Includes GPU case windows and between-case idle; excludes startup/CPU/system energy. Fixed seeds and repeated sessions are correlated. No model-wide equivalence, quality qualification, or kernel-throughput claim.",
+        "selected_cases": 7,
+        "status": "EXACT_TRAJECTORY_POSTSELECTED_DIAGNOSTIC"
+      },
+      "exact_trajectory_review_sha256": "0ca788869e2b2c83bc8e0ee93a4acf6335e2a94d2c61644d7ae68baea8d933b7",
       "mtp_counters": {
         "A1": {
           "log_records": 0,

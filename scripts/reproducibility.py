@@ -1238,8 +1238,30 @@ def r643_mtp_agent_abba(root):
  assert len(delta)==timing['cases']==8 and len({k.rsplit('-',1)[0] for k in maps['A1']})==timing['families']==8
  assert (sum(x>0 for x,y in delta),sum(x<0 for x,y in delta),sum(x==0 for x,y in delta))==(timing['mtp_faster_cases'],timing['mtp_slower_cases'],timing['ties'])
  assert (min(y for x,y in delta),statistics.median(y for x,y in delta),max(y for x,y in delta))==(timing['min_case_reduction_percent'],timing['median_case_reduction_percent'],timing['max_case_reduction_percent'])
+ exact_path=stage/'EXACT_TRAJECTORY_REVIEW.json';exact=json.loads(exact_path.read_text())
+ assert exact['status']=='EXACT_TRAJECTORY_POSTSELECTED_DIAGNOSTIC' and exact['audit_sha256']==digest(file) and exact['independent_review_sha256']==digest(stage/'INDEPENDENT_REVIEW.json') and exact['gpu_runs']==0
+ matched=[]
+ for case in maps['A1']:
+  turns={k for k,v in data['A1'][2].items() if v['case_id']==case}
+  same=bool(turns) and all({k for k,v in data[l][2].items() if v['case_id']==case}==turns for l in labels)
+  for k in turns:
+   if not same:break
+   base=data['A1'][1][k];identity=data['A1'][2][k]
+   same=all(data[l][1][k]['request']==base['request'] and data[l][2][k]['prompt_token_ids']==identity['prompt_token_ids'] and data[l][1][k]['reply']['__verbose']['tokens']==base['reply']['__verbose']['tokens'] for l in labels)
+  if same:matched.append(case)
+ assert len(matched)==exact['selected_cases']==7 and exact['excluded_cases']==1
+ for label in labels:
+  cases=[maps[label][k] for k in matched];e=counter_energy_bounds(telemetry,allcases,[label+'-'+k for k in matched]);x=exact['arms'][label]
+  assert sum(c['reported_result']['task_success'] for c in cases)==x['successes']==5
+  assert sum(c['reported_result']['policy_gate_pass'] for c in cases)==x['policy_passes']==7 and x['cases']==7
+  assert sum(c['e2e_s'] for c in cases)==x['task_wall_s'] and e['groups']==x['counter_groups']
+  assert e['lower_j']==x['gpu_energy_lower_j'] and e['upper_j']==x['gpu_energy_upper_j']
+  assert e['lower_j']/5==x['gpu_j_per_success_lower'] and e['upper_j']/5==x['gpu_j_per_success_upper']
+ assert exact['off_combined_s']==exact['arms']['A1']['task_wall_s']+exact['arms']['A2']['task_wall_s']
+ assert exact['on_combined_s']==exact['arms']['B1']['task_wall_s']+exact['arms']['B2']['task_wall_s']
+ assert exact['observed_reduction_pct']==100*(exact['off_combined_s']-exact['on_combined_s'])/exact['off_combined_s']
  off=computed[0]['case_wall_s']+computed[3]['case_wall_s'];on=computed[1]['case_wall_s']+computed[2]['case_wall_s']
- return {'tool_delta':tool['results'],'tool_delta_review_sha256':digest(stage/'TOOL_DELTA_REVIEW.json'),'case_timing':{k:v for k,v in timing.items() if k not in ('audit_sha256','replay_sha256')},'case_timing_review_sha256':digest(stage/'CASE_TIMING_REVIEW.json'),'arms':computed,'pairs':analysis['paired'],'per_arm_energy':analysis['per_arm_energy'],'mtp_counters':analysis['server_reported_mtp_counters'],'off_total_case_s':off,'on_total_case_s':on,'observed_case_reduction_pct':(off-on)/off*100,'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'audit_sha256':digest(file),'review_sha256':digest(stage/'INDEPENDENT_REVIEW.json'),'analysis_sha256':digest(stage/'ANALYSIS.json'),'scope':analysis['scope'],'winner_qualified':False}
+ return {'exact_trajectory':{k:v for k,v in exact.items() if k not in ('audit_sha256','independent_review_sha256')},'exact_trajectory_review_sha256':digest(exact_path),'tool_delta':tool['results'],'tool_delta_review_sha256':digest(stage/'TOOL_DELTA_REVIEW.json'),'case_timing':{k:v for k,v in timing.items() if k not in ('audit_sha256','replay_sha256')},'case_timing_review_sha256':digest(stage/'CASE_TIMING_REVIEW.json'),'arms':computed,'pairs':analysis['paired'],'per_arm_energy':analysis['per_arm_energy'],'mtp_counters':analysis['server_reported_mtp_counters'],'off_total_case_s':off,'on_total_case_s':on,'observed_case_reduction_pct':(off-on)/off*100,'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'audit_sha256':digest(file),'review_sha256':digest(stage/'INDEPENDENT_REVIEW.json'),'analysis_sha256':digest(stage/'ANALYSIS.json'),'scope':analysis['scope'],'winner_qualified':False}
 
 def reserved_family_sign_flip(group_differences):
  """Exact paired family sign enumeration; not an independence/equivalence claim."""
