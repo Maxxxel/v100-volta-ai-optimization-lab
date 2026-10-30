@@ -468,9 +468,9 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
   text+=table(['Pair','Task pass only left / right','Policy pass only left / right','Families left / right / tied','Family sign-flip p'],rows)
   text+='Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).\n\n'
  if validation16:
-  assert validation16['official_benchmark'] is False and len(validation16['rows']) == 5
-  text+='## Reserved 8+8 profile validation · non-official\n\n'
-  text+='These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across five profiles, so the small samples are correlated across models and cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.\n\n'
+  assert validation16['official_benchmark'] is False and len(validation16['rows']) == 6
+  text+='## Frozen 8+8 profile validation · non-official\n\n'
+  text+='These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across six profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.\n\n'
   def vcell(m):
    return f"{m['successes']}/8 · {m['tokens_per_second']:.1f} tok/s · {m['gpu_j_per_success_lower']:.0f}–{m['gpu_j_per_success_upper']:.0f} GPU J/success"
   vrows=[]

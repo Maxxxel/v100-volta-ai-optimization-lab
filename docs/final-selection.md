@@ -93,9 +93,9 @@ The 33 reserved cases belong to 11 authored families. These are historical whole
 
 Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).
 
-## Reserved 8+8 profile validation · non-official
+## Frozen 8+8 profile validation · non-official
 
-These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across five profiles, so the small samples are correlated across models and cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.
+These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across six profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.
 
 | Profile | Coding · 8 tasks | Tools · 8 tasks | Total task phase · peak VRAM | Evidence |
 |---|---|---|---|---|
@@ -104,6 +104,7 @@ These locally measured cases are supplementary evidence only; they do not enter 
 | [OmniCoder-9B](experiments/R511.md) · parent [R478](experiments/R478.md) | 8/8 · 76.4 tok/s · 667–680 GPU J/success | 6/8 · 49.4 tok/s · 324–337 GPU J/success | 27.7s · 7356 MiB | [audit](experiments/R511.md) · `dbceec90e287` |
 | [Nexus-9B · OFF/T0](experiments/R526.md) · parent [R489](experiments/R489.md) | 6/8 · 74.6 tok/s · 559–574 GPU J/success | 5/8 · 55.8 tok/s · 496–509 GPU J/success | 22.4s · 7356 MiB | [audit](experiments/R526.md) · `240fa31ab141` |
 | [Ornith-1.5-9B · OFF/T0](experiments/R527.md) · parent [R496](experiments/R496.md) | 7/8 · 74.5 tok/s · 476–493 GPU J/success | 5/8 · 57.4 tok/s · 530–546 GPU J/success | 22.7s · 7356 MiB | [audit](experiments/R527.md) · `032c85b436c2` |
+| [Qwen3.8-27B · IQ3_S · MTP3](experiments/R644.md) · parent [R547](experiments/R547.md) | 8/8 · 58.2 tok/s · 533–545 GPU J/success | 5/8 · 22.3 tok/s · 843–861 GPU J/success | 35.0s · 13598 MiB | [audit](experiments/R644.md) · `75f15d377e75` |
 
 Completion tokens, response time, validity, descriptive Wilson intervals, and full audit hashes are available in the [validation aggregate](assets/validation16.json). No task prompts, IDs, outputs, or per-task results are published. Do not interpret per-category GPU joules per success as whole-task energy; the meter brackets only the selected category request group.
 

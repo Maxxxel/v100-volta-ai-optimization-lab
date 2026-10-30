@@ -16,6 +16,7 @@ PROFILES = {
     'R511': ('OmniCoder-9B', 'R478'),
     'R526': ('Nexus-9B · OFF/T0', 'R489'),
     'R527': ('Ornith-1.5-9B · OFF/T0', 'R496'),
+    'R644': ('Qwen3.8-27B · IQ3_S · MTP3', 'R547'),
 }
 
 

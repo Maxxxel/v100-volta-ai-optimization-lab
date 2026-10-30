@@ -237,6 +237,53 @@
           0.8631557141764026
         ]
       }
+    },
+    {
+      "at_utc": "2026-10-30T01:50:15.388221+00:00",
+      "audit_sha256": "75f15d377e75749d278c868567d5979779463efdde26e16a7eaf6a40e4ad7775",
+      "capture_review_sha256": "7da306840a876d38c2a8aea289ee01e27658dc6b8aa3d617cdeeedfb198bb574",
+      "coding": {
+        "completed": 8,
+        "completed_request_wall_s": 17.314934261,
+        "completion_tokens": 1007,
+        "final_text_present": 8,
+        "gpu_j_per_success_lower": 532.573625,
+        "gpu_j_per_success_upper": 545.377875,
+        "successes": 8,
+        "successful_tasks_per_second": 0.4620288982568722,
+        "tokens_per_second": 58.15788756808379,
+        "valid_terminal_output": 8,
+        "wilson95_descriptive": [
+          0.6755924351161198,
+          1
+        ]
+      },
+      "experiment_id": "R644",
+      "independent_review_sha256": "35cf15a9fac45a0a62c90dbd7653cf7c084053d2be47120f11797f2893499f5c",
+      "limitations": "Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.",
+      "model": "Qwen3.8-27B · IQ3_S · MTP3",
+      "parent_experiment_id": "R547",
+      "parent_profile": "qwen38-27b-integrated-mtp3-development32-task1200-reviewed-sm70",
+      "peak_device_vram_mib": 13598.5,
+      "status": "COMPLETE_NON_OFFICIAL_VALIDATION",
+      "task_phase_s": 35.019343352,
+      "tasks_per_category": 8,
+      "tools": {
+        "completed": 8,
+        "completed_request_wall_s": 17.695938956,
+        "completion_tokens": 395,
+        "final_text_present": 0,
+        "gpu_j_per_success_lower": 843.0934,
+        "gpu_j_per_success_upper": 861.1256,
+        "successes": 5,
+        "successful_tasks_per_second": 0.28255070343722544,
+        "tokens_per_second": 22.321505571540808,
+        "valid_terminal_output": 5,
+        "wilson95_descriptive": [
+          0.30574239460262737,
+          0.8631557141764026
+        ]
+      }
     }
   ],
   "schema": 1

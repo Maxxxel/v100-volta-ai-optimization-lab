@@ -12,7 +12,7 @@ def dump(path, obj):
 
 
 def fixture(root):
-    scores = {'R509': (8, 6), 'R510': (7, 7), 'R511': (8, 6), 'R526': (6, 5), 'R527': (7, 5)}
+    scores = {'R509': (8, 6), 'R510': (7, 7), 'R511': (8, 6), 'R526': (6, 5), 'R527': (7, 5), 'R644': (8, 5)}
     for ident, (coding, tools) in scores.items():
         folder = Path(root) / 'staging' / ident.lower()
         capture = {'GPU_execution_observed': True, 'all_replies_match_root_event_stream': True,
@@ -51,10 +51,10 @@ class Validation16Projection(unittest.TestCase):
             fixture(td)
             result = validation16.build(td)
         self.assertEqual([x['experiment_id'] for x in result['rows']],
-                         ['R509', 'R510', 'R511', 'R526', 'R527'])
+                         ['R509', 'R510', 'R511', 'R526', 'R527', 'R644'])
         self.assertFalse(result['official_benchmark'])
         self.assertEqual([(x['coding']['successes'], x['tools']['successes'])
-                          for x in result['rows']], [(8, 6), (7, 7), (8, 6), (6, 5), (7, 5)])
+                          for x in result['rows']], [(8, 6), (7, 7), (8, 6), (6, 5), (7, 5), (8, 5)])
         encoded = json.dumps(result)
         self.assertNotIn('coding-0', encoded)
         self.assertNotIn('tools-0', encoded)
