@@ -113,6 +113,8 @@ R644: 3 tool cases produced a call where none was expected. The mock tools were 
 
 R645 (MTP OFF) had the same 16 task outcomes as R644 (MTP ON); 14/16 output-token sequences matched, including all 8/8 tool tasks. The three unexpected tool calls occurred in both. This single unbalanced, exposed comparison does not establish causation or quality equivalence.
 
+For the 14 retrospectively selected requests with identical output tokens, request wall time was 31.25s ON versus 46.25s OFF; ON was faster for 14/14. Input token IDs were not independently verified. This is not a kernel-throughput measurement or independent performance qualification.
+
 ## Post-freeze evidence through R630
 
 The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.

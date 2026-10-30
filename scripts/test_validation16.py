@@ -54,13 +54,20 @@ def fixture(root):
             dump(folder / 'PAIRED_REVIEW.json', {'status':'UNBALANCED_EXPOSED_PAIRED_DIAGNOSTIC',
                 'audit_sha256': {'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
                 'review_sha256': {'R644':validation16.digest(other / 'INDEPENDENT_REVIEW.json'), 'R645':validation16.digest(folder / 'INDEPENDENT_REVIEW.json')},
-                'identical_requests':16, 'task_outcome_agreements':16, 'identical_output_token_sequences':14})
+                'identical_requests':16, 'task_outcome_agreements':16, 'identical_output_token_sequences':14,
+                'cases':[{'id':str(i), 'output_tokens_equal':i<14} for i in range(16)]})
             dump(folder / 'TOOL_TOKEN_REVIEW.json', {'status':'CPU_SOURCE_CHECKED',
                 'pair_review_sha256': validation16.digest(folder / 'PAIRED_REVIEW.json'),
                 'audits': {'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
                 'matched_cases':8, 'same_output_tokens':8, 'same_tool_names_and_parsed_arguments':8,
                 'tool_choice':'auto', 'gpu_runs':0,
                 'cases':[{'task_id':str(i), 'identical_tokens':True, 'identical_tool_names_and_parsed_arguments':True} for i in range(8)]})
+            dump(folder / 'EXACT_OUTPUT_TIMING_REVIEW.json', {'status':'OBSERVED_EXACT_OUTPUT_SUBSET_NOT_INDEPENDENT',
+                'source_pair_sha256':validation16.digest(folder / 'PAIRED_REVIEW.json'),
+                'audits':{'R644':validation16.digest(other / 'AUDIT.json'), 'R645':validation16.digest(folder / 'AUDIT.json')},
+                'gpu_runs':0, 'matched_cases':14, 'excluded_cases':2,
+                'on_total_request_s':14.0, 'off_total_request_s':28.0, 'individual_cases_on_faster':14,
+                'items':[{'id':str(i), 'on_s':1.0, 'off_s':2.0} for i in range(14)]})
 
 
 class Validation16Projection(unittest.TestCase):

@@ -28778,8 +28778,12 @@
         "paired_with_r644": {
           "identical_output_token_sequences": 14,
           "identical_requests": 16,
+          "matched_output_on_faster_count": 14,
+          "matched_output_request_seconds_off": 46.253217473,
+          "matched_output_request_seconds_on": 31.254611524,
           "review_sha256": "760600f56f7a0da23e99a67460bd825a4a33f27c9c8231bb3c4885e5af582a0e",
           "task_outcome_agreements": 16,
+          "timing_review_sha256": "458912f3362f04cc10a9ffa5bb46006d45b0980d8ad0b267df2f21046ac9927c",
           "tool_output_token_matches": 8,
           "tool_token_review_sha256": "263b3c841d17582d3969b7ed89324db088f68f1071ed59501618c29e834e0b61"
         },

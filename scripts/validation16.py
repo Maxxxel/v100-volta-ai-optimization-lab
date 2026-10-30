@@ -126,10 +126,26 @@ def build(root):
             assert token_review['tool_choice'] == 'auto' and token_review['gpu_runs'] == 0
             assert len({x['task_id'] for x in token_review['cases']}) == 8
             assert all(x['identical_tokens'] is True and x['identical_tool_names_and_parsed_arguments'] is True for x in token_review['cases'])
+            timing_path = folder / 'EXACT_OUTPUT_TIMING_REVIEW.json'
+            timing = load(timing_path)
+            assert timing['status'] == 'OBSERVED_EXACT_OUTPUT_SUBSET_NOT_INDEPENDENT'
+            assert timing['source_pair_sha256'] == digest(folder / 'PAIRED_REVIEW.json')
+            assert timing['audits'] == pair['audit_sha256'] and timing['gpu_runs'] == 0
+            assert timing['matched_cases'] == pair['identical_output_token_sequences'] == len(timing['items'])
+            assert timing['excluded_cases'] + timing['matched_cases'] == 16
+            assert len(pair['cases']) == 16
+            assert {x['id'] for x in timing['items']} == {x['id'] for x in pair['cases'] if x['output_tokens_equal']}
+            assert abs(sum(x['on_s'] for x in timing['items']) - timing['on_total_request_s']) < 1e-9
+            assert abs(sum(x['off_s'] for x in timing['items']) - timing['off_total_request_s']) < 1e-9
+            assert sum(x['on_s'] < x['off_s'] for x in timing['items']) == timing['individual_cases_on_faster']
             rows[-1]['paired_with_r644'] = {'identical_requests': 16,
                 'identical_output_token_sequences': pair['identical_output_token_sequences'],
                 'task_outcome_agreements': 16, 'review_sha256': digest(folder / 'PAIRED_REVIEW.json'),
-                'tool_output_token_matches': 8, 'tool_token_review_sha256': digest(token_review_path)}
+                'tool_output_token_matches': 8, 'tool_token_review_sha256': digest(token_review_path),
+                'matched_output_request_seconds_on': timing['on_total_request_s'],
+                'matched_output_request_seconds_off': timing['off_total_request_s'],
+                'matched_output_on_faster_count': timing['individual_cases_on_faster'],
+                'timing_review_sha256': digest(timing_path)}
     assert len(rows) == len(PROFILES)
     return {'schema': 1, 'benchmark_id': 'frozen-jarvis-validation16-v1',
             'official_benchmark': False, 'purpose': 'SUPPLEMENTARY_PROFILE_VALIDATION_ONLY',
