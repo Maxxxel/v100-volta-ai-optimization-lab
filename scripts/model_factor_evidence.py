@@ -38,6 +38,7 @@ def reviewed_dispositions(experiments):
   ('S01','Nexus','TESTED_NEGATIVE','R604',None,'A 32-task exposed n-gram screen showed no practical gain versus a historical interleaved control; energy was not fully measured and causation remains uncertain.'),
   ('K02','Gemma 4','PARTIAL','R606','R608','Q8 value cache looked promising in a paired development screen; the later full coding score fell against a historical control. No promotion; causal quality loss is unconfirmed.'),
   ('K02','Gemma 4','PARTIAL','R608','R627','The F16/Q8 value-cache diagnostic repeated each arm on three exposed prompts; two differed at the first token between arms. A historical baseline inconsistency remains; this is not a general quality or safety qualification.'),
+  ('K01','Gemma 4','PARTIAL','R610',None,'Q8 key-cache profile completed HumanEval+164 with 151/164. R610 repeats matching R544 outputs, not an independent seed; five paired losses against historical F16 are not a fresh controlled comparison or causal proof. No tool/safety qualification or Champion.'),
   ('S03','Qwen3.8','PARTIAL','R551','R548','Integrated MTP improved a fresh development comparison and passed a scoped coding gate; task-level safety and broad equivalence remain unqualified.'),
   ('HBM07','OmniCoder','TESTED_NEGATIVE','R603',None,'A 4 GiB conversion-cache development screen showed no practical latency benefit; this is limited to the measured workload and profile.')]
  byid={e['id']:e for e in experiments if e.get('audit_id')}
@@ -47,6 +48,9 @@ def reviewed_dispositions(experiments):
    e=byid.get(ident); normalized=re.sub(r'[^a-z0-9]','',(e.get('model') or '').lower()) if e else ''
    token=dict(PATTERNS)[model]
    if not e or factor not in (e.get('factor_ids') or ()) or token not in normalized:raise ValueError('Missing model-specific disposition evidence: '+ident)
+   if ident=='R610':
+    result=(e.get('aggregate_metrics') or {}).get('comparison') or {};scope=(e.get('statements') or {}).get('scope') or ''
+    if (result.get('tasks'),result.get('candidate_successes'),result.get('reference_successes'),result.get('paired_losses'))!=(164,151,156,5) or 'R544' not in scope or e.get('winner_qualified') is not False:raise ValueError('Gemma key-cache evidence differs')
  on=byid.get('R618');off=byid.get('R625')
  if bool(on)!=bool(off):raise ValueError('Incomplete Qwen3.8 MTP paired evidence')
  if on and off:

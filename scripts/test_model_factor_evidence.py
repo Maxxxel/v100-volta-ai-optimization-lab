@@ -7,6 +7,14 @@ class ModelFactorEvidence(unittest.TestCase):
   self.assertEqual(out['R22']['Gemma 4'],['R1']);self.assertEqual(out['R22']['Qwen3.8'],['R2']);self.assertEqual(out['R22']['Qwen3.5'],[]);self.assertEqual(out['K02']['Gemma 4'],[]);self.assertEqual(out['K02']['Nexus'],['R5'])
  def test_reviewed_dispositions_require_matching_audits(self):
   with self.assertRaises(ValueError):reviewed_dispositions([])
+ def test_gemma_key_cache_preserves_historical_control_limit(self):
+  import copy,json
+  from pathlib import Path
+  experiments=json.loads((Path(__file__).resolve().parents[1]/'data/experiments.json').read_text())
+  row=next(x for x in reviewed_dispositions(experiments) if x[0]=='K01' and x[1]=='Gemma 4')
+  self.assertIn('151/164',row[-1]);self.assertIn('not an independent seed',row[-1])
+  altered=copy.deepcopy(experiments);next(x for x in altered if x['id']=='R610')['aggregate_metrics']['comparison']['candidate_successes']=152
+  with self.assertRaises(ValueError):reviewed_dispositions(altered)
  def test_hardware_exclusions_require_existing_audit_and_scope(self):
   factors=[{'id':x,'status':'NOT_APPLICABLE','evidence_ids':['audit-1']} for x in ('R16','HBM20','HBM21')]
   out=reviewed_hardware_dispositions(factors,[{'id':'audit-1'}])
