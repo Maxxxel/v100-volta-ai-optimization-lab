@@ -280,7 +280,7 @@ class ReservedAgentPairing(unittest.TestCase):
   from reproducibility import confirmation_agent_comparison
   with tempfile.TemporaryDirectory() as d:
    root=Path(d)
-   for ident in ('r649','r650'):
+   for ident in ('r649','r650','r651'):
     stage=root/'staging'/ident;raw=root/'raw'/ident;raw.mkdir(parents=True)
     profile=raw/'profile.json';write(profile,{'model_sha256':ident,'selected_task_inputs':{'cases':['fixed']}})
     cases=[{'kind':'agent_case','id':f'family-{i//3}-{i%3}','reported_result':{'task_success':i<26,'policy_gate_pass':i<29,'all_tools_simulated':True,'production_tools_connected':False}} for i in range(33)]
@@ -289,9 +289,10 @@ class ReservedAgentPairing(unittest.TestCase):
     review=stage/'INDEPENDENT_REVIEW.json';write(review,{'status':'INDEPENDENT_CPU_REPLAY_IDENTICAL','GPU_runs':0,'model_requests':0,'scorer_sha256':'same','result':{'cases':33,'complete':True,'all_scores_and_effects_reproduced':True,'checks':checks}})
     write(stage/'AUDIT.json',{'measurement_valid':True,'GPU_execution_observed':True,'tasks':33,'dataset_id':'jarvis-confirmation-20261030-v1','official_benchmark':False,'independent_review_sha256':h(review),'raw_root':str(raw),'original_raw_files_sha256':{'HTTP_RESULTS.jsonl':h(capture),'profile.json':h(profile)},'profile_sha256':h(profile),'model_sha256':ident,'solved':26,'model':ident,'task_phase_s':1,'peak_device_vram_mib':1,'GPU_counter':{'lower_j':1,'upper_j':2}})
    result=confirmation_agent_comparison(root)
-   self.assertEqual(result['paired']['task_success']['both_pass'],26)
+   self.assertEqual(result['comparisons'][0]['metrics']['task_success']['both_pass'],26)
+   self.assertEqual([x['candidate'] for x in result['comparisons']],['R650','R651'])
    absent=root/'staging/r650/AUDIT.json';saved=absent.read_bytes();absent.unlink()
-   self.assertEqual(len(confirmation_agent_comparison(root)['profiles']),1)
+   self.assertEqual(len(confirmation_agent_comparison(root)['profiles']),2)
    absent.write_bytes(saved)
    capture=root/'raw/r650/HTTP_RESULTS.jsonl';original=capture.read_text();capture.write_text(original+'\n')
    with self.assertRaises(AssertionError):confirmation_agent_comparison(root)
@@ -310,6 +311,6 @@ class ReservedAgentPairing(unittest.TestCase):
   self.assertFalse(result['official_benchmark'])
   self.assertEqual(result['tasks'],33)
   self.assertEqual(result['profiles'][0]['solved'],26)
-  self.assertEqual(sum(result['paired']['task_success'][k] for k in ('omni_only','qwen_only','both_pass','both_fail')),33)
+  self.assertEqual(sum(result['comparisons'][0]['metrics']['task_success'][k] for k in ('omni_only','candidate_only','both_pass','both_fail')),33)
 
 if __name__=='__main__':unittest.main()

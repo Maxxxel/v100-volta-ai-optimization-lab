@@ -101,11 +101,14 @@ These 33 new instances from 11 previously exposed task families were independent
 |---|---|---|---|---|---|---|
 | [R649](experiments/R649.md) | OmniCoder 9B bartowski Q6_K | 26/33 | 29/33 | 391.9 | 7,680.5 | 4,094–4,099 |
 | [R650](experiments/R650.md) | Qwen3.8 27B IQ3_S integrated MTP3 | 26/33 | 31/33 | 620.6 | 13,600.5 | 6,176–6,181 |
+| [R651](experiments/R651.md) | Nexus 9B Q6_K thinking OFF/T0 | 27/33 | 30/33 | 316.5 | 7,356.5 | 3,203–3,209 |
 
-| Paired outcome | Only Omni / Qwen | Families Omni / Qwen / tied | Exploratory sign-flip p |
-|---|---|---|---|
-| Task success | 4 / 4 | 2 / 3 / 6 | 1.000 |
-| Policy pass | 2 / 4 | 1 / 3 / 7 | 0.750 |
+| Candidate vs R649 | Paired outcome | Only Omni / candidate | Families Omni / candidate / tied | Exploratory sign-flip p |
+|---|---|---|---|---|
+| R650 | Task success | 4 / 4 | 2 / 3 / 6 | 1.000 |
+| R650 | Policy pass | 2 / 4 | 1 / 3 / 7 | 0.750 |
+| R651 | Task success | 4 / 5 | 2 / 4 / 5 | 1.000 |
+| R651 | Policy pass | 2 / 3 | 1 / 2 / 8 | 1.000 |
 
 Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.
 

@@ -28896,5 +28896,20 @@
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 27,
+      "tasks": 33
+    },
+    "audit_id": "audit-40ff53fc755cccef0a3d",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R651",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]

@@ -493,12 +493,13 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
    lo=x['gpu_energy_lower_j']/x['solved'] if x['solved'] else None;hi=x['gpu_energy_upper_j']/x['solved'] if x['solved'] else None
    rows.append([f"[{x['experiment_id']}](experiments/{x['experiment_id']}.md)",x['model'],f"{x['solved']}/33",f"{x['policy_passes']}/33",f"{x['task_phase_s']:.1f}",f"{x['peak_vram_mib']:,.1f}",f"{lo:,.0f}–{hi:,.0f}" if lo is not None else 'NOT MEASURED'])
   text+=table(['Run','Profile','Tasks passed','Policy passed','TASK s','Peak MiB','GPU J per success'],rows)
-  if len(confirmation['profiles'])<2:text+='Qwen R650: complete, independently verified result NOT AVAILABLE.\n\n'
-  if confirmation['paired']:
+  if not any(x['experiment_id']=='R650' for x in confirmation['profiles']):text+='Qwen R650: complete, independently verified result NOT AVAILABLE.\n\n'
+  if confirmation['comparisons']:
    rows=[]
-   for metric,label in (('task_success','Task success'),('policy_gate_pass','Policy pass')):
-    x=confirmation['paired'][metric];rows.append([label,f"{x['omni_only']} / {x['qwen_only']}",f"{x['families_omni_ahead']} / {x['families_qwen_ahead']} / {x['families_tied']}",f"{x['family_sign_flip_two_sided_p']:.3f}"])
-   text+=table(['Paired outcome','Only Omni / Qwen','Families Omni / Qwen / tied','Exploratory sign-flip p'],rows)
+   for comparison in confirmation['comparisons']:
+    for metric,label in (('task_success','Task success'),('policy_gate_pass','Policy pass')):
+     x=comparison['metrics'][metric];rows.append([comparison['candidate'],label,f"{x['omni_only']} / {x['candidate_only']}",f"{x['families_omni_ahead']} / {x['families_candidate_ahead']} / {x['families_tied']}",f"{x['family_sign_flip_two_sided_p']:.3f}"])
+   text+=table(['Candidate vs R649','Paired outcome','Only Omni / candidate','Families Omni / candidate / tied','Exploratory sign-flip p'],rows)
    text+='Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.\n\n'
   text+='GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.\n\n'
  fresh=(reproducibility_review or {}).get('r646_fresh_comparison')

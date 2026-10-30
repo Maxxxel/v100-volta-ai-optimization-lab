@@ -78,10 +78,15 @@ class FrozenBaselineGates(unittest.TestCase):
   from leaderboard import freeze_final_baselines
   from render import render_final_selection
   h,r,e=self.inputs();f=freeze_final_baselines(h,r,e,'2026-10-27T00:00:00+00:00')
-  result={'profiles':[{'experiment_id':'R649','model':'Omni','solved':26,'policy_passes':29,'task_phase_s':391.9,'peak_vram_mib':7680.5,'gpu_energy_lower_j':106445,'gpu_energy_upper_j':106583}],'paired':{}}
+  result={'profiles':[{'experiment_id':'R649','model':'Omni','solved':26,'policy_passes':29,'task_phase_s':391.9,'peak_vram_mib':7680.5,'gpu_energy_lower_j':106445,'gpu_energy_upper_j':106583}],'comparisons':[]}
   page=render_final_selection(f,h,e,reproducibility_review={'confirmation_agent_comparison':result})
   for phrase in ('26/33','29/33','R650: complete, independently verified result NOT AVAILABLE','previously exposed','GPU energy includes failed tasks'):
    self.assertIn(phrase,page)
+  metrics={'omni_only':1,'candidate_only':2,'families_omni_ahead':1,'families_candidate_ahead':2,'families_tied':8,'family_sign_flip_two_sided_p':1.0}
+  result['profiles'].extend([{'experiment_id':i,'model':i,'solved':20,'policy_passes':30,'task_phase_s':300.0,'peak_vram_mib':7000.0,'gpu_energy_lower_j':60000,'gpu_energy_upper_j':60100} for i in ('R650','R651')])
+  result['comparisons']=[{'candidate':i,'metrics':{'task_success':metrics,'policy_gate_pass':metrics}} for i in ('R650','R651')]
+  page=render_final_selection(f,h,e,reproducibility_review={'confirmation_agent_comparison':result})
+  self.assertIn('R651',page);self.assertIn('Only Omni / candidate',page);self.assertNotIn('Qwen R650: complete, independently verified result NOT AVAILABLE',page)
 
 class RolePublicGates(unittest.TestCase):
  def setUp(self):

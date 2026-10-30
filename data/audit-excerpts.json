@@ -183679,6 +183679,26 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 152,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7356.5,
+      "solved": 27,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-40ff53fc755cccef0a3d",
+    "original_bytes": 4116,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "40ff53fc755cccef0a3d065bc21259eec19794c9a41ab9958bdb94de63e41a2f",
+    "statements": {
+      "decision": "Supplemental frozen profile assessment; no causal or population-equivalence claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {

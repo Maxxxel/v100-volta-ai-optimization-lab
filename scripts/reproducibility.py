@@ -1387,7 +1387,7 @@ def reserved_agent_comparison(root):
 
 def confirmation_agent_comparison(root):
  """Export only independently replayed, hash-bound results of the same fixed cases."""
- root=Path(root);ids=('r649','r650');data={};scorers=set();inputs=[]
+ root=Path(root);ids=('r649','r650','r651','r652');data={};scorers=set();inputs=[]
  if not (root/'staging/r649/AUDIT.json').is_file():return None
  for ident in ids:
   stage=root/'staging'/ident;file=stage/'AUDIT.json'
@@ -1404,20 +1404,24 @@ def confirmation_agent_comparison(root):
   assert all(x['all_tools_simulated'] is True and x['production_tools_connected'] is False for x in byid.values())
   checks=r['result']['checks'];assert len(checks)==33 and {x['id'] for x in checks}==set(byid) and all(x['score_and_effects_reproduced'] and x['task_success']==byid[x['id']]['task_success'] for x in checks)
   data[ident]={'audit':a,'cases':byid,'audit_sha256':digest(file),'replay_sha256':digest(reviewfile)}
- if not data:return None
+ if 'r649' not in data:return None
  assert len(scorers)==1
- if len(data)==2:assert inputs[0]==inputs[1] and set(data['r649']['cases'])==set(data['r650']['cases'])
+ assert all(value==inputs[0] for value in inputs) and all(set(value['cases'])==set(data['r649']['cases']) for value in data.values())
  profiles=[]
  for ident in data:
   x=data[ident];a=x['audit'];energy=a['GPU_counter'];profiles.append({'experiment_id':ident.upper(),'model':a['model'],'model_sha256':a['model_sha256'],'solved':a['solved'],'policy_passes':sum(v['policy_gate_pass'] for v in x['cases'].values()),'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'gpu_energy_lower_j':energy['lower_j'],'gpu_energy_upper_j':energy['upper_j'],'audit_sha256':x['audit_sha256'],'replay_sha256':x['replay_sha256']})
- pairs={}
- if len(data)==2:
+ pairs={};comparisons=[]
+ if len(data)>1:
   families={k:k.rsplit('-',1)[0] for k in data['r649']['cases']}
   assert len(set(families.values()))==11 and all(list(families.values()).count(f)==3 for f in set(families.values()))
-  for metric in ('task_success','policy_gate_pass'):
-   a,b=data['r649']['cases'],data['r650']['cases'];diffs=[sum(int(a[k][metric])-int(b[k][metric]) for k in a if families[k]==f) for f in sorted(set(families.values()))]
-   pairs[metric]={'omni_only':sum(a[k][metric] and not b[k][metric] for k in a),'qwen_only':sum(b[k][metric] and not a[k][metric] for k in a),'both_pass':sum(a[k][metric] and b[k][metric] for k in a),'both_fail':sum(not a[k][metric] and not b[k][metric] for k in a),'families_omni_ahead':sum(v>0 for v in diffs),'families_qwen_ahead':sum(v<0 for v in diffs),'families_tied':sum(v==0 for v in diffs),'family_sign_flip_two_sided_p':reserved_family_sign_flip(diffs)}
- return {'tasks':33,'profiles':profiles,'paired':pairs,'official_benchmark':False,'scope':'New fixed instances from previously exposed authored families; distinct whole profiles and historical sessions. Independent CPU rescoring is not independent generation. No population, causal or Champion claim. GPU energy includes failures and between-case idle; excludes startup and CPU/system energy.'}
+  for ident in data:
+   if ident=='r649':continue
+   metrics={}
+   for metric in ('task_success','policy_gate_pass'):
+    a,b=data['r649']['cases'],data[ident]['cases'];diffs=[sum(int(a[k][metric])-int(b[k][metric]) for k in a if families[k]==f) for f in sorted(set(families.values()))]
+    metrics[metric]={'omni_only':sum(a[k][metric] and not b[k][metric] for k in a),'candidate_only':sum(b[k][metric] and not a[k][metric] for k in a),'both_pass':sum(a[k][metric] and b[k][metric] for k in a),'both_fail':sum(not a[k][metric] and not b[k][metric] for k in a),'families_omni_ahead':sum(v>0 for v in diffs),'families_candidate_ahead':sum(v<0 for v in diffs),'families_tied':sum(v==0 for v in diffs),'family_sign_flip_two_sided_p':reserved_family_sign_flip(diffs)}
+   comparisons.append({'reference':'R649','candidate':ident.upper(),'metrics':metrics})
+ return {'tasks':33,'profiles':profiles,'comparisons':comparisons,'official_benchmark':False,'scope':'New fixed instances from previously exposed authored families; distinct whole profiles and historical sessions. Independent CPU rescoring is not independent generation. No population, causal or Champion claim. GPU energy includes failures and between-case idle; excludes startup and CPU/system energy.'}
 
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'
