@@ -23,6 +23,9 @@ class ModelFactorEvidence(unittest.TestCase):
   qwen=next(r for r in rows if r[0]=='S03' and r[3]=='R602');self.assertEqual(qwen[2],'PARTIAL');self.assertIn('no task-quality',qwen[-1])
   altered=copy.deepcopy(experiments);next(x for x in altered if x['id']=='R602')['aggregate_metrics']['actual_generation_requests']=1
   with self.assertRaises(ValueError):reviewed_dispositions(altered)
+  candidate=next(r for r in rows if r[0]=='S03' and r[3]=='R542');self.assertEqual(candidate[2],'PARTIAL');self.assertIn('coding gate fell by three',candidate[-1])
+  altered=copy.deepcopy(experiments);next(x for x in altered if x['id']=='R541')['aggregate_metrics']['quality']['net_success_change']=0
+  with self.assertRaises(ValueError):reviewed_dispositions(altered)
  def test_hardware_exclusions_require_existing_audit_and_scope(self):
   factors=[{'id':x,'status':'NOT_APPLICABLE','evidence_ids':['audit-1']} for x in ('R16','HBM20','HBM21')]
   out=reviewed_hardware_dispositions(factors,[{'id':'audit-1'}])
