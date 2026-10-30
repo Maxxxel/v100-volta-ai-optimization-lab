@@ -108,6 +108,8 @@ These locally measured cases are supplementary evidence only; they do not enter 
 
 Completion tokens, response time, validity, descriptive Wilson intervals, and full audit hashes are available in the [validation aggregate](assets/validation16.json). No task prompts, IDs, outputs, or per-task results are published. Do not interpret per-category GPU joules per success as whole-task energy; the meter brackets only the selected category request group.
 
+R644: 3 tool cases produced a call where none was expected. The mock tools were not executed; the observed calls alone do not establish an external authorization-policy violation.
+
 ## Post-freeze evidence through R630
 
 The R585 selection above remains frozen and unchanged. These later measurements are appended evidence, not a retroactive rewrite or an automatic replacement decision.

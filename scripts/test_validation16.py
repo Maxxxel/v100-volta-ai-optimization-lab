@@ -36,6 +36,8 @@ def fixture(root):
                  'completed_requests': 16, 'planned_requests': 16, 'groups': groups,
                  'task_phase_s': 10, 'task_limit_s': 1200, 'peak_device_vram_mib': 7000,
                  'timeouts': 0, 'capture_review_sha256': validation16.digest(folder / 'CAPTURE_REVIEW.json')}
+        if ident == 'R644':
+            audit['original_raw_files_sha256'] = {'HTTP_RESULTS.jsonl': 'f' * 64}
         dump(folder / 'AUDIT.json', audit)
         review = {'audit_sha256': validation16.digest(folder / 'AUDIT.json'),
                   'status': 'INDEPENDENT_CPU_REPLAY_IDENTICAL', 'replayed_requests': 16,
@@ -43,6 +45,10 @@ def fixture(root):
         dump(folder / 'INDEPENDENT_REVIEW.json', review)
         dump(folder / 'EXECUTION_REVIEW.json', {'scope_kind': 'FROZEN_EXISTING_MODEL_VALIDATION16',
               'status': 'APPROVED_FRESH_FULL_SUITE_SINGLE_SESSION', 'parent_profile': 'frozen-profile'})
+        if ident == 'R644':
+            dump(folder / 'TOOL_FAILURE_REVIEW.json', {'status': 'CPU_SOURCE_CHECKED',
+                'audit_sha256': validation16.digest(folder / 'AUDIT.json'), 'raw_sha256': 'f' * 64,
+                'observed': [{'expected_calls': 0, 'observed_calls': 1, 'tools_executed': False} for _ in range(3)]})
 
 
 class Validation16Projection(unittest.TestCase):
@@ -80,6 +86,16 @@ class Validation16Projection(unittest.TestCase):
             review = json.loads((folder / 'INDEPENDENT_REVIEW.json').read_text())
             review['audit_sha256'] = validation16.digest(folder / 'AUDIT.json')
             dump(folder / 'INDEPENDENT_REVIEW.json', review)
+            with self.assertRaises(AssertionError):
+                validation16.build(td)
+
+    def test_tool_failure_review_must_match_source_audit(self):
+        with tempfile.TemporaryDirectory() as td:
+            fixture(td)
+            p = Path(td) / 'staging/r644/TOOL_FAILURE_REVIEW.json'
+            review = json.loads(p.read_text())
+            review['raw_sha256'] = '0' * 64
+            dump(p, review)
             with self.assertRaises(AssertionError):
                 validation16.build(td)
 

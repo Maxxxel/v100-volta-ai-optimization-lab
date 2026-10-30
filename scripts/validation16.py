@@ -96,6 +96,15 @@ def build(root):
             'capture_review_sha256': digest(capture_path),
             'limitations': 'Fixed 8+8 task set; shared across profiles and exposed to researchers. Descriptive small-sample evidence only; not official, not a population ranking, not a Champion gate.',
         })
+        if experiment == 'R644':
+            tool_review = load(folder / 'TOOL_FAILURE_REVIEW.json')
+            assert tool_review['status'] == 'CPU_SOURCE_CHECKED'
+            assert tool_review['audit_sha256'] == audit_hash
+            assert tool_review['raw_sha256'] == audit['original_raw_files_sha256']['HTTP_RESULTS.jsonl']
+            cases = tool_review['observed']
+            assert len(cases) == 8 - categories['tools']['successes']
+            assert all(x['expected_calls'] == 0 and x['observed_calls'] == 1 and x['tools_executed'] is False for x in cases)
+            rows[-1]['unexpected_tool_call_cases'] = len(cases)
     assert len(rows) == len(PROFILES)
     return {'schema': 1, 'benchmark_id': 'frozen-jarvis-validation16-v1',
             'official_benchmark': False, 'purpose': 'SUPPLEMENTARY_PROFILE_VALIDATION_ONLY',
