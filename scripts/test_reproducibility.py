@@ -324,4 +324,13 @@ class ReservedAgentPairing(unittest.TestCase):
   self.assertEqual(result['profiles'][0]['solved'],26)
   self.assertEqual(sum(result['comparisons'][0]['metrics']['task_success'][k] for k in ('omni_only','candidate_only','both_pass','both_fail')),33)
 
+ def test_confirmation_experiment_archive_has_verified_identity(self):
+  import os
+  source=os.environ.get('V100_RESEARCH_SOURCE')
+  if not source:self.skipTest('Local research source not configured')
+  experiments=json.loads((Path(__file__).resolve().parents[1]/'data/experiments.json').read_text());byid={x['id']:x for x in experiments}
+  for ident in ('R649','R650','R651'):
+   self.assertTrue(byid[ident]['model']);self.assertTrue(byid[ident]['date']);self.assertEqual(byid[ident]['factor_ids'],[])
+   p=byid[ident]['aggregate_metrics']['confirmation_agent_profile'];self.assertEqual(p['model'],byid[ident]['model']);self.assertEqual(p['solved'],byid[ident]['aggregate_metrics']['solved']);self.assertTrue(p['audit_sha256'].startswith(byid[ident]['audit_id'].removeprefix('audit-')))
+
 if __name__=='__main__':unittest.main()

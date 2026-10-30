@@ -28869,45 +28869,87 @@
   },
   {
     "aggregate_metrics": {
+      "confirmation_agent_profile": {
+        "audit_sha256": "d7e45cd991abd5707568a701c382a1874a14b1530d37d035c2a1f28ad8130162",
+        "gpu_energy_lower_j": 106445.889,
+        "gpu_energy_upper_j": 106582.589,
+        "model": "OmniCoder 9B bartowski Q6_K",
+        "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+        "peak_vram_mib": 7680.5,
+        "policy_passes": 29,
+        "rejected_tool_calls": 5,
+        "replay_sha256": "3f108ff3bdda4b330b3f7fd80673580d61a13aae43601d61c64e1c6c26cfc0a7",
+        "solved": 26,
+        "task_phase_s": 391.943965885,
+        "technical_preflight_cases": 0
+      },
       "solved": 26,
       "tasks": 33
     },
     "audit_id": "audit-d7e45cd991abd5707568",
-    "date": null,
+    "date": "2026-10-30T03:19:00.910540+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R649",
-    "model": null,
+    "model": "OmniCoder 9B bartowski Q6_K",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
   },
   {
     "aggregate_metrics": {
+      "confirmation_agent_profile": {
+        "audit_sha256": "ea31f8d4aa2bc472fe18818ef866666d9bd93066f2bb9da71226ba79af3fab0b",
+        "gpu_energy_lower_j": 160583.084,
+        "gpu_energy_upper_j": 160717.485,
+        "model": "Qwen3.8 27B IQ3_S integrated MTP3",
+        "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+        "peak_vram_mib": 13600.5,
+        "policy_passes": 31,
+        "rejected_tool_calls": 2,
+        "replay_sha256": "e6b628a655bd97d1d53a621467d21528f0f42e27ea6e500285123049e94dba67",
+        "solved": 26,
+        "task_phase_s": 620.563402896,
+        "technical_preflight_cases": 0
+      },
       "solved": 26,
       "tasks": 33
     },
     "audit_id": "audit-ea31f8d4aa2bc472fe18",
-    "date": null,
+    "date": "2026-10-30T03:34:53.292001+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R650",
-    "model": null,
+    "model": "Qwen3.8 27B IQ3_S integrated MTP3",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
   },
   {
     "aggregate_metrics": {
+      "confirmation_agent_profile": {
+        "audit_sha256": "40ff53fc755cccef0a3d065bc21259eec19794c9a41ab9958bdb94de63e41a2f",
+        "gpu_energy_lower_j": 86476.486,
+        "gpu_energy_upper_j": 86638.353,
+        "model": "Nexus 9B Q6_K thinking OFF/T0",
+        "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+        "peak_vram_mib": 7356.5,
+        "policy_passes": 30,
+        "rejected_tool_calls": 4,
+        "replay_sha256": "c70834d31d52dfcfd9791eb6291dcbb8742ac427f114bd873a6f36a0c248a3e1",
+        "solved": 27,
+        "task_phase_s": 316.452002426,
+        "technical_preflight_cases": 0
+      },
       "solved": 27,
       "tasks": 33
     },
     "audit_id": "audit-40ff53fc755cccef0a3d",
-    "date": null,
+    "date": "2026-10-30T03:45:23.915411+00:00",
     "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
     "factor_ids": [],
     "id": "R651",
-    "model": null,
+    "model": "Nexus 9B Q6_K thinking OFF/T0",
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false

@@ -1935,6 +1935,16 @@ def main():
                 metadata=load(locations[audit]);assert metadata['factor']=='M07' and metadata['factor_coverage_increment']==0
                 experiments[ident].update(model=lean['model'],date=text(metadata['at_utc']),factor_ids=['M07'])
             experiments[ident]['related_audit_ids']=[lean[k] for k in ('quality_audit_id','independent_review_audit_id','comparison_audit_id','correction_audit_id') if lean.get(k)]
+        if audit and v.get('status')=='FROZEN_CONFIRMATION33_COMPLETE':
+            from reproducibility import confirmation_agent_comparison
+            verified=confirmation_agent_comparison(root)
+            if not verified:raise ValueError('Confirmation replay evidence missing')
+            matches=[p for p in verified['profiles'] if p['experiment_id']==ident]
+            if len(matches)!=1 or matches[0]['audit_sha256']!=v['audit_sha256']:raise ValueError('Confirmation identity or audit differs')
+            metadata=load(locations[audit]);assert metadata['factor_coverage_increment']==0 and metadata['axis_factors']==[] and metadata['official_benchmark'] is False and metadata['winner_qualified'] is False
+            experiments[ident].update(model=text(matches[0]['model']),date=text(metadata['at_utc']))
+            experiments[ident]['aggregate_metrics']['confirmation_agent_profile']=projection(matches[0])
+            # A profile comparison is not evidence that a new optimization factor was exercised.
         native_key=next((key for key in ('native_lean_reserved_validation33','native_validation33','native_agent18_development') if catalog.get(audit,{}).get('aggregate_metrics',{}).get(key)), 'native_agent18_development')
         if audit and catalog[audit]['aggregate_metrics'].get(native_key):
             experiments[ident]['aggregate_metrics'][native_key]=verified_native_agent_development(root,v,receipt)

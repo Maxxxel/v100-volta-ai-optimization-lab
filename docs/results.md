@@ -553,9 +553,9 @@ Every scientifically catalogued sprint and signed historical window is preserved
 | [R646](experiments/R646.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R647](experiments/R647.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
 | [R648](experiments/R648.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R649](experiments/R649.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R650](experiments/R650.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
-| [R651](experiments/R651.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | NOT MEASURED / not recorded |
+| [R649](experiments/R649.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | OmniCoder 9B bartowski Q6_K |
+| [R650](experiments/R650.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Qwen3.8 27B IQ3_S integrated MTP3 |
+| [R651](experiments/R651.md) |  | ORIGINAL_AUDIT_HASH_VERIFIED | Nexus 9B Q6_K thinking OFF/T0 |
 
 
 ## Historical signed windows
