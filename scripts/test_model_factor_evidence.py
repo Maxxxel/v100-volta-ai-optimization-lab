@@ -15,6 +15,14 @@ class ModelFactorEvidence(unittest.TestCase):
   self.assertIn('151/164',row[-1]);self.assertIn('not an independent seed',row[-1])
   altered=copy.deepcopy(experiments);next(x for x in altered if x['id']=='R610')['aggregate_metrics']['comparison']['candidate_successes']=152
   with self.assertRaises(ValueError):reviewed_dispositions(altered)
+ def test_mtp_history_never_promotes_failed_qwen_start(self):
+  import copy,json
+  from pathlib import Path
+  experiments=json.loads((Path(__file__).resolve().parents[1]/'data/experiments.json').read_text());rows=reviewed_dispositions(experiments)
+  self.assertEqual(next(r[2] for r in rows if r[0]=='S03' and r[3]=='R179'),'QUALIFIED')
+  qwen=next(r for r in rows if r[0]=='S03' and r[3]=='R602');self.assertEqual(qwen[2],'PARTIAL');self.assertIn('no task-quality',qwen[-1])
+  altered=copy.deepcopy(experiments);next(x for x in altered if x['id']=='R602')['aggregate_metrics']['actual_generation_requests']=1
+  with self.assertRaises(ValueError):reviewed_dispositions(altered)
  def test_hardware_exclusions_require_existing_audit_and_scope(self):
   factors=[{'id':x,'status':'NOT_APPLICABLE','evidence_ids':['audit-1']} for x in ('R16','HBM20','HBM21')]
   out=reviewed_hardware_dispositions(factors,[{'id':'audit-1'}])

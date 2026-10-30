@@ -52,6 +52,8 @@ def reviewed_dispositions(experiments):
   ('K02','Gemma 4','PARTIAL','R608','R627','The F16/Q8 value-cache diagnostic repeated each arm on three exposed prompts; two differed at the first token between arms. A historical baseline inconsistency remains; this is not a general quality or safety qualification.'),
   ('K01','Gemma 4','PARTIAL','R610',None,'Q8 key-cache profile completed HumanEval+164 with 151/164. R610 repeats matching R544 outputs, not an independent seed; five paired losses against historical F16 are not a fresh controlled comparison or causal proof. No tool/safety qualification or Champion.'),
   ('S03','Qwen3.8','PARTIAL','R551','R548','Integrated MTP improved a fresh development comparison and passed a scoped coding gate; task-level safety and broad equivalence remain unqualified.'),
+  ('S03','OmniCoder','QUALIFIED','R179',None,'Historical OmniCoder2 external-MTP throughput was qualified only for the tested 18 development-agent cases. Baseline failures and policy violations remained; this is not qualification of the separate bartowski profile, broad safety, or lossless equivalence.'),
+  ('S03','Qwen3.5','PARTIAL','R602',None,'Target and external draft loaded on CUDA, but startup failed before task preflight; the cause remains undetermined and there are no task-quality or task-performance results. Diagnose the concrete failure before a new separately admitted trial.'),
   ('HBM07','OmniCoder','TESTED_NEGATIVE','R603',None,'A 4 GiB conversion-cache development screen showed no practical latency benefit; this is limited to the measured workload and profile.')]
  byid={e['id']:e for e in experiments if e.get('audit_id')}
  for factor,model,status,primary,followup,reason in rows:
@@ -63,6 +65,8 @@ def reviewed_dispositions(experiments):
    if ident=='R610':
     result=(e.get('aggregate_metrics') or {}).get('comparison') or {};scope=(e.get('statements') or {}).get('scope') or ''
     if (result.get('tasks'),result.get('candidate_successes'),result.get('reference_successes'),result.get('paired_losses'))!=(164,151,156,5) or 'R544' not in scope or e.get('winner_qualified') is not False:raise ValueError('Gemma key-cache evidence differs')
+   if ident=='R179' and (e.get('winner_qualified') is not True or (e.get('statements') or {}).get('decision')!='OMNICODER2_EXTERNAL_MTP_AGENT_THROUGHPUT_WINNER_QUALIFIED'):raise ValueError('Omni historical MTP scope differs')
+   if ident=='R602' and ((e.get('aggregate_metrics') or {}).get('actual_generation_requests')!=0 or e.get('winner_qualified') is not False or 'NOT_DETERMINED' not in (e.get('statements') or {}).get('decision','')):raise ValueError('Qwen MTP partial scope differs')
  on=byid.get('R618');off=byid.get('R625')
  if bool(on)!=bool(off):raise ValueError('Incomplete Qwen3.8 MTP paired evidence')
  if on and off:
