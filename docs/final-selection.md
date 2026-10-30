@@ -114,6 +114,8 @@ These 33 new instances from 11 previously exposed task families were independent
 
 Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.
 
+Paired R650 vs R651 (33/33 eligible): task success both 24, only R650 2, only R651 3, neither 4; policy passes only R650 3, only R651 2. Family sign-flip p=1.000 is exploratory, not evidence of equivalence.
+
 Preflight cases and request errors are technical failures, not automatic evidence of model capability. GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.
 
 ## Second frozen 8+8 comparison · non-official

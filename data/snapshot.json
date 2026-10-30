@@ -1780,6 +1780,29 @@
       }
     },
     "confirmation_agent_comparison": {
+      "additional_comparisons": [
+        {
+          "eligible_cases": 33,
+          "left": "R650",
+          "metrics": {
+            "policy_gate_pass": {
+              "both_fail": 0,
+              "both_pass": 28,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 3,
+              "right_only": 2
+            },
+            "task_success": {
+              "both_fail": 4,
+              "both_pass": 24,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 2,
+              "right_only": 3
+            }
+          },
+          "right": "R651"
+        }
+      ],
       "comparisons": [
         {
           "candidate": "R650",

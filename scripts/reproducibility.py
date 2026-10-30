@@ -1436,7 +1436,15 @@ def confirmation_agent_comparison(root):
     a={k:v for k,v in data['r649']['cases'].items() if k in eligible};b={k:v for k,v in data[ident]['cases'].items() if k in eligible};diffs=[sum(int(a[k][metric])-int(b[k][metric]) for k in a if families[k]==f) for f in sorted({families[k] for k in eligible})]
     metrics[metric]={'omni_only':sum(a[k][metric] and not b[k][metric] for k in a),'candidate_only':sum(b[k][metric] and not a[k][metric] for k in a),'both_pass':sum(a[k][metric] and b[k][metric] for k in a),'both_fail':sum(not a[k][metric] and not b[k][metric] for k in a),'families_omni_ahead':sum(v>0 for v in diffs),'families_candidate_ahead':sum(v<0 for v in diffs),'families_tied':sum(v==0 for v in diffs),'family_sign_flip_two_sided_p':reserved_family_sign_flip(diffs)}
    comparisons.append({'reference':'R649','candidate':ident.upper(),'eligible_cases':len(eligible),'excluded_preflight_cases':len(excluded),'metrics':metrics})
- return {'tasks':33,'profiles':profiles,'comparisons':comparisons,'official_benchmark':False,'scope':'New fixed instances from previously exposed authored families; distinct whole profiles and historical sessions. Independent CPU rescoring is not independent generation. No population, causal or Champion claim. GPU energy includes failures and between-case idle; excludes startup and CPU/system energy.'}
+ additional=[]
+ if 'r650' in data and 'r651' in data and not (data['r650']['audit']['technical_request_errors'] or data['r651']['audit']['technical_request_errors']):
+  left,right=data['r650'],data['r651'];eligible=set(left['cases'])-(left['preflight_ids']|right['preflight_ids']);metrics={}
+  if eligible:
+   for metric in ('task_success','policy_gate_pass'):
+    a,b=left['cases'],right['cases'];diffs=[sum(int(a[k][metric])-int(b[k][metric]) for k in eligible if families[k]==f) for f in sorted({families[k] for k in eligible})]
+    metrics[metric]={'left_only':sum(a[k][metric] and not b[k][metric] for k in eligible),'right_only':sum(b[k][metric] and not a[k][metric] for k in eligible),'both_pass':sum(a[k][metric] and b[k][metric] for k in eligible),'both_fail':sum(not a[k][metric] and not b[k][metric] for k in eligible),'family_sign_flip_two_sided_p':reserved_family_sign_flip(diffs)}
+   additional.append({'left':'R650','right':'R651','eligible_cases':len(eligible),'metrics':metrics})
+ return {'tasks':33,'profiles':profiles,'comparisons':comparisons,'additional_comparisons':additional,'official_benchmark':False,'scope':'New fixed instances from previously exposed authored families; distinct whole profiles and historical sessions. Independent CPU rescoring is not independent generation. No population, causal or Champion claim. GPU energy includes failures and between-case idle; excludes startup and CPU/system energy.'}
 
 def build(root):
  root=Path(root);report=root/'staging/reproducibility-20261029/REPRODUCIBILITY_REVIEW.json'

@@ -504,6 +504,9 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
      x=comparison['metrics'][metric];rows.append([comparison['candidate'],label,f"{comparison['eligible_cases']}/33",f"{x['omni_only']} / {x['candidate_only']}",f"{x['families_omni_ahead']} / {x['families_candidate_ahead']} / {x['families_tied']}",f"{x['family_sign_flip_two_sided_p']:.3f}"])
    text+=table(['Candidate vs R649','Paired outcome','Eligible cases','Only Omni / candidate','Families Omni / candidate / tied','Exploratory sign-flip p'],rows)
    text+='Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.\n\n'
+  for comparison in confirmation.get('additional_comparisons',[]):
+   t=comparison['metrics']['task_success'];p=comparison['metrics']['policy_gate_pass']
+   text+=f"Paired {comparison['left']} vs {comparison['right']} ({comparison['eligible_cases']}/33 eligible): task success both {t['both_pass']}, only {comparison['left']} {t['left_only']}, only {comparison['right']} {t['right_only']}, neither {t['both_fail']}; policy passes only {comparison['left']} {p['left_only']}, only {comparison['right']} {p['right_only']}. Family sign-flip p={t['family_sign_flip_two_sided_p']:.3f} is exploratory, not evidence of equivalence.\n\n"
   text+='Preflight cases and request errors are technical failures, not automatic evidence of model capability. GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.\n\n'
  fresh=(reproducibility_review or {}).get('r646_fresh_comparison')
  if fresh:
