@@ -28842,5 +28842,17 @@
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {},
+    "audit_id": "audit-5fbd5723a229b52e7022",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R647",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]

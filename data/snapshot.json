@@ -4,7 +4,7 @@
     "assessed_factors": 162,
     "experimentally_covered": 113,
     "factors": 162,
-    "ledger_events": 1895,
+    "ledger_events": 1896,
     "model_challengers": 11,
     "omnicoder2_experimentally_covered": 110,
     "original_factors": 130,
@@ -19,7 +19,7 @@
       "TESTED_NEGATIVE": 8
     },
     "signed_windows": 302,
-    "sprint_records": 547
+    "sprint_records": 548
   },
   "lean_harness_review": {
     "CPU_applicability": [
@@ -3606,6 +3606,80 @@
       "reference_experiment_id": "R599",
       "scope": "Same frozen 8+8 questions and tool schemas, but different model profiles, templates and historical sessions. Omni A cases interleaved with B; counter brackets may include intervening activity. Researcher-exposed, self-authored correlated cases, not official, blinded, independent population sample, causal model comparison or champion. GPU board energy includes failed-task costs; excludes startup and CPU/system energy."
     },
+    "r647_gemma_fresh_comparison": {
+      "audit_sha256": {
+        "r599": "5f6d11cb9c91abb81ebf0bf74f0e490aef96e856667718033b83c888df1969f0",
+        "r646": "700edab97ff84a667bcd25d547cb55d03c3ff826027756927212d6b1d6742663",
+        "r647": "5fbd5723a229b52e7022a30162f2351bc9d772bfaf73c8096150e63665aecb7c"
+      },
+      "categories": {
+        "coding": {
+          "paired_qwen_gemma": {
+            "both_fail": 0,
+            "both_pass": 7,
+            "gemma_only": 0,
+            "qwen_only": 1
+          },
+          "r599": {
+            "successes": 8,
+            "total": 8
+          },
+          "r646": {
+            "successes": 8,
+            "total": 8
+          },
+          "r647": {
+            "successes": 7,
+            "total": 8
+          }
+        },
+        "tools": {
+          "paired_qwen_gemma": {
+            "both_fail": 1,
+            "both_pass": 7,
+            "gemma_only": 0,
+            "qwen_only": 0
+          },
+          "r599": {
+            "successes": 7,
+            "total": 8
+          },
+          "r646": {
+            "successes": 7,
+            "total": 8
+          },
+          "r647": {
+            "successes": 7,
+            "total": 8
+          }
+        }
+      },
+      "comparison_sha256": "4ca0a60b056e35269e17662ecbe766ac74f252b852c5a37a5ad2218631da967d",
+      "experiment_id": "R647",
+      "groups": {
+        "coding": {
+          "completion_tokens": 1462,
+          "gpu_j_per_success_lower": 680.1441428571428,
+          "gpu_j_per_success_upper": 695.5875714285714,
+          "request_wall_s": 21.312252498,
+          "successes": 7,
+          "total": 8
+        },
+        "tools": {
+          "completion_tokens": 232,
+          "gpu_j_per_success_lower": 200.45514285714285,
+          "gpu_j_per_success_upper": 215.87342857142858,
+          "request_wall_s": 6.580977298,
+          "successes": 7,
+          "total": 8
+        }
+      },
+      "matched_tasks": 16,
+      "official_benchmark": false,
+      "peak_vram_mib": 8118.5,
+      "scope": "Researcher-exposed self-authored tasks; distinct profiles, templates and sessions; R599 arms interleaved. Not an official score, blinded holdout, model superiority, causality or champion.",
+      "task_phase_s": 27.907875754
+    },
     "reserved_agent_comparison": {
       "dataset_id": "jarvis-lean-holdout-20261027-v1",
       "families": 11,
@@ -4081,11 +4155,11 @@
   "schema": 1,
   "source_date": "2026-10-24T19:43:09.382934+00:00",
   "source_sha256": {
-    "BENCHMARK_REFERENCES.json": "d49bbbb466543d9c1e88a2f09a185e96619727747c5466a6435393276519af95",
+    "BENCHMARK_REFERENCES.json": "15be60dcba160d9c306b8c4b63c4533908094e5b7e44e31c01a3dfb38b43d0ae",
     "BENCHMARK_REGISTER.json": "7441a8b0528d16230548c9b1b2f8ace0624d846d486fa2f9050eab76a494bdd3",
     "MATRIX.json": "d20b934e75fc5cd459ef5183e48af2259d91fb8b6c4de95013eff2da49acbad2",
     "MATRIX_EXTENDED.json": "de0757ff3f5a13c6f644ee4248c476e08faae85996395f31dd8c481cd3a2a5e5",
-    "O2_EXPERIMENTS.jsonl": "80c95f145b6bff19b35a11db3caa920ffad293e8e5d30a79b1e9c6897156ecd1",
+    "O2_EXPERIMENTS.jsonl": "7b6b1c24a60973a7b74aa8a08ccb3a70b4958ce3c85390f29b9feb0023d523fd",
     "QUEUE.json": "1cffe0d02bff2fe8f3fd5239db69dfcfbfb6b941ea30a1ccec11fef399da8a4f"
   }
 }

@@ -1286,6 +1286,38 @@ def r646_fresh_comparison(root):
  assert categories==review['categories']
  return {'experiment_id':'R646','reference_experiment_id':'R599','matched_tasks':16,'categories':categories,'audit_sha256':review['audit_sha256'],'independent_review_sha256':review['independent_review_sha256'],'comparison_sha256':digest(comparison_path),'official_benchmark':False,'scope':review['scope']}
 
+def r647_gemma_fresh_comparison(root):
+ """Validate Gemma against the already audited R599/R646 task identities."""
+ from leaderboard import counter_energy_bounds
+ root=Path(root);stage=root/'staging/r647';path=stage/'CROSS_MODEL_REVIEW.json'
+ if not path.exists():return None
+ comparison=json.loads(path.read_text());assert comparison['status']=='SAME_TASK_EXPOSED_SUPPLEMENTAL_ONLY' and comparison['new_gpu_runs']==0 and comparison['matched_tasks']==16
+ original=r646_fresh_comparison(root);assert original and original['matched_tasks']==16
+ audits={};raws={};scores={}
+ for ident in ('r599','r646','r647'):
+  folder=root/'staging'/ident;ap=folder/'AUDIT.json';rp=folder/'INDEPENDENT_REVIEW.json';a=json.loads(ap.read_text());r=json.loads(rp.read_text())
+  assert digest(ap)==comparison['audit_sha256'][ident] and digest(rp)==comparison['independent_review_sha256'][ident] and r['audit_sha256']==digest(ap) and r['status']=='INDEPENDENT_CPU_REPLAY_IDENTICAL' and not r['changed_judgments']
+  assert a['measurement_valid'] and a['GPU_execution_observed'] and not a['official_benchmark'] and not a['winner_qualified']
+  raw=Path(a['raw_root']);assert digest(raw/'HTTP_RESULTS.jsonl')==a['original_raw_files_sha256']['HTTP_RESULTS.jsonl'] and digest(raw/'GPU_TELEMETRY.jsonl')==a['original_raw_files_sha256']['GPU_TELEMETRY.jsonl']
+  rows=[json.loads(x) for x in (raw/'HTTP_RESULTS.jsonl').read_text().splitlines()];rows=[x for x in rows if 'reply' in x and x.get('id','').startswith('lean-fresh-')];rows=[x for x in rows if x['id'].endswith('--A')] if ident=='r599' else rows
+  raws[ident]={x['id'].removesuffix('--A'):x for x in rows};ss=[x for x in a['scored_tasks'] if x['arm']=='A'] if ident=='r599' else a['scored_tasks'];scores[ident]={x['id'].removesuffix('--A'):x for x in ss};audits[ident]=a
+  assert len(raws[ident])==len(scores[ident])==16
+ assert raws['r599'].keys()==raws['r646'].keys()==raws['r647'].keys()
+ for k in raws['r647']:
+  assert all(raws[n][k]['request']['messages']==raws['r647'][k]['request']['messages'] and raws[n][k]['request'].get('tools')==raws['r647'][k]['request'].get('tools') for n in ('r599','r646'))
+ categories={}
+ for cat in ('coding','tools'):
+  ids=[k for k,v in scores['r647'].items() if v['category']==cat];assert len(ids)==8
+  categories[cat]={n:{'successes':sum(scores[n][k]['success'] for k in ids),'total':8} for n in scores}
+  categories[cat]['paired_qwen_gemma']={'both_pass':sum(scores['r646'][k]['success'] and scores['r647'][k]['success'] for k in ids),'qwen_only':sum(scores['r646'][k]['success'] and not scores['r647'][k]['success'] for k in ids),'gemma_only':sum(not scores['r646'][k]['success'] and scores['r647'][k]['success'] for k in ids),'both_fail':sum(not scores['r646'][k]['success'] and not scores['r647'][k]['success'] for k in ids)}
+ assert categories==comparison['categories']
+ a=audits['r647'];raw=Path(a['raw_root']);telemetry=[json.loads(x) for x in (raw/'GPU_TELEMETRY.jsonl').read_text().splitlines()];records=list(raws['r647'].values());groups={}
+ for cat in ('coding','tools'):
+  selected=[x for x in a['scored_tasks'] if x['category']==cat];ids=[x['id'] for x in selected];energy=counter_energy_bounds(telemetry,records,ids);success=sum(x['success'] for x in selected)
+  assert energy==a['groups'][cat]['GPU_counter'] and success==a['groups'][cat]['successes']
+  groups[cat]={'successes':success,'total':len(ids),'request_wall_s':sum(x['e2e_s'] for x in selected),'completion_tokens':sum(x['completion_tokens'] for x in selected),'gpu_j_per_success_lower':energy['lower_j']/success if success else None,'gpu_j_per_success_upper':energy['upper_j']/success if success else None}
+ return {'experiment_id':'R647','matched_tasks':16,'categories':categories,'groups':groups,'task_phase_s':a['task_phase_s'],'peak_vram_mib':a['peak_device_vram_mib'],'audit_sha256':comparison['audit_sha256'],'comparison_sha256':digest(path),'official_benchmark':False,'scope':comparison['scope']}
+
 def reserved_family_sign_flip(group_differences):
  """Exact paired family sign enumeration; not an independence/equivalence claim."""
  import itertools
@@ -1358,4 +1390,4 @@ def build(root):
    timings[label]={k:review[k] for k in ('matched_requests','reference','candidate')}
  profiles={k:{x:v[x] for x in ('audit_sha256','model_sha256','profile_sha256','configured_seed','configured_temperature','request_count','server_reported_seeds','input_token_ids_recorded','output_token_ids_recorded')} for k,v in data['profiles'].items()}
  on_aa=qwen_native_aa(root,'R618','R635');off_aa=qwen_native_aa(root,'R625','R636')
- return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'r639_policy_replay':r639_policy_replay(root),'r640_policy_abba':r640_policy_abba(root),'r641_policy_abba':r641_policy_abba(root),'r642_policy_abba':r642_policy_abba(root),'reserved_agent_comparison':reserved_agent_comparison(root),'r643_mtp_agent_abba':r643_mtp_agent_abba(root),'r646_fresh_comparison':r646_fresh_comparison(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}
+ return {'source_review_sha256':digest(report),'timing_review_sha256':digest(fixed) if fixed.exists() else None,'source_commit':data['build_source']['commit'],'profiles':profiles,'paired_historical':pairs,'agent_task_pairs':agent_task_pairs(root),'fixed_output_timings':timings,'seed_execution_path':seed_execution_path(data,captures,root),'logprobs_diagnostic_path':logprobs_diagnostic_path(data,captures),'cache_state_source_path':cache_state_source_path(root),'r630_native_aa':r630_native_aa(root),'r631_native_aa':r631_native_aa(root),'r633_native_aa':r633_native_aa(root),'r635_native_aa':on_aa,'r636_native_aa':off_aa,'qwen_mtp_cross_review':qwen_mtp_cross_review(root,on_aa,off_aa),'r634_seed_pilot':r634_seed_pilot(root),'r637_balanced_mtp':r637_balanced_mtp(root),'r639_policy_replay':r639_policy_replay(root),'r640_policy_abba':r640_policy_abba(root),'r641_policy_abba':r641_policy_abba(root),'r642_policy_abba':r642_policy_abba(root),'reserved_agent_comparison':reserved_agent_comparison(root),'r643_mtp_agent_abba':r643_mtp_agent_abba(root),'r646_fresh_comparison':r646_fresh_comparison(root),'r647_gemma_fresh_comparison':r647_gemma_fresh_comparison(root),'scope':'Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.'}

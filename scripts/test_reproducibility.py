@@ -233,6 +233,22 @@ class HybridCheckpointSource(unittest.TestCase):
   broken=[line for line in hybrid if 'mem_recr->state_write' not in line]
   with self.assertRaises(AssertionError):hybrid_recurrent_state_semantics(broken,recurrent)
 
+class GemmaSupplementalComparison(unittest.TestCase):
+ def test_source_bound_three_profile_comparison(self):
+  import os
+  from pathlib import Path
+  from reproducibility import r647_gemma_fresh_comparison
+  source=os.environ.get('V100_RESEARCH_SOURCE')
+  if not source:self.skipTest('Local research source not configured')
+  root=Path(source)
+  if not (root/'staging/r647/CROSS_MODEL_REVIEW.json').exists():self.skipTest('Local source evidence unavailable')
+  result=r647_gemma_fresh_comparison(root)
+  self.assertFalse(result['official_benchmark'])
+  self.assertEqual(result['matched_tasks'],16)
+  self.assertEqual(result['categories']['coding']['r647'],{'successes':7,'total':8})
+  self.assertEqual(result['categories']['tools']['r647'],{'successes':7,'total':8})
+  self.assertGreater(result['peak_vram_mib'],0)
+
 class ReservedAgentPairing(unittest.TestCase):
  def test_exact_family_sign_flip(self):
   from reproducibility import reserved_family_sign_flip

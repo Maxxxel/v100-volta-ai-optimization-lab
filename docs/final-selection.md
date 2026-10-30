@@ -104,6 +104,15 @@ OmniCoder R599 baseline and Qwen3.8 MTP R646 used the same questions and mock-to
 
 All 16 task outcomes matched; both profiles failed the same tool case. R599 baseline requests were interleaved with another arm; GPU counter brackets can include intervening activity. Failed requests remain in energy costs; startup and CPU/system energy are excluded. [R599](experiments/R599.md) · [R646](experiments/R646.md).
 
+### Gemma 4 on the same 8+8 tasks · R647
+
+| Category | Omni R599 | Qwen R646 | Gemma R647 | Gemma request seconds | Gemma GPU J/success |
+|---|---|---|---|---|---|
+| Coding | 8/8 | 8/8 | 7/8 | 21.31 | 680–696 |
+| Tools | 7/8 | 7/8 | 7/8 | 6.58 | 200–216 |
+
+Gemma TASK time 27.91 s; peak VRAM 8,118.5 MiB. GPU energy includes failed requests and excludes startup and CPU/system energy. Same exposed tasks and different native profiles; this small supplemental result does not establish model superiority or qualification. [R647](experiments/R647.md).
+
 ## Frozen 8+8 profile validation · non-official
 
 These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across seven profiles and are exposed to researchers; the small samples cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.
