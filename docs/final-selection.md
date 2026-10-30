@@ -72,6 +72,27 @@ Exploratory profile-level inference, not a model-only causal effect or populatio
 
 Protocol identities, task-set hashes, per-profile audit hashes and aggregate pair counts: [download the analysis JSON](assets/paired-quality-analysis-2026-10-29.json). Raw task-level response records are not included in this public export.
 
+## Reserved agent cases — paired profile evidence
+
+The 33 reserved cases belong to 11 authored families. These are historical whole-profile comparisons, not an official benchmark, independent model seeds, or a causal optimization test.
+
+| Run | Profile | Tasks passed | Policy passed | TASK s | Peak MiB | GPU J (group bounds) |
+|---|---|---|---|---|---|---|
+| R589 | OmniCoder bartowski Q6 | 27/33 | 30/33 | 388.2 | 7,680.5 | 106,026–106,152 |
+| R590 | Nexus Q6 OFF/T0 | 26/33 | 30/33 | 326.0 | 7,356.5 | 89,591–89,696 |
+| R591 | Gemma4 QAT Q4_0 frozen8K | 17/33 | 27/33 | 422.3 | 8,118.5 | 102,439–102,529 |
+| R618 | Qwen3.8 27B IQ3_S integrated MTP3 | 27/33 | 31/33 | 625.0 | 13,602.5 | 162,025–162,133 |
+| R625 | Qwen3.8 27B IQ3_S MTP OFF | 27/33 | 31/33 | 761.5 | 12,454.5 | 208,758–208,860 |
+
+| Pair | Task pass only left / right | Policy pass only left / right | Families left / right / tied | Family sign-flip p |
+|---|---|---|---|---|
+| R589 vs R590 | 4 / 3 | 2 / 2 | 2 / 2 / 7 | 1.000 |
+| R589 vs R591 | 14 / 4 | 6 / 3 | 6 / 2 / 3 | 0.141 |
+| R589 vs R618 | 4 / 4 | 2 / 3 | 2 / 3 / 6 | 1.000 |
+| R618 vs R625 | 0 / 0 | 0 / 0 | 0 / 0 / 11 | 1.000 |
+
+Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).
+
 ## Reserved 8+8 profile validation · non-official
 
 These locally measured cases are supplementary evidence only; they do not enter the official scores or user mean above. The same fixed 8 coding + 8 tool tasks were reused across five profiles, so the small samples are correlated across models and cannot establish a general ranking. They were independently CPU-replayed with no changed judgments.

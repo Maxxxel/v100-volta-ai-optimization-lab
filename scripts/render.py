@@ -456,6 +456,17 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
  text+='The arithmetic mean is user-defined and unofficial; only the two complete official categories enter it. Agent33 is not the missing third official category. Original coding/tool capture IDs remain separate and preserve their adapters and audit hashes.\n\n'
  if paired_quality:
   text+=render_paired_profile_quality(paired_quality)
+ reserved=(reproducibility_review or {}).get('reserved_agent_comparison')
+ if reserved:
+  text+='## Reserved agent cases — paired profile evidence\n\n'
+  text+='The 33 reserved cases belong to 11 authored families. These are historical whole-profile comparisons, not an official benchmark, independent model seeds, or a causal optimization test.\n\n'
+  rows=[[x['experiment_id'],x['model'],f"{x['solved']}/33",f"{x['policy_passes']}/33",f"{x['task_phase_s']:.1f}",f"{x['peak_vram_mib']:,.1f}",f"{x['gpu_energy_lower_j']:,.0f}–{x['gpu_energy_upper_j']:,.0f}" if x['gpu_energy_lower_j'] is not None and x['gpu_energy_upper_j'] is not None else 'NOT MEASURED'] for x in reserved['profiles']]
+  text+=table(['Run','Profile','Tasks passed','Policy passed','TASK s','Peak MiB','GPU J (group bounds)'],rows)
+  rows=[]
+  for x in reserved['pairs']:
+   t=x['metrics']['task_success'];p=x['metrics']['policy_gate_pass'];rows.append([x['left']+' vs '+x['right'],f"{t['left_only']} / {t['right_only']}",f"{p['left_only']} / {p['right_only']}",f"{t['families_left_ahead']} / {t['families_right_ahead']} / {t['families_tied']}",f"{t['family_sign_flip_two_sided_p']:.3f}"])
+  text+=table(['Pair','Task pass only left / right','Policy pass only left / right','Families left / right / tied','Family sign-flip p'],rows)
+  text+='Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).\n\n'
  if validation16:
   assert validation16['official_benchmark'] is False and len(validation16['rows']) == 5
   text+='## Reserved 8+8 profile validation · non-official\n\n'
@@ -1441,6 +1452,8 @@ Es gibt noch keinen endgültigen universellen Modellgewinner. Aktuell gilt: geme
  frozen=read('frozen-baselines.json') if (P/'data/frozen-baselines.json').exists() else None
  put('final-qualification.md',final_qualification_review(read('screening.json'),read('configuration-history.json'),es,frozen))
  if frozen:
+  reserved=read('snapshot.json').get('reproducibility_review',{}).get('reserved_agent_comparison')
+  if reserved:put('assets/reserved-agent-paired.json',json.dumps(reserved,ensure_ascii=False,indent=2))
   paired_quality=augment_paired_quality(read('paired-quality-analysis-2026-10-29.json'))
   put('assets/paired-quality-analysis-2026-10-29.json',json.dumps(paired_quality,ensure_ascii=False,indent=2))
   put('final-selection.md',render_final_selection(frozen,read('configuration-history.json'),es,paired_quality,read('validation16.json') if (P/'data/validation16.json').exists() else None,read('snapshot.json').get('reproducibility_review')))

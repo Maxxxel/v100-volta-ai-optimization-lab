@@ -3247,6 +3247,184 @@
       "token_review_sha256": "aac9d50411d055d2a0078d8ea99cbd7786e9efdafc061410e69f7ccf2cd9f0c1",
       "winner_qualified": false
     },
+    "reserved_agent_comparison": {
+      "dataset_id": "jarvis-lean-holdout-20261027-v1",
+      "families": 11,
+      "official_benchmark": false,
+      "pairs": [
+        {
+          "left": "R589",
+          "metrics": {
+            "policy_gate_pass": {
+              "families_left_ahead": 1,
+              "families_right_ahead": 1,
+              "families_tied": 9,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 2,
+              "net_left_minus_right": 0,
+              "right_only": 2
+            },
+            "task_success": {
+              "families_left_ahead": 2,
+              "families_right_ahead": 2,
+              "families_tied": 7,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 4,
+              "net_left_minus_right": 1,
+              "right_only": 3
+            }
+          },
+          "right": "R590"
+        },
+        {
+          "left": "R589",
+          "metrics": {
+            "policy_gate_pass": {
+              "families_left_ahead": 3,
+              "families_right_ahead": 1,
+              "families_tied": 7,
+              "family_sign_flip_two_sided_p": 0.625,
+              "left_only": 6,
+              "net_left_minus_right": 3,
+              "right_only": 3
+            },
+            "task_success": {
+              "families_left_ahead": 6,
+              "families_right_ahead": 2,
+              "families_tied": 3,
+              "family_sign_flip_two_sided_p": 0.140625,
+              "left_only": 14,
+              "net_left_minus_right": 10,
+              "right_only": 4
+            }
+          },
+          "right": "R591"
+        },
+        {
+          "left": "R589",
+          "metrics": {
+            "policy_gate_pass": {
+              "families_left_ahead": 1,
+              "families_right_ahead": 2,
+              "families_tied": 8,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 2,
+              "net_left_minus_right": -1,
+              "right_only": 3
+            },
+            "task_success": {
+              "families_left_ahead": 2,
+              "families_right_ahead": 3,
+              "families_tied": 6,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 4,
+              "net_left_minus_right": 0,
+              "right_only": 4
+            }
+          },
+          "right": "R618"
+        },
+        {
+          "left": "R618",
+          "metrics": {
+            "policy_gate_pass": {
+              "families_left_ahead": 0,
+              "families_right_ahead": 0,
+              "families_tied": 11,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 0,
+              "net_left_minus_right": 0,
+              "right_only": 0
+            },
+            "task_success": {
+              "families_left_ahead": 0,
+              "families_right_ahead": 0,
+              "families_tied": 11,
+              "family_sign_flip_two_sided_p": 1.0,
+              "left_only": 0,
+              "net_left_minus_right": 0,
+              "right_only": 0
+            }
+          },
+          "right": "R625"
+        }
+      ],
+      "profiles": [
+        {
+          "audit_sha256": "b407e9f62be2c168afe1d87d1adbbccc9550302810f7c8d28622cfcdc7810637",
+          "experiment_id": "R589",
+          "gpu_energy_lower_j": 106026.409,
+          "gpu_energy_upper_j": 106151.596,
+          "model": "OmniCoder bartowski Q6",
+          "model_sha256": "a73cc3136da753063e667edef95bec3bbf47829e34a2a31bf0f5a29c970f9052",
+          "peak_vram_mib": 7680.5,
+          "policy_passes": 30,
+          "raw_sha256": "8c06a0a5d1cd43a30f4b3f7e0d35e2b3e09084408969f16b6568ed6b71e260d1",
+          "replay_sha256": "6ffcbcff354ae485a7a0ff41ffaecdb31b3e1435317d5c17e3752204fb41766f",
+          "solved": 27,
+          "task_phase_s": 388.217217445
+        },
+        {
+          "audit_sha256": "7c77da6bbe7a684c79bed84375b88a9cddb678a059672b7f121d18eb4477865f",
+          "experiment_id": "R590",
+          "gpu_energy_lower_j": 89590.976,
+          "gpu_energy_upper_j": 89695.507,
+          "model": "Nexus Q6 OFF/T0",
+          "model_sha256": "b994abeeffcf3f94162a91e9b3b70c4cce23e8d485d23b9874235af35753ac9c",
+          "peak_vram_mib": 7356.5,
+          "policy_passes": 30,
+          "raw_sha256": "67e4eeaafcf25afbac6cb6952eed97e7be2366ea6dfd8e319de741643a96bee2",
+          "replay_sha256": "52de703494386ae336f2a3fd3eeae4e98ecb2b7622a3124450e457c0c6eccac3",
+          "solved": 26,
+          "task_phase_s": 325.981656485
+        },
+        {
+          "audit_sha256": "f016d3f316b37e625eb6c9d7334d7b27a546af9b2f94a1e84eeea9afb2a5cb80",
+          "experiment_id": "R591",
+          "gpu_energy_lower_j": 102438.67,
+          "gpu_energy_upper_j": 102529.41,
+          "model": "Gemma4 QAT Q4_0 frozen8K",
+          "model_sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+          "peak_vram_mib": 8118.5,
+          "policy_passes": 27,
+          "raw_sha256": "cb8115ec9500ee4ad74698961a3da0149f98a5d27b74f50b222b24ec19bad612",
+          "replay_sha256": "d5567bcc0f347155e31f6c4c83b8402b63076c1cbea3ba363bace314f8fc917f",
+          "solved": 17,
+          "task_phase_s": 422.327075021
+        },
+        {
+          "audit_sha256": "166a134d68efb396723b5ae0b67e73a4e67ec06333a3c7bfeab614601c064934",
+          "experiment_id": "R618",
+          "gpu_energy_lower_j": 162024.757,
+          "gpu_energy_upper_j": 162132.541,
+          "model": "Qwen3.8 27B IQ3_S integrated MTP3",
+          "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "peak_vram_mib": 13602.5,
+          "policy_passes": 31,
+          "raw_sha256": "05cec741aeef3fd01e2d8782c5a427b681f912cb317cbe6e6417f59fe53aeeb3",
+          "replay_sha256": "423fa6d22a3290dc618e2f129ba591eddeea795bc16f47105cca2ba3887c769a",
+          "solved": 27,
+          "task_phase_s": 625.026452675
+        },
+        {
+          "audit_sha256": "c2e9081a083f72a45411807aac2b6aa5821bf93ee4bc2c79d64a93fbe1336a15",
+          "experiment_id": "R625",
+          "gpu_energy_lower_j": 208758.207,
+          "gpu_energy_upper_j": 208860.023,
+          "model": "Qwen3.8 27B IQ3_S MTP OFF",
+          "model_sha256": "58fd826723939933dc86f45b7fe04545cbc2de1c70f6fe2cdd3858c87a98c12f",
+          "peak_vram_mib": 12454.5,
+          "policy_passes": 31,
+          "raw_sha256": "11e5dac94b94cf2a33d97d605d9c5bdfe4b71d56dbc04829764189ac2145ec3c",
+          "replay_sha256": "1182d3c2857a7cf7444ccc37f0039e3bc4844d3d0149b8e7d73b5cc2804216ca",
+          "solved": 27,
+          "task_phase_s": 761.51423097
+        }
+      ],
+      "scope": "Previously reserved instances from 11 authored related families, historical non-concurrent whole-profile comparisons, one generation per model. Exact family sign-flip is exploratory and assumes exchangeable/symmetric paired family effects; no population independence, causality, equivalence, official benchmark, seed variability or Champion qualification. Shared GPU energy includes group idle; not CPU/system energy.",
+      "scorer_sha256": "e18c5e03b37e31ae55092e22f18209970a5b7b318371fd8710a48a764923d43c",
+      "tasks": 33
+    },
     "scope": "Different sessions; observed divergence cannot establish causation or equivalence. Archived request and server-reported settings are not direct internal RNG-state observations. No new GPU run during export.",
     "seed_execution_path": {
       "engine_commit": "097cf33d9499b1eade67d51e16d7c75427e7b267",

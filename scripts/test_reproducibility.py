@@ -233,4 +233,12 @@ class HybridCheckpointSource(unittest.TestCase):
   broken=[line for line in hybrid if 'mem_recr->state_write' not in line]
   with self.assertRaises(AssertionError):hybrid_recurrent_state_semantics(broken,recurrent)
 
+class ReservedAgentPairing(unittest.TestCase):
+ def test_exact_family_sign_flip(self):
+  from reproducibility import reserved_family_sign_flip
+  self.assertEqual(reserved_family_sign_flip([0,0]),1.0)
+  self.assertEqual(reserved_family_sign_flip([1,1]),0.5)
+  self.assertEqual(reserved_family_sign_flip([1,-1]),1.0)
+  with self.assertRaises(ValueError):reserved_family_sign_flip([])
+
 if __name__=='__main__':unittest.main()
