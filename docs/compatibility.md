@@ -19,6 +19,14 @@ These decisions apply only to the linked, measured profiles and workloads. A fai
 | [S03](factors/S03.md) | Qwen3.8 | PARTIAL | [R618](experiments/R618.md), [R625](experiments/R625.md) | MTP ON/OFF compared on 33 exposed agent tasks: 27/33 successes and 31/33 policy gates in each; 8/150 matched outputs differed. Separate sessions, no independent quality or safety equivalence; no Champion promotion. |
 
 
+### Controlled policy follow-up
+
+| Factor | Model | Scoped disposition | Evidence | Reason and limits |
+|---|---|---|---|---|
+| [R22](factors/R22.md) | Nexus | NOT QUALIFIED for this tested profile | [R641](reproducibility.md#nexus-prefix-cache-policy-case-r641) | One previously exposed selected case, balanced A/B/B/A: policy passes 2/2 without cache and 0/2 with cache. First output token diverged at request 4 with matching input tokens. Mechanism and population impact remain unresolved. |
+| [R22](factors/R22.md) | OmniCoder | NOT QUALIFIED for this tested profile | [R642](reproducibility.md#omnicoder-prefix-cache-policy-case-r642) | One previously exposed selected case, balanced A/B/B/A: policy passes 2/2 without cache and 0/2 with cache. First output token diverged at request 3 with matching input tokens. Mechanism and population impact remain unresolved. |
+
+
 ## Evidence index for all factors
 
 For every one of the 162 factors, the five columns link indexed audits with an explicit matching model label. **PARTIAL / linked evidence is an association only:** a linked audit may describe source inspection, a build, a negative screen or a GPU run; it does not prove applicability, a GPU intervention or qualification. Open each experiment for the actual scope, model artifact and decision. Each cell shows up to three highest-numbered links and the total indexed count; the factor page holds the broader record.

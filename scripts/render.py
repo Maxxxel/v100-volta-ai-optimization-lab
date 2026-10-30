@@ -10,6 +10,23 @@ def put(n,s):
 def pretty(x):return '```json\n'+json.dumps(x,ensure_ascii=False,indent=2)+'\n```\n'
 def esc(x):return str(x if x is not None else 'NOT MEASURED / not recorded').replace('|','\\|').replace('\n',' ')
 def table(headers,rows):return '| '+' | '.join(headers)+' |\n|'+'|'.join(['---']*len(headers))+'|\n'+''.join('| '+' | '.join(esc(x) for x in row)+' |\n' for row in rows)+'\n'
+def cache_policy_matrix_evidence(repro):
+ """Expose source-verified, case-scoped safety evidence in the factor matrix."""
+ rows=[]
+ for key,model,experiment,turn in (('r641_policy_abba','Nexus','R641',4),('r642_policy_abba','OmniCoder','R642',3)):
+  result=(repro or {}).get(key)
+  if not result:continue
+  arms=result['arms']
+  if [x['arm'] for x in arms]!=['A1','B1','B2','A2'] or result['winner_qualified'] is not False:
+   raise ValueError('Invalid prefix-cache comparison identity')
+  if [x['policy_passes'] for x in arms]!=[1,0,0,1]:
+   raise ValueError('Unexpected prefix-cache policy outcomes')
+  for pair in result['comparisons'][2:]:
+   matches=[x for x in pair['turns'] if x['turn_1based']==turn]
+   if len(matches)!=1 or not matches[0]['request_equal_except_cache_flag'] or not matches[0]['prompt_token_ids_equal'] or matches[0]['first_output_token_difference_0based']!=0:
+    raise ValueError('Prefix-cache token evidence mismatch')
+  rows.append(['[R22](factors/R22.md)',model,'NOT QUALIFIED for this tested profile',f'[{experiment}](reproducibility.md#{model.lower().replace(" ", "")}-prefix-cache-policy-case-{experiment.lower()})',f'One previously exposed selected case, balanced A/B/B/A: policy passes 2/2 without cache and 0/2 with cache. First output token diverged at request {turn} with matching input tokens. Mechanism and population impact remain unresolved.'])
+ return rows
 def issue16_source_section(review):
  assert review['GPU_runs']==review['model_weight_payload_downloaded_bytes']==0
  mix=review['mixtral'];assert mix['total_parameters']>30_000_000_000 and mix['guarded_device_bytes']==14336*1024**2 and mix['ideal_4bit_weight_bytes']==mix['total_parameters']/2
@@ -1313,6 +1330,8 @@ All original experiments, failures, configurations and audit identities remain a
   comp.append([f"[{f['id']}](factors/{f['id']}.md)"]+cells)
  dispositions=reviewed_dispositions(es)
  specific=table(['Factor','Model','Scoped disposition','Evidence','Reason and limits'],[[f'[{f}](factors/{f}.md)',m,s,', '.join(f'[{x}](experiments/{x}.md)' for x in (a,b) if x),reason] for f,m,s,a,b,reason in dispositions])
+ cache_rows=cache_policy_matrix_evidence(read('snapshot.json').get('reproducibility_review'))
+ if cache_rows:specific+='\n### Controlled policy follow-up\n\n'+table(['Factor','Model','Scoped disposition','Evidence','Reason and limits'],cache_rows)
  put('compatibility.md','# Model × optimization evidence index\n\n## Reviewed model-specific decisions\n\nThese decisions apply only to the linked, measured profiles and workloads. A failed policy gate blocks promotion; a historical comparison does not establish causation. Other implementations remain open.\n\n'+specific+'\n## Evidence index for all factors\n\nFor every one of the 162 factors, the five columns link indexed audits with an explicit matching model label. **PARTIAL / linked evidence is an association only:** a linked audit may describe source inspection, a build, a negative screen or a GPU run; it does not prove applicability, a GPU intervention or qualification. Open each experiment for the actual scope, model artifact and decision. Each cell shows up to three highest-numbered links and the total indexed count; the factor page holds the broader record.\n\n**NOT YET VERIFIED IN INDEX** means no explicitly model-labelled audit was found by this index. It is not proof that the technique was never tested or is technically inapplicable. Qwen3.5 weights used by the historical profile are currently unavailable locally. This index is not the requested complete model-specific experimental disposition: unreviewed variants remain open.\n\n'+table(['Factor']+list(FACTOR_MODELS),comp))
  sources=read('sources.json');put('sources.md','# Research papers & sources\n\nOriginal sources are cited rather than republished. Source revisions refer to the reviewed snapshot, not an assertion that upstream is unchanged. Secondary/community claims are discovery leads rather than local causal evidence.\n\n'+''.join('\n## '+x['id']+'\n\n'+pretty(x) for x in sources)+'\n## Factor-specific bibliography\n\n'+ '\n'.join('- ['+f['id']+'](factors/'+f['id']+'.md): '+', '.join(f['primary_sources']) for f in fs if f['primary_sources']))
  put('background.md', '''# Scientific background
