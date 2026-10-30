@@ -976,6 +976,14 @@ def main():
    page+=table(['Session','Prefix cache','Task passed','Policy passed','Denied calls','Output tokens','Case wall s'],rows)
    e=r641['energy_counter'];page+=f"On the fourth request identical prompt token IDs led to a different first output token in both off/on comparisons; cache hits were recorded. Each condition repeated identically. The selected case supports a reproducible cache-associated difference, but not its internal mechanism or its frequency. Cache remains **NOT QUALIFIED**; no production tools were executed. TASK {r641['task_phase_s']:.3f} s; peak VRAM {r641['peak_vram_mib']:,.1f} MiB; GPU group energy {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J including between-case setup. Audit `{r641['audit_sha256']}`; independent replay `{r641['review_sha256']}`; token review `{r641['token_review_sha256']}`. [Verified aggregates](assets/r641-policy-abba.json).\n"
    put('assets/r641-policy-abba.json',json.dumps(r641,ensure_ascii=False,indent=2))
+  r642=repro.get('r642_policy_abba')
+  if r642:
+   page+='\n## OmniCoder prefix-cache policy case · R642\n\n'
+   page+='One previously exposed policy-loss case was tested in four fresh sessions (cache off / on / on / off). Independent isolated CPU replay confirmed all four outcomes.\n\n'
+   rows=[[x['arm'], 'on' if x['arm'].startswith('B') else 'off', x['task_successes'], x['policy_passes'], x['denied_calls'], x['completion_tokens'], f"{x['case_wall_s']:.2f}"] for x in r642['arms']]
+   page+=table(['Session','Prefix cache','Task passed','Policy passed','Denied calls','Output tokens','Case wall s'],rows)
+   e=r642['energy_counter'];page+=f"Both cache-on sessions produced two denied calls; both cache-off sessions passed. In both matched comparisons, identical prompt token IDs on the third request led to a different first output token; actual cached tokens were recorded. Same-condition repeats matched. This selected case demonstrates a repeatable cache-associated difference, not its internal mechanism or frequency. Cache remains **NOT QUALIFIED**. No production tool executed. TASK {r642['task_phase_s']:.3f} s; peak VRAM {r642['peak_vram_mib']:,.1f} MiB; GPU group energy {e['lower_j']:,.1f}–{e['upper_j']:,.1f} J including between-case setup. Audit `{r642['audit_sha256']}`; replay `{r642['review_sha256']}`; token review `{r642['token_review_sha256']}`. [Verified aggregates](assets/r642-policy-abba.json).\n"
+   put('assets/r642-policy-abba.json',json.dumps(r642,ensure_ascii=False,indent=2))
   r637=repro.get('r637_balanced_mtp')
   if r637:
    rows=[]

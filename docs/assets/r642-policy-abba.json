@@ -1,0 +1,276 @@
+{
+  "arms": [
+    {
+      "arm": "A1",
+      "case_wall_s": 10.14696645,
+      "completion_tokens": 636,
+      "denied_calls": 0,
+      "model_requests": 3,
+      "policy_passes": 1,
+      "task_successes": 1
+    },
+    {
+      "arm": "B1",
+      "case_wall_s": 10.839325677,
+      "completion_tokens": 744,
+      "denied_calls": 2,
+      "model_requests": 5,
+      "policy_passes": 0,
+      "task_successes": 0
+    },
+    {
+      "arm": "B2",
+      "case_wall_s": 10.831344753,
+      "completion_tokens": 744,
+      "denied_calls": 2,
+      "model_requests": 5,
+      "policy_passes": 0,
+      "task_successes": 0
+    },
+    {
+      "arm": "A2",
+      "case_wall_s": 10.136231594,
+      "completion_tokens": 636,
+      "denied_calls": 0,
+      "model_requests": 3,
+      "policy_passes": 1,
+      "task_successes": 1
+    }
+  ],
+  "audit_sha256": "8dfd12bd04038a33698d5e8042e0cee0de4ff2ec26167d4a6909eb62649d8696",
+  "broker_audit_sha256": "2ed0e81ed639c79d81a45f416be4ff65b5f81ab579e9735976ff6e7975a98a70",
+  "cached_prompt_tokens": {
+    "A1": [
+      0,
+      0,
+      0
+    ],
+    "A2": [
+      0,
+      0,
+      0
+    ],
+    "B1": [
+      0,
+      1543,
+      1675,
+      1786,
+      1881
+    ],
+    "B2": [
+      0,
+      1543,
+      1675,
+      1786,
+      1881
+    ]
+  },
+  "comparisons": [
+    {
+      "arms": [
+        "A1",
+        "A2"
+      ],
+      "total_turns": [
+        3,
+        3
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            558,
+            558
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        }
+      ]
+    },
+    {
+      "arms": [
+        "B1",
+        "B2"
+      ],
+      "total_turns": [
+        5,
+        5
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            166,
+            166
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            182,
+            182
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 4
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            318,
+            318
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 5
+        }
+      ]
+    },
+    {
+      "arms": [
+        "A1",
+        "B1"
+      ],
+      "total_turns": [
+        3,
+        5
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": 0,
+          "output_lengths": [
+            558,
+            166
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        }
+      ]
+    },
+    {
+      "arms": [
+        "A2",
+        "B2"
+      ],
+      "total_turns": [
+        3,
+        5
+      ],
+      "turns": [
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 1
+        },
+        {
+          "first_output_token_difference_0based": null,
+          "output_lengths": [
+            39,
+            39
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 2
+        },
+        {
+          "first_output_token_difference_0based": 0,
+          "output_lengths": [
+            558,
+            166
+          ],
+          "prompt_token_ids_equal": true,
+          "request_equal_except_cache_flag": true,
+          "turn_1based": 3
+        }
+      ]
+    }
+  ],
+  "energy_counter": {
+    "complete_request_s": 41.953868474,
+    "group_window_s": 55.973200479,
+    "groups": 1,
+    "included_between_request_setup_s": 14.019332005,
+    "lower_j": 12933.401,
+    "max_query_duration_s": 0.099085887,
+    "method": "NVML_REPORTED_COUNTER_GROUP_BRACKETS_V1",
+    "scope": "Bounds from measured cumulative counter readings before/after each selected contiguous task group. No interpolation or extrapolation. Covers counter-query timing, not undocumented NVML sensor/calibration error. GPU only; includes setup inside each group, excludes unselected tasks, load, warmup and CPU/system energy.",
+    "tasks": 4,
+    "upper_j": 13050.13
+  },
+  "peak_vram_mib": 7680.5,
+  "review_sha256": "4f32bee721e9ab0e9d4c44d3d23a4fd731f99f7ee2d56f9d7b07ac2814ab6403",
+  "scope": "Four serial A/B/B/A sessions on one previously exposed selected case. Captured simulator reports require independent CPU replay; no broad safety equivalence or Champion claim.",
+  "task_phase_s": 67.208813979,
+  "token_review_sha256": "aac9d50411d055d2a0078d8ea99cbd7786e9efdafc061410e69f7ccf2cd9f0c1",
+  "winner_qualified": false
+}
