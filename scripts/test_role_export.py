@@ -74,6 +74,15 @@ class FrozenBaselineGates(unittest.TestCase):
   self.assertIn('not causal speedup, quality equivalence or Champion qualification',page)
   self.assertIn('R585 selection above remains frozen and unchanged',page)
 
+ def test_confirmation_render_keeps_partial_status_and_energy_scope(self):
+  from leaderboard import freeze_final_baselines
+  from render import render_final_selection
+  h,r,e=self.inputs();f=freeze_final_baselines(h,r,e,'2026-10-27T00:00:00+00:00')
+  result={'profiles':[{'experiment_id':'R649','model':'Omni','solved':26,'policy_passes':29,'task_phase_s':391.9,'peak_vram_mib':7680.5,'gpu_energy_lower_j':106445,'gpu_energy_upper_j':106583}],'paired':{}}
+  page=render_final_selection(f,h,e,reproducibility_review={'confirmation_agent_comparison':result})
+  for phrase in ('26/33','29/33','R650: complete, independently verified result NOT AVAILABLE','previously exposed','GPU energy includes failed tasks'):
+   self.assertIn(phrase,page)
+
 class RolePublicGates(unittest.TestCase):
  def setUp(self):
   self.summary=dict(audit_path='/synthetic/staging/r999/AUDIT.json',audit_sha256='a'*64)

@@ -271,4 +271,45 @@ class ReservedAgentPairing(unittest.TestCase):
   self.assertEqual(reserved_family_sign_flip([1,-1]),1.0)
   with self.assertRaises(ValueError):reserved_family_sign_flip([])
 
+ def test_confirmation_missing_does_not_create_results(self):
+  import tempfile
+  from reproducibility import confirmation_agent_comparison
+  with tempfile.TemporaryDirectory() as root:self.assertIsNone(confirmation_agent_comparison(root))
+
+ def test_confirmation_rejects_tampered_captures_and_inputs(self):
+  from reproducibility import confirmation_agent_comparison
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d)
+   for ident in ('r649','r650'):
+    stage=root/'staging'/ident;raw=root/'raw'/ident;raw.mkdir(parents=True)
+    profile=raw/'profile.json';write(profile,{'model_sha256':ident,'selected_task_inputs':{'cases':['fixed']}})
+    cases=[{'kind':'agent_case','id':f'family-{i//3}-{i%3}','reported_result':{'task_success':i<26,'policy_gate_pass':i<29,'all_tools_simulated':True,'production_tools_connected':False}} for i in range(33)]
+    capture=raw/'HTTP_RESULTS.jsonl';capture.write_text(''.join(json.dumps(x)+'\n' for x in cases))
+    checks=[{'id':f'family-{i//3}-{i%3}','task_success':i<26,'score_and_effects_reproduced':True} for i in range(33)]
+    review=stage/'INDEPENDENT_REVIEW.json';write(review,{'status':'INDEPENDENT_CPU_REPLAY_IDENTICAL','GPU_runs':0,'model_requests':0,'scorer_sha256':'same','result':{'cases':33,'complete':True,'all_scores_and_effects_reproduced':True,'checks':checks}})
+    write(stage/'AUDIT.json',{'measurement_valid':True,'GPU_execution_observed':True,'tasks':33,'dataset_id':'jarvis-confirmation-20261030-v1','official_benchmark':False,'independent_review_sha256':h(review),'raw_root':str(raw),'original_raw_files_sha256':{'HTTP_RESULTS.jsonl':h(capture),'profile.json':h(profile)},'profile_sha256':h(profile),'model_sha256':ident,'solved':26,'model':ident,'task_phase_s':1,'peak_device_vram_mib':1,'GPU_counter':{'lower_j':1,'upper_j':2}})
+   result=confirmation_agent_comparison(root)
+   self.assertEqual(result['paired']['task_success']['both_pass'],26)
+   absent=root/'staging/r650/AUDIT.json';saved=absent.read_bytes();absent.unlink()
+   self.assertEqual(len(confirmation_agent_comparison(root)['profiles']),1)
+   absent.write_bytes(saved)
+   capture=root/'raw/r650/HTTP_RESULTS.jsonl';original=capture.read_text();capture.write_text(original+'\n')
+   with self.assertRaises(AssertionError):confirmation_agent_comparison(root)
+   capture.write_text(original);profile=root/'raw/r650/profile.json';write(profile,{'model_sha256':'r650','selected_task_inputs':{'cases':['changed']}})
+   audit=root/'staging/r650/AUDIT.json';value=json.loads(audit.read_text());value['profile_sha256']=h(profile);value['original_raw_files_sha256']['profile.json']=h(profile);write(audit,value)
+   with self.assertRaises(AssertionError):confirmation_agent_comparison(root)
+
+ def test_confirmation_source_evidence(self):
+  import os
+  from pathlib import Path
+  from reproducibility import confirmation_agent_comparison
+  source=os.environ.get('V100_RESEARCH_SOURCE')
+  if not source or not (Path(source)/'staging/r650/AUDIT.json').exists():self.skipTest('Completed local confirmation evidence unavailable')
+  result=confirmation_agent_comparison(source)
+  self.assertIsNotNone(result)
+  self.assertFalse(result['official_benchmark'])
+  self.assertEqual(result['tasks'],33)
+  self.assertEqual(result['profiles'][0]['solved'],26)
+  self.assertEqual(sum(result['paired']['task_success'][k] for k in ('omni_only','qwen_only','both_pass','both_fail')),33)
+
 if __name__=='__main__':unittest.main()

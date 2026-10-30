@@ -93,6 +93,24 @@ The 33 reserved cases belong to 11 authored families. These are historical whole
 
 Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).
 
+## Additional fixed agent cases · non-official
+
+These 33 new instances from 11 previously exposed task families were independently rescored. Different entire model profiles do not establish a causal optimization effect or general model superiority.
+
+| Run | Profile | Tasks passed | Policy passed | TASK s | Peak MiB | GPU J per success |
+|---|---|---|---|---|---|---|
+| [R649](experiments/R649.md) | OmniCoder 9B bartowski Q6_K | 26/33 | 29/33 | 391.9 | 7,680.5 | 4,094–4,099 |
+| [R650](experiments/R650.md) | Qwen3.8 27B IQ3_S integrated MTP3 | 26/33 | 31/33 | 620.6 | 13,600.5 | 6,176–6,181 |
+
+| Paired outcome | Only Omni / Qwen | Families Omni / Qwen / tied | Exploratory sign-flip p |
+|---|---|---|---|
+| Task success | 4 / 4 | 2 / 3 / 6 | 1.000 |
+| Policy pass | 2 / 4 | 1 / 3 / 7 | 0.750 |
+
+Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.
+
+GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.
+
 ## Second frozen 8+8 comparison · non-official
 
 OmniCoder R599 baseline and Qwen3.8 MTP R646 used the same questions and mock-tool schemas, with different complete model profiles and historical sessions. These researcher-exposed, self-authored cases are supplementary; they do not enter official scores or establish population equivalence.

@@ -28866,5 +28866,35 @@
     "reference_A0": null,
     "statements": {},
     "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 26,
+      "tasks": 33
+    },
+    "audit_id": "audit-d7e45cd991abd5707568",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R649",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
+  },
+  {
+    "aggregate_metrics": {
+      "solved": 26,
+      "tasks": 33
+    },
+    "audit_id": "audit-ea31f8d4aa2bc472fe18",
+    "date": null,
+    "evidence_status": "ORIGINAL_AUDIT_HASH_VERIFIED",
+    "factor_ids": [],
+    "id": "R650",
+    "model": null,
+    "reference_A0": null,
+    "statements": {},
+    "winner_qualified": false
   }
 ]

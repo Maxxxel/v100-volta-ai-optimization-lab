@@ -484,6 +484,23 @@ def render_final_selection(frozen,history,experiments=None,paired_quality=None,v
    t=x['metrics']['task_success'];p=x['metrics']['policy_gate_pass'];rows.append([x['left']+' vs '+x['right'],f"{t['left_only']} / {t['right_only']}",f"{p['left_only']} / {p['right_only']}",f"{t['families_left_ahead']} / {t['families_right_ahead']} / {t['families_tied']}",f"{t['family_sign_flip_two_sided_p']:.3f}"])
   text+=table(['Pair','Task pass only left / right','Policy pass only left / right','Families left / right / tied','Family sign-flip p'],rows)
   text+='Exact family sign-flip values are exploratory and assume symmetric, exchangeable family effects; these related, authored cases do not establish population independence or quality equivalence. Different engine/model configurations are compared as whole profiles. The GPU energy window includes between-case idle and excludes CPU/system energy. [Audit-bound aggregates](assets/reserved-agent-paired.json).\n\n'
+ confirmation=(reproducibility_review or {}).get('confirmation_agent_comparison')
+ if confirmation:
+  text+='## Additional fixed agent cases · non-official\n\n'
+  text+='These 33 new instances from 11 previously exposed task families were independently rescored. Different entire model profiles do not establish a causal optimization effect or general model superiority.\n\n'
+  rows=[]
+  for x in confirmation['profiles']:
+   lo=x['gpu_energy_lower_j']/x['solved'] if x['solved'] else None;hi=x['gpu_energy_upper_j']/x['solved'] if x['solved'] else None
+   rows.append([f"[{x['experiment_id']}](experiments/{x['experiment_id']}.md)",x['model'],f"{x['solved']}/33",f"{x['policy_passes']}/33",f"{x['task_phase_s']:.1f}",f"{x['peak_vram_mib']:,.1f}",f"{lo:,.0f}–{hi:,.0f}" if lo is not None else 'NOT MEASURED'])
+  text+=table(['Run','Profile','Tasks passed','Policy passed','TASK s','Peak MiB','GPU J per success'],rows)
+  if len(confirmation['profiles'])<2:text+='Qwen R650: complete, independently verified result NOT AVAILABLE.\n\n'
+  if confirmation['paired']:
+   rows=[]
+   for metric,label in (('task_success','Task success'),('policy_gate_pass','Policy pass')):
+    x=confirmation['paired'][metric];rows.append([label,f"{x['omni_only']} / {x['qwen_only']}",f"{x['families_omni_ahead']} / {x['families_qwen_ahead']} / {x['families_tied']}",f"{x['family_sign_flip_two_sided_p']:.3f}"])
+   text+=table(['Paired outcome','Only Omni / Qwen','Families Omni / Qwen / tied','Exploratory sign-flip p'],rows)
+   text+='Family sign-flip values assume symmetric exchangeable effects and are exploratory for these authored, previously exposed families; they do not establish equivalence.\n\n'
+  text+='GPU energy includes failed tasks and between-task idle; startup and CPU/system energy are excluded. Policy failures block promotion and were confined to simulated tools. Independent rescoring does not make the task families independent.\n\n'
  fresh=(reproducibility_review or {}).get('r646_fresh_comparison')
  if fresh:
   assert fresh['official_benchmark'] is False and fresh['matched_tasks']==16

@@ -183639,6 +183639,46 @@
   },
   {
     "aggregate_metrics": {
+      "actual_generation_requests": 154,
+      "model_starts": 1,
+      "peak_device_vram_mib": 7680.5,
+      "solved": 26,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-d7e45cd991abd5707568",
+    "original_bytes": 4112,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "d7e45cd991abd5707568a701c382a1874a14b1530d37d035c2a1f28ad8130162",
+    "statements": {
+      "decision": "Supplemental frozen profile assessment; no causal or population-equivalence claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
+      "actual_generation_requests": 150,
+      "model_starts": 1,
+      "peak_device_vram_mib": 13600.5,
+      "solved": 26,
+      "tasks": 33
+    },
+    "excerpt_is_not_original": true,
+    "id": "audit-ea31f8d4aa2bc472fe18",
+    "original_bytes": 4118,
+    "original_filename": "AUDIT.json",
+    "original_pin_verified": true,
+    "original_publicly_available": false,
+    "original_sha256": "ea31f8d4aa2bc472fe18818ef866666d9bd93066f2bb9da71226ba79af3fab0b",
+    "statements": {
+      "decision": "Supplemental frozen profile assessment; no causal or population-equivalence claim.",
+      "evidence_class": "LOKAL_GEMESSEN"
+    }
+  },
+  {
+    "aggregate_metrics": {
       "models": {
         "omnicoder2": {
           "arms": {
